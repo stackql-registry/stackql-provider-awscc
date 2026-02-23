@@ -182,7 +182,7 @@ peer_region,
 peer_owner_id,
 tags
 FROM awscc.ec2.vpc_peering_connections
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.ec2.vpc_peering_connections (
  PeerVpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
- '{{ PeerVpcId }}',
+SELECT
+'{{ vpc_id }}',
+ '{{ peer_vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -238,13 +238,13 @@ INSERT INTO awscc.ec2.vpc_peering_connections (
  Tags,
  region
 )
-SELECT 
- '{{ PeerRoleArn }}',
- '{{ VpcId }}',
- '{{ PeerVpcId }}',
- '{{ PeerRegion }}',
- '{{ PeerOwnerId }}',
- '{{ Tags }}',
+SELECT
+ '{{ peer_role_arn }}',
+ '{{ vpc_id }}',
+ '{{ peer_vpc_id }}',
+ '{{ peer_region }}',
+ '{{ peer_owner_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,21 +262,20 @@ globals:
 resources:
   - name: vpc_peering_connection
     props:
-      - name: PeerRoleArn
-        value: '{{ PeerRoleArn }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: PeerVpcId
-        value: '{{ PeerVpcId }}'
-      - name: PeerRegion
-        value: '{{ PeerRegion }}'
-      - name: PeerOwnerId
-        value: '{{ PeerOwnerId }}'
-      - name: Tags
+      - name: peer_role_arn
+        value: '{{ peer_role_arn }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: peer_vpc_id
+        value: '{{ peer_vpc_id }}'
+      - name: peer_region
+        value: '{{ peer_region }}'
+      - name: peer_owner_id
+        value: '{{ peer_owner_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_peering_connections
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

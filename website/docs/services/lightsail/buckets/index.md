@@ -212,7 +212,7 @@ tags,
 url,
 able_to_update_bundle
 FROM awscc.lightsail.buckets
-WHERE region = 'us-east-1' AND Identifier = '<BucketName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.lightsail.buckets (
  BundleId,
  region
 )
-SELECT 
-'{{ BucketName }}',
- '{{ BundleId }}',
+SELECT
+'{{ bucket_name }}',
+ '{{ bundle_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -269,14 +269,14 @@ INSERT INTO awscc.lightsail.buckets (
  Tags,
  region
 )
-SELECT 
- '{{ BucketName }}',
- '{{ BundleId }}',
- '{{ ObjectVersioning }}',
- '{{ AccessRules }}',
- '{{ ResourcesReceivingAccess }}',
- '{{ ReadOnlyAccessAccounts }}',
- '{{ Tags }}',
+SELECT
+ '{{ bucket_name }}',
+ '{{ bundle_id }}',
+ '{{ object_versioning }}',
+ '{{ access_rules }}',
+ '{{ resources_receiving_access }}',
+ '{{ read_only_access_accounts }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,27 +294,26 @@ globals:
 resources:
   - name: bucket
     props:
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: BundleId
-        value: '{{ BundleId }}'
-      - name: ObjectVersioning
-        value: '{{ ObjectVersioning }}'
-      - name: AccessRules
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: bundle_id
+        value: '{{ bundle_id }}'
+      - name: object_versioning
+        value: '{{ object_versioning }}'
+      - name: access_rules
         value:
-          GetObject: '{{ GetObject }}'
-          AllowPublicOverrides: '{{ AllowPublicOverrides }}'
-      - name: ResourcesReceivingAccess
+          get_object: '{{ get_object }}'
+          allow_public_overrides: '{{ allow_public_overrides }}'
+      - name: resources_receiving_access
         value:
-          - '{{ ResourcesReceivingAccess[0] }}'
-      - name: ReadOnlyAccessAccounts
+          - '{{ resources_receiving_access[0] }}'
+      - name: read_only_access_accounts
         value:
-          - '{{ ReadOnlyAccessAccounts[0] }}'
-      - name: Tags
+          - '{{ read_only_access_accounts[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BucketName>';
+AND Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<BucketName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.buckets
-WHERE Identifier = '<BucketName>'
+WHERE Identifier = '{{ bucket_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -196,7 +196,7 @@ detail,
 principal,
 domain_identifier
 FROM awscc.datazone.policy_grants
-WHERE region = 'us-east-1' AND Identifier = '<DomainIdentifier>|<GrantId>|<EntityIdentifier>|<EntityType>|<PolicyType>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,11 +239,11 @@ INSERT INTO awscc.datazone.policy_grants (
  DomainIdentifier,
  region
 )
-SELECT 
-'{{ EntityType }}',
- '{{ PolicyType }}',
- '{{ EntityIdentifier }}',
- '{{ DomainIdentifier }}',
+SELECT
+'{{ entity_type }}',
+ '{{ policy_type }}',
+ '{{ entity_identifier }}',
+ '{{ domain_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -260,13 +260,13 @@ INSERT INTO awscc.datazone.policy_grants (
  DomainIdentifier,
  region
 )
-SELECT 
- '{{ EntityType }}',
- '{{ PolicyType }}',
- '{{ EntityIdentifier }}',
- '{{ Detail }}',
- '{{ Principal }}',
- '{{ DomainIdentifier }}',
+SELECT
+ '{{ entity_type }}',
+ '{{ policy_type }}',
+ '{{ entity_identifier }}',
+ '{{ detail }}',
+ '{{ principal }}',
+ '{{ domain_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,19 +284,18 @@ globals:
 resources:
   - name: policy_grant
     props:
-      - name: EntityType
-        value: '{{ EntityType }}'
-      - name: PolicyType
-        value: '{{ PolicyType }}'
-      - name: EntityIdentifier
-        value: '{{ EntityIdentifier }}'
-      - name: Detail
+      - name: entity_type
+        value: '{{ entity_type }}'
+      - name: policy_type
+        value: '{{ policy_type }}'
+      - name: entity_identifier
+        value: '{{ entity_identifier }}'
+      - name: detail
         value: null
-      - name: Principal
+      - name: principal
         value: null
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.policy_grants
-WHERE Identifier = '<DomainIdentifier|GrantId|EntityIdentifier|EntityType|PolicyType>'
+WHERE Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}'
 AND region = 'us-east-1';
 ```
 

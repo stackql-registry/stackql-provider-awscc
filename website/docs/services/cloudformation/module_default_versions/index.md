@@ -134,7 +134,7 @@ arn,
 module_name,
 version_id
 FROM awscc.cloudformation.module_default_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +172,10 @@ INSERT INTO awscc.cloudformation.module_default_versions (
  VersionId,
  region
 )
-SELECT 
-'{{ Arn }}',
- '{{ ModuleName }}',
- '{{ VersionId }}',
+SELECT
+'{{ arn }}',
+ '{{ module_name }}',
+ '{{ version_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -189,10 +189,10 @@ INSERT INTO awscc.cloudformation.module_default_versions (
  VersionId,
  region
 )
-SELECT 
- '{{ Arn }}',
- '{{ ModuleName }}',
- '{{ VersionId }}',
+SELECT
+ '{{ arn }}',
+ '{{ module_name }}',
+ '{{ version_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,13 +210,12 @@ globals:
 resources:
   - name: module_default_version
     props:
-      - name: Arn
-        value: '{{ Arn }}'
-      - name: ModuleName
-        value: '{{ ModuleName }}'
-      - name: VersionId
-        value: '{{ VersionId }}'
-
+      - name: arn
+        value: '{{ arn }}'
+      - name: module_name
+        value: '{{ module_name }}'
+      - name: version_id
+        value: '{{ version_id }}'
 ```
 </TabItem>
 </Tabs>

@@ -182,7 +182,7 @@ default_control_panel,
 routing_control_count,
 tags
 FROM awscc.route53recoverycontrol.control_panels
-WHERE region = 'us-east-1' AND Identifier = '<ControlPanelArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ control_panel_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.route53recoverycontrol.control_panels (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,10 +233,10 @@ INSERT INTO awscc.route53recoverycontrol.control_panels (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterArn }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_arn }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,15 +254,14 @@ globals:
 resources:
   - name: control_panel
     props:
-      - name: ClusterArn
-        value: '{{ ClusterArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: cluster_arn
+        value: '{{ cluster_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +277,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ControlPanelArn>';
+AND Identifier = '{{ control_panel_arn }}';
 ```
 
 
@@ -287,7 +286,7 @@ AND Identifier = '<ControlPanelArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.control_panels
-WHERE Identifier = '<ControlPanelArn>'
+WHERE Identifier = '{{ control_panel_arn }}'
 AND region = 'us-east-1';
 ```
 

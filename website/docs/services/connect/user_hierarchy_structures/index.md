@@ -212,7 +212,7 @@ instance_arn,
 user_hierarchy_structure_arn,
 user_hierarchy_structure
 FROM awscc.connect.user_hierarchy_structures
-WHERE region = 'us-east-1' AND Identifier = '<UserHierarchyStructureArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_hierarchy_structure_arn }}';
 ```
 
 ## `INSERT` example
@@ -235,8 +235,8 @@ INSERT INTO awscc.connect.user_hierarchy_structures (
  InstanceArn,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
+SELECT
+'{{ instance_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,9 +249,9 @@ INSERT INTO awscc.connect.user_hierarchy_structures (
  UserHierarchyStructure,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ UserHierarchyStructure }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ user_hierarchy_structure }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -269,31 +269,30 @@ globals:
 resources:
   - name: user_hierarchy_structure
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: UserHierarchyStructure
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: user_hierarchy_structure
         value:
-          LevelOne:
-            HierarchyLevelArn: '{{ HierarchyLevelArn }}'
-            HierarchyLevelId: '{{ HierarchyLevelId }}'
-            Name: '{{ Name }}'
-          LevelTwo:
-            HierarchyLevelArn: null
-            HierarchyLevelId: null
-            Name: null
-          LevelThree:
-            HierarchyLevelArn: null
-            HierarchyLevelId: null
-            Name: null
-          LevelFour:
-            HierarchyLevelArn: null
-            HierarchyLevelId: null
-            Name: null
-          LevelFive:
-            HierarchyLevelArn: null
-            HierarchyLevelId: null
-            Name: null
-
+          level_one:
+            hierarchy_level_arn: '{{ hierarchy_level_arn }}'
+            hierarchy_level_id: '{{ hierarchy_level_id }}'
+            name: '{{ name }}'
+          level_two:
+            hierarchy_level_arn: null
+            hierarchy_level_id: null
+            name: null
+          level_three:
+            hierarchy_level_arn: null
+            hierarchy_level_id: null
+            name: null
+          level_four:
+            hierarchy_level_arn: null
+            hierarchy_level_id: null
+            name: null
+          level_five:
+            hierarchy_level_arn: null
+            hierarchy_level_id: null
+            name: null
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "UserHierarchyStructure": user_hierarchy_structure
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserHierarchyStructureArn>';
+AND Identifier = '{{ user_hierarchy_structure_arn }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<UserHierarchyStructureArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.user_hierarchy_structures
-WHERE Identifier = '<UserHierarchyStructureArn>'
+WHERE Identifier = '{{ user_hierarchy_structure_arn }}'
 AND region = 'us-east-1';
 ```
 

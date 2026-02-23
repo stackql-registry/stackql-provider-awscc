@@ -181,7 +181,7 @@ notification_metadata,
 notification_target_arn,
 role_arn
 FROM awscc.autoscaling.lifecycle_hooks
-WHERE region = 'us-east-1' AND Identifier = '<AutoScalingGroupName>|<LifecycleHookName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.autoscaling.lifecycle_hooks (
  LifecycleTransition,
  region
 )
-SELECT 
-'{{ AutoScalingGroupName }}',
- '{{ LifecycleTransition }}',
+SELECT
+'{{ auto_scaling_group_name }}',
+ '{{ lifecycle_transition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,15 @@ INSERT INTO awscc.autoscaling.lifecycle_hooks (
  RoleARN,
  region
 )
-SELECT 
- '{{ AutoScalingGroupName }}',
- '{{ DefaultResult }}',
- '{{ HeartbeatTimeout }}',
- '{{ LifecycleHookName }}',
- '{{ LifecycleTransition }}',
- '{{ NotificationMetadata }}',
- '{{ NotificationTargetARN }}',
- '{{ RoleARN }}',
+SELECT
+ '{{ auto_scaling_group_name }}',
+ '{{ default_result }}',
+ '{{ heartbeat_timeout }}',
+ '{{ lifecycle_hook_name }}',
+ '{{ lifecycle_transition }}',
+ '{{ notification_metadata }}',
+ '{{ notification_target_arn }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,23 +266,22 @@ globals:
 resources:
   - name: lifecycle_hook
     props:
-      - name: AutoScalingGroupName
-        value: '{{ AutoScalingGroupName }}'
-      - name: DefaultResult
-        value: '{{ DefaultResult }}'
-      - name: HeartbeatTimeout
-        value: '{{ HeartbeatTimeout }}'
-      - name: LifecycleHookName
-        value: '{{ LifecycleHookName }}'
-      - name: LifecycleTransition
-        value: '{{ LifecycleTransition }}'
-      - name: NotificationMetadata
-        value: '{{ NotificationMetadata }}'
-      - name: NotificationTargetARN
-        value: '{{ NotificationTargetARN }}'
-      - name: RoleARN
-        value: '{{ RoleARN }}'
-
+      - name: auto_scaling_group_name
+        value: '{{ auto_scaling_group_name }}'
+      - name: default_result
+        value: '{{ default_result }}'
+      - name: heartbeat_timeout
+        value: '{{ heartbeat_timeout }}'
+      - name: lifecycle_hook_name
+        value: '{{ lifecycle_hook_name }}'
+      - name: lifecycle_transition
+        value: '{{ lifecycle_transition }}'
+      - name: notification_metadata
+        value: '{{ notification_metadata }}'
+      - name: notification_target_arn
+        value: '{{ notification_target_arn }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +302,7 @@ SET PatchDocument = string('{{ {
     "RoleARN": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AutoScalingGroupName>|<LifecycleHookName>';
+AND Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```
 
 
@@ -312,7 +311,7 @@ AND Identifier = '<AutoScalingGroupName>|<LifecycleHookName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.lifecycle_hooks
-WHERE Identifier = '<AutoScalingGroupName|LifecycleHookName>'
+WHERE Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}'
 AND region = 'us-east-1';
 ```
 

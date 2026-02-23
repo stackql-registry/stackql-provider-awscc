@@ -157,7 +157,7 @@ work_group,
 description,
 query_statement
 FROM awscc.athena.prepared_statements
-WHERE region = 'us-east-1' AND Identifier = '<StatementName>|<WorkGroup>';
+WHERE region = 'us-east-1' AND Identifier = '{{ statement_name }}|{{ work_group }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.athena.prepared_statements (
  QueryStatement,
  region
 )
-SELECT 
-'{{ StatementName }}',
- '{{ WorkGroup }}',
- '{{ QueryStatement }}',
+SELECT
+'{{ statement_name }}',
+ '{{ work_group }}',
+ '{{ query_statement }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,11 +214,11 @@ INSERT INTO awscc.athena.prepared_statements (
  QueryStatement,
  region
 )
-SELECT 
- '{{ StatementName }}',
- '{{ WorkGroup }}',
- '{{ Description }}',
- '{{ QueryStatement }}',
+SELECT
+ '{{ statement_name }}',
+ '{{ work_group }}',
+ '{{ description }}',
+ '{{ query_statement }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: prepared_statement
     props:
-      - name: StatementName
-        value: '{{ StatementName }}'
-      - name: WorkGroup
-        value: '{{ WorkGroup }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: QueryStatement
-        value: '{{ QueryStatement }}'
-
+      - name: statement_name
+        value: '{{ statement_name }}'
+      - name: work_group
+        value: '{{ work_group }}'
+      - name: description
+        value: '{{ description }}'
+      - name: query_statement
+        value: '{{ query_statement }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ SET PatchDocument = string('{{ {
     "QueryStatement": query_statement
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StatementName>|<WorkGroup>';
+AND Identifier = '{{ statement_name }}|{{ work_group }}';
 ```
 
 
@@ -270,7 +269,7 @@ AND Identifier = '<StatementName>|<WorkGroup>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.prepared_statements
-WHERE Identifier = '<StatementName|WorkGroup>'
+WHERE Identifier = '{{ statement_name }}|{{ work_group }}'
 AND region = 'us-east-1';
 ```
 

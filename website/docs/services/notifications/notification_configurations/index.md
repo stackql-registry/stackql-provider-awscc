@@ -182,7 +182,7 @@ name,
 status,
 tags
 FROM awscc.notifications.notification_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.notifications.notification_configurations (
  Name,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Name }}',
+SELECT
+'{{ description }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.notifications.notification_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ AggregationDuration }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ aggregation_duration }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: notification_configuration
     props:
-      - name: AggregationDuration
-        value: '{{ AggregationDuration }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: aggregation_duration
+        value: '{{ aggregation_duration }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.notification_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

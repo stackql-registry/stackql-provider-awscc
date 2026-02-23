@@ -152,7 +152,7 @@ kms_key_arn,
 role_arn,
 domain
 FROM awscc.personalize.dataset_groups
-WHERE region = 'us-east-1' AND Identifier = '<DatasetGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.personalize.dataset_groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -204,11 +204,11 @@ INSERT INTO awscc.personalize.dataset_groups (
  Domain,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ KmsKeyArn }}',
- '{{ RoleArn }}',
- '{{ Domain }}',
+SELECT
+ '{{ name }}',
+ '{{ kms_key_arn }}',
+ '{{ role_arn }}',
+ '{{ domain }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -226,15 +226,14 @@ globals:
 resources:
   - name: dataset_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Domain
-        value: '{{ Domain }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: domain
+        value: '{{ domain }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.dataset_groups
-WHERE Identifier = '<DatasetGroupArn>'
+WHERE Identifier = '{{ dataset_group_arn }}'
 AND region = 'us-east-1';
 ```
 

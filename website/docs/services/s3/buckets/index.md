@@ -1282,7 +1282,7 @@ dual_stack_domain_name,
 regional_domain_name,
 website_url
 FROM awscc.s3.buckets
-WHERE region = 'us-east-1' AND Identifier = '<BucketName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1318,8 +1318,8 @@ INSERT INTO awscc.s3.buckets (
  BucketName,
  region
 )
-SELECT 
-'{{ BucketName }}',
+SELECT
+'{{ bucket_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1352,29 +1352,29 @@ INSERT INTO awscc.s3.buckets (
  WebsiteConfiguration,
  region
 )
-SELECT 
- '{{ AccelerateConfiguration }}',
- '{{ AccessControl }}',
- '{{ AnalyticsConfigurations }}',
- '{{ BucketEncryption }}',
- '{{ BucketName }}',
- '{{ CorsConfiguration }}',
- '{{ IntelligentTieringConfigurations }}',
- '{{ InventoryConfigurations }}',
- '{{ LifecycleConfiguration }}',
- '{{ LoggingConfiguration }}',
- '{{ MetricsConfigurations }}',
- '{{ MetadataTableConfiguration }}',
- '{{ MetadataConfiguration }}',
- '{{ NotificationConfiguration }}',
- '{{ ObjectLockConfiguration }}',
- '{{ ObjectLockEnabled }}',
- '{{ OwnershipControls }}',
- '{{ PublicAccessBlockConfiguration }}',
- '{{ ReplicationConfiguration }}',
- '{{ Tags }}',
- '{{ VersioningConfiguration }}',
- '{{ WebsiteConfiguration }}',
+SELECT
+ '{{ accelerate_configuration }}',
+ '{{ access_control }}',
+ '{{ analytics_configurations }}',
+ '{{ bucket_encryption }}',
+ '{{ bucket_name }}',
+ '{{ cors_configuration }}',
+ '{{ intelligent_tiering_configurations }}',
+ '{{ inventory_configurations }}',
+ '{{ lifecycle_configuration }}',
+ '{{ logging_configuration }}',
+ '{{ metrics_configurations }}',
+ '{{ metadata_table_configuration }}',
+ '{{ metadata_configuration }}',
+ '{{ notification_configuration }}',
+ '{{ object_lock_configuration }}',
+ '{{ object_lock_enabled }}',
+ '{{ ownership_controls }}',
+ '{{ public_access_block_configuration }}',
+ '{{ replication_configuration }}',
+ '{{ tags }}',
+ '{{ versioning_configuration }}',
+ '{{ website_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1392,248 +1392,247 @@ globals:
 resources:
   - name: bucket
     props:
-      - name: AccelerateConfiguration
+      - name: accelerate_configuration
         value:
-          AccelerationStatus: '{{ AccelerationStatus }}'
-      - name: AccessControl
-        value: '{{ AccessControl }}'
-      - name: AnalyticsConfigurations
+          acceleration_status: '{{ acceleration_status }}'
+      - name: access_control
+        value: '{{ access_control }}'
+      - name: analytics_configurations
         value:
-          - TagFilters:
-              - Value: '{{ Value }}'
-                Key: '{{ Key }}'
-            StorageClassAnalysis:
-              DataExport:
-                S3BucketDestination:
-                  OutputSchemaVersion: '{{ OutputSchemaVersion }}'
-                  Format: '{{ Format }}'
-                  AccountId: '{{ AccountId }}'
-                  Prefix: '{{ Prefix }}'
-                  Encryption: {}
-                  Arn: '{{ Arn }}'
-                CloudWatchMetrics:
-                  IsEnabled: '{{ IsEnabled }}'
-            Id: '{{ Id }}'
-            Prefix: '{{ Prefix }}'
-      - name: BucketEncryption
+          - tag_filters:
+              - value: '{{ value }}'
+                key: '{{ key }}'
+            storage_class_analysis:
+              data_export:
+                s3_bucket_destination:
+                  output_schema_version: '{{ output_schema_version }}'
+                  format: '{{ format }}'
+                  account_id: '{{ account_id }}'
+                  prefix: '{{ prefix }}'
+                  encryption: {}
+                  arn: '{{ arn }}'
+                cloud_watch_metrics:
+                  is_enabled: '{{ is_enabled }}'
+            id: '{{ id }}'
+            prefix: '{{ prefix }}'
+      - name: bucket_encryption
         value:
-          ServerSideEncryptionConfiguration:
-            - BucketKeyEnabled: '{{ BucketKeyEnabled }}'
-              ServerSideEncryptionByDefault:
-                KMSMasterKeyID: '{{ KMSMasterKeyID }}'
-                SSEAlgorithm: '{{ SSEAlgorithm }}'
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: CorsConfiguration
+          server_side_encryption_configuration:
+            - bucket_key_enabled: '{{ bucket_key_enabled }}'
+              server_side_encryption_by_default:
+                kms_master_key_id: '{{ kms_master_key_id }}'
+                sse_algorithm: '{{ sse_algorithm }}'
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: cors_configuration
         value:
-          CorsRules:
-            - AllowedHeaders:
-                - '{{ AllowedHeaders[0] }}'
-              AllowedMethods:
-                - '{{ AllowedMethods[0] }}'
-              AllowedOrigins:
-                - '{{ AllowedOrigins[0] }}'
-              ExposedHeaders:
-                - '{{ ExposedHeaders[0] }}'
-              Id: '{{ Id }}'
-              MaxAge: '{{ MaxAge }}'
-      - name: IntelligentTieringConfigurations
+          cors_rules:
+            - allowed_headers:
+                - '{{ allowed_headers[0] }}'
+              allowed_methods:
+                - '{{ allowed_methods[0] }}'
+              allowed_origins:
+                - '{{ allowed_origins[0] }}'
+              exposed_headers:
+                - '{{ exposed_headers[0] }}'
+              id: '{{ id }}'
+              max_age: '{{ max_age }}'
+      - name: intelligent_tiering_configurations
         value:
-          - Id: '{{ Id }}'
-            Prefix: '{{ Prefix }}'
-            Status: '{{ Status }}'
-            TagFilters:
+          - id: '{{ id }}'
+            prefix: '{{ prefix }}'
+            status: '{{ status }}'
+            tag_filters:
               - null
-            Tierings:
-              - AccessTier: '{{ AccessTier }}'
-                Days: '{{ Days }}'
-      - name: InventoryConfigurations
+            tierings:
+              - access_tier: '{{ access_tier }}'
+                days: '{{ days }}'
+      - name: inventory_configurations
         value:
-          - Destination:
-              BucketArn: '{{ BucketArn }}'
-              BucketAccountId: '{{ BucketAccountId }}'
-              Format: '{{ Format }}'
-              Prefix: '{{ Prefix }}'
-            Enabled: '{{ Enabled }}'
-            Id: '{{ Id }}'
-            IncludedObjectVersions: '{{ IncludedObjectVersions }}'
-            OptionalFields:
-              - '{{ OptionalFields[0] }}'
-            Prefix: '{{ Prefix }}'
-            ScheduleFrequency: '{{ ScheduleFrequency }}'
-      - name: LifecycleConfiguration
+          - destination:
+              bucket_arn: '{{ bucket_arn }}'
+              bucket_account_id: '{{ bucket_account_id }}'
+              format: '{{ format }}'
+              prefix: '{{ prefix }}'
+            enabled: '{{ enabled }}'
+            id: '{{ id }}'
+            included_object_versions: '{{ included_object_versions }}'
+            optional_fields:
+              - '{{ optional_fields[0] }}'
+            prefix: '{{ prefix }}'
+            schedule_frequency: '{{ schedule_frequency }}'
+      - name: lifecycle_configuration
         value:
-          Rules:
-            - AbortIncompleteMultipartUpload:
-                DaysAfterInitiation: '{{ DaysAfterInitiation }}'
-              ExpirationDate: '{{ ExpirationDate }}'
-              ExpirationInDays: '{{ ExpirationInDays }}'
-              ExpiredObjectDeleteMarker: '{{ ExpiredObjectDeleteMarker }}'
-              Id: '{{ Id }}'
-              NoncurrentVersionExpirationInDays: '{{ NoncurrentVersionExpirationInDays }}'
-              NoncurrentVersionExpiration:
-                NoncurrentDays: '{{ NoncurrentDays }}'
-                NewerNoncurrentVersions: '{{ NewerNoncurrentVersions }}'
-              NoncurrentVersionTransition:
-                StorageClass: '{{ StorageClass }}'
-                TransitionInDays: '{{ TransitionInDays }}'
-                NewerNoncurrentVersions: '{{ NewerNoncurrentVersions }}'
-              NoncurrentVersionTransitions:
+          rules:
+            - abort_incomplete_multipart_upload:
+                days_after_initiation: '{{ days_after_initiation }}'
+              expiration_date: '{{ expiration_date }}'
+              expiration_in_days: '{{ expiration_in_days }}'
+              expired_object_delete_marker: '{{ expired_object_delete_marker }}'
+              id: '{{ id }}'
+              noncurrent_version_expiration_in_days: '{{ noncurrent_version_expiration_in_days }}'
+              noncurrent_version_expiration:
+                noncurrent_days: '{{ noncurrent_days }}'
+                newer_noncurrent_versions: '{{ newer_noncurrent_versions }}'
+              noncurrent_version_transition:
+                storage_class: '{{ storage_class }}'
+                transition_in_days: '{{ transition_in_days }}'
+                newer_noncurrent_versions: '{{ newer_noncurrent_versions }}'
+              noncurrent_version_transitions:
                 - null
-              Prefix: '{{ Prefix }}'
-              Status: '{{ Status }}'
-              TagFilters:
+              prefix: '{{ prefix }}'
+              status: '{{ status }}'
+              tag_filters:
                 - null
-              ObjectSizeGreaterThan: '{{ ObjectSizeGreaterThan }}'
-              ObjectSizeLessThan: '{{ ObjectSizeLessThan }}'
-              Transition:
-                StorageClass: '{{ StorageClass }}'
-                TransitionDate: null
-                TransitionInDays: '{{ TransitionInDays }}'
-              Transitions:
+              object_size_greater_than: '{{ object_size_greater_than }}'
+              object_size_less_than: '{{ object_size_less_than }}'
+              transition:
+                storage_class: '{{ storage_class }}'
+                transition_date: null
+                transition_in_days: '{{ transition_in_days }}'
+              transitions:
                 - null
-          TransitionDefaultMinimumObjectSize: '{{ TransitionDefaultMinimumObjectSize }}'
-      - name: LoggingConfiguration
+          transition_default_minimum_object_size: '{{ transition_default_minimum_object_size }}'
+      - name: logging_configuration
         value:
-          DestinationBucketName: '{{ DestinationBucketName }}'
-          LogFilePrefix: '{{ LogFilePrefix }}'
-          TargetObjectKeyFormat: {}
-      - name: MetricsConfigurations
+          destination_bucket_name: '{{ destination_bucket_name }}'
+          log_file_prefix: '{{ log_file_prefix }}'
+          target_object_key_format: {}
+      - name: metrics_configurations
         value:
-          - AccessPointArn: '{{ AccessPointArn }}'
-            Id: '{{ Id }}'
-            Prefix: '{{ Prefix }}'
-            TagFilters:
+          - access_point_arn: '{{ access_point_arn }}'
+            id: '{{ id }}'
+            prefix: '{{ prefix }}'
+            tag_filters:
               - null
-      - name: MetadataTableConfiguration
+      - name: metadata_table_configuration
         value:
-          S3TablesDestination:
-            TableBucketArn: '{{ TableBucketArn }}'
-            TableName: '{{ TableName }}'
-            TableNamespace: '{{ TableNamespace }}'
-            TableArn: '{{ TableArn }}'
-      - name: MetadataConfiguration
+          s3_tables_destination:
+            table_bucket_arn: '{{ table_bucket_arn }}'
+            table_name: '{{ table_name }}'
+            table_namespace: '{{ table_namespace }}'
+            table_arn: '{{ table_arn }}'
+      - name: metadata_configuration
         value:
-          Destination:
-            TableBucketType: '{{ TableBucketType }}'
-            TableBucketArn: '{{ TableBucketArn }}'
-            TableNamespace: '{{ TableNamespace }}'
-          JournalTableConfiguration:
-            TableName: '{{ TableName }}'
-            TableArn: '{{ TableArn }}'
-            RecordExpiration:
-              Expiration: '{{ Expiration }}'
-              Days: '{{ Days }}'
-            EncryptionConfiguration:
-              SseAlgorithm: '{{ SseAlgorithm }}'
-              KmsKeyArn: '{{ KmsKeyArn }}'
-          InventoryTableConfiguration:
-            TableName: '{{ TableName }}'
-            TableArn: '{{ TableArn }}'
-            ConfigurationState: '{{ ConfigurationState }}'
-            EncryptionConfiguration: null
-      - name: NotificationConfiguration
+          destination:
+            table_bucket_type: '{{ table_bucket_type }}'
+            table_bucket_arn: '{{ table_bucket_arn }}'
+            table_namespace: '{{ table_namespace }}'
+          journal_table_configuration:
+            table_name: '{{ table_name }}'
+            table_arn: '{{ table_arn }}'
+            record_expiration:
+              expiration: '{{ expiration }}'
+              days: '{{ days }}'
+            encryption_configuration:
+              sse_algorithm: '{{ sse_algorithm }}'
+              kms_key_arn: '{{ kms_key_arn }}'
+          inventory_table_configuration:
+            table_name: '{{ table_name }}'
+            table_arn: '{{ table_arn }}'
+            configuration_state: '{{ configuration_state }}'
+            encryption_configuration: null
+      - name: notification_configuration
         value:
-          EventBridgeConfiguration:
-            EventBridgeEnabled: '{{ EventBridgeEnabled }}'
-          LambdaConfigurations:
-            - Event: '{{ Event }}'
-              Filter:
-                S3Key:
-                  Rules:
-                    - Name: '{{ Name }}'
-                      Value: '{{ Value }}'
-              Function: '{{ Function }}'
-          QueueConfigurations:
-            - Event: '{{ Event }}'
-              Filter: null
-              Queue: '{{ Queue }}'
-          TopicConfigurations:
-            - Event: '{{ Event }}'
-              Filter: null
-              Topic: '{{ Topic }}'
-      - name: ObjectLockConfiguration
+          event_bridge_configuration:
+            event_bridge_enabled: '{{ event_bridge_enabled }}'
+          lambda_configurations:
+            - event: '{{ event }}'
+              filter:
+                s3_key:
+                  rules:
+                    - name: '{{ name }}'
+                      value: '{{ value }}'
+              function: '{{ function }}'
+          queue_configurations:
+            - event: '{{ event }}'
+              filter: null
+              queue: '{{ queue }}'
+          topic_configurations:
+            - event: '{{ event }}'
+              filter: null
+              topic: '{{ topic }}'
+      - name: object_lock_configuration
         value:
-          ObjectLockEnabled: '{{ ObjectLockEnabled }}'
-          Rule:
-            DefaultRetention:
-              Years: '{{ Years }}'
-              Days: '{{ Days }}'
-              Mode: '{{ Mode }}'
-      - name: ObjectLockEnabled
-        value: '{{ ObjectLockEnabled }}'
-      - name: OwnershipControls
+          object_lock_enabled: '{{ object_lock_enabled }}'
+          rule:
+            default_retention:
+              years: '{{ years }}'
+              days: '{{ days }}'
+              mode: '{{ mode }}'
+      - name: object_lock_enabled
+        value: '{{ object_lock_enabled }}'
+      - name: ownership_controls
         value:
-          Rules:
-            - ObjectOwnership: '{{ ObjectOwnership }}'
-      - name: PublicAccessBlockConfiguration
+          rules:
+            - object_ownership: '{{ object_ownership }}'
+      - name: public_access_block_configuration
         value:
-          RestrictPublicBuckets: '{{ RestrictPublicBuckets }}'
-          BlockPublicPolicy: '{{ BlockPublicPolicy }}'
-          BlockPublicAcls: '{{ BlockPublicAcls }}'
-          IgnorePublicAcls: '{{ IgnorePublicAcls }}'
-      - name: ReplicationConfiguration
+          restrict_public_buckets: '{{ restrict_public_buckets }}'
+          block_public_policy: '{{ block_public_policy }}'
+          block_public_acls: '{{ block_public_acls }}'
+          ignore_public_acls: '{{ ignore_public_acls }}'
+      - name: replication_configuration
         value:
-          Role: '{{ Role }}'
-          Rules:
-            - DeleteMarkerReplication:
-                Status: '{{ Status }}'
-              Destination:
-                AccessControlTranslation:
-                  Owner: '{{ Owner }}'
-                Account: '{{ Account }}'
-                Bucket: '{{ Bucket }}'
-                EncryptionConfiguration:
-                  ReplicaKmsKeyID: '{{ ReplicaKmsKeyID }}'
-                Metrics:
-                  EventThreshold:
-                    Minutes: '{{ Minutes }}'
-                  Status: '{{ Status }}'
-                ReplicationTime:
-                  Status: '{{ Status }}'
-                  Time: null
-                StorageClass: '{{ StorageClass }}'
-              Filter:
-                And:
-                  Prefix: '{{ Prefix }}'
-                  TagFilters:
+          role: '{{ role }}'
+          rules:
+            - delete_marker_replication:
+                status: '{{ status }}'
+              destination:
+                access_control_translation:
+                  owner: '{{ owner }}'
+                account: '{{ account }}'
+                bucket: '{{ bucket }}'
+                encryption_configuration:
+                  replica_kms_key_id: '{{ replica_kms_key_id }}'
+                metrics:
+                  event_threshold:
+                    minutes: '{{ minutes }}'
+                  status: '{{ status }}'
+                replication_time:
+                  status: '{{ status }}'
+                  time: null
+                storage_class: '{{ storage_class }}'
+              filter:
+                and:
+                  prefix: '{{ prefix }}'
+                  tag_filters:
                     - null
-                Prefix: '{{ Prefix }}'
-                TagFilter: null
-              Id: '{{ Id }}'
-              Prefix: '{{ Prefix }}'
-              Priority: '{{ Priority }}'
-              SourceSelectionCriteria:
-                ReplicaModifications:
-                  Status: '{{ Status }}'
-                SseKmsEncryptedObjects:
-                  Status: '{{ Status }}'
-              Status: '{{ Status }}'
-      - name: Tags
+                prefix: '{{ prefix }}'
+                tag_filter: null
+              id: '{{ id }}'
+              prefix: '{{ prefix }}'
+              priority: '{{ priority }}'
+              source_selection_criteria:
+                replica_modifications:
+                  status: '{{ status }}'
+                sse_kms_encrypted_objects:
+                  status: '{{ status }}'
+              status: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VersioningConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: versioning_configuration
         value:
-          Status: '{{ Status }}'
-      - name: WebsiteConfiguration
+          status: '{{ status }}'
+      - name: website_configuration
         value:
-          ErrorDocument: '{{ ErrorDocument }}'
-          IndexDocument: '{{ IndexDocument }}'
-          RoutingRules:
-            - RedirectRule:
-                HostName: '{{ HostName }}'
-                HttpRedirectCode: '{{ HttpRedirectCode }}'
-                Protocol: '{{ Protocol }}'
-                ReplaceKeyPrefixWith: '{{ ReplaceKeyPrefixWith }}'
-                ReplaceKeyWith: '{{ ReplaceKeyWith }}'
-              RoutingRuleCondition:
-                KeyPrefixEquals: '{{ KeyPrefixEquals }}'
-                HttpErrorCodeReturnedEquals: '{{ HttpErrorCodeReturnedEquals }}'
-          RedirectAllRequestsTo:
-            HostName: '{{ HostName }}'
-            Protocol: '{{ Protocol }}'
-
+          error_document: '{{ error_document }}'
+          index_document: '{{ index_document }}'
+          routing_rules:
+            - redirect_rule:
+                host_name: '{{ host_name }}'
+                http_redirect_code: '{{ http_redirect_code }}'
+                protocol: '{{ protocol }}'
+                replace_key_prefix_with: '{{ replace_key_prefix_with }}'
+                replace_key_with: '{{ replace_key_with }}'
+              routing_rule_condition:
+                key_prefix_equals: '{{ key_prefix_equals }}'
+                http_error_code_returned_equals: '{{ http_error_code_returned_equals }}'
+          redirect_all_requests_to:
+            host_name: '{{ host_name }}'
+            protocol: '{{ protocol }}'
 ```
 </TabItem>
 </Tabs>
@@ -1667,7 +1666,7 @@ SET PatchDocument = string('{{ {
     "WebsiteConfiguration": website_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BucketName>';
+AND Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -1676,7 +1675,7 @@ AND Identifier = '<BucketName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.buckets
-WHERE Identifier = '<BucketName>'
+WHERE Identifier = '{{ bucket_name }}'
 AND region = 'us-east-1';
 ```
 

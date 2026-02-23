@@ -209,7 +209,7 @@ restore_testing_plan_name,
 schedule_expression_timezone,
 tags
 FROM awscc.backup.restore_testing_plans
-WHERE region = 'us-east-1' AND Identifier = '<RestoreTestingPlanName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,10 +247,10 @@ INSERT INTO awscc.backup.restore_testing_plans (
  RestoreTestingPlanName,
  region
 )
-SELECT 
-'{{ ScheduleExpression }}',
- '{{ RecoveryPointSelection }}',
- '{{ RestoreTestingPlanName }}',
+SELECT
+'{{ schedule_expression }}',
+ '{{ recovery_point_selection }}',
+ '{{ restore_testing_plan_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -267,13 +267,13 @@ INSERT INTO awscc.backup.restore_testing_plans (
  Tags,
  region
 )
-SELECT 
- '{{ ScheduleExpression }}',
- '{{ StartWindowHours }}',
- '{{ RecoveryPointSelection }}',
- '{{ RestoreTestingPlanName }}',
- '{{ ScheduleExpressionTimezone }}',
- '{{ Tags }}',
+SELECT
+ '{{ schedule_expression }}',
+ '{{ start_window_hours }}',
+ '{{ recovery_point_selection }}',
+ '{{ restore_testing_plan_name }}',
+ '{{ schedule_expression_timezone }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -291,29 +291,28 @@ globals:
 resources:
   - name: restore_testing_plan
     props:
-      - name: ScheduleExpression
-        value: '{{ ScheduleExpression }}'
-      - name: StartWindowHours
-        value: '{{ StartWindowHours }}'
-      - name: RecoveryPointSelection
+      - name: schedule_expression
+        value: '{{ schedule_expression }}'
+      - name: start_window_hours
+        value: '{{ start_window_hours }}'
+      - name: recovery_point_selection
         value:
-          SelectionWindowDays: '{{ SelectionWindowDays }}'
-          RecoveryPointTypes:
-            - '{{ RecoveryPointTypes[0] }}'
-          IncludeVaults:
-            - '{{ IncludeVaults[0] }}'
-          ExcludeVaults:
-            - '{{ ExcludeVaults[0] }}'
-          Algorithm: '{{ Algorithm }}'
-      - name: RestoreTestingPlanName
-        value: '{{ RestoreTestingPlanName }}'
-      - name: ScheduleExpressionTimezone
-        value: '{{ ScheduleExpressionTimezone }}'
-      - name: Tags
+          selection_window_days: '{{ selection_window_days }}'
+          recovery_point_types:
+            - '{{ recovery_point_types[0] }}'
+          include_vaults:
+            - '{{ include_vaults[0] }}'
+          exclude_vaults:
+            - '{{ exclude_vaults[0] }}'
+          algorithm: '{{ algorithm }}'
+      - name: restore_testing_plan_name
+        value: '{{ restore_testing_plan_name }}'
+      - name: schedule_expression_timezone
+        value: '{{ schedule_expression_timezone }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestoreTestingPlanName>';
+AND Identifier = '{{ restore_testing_plan_name }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<RestoreTestingPlanName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_plans
-WHERE Identifier = '<RestoreTestingPlanName>'
+WHERE Identifier = '{{ restore_testing_plan_name }}'
 AND region = 'us-east-1';
 ```
 

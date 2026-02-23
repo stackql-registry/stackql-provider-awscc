@@ -146,7 +146,7 @@ policy_name,
 policy_document,
 bypass_policy_lockout_check
 FROM awscc.xray.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.xray.resource_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ PolicyDocument }}',
+SELECT
+'{{ policy_name }}',
+ '{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,10 +199,10 @@ INSERT INTO awscc.xray.resource_policies (
  BypassPolicyLockoutCheck,
  region
 )
-SELECT 
- '{{ PolicyName }}',
- '{{ PolicyDocument }}',
- '{{ BypassPolicyLockoutCheck }}',
+SELECT
+ '{{ policy_name }}',
+ '{{ policy_document }}',
+ '{{ bypass_policy_lockout_check }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,13 +220,12 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-      - name: BypassPolicyLockoutCheck
-        value: '{{ BypassPolicyLockoutCheck }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
+      - name: bypass_policy_lockout_check
+        value: '{{ bypass_policy_lockout_check }}'
 ```
 </TabItem>
 </Tabs>
@@ -243,7 +242,7 @@ SET PatchDocument = string('{{ {
     "BypassPolicyLockoutCheck": bypass_policy_lockout_check
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyName>';
+AND Identifier = '{{ policy_name }}';
 ```
 
 
@@ -252,7 +251,7 @@ AND Identifier = '<PolicyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.resource_policies
-WHERE Identifier = '<PolicyName>'
+WHERE Identifier = '{{ policy_name }}'
 AND region = 'us-east-1';
 ```
 

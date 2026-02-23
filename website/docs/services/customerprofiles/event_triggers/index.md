@@ -280,7 +280,7 @@ created_at,
 last_updated_at,
 tags
 FROM awscc.customerprofiles.event_triggers
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<EventTriggerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,11 +320,11 @@ INSERT INTO awscc.customerprofiles.event_triggers (
  EventTriggerConditions,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ EventTriggerName }}',
- '{{ ObjectTypeName }}',
- '{{ EventTriggerConditions }}',
+SELECT
+'{{ domain_name }}',
+ '{{ event_trigger_name }}',
+ '{{ object_type_name }}',
+ '{{ event_trigger_conditions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,15 +343,15 @@ INSERT INTO awscc.customerprofiles.event_triggers (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ EventTriggerName }}',
- '{{ ObjectTypeName }}',
- '{{ Description }}',
- '{{ EventTriggerConditions }}',
- '{{ EventTriggerLimits }}',
- '{{ SegmentFilter }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ event_trigger_name }}',
+ '{{ object_type_name }}',
+ '{{ description }}',
+ '{{ event_trigger_conditions }}',
+ '{{ event_trigger_limits }}',
+ '{{ segment_filter }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -369,39 +369,38 @@ globals:
 resources:
   - name: event_trigger
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: EventTriggerName
-        value: '{{ EventTriggerName }}'
-      - name: ObjectTypeName
-        value: '{{ ObjectTypeName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EventTriggerConditions
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: event_trigger_name
+        value: '{{ event_trigger_name }}'
+      - name: object_type_name
+        value: '{{ object_type_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: event_trigger_conditions
         value:
-          - EventTriggerDimensions:
-              - ObjectAttributes:
-                  - Source: '{{ Source }}'
-                    FieldName: '{{ FieldName }}'
-                    ComparisonOperator: '{{ ComparisonOperator }}'
-                    Values:
-                      - '{{ Values[0] }}'
-            LogicalOperator: '{{ LogicalOperator }}'
-      - name: EventTriggerLimits
+          - event_trigger_dimensions:
+              - object_attributes:
+                  - source: '{{ source }}'
+                    field_name: '{{ field_name }}'
+                    comparison_operator: '{{ comparison_operator }}'
+                    values:
+                      - '{{ values[0] }}'
+            logical_operator: '{{ logical_operator }}'
+      - name: event_trigger_limits
         value:
-          EventExpiration: '{{ EventExpiration }}'
-          Periods:
-            - Unit: '{{ Unit }}'
-              Value: '{{ Value }}'
-              MaxInvocationsPerProfile: '{{ MaxInvocationsPerProfile }}'
-              Unlimited: '{{ Unlimited }}'
-      - name: SegmentFilter
-        value: '{{ SegmentFilter }}'
-      - name: Tags
+          event_expiration: '{{ event_expiration }}'
+          periods:
+            - unit: '{{ unit }}'
+              value: '{{ value }}'
+              max_invocations_per_profile: '{{ max_invocations_per_profile }}'
+              unlimited: '{{ unlimited }}'
+      - name: segment_filter
+        value: '{{ segment_filter }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +421,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<EventTriggerName>';
+AND Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
 ```
 
 
@@ -431,7 +430,7 @@ AND Identifier = '<DomainName>|<EventTriggerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.event_triggers
-WHERE Identifier = '<DomainName|EventTriggerName>'
+WHERE Identifier = '{{ domain_name }}|{{ event_trigger_name }}'
 AND region = 'us-east-1';
 ```
 

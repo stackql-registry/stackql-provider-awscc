@@ -106,7 +106,7 @@ policy,
 registry_name,
 revision_id
 FROM awscc.eventschemas.registry_policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -130,9 +130,9 @@ INSERT INTO awscc.eventschemas.registry_policies (
  RegistryName,
  region
 )
-SELECT 
-'{{ Policy }}',
- '{{ RegistryName }}',
+SELECT
+'{{ policy }}',
+ '{{ registry_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -146,10 +146,10 @@ INSERT INTO awscc.eventschemas.registry_policies (
  RevisionId,
  region
 )
-SELECT 
- '{{ Policy }}',
- '{{ RegistryName }}',
- '{{ RevisionId }}',
+SELECT
+ '{{ policy }}',
+ '{{ registry_name }}',
+ '{{ revision_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -167,13 +167,12 @@ globals:
 resources:
   - name: registry_policy
     props:
-      - name: Policy
+      - name: policy
         value: {}
-      - name: RegistryName
-        value: '{{ RegistryName }}'
-      - name: RevisionId
-        value: '{{ RevisionId }}'
-
+      - name: registry_name
+        value: '{{ registry_name }}'
+      - name: revision_id
+        value: '{{ revision_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -191,7 +190,7 @@ SET PatchDocument = string('{{ {
     "RevisionId": revision_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -200,7 +199,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.registry_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -204,7 +204,7 @@ application_name,
 description,
 resource_lifecycle_config
 FROM awscc.elasticbeanstalk.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,10 +242,10 @@ INSERT INTO awscc.elasticbeanstalk.applications (
  ResourceLifecycleConfig,
  region
 )
-SELECT 
-'{{ ApplicationName }}',
- '{{ Description }}',
- '{{ ResourceLifecycleConfig }}',
+SELECT
+'{{ application_name }}',
+ '{{ description }}',
+ '{{ resource_lifecycle_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -259,10 +259,10 @@ INSERT INTO awscc.elasticbeanstalk.applications (
  ResourceLifecycleConfig,
  region
 )
-SELECT 
- '{{ ApplicationName }}',
- '{{ Description }}',
- '{{ ResourceLifecycleConfig }}',
+SELECT
+ '{{ application_name }}',
+ '{{ description }}',
+ '{{ resource_lifecycle_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,23 +280,22 @@ globals:
 resources:
   - name: application
     props:
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ResourceLifecycleConfig
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: resource_lifecycle_config
         value:
-          ServiceRole: '{{ ServiceRole }}'
-          VersionLifecycleConfig:
-            MaxAgeRule:
-              DeleteSourceFromS3: '{{ DeleteSourceFromS3 }}'
-              Enabled: '{{ Enabled }}'
-              MaxAgeInDays: '{{ MaxAgeInDays }}'
-            MaxCountRule:
-              DeleteSourceFromS3: '{{ DeleteSourceFromS3 }}'
-              Enabled: '{{ Enabled }}'
-              MaxCount: '{{ MaxCount }}'
-
+          service_role: '{{ service_role }}'
+          version_lifecycle_config:
+            max_age_rule:
+              delete_source_from_s3: '{{ delete_source_from_s3 }}'
+              enabled: '{{ enabled }}'
+              max_age_in_days: '{{ max_age_in_days }}'
+            max_count_rule:
+              delete_source_from_s3: '{{ delete_source_from_s3 }}'
+              enabled: '{{ enabled }}'
+              max_count: '{{ max_count }}'
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +312,7 @@ SET PatchDocument = string('{{ {
     "ResourceLifecycleConfig": resource_lifecycle_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationName>';
+AND Identifier = '{{ application_name }}';
 ```
 
 
@@ -322,7 +321,7 @@ AND Identifier = '<ApplicationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.applications
-WHERE Identifier = '<ApplicationName>'
+WHERE Identifier = '{{ application_name }}'
 AND region = 'us-east-1';
 ```
 

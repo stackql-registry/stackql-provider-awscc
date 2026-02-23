@@ -196,7 +196,7 @@ schema,
 deletion_protection,
 tags
 FROM awscc.verifiedpermissions.policy_stores
-WHERE region = 'us-east-1' AND Identifier = '<PolicyStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,8 +232,8 @@ INSERT INTO awscc.verifiedpermissions.policy_stores (
  ValidationSettings,
  region
 )
-SELECT 
-'{{ ValidationSettings }}',
+SELECT
+'{{ validation_settings }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,12 +249,12 @@ INSERT INTO awscc.verifiedpermissions.policy_stores (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ValidationSettings }}',
- '{{ Schema }}',
- '{{ DeletionProtection }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ validation_settings }}',
+ '{{ schema }}',
+ '{{ deletion_protection }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,21 +272,20 @@ globals:
 resources:
   - name: policy_store
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ValidationSettings
+      - name: description
+        value: '{{ description }}'
+      - name: validation_settings
         value:
-          Mode: '{{ Mode }}'
-      - name: Schema
+          mode: '{{ mode }}'
+      - name: schema
         value: null
-      - name: DeletionProtection
+      - name: deletion_protection
         value:
-          Mode: '{{ Mode }}'
-      - name: Tags
+          mode: '{{ mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyStoreId>';
+AND Identifier = '{{ policy_store_id }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<PolicyStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policy_stores
-WHERE Identifier = '<PolicyStoreId>'
+WHERE Identifier = '{{ policy_store_id }}'
 AND region = 'us-east-1';
 ```
 

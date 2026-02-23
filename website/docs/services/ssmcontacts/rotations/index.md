@@ -250,7 +250,7 @@ recurrence,
 tags,
 arn
 FROM awscc.ssmcontacts.rotations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,12 +290,12 @@ INSERT INTO awscc.ssmcontacts.rotations (
  Recurrence,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ContactIds }}',
- '{{ StartTime }}',
- '{{ TimeZoneId }}',
- '{{ Recurrence }}',
+SELECT
+'{{ name }}',
+ '{{ contact_ids }}',
+ '{{ start_time }}',
+ '{{ time_zone_id }}',
+ '{{ recurrence }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -312,13 +312,13 @@ INSERT INTO awscc.ssmcontacts.rotations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ContactIds }}',
- '{{ StartTime }}',
- '{{ TimeZoneId }}',
- '{{ Recurrence }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ contact_ids }}',
+ '{{ start_time }}',
+ '{{ time_zone_id }}',
+ '{{ recurrence }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,37 +336,36 @@ globals:
 resources:
   - name: rotation
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ContactIds
+      - name: name
+        value: '{{ name }}'
+      - name: contact_ids
         value:
-          - '{{ ContactIds[0] }}'
-      - name: StartTime
-        value: '{{ StartTime }}'
-      - name: TimeZoneId
-        value: '{{ TimeZoneId }}'
-      - name: Recurrence
+          - '{{ contact_ids[0] }}'
+      - name: start_time
+        value: '{{ start_time }}'
+      - name: time_zone_id
+        value: '{{ time_zone_id }}'
+      - name: recurrence
         value:
-          MonthlySettings:
-            - DayOfMonth: '{{ DayOfMonth }}'
-              HandOffTime: '{{ HandOffTime }}'
-          WeeklySettings:
-            - DayOfWeek: '{{ DayOfWeek }}'
-              HandOffTime: null
-          DailySettings:
+          monthly_settings:
+            - day_of_month: '{{ day_of_month }}'
+              hand_off_time: '{{ hand_off_time }}'
+          weekly_settings:
+            - day_of_week: '{{ day_of_week }}'
+              hand_off_time: null
+          daily_settings:
             - null
-          NumberOfOnCalls: '{{ NumberOfOnCalls }}'
-          RecurrenceMultiplier: '{{ RecurrenceMultiplier }}'
-          ShiftCoverages:
-            - DayOfWeek: null
-              CoverageTimes:
-                - StartTime: null
-                  EndTime: null
-      - name: Tags
+          number_of_on_calls: '{{ number_of_on_calls }}'
+          recurrence_multiplier: '{{ recurrence_multiplier }}'
+          shift_coverages:
+            - day_of_week: null
+              coverage_times:
+                - start_time: null
+                  end_time: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +386,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -396,7 +395,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.rotations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

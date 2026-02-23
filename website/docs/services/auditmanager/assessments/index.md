@@ -320,7 +320,7 @@ creation_time,
 name,
 description
 FROM awscc.auditmanager.assessments
-WHERE region = 'us-east-1' AND Identifier = '<AssessmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ assessment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -356,7 +356,7 @@ INSERT INTO awscc.auditmanager.assessments (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -378,17 +378,17 @@ INSERT INTO awscc.auditmanager.assessments (
  Description,
  region
 )
-SELECT 
- '{{ FrameworkId }}',
- '{{ AwsAccount }}',
- '{{ Tags }}',
- '{{ Delegations }}',
- '{{ Roles }}',
- '{{ Scope }}',
- '{{ AssessmentReportsDestination }}',
- '{{ Status }}',
- '{{ Name }}',
- '{{ Description }}',
+SELECT
+ '{{ framework_id }}',
+ '{{ aws_account }}',
+ '{{ tags }}',
+ '{{ delegations }}',
+ '{{ roles }}',
+ '{{ scope }}',
+ '{{ assessment_reports_destination }}',
+ '{{ status }}',
+ '{{ name }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -406,51 +406,50 @@ globals:
 resources:
   - name: assessment
     props:
-      - name: FrameworkId
-        value: '{{ FrameworkId }}'
-      - name: AwsAccount
+      - name: framework_id
+        value: '{{ framework_id }}'
+      - name: aws_account
         value:
-          Id: '{{ Id }}'
-          EmailAddress: '{{ EmailAddress }}'
-          Name: '{{ Name }}'
-      - name: Tags
+          id: '{{ id }}'
+          email_address: '{{ email_address }}'
+          name: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Delegations
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: delegations
         value:
-          - LastUpdated: null
-            ControlSetId: '{{ ControlSetId }}'
-            CreationTime: null
-            CreatedBy: '{{ CreatedBy }}'
-            RoleArn: '{{ RoleArn }}'
-            AssessmentName: '{{ AssessmentName }}'
-            Comment: '{{ Comment }}'
-            Id: '{{ Id }}'
-            RoleType: '{{ RoleType }}'
-            AssessmentId: null
-            Status: '{{ Status }}'
-      - name: Roles
+          - last_updated: null
+            control_set_id: '{{ control_set_id }}'
+            creation_time: null
+            created_by: '{{ created_by }}'
+            role_arn: '{{ role_arn }}'
+            assessment_name: '{{ assessment_name }}'
+            comment: '{{ comment }}'
+            id: '{{ id }}'
+            role_type: '{{ role_type }}'
+            assessment_id: null
+            status: '{{ status }}'
+      - name: roles
         value:
-          - RoleArn: null
-            RoleType: null
-      - name: Scope
+          - role_arn: null
+            role_type: null
+      - name: scope
         value:
-          AwsAccounts:
+          aws_accounts:
             - null
-          AwsServices:
-            - ServiceName: '{{ ServiceName }}'
-      - name: AssessmentReportsDestination
+          aws_services:
+            - service_name: '{{ service_name }}'
+      - name: assessment_reports_destination
         value:
-          Destination: '{{ Destination }}'
-          DestinationType: '{{ DestinationType }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Name
+          destination: '{{ destination }}'
+          destination_type: '{{ destination_type }}'
+      - name: status
+        value: '{{ status }}'
+      - name: name
         value: null
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -473,7 +472,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssessmentId>';
+AND Identifier = '{{ assessment_id }}';
 ```
 
 
@@ -482,7 +481,7 @@ AND Identifier = '<AssessmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.auditmanager.assessments
-WHERE Identifier = '<AssessmentId>'
+WHERE Identifier = '{{ assessment_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -344,7 +344,7 @@ reservation_type,
 capacity_allocation_set,
 commitment_info
 FROM awscc.ec2.capacity_reservations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -382,10 +382,10 @@ INSERT INTO awscc.ec2.capacity_reservations (
  InstanceType,
  region
 )
-SELECT 
-'{{ InstanceCount }}',
- '{{ InstancePlatform }}',
- '{{ InstanceType }}',
+SELECT
+'{{ instance_count }}',
+ '{{ instance_platform }}',
+ '{{ instance_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -411,22 +411,22 @@ INSERT INTO awscc.ec2.capacity_reservations (
  AvailabilityZoneId,
  region
 )
-SELECT 
- '{{ Tenancy }}',
- '{{ EndDateType }}',
- '{{ TagSpecifications }}',
- '{{ AvailabilityZone }}',
- '{{ EndDate }}',
- '{{ EbsOptimized }}',
- '{{ OutPostArn }}',
- '{{ InstanceCount }}',
- '{{ PlacementGroupArn }}',
- '{{ InstancePlatform }}',
- '{{ InstanceType }}',
- '{{ EphemeralStorage }}',
- '{{ InstanceMatchCriteria }}',
- '{{ UnusedReservationBillingOwnerId }}',
- '{{ AvailabilityZoneId }}',
+SELECT
+ '{{ tenancy }}',
+ '{{ end_date_type }}',
+ '{{ tag_specifications }}',
+ '{{ availability_zone }}',
+ '{{ end_date }}',
+ '{{ ebs_optimized }}',
+ '{{ out_post_arn }}',
+ '{{ instance_count }}',
+ '{{ placement_group_arn }}',
+ '{{ instance_platform }}',
+ '{{ instance_type }}',
+ '{{ ephemeral_storage }}',
+ '{{ instance_match_criteria }}',
+ '{{ unused_reservation_billing_owner_id }}',
+ '{{ availability_zone_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -444,41 +444,40 @@ globals:
 resources:
   - name: capacity_reservation
     props:
-      - name: Tenancy
-        value: '{{ Tenancy }}'
-      - name: EndDateType
-        value: '{{ EndDateType }}'
-      - name: TagSpecifications
+      - name: tenancy
+        value: '{{ tenancy }}'
+      - name: end_date_type
+        value: '{{ end_date_type }}'
+      - name: tag_specifications
         value:
-          - ResourceType: '{{ ResourceType }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: EndDate
-        value: '{{ EndDate }}'
-      - name: EbsOptimized
-        value: '{{ EbsOptimized }}'
-      - name: OutPostArn
-        value: '{{ OutPostArn }}'
-      - name: InstanceCount
-        value: '{{ InstanceCount }}'
-      - name: PlacementGroupArn
-        value: '{{ PlacementGroupArn }}'
-      - name: InstancePlatform
-        value: '{{ InstancePlatform }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: EphemeralStorage
-        value: '{{ EphemeralStorage }}'
-      - name: InstanceMatchCriteria
-        value: '{{ InstanceMatchCriteria }}'
-      - name: UnusedReservationBillingOwnerId
-        value: '{{ UnusedReservationBillingOwnerId }}'
-      - name: AvailabilityZoneId
-        value: '{{ AvailabilityZoneId }}'
-
+          - resource_type: '{{ resource_type }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: end_date
+        value: '{{ end_date }}'
+      - name: ebs_optimized
+        value: '{{ ebs_optimized }}'
+      - name: out_post_arn
+        value: '{{ out_post_arn }}'
+      - name: instance_count
+        value: '{{ instance_count }}'
+      - name: placement_group_arn
+        value: '{{ placement_group_arn }}'
+      - name: instance_platform
+        value: '{{ instance_platform }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: ephemeral_storage
+        value: '{{ ephemeral_storage }}'
+      - name: instance_match_criteria
+        value: '{{ instance_match_criteria }}'
+      - name: unused_reservation_billing_owner_id
+        value: '{{ unused_reservation_billing_owner_id }}'
+      - name: availability_zone_id
+        value: '{{ availability_zone_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -498,7 +497,7 @@ SET PatchDocument = string('{{ {
     "UnusedReservationBillingOwnerId": unused_reservation_billing_owner_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -507,7 +506,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.capacity_reservations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -191,7 +191,7 @@ instance_arn,
 instance_access_control_attribute_configuration,
 access_control_attributes
 FROM awscc.sso.instance_access_control_attribute_configurations
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,8 +227,8 @@ INSERT INTO awscc.sso.instance_access_control_attribute_configurations (
  InstanceArn,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
+SELECT
+'{{ instance_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,10 +242,10 @@ INSERT INTO awscc.sso.instance_access_control_attribute_configurations (
  AccessControlAttributes,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ InstanceAccessControlAttributeConfiguration }}',
- '{{ AccessControlAttributes }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ instance_access_control_attribute_configuration }}',
+ '{{ access_control_attributes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,18 +263,17 @@ globals:
 resources:
   - name: instance_access_control_attribute_configuration
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: InstanceAccessControlAttributeConfiguration
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: instance_access_control_attribute_configuration
         value:
-          AccessControlAttributes:
-            - Key: '{{ Key }}'
-              Value:
-                Source:
-                  - '{{ Source[0] }}'
-      - name: AccessControlAttributes
+          access_control_attributes:
+            - key: '{{ key }}'
+              value:
+                source:
+                  - '{{ source[0] }}'
+      - name: access_control_attributes
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +290,7 @@ SET PatchDocument = string('{{ {
     "AccessControlAttributes": access_control_attributes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceArn>';
+AND Identifier = '{{ instance_arn }}';
 ```
 
 
@@ -300,7 +299,7 @@ AND Identifier = '<InstanceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.instance_access_control_attribute_configurations
-WHERE Identifier = '<InstanceArn>'
+WHERE Identifier = '{{ instance_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -212,7 +212,7 @@ status_to_update,
 tags,
 type
 FROM awscc.ses.mail_manager_ingress_points
-WHERE region = 'us-east-1' AND Identifier = '<IngressPointId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ingress_point_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.ses.mail_manager_ingress_points (
  Type,
  region
 )
-SELECT 
-'{{ TrafficPolicyId }}',
- '{{ RuleSetId }}',
- '{{ Type }}',
+SELECT
+'{{ traffic_policy_id }}',
+ '{{ rule_set_id }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,15 +272,15 @@ INSERT INTO awscc.ses.mail_manager_ingress_points (
  Type,
  region
 )
-SELECT 
- '{{ TrafficPolicyId }}',
- '{{ IngressPointConfiguration }}',
- '{{ IngressPointName }}',
- '{{ NetworkConfiguration }}',
- '{{ RuleSetId }}',
- '{{ StatusToUpdate }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ traffic_policy_id }}',
+ '{{ ingress_point_configuration }}',
+ '{{ ingress_point_name }}',
+ '{{ network_configuration }}',
+ '{{ rule_set_id }}',
+ '{{ status_to_update }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,25 +298,24 @@ globals:
 resources:
   - name: mail_manager_ingress_point
     props:
-      - name: TrafficPolicyId
-        value: '{{ TrafficPolicyId }}'
-      - name: IngressPointConfiguration
+      - name: traffic_policy_id
+        value: '{{ traffic_policy_id }}'
+      - name: ingress_point_configuration
         value: null
-      - name: IngressPointName
-        value: '{{ IngressPointName }}'
-      - name: NetworkConfiguration
+      - name: ingress_point_name
+        value: '{{ ingress_point_name }}'
+      - name: network_configuration
         value: null
-      - name: RuleSetId
-        value: '{{ RuleSetId }}'
-      - name: StatusToUpdate
-        value: '{{ StatusToUpdate }}'
-      - name: Tags
+      - name: rule_set_id
+        value: '{{ rule_set_id }}'
+      - name: status_to_update
+        value: '{{ status_to_update }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +336,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IngressPointId>';
+AND Identifier = '{{ ingress_point_id }}';
 ```
 
 
@@ -346,7 +345,7 @@ AND Identifier = '<IngressPointId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_ingress_points
-WHERE Identifier = '<IngressPointId>'
+WHERE Identifier = '{{ ingress_point_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -270,7 +270,7 @@ open_id_connect_provider_arns,
 allow_classic_flow,
 identity_pool_tags
 FROM awscc.cognito.identity_pools
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,8 +306,8 @@ INSERT INTO awscc.cognito.identity_pools (
  AllowUnauthenticatedIdentities,
  region
 )
-SELECT 
-'{{ AllowUnauthenticatedIdentities }}',
+SELECT
+'{{ allow_unauthenticated_identities }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -330,19 +330,19 @@ INSERT INTO awscc.cognito.identity_pools (
  IdentityPoolTags,
  region
 )
-SELECT 
- '{{ PushSync }}',
- '{{ CognitoIdentityProviders }}',
- '{{ DeveloperProviderName }}',
- '{{ CognitoStreams }}',
- '{{ SupportedLoginProviders }}',
- '{{ CognitoEvents }}',
- '{{ IdentityPoolName }}',
- '{{ AllowUnauthenticatedIdentities }}',
- '{{ SamlProviderARNs }}',
- '{{ OpenIdConnectProviderARNs }}',
- '{{ AllowClassicFlow }}',
- '{{ IdentityPoolTags }}',
+SELECT
+ '{{ push_sync }}',
+ '{{ cognito_identity_providers }}',
+ '{{ developer_provider_name }}',
+ '{{ cognito_streams }}',
+ '{{ supported_login_providers }}',
+ '{{ cognito_events }}',
+ '{{ identity_pool_name }}',
+ '{{ allow_unauthenticated_identities }}',
+ '{{ saml_provider_arns }}',
+ '{{ open_id_connect_provider_arns }}',
+ '{{ allow_classic_flow }}',
+ '{{ identity_pool_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -360,44 +360,43 @@ globals:
 resources:
   - name: identity_pool
     props:
-      - name: PushSync
+      - name: push_sync
         value:
-          ApplicationArns:
-            - '{{ ApplicationArns[0] }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: CognitoIdentityProviders
+          application_arns:
+            - '{{ application_arns[0] }}'
+          role_arn: '{{ role_arn }}'
+      - name: cognito_identity_providers
         value:
-          - ServerSideTokenCheck: '{{ ServerSideTokenCheck }}'
-            ProviderName: '{{ ProviderName }}'
-            ClientId: '{{ ClientId }}'
-      - name: DeveloperProviderName
-        value: '{{ DeveloperProviderName }}'
-      - name: CognitoStreams
+          - server_side_token_check: '{{ server_side_token_check }}'
+            provider_name: '{{ provider_name }}'
+            client_id: '{{ client_id }}'
+      - name: developer_provider_name
+        value: '{{ developer_provider_name }}'
+      - name: cognito_streams
         value:
-          StreamingStatus: '{{ StreamingStatus }}'
-          StreamName: '{{ StreamName }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: SupportedLoginProviders
+          streaming_status: '{{ streaming_status }}'
+          stream_name: '{{ stream_name }}'
+          role_arn: '{{ role_arn }}'
+      - name: supported_login_providers
         value: {}
-      - name: CognitoEvents
+      - name: cognito_events
         value: {}
-      - name: IdentityPoolName
-        value: '{{ IdentityPoolName }}'
-      - name: AllowUnauthenticatedIdentities
-        value: '{{ AllowUnauthenticatedIdentities }}'
-      - name: SamlProviderARNs
+      - name: identity_pool_name
+        value: '{{ identity_pool_name }}'
+      - name: allow_unauthenticated_identities
+        value: '{{ allow_unauthenticated_identities }}'
+      - name: saml_provider_arns
         value:
-          - '{{ SamlProviderARNs[0] }}'
-      - name: OpenIdConnectProviderARNs
+          - '{{ saml_provider_arns[0] }}'
+      - name: open_id_connect_provider_arns
         value:
-          - '{{ OpenIdConnectProviderARNs[0] }}'
-      - name: AllowClassicFlow
-        value: '{{ AllowClassicFlow }}'
-      - name: IdentityPoolTags
+          - '{{ open_id_connect_provider_arns[0] }}'
+      - name: allow_classic_flow
+        value: '{{ allow_classic_flow }}'
+      - name: identity_pool_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "IdentityPoolTags": identity_pool_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pools
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

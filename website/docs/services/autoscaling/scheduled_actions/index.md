@@ -187,7 +187,7 @@ start_time,
 desired_capacity,
 max_size
 FROM awscc.autoscaling.scheduled_actions
-WHERE region = 'us-east-1' AND Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.autoscaling.scheduled_actions (
  AutoScalingGroupName,
  region
 )
-SELECT 
-'{{ AutoScalingGroupName }}',
+SELECT
+'{{ auto_scaling_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,15 @@ INSERT INTO awscc.autoscaling.scheduled_actions (
  MaxSize,
  region
 )
-SELECT 
- '{{ MinSize }}',
- '{{ Recurrence }}',
- '{{ TimeZone }}',
- '{{ EndTime }}',
- '{{ AutoScalingGroupName }}',
- '{{ StartTime }}',
- '{{ DesiredCapacity }}',
- '{{ MaxSize }}',
+SELECT
+ '{{ min_size }}',
+ '{{ recurrence }}',
+ '{{ time_zone }}',
+ '{{ end_time }}',
+ '{{ auto_scaling_group_name }}',
+ '{{ start_time }}',
+ '{{ desired_capacity }}',
+ '{{ max_size }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,23 +270,22 @@ globals:
 resources:
   - name: scheduled_action
     props:
-      - name: MinSize
-        value: '{{ MinSize }}'
-      - name: Recurrence
-        value: '{{ Recurrence }}'
-      - name: TimeZone
-        value: '{{ TimeZone }}'
-      - name: EndTime
-        value: '{{ EndTime }}'
-      - name: AutoScalingGroupName
-        value: '{{ AutoScalingGroupName }}'
-      - name: StartTime
-        value: '{{ StartTime }}'
-      - name: DesiredCapacity
-        value: '{{ DesiredCapacity }}'
-      - name: MaxSize
-        value: '{{ MaxSize }}'
-
+      - name: min_size
+        value: '{{ min_size }}'
+      - name: recurrence
+        value: '{{ recurrence }}'
+      - name: time_zone
+        value: '{{ time_zone }}'
+      - name: end_time
+        value: '{{ end_time }}'
+      - name: auto_scaling_group_name
+        value: '{{ auto_scaling_group_name }}'
+      - name: start_time
+        value: '{{ start_time }}'
+      - name: desired_capacity
+        value: '{{ desired_capacity }}'
+      - name: max_size
+        value: '{{ max_size }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "MaxSize": max_size
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
+AND Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.scheduled_actions
-WHERE Identifier = '<ScheduledActionName|AutoScalingGroupName>'
+WHERE Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}'
 AND region = 'us-east-1';
 ```
 

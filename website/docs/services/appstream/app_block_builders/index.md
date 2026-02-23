@@ -242,7 +242,7 @@ created_time,
 instance_type,
 app_block_arns
 FROM awscc.appstream.app_block_builders
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -281,11 +281,11 @@ INSERT INTO awscc.appstream.app_block_builders (
  InstanceType,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Platform }}',
- '{{ VpcConfig }}',
- '{{ InstanceType }}',
+SELECT
+'{{ name }}',
+ '{{ platform }}',
+ '{{ vpc_config }}',
+ '{{ instance_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -307,18 +307,18 @@ INSERT INTO awscc.appstream.app_block_builders (
  AppBlockArns,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ Platform }}',
- '{{ AccessEndpoints }}',
- '{{ Tags }}',
- '{{ VpcConfig }}',
- '{{ EnableDefaultInternetAccess }}',
- '{{ IamRoleArn }}',
- '{{ InstanceType }}',
- '{{ AppBlockArns }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ platform }}',
+ '{{ access_endpoints }}',
+ '{{ tags }}',
+ '{{ vpc_config }}',
+ '{{ enable_default_internet_access }}',
+ '{{ iam_role_arn }}',
+ '{{ instance_type }}',
+ '{{ app_block_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,38 +336,37 @@ globals:
 resources:
   - name: app_block_builder
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Platform
-        value: '{{ Platform }}'
-      - name: AccessEndpoints
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: platform
+        value: '{{ platform }}'
+      - name: access_endpoints
         value:
-          - EndpointType: '{{ EndpointType }}'
-            VpceId: '{{ VpceId }}'
-      - name: Tags
+          - endpoint_type: '{{ endpoint_type }}'
+            vpce_id: '{{ vpce_id }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: VpcConfig
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: vpc_config
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: EnableDefaultInternetAccess
-        value: '{{ EnableDefaultInternetAccess }}'
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: AppBlockArns
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: enable_default_internet_access
+        value: '{{ enable_default_internet_access }}'
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: app_block_arns
         value:
-          - '{{ AppBlockArns[0] }}'
-
+          - '{{ app_block_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +391,7 @@ SET PatchDocument = string('{{ {
     "AppBlockArns": app_block_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -401,7 +400,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.app_block_builders
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

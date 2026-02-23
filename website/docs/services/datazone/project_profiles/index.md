@@ -316,7 +316,7 @@ last_updated_at,
 name,
 status
 FROM awscc.datazone.project_profiles
-WHERE region = 'us-east-1' AND Identifier = '<DomainIdentifier>|<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,8 +353,8 @@ INSERT INTO awscc.datazone.project_profiles (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -371,13 +371,13 @@ INSERT INTO awscc.datazone.project_profiles (
  Status,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ DomainUnitIdentifier }}',
- '{{ EnvironmentConfigurations }}',
- '{{ Name }}',
- '{{ Status }}',
+SELECT
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ domain_unit_identifier }}',
+ '{{ environment_configurations }}',
+ '{{ name }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -395,37 +395,36 @@ globals:
 resources:
   - name: project_profile
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: DomainUnitIdentifier
-        value: '{{ DomainUnitIdentifier }}'
-      - name: EnvironmentConfigurations
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: domain_unit_identifier
+        value: '{{ domain_unit_identifier }}'
+      - name: environment_configurations
         value:
-          - Name: '{{ Name }}'
-            Id: '{{ Id }}'
-            EnvironmentBlueprintId: '{{ EnvironmentBlueprintId }}'
-            Description: '{{ Description }}'
-            DeploymentMode: '{{ DeploymentMode }}'
-            ConfigurationParameters:
-              SsmPath: '{{ SsmPath }}'
-              ParameterOverrides:
-                - Name: '{{ Name }}'
-                  Value: '{{ Value }}'
-                  IsEditable: '{{ IsEditable }}'
-              ResolvedParameters:
+          - name: '{{ name }}'
+            id: '{{ id }}'
+            environment_blueprint_id: '{{ environment_blueprint_id }}'
+            description: '{{ description }}'
+            deployment_mode: '{{ deployment_mode }}'
+            configuration_parameters:
+              ssm_path: '{{ ssm_path }}'
+              parameter_overrides:
+                - name: '{{ name }}'
+                  value: '{{ value }}'
+                  is_editable: '{{ is_editable }}'
+              resolved_parameters:
                 - null
-            AwsAccount:
-              AwsAccountId: '{{ AwsAccountId }}'
-            AwsRegion:
-              RegionName: '{{ RegionName }}'
-            DeploymentOrder: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: Status
-        value: '{{ Status }}'
-
+            aws_account:
+              aws_account_id: '{{ aws_account_id }}'
+            aws_region:
+              region_name: '{{ region_name }}'
+            deployment_order: null
+      - name: name
+        value: '{{ name }}'
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -444,7 +443,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainIdentifier>|<Identifier>';
+AND Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```
 
 
@@ -453,7 +452,7 @@ AND Identifier = '<DomainIdentifier>|<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.project_profiles
-WHERE Identifier = '<DomainIdentifier|Identifier>'
+WHERE Identifier = '{{ domain_identifier }}|{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

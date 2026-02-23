@@ -181,7 +181,7 @@ arn,
 fairshare_policy,
 tags
 FROM awscc.batch.scheduling_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,10 +219,10 @@ INSERT INTO awscc.batch.scheduling_policies (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ FairsharePolicy }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ fairshare_policy }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,10 +236,10 @@ INSERT INTO awscc.batch.scheduling_policies (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ FairsharePolicy }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ fairshare_policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -257,18 +257,17 @@ globals:
 resources:
   - name: scheduling_policy
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: FairsharePolicy
+      - name: name
+        value: '{{ name }}'
+      - name: fairshare_policy
         value:
-          ShareDecaySeconds: null
-          ComputeReservation: null
-          ShareDistribution:
-            - ShareIdentifier: '{{ ShareIdentifier }}'
-              WeightFactor: null
-      - name: Tags
+          share_decay_seconds: null
+          compute_reservation: null
+          share_distribution:
+            - share_identifier: '{{ share_identifier }}'
+              weight_factor: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "FairsharePolicy": fairshare_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.scheduling_policies
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

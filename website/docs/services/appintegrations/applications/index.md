@@ -257,7 +257,7 @@ initialization_timeout,
 application_config,
 iframe_config
 FROM awscc.appintegrations.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,11 +296,11 @@ INSERT INTO awscc.appintegrations.applications (
  ApplicationSourceConfig,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Namespace }}',
- '{{ Description }}',
- '{{ ApplicationSourceConfig }}',
+SELECT
+'{{ name }}',
+ '{{ namespace }}',
+ '{{ description }}',
+ '{{ application_source_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -321,17 +321,17 @@ INSERT INTO awscc.appintegrations.applications (
  IframeConfig,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Namespace }}',
- '{{ Description }}',
- '{{ ApplicationSourceConfig }}',
- '{{ Permissions }}',
- '{{ Tags }}',
- '{{ IsService }}',
- '{{ InitializationTimeout }}',
- '{{ ApplicationConfig }}',
- '{{ IframeConfig }}',
+SELECT
+ '{{ name }}',
+ '{{ namespace }}',
+ '{{ description }}',
+ '{{ application_source_config }}',
+ '{{ permissions }}',
+ '{{ tags }}',
+ '{{ is_service }}',
+ '{{ initialization_timeout }}',
+ '{{ application_config }}',
+ '{{ iframe_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,40 +349,39 @@ globals:
 resources:
   - name: application
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Namespace
-        value: '{{ Namespace }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ApplicationSourceConfig
+      - name: name
+        value: '{{ name }}'
+      - name: namespace
+        value: '{{ namespace }}'
+      - name: description
+        value: '{{ description }}'
+      - name: application_source_config
         value:
-          ExternalUrlConfig:
-            AccessUrl: '{{ AccessUrl }}'
-            ApprovedOrigins:
-              - '{{ ApprovedOrigins[0] }}'
-      - name: Permissions
+          external_url_config:
+            access_url: '{{ access_url }}'
+            approved_origins:
+              - '{{ approved_origins[0] }}'
+      - name: permissions
         value:
-          - '{{ Permissions[0] }}'
-      - name: Tags
+          - '{{ permissions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: IsService
-        value: '{{ IsService }}'
-      - name: InitializationTimeout
-        value: '{{ InitializationTimeout }}'
-      - name: ApplicationConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: is_service
+        value: '{{ is_service }}'
+      - name: initialization_timeout
+        value: '{{ initialization_timeout }}'
+      - name: application_config
         value:
-          ContactHandling:
-            Scope: '{{ Scope }}'
-      - name: IframeConfig
+          contact_handling:
+            scope: '{{ scope }}'
+      - name: iframe_config
         value:
-          Allow:
-            - '{{ Allow[0] }}'
-          Sandbox:
-            - '{{ Sandbox[0] }}'
-
+          allow:
+            - '{{ allow[0] }}'
+          sandbox:
+            - '{{ sandbox[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +406,7 @@ SET PatchDocument = string('{{ {
     "IframeConfig": iframe_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationArn>';
+AND Identifier = '{{ application_arn }}';
 ```
 
 
@@ -416,7 +415,7 @@ AND Identifier = '<ApplicationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.applications
-WHERE Identifier = '<ApplicationArn>'
+WHERE Identifier = '{{ application_arn }}'
 AND region = 'us-east-1';
 ```
 

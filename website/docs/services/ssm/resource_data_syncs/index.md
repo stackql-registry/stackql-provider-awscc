@@ -243,7 +243,7 @@ sync_name,
 sync_type,
 bucket_prefix
 FROM awscc.ssm.resource_data_syncs
-WHERE region = 'us-east-1' AND Identifier = '<SyncName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ sync_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -279,8 +279,8 @@ INSERT INTO awscc.ssm.resource_data_syncs (
  SyncName,
  region
 )
-SELECT 
-'{{ SyncName }}',
+SELECT
+'{{ sync_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -300,16 +300,16 @@ INSERT INTO awscc.ssm.resource_data_syncs (
  BucketPrefix,
  region
 )
-SELECT 
- '{{ S3Destination }}',
- '{{ KMSKeyArn }}',
- '{{ SyncSource }}',
- '{{ BucketName }}',
- '{{ BucketRegion }}',
- '{{ SyncFormat }}',
- '{{ SyncName }}',
- '{{ SyncType }}',
- '{{ BucketPrefix }}',
+SELECT
+ '{{ s3_destination }}',
+ '{{ kms_key_arn }}',
+ '{{ sync_source }}',
+ '{{ bucket_name }}',
+ '{{ bucket_region }}',
+ '{{ sync_format }}',
+ '{{ sync_name }}',
+ '{{ sync_type }}',
+ '{{ bucket_prefix }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -327,38 +327,37 @@ globals:
 resources:
   - name: resource_data_sync
     props:
-      - name: S3Destination
+      - name: s3_destination
         value:
-          KMSKeyArn: '{{ KMSKeyArn }}'
-          BucketPrefix: '{{ BucketPrefix }}'
-          BucketName: '{{ BucketName }}'
-          BucketRegion: '{{ BucketRegion }}'
-          SyncFormat: '{{ SyncFormat }}'
-      - name: KMSKeyArn
-        value: '{{ KMSKeyArn }}'
-      - name: SyncSource
+          kms_key_arn: '{{ kms_key_arn }}'
+          bucket_prefix: '{{ bucket_prefix }}'
+          bucket_name: '{{ bucket_name }}'
+          bucket_region: '{{ bucket_region }}'
+          sync_format: '{{ sync_format }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: sync_source
         value:
-          IncludeFutureRegions: '{{ IncludeFutureRegions }}'
-          SourceRegions:
-            - '{{ SourceRegions[0] }}'
-          SourceType: '{{ SourceType }}'
-          AwsOrganizationsSource:
-            OrganizationalUnits:
-              - '{{ OrganizationalUnits[0] }}'
-            OrganizationSourceType: '{{ OrganizationSourceType }}'
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: BucketRegion
-        value: '{{ BucketRegion }}'
-      - name: SyncFormat
-        value: '{{ SyncFormat }}'
-      - name: SyncName
-        value: '{{ SyncName }}'
-      - name: SyncType
-        value: '{{ SyncType }}'
-      - name: BucketPrefix
-        value: '{{ BucketPrefix }}'
-
+          include_future_regions: '{{ include_future_regions }}'
+          source_regions:
+            - '{{ source_regions[0] }}'
+          source_type: '{{ source_type }}'
+          aws_organizations_source:
+            organizational_units:
+              - '{{ organizational_units[0] }}'
+            organization_source_type: '{{ organization_source_type }}'
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: bucket_region
+        value: '{{ bucket_region }}'
+      - name: sync_format
+        value: '{{ sync_format }}'
+      - name: sync_name
+        value: '{{ sync_name }}'
+      - name: sync_type
+        value: '{{ sync_type }}'
+      - name: bucket_prefix
+        value: '{{ bucket_prefix }}'
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +373,7 @@ SET PatchDocument = string('{{ {
     "SyncSource": sync_source
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SyncName>';
+AND Identifier = '{{ sync_name }}';
 ```
 
 
@@ -383,7 +382,7 @@ AND Identifier = '<SyncName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_data_syncs
-WHERE Identifier = '<SyncName>'
+WHERE Identifier = '{{ sync_name }}'
 AND region = 'us-east-1';
 ```
 

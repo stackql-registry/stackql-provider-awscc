@@ -170,7 +170,7 @@ cells,
 parent_readiness_scopes,
 tags
 FROM awscc.route53recoveryreadiness.cells
-WHERE region = 'us-east-1' AND Identifier = '<CellName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cell_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.route53recoveryreadiness.cells (
  Tags,
  region
 )
-SELECT 
-'{{ CellName }}',
- '{{ Cells }}',
- '{{ Tags }}',
+SELECT
+'{{ cell_name }}',
+ '{{ cells }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,10 +225,10 @@ INSERT INTO awscc.route53recoveryreadiness.cells (
  Tags,
  region
 )
-SELECT 
- '{{ CellName }}',
- '{{ Cells }}',
- '{{ Tags }}',
+SELECT
+ '{{ cell_name }}',
+ '{{ cells }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,16 +246,15 @@ globals:
 resources:
   - name: cell
     props:
-      - name: CellName
-        value: '{{ CellName }}'
-      - name: Cells
+      - name: cell_name
+        value: '{{ cell_name }}'
+      - name: cells
         value:
-          - '{{ Cells[0] }}'
-      - name: Tags
+          - '{{ cells[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CellName>';
+AND Identifier = '{{ cell_name }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<CellName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.cells
-WHERE Identifier = '<CellName>'
+WHERE Identifier = '{{ cell_name }}'
 AND region = 'us-east-1';
 ```
 

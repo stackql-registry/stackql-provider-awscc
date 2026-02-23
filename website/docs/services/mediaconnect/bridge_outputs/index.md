@@ -127,7 +127,7 @@ bridge_arn,
 network_output,
 name
 FROM awscc.mediaconnect.bridge_outputs
-WHERE region = 'us-east-1' AND Identifier = '<BridgeArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -152,10 +152,10 @@ INSERT INTO awscc.mediaconnect.bridge_outputs (
  Name,
  region
 )
-SELECT 
-'{{ BridgeArn }}',
- '{{ NetworkOutput }}',
- '{{ Name }}',
+SELECT
+'{{ bridge_arn }}',
+ '{{ network_output }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -169,10 +169,10 @@ INSERT INTO awscc.mediaconnect.bridge_outputs (
  Name,
  region
 )
-SELECT 
- '{{ BridgeArn }}',
- '{{ NetworkOutput }}',
- '{{ Name }}',
+SELECT
+ '{{ bridge_arn }}',
+ '{{ network_output }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -190,18 +190,17 @@ globals:
 resources:
   - name: bridge_output
     props:
-      - name: BridgeArn
-        value: '{{ BridgeArn }}'
-      - name: NetworkOutput
+      - name: bridge_arn
+        value: '{{ bridge_arn }}'
+      - name: network_output
         value:
-          Protocol: '{{ Protocol }}'
-          IpAddress: '{{ IpAddress }}'
-          Port: '{{ Port }}'
-          NetworkName: '{{ NetworkName }}'
-          Ttl: '{{ Ttl }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          protocol: '{{ protocol }}'
+          ip_address: '{{ ip_address }}'
+          port: '{{ port }}'
+          network_name: '{{ network_name }}'
+          ttl: '{{ ttl }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -217,7 +216,7 @@ SET PatchDocument = string('{{ {
     "NetworkOutput": network_output
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BridgeArn>|<Name>';
+AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 
@@ -226,7 +225,7 @@ AND Identifier = '<BridgeArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridge_outputs
-WHERE Identifier = '<BridgeArn|Name>'
+WHERE Identifier = '{{ bridge_arn }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

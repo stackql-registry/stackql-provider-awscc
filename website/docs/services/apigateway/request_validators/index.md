@@ -163,7 +163,7 @@ rest_api_id,
 validate_request_body,
 validate_request_parameters
 FROM awscc.apigateway.request_validators
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<RequestValidatorId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.apigateway.request_validators (
  RestApiId,
  region
 )
-SELECT 
-'{{ RestApiId }}',
+SELECT
+'{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,11 @@ INSERT INTO awscc.apigateway.request_validators (
  ValidateRequestParameters,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RestApiId }}',
- '{{ ValidateRequestBody }}',
- '{{ ValidateRequestParameters }}',
+SELECT
+ '{{ name }}',
+ '{{ rest_api_id }}',
+ '{{ validate_request_body }}',
+ '{{ validate_request_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,15 +238,14 @@ globals:
 resources:
   - name: request_validator
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: ValidateRequestBody
-        value: '{{ ValidateRequestBody }}'
-      - name: ValidateRequestParameters
-        value: '{{ ValidateRequestParameters }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: validate_request_body
+        value: '{{ validate_request_body }}'
+      - name: validate_request_parameters
+        value: '{{ validate_request_parameters }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ SET PatchDocument = string('{{ {
     "ValidateRequestParameters": validate_request_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>|<RequestValidatorId>';
+AND Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```
 
 
@@ -272,7 +271,7 @@ AND Identifier = '<RestApiId>|<RequestValidatorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.request_validators
-WHERE Identifier = '<RestApiId|RequestValidatorId>'
+WHERE Identifier = '{{ rest_api_id }}|{{ request_validator_id }}'
 AND region = 'us-east-1';
 ```
 

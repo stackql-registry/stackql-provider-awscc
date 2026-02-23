@@ -238,7 +238,7 @@ priority_configuration,
 arn,
 tags
 FROM awscc.gamelift.game_session_queues
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,8 +274,8 @@ INSERT INTO awscc.gamelift.game_session_queues (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -295,16 +295,16 @@ INSERT INTO awscc.gamelift.game_session_queues (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ TimeoutInSeconds }}',
- '{{ Destinations }}',
- '{{ PlayerLatencyPolicies }}',
- '{{ CustomEventData }}',
- '{{ NotificationTarget }}',
- '{{ FilterConfiguration }}',
- '{{ PriorityConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ timeout_in_seconds }}',
+ '{{ destinations }}',
+ '{{ player_latency_policies }}',
+ '{{ custom_event_data }}',
+ '{{ notification_target }}',
+ '{{ filter_configuration }}',
+ '{{ priority_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -322,36 +322,35 @@ globals:
 resources:
   - name: game_session_queue
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: TimeoutInSeconds
-        value: '{{ TimeoutInSeconds }}'
-      - name: Destinations
+      - name: name
+        value: '{{ name }}'
+      - name: timeout_in_seconds
+        value: '{{ timeout_in_seconds }}'
+      - name: destinations
         value:
-          - DestinationArn: '{{ DestinationArn }}'
-      - name: PlayerLatencyPolicies
+          - destination_arn: '{{ destination_arn }}'
+      - name: player_latency_policies
         value:
-          - MaximumIndividualPlayerLatencyMilliseconds: '{{ MaximumIndividualPlayerLatencyMilliseconds }}'
-            PolicyDurationSeconds: '{{ PolicyDurationSeconds }}'
-      - name: CustomEventData
-        value: '{{ CustomEventData }}'
-      - name: NotificationTarget
-        value: '{{ NotificationTarget }}'
-      - name: FilterConfiguration
+          - maximum_individual_player_latency_milliseconds: '{{ maximum_individual_player_latency_milliseconds }}'
+            policy_duration_seconds: '{{ policy_duration_seconds }}'
+      - name: custom_event_data
+        value: '{{ custom_event_data }}'
+      - name: notification_target
+        value: '{{ notification_target }}'
+      - name: filter_configuration
         value:
-          AllowedLocations:
-            - '{{ AllowedLocations[0] }}'
-      - name: PriorityConfiguration
+          allowed_locations:
+            - '{{ allowed_locations[0] }}'
+      - name: priority_configuration
         value:
-          LocationOrder:
-            - '{{ LocationOrder[0] }}'
-          PriorityOrder:
-            - '{{ PriorityOrder[0] }}'
-      - name: Tags
+          location_order:
+            - '{{ location_order[0] }}'
+          priority_order:
+            - '{{ priority_order[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +373,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -383,7 +382,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.game_session_queues
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -289,7 +289,7 @@ retain_all_variant_properties,
 retain_deployment_config,
 tags
 FROM awscc.sagemaker.endpoints
-WHERE region = 'us-east-1' AND Identifier = '<EndpointArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,8 +325,8 @@ INSERT INTO awscc.sagemaker.endpoints (
  EndpointConfigName,
  region
 )
-SELECT 
-'{{ EndpointConfigName }}',
+SELECT
+'{{ endpoint_config_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,13 +343,13 @@ INSERT INTO awscc.sagemaker.endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ DeploymentConfig }}',
- '{{ EndpointConfigName }}',
- '{{ ExcludeRetainedVariantProperties }}',
- '{{ RetainAllVariantProperties }}',
- '{{ RetainDeploymentConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ deployment_config }}',
+ '{{ endpoint_config_name }}',
+ '{{ exclude_retained_variant_properties }}',
+ '{{ retain_all_variant_properties }}',
+ '{{ retain_deployment_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -367,40 +367,39 @@ globals:
 resources:
   - name: endpoint
     props:
-      - name: DeploymentConfig
+      - name: deployment_config
         value:
-          AutoRollbackConfiguration:
-            Alarms:
-              - AlarmName: '{{ AlarmName }}'
-          BlueGreenUpdatePolicy:
-            MaximumExecutionTimeoutInSeconds: '{{ MaximumExecutionTimeoutInSeconds }}'
-            TerminationWaitInSeconds: '{{ TerminationWaitInSeconds }}'
-            TrafficRoutingConfiguration:
-              CanarySize:
-                Type: '{{ Type }}'
-                Value: '{{ Value }}'
-              LinearStepSize: null
-              Type: '{{ Type }}'
-              WaitIntervalInSeconds: '{{ WaitIntervalInSeconds }}'
-          RollingUpdatePolicy:
-            MaximumBatchSize: null
-            MaximumExecutionTimeoutInSeconds: '{{ MaximumExecutionTimeoutInSeconds }}'
-            RollbackMaximumBatchSize: null
-            WaitIntervalInSeconds: '{{ WaitIntervalInSeconds }}'
-      - name: EndpointConfigName
-        value: '{{ EndpointConfigName }}'
-      - name: ExcludeRetainedVariantProperties
+          auto_rollback_configuration:
+            alarms:
+              - alarm_name: '{{ alarm_name }}'
+          blue_green_update_policy:
+            maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+            termination_wait_in_seconds: '{{ termination_wait_in_seconds }}'
+            traffic_routing_configuration:
+              canary_size:
+                type: '{{ type }}'
+                value: '{{ value }}'
+              linear_step_size: null
+              type: '{{ type }}'
+              wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+          rolling_update_policy:
+            maximum_batch_size: null
+            maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+            rollback_maximum_batch_size: null
+            wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+      - name: endpoint_config_name
+        value: '{{ endpoint_config_name }}'
+      - name: exclude_retained_variant_properties
         value:
-          - VariantPropertyType: '{{ VariantPropertyType }}'
-      - name: RetainAllVariantProperties
-        value: '{{ RetainAllVariantProperties }}'
-      - name: RetainDeploymentConfig
-        value: '{{ RetainDeploymentConfig }}'
-      - name: Tags
+          - variant_property_type: '{{ variant_property_type }}'
+      - name: retain_all_variant_properties
+        value: '{{ retain_all_variant_properties }}'
+      - name: retain_deployment_config
+        value: '{{ retain_deployment_config }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -421,7 +420,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EndpointArn>';
+AND Identifier = '{{ endpoint_arn }}';
 ```
 
 
@@ -430,7 +429,7 @@ AND Identifier = '<EndpointArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.endpoints
-WHERE Identifier = '<EndpointArn>'
+WHERE Identifier = '{{ endpoint_arn }}'
 AND region = 'us-east-1';
 ```
 

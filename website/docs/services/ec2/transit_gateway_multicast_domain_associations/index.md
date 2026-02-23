@@ -168,7 +168,7 @@ resource_type,
 state,
 subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayMulticastDomainId>|<TransitGatewayAttachmentId>|<SubnetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_domain_associations (
  SubnetId,
  region
 )
-SELECT 
-'{{ TransitGatewayMulticastDomainId }}',
- '{{ TransitGatewayAttachmentId }}',
- '{{ SubnetId }}',
+SELECT
+'{{ transit_gateway_multicast_domain_id }}',
+ '{{ transit_gateway_attachment_id }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,10 +225,10 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_domain_associations (
  SubnetId,
  region
 )
-SELECT 
- '{{ TransitGatewayMulticastDomainId }}',
- '{{ TransitGatewayAttachmentId }}',
- '{{ SubnetId }}',
+SELECT
+ '{{ transit_gateway_multicast_domain_id }}',
+ '{{ transit_gateway_attachment_id }}',
+ '{{ subnet_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,12 @@ globals:
 resources:
   - name: transit_gateway_multicast_domain_association
     props:
-      - name: TransitGatewayMulticastDomainId
-        value: '{{ TransitGatewayMulticastDomainId }}'
-      - name: TransitGatewayAttachmentId
-        value: '{{ TransitGatewayAttachmentId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-
+      - name: transit_gateway_multicast_domain_id
+        value: '{{ transit_gateway_multicast_domain_id }}'
+      - name: transit_gateway_attachment_id
+        value: '{{ transit_gateway_attachment_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE Identifier = '<TransitGatewayMulticastDomainId|TransitGatewayAttachmentId|SubnetId>'
+WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}'
 AND region = 'us-east-1';
 ```
 

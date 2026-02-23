@@ -441,7 +441,7 @@ tags,
 track_name,
 workgroup
 FROM awscc.redshiftserverless.workgroups
-WHERE region = 'us-east-1' AND Identifier = '<WorkgroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workgroup_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -477,8 +477,8 @@ INSERT INTO awscc.redshiftserverless.workgroups (
  WorkgroupName,
  region
 )
-SELECT 
-'{{ WorkgroupName }}',
+SELECT
+'{{ workgroup_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -507,25 +507,25 @@ INSERT INTO awscc.redshiftserverless.workgroups (
  Workgroup,
  region
 )
-SELECT 
- '{{ WorkgroupName }}',
- '{{ NamespaceName }}',
- '{{ BaseCapacity }}',
- '{{ MaxCapacity }}',
- '{{ EnhancedVpcRouting }}',
- '{{ ConfigParameters }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ PubliclyAccessible }}',
- '{{ Port }}',
- '{{ PricePerformanceTarget }}',
- '{{ SnapshotArn }}',
- '{{ SnapshotName }}',
- '{{ SnapshotOwnerAccount }}',
- '{{ RecoveryPointId }}',
- '{{ Tags }}',
- '{{ TrackName }}',
- '{{ Workgroup }}',
+SELECT
+ '{{ workgroup_name }}',
+ '{{ namespace_name }}',
+ '{{ base_capacity }}',
+ '{{ max_capacity }}',
+ '{{ enhanced_vpc_routing }}',
+ '{{ config_parameters }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ publicly_accessible }}',
+ '{{ port }}',
+ '{{ price_performance_target }}',
+ '{{ snapshot_arn }}',
+ '{{ snapshot_name }}',
+ '{{ snapshot_owner_account }}',
+ '{{ recovery_point_id }}',
+ '{{ tags }}',
+ '{{ track_name }}',
+ '{{ workgroup }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -543,73 +543,72 @@ globals:
 resources:
   - name: workgroup
     props:
-      - name: WorkgroupName
-        value: '{{ WorkgroupName }}'
-      - name: NamespaceName
-        value: '{{ NamespaceName }}'
-      - name: BaseCapacity
-        value: '{{ BaseCapacity }}'
-      - name: MaxCapacity
-        value: '{{ MaxCapacity }}'
-      - name: EnhancedVpcRouting
-        value: '{{ EnhancedVpcRouting }}'
-      - name: ConfigParameters
+      - name: workgroup_name
+        value: '{{ workgroup_name }}'
+      - name: namespace_name
+        value: '{{ namespace_name }}'
+      - name: base_capacity
+        value: '{{ base_capacity }}'
+      - name: max_capacity
+        value: '{{ max_capacity }}'
+      - name: enhanced_vpc_routing
+        value: '{{ enhanced_vpc_routing }}'
+      - name: config_parameters
         value:
-          - ParameterKey: '{{ ParameterKey }}'
-            ParameterValue: '{{ ParameterValue }}'
-      - name: SecurityGroupIds
+          - parameter_key: '{{ parameter_key }}'
+            parameter_value: '{{ parameter_value }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: PricePerformanceTarget
+          - '{{ subnet_ids[0] }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: port
+        value: '{{ port }}'
+      - name: price_performance_target
         value:
-          Status: '{{ Status }}'
-          Level: '{{ Level }}'
-      - name: SnapshotArn
-        value: '{{ SnapshotArn }}'
-      - name: SnapshotName
-        value: '{{ SnapshotName }}'
-      - name: SnapshotOwnerAccount
-        value: '{{ SnapshotOwnerAccount }}'
-      - name: RecoveryPointId
-        value: '{{ RecoveryPointId }}'
-      - name: Tags
+          status: '{{ status }}'
+          level: '{{ level }}'
+      - name: snapshot_arn
+        value: '{{ snapshot_arn }}'
+      - name: snapshot_name
+        value: '{{ snapshot_name }}'
+      - name: snapshot_owner_account
+        value: '{{ snapshot_owner_account }}'
+      - name: recovery_point_id
+        value: '{{ recovery_point_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrackName
-        value: '{{ TrackName }}'
-      - name: Workgroup
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: track_name
+        value: '{{ track_name }}'
+      - name: workgroup
         value:
-          WorkgroupName: '{{ WorkgroupName }}'
-          NamespaceName: '{{ NamespaceName }}'
-          BaseCapacity: '{{ BaseCapacity }}'
-          MaxCapacity: '{{ MaxCapacity }}'
-          EnhancedVpcRouting: '{{ EnhancedVpcRouting }}'
-          ConfigParameters:
+          workgroup_name: '{{ workgroup_name }}'
+          namespace_name: '{{ namespace_name }}'
+          base_capacity: '{{ base_capacity }}'
+          max_capacity: '{{ max_capacity }}'
+          enhanced_vpc_routing: '{{ enhanced_vpc_routing }}'
+          config_parameters:
             - null
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          PubliclyAccessible: '{{ PubliclyAccessible }}'
-          Port: '{{ Port }}'
-          PricePerformanceTarget: null
-          SnapshotArn: '{{ SnapshotArn }}'
-          SnapshotName: '{{ SnapshotName }}'
-          SnapshotOwnerAccount: '{{ SnapshotOwnerAccount }}'
-          RecoveryPointId: '{{ RecoveryPointId }}'
-          Tags:
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          publicly_accessible: '{{ publicly_accessible }}'
+          port: '{{ port }}'
+          price_performance_target: null
+          snapshot_arn: '{{ snapshot_arn }}'
+          snapshot_name: '{{ snapshot_name }}'
+          snapshot_owner_account: '{{ snapshot_owner_account }}'
+          recovery_point_id: '{{ recovery_point_id }}'
+          tags:
             - null
-          TrackName: '{{ TrackName }}'
-          Workgroup: null
-
+          track_name: '{{ track_name }}'
+          workgroup: null
 ```
 </TabItem>
 </Tabs>
@@ -639,7 +638,7 @@ SET PatchDocument = string('{{ {
     "TrackName": track_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkgroupName>';
+AND Identifier = '{{ workgroup_name }}';
 ```
 
 
@@ -648,7 +647,7 @@ AND Identifier = '<WorkgroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.workgroups
-WHERE Identifier = '<WorkgroupName>'
+WHERE Identifier = '{{ workgroup_name }}'
 AND region = 'us-east-1';
 ```
 

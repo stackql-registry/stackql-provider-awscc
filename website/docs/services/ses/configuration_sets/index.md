@@ -264,7 +264,7 @@ suppression_options,
 vdm_options,
 tags
 FROM awscc.ses.configuration_sets
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,15 +307,15 @@ INSERT INTO awscc.ses.configuration_sets (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ TrackingOptions }}',
- '{{ DeliveryOptions }}',
- '{{ ReputationOptions }}',
- '{{ SendingOptions }}',
- '{{ SuppressionOptions }}',
- '{{ VdmOptions }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ tracking_options }}',
+ '{{ delivery_options }}',
+ '{{ reputation_options }}',
+ '{{ sending_options }}',
+ '{{ suppression_options }}',
+ '{{ vdm_options }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -334,15 +334,15 @@ INSERT INTO awscc.ses.configuration_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ TrackingOptions }}',
- '{{ DeliveryOptions }}',
- '{{ ReputationOptions }}',
- '{{ SendingOptions }}',
- '{{ SuppressionOptions }}',
- '{{ VdmOptions }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ tracking_options }}',
+ '{{ delivery_options }}',
+ '{{ reputation_options }}',
+ '{{ sending_options }}',
+ '{{ suppression_options }}',
+ '{{ vdm_options }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -360,38 +360,37 @@ globals:
 resources:
   - name: configuration_set
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: TrackingOptions
+      - name: name
+        value: '{{ name }}'
+      - name: tracking_options
         value:
-          CustomRedirectDomain: '{{ CustomRedirectDomain }}'
-          HttpsPolicy: '{{ HttpsPolicy }}'
-      - name: DeliveryOptions
+          custom_redirect_domain: '{{ custom_redirect_domain }}'
+          https_policy: '{{ https_policy }}'
+      - name: delivery_options
         value:
-          TlsPolicy: '{{ TlsPolicy }}'
-          SendingPoolName: '{{ SendingPoolName }}'
-          MaxDeliverySeconds: null
-      - name: ReputationOptions
+          tls_policy: '{{ tls_policy }}'
+          sending_pool_name: '{{ sending_pool_name }}'
+          max_delivery_seconds: null
+      - name: reputation_options
         value:
-          ReputationMetricsEnabled: '{{ ReputationMetricsEnabled }}'
-      - name: SendingOptions
+          reputation_metrics_enabled: '{{ reputation_metrics_enabled }}'
+      - name: sending_options
         value:
-          SendingEnabled: '{{ SendingEnabled }}'
-      - name: SuppressionOptions
+          sending_enabled: '{{ sending_enabled }}'
+      - name: suppression_options
         value:
-          SuppressedReasons:
-            - '{{ SuppressedReasons[0] }}'
-      - name: VdmOptions
+          suppressed_reasons:
+            - '{{ suppressed_reasons[0] }}'
+      - name: vdm_options
         value:
-          DashboardOptions:
-            EngagementMetrics: '{{ EngagementMetrics }}'
-          GuardianOptions:
-            OptimizedSharedDelivery: '{{ OptimizedSharedDelivery }}'
-      - name: Tags
+          dashboard_options:
+            engagement_metrics: '{{ engagement_metrics }}'
+          guardian_options:
+            optimized_shared_delivery: '{{ optimized_shared_delivery }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -413,7 +412,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -422,7 +421,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.configuration_sets
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

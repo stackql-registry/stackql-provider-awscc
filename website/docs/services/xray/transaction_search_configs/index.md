@@ -140,7 +140,7 @@ region,
 account_id,
 indexing_percentage
 FROM awscc.xray.transaction_search_configs
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.xray.transaction_search_configs (
  IndexingPercentage,
  region
 )
-SELECT 
-'{{ IndexingPercentage }}',
+SELECT
+'{{ indexing_percentage }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -189,8 +189,8 @@ INSERT INTO awscc.xray.transaction_search_configs (
  IndexingPercentage,
  region
 )
-SELECT 
- '{{ IndexingPercentage }}',
+SELECT
+ '{{ indexing_percentage }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,8 @@ globals:
 resources:
   - name: transaction_search_config
     props:
-      - name: IndexingPercentage
+      - name: indexing_percentage
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -226,7 +225,7 @@ SET PatchDocument = string('{{ {
     "IndexingPercentage": indexing_percentage
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -235,7 +234,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.transaction_search_configs
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

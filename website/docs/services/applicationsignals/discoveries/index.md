@@ -134,7 +134,7 @@ SELECT
 region,
 account_id
 FROM awscc.applicationsignals.discoveries
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,7 +170,7 @@ INSERT INTO awscc.applicationsignals.discoveries (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -183,7 +183,7 @@ INSERT INTO awscc.applicationsignals.discoveries (
  ,
  region
 )
-SELECT 
+SELECT
  '{{  }}',
  '{{ region }}';
 ```
@@ -202,7 +202,6 @@ globals:
 resources:
   - name: discovery
     props: []
-
 ```
 </TabItem>
 </Tabs>
@@ -213,7 +212,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationsignals.discoveries
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ name,
 trust_anchor_arn,
 tags
 FROM awscc.rolesanywhere.crls
-WHERE region = 'us-east-1' AND Identifier = '<CrlId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ crl_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.rolesanywhere.crls (
  Name,
  region
 )
-SELECT 
-'{{ CrlData }}',
- '{{ Name }}',
+SELECT
+'{{ crl_data }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.rolesanywhere.crls (
  Tags,
  region
 )
-SELECT 
- '{{ CrlData }}',
- '{{ Enabled }}',
- '{{ Name }}',
- '{{ TrustAnchorArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ crl_data }}',
+ '{{ enabled }}',
+ '{{ name }}',
+ '{{ trust_anchor_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: crl
     props:
-      - name: CrlData
-        value: '{{ CrlData }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: TrustAnchorArn
-        value: '{{ TrustAnchorArn }}'
-      - name: Tags
+      - name: crl_data
+        value: '{{ crl_data }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: name
+        value: '{{ name }}'
+      - name: trust_anchor_arn
+        value: '{{ trust_anchor_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CrlId>';
+AND Identifier = '{{ crl_id }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<CrlId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.crls
-WHERE Identifier = '<CrlId>'
+WHERE Identifier = '{{ crl_id }}'
 AND region = 'us-east-1';
 ```
 

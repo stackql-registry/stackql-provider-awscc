@@ -157,7 +157,7 @@ status,
 account_id,
 region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>|<Region>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.arczonalshift.autoshift_observer_notification_statuses (
  Status,
  region
 )
-SELECT 
-'{{ Status }}',
+SELECT
+'{{ status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,8 +207,8 @@ INSERT INTO awscc.arczonalshift.autoshift_observer_notification_statuses (
  Status,
  region
 )
-SELECT 
- '{{ Status }}',
+SELECT
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -226,10 +226,9 @@ globals:
 resources:
   - name: autoshift_observer_notification_status
     props:
-      - name: Status
+      - name: status
         value:
-          Status: null
-
+          status: null
 ```
 </TabItem>
 </Tabs>
@@ -240,7 +239,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.arczonalshift.autoshift_observer_notification_statuses
-WHERE Identifier = '<AccountId|Region>'
+WHERE Identifier = '{{ account_id }}|{{ region }}'
 AND region = 'us-east-1';
 ```
 

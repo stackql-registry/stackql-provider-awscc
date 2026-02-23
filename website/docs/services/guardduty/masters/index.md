@@ -145,7 +145,7 @@ master_id,
 invitation_id,
 detector_id
 FROM awscc.guardduty.masters
-WHERE region = 'us-east-1' AND Identifier = '<DetectorId>|<MasterId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ master_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.guardduty.masters (
  DetectorId,
  region
 )
-SELECT 
-'{{ MasterId }}',
- '{{ DetectorId }}',
+SELECT
+'{{ master_id }}',
+ '{{ detector_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,10 +199,10 @@ INSERT INTO awscc.guardduty.masters (
  DetectorId,
  region
 )
-SELECT 
- '{{ MasterId }}',
- '{{ InvitationId }}',
- '{{ DetectorId }}',
+SELECT
+ '{{ master_id }}',
+ '{{ invitation_id }}',
+ '{{ detector_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,13 +220,12 @@ globals:
 resources:
   - name: master
     props:
-      - name: MasterId
-        value: '{{ MasterId }}'
-      - name: InvitationId
-        value: '{{ InvitationId }}'
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-
+      - name: master_id
+        value: '{{ master_id }}'
+      - name: invitation_id
+        value: '{{ invitation_id }}'
+      - name: detector_id
+        value: '{{ detector_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +236,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.masters
-WHERE Identifier = '<DetectorId|MasterId>'
+WHERE Identifier = '{{ detector_id }}|{{ master_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -187,7 +187,7 @@ principals,
 resources,
 tags
 FROM awscc.globalaccelerator.cross_account_attachments
-WHERE Identifier = '<AttachmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -198,7 +198,7 @@ SELECT
 region,
 attachment_arn
 FROM awscc.globalaccelerator.cross_account_attachments_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -223,8 +223,8 @@ INSERT INTO awscc.globalaccelerator.cross_account_attachments (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,11 +239,11 @@ INSERT INTO awscc.globalaccelerator.cross_account_attachments (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Principals }}',
- '{{ Resources }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ principals }}',
+ '{{ resources }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -261,21 +261,20 @@ globals:
 resources:
   - name: cross_account_attachment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Principals
+      - name: name
+        value: '{{ name }}'
+      - name: principals
         value:
-          - '{{ Principals[0] }}'
-      - name: Resources
+          - '{{ principals[0] }}'
+      - name: resources
         value:
-          - EndpointId: '{{ EndpointId }}'
-            Cidr: '{{ Cidr }}'
-            Region: '{{ Region }}'
-      - name: Tags
+          - endpoint_id: '{{ endpoint_id }}'
+            cidr: '{{ cidr }}'
+            region: '{{ region }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentArn>';
+AND Identifier = '{{ attachment_arn }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<AttachmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.cross_account_attachments
-WHERE Identifier = '<AttachmentArn>'
+WHERE Identifier = '{{ attachment_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -194,7 +194,7 @@ health_check_arns,
 application_layer_automatic_response_configuration,
 tags
 FROM awscc.shield.protections
-WHERE Identifier = '<ProtectionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ protection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -205,7 +205,7 @@ SELECT
 region,
 protection_arn
 FROM awscc.shield.protections_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -231,9 +231,9 @@ INSERT INTO awscc.shield.protections (
  ResourceArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ResourceArn }}',
+SELECT
+'{{ name }}',
+ '{{ resource_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,12 +249,12 @@ INSERT INTO awscc.shield.protections (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ResourceArn }}',
- '{{ HealthCheckArns }}',
- '{{ ApplicationLayerAutomaticResponseConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ resource_arn }}',
+ '{{ health_check_arns }}',
+ '{{ application_layer_automatic_response_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,22 +272,21 @@ globals:
 resources:
   - name: protection
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: HealthCheckArns
+      - name: name
+        value: '{{ name }}'
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: health_check_arns
         value:
-          - '{{ HealthCheckArns[0] }}'
-      - name: ApplicationLayerAutomaticResponseConfiguration
+          - '{{ health_check_arns[0] }}'
+      - name: application_layer_automatic_response_configuration
         value:
-          Action: {}
-          Status: '{{ Status }}'
-      - name: Tags
+          action: {}
+          status: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProtectionArn>';
+AND Identifier = '{{ protection_arn }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<ProtectionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.protections
-WHERE Identifier = '<ProtectionArn>'
+WHERE Identifier = '{{ protection_arn }}'
 AND region = 'us-east-1';
 ```
 

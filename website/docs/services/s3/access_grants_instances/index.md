@@ -164,7 +164,7 @@ identity_center_arn,
 access_grants_instance_id,
 tags
 FROM awscc.s3.access_grants_instances
-WHERE region = 'us-east-1' AND Identifier = '<AccessGrantsInstanceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,7 +200,7 @@ INSERT INTO awscc.s3.access_grants_instances (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -214,9 +214,9 @@ INSERT INTO awscc.s3.access_grants_instances (
  Tags,
  region
 )
-SELECT 
- '{{ IdentityCenterArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ identity_center_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: access_grants_instance
     props:
-      - name: IdentityCenterArn
-        value: '{{ IdentityCenterArn }}'
-      - name: Tags
+      - name: identity_center_arn
+        value: '{{ identity_center_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +255,7 @@ SET PatchDocument = string('{{ {
     "IdentityCenterArn": identity_center_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccessGrantsInstanceArn>';
+AND Identifier = '{{ access_grants_instance_arn }}';
 ```
 
 
@@ -265,7 +264,7 @@ AND Identifier = '<AccessGrantsInstanceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants_instances
-WHERE Identifier = '<AccessGrantsInstanceArn>'
+WHERE Identifier = '{{ access_grants_instance_arn }}'
 AND region = 'us-east-1';
 ```
 

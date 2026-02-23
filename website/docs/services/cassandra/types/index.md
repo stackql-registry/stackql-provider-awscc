@@ -187,7 +187,7 @@ max_nesting_depth,
 last_modified_timestamp,
 keyspace_arn
 FROM awscc.cassandra.types
-WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>|<TypeName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.cassandra.types (
  Fields,
  region
 )
-SELECT 
-'{{ KeyspaceName }}',
- '{{ TypeName }}',
- '{{ Fields }}',
+SELECT
+'{{ keyspace_name }}',
+ '{{ type_name }}',
+ '{{ fields }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,10 +243,10 @@ INSERT INTO awscc.cassandra.types (
  Fields,
  region
 )
-SELECT 
- '{{ KeyspaceName }}',
- '{{ TypeName }}',
- '{{ Fields }}',
+SELECT
+ '{{ keyspace_name }}',
+ '{{ type_name }}',
+ '{{ fields }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,15 +264,14 @@ globals:
 resources:
   - name: type
     props:
-      - name: KeyspaceName
-        value: '{{ KeyspaceName }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: Fields
+      - name: keyspace_name
+        value: '{{ keyspace_name }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: fields
         value:
-          - FieldName: '{{ FieldName }}'
-            FieldType: '{{ FieldType }}'
-
+          - field_name: '{{ field_name }}'
+            field_type: '{{ field_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.types
-WHERE Identifier = '<KeyspaceName|TypeName>'
+WHERE Identifier = '{{ keyspace_name }}|{{ type_name }}'
 AND region = 'us-east-1';
 ```
 

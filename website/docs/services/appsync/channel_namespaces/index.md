@@ -232,7 +232,7 @@ channel_namespace_arn,
 tags,
 handler_configs
 FROM awscc.appsync.channel_namespaces
-WHERE region = 'us-east-1' AND Identifier = '<ChannelNamespaceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_namespace_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,9 +269,9 @@ INSERT INTO awscc.appsync.channel_namespaces (
  Name,
  region
 )
-SELECT 
-'{{ ApiId }}',
- '{{ Name }}',
+SELECT
+'{{ api_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,15 +290,15 @@ INSERT INTO awscc.appsync.channel_namespaces (
  HandlerConfigs,
  region
 )
-SELECT 
- '{{ ApiId }}',
- '{{ Name }}',
- '{{ SubscribeAuthModes }}',
- '{{ PublishAuthModes }}',
- '{{ CodeHandlers }}',
- '{{ CodeS3Location }}',
- '{{ Tags }}',
- '{{ HandlerConfigs }}',
+SELECT
+ '{{ api_id }}',
+ '{{ name }}',
+ '{{ subscribe_auth_modes }}',
+ '{{ publish_auth_modes }}',
+ '{{ code_handlers }}',
+ '{{ code_s3_location }}',
+ '{{ tags }}',
+ '{{ handler_configs }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,33 +316,32 @@ globals:
 resources:
   - name: channel_namespace
     props:
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SubscribeAuthModes
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: subscribe_auth_modes
         value:
-          - AuthType: '{{ AuthType }}'
-      - name: PublishAuthModes
+          - auth_type: '{{ auth_type }}'
+      - name: publish_auth_modes
         value: null
-      - name: CodeHandlers
-        value: '{{ CodeHandlers }}'
-      - name: CodeS3Location
-        value: '{{ CodeS3Location }}'
-      - name: Tags
+      - name: code_handlers
+        value: '{{ code_handlers }}'
+      - name: code_s3_location
+        value: '{{ code_s3_location }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: HandlerConfigs
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: handler_configs
         value:
-          OnPublish:
-            Behavior: '{{ Behavior }}'
-            Integration:
-              DataSourceName: '{{ DataSourceName }}'
-              LambdaConfig:
-                LambdaFunctionArn: '{{ LambdaFunctionArn }}'
-          OnSubscribe: null
-
+          on_publish:
+            behavior: '{{ behavior }}'
+            integration:
+              data_source_name: '{{ data_source_name }}'
+              lambda_config:
+                lambda_function_arn: '{{ lambda_function_arn }}'
+          on_subscribe: null
 ```
 </TabItem>
 </Tabs>
@@ -363,7 +362,7 @@ SET PatchDocument = string('{{ {
     "HandlerConfigs": handler_configs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelNamespaceArn>';
+AND Identifier = '{{ channel_namespace_arn }}';
 ```
 
 
@@ -372,7 +371,7 @@ AND Identifier = '<ChannelNamespaceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.channel_namespaces
-WHERE Identifier = '<ChannelNamespaceArn>'
+WHERE Identifier = '{{ channel_namespace_arn }}'
 AND region = 'us-east-1';
 ```
 

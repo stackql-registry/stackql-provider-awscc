@@ -229,7 +229,7 @@ segment_groups,
 segment_definition_arn,
 tags
 FROM awscc.customerprofiles.segment_definitions
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<SegmentDefinitionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,11 +269,11 @@ INSERT INTO awscc.customerprofiles.segment_definitions (
  SegmentGroups,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ DomainName }}',
- '{{ SegmentDefinitionName }}',
- '{{ SegmentGroups }}',
+SELECT
+'{{ display_name }}',
+ '{{ domain_name }}',
+ '{{ segment_definition_name }}',
+ '{{ segment_groups }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,13 +290,13 @@ INSERT INTO awscc.customerprofiles.segment_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ DomainName }}',
- '{{ SegmentDefinitionName }}',
- '{{ SegmentGroups }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ domain_name }}',
+ '{{ segment_definition_name }}',
+ '{{ segment_groups }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -314,29 +314,28 @@ globals:
 resources:
   - name: segment_definition
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: SegmentDefinitionName
-        value: '{{ SegmentDefinitionName }}'
-      - name: SegmentGroups
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: segment_definition_name
+        value: '{{ segment_definition_name }}'
+      - name: segment_groups
         value:
-          Groups:
-            - Dimensions:
+          groups:
+            - dimensions:
                 - null
-              SourceSegments:
-                - SegmentDefinitionName: '{{ SegmentDefinitionName }}'
-              SourceType: '{{ SourceType }}'
-              Type: null
-          Include: null
-      - name: Tags
+              source_segments:
+                - segment_definition_name: '{{ segment_definition_name }}'
+              source_type: '{{ source_type }}'
+              type: null
+          include: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +352,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<SegmentDefinitionName>';
+AND Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
 ```
 
 
@@ -362,7 +361,7 @@ AND Identifier = '<DomainName>|<SegmentDefinitionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.segment_definitions
-WHERE Identifier = '<DomainName|SegmentDefinitionName>'
+WHERE Identifier = '{{ domain_name }}|{{ segment_definition_name }}'
 AND region = 'us-east-1';
 ```
 

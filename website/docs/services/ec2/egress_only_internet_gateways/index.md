@@ -158,7 +158,7 @@ id,
 vpc_id,
 tags
 FROM awscc.ec2.egress_only_internet_gateways
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.ec2.egress_only_internet_gateways (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.ec2.egress_only_internet_gateways (
  Tags,
  region
 )
-SELECT 
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: egress_only_internet_gateway
     props:
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.egress_only_internet_gateways
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

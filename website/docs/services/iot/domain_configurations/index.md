@@ -296,7 +296,7 @@ application_protocol,
 client_certificate_config,
 tags
 FROM awscc.iot.domain_configurations
-WHERE region = 'us-east-1' AND Identifier = '<DomainConfigurationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_configuration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,7 +332,7 @@ INSERT INTO awscc.iot.domain_configurations (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -357,20 +357,20 @@ INSERT INTO awscc.iot.domain_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ DomainConfigurationName }}',
- '{{ AuthorizerConfig }}',
- '{{ DomainName }}',
- '{{ ServerCertificateArns }}',
- '{{ ServiceType }}',
- '{{ ValidationCertificateArn }}',
- '{{ DomainConfigurationStatus }}',
- '{{ ServerCertificateConfig }}',
- '{{ TlsConfig }}',
- '{{ AuthenticationType }}',
- '{{ ApplicationProtocol }}',
- '{{ ClientCertificateConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_configuration_name }}',
+ '{{ authorizer_config }}',
+ '{{ domain_name }}',
+ '{{ server_certificate_arns }}',
+ '{{ service_type }}',
+ '{{ validation_certificate_arn }}',
+ '{{ domain_configuration_status }}',
+ '{{ server_certificate_config }}',
+ '{{ tls_config }}',
+ '{{ authentication_type }}',
+ '{{ application_protocol }}',
+ '{{ client_certificate_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -388,43 +388,42 @@ globals:
 resources:
   - name: domain_configuration
     props:
-      - name: DomainConfigurationName
-        value: '{{ DomainConfigurationName }}'
-      - name: AuthorizerConfig
+      - name: domain_configuration_name
+        value: '{{ domain_configuration_name }}'
+      - name: authorizer_config
         value:
-          AllowAuthorizerOverride: '{{ AllowAuthorizerOverride }}'
-          DefaultAuthorizerName: '{{ DefaultAuthorizerName }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: ServerCertificateArns
+          allow_authorizer_override: '{{ allow_authorizer_override }}'
+          default_authorizer_name: '{{ default_authorizer_name }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: server_certificate_arns
         value:
-          - '{{ ServerCertificateArns[0] }}'
-      - name: ServiceType
-        value: '{{ ServiceType }}'
-      - name: ValidationCertificateArn
-        value: '{{ ValidationCertificateArn }}'
-      - name: DomainConfigurationStatus
-        value: '{{ DomainConfigurationStatus }}'
-      - name: ServerCertificateConfig
+          - '{{ server_certificate_arns[0] }}'
+      - name: service_type
+        value: '{{ service_type }}'
+      - name: validation_certificate_arn
+        value: '{{ validation_certificate_arn }}'
+      - name: domain_configuration_status
+        value: '{{ domain_configuration_status }}'
+      - name: server_certificate_config
         value:
-          EnableOCSPCheck: '{{ EnableOCSPCheck }}'
-          OcspLambdaArn: '{{ OcspLambdaArn }}'
-          OcspAuthorizedResponderArn: '{{ OcspAuthorizedResponderArn }}'
-      - name: TlsConfig
+          enable_oc_sp_check: '{{ enable_oc_sp_check }}'
+          ocsp_lambda_arn: '{{ ocsp_lambda_arn }}'
+          ocsp_authorized_responder_arn: '{{ ocsp_authorized_responder_arn }}'
+      - name: tls_config
         value:
-          SecurityPolicy: '{{ SecurityPolicy }}'
-      - name: AuthenticationType
-        value: '{{ AuthenticationType }}'
-      - name: ApplicationProtocol
-        value: '{{ ApplicationProtocol }}'
-      - name: ClientCertificateConfig
+          security_policy: '{{ security_policy }}'
+      - name: authentication_type
+        value: '{{ authentication_type }}'
+      - name: application_protocol
+        value: '{{ application_protocol }}'
+      - name: client_certificate_config
         value:
-          ClientCertificateCallbackArn: '{{ ClientCertificateCallbackArn }}'
-      - name: Tags
+          client_certificate_callback_arn: '{{ client_certificate_callback_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +446,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainConfigurationName>';
+AND Identifier = '{{ domain_configuration_name }}';
 ```
 
 
@@ -456,7 +455,7 @@ AND Identifier = '<DomainConfigurationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.domain_configurations
-WHERE Identifier = '<DomainConfigurationName>'
+WHERE Identifier = '{{ domain_configuration_name }}'
 AND region = 'us-east-1';
 ```
 

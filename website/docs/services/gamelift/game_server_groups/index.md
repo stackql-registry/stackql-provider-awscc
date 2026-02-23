@@ -272,7 +272,7 @@ role_arn,
 tags,
 vpc_subnets
 FROM awscc.gamelift.game_server_groups
-WHERE region = 'us-east-1' AND Identifier = '<GameServerGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ game_server_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,10 +310,10 @@ INSERT INTO awscc.gamelift.game_server_groups (
  RoleArn,
  region
 )
-SELECT 
-'{{ GameServerGroupName }}',
- '{{ InstanceDefinitions }}',
- '{{ RoleArn }}',
+SELECT
+'{{ game_server_group_name }}',
+ '{{ instance_definitions }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -336,19 +336,19 @@ INSERT INTO awscc.gamelift.game_server_groups (
  VpcSubnets,
  region
 )
-SELECT 
- '{{ AutoScalingPolicy }}',
- '{{ BalancingStrategy }}',
- '{{ DeleteOption }}',
- '{{ GameServerGroupName }}',
- '{{ GameServerProtectionPolicy }}',
- '{{ InstanceDefinitions }}',
- '{{ LaunchTemplate }}',
- '{{ MaxSize }}',
- '{{ MinSize }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ VpcSubnets }}',
+SELECT
+ '{{ auto_scaling_policy }}',
+ '{{ balancing_strategy }}',
+ '{{ delete_option }}',
+ '{{ game_server_group_name }}',
+ '{{ game_server_protection_policy }}',
+ '{{ instance_definitions }}',
+ '{{ launch_template }}',
+ '{{ max_size }}',
+ '{{ min_size }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ vpc_subnets }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -366,42 +366,41 @@ globals:
 resources:
   - name: game_server_group
     props:
-      - name: AutoScalingPolicy
+      - name: auto_scaling_policy
         value:
-          EstimatedInstanceWarmup: null
-          TargetTrackingConfiguration:
-            TargetValue: null
-      - name: BalancingStrategy
-        value: '{{ BalancingStrategy }}'
-      - name: DeleteOption
-        value: '{{ DeleteOption }}'
-      - name: GameServerGroupName
-        value: '{{ GameServerGroupName }}'
-      - name: GameServerProtectionPolicy
-        value: '{{ GameServerProtectionPolicy }}'
-      - name: InstanceDefinitions
+          estimated_instance_warmup: null
+          target_tracking_configuration:
+            target_value: null
+      - name: balancing_strategy
+        value: '{{ balancing_strategy }}'
+      - name: delete_option
+        value: '{{ delete_option }}'
+      - name: game_server_group_name
+        value: '{{ game_server_group_name }}'
+      - name: game_server_protection_policy
+        value: '{{ game_server_protection_policy }}'
+      - name: instance_definitions
         value:
-          - InstanceType: '{{ InstanceType }}'
-            WeightedCapacity: '{{ WeightedCapacity }}'
-      - name: LaunchTemplate
+          - instance_type: '{{ instance_type }}'
+            weighted_capacity: '{{ weighted_capacity }}'
+      - name: launch_template
         value:
-          LaunchTemplateId: '{{ LaunchTemplateId }}'
-          LaunchTemplateName: '{{ LaunchTemplateName }}'
-          Version: '{{ Version }}'
-      - name: MaxSize
+          launch_template_id: '{{ launch_template_id }}'
+          launch_template_name: '{{ launch_template_name }}'
+          version: '{{ version }}'
+      - name: max_size
         value: null
-      - name: MinSize
+      - name: min_size
         value: null
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcSubnets
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_subnets
         value:
-          - '{{ VpcSubnets[0] }}'
-
+          - '{{ vpc_subnets[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -428,7 +427,7 @@ SET PatchDocument = string('{{ {
     "VpcSubnets": vpc_subnets
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GameServerGroupArn>';
+AND Identifier = '{{ game_server_group_arn }}';
 ```
 
 
@@ -437,7 +436,7 @@ AND Identifier = '<GameServerGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.game_server_groups
-WHERE Identifier = '<GameServerGroupArn>'
+WHERE Identifier = '{{ game_server_group_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -2790,7 +2790,7 @@ delivery_stream_name,
 arn,
 tags
 FROM awscc.kinesisfirehose.delivery_streams
-WHERE region = 'us-east-1' AND Identifier = '<DeliveryStreamName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ delivery_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -2843,25 +2843,25 @@ INSERT INTO awscc.kinesisfirehose.delivery_streams (
  Tags,
  region
 )
-SELECT 
-'{{ DeliveryStreamEncryptionConfigurationInput }}',
- '{{ HttpEndpointDestinationConfiguration }}',
- '{{ KinesisStreamSourceConfiguration }}',
- '{{ DeliveryStreamType }}',
- '{{ IcebergDestinationConfiguration }}',
- '{{ RedshiftDestinationConfiguration }}',
- '{{ AmazonopensearchserviceDestinationConfiguration }}',
- '{{ MSKSourceConfiguration }}',
- '{{ DirectPutSourceConfiguration }}',
- '{{ SplunkDestinationConfiguration }}',
- '{{ ExtendedS3DestinationConfiguration }}',
- '{{ AmazonOpenSearchServerlessDestinationConfiguration }}',
- '{{ ElasticsearchDestinationConfiguration }}',
- '{{ SnowflakeDestinationConfiguration }}',
- '{{ DatabaseSourceConfiguration }}',
- '{{ S3DestinationConfiguration }}',
- '{{ DeliveryStreamName }}',
- '{{ Tags }}',
+SELECT
+'{{ delivery_stream_encryption_configuration_input }}',
+ '{{ http_endpoint_destination_configuration }}',
+ '{{ kinesis_stream_source_configuration }}',
+ '{{ delivery_stream_type }}',
+ '{{ iceberg_destination_configuration }}',
+ '{{ redshift_destination_configuration }}',
+ '{{ amazonopensearchservice_destination_configuration }}',
+ '{{ msk_source_configuration }}',
+ '{{ direct_put_source_configuration }}',
+ '{{ splunk_destination_configuration }}',
+ '{{ extended_s3_destination_configuration }}',
+ '{{ amazon_open_search_serverless_destination_configuration }}',
+ '{{ elasticsearch_destination_configuration }}',
+ '{{ snowflake_destination_configuration }}',
+ '{{ database_source_configuration }}',
+ '{{ s3_destination_configuration }}',
+ '{{ delivery_stream_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -2890,25 +2890,25 @@ INSERT INTO awscc.kinesisfirehose.delivery_streams (
  Tags,
  region
 )
-SELECT 
- '{{ DeliveryStreamEncryptionConfigurationInput }}',
- '{{ HttpEndpointDestinationConfiguration }}',
- '{{ KinesisStreamSourceConfiguration }}',
- '{{ DeliveryStreamType }}',
- '{{ IcebergDestinationConfiguration }}',
- '{{ RedshiftDestinationConfiguration }}',
- '{{ AmazonopensearchserviceDestinationConfiguration }}',
- '{{ MSKSourceConfiguration }}',
- '{{ DirectPutSourceConfiguration }}',
- '{{ SplunkDestinationConfiguration }}',
- '{{ ExtendedS3DestinationConfiguration }}',
- '{{ AmazonOpenSearchServerlessDestinationConfiguration }}',
- '{{ ElasticsearchDestinationConfiguration }}',
- '{{ SnowflakeDestinationConfiguration }}',
- '{{ DatabaseSourceConfiguration }}',
- '{{ S3DestinationConfiguration }}',
- '{{ DeliveryStreamName }}',
- '{{ Tags }}',
+SELECT
+ '{{ delivery_stream_encryption_configuration_input }}',
+ '{{ http_endpoint_destination_configuration }}',
+ '{{ kinesis_stream_source_configuration }}',
+ '{{ delivery_stream_type }}',
+ '{{ iceberg_destination_configuration }}',
+ '{{ redshift_destination_configuration }}',
+ '{{ amazonopensearchservice_destination_configuration }}',
+ '{{ msk_source_configuration }}',
+ '{{ direct_put_source_configuration }}',
+ '{{ splunk_destination_configuration }}',
+ '{{ extended_s3_destination_configuration }}',
+ '{{ amazon_open_search_serverless_destination_configuration }}',
+ '{{ elasticsearch_destination_configuration }}',
+ '{{ snowflake_destination_configuration }}',
+ '{{ database_source_configuration }}',
+ '{{ s3_destination_configuration }}',
+ '{{ delivery_stream_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -2926,315 +2926,314 @@ globals:
 resources:
   - name: delivery_stream
     props:
-      - name: DeliveryStreamEncryptionConfigurationInput
+      - name: delivery_stream_encryption_configuration_input
         value:
-          KeyType: '{{ KeyType }}'
-          KeyARN: '{{ KeyARN }}'
-      - name: HttpEndpointDestinationConfiguration
+          key_type: '{{ key_type }}'
+          key_arn: '{{ key_arn }}'
+      - name: http_endpoint_destination_configuration
         value:
-          RequestConfiguration:
-            CommonAttributes:
-              - AttributeValue: '{{ AttributeValue }}'
-                AttributeName: '{{ AttributeName }}'
-            ContentEncoding: '{{ ContentEncoding }}'
-          S3Configuration:
-            ErrorOutputPrefix: '{{ ErrorOutputPrefix }}'
-            BucketARN: '{{ BucketARN }}'
-            BufferingHints:
-              IntervalInSeconds: '{{ IntervalInSeconds }}'
-              SizeInMBs: '{{ SizeInMBs }}'
-            CompressionFormat: '{{ CompressionFormat }}'
-            EncryptionConfiguration:
-              KMSEncryptionConfig:
-                AWSKMSKeyARN: '{{ AWSKMSKeyARN }}'
-              NoEncryptionConfig: '{{ NoEncryptionConfig }}'
-            Prefix: '{{ Prefix }}'
-            CloudWatchLoggingOptions:
-              LogStreamName: '{{ LogStreamName }}'
-              Enabled: '{{ Enabled }}'
-              LogGroupName: '{{ LogGroupName }}'
-            RoleARN: '{{ RoleARN }}'
-          BufferingHints: null
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          SecretsManagerConfiguration:
-            SecretARN: '{{ SecretARN }}'
-            Enabled: '{{ Enabled }}'
-            RoleARN: '{{ RoleARN }}'
-          EndpointConfiguration:
-            AccessKey: '{{ AccessKey }}'
-            Url: '{{ Url }}'
-            Name: '{{ Name }}'
-          ProcessingConfiguration:
-            Enabled: '{{ Enabled }}'
-            Processors:
-              - Type: '{{ Type }}'
-                Parameters:
-                  - ParameterValue: '{{ ParameterValue }}'
-                    ParameterName: '{{ ParameterName }}'
-          RoleARN: '{{ RoleARN }}'
-          CloudWatchLoggingOptions: null
-          S3BackupMode: '{{ S3BackupMode }}'
-      - name: KinesisStreamSourceConfiguration
+          request_configuration:
+            common_attributes:
+              - attribute_value: '{{ attribute_value }}'
+                attribute_name: '{{ attribute_name }}'
+            content_encoding: '{{ content_encoding }}'
+          s3_configuration:
+            error_output_prefix: '{{ error_output_prefix }}'
+            bucket_arn: '{{ bucket_arn }}'
+            buffering_hints:
+              interval_in_seconds: '{{ interval_in_seconds }}'
+              size_in_mbs: '{{ size_in_mbs }}'
+            compression_format: '{{ compression_format }}'
+            encryption_configuration:
+              kms_encryption_config:
+                aws_kms_key_arn: '{{ aws_kms_key_arn }}'
+              no_encryption_config: '{{ no_encryption_config }}'
+            prefix: '{{ prefix }}'
+            cloud_watch_logging_options:
+              log_stream_name: '{{ log_stream_name }}'
+              enabled: '{{ enabled }}'
+              log_group_name: '{{ log_group_name }}'
+            role_arn: '{{ role_arn }}'
+          buffering_hints: null
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          secrets_manager_configuration:
+            secret_arn: '{{ secret_arn }}'
+            enabled: '{{ enabled }}'
+            role_arn: '{{ role_arn }}'
+          endpoint_configuration:
+            access_key: '{{ access_key }}'
+            url: '{{ url }}'
+            name: '{{ name }}'
+          processing_configuration:
+            enabled: '{{ enabled }}'
+            processors:
+              - type: '{{ type }}'
+                parameters:
+                  - parameter_value: '{{ parameter_value }}'
+                    parameter_name: '{{ parameter_name }}'
+          role_arn: '{{ role_arn }}'
+          cloud_watch_logging_options: null
+          s3_backup_mode: '{{ s3_backup_mode }}'
+      - name: kinesis_stream_source_configuration
         value:
-          KinesisStreamARN: '{{ KinesisStreamARN }}'
-          RoleARN: '{{ RoleARN }}'
-      - name: DeliveryStreamType
-        value: '{{ DeliveryStreamType }}'
-      - name: IcebergDestinationConfiguration
+          kinesis_stream_arn: '{{ kinesis_stream_arn }}'
+          role_arn: '{{ role_arn }}'
+      - name: delivery_stream_type
+        value: '{{ delivery_stream_type }}'
+      - name: iceberg_destination_configuration
         value:
-          CatalogConfiguration:
-            CatalogArn: '{{ CatalogArn }}'
-            WarehouseLocation: '{{ WarehouseLocation }}'
-          S3Configuration: null
-          DestinationTableConfigurationList:
-            - DestinationDatabaseName: '{{ DestinationDatabaseName }}'
-              S3ErrorOutputPrefix: '{{ S3ErrorOutputPrefix }}'
-              DestinationTableName: '{{ DestinationTableName }}'
-              UniqueKeys:
-                - '{{ UniqueKeys[0] }}'
-              PartitionSpec:
-                Identity:
-                  - SourceName: '{{ SourceName }}'
-          BufferingHints: null
-          TableCreationConfiguration:
-            Enabled: '{{ Enabled }}'
-          RetryOptions: null
-          s3BackupMode: '{{ s3BackupMode }}'
-          ProcessingConfiguration: null
-          SchemaEvolutionConfiguration:
-            Enabled: '{{ Enabled }}'
-          AppendOnly: '{{ AppendOnly }}'
-          CloudWatchLoggingOptions: null
-          RoleARN: '{{ RoleARN }}'
-      - name: RedshiftDestinationConfiguration
+          catalog_configuration:
+            catalog_arn: '{{ catalog_arn }}'
+            warehouse_location: '{{ warehouse_location }}'
+          s3_configuration: null
+          destination_table_configuration_list:
+            - destination_database_name: '{{ destination_database_name }}'
+              s3_error_output_prefix: '{{ s3_error_output_prefix }}'
+              destination_table_name: '{{ destination_table_name }}'
+              unique_keys:
+                - '{{ unique_keys[0] }}'
+              partition_spec:
+                identity:
+                  - source_name: '{{ source_name }}'
+          buffering_hints: null
+          table_creation_configuration:
+            enabled: '{{ enabled }}'
+          retry_options: null
+          s3_backup_mode: '{{ s3_backup_mode }}'
+          processing_configuration: null
+          schema_evolution_configuration:
+            enabled: '{{ enabled }}'
+          append_only: '{{ append_only }}'
+          cloud_watch_logging_options: null
+          role_arn: '{{ role_arn }}'
+      - name: redshift_destination_configuration
         value:
-          S3BackupConfiguration: null
-          S3Configuration: null
-          Username: '{{ Username }}'
-          CopyCommand:
-            DataTableName: '{{ DataTableName }}'
-            CopyOptions: '{{ CopyOptions }}'
-            DataTableColumns: '{{ DataTableColumns }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          SecretsManagerConfiguration: null
-          ProcessingConfiguration: null
-          CloudWatchLoggingOptions: null
-          ClusterJDBCURL: '{{ ClusterJDBCURL }}'
-          RoleARN: '{{ RoleARN }}'
-          Password: '{{ Password }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-      - name: AmazonopensearchserviceDestinationConfiguration
+          s3_backup_configuration: null
+          s3_configuration: null
+          username: '{{ username }}'
+          copy_command:
+            data_table_name: '{{ data_table_name }}'
+            copy_options: '{{ copy_options }}'
+            data_table_columns: '{{ data_table_columns }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          secrets_manager_configuration: null
+          processing_configuration: null
+          cloud_watch_logging_options: null
+          cluster_jdb_curl: '{{ cluster_jdb_curl }}'
+          role_arn: '{{ role_arn }}'
+          password: '{{ password }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+      - name: amazonopensearchservice_destination_configuration
         value:
-          TypeName: '{{ TypeName }}'
-          IndexRotationPeriod: '{{ IndexRotationPeriod }}'
-          ProcessingConfiguration: null
-          ClusterEndpoint: '{{ ClusterEndpoint }}'
-          DomainARN: '{{ DomainARN }}'
-          RoleARN: '{{ RoleARN }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-          IndexName: '{{ IndexName }}'
-          DocumentIdOptions:
-            DefaultDocumentIdFormat: '{{ DefaultDocumentIdFormat }}'
-          S3Configuration: null
-          BufferingHints:
-            IntervalInSeconds: '{{ IntervalInSeconds }}'
-            SizeInMBs: '{{ SizeInMBs }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          VpcConfiguration:
-            SubnetIds:
-              - '{{ SubnetIds[0] }}'
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            RoleARN: '{{ RoleARN }}'
-          CloudWatchLoggingOptions: null
-      - name: MSKSourceConfiguration
+          type_name: '{{ type_name }}'
+          index_rotation_period: '{{ index_rotation_period }}'
+          processing_configuration: null
+          cluster_endpoint: '{{ cluster_endpoint }}'
+          domain_arn: '{{ domain_arn }}'
+          role_arn: '{{ role_arn }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+          index_name: '{{ index_name }}'
+          document_id_options:
+            default_document_id_format: '{{ default_document_id_format }}'
+          s3_configuration: null
+          buffering_hints:
+            interval_in_seconds: '{{ interval_in_seconds }}'
+            size_in_mbs: '{{ size_in_mbs }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          vpc_configuration:
+            subnet_ids:
+              - '{{ subnet_ids[0] }}'
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            role_arn: '{{ role_arn }}'
+          cloud_watch_logging_options: null
+      - name: msk_source_configuration
         value:
-          AuthenticationConfiguration:
-            Connectivity: '{{ Connectivity }}'
-            RoleARN: '{{ RoleARN }}'
-          ReadFromTimestamp: '{{ ReadFromTimestamp }}'
-          MSKClusterARN: '{{ MSKClusterARN }}'
-          TopicName: '{{ TopicName }}'
-      - name: DirectPutSourceConfiguration
+          authentication_configuration:
+            connectivity: '{{ connectivity }}'
+            role_arn: '{{ role_arn }}'
+          read_from_timestamp: '{{ read_from_timestamp }}'
+          msk_cluster_arn: '{{ msk_cluster_arn }}'
+          topic_name: '{{ topic_name }}'
+      - name: direct_put_source_configuration
         value:
-          ThroughputHintInMBs: '{{ ThroughputHintInMBs }}'
-      - name: SplunkDestinationConfiguration
+          throughput_hint_in_mbs: '{{ throughput_hint_in_mbs }}'
+      - name: splunk_destination_configuration
         value:
-          HECEndpoint: '{{ HECEndpoint }}'
-          S3Configuration: null
-          BufferingHints:
-            IntervalInSeconds: '{{ IntervalInSeconds }}'
-            SizeInMBs: '{{ SizeInMBs }}'
-          HECToken: '{{ HECToken }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          HECEndpointType: '{{ HECEndpointType }}'
-          SecretsManagerConfiguration: null
-          HECAcknowledgmentTimeoutInSeconds: '{{ HECAcknowledgmentTimeoutInSeconds }}'
-          ProcessingConfiguration: null
-          CloudWatchLoggingOptions: null
-          S3BackupMode: '{{ S3BackupMode }}'
-      - name: ExtendedS3DestinationConfiguration
+          h_ec_endpoint: '{{ h_ec_endpoint }}'
+          s3_configuration: null
+          buffering_hints:
+            interval_in_seconds: '{{ interval_in_seconds }}'
+            size_in_mbs: '{{ size_in_mbs }}'
+          h_ec_token: '{{ h_ec_token }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          h_ec_endpoint_type: '{{ h_ec_endpoint_type }}'
+          secrets_manager_configuration: null
+          h_ecacknowledgment_timeout_in_seconds: '{{ h_ecacknowledgment_timeout_in_seconds }}'
+          processing_configuration: null
+          cloud_watch_logging_options: null
+          s3_backup_mode: '{{ s3_backup_mode }}'
+      - name: extended_s3_destination_configuration
         value:
-          ErrorOutputPrefix: '{{ ErrorOutputPrefix }}'
-          S3BackupConfiguration: null
-          BucketARN: '{{ BucketARN }}'
-          CompressionFormat: '{{ CompressionFormat }}'
-          DataFormatConversionConfiguration:
-            InputFormatConfiguration:
-              Deserializer:
-                HiveJsonSerDe:
-                  TimestampFormats:
-                    - '{{ TimestampFormats[0] }}'
-                OpenXJsonSerDe:
-                  ConvertDotsInJsonKeysToUnderscores: '{{ ConvertDotsInJsonKeysToUnderscores }}'
-                  ColumnToJsonKeyMappings: {}
-                  CaseInsensitive: '{{ CaseInsensitive }}'
-            Enabled: '{{ Enabled }}'
-            SchemaConfiguration:
-              VersionId: '{{ VersionId }}'
-              TableName: '{{ TableName }}'
-              DatabaseName: '{{ DatabaseName }}'
-              Region: '{{ Region }}'
-              CatalogId: '{{ CatalogId }}'
-              RoleARN: '{{ RoleARN }}'
-            OutputFormatConfiguration:
-              Serializer:
-                OrcSerDe:
-                  PaddingTolerance: null
-                  Compression: '{{ Compression }}'
-                  StripeSizeBytes: '{{ StripeSizeBytes }}'
-                  BloomFilterColumns:
-                    - '{{ BloomFilterColumns[0] }}'
-                  BloomFilterFalsePositiveProbability: null
-                  EnablePadding: '{{ EnablePadding }}'
-                  FormatVersion: '{{ FormatVersion }}'
-                  RowIndexStride: '{{ RowIndexStride }}'
-                  BlockSizeBytes: '{{ BlockSizeBytes }}'
-                  DictionaryKeyThreshold: null
-                ParquetSerDe:
-                  Compression: '{{ Compression }}'
-                  BlockSizeBytes: '{{ BlockSizeBytes }}'
-                  EnableDictionaryCompression: '{{ EnableDictionaryCompression }}'
-                  PageSizeBytes: '{{ PageSizeBytes }}'
-                  MaxPaddingBytes: '{{ MaxPaddingBytes }}'
-                  WriterVersion: '{{ WriterVersion }}'
-          EncryptionConfiguration: null
-          CustomTimeZone: '{{ CustomTimeZone }}'
-          DynamicPartitioningConfiguration:
-            Enabled: '{{ Enabled }}'
-            RetryOptions: null
-          Prefix: '{{ Prefix }}'
-          ProcessingConfiguration: null
-          RoleARN: '{{ RoleARN }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-          BufferingHints: null
-          FileExtension: '{{ FileExtension }}'
-          CloudWatchLoggingOptions: null
-      - name: AmazonOpenSearchServerlessDestinationConfiguration
+          error_output_prefix: '{{ error_output_prefix }}'
+          s3_backup_configuration: null
+          bucket_arn: '{{ bucket_arn }}'
+          compression_format: '{{ compression_format }}'
+          data_format_conversion_configuration:
+            input_format_configuration:
+              deserializer:
+                hive_json_ser_de:
+                  timestamp_formats:
+                    - '{{ timestamp_formats[0] }}'
+                open_xjson_ser_de:
+                  convert_dots_in_json_keys_to_underscores: '{{ convert_dots_in_json_keys_to_underscores }}'
+                  column_to_json_key_mappings: {}
+                  case_insensitive: '{{ case_insensitive }}'
+            enabled: '{{ enabled }}'
+            schema_configuration:
+              version_id: '{{ version_id }}'
+              table_name: '{{ table_name }}'
+              database_name: '{{ database_name }}'
+              region: '{{ region }}'
+              catalog_id: '{{ catalog_id }}'
+              role_arn: '{{ role_arn }}'
+            output_format_configuration:
+              serializer:
+                orc_ser_de:
+                  padding_tolerance: null
+                  compression: '{{ compression }}'
+                  stripe_size_bytes: '{{ stripe_size_bytes }}'
+                  bloom_filter_columns:
+                    - '{{ bloom_filter_columns[0] }}'
+                  bloom_filter_false_positive_probability: null
+                  enable_padding: '{{ enable_padding }}'
+                  format_version: '{{ format_version }}'
+                  row_index_stride: '{{ row_index_stride }}'
+                  block_size_bytes: '{{ block_size_bytes }}'
+                  dictionary_key_threshold: null
+                parquet_ser_de:
+                  compression: '{{ compression }}'
+                  block_size_bytes: '{{ block_size_bytes }}'
+                  enable_dictionary_compression: '{{ enable_dictionary_compression }}'
+                  page_size_bytes: '{{ page_size_bytes }}'
+                  max_padding_bytes: '{{ max_padding_bytes }}'
+                  writer_version: '{{ writer_version }}'
+          encryption_configuration: null
+          custom_time_zone: '{{ custom_time_zone }}'
+          dynamic_partitioning_configuration:
+            enabled: '{{ enabled }}'
+            retry_options: null
+          prefix: '{{ prefix }}'
+          processing_configuration: null
+          role_arn: '{{ role_arn }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+          buffering_hints: null
+          file_extension: '{{ file_extension }}'
+          cloud_watch_logging_options: null
+      - name: amazon_open_search_serverless_destination_configuration
         value:
-          IndexName: '{{ IndexName }}'
-          S3Configuration: null
-          BufferingHints:
-            IntervalInSeconds: '{{ IntervalInSeconds }}'
-            SizeInMBs: '{{ SizeInMBs }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          CollectionEndpoint: '{{ CollectionEndpoint }}'
-          VpcConfiguration: null
-          ProcessingConfiguration: null
-          CloudWatchLoggingOptions: null
-          RoleARN: '{{ RoleARN }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-      - name: ElasticsearchDestinationConfiguration
+          index_name: '{{ index_name }}'
+          s3_configuration: null
+          buffering_hints:
+            interval_in_seconds: '{{ interval_in_seconds }}'
+            size_in_mbs: '{{ size_in_mbs }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          collection_endpoint: '{{ collection_endpoint }}'
+          vpc_configuration: null
+          processing_configuration: null
+          cloud_watch_logging_options: null
+          role_arn: '{{ role_arn }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+      - name: elasticsearch_destination_configuration
         value:
-          TypeName: '{{ TypeName }}'
-          IndexRotationPeriod: '{{ IndexRotationPeriod }}'
-          ProcessingConfiguration: null
-          ClusterEndpoint: '{{ ClusterEndpoint }}'
-          DomainARN: '{{ DomainARN }}'
-          RoleARN: '{{ RoleARN }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-          IndexName: '{{ IndexName }}'
-          DocumentIdOptions: null
-          S3Configuration: null
-          BufferingHints:
-            IntervalInSeconds: '{{ IntervalInSeconds }}'
-            SizeInMBs: '{{ SizeInMBs }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          VpcConfiguration: null
-          CloudWatchLoggingOptions: null
-      - name: SnowflakeDestinationConfiguration
+          type_name: '{{ type_name }}'
+          index_rotation_period: '{{ index_rotation_period }}'
+          processing_configuration: null
+          cluster_endpoint: '{{ cluster_endpoint }}'
+          domain_arn: '{{ domain_arn }}'
+          role_arn: '{{ role_arn }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+          index_name: '{{ index_name }}'
+          document_id_options: null
+          s3_configuration: null
+          buffering_hints:
+            interval_in_seconds: '{{ interval_in_seconds }}'
+            size_in_mbs: '{{ size_in_mbs }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          vpc_configuration: null
+          cloud_watch_logging_options: null
+      - name: snowflake_destination_configuration
         value:
-          PrivateKey: '{{ PrivateKey }}'
-          User: '{{ User }}'
-          Table: '{{ Table }}'
-          SnowflakeVpcConfiguration:
-            PrivateLinkVpceId: '{{ PrivateLinkVpceId }}'
-          DataLoadingOption: '{{ DataLoadingOption }}'
-          Schema: '{{ Schema }}'
-          ContentColumnName: '{{ ContentColumnName }}'
-          SecretsManagerConfiguration: null
-          SnowflakeRoleConfiguration:
-            SnowflakeRole: '{{ SnowflakeRole }}'
-            Enabled: '{{ Enabled }}'
-          ProcessingConfiguration: null
-          AccountUrl: '{{ AccountUrl }}'
-          RoleARN: '{{ RoleARN }}'
-          S3BackupMode: '{{ S3BackupMode }}'
-          S3Configuration: null
-          BufferingHints:
-            IntervalInSeconds: '{{ IntervalInSeconds }}'
-            SizeInMBs: '{{ SizeInMBs }}'
-          MetaDataColumnName: '{{ MetaDataColumnName }}'
-          Database: '{{ Database }}'
-          RetryOptions:
-            DurationInSeconds: '{{ DurationInSeconds }}'
-          KeyPassphrase: '{{ KeyPassphrase }}'
-          CloudWatchLoggingOptions: null
-      - name: DatabaseSourceConfiguration
+          private_key: '{{ private_key }}'
+          user: '{{ user }}'
+          table: '{{ table }}'
+          snowflake_vpc_configuration:
+            private_link_vpce_id: '{{ private_link_vpce_id }}'
+          data_loading_option: '{{ data_loading_option }}'
+          schema: '{{ schema }}'
+          content_column_name: '{{ content_column_name }}'
+          secrets_manager_configuration: null
+          snowflake_role_configuration:
+            snowflake_role: '{{ snowflake_role }}'
+            enabled: '{{ enabled }}'
+          processing_configuration: null
+          account_url: '{{ account_url }}'
+          role_arn: '{{ role_arn }}'
+          s3_backup_mode: '{{ s3_backup_mode }}'
+          s3_configuration: null
+          buffering_hints:
+            interval_in_seconds: '{{ interval_in_seconds }}'
+            size_in_mbs: '{{ size_in_mbs }}'
+          meta_data_column_name: '{{ meta_data_column_name }}'
+          database: '{{ database }}'
+          retry_options:
+            duration_in_seconds: '{{ duration_in_seconds }}'
+          key_passphrase: '{{ key_passphrase }}'
+          cloud_watch_logging_options: null
+      - name: database_source_configuration
         value:
-          Digest: '{{ Digest }}'
-          Port: '{{ Port }}'
-          PublicCertificate: '{{ PublicCertificate }}'
-          Columns:
-            Exclude:
-              - '{{ Exclude[0] }}'
-            Include:
+          digest: '{{ digest }}'
+          port: '{{ port }}'
+          public_certificate: '{{ public_certificate }}'
+          columns:
+            exclude:
+              - '{{ exclude[0] }}'
+            include:
               - null
-          Type: '{{ Type }}'
-          SurrogateKeys:
-            - '{{ SurrogateKeys[0] }}'
-          Databases:
-            Exclude:
-              - '{{ Exclude[0] }}'
-            Include:
+          type: '{{ type }}'
+          surrogate_keys:
+            - '{{ surrogate_keys[0] }}'
+          databases:
+            exclude:
+              - '{{ exclude[0] }}'
+            include:
               - null
-          Endpoint: '{{ Endpoint }}'
-          SSLMode: '{{ SSLMode }}'
-          SnapshotWatermarkTable: '{{ SnapshotWatermarkTable }}'
-          DatabaseSourceAuthenticationConfiguration:
-            SecretsManagerConfiguration: null
-          Tables:
-            Exclude:
+          endpoint: '{{ endpoint }}'
+          s_sl_mode: '{{ s_sl_mode }}'
+          snapshot_watermark_table: '{{ snapshot_watermark_table }}'
+          database_source_authentication_configuration:
+            secrets_manager_configuration: null
+          tables:
+            exclude:
               - null
-            Include:
+            include:
               - null
-          DatabaseSourceVPCConfiguration:
-            VpcEndpointServiceName: '{{ VpcEndpointServiceName }}'
-      - name: S3DestinationConfiguration
+          database_source_vpc_configuration:
+            vpc_endpoint_service_name: '{{ vpc_endpoint_service_name }}'
+      - name: s3_destination_configuration
         value: null
-      - name: DeliveryStreamName
-        value: '{{ DeliveryStreamName }}'
-      - name: Tags
+      - name: delivery_stream_name
+        value: '{{ delivery_stream_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -3256,7 +3255,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DeliveryStreamName>';
+AND Identifier = '{{ delivery_stream_name }}';
 ```
 
 
@@ -3265,7 +3264,7 @@ AND Identifier = '<DeliveryStreamName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisfirehose.delivery_streams
-WHERE Identifier = '<DeliveryStreamName>'
+WHERE Identifier = '{{ delivery_stream_name }}'
 AND region = 'us-east-1';
 ```
 

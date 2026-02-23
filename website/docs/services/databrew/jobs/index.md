@@ -634,7 +634,7 @@ job_sample,
 profile_configuration,
 validation_configurations
 FROM awscc.databrew.jobs
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -672,10 +672,10 @@ INSERT INTO awscc.databrew.jobs (
  RoleArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ RoleArn }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -706,27 +706,27 @@ INSERT INTO awscc.databrew.jobs (
  ValidationConfigurations,
  region
 )
-SELECT 
- '{{ DatasetName }}',
- '{{ EncryptionKeyArn }}',
- '{{ EncryptionMode }}',
- '{{ Name }}',
- '{{ Type }}',
- '{{ LogSubscription }}',
- '{{ MaxCapacity }}',
- '{{ MaxRetries }}',
- '{{ Outputs }}',
- '{{ DataCatalogOutputs }}',
- '{{ DatabaseOutputs }}',
- '{{ OutputLocation }}',
- '{{ ProjectName }}',
- '{{ Recipe }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ Timeout }}',
- '{{ JobSample }}',
- '{{ ProfileConfiguration }}',
- '{{ ValidationConfigurations }}',
+SELECT
+ '{{ dataset_name }}',
+ '{{ encryption_key_arn }}',
+ '{{ encryption_mode }}',
+ '{{ name }}',
+ '{{ type }}',
+ '{{ log_subscription }}',
+ '{{ max_capacity }}',
+ '{{ max_retries }}',
+ '{{ outputs }}',
+ '{{ data_catalog_outputs }}',
+ '{{ database_outputs }}',
+ '{{ output_location }}',
+ '{{ project_name }}',
+ '{{ recipe }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ timeout }}',
+ '{{ job_sample }}',
+ '{{ profile_configuration }}',
+ '{{ validation_configurations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -744,111 +744,110 @@ globals:
 resources:
   - name: job
     props:
-      - name: DatasetName
-        value: '{{ DatasetName }}'
-      - name: EncryptionKeyArn
-        value: '{{ EncryptionKeyArn }}'
-      - name: EncryptionMode
-        value: '{{ EncryptionMode }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: LogSubscription
-        value: '{{ LogSubscription }}'
-      - name: MaxCapacity
-        value: '{{ MaxCapacity }}'
-      - name: MaxRetries
-        value: '{{ MaxRetries }}'
-      - name: Outputs
+      - name: dataset_name
+        value: '{{ dataset_name }}'
+      - name: encryption_key_arn
+        value: '{{ encryption_key_arn }}'
+      - name: encryption_mode
+        value: '{{ encryption_mode }}'
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: log_subscription
+        value: '{{ log_subscription }}'
+      - name: max_capacity
+        value: '{{ max_capacity }}'
+      - name: max_retries
+        value: '{{ max_retries }}'
+      - name: outputs
         value:
-          - CompressionFormat: '{{ CompressionFormat }}'
-            Format: '{{ Format }}'
-            FormatOptions:
-              Csv:
-                Delimiter: '{{ Delimiter }}'
-            PartitionColumns:
-              - '{{ PartitionColumns[0] }}'
-            Location:
-              Bucket: '{{ Bucket }}'
-              Key: '{{ Key }}'
-            Overwrite: '{{ Overwrite }}'
-            MaxOutputFiles: '{{ MaxOutputFiles }}'
-      - name: DataCatalogOutputs
+          - compression_format: '{{ compression_format }}'
+            format: '{{ format }}'
+            format_options:
+              csv:
+                delimiter: '{{ delimiter }}'
+            partition_columns:
+              - '{{ partition_columns[0] }}'
+            location:
+              bucket: '{{ bucket }}'
+              key: '{{ key }}'
+            overwrite: '{{ overwrite }}'
+            max_output_files: '{{ max_output_files }}'
+      - name: data_catalog_outputs
         value:
-          - CatalogId: '{{ CatalogId }}'
-            DatabaseName: '{{ DatabaseName }}'
-            TableName: '{{ TableName }}'
-            S3Options:
-              Location: null
-            DatabaseOptions:
-              TempDirectory: null
-              TableName: '{{ TableName }}'
-            Overwrite: '{{ Overwrite }}'
-      - name: DatabaseOutputs
+          - catalog_id: '{{ catalog_id }}'
+            database_name: '{{ database_name }}'
+            table_name: '{{ table_name }}'
+            s3_options:
+              location: null
+            database_options:
+              temp_directory: null
+              table_name: '{{ table_name }}'
+            overwrite: '{{ overwrite }}'
+      - name: database_outputs
         value:
-          - GlueConnectionName: '{{ GlueConnectionName }}'
-            DatabaseOutputMode: '{{ DatabaseOutputMode }}'
-            DatabaseOptions: null
-      - name: OutputLocation
+          - glue_connection_name: '{{ glue_connection_name }}'
+            database_output_mode: '{{ database_output_mode }}'
+            database_options: null
+      - name: output_location
         value:
-          Bucket: '{{ Bucket }}'
-          Key: '{{ Key }}'
-          BucketOwner: '{{ BucketOwner }}'
-      - name: ProjectName
-        value: '{{ ProjectName }}'
-      - name: Recipe
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+          bucket_owner: '{{ bucket_owner }}'
+      - name: project_name
+        value: '{{ project_name }}'
+      - name: recipe
         value:
-          Description: '{{ Description }}'
-          Name: '{{ Name }}'
-          Steps:
-            - Action:
-                Operation: '{{ Operation }}'
-                Parameters: null
-              ConditionExpressions:
-                - Condition: '{{ Condition }}'
-                  Value: '{{ Value }}'
-                  TargetColumn: '{{ TargetColumn }}'
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          description: '{{ description }}'
+          name: '{{ name }}'
+          steps:
+            - action:
+                operation: '{{ operation }}'
+                parameters: null
+              condition_expressions:
+                - condition: '{{ condition }}'
+                  value: '{{ value }}'
+                  target_column: '{{ target_column }}'
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
           - null
-      - name: Timeout
-        value: '{{ Timeout }}'
-      - name: JobSample
+      - name: timeout
+        value: '{{ timeout }}'
+      - name: job_sample
         value:
-          Mode: '{{ Mode }}'
-          Size: '{{ Size }}'
-      - name: ProfileConfiguration
+          mode: '{{ mode }}'
+          size: '{{ size }}'
+      - name: profile_configuration
         value:
-          DatasetStatisticsConfiguration:
-            IncludedStatistics:
-              - '{{ IncludedStatistics[0] }}'
-            Overrides:
-              - Statistic: null
-                Parameters: {}
-          ProfileColumns:
-            - Regex: '{{ Regex }}'
-              Name: '{{ Name }}'
-          ColumnStatisticsConfigurations:
-            - Selectors:
+          dataset_statistics_configuration:
+            included_statistics:
+              - '{{ included_statistics[0] }}'
+            overrides:
+              - statistic: null
+                parameters: {}
+          profile_columns:
+            - regex: '{{ regex }}'
+              name: '{{ name }}'
+          column_statistics_configurations:
+            - selectors:
                 - null
-              Statistics: null
-          EntityDetectorConfiguration:
-            EntityTypes:
-              - '{{ EntityTypes[0] }}'
-            AllowedStatistics:
-              Statistics:
+              statistics: null
+          entity_detector_configuration:
+            entity_types:
+              - '{{ entity_types[0] }}'
+            allowed_statistics:
+              statistics:
                 - null
-      - name: ValidationConfigurations
+      - name: validation_configurations
         value:
-          - RulesetArn: '{{ RulesetArn }}'
-            ValidationMode: '{{ ValidationMode }}'
-
+          - ruleset_arn: '{{ ruleset_arn }}'
+            validation_mode: '{{ validation_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -881,7 +880,7 @@ SET PatchDocument = string('{{ {
     "ValidationConfigurations": validation_configurations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -890,7 +889,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.jobs
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

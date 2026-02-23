@@ -356,7 +356,7 @@ sensitive_information_policy_config,
 contextual_grounding_policy_config,
 tags
 FROM awscc.wisdom.ai_guardrails
-WHERE region = 'us-east-1' AND Identifier = '<AIGuardrailId>|<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -395,10 +395,10 @@ INSERT INTO awscc.wisdom.ai_guardrails (
  BlockedOutputsMessaging,
  region
 )
-SELECT 
-'{{ AssistantId }}',
- '{{ BlockedInputMessaging }}',
- '{{ BlockedOutputsMessaging }}',
+SELECT
+'{{ assistant_id }}',
+ '{{ blocked_input_messaging }}',
+ '{{ blocked_outputs_messaging }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -420,18 +420,18 @@ INSERT INTO awscc.wisdom.ai_guardrails (
  Tags,
  region
 )
-SELECT 
- '{{ AssistantId }}',
- '{{ Name }}',
- '{{ BlockedInputMessaging }}',
- '{{ BlockedOutputsMessaging }}',
- '{{ Description }}',
- '{{ TopicPolicyConfig }}',
- '{{ ContentPolicyConfig }}',
- '{{ WordPolicyConfig }}',
- '{{ SensitiveInformationPolicyConfig }}',
- '{{ ContextualGroundingPolicyConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ assistant_id }}',
+ '{{ name }}',
+ '{{ blocked_input_messaging }}',
+ '{{ blocked_outputs_messaging }}',
+ '{{ description }}',
+ '{{ topic_policy_config }}',
+ '{{ content_policy_config }}',
+ '{{ word_policy_config }}',
+ '{{ sensitive_information_policy_config }}',
+ '{{ contextual_grounding_policy_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -449,54 +449,53 @@ globals:
 resources:
   - name: ai_guardrail
     props:
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: BlockedInputMessaging
-        value: '{{ BlockedInputMessaging }}'
-      - name: BlockedOutputsMessaging
-        value: '{{ BlockedOutputsMessaging }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: TopicPolicyConfig
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: blocked_input_messaging
+        value: '{{ blocked_input_messaging }}'
+      - name: blocked_outputs_messaging
+        value: '{{ blocked_outputs_messaging }}'
+      - name: description
+        value: '{{ description }}'
+      - name: topic_policy_config
         value:
-          TopicsConfig:
-            - Name: '{{ Name }}'
-              Definition: '{{ Definition }}'
-              Examples:
-                - '{{ Examples[0] }}'
-              Type: '{{ Type }}'
-      - name: ContentPolicyConfig
+          topics_config:
+            - name: '{{ name }}'
+              definition: '{{ definition }}'
+              examples:
+                - '{{ examples[0] }}'
+              type: '{{ type }}'
+      - name: content_policy_config
         value:
-          FiltersConfig:
-            - Type: '{{ Type }}'
-              InputStrength: '{{ InputStrength }}'
-              OutputStrength: null
-      - name: WordPolicyConfig
+          filters_config:
+            - type: '{{ type }}'
+              input_strength: '{{ input_strength }}'
+              output_strength: null
+      - name: word_policy_config
         value:
-          WordsConfig:
-            - Text: '{{ Text }}'
-          ManagedWordListsConfig:
-            - Type: '{{ Type }}'
-      - name: SensitiveInformationPolicyConfig
+          words_config:
+            - text: '{{ text }}'
+          managed_word_lists_config:
+            - type: '{{ type }}'
+      - name: sensitive_information_policy_config
         value:
-          PiiEntitiesConfig:
-            - Type: '{{ Type }}'
-              Action: '{{ Action }}'
-          RegexesConfig:
-            - Name: '{{ Name }}'
-              Description: '{{ Description }}'
-              Pattern: '{{ Pattern }}'
-              Action: null
-      - name: ContextualGroundingPolicyConfig
+          pii_entities_config:
+            - type: '{{ type }}'
+              action: '{{ action }}'
+          regexes_config:
+            - name: '{{ name }}'
+              description: '{{ description }}'
+              pattern: '{{ pattern }}'
+              action: null
+      - name: contextual_grounding_policy_config
         value:
-          FiltersConfig:
-            - Type: '{{ Type }}'
-              Threshold: null
-      - name: Tags
+          filters_config:
+            - type: '{{ type }}'
+              threshold: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -519,7 +518,7 @@ SET PatchDocument = string('{{ {
     "ContextualGroundingPolicyConfig": contextual_grounding_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AIGuardrailId>|<AssistantId>';
+AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```
 
 
@@ -528,7 +527,7 @@ AND Identifier = '<AIGuardrailId>|<AssistantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_guardrails
-WHERE Identifier = '<AIGuardrailId|AssistantId>'
+WHERE Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}'
 AND region = 'us-east-1';
 ```
 

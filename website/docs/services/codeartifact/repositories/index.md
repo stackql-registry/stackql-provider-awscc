@@ -200,7 +200,7 @@ upstreams,
 permissions_policy_document,
 tags
 FROM awscc.codeartifact.repositories
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.codeartifact.repositories (
  DomainName,
  region
 )
-SELECT 
-'{{ RepositoryName }}',
- '{{ DomainName }}',
+SELECT
+'{{ repository_name }}',
+ '{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,14 +257,14 @@ INSERT INTO awscc.codeartifact.repositories (
  Tags,
  region
 )
-SELECT 
- '{{ RepositoryName }}',
- '{{ DomainName }}',
- '{{ Description }}',
- '{{ ExternalConnections }}',
- '{{ Upstreams }}',
- '{{ PermissionsPolicyDocument }}',
- '{{ Tags }}',
+SELECT
+ '{{ repository_name }}',
+ '{{ domain_name }}',
+ '{{ description }}',
+ '{{ external_connections }}',
+ '{{ upstreams }}',
+ '{{ permissions_policy_document }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,25 +282,24 @@ globals:
 resources:
   - name: repository
     props:
-      - name: RepositoryName
-        value: '{{ RepositoryName }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExternalConnections
+      - name: repository_name
+        value: '{{ repository_name }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: external_connections
         value:
-          - '{{ ExternalConnections[0] }}'
-      - name: Upstreams
+          - '{{ external_connections[0] }}'
+      - name: upstreams
         value:
-          - '{{ Upstreams[0] }}'
-      - name: PermissionsPolicyDocument
+          - '{{ upstreams[0] }}'
+      - name: permissions_policy_document
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +319,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -329,7 +328,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.repositories
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

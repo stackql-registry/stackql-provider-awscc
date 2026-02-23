@@ -362,7 +362,7 @@ component_monitoring_settings,
 grouping_type,
 attach_missing_permission
 FROM awscc.applicationinsights.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -398,8 +398,8 @@ INSERT INTO awscc.applicationinsights.applications (
  ResourceGroupName,
  region
 )
-SELECT 
-'{{ ResourceGroupName }}',
+SELECT
+'{{ resource_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -422,19 +422,19 @@ INSERT INTO awscc.applicationinsights.applications (
  AttachMissingPermission,
  region
 )
-SELECT 
- '{{ ResourceGroupName }}',
- '{{ CWEMonitorEnabled }}',
- '{{ OpsCenterEnabled }}',
- '{{ OpsItemSNSTopicArn }}',
- '{{ SNSNotificationArn }}',
- '{{ Tags }}',
- '{{ CustomComponents }}',
- '{{ LogPatternSets }}',
- '{{ AutoConfigurationEnabled }}',
- '{{ ComponentMonitoringSettings }}',
- '{{ GroupingType }}',
- '{{ AttachMissingPermission }}',
+SELECT
+ '{{ resource_group_name }}',
+ '{{ cwe_monitor_enabled }}',
+ '{{ ops_center_enabled }}',
+ '{{ ops_item_sns_topic_arn }}',
+ '{{ sns_notification_arn }}',
+ '{{ tags }}',
+ '{{ custom_components }}',
+ '{{ log_pattern_sets }}',
+ '{{ auto_configuration_enabled }}',
+ '{{ component_monitoring_settings }}',
+ '{{ grouping_type }}',
+ '{{ attach_missing_permission }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -452,100 +452,99 @@ globals:
 resources:
   - name: application
     props:
-      - name: ResourceGroupName
-        value: '{{ ResourceGroupName }}'
-      - name: CWEMonitorEnabled
-        value: '{{ CWEMonitorEnabled }}'
-      - name: OpsCenterEnabled
-        value: '{{ OpsCenterEnabled }}'
-      - name: OpsItemSNSTopicArn
-        value: '{{ OpsItemSNSTopicArn }}'
-      - name: SNSNotificationArn
-        value: '{{ SNSNotificationArn }}'
-      - name: Tags
+      - name: resource_group_name
+        value: '{{ resource_group_name }}'
+      - name: cwe_monitor_enabled
+        value: '{{ cwe_monitor_enabled }}'
+      - name: ops_center_enabled
+        value: '{{ ops_center_enabled }}'
+      - name: ops_item_sns_topic_arn
+        value: '{{ ops_item_sns_topic_arn }}'
+      - name: sns_notification_arn
+        value: '{{ sns_notification_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CustomComponents
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: custom_components
         value:
-          - ComponentName: '{{ ComponentName }}'
-            ResourceList:
-              - '{{ ResourceList[0] }}'
-      - name: LogPatternSets
+          - component_name: '{{ component_name }}'
+            resource_list:
+              - '{{ resource_list[0] }}'
+      - name: log_pattern_sets
         value:
-          - PatternSetName: '{{ PatternSetName }}'
-            LogPatterns:
-              - PatternName: '{{ PatternName }}'
-                Pattern: '{{ Pattern }}'
-                Rank: '{{ Rank }}'
-      - name: AutoConfigurationEnabled
-        value: '{{ AutoConfigurationEnabled }}'
-      - name: ComponentMonitoringSettings
+          - pattern_set_name: '{{ pattern_set_name }}'
+            log_patterns:
+              - pattern_name: '{{ pattern_name }}'
+                pattern: '{{ pattern }}'
+                rank: '{{ rank }}'
+      - name: auto_configuration_enabled
+        value: '{{ auto_configuration_enabled }}'
+      - name: component_monitoring_settings
         value:
-          - ComponentName: '{{ ComponentName }}'
-            ComponentARN: '{{ ComponentARN }}'
-            Tier: '{{ Tier }}'
-            ComponentConfigurationMode: '{{ ComponentConfigurationMode }}'
-            DefaultOverwriteComponentConfiguration:
-              ConfigurationDetails:
-                AlarmMetrics:
-                  - AlarmMetricName: '{{ AlarmMetricName }}'
-                Logs:
-                  - LogGroupName: '{{ LogGroupName }}'
-                    LogPath: '{{ LogPath }}'
-                    LogType: '{{ LogType }}'
-                    Encoding: '{{ Encoding }}'
-                    PatternSet: '{{ PatternSet }}'
-                WindowsEvents:
-                  - LogGroupName: '{{ LogGroupName }}'
-                    EventName: '{{ EventName }}'
-                    EventLevels:
-                      - '{{ EventLevels[0] }}'
-                    PatternSet: '{{ PatternSet }}'
-                Processes:
-                  - ProcessName: '{{ ProcessName }}'
-                    AlarmMetrics:
+          - component_name: '{{ component_name }}'
+            component_arn: '{{ component_arn }}'
+            tier: '{{ tier }}'
+            component_configuration_mode: '{{ component_configuration_mode }}'
+            default_overwrite_component_configuration:
+              configuration_details:
+                alarm_metrics:
+                  - alarm_metric_name: '{{ alarm_metric_name }}'
+                logs:
+                  - log_group_name: '{{ log_group_name }}'
+                    log_path: '{{ log_path }}'
+                    log_type: '{{ log_type }}'
+                    encoding: '{{ encoding }}'
+                    pattern_set: '{{ pattern_set }}'
+                windows_events:
+                  - log_group_name: '{{ log_group_name }}'
+                    event_name: '{{ event_name }}'
+                    event_levels:
+                      - '{{ event_levels[0] }}'
+                    pattern_set: '{{ pattern_set }}'
+                processes:
+                  - process_name: '{{ process_name }}'
+                    alarm_metrics:
                       - null
-                Alarms:
-                  - AlarmName: '{{ AlarmName }}'
-                    Severity: '{{ Severity }}'
-                JMXPrometheusExporter:
-                  JMXURL: '{{ JMXURL }}'
-                  HostPort: '{{ HostPort }}'
-                  PrometheusPort: '{{ PrometheusPort }}'
-                HANAPrometheusExporter:
-                  HANASID: '{{ HANASID }}'
-                  HANAPort: '{{ HANAPort }}'
-                  HANASecretName: '{{ HANASecretName }}'
-                  AgreeToInstallHANADBClient: '{{ AgreeToInstallHANADBClient }}'
-                  PrometheusPort: '{{ PrometheusPort }}'
-                HAClusterPrometheusExporter:
-                  PrometheusPort: '{{ PrometheusPort }}'
-                NetWeaverPrometheusExporter:
-                  SAPSID: '{{ SAPSID }}'
-                  InstanceNumbers:
-                    - '{{ InstanceNumbers[0] }}'
-                  PrometheusPort: '{{ PrometheusPort }}'
-                SQLServerPrometheusExporter:
-                  PrometheusPort: '{{ PrometheusPort }}'
-                  SQLSecretName: '{{ SQLSecretName }}'
-              SubComponentTypeConfigurations:
-                - SubComponentType: '{{ SubComponentType }}'
-                  SubComponentConfigurationDetails:
-                    AlarmMetrics:
+                alarms:
+                  - alarm_name: '{{ alarm_name }}'
+                    severity: '{{ severity }}'
+                j_mx_prometheus_exporter:
+                  j_mx_url: '{{ j_mx_url }}'
+                  host_port: '{{ host_port }}'
+                  prometheus_port: '{{ prometheus_port }}'
+                h_an_aprometheus_exporter:
+                  h_an_as_id: '{{ h_an_as_id }}'
+                  h_an_aport: '{{ h_an_aport }}'
+                  h_an_asecret_name: '{{ h_an_asecret_name }}'
+                  agree_to_install_ha_na_db_client: '{{ agree_to_install_ha_na_db_client }}'
+                  prometheus_port: '{{ prometheus_port }}'
+                h_acluster_prometheus_exporter:
+                  prometheus_port: '{{ prometheus_port }}'
+                net_weaver_prometheus_exporter:
+                  s_ap_sid: '{{ s_ap_sid }}'
+                  instance_numbers:
+                    - '{{ instance_numbers[0] }}'
+                  prometheus_port: '{{ prometheus_port }}'
+                sq_lserver_prometheus_exporter:
+                  prometheus_port: '{{ prometheus_port }}'
+                  sq_lsecret_name: '{{ sq_lsecret_name }}'
+              sub_component_type_configurations:
+                - sub_component_type: '{{ sub_component_type }}'
+                  sub_component_configuration_details:
+                    alarm_metrics:
                       - null
-                    Logs:
+                    logs:
                       - null
-                    WindowsEvents:
+                    windows_events:
                       - null
-                    Processes:
+                    processes:
                       - null
-            CustomComponentConfiguration: null
-      - name: GroupingType
-        value: '{{ GroupingType }}'
-      - name: AttachMissingPermission
-        value: '{{ AttachMissingPermission }}'
-
+            custom_component_configuration: null
+      - name: grouping_type
+        value: '{{ grouping_type }}'
+      - name: attach_missing_permission
+        value: '{{ attach_missing_permission }}'
 ```
 </TabItem>
 </Tabs>
@@ -570,7 +569,7 @@ SET PatchDocument = string('{{ {
     "AttachMissingPermission": attach_missing_permission
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationARN>';
+AND Identifier = '{{ application_arn }}';
 ```
 
 
@@ -579,7 +578,7 @@ AND Identifier = '<ApplicationARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationinsights.applications
-WHERE Identifier = '<ApplicationARN>'
+WHERE Identifier = '{{ application_arn }}'
 AND region = 'us-east-1';
 ```
 

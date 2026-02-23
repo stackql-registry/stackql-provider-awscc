@@ -193,7 +193,7 @@ location,
 expected_bucket_owner,
 tags
 FROM awscc.guardduty.ip_sets
-WHERE region = 'us-east-1' AND Identifier = '<Id>|<DetectorId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ detector_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.guardduty.ip_sets (
  Location,
  region
 )
-SELECT 
-'{{ Format }}',
- '{{ Location }}',
+SELECT
+'{{ format }}',
+ '{{ location }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,14 +251,14 @@ INSERT INTO awscc.guardduty.ip_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Format }}',
- '{{ Activate }}',
- '{{ DetectorId }}',
- '{{ Name }}',
- '{{ Location }}',
- '{{ ExpectedBucketOwner }}',
- '{{ Tags }}',
+SELECT
+ '{{ format }}',
+ '{{ activate }}',
+ '{{ detector_id }}',
+ '{{ name }}',
+ '{{ location }}',
+ '{{ expected_bucket_owner }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,23 +276,22 @@ globals:
 resources:
   - name: ip_set
     props:
-      - name: Format
-        value: '{{ Format }}'
-      - name: Activate
-        value: '{{ Activate }}'
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Location
-        value: '{{ Location }}'
-      - name: ExpectedBucketOwner
-        value: '{{ ExpectedBucketOwner }}'
-      - name: Tags
+      - name: format
+        value: '{{ format }}'
+      - name: activate
+        value: '{{ activate }}'
+      - name: detector_id
+        value: '{{ detector_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: location
+        value: '{{ location }}'
+      - name: expected_bucket_owner
+        value: '{{ expected_bucket_owner }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +311,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>|<DetectorId>';
+AND Identifier = '{{ id }}|{{ detector_id }}';
 ```
 
 
@@ -321,7 +320,7 @@ AND Identifier = '<Id>|<DetectorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.ip_sets
-WHERE Identifier = '<Id|DetectorId>'
+WHERE Identifier = '{{ id }}|{{ detector_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -218,7 +218,7 @@ domains,
 domain_file_url,
 tags
 FROM awscc.route53resolver.firewall_domain_lists
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,11 +257,11 @@ INSERT INTO awscc.route53resolver.firewall_domain_lists (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Domains }}',
- '{{ DomainFileUrl }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ domains }}',
+ '{{ domain_file_url }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,11 +276,11 @@ INSERT INTO awscc.route53resolver.firewall_domain_lists (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Domains }}',
- '{{ DomainFileUrl }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ domains }}',
+ '{{ domain_file_url }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,18 +298,17 @@ globals:
 resources:
   - name: firewall_domain_list
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Domains
+      - name: name
+        value: '{{ name }}'
+      - name: domains
         value:
-          - '{{ Domains[0] }}'
-      - name: DomainFileUrl
-        value: '{{ DomainFileUrl }}'
-      - name: Tags
+          - '{{ domains[0] }}'
+      - name: domain_file_url
+        value: '{{ domain_file_url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +326,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -336,7 +335,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.firewall_domain_lists
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

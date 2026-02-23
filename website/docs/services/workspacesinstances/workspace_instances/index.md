@@ -611,7 +611,7 @@ workspace_instance_id,
 provision_state,
 e_c2_managed_instance
 FROM awscc.workspacesinstances.workspace_instances
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -647,7 +647,7 @@ INSERT INTO awscc.workspacesinstances.workspace_instances (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -661,9 +661,9 @@ INSERT INTO awscc.workspacesinstances.workspace_instances (
  Tags,
  region
 )
-SELECT 
- '{{ ManagedInstance }}',
- '{{ Tags }}',
+SELECT
+ '{{ managed_instance }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -681,91 +681,90 @@ globals:
 resources:
   - name: workspace_instance
     props:
-      - name: ManagedInstance
+      - name: managed_instance
         value:
-          BlockDeviceMappings:
-            - DeviceName: '{{ DeviceName }}'
-              Ebs:
-                VolumeType: '{{ VolumeType }}'
-                Encrypted: '{{ Encrypted }}'
-                KmsKeyId: '{{ KmsKeyId }}'
-                Iops: '{{ Iops }}'
-                Throughput: '{{ Throughput }}'
-                VolumeSize: '{{ VolumeSize }}'
-              NoDevice: '{{ NoDevice }}'
-              VirtualName: '{{ VirtualName }}'
-          CapacityReservationSpecification:
-            CapacityReservationPreference: '{{ CapacityReservationPreference }}'
-            CapacityReservationTarget:
-              CapacityReservationId: '{{ CapacityReservationId }}'
-              CapacityReservationResourceGroupArn: '{{ CapacityReservationResourceGroupArn }}'
-          CpuOptions:
-            CoreCount: '{{ CoreCount }}'
-            ThreadsPerCore: '{{ ThreadsPerCore }}'
-          CreditSpecification:
-            CpuCredits: '{{ CpuCredits }}'
-          DisableApiStop: '{{ DisableApiStop }}'
-          EbsOptimized: '{{ EbsOptimized }}'
-          EnablePrimaryIpv6: '{{ EnablePrimaryIpv6 }}'
-          EnclaveOptions:
-            Enabled: '{{ Enabled }}'
-          HibernationOptions:
-            Configured: '{{ Configured }}'
-          IamInstanceProfile:
-            Arn: '{{ Arn }}'
-            Name: '{{ Name }}'
-          ImageId: '{{ ImageId }}'
-          InstanceMarketOptions:
-            MarketType: '{{ MarketType }}'
-            SpotOptions:
-              InstanceInterruptionBehavior: '{{ InstanceInterruptionBehavior }}'
-              MaxPrice: '{{ MaxPrice }}'
-              SpotInstanceType: '{{ SpotInstanceType }}'
-              ValidUntilUtc: '{{ ValidUntilUtc }}'
-          InstanceType: '{{ InstanceType }}'
-          Ipv6AddressCount: '{{ Ipv6AddressCount }}'
-          KeyName: '{{ KeyName }}'
-          LicenseSpecifications:
-            - LicenseConfigurationArn: '{{ LicenseConfigurationArn }}'
-          MaintenanceOptions:
-            AutoRecovery: '{{ AutoRecovery }}'
-          MetadataOptions:
-            HttpEndpoint: '{{ HttpEndpoint }}'
-            HttpProtocolIpv6: '{{ HttpProtocolIpv6 }}'
-            HttpPutResponseHopLimit: '{{ HttpPutResponseHopLimit }}'
-            HttpTokens: '{{ HttpTokens }}'
-            InstanceMetadataTags: '{{ InstanceMetadataTags }}'
-          Monitoring:
-            Enabled: '{{ Enabled }}'
-          NetworkInterfaces:
-            - Description: '{{ Description }}'
-              DeviceIndex: '{{ DeviceIndex }}'
-              Groups:
-                - '{{ Groups[0] }}'
-              SubnetId: '{{ SubnetId }}'
-          NetworkPerformanceOptions:
-            BandwidthWeighting: '{{ BandwidthWeighting }}'
-          Placement:
-            AvailabilityZone: '{{ AvailabilityZone }}'
-            GroupId: '{{ GroupId }}'
-            GroupName: '{{ GroupName }}'
-            PartitionNumber: '{{ PartitionNumber }}'
-            Tenancy: '{{ Tenancy }}'
-          PrivateDnsNameOptions:
-            HostnameType: '{{ HostnameType }}'
-            EnableResourceNameDnsARecord: '{{ EnableResourceNameDnsARecord }}'
-            EnableResourceNameDnsAAAARecord: '{{ EnableResourceNameDnsAAAARecord }}'
-          SubnetId: '{{ SubnetId }}'
-          TagSpecifications:
-            - ResourceType: '{{ ResourceType }}'
-              Tags:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-          UserData: '{{ UserData }}'
-      - name: Tags
+          block_device_mappings:
+            - device_name: '{{ device_name }}'
+              ebs:
+                volume_type: '{{ volume_type }}'
+                encrypted: '{{ encrypted }}'
+                kms_key_id: '{{ kms_key_id }}'
+                iops: '{{ iops }}'
+                throughput: '{{ throughput }}'
+                volume_size: '{{ volume_size }}'
+              no_device: '{{ no_device }}'
+              virtual_name: '{{ virtual_name }}'
+          capacity_reservation_specification:
+            capacity_reservation_preference: '{{ capacity_reservation_preference }}'
+            capacity_reservation_target:
+              capacity_reservation_id: '{{ capacity_reservation_id }}'
+              capacity_reservation_resource_group_arn: '{{ capacity_reservation_resource_group_arn }}'
+          cpu_options:
+            core_count: '{{ core_count }}'
+            threads_per_core: '{{ threads_per_core }}'
+          credit_specification:
+            cpu_credits: '{{ cpu_credits }}'
+          disable_api_stop: '{{ disable_api_stop }}'
+          ebs_optimized: '{{ ebs_optimized }}'
+          enable_primary_ipv6: '{{ enable_primary_ipv6 }}'
+          enclave_options:
+            enabled: '{{ enabled }}'
+          hibernation_options:
+            configured: '{{ configured }}'
+          iam_instance_profile:
+            arn: '{{ arn }}'
+            name: '{{ name }}'
+          image_id: '{{ image_id }}'
+          instance_market_options:
+            market_type: '{{ market_type }}'
+            spot_options:
+              instance_interruption_behavior: '{{ instance_interruption_behavior }}'
+              max_price: '{{ max_price }}'
+              spot_instance_type: '{{ spot_instance_type }}'
+              valid_until_utc: '{{ valid_until_utc }}'
+          instance_type: '{{ instance_type }}'
+          ipv6_address_count: '{{ ipv6_address_count }}'
+          key_name: '{{ key_name }}'
+          license_specifications:
+            - license_configuration_arn: '{{ license_configuration_arn }}'
+          maintenance_options:
+            auto_recovery: '{{ auto_recovery }}'
+          metadata_options:
+            http_endpoint: '{{ http_endpoint }}'
+            http_protocol_ipv6: '{{ http_protocol_ipv6 }}'
+            http_put_response_hop_limit: '{{ http_put_response_hop_limit }}'
+            http_tokens: '{{ http_tokens }}'
+            instance_metadata_tags: '{{ instance_metadata_tags }}'
+          monitoring:
+            enabled: '{{ enabled }}'
+          network_interfaces:
+            - description: '{{ description }}'
+              device_index: '{{ device_index }}'
+              groups:
+                - '{{ groups[0] }}'
+              subnet_id: '{{ subnet_id }}'
+          network_performance_options:
+            bandwidth_weighting: '{{ bandwidth_weighting }}'
+          placement:
+            availability_zone: '{{ availability_zone }}'
+            group_id: '{{ group_id }}'
+            group_name: '{{ group_name }}'
+            partition_number: '{{ partition_number }}'
+            tenancy: '{{ tenancy }}'
+          private_dns_name_options:
+            hostname_type: '{{ hostname_type }}'
+            enable_resource_name_dns_arecord: '{{ enable_resource_name_dns_arecord }}'
+            enable_resource_name_dns_aa_aa_record: '{{ enable_resource_name_dns_aa_aa_record }}'
+          subnet_id: '{{ subnet_id }}'
+          tag_specifications:
+            - resource_type: '{{ resource_type }}'
+              tags:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+          user_data: '{{ user_data }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -781,7 +780,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceInstanceId>';
+AND Identifier = '{{ workspace_instance_id }}';
 ```
 
 
@@ -790,7 +789,7 @@ AND Identifier = '<WorkspaceInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.workspace_instances
-WHERE Identifier = '<WorkspaceInstanceId>'
+WHERE Identifier = '{{ workspace_instance_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -231,7 +231,7 @@ storage_configurations,
 subnet_ids,
 tags
 FROM awscc.m2.environments
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,10 +269,10 @@ INSERT INTO awscc.m2.environments (
  Name,
  region
 )
-SELECT 
-'{{ EngineType }}',
- '{{ InstanceType }}',
- '{{ Name }}',
+SELECT
+'{{ engine_type }}',
+ '{{ instance_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,21 +297,21 @@ INSERT INTO awscc.m2.environments (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ EngineType }}',
- '{{ EngineVersion }}',
- '{{ HighAvailabilityConfig }}',
- '{{ InstanceType }}',
- '{{ KmsKeyId }}',
- '{{ Name }}',
- '{{ NetworkType }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ PubliclyAccessible }}',
- '{{ SecurityGroupIds }}',
- '{{ StorageConfigurations }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ engine_type }}',
+ '{{ engine_version }}',
+ '{{ high_availability_config }}',
+ '{{ instance_type }}',
+ '{{ kms_key_id }}',
+ '{{ name }}',
+ '{{ network_type }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ publicly_accessible }}',
+ '{{ security_group_ids }}',
+ '{{ storage_configurations }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -329,39 +329,38 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: EngineType
-        value: '{{ EngineType }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: HighAvailabilityConfig
+      - name: description
+        value: '{{ description }}'
+      - name: engine_type
+        value: '{{ engine_type }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: high_availability_config
         value:
-          DesiredCapacity: '{{ DesiredCapacity }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: SecurityGroupIds
+          desired_capacity: '{{ desired_capacity }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: StorageConfigurations
+          - '{{ security_group_ids[0] }}'
+      - name: storage_configurations
         value:
           - {}
-      - name: SubnetIds
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -381,7 +380,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentArn>';
+AND Identifier = '{{ environment_arn }}';
 ```
 
 
@@ -390,7 +389,7 @@ AND Identifier = '<EnvironmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.environments
-WHERE Identifier = '<EnvironmentArn>'
+WHERE Identifier = '{{ environment_arn }}'
 AND region = 'us-east-1';
 ```
 

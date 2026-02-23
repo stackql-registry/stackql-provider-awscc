@@ -369,7 +369,7 @@ type,
 data_source_arn,
 metrics_config
 FROM awscc.appsync.data_sources
-WHERE region = 'us-east-1' AND Identifier = '<DataSourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ data_source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -407,10 +407,10 @@ INSERT INTO awscc.appsync.data_sources (
  Type,
  region
 )
-SELECT 
-'{{ ApiId }}',
- '{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ api_id }}',
+ '{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -434,20 +434,20 @@ INSERT INTO awscc.appsync.data_sources (
  MetricsConfig,
  region
 )
-SELECT 
- '{{ ApiId }}',
- '{{ Description }}',
- '{{ DynamoDBConfig }}',
- '{{ ElasticsearchConfig }}',
- '{{ EventBridgeConfig }}',
- '{{ HttpConfig }}',
- '{{ LambdaConfig }}',
- '{{ Name }}',
- '{{ OpenSearchServiceConfig }}',
- '{{ RelationalDatabaseConfig }}',
- '{{ ServiceRoleArn }}',
- '{{ Type }}',
- '{{ MetricsConfig }}',
+SELECT
+ '{{ api_id }}',
+ '{{ description }}',
+ '{{ dynamo_db_config }}',
+ '{{ elasticsearch_config }}',
+ '{{ event_bridge_config }}',
+ '{{ http_config }}',
+ '{{ lambda_config }}',
+ '{{ name }}',
+ '{{ open_search_service_config }}',
+ '{{ relational_database_config }}',
+ '{{ service_role_arn }}',
+ '{{ type }}',
+ '{{ metrics_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -465,60 +465,59 @@ globals:
 resources:
   - name: data_source
     props:
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DynamoDBConfig
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: dynamo_db_config
         value:
-          TableName: '{{ TableName }}'
-          DeltaSyncConfig:
-            BaseTableTTL: '{{ BaseTableTTL }}'
-            DeltaSyncTableTTL: '{{ DeltaSyncTableTTL }}'
-            DeltaSyncTableName: '{{ DeltaSyncTableName }}'
-          UseCallerCredentials: '{{ UseCallerCredentials }}'
-          AwsRegion: '{{ AwsRegion }}'
-          Versioned: '{{ Versioned }}'
-      - name: ElasticsearchConfig
+          table_name: '{{ table_name }}'
+          delta_sync_config:
+            base_table_ttl: '{{ base_table_ttl }}'
+            delta_sync_table_ttl: '{{ delta_sync_table_ttl }}'
+            delta_sync_table_name: '{{ delta_sync_table_name }}'
+          use_caller_credentials: '{{ use_caller_credentials }}'
+          aws_region: '{{ aws_region }}'
+          versioned: '{{ versioned }}'
+      - name: elasticsearch_config
         value:
-          AwsRegion: '{{ AwsRegion }}'
-          Endpoint: '{{ Endpoint }}'
-      - name: EventBridgeConfig
+          aws_region: '{{ aws_region }}'
+          endpoint: '{{ endpoint }}'
+      - name: event_bridge_config
         value:
-          EventBusArn: '{{ EventBusArn }}'
-      - name: HttpConfig
+          event_bus_arn: '{{ event_bus_arn }}'
+      - name: http_config
         value:
-          Endpoint: '{{ Endpoint }}'
-          AuthorizationConfig:
-            AuthorizationType: '{{ AuthorizationType }}'
-            AwsIamConfig:
-              SigningRegion: '{{ SigningRegion }}'
-              SigningServiceName: '{{ SigningServiceName }}'
-      - name: LambdaConfig
+          endpoint: '{{ endpoint }}'
+          authorization_config:
+            authorization_type: '{{ authorization_type }}'
+            aws_iam_config:
+              signing_region: '{{ signing_region }}'
+              signing_service_name: '{{ signing_service_name }}'
+      - name: lambda_config
         value:
-          LambdaFunctionArn: '{{ LambdaFunctionArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OpenSearchServiceConfig
+          lambda_function_arn: '{{ lambda_function_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: open_search_service_config
         value:
-          AwsRegion: '{{ AwsRegion }}'
-          Endpoint: '{{ Endpoint }}'
-      - name: RelationalDatabaseConfig
+          aws_region: '{{ aws_region }}'
+          endpoint: '{{ endpoint }}'
+      - name: relational_database_config
         value:
-          RdsHttpEndpointConfig:
-            DatabaseName: '{{ DatabaseName }}'
-            AwsRegion: '{{ AwsRegion }}'
-            DbClusterIdentifier: '{{ DbClusterIdentifier }}'
-            AwsSecretStoreArn: '{{ AwsSecretStoreArn }}'
-            Schema: '{{ Schema }}'
-          RelationalDatabaseSourceType: '{{ RelationalDatabaseSourceType }}'
-      - name: ServiceRoleArn
-        value: '{{ ServiceRoleArn }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: MetricsConfig
-        value: '{{ MetricsConfig }}'
-
+          rds_http_endpoint_config:
+            database_name: '{{ database_name }}'
+            aws_region: '{{ aws_region }}'
+            db_cluster_identifier: '{{ db_cluster_identifier }}'
+            aws_secret_store_arn: '{{ aws_secret_store_arn }}'
+            schema: '{{ schema }}'
+          relational_database_source_type: '{{ relational_database_source_type }}'
+      - name: service_role_arn
+        value: '{{ service_role_arn }}'
+      - name: type
+        value: '{{ type }}'
+      - name: metrics_config
+        value: '{{ metrics_config }}'
 ```
 </TabItem>
 </Tabs>
@@ -544,7 +543,7 @@ SET PatchDocument = string('{{ {
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DataSourceArn>';
+AND Identifier = '{{ data_source_arn }}';
 ```
 
 
@@ -553,7 +552,7 @@ AND Identifier = '<DataSourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.data_sources
-WHERE Identifier = '<DataSourceArn>'
+WHERE Identifier = '{{ data_source_arn }}'
 AND region = 'us-east-1';
 ```
 

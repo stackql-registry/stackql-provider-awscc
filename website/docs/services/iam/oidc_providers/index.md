@@ -170,7 +170,7 @@ thumbprint_list,
 arn,
 tags
 FROM awscc.iam.oidc_providers
-WHERE Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -181,7 +181,7 @@ SELECT
 region,
 arn
 FROM awscc.iam.oidc_providers_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,11 +209,11 @@ INSERT INTO awscc.iam.oidc_providers (
  Tags,
  region
 )
-SELECT 
-'{{ ClientIdList }}',
- '{{ Url }}',
- '{{ ThumbprintList }}',
- '{{ Tags }}',
+SELECT
+'{{ client_id_list }}',
+ '{{ url }}',
+ '{{ thumbprint_list }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.iam.oidc_providers (
  Tags,
  region
 )
-SELECT 
- '{{ ClientIdList }}',
- '{{ Url }}',
- '{{ ThumbprintList }}',
- '{{ Tags }}',
+SELECT
+ '{{ client_id_list }}',
+ '{{ url }}',
+ '{{ thumbprint_list }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,19 +250,18 @@ globals:
 resources:
   - name: oidc_provider
     props:
-      - name: ClientIdList
+      - name: client_id_list
         value:
-          - '{{ ClientIdList[0] }}'
-      - name: Url
-        value: '{{ Url }}'
-      - name: ThumbprintList
+          - '{{ client_id_list[0] }}'
+      - name: url
+        value: '{{ url }}'
+      - name: thumbprint_list
         value:
-          - '{{ ThumbprintList[0] }}'
-      - name: Tags
+          - '{{ thumbprint_list[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +279,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -289,7 +288,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.oidc_providers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

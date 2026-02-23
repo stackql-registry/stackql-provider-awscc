@@ -224,7 +224,7 @@ location,
 revision,
 tags
 FROM awscc.kafkaconnect.custom_plugins
-WHERE region = 'us-east-1' AND Identifier = '<CustomPluginArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ custom_plugin_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +262,10 @@ INSERT INTO awscc.kafkaconnect.custom_plugins (
  Location,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ContentType }}',
- '{{ Location }}',
+SELECT
+'{{ name }}',
+ '{{ content_type }}',
+ '{{ location }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,12 +281,12 @@ INSERT INTO awscc.kafkaconnect.custom_plugins (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ContentType }}',
- '{{ Location }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ content_type }}',
+ '{{ location }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,23 +304,22 @@ globals:
 resources:
   - name: custom_plugin
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ContentType
-        value: '{{ ContentType }}'
-      - name: Location
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: content_type
+        value: '{{ content_type }}'
+      - name: location
         value:
-          S3Location:
-            BucketArn: '{{ BucketArn }}'
-            FileKey: '{{ FileKey }}'
-            ObjectVersion: '{{ ObjectVersion }}'
-      - name: Tags
+          s3_location:
+            bucket_arn: '{{ bucket_arn }}'
+            file_key: '{{ file_key }}'
+            object_version: '{{ object_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CustomPluginArn>';
+AND Identifier = '{{ custom_plugin_arn }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<CustomPluginArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kafkaconnect.custom_plugins
-WHERE Identifier = '<CustomPluginArn>'
+WHERE Identifier = '{{ custom_plugin_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -198,7 +198,7 @@ name,
 email_contact,
 tags
 FROM awscc.notificationscontacts.email_contacts
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,9 +235,9 @@ INSERT INTO awscc.notificationscontacts.email_contacts (
  Name,
  region
 )
-SELECT 
-'{{ EmailAddress }}',
- '{{ Name }}',
+SELECT
+'{{ email_address }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,10 +251,10 @@ INSERT INTO awscc.notificationscontacts.email_contacts (
  Tags,
  region
 )
-SELECT 
- '{{ EmailAddress }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ email_address }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,15 +272,14 @@ globals:
 resources:
   - name: email_contact
     props:
-      - name: EmailAddress
-        value: '{{ EmailAddress }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: email_address
+        value: '{{ email_address }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +290,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notificationscontacts.email_contacts
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

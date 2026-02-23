@@ -89,7 +89,7 @@ region,
 resource_arn,
 web_acl_arn
 FROM awscc.wafv2.webacl_associations
-WHERE Identifier = '<ResourceArn>|<WebACLArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}|{{ web_acl_arn }}';
 ```
 
 ## `INSERT` example
@@ -113,9 +113,9 @@ INSERT INTO awscc.wafv2.webacl_associations (
  WebACLArn,
  region
 )
-SELECT 
-'{{ ResourceArn }}',
- '{{ WebACLArn }}',
+SELECT
+'{{ resource_arn }}',
+ '{{ web_acl_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -128,9 +128,9 @@ INSERT INTO awscc.wafv2.webacl_associations (
  WebACLArn,
  region
 )
-SELECT 
- '{{ ResourceArn }}',
- '{{ WebACLArn }}',
+SELECT
+ '{{ resource_arn }}',
+ '{{ web_acl_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -148,11 +148,10 @@ globals:
 resources:
   - name: webacl_association
     props:
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: WebACLArn
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: web_acl_arn
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -163,7 +162,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.webacl_associations
-WHERE Identifier = '<ResourceArn|WebACLArn>'
+WHERE Identifier = '{{ resource_arn }}|{{ web_acl_arn }}'
 AND region = 'us-east-1';
 ```
 

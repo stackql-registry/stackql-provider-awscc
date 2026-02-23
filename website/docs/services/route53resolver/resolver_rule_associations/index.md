@@ -146,7 +146,7 @@ resolver_rule_id,
 resolver_rule_association_id,
 name
 FROM awscc.route53resolver.resolver_rule_associations
-WHERE region = 'us-east-1' AND Identifier = '<ResolverRuleAssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.route53resolver.resolver_rule_associations (
  ResolverRuleId,
  region
 )
-SELECT 
-'{{ VPCId }}',
- '{{ ResolverRuleId }}',
+SELECT
+'{{ vpc_id }}',
+ '{{ resolver_rule_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,10 +199,10 @@ INSERT INTO awscc.route53resolver.resolver_rule_associations (
  Name,
  region
 )
-SELECT 
- '{{ VPCId }}',
- '{{ ResolverRuleId }}',
- '{{ Name }}',
+SELECT
+ '{{ vpc_id }}',
+ '{{ resolver_rule_id }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,13 +220,12 @@ globals:
 resources:
   - name: resolver_rule_association
     props:
-      - name: VPCId
-        value: '{{ VPCId }}'
-      - name: ResolverRuleId
-        value: '{{ ResolverRuleId }}'
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: resolver_rule_id
+        value: '{{ resolver_rule_id }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +236,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_rule_associations
-WHERE Identifier = '<ResolverRuleAssociationId>'
+WHERE Identifier = '{{ resolver_rule_association_id }}'
 AND region = 'us-east-1';
 ```
 

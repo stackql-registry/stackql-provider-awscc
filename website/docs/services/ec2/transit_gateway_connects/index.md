@@ -189,7 +189,7 @@ creation_time,
 tags,
 options
 FROM awscc.ec2.transit_gateway_connects
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayAttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,9 +226,9 @@ INSERT INTO awscc.ec2.transit_gateway_connects (
  Options,
  region
 )
-SELECT 
-'{{ TransportTransitGatewayAttachmentId }}',
- '{{ Options }}',
+SELECT
+'{{ transport_transit_gateway_attachment_id }}',
+ '{{ options }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,10 +242,10 @@ INSERT INTO awscc.ec2.transit_gateway_connects (
  Options,
  region
 )
-SELECT 
- '{{ TransportTransitGatewayAttachmentId }}',
- '{{ Tags }}',
- '{{ Options }}',
+SELECT
+ '{{ transport_transit_gateway_attachment_id }}',
+ '{{ tags }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,16 +263,15 @@ globals:
 resources:
   - name: transit_gateway_connect
     props:
-      - name: TransportTransitGatewayAttachmentId
-        value: '{{ TransportTransitGatewayAttachmentId }}'
-      - name: Tags
+      - name: transport_transit_gateway_attachment_id
+        value: '{{ transport_transit_gateway_attachment_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Options
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: options
         value:
-          Protocol: '{{ Protocol }}'
-
+          protocol: '{{ protocol }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransitGatewayAttachmentId>';
+AND Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<TransitGatewayAttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_connects
-WHERE Identifier = '<TransitGatewayAttachmentId>'
+WHERE Identifier = '{{ transit_gateway_attachment_id }}'
 AND region = 'us-east-1';
 ```
 

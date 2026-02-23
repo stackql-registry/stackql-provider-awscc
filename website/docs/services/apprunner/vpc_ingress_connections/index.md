@@ -194,7 +194,7 @@ domain_name,
 ingress_vpc_configuration,
 tags
 FROM awscc.apprunner.vpc_ingress_connections
-WHERE region = 'us-east-1' AND Identifier = '<VpcIngressConnectionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_ingress_connection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.apprunner.vpc_ingress_connections (
  IngressVpcConfiguration,
  region
 )
-SELECT 
-'{{ ServiceArn }}',
- '{{ IngressVpcConfiguration }}',
+SELECT
+'{{ service_arn }}',
+ '{{ ingress_vpc_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,11 +248,11 @@ INSERT INTO awscc.apprunner.vpc_ingress_connections (
  Tags,
  region
 )
-SELECT 
- '{{ VpcIngressConnectionName }}',
- '{{ ServiceArn }}',
- '{{ IngressVpcConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ vpc_ingress_connection_name }}',
+ '{{ service_arn }}',
+ '{{ ingress_vpc_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,19 +270,18 @@ globals:
 resources:
   - name: vpc_ingress_connection
     props:
-      - name: VpcIngressConnectionName
-        value: '{{ VpcIngressConnectionName }}'
-      - name: ServiceArn
-        value: '{{ ServiceArn }}'
-      - name: IngressVpcConfiguration
+      - name: vpc_ingress_connection_name
+        value: '{{ vpc_ingress_connection_name }}'
+      - name: service_arn
+        value: '{{ service_arn }}'
+      - name: ingress_vpc_configuration
         value:
-          VpcId: '{{ VpcId }}'
-          VpcEndpointId: '{{ VpcEndpointId }}'
-      - name: Tags
+          vpc_id: '{{ vpc_id }}'
+          vpc_endpoint_id: '{{ vpc_endpoint_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +297,7 @@ SET PatchDocument = string('{{ {
     "IngressVpcConfiguration": ingress_vpc_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpcIngressConnectionArn>';
+AND Identifier = '{{ vpc_ingress_connection_arn }}';
 ```
 
 
@@ -307,7 +306,7 @@ AND Identifier = '<VpcIngressConnectionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.vpc_ingress_connections
-WHERE Identifier = '<VpcIngressConnectionArn>'
+WHERE Identifier = '{{ vpc_ingress_connection_arn }}'
 AND region = 'us-east-1';
 ```
 

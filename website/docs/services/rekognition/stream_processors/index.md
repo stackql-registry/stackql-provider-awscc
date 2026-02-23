@@ -322,7 +322,7 @@ status,
 status_message,
 tags
 FROM awscc.rekognition.stream_processors
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -359,9 +359,9 @@ INSERT INTO awscc.rekognition.stream_processors (
  KinesisVideoStream,
  region
 )
-SELECT 
-'{{ RoleArn }}',
- '{{ KinesisVideoStream }}',
+SELECT
+'{{ role_arn }}',
+ '{{ kinesis_video_stream }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -385,20 +385,20 @@ INSERT INTO awscc.rekognition.stream_processors (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ KmsKeyId }}',
- '{{ RoleArn }}',
- '{{ KinesisVideoStream }}',
- '{{ FaceSearchSettings }}',
- '{{ ConnectedHomeSettings }}',
- '{{ KinesisDataStream }}',
- '{{ S3Destination }}',
- '{{ NotificationChannel }}',
- '{{ DataSharingPreference }}',
- '{{ PolygonRegionsOfInterest }}',
- '{{ BoundingBoxRegionsOfInterest }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ kms_key_id }}',
+ '{{ role_arn }}',
+ '{{ kinesis_video_stream }}',
+ '{{ face_search_settings }}',
+ '{{ connected_home_settings }}',
+ '{{ kinesis_data_stream }}',
+ '{{ s3_destination }}',
+ '{{ notification_channel }}',
+ '{{ data_sharing_preference }}',
+ '{{ polygon_regions_of_interest }}',
+ '{{ bounding_box_regions_of_interest }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -416,52 +416,51 @@ globals:
 resources:
   - name: stream_processor
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: KinesisVideoStream
+      - name: name
+        value: '{{ name }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: kinesis_video_stream
         value:
-          Arn: '{{ Arn }}'
-      - name: FaceSearchSettings
+          arn: '{{ arn }}'
+      - name: face_search_settings
         value:
-          CollectionId: '{{ CollectionId }}'
-          FaceMatchThreshold: null
-      - name: ConnectedHomeSettings
+          collection_id: '{{ collection_id }}'
+          face_match_threshold: null
+      - name: connected_home_settings
         value:
-          Labels:
-            - '{{ Labels[0] }}'
-          MinConfidence: null
-      - name: KinesisDataStream
+          labels:
+            - '{{ labels[0] }}'
+          min_confidence: null
+      - name: kinesis_data_stream
         value:
-          Arn: '{{ Arn }}'
-      - name: S3Destination
+          arn: '{{ arn }}'
+      - name: s3_destination
         value:
-          BucketName: '{{ BucketName }}'
-          ObjectKeyPrefix: '{{ ObjectKeyPrefix }}'
-      - name: NotificationChannel
+          bucket_name: '{{ bucket_name }}'
+          object_key_prefix: '{{ object_key_prefix }}'
+      - name: notification_channel
         value:
-          Arn: '{{ Arn }}'
-      - name: DataSharingPreference
+          arn: '{{ arn }}'
+      - name: data_sharing_preference
         value:
-          OptIn: '{{ OptIn }}'
-      - name: PolygonRegionsOfInterest
+          opt_in: '{{ opt_in }}'
+      - name: polygon_regions_of_interest
         value:
-          - - X: null
-              'Y': null
-      - name: BoundingBoxRegionsOfInterest
+          - - x: null
+              'y': null
+      - name: bounding_box_regions_of_interest
         value:
-          - Height: null
-            Width: null
-            Left: null
-            Top: null
-      - name: Tags
+          - height: null
+            width: null
+            left: null
+            top: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -477,7 +476,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -486,7 +485,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.stream_processors
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

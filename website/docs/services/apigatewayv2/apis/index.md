@@ -302,7 +302,7 @@ tags,
 api_key_selection_expression,
 ip_address_type
 FROM awscc.apigatewayv2.apis
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -355,25 +355,25 @@ INSERT INTO awscc.apigatewayv2.apis (
  IpAddressType,
  region
 )
-SELECT 
-'{{ RouteSelectionExpression }}',
- '{{ Body }}',
- '{{ BodyS3Location }}',
- '{{ BasePath }}',
- '{{ CredentialsArn }}',
- '{{ CorsConfiguration }}',
- '{{ RouteKey }}',
- '{{ Target }}',
- '{{ FailOnWarnings }}',
- '{{ Description }}',
- '{{ DisableExecuteApiEndpoint }}',
- '{{ DisableSchemaValidation }}',
- '{{ Name }}',
- '{{ Version }}',
- '{{ ProtocolType }}',
- '{{ Tags }}',
- '{{ ApiKeySelectionExpression }}',
- '{{ IpAddressType }}',
+SELECT
+'{{ route_selection_expression }}',
+ '{{ body }}',
+ '{{ body_s3_location }}',
+ '{{ base_path }}',
+ '{{ credentials_arn }}',
+ '{{ cors_configuration }}',
+ '{{ route_key }}',
+ '{{ target }}',
+ '{{ fail_on_warnings }}',
+ '{{ description }}',
+ '{{ disable_execute_api_endpoint }}',
+ '{{ disable_schema_validation }}',
+ '{{ name }}',
+ '{{ version }}',
+ '{{ protocol_type }}',
+ '{{ tags }}',
+ '{{ api_key_selection_expression }}',
+ '{{ ip_address_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -402,25 +402,25 @@ INSERT INTO awscc.apigatewayv2.apis (
  IpAddressType,
  region
 )
-SELECT 
- '{{ RouteSelectionExpression }}',
- '{{ Body }}',
- '{{ BodyS3Location }}',
- '{{ BasePath }}',
- '{{ CredentialsArn }}',
- '{{ CorsConfiguration }}',
- '{{ RouteKey }}',
- '{{ Target }}',
- '{{ FailOnWarnings }}',
- '{{ Description }}',
- '{{ DisableExecuteApiEndpoint }}',
- '{{ DisableSchemaValidation }}',
- '{{ Name }}',
- '{{ Version }}',
- '{{ ProtocolType }}',
- '{{ Tags }}',
- '{{ ApiKeySelectionExpression }}',
- '{{ IpAddressType }}',
+SELECT
+ '{{ route_selection_expression }}',
+ '{{ body }}',
+ '{{ body_s3_location }}',
+ '{{ base_path }}',
+ '{{ credentials_arn }}',
+ '{{ cors_configuration }}',
+ '{{ route_key }}',
+ '{{ target }}',
+ '{{ fail_on_warnings }}',
+ '{{ description }}',
+ '{{ disable_execute_api_endpoint }}',
+ '{{ disable_schema_validation }}',
+ '{{ name }}',
+ '{{ version }}',
+ '{{ protocol_type }}',
+ '{{ tags }}',
+ '{{ api_key_selection_expression }}',
+ '{{ ip_address_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -438,57 +438,56 @@ globals:
 resources:
   - name: api
     props:
-      - name: RouteSelectionExpression
-        value: '{{ RouteSelectionExpression }}'
-      - name: Body
+      - name: route_selection_expression
+        value: '{{ route_selection_expression }}'
+      - name: body
         value: {}
-      - name: BodyS3Location
+      - name: body_s3_location
         value:
-          Etag: '{{ Etag }}'
-          Bucket: '{{ Bucket }}'
-          Version: '{{ Version }}'
-          Key: '{{ Key }}'
-      - name: BasePath
-        value: '{{ BasePath }}'
-      - name: CredentialsArn
-        value: '{{ CredentialsArn }}'
-      - name: CorsConfiguration
+          etag: '{{ etag }}'
+          bucket: '{{ bucket }}'
+          version: '{{ version }}'
+          key: '{{ key }}'
+      - name: base_path
+        value: '{{ base_path }}'
+      - name: credentials_arn
+        value: '{{ credentials_arn }}'
+      - name: cors_configuration
         value:
-          AllowOrigins:
-            - '{{ AllowOrigins[0] }}'
-          AllowCredentials: '{{ AllowCredentials }}'
-          ExposeHeaders:
-            - '{{ ExposeHeaders[0] }}'
-          AllowHeaders:
-            - '{{ AllowHeaders[0] }}'
-          MaxAge: '{{ MaxAge }}'
-          AllowMethods:
-            - '{{ AllowMethods[0] }}'
-      - name: RouteKey
-        value: '{{ RouteKey }}'
-      - name: Target
-        value: '{{ Target }}'
-      - name: FailOnWarnings
-        value: '{{ FailOnWarnings }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisableExecuteApiEndpoint
-        value: '{{ DisableExecuteApiEndpoint }}'
-      - name: DisableSchemaValidation
-        value: '{{ DisableSchemaValidation }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: ProtocolType
-        value: '{{ ProtocolType }}'
-      - name: Tags
+          allow_origins:
+            - '{{ allow_origins[0] }}'
+          allow_credentials: '{{ allow_credentials }}'
+          expose_headers:
+            - '{{ expose_headers[0] }}'
+          allow_headers:
+            - '{{ allow_headers[0] }}'
+          max_age: '{{ max_age }}'
+          allow_methods:
+            - '{{ allow_methods[0] }}'
+      - name: route_key
+        value: '{{ route_key }}'
+      - name: target
+        value: '{{ target }}'
+      - name: fail_on_warnings
+        value: '{{ fail_on_warnings }}'
+      - name: description
+        value: '{{ description }}'
+      - name: disable_execute_api_endpoint
+        value: '{{ disable_execute_api_endpoint }}'
+      - name: disable_schema_validation
+        value: '{{ disable_schema_validation }}'
+      - name: name
+        value: '{{ name }}'
+      - name: version
+        value: '{{ version }}'
+      - name: protocol_type
+        value: '{{ protocol_type }}'
+      - name: tags
         value: {}
-      - name: ApiKeySelectionExpression
-        value: '{{ ApiKeySelectionExpression }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-
+      - name: api_key_selection_expression
+        value: '{{ api_key_selection_expression }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -520,7 +519,7 @@ SET PatchDocument = string('{{ {
     "IpAddressType": ip_address_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>';
+AND Identifier = '{{ api_id }}';
 ```
 
 
@@ -529,7 +528,7 @@ AND Identifier = '<ApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.apis
-WHERE Identifier = '<ApiId>'
+WHERE Identifier = '{{ api_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -471,7 +471,7 @@ alarm_event_actions,
 alarm_capabilities,
 tags
 FROM awscc.iotevents.alarm_models
-WHERE region = 'us-east-1' AND Identifier = '<AlarmModelName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alarm_model_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -508,9 +508,9 @@ INSERT INTO awscc.iotevents.alarm_models (
  AlarmRule,
  region
 )
-SELECT 
-'{{ RoleArn }}',
- '{{ AlarmRule }}',
+SELECT
+'{{ role_arn }}',
+ '{{ alarm_rule }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -530,16 +530,16 @@ INSERT INTO awscc.iotevents.alarm_models (
  Tags,
  region
 )
-SELECT 
- '{{ AlarmModelName }}',
- '{{ AlarmModelDescription }}',
- '{{ RoleArn }}',
- '{{ Key }}',
- '{{ Severity }}',
- '{{ AlarmRule }}',
- '{{ AlarmEventActions }}',
- '{{ AlarmCapabilities }}',
- '{{ Tags }}',
+SELECT
+ '{{ alarm_model_name }}',
+ '{{ alarm_model_description }}',
+ '{{ role_arn }}',
+ '{{ key }}',
+ '{{ severity }}',
+ '{{ alarm_rule }}',
+ '{{ alarm_event_actions }}',
+ '{{ alarm_capabilities }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -557,87 +557,86 @@ globals:
 resources:
   - name: alarm_model
     props:
-      - name: AlarmModelName
-        value: '{{ AlarmModelName }}'
-      - name: AlarmModelDescription
-        value: '{{ AlarmModelDescription }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Key
-        value: '{{ Key }}'
-      - name: Severity
-        value: '{{ Severity }}'
-      - name: AlarmRule
+      - name: alarm_model_name
+        value: '{{ alarm_model_name }}'
+      - name: alarm_model_description
+        value: '{{ alarm_model_description }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: key
+        value: '{{ key }}'
+      - name: severity
+        value: '{{ severity }}'
+      - name: alarm_rule
         value:
-          SimpleRule:
-            InputProperty: '{{ InputProperty }}'
-            ComparisonOperator: '{{ ComparisonOperator }}'
-            Threshold: '{{ Threshold }}'
-      - name: AlarmEventActions
+          simple_rule:
+            input_property: '{{ input_property }}'
+            comparison_operator: '{{ comparison_operator }}'
+            threshold: '{{ threshold }}'
+      - name: alarm_event_actions
         value:
-          AlarmActions:
-            - DynamoDB:
-                HashKeyField: '{{ HashKeyField }}'
-                HashKeyType: '{{ HashKeyType }}'
-                HashKeyValue: '{{ HashKeyValue }}'
-                Operation: '{{ Operation }}'
-                Payload:
-                  ContentExpression: '{{ ContentExpression }}'
-                  Type: '{{ Type }}'
-                PayloadField: '{{ PayloadField }}'
-                RangeKeyField: '{{ RangeKeyField }}'
-                RangeKeyType: '{{ RangeKeyType }}'
-                RangeKeyValue: '{{ RangeKeyValue }}'
-                TableName: '{{ TableName }}'
-              DynamoDBv2:
-                Payload: null
-                TableName: '{{ TableName }}'
-              Firehose:
-                DeliveryStreamName: '{{ DeliveryStreamName }}'
-                Payload: null
-                Separator: '{{ Separator }}'
-              IotEvents:
-                InputName: '{{ InputName }}'
-                Payload: null
-              IotSiteWise:
-                AssetId: '{{ AssetId }}'
-                EntryId: '{{ EntryId }}'
-                PropertyAlias: '{{ PropertyAlias }}'
-                PropertyId: '{{ PropertyId }}'
-                PropertyValue:
-                  Quality: '{{ Quality }}'
-                  Timestamp:
-                    OffsetInNanos: '{{ OffsetInNanos }}'
-                    TimeInSeconds: '{{ TimeInSeconds }}'
-                  Value:
-                    BooleanValue: '{{ BooleanValue }}'
-                    DoubleValue: '{{ DoubleValue }}'
-                    IntegerValue: '{{ IntegerValue }}'
-                    StringValue: '{{ StringValue }}'
-              IotTopicPublish:
-                MqttTopic: '{{ MqttTopic }}'
-                Payload: null
-              Lambda:
-                FunctionArn: '{{ FunctionArn }}'
-                Payload: null
-              Sns:
-                Payload: null
-                TargetArn: '{{ TargetArn }}'
-              Sqs:
-                Payload: null
-                QueueUrl: '{{ QueueUrl }}'
-                UseBase64: '{{ UseBase64 }}'
-      - name: AlarmCapabilities
+          alarm_actions:
+            - dynamo_db:
+                hash_key_field: '{{ hash_key_field }}'
+                hash_key_type: '{{ hash_key_type }}'
+                hash_key_value: '{{ hash_key_value }}'
+                operation: '{{ operation }}'
+                payload:
+                  content_expression: '{{ content_expression }}'
+                  type: '{{ type }}'
+                payload_field: '{{ payload_field }}'
+                range_key_field: '{{ range_key_field }}'
+                range_key_type: '{{ range_key_type }}'
+                range_key_value: '{{ range_key_value }}'
+                table_name: '{{ table_name }}'
+              dynamo_dbv2:
+                payload: null
+                table_name: '{{ table_name }}'
+              firehose:
+                delivery_stream_name: '{{ delivery_stream_name }}'
+                payload: null
+                separator: '{{ separator }}'
+              iot_events:
+                input_name: '{{ input_name }}'
+                payload: null
+              iot_site_wise:
+                asset_id: '{{ asset_id }}'
+                entry_id: '{{ entry_id }}'
+                property_alias: '{{ property_alias }}'
+                property_id: '{{ property_id }}'
+                property_value:
+                  quality: '{{ quality }}'
+                  timestamp:
+                    offset_in_nanos: '{{ offset_in_nanos }}'
+                    time_in_seconds: '{{ time_in_seconds }}'
+                  value:
+                    boolean_value: '{{ boolean_value }}'
+                    double_value: '{{ double_value }}'
+                    integer_value: '{{ integer_value }}'
+                    string_value: '{{ string_value }}'
+              iot_topic_publish:
+                mqtt_topic: '{{ mqtt_topic }}'
+                payload: null
+              lambda:
+                function_arn: '{{ function_arn }}'
+                payload: null
+              sns:
+                payload: null
+                target_arn: '{{ target_arn }}'
+              sqs:
+                payload: null
+                queue_url: '{{ queue_url }}'
+                use_base64: '{{ use_base64 }}'
+      - name: alarm_capabilities
         value:
-          InitializationConfiguration:
-            DisabledOnInitialization: '{{ DisabledOnInitialization }}'
-          AcknowledgeFlow:
-            Enabled: '{{ Enabled }}'
-      - name: Tags
+          initialization_configuration:
+            disabled_on_initialization: '{{ disabled_on_initialization }}'
+          acknowledge_flow:
+            enabled: '{{ enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -659,7 +658,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AlarmModelName>';
+AND Identifier = '{{ alarm_model_name }}';
 ```
 
 
@@ -668,7 +667,7 @@ AND Identifier = '<AlarmModelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.alarm_models
-WHERE Identifier = '<AlarmModelName>'
+WHERE Identifier = '{{ alarm_model_name }}'
 AND region = 'us-east-1';
 ```
 

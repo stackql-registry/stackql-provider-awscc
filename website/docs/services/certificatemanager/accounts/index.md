@@ -101,7 +101,7 @@ region,
 expiry_events_configuration,
 account_id
 FROM awscc.certificatemanager.accounts
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 
 ## `INSERT` example
@@ -124,8 +124,8 @@ INSERT INTO awscc.certificatemanager.accounts (
  ExpiryEventsConfiguration,
  region
 )
-SELECT 
-'{{ ExpiryEventsConfiguration }}',
+SELECT
+'{{ expiry_events_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -137,8 +137,8 @@ INSERT INTO awscc.certificatemanager.accounts (
  ExpiryEventsConfiguration,
  region
 )
-SELECT 
- '{{ ExpiryEventsConfiguration }}',
+SELECT
+ '{{ expiry_events_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -156,10 +156,9 @@ globals:
 resources:
   - name: account
     props:
-      - name: ExpiryEventsConfiguration
+      - name: expiry_events_configuration
         value:
-          DaysBeforeExpiry: '{{ DaysBeforeExpiry }}'
-
+          days_before_expiry: '{{ days_before_expiry }}'
 ```
 </TabItem>
 </Tabs>
@@ -175,7 +174,7 @@ SET PatchDocument = string('{{ {
     "ExpiryEventsConfiguration": expiry_events_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -184,7 +183,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.certificatemanager.accounts
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

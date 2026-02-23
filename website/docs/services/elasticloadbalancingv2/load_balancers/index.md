@@ -294,7 +294,7 @@ subnet_mappings,
 enforce_security_group_inbound_rules_on_private_link_traffic,
 ipv4_ipam_pool_id
 FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE region = 'us-east-1' AND Identifier = '<LoadBalancerArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,20 +342,20 @@ INSERT INTO awscc.elasticloadbalancingv2.load_balancers (
  Ipv4IpamPoolId,
  region
 )
-SELECT 
-'{{ IpAddressType }}',
- '{{ EnablePrefixForIpv6SourceNat }}',
- '{{ SecurityGroups }}',
- '{{ LoadBalancerAttributes }}',
- '{{ MinimumLoadBalancerCapacity }}',
- '{{ Scheme }}',
- '{{ Name }}',
- '{{ Subnets }}',
- '{{ Type }}',
- '{{ Tags }}',
- '{{ SubnetMappings }}',
- '{{ EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic }}',
- '{{ Ipv4IpamPoolId }}',
+SELECT
+'{{ ip_address_type }}',
+ '{{ enable_prefix_for_ipv6_source_nat }}',
+ '{{ security_groups }}',
+ '{{ load_balancer_attributes }}',
+ '{{ minimum_load_balancer_capacity }}',
+ '{{ scheme }}',
+ '{{ name }}',
+ '{{ subnets }}',
+ '{{ type }}',
+ '{{ tags }}',
+ '{{ subnet_mappings }}',
+ '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
+ '{{ ipv4_ipam_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -379,20 +379,20 @@ INSERT INTO awscc.elasticloadbalancingv2.load_balancers (
  Ipv4IpamPoolId,
  region
 )
-SELECT 
- '{{ IpAddressType }}',
- '{{ EnablePrefixForIpv6SourceNat }}',
- '{{ SecurityGroups }}',
- '{{ LoadBalancerAttributes }}',
- '{{ MinimumLoadBalancerCapacity }}',
- '{{ Scheme }}',
- '{{ Name }}',
- '{{ Subnets }}',
- '{{ Type }}',
- '{{ Tags }}',
- '{{ SubnetMappings }}',
- '{{ EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic }}',
- '{{ Ipv4IpamPoolId }}',
+SELECT
+ '{{ ip_address_type }}',
+ '{{ enable_prefix_for_ipv6_source_nat }}',
+ '{{ security_groups }}',
+ '{{ load_balancer_attributes }}',
+ '{{ minimum_load_balancer_capacity }}',
+ '{{ scheme }}',
+ '{{ name }}',
+ '{{ subnets }}',
+ '{{ type }}',
+ '{{ tags }}',
+ '{{ subnet_mappings }}',
+ '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
+ '{{ ipv4_ipam_pool_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -410,45 +410,44 @@ globals:
 resources:
   - name: load_balancer
     props:
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: EnablePrefixForIpv6SourceNat
-        value: '{{ EnablePrefixForIpv6SourceNat }}'
-      - name: SecurityGroups
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: enable_prefix_for_ipv6_source_nat
+        value: '{{ enable_prefix_for_ipv6_source_nat }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: LoadBalancerAttributes
+          - '{{ security_groups[0] }}'
+      - name: load_balancer_attributes
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: MinimumLoadBalancerCapacity
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: minimum_load_balancer_capacity
         value:
-          CapacityUnits: '{{ CapacityUnits }}'
-      - name: Scheme
-        value: '{{ Scheme }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Subnets
+          capacity_units: '{{ capacity_units }}'
+      - name: scheme
+        value: '{{ scheme }}'
+      - name: name
+        value: '{{ name }}'
+      - name: subnets
         value:
-          - '{{ Subnets[0] }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+          - '{{ subnets[0] }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: SubnetMappings
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: subnet_mappings
         value:
-          - SubnetId: '{{ SubnetId }}'
-            AllocationId: '{{ AllocationId }}'
-            PrivateIPv4Address: '{{ PrivateIPv4Address }}'
-            IPv6Address: '{{ IPv6Address }}'
-            SourceNatIpv6Prefix: '{{ SourceNatIpv6Prefix }}'
-      - name: EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic
-        value: '{{ EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic }}'
-      - name: Ipv4IpamPoolId
-        value: '{{ Ipv4IpamPoolId }}'
-
+          - subnet_id: '{{ subnet_id }}'
+            allocation_id: '{{ allocation_id }}'
+            private_ipv4_address: '{{ private_ipv4_address }}'
+            ipv6_address: '{{ ipv6_address }}'
+            source_nat_ipv6_prefix: '{{ source_nat_ipv6_prefix }}'
+      - name: enforce_security_group_inbound_rules_on_private_link_traffic
+        value: '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}'
+      - name: ipv4_ipam_pool_id
+        value: '{{ ipv4_ipam_pool_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -473,7 +472,7 @@ SET PatchDocument = string('{{ {
     "Ipv4IpamPoolId": ipv4_ipam_pool_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LoadBalancerArn>';
+AND Identifier = '{{ load_balancer_arn }}';
 ```
 
 
@@ -482,7 +481,7 @@ AND Identifier = '<LoadBalancerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE Identifier = '<LoadBalancerArn>'
+WHERE Identifier = '{{ load_balancer_arn }}'
 AND region = 'us-east-1';
 ```
 

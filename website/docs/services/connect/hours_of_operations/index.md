@@ -268,7 +268,7 @@ hours_of_operation_arn,
 tags,
 hours_of_operation_overrides
 FROM awscc.connect.hours_of_operations
-WHERE region = 'us-east-1' AND Identifier = '<HoursOfOperationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hours_of_operation_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,11 +307,11 @@ INSERT INTO awscc.connect.hours_of_operations (
  Config,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ TimeZone }}',
- '{{ Config }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ time_zone }}',
+ '{{ config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -329,14 +329,14 @@ INSERT INTO awscc.connect.hours_of_operations (
  HoursOfOperationOverrides,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ TimeZone }}',
- '{{ Config }}',
- '{{ Tags }}',
- '{{ HoursOfOperationOverrides }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ time_zone }}',
+ '{{ config }}',
+ '{{ tags }}',
+ '{{ hours_of_operation_overrides }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -354,39 +354,38 @@ globals:
 resources:
   - name: hours_of_operation
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: TimeZone
-        value: '{{ TimeZone }}'
-      - name: Config
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: time_zone
+        value: '{{ time_zone }}'
+      - name: config
         value:
-          - Day: '{{ Day }}'
-            StartTime:
-              Hours: '{{ Hours }}'
-              Minutes: '{{ Minutes }}'
-            EndTime: null
-      - name: Tags
+          - day: '{{ day }}'
+            start_time:
+              hours: '{{ hours }}'
+              minutes: '{{ minutes }}'
+            end_time: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: HoursOfOperationOverrides
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: hours_of_operation_overrides
         value:
-          - OverrideName: '{{ OverrideName }}'
-            OverrideDescription: '{{ OverrideDescription }}'
-            EffectiveFrom: '{{ EffectiveFrom }}'
-            EffectiveTill: '{{ EffectiveTill }}'
-            OverrideConfig:
-              - Day: '{{ Day }}'
-                StartTime:
-                  Hours: '{{ Hours }}'
-                  Minutes: '{{ Minutes }}'
-                EndTime: null
-            HoursOfOperationOverrideId: '{{ HoursOfOperationOverrideId }}'
-
+          - override_name: '{{ override_name }}'
+            override_description: '{{ override_description }}'
+            effective_from: '{{ effective_from }}'
+            effective_till: '{{ effective_till }}'
+            override_config:
+              - day: '{{ day }}'
+                start_time:
+                  hours: '{{ hours }}'
+                  minutes: '{{ minutes }}'
+                end_time: null
+            hours_of_operation_override_id: '{{ hours_of_operation_override_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -408,7 +407,7 @@ SET PatchDocument = string('{{ {
     "HoursOfOperationOverrides": hours_of_operation_overrides
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HoursOfOperationArn>';
+AND Identifier = '{{ hours_of_operation_arn }}';
 ```
 
 
@@ -417,7 +416,7 @@ AND Identifier = '<HoursOfOperationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.hours_of_operations
-WHERE Identifier = '<HoursOfOperationArn>'
+WHERE Identifier = '{{ hours_of_operation_arn }}'
 AND region = 'us-east-1';
 ```
 

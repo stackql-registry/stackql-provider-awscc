@@ -152,7 +152,7 @@ roles,
 id,
 role_mappings
 FROM awscc.cognito.identity_pool_role_attachments
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.cognito.identity_pool_role_attachments (
  IdentityPoolId,
  region
 )
-SELECT 
-'{{ IdentityPoolId }}',
+SELECT
+'{{ identity_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -203,10 +203,10 @@ INSERT INTO awscc.cognito.identity_pool_role_attachments (
  RoleMappings,
  region
 )
-SELECT 
- '{{ IdentityPoolId }}',
- '{{ Roles }}',
- '{{ RoleMappings }}',
+SELECT
+ '{{ identity_pool_id }}',
+ '{{ roles }}',
+ '{{ role_mappings }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -224,13 +224,12 @@ globals:
 resources:
   - name: identity_pool_role_attachment
     props:
-      - name: IdentityPoolId
-        value: '{{ IdentityPoolId }}'
-      - name: Roles
+      - name: identity_pool_id
+        value: '{{ identity_pool_id }}'
+      - name: roles
         value: null
-      - name: RoleMappings
+      - name: role_mappings
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ SET PatchDocument = string('{{ {
     "RoleMappings": role_mappings
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -256,7 +255,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pool_role_attachments
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

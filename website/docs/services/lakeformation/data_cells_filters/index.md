@@ -171,7 +171,7 @@ row_filter,
 column_names,
 column_wildcard
 FROM awscc.lakeformation.data_cells_filters
-WHERE region = 'us-east-1' AND Identifier = '<TableCatalogId>|<DatabaseName>|<TableName>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,11 +213,11 @@ INSERT INTO awscc.lakeformation.data_cells_filters (
  Name,
  region
 )
-SELECT 
-'{{ TableCatalogId }}',
- '{{ DatabaseName }}',
- '{{ TableName }}',
- '{{ Name }}',
+SELECT
+'{{ table_catalog_id }}',
+ '{{ database_name }}',
+ '{{ table_name }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,14 +235,14 @@ INSERT INTO awscc.lakeformation.data_cells_filters (
  ColumnWildcard,
  region
 )
-SELECT 
- '{{ TableCatalogId }}',
- '{{ DatabaseName }}',
- '{{ TableName }}',
- '{{ Name }}',
- '{{ RowFilter }}',
- '{{ ColumnNames }}',
- '{{ ColumnWildcard }}',
+SELECT
+ '{{ table_catalog_id }}',
+ '{{ database_name }}',
+ '{{ table_name }}',
+ '{{ name }}',
+ '{{ row_filter }}',
+ '{{ column_names }}',
+ '{{ column_wildcard }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,25 +260,24 @@ globals:
 resources:
   - name: data_cells_filter
     props:
-      - name: TableCatalogId
-        value: '{{ TableCatalogId }}'
-      - name: DatabaseName
-        value: '{{ DatabaseName }}'
-      - name: TableName
+      - name: table_catalog_id
+        value: '{{ table_catalog_id }}'
+      - name: database_name
+        value: '{{ database_name }}'
+      - name: table_name
         value: null
-      - name: Name
+      - name: name
         value: null
-      - name: RowFilter
+      - name: row_filter
         value:
-          FilterExpression: '{{ FilterExpression }}'
-          AllRowsWildcard: {}
-      - name: ColumnNames
+          filter_expression: '{{ filter_expression }}'
+          all_rows_wildcard: {}
+      - name: column_names
         value:
           - null
-      - name: ColumnWildcard
+      - name: column_wildcard
         value:
-          ExcludedColumnNames: null
-
+          excluded_column_names: null
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +288,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.data_cells_filters
-WHERE Identifier = '<TableCatalogId|DatabaseName|TableName|Name>'
+WHERE Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -293,7 +293,7 @@ tags,
 ami_id,
 iam_instance_profile_arn
 FROM awscc.pcs.compute_node_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -334,13 +334,13 @@ INSERT INTO awscc.pcs.compute_node_groups (
  IamInstanceProfileArn,
  region
 )
-SELECT 
-'{{ ClusterId }}',
- '{{ SubnetIds }}',
- '{{ ScalingConfiguration }}',
- '{{ InstanceConfigs }}',
- '{{ CustomLaunchTemplate }}',
- '{{ IamInstanceProfileArn }}',
+SELECT
+'{{ cluster_id }}',
+ '{{ subnet_ids }}',
+ '{{ scaling_configuration }}',
+ '{{ instance_configs }}',
+ '{{ custom_launch_template }}',
+ '{{ iam_instance_profile_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -363,19 +363,19 @@ INSERT INTO awscc.pcs.compute_node_groups (
  IamInstanceProfileArn,
  region
 )
-SELECT 
- '{{ ClusterId }}',
- '{{ SpotOptions }}',
- '{{ SlurmConfiguration }}',
- '{{ SubnetIds }}',
- '{{ Name }}',
- '{{ ScalingConfiguration }}',
- '{{ InstanceConfigs }}',
- '{{ PurchaseOption }}',
- '{{ CustomLaunchTemplate }}',
- '{{ Tags }}',
- '{{ AmiId }}',
- '{{ IamInstanceProfileArn }}',
+SELECT
+ '{{ cluster_id }}',
+ '{{ spot_options }}',
+ '{{ slurm_configuration }}',
+ '{{ subnet_ids }}',
+ '{{ name }}',
+ '{{ scaling_configuration }}',
+ '{{ instance_configs }}',
+ '{{ purchase_option }}',
+ '{{ custom_launch_template }}',
+ '{{ tags }}',
+ '{{ ami_id }}',
+ '{{ iam_instance_profile_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -393,41 +393,40 @@ globals:
 resources:
   - name: compute_node_group
     props:
-      - name: ClusterId
-        value: '{{ ClusterId }}'
-      - name: SpotOptions
+      - name: cluster_id
+        value: '{{ cluster_id }}'
+      - name: spot_options
         value:
-          AllocationStrategy: '{{ AllocationStrategy }}'
-      - name: SlurmConfiguration
+          allocation_strategy: '{{ allocation_strategy }}'
+      - name: slurm_configuration
         value:
-          SlurmCustomSettings:
-            - ParameterValue: '{{ ParameterValue }}'
-              ParameterName: '{{ ParameterName }}'
-      - name: SubnetIds
+          slurm_custom_settings:
+            - parameter_value: '{{ parameter_value }}'
+              parameter_name: '{{ parameter_name }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ScalingConfiguration
+          - '{{ subnet_ids[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: scaling_configuration
         value:
-          MaxInstanceCount: '{{ MaxInstanceCount }}'
-          MinInstanceCount: '{{ MinInstanceCount }}'
-      - name: InstanceConfigs
+          max_instance_count: '{{ max_instance_count }}'
+          min_instance_count: '{{ min_instance_count }}'
+      - name: instance_configs
         value:
-          - InstanceType: '{{ InstanceType }}'
-      - name: PurchaseOption
-        value: '{{ PurchaseOption }}'
-      - name: CustomLaunchTemplate
+          - instance_type: '{{ instance_type }}'
+      - name: purchase_option
+        value: '{{ purchase_option }}'
+      - name: custom_launch_template
         value:
-          Version: '{{ Version }}'
-          TemplateId: '{{ TemplateId }}'
-      - name: Tags
+          version: '{{ version }}'
+          template_id: '{{ template_id }}'
+      - name: tags
         value: null
-      - name: AmiId
-        value: '{{ AmiId }}'
-      - name: IamInstanceProfileArn
-        value: '{{ IamInstanceProfileArn }}'
-
+      - name: ami_id
+        value: '{{ ami_id }}'
+      - name: iam_instance_profile_arn
+        value: '{{ iam_instance_profile_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -451,7 +450,7 @@ SET PatchDocument = string('{{ {
     "IamInstanceProfileArn": iam_instance_profile_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -460,7 +459,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.compute_node_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

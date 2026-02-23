@@ -182,7 +182,7 @@ permissions_policy_document,
 tags,
 arn
 FROM awscc.codeartifact.domains
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.codeartifact.domains (
  DomainName,
  region
 )
-SELECT 
-'{{ DomainName }}',
+SELECT
+'{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,10 +233,10 @@ INSERT INTO awscc.codeartifact.domains (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ PermissionsPolicyDocument }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ permissions_policy_document }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,15 +254,14 @@ globals:
 resources:
   - name: domain
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: PermissionsPolicyDocument
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: permissions_policy_document
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.domains
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

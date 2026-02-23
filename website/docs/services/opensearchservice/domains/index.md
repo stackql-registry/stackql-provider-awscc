@@ -739,7 +739,7 @@ software_update_options,
 skip_shard_migration_wait,
 identity_center_options
 FROM awscc.opensearchservice.domains
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 ```
 
 ## `INSERT` example
@@ -781,27 +781,27 @@ INSERT INTO awscc.opensearchservice.domains (
  IdentityCenterOptions,
  region
 )
-SELECT 
-'{{ ClusterConfig }}',
- '{{ DomainName }}',
- '{{ AccessPolicies }}',
- '{{ IPAddressType }}',
- '{{ EngineVersion }}',
- '{{ AdvancedOptions }}',
- '{{ LogPublishingOptions }}',
- '{{ SnapshotOptions }}',
- '{{ VPCOptions }}',
- '{{ NodeToNodeEncryptionOptions }}',
- '{{ DomainEndpointOptions }}',
- '{{ CognitoOptions }}',
- '{{ AdvancedSecurityOptions }}',
- '{{ EBSOptions }}',
- '{{ EncryptionAtRestOptions }}',
- '{{ Tags }}',
- '{{ OffPeakWindowOptions }}',
- '{{ SoftwareUpdateOptions }}',
- '{{ SkipShardMigrationWait }}',
- '{{ IdentityCenterOptions }}',
+SELECT
+'{{ cluster_config }}',
+ '{{ domain_name }}',
+ '{{ access_policies }}',
+ '{{ ip_address_type }}',
+ '{{ engine_version }}',
+ '{{ advanced_options }}',
+ '{{ log_publishing_options }}',
+ '{{ snapshot_options }}',
+ '{{ vpc_options }}',
+ '{{ node_to_node_encryption_options }}',
+ '{{ domain_endpoint_options }}',
+ '{{ cognito_options }}',
+ '{{ advanced_security_options }}',
+ '{{ ebs_options }}',
+ '{{ encryption_at_rest_options }}',
+ '{{ tags }}',
+ '{{ off_peak_window_options }}',
+ '{{ software_update_options }}',
+ '{{ skip_shard_migration_wait }}',
+ '{{ identity_center_options }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -832,27 +832,27 @@ INSERT INTO awscc.opensearchservice.domains (
  IdentityCenterOptions,
  region
 )
-SELECT 
- '{{ ClusterConfig }}',
- '{{ DomainName }}',
- '{{ AccessPolicies }}',
- '{{ IPAddressType }}',
- '{{ EngineVersion }}',
- '{{ AdvancedOptions }}',
- '{{ LogPublishingOptions }}',
- '{{ SnapshotOptions }}',
- '{{ VPCOptions }}',
- '{{ NodeToNodeEncryptionOptions }}',
- '{{ DomainEndpointOptions }}',
- '{{ CognitoOptions }}',
- '{{ AdvancedSecurityOptions }}',
- '{{ EBSOptions }}',
- '{{ EncryptionAtRestOptions }}',
- '{{ Tags }}',
- '{{ OffPeakWindowOptions }}',
- '{{ SoftwareUpdateOptions }}',
- '{{ SkipShardMigrationWait }}',
- '{{ IdentityCenterOptions }}',
+SELECT
+ '{{ cluster_config }}',
+ '{{ domain_name }}',
+ '{{ access_policies }}',
+ '{{ ip_address_type }}',
+ '{{ engine_version }}',
+ '{{ advanced_options }}',
+ '{{ log_publishing_options }}',
+ '{{ snapshot_options }}',
+ '{{ vpc_options }}',
+ '{{ node_to_node_encryption_options }}',
+ '{{ domain_endpoint_options }}',
+ '{{ cognito_options }}',
+ '{{ advanced_security_options }}',
+ '{{ ebs_options }}',
+ '{{ encryption_at_rest_options }}',
+ '{{ tags }}',
+ '{{ off_peak_window_options }}',
+ '{{ software_update_options }}',
+ '{{ skip_shard_migration_wait }}',
+ '{{ identity_center_options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -870,130 +870,129 @@ globals:
 resources:
   - name: domain
     props:
-      - name: ClusterConfig
+      - name: cluster_config
         value:
-          InstanceCount: '{{ InstanceCount }}'
-          WarmEnabled: '{{ WarmEnabled }}'
-          WarmCount: '{{ WarmCount }}'
-          DedicatedMasterEnabled: '{{ DedicatedMasterEnabled }}'
-          ZoneAwarenessConfig:
-            AvailabilityZoneCount: '{{ AvailabilityZoneCount }}'
-          DedicatedMasterCount: '{{ DedicatedMasterCount }}'
-          InstanceType: '{{ InstanceType }}'
-          WarmType: '{{ WarmType }}'
-          ZoneAwarenessEnabled: '{{ ZoneAwarenessEnabled }}'
-          DedicatedMasterType: '{{ DedicatedMasterType }}'
-          MultiAZWithStandbyEnabled: '{{ MultiAZWithStandbyEnabled }}'
-          ColdStorageOptions:
-            Enabled: '{{ Enabled }}'
-          NodeOptions:
-            - NodeType: '{{ NodeType }}'
-              NodeConfig:
-                Enabled: '{{ Enabled }}'
-                Type: '{{ Type }}'
-                Count: '{{ Count }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: AccessPolicies
+          instance_count: '{{ instance_count }}'
+          warm_enabled: '{{ warm_enabled }}'
+          warm_count: '{{ warm_count }}'
+          dedicated_master_enabled: '{{ dedicated_master_enabled }}'
+          zone_awareness_config:
+            availability_zone_count: '{{ availability_zone_count }}'
+          dedicated_master_count: '{{ dedicated_master_count }}'
+          instance_type: '{{ instance_type }}'
+          warm_type: '{{ warm_type }}'
+          zone_awareness_enabled: '{{ zone_awareness_enabled }}'
+          dedicated_master_type: '{{ dedicated_master_type }}'
+          multi_az_with_standby_enabled: '{{ multi_az_with_standby_enabled }}'
+          cold_storage_options:
+            enabled: '{{ enabled }}'
+          node_options:
+            - node_type: '{{ node_type }}'
+              node_config:
+                enabled: '{{ enabled }}'
+                type: '{{ type }}'
+                count: '{{ count }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: access_policies
         value: {}
-      - name: IPAddressType
-        value: '{{ IPAddressType }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: AdvancedOptions
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: advanced_options
         value: {}
-      - name: LogPublishingOptions
+      - name: log_publishing_options
         value: {}
-      - name: SnapshotOptions
+      - name: snapshot_options
         value:
-          AutomatedSnapshotStartHour: '{{ AutomatedSnapshotStartHour }}'
-      - name: VPCOptions
+          automated_snapshot_start_hour: '{{ automated_snapshot_start_hour }}'
+      - name: vpc_options
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: NodeToNodeEncryptionOptions
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: node_to_node_encryption_options
         value:
-          Enabled: '{{ Enabled }}'
-      - name: DomainEndpointOptions
+          enabled: '{{ enabled }}'
+      - name: domain_endpoint_options
         value:
-          CustomEndpointCertificateArn: '{{ CustomEndpointCertificateArn }}'
-          CustomEndpointEnabled: '{{ CustomEndpointEnabled }}'
-          EnforceHTTPS: '{{ EnforceHTTPS }}'
-          CustomEndpoint: '{{ CustomEndpoint }}'
-          TLSSecurityPolicy: '{{ TLSSecurityPolicy }}'
-      - name: CognitoOptions
+          custom_endpoint_certificate_arn: '{{ custom_endpoint_certificate_arn }}'
+          custom_endpoint_enabled: '{{ custom_endpoint_enabled }}'
+          enforce_ht_tp_s: '{{ enforce_ht_tp_s }}'
+          custom_endpoint: '{{ custom_endpoint }}'
+          tls_security_policy: '{{ tls_security_policy }}'
+      - name: cognito_options
         value:
-          Enabled: '{{ Enabled }}'
-          IdentityPoolId: '{{ IdentityPoolId }}'
-          UserPoolId: '{{ UserPoolId }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: AdvancedSecurityOptions
+          enabled: '{{ enabled }}'
+          identity_pool_id: '{{ identity_pool_id }}'
+          user_pool_id: '{{ user_pool_id }}'
+          role_arn: '{{ role_arn }}'
+      - name: advanced_security_options
         value:
-          Enabled: '{{ Enabled }}'
-          MasterUserOptions:
-            MasterUserPassword: '{{ MasterUserPassword }}'
-            MasterUserName: '{{ MasterUserName }}'
-            MasterUserARN: '{{ MasterUserARN }}'
-          InternalUserDatabaseEnabled: '{{ InternalUserDatabaseEnabled }}'
-          AnonymousAuthEnabled: '{{ AnonymousAuthEnabled }}'
-          SAMLOptions:
-            Enabled: '{{ Enabled }}'
-            Idp:
-              MetadataContent: '{{ MetadataContent }}'
-              EntityId: '{{ EntityId }}'
-            MasterUserName: '{{ MasterUserName }}'
-            MasterBackendRole: '{{ MasterBackendRole }}'
-            SubjectKey: '{{ SubjectKey }}'
-            RolesKey: '{{ RolesKey }}'
-            SessionTimeoutMinutes: '{{ SessionTimeoutMinutes }}'
-          JWTOptions:
-            Enabled: '{{ Enabled }}'
-            PublicKey: '{{ PublicKey }}'
-            SubjectKey: '{{ SubjectKey }}'
-            RolesKey: '{{ RolesKey }}'
-          IAMFederationOptions:
-            Enabled: '{{ Enabled }}'
-            RolesKey: '{{ RolesKey }}'
-            SubjectKey: '{{ SubjectKey }}'
-          AnonymousAuthDisableDate: '{{ AnonymousAuthDisableDate }}'
-      - name: EBSOptions
+          enabled: '{{ enabled }}'
+          master_user_options:
+            master_user_password: '{{ master_user_password }}'
+            master_user_name: '{{ master_user_name }}'
+            master_user_arn: '{{ master_user_arn }}'
+          internal_user_database_enabled: '{{ internal_user_database_enabled }}'
+          anonymous_auth_enabled: '{{ anonymous_auth_enabled }}'
+          s_aml_options:
+            enabled: '{{ enabled }}'
+            idp:
+              metadata_content: '{{ metadata_content }}'
+              entity_id: '{{ entity_id }}'
+            master_user_name: '{{ master_user_name }}'
+            master_backend_role: '{{ master_backend_role }}'
+            subject_key: '{{ subject_key }}'
+            roles_key: '{{ roles_key }}'
+            session_timeout_minutes: '{{ session_timeout_minutes }}'
+          j_wt_options:
+            enabled: '{{ enabled }}'
+            public_key: '{{ public_key }}'
+            subject_key: '{{ subject_key }}'
+            roles_key: '{{ roles_key }}'
+          iam_federation_options:
+            enabled: '{{ enabled }}'
+            roles_key: '{{ roles_key }}'
+            subject_key: '{{ subject_key }}'
+          anonymous_auth_disable_date: '{{ anonymous_auth_disable_date }}'
+      - name: ebs_options
         value:
-          EBSEnabled: '{{ EBSEnabled }}'
-          VolumeType: '{{ VolumeType }}'
-          Iops: '{{ Iops }}'
-          VolumeSize: '{{ VolumeSize }}'
-          Throughput: '{{ Throughput }}'
-      - name: EncryptionAtRestOptions
+          ebs_enabled: '{{ ebs_enabled }}'
+          volume_type: '{{ volume_type }}'
+          iops: '{{ iops }}'
+          volume_size: '{{ volume_size }}'
+          throughput: '{{ throughput }}'
+      - name: encryption_at_rest_options
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          Enabled: '{{ Enabled }}'
-      - name: Tags
+          kms_key_id: '{{ kms_key_id }}'
+          enabled: '{{ enabled }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: OffPeakWindowOptions
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: off_peak_window_options
         value:
-          Enabled: '{{ Enabled }}'
-          OffPeakWindow:
-            WindowStartTime:
-              Hours: '{{ Hours }}'
-              Minutes: '{{ Minutes }}'
-      - name: SoftwareUpdateOptions
+          enabled: '{{ enabled }}'
+          off_peak_window:
+            window_start_time:
+              hours: '{{ hours }}'
+              minutes: '{{ minutes }}'
+      - name: software_update_options
         value:
-          AutoSoftwareUpdateEnabled: '{{ AutoSoftwareUpdateEnabled }}'
-      - name: SkipShardMigrationWait
-        value: '{{ SkipShardMigrationWait }}'
-      - name: IdentityCenterOptions
+          auto_software_update_enabled: '{{ auto_software_update_enabled }}'
+      - name: skip_shard_migration_wait
+        value: '{{ skip_shard_migration_wait }}'
+      - name: identity_center_options
         value:
-          EnabledAPIAccess: '{{ EnabledAPIAccess }}'
-          IdentityCenterInstanceARN: '{{ IdentityCenterInstanceARN }}'
-          SubjectKey: '{{ SubjectKey }}'
-          RolesKey: '{{ RolesKey }}'
-          IdentityCenterApplicationARN: '{{ IdentityCenterApplicationARN }}'
-          IdentityStoreId: '{{ IdentityStoreId }}'
-
+          enabled_api_access: '{{ enabled_api_access }}'
+          identity_center_instance_arn: '{{ identity_center_instance_arn }}'
+          subject_key: '{{ subject_key }}'
+          roles_key: '{{ roles_key }}'
+          identity_center_application_arn: '{{ identity_center_application_arn }}'
+          identity_store_id: '{{ identity_store_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -1025,7 +1024,7 @@ SET PatchDocument = string('{{ {
     "SkipShardMigrationWait": skip_shard_migration_wait
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>';
+AND Identifier = '{{ domain_name }}';
 ```
 
 
@@ -1034,7 +1033,7 @@ AND Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchservice.domains
-WHERE Identifier = '<DomainName>'
+WHERE Identifier = '{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

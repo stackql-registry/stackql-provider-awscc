@@ -180,7 +180,7 @@ a_iagent_version_id,
 version_number,
 modified_time_seconds
 FROM awscc.wisdom.ai_agent_versions
-WHERE region = 'us-east-1' AND Identifier = '<AssistantId>|<AIAgentId>|<VersionNumber>';
+WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iagent_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.wisdom.ai_agent_versions (
  AssistantId,
  region
 )
-SELECT 
-'{{ AIAgentId }}',
- '{{ AssistantId }}',
+SELECT
+'{{ a_iagent_id }}',
+ '{{ assistant_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,10 +235,10 @@ INSERT INTO awscc.wisdom.ai_agent_versions (
  ModifiedTimeSeconds,
  region
 )
-SELECT 
- '{{ AIAgentId }}',
- '{{ AssistantId }}',
- '{{ ModifiedTimeSeconds }}',
+SELECT
+ '{{ a_iagent_id }}',
+ '{{ assistant_id }}',
+ '{{ modified_time_seconds }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,13 +256,12 @@ globals:
 resources:
   - name: ai_agent_version
     props:
-      - name: AIAgentId
-        value: '{{ AIAgentId }}'
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: ModifiedTimeSeconds
+      - name: a_iagent_id
+        value: '{{ a_iagent_id }}'
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: modified_time_seconds
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +272,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_agent_versions
-WHERE Identifier = '<AssistantId|AIAgentId|VersionNumber>'
+WHERE Identifier = '{{ assistant_id }}|{{ a_iagent_id }}|{{ version_number }}'
 AND region = 'us-east-1';
 ```
 

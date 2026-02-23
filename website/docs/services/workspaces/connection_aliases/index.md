@@ -141,7 +141,7 @@ connection_string,
 connection_alias_state,
 tags
 FROM awscc.workspaces.connection_aliases
-WHERE region = 'us-east-1' AND Identifier = '<AliasId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alias_id }}';
 ```
 
 ## `INSERT` example
@@ -164,8 +164,8 @@ INSERT INTO awscc.workspaces.connection_aliases (
  ConnectionString,
  region
 )
-SELECT 
-'{{ ConnectionString }}',
+SELECT
+'{{ connection_string }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -178,9 +178,9 @@ INSERT INTO awscc.workspaces.connection_aliases (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectionString }}',
- '{{ Tags }}',
+SELECT
+ '{{ connection_string }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -198,13 +198,12 @@ globals:
 resources:
   - name: connection_alias
     props:
-      - name: ConnectionString
-        value: '{{ ConnectionString }}'
-      - name: Tags
+      - name: connection_string
+        value: '{{ connection_string }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -215,7 +214,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.connection_aliases
-WHERE Identifier = '<AliasId>'
+WHERE Identifier = '{{ alias_id }}'
 AND region = 'us-east-1';
 ```
 

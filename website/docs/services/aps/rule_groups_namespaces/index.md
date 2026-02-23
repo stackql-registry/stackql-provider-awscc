@@ -170,7 +170,7 @@ data,
 arn,
 tags
 FROM awscc.aps.rule_groups_namespaces
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.aps.rule_groups_namespaces (
  Data,
  region
 )
-SELECT 
-'{{ Workspace }}',
- '{{ Name }}',
- '{{ Data }}',
+SELECT
+'{{ workspace }}',
+ '{{ name }}',
+ '{{ data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,11 +226,11 @@ INSERT INTO awscc.aps.rule_groups_namespaces (
  Tags,
  region
 )
-SELECT 
- '{{ Workspace }}',
- '{{ Name }}',
- '{{ Data }}',
- '{{ Tags }}',
+SELECT
+ '{{ workspace }}',
+ '{{ name }}',
+ '{{ data }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,17 +248,16 @@ globals:
 resources:
   - name: rule_groups_namespace
     props:
-      - name: Workspace
-        value: '{{ Workspace }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Data
-        value: '{{ Data }}'
-      - name: Tags
+      - name: workspace
+        value: '{{ workspace }}'
+      - name: name
+        value: '{{ name }}'
+      - name: data
+        value: '{{ data }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.rule_groups_namespaces
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

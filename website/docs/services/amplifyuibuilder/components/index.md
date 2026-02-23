@@ -284,7 +284,7 @@ source_id,
 tags,
 variants
 FROM awscc.amplifyuibuilder.components
-WHERE region = 'us-east-1' AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -335,21 +335,21 @@ INSERT INTO awscc.amplifyuibuilder.components (
  Variants,
  region
 )
-SELECT 
-'{{ AppId }}',
- '{{ BindingProperties }}',
- '{{ Children }}',
- '{{ CollectionProperties }}',
- '{{ ComponentType }}',
- '{{ EnvironmentName }}',
- '{{ Events }}',
- '{{ Name }}',
- '{{ Overrides }}',
- '{{ Properties }}',
- '{{ SchemaVersion }}',
- '{{ SourceId }}',
- '{{ Tags }}',
- '{{ Variants }}',
+SELECT
+'{{ app_id }}',
+ '{{ binding_properties }}',
+ '{{ children }}',
+ '{{ collection_properties }}',
+ '{{ component_type }}',
+ '{{ environment_name }}',
+ '{{ events }}',
+ '{{ name }}',
+ '{{ overrides }}',
+ '{{ properties }}',
+ '{{ schema_version }}',
+ '{{ source_id }}',
+ '{{ tags }}',
+ '{{ variants }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -374,21 +374,21 @@ INSERT INTO awscc.amplifyuibuilder.components (
  Variants,
  region
 )
-SELECT 
- '{{ AppId }}',
- '{{ BindingProperties }}',
- '{{ Children }}',
- '{{ CollectionProperties }}',
- '{{ ComponentType }}',
- '{{ EnvironmentName }}',
- '{{ Events }}',
- '{{ Name }}',
- '{{ Overrides }}',
- '{{ Properties }}',
- '{{ SchemaVersion }}',
- '{{ SourceId }}',
- '{{ Tags }}',
- '{{ Variants }}',
+SELECT
+ '{{ app_id }}',
+ '{{ binding_properties }}',
+ '{{ children }}',
+ '{{ collection_properties }}',
+ '{{ component_type }}',
+ '{{ environment_name }}',
+ '{{ events }}',
+ '{{ name }}',
+ '{{ overrides }}',
+ '{{ properties }}',
+ '{{ schema_version }}',
+ '{{ source_id }}',
+ '{{ tags }}',
+ '{{ variants }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -406,44 +406,43 @@ globals:
 resources:
   - name: component
     props:
-      - name: AppId
-        value: '{{ AppId }}'
-      - name: BindingProperties
+      - name: app_id
+        value: '{{ app_id }}'
+      - name: binding_properties
         value: {}
-      - name: Children
+      - name: children
         value:
-          - ComponentType: '{{ ComponentType }}'
-            Name: '{{ Name }}'
-            Properties: {}
-            Children:
+          - component_type: '{{ component_type }}'
+            name: '{{ name }}'
+            properties: {}
+            children:
               - null
-            Events: {}
-            SourceId: '{{ SourceId }}'
-      - name: CollectionProperties
+            events: {}
+            source_id: '{{ source_id }}'
+      - name: collection_properties
         value: {}
-      - name: ComponentType
-        value: '{{ ComponentType }}'
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: Events
+      - name: component_type
+        value: '{{ component_type }}'
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: events
         value: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: Overrides
+      - name: name
+        value: '{{ name }}'
+      - name: overrides
         value: {}
-      - name: Properties
+      - name: properties
         value: null
-      - name: SchemaVersion
-        value: '{{ SchemaVersion }}'
-      - name: SourceId
-        value: '{{ SourceId }}'
-      - name: Tags
+      - name: schema_version
+        value: '{{ schema_version }}'
+      - name: source_id
+        value: '{{ source_id }}'
+      - name: tags
         value: {}
-      - name: Variants
+      - name: variants
         value:
-          - VariantValues: {}
-            Overrides: null
-
+          - variant_values: {}
+            overrides: null
 ```
 </TabItem>
 </Tabs>
@@ -470,7 +469,7 @@ SET PatchDocument = string('{{ {
     "Variants": variants
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -479,7 +478,7 @@ AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.components
-WHERE Identifier = '<AppId|EnvironmentName|Id>'
+WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

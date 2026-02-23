@@ -212,7 +212,7 @@ status,
 status_code,
 status_message
 FROM awscc.mpa.identity_sources
-WHERE region = 'us-east-1' AND Identifier = '<IdentitySourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,8 +248,8 @@ INSERT INTO awscc.mpa.identity_sources (
  IdentitySourceParameters,
  region
 )
-SELECT 
-'{{ IdentitySourceParameters }}',
+SELECT
+'{{ identity_source_parameters }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,9 +262,9 @@ INSERT INTO awscc.mpa.identity_sources (
  Tags,
  region
 )
-SELECT 
- '{{ IdentitySourceParameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ identity_source_parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,17 +282,16 @@ globals:
 resources:
   - name: identity_source
     props:
-      - name: IdentitySourceParameters
+      - name: identity_source_parameters
         value:
-          IamIdentityCenter:
-            InstanceArn: '{{ InstanceArn }}'
-            Region: '{{ Region }}'
-            ApprovalPortalUrl: '{{ ApprovalPortalUrl }}'
-      - name: Tags
+          iam_identity_center:
+            instance_arn: '{{ instance_arn }}'
+            region: '{{ region }}'
+            approval_portal_url: '{{ approval_portal_url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdentitySourceArn>';
+AND Identifier = '{{ identity_source_arn }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<IdentitySourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mpa.identity_sources
-WHERE Identifier = '<IdentitySourceArn>'
+WHERE Identifier = '{{ identity_source_arn }}'
 AND region = 'us-east-1';
 ```
 

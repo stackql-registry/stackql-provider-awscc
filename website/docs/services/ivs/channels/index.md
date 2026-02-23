@@ -235,7 +235,7 @@ preset,
 multitrack_input_configuration,
 container_format
 FROM awscc.ivs.channels
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,7 +271,7 @@ INSERT INTO awscc.ivs.channels (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -293,17 +293,17 @@ INSERT INTO awscc.ivs.channels (
  ContainerFormat,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Authorized }}',
- '{{ InsecureIngest }}',
- '{{ LatencyMode }}',
- '{{ Type }}',
- '{{ Tags }}',
- '{{ RecordingConfigurationArn }}',
- '{{ Preset }}',
- '{{ MultitrackInputConfiguration }}',
- '{{ ContainerFormat }}',
+SELECT
+ '{{ name }}',
+ '{{ authorized }}',
+ '{{ insecure_ingest }}',
+ '{{ latency_mode }}',
+ '{{ type }}',
+ '{{ tags }}',
+ '{{ recording_configuration_arn }}',
+ '{{ preset }}',
+ '{{ multitrack_input_configuration }}',
+ '{{ container_format }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -321,32 +321,31 @@ globals:
 resources:
   - name: channel
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Authorized
-        value: '{{ Authorized }}'
-      - name: InsecureIngest
-        value: '{{ InsecureIngest }}'
-      - name: LatencyMode
-        value: '{{ LatencyMode }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: authorized
+        value: '{{ authorized }}'
+      - name: insecure_ingest
+        value: '{{ insecure_ingest }}'
+      - name: latency_mode
+        value: '{{ latency_mode }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: RecordingConfigurationArn
-        value: '{{ RecordingConfigurationArn }}'
-      - name: Preset
-        value: '{{ Preset }}'
-      - name: MultitrackInputConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: recording_configuration_arn
+        value: '{{ recording_configuration_arn }}'
+      - name: preset
+        value: '{{ preset }}'
+      - name: multitrack_input_configuration
         value:
-          Enabled: '{{ Enabled }}'
-          MaximumResolution: '{{ MaximumResolution }}'
-          Policy: '{{ Policy }}'
-      - name: ContainerFormat
-        value: '{{ ContainerFormat }}'
-
+          enabled: '{{ enabled }}'
+          maximum_resolution: '{{ maximum_resolution }}'
+          policy: '{{ policy }}'
+      - name: container_format
+        value: '{{ container_format }}'
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +370,7 @@ SET PatchDocument = string('{{ {
     "ContainerFormat": container_format
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -380,7 +379,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.channels
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

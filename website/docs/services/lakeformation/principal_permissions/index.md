@@ -174,7 +174,7 @@ permissions_with_grant_option,
 principal_identifier,
 resource_identifier
 FROM awscc.lakeformation.principal_permissions
-WHERE region = 'us-east-1' AND Identifier = '<PrincipalIdentifier>|<ResourceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ principal_identifier }}|{{ resource_identifier }}';
 ```
 
 ## `INSERT` example
@@ -200,11 +200,11 @@ INSERT INTO awscc.lakeformation.principal_permissions (
  PermissionsWithGrantOption,
  region
 )
-SELECT 
-'{{ Principal }}',
- '{{ Resource }}',
- '{{ Permissions }}',
- '{{ PermissionsWithGrantOption }}',
+SELECT
+'{{ principal }}',
+ '{{ resource }}',
+ '{{ permissions }}',
+ '{{ permissions_with_grant_option }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,12 +220,12 @@ INSERT INTO awscc.lakeformation.principal_permissions (
  PermissionsWithGrantOption,
  region
 )
-SELECT 
- '{{ Catalog }}',
- '{{ Principal }}',
- '{{ Resource }}',
- '{{ Permissions }}',
- '{{ PermissionsWithGrantOption }}',
+SELECT
+ '{{ catalog }}',
+ '{{ principal }}',
+ '{{ resource }}',
+ '{{ permissions }}',
+ '{{ permissions_with_grant_option }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -243,34 +243,33 @@ globals:
 resources:
   - name: principal_permission
     props:
-      - name: Catalog
-        value: '{{ Catalog }}'
-      - name: Principal
+      - name: catalog
+        value: '{{ catalog }}'
+      - name: principal
         value:
-          DataLakePrincipalIdentifier: '{{ DataLakePrincipalIdentifier }}'
-      - name: Resource
+          data_lake_principal_identifier: '{{ data_lake_principal_identifier }}'
+      - name: resource
         value:
-          Catalog: {}
-          Database:
-            CatalogId: null
-            Name: '{{ Name }}'
-          Table:
-            CatalogId: null
-            DatabaseName: null
-            Name: null
-            TableWildcard: {}
-          TableWithColumns:
-            CatalogId: null
-            DatabaseName: null
-            Name: null
-            ColumnNames:
+          catalog: {}
+          database:
+            catalog_id: null
+            name: '{{ name }}'
+          table:
+            catalog_id: null
+            database_name: null
+            name: null
+            table_wildcard: {}
+          table_with_columns:
+            catalog_id: null
+            database_name: null
+            name: null
+            column_names:
               - null
-      - name: Permissions
+      - name: permissions
         value:
-          - '{{ Permissions[0] }}'
-      - name: PermissionsWithGrantOption
+          - '{{ permissions[0] }}'
+      - name: permissions_with_grant_option
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.principal_permissions
-WHERE Identifier = '<PrincipalIdentifier|ResourceIdentifier>'
+WHERE Identifier = '{{ principal_identifier }}|{{ resource_identifier }}'
 AND region = 'us-east-1';
 ```
 

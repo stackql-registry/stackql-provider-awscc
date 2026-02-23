@@ -181,7 +181,7 @@ content,
 layer_version_arn,
 compatible_architectures
 FROM awscc.lambda.layer_versions
-WHERE region = 'us-east-1' AND Identifier = '<LayerVersionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ layer_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,8 +217,8 @@ INSERT INTO awscc.lambda.layer_versions (
  Content,
  region
 )
-SELECT 
-'{{ Content }}',
+SELECT
+'{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,13 +235,13 @@ INSERT INTO awscc.lambda.layer_versions (
  CompatibleArchitectures,
  region
 )
-SELECT 
- '{{ CompatibleRuntimes }}',
- '{{ LicenseInfo }}',
- '{{ Description }}',
- '{{ LayerName }}',
- '{{ Content }}',
- '{{ CompatibleArchitectures }}',
+SELECT
+ '{{ compatible_runtimes }}',
+ '{{ license_info }}',
+ '{{ description }}',
+ '{{ layer_name }}',
+ '{{ content }}',
+ '{{ compatible_architectures }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,24 +259,23 @@ globals:
 resources:
   - name: layer_version
     props:
-      - name: CompatibleRuntimes
+      - name: compatible_runtimes
         value:
-          - '{{ CompatibleRuntimes[0] }}'
-      - name: LicenseInfo
-        value: '{{ LicenseInfo }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: LayerName
-        value: '{{ LayerName }}'
-      - name: Content
+          - '{{ compatible_runtimes[0] }}'
+      - name: license_info
+        value: '{{ license_info }}'
+      - name: description
+        value: '{{ description }}'
+      - name: layer_name
+        value: '{{ layer_name }}'
+      - name: content
         value:
-          S3ObjectVersion: '{{ S3ObjectVersion }}'
-          S3Bucket: '{{ S3Bucket }}'
-          S3Key: '{{ S3Key }}'
-      - name: CompatibleArchitectures
+          s3_object_version: '{{ s3_object_version }}'
+          s3_bucket: '{{ s3_bucket }}'
+          s3_key: '{{ s3_key }}'
+      - name: compatible_architectures
         value:
-          - '{{ CompatibleArchitectures[0] }}'
-
+          - '{{ compatible_architectures[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.layer_versions
-WHERE Identifier = '<LayerVersionArn>'
+WHERE Identifier = '{{ layer_version_arn }}'
 AND region = 'us-east-1';
 ```
 

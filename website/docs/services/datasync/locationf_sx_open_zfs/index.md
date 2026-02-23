@@ -203,7 +203,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.locationf_sx_open_zfs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -240,9 +240,9 @@ INSERT INTO awscc.datasync.locationf_sx_open_zfs (
  Protocol,
  region
 )
-SELECT 
-'{{ SecurityGroupArns }}',
- '{{ Protocol }}',
+SELECT
+'{{ security_group_arns }}',
+ '{{ protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,12 +258,12 @@ INSERT INTO awscc.datasync.locationf_sx_open_zfs (
  Tags,
  region
 )
-SELECT 
- '{{ FsxFilesystemArn }}',
- '{{ SecurityGroupArns }}',
- '{{ Protocol }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ fsx_filesystem_arn }}',
+ '{{ security_group_arns }}',
+ '{{ protocol }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -281,23 +281,22 @@ globals:
 resources:
   - name: locationf_sx_open_zf
     props:
-      - name: FsxFilesystemArn
-        value: '{{ FsxFilesystemArn }}'
-      - name: SecurityGroupArns
+      - name: fsx_filesystem_arn
+        value: '{{ fsx_filesystem_arn }}'
+      - name: security_group_arns
         value:
-          - '{{ SecurityGroupArns[0] }}'
-      - name: Protocol
+          - '{{ security_group_arns[0] }}'
+      - name: protocol
         value:
-          NFS:
-            MountOptions:
-              Version: '{{ Version }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          n_fs:
+            mount_options:
+              version: '{{ version }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.locationf_sx_open_zfs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

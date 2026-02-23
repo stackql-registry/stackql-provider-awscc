@@ -193,7 +193,7 @@ target_identifier,
 parameters,
 tags
 FROM awscc.controltower.enabled_baselines
-WHERE region = 'us-east-1' AND Identifier = '<EnabledBaselineIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ enabled_baseline_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +231,10 @@ INSERT INTO awscc.controltower.enabled_baselines (
  TargetIdentifier,
  region
 )
-SELECT 
-'{{ BaselineIdentifier }}',
- '{{ BaselineVersion }}',
- '{{ TargetIdentifier }}',
+SELECT
+'{{ baseline_identifier }}',
+ '{{ baseline_version }}',
+ '{{ target_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,12 +250,12 @@ INSERT INTO awscc.controltower.enabled_baselines (
  Tags,
  region
 )
-SELECT 
- '{{ BaselineIdentifier }}',
- '{{ BaselineVersion }}',
- '{{ TargetIdentifier }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ baseline_identifier }}',
+ '{{ baseline_version }}',
+ '{{ target_identifier }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -273,21 +273,20 @@ globals:
 resources:
   - name: enabled_baseline
     props:
-      - name: BaselineIdentifier
-        value: '{{ BaselineIdentifier }}'
-      - name: BaselineVersion
-        value: '{{ BaselineVersion }}'
-      - name: TargetIdentifier
-        value: '{{ TargetIdentifier }}'
-      - name: Parameters
+      - name: baseline_identifier
+        value: '{{ baseline_identifier }}'
+      - name: baseline_version
+        value: '{{ baseline_version }}'
+      - name: target_identifier
+        value: '{{ target_identifier }}'
+      - name: parameters
         value:
-          - Key: '{{ Key }}'
-            Value: null
-      - name: Tags
+          - key: '{{ key }}'
+            value: null
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnabledBaselineIdentifier>';
+AND Identifier = '{{ enabled_baseline_identifier }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<EnabledBaselineIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.enabled_baselines
-WHERE Identifier = '<EnabledBaselineIdentifier>'
+WHERE Identifier = '{{ enabled_baseline_identifier }}'
 AND region = 'us-east-1';
 ```
 

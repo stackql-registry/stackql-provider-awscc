@@ -250,7 +250,7 @@ preserve_filename,
 enforce_message_signing,
 custom_directories
 FROM awscc.transfer.agreements
-WHERE region = 'us-east-1' AND Identifier = '<AgreementId>|<ServerId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,11 +290,11 @@ INSERT INTO awscc.transfer.agreements (
  AccessRole,
  region
 )
-SELECT 
-'{{ ServerId }}',
- '{{ LocalProfileId }}',
- '{{ PartnerProfileId }}',
- '{{ AccessRole }}',
+SELECT
+'{{ server_id }}',
+ '{{ local_profile_id }}',
+ '{{ partner_profile_id }}',
+ '{{ access_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -316,18 +316,18 @@ INSERT INTO awscc.transfer.agreements (
  CustomDirectories,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ServerId }}',
- '{{ LocalProfileId }}',
- '{{ PartnerProfileId }}',
- '{{ BaseDirectory }}',
- '{{ AccessRole }}',
- '{{ Status }}',
- '{{ Tags }}',
- '{{ PreserveFilename }}',
- '{{ EnforceMessageSigning }}',
- '{{ CustomDirectories }}',
+SELECT
+ '{{ description }}',
+ '{{ server_id }}',
+ '{{ local_profile_id }}',
+ '{{ partner_profile_id }}',
+ '{{ base_directory }}',
+ '{{ access_role }}',
+ '{{ status }}',
+ '{{ tags }}',
+ '{{ preserve_filename }}',
+ '{{ enforce_message_signing }}',
+ '{{ custom_directories }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -345,36 +345,35 @@ globals:
 resources:
   - name: agreement
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ServerId
-        value: '{{ ServerId }}'
-      - name: LocalProfileId
-        value: '{{ LocalProfileId }}'
-      - name: PartnerProfileId
-        value: '{{ PartnerProfileId }}'
-      - name: BaseDirectory
-        value: '{{ BaseDirectory }}'
-      - name: AccessRole
-        value: '{{ AccessRole }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: server_id
+        value: '{{ server_id }}'
+      - name: local_profile_id
+        value: '{{ local_profile_id }}'
+      - name: partner_profile_id
+        value: '{{ partner_profile_id }}'
+      - name: base_directory
+        value: '{{ base_directory }}'
+      - name: access_role
+        value: '{{ access_role }}'
+      - name: status
+        value: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: PreserveFilename
-        value: '{{ PreserveFilename }}'
-      - name: EnforceMessageSigning
-        value: '{{ EnforceMessageSigning }}'
-      - name: CustomDirectories
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: preserve_filename
+        value: '{{ preserve_filename }}'
+      - name: enforce_message_signing
+        value: '{{ enforce_message_signing }}'
+      - name: custom_directories
         value:
-          FailedFilesDirectory: '{{ FailedFilesDirectory }}'
-          MdnFilesDirectory: '{{ MdnFilesDirectory }}'
-          PayloadFilesDirectory: '{{ PayloadFilesDirectory }}'
-          StatusFilesDirectory: '{{ StatusFilesDirectory }}'
-          TemporaryFilesDirectory: '{{ TemporaryFilesDirectory }}'
-
+          failed_files_directory: '{{ failed_files_directory }}'
+          mdn_files_directory: '{{ mdn_files_directory }}'
+          payload_files_directory: '{{ payload_files_directory }}'
+          status_files_directory: '{{ status_files_directory }}'
+          temporary_files_directory: '{{ temporary_files_directory }}'
 ```
 </TabItem>
 </Tabs>
@@ -399,7 +398,7 @@ SET PatchDocument = string('{{ {
     "CustomDirectories": custom_directories
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AgreementId>|<ServerId>';
+AND Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```
 
 
@@ -408,7 +407,7 @@ AND Identifier = '<AgreementId>|<ServerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.agreements
-WHERE Identifier = '<AgreementId|ServerId>'
+WHERE Identifier = '{{ agreement_id }}|{{ server_id }}'
 AND region = 'us-east-1';
 ```
 

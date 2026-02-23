@@ -534,7 +534,7 @@ actions,
 criteria,
 tags
 FROM awscc.securityhub.automation_rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -574,12 +574,12 @@ INSERT INTO awscc.securityhub.automation_rules (
  Criteria,
  region
 )
-SELECT 
-'{{ RuleOrder }}',
- '{{ Description }}',
- '{{ RuleName }}',
- '{{ Actions }}',
- '{{ Criteria }}',
+SELECT
+'{{ rule_order }}',
+ '{{ description }}',
+ '{{ rule_name }}',
+ '{{ actions }}',
+ '{{ criteria }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -598,15 +598,15 @@ INSERT INTO awscc.securityhub.automation_rules (
  Tags,
  region
 )
-SELECT 
- '{{ RuleStatus }}',
- '{{ RuleOrder }}',
- '{{ Description }}',
- '{{ RuleName }}',
- '{{ IsTerminal }}',
- '{{ Actions }}',
- '{{ Criteria }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_status }}',
+ '{{ rule_order }}',
+ '{{ description }}',
+ '{{ rule_name }}',
+ '{{ is_terminal }}',
+ '{{ actions }}',
+ '{{ criteria }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -624,122 +624,121 @@ globals:
 resources:
   - name: automation_rule
     props:
-      - name: RuleStatus
-        value: '{{ RuleStatus }}'
-      - name: RuleOrder
-        value: '{{ RuleOrder }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RuleName
-        value: '{{ RuleName }}'
-      - name: IsTerminal
-        value: '{{ IsTerminal }}'
-      - name: Actions
+      - name: rule_status
+        value: '{{ rule_status }}'
+      - name: rule_order
+        value: '{{ rule_order }}'
+      - name: description
+        value: '{{ description }}'
+      - name: rule_name
+        value: '{{ rule_name }}'
+      - name: is_terminal
+        value: '{{ is_terminal }}'
+      - name: actions
         value:
-          - Type: '{{ Type }}'
-            FindingFieldsUpdate:
-              Types:
-                - '{{ Types[0] }}'
-              Severity:
-                Product: null
-                Label: '{{ Label }}'
-                Normalized: '{{ Normalized }}'
-              Confidence: null
-              Criticality: null
-              UserDefinedFields: {}
-              VerificationState: '{{ VerificationState }}'
-              RelatedFindings:
-                - ProductArn: '{{ ProductArn }}'
-                  Id: null
-              Note:
-                Text: '{{ Text }}'
-                UpdatedBy: null
-              Workflow:
-                Status: '{{ Status }}'
-      - name: Criteria
+          - type: '{{ type }}'
+            finding_fields_update:
+              types:
+                - '{{ types[0] }}'
+              severity:
+                product: null
+                label: '{{ label }}'
+                normalized: '{{ normalized }}'
+              confidence: null
+              criticality: null
+              user_defined_fields: {}
+              verification_state: '{{ verification_state }}'
+              related_findings:
+                - product_arn: '{{ product_arn }}'
+                  id: null
+              note:
+                text: '{{ text }}'
+                updated_by: null
+              workflow:
+                status: '{{ status }}'
+      - name: criteria
         value:
-          ProductArn:
-            - Comparison: '{{ Comparison }}'
-              Value: '{{ Value }}'
-          AwsAccountId:
+          product_arn:
+            - comparison: '{{ comparison }}'
+              value: '{{ value }}'
+          aws_account_id:
             - null
-          Id:
+          id:
             - null
-          GeneratorId:
+          generator_id:
             - null
-          Type:
+          type:
             - null
-          FirstObservedAt:
-            - DateRange:
-                Unit: '{{ Unit }}'
-                Value: null
-              End: '{{ End }}'
-              Start: null
-          LastObservedAt:
+          first_observed_at:
+            - date_range:
+                unit: '{{ unit }}'
+                value: null
+              end: '{{ end }}'
+              start: null
+          last_observed_at:
             - null
-          CreatedAt:
+          created_at:
             - null
-          UpdatedAt:
+          updated_at:
             - null
-          Confidence:
-            - Eq: null
-              Gte: null
-              Lte: null
-          Criticality:
+          confidence:
+            - eq: null
+              gte: null
+              lte: null
+          criticality:
             - null
-          Title:
+          title:
             - null
-          Description:
+          description:
             - null
-          SourceUrl:
+          source_url:
             - null
-          ProductName:
+          product_name:
             - null
-          CompanyName:
+          company_name:
             - null
-          SeverityLabel:
+          severity_label:
             - null
-          ResourceType:
+          resource_type:
             - null
-          ResourceId:
+          resource_id:
             - null
-          ResourcePartition:
+          resource_partition:
             - null
-          ResourceRegion:
+          resource_region:
             - null
-          ResourceTags:
-            - Comparison: '{{ Comparison }}'
-              Key: null
-              Value: null
-          ResourceDetailsOther:
+          resource_tags:
+            - comparison: '{{ comparison }}'
+              key: null
+              value: null
+          resource_details_other:
             - null
-          ComplianceStatus:
+          compliance_status:
             - null
-          ComplianceSecurityControlId:
+          compliance_security_control_id:
             - null
-          ComplianceAssociatedStandardsId:
+          compliance_associated_standards_id:
             - null
-          VerificationState:
+          verification_state:
             - null
-          WorkflowStatus:
+          workflow_status:
             - null
-          RecordState:
+          record_state:
             - null
-          RelatedFindingsProductArn:
+          related_findings_product_arn:
             - null
-          RelatedFindingsId:
+          related_findings_id:
             - null
-          NoteText:
+          note_text:
             - null
-          NoteUpdatedAt:
+          note_updated_at:
             - null
-          NoteUpdatedBy:
+          note_updated_by:
             - null
-          UserDefinedFields:
+          user_defined_fields:
             - null
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -762,7 +761,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleArn>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -771,7 +770,7 @@ AND Identifier = '<RuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.automation_rules
-WHERE Identifier = '<RuleArn>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

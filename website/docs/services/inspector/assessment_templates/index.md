@@ -170,7 +170,7 @@ assessment_template_name,
 rules_package_arns,
 user_attributes_for_findings
 FROM awscc.inspector.assessment_templates
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.inspector.assessment_templates (
  RulesPackageArns,
  region
 )
-SELECT 
-'{{ AssessmentTargetArn }}',
- '{{ DurationInSeconds }}',
- '{{ RulesPackageArns }}',
+SELECT
+'{{ assessment_target_arn }}',
+ '{{ duration_in_seconds }}',
+ '{{ rules_package_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,12 +227,12 @@ INSERT INTO awscc.inspector.assessment_templates (
  UserAttributesForFindings,
  region
 )
-SELECT 
- '{{ AssessmentTargetArn }}',
- '{{ DurationInSeconds }}',
- '{{ AssessmentTemplateName }}',
- '{{ RulesPackageArns }}',
- '{{ UserAttributesForFindings }}',
+SELECT
+ '{{ assessment_target_arn }}',
+ '{{ duration_in_seconds }}',
+ '{{ assessment_template_name }}',
+ '{{ rules_package_arns }}',
+ '{{ user_attributes_for_findings }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,20 +250,19 @@ globals:
 resources:
   - name: assessment_template
     props:
-      - name: AssessmentTargetArn
-        value: '{{ AssessmentTargetArn }}'
-      - name: DurationInSeconds
-        value: '{{ DurationInSeconds }}'
-      - name: AssessmentTemplateName
-        value: '{{ AssessmentTemplateName }}'
-      - name: RulesPackageArns
+      - name: assessment_target_arn
+        value: '{{ assessment_target_arn }}'
+      - name: duration_in_seconds
+        value: '{{ duration_in_seconds }}'
+      - name: assessment_template_name
+        value: '{{ assessment_template_name }}'
+      - name: rules_package_arns
         value:
-          - '{{ RulesPackageArns[0] }}'
-      - name: UserAttributesForFindings
+          - '{{ rules_package_arns[0] }}'
+      - name: user_attributes_for_findings
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +273,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.assessment_templates
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

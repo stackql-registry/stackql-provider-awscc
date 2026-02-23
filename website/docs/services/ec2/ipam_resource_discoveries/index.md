@@ -214,7 +214,7 @@ ipam_resource_discovery_arn,
 state,
 tags
 FROM awscc.ec2.ipam_resource_discoveries
-WHERE region = 'us-east-1' AND Identifier = '<IpamResourceDiscoveryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_resource_discovery_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,7 +250,7 @@ INSERT INTO awscc.ec2.ipam_resource_discoveries (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -266,11 +266,11 @@ INSERT INTO awscc.ec2.ipam_resource_discoveries (
  Tags,
  region
 )
-SELECT 
- '{{ OperatingRegions }}',
- '{{ Description }}',
- '{{ OrganizationalUnitExclusions }}',
- '{{ Tags }}',
+SELECT
+ '{{ operating_regions }}',
+ '{{ description }}',
+ '{{ organizational_unit_exclusions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -288,19 +288,18 @@ globals:
 resources:
   - name: ipam_resource_discovery
     props:
-      - name: OperatingRegions
+      - name: operating_regions
         value:
-          - RegionName: '{{ RegionName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: OrganizationalUnitExclusions
+          - region_name: '{{ region_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: organizational_unit_exclusions
         value:
-          - OrganizationsEntityPath: '{{ OrganizationsEntityPath }}'
-      - name: Tags
+          - organizations_entity_path: '{{ organizations_entity_path }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +318,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpamResourceDiscoveryId>';
+AND Identifier = '{{ ipam_resource_discovery_id }}';
 ```
 
 
@@ -328,7 +327,7 @@ AND Identifier = '<IpamResourceDiscoveryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_resource_discoveries
-WHERE Identifier = '<IpamResourceDiscoveryId>'
+WHERE Identifier = '{{ ipam_resource_discovery_id }}'
 AND region = 'us-east-1';
 ```
 

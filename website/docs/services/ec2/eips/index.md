@@ -205,7 +205,7 @@ ipam_pool_id,
 address,
 tags
 FROM awscc.ec2.eips
-WHERE region = 'us-east-1' AND Identifier = '<PublicIp>|<AllocationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,15 +249,15 @@ INSERT INTO awscc.ec2.eips (
  Tags,
  region
 )
-SELECT 
-'{{ Domain }}',
- '{{ NetworkBorderGroup }}',
- '{{ TransferAddress }}',
- '{{ InstanceId }}',
- '{{ PublicIpv4Pool }}',
- '{{ IpamPoolId }}',
- '{{ Address }}',
- '{{ Tags }}',
+SELECT
+'{{ domain }}',
+ '{{ network_border_group }}',
+ '{{ transfer_address }}',
+ '{{ instance_id }}',
+ '{{ public_ipv4_pool }}',
+ '{{ ipam_pool_id }}',
+ '{{ address }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,15 +276,15 @@ INSERT INTO awscc.ec2.eips (
  Tags,
  region
 )
-SELECT 
- '{{ Domain }}',
- '{{ NetworkBorderGroup }}',
- '{{ TransferAddress }}',
- '{{ InstanceId }}',
- '{{ PublicIpv4Pool }}',
- '{{ IpamPoolId }}',
- '{{ Address }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain }}',
+ '{{ network_border_group }}',
+ '{{ transfer_address }}',
+ '{{ instance_id }}',
+ '{{ public_ipv4_pool }}',
+ '{{ ipam_pool_id }}',
+ '{{ address }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,25 +302,24 @@ globals:
 resources:
   - name: eip
     props:
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: NetworkBorderGroup
-        value: '{{ NetworkBorderGroup }}'
-      - name: TransferAddress
-        value: '{{ TransferAddress }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: PublicIpv4Pool
-        value: '{{ PublicIpv4Pool }}'
-      - name: IpamPoolId
-        value: '{{ IpamPoolId }}'
-      - name: Address
-        value: '{{ Address }}'
-      - name: Tags
+      - name: domain
+        value: '{{ domain }}'
+      - name: network_border_group
+        value: '{{ network_border_group }}'
+      - name: transfer_address
+        value: '{{ transfer_address }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: public_ipv4_pool
+        value: '{{ public_ipv4_pool }}'
+      - name: ipam_pool_id
+        value: '{{ ipam_pool_id }}'
+      - name: address
+        value: '{{ address }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PublicIp>|<AllocationId>';
+AND Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<PublicIp>|<AllocationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.eips
-WHERE Identifier = '<PublicIp|AllocationId>'
+WHERE Identifier = '{{ public_ip }}|{{ allocation_id }}'
 AND region = 'us-east-1';
 ```
 

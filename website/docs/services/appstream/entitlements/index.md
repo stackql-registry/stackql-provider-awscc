@@ -136,7 +136,7 @@ attributes,
 created_time,
 last_modified_time
 FROM awscc.appstream.entitlements
-WHERE region = 'us-east-1' AND Identifier = '<StackName>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ stack_name }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -162,11 +162,11 @@ INSERT INTO awscc.appstream.entitlements (
  Attributes,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ StackName }}',
- '{{ AppVisibility }}',
- '{{ Attributes }}',
+SELECT
+'{{ name }}',
+ '{{ stack_name }}',
+ '{{ app_visibility }}',
+ '{{ attributes }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -182,12 +182,12 @@ INSERT INTO awscc.appstream.entitlements (
  Attributes,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ StackName }}',
- '{{ Description }}',
- '{{ AppVisibility }}',
- '{{ Attributes }}',
+SELECT
+ '{{ name }}',
+ '{{ stack_name }}',
+ '{{ description }}',
+ '{{ app_visibility }}',
+ '{{ attributes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -205,19 +205,18 @@ globals:
 resources:
   - name: entitlement
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: StackName
-        value: '{{ StackName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: AppVisibility
-        value: '{{ AppVisibility }}'
-      - name: Attributes
+      - name: name
+        value: '{{ name }}'
+      - name: stack_name
+        value: '{{ stack_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: app_visibility
+        value: '{{ app_visibility }}'
+      - name: attributes
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-
+          - name: '{{ name }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -235,7 +234,7 @@ SET PatchDocument = string('{{ {
     "Attributes": attributes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StackName>|<Name>';
+AND Identifier = '{{ stack_name }}|{{ name }}';
 ```
 
 
@@ -244,7 +243,7 @@ AND Identifier = '<StackName>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.entitlements
-WHERE Identifier = '<StackName|Name>'
+WHERE Identifier = '{{ stack_name }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -188,7 +188,7 @@ repository_link_id,
 repository_link_arn,
 tags
 FROM awscc.codestarconnections.repository_links
-WHERE region = 'us-east-1' AND Identifier = '<RepositoryLinkArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ repository_link_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.codestarconnections.repository_links (
  RepositoryName,
  region
 )
-SELECT 
-'{{ ConnectionArn }}',
- '{{ OwnerId }}',
- '{{ RepositoryName }}',
+SELECT
+'{{ connection_arn }}',
+ '{{ owner_id }}',
+ '{{ repository_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -245,12 +245,12 @@ INSERT INTO awscc.codestarconnections.repository_links (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectionArn }}',
- '{{ OwnerId }}',
- '{{ RepositoryName }}',
- '{{ EncryptionKeyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ connection_arn }}',
+ '{{ owner_id }}',
+ '{{ repository_name }}',
+ '{{ encryption_key_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,19 +268,18 @@ globals:
 resources:
   - name: repository_link
     props:
-      - name: ConnectionArn
-        value: '{{ ConnectionArn }}'
-      - name: OwnerId
-        value: '{{ OwnerId }}'
-      - name: RepositoryName
-        value: '{{ RepositoryName }}'
-      - name: EncryptionKeyArn
-        value: '{{ EncryptionKeyArn }}'
-      - name: Tags
+      - name: connection_arn
+        value: '{{ connection_arn }}'
+      - name: owner_id
+        value: '{{ owner_id }}'
+      - name: repository_name
+        value: '{{ repository_name }}'
+      - name: encryption_key_arn
+        value: '{{ encryption_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +297,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RepositoryLinkArn>';
+AND Identifier = '{{ repository_link_arn }}';
 ```
 
 
@@ -307,7 +306,7 @@ AND Identifier = '<RepositoryLinkArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.repository_links
-WHERE Identifier = '<RepositoryLinkArn>'
+WHERE Identifier = '{{ repository_link_arn }}'
 AND region = 'us-east-1';
 ```
 

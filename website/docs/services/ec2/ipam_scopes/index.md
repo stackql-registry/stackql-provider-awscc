@@ -194,7 +194,7 @@ description,
 pool_count,
 tags
 FROM awscc.ec2.ipam_scopes
-WHERE region = 'us-east-1' AND Identifier = '<IpamScopeId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_scope_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,8 +230,8 @@ INSERT INTO awscc.ec2.ipam_scopes (
  IpamId,
  region
 )
-SELECT 
-'{{ IpamId }}',
+SELECT
+'{{ ipam_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -245,10 +245,10 @@ INSERT INTO awscc.ec2.ipam_scopes (
  Tags,
  region
 )
-SELECT 
- '{{ IpamId }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ ipam_id }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,15 +266,14 @@ globals:
 resources:
   - name: ipam_scope
     props:
-      - name: IpamId
-        value: '{{ IpamId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: ipam_id
+        value: '{{ ipam_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +290,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpamScopeId>';
+AND Identifier = '{{ ipam_scope_id }}';
 ```
 
 
@@ -300,7 +299,7 @@ AND Identifier = '<IpamScopeId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_scopes
-WHERE Identifier = '<IpamScopeId>'
+WHERE Identifier = '{{ ipam_scope_id }}'
 AND region = 'us-east-1';
 ```
 

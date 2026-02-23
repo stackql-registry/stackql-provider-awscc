@@ -383,7 +383,7 @@ auto_scaling_specifications,
 cdc_specification,
 replica_specifications
 FROM awscc.cassandra.tables
-WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>|<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -421,9 +421,9 @@ INSERT INTO awscc.cassandra.tables (
  PartitionKeyColumns,
  region
 )
-SELECT 
-'{{ KeyspaceName }}',
- '{{ PartitionKeyColumns }}',
+SELECT
+'{{ keyspace_name }}',
+ '{{ partition_key_columns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -448,21 +448,21 @@ INSERT INTO awscc.cassandra.tables (
  ReplicaSpecifications,
  region
 )
-SELECT 
- '{{ KeyspaceName }}',
- '{{ TableName }}',
- '{{ RegularColumns }}',
- '{{ PartitionKeyColumns }}',
- '{{ ClusteringKeyColumns }}',
- '{{ BillingMode }}',
- '{{ PointInTimeRecoveryEnabled }}',
- '{{ ClientSideTimestampsEnabled }}',
- '{{ Tags }}',
- '{{ DefaultTimeToLive }}',
- '{{ EncryptionSpecification }}',
- '{{ AutoScalingSpecifications }}',
- '{{ CdcSpecification }}',
- '{{ ReplicaSpecifications }}',
+SELECT
+ '{{ keyspace_name }}',
+ '{{ table_name }}',
+ '{{ regular_columns }}',
+ '{{ partition_key_columns }}',
+ '{{ clustering_key_columns }}',
+ '{{ billing_mode }}',
+ '{{ point_in_time_recovery_enabled }}',
+ '{{ client_side_timestamps_enabled }}',
+ '{{ tags }}',
+ '{{ default_time_to_live }}',
+ '{{ encryption_specification }}',
+ '{{ auto_scaling_specifications }}',
+ '{{ cdc_specification }}',
+ '{{ replica_specifications }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -480,66 +480,65 @@ globals:
 resources:
   - name: table
     props:
-      - name: KeyspaceName
-        value: '{{ KeyspaceName }}'
-      - name: TableName
-        value: '{{ TableName }}'
-      - name: RegularColumns
+      - name: keyspace_name
+        value: '{{ keyspace_name }}'
+      - name: table_name
+        value: '{{ table_name }}'
+      - name: regular_columns
         value:
-          - ColumnName: '{{ ColumnName }}'
-            ColumnType: '{{ ColumnType }}'
-      - name: PartitionKeyColumns
+          - column_name: '{{ column_name }}'
+            column_type: '{{ column_type }}'
+      - name: partition_key_columns
         value:
           - null
-      - name: ClusteringKeyColumns
+      - name: clustering_key_columns
         value:
-          - Column: null
-            OrderBy: '{{ OrderBy }}'
-      - name: BillingMode
+          - column: null
+            order_by: '{{ order_by }}'
+      - name: billing_mode
         value:
-          Mode: '{{ Mode }}'
-          ProvisionedThroughput:
-            ReadCapacityUnits: '{{ ReadCapacityUnits }}'
-            WriteCapacityUnits: '{{ WriteCapacityUnits }}'
-      - name: PointInTimeRecoveryEnabled
-        value: '{{ PointInTimeRecoveryEnabled }}'
-      - name: ClientSideTimestampsEnabled
-        value: '{{ ClientSideTimestampsEnabled }}'
-      - name: Tags
+          mode: '{{ mode }}'
+          provisioned_throughput:
+            read_capacity_units: '{{ read_capacity_units }}'
+            write_capacity_units: '{{ write_capacity_units }}'
+      - name: point_in_time_recovery_enabled
+        value: '{{ point_in_time_recovery_enabled }}'
+      - name: client_side_timestamps_enabled
+        value: '{{ client_side_timestamps_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DefaultTimeToLive
-        value: '{{ DefaultTimeToLive }}'
-      - name: EncryptionSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: default_time_to_live
+        value: '{{ default_time_to_live }}'
+      - name: encryption_specification
         value:
-          EncryptionType: '{{ EncryptionType }}'
-          KmsKeyIdentifier: '{{ KmsKeyIdentifier }}'
-      - name: AutoScalingSpecifications
+          encryption_type: '{{ encryption_type }}'
+          kms_key_identifier: '{{ kms_key_identifier }}'
+      - name: auto_scaling_specifications
         value:
-          WriteCapacityAutoScaling:
-            AutoScalingDisabled: '{{ AutoScalingDisabled }}'
-            MinimumUnits: '{{ MinimumUnits }}'
-            MaximumUnits: '{{ MaximumUnits }}'
-            ScalingPolicy:
-              TargetTrackingScalingPolicyConfiguration:
-                DisableScaleIn: '{{ DisableScaleIn }}'
-                ScaleInCooldown: '{{ ScaleInCooldown }}'
-                ScaleOutCooldown: '{{ ScaleOutCooldown }}'
-                TargetValue: '{{ TargetValue }}'
-          ReadCapacityAutoScaling: null
-      - name: CdcSpecification
+          write_capacity_auto_scaling:
+            auto_scaling_disabled: '{{ auto_scaling_disabled }}'
+            minimum_units: '{{ minimum_units }}'
+            maximum_units: '{{ maximum_units }}'
+            scaling_policy:
+              target_tracking_scaling_policy_configuration:
+                disable_scale_in: '{{ disable_scale_in }}'
+                scale_in_cooldown: '{{ scale_in_cooldown }}'
+                scale_out_cooldown: '{{ scale_out_cooldown }}'
+                target_value: '{{ target_value }}'
+          read_capacity_auto_scaling: null
+      - name: cdc_specification
         value:
-          Status: '{{ Status }}'
-          ViewType: '{{ ViewType }}'
-          Tags:
+          status: '{{ status }}'
+          view_type: '{{ view_type }}'
+          tags:
             - null
-      - name: ReplicaSpecifications
+      - name: replica_specifications
         value:
-          - Region: '{{ Region }}'
-            ReadCapacityUnits: '{{ ReadCapacityUnits }}'
-            ReadCapacityAutoScaling: null
-
+          - region: '{{ region }}'
+            read_capacity_units: '{{ read_capacity_units }}'
+            read_capacity_auto_scaling: null
 ```
 </TabItem>
 </Tabs>
@@ -563,7 +562,7 @@ SET PatchDocument = string('{{ {
     "ReplicaSpecifications": replica_specifications
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyspaceName>|<TableName>';
+AND Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```
 
 
@@ -572,7 +571,7 @@ AND Identifier = '<KeyspaceName>|<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.tables
-WHERE Identifier = '<KeyspaceName|TableName>'
+WHERE Identifier = '{{ keyspace_name }}|{{ table_name }}'
 AND region = 'us-east-1';
 ```
 

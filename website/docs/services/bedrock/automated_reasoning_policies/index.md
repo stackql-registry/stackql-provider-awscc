@@ -285,7 +285,7 @@ updated_at,
 policy_id,
 tags
 FROM awscc.bedrock.automated_reasoning_policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,8 +321,8 @@ INSERT INTO awscc.bedrock.automated_reasoning_policies (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -337,11 +337,11 @@ INSERT INTO awscc.bedrock.automated_reasoning_policies (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ PolicyDefinition }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ policy_definition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,32 +359,31 @@ globals:
 resources:
   - name: automated_reasoning_policy
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PolicyDefinition
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: policy_definition
         value:
-          Version: '{{ Version }}'
-          Types:
-            - Name: '{{ Name }}'
-              Description: '{{ Description }}'
-              Values:
-                - Value: '{{ Value }}'
-                  Description: '{{ Description }}'
-          Rules:
-            - Id: '{{ Id }}'
-              Expression: '{{ Expression }}'
-              AlternateExpression: '{{ AlternateExpression }}'
-          Variables:
-            - Name: '{{ Name }}'
-              Type: '{{ Type }}'
-              Description: '{{ Description }}'
-      - name: Tags
+          version: '{{ version }}'
+          types:
+            - name: '{{ name }}'
+              description: '{{ description }}'
+              values:
+                - value: '{{ value }}'
+                  description: '{{ description }}'
+          rules:
+            - id: '{{ id }}'
+              expression: '{{ expression }}'
+              alternate_expression: '{{ alternate_expression }}'
+          variables:
+            - name: '{{ name }}'
+              type: '{{ type }}'
+              description: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -403,7 +402,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyArn>';
+AND Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -412,7 +411,7 @@ AND Identifier = '<PolicyArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.automated_reasoning_policies
-WHERE Identifier = '<PolicyArn>'
+WHERE Identifier = '{{ policy_arn }}'
 AND region = 'us-east-1';
 ```
 

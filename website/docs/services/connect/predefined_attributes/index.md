@@ -194,7 +194,7 @@ attribute_configuration,
 last_modified_region,
 last_modified_time
 FROM awscc.connect.predefined_attributes
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,9 +232,9 @@ INSERT INTO awscc.connect.predefined_attributes (
  Name,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,12 +250,12 @@ INSERT INTO awscc.connect.predefined_attributes (
  AttributeConfiguration,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Values }}',
- '{{ Purposes }}',
- '{{ AttributeConfiguration }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ values }}',
+ '{{ purposes }}',
+ '{{ attribute_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -273,22 +273,21 @@ globals:
 resources:
   - name: predefined_attribute
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Values
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: values
         value:
-          StringList:
-            - '{{ StringList[0] }}'
-      - name: Purposes
+          string_list:
+            - '{{ string_list[0] }}'
+      - name: purposes
         value:
-          - '{{ Purposes[0] }}'
-      - name: AttributeConfiguration
+          - '{{ purposes[0] }}'
+      - name: attribute_configuration
         value:
-          EnableValueValidationOnAssociation: '{{ EnableValueValidationOnAssociation }}'
-          IsReadOnly: '{{ IsReadOnly }}'
-
+          enable_value_validation_on_association: '{{ enable_value_validation_on_association }}'
+          is_read_only: '{{ is_read_only }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "AttributeConfiguration": attribute_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceArn>|<Name>';
+AND Identifier = '{{ instance_arn }}|{{ name }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<InstanceArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.predefined_attributes
-WHERE Identifier = '<InstanceArn|Name>'
+WHERE Identifier = '{{ instance_arn }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

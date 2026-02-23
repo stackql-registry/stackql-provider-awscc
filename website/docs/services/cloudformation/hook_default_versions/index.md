@@ -146,7 +146,7 @@ type_name,
 arn,
 version_id
 FROM awscc.cloudformation.hook_default_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +184,10 @@ INSERT INTO awscc.cloudformation.hook_default_versions (
  VersionId,
  region
 )
-SELECT 
-'{{ TypeVersionArn }}',
- '{{ TypeName }}',
- '{{ VersionId }}',
+SELECT
+'{{ type_version_arn }}',
+ '{{ type_name }}',
+ '{{ version_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -201,10 +201,10 @@ INSERT INTO awscc.cloudformation.hook_default_versions (
  VersionId,
  region
 )
-SELECT 
- '{{ TypeVersionArn }}',
- '{{ TypeName }}',
- '{{ VersionId }}',
+SELECT
+ '{{ type_version_arn }}',
+ '{{ type_name }}',
+ '{{ version_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,13 +222,12 @@ globals:
 resources:
   - name: hook_default_version
     props:
-      - name: TypeVersionArn
-        value: '{{ TypeVersionArn }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: VersionId
-        value: '{{ VersionId }}'
-
+      - name: type_version_arn
+        value: '{{ type_version_arn }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: version_id
+        value: '{{ version_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +245,7 @@ SET PatchDocument = string('{{ {
     "VersionId": version_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 

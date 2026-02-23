@@ -181,7 +181,7 @@ principal_org_id,
 id,
 principal
 FROM awscc.lambda.permissions
-WHERE region = 'us-east-1' AND Identifier = '<FunctionName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.lambda.permissions (
  Principal,
  region
 )
-SELECT 
-'{{ FunctionName }}',
- '{{ Action }}',
- '{{ Principal }}',
+SELECT
+'{{ function_name }}',
+ '{{ action }}',
+ '{{ principal }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,15 +242,15 @@ INSERT INTO awscc.lambda.permissions (
  Principal,
  region
 )
-SELECT 
- '{{ FunctionName }}',
- '{{ Action }}',
- '{{ EventSourceToken }}',
- '{{ FunctionUrlAuthType }}',
- '{{ SourceArn }}',
- '{{ SourceAccount }}',
- '{{ PrincipalOrgID }}',
- '{{ Principal }}',
+SELECT
+ '{{ function_name }}',
+ '{{ action }}',
+ '{{ event_source_token }}',
+ '{{ function_url_auth_type }}',
+ '{{ source_arn }}',
+ '{{ source_account }}',
+ '{{ principal_org_id }}',
+ '{{ principal }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,23 +268,22 @@ globals:
 resources:
   - name: permission
     props:
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: Action
-        value: '{{ Action }}'
-      - name: EventSourceToken
-        value: '{{ EventSourceToken }}'
-      - name: FunctionUrlAuthType
-        value: '{{ FunctionUrlAuthType }}'
-      - name: SourceArn
-        value: '{{ SourceArn }}'
-      - name: SourceAccount
-        value: '{{ SourceAccount }}'
-      - name: PrincipalOrgID
-        value: '{{ PrincipalOrgID }}'
-      - name: Principal
-        value: '{{ Principal }}'
-
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: action
+        value: '{{ action }}'
+      - name: event_source_token
+        value: '{{ event_source_token }}'
+      - name: function_url_auth_type
+        value: '{{ function_url_auth_type }}'
+      - name: source_arn
+        value: '{{ source_arn }}'
+      - name: source_account
+        value: '{{ source_account }}'
+      - name: principal_org_id
+        value: '{{ principal_org_id }}'
+      - name: principal
+        value: '{{ principal }}'
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +294,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.permissions
-WHERE Identifier = '<FunctionName|Id>'
+WHERE Identifier = '{{ function_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

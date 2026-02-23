@@ -384,7 +384,7 @@ tags,
 object_type_names,
 event_trigger_names
 FROM awscc.customerprofiles.integrations
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<Uri>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ uri }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -421,8 +421,8 @@ INSERT INTO awscc.customerprofiles.integrations (
  DomainName,
  region
 )
-SELECT 
-'{{ DomainName }}',
+SELECT
+'{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -440,14 +440,14 @@ INSERT INTO awscc.customerprofiles.integrations (
  EventTriggerNames,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ Uri }}',
- '{{ FlowDefinition }}',
- '{{ ObjectTypeName }}',
- '{{ Tags }}',
- '{{ ObjectTypeNames }}',
- '{{ EventTriggerNames }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ uri }}',
+ '{{ flow_definition }}',
+ '{{ object_type_name }}',
+ '{{ tags }}',
+ '{{ object_type_names }}',
+ '{{ event_trigger_names }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -465,73 +465,72 @@ globals:
 resources:
   - name: integration
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: Uri
-        value: '{{ Uri }}'
-      - name: FlowDefinition
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: uri
+        value: '{{ uri }}'
+      - name: flow_definition
         value:
-          FlowName: '{{ FlowName }}'
-          Description: '{{ Description }}'
-          KmsArn: '{{ KmsArn }}'
-          Tasks:
-            - ConnectorOperator:
-                Marketo: '{{ Marketo }}'
-                S3: '{{ S3 }}'
-                Salesforce: '{{ Salesforce }}'
-                ServiceNow: '{{ ServiceNow }}'
-                Zendesk: '{{ Zendesk }}'
-              SourceFields:
-                - '{{ SourceFields[0] }}'
-              DestinationField: '{{ DestinationField }}'
-              TaskType: '{{ TaskType }}'
-              TaskProperties:
-                - OperatorPropertyKey: '{{ OperatorPropertyKey }}'
-                  Property: '{{ Property }}'
-          TriggerConfig:
-            TriggerType: '{{ TriggerType }}'
-            TriggerProperties:
-              Scheduled:
-                ScheduleExpression: '{{ ScheduleExpression }}'
-                DataPullMode: '{{ DataPullMode }}'
-                ScheduleStartTime: null
-                ScheduleEndTime: null
-                Timezone: '{{ Timezone }}'
-                ScheduleOffset: '{{ ScheduleOffset }}'
-                FirstExecutionFrom: null
-          SourceFlowConfig:
-            ConnectorType: '{{ ConnectorType }}'
-            ConnectorProfileName: '{{ ConnectorProfileName }}'
-            IncrementalPullConfig:
-              DatetimeTypeFieldName: '{{ DatetimeTypeFieldName }}'
-            SourceConnectorProperties:
-              Marketo:
-                Object: '{{ Object }}'
-              S3:
-                BucketName: '{{ BucketName }}'
-                BucketPrefix: '{{ BucketPrefix }}'
-              Salesforce:
-                Object: null
-                EnableDynamicFieldUpdate: '{{ EnableDynamicFieldUpdate }}'
-                IncludeDeletedRecords: '{{ IncludeDeletedRecords }}'
-              ServiceNow:
-                Object: null
-              Zendesk:
-                Object: null
-      - name: ObjectTypeName
-        value: '{{ ObjectTypeName }}'
-      - name: Tags
+          flow_name: '{{ flow_name }}'
+          description: '{{ description }}'
+          kms_arn: '{{ kms_arn }}'
+          tasks:
+            - connector_operator:
+                marketo: '{{ marketo }}'
+                s3: '{{ s3 }}'
+                salesforce: '{{ salesforce }}'
+                service_now: '{{ service_now }}'
+                zendesk: '{{ zendesk }}'
+              source_fields:
+                - '{{ source_fields[0] }}'
+              destination_field: '{{ destination_field }}'
+              task_type: '{{ task_type }}'
+              task_properties:
+                - operator_property_key: '{{ operator_property_key }}'
+                  property: '{{ property }}'
+          trigger_config:
+            trigger_type: '{{ trigger_type }}'
+            trigger_properties:
+              scheduled:
+                schedule_expression: '{{ schedule_expression }}'
+                data_pull_mode: '{{ data_pull_mode }}'
+                schedule_start_time: null
+                schedule_end_time: null
+                timezone: '{{ timezone }}'
+                schedule_offset: '{{ schedule_offset }}'
+                first_execution_from: null
+          source_flow_config:
+            connector_type: '{{ connector_type }}'
+            connector_profile_name: '{{ connector_profile_name }}'
+            incremental_pull_config:
+              datetime_type_field_name: '{{ datetime_type_field_name }}'
+            source_connector_properties:
+              marketo:
+                object: '{{ object }}'
+              s3:
+                bucket_name: '{{ bucket_name }}'
+                bucket_prefix: '{{ bucket_prefix }}'
+              salesforce:
+                object: null
+                enable_dynamic_field_update: '{{ enable_dynamic_field_update }}'
+                include_deleted_records: '{{ include_deleted_records }}'
+              service_now:
+                object: null
+              zendesk:
+                object: null
+      - name: object_type_name
+        value: '{{ object_type_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ObjectTypeNames
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: object_type_names
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EventTriggerNames
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: event_trigger_names
         value:
-          - '{{ EventTriggerNames[0] }}'
-
+          - '{{ event_trigger_names[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -551,7 +550,7 @@ SET PatchDocument = string('{{ {
     "EventTriggerNames": event_trigger_names
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<Uri>';
+AND Identifier = '{{ domain_name }}|{{ uri }}';
 ```
 
 
@@ -560,7 +559,7 @@ AND Identifier = '<DomainName>|<Uri>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.integrations
-WHERE Identifier = '<DomainName|Uri>'
+WHERE Identifier = '{{ domain_name }}|{{ uri }}'
 AND region = 'us-east-1';
 ```
 

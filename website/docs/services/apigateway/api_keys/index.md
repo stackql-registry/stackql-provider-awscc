@@ -206,7 +206,7 @@ stage_keys,
 tags,
 value
 FROM awscc.apigateway.api_keys
-WHERE region = 'us-east-1' AND Identifier = '<APIKeyId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,15 +249,15 @@ INSERT INTO awscc.apigateway.api_keys (
  Value,
  region
 )
-SELECT 
-'{{ CustomerId }}',
- '{{ Description }}',
- '{{ Enabled }}',
- '{{ GenerateDistinctId }}',
- '{{ Name }}',
- '{{ StageKeys }}',
- '{{ Tags }}',
- '{{ Value }}',
+SELECT
+'{{ customer_id }}',
+ '{{ description }}',
+ '{{ enabled }}',
+ '{{ generate_distinct_id }}',
+ '{{ name }}',
+ '{{ stage_keys }}',
+ '{{ tags }}',
+ '{{ value }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,15 +276,15 @@ INSERT INTO awscc.apigateway.api_keys (
  Value,
  region
 )
-SELECT 
- '{{ CustomerId }}',
- '{{ Description }}',
- '{{ Enabled }}',
- '{{ GenerateDistinctId }}',
- '{{ Name }}',
- '{{ StageKeys }}',
- '{{ Tags }}',
- '{{ Value }}',
+SELECT
+ '{{ customer_id }}',
+ '{{ description }}',
+ '{{ enabled }}',
+ '{{ generate_distinct_id }}',
+ '{{ name }}',
+ '{{ stage_keys }}',
+ '{{ tags }}',
+ '{{ value }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,27 +302,26 @@ globals:
 resources:
   - name: api_key
     props:
-      - name: CustomerId
-        value: '{{ CustomerId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: GenerateDistinctId
-        value: '{{ GenerateDistinctId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: StageKeys
+      - name: customer_id
+        value: '{{ customer_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: generate_distinct_id
+        value: '{{ generate_distinct_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: stage_keys
         value:
-          - RestApiId: '{{ RestApiId }}'
-            StageName: '{{ StageName }}'
-      - name: Tags
+          - rest_api_id: '{{ rest_api_id }}'
+            stage_name: '{{ stage_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Value
-        value: '{{ Value }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: value
+        value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<APIKeyId>';
+AND Identifier = '{{ api_key_id }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<APIKeyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.api_keys
-WHERE Identifier = '<APIKeyId>'
+WHERE Identifier = '{{ api_key_id }}'
 AND region = 'us-east-1';
 ```
 

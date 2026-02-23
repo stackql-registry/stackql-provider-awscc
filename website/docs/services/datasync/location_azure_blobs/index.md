@@ -256,7 +256,7 @@ cmk_secret_config,
 custom_secret_config,
 managed_secret_config
 FROM awscc.datasync.location_azure_blobs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,8 +292,8 @@ INSERT INTO awscc.datasync.location_azure_blobs (
  AzureBlobAuthenticationType,
  region
 )
-SELECT 
-'{{ AzureBlobAuthenticationType }}',
+SELECT
+'{{ azure_blob_authentication_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -314,17 +314,17 @@ INSERT INTO awscc.datasync.location_azure_blobs (
  CustomSecretConfig,
  region
 )
-SELECT 
- '{{ AgentArns }}',
- '{{ AzureBlobAuthenticationType }}',
- '{{ AzureBlobSasConfiguration }}',
- '{{ AzureBlobContainerUrl }}',
- '{{ AzureBlobType }}',
- '{{ AzureAccessTier }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
- '{{ CmkSecretConfig }}',
- '{{ CustomSecretConfig }}',
+SELECT
+ '{{ agent_arns }}',
+ '{{ azure_blob_authentication_type }}',
+ '{{ azure_blob_sas_configuration }}',
+ '{{ azure_blob_container_url }}',
+ '{{ azure_blob_type }}',
+ '{{ azure_access_tier }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
+ '{{ cmk_secret_config }}',
+ '{{ custom_secret_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -342,35 +342,34 @@ globals:
 resources:
   - name: location_azure_blob
     props:
-      - name: AgentArns
+      - name: agent_arns
         value:
-          - '{{ AgentArns[0] }}'
-      - name: AzureBlobAuthenticationType
-        value: '{{ AzureBlobAuthenticationType }}'
-      - name: AzureBlobSasConfiguration
+          - '{{ agent_arns[0] }}'
+      - name: azure_blob_authentication_type
+        value: '{{ azure_blob_authentication_type }}'
+      - name: azure_blob_sas_configuration
         value:
-          AzureBlobSasToken: '{{ AzureBlobSasToken }}'
-      - name: AzureBlobContainerUrl
-        value: '{{ AzureBlobContainerUrl }}'
-      - name: AzureBlobType
-        value: '{{ AzureBlobType }}'
-      - name: AzureAccessTier
-        value: '{{ AzureAccessTier }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          azure_blob_sas_token: '{{ azure_blob_sas_token }}'
+      - name: azure_blob_container_url
+        value: '{{ azure_blob_container_url }}'
+      - name: azure_blob_type
+        value: '{{ azure_blob_type }}'
+      - name: azure_access_tier
+        value: '{{ azure_access_tier }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CmkSecretConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: cmk_secret_config
         value:
-          SecretArn: '{{ SecretArn }}'
-          KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: CustomSecretConfig
+          secret_arn: '{{ secret_arn }}'
+          kms_key_arn: '{{ kms_key_arn }}'
+      - name: custom_secret_config
         value:
-          SecretArn: '{{ SecretArn }}'
-          SecretAccessRoleArn: '{{ SecretAccessRoleArn }}'
-
+          secret_arn: '{{ secret_arn }}'
+          secret_access_role_arn: '{{ secret_access_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +392,7 @@ SET PatchDocument = string('{{ {
     "CustomSecretConfig": custom_secret_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -402,7 +401,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_azure_blobs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

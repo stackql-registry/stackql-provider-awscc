@@ -149,7 +149,7 @@ status_description,
 registered_time,
 updated_latest_patch_version
 FROM awscc.panorama.package_versions
-WHERE region = 'us-east-1' AND Identifier = '<PackageId>|<PackageVersion>|<PatchVersion>';
+WHERE region = 'us-east-1' AND Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```
 
 ## `INSERT` example
@@ -174,10 +174,10 @@ INSERT INTO awscc.panorama.package_versions (
  PatchVersion,
  region
 )
-SELECT 
-'{{ PackageId }}',
- '{{ PackageVersion }}',
- '{{ PatchVersion }}',
+SELECT
+'{{ package_id }}',
+ '{{ package_version }}',
+ '{{ patch_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -194,13 +194,13 @@ INSERT INTO awscc.panorama.package_versions (
  UpdatedLatestPatchVersion,
  region
 )
-SELECT 
- '{{ OwnerAccount }}',
- '{{ PackageId }}',
- '{{ PackageVersion }}',
- '{{ PatchVersion }}',
- '{{ MarkLatest }}',
- '{{ UpdatedLatestPatchVersion }}',
+SELECT
+ '{{ owner_account }}',
+ '{{ package_id }}',
+ '{{ package_version }}',
+ '{{ patch_version }}',
+ '{{ mark_latest }}',
+ '{{ updated_latest_patch_version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,19 +218,18 @@ globals:
 resources:
   - name: package_version
     props:
-      - name: OwnerAccount
-        value: '{{ OwnerAccount }}'
-      - name: PackageId
-        value: '{{ PackageId }}'
-      - name: PackageVersion
-        value: '{{ PackageVersion }}'
-      - name: PatchVersion
-        value: '{{ PatchVersion }}'
-      - name: MarkLatest
-        value: '{{ MarkLatest }}'
-      - name: UpdatedLatestPatchVersion
+      - name: owner_account
+        value: '{{ owner_account }}'
+      - name: package_id
+        value: '{{ package_id }}'
+      - name: package_version
+        value: '{{ package_version }}'
+      - name: patch_version
+        value: '{{ patch_version }}'
+      - name: mark_latest
+        value: '{{ mark_latest }}'
+      - name: updated_latest_patch_version
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ SET PatchDocument = string('{{ {
     "UpdatedLatestPatchVersion": updated_latest_patch_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PackageId>|<PackageVersion>|<PatchVersion>';
+AND Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```
 
 
@@ -256,7 +255,7 @@ AND Identifier = '<PackageId>|<PackageVersion>|<PatchVersion>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.package_versions
-WHERE Identifier = '<PackageId|PackageVersion|PatchVersion>'
+WHERE Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}'
 AND region = 'us-east-1';
 ```
 

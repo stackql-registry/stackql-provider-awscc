@@ -188,7 +188,7 @@ last_updated_time,
 tags,
 elements
 FROM awscc.frauddetector.lists
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.frauddetector.lists (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,12 +241,12 @@ INSERT INTO awscc.frauddetector.lists (
  Elements,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ VariableType }}',
- '{{ Tags }}',
- '{{ Elements }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ variable_type }}',
+ '{{ tags }}',
+ '{{ elements }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,20 +264,19 @@ globals:
 resources:
   - name: list
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: VariableType
-        value: '{{ VariableType }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: variable_type
+        value: '{{ variable_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Elements
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: elements
         value:
-          - '{{ Elements[0] }}'
-
+          - '{{ elements[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +295,7 @@ SET PatchDocument = string('{{ {
     "Elements": elements
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -305,7 +304,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.lists
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

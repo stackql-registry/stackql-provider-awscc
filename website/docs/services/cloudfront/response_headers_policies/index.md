@@ -417,7 +417,7 @@ id,
 last_modified_time,
 response_headers_policy_config
 FROM awscc.cloudfront.response_headers_policies
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -428,7 +428,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.response_headers_policies_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -453,8 +453,8 @@ INSERT INTO awscc.cloudfront.response_headers_policies (
  ResponseHeadersPolicyConfig,
  region
 )
-SELECT 
-'{{ ResponseHeadersPolicyConfig }}',
+SELECT
+'{{ response_headers_policy_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -466,8 +466,8 @@ INSERT INTO awscc.cloudfront.response_headers_policies (
  ResponseHeadersPolicyConfig,
  region
 )
-SELECT 
- '{{ ResponseHeadersPolicyConfig }}',
+SELECT
+ '{{ response_headers_policy_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -485,60 +485,59 @@ globals:
 resources:
   - name: response_headers_policy
     props:
-      - name: ResponseHeadersPolicyConfig
+      - name: response_headers_policy_config
         value:
-          Comment: '{{ Comment }}'
-          CorsConfig:
-            AccessControlAllowCredentials: '{{ AccessControlAllowCredentials }}'
-            AccessControlAllowHeaders:
-              Items:
-                - '{{ Items[0] }}'
-            AccessControlAllowMethods:
-              Items:
-                - '{{ Items[0] }}'
-            AccessControlAllowOrigins:
-              Items:
-                - '{{ Items[0] }}'
-            AccessControlExposeHeaders:
-              Items:
-                - '{{ Items[0] }}'
-            AccessControlMaxAgeSec: '{{ AccessControlMaxAgeSec }}'
-            OriginOverride: '{{ OriginOverride }}'
-          CustomHeadersConfig:
-            Items:
-              - Header: '{{ Header }}'
-                Override: '{{ Override }}'
-                Value: '{{ Value }}'
-          Name: '{{ Name }}'
-          RemoveHeadersConfig:
-            Items:
-              - Header: '{{ Header }}'
-          SecurityHeadersConfig:
-            ContentSecurityPolicy:
-              ContentSecurityPolicy: '{{ ContentSecurityPolicy }}'
-              Override: '{{ Override }}'
-            ContentTypeOptions:
-              Override: '{{ Override }}'
-            FrameOptions:
-              FrameOption: '{{ FrameOption }}'
-              Override: '{{ Override }}'
-            ReferrerPolicy:
-              Override: '{{ Override }}'
-              ReferrerPolicy: '{{ ReferrerPolicy }}'
-            StrictTransportSecurity:
-              AccessControlMaxAgeSec: '{{ AccessControlMaxAgeSec }}'
-              IncludeSubdomains: '{{ IncludeSubdomains }}'
-              Override: '{{ Override }}'
-              Preload: '{{ Preload }}'
-            XSSProtection:
-              ModeBlock: '{{ ModeBlock }}'
-              Override: '{{ Override }}'
-              Protection: '{{ Protection }}'
-              ReportUri: '{{ ReportUri }}'
-          ServerTimingHeadersConfig:
-            Enabled: '{{ Enabled }}'
-            SamplingRate: null
-
+          comment: '{{ comment }}'
+          cors_config:
+            access_control_allow_credentials: '{{ access_control_allow_credentials }}'
+            access_control_allow_headers:
+              items:
+                - '{{ items[0] }}'
+            access_control_allow_methods:
+              items:
+                - '{{ items[0] }}'
+            access_control_allow_origins:
+              items:
+                - '{{ items[0] }}'
+            access_control_expose_headers:
+              items:
+                - '{{ items[0] }}'
+            access_control_max_age_sec: '{{ access_control_max_age_sec }}'
+            origin_override: '{{ origin_override }}'
+          custom_headers_config:
+            items:
+              - header: '{{ header }}'
+                override: '{{ override }}'
+                value: '{{ value }}'
+          name: '{{ name }}'
+          remove_headers_config:
+            items:
+              - header: '{{ header }}'
+          security_headers_config:
+            content_security_policy:
+              content_security_policy: '{{ content_security_policy }}'
+              override: '{{ override }}'
+            content_type_options:
+              override: '{{ override }}'
+            frame_options:
+              frame_option: '{{ frame_option }}'
+              override: '{{ override }}'
+            referrer_policy:
+              override: '{{ override }}'
+              referrer_policy: '{{ referrer_policy }}'
+            strict_transport_security:
+              access_control_max_age_sec: '{{ access_control_max_age_sec }}'
+              include_subdomains: '{{ include_subdomains }}'
+              override: '{{ override }}'
+              preload: '{{ preload }}'
+            x_ss_protection:
+              mode_block: '{{ mode_block }}'
+              override: '{{ override }}'
+              protection: '{{ protection }}'
+              report_uri: '{{ report_uri }}'
+          server_timing_headers_config:
+            enabled: '{{ enabled }}'
+            sampling_rate: null
 ```
 </TabItem>
 </Tabs>
@@ -554,7 +553,7 @@ SET PatchDocument = string('{{ {
     "ResponseHeadersPolicyConfig": response_headers_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -563,7 +562,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.response_headers_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

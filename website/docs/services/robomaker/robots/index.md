@@ -164,7 +164,7 @@ greengrass_group_id,
 tags,
 name
 FROM awscc.robomaker.robots
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.robomaker.robots (
  GreengrassGroupId,
  region
 )
-SELECT 
-'{{ Architecture }}',
- '{{ GreengrassGroupId }}',
+SELECT
+'{{ architecture }}',
+ '{{ greengrass_group_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,12 +219,12 @@ INSERT INTO awscc.robomaker.robots (
  Name,
  region
 )
-SELECT 
- '{{ Fleet }}',
- '{{ Architecture }}',
- '{{ GreengrassGroupId }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ fleet }}',
+ '{{ architecture }}',
+ '{{ greengrass_group_id }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,17 +242,16 @@ globals:
 resources:
   - name: robot
     props:
-      - name: Fleet
-        value: '{{ Fleet }}'
-      - name: Architecture
-        value: '{{ Architecture }}'
-      - name: GreengrassGroupId
-        value: '{{ GreengrassGroupId }}'
-      - name: Tags
+      - name: fleet
+        value: '{{ fleet }}'
+      - name: architecture
+        value: '{{ architecture }}'
+      - name: greengrass_group_id
+        value: '{{ greengrass_group_id }}'
+      - name: tags
         value: {}
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.robots
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

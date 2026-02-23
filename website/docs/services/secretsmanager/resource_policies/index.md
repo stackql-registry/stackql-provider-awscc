@@ -152,7 +152,7 @@ secret_id,
 resource_policy,
 block_public_policy
 FROM awscc.secretsmanager.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.secretsmanager.resource_policies (
  ResourcePolicy,
  region
 )
-SELECT 
-'{{ SecretId }}',
- '{{ ResourcePolicy }}',
+SELECT
+'{{ secret_id }}',
+ '{{ resource_policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -205,10 +205,10 @@ INSERT INTO awscc.secretsmanager.resource_policies (
  BlockPublicPolicy,
  region
 )
-SELECT 
- '{{ SecretId }}',
- '{{ ResourcePolicy }}',
- '{{ BlockPublicPolicy }}',
+SELECT
+ '{{ secret_id }}',
+ '{{ resource_policy }}',
+ '{{ block_public_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -226,13 +226,12 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: SecretId
-        value: '{{ SecretId }}'
-      - name: ResourcePolicy
+      - name: secret_id
+        value: '{{ secret_id }}'
+      - name: resource_policy
         value: {}
-      - name: BlockPublicPolicy
-        value: '{{ BlockPublicPolicy }}'
-
+      - name: block_public_policy
+        value: '{{ block_public_policy }}'
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +248,7 @@ SET PatchDocument = string('{{ {
     "BlockPublicPolicy": block_public_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -258,7 +257,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.resource_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

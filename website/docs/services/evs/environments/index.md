@@ -365,7 +365,7 @@ tags,
 created_at,
 modified_at
 FROM awscc.evs.environments
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -408,15 +408,15 @@ INSERT INTO awscc.evs.environments (
  SiteId,
  region
 )
-SELECT 
-'{{ VpcId }}',
- '{{ ServiceAccessSubnetId }}',
- '{{ VcfVersion }}',
- '{{ TermsAccepted }}',
- '{{ LicenseInfo }}',
- '{{ ConnectivityInfo }}',
- '{{ VcfHostnames }}',
- '{{ SiteId }}',
+SELECT
+'{{ vpc_id }}',
+ '{{ service_access_subnet_id }}',
+ '{{ vcf_version }}',
+ '{{ terms_accepted }}',
+ '{{ license_info }}',
+ '{{ connectivity_info }}',
+ '{{ vcf_hostnames }}',
+ '{{ site_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -441,21 +441,21 @@ INSERT INTO awscc.evs.environments (
  Tags,
  region
 )
-SELECT 
- '{{ EnvironmentName }}',
- '{{ KmsKeyId }}',
- '{{ VpcId }}',
- '{{ ServiceAccessSubnetId }}',
- '{{ VcfVersion }}',
- '{{ TermsAccepted }}',
- '{{ LicenseInfo }}',
- '{{ InitialVlans }}',
- '{{ Hosts }}',
- '{{ ConnectivityInfo }}',
- '{{ VcfHostnames }}',
- '{{ SiteId }}',
- '{{ ServiceAccessSecurityGroups }}',
- '{{ Tags }}',
+SELECT
+ '{{ environment_name }}',
+ '{{ kms_key_id }}',
+ '{{ vpc_id }}',
+ '{{ service_access_subnet_id }}',
+ '{{ vcf_version }}',
+ '{{ terms_accepted }}',
+ '{{ license_info }}',
+ '{{ initial_vlans }}',
+ '{{ hosts }}',
+ '{{ connectivity_info }}',
+ '{{ vcf_hostnames }}',
+ '{{ site_id }}',
+ '{{ service_access_security_groups }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -473,68 +473,67 @@ globals:
 resources:
   - name: environment
     props:
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: ServiceAccessSubnetId
-        value: '{{ ServiceAccessSubnetId }}'
-      - name: VcfVersion
-        value: '{{ VcfVersion }}'
-      - name: TermsAccepted
-        value: '{{ TermsAccepted }}'
-      - name: LicenseInfo
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: service_access_subnet_id
+        value: '{{ service_access_subnet_id }}'
+      - name: vcf_version
+        value: '{{ vcf_version }}'
+      - name: terms_accepted
+        value: '{{ terms_accepted }}'
+      - name: license_info
         value:
-          SolutionKey: '{{ SolutionKey }}'
-          VsanKey: '{{ VsanKey }}'
-      - name: InitialVlans
+          solution_key: '{{ solution_key }}'
+          vsan_key: '{{ vsan_key }}'
+      - name: initial_vlans
         value:
-          VmkManagement:
-            Cidr: '{{ Cidr }}'
-          VmManagement: null
-          VMotion: null
-          VSan: null
-          VTep: null
-          EdgeVTep: null
-          NsxUpLink: null
-          Hcx: null
-          ExpansionVlan1: null
-          ExpansionVlan2: null
-      - name: Hosts
+          vmk_management:
+            cidr: '{{ cidr }}'
+          vm_management: null
+          v_motion: null
+          v_san: null
+          v_tep: null
+          edge_vtep: null
+          nsx_up_link: null
+          hcx: null
+          expansion_vlan1: null
+          expansion_vlan2: null
+      - name: hosts
         value:
-          - HostName: '{{ HostName }}'
-            KeyName: '{{ KeyName }}'
-            InstanceType: '{{ InstanceType }}'
-            PlacementGroupId: '{{ PlacementGroupId }}'
-            DedicatedHostId: '{{ DedicatedHostId }}'
-      - name: ConnectivityInfo
+          - host_name: '{{ host_name }}'
+            key_name: '{{ key_name }}'
+            instance_type: '{{ instance_type }}'
+            placement_group_id: '{{ placement_group_id }}'
+            dedicated_host_id: '{{ dedicated_host_id }}'
+      - name: connectivity_info
         value:
-          PrivateRouteServerPeerings:
-            - '{{ PrivateRouteServerPeerings[0] }}'
-      - name: VcfHostnames
+          private_route_server_peerings:
+            - '{{ private_route_server_peerings[0] }}'
+      - name: vcf_hostnames
         value:
-          VCenter: null
-          Nsx: null
-          NsxManager1: null
-          NsxManager2: null
-          NsxManager3: null
-          NsxEdge1: null
-          NsxEdge2: null
-          SddcManager: null
-          CloudBuilder: null
-      - name: SiteId
-        value: '{{ SiteId }}'
-      - name: ServiceAccessSecurityGroups
+          v_center: null
+          nsx: null
+          nsx_manager1: null
+          nsx_manager2: null
+          nsx_manager3: null
+          nsx_edge1: null
+          nsx_edge2: null
+          sddc_manager: null
+          cloud_builder: null
+      - name: site_id
+        value: '{{ site_id }}'
+      - name: service_access_security_groups
         value:
-          SecurityGroups:
-            - '{{ SecurityGroups[0] }}'
-      - name: Tags
+          security_groups:
+            - '{{ security_groups[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -552,7 +551,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentId>';
+AND Identifier = '{{ environment_id }}';
 ```
 
 
@@ -561,7 +560,7 @@ AND Identifier = '<EnvironmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evs.environments
-WHERE Identifier = '<EnvironmentId>'
+WHERE Identifier = '{{ environment_id }}'
 AND region = 'us-east-1';
 ```
 

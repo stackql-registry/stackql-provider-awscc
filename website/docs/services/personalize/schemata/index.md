@@ -151,7 +151,7 @@ schema_arn,
 schema,
 domain
 FROM awscc.personalize.schemata
-WHERE region = 'us-east-1' AND Identifier = '<SchemaArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,9 +188,9 @@ INSERT INTO awscc.personalize.schemata (
  Schema,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Schema }}',
+SELECT
+'{{ name }}',
+ '{{ schema }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -204,10 +204,10 @@ INSERT INTO awscc.personalize.schemata (
  Domain,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Schema }}',
- '{{ Domain }}',
+SELECT
+ '{{ name }}',
+ '{{ schema }}',
+ '{{ domain }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -225,13 +225,12 @@ globals:
 resources:
   - name: schema
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Schema
-        value: '{{ Schema }}'
-      - name: Domain
-        value: '{{ Domain }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: schema
+        value: '{{ schema }}'
+      - name: domain
+        value: '{{ domain }}'
 ```
 </TabItem>
 </Tabs>
@@ -242,7 +241,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.schemata
-WHERE Identifier = '<SchemaArn>'
+WHERE Identifier = '{{ schema_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -235,7 +235,7 @@ project_identifier,
 updated_at,
 user_parameters
 FROM awscc.datazone.environment_profiles
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,13 +277,13 @@ INSERT INTO awscc.datazone.environment_profiles (
  ProjectIdentifier,
  region
 )
-SELECT 
-'{{ AwsAccountId }}',
- '{{ AwsAccountRegion }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentBlueprintIdentifier }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
+SELECT
+'{{ aws_account_id }}',
+ '{{ aws_account_region }}',
+ '{{ domain_identifier }}',
+ '{{ environment_blueprint_identifier }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -302,15 +302,15 @@ INSERT INTO awscc.datazone.environment_profiles (
  UserParameters,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ AwsAccountRegion }}',
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentBlueprintIdentifier }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
- '{{ UserParameters }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ aws_account_region }}',
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ environment_blueprint_identifier }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
+ '{{ user_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -328,25 +328,24 @@ globals:
 resources:
   - name: environment_profile
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: AwsAccountRegion
-        value: '{{ AwsAccountRegion }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentBlueprintIdentifier
-        value: '{{ EnvironmentBlueprintIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProjectIdentifier
-        value: '{{ ProjectIdentifier }}'
-      - name: UserParameters
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: aws_account_region
+        value: '{{ aws_account_region }}'
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_blueprint_identifier
+        value: '{{ environment_blueprint_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: project_identifier
+        value: '{{ project_identifier }}'
+      - name: user_parameters
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-
+          - name: '{{ name }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "UserParameters": user_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_profiles
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

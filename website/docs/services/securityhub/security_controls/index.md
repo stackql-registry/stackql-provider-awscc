@@ -147,7 +147,7 @@ security_control_arn,
 last_update_reason,
 parameters
 FROM awscc.securityhub.security_controls
-WHERE region = 'us-east-1' AND Identifier = '<SecurityControlId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ security_control_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,8 +183,8 @@ INSERT INTO awscc.securityhub.security_controls (
  Parameters,
  region
 )
-SELECT 
-'{{ Parameters }}',
+SELECT
+'{{ parameters }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,11 +199,11 @@ INSERT INTO awscc.securityhub.security_controls (
  Parameters,
  region
 )
-SELECT 
- '{{ SecurityControlId }}',
- '{{ SecurityControlArn }}',
- '{{ LastUpdateReason }}',
- '{{ Parameters }}',
+SELECT
+ '{{ security_control_id }}',
+ '{{ security_control_arn }}',
+ '{{ last_update_reason }}',
+ '{{ parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -221,15 +221,14 @@ globals:
 resources:
   - name: security_control
     props:
-      - name: SecurityControlId
-        value: '{{ SecurityControlId }}'
-      - name: SecurityControlArn
+      - name: security_control_id
+        value: '{{ security_control_id }}'
+      - name: security_control_arn
         value: null
-      - name: LastUpdateReason
-        value: '{{ LastUpdateReason }}'
-      - name: Parameters
+      - name: last_update_reason
+        value: '{{ last_update_reason }}'
+      - name: parameters
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SecurityControlId>';
+AND Identifier = '{{ security_control_id }}';
 ```
 
 
@@ -256,7 +255,7 @@ AND Identifier = '<SecurityControlId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.security_controls
-WHERE Identifier = '<SecurityControlId>'
+WHERE Identifier = '{{ security_control_id }}'
 AND region = 'us-east-1';
 ```
 

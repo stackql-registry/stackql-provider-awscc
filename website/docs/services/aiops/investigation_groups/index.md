@@ -239,7 +239,7 @@ chatbot_notification_channels,
 cross_account_configurations,
 tags
 FROM awscc.aiops.investigation_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,8 +275,8 @@ INSERT INTO awscc.aiops.investigation_groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,17 +297,17 @@ INSERT INTO awscc.aiops.investigation_groups (
  Tags,
  region
 )
-SELECT 
- '{{ RoleArn }}',
- '{{ Name }}',
- '{{ RetentionInDays }}',
- '{{ EncryptionConfig }}',
- '{{ InvestigationGroupPolicy }}',
- '{{ IsCloudTrailEventHistoryEnabled }}',
- '{{ TagKeyBoundaries }}',
- '{{ ChatbotNotificationChannels }}',
- '{{ CrossAccountConfigurations }}',
- '{{ Tags }}',
+SELECT
+ '{{ role_arn }}',
+ '{{ name }}',
+ '{{ retention_in_days }}',
+ '{{ encryption_config }}',
+ '{{ investigation_group_policy }}',
+ '{{ is_cloud_trail_event_history_enabled }}',
+ '{{ tag_key_boundaries }}',
+ '{{ chatbot_notification_channels }}',
+ '{{ cross_account_configurations }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,36 +325,35 @@ globals:
 resources:
   - name: investigation_group
     props:
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RetentionInDays
-        value: '{{ RetentionInDays }}'
-      - name: EncryptionConfig
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: retention_in_days
+        value: '{{ retention_in_days }}'
+      - name: encryption_config
         value:
-          EncryptionConfigurationType: '{{ EncryptionConfigurationType }}'
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: InvestigationGroupPolicy
-        value: '{{ InvestigationGroupPolicy }}'
-      - name: IsCloudTrailEventHistoryEnabled
-        value: '{{ IsCloudTrailEventHistoryEnabled }}'
-      - name: TagKeyBoundaries
+          encryption_configuration_type: '{{ encryption_configuration_type }}'
+          kms_key_id: '{{ kms_key_id }}'
+      - name: investigation_group_policy
+        value: '{{ investigation_group_policy }}'
+      - name: is_cloud_trail_event_history_enabled
+        value: '{{ is_cloud_trail_event_history_enabled }}'
+      - name: tag_key_boundaries
         value:
-          - '{{ TagKeyBoundaries[0] }}'
-      - name: ChatbotNotificationChannels
+          - '{{ tag_key_boundaries[0] }}'
+      - name: chatbot_notification_channels
         value:
-          - SNSTopicArn: '{{ SNSTopicArn }}'
-            ChatConfigurationArns:
-              - '{{ ChatConfigurationArns[0] }}'
-      - name: CrossAccountConfigurations
+          - sns_topic_arn: '{{ sns_topic_arn }}'
+            chat_configuration_arns:
+              - '{{ chat_configuration_arns[0] }}'
+      - name: cross_account_configurations
         value:
-          - SourceRoleArn: null
-      - name: Tags
+          - source_role_arn: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -377,7 +376,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -386,7 +385,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aiops.investigation_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -136,7 +136,7 @@ hadoop_jar_step,
 job_flow_id,
 name
 FROM awscc.emr.steps
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -162,11 +162,11 @@ INSERT INTO awscc.emr.steps (
  Name,
  region
 )
-SELECT 
-'{{ ActionOnFailure }}',
- '{{ HadoopJarStep }}',
- '{{ JobFlowId }}',
- '{{ Name }}',
+SELECT
+'{{ action_on_failure }}',
+ '{{ hadoop_jar_step }}',
+ '{{ job_flow_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -181,11 +181,11 @@ INSERT INTO awscc.emr.steps (
  Name,
  region
 )
-SELECT 
- '{{ ActionOnFailure }}',
- '{{ HadoopJarStep }}',
- '{{ JobFlowId }}',
- '{{ Name }}',
+SELECT
+ '{{ action_on_failure }}',
+ '{{ hadoop_jar_step }}',
+ '{{ job_flow_id }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -203,22 +203,21 @@ globals:
 resources:
   - name: step
     props:
-      - name: ActionOnFailure
-        value: '{{ ActionOnFailure }}'
-      - name: HadoopJarStep
+      - name: action_on_failure
+        value: '{{ action_on_failure }}'
+      - name: hadoop_jar_step
         value:
-          Args:
-            - '{{ Args[0] }}'
-          Jar: '{{ Jar }}'
-          MainClass: '{{ MainClass }}'
-          StepProperties:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: JobFlowId
-        value: '{{ JobFlowId }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          args:
+            - '{{ args[0] }}'
+          jar: '{{ jar }}'
+          main_class: '{{ main_class }}'
+          step_properties:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: job_flow_id
+        value: '{{ job_flow_id }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>

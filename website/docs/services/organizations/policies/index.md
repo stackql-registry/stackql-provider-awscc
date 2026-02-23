@@ -194,7 +194,7 @@ id,
 arn,
 aws_managed
 FROM awscc.organizations.policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.organizations.policies (
  Content,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ Content }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,13 +252,13 @@ INSERT INTO awscc.organizations.policies (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ Content }}',
- '{{ Description }}',
- '{{ TargetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ content }}',
+ '{{ description }}',
+ '{{ target_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,22 +276,21 @@ globals:
 resources:
   - name: policy
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Content
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: content
         value: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: TargetIds
+      - name: description
+        value: '{{ description }}'
+      - name: target_ids
         value:
-          - '{{ TargetIds[0] }}'
-      - name: Tags
+          - '{{ target_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

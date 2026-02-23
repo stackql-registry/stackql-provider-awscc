@@ -197,7 +197,7 @@ arn,
 repository_catalog_data,
 tags
 FROM awscc.ecr.public_repositories
-WHERE region = 'us-east-1' AND Identifier = '<RepositoryName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,11 +236,11 @@ INSERT INTO awscc.ecr.public_repositories (
  Tags,
  region
 )
-SELECT 
-'{{ RepositoryName }}',
- '{{ RepositoryPolicyText }}',
- '{{ RepositoryCatalogData }}',
- '{{ Tags }}',
+SELECT
+'{{ repository_name }}',
+ '{{ repository_policy_text }}',
+ '{{ repository_catalog_data }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,11 +255,11 @@ INSERT INTO awscc.ecr.public_repositories (
  Tags,
  region
 )
-SELECT 
- '{{ RepositoryName }}',
- '{{ RepositoryPolicyText }}',
- '{{ RepositoryCatalogData }}',
- '{{ Tags }}',
+SELECT
+ '{{ repository_name }}',
+ '{{ repository_policy_text }}',
+ '{{ repository_catalog_data }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,24 +277,23 @@ globals:
 resources:
   - name: public_repository
     props:
-      - name: RepositoryName
-        value: '{{ RepositoryName }}'
-      - name: RepositoryPolicyText
+      - name: repository_name
+        value: '{{ repository_name }}'
+      - name: repository_policy_text
         value: {}
-      - name: RepositoryCatalogData
+      - name: repository_catalog_data
         value:
-          RepositoryDescription: '{{ RepositoryDescription }}'
-          Architectures:
-            - '{{ Architectures[0] }}'
-          OperatingSystems:
-            - '{{ OperatingSystems[0] }}'
-          AboutText: '{{ AboutText }}'
-          UsageText: '{{ UsageText }}'
-      - name: Tags
+          repository_description: '{{ repository_description }}'
+          architectures:
+            - '{{ architectures[0] }}'
+          operating_systems:
+            - '{{ operating_systems[0] }}'
+          about_text: '{{ about_text }}'
+          usage_text: '{{ usage_text }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +311,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RepositoryName>';
+AND Identifier = '{{ repository_name }}';
 ```
 
 
@@ -321,7 +320,7 @@ AND Identifier = '<RepositoryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.public_repositories
-WHERE Identifier = '<RepositoryName>'
+WHERE Identifier = '{{ repository_name }}'
 AND region = 'us-east-1';
 ```
 

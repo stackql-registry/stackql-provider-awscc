@@ -139,7 +139,7 @@ region,
 destination_cidr_block,
 vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes
-WHERE region = 'us-east-1' AND Identifier = '<DestinationCidrBlock>|<VpnConnectionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.vpn_connection_routes (
  VpnConnectionId,
  region
 )
-SELECT 
-'{{ DestinationCidrBlock }}',
- '{{ VpnConnectionId }}',
+SELECT
+'{{ destination_cidr_block }}',
+ '{{ vpn_connection_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.vpn_connection_routes (
  VpnConnectionId,
  region
 )
-SELECT 
- '{{ DestinationCidrBlock }}',
- '{{ VpnConnectionId }}',
+SELECT
+ '{{ destination_cidr_block }}',
+ '{{ vpn_connection_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: vpn_connection_route
     props:
-      - name: DestinationCidrBlock
-        value: '{{ DestinationCidrBlock }}'
-      - name: VpnConnectionId
-        value: '{{ VpnConnectionId }}'
-
+      - name: destination_cidr_block
+        value: '{{ destination_cidr_block }}'
+      - name: vpn_connection_id
+        value: '{{ vpn_connection_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_connection_routes
-WHERE Identifier = '<DestinationCidrBlock|VpnConnectionId>'
+WHERE Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}'
 AND region = 'us-east-1';
 ```
 

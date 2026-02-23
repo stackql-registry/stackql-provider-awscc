@@ -182,7 +182,7 @@ sns_topic_arn,
 source_ids,
 source_type
 FROM awscc.rds.event_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<SubscriptionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.rds.event_subscriptions (
  SnsTopicArn,
  region
 )
-SELECT 
-'{{ SnsTopicArn }}',
+SELECT
+'{{ sns_topic_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,14 +237,14 @@ INSERT INTO awscc.rds.event_subscriptions (
  SourceType,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ SubscriptionName }}',
- '{{ Enabled }}',
- '{{ EventCategories }}',
- '{{ SnsTopicArn }}',
- '{{ SourceIds }}',
- '{{ SourceType }}',
+SELECT
+ '{{ tags }}',
+ '{{ subscription_name }}',
+ '{{ enabled }}',
+ '{{ event_categories }}',
+ '{{ sns_topic_arn }}',
+ '{{ source_ids }}',
+ '{{ source_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,25 +262,24 @@ globals:
 resources:
   - name: event_subscription
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SubscriptionName
-        value: '{{ SubscriptionName }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: EventCategories
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: subscription_name
+        value: '{{ subscription_name }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: event_categories
         value:
-          - '{{ EventCategories[0] }}'
-      - name: SnsTopicArn
-        value: '{{ SnsTopicArn }}'
-      - name: SourceIds
+          - '{{ event_categories[0] }}'
+      - name: sns_topic_arn
+        value: '{{ sns_topic_arn }}'
+      - name: source_ids
         value:
-          - '{{ SourceIds[0] }}'
-      - name: SourceType
-        value: '{{ SourceType }}'
-
+          - '{{ source_ids[0] }}'
+      - name: source_type
+        value: '{{ source_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +299,7 @@ SET PatchDocument = string('{{ {
     "SourceType": source_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubscriptionName>';
+AND Identifier = '{{ subscription_name }}';
 ```
 
 
@@ -309,7 +308,7 @@ AND Identifier = '<SubscriptionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.event_subscriptions
-WHERE Identifier = '<SubscriptionName>'
+WHERE Identifier = '{{ subscription_name }}'
 AND region = 'us-east-1';
 ```
 

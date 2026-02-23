@@ -410,7 +410,7 @@ redacted_fields,
 managed_by_firewall_manager,
 logging_filter
 FROM awscc.wafv2.logging_configurations
-WHERE Identifier = '<ResourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -421,7 +421,7 @@ SELECT
 region,
 resource_arn
 FROM awscc.wafv2.logging_configurations_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -447,9 +447,9 @@ INSERT INTO awscc.wafv2.logging_configurations (
  LogDestinationConfigs,
  region
 )
-SELECT 
-'{{ ResourceArn }}',
- '{{ LogDestinationConfigs }}',
+SELECT
+'{{ resource_arn }}',
+ '{{ log_destination_configs }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -464,11 +464,11 @@ INSERT INTO awscc.wafv2.logging_configurations (
  LoggingFilter,
  region
 )
-SELECT 
- '{{ ResourceArn }}',
- '{{ LogDestinationConfigs }}',
- '{{ RedactedFields }}',
- '{{ LoggingFilter }}',
+SELECT
+ '{{ resource_arn }}',
+ '{{ log_destination_configs }}',
+ '{{ redacted_fields }}',
+ '{{ logging_filter }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -486,67 +486,66 @@ globals:
 resources:
   - name: logging_configuration
     props:
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: LogDestinationConfigs
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: log_destination_configs
         value:
-          - '{{ LogDestinationConfigs[0] }}'
-      - name: RedactedFields
+          - '{{ log_destination_configs[0] }}'
+      - name: redacted_fields
         value:
-          - SingleHeader:
-              Name: '{{ Name }}'
-            SingleQueryArgument:
-              Name: '{{ Name }}'
-            AllQueryArguments: {}
-            UriPath: {}
-            QueryString: {}
-            Body:
-              OversizeHandling: '{{ OversizeHandling }}'
-            Method: {}
-            JsonBody:
-              MatchPattern:
-                All: {}
-                IncludedPaths:
-                  - '{{ IncludedPaths[0] }}'
-              MatchScope: '{{ MatchScope }}'
-              InvalidFallbackBehavior: '{{ InvalidFallbackBehavior }}'
-              OversizeHandling: null
-            Headers:
-              MatchPattern:
-                All: {}
-                IncludedHeaders:
-                  - '{{ IncludedHeaders[0] }}'
-                ExcludedHeaders:
-                  - '{{ ExcludedHeaders[0] }}'
-              MatchScope: '{{ MatchScope }}'
-              OversizeHandling: null
-            Cookies:
-              MatchPattern:
-                All: {}
-                IncludedCookies:
-                  - '{{ IncludedCookies[0] }}'
-                ExcludedCookies:
-                  - '{{ ExcludedCookies[0] }}'
-              MatchScope: null
-              OversizeHandling: null
-            JA3Fingerprint:
-              FallbackBehavior: '{{ FallbackBehavior }}'
-            JA4Fingerprint:
-              FallbackBehavior: '{{ FallbackBehavior }}'
-            UriFragment:
-              FallbackBehavior: '{{ FallbackBehavior }}'
-      - name: LoggingFilter
+          - single_header:
+              name: '{{ name }}'
+            single_query_argument:
+              name: '{{ name }}'
+            all_query_arguments: {}
+            uri_path: {}
+            query_string: {}
+            body:
+              oversize_handling: '{{ oversize_handling }}'
+            method: {}
+            json_body:
+              match_pattern:
+                all: {}
+                included_paths:
+                  - '{{ included_paths[0] }}'
+              match_scope: '{{ match_scope }}'
+              invalid_fallback_behavior: '{{ invalid_fallback_behavior }}'
+              oversize_handling: null
+            headers:
+              match_pattern:
+                all: {}
+                included_headers:
+                  - '{{ included_headers[0] }}'
+                excluded_headers:
+                  - '{{ excluded_headers[0] }}'
+              match_scope: '{{ match_scope }}'
+              oversize_handling: null
+            cookies:
+              match_pattern:
+                all: {}
+                included_cookies:
+                  - '{{ included_cookies[0] }}'
+                excluded_cookies:
+                  - '{{ excluded_cookies[0] }}'
+              match_scope: null
+              oversize_handling: null
+            j_a3_fingerprint:
+              fallback_behavior: '{{ fallback_behavior }}'
+            j_a4_fingerprint:
+              fallback_behavior: '{{ fallback_behavior }}'
+            uri_fragment:
+              fallback_behavior: '{{ fallback_behavior }}'
+      - name: logging_filter
         value:
-          DefaultBehavior: '{{ DefaultBehavior }}'
-          Filters:
-            - Behavior: '{{ Behavior }}'
-              Conditions:
-                - ActionCondition:
-                    Action: '{{ Action }}'
-                  LabelNameCondition:
-                    LabelName: '{{ LabelName }}'
-              Requirement: '{{ Requirement }}'
-
+          default_behavior: '{{ default_behavior }}'
+          filters:
+            - behavior: '{{ behavior }}'
+              conditions:
+                - action_condition:
+                    action: '{{ action }}'
+                  label_name_condition:
+                    label_name: '{{ label_name }}'
+              requirement: '{{ requirement }}'
 ```
 </TabItem>
 </Tabs>
@@ -564,7 +563,7 @@ SET PatchDocument = string('{{ {
     "LoggingFilter": logging_filter
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceArn>';
+AND Identifier = '{{ resource_arn }}';
 ```
 
 
@@ -573,7 +572,7 @@ AND Identifier = '<ResourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.logging_configurations
-WHERE Identifier = '<ResourceArn>'
+WHERE Identifier = '{{ resource_arn }}'
 AND region = 'us-east-1';
 ```
 

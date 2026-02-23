@@ -100,7 +100,7 @@ route_table_id,
 gateway_id,
 association_id
 FROM awscc.ec2.gateway_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '<GatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ gateway_id }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.ec2.gateway_route_table_associations (
  GatewayId,
  region
 )
-SELECT 
-'{{ RouteTableId }}',
- '{{ GatewayId }}',
+SELECT
+'{{ route_table_id }}',
+ '{{ gateway_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -139,9 +139,9 @@ INSERT INTO awscc.ec2.gateway_route_table_associations (
  GatewayId,
  region
 )
-SELECT 
- '{{ RouteTableId }}',
- '{{ GatewayId }}',
+SELECT
+ '{{ route_table_id }}',
+ '{{ gateway_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -159,11 +159,10 @@ globals:
 resources:
   - name: gateway_route_table_association
     props:
-      - name: RouteTableId
-        value: '{{ RouteTableId }}'
-      - name: GatewayId
-        value: '{{ GatewayId }}'
-
+      - name: route_table_id
+        value: '{{ route_table_id }}'
+      - name: gateway_id
+        value: '{{ gateway_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -179,7 +178,7 @@ SET PatchDocument = string('{{ {
     "RouteTableId": route_table_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GatewayId>';
+AND Identifier = '{{ gateway_id }}';
 ```
 
 
@@ -188,7 +187,7 @@ AND Identifier = '<GatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.gateway_route_table_associations
-WHERE Identifier = '<GatewayId>'
+WHERE Identifier = '{{ gateway_id }}'
 AND region = 'us-east-1';
 ```
 

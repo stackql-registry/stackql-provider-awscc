@@ -147,7 +147,7 @@ region,
 id,
 template
 FROM awscc.ses.templates
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,8 +183,8 @@ INSERT INTO awscc.ses.templates (
  Template,
  region
 )
-SELECT 
-'{{ Template }}',
+SELECT
+'{{ template }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,8 +196,8 @@ INSERT INTO awscc.ses.templates (
  Template,
  region
 )
-SELECT 
- '{{ Template }}',
+SELECT
+ '{{ template }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -215,10 +215,9 @@ globals:
 resources:
   - name: template
     props:
-      - name: Template
+      - name: template
         value:
-          Template: null
-
+          template: null
 ```
 </TabItem>
 </Tabs>
@@ -229,7 +228,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.templates
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

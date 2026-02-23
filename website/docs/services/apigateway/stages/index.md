@@ -315,7 +315,7 @@ tags,
 tracing_enabled,
 variables
 FROM awscc.apigateway.stages
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<StageName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,8 +352,8 @@ INSERT INTO awscc.apigateway.stages (
  RestApiId,
  region
 )
-SELECT 
-'{{ RestApiId }}',
+SELECT
+'{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -378,21 +378,21 @@ INSERT INTO awscc.apigateway.stages (
  Variables,
  region
 )
-SELECT 
- '{{ AccessLogSetting }}',
- '{{ CacheClusterEnabled }}',
- '{{ CacheClusterSize }}',
- '{{ CanarySetting }}',
- '{{ ClientCertificateId }}',
- '{{ DeploymentId }}',
- '{{ Description }}',
- '{{ DocumentationVersion }}',
- '{{ MethodSettings }}',
- '{{ RestApiId }}',
- '{{ StageName }}',
- '{{ Tags }}',
- '{{ TracingEnabled }}',
- '{{ Variables }}',
+SELECT
+ '{{ access_log_setting }}',
+ '{{ cache_cluster_enabled }}',
+ '{{ cache_cluster_size }}',
+ '{{ canary_setting }}',
+ '{{ client_certificate_id }}',
+ '{{ deployment_id }}',
+ '{{ description }}',
+ '{{ documentation_version }}',
+ '{{ method_settings }}',
+ '{{ rest_api_id }}',
+ '{{ stage_name }}',
+ '{{ tags }}',
+ '{{ tracing_enabled }}',
+ '{{ variables }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -410,53 +410,52 @@ globals:
 resources:
   - name: stage
     props:
-      - name: AccessLogSetting
+      - name: access_log_setting
         value:
-          DestinationArn: '{{ DestinationArn }}'
-          Format: '{{ Format }}'
-      - name: CacheClusterEnabled
-        value: '{{ CacheClusterEnabled }}'
-      - name: CacheClusterSize
-        value: '{{ CacheClusterSize }}'
-      - name: CanarySetting
+          destination_arn: '{{ destination_arn }}'
+          format: '{{ format }}'
+      - name: cache_cluster_enabled
+        value: '{{ cache_cluster_enabled }}'
+      - name: cache_cluster_size
+        value: '{{ cache_cluster_size }}'
+      - name: canary_setting
         value:
-          DeploymentId: '{{ DeploymentId }}'
-          PercentTraffic: null
-          StageVariableOverrides: {}
-          UseStageCache: '{{ UseStageCache }}'
-      - name: ClientCertificateId
-        value: '{{ ClientCertificateId }}'
-      - name: DeploymentId
-        value: '{{ DeploymentId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DocumentationVersion
-        value: '{{ DocumentationVersion }}'
-      - name: MethodSettings
+          deployment_id: '{{ deployment_id }}'
+          percent_traffic: null
+          stage_variable_overrides: {}
+          use_stage_cache: '{{ use_stage_cache }}'
+      - name: client_certificate_id
+        value: '{{ client_certificate_id }}'
+      - name: deployment_id
+        value: '{{ deployment_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: documentation_version
+        value: '{{ documentation_version }}'
+      - name: method_settings
         value:
-          - CacheDataEncrypted: '{{ CacheDataEncrypted }}'
-            CacheTtlInSeconds: '{{ CacheTtlInSeconds }}'
-            CachingEnabled: '{{ CachingEnabled }}'
-            DataTraceEnabled: '{{ DataTraceEnabled }}'
-            HttpMethod: '{{ HttpMethod }}'
-            LoggingLevel: '{{ LoggingLevel }}'
-            MetricsEnabled: '{{ MetricsEnabled }}'
-            ResourcePath: '{{ ResourcePath }}'
-            ThrottlingBurstLimit: '{{ ThrottlingBurstLimit }}'
-            ThrottlingRateLimit: null
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: StageName
-        value: '{{ StageName }}'
-      - name: Tags
+          - cache_data_encrypted: '{{ cache_data_encrypted }}'
+            cache_ttl_in_seconds: '{{ cache_ttl_in_seconds }}'
+            caching_enabled: '{{ caching_enabled }}'
+            data_trace_enabled: '{{ data_trace_enabled }}'
+            http_method: '{{ http_method }}'
+            logging_level: '{{ logging_level }}'
+            metrics_enabled: '{{ metrics_enabled }}'
+            resource_path: '{{ resource_path }}'
+            throttling_burst_limit: '{{ throttling_burst_limit }}'
+            throttling_rate_limit: null
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: stage_name
+        value: '{{ stage_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: TracingEnabled
-        value: '{{ TracingEnabled }}'
-      - name: Variables
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: tracing_enabled
+        value: '{{ tracing_enabled }}'
+      - name: variables
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -483,7 +482,7 @@ SET PatchDocument = string('{{ {
     "Variables": variables
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>|<StageName>';
+AND Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```
 
 
@@ -492,7 +491,7 @@ AND Identifier = '<RestApiId>|<StageName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.stages
-WHERE Identifier = '<RestApiId|StageName>'
+WHERE Identifier = '{{ rest_api_id }}|{{ stage_name }}'
 AND region = 'us-east-1';
 ```
 

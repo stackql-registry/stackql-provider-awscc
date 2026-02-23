@@ -423,7 +423,7 @@ repository,
 tags,
 job_config
 FROM awscc.amplify.apps
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -459,8 +459,8 @@ INSERT INTO awscc.amplify.apps (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -489,25 +489,25 @@ INSERT INTO awscc.amplify.apps (
  JobConfig,
  region
 )
-SELECT 
- '{{ AccessToken }}',
- '{{ AutoBranchCreationConfig }}',
- '{{ BasicAuthConfig }}',
- '{{ BuildSpec }}',
- '{{ CacheConfig }}',
- '{{ ComputeRoleArn }}',
- '{{ CustomHeaders }}',
- '{{ CustomRules }}',
- '{{ Description }}',
- '{{ EnableBranchAutoDeletion }}',
- '{{ EnvironmentVariables }}',
- '{{ IAMServiceRole }}',
- '{{ Name }}',
- '{{ OauthToken }}',
- '{{ Platform }}',
- '{{ Repository }}',
- '{{ Tags }}',
- '{{ JobConfig }}',
+SELECT
+ '{{ access_token }}',
+ '{{ auto_branch_creation_config }}',
+ '{{ basic_auth_config }}',
+ '{{ build_spec }}',
+ '{{ cache_config }}',
+ '{{ compute_role_arn }}',
+ '{{ custom_headers }}',
+ '{{ custom_rules }}',
+ '{{ description }}',
+ '{{ enable_branch_auto_deletion }}',
+ '{{ environment_variables }}',
+ '{{ iam_service_role }}',
+ '{{ name }}',
+ '{{ oauth_token }}',
+ '{{ platform }}',
+ '{{ repository }}',
+ '{{ tags }}',
+ '{{ job_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -525,69 +525,68 @@ globals:
 resources:
   - name: app
     props:
-      - name: AccessToken
-        value: '{{ AccessToken }}'
-      - name: AutoBranchCreationConfig
+      - name: access_token
+        value: '{{ access_token }}'
+      - name: auto_branch_creation_config
         value:
-          AutoBranchCreationPatterns:
-            - '{{ AutoBranchCreationPatterns[0] }}'
-          BasicAuthConfig:
-            EnableBasicAuth: '{{ EnableBasicAuth }}'
-            Username: '{{ Username }}'
-            Password: '{{ Password }}'
-          BuildSpec: '{{ BuildSpec }}'
-          EnableAutoBranchCreation: '{{ EnableAutoBranchCreation }}'
-          EnableAutoBuild: '{{ EnableAutoBuild }}'
-          EnablePerformanceMode: '{{ EnablePerformanceMode }}'
-          EnablePullRequestPreview: '{{ EnablePullRequestPreview }}'
-          EnvironmentVariables:
-            - Name: '{{ Name }}'
-              Value: '{{ Value }}'
-          Framework: '{{ Framework }}'
-          PullRequestEnvironmentName: '{{ PullRequestEnvironmentName }}'
-          Stage: '{{ Stage }}'
-      - name: BasicAuthConfig
+          auto_branch_creation_patterns:
+            - '{{ auto_branch_creation_patterns[0] }}'
+          basic_auth_config:
+            enable_basic_auth: '{{ enable_basic_auth }}'
+            username: '{{ username }}'
+            password: '{{ password }}'
+          build_spec: '{{ build_spec }}'
+          enable_auto_branch_creation: '{{ enable_auto_branch_creation }}'
+          enable_auto_build: '{{ enable_auto_build }}'
+          enable_performance_mode: '{{ enable_performance_mode }}'
+          enable_pull_request_preview: '{{ enable_pull_request_preview }}'
+          environment_variables:
+            - name: '{{ name }}'
+              value: '{{ value }}'
+          framework: '{{ framework }}'
+          pull_request_environment_name: '{{ pull_request_environment_name }}'
+          stage: '{{ stage }}'
+      - name: basic_auth_config
         value: null
-      - name: BuildSpec
-        value: '{{ BuildSpec }}'
-      - name: CacheConfig
+      - name: build_spec
+        value: '{{ build_spec }}'
+      - name: cache_config
         value:
-          Type: '{{ Type }}'
-      - name: ComputeRoleArn
-        value: '{{ ComputeRoleArn }}'
-      - name: CustomHeaders
-        value: '{{ CustomHeaders }}'
-      - name: CustomRules
+          type: '{{ type }}'
+      - name: compute_role_arn
+        value: '{{ compute_role_arn }}'
+      - name: custom_headers
+        value: '{{ custom_headers }}'
+      - name: custom_rules
         value:
-          - Condition: '{{ Condition }}'
-            Status: '{{ Status }}'
-            Target: '{{ Target }}'
-            Source: '{{ Source }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnableBranchAutoDeletion
-        value: '{{ EnableBranchAutoDeletion }}'
-      - name: EnvironmentVariables
+          - condition: '{{ condition }}'
+            status: '{{ status }}'
+            target: '{{ target }}'
+            source: '{{ source }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enable_branch_auto_deletion
+        value: '{{ enable_branch_auto_deletion }}'
+      - name: environment_variables
         value:
           - null
-      - name: IAMServiceRole
-        value: '{{ IAMServiceRole }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OauthToken
-        value: '{{ OauthToken }}'
-      - name: Platform
-        value: '{{ Platform }}'
-      - name: Repository
-        value: '{{ Repository }}'
-      - name: Tags
+      - name: iam_service_role
+        value: '{{ iam_service_role }}'
+      - name: name
+        value: '{{ name }}'
+      - name: oauth_token
+        value: '{{ oauth_token }}'
+      - name: platform
+        value: '{{ platform }}'
+      - name: repository
+        value: '{{ repository }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: JobConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: job_config
         value:
-          BuildComputeType: '{{ BuildComputeType }}'
-
+          build_compute_type: '{{ build_compute_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -620,7 +619,7 @@ SET PatchDocument = string('{{ {
     "JobConfig": job_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -629,7 +628,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.apps
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

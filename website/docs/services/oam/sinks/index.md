@@ -152,7 +152,7 @@ name,
 policy,
 tags
 FROM awscc.oam.sinks
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.oam.sinks (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -203,10 +203,10 @@ INSERT INTO awscc.oam.sinks (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Policy }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -224,13 +224,12 @@ globals:
 resources:
   - name: sink
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Policy
+      - name: name
+        value: '{{ name }}'
+      - name: policy
         value: {}
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -256,7 +255,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.oam.sinks
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

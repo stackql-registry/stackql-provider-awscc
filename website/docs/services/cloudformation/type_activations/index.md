@@ -206,7 +206,7 @@ major_version,
 type_name,
 type
 FROM awscc.cloudformation.type_activations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,17 +251,17 @@ INSERT INTO awscc.cloudformation.type_activations (
  Type,
  region
 )
-SELECT 
-'{{ ExecutionRoleArn }}',
- '{{ PublisherId }}',
- '{{ LoggingConfig }}',
- '{{ PublicTypeArn }}',
- '{{ AutoUpdate }}',
- '{{ TypeNameAlias }}',
- '{{ VersionBump }}',
- '{{ MajorVersion }}',
- '{{ TypeName }}',
- '{{ Type }}',
+SELECT
+'{{ execution_role_arn }}',
+ '{{ publisher_id }}',
+ '{{ logging_config }}',
+ '{{ public_type_arn }}',
+ '{{ auto_update }}',
+ '{{ type_name_alias }}',
+ '{{ version_bump }}',
+ '{{ major_version }}',
+ '{{ type_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -282,17 +282,17 @@ INSERT INTO awscc.cloudformation.type_activations (
  Type,
  region
 )
-SELECT 
- '{{ ExecutionRoleArn }}',
- '{{ PublisherId }}',
- '{{ LoggingConfig }}',
- '{{ PublicTypeArn }}',
- '{{ AutoUpdate }}',
- '{{ TypeNameAlias }}',
- '{{ VersionBump }}',
- '{{ MajorVersion }}',
- '{{ TypeName }}',
- '{{ Type }}',
+SELECT
+ '{{ execution_role_arn }}',
+ '{{ publisher_id }}',
+ '{{ logging_config }}',
+ '{{ public_type_arn }}',
+ '{{ auto_update }}',
+ '{{ type_name_alias }}',
+ '{{ version_bump }}',
+ '{{ major_version }}',
+ '{{ type_name }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -310,29 +310,28 @@ globals:
 resources:
   - name: type_activation
     props:
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: PublisherId
-        value: '{{ PublisherId }}'
-      - name: LoggingConfig
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: publisher_id
+        value: '{{ publisher_id }}'
+      - name: logging_config
         value:
-          LogGroupName: '{{ LogGroupName }}'
-          LogRoleArn: '{{ LogRoleArn }}'
-      - name: PublicTypeArn
-        value: '{{ PublicTypeArn }}'
-      - name: AutoUpdate
-        value: '{{ AutoUpdate }}'
-      - name: TypeNameAlias
-        value: '{{ TypeNameAlias }}'
-      - name: VersionBump
-        value: '{{ VersionBump }}'
-      - name: MajorVersion
-        value: '{{ MajorVersion }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          log_group_name: '{{ log_group_name }}'
+          log_role_arn: '{{ log_role_arn }}'
+      - name: public_type_arn
+        value: '{{ public_type_arn }}'
+      - name: auto_update
+        value: '{{ auto_update }}'
+      - name: type_name_alias
+        value: '{{ type_name_alias }}'
+      - name: version_bump
+        value: '{{ version_bump }}'
+      - name: major_version
+        value: '{{ major_version }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +355,7 @@ SET PatchDocument = string('{{ {
     "Type": type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -365,7 +364,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.type_activations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

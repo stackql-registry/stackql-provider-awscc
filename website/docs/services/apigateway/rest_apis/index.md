@@ -281,7 +281,7 @@ endpoint_configuration,
 body,
 tags
 FROM awscc.apigateway.rest_apis
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -331,22 +331,22 @@ INSERT INTO awscc.apigateway.rest_apis (
  Tags,
  region
 )
-SELECT 
-'{{ Policy }}',
- '{{ BodyS3Location }}',
- '{{ Description }}',
- '{{ MinimumCompressionSize }}',
- '{{ Parameters }}',
- '{{ CloneFrom }}',
- '{{ Mode }}',
- '{{ DisableExecuteApiEndpoint }}',
- '{{ FailOnWarnings }}',
- '{{ BinaryMediaTypes }}',
- '{{ Name }}',
- '{{ ApiKeySourceType }}',
- '{{ EndpointConfiguration }}',
- '{{ Body }}',
- '{{ Tags }}',
+SELECT
+'{{ policy }}',
+ '{{ body_s3_location }}',
+ '{{ description }}',
+ '{{ minimum_compression_size }}',
+ '{{ parameters }}',
+ '{{ clone_from }}',
+ '{{ mode }}',
+ '{{ disable_execute_api_endpoint }}',
+ '{{ fail_on_warnings }}',
+ '{{ binary_media_types }}',
+ '{{ name }}',
+ '{{ api_key_source_type }}',
+ '{{ endpoint_configuration }}',
+ '{{ body }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -372,22 +372,22 @@ INSERT INTO awscc.apigateway.rest_apis (
  Tags,
  region
 )
-SELECT 
- '{{ Policy }}',
- '{{ BodyS3Location }}',
- '{{ Description }}',
- '{{ MinimumCompressionSize }}',
- '{{ Parameters }}',
- '{{ CloneFrom }}',
- '{{ Mode }}',
- '{{ DisableExecuteApiEndpoint }}',
- '{{ FailOnWarnings }}',
- '{{ BinaryMediaTypes }}',
- '{{ Name }}',
- '{{ ApiKeySourceType }}',
- '{{ EndpointConfiguration }}',
- '{{ Body }}',
- '{{ Tags }}',
+SELECT
+ '{{ policy }}',
+ '{{ body_s3_location }}',
+ '{{ description }}',
+ '{{ minimum_compression_size }}',
+ '{{ parameters }}',
+ '{{ clone_from }}',
+ '{{ mode }}',
+ '{{ disable_execute_api_endpoint }}',
+ '{{ fail_on_warnings }}',
+ '{{ binary_media_types }}',
+ '{{ name }}',
+ '{{ api_key_source_type }}',
+ '{{ endpoint_configuration }}',
+ '{{ body }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -405,49 +405,48 @@ globals:
 resources:
   - name: rest_api
     props:
-      - name: Policy
+      - name: policy
         value: {}
-      - name: BodyS3Location
+      - name: body_s3_location
         value:
-          Bucket: '{{ Bucket }}'
-          ETag: '{{ ETag }}'
-          Version: '{{ Version }}'
-          Key: '{{ Key }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MinimumCompressionSize
-        value: '{{ MinimumCompressionSize }}'
-      - name: Parameters
+          bucket: '{{ bucket }}'
+          e_tag: '{{ e_tag }}'
+          version: '{{ version }}'
+          key: '{{ key }}'
+      - name: description
+        value: '{{ description }}'
+      - name: minimum_compression_size
+        value: '{{ minimum_compression_size }}'
+      - name: parameters
         value: {}
-      - name: CloneFrom
-        value: '{{ CloneFrom }}'
-      - name: Mode
-        value: '{{ Mode }}'
-      - name: DisableExecuteApiEndpoint
-        value: '{{ DisableExecuteApiEndpoint }}'
-      - name: FailOnWarnings
-        value: '{{ FailOnWarnings }}'
-      - name: BinaryMediaTypes
+      - name: clone_from
+        value: '{{ clone_from }}'
+      - name: mode
+        value: '{{ mode }}'
+      - name: disable_execute_api_endpoint
+        value: '{{ disable_execute_api_endpoint }}'
+      - name: fail_on_warnings
+        value: '{{ fail_on_warnings }}'
+      - name: binary_media_types
         value:
-          - '{{ BinaryMediaTypes[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ApiKeySourceType
-        value: '{{ ApiKeySourceType }}'
-      - name: EndpointConfiguration
+          - '{{ binary_media_types[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: api_key_source_type
+        value: '{{ api_key_source_type }}'
+      - name: endpoint_configuration
         value:
-          IpAddressType: '{{ IpAddressType }}'
-          Types:
-            - '{{ Types[0] }}'
-          VpcEndpointIds:
-            - '{{ VpcEndpointIds[0] }}'
-      - name: Body
+          ip_address_type: '{{ ip_address_type }}'
+          types:
+            - '{{ types[0] }}'
+          vpc_endpoint_ids:
+            - '{{ vpc_endpoint_ids[0] }}'
+      - name: body
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -477,7 +476,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>';
+AND Identifier = '{{ rest_api_id }}';
 ```
 
 
@@ -486,7 +485,7 @@ AND Identifier = '<RestApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.rest_apis
-WHERE Identifier = '<RestApiId>'
+WHERE Identifier = '{{ rest_api_id }}'
 AND region = 'us-east-1';
 ```
 

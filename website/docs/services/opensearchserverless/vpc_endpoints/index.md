@@ -158,7 +158,7 @@ security_group_ids,
 subnet_ids,
 vpc_id
 FROM awscc.opensearchserverless.vpc_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.opensearchserverless.vpc_endpoints (
  VpcId,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
+SELECT
+'{{ name }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,11 +214,11 @@ INSERT INTO awscc.opensearchserverless.vpc_endpoints (
  VpcId,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
+SELECT
+ '{{ name }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,17 +236,16 @@ globals:
 resources:
   - name: vpc_endpoint
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: SecurityGroupIds
+      - name: name
+        value: '{{ name }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+          - '{{ subnet_ids[0] }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -272,7 +271,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.vpc_endpoints
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

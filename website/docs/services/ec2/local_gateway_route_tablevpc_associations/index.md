@@ -176,7 +176,7 @@ state,
 vpc_id,
 tags
 FROM awscc.ec2.local_gateway_route_tablevpc_associations
-WHERE region = 'us-east-1' AND Identifier = '<LocalGatewayRouteTableVpcAssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.ec2.local_gateway_route_tablevpc_associations (
  VpcId,
  region
 )
-SELECT 
-'{{ LocalGatewayRouteTableId }}',
- '{{ VpcId }}',
+SELECT
+'{{ local_gateway_route_table_id }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -229,10 +229,10 @@ INSERT INTO awscc.ec2.local_gateway_route_tablevpc_associations (
  Tags,
  region
 )
-SELECT 
- '{{ LocalGatewayRouteTableId }}',
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ local_gateway_route_table_id }}',
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,15 +250,14 @@ globals:
 resources:
   - name: local_gateway_route_tablevpc_association
     props:
-      - name: LocalGatewayRouteTableId
-        value: '{{ LocalGatewayRouteTableId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+      - name: local_gateway_route_table_id
+        value: '{{ local_gateway_route_table_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +273,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocalGatewayRouteTableVpcAssociationId>';
+AND Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
 ```
 
 
@@ -283,7 +282,7 @@ AND Identifier = '<LocalGatewayRouteTableVpcAssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_tablevpc_associations
-WHERE Identifier = '<LocalGatewayRouteTableVpcAssociationId>'
+WHERE Identifier = '{{ local_gateway_route_table_vpc_association_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -195,7 +195,7 @@ authorization,
 tags,
 egress_access_logs
 FROM awscc.mediapackage.packaging_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,8 +231,8 @@ INSERT INTO awscc.mediapackage.packaging_groups (
  Id,
  region
 )
-SELECT 
-'{{ Id }}',
+SELECT
+'{{ id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,11 +247,11 @@ INSERT INTO awscc.mediapackage.packaging_groups (
  EgressAccessLogs,
  region
 )
-SELECT 
- '{{ Id }}',
- '{{ Authorization }}',
- '{{ Tags }}',
- '{{ EgressAccessLogs }}',
+SELECT
+ '{{ id }}',
+ '{{ authorization }}',
+ '{{ tags }}',
+ '{{ egress_access_logs }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -269,20 +269,19 @@ globals:
 resources:
   - name: packaging_group
     props:
-      - name: Id
-        value: '{{ Id }}'
-      - name: Authorization
+      - name: id
+        value: '{{ id }}'
+      - name: authorization
         value:
-          CdnIdentifierSecret: '{{ CdnIdentifierSecret }}'
-          SecretsRoleArn: '{{ SecretsRoleArn }}'
-      - name: Tags
+          cdn_identifier_secret: '{{ cdn_identifier_secret }}'
+          secrets_role_arn: '{{ secrets_role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EgressAccessLogs
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: egress_access_logs
         value:
-          LogGroupName: '{{ LogGroupName }}'
-
+          log_group_name: '{{ log_group_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ SET PatchDocument = string('{{ {
     "EgressAccessLogs": egress_access_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -308,7 +307,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.packaging_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

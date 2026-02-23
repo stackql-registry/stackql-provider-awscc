@@ -162,7 +162,7 @@ identity_type,
 session_policy_arn,
 studio_id
 FROM awscc.emr.studio_session_mappings
-WHERE region = 'us-east-1' AND Identifier = '<StudioId>|<IdentityType>|<IdentityName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,11 +203,11 @@ INSERT INTO awscc.emr.studio_session_mappings (
  StudioId,
  region
 )
-SELECT 
-'{{ IdentityName }}',
- '{{ IdentityType }}',
- '{{ SessionPolicyArn }}',
- '{{ StudioId }}',
+SELECT
+'{{ identity_name }}',
+ '{{ identity_type }}',
+ '{{ session_policy_arn }}',
+ '{{ studio_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.emr.studio_session_mappings (
  StudioId,
  region
 )
-SELECT 
- '{{ IdentityName }}',
- '{{ IdentityType }}',
- '{{ SessionPolicyArn }}',
- '{{ StudioId }}',
+SELECT
+ '{{ identity_name }}',
+ '{{ identity_type }}',
+ '{{ session_policy_arn }}',
+ '{{ studio_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: studio_session_mapping
     props:
-      - name: IdentityName
-        value: '{{ IdentityName }}'
-      - name: IdentityType
-        value: '{{ IdentityType }}'
-      - name: SessionPolicyArn
-        value: '{{ SessionPolicyArn }}'
-      - name: StudioId
-        value: '{{ StudioId }}'
-
+      - name: identity_name
+        value: '{{ identity_name }}'
+      - name: identity_type
+        value: '{{ identity_type }}'
+      - name: session_policy_arn
+        value: '{{ session_policy_arn }}'
+      - name: studio_id
+        value: '{{ studio_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "SessionPolicyArn": session_policy_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StudioId>|<IdentityType>|<IdentityName>';
+AND Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<StudioId>|<IdentityType>|<IdentityName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.studio_session_mappings
-WHERE Identifier = '<StudioId|IdentityType|IdentityName>'
+WHERE Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}'
 AND region = 'us-east-1';
 ```
 

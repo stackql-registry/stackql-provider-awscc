@@ -140,7 +140,7 @@ region,
 dashboard_name,
 dashboard_body
 FROM awscc.cloudwatch.dashboards
-WHERE region = 'us-east-1' AND Identifier = '<DashboardName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.cloudwatch.dashboards (
  DashboardBody,
  region
 )
-SELECT 
-'{{ DashboardBody }}',
+SELECT
+'{{ dashboard_body }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.cloudwatch.dashboards (
  DashboardBody,
  region
 )
-SELECT 
- '{{ DashboardName }}',
- '{{ DashboardBody }}',
+SELECT
+ '{{ dashboard_name }}',
+ '{{ dashboard_body }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,11 +210,10 @@ globals:
 resources:
   - name: dashboard
     props:
-      - name: DashboardName
-        value: '{{ DashboardName }}'
-      - name: DashboardBody
-        value: '{{ DashboardBody }}'
-
+      - name: dashboard_name
+        value: '{{ dashboard_name }}'
+      - name: dashboard_body
+        value: '{{ dashboard_body }}'
 ```
 </TabItem>
 </Tabs>
@@ -230,7 +229,7 @@ SET PatchDocument = string('{{ {
     "DashboardBody": dashboard_body
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DashboardName>';
+AND Identifier = '{{ dashboard_name }}';
 ```
 
 
@@ -239,7 +238,7 @@ AND Identifier = '<DashboardName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.dashboards
-WHERE Identifier = '<DashboardName>'
+WHERE Identifier = '{{ dashboard_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -182,7 +182,7 @@ arn,
 status,
 tags
 FROM awscc.macie.allow_lists
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.macie.allow_lists (
  Criteria,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Criteria }}',
+SELECT
+'{{ name }}',
+ '{{ criteria }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.macie.allow_lists (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Criteria }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ criteria }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: allow_list
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Criteria
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: criteria
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.allow_lists
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

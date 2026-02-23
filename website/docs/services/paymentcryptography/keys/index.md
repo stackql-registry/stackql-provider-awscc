@@ -263,7 +263,7 @@ key_origin,
 key_state,
 tags
 FROM awscc.paymentcryptography.keys
-WHERE region = 'us-east-1' AND Identifier = '<KeyIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ key_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -300,9 +300,9 @@ INSERT INTO awscc.paymentcryptography.keys (
  KeyAttributes,
  region
 )
-SELECT 
-'{{ Exportable }}',
- '{{ KeyAttributes }}',
+SELECT
+'{{ exportable }}',
+ '{{ key_attributes }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -319,13 +319,13 @@ INSERT INTO awscc.paymentcryptography.keys (
  Tags,
  region
 )
-SELECT 
- '{{ DeriveKeyUsage }}',
- '{{ Enabled }}',
- '{{ Exportable }}',
- '{{ KeyAttributes }}',
- '{{ KeyCheckValueAlgorithm }}',
- '{{ Tags }}',
+SELECT
+ '{{ derive_key_usage }}',
+ '{{ enabled }}',
+ '{{ exportable }}',
+ '{{ key_attributes }}',
+ '{{ key_check_value_algorithm }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -343,34 +343,33 @@ globals:
 resources:
   - name: key
     props:
-      - name: DeriveKeyUsage
-        value: '{{ DeriveKeyUsage }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Exportable
-        value: '{{ Exportable }}'
-      - name: KeyAttributes
+      - name: derive_key_usage
+        value: '{{ derive_key_usage }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: exportable
+        value: '{{ exportable }}'
+      - name: key_attributes
         value:
-          KeyUsage: '{{ KeyUsage }}'
-          KeyClass: '{{ KeyClass }}'
-          KeyAlgorithm: '{{ KeyAlgorithm }}'
-          KeyModesOfUse:
-            Encrypt: '{{ Encrypt }}'
-            Decrypt: '{{ Decrypt }}'
-            Wrap: '{{ Wrap }}'
-            Unwrap: '{{ Unwrap }}'
-            Generate: '{{ Generate }}'
-            Sign: '{{ Sign }}'
-            Verify: '{{ Verify }}'
-            DeriveKey: '{{ DeriveKey }}'
-            NoRestrictions: '{{ NoRestrictions }}'
-      - name: KeyCheckValueAlgorithm
-        value: '{{ KeyCheckValueAlgorithm }}'
-      - name: Tags
+          key_usage: '{{ key_usage }}'
+          key_class: '{{ key_class }}'
+          key_algorithm: '{{ key_algorithm }}'
+          key_modes_of_use:
+            encrypt: '{{ encrypt }}'
+            decrypt: '{{ decrypt }}'
+            wrap: '{{ wrap }}'
+            unwrap: '{{ unwrap }}'
+            generate: '{{ generate }}'
+            sign: '{{ sign }}'
+            verify: '{{ verify }}'
+            derive_key: '{{ derive_key }}'
+            no_restrictions: '{{ no_restrictions }}'
+      - name: key_check_value_algorithm
+        value: '{{ key_check_value_algorithm }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -391,7 +390,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyIdentifier>';
+AND Identifier = '{{ key_identifier }}';
 ```
 
 
@@ -400,7 +399,7 @@ AND Identifier = '<KeyIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.paymentcryptography.keys
-WHERE Identifier = '<KeyIdentifier>'
+WHERE Identifier = '{{ key_identifier }}'
 AND region = 'us-east-1';
 ```
 

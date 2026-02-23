@@ -239,7 +239,7 @@ record_id,
 cloudformation_stack_arn,
 outputs
 FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE region = 'us-east-1' AND Identifier = '<ProvisionedProductId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ provisioned_product_id }}';
 ```
 
 ## `INSERT` example
@@ -273,19 +273,19 @@ INSERT INTO awscc.servicecatalog.cloud_formation_provisioned_products (
  Tags,
  region
 )
-SELECT 
-'{{ AcceptLanguage }}',
- '{{ NotificationArns }}',
- '{{ PathId }}',
- '{{ PathName }}',
- '{{ ProductId }}',
- '{{ ProductName }}',
- '{{ ProvisionedProductName }}',
- '{{ ProvisioningArtifactId }}',
- '{{ ProvisioningArtifactName }}',
- '{{ ProvisioningParameters }}',
- '{{ ProvisioningPreferences }}',
- '{{ Tags }}',
+SELECT
+'{{ accept_language }}',
+ '{{ notification_arns }}',
+ '{{ path_id }}',
+ '{{ path_name }}',
+ '{{ product_id }}',
+ '{{ product_name }}',
+ '{{ provisioned_product_name }}',
+ '{{ provisioning_artifact_id }}',
+ '{{ provisioning_artifact_name }}',
+ '{{ provisioning_parameters }}',
+ '{{ provisioning_preferences }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -308,19 +308,19 @@ INSERT INTO awscc.servicecatalog.cloud_formation_provisioned_products (
  Tags,
  region
 )
-SELECT 
- '{{ AcceptLanguage }}',
- '{{ NotificationArns }}',
- '{{ PathId }}',
- '{{ PathName }}',
- '{{ ProductId }}',
- '{{ ProductName }}',
- '{{ ProvisionedProductName }}',
- '{{ ProvisioningArtifactId }}',
- '{{ ProvisioningArtifactName }}',
- '{{ ProvisioningParameters }}',
- '{{ ProvisioningPreferences }}',
- '{{ Tags }}',
+SELECT
+ '{{ accept_language }}',
+ '{{ notification_arns }}',
+ '{{ path_id }}',
+ '{{ path_name }}',
+ '{{ product_id }}',
+ '{{ product_name }}',
+ '{{ provisioned_product_name }}',
+ '{{ provisioning_artifact_id }}',
+ '{{ provisioning_artifact_name }}',
+ '{{ provisioning_parameters }}',
+ '{{ provisioning_preferences }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -338,45 +338,44 @@ globals:
 resources:
   - name: cloud_formation_provisioned_product
     props:
-      - name: AcceptLanguage
-        value: '{{ AcceptLanguage }}'
-      - name: NotificationArns
+      - name: accept_language
+        value: '{{ accept_language }}'
+      - name: notification_arns
         value:
-          - '{{ NotificationArns[0] }}'
-      - name: PathId
-        value: '{{ PathId }}'
-      - name: PathName
-        value: '{{ PathName }}'
-      - name: ProductId
-        value: '{{ ProductId }}'
-      - name: ProductName
-        value: '{{ ProductName }}'
-      - name: ProvisionedProductName
-        value: '{{ ProvisionedProductName }}'
-      - name: ProvisioningArtifactId
-        value: '{{ ProvisioningArtifactId }}'
-      - name: ProvisioningArtifactName
-        value: '{{ ProvisioningArtifactName }}'
-      - name: ProvisioningParameters
+          - '{{ notification_arns[0] }}'
+      - name: path_id
+        value: '{{ path_id }}'
+      - name: path_name
+        value: '{{ path_name }}'
+      - name: product_id
+        value: '{{ product_id }}'
+      - name: product_name
+        value: '{{ product_name }}'
+      - name: provisioned_product_name
+        value: '{{ provisioned_product_name }}'
+      - name: provisioning_artifact_id
+        value: '{{ provisioning_artifact_id }}'
+      - name: provisioning_artifact_name
+        value: '{{ provisioning_artifact_name }}'
+      - name: provisioning_parameters
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ProvisioningPreferences
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: provisioning_preferences
         value:
-          StackSetAccounts:
-            - '{{ StackSetAccounts[0] }}'
-          StackSetFailureToleranceCount: '{{ StackSetFailureToleranceCount }}'
-          StackSetFailureTolerancePercentage: '{{ StackSetFailureTolerancePercentage }}'
-          StackSetMaxConcurrencyCount: '{{ StackSetMaxConcurrencyCount }}'
-          StackSetMaxConcurrencyPercentage: '{{ StackSetMaxConcurrencyPercentage }}'
-          StackSetOperationType: '{{ StackSetOperationType }}'
-          StackSetRegions:
-            - '{{ StackSetRegions[0] }}'
-      - name: Tags
+          stack_set_accounts:
+            - '{{ stack_set_accounts[0] }}'
+          stack_set_failure_tolerance_count: '{{ stack_set_failure_tolerance_count }}'
+          stack_set_failure_tolerance_percentage: '{{ stack_set_failure_tolerance_percentage }}'
+          stack_set_max_concurrency_count: '{{ stack_set_max_concurrency_count }}'
+          stack_set_max_concurrency_percentage: '{{ stack_set_max_concurrency_percentage }}'
+          stack_set_operation_type: '{{ stack_set_operation_type }}'
+          stack_set_regions:
+            - '{{ stack_set_regions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +400,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProvisionedProductId>';
+AND Identifier = '{{ provisioned_product_id }}';
 ```
 
 
@@ -410,7 +409,7 @@ AND Identifier = '<ProvisionedProductId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE Identifier = '<ProvisionedProductId>'
+WHERE Identifier = '{{ provisioned_product_id }}'
 AND region = 'us-east-1';
 ```
 

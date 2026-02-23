@@ -177,7 +177,7 @@ billing_group_name,
 tags,
 billing_group_properties
 FROM awscc.iot.billing_groups
-WHERE region = 'us-east-1' AND Identifier = '<BillingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ billing_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +215,10 @@ INSERT INTO awscc.iot.billing_groups (
  BillingGroupProperties,
  region
 )
-SELECT 
-'{{ BillingGroupName }}',
- '{{ Tags }}',
- '{{ BillingGroupProperties }}',
+SELECT
+'{{ billing_group_name }}',
+ '{{ tags }}',
+ '{{ billing_group_properties }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,10 +232,10 @@ INSERT INTO awscc.iot.billing_groups (
  BillingGroupProperties,
  region
 )
-SELECT 
- '{{ BillingGroupName }}',
- '{{ Tags }}',
- '{{ BillingGroupProperties }}',
+SELECT
+ '{{ billing_group_name }}',
+ '{{ tags }}',
+ '{{ billing_group_properties }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,16 +253,15 @@ globals:
 resources:
   - name: billing_group
     props:
-      - name: BillingGroupName
-        value: '{{ BillingGroupName }}'
-      - name: Tags
+      - name: billing_group_name
+        value: '{{ billing_group_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: BillingGroupProperties
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: billing_group_properties
         value:
-          BillingGroupDescription: '{{ BillingGroupDescription }}'
-
+          billing_group_description: '{{ billing_group_description }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "BillingGroupProperties": billing_group_properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BillingGroupName>';
+AND Identifier = '{{ billing_group_name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<BillingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.billing_groups
-WHERE Identifier = '<BillingGroupName>'
+WHERE Identifier = '{{ billing_group_name }}'
 AND region = 'us-east-1';
 ```
 

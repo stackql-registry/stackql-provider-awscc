@@ -226,7 +226,7 @@ priority,
 conditions,
 actions
 FROM awscc.apigatewayv2.routing_rules
-WHERE region = 'us-east-1' AND Identifier = '<RoutingRuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ routing_rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,11 +265,11 @@ INSERT INTO awscc.apigatewayv2.routing_rules (
  Actions,
  region
 )
-SELECT 
-'{{ DomainNameArn }}',
- '{{ Priority }}',
- '{{ Conditions }}',
- '{{ Actions }}',
+SELECT
+'{{ domain_name_arn }}',
+ '{{ priority }}',
+ '{{ conditions }}',
+ '{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,11 +284,11 @@ INSERT INTO awscc.apigatewayv2.routing_rules (
  Actions,
  region
 )
-SELECT 
- '{{ DomainNameArn }}',
- '{{ Priority }}',
- '{{ Conditions }}',
- '{{ Actions }}',
+SELECT
+ '{{ domain_name_arn }}',
+ '{{ priority }}',
+ '{{ conditions }}',
+ '{{ actions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,26 +306,25 @@ globals:
 resources:
   - name: routing_rule
     props:
-      - name: DomainNameArn
-        value: '{{ DomainNameArn }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: Conditions
+      - name: domain_name_arn
+        value: '{{ domain_name_arn }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: conditions
         value:
-          - MatchHeaders:
-              AnyOf:
-                - Header: '{{ Header }}'
-                  ValueGlob: '{{ ValueGlob }}'
-            MatchBasePaths:
-              AnyOf:
-                - '{{ AnyOf[0] }}'
-      - name: Actions
+          - match_headers:
+              any_of:
+                - header: '{{ header }}'
+                  value_glob: '{{ value_glob }}'
+            match_base_paths:
+              any_of:
+                - '{{ any_of[0] }}'
+      - name: actions
         value:
-          - InvokeApi:
-              ApiId: '{{ ApiId }}'
-              Stage: '{{ Stage }}'
-              StripBasePath: '{{ StripBasePath }}'
-
+          - invoke_api:
+              api_id: '{{ api_id }}'
+              stage: '{{ stage }}'
+              strip_base_path: '{{ strip_base_path }}'
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "Actions": actions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoutingRuleArn>';
+AND Identifier = '{{ routing_rule_arn }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<RoutingRuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.routing_rules
-WHERE Identifier = '<RoutingRuleArn>'
+WHERE Identifier = '{{ routing_rule_arn }}'
 AND region = 'us-east-1';
 ```
 

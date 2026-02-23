@@ -726,7 +726,7 @@ arn,
 stream_arn,
 time_to_live_specification
 FROM awscc.dynamodb.global_tables
-WHERE region = 'us-east-1' AND Identifier = '<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -764,10 +764,10 @@ INSERT INTO awscc.dynamodb.global_tables (
  KeySchema,
  region
 )
-SELECT 
-'{{ Replicas }}',
- '{{ AttributeDefinitions }}',
- '{{ KeySchema }}',
+SELECT
+'{{ replicas }}',
+ '{{ attribute_definitions }}',
+ '{{ key_schema }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -793,22 +793,22 @@ INSERT INTO awscc.dynamodb.global_tables (
  TimeToLiveSpecification,
  region
 )
-SELECT 
- '{{ MultiRegionConsistency }}',
- '{{ SSESpecification }}',
- '{{ StreamSpecification }}',
- '{{ WarmThroughput }}',
- '{{ Replicas }}',
- '{{ WriteProvisionedThroughputSettings }}',
- '{{ WriteOnDemandThroughputSettings }}',
- '{{ GlobalTableWitnesses }}',
- '{{ TableName }}',
- '{{ AttributeDefinitions }}',
- '{{ BillingMode }}',
- '{{ GlobalSecondaryIndexes }}',
- '{{ KeySchema }}',
- '{{ LocalSecondaryIndexes }}',
- '{{ TimeToLiveSpecification }}',
+SELECT
+ '{{ multi_region_consistency }}',
+ '{{ sse_specification }}',
+ '{{ stream_specification }}',
+ '{{ warm_throughput }}',
+ '{{ replicas }}',
+ '{{ write_provisioned_throughput_settings }}',
+ '{{ write_on_demand_throughput_settings }}',
+ '{{ global_table_witnesses }}',
+ '{{ table_name }}',
+ '{{ attribute_definitions }}',
+ '{{ billing_mode }}',
+ '{{ global_secondary_indexes }}',
+ '{{ key_schema }}',
+ '{{ local_secondary_indexes }}',
+ '{{ time_to_live_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -826,111 +826,110 @@ globals:
 resources:
   - name: global_table
     props:
-      - name: MultiRegionConsistency
-        value: '{{ MultiRegionConsistency }}'
-      - name: SSESpecification
+      - name: multi_region_consistency
+        value: '{{ multi_region_consistency }}'
+      - name: sse_specification
         value:
-          SSEEnabled: '{{ SSEEnabled }}'
-          SSEType: '{{ SSEType }}'
-          KMSMasterKeyId: '{{ KMSMasterKeyId }}'
-      - name: StreamSpecification
+          sse_enabled: '{{ sse_enabled }}'
+          sse_type: '{{ sse_type }}'
+          kms_master_key_id: '{{ kms_master_key_id }}'
+      - name: stream_specification
         value:
-          StreamViewType: '{{ StreamViewType }}'
-          ResourcePolicy:
-            PolicyDocument: {}
-      - name: WarmThroughput
+          stream_view_type: '{{ stream_view_type }}'
+          resource_policy:
+            policy_document: {}
+      - name: warm_throughput
         value:
-          ReadUnitsPerSecond: '{{ ReadUnitsPerSecond }}'
-          WriteUnitsPerSecond: '{{ WriteUnitsPerSecond }}'
-      - name: Replicas
+          read_units_per_second: '{{ read_units_per_second }}'
+          write_units_per_second: '{{ write_units_per_second }}'
+      - name: replicas
         value:
-          - SSESpecification:
-              KMSMasterKeyId: '{{ KMSMasterKeyId }}'
-            KinesisStreamSpecification:
-              ApproximateCreationDateTimePrecision: '{{ ApproximateCreationDateTimePrecision }}'
-              StreamArn: '{{ StreamArn }}'
-            ContributorInsightsSpecification:
-              Mode: '{{ Mode }}'
-              Enabled: '{{ Enabled }}'
-            PointInTimeRecoverySpecification:
-              PointInTimeRecoveryEnabled: '{{ PointInTimeRecoveryEnabled }}'
-              RecoveryPeriodInDays: '{{ RecoveryPeriodInDays }}'
-            ReplicaStreamSpecification:
-              ResourcePolicy: null
-            GlobalSecondaryIndexes:
-              - IndexName: '{{ IndexName }}'
-                ContributorInsightsSpecification: null
-                ReadProvisionedThroughputSettings:
-                  ReadCapacityUnits: '{{ ReadCapacityUnits }}'
-                  ReadCapacityAutoScalingSettings:
-                    MinCapacity: '{{ MinCapacity }}'
-                    SeedCapacity: '{{ SeedCapacity }}'
-                    TargetTrackingScalingPolicyConfiguration:
-                      ScaleOutCooldown: '{{ ScaleOutCooldown }}'
-                      TargetValue: null
-                      DisableScaleIn: '{{ DisableScaleIn }}'
-                      ScaleInCooldown: '{{ ScaleInCooldown }}'
-                    MaxCapacity: '{{ MaxCapacity }}'
-                ReadOnDemandThroughputSettings:
-                  MaxReadRequestUnits: '{{ MaxReadRequestUnits }}'
-            Region: '{{ Region }}'
-            ResourcePolicy: null
-            ReadProvisionedThroughputSettings: null
-            TableClass: '{{ TableClass }}'
-            DeletionProtectionEnabled: '{{ DeletionProtectionEnabled }}'
-            Tags:
-              - Value: '{{ Value }}'
-                Key: '{{ Key }}'
-            ReadOnDemandThroughputSettings: null
-      - name: WriteProvisionedThroughputSettings
+          - sse_specification:
+              kms_master_key_id: '{{ kms_master_key_id }}'
+            kinesis_stream_specification:
+              approximate_creation_date_time_precision: '{{ approximate_creation_date_time_precision }}'
+              stream_arn: '{{ stream_arn }}'
+            contributor_insights_specification:
+              mode: '{{ mode }}'
+              enabled: '{{ enabled }}'
+            point_in_time_recovery_specification:
+              point_in_time_recovery_enabled: '{{ point_in_time_recovery_enabled }}'
+              recovery_period_in_days: '{{ recovery_period_in_days }}'
+            replica_stream_specification:
+              resource_policy: null
+            global_secondary_indexes:
+              - index_name: '{{ index_name }}'
+                contributor_insights_specification: null
+                read_provisioned_throughput_settings:
+                  read_capacity_units: '{{ read_capacity_units }}'
+                  read_capacity_auto_scaling_settings:
+                    min_capacity: '{{ min_capacity }}'
+                    seed_capacity: '{{ seed_capacity }}'
+                    target_tracking_scaling_policy_configuration:
+                      scale_out_cooldown: '{{ scale_out_cooldown }}'
+                      target_value: null
+                      disable_scale_in: '{{ disable_scale_in }}'
+                      scale_in_cooldown: '{{ scale_in_cooldown }}'
+                    max_capacity: '{{ max_capacity }}'
+                read_on_demand_throughput_settings:
+                  max_read_request_units: '{{ max_read_request_units }}'
+            region: '{{ region }}'
+            resource_policy: null
+            read_provisioned_throughput_settings: null
+            table_class: '{{ table_class }}'
+            deletion_protection_enabled: '{{ deletion_protection_enabled }}'
+            tags:
+              - value: '{{ value }}'
+                key: '{{ key }}'
+            read_on_demand_throughput_settings: null
+      - name: write_provisioned_throughput_settings
         value:
-          WriteCapacityAutoScalingSettings: null
-      - name: WriteOnDemandThroughputSettings
+          write_capacity_auto_scaling_settings: null
+      - name: write_on_demand_throughput_settings
         value:
-          MaxWriteRequestUnits: '{{ MaxWriteRequestUnits }}'
-      - name: GlobalTableWitnesses
+          max_write_request_units: '{{ max_write_request_units }}'
+      - name: global_table_witnesses
         value:
-          - Region: '{{ Region }}'
-      - name: TableName
-        value: '{{ TableName }}'
-      - name: AttributeDefinitions
+          - region: '{{ region }}'
+      - name: table_name
+        value: '{{ table_name }}'
+      - name: attribute_definitions
         value:
-          - AttributeType: '{{ AttributeType }}'
-            AttributeName: '{{ AttributeName }}'
-      - name: BillingMode
-        value: '{{ BillingMode }}'
-      - name: GlobalSecondaryIndexes
+          - attribute_type: '{{ attribute_type }}'
+            attribute_name: '{{ attribute_name }}'
+      - name: billing_mode
+        value: '{{ billing_mode }}'
+      - name: global_secondary_indexes
         value:
-          - IndexName: '{{ IndexName }}'
-            OnDemandThroughput:
-              MaxReadRequestUnits: '{{ MaxReadRequestUnits }}'
-              MaxWriteRequestUnits: '{{ MaxWriteRequestUnits }}'
-            ContributorInsightsSpecification: null
-            Projection:
-              NonKeyAttributes:
-                - '{{ NonKeyAttributes[0] }}'
-              ProjectionType: '{{ ProjectionType }}'
-            ProvisionedThroughput:
-              WriteCapacityUnits: '{{ WriteCapacityUnits }}'
-              ReadCapacityUnits: '{{ ReadCapacityUnits }}'
-            KeySchema:
-              - KeyType: '{{ KeyType }}'
-                AttributeName: '{{ AttributeName }}'
-            WarmThroughput: null
-      - name: KeySchema
+          - index_name: '{{ index_name }}'
+            on_demand_throughput:
+              max_read_request_units: '{{ max_read_request_units }}'
+              max_write_request_units: '{{ max_write_request_units }}'
+            contributor_insights_specification: null
+            projection:
+              non_key_attributes:
+                - '{{ non_key_attributes[0] }}'
+              projection_type: '{{ projection_type }}'
+            provisioned_throughput:
+              write_capacity_units: '{{ write_capacity_units }}'
+              read_capacity_units: '{{ read_capacity_units }}'
+            key_schema:
+              - key_type: '{{ key_type }}'
+                attribute_name: '{{ attribute_name }}'
+            warm_throughput: null
+      - name: key_schema
         value:
           - null
-      - name: LocalSecondaryIndexes
+      - name: local_secondary_indexes
         value:
-          - IndexName: '{{ IndexName }}'
-            Projection: null
-            KeySchema:
+          - index_name: '{{ index_name }}'
+            projection: null
+            key_schema:
               - null
-      - name: TimeToLiveSpecification
+      - name: time_to_live_specification
         value:
-          Enabled: '{{ Enabled }}'
-          AttributeName: '{{ AttributeName }}'
-
+          enabled: '{{ enabled }}'
+          attribute_name: '{{ attribute_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -957,7 +956,7 @@ SET PatchDocument = string('{{ {
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TableName>';
+AND Identifier = '{{ table_name }}';
 ```
 
 
@@ -966,7 +965,7 @@ AND Identifier = '<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.global_tables
-WHERE Identifier = '<TableName>'
+WHERE Identifier = '{{ table_name }}'
 AND region = 'us-east-1';
 ```
 

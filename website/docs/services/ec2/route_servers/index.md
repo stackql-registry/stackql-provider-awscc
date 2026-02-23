@@ -182,7 +182,7 @@ persist_routes_duration,
 sns_notifications_enabled,
 tags
 FROM awscc.ec2.route_servers
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.ec2.route_servers (
  AmazonSideAsn,
  region
 )
-SELECT 
-'{{ AmazonSideAsn }}',
+SELECT
+'{{ amazon_side_asn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,12 +235,12 @@ INSERT INTO awscc.ec2.route_servers (
  Tags,
  region
 )
-SELECT 
- '{{ AmazonSideAsn }}',
- '{{ PersistRoutes }}',
- '{{ PersistRoutesDuration }}',
- '{{ SnsNotificationsEnabled }}',
- '{{ Tags }}',
+SELECT
+ '{{ amazon_side_asn }}',
+ '{{ persist_routes }}',
+ '{{ persist_routes_duration }}',
+ '{{ sns_notifications_enabled }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,19 +258,18 @@ globals:
 resources:
   - name: route_server
     props:
-      - name: AmazonSideAsn
-        value: '{{ AmazonSideAsn }}'
-      - name: PersistRoutes
-        value: '{{ PersistRoutes }}'
-      - name: PersistRoutesDuration
-        value: '{{ PersistRoutesDuration }}'
-      - name: SnsNotificationsEnabled
-        value: '{{ SnsNotificationsEnabled }}'
-      - name: Tags
+      - name: amazon_side_asn
+        value: '{{ amazon_side_asn }}'
+      - name: persist_routes
+        value: '{{ persist_routes }}'
+      - name: persist_routes_duration
+        value: '{{ persist_routes_duration }}'
+      - name: sns_notifications_enabled
+        value: '{{ sns_notifications_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +288,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -298,7 +297,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_servers
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

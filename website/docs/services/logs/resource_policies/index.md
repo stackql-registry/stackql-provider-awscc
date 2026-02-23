@@ -140,7 +140,7 @@ region,
 policy_name,
 policy_document
 FROM awscc.logs.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.logs.resource_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ PolicyDocument }}',
+SELECT
+'{{ policy_name }}',
+ '{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.logs.resource_policies (
  PolicyDocument,
  region
 )
-SELECT 
- '{{ PolicyName }}',
- '{{ PolicyDocument }}',
+SELECT
+ '{{ policy_name }}',
+ '{{ policy_document }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
 ```
 </TabItem>
 </Tabs>
@@ -232,7 +231,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyName>';
+AND Identifier = '{{ policy_name }}';
 ```
 
 
@@ -241,7 +240,7 @@ AND Identifier = '<PolicyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.resource_policies
-WHERE Identifier = '<PolicyName>'
+WHERE Identifier = '{{ policy_name }}'
 AND region = 'us-east-1';
 ```
 

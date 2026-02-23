@@ -182,7 +182,7 @@ min_size,
 latest,
 tags
 FROM awscc.apprunner.auto_scaling_configurations
-WHERE region = 'us-east-1' AND Identifier = '<AutoScalingConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,12 +222,12 @@ INSERT INTO awscc.apprunner.auto_scaling_configurations (
  Tags,
  region
 )
-SELECT 
-'{{ AutoScalingConfigurationName }}',
- '{{ MaxConcurrency }}',
- '{{ MaxSize }}',
- '{{ MinSize }}',
- '{{ Tags }}',
+SELECT
+'{{ auto_scaling_configuration_name }}',
+ '{{ max_concurrency }}',
+ '{{ max_size }}',
+ '{{ min_size }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,12 +243,12 @@ INSERT INTO awscc.apprunner.auto_scaling_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ AutoScalingConfigurationName }}',
- '{{ MaxConcurrency }}',
- '{{ MaxSize }}',
- '{{ MinSize }}',
- '{{ Tags }}',
+SELECT
+ '{{ auto_scaling_configuration_name }}',
+ '{{ max_concurrency }}',
+ '{{ max_size }}',
+ '{{ min_size }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,19 +266,18 @@ globals:
 resources:
   - name: auto_scaling_configuration
     props:
-      - name: AutoScalingConfigurationName
-        value: '{{ AutoScalingConfigurationName }}'
-      - name: MaxConcurrency
-        value: '{{ MaxConcurrency }}'
-      - name: MaxSize
-        value: '{{ MaxSize }}'
-      - name: MinSize
-        value: '{{ MinSize }}'
-      - name: Tags
+      - name: auto_scaling_configuration_name
+        value: '{{ auto_scaling_configuration_name }}'
+      - name: max_concurrency
+        value: '{{ max_concurrency }}'
+      - name: max_size
+        value: '{{ max_size }}'
+      - name: min_size
+        value: '{{ min_size }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +288,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.auto_scaling_configurations
-WHERE Identifier = '<AutoScalingConfigurationArn>'
+WHERE Identifier = '{{ auto_scaling_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

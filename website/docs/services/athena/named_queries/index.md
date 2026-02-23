@@ -163,7 +163,7 @@ query_string,
 work_group,
 named_query_id
 FROM awscc.athena.named_queries
-WHERE region = 'us-east-1' AND Identifier = '<NamedQueryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ named_query_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,9 +200,9 @@ INSERT INTO awscc.athena.named_queries (
  QueryString,
  region
 )
-SELECT 
-'{{ Database }}',
- '{{ QueryString }}',
+SELECT
+'{{ database }}',
+ '{{ query_string }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,12 +218,12 @@ INSERT INTO awscc.athena.named_queries (
  WorkGroup,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Database }}',
- '{{ Description }}',
- '{{ QueryString }}',
- '{{ WorkGroup }}',
+SELECT
+ '{{ name }}',
+ '{{ database }}',
+ '{{ description }}',
+ '{{ query_string }}',
+ '{{ work_group }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -241,17 +241,16 @@ globals:
 resources:
   - name: named_query
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Database
-        value: '{{ Database }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: QueryString
-        value: '{{ QueryString }}'
-      - name: WorkGroup
-        value: '{{ WorkGroup }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: database
+        value: '{{ database }}'
+      - name: description
+        value: '{{ description }}'
+      - name: query_string
+        value: '{{ query_string }}'
+      - name: work_group
+        value: '{{ work_group }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.named_queries
-WHERE Identifier = '<NamedQueryId>'
+WHERE Identifier = '{{ named_query_id }}'
 AND region = 'us-east-1';
 ```
 

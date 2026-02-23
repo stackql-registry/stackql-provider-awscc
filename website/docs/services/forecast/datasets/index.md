@@ -213,7 +213,7 @@ encryption_config,
 schema,
 tags
 FROM awscc.forecast.datasets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,11 +252,11 @@ INSERT INTO awscc.forecast.datasets (
  Schema,
  region
 )
-SELECT 
-'{{ DatasetName }}',
- '{{ DatasetType }}',
- '{{ Domain }}',
- '{{ Schema }}',
+SELECT
+'{{ dataset_name }}',
+ '{{ dataset_type }}',
+ '{{ domain }}',
+ '{{ schema }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -274,14 +274,14 @@ INSERT INTO awscc.forecast.datasets (
  Tags,
  region
 )
-SELECT 
- '{{ DatasetName }}',
- '{{ DatasetType }}',
- '{{ DataFrequency }}',
- '{{ Domain }}',
- '{{ EncryptionConfig }}',
- '{{ Schema }}',
- '{{ Tags }}',
+SELECT
+ '{{ dataset_name }}',
+ '{{ dataset_type }}',
+ '{{ data_frequency }}',
+ '{{ domain }}',
+ '{{ encryption_config }}',
+ '{{ schema }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,28 +299,27 @@ globals:
 resources:
   - name: dataset
     props:
-      - name: DatasetName
-        value: '{{ DatasetName }}'
-      - name: DatasetType
-        value: '{{ DatasetType }}'
-      - name: DataFrequency
-        value: '{{ DataFrequency }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: EncryptionConfig
+      - name: dataset_name
+        value: '{{ dataset_name }}'
+      - name: dataset_type
+        value: '{{ dataset_type }}'
+      - name: data_frequency
+        value: '{{ data_frequency }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: encryption_config
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: Schema
+          kms_key_arn: '{{ kms_key_arn }}'
+          role_arn: '{{ role_arn }}'
+      - name: schema
         value:
-          Attributes:
-            - AttributeName: '{{ AttributeName }}'
-              AttributeType: '{{ AttributeType }}'
-      - name: Tags
+          attributes:
+            - attribute_name: '{{ attribute_name }}'
+              attribute_type: '{{ attribute_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -331,7 +330,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.forecast.datasets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

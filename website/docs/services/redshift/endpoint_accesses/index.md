@@ -245,7 +245,7 @@ endpoint_create_time,
 cluster_identifier,
 vpc_security_groups
 FROM awscc.redshift.endpoint_accesses
-WHERE region = 'us-east-1' AND Identifier = '<EndpointName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,11 +284,11 @@ INSERT INTO awscc.redshift.endpoint_accesses (
  ClusterIdentifier,
  region
 )
-SELECT 
-'{{ EndpointName }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ SubnetGroupName }}',
- '{{ ClusterIdentifier }}',
+SELECT
+'{{ endpoint_name }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ subnet_group_name }}',
+ '{{ cluster_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -304,12 +304,12 @@ INSERT INTO awscc.redshift.endpoint_accesses (
  ClusterIdentifier,
  region
 )
-SELECT 
- '{{ EndpointName }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ ResourceOwner }}',
- '{{ SubnetGroupName }}',
- '{{ ClusterIdentifier }}',
+SELECT
+ '{{ endpoint_name }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ resource_owner }}',
+ '{{ subnet_group_name }}',
+ '{{ cluster_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -327,18 +327,17 @@ globals:
 resources:
   - name: endpoint_access
     props:
-      - name: EndpointName
-        value: '{{ EndpointName }}'
-      - name: VpcSecurityGroupIds
+      - name: endpoint_name
+        value: '{{ endpoint_name }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: ResourceOwner
-        value: '{{ ResourceOwner }}'
-      - name: SubnetGroupName
-        value: '{{ SubnetGroupName }}'
-      - name: ClusterIdentifier
-        value: '{{ ClusterIdentifier }}'
-
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: resource_owner
+        value: '{{ resource_owner }}'
+      - name: subnet_group_name
+        value: '{{ subnet_group_name }}'
+      - name: cluster_identifier
+        value: '{{ cluster_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -354,7 +353,7 @@ SET PatchDocument = string('{{ {
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EndpointName>';
+AND Identifier = '{{ endpoint_name }}';
 ```
 
 
@@ -363,7 +362,7 @@ AND Identifier = '<EndpointName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.endpoint_accesses
-WHERE Identifier = '<EndpointName>'
+WHERE Identifier = '{{ endpoint_name }}'
 AND region = 'us-east-1';
 ```
 

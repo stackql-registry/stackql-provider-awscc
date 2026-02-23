@@ -484,7 +484,7 @@ status,
 source_network_interface_arns,
 destination_network_interface_arns
 FROM awscc.datasync.tasks
-WHERE region = 'us-east-1' AND Identifier = '<TaskArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -521,9 +521,9 @@ INSERT INTO awscc.datasync.tasks (
  SourceLocationArn,
  region
 )
-SELECT 
-'{{ DestinationLocationArn }}',
- '{{ SourceLocationArn }}',
+SELECT
+'{{ destination_location_arn }}',
+ '{{ source_location_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -546,19 +546,19 @@ INSERT INTO awscc.datasync.tasks (
  TaskMode,
  region
 )
-SELECT 
- '{{ Excludes }}',
- '{{ Includes }}',
- '{{ Tags }}',
- '{{ CloudWatchLogGroupArn }}',
- '{{ DestinationLocationArn }}',
- '{{ Name }}',
- '{{ Options }}',
- '{{ TaskReportConfig }}',
- '{{ ManifestConfig }}',
- '{{ Schedule }}',
- '{{ SourceLocationArn }}',
- '{{ TaskMode }}',
+SELECT
+ '{{ excludes }}',
+ '{{ includes }}',
+ '{{ tags }}',
+ '{{ cloud_watch_log_group_arn }}',
+ '{{ destination_location_arn }}',
+ '{{ name }}',
+ '{{ options }}',
+ '{{ task_report_config }}',
+ '{{ manifest_config }}',
+ '{{ schedule }}',
+ '{{ source_location_arn }}',
+ '{{ task_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -576,78 +576,77 @@ globals:
 resources:
   - name: task
     props:
-      - name: Excludes
+      - name: excludes
         value:
-          - FilterType: '{{ FilterType }}'
-            Value: '{{ Value }}'
-      - name: Includes
+          - filter_type: '{{ filter_type }}'
+            value: '{{ value }}'
+      - name: includes
         value:
           - null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CloudWatchLogGroupArn
-        value: '{{ CloudWatchLogGroupArn }}'
-      - name: DestinationLocationArn
-        value: '{{ DestinationLocationArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Options
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: cloud_watch_log_group_arn
+        value: '{{ cloud_watch_log_group_arn }}'
+      - name: destination_location_arn
+        value: '{{ destination_location_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: options
         value:
-          Atime: '{{ Atime }}'
-          BytesPerSecond: '{{ BytesPerSecond }}'
-          Gid: '{{ Gid }}'
-          LogLevel: '{{ LogLevel }}'
-          Mtime: '{{ Mtime }}'
-          OverwriteMode: '{{ OverwriteMode }}'
-          PosixPermissions: '{{ PosixPermissions }}'
-          PreserveDeletedFiles: '{{ PreserveDeletedFiles }}'
-          PreserveDevices: '{{ PreserveDevices }}'
-          SecurityDescriptorCopyFlags: '{{ SecurityDescriptorCopyFlags }}'
-          TaskQueueing: '{{ TaskQueueing }}'
-          TransferMode: '{{ TransferMode }}'
-          Uid: '{{ Uid }}'
-          VerifyMode: '{{ VerifyMode }}'
-          ObjectTags: '{{ ObjectTags }}'
-      - name: TaskReportConfig
+          atime: '{{ atime }}'
+          bytes_per_second: '{{ bytes_per_second }}'
+          gid: '{{ gid }}'
+          log_level: '{{ log_level }}'
+          mtime: '{{ mtime }}'
+          overwrite_mode: '{{ overwrite_mode }}'
+          posix_permissions: '{{ posix_permissions }}'
+          preserve_deleted_files: '{{ preserve_deleted_files }}'
+          preserve_devices: '{{ preserve_devices }}'
+          security_descriptor_copy_flags: '{{ security_descriptor_copy_flags }}'
+          task_queueing: '{{ task_queueing }}'
+          transfer_mode: '{{ transfer_mode }}'
+          uid: '{{ uid }}'
+          verify_mode: '{{ verify_mode }}'
+          object_tags: '{{ object_tags }}'
+      - name: task_report_config
         value:
-          Destination:
-            S3:
-              Subdirectory: '{{ Subdirectory }}'
-              BucketAccessRoleArn: '{{ BucketAccessRoleArn }}'
-              S3BucketArn: '{{ S3BucketArn }}'
-          OutputType: '{{ OutputType }}'
-          ReportLevel: '{{ ReportLevel }}'
-          ObjectVersionIds: '{{ ObjectVersionIds }}'
-          Overrides:
-            Transferred:
-              ReportLevel: '{{ ReportLevel }}'
-            Verified:
-              ReportLevel: '{{ ReportLevel }}'
-            Deleted:
-              ReportLevel: '{{ ReportLevel }}'
-            Skipped:
-              ReportLevel: '{{ ReportLevel }}'
-      - name: ManifestConfig
+          destination:
+            s3:
+              subdirectory: '{{ subdirectory }}'
+              bucket_access_role_arn: '{{ bucket_access_role_arn }}'
+              s3_bucket_arn: '{{ s3_bucket_arn }}'
+          output_type: '{{ output_type }}'
+          report_level: '{{ report_level }}'
+          object_version_ids: '{{ object_version_ids }}'
+          overrides:
+            transferred:
+              report_level: '{{ report_level }}'
+            verified:
+              report_level: '{{ report_level }}'
+            deleted:
+              report_level: '{{ report_level }}'
+            skipped:
+              report_level: '{{ report_level }}'
+      - name: manifest_config
         value:
-          Action: '{{ Action }}'
-          Format: '{{ Format }}'
-          Source:
-            S3:
-              ManifestObjectPath: '{{ ManifestObjectPath }}'
-              BucketAccessRoleArn: '{{ BucketAccessRoleArn }}'
-              S3BucketArn: '{{ S3BucketArn }}'
-              ManifestObjectVersionId: '{{ ManifestObjectVersionId }}'
-      - name: Schedule
+          action: '{{ action }}'
+          format: '{{ format }}'
+          source:
+            s3:
+              manifest_object_path: '{{ manifest_object_path }}'
+              bucket_access_role_arn: '{{ bucket_access_role_arn }}'
+              s3_bucket_arn: '{{ s3_bucket_arn }}'
+              manifest_object_version_id: '{{ manifest_object_version_id }}'
+      - name: schedule
         value:
-          ScheduleExpression: '{{ ScheduleExpression }}'
-          Status: '{{ Status }}'
-      - name: SourceLocationArn
-        value: '{{ SourceLocationArn }}'
-      - name: TaskMode
-        value: '{{ TaskMode }}'
-
+          schedule_expression: '{{ schedule_expression }}'
+          status: '{{ status }}'
+      - name: source_location_arn
+        value: '{{ source_location_arn }}'
+      - name: task_mode
+        value: '{{ task_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -671,7 +670,7 @@ SET PatchDocument = string('{{ {
     "Schedule": schedule
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TaskArn>';
+AND Identifier = '{{ task_arn }}';
 ```
 
 
@@ -680,7 +679,7 @@ AND Identifier = '<TaskArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.tasks
-WHERE Identifier = '<TaskArn>'
+WHERE Identifier = '{{ task_arn }}'
 AND region = 'us-east-1';
 ```
 

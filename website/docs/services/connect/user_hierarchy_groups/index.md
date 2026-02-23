@@ -165,7 +165,7 @@ parent_group_arn,
 name,
 tags
 FROM awscc.connect.user_hierarchy_groups
-WHERE region = 'us-east-1' AND Identifier = '<UserHierarchyGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_hierarchy_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,9 +202,9 @@ INSERT INTO awscc.connect.user_hierarchy_groups (
  Name,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,11 +219,11 @@ INSERT INTO awscc.connect.user_hierarchy_groups (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ ParentGroupArn }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ parent_group_arn }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -241,17 +241,16 @@ globals:
 resources:
   - name: user_hierarchy_group
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: ParentGroupArn
-        value: '{{ ParentGroupArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: parent_group_arn
+        value: '{{ parent_group_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserHierarchyGroupArn>';
+AND Identifier = '{{ user_hierarchy_group_arn }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<UserHierarchyGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.user_hierarchy_groups
-WHERE Identifier = '<UserHierarchyGroupArn>'
+WHERE Identifier = '{{ user_hierarchy_group_arn }}'
 AND region = 'us-east-1';
 ```
 

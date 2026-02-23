@@ -194,7 +194,7 @@ token_signing_public_keys,
 enable_caching_for_http,
 tags
 FROM awscc.iot.authorizers
-WHERE region = 'us-east-1' AND Identifier = '<AuthorizerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,8 +230,8 @@ INSERT INTO awscc.iot.authorizers (
  AuthorizerFunctionArn,
  region
 )
-SELECT 
-'{{ AuthorizerFunctionArn }}',
+SELECT
+'{{ authorizer_function_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,15 +250,15 @@ INSERT INTO awscc.iot.authorizers (
  Tags,
  region
 )
-SELECT 
- '{{ AuthorizerFunctionArn }}',
- '{{ AuthorizerName }}',
- '{{ SigningDisabled }}',
- '{{ Status }}',
- '{{ TokenKeyName }}',
- '{{ TokenSigningPublicKeys }}',
- '{{ EnableCachingForHttp }}',
- '{{ Tags }}',
+SELECT
+ '{{ authorizer_function_arn }}',
+ '{{ authorizer_name }}',
+ '{{ signing_disabled }}',
+ '{{ status }}',
+ '{{ token_key_name }}',
+ '{{ token_signing_public_keys }}',
+ '{{ enable_caching_for_http }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,25 +276,24 @@ globals:
 resources:
   - name: authorizer
     props:
-      - name: AuthorizerFunctionArn
-        value: '{{ AuthorizerFunctionArn }}'
-      - name: AuthorizerName
-        value: '{{ AuthorizerName }}'
-      - name: SigningDisabled
-        value: '{{ SigningDisabled }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: TokenKeyName
-        value: '{{ TokenKeyName }}'
-      - name: TokenSigningPublicKeys
+      - name: authorizer_function_arn
+        value: '{{ authorizer_function_arn }}'
+      - name: authorizer_name
+        value: '{{ authorizer_name }}'
+      - name: signing_disabled
+        value: '{{ signing_disabled }}'
+      - name: status
+        value: '{{ status }}'
+      - name: token_key_name
+        value: '{{ token_key_name }}'
+      - name: token_signing_public_keys
         value: {}
-      - name: EnableCachingForHttp
-        value: '{{ EnableCachingForHttp }}'
-      - name: Tags
+      - name: enable_caching_for_http
+        value: '{{ enable_caching_for_http }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AuthorizerName>';
+AND Identifier = '{{ authorizer_name }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<AuthorizerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.authorizers
-WHERE Identifier = '<AuthorizerName>'
+WHERE Identifier = '{{ authorizer_name }}'
 AND region = 'us-east-1';
 ```
 

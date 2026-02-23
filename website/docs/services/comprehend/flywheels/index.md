@@ -261,7 +261,7 @@ tags,
 task_config,
 arn
 FROM awscc.comprehend.flywheels
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,10 +299,10 @@ INSERT INTO awscc.comprehend.flywheels (
  FlywheelName,
  region
 )
-SELECT 
-'{{ DataAccessRoleArn }}',
- '{{ DataLakeS3Uri }}',
- '{{ FlywheelName }}',
+SELECT
+'{{ data_access_role_arn }}',
+ '{{ data_lake_s3_uri }}',
+ '{{ flywheel_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -321,15 +321,15 @@ INSERT INTO awscc.comprehend.flywheels (
  TaskConfig,
  region
 )
-SELECT 
- '{{ ActiveModelArn }}',
- '{{ DataAccessRoleArn }}',
- '{{ DataLakeS3Uri }}',
- '{{ DataSecurityConfig }}',
- '{{ FlywheelName }}',
- '{{ ModelType }}',
- '{{ Tags }}',
- '{{ TaskConfig }}',
+SELECT
+ '{{ active_model_arn }}',
+ '{{ data_access_role_arn }}',
+ '{{ data_lake_s3_uri }}',
+ '{{ data_security_config }}',
+ '{{ flywheel_name }}',
+ '{{ model_type }}',
+ '{{ tags }}',
+ '{{ task_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -347,41 +347,40 @@ globals:
 resources:
   - name: flywheel
     props:
-      - name: ActiveModelArn
-        value: '{{ ActiveModelArn }}'
-      - name: DataAccessRoleArn
-        value: '{{ DataAccessRoleArn }}'
-      - name: DataLakeS3Uri
-        value: '{{ DataLakeS3Uri }}'
-      - name: DataSecurityConfig
+      - name: active_model_arn
+        value: '{{ active_model_arn }}'
+      - name: data_access_role_arn
+        value: '{{ data_access_role_arn }}'
+      - name: data_lake_s3_uri
+        value: '{{ data_lake_s3_uri }}'
+      - name: data_security_config
         value:
-          ModelKmsKeyId: '{{ ModelKmsKeyId }}'
-          VolumeKmsKeyId: null
-          DataLakeKmsKeyId: null
-          VpcConfig:
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            Subnets:
-              - '{{ Subnets[0] }}'
-      - name: FlywheelName
-        value: '{{ FlywheelName }}'
-      - name: ModelType
-        value: '{{ ModelType }}'
-      - name: Tags
+          model_kms_key_id: '{{ model_kms_key_id }}'
+          volume_kms_key_id: null
+          data_lake_kms_key_id: null
+          vpc_config:
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            subnets:
+              - '{{ subnets[0] }}'
+      - name: flywheel_name
+        value: '{{ flywheel_name }}'
+      - name: model_type
+        value: '{{ model_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TaskConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: task_config
         value:
-          LanguageCode: '{{ LanguageCode }}'
-          DocumentClassificationConfig:
-            Mode: '{{ Mode }}'
-            Labels:
-              - '{{ Labels[0] }}'
-          EntityRecognitionConfig:
-            EntityTypes:
-              - Type: '{{ Type }}'
-
+          language_code: '{{ language_code }}'
+          document_classification_config:
+            mode: '{{ mode }}'
+            labels:
+              - '{{ labels[0] }}'
+          entity_recognition_config:
+            entity_types:
+              - type: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -400,7 +399,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -409,7 +408,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.comprehend.flywheels
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

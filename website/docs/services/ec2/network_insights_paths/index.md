@@ -233,7 +233,7 @@ protocol,
 destination_port,
 tags
 FROM awscc.ec2.network_insights_paths
-WHERE region = 'us-east-1' AND Identifier = '<NetworkInsightsPathId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_path_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,9 +270,9 @@ INSERT INTO awscc.ec2.network_insights_paths (
  Protocol,
  region
 )
-SELECT 
-'{{ Source }}',
- '{{ Protocol }}',
+SELECT
+'{{ source }}',
+ '{{ protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,16 +292,16 @@ INSERT INTO awscc.ec2.network_insights_paths (
  Tags,
  region
 )
-SELECT 
- '{{ SourceIp }}',
- '{{ FilterAtSource }}',
- '{{ FilterAtDestination }}',
- '{{ DestinationIp }}',
- '{{ Source }}',
- '{{ Destination }}',
- '{{ Protocol }}',
- '{{ DestinationPort }}',
- '{{ Tags }}',
+SELECT
+ '{{ source_ip }}',
+ '{{ filter_at_source }}',
+ '{{ filter_at_destination }}',
+ '{{ destination_ip }}',
+ '{{ source }}',
+ '{{ destination }}',
+ '{{ protocol }}',
+ '{{ destination_port }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -319,33 +319,32 @@ globals:
 resources:
   - name: network_insights_path
     props:
-      - name: SourceIp
-        value: '{{ SourceIp }}'
-      - name: FilterAtSource
+      - name: source_ip
+        value: '{{ source_ip }}'
+      - name: filter_at_source
         value:
-          SourceAddress: null
-          SourcePortRange:
-            FromPort: '{{ FromPort }}'
-            ToPort: '{{ ToPort }}'
-          DestinationAddress: null
-          DestinationPortRange: null
-      - name: FilterAtDestination
+          source_address: null
+          source_port_range:
+            from_port: '{{ from_port }}'
+            to_port: '{{ to_port }}'
+          destination_address: null
+          destination_port_range: null
+      - name: filter_at_destination
         value: null
-      - name: DestinationIp
+      - name: destination_ip
         value: null
-      - name: Source
-        value: '{{ Source }}'
-      - name: Destination
-        value: '{{ Destination }}'
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: DestinationPort
-        value: '{{ DestinationPort }}'
-      - name: Tags
+      - name: source
+        value: '{{ source }}'
+      - name: destination
+        value: '{{ destination }}'
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: destination_port
+        value: '{{ destination_port }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +360,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NetworkInsightsPathId>';
+AND Identifier = '{{ network_insights_path_id }}';
 ```
 
 
@@ -370,7 +369,7 @@ AND Identifier = '<NetworkInsightsPathId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_paths
-WHERE Identifier = '<NetworkInsightsPathId>'
+WHERE Identifier = '{{ network_insights_path_id }}'
 AND region = 'us-east-1';
 ```
 

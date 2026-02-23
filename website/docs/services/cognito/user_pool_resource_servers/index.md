@@ -169,7 +169,7 @@ identifier,
 name,
 scopes
 FROM awscc.cognito.user_pool_resource_servers
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.cognito.user_pool_resource_servers (
  Name,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
- '{{ Identifier }}',
- '{{ Name }}',
+SELECT
+'{{ user_pool_id }}',
+ '{{ identifier }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,11 +226,11 @@ INSERT INTO awscc.cognito.user_pool_resource_servers (
  Scopes,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ Identifier }}',
- '{{ Name }}',
- '{{ Scopes }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ identifier }}',
+ '{{ name }}',
+ '{{ scopes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,17 +248,16 @@ globals:
 resources:
   - name: user_pool_resource_server
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: Identifier
-        value: '{{ Identifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Scopes
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: identifier
+        value: '{{ identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: scopes
         value:
-          - ScopeDescription: '{{ ScopeDescription }}'
-            ScopeName: '{{ ScopeName }}'
-
+          - scope_description: '{{ scope_description }}'
+            scope_name: '{{ scope_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Scopes": scopes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<Identifier>';
+AND Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<UserPoolId>|<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_resource_servers
-WHERE Identifier = '<UserPoolId|Identifier>'
+WHERE Identifier = '{{ user_pool_id }}|{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

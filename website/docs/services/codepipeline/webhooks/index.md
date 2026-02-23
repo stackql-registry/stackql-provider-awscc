@@ -212,7 +212,7 @@ name,
 target_pipeline_version,
 register_with_third_party
 FROM awscc.codepipeline.webhooks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,12 +252,12 @@ INSERT INTO awscc.codepipeline.webhooks (
  TargetAction,
  region
 )
-SELECT 
-'{{ AuthenticationConfiguration }}',
- '{{ Filters }}',
- '{{ Authentication }}',
- '{{ TargetPipeline }}',
- '{{ TargetAction }}',
+SELECT
+'{{ authentication_configuration }}',
+ '{{ filters }}',
+ '{{ authentication }}',
+ '{{ target_pipeline }}',
+ '{{ target_action }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,15 +276,15 @@ INSERT INTO awscc.codepipeline.webhooks (
  RegisterWithThirdParty,
  region
 )
-SELECT 
- '{{ AuthenticationConfiguration }}',
- '{{ Filters }}',
- '{{ Authentication }}',
- '{{ TargetPipeline }}',
- '{{ TargetAction }}',
- '{{ Name }}',
- '{{ TargetPipelineVersion }}',
- '{{ RegisterWithThirdParty }}',
+SELECT
+ '{{ authentication_configuration }}',
+ '{{ filters }}',
+ '{{ authentication }}',
+ '{{ target_pipeline }}',
+ '{{ target_action }}',
+ '{{ name }}',
+ '{{ target_pipeline_version }}',
+ '{{ register_with_third_party }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,27 +302,26 @@ globals:
 resources:
   - name: webhook
     props:
-      - name: AuthenticationConfiguration
+      - name: authentication_configuration
         value:
-          AllowedIPRange: '{{ AllowedIPRange }}'
-          SecretToken: '{{ SecretToken }}'
-      - name: Filters
+          allowed_ip_range: '{{ allowed_ip_range }}'
+          secret_token: '{{ secret_token }}'
+      - name: filters
         value:
-          - JsonPath: '{{ JsonPath }}'
-            MatchEquals: '{{ MatchEquals }}'
-      - name: Authentication
-        value: '{{ Authentication }}'
-      - name: TargetPipeline
-        value: '{{ TargetPipeline }}'
-      - name: TargetAction
-        value: '{{ TargetAction }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: TargetPipelineVersion
-        value: '{{ TargetPipelineVersion }}'
-      - name: RegisterWithThirdParty
-        value: '{{ RegisterWithThirdParty }}'
-
+          - json_path: '{{ json_path }}'
+            match_equals: '{{ match_equals }}'
+      - name: authentication
+        value: '{{ authentication }}'
+      - name: target_pipeline
+        value: '{{ target_pipeline }}'
+      - name: target_action
+        value: '{{ target_action }}'
+      - name: name
+        value: '{{ name }}'
+      - name: target_pipeline_version
+        value: '{{ target_pipeline_version }}'
+      - name: register_with_third_party
+        value: '{{ register_with_third_party }}'
 ```
 </TabItem>
 </Tabs>
@@ -344,7 +343,7 @@ SET PatchDocument = string('{{ {
     "RegisterWithThirdParty": register_with_third_party
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -353,7 +352,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.webhooks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

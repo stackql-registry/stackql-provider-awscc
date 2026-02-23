@@ -223,7 +223,7 @@ updated_at,
 service_enabled,
 tags
 FROM awscc.securityhub.configuration_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,9 +260,9 @@ INSERT INTO awscc.securityhub.configuration_policies (
  ConfigurationPolicy,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ConfigurationPolicy }}',
+SELECT
+'{{ name }}',
+ '{{ configuration_policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,11 +277,11 @@ INSERT INTO awscc.securityhub.configuration_policies (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ConfigurationPolicy }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ configuration_policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,27 +299,26 @@ globals:
 resources:
   - name: configuration_policy
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ConfigurationPolicy
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: configuration_policy
         value:
-          SecurityHub:
-            EnabledStandardIdentifiers:
-              - '{{ EnabledStandardIdentifiers[0] }}'
-            ServiceEnabled: '{{ ServiceEnabled }}'
-            SecurityControlsConfiguration:
-              DisabledSecurityControlIdentifiers:
-                - '{{ DisabledSecurityControlIdentifiers[0] }}'
-              EnabledSecurityControlIdentifiers:
-                - '{{ EnabledSecurityControlIdentifiers[0] }}'
-              SecurityControlCustomParameters:
-                - Parameters: {}
-                  SecurityControlId: '{{ SecurityControlId }}'
-      - name: Tags
+          security_hub:
+            enabled_standard_identifiers:
+              - '{{ enabled_standard_identifiers[0] }}'
+            service_enabled: '{{ service_enabled }}'
+            security_controls_configuration:
+              disabled_security_control_identifiers:
+                - '{{ disabled_security_control_identifiers[0] }}'
+              enabled_security_control_identifiers:
+                - '{{ enabled_security_control_identifiers[0] }}'
+              security_control_custom_parameters:
+                - parameters: {}
+                  security_control_id: '{{ security_control_id }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +337,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -347,7 +346,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.configuration_policies
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

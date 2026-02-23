@@ -270,7 +270,7 @@ bucket_encryption,
 lifecycle_configuration,
 tags
 FROM awscc.s3express.directory_buckets
-WHERE region = 'us-east-1' AND Identifier = '<BucketName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,9 +307,9 @@ INSERT INTO awscc.s3express.directory_buckets (
  DataRedundancy,
  region
 )
-SELECT 
-'{{ LocationName }}',
- '{{ DataRedundancy }}',
+SELECT
+'{{ location_name }}',
+ '{{ data_redundancy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -326,13 +326,13 @@ INSERT INTO awscc.s3express.directory_buckets (
  Tags,
  region
 )
-SELECT 
- '{{ BucketName }}',
- '{{ LocationName }}',
- '{{ DataRedundancy }}',
- '{{ BucketEncryption }}',
- '{{ LifecycleConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ bucket_name }}',
+ '{{ location_name }}',
+ '{{ data_redundancy }}',
+ '{{ bucket_encryption }}',
+ '{{ lifecycle_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -350,35 +350,34 @@ globals:
 resources:
   - name: directory_bucket
     props:
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: LocationName
-        value: '{{ LocationName }}'
-      - name: DataRedundancy
-        value: '{{ DataRedundancy }}'
-      - name: BucketEncryption
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: location_name
+        value: '{{ location_name }}'
+      - name: data_redundancy
+        value: '{{ data_redundancy }}'
+      - name: bucket_encryption
         value:
-          ServerSideEncryptionConfiguration:
-            - BucketKeyEnabled: '{{ BucketKeyEnabled }}'
-              ServerSideEncryptionByDefault:
-                KMSMasterKeyID: '{{ KMSMasterKeyID }}'
-                SSEAlgorithm: '{{ SSEAlgorithm }}'
-      - name: LifecycleConfiguration
+          server_side_encryption_configuration:
+            - bucket_key_enabled: '{{ bucket_key_enabled }}'
+              server_side_encryption_by_default:
+                kms_master_key_id: '{{ kms_master_key_id }}'
+                sse_algorithm: '{{ sse_algorithm }}'
+      - name: lifecycle_configuration
         value:
-          Rules:
-            - AbortIncompleteMultipartUpload:
-                DaysAfterInitiation: '{{ DaysAfterInitiation }}'
-              ExpirationInDays: '{{ ExpirationInDays }}'
-              Id: '{{ Id }}'
-              Prefix: '{{ Prefix }}'
-              Status: '{{ Status }}'
-              ObjectSizeGreaterThan: '{{ ObjectSizeGreaterThan }}'
-              ObjectSizeLessThan: '{{ ObjectSizeLessThan }}'
-      - name: Tags
+          rules:
+            - abort_incomplete_multipart_upload:
+                days_after_initiation: '{{ days_after_initiation }}'
+              expiration_in_days: '{{ expiration_in_days }}'
+              id: '{{ id }}'
+              prefix: '{{ prefix }}'
+              status: '{{ status }}'
+              object_size_greater_than: '{{ object_size_greater_than }}'
+              object_size_less_than: '{{ object_size_less_than }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -396,7 +395,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BucketName>';
+AND Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -405,7 +404,7 @@ AND Identifier = '<BucketName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3express.directory_buckets
-WHERE Identifier = '<BucketName>'
+WHERE Identifier = '{{ bucket_name }}'
 AND region = 'us-east-1';
 ```
 

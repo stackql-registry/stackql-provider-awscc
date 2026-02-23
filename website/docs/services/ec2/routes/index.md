@@ -229,7 +229,7 @@ transit_gateway_id,
 vpc_endpoint_id,
 vpc_peering_connection_id
 FROM awscc.ec2.routes
-WHERE region = 'us-east-1' AND Identifier = '<RouteTableId>|<CidrBlock>';
+WHERE region = 'us-east-1' AND Identifier = '{{ route_table_id }}|{{ cidr_block }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,8 +266,8 @@ INSERT INTO awscc.ec2.routes (
  RouteTableId,
  region
 )
-SELECT 
-'{{ RouteTableId }}',
+SELECT
+'{{ route_table_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,22 +293,22 @@ INSERT INTO awscc.ec2.routes (
  VpcPeeringConnectionId,
  region
 )
-SELECT 
- '{{ CarrierGatewayId }}',
- '{{ CoreNetworkArn }}',
- '{{ DestinationCidrBlock }}',
- '{{ DestinationIpv6CidrBlock }}',
- '{{ DestinationPrefixListId }}',
- '{{ EgressOnlyInternetGatewayId }}',
- '{{ GatewayId }}',
- '{{ InstanceId }}',
- '{{ LocalGatewayId }}',
- '{{ NatGatewayId }}',
- '{{ NetworkInterfaceId }}',
- '{{ RouteTableId }}',
- '{{ TransitGatewayId }}',
- '{{ VpcEndpointId }}',
- '{{ VpcPeeringConnectionId }}',
+SELECT
+ '{{ carrier_gateway_id }}',
+ '{{ core_network_arn }}',
+ '{{ destination_cidr_block }}',
+ '{{ destination_ipv6_cidr_block }}',
+ '{{ destination_prefix_list_id }}',
+ '{{ egress_only_internet_gateway_id }}',
+ '{{ gateway_id }}',
+ '{{ instance_id }}',
+ '{{ local_gateway_id }}',
+ '{{ nat_gateway_id }}',
+ '{{ network_interface_id }}',
+ '{{ route_table_id }}',
+ '{{ transit_gateway_id }}',
+ '{{ vpc_endpoint_id }}',
+ '{{ vpc_peering_connection_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,37 +326,36 @@ globals:
 resources:
   - name: route
     props:
-      - name: CarrierGatewayId
-        value: '{{ CarrierGatewayId }}'
-      - name: CoreNetworkArn
-        value: '{{ CoreNetworkArn }}'
-      - name: DestinationCidrBlock
-        value: '{{ DestinationCidrBlock }}'
-      - name: DestinationIpv6CidrBlock
-        value: '{{ DestinationIpv6CidrBlock }}'
-      - name: DestinationPrefixListId
-        value: '{{ DestinationPrefixListId }}'
-      - name: EgressOnlyInternetGatewayId
-        value: '{{ EgressOnlyInternetGatewayId }}'
-      - name: GatewayId
-        value: '{{ GatewayId }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: LocalGatewayId
-        value: '{{ LocalGatewayId }}'
-      - name: NatGatewayId
-        value: '{{ NatGatewayId }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-      - name: RouteTableId
-        value: '{{ RouteTableId }}'
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: VpcEndpointId
-        value: '{{ VpcEndpointId }}'
-      - name: VpcPeeringConnectionId
-        value: '{{ VpcPeeringConnectionId }}'
-
+      - name: carrier_gateway_id
+        value: '{{ carrier_gateway_id }}'
+      - name: core_network_arn
+        value: '{{ core_network_arn }}'
+      - name: destination_cidr_block
+        value: '{{ destination_cidr_block }}'
+      - name: destination_ipv6_cidr_block
+        value: '{{ destination_ipv6_cidr_block }}'
+      - name: destination_prefix_list_id
+        value: '{{ destination_prefix_list_id }}'
+      - name: egress_only_internet_gateway_id
+        value: '{{ egress_only_internet_gateway_id }}'
+      - name: gateway_id
+        value: '{{ gateway_id }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: local_gateway_id
+        value: '{{ local_gateway_id }}'
+      - name: nat_gateway_id
+        value: '{{ nat_gateway_id }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
+      - name: route_table_id
+        value: '{{ route_table_id }}'
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: vpc_endpoint_id
+        value: '{{ vpc_endpoint_id }}'
+      - name: vpc_peering_connection_id
+        value: '{{ vpc_peering_connection_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +381,7 @@ SET PatchDocument = string('{{ {
     "VpcPeeringConnectionId": vpc_peering_connection_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RouteTableId>|<CidrBlock>';
+AND Identifier = '{{ route_table_id }}|{{ cidr_block }}';
 ```
 
 
@@ -391,7 +390,7 @@ AND Identifier = '<RouteTableId>|<CidrBlock>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.routes
-WHERE Identifier = '<RouteTableId|CidrBlock>'
+WHERE Identifier = '{{ route_table_id }}|{{ cidr_block }}'
 AND region = 'us-east-1';
 ```
 

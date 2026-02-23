@@ -207,7 +207,7 @@ resource_configuration_group_id,
 tags,
 name
 FROM awscc.vpclattice.resource_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,9 +244,9 @@ INSERT INTO awscc.vpclattice.resource_configurations (
  Name,
  region
 )
-SELECT 
-'{{ ResourceConfigurationType }}',
- '{{ Name }}',
+SELECT
+'{{ resource_configuration_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -267,17 +267,17 @@ INSERT INTO awscc.vpclattice.resource_configurations (
  Name,
  region
 )
-SELECT 
- '{{ AllowAssociationToSharableServiceNetwork }}',
- '{{ ProtocolType }}',
- '{{ ResourceConfigurationType }}',
- '{{ PortRanges }}',
- '{{ ResourceConfigurationDefinition }}',
- '{{ ResourceGatewayId }}',
- '{{ ResourceConfigurationAuthType }}',
- '{{ ResourceConfigurationGroupId }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ allow_association_to_sharable_service_network }}',
+ '{{ protocol_type }}',
+ '{{ resource_configuration_type }}',
+ '{{ port_ranges }}',
+ '{{ resource_configuration_definition }}',
+ '{{ resource_gateway_id }}',
+ '{{ resource_configuration_auth_type }}',
+ '{{ resource_configuration_group_id }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -295,30 +295,29 @@ globals:
 resources:
   - name: resource_configuration
     props:
-      - name: AllowAssociationToSharableServiceNetwork
-        value: '{{ AllowAssociationToSharableServiceNetwork }}'
-      - name: ProtocolType
-        value: '{{ ProtocolType }}'
-      - name: ResourceConfigurationType
-        value: '{{ ResourceConfigurationType }}'
-      - name: PortRanges
+      - name: allow_association_to_sharable_service_network
+        value: '{{ allow_association_to_sharable_service_network }}'
+      - name: protocol_type
+        value: '{{ protocol_type }}'
+      - name: resource_configuration_type
+        value: '{{ resource_configuration_type }}'
+      - name: port_ranges
         value:
-          - '{{ PortRanges[0] }}'
-      - name: ResourceConfigurationDefinition
+          - '{{ port_ranges[0] }}'
+      - name: resource_configuration_definition
         value: {}
-      - name: ResourceGatewayId
-        value: '{{ ResourceGatewayId }}'
-      - name: ResourceConfigurationAuthType
-        value: '{{ ResourceConfigurationAuthType }}'
-      - name: ResourceConfigurationGroupId
-        value: '{{ ResourceConfigurationGroupId }}'
-      - name: Tags
+      - name: resource_gateway_id
+        value: '{{ resource_gateway_id }}'
+      - name: resource_configuration_auth_type
+        value: '{{ resource_configuration_auth_type }}'
+      - name: resource_configuration_group_id
+        value: '{{ resource_configuration_group_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.resource_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

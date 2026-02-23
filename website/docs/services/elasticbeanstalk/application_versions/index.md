@@ -169,7 +169,7 @@ application_name,
 description,
 source_bundle
 FROM awscc.elasticbeanstalk.application_versions
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.elasticbeanstalk.application_versions (
  SourceBundle,
  region
 )
-SELECT 
-'{{ ApplicationName }}',
- '{{ SourceBundle }}',
+SELECT
+'{{ application_name }}',
+ '{{ source_bundle }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.elasticbeanstalk.application_versions (
  SourceBundle,
  region
 )
-SELECT 
- '{{ ApplicationName }}',
- '{{ Description }}',
- '{{ SourceBundle }}',
+SELECT
+ '{{ application_name }}',
+ '{{ description }}',
+ '{{ source_bundle }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: application_version
     props:
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SourceBundle
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: source_bundle
         value:
-          S3Bucket: '{{ S3Bucket }}'
-          S3Key: '{{ S3Key }}'
-
+          s3_bucket: '{{ s3_bucket }}'
+          s3_key: '{{ s3_key }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationName>|<Id>';
+AND Identifier = '{{ application_name }}|{{ id }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<ApplicationName>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.application_versions
-WHERE Identifier = '<ApplicationName|Id>'
+WHERE Identifier = '{{ application_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

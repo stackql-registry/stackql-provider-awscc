@@ -473,7 +473,7 @@ arn,
 step_scaling_policy_configuration,
 predictive_scaling_policy_configuration
 FROM awscc.applicationautoscaling.scaling_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>|<ScalableDimension>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ scalable_dimension }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -511,9 +511,9 @@ INSERT INTO awscc.applicationautoscaling.scaling_policies (
  PolicyName,
  region
 )
-SELECT 
-'{{ PolicyType }}',
- '{{ PolicyName }}',
+SELECT
+'{{ policy_type }}',
+ '{{ policy_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -533,16 +533,16 @@ INSERT INTO awscc.applicationautoscaling.scaling_policies (
  PredictiveScalingPolicyConfiguration,
  region
 )
-SELECT 
- '{{ PolicyType }}',
- '{{ ResourceId }}',
- '{{ ScalingTargetId }}',
- '{{ PolicyName }}',
- '{{ ServiceNamespace }}',
- '{{ ScalableDimension }}',
- '{{ TargetTrackingScalingPolicyConfiguration }}',
- '{{ StepScalingPolicyConfiguration }}',
- '{{ PredictiveScalingPolicyConfiguration }}',
+SELECT
+ '{{ policy_type }}',
+ '{{ resource_id }}',
+ '{{ scaling_target_id }}',
+ '{{ policy_name }}',
+ '{{ service_namespace }}',
+ '{{ scalable_dimension }}',
+ '{{ target_tracking_scaling_policy_configuration }}',
+ '{{ step_scaling_policy_configuration }}',
+ '{{ predictive_scaling_policy_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -560,98 +560,97 @@ globals:
 resources:
   - name: scaling_policy
     props:
-      - name: PolicyType
-        value: '{{ PolicyType }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: ScalingTargetId
-        value: '{{ ScalingTargetId }}'
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: ServiceNamespace
-        value: '{{ ServiceNamespace }}'
-      - name: ScalableDimension
-        value: '{{ ScalableDimension }}'
-      - name: TargetTrackingScalingPolicyConfiguration
+      - name: policy_type
+        value: '{{ policy_type }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: scaling_target_id
+        value: '{{ scaling_target_id }}'
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: service_namespace
+        value: '{{ service_namespace }}'
+      - name: scalable_dimension
+        value: '{{ scalable_dimension }}'
+      - name: target_tracking_scaling_policy_configuration
         value:
-          ScaleOutCooldown: '{{ ScaleOutCooldown }}'
-          TargetValue: null
-          CustomizedMetricSpecification:
-            MetricName: '{{ MetricName }}'
-            Metrics:
-              - ReturnData: '{{ ReturnData }}'
-                Expression: '{{ Expression }}'
-                Label: '{{ Label }}'
-                MetricStat:
-                  Stat: '{{ Stat }}'
-                  Metric:
-                    MetricName: '{{ MetricName }}'
-                    Dimensions:
-                      - Value: '{{ Value }}'
-                        Name: '{{ Name }}'
-                    Namespace: '{{ Namespace }}'
-                  Unit: '{{ Unit }}'
-                Id: '{{ Id }}'
-            Statistic: '{{ Statistic }}'
-            Dimensions:
-              - Value: '{{ Value }}'
-                Name: '{{ Name }}'
-            Unit: '{{ Unit }}'
-            Namespace: '{{ Namespace }}'
-          DisableScaleIn: '{{ DisableScaleIn }}'
-          ScaleInCooldown: '{{ ScaleInCooldown }}'
-          PredefinedMetricSpecification:
-            PredefinedMetricType: '{{ PredefinedMetricType }}'
-            ResourceLabel: '{{ ResourceLabel }}'
-      - name: StepScalingPolicyConfiguration
+          scale_out_cooldown: '{{ scale_out_cooldown }}'
+          target_value: null
+          customized_metric_specification:
+            metric_name: '{{ metric_name }}'
+            metrics:
+              - return_data: '{{ return_data }}'
+                expression: '{{ expression }}'
+                label: '{{ label }}'
+                metric_stat:
+                  stat: '{{ stat }}'
+                  metric:
+                    metric_name: '{{ metric_name }}'
+                    dimensions:
+                      - value: '{{ value }}'
+                        name: '{{ name }}'
+                    namespace: '{{ namespace }}'
+                  unit: '{{ unit }}'
+                id: '{{ id }}'
+            statistic: '{{ statistic }}'
+            dimensions:
+              - value: '{{ value }}'
+                name: '{{ name }}'
+            unit: '{{ unit }}'
+            namespace: '{{ namespace }}'
+          disable_scale_in: '{{ disable_scale_in }}'
+          scale_in_cooldown: '{{ scale_in_cooldown }}'
+          predefined_metric_specification:
+            predefined_metric_type: '{{ predefined_metric_type }}'
+            resource_label: '{{ resource_label }}'
+      - name: step_scaling_policy_configuration
         value:
-          MetricAggregationType: '{{ MetricAggregationType }}'
-          Cooldown: '{{ Cooldown }}'
-          StepAdjustments:
-            - MetricIntervalUpperBound: null
-              MetricIntervalLowerBound: null
-              ScalingAdjustment: '{{ ScalingAdjustment }}'
-          MinAdjustmentMagnitude: '{{ MinAdjustmentMagnitude }}'
-          AdjustmentType: '{{ AdjustmentType }}'
-      - name: PredictiveScalingPolicyConfiguration
+          metric_aggregation_type: '{{ metric_aggregation_type }}'
+          cooldown: '{{ cooldown }}'
+          step_adjustments:
+            - metric_interval_upper_bound: null
+              metric_interval_lower_bound: null
+              scaling_adjustment: '{{ scaling_adjustment }}'
+          min_adjustment_magnitude: '{{ min_adjustment_magnitude }}'
+          adjustment_type: '{{ adjustment_type }}'
+      - name: predictive_scaling_policy_configuration
         value:
-          MaxCapacityBreachBehavior: '{{ MaxCapacityBreachBehavior }}'
-          MaxCapacityBuffer: '{{ MaxCapacityBuffer }}'
-          Mode: '{{ Mode }}'
-          MetricSpecifications:
-            - CustomizedLoadMetricSpecification:
-                MetricDataQueries:
-                  - ReturnData: '{{ ReturnData }}'
-                    Expression: '{{ Expression }}'
-                    Label: '{{ Label }}'
-                    MetricStat:
-                      Stat: '{{ Stat }}'
-                      Metric:
-                        MetricName: '{{ MetricName }}'
-                        Dimensions:
-                          - Value: '{{ Value }}'
-                            Name: '{{ Name }}'
-                        Namespace: '{{ Namespace }}'
-                      Unit: '{{ Unit }}'
-                    Id: '{{ Id }}'
-              PredefinedLoadMetricSpecification:
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-                ResourceLabel: '{{ ResourceLabel }}'
-              TargetValue: null
-              PredefinedScalingMetricSpecification:
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-                ResourceLabel: '{{ ResourceLabel }}'
-              CustomizedCapacityMetricSpecification:
-                MetricDataQueries:
+          max_capacity_breach_behavior: '{{ max_capacity_breach_behavior }}'
+          max_capacity_buffer: '{{ max_capacity_buffer }}'
+          mode: '{{ mode }}'
+          metric_specifications:
+            - customized_load_metric_specification:
+                metric_data_queries:
+                  - return_data: '{{ return_data }}'
+                    expression: '{{ expression }}'
+                    label: '{{ label }}'
+                    metric_stat:
+                      stat: '{{ stat }}'
+                      metric:
+                        metric_name: '{{ metric_name }}'
+                        dimensions:
+                          - value: '{{ value }}'
+                            name: '{{ name }}'
+                        namespace: '{{ namespace }}'
+                      unit: '{{ unit }}'
+                    id: '{{ id }}'
+              predefined_load_metric_specification:
+                predefined_metric_type: '{{ predefined_metric_type }}'
+                resource_label: '{{ resource_label }}'
+              target_value: null
+              predefined_scaling_metric_specification:
+                predefined_metric_type: '{{ predefined_metric_type }}'
+                resource_label: '{{ resource_label }}'
+              customized_capacity_metric_specification:
+                metric_data_queries:
                   - null
-              CustomizedScalingMetricSpecification:
-                MetricDataQueries:
+              customized_scaling_metric_specification:
+                metric_data_queries:
                   - null
-              PredefinedMetricPairSpecification:
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-                ResourceLabel: '{{ ResourceLabel }}'
-          SchedulingBufferTime: '{{ SchedulingBufferTime }}'
-
+              predefined_metric_pair_specification:
+                predefined_metric_type: '{{ predefined_metric_type }}'
+                resource_label: '{{ resource_label }}'
+          scheduling_buffer_time: '{{ scheduling_buffer_time }}'
 ```
 </TabItem>
 </Tabs>
@@ -670,7 +669,7 @@ SET PatchDocument = string('{{ {
     "PredictiveScalingPolicyConfiguration": predictive_scaling_policy_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>|<ScalableDimension>';
+AND Identifier = '{{ arn }}|{{ scalable_dimension }}';
 ```
 
 
@@ -679,7 +678,7 @@ AND Identifier = '<Arn>|<ScalableDimension>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationautoscaling.scaling_policies
-WHERE Identifier = '<Arn|ScalableDimension>'
+WHERE Identifier = '{{ arn }}|{{ scalable_dimension }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ name,
 arn,
 locations
 FROM awscc.route53.cidr_collections
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -175,7 +175,7 @@ SELECT
 region,
 id
 FROM awscc.route53.cidr_collections_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -200,8 +200,8 @@ INSERT INTO awscc.route53.cidr_collections (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.route53.cidr_collections (
  Locations,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Locations }}',
+SELECT
+ '{{ name }}',
+ '{{ locations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,14 +234,13 @@ globals:
 resources:
   - name: cidr_collection
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Locations
+      - name: name
+        value: '{{ name }}'
+      - name: locations
         value:
-          - LocationName: '{{ LocationName }}'
-            CidrList:
-              - '{{ CidrList[0] }}'
-
+          - location_name: '{{ location_name }}'
+            cidr_list:
+              - '{{ cidr_list[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ SET PatchDocument = string('{{ {
     "Locations": locations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -266,7 +265,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.cidr_collections
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -280,7 +280,7 @@ modification_time,
 firewall_rules,
 tags
 FROM awscc.route53resolver.firewall_rule_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,10 +318,10 @@ INSERT INTO awscc.route53resolver.firewall_rule_groups (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ FirewallRules }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ firewall_rules }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -335,10 +335,10 @@ INSERT INTO awscc.route53resolver.firewall_rule_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ FirewallRules }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ firewall_rules }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -356,27 +356,26 @@ globals:
 resources:
   - name: firewall_rule_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: FirewallRules
+      - name: name
+        value: '{{ name }}'
+      - name: firewall_rules
         value:
-          - FirewallDomainListId: '{{ FirewallDomainListId }}'
-            FirewallThreatProtectionId: '{{ FirewallThreatProtectionId }}'
-            Priority: '{{ Priority }}'
-            Action: '{{ Action }}'
-            BlockResponse: '{{ BlockResponse }}'
-            BlockOverrideDomain: '{{ BlockOverrideDomain }}'
-            BlockOverrideDnsType: '{{ BlockOverrideDnsType }}'
-            BlockOverrideTtl: '{{ BlockOverrideTtl }}'
-            Qtype: '{{ Qtype }}'
-            ConfidenceThreshold: '{{ ConfidenceThreshold }}'
-            DnsThreatProtection: '{{ DnsThreatProtection }}'
-            FirewallDomainRedirectionAction: '{{ FirewallDomainRedirectionAction }}'
-      - name: Tags
+          - firewall_domain_list_id: '{{ firewall_domain_list_id }}'
+            firewall_threat_protection_id: '{{ firewall_threat_protection_id }}'
+            priority: '{{ priority }}'
+            action: '{{ action }}'
+            block_response: '{{ block_response }}'
+            block_override_domain: '{{ block_override_domain }}'
+            block_override_dns_type: '{{ block_override_dns_type }}'
+            block_override_ttl: '{{ block_override_ttl }}'
+            qtype: '{{ qtype }}'
+            confidence_threshold: '{{ confidence_threshold }}'
+            dns_threat_protection: '{{ dns_threat_protection }}'
+            firewall_domain_redirection_action: '{{ firewall_domain_redirection_action }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +391,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -401,7 +400,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.firewall_rule_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

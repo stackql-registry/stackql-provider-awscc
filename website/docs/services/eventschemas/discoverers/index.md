@@ -182,7 +182,7 @@ cross_account,
 state,
 tags
 FROM awscc.eventschemas.discoverers
-WHERE region = 'us-east-1' AND Identifier = '<DiscovererArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ discoverer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.eventschemas.discoverers (
  SourceArn,
  region
 )
-SELECT 
-'{{ SourceArn }}',
+SELECT
+'{{ source_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.eventschemas.discoverers (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ SourceArn }}',
- '{{ CrossAccount }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ source_arn }}',
+ '{{ cross_account }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: discoverer
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: SourceArn
-        value: '{{ SourceArn }}'
-      - name: CrossAccount
-        value: '{{ CrossAccount }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: source_arn
+        value: '{{ source_arn }}'
+      - name: cross_account
+        value: '{{ cross_account }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DiscovererArn>';
+AND Identifier = '{{ discoverer_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<DiscovererArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.discoverers
-WHERE Identifier = '<DiscovererArn>'
+WHERE Identifier = '{{ discoverer_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -152,7 +152,7 @@ roles,
 instance_profile_name,
 arn
 FROM awscc.iam.instance_profiles
-WHERE Identifier = '<InstanceProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -163,7 +163,7 @@ SELECT
 region,
 instance_profile_name
 FROM awscc.iam.instance_profiles_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -188,8 +188,8 @@ INSERT INTO awscc.iam.instance_profiles (
  Roles,
  region
 )
-SELECT 
-'{{ Roles }}',
+SELECT
+'{{ roles }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -203,10 +203,10 @@ INSERT INTO awscc.iam.instance_profiles (
  InstanceProfileName,
  region
 )
-SELECT 
- '{{ Path }}',
- '{{ Roles }}',
- '{{ InstanceProfileName }}',
+SELECT
+ '{{ path }}',
+ '{{ roles }}',
+ '{{ instance_profile_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -224,14 +224,13 @@ globals:
 resources:
   - name: instance_profile
     props:
-      - name: Path
-        value: '{{ Path }}'
-      - name: Roles
+      - name: path
+        value: '{{ path }}'
+      - name: roles
         value:
-          - '{{ Roles[0] }}'
-      - name: InstanceProfileName
-        value: '{{ InstanceProfileName }}'
-
+          - '{{ roles[0] }}'
+      - name: instance_profile_name
+        value: '{{ instance_profile_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ SET PatchDocument = string('{{ {
     "Roles": roles
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceProfileName>';
+AND Identifier = '{{ instance_profile_name }}';
 ```
 
 
@@ -256,7 +255,7 @@ AND Identifier = '<InstanceProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.instance_profiles
-WHERE Identifier = '<InstanceProfileName>'
+WHERE Identifier = '{{ instance_profile_name }}'
 AND region = 'us-east-1';
 ```
 

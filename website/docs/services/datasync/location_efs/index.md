@@ -206,7 +206,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.location_efs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.datasync.location_efs (
  Ec2Config,
  region
 )
-SELECT 
-'{{ Ec2Config }}',
+SELECT
+'{{ ec2_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,14 +261,14 @@ INSERT INTO awscc.datasync.location_efs (
  Tags,
  region
 )
-SELECT 
- '{{ Ec2Config }}',
- '{{ EfsFilesystemArn }}',
- '{{ AccessPointArn }}',
- '{{ FileSystemAccessRoleArn }}',
- '{{ InTransitEncryption }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ ec2_config }}',
+ '{{ efs_filesystem_arn }}',
+ '{{ access_point_arn }}',
+ '{{ file_system_access_role_arn }}',
+ '{{ in_transit_encryption }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,26 +286,25 @@ globals:
 resources:
   - name: location_ef
     props:
-      - name: Ec2Config
+      - name: ec2_config
         value:
-          SecurityGroupArns:
-            - '{{ SecurityGroupArns[0] }}'
-          SubnetArn: '{{ SubnetArn }}'
-      - name: EfsFilesystemArn
-        value: '{{ EfsFilesystemArn }}'
-      - name: AccessPointArn
-        value: '{{ AccessPointArn }}'
-      - name: FileSystemAccessRoleArn
-        value: '{{ FileSystemAccessRoleArn }}'
-      - name: InTransitEncryption
-        value: '{{ InTransitEncryption }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          security_group_arns:
+            - '{{ security_group_arns[0] }}'
+          subnet_arn: '{{ subnet_arn }}'
+      - name: efs_filesystem_arn
+        value: '{{ efs_filesystem_arn }}'
+      - name: access_point_arn
+        value: '{{ access_point_arn }}'
+      - name: file_system_access_role_arn
+        value: '{{ file_system_access_role_arn }}'
+      - name: in_transit_encryption
+        value: '{{ in_transit_encryption }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -325,7 +324,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -334,7 +333,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_efs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

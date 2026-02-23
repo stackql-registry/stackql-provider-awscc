@@ -194,7 +194,7 @@ creation_time_stamp,
 last_modified_time_stamp,
 anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors
-WHERE region = 'us-east-1' AND Identifier = '<AnomalyDetectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ anomaly_detector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,7 +230,7 @@ INSERT INTO awscc.logs.log_anomaly_detectors (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -249,14 +249,14 @@ INSERT INTO awscc.logs.log_anomaly_detectors (
  AnomalyVisibilityTime,
  region
 )
-SELECT 
- '{{ AccountId }}',
- '{{ KmsKeyId }}',
- '{{ DetectorName }}',
- '{{ LogGroupArnList }}',
- '{{ EvaluationFrequency }}',
- '{{ FilterPattern }}',
- '{{ AnomalyVisibilityTime }}',
+SELECT
+ '{{ account_id }}',
+ '{{ kms_key_id }}',
+ '{{ detector_name }}',
+ '{{ log_group_arn_list }}',
+ '{{ evaluation_frequency }}',
+ '{{ filter_pattern }}',
+ '{{ anomaly_visibility_time }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,22 +274,21 @@ globals:
 resources:
   - name: log_anomaly_detector
     props:
-      - name: AccountId
-        value: '{{ AccountId }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: DetectorName
-        value: '{{ DetectorName }}'
-      - name: LogGroupArnList
+      - name: account_id
+        value: '{{ account_id }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: detector_name
+        value: '{{ detector_name }}'
+      - name: log_group_arn_list
         value:
-          - '{{ LogGroupArnList[0] }}'
-      - name: EvaluationFrequency
-        value: '{{ EvaluationFrequency }}'
-      - name: FilterPattern
-        value: '{{ FilterPattern }}'
-      - name: AnomalyVisibilityTime
+          - '{{ log_group_arn_list[0] }}'
+      - name: evaluation_frequency
+        value: '{{ evaluation_frequency }}'
+      - name: filter_pattern
+        value: '{{ filter_pattern }}'
+      - name: anomaly_visibility_time
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "AnomalyVisibilityTime": anomaly_visibility_time
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AnomalyDetectorArn>';
+AND Identifier = '{{ anomaly_detector_arn }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<AnomalyDetectorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_anomaly_detectors
-WHERE Identifier = '<AnomalyDetectorArn>'
+WHERE Identifier = '{{ anomaly_detector_arn }}'
 AND region = 'us-east-1';
 ```
 

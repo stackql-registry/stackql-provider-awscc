@@ -236,7 +236,7 @@ notification_sender_email,
 alarms,
 tags
 FROM awscc.iotsitewise.portals
-WHERE region = 'us-east-1' AND Identifier = '<PortalId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ portal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,10 +274,10 @@ INSERT INTO awscc.iotsitewise.portals (
  RoleArn,
  region
 )
-SELECT 
-'{{ PortalContactEmail }}',
- '{{ PortalName }}',
- '{{ RoleArn }}',
+SELECT
+'{{ portal_contact_email }}',
+ '{{ portal_name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -298,17 +298,17 @@ INSERT INTO awscc.iotsitewise.portals (
  Tags,
  region
 )
-SELECT 
- '{{ PortalAuthMode }}',
- '{{ PortalContactEmail }}',
- '{{ PortalDescription }}',
- '{{ PortalName }}',
- '{{ PortalType }}',
- '{{ PortalTypeConfiguration }}',
- '{{ RoleArn }}',
- '{{ NotificationSenderEmail }}',
- '{{ Alarms }}',
- '{{ Tags }}',
+SELECT
+ '{{ portal_auth_mode }}',
+ '{{ portal_contact_email }}',
+ '{{ portal_description }}',
+ '{{ portal_name }}',
+ '{{ portal_type }}',
+ '{{ portal_type_configuration }}',
+ '{{ role_arn }}',
+ '{{ notification_sender_email }}',
+ '{{ alarms }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,31 +326,30 @@ globals:
 resources:
   - name: portal
     props:
-      - name: PortalAuthMode
-        value: '{{ PortalAuthMode }}'
-      - name: PortalContactEmail
-        value: '{{ PortalContactEmail }}'
-      - name: PortalDescription
-        value: '{{ PortalDescription }}'
-      - name: PortalName
-        value: '{{ PortalName }}'
-      - name: PortalType
-        value: '{{ PortalType }}'
-      - name: PortalTypeConfiguration
+      - name: portal_auth_mode
+        value: '{{ portal_auth_mode }}'
+      - name: portal_contact_email
+        value: '{{ portal_contact_email }}'
+      - name: portal_description
+        value: '{{ portal_description }}'
+      - name: portal_name
+        value: '{{ portal_name }}'
+      - name: portal_type
+        value: '{{ portal_type }}'
+      - name: portal_type_configuration
         value: {}
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: NotificationSenderEmail
-        value: '{{ NotificationSenderEmail }}'
-      - name: Alarms
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: notification_sender_email
+        value: '{{ notification_sender_email }}'
+      - name: alarms
         value:
-          AlarmRoleArn: '{{ AlarmRoleArn }}'
-          NotificationLambdaArn: '{{ NotificationLambdaArn }}'
-      - name: Tags
+          alarm_role_arn: '{{ alarm_role_arn }}'
+          notification_lambda_arn: '{{ notification_lambda_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +372,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PortalId>';
+AND Identifier = '{{ portal_id }}';
 ```
 
 
@@ -382,7 +381,7 @@ AND Identifier = '<PortalId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.portals
-WHERE Identifier = '<PortalId>'
+WHERE Identifier = '{{ portal_id }}'
 AND region = 'us-east-1';
 ```
 

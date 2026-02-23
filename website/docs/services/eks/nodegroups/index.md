@@ -341,7 +341,7 @@ version,
 id,
 arn
 FROM awscc.eks.nodegroups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -379,10 +379,10 @@ INSERT INTO awscc.eks.nodegroups (
  Subnets,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ NodeRole }}',
- '{{ Subnets }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ node_role }}',
+ '{{ subnets }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -412,26 +412,26 @@ INSERT INTO awscc.eks.nodegroups (
  Version,
  region
 )
-SELECT 
- '{{ AmiType }}',
- '{{ CapacityType }}',
- '{{ ClusterName }}',
- '{{ DiskSize }}',
- '{{ ForceUpdateEnabled }}',
- '{{ InstanceTypes }}',
- '{{ Labels }}',
- '{{ LaunchTemplate }}',
- '{{ NodegroupName }}',
- '{{ NodeRole }}',
- '{{ ReleaseVersion }}',
- '{{ RemoteAccess }}',
- '{{ ScalingConfig }}',
- '{{ Subnets }}',
- '{{ Tags }}',
- '{{ Taints }}',
- '{{ UpdateConfig }}',
- '{{ NodeRepairConfig }}',
- '{{ Version }}',
+SELECT
+ '{{ ami_type }}',
+ '{{ capacity_type }}',
+ '{{ cluster_name }}',
+ '{{ disk_size }}',
+ '{{ force_update_enabled }}',
+ '{{ instance_types }}',
+ '{{ labels }}',
+ '{{ launch_template }}',
+ '{{ nodegroup_name }}',
+ '{{ node_role }}',
+ '{{ release_version }}',
+ '{{ remote_access }}',
+ '{{ scaling_config }}',
+ '{{ subnets }}',
+ '{{ tags }}',
+ '{{ taints }}',
+ '{{ update_config }}',
+ '{{ node_repair_config }}',
+ '{{ version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -449,63 +449,62 @@ globals:
 resources:
   - name: nodegroup
     props:
-      - name: AmiType
-        value: '{{ AmiType }}'
-      - name: CapacityType
-        value: '{{ CapacityType }}'
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: DiskSize
-        value: '{{ DiskSize }}'
-      - name: ForceUpdateEnabled
-        value: '{{ ForceUpdateEnabled }}'
-      - name: InstanceTypes
+      - name: ami_type
+        value: '{{ ami_type }}'
+      - name: capacity_type
+        value: '{{ capacity_type }}'
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: disk_size
+        value: '{{ disk_size }}'
+      - name: force_update_enabled
+        value: '{{ force_update_enabled }}'
+      - name: instance_types
         value:
-          - '{{ InstanceTypes[0] }}'
-      - name: Labels
+          - '{{ instance_types[0] }}'
+      - name: labels
         value: {}
-      - name: LaunchTemplate
+      - name: launch_template
         value:
-          Id: '{{ Id }}'
-          Version: '{{ Version }}'
-          Name: '{{ Name }}'
-      - name: NodegroupName
-        value: '{{ NodegroupName }}'
-      - name: NodeRole
-        value: '{{ NodeRole }}'
-      - name: ReleaseVersion
-        value: '{{ ReleaseVersion }}'
-      - name: RemoteAccess
+          id: '{{ id }}'
+          version: '{{ version }}'
+          name: '{{ name }}'
+      - name: nodegroup_name
+        value: '{{ nodegroup_name }}'
+      - name: node_role
+        value: '{{ node_role }}'
+      - name: release_version
+        value: '{{ release_version }}'
+      - name: remote_access
         value:
-          SourceSecurityGroups:
-            - '{{ SourceSecurityGroups[0] }}'
-          Ec2SshKey: '{{ Ec2SshKey }}'
-      - name: ScalingConfig
+          source_security_groups:
+            - '{{ source_security_groups[0] }}'
+          ec2_ssh_key: '{{ ec2_ssh_key }}'
+      - name: scaling_config
         value:
-          MinSize: '{{ MinSize }}'
-          DesiredSize: '{{ DesiredSize }}'
-          MaxSize: '{{ MaxSize }}'
-      - name: Subnets
+          min_size: '{{ min_size }}'
+          desired_size: '{{ desired_size }}'
+          max_size: '{{ max_size }}'
+      - name: subnets
         value:
-          - '{{ Subnets[0] }}'
-      - name: Tags
+          - '{{ subnets[0] }}'
+      - name: tags
         value: {}
-      - name: Taints
+      - name: taints
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-            Effect: '{{ Effect }}'
-      - name: UpdateConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+            effect: '{{ effect }}'
+      - name: update_config
         value:
-          MaxUnavailable: null
-          MaxUnavailablePercentage: null
-          UpdateStrategy: '{{ UpdateStrategy }}'
-      - name: NodeRepairConfig
+          max_unavailable: null
+          max_unavailable_percentage: null
+          update_strategy: '{{ update_strategy }}'
+      - name: node_repair_config
         value:
-          Enabled: '{{ Enabled }}'
-      - name: Version
-        value: '{{ Version }}'
-
+          enabled: '{{ enabled }}'
+      - name: version
+        value: '{{ version }}'
 ```
 </TabItem>
 </Tabs>
@@ -530,7 +529,7 @@ SET PatchDocument = string('{{ {
     "Version": version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -539,7 +538,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.nodegroups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

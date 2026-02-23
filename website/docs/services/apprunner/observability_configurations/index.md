@@ -177,7 +177,7 @@ latest,
 trace_configuration,
 tags
 FROM awscc.apprunner.observability_configurations
-WHERE region = 'us-east-1' AND Identifier = '<ObservabilityConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ observability_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,7 +213,7 @@ INSERT INTO awscc.apprunner.observability_configurations (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -228,10 +228,10 @@ INSERT INTO awscc.apprunner.observability_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ ObservabilityConfigurationName }}',
- '{{ TraceConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ observability_configuration_name }}',
+ '{{ trace_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -249,16 +249,15 @@ globals:
 resources:
   - name: observability_configuration
     props:
-      - name: ObservabilityConfigurationName
-        value: '{{ ObservabilityConfigurationName }}'
-      - name: TraceConfiguration
+      - name: observability_configuration_name
+        value: '{{ observability_configuration_name }}'
+      - name: trace_configuration
         value:
-          Vendor: '{{ Vendor }}'
-      - name: Tags
+          vendor: '{{ vendor }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.observability_configurations
-WHERE Identifier = '<ObservabilityConfigurationArn>'
+WHERE Identifier = '{{ observability_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

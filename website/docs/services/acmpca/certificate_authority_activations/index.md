@@ -112,7 +112,7 @@ certificate_chain,
 status,
 complete_certificate_chain
 FROM awscc.acmpca.certificate_authority_activations
-WHERE region = 'us-east-1' AND Identifier = '<CertificateAuthorityArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_authority_arn }}';
 ```
 
 ## `INSERT` example
@@ -136,9 +136,9 @@ INSERT INTO awscc.acmpca.certificate_authority_activations (
  Certificate,
  region
 )
-SELECT 
-'{{ CertificateAuthorityArn }}',
- '{{ Certificate }}',
+SELECT
+'{{ certificate_authority_arn }}',
+ '{{ certificate }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,11 @@ INSERT INTO awscc.acmpca.certificate_authority_activations (
  Status,
  region
 )
-SELECT 
- '{{ CertificateAuthorityArn }}',
- '{{ Certificate }}',
- '{{ CertificateChain }}',
- '{{ Status }}',
+SELECT
+ '{{ certificate_authority_arn }}',
+ '{{ certificate }}',
+ '{{ certificate_chain }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -175,15 +175,14 @@ globals:
 resources:
   - name: certificate_authority_activation
     props:
-      - name: CertificateAuthorityArn
-        value: '{{ CertificateAuthorityArn }}'
-      - name: Certificate
-        value: '{{ Certificate }}'
-      - name: CertificateChain
-        value: '{{ CertificateChain }}'
-      - name: Status
-        value: '{{ Status }}'
-
+      - name: certificate_authority_arn
+        value: '{{ certificate_authority_arn }}'
+      - name: certificate
+        value: '{{ certificate }}'
+      - name: certificate_chain
+        value: '{{ certificate_chain }}'
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -201,7 +200,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CertificateAuthorityArn>';
+AND Identifier = '{{ certificate_authority_arn }}';
 ```
 
 
@@ -210,7 +209,7 @@ AND Identifier = '<CertificateAuthorityArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificate_authority_activations
-WHERE Identifier = '<CertificateAuthorityArn>'
+WHERE Identifier = '{{ certificate_authority_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -170,7 +170,7 @@ created_at,
 updated_at,
 tags
 FROM awscc.healthimaging.datastores
-WHERE region = 'us-east-1' AND Identifier = '<DatastoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,7 +206,7 @@ INSERT INTO awscc.healthimaging.datastores (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -221,10 +221,10 @@ INSERT INTO awscc.healthimaging.datastores (
  Tags,
  region
 )
-SELECT 
- '{{ DatastoreName }}',
- '{{ KmsKeyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ datastore_name }}',
+ '{{ kms_key_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,13 +242,12 @@ globals:
 resources:
   - name: datastore
     props:
-      - name: DatastoreName
-        value: '{{ DatastoreName }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Tags
+      - name: datastore_name
+        value: '{{ datastore_name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -259,7 +258,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.healthimaging.datastores
-WHERE Identifier = '<DatastoreId>'
+WHERE Identifier = '{{ datastore_id }}'
 AND region = 'us-east-1';
 ```
 

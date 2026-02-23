@@ -306,7 +306,7 @@ created_at,
 updated_at,
 tags
 FROM awscc.networkmanager.transit_gateway_route_table_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -343,9 +343,9 @@ INSERT INTO awscc.networkmanager.transit_gateway_route_table_attachments (
  TransitGatewayRouteTableArn,
  region
 )
-SELECT 
-'{{ PeeringId }}',
- '{{ TransitGatewayRouteTableArn }}',
+SELECT
+'{{ peering_id }}',
+ '{{ transit_gateway_route_table_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -362,13 +362,13 @@ INSERT INTO awscc.networkmanager.transit_gateway_route_table_attachments (
  Tags,
  region
 )
-SELECT 
- '{{ PeeringId }}',
- '{{ TransitGatewayRouteTableArn }}',
- '{{ ProposedSegmentChange }}',
- '{{ NetworkFunctionGroupName }}',
- '{{ ProposedNetworkFunctionGroupChange }}',
- '{{ Tags }}',
+SELECT
+ '{{ peering_id }}',
+ '{{ transit_gateway_route_table_arn }}',
+ '{{ proposed_segment_change }}',
+ '{{ network_function_group_name }}',
+ '{{ proposed_network_function_group_change }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -386,29 +386,28 @@ globals:
 resources:
   - name: transit_gateway_route_table_attachment
     props:
-      - name: PeeringId
-        value: '{{ PeeringId }}'
-      - name: TransitGatewayRouteTableArn
-        value: '{{ TransitGatewayRouteTableArn }}'
-      - name: ProposedSegmentChange
+      - name: peering_id
+        value: '{{ peering_id }}'
+      - name: transit_gateway_route_table_arn
+        value: '{{ transit_gateway_route_table_arn }}'
+      - name: proposed_segment_change
         value:
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          SegmentName: '{{ SegmentName }}'
-      - name: NetworkFunctionGroupName
-        value: '{{ NetworkFunctionGroupName }}'
-      - name: ProposedNetworkFunctionGroupChange
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          segment_name: '{{ segment_name }}'
+      - name: network_function_group_name
+        value: '{{ network_function_group_name }}'
+      - name: proposed_network_function_group_change
         value:
-          Tags:
+          tags:
             - null
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          NetworkFunctionGroupName: '{{ NetworkFunctionGroupName }}'
-      - name: Tags
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          network_function_group_name: '{{ network_function_group_name }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -427,7 +426,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -436,7 +435,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_route_table_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

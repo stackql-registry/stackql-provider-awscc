@@ -154,7 +154,7 @@ stages,
 rotation_ids,
 arn
 FROM awscc.ssmcontacts.plans
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -179,10 +179,10 @@ INSERT INTO awscc.ssmcontacts.plans (
  RotationIds,
  region
 )
-SELECT 
-'{{ ContactId }}',
- '{{ Stages }}',
- '{{ RotationIds }}',
+SELECT
+'{{ contact_id }}',
+ '{{ stages }}',
+ '{{ rotation_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,10 +196,10 @@ INSERT INTO awscc.ssmcontacts.plans (
  RotationIds,
  region
 )
-SELECT 
- '{{ ContactId }}',
- '{{ Stages }}',
- '{{ RotationIds }}',
+SELECT
+ '{{ contact_id }}',
+ '{{ stages }}',
+ '{{ rotation_ids }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -217,22 +217,21 @@ globals:
 resources:
   - name: plan
     props:
-      - name: ContactId
-        value: '{{ ContactId }}'
-      - name: Stages
+      - name: contact_id
+        value: '{{ contact_id }}'
+      - name: stages
         value:
-          - DurationInMinutes: '{{ DurationInMinutes }}'
-            Targets:
-              - ContactTargetInfo:
-                  ContactId: '{{ ContactId }}'
-                  IsEssential: '{{ IsEssential }}'
-                ChannelTargetInfo:
-                  ChannelId: '{{ ChannelId }}'
-                  RetryIntervalInMinutes: '{{ RetryIntervalInMinutes }}'
-      - name: RotationIds
+          - duration_in_minutes: '{{ duration_in_minutes }}'
+            targets:
+              - contact_target_info:
+                  contact_id: '{{ contact_id }}'
+                  is_essential: '{{ is_essential }}'
+                channel_target_info:
+                  channel_id: '{{ channel_id }}'
+                  retry_interval_in_minutes: '{{ retry_interval_in_minutes }}'
+      - name: rotation_ids
         value:
-          - '{{ RotationIds[0] }}'
-
+          - '{{ rotation_ids[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +248,7 @@ SET PatchDocument = string('{{ {
     "RotationIds": rotation_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -258,7 +257,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.plans
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

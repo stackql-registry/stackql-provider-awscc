@@ -264,7 +264,7 @@ network_configuration,
 id,
 tags
 FROM awscc.ecs.task_sets
-WHERE region = 'us-east-1' AND Identifier = '<Cluster>|<Service>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```
 
 ## `INSERT` example
@@ -289,10 +289,10 @@ INSERT INTO awscc.ecs.task_sets (
  TaskDefinition,
  region
 )
-SELECT 
-'{{ Cluster }}',
- '{{ Service }}',
- '{{ TaskDefinition }}',
+SELECT
+'{{ cluster }}',
+ '{{ service }}',
+ '{{ task_definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -315,19 +315,19 @@ INSERT INTO awscc.ecs.task_sets (
  Tags,
  region
 )
-SELECT 
- '{{ PlatformVersion }}',
- '{{ ExternalId }}',
- '{{ Cluster }}',
- '{{ LoadBalancers }}',
- '{{ Service }}',
- '{{ Scale }}',
- '{{ ServiceRegistries }}',
- '{{ CapacityProviderStrategy }}',
- '{{ LaunchType }}',
- '{{ TaskDefinition }}',
- '{{ NetworkConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ platform_version }}',
+ '{{ external_id }}',
+ '{{ cluster }}',
+ '{{ load_balancers }}',
+ '{{ service }}',
+ '{{ scale }}',
+ '{{ service_registries }}',
+ '{{ capacity_provider_strategy }}',
+ '{{ launch_type }}',
+ '{{ task_definition }}',
+ '{{ network_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -345,51 +345,50 @@ globals:
 resources:
   - name: task_set
     props:
-      - name: PlatformVersion
-        value: '{{ PlatformVersion }}'
-      - name: ExternalId
-        value: '{{ ExternalId }}'
-      - name: Cluster
-        value: '{{ Cluster }}'
-      - name: LoadBalancers
+      - name: platform_version
+        value: '{{ platform_version }}'
+      - name: external_id
+        value: '{{ external_id }}'
+      - name: cluster
+        value: '{{ cluster }}'
+      - name: load_balancers
         value:
-          - TargetGroupArn: '{{ TargetGroupArn }}'
-            ContainerName: '{{ ContainerName }}'
-            ContainerPort: '{{ ContainerPort }}'
-      - name: Service
-        value: '{{ Service }}'
-      - name: Scale
+          - target_group_arn: '{{ target_group_arn }}'
+            container_name: '{{ container_name }}'
+            container_port: '{{ container_port }}'
+      - name: service
+        value: '{{ service }}'
+      - name: scale
         value:
-          Value: null
-          Unit: '{{ Unit }}'
-      - name: ServiceRegistries
+          value: null
+          unit: '{{ unit }}'
+      - name: service_registries
         value:
-          - ContainerName: '{{ ContainerName }}'
-            Port: '{{ Port }}'
-            ContainerPort: '{{ ContainerPort }}'
-            RegistryArn: '{{ RegistryArn }}'
-      - name: CapacityProviderStrategy
+          - container_name: '{{ container_name }}'
+            port: '{{ port }}'
+            container_port: '{{ container_port }}'
+            registry_arn: '{{ registry_arn }}'
+      - name: capacity_provider_strategy
         value:
-          - CapacityProvider: '{{ CapacityProvider }}'
-            Base: '{{ Base }}'
-            Weight: '{{ Weight }}'
-      - name: LaunchType
-        value: '{{ LaunchType }}'
-      - name: TaskDefinition
-        value: '{{ TaskDefinition }}'
-      - name: NetworkConfiguration
+          - capacity_provider: '{{ capacity_provider }}'
+            base: '{{ base }}'
+            weight: '{{ weight }}'
+      - name: launch_type
+        value: '{{ launch_type }}'
+      - name: task_definition
+        value: '{{ task_definition }}'
+      - name: network_configuration
         value:
-          AwsVpcConfiguration:
-            SecurityGroups:
-              - '{{ SecurityGroups[0] }}'
-            Subnets:
-              - '{{ Subnets[0] }}'
-            AssignPublicIp: '{{ AssignPublicIp }}'
-      - name: Tags
+          aws_vpc_configuration:
+            security_groups:
+              - '{{ security_groups[0] }}'
+            subnets:
+              - '{{ subnets[0] }}'
+            assign_public_ip: '{{ assign_public_ip }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +405,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Cluster>|<Service>|<Id>';
+AND Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```
 
 
@@ -415,7 +414,7 @@ AND Identifier = '<Cluster>|<Service>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.task_sets
-WHERE Identifier = '<Cluster|Service|Id>'
+WHERE Identifier = '{{ cluster }}|{{ service }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

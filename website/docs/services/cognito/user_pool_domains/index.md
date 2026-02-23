@@ -119,7 +119,7 @@ custom_domain_config,
 cloud_front_distribution,
 managed_login_version
 FROM awscc.cognito.user_pool_domains
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<Domain>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```
 
 ## `INSERT` example
@@ -143,9 +143,9 @@ INSERT INTO awscc.cognito.user_pool_domains (
  Domain,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
- '{{ Domain }}',
+SELECT
+'{{ user_pool_id }}',
+ '{{ domain }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -160,11 +160,11 @@ INSERT INTO awscc.cognito.user_pool_domains (
  ManagedLoginVersion,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ Domain }}',
- '{{ CustomDomainConfig }}',
- '{{ ManagedLoginVersion }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ domain }}',
+ '{{ custom_domain_config }}',
+ '{{ managed_login_version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -182,16 +182,15 @@ globals:
 resources:
   - name: user_pool_domain
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: CustomDomainConfig
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: custom_domain_config
         value:
-          CertificateArn: '{{ CertificateArn }}'
-      - name: ManagedLoginVersion
-        value: '{{ ManagedLoginVersion }}'
-
+          certificate_arn: '{{ certificate_arn }}'
+      - name: managed_login_version
+        value: '{{ managed_login_version }}'
 ```
 </TabItem>
 </Tabs>
@@ -208,7 +207,7 @@ SET PatchDocument = string('{{ {
     "ManagedLoginVersion": managed_login_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<Domain>';
+AND Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```
 
 
@@ -217,7 +216,7 @@ AND Identifier = '<UserPoolId>|<Domain>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_domains
-WHERE Identifier = '<UserPoolId|Domain>'
+WHERE Identifier = '{{ user_pool_id }}|{{ domain }}'
 AND region = 'us-east-1';
 ```
 

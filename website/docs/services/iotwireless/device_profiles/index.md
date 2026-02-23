@@ -267,7 +267,7 @@ tags,
 arn,
 id
 FROM awscc.iotwireless.device_profiles
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -303,7 +303,7 @@ INSERT INTO awscc.iotwireless.device_profiles (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -318,10 +318,10 @@ INSERT INTO awscc.iotwireless.device_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ LoRaWAN }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ lo_ra_wan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -339,35 +339,34 @@ globals:
 resources:
   - name: device_profile
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: LoRaWAN
+      - name: name
+        value: '{{ name }}'
+      - name: lo_ra_wan
         value:
-          SupportsClassB: '{{ SupportsClassB }}'
-          ClassBTimeout: '{{ ClassBTimeout }}'
-          PingSlotPeriod: '{{ PingSlotPeriod }}'
-          PingSlotDr: '{{ PingSlotDr }}'
-          PingSlotFreq: '{{ PingSlotFreq }}'
-          SupportsClassC: '{{ SupportsClassC }}'
-          ClassCTimeout: '{{ ClassCTimeout }}'
-          MacVersion: '{{ MacVersion }}'
-          RegParamsRevision: '{{ RegParamsRevision }}'
-          RxDelay1: '{{ RxDelay1 }}'
-          RxDrOffset1: '{{ RxDrOffset1 }}'
-          RxFreq2: '{{ RxFreq2 }}'
-          RxDataRate2: '{{ RxDataRate2 }}'
-          FactoryPresetFreqsList:
-            - '{{ FactoryPresetFreqsList[0] }}'
-          MaxEirp: '{{ MaxEirp }}'
-          MaxDutyCycle: '{{ MaxDutyCycle }}'
-          SupportsJoin: '{{ SupportsJoin }}'
-          RfRegion: '{{ RfRegion }}'
-          Supports32BitFCnt: '{{ Supports32BitFCnt }}'
-      - name: Tags
+          supports_class_b: '{{ supports_class_b }}'
+          class_btimeout: '{{ class_btimeout }}'
+          ping_slot_period: '{{ ping_slot_period }}'
+          ping_slot_dr: '{{ ping_slot_dr }}'
+          ping_slot_freq: '{{ ping_slot_freq }}'
+          supports_class_c: '{{ supports_class_c }}'
+          class_ctimeout: '{{ class_ctimeout }}'
+          mac_version: '{{ mac_version }}'
+          reg_params_revision: '{{ reg_params_revision }}'
+          rx_delay1: '{{ rx_delay1 }}'
+          rx_dr_offset1: '{{ rx_dr_offset1 }}'
+          rx_freq2: '{{ rx_freq2 }}'
+          rx_data_rate2: '{{ rx_data_rate2 }}'
+          factory_preset_freqs_list:
+            - '{{ factory_preset_freqs_list[0] }}'
+          max_eirp: '{{ max_eirp }}'
+          max_duty_cycle: '{{ max_duty_cycle }}'
+          supports_join: '{{ supports_join }}'
+          rf_region: '{{ rf_region }}'
+          supports32_bit_fcnt: '{{ supports32_bit_fcnt }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +382,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -392,7 +391,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.device_profiles
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

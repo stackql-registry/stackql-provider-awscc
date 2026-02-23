@@ -182,7 +182,7 @@ tags,
 role_arn,
 arn
 FROM awscc.iotwireless.destinations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.iotwireless.destinations (
  ExpressionType,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Expression }}',
- '{{ ExpressionType }}',
+SELECT
+'{{ name }}',
+ '{{ expression }}',
+ '{{ expression_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,13 +240,13 @@ INSERT INTO awscc.iotwireless.destinations (
  RoleArn,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Expression }}',
- '{{ ExpressionType }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ RoleArn }}',
+SELECT
+ '{{ name }}',
+ '{{ expression }}',
+ '{{ expression_type }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,21 +264,20 @@ globals:
 resources:
   - name: destination
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Expression
-        value: '{{ Expression }}'
-      - name: ExpressionType
-        value: '{{ ExpressionType }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: expression
+        value: '{{ expression }}'
+      - name: expression_type
+        value: '{{ expression_type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +297,7 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -307,7 +306,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.destinations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

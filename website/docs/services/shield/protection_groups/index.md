@@ -182,7 +182,7 @@ members,
 resource_type,
 tags
 FROM awscc.shield.protection_groups
-WHERE Identifier = '<ProtectionGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ protection_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,7 +193,7 @@ SELECT
 region,
 protection_group_arn
 FROM awscc.shield.protection_groups_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -220,10 +220,10 @@ INSERT INTO awscc.shield.protection_groups (
  Pattern,
  region
 )
-SELECT 
-'{{ ProtectionGroupId }}',
- '{{ Aggregation }}',
- '{{ Pattern }}',
+SELECT
+'{{ protection_group_id }}',
+ '{{ aggregation }}',
+ '{{ pattern }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,13 +240,13 @@ INSERT INTO awscc.shield.protection_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ProtectionGroupId }}',
- '{{ Aggregation }}',
- '{{ Pattern }}',
- '{{ Members }}',
- '{{ ResourceType }}',
- '{{ Tags }}',
+SELECT
+ '{{ protection_group_id }}',
+ '{{ aggregation }}',
+ '{{ pattern }}',
+ '{{ members }}',
+ '{{ resource_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,22 +264,21 @@ globals:
 resources:
   - name: protection_group
     props:
-      - name: ProtectionGroupId
-        value: '{{ ProtectionGroupId }}'
-      - name: Aggregation
-        value: '{{ Aggregation }}'
-      - name: Pattern
-        value: '{{ Pattern }}'
-      - name: Members
+      - name: protection_group_id
+        value: '{{ protection_group_id }}'
+      - name: aggregation
+        value: '{{ aggregation }}'
+      - name: pattern
+        value: '{{ pattern }}'
+      - name: members
         value:
-          - '{{ Members[0] }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: Tags
+          - '{{ members[0] }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProtectionGroupArn>';
+AND Identifier = '{{ protection_group_arn }}';
 ```
 
 
@@ -308,7 +307,7 @@ AND Identifier = '<ProtectionGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.protection_groups
-WHERE Identifier = '<ProtectionGroupArn>'
+WHERE Identifier = '{{ protection_group_arn }}'
 AND region = 'us-east-1';
 ```
 

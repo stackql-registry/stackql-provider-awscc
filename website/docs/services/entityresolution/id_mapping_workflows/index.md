@@ -317,7 +317,7 @@ updated_at,
 role_arn,
 tags
 FROM awscc.entityresolution.id_mapping_workflows
-WHERE region = 'us-east-1' AND Identifier = '<WorkflowName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -356,11 +356,11 @@ INSERT INTO awscc.entityresolution.id_mapping_workflows (
  RoleArn,
  region
 )
-SELECT 
-'{{ InputSourceConfig }}',
- '{{ IdMappingTechniques }}',
- '{{ WorkflowName }}',
- '{{ RoleArn }}',
+SELECT
+'{{ input_source_config }}',
+ '{{ id_mapping_techniques }}',
+ '{{ workflow_name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -379,15 +379,15 @@ INSERT INTO awscc.entityresolution.id_mapping_workflows (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ InputSourceConfig }}',
- '{{ IdMappingTechniques }}',
- '{{ WorkflowName }}',
- '{{ OutputSourceConfig }}',
- '{{ IdMappingIncrementalRunConfig }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ input_source_config }}',
+ '{{ id_mapping_techniques }}',
+ '{{ workflow_name }}',
+ '{{ output_source_config }}',
+ '{{ id_mapping_incremental_run_config }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -405,45 +405,44 @@ globals:
 resources:
   - name: id_mapping_workflow
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: InputSourceConfig
+      - name: description
+        value: '{{ description }}'
+      - name: input_source_config
         value:
-          - Type: '{{ Type }}'
-            InputSourceARN: '{{ InputSourceARN }}'
-            SchemaArn: '{{ SchemaArn }}'
-      - name: IdMappingTechniques
+          - type: '{{ type }}'
+            input_source_arn: '{{ input_source_arn }}'
+            schema_arn: '{{ schema_arn }}'
+      - name: id_mapping_techniques
         value:
-          RuleBasedProperties:
-            AttributeMatchingModel: '{{ AttributeMatchingModel }}'
-            RuleDefinitionType: '{{ RuleDefinitionType }}'
-            Rules:
-              - RuleName: '{{ RuleName }}'
-                MatchingKeys:
-                  - '{{ MatchingKeys[0] }}'
-            RecordMatchingModel: '{{ RecordMatchingModel }}'
-          ProviderProperties:
-            ProviderServiceArn: '{{ ProviderServiceArn }}'
-            ProviderConfiguration: {}
-            IntermediateSourceConfiguration:
-              IntermediateS3Path: '{{ IntermediateS3Path }}'
-          IdMappingType: '{{ IdMappingType }}'
-      - name: WorkflowName
-        value: '{{ WorkflowName }}'
-      - name: OutputSourceConfig
+          rule_based_properties:
+            attribute_matching_model: '{{ attribute_matching_model }}'
+            rule_definition_type: '{{ rule_definition_type }}'
+            rules:
+              - rule_name: '{{ rule_name }}'
+                matching_keys:
+                  - '{{ matching_keys[0] }}'
+            record_matching_model: '{{ record_matching_model }}'
+          provider_properties:
+            provider_service_arn: '{{ provider_service_arn }}'
+            provider_configuration: {}
+            intermediate_source_configuration:
+              intermediate_s3_path: '{{ intermediate_s3_path }}'
+          id_mapping_type: '{{ id_mapping_type }}'
+      - name: workflow_name
+        value: '{{ workflow_name }}'
+      - name: output_source_config
         value:
-          - KMSArn: '{{ KMSArn }}'
-            OutputS3Path: '{{ OutputS3Path }}'
-      - name: IdMappingIncrementalRunConfig
+          - kms_arn: '{{ kms_arn }}'
+            output_s3_path: '{{ output_s3_path }}'
+      - name: id_mapping_incremental_run_config
         value:
-          IncrementalRunType: '{{ IncrementalRunType }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          incremental_run_type: '{{ incremental_run_type }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -465,7 +464,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkflowName>';
+AND Identifier = '{{ workflow_name }}';
 ```
 
 
@@ -474,7 +473,7 @@ AND Identifier = '<WorkflowName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.id_mapping_workflows
-WHERE Identifier = '<WorkflowName>'
+WHERE Identifier = '{{ workflow_name }}'
 AND region = 'us-east-1';
 ```
 

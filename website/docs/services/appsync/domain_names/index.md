@@ -182,7 +182,7 @@ hosted_zone_id,
 domain_name_arn,
 tags
 FROM awscc.appsync.domain_names
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.appsync.domain_names (
  CertificateArn,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ CertificateArn }}',
+SELECT
+'{{ domain_name }}',
+ '{{ certificate_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.appsync.domain_names (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ Description }}',
- '{{ CertificateArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ description }}',
+ '{{ certificate_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: domain_name
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: CertificateArn
-        value: '{{ CertificateArn }}'
-      - name: Tags
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: certificate_arn
+        value: '{{ certificate_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>';
+AND Identifier = '{{ domain_name }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.domain_names
-WHERE Identifier = '<DomainName>'
+WHERE Identifier = '{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

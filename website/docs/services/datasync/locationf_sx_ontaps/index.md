@@ -209,7 +209,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.locationf_sx_ontaps
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,9 +246,9 @@ INSERT INTO awscc.datasync.locationf_sx_ontaps (
  SecurityGroupArns,
  region
 )
-SELECT 
-'{{ StorageVirtualMachineArn }}',
- '{{ SecurityGroupArns }}',
+SELECT
+'{{ storage_virtual_machine_arn }}',
+ '{{ security_group_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,12 +264,12 @@ INSERT INTO awscc.datasync.locationf_sx_ontaps (
  Tags,
  region
 )
-SELECT 
- '{{ StorageVirtualMachineArn }}',
- '{{ SecurityGroupArns }}',
- '{{ Protocol }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ storage_virtual_machine_arn }}',
+ '{{ security_group_arns }}',
+ '{{ protocol }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -287,23 +287,22 @@ globals:
 resources:
   - name: locationf_sx_ontap
     props:
-      - name: StorageVirtualMachineArn
-        value: '{{ StorageVirtualMachineArn }}'
-      - name: SecurityGroupArns
+      - name: storage_virtual_machine_arn
+        value: '{{ storage_virtual_machine_arn }}'
+      - name: security_group_arns
         value:
-          - '{{ SecurityGroupArns[0] }}'
-      - name: Protocol
+          - '{{ security_group_arns[0] }}'
+      - name: protocol
         value:
-          NFS:
-            MountOptions:
-              Version: '{{ Version }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          n_fs:
+            mount_options:
+              version: '{{ version }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.locationf_sx_ontaps
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

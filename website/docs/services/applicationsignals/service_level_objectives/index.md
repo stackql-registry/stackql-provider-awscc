@@ -499,7 +499,7 @@ tags,
 burn_rate_configurations,
 exclusion_windows
 FROM awscc.applicationsignals.service_level_objectives
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -535,8 +535,8 @@ INSERT INTO awscc.applicationsignals.service_level_objectives (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -555,15 +555,15 @@ INSERT INTO awscc.applicationsignals.service_level_objectives (
  ExclusionWindows,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Sli }}',
- '{{ RequestBasedSli }}',
- '{{ Goal }}',
- '{{ Tags }}',
- '{{ BurnRateConfigurations }}',
- '{{ ExclusionWindows }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ sli }}',
+ '{{ request_based_sli }}',
+ '{{ goal }}',
+ '{{ tags }}',
+ '{{ burn_rate_configurations }}',
+ '{{ exclusion_windows }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -581,80 +581,79 @@ globals:
 resources:
   - name: service_level_objective
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Sli
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: sli
         value:
-          SliMetric:
-            KeyAttributes: null
-            OperationName: '{{ OperationName }}'
-            MetricType: '{{ MetricType }}'
-            Statistic: '{{ Statistic }}'
-            PeriodSeconds: '{{ PeriodSeconds }}'
-            MetricDataQueries:
-              - MetricStat:
-                  Period: '{{ Period }}'
-                  Metric:
-                    MetricName: '{{ MetricName }}'
-                    Dimensions:
-                      - Value: '{{ Value }}'
-                        Name: '{{ Name }}'
-                    Namespace: '{{ Namespace }}'
-                  Stat: '{{ Stat }}'
-                  Unit: '{{ Unit }}'
-                Id: '{{ Id }}'
-                ReturnData: '{{ ReturnData }}'
-                Expression: '{{ Expression }}'
-                AccountId: '{{ AccountId }}'
-            DependencyConfig:
-              DependencyKeyAttributes: null
-              DependencyOperationName: '{{ DependencyOperationName }}'
-          MetricThreshold: null
-          ComparisonOperator: '{{ ComparisonOperator }}'
-      - name: RequestBasedSli
+          sli_metric:
+            key_attributes: null
+            operation_name: '{{ operation_name }}'
+            metric_type: '{{ metric_type }}'
+            statistic: '{{ statistic }}'
+            period_seconds: '{{ period_seconds }}'
+            metric_data_queries:
+              - metric_stat:
+                  period: '{{ period }}'
+                  metric:
+                    metric_name: '{{ metric_name }}'
+                    dimensions:
+                      - value: '{{ value }}'
+                        name: '{{ name }}'
+                    namespace: '{{ namespace }}'
+                  stat: '{{ stat }}'
+                  unit: '{{ unit }}'
+                id: '{{ id }}'
+                return_data: '{{ return_data }}'
+                expression: '{{ expression }}'
+                account_id: '{{ account_id }}'
+            dependency_config:
+              dependency_key_attributes: null
+              dependency_operation_name: '{{ dependency_operation_name }}'
+          metric_threshold: null
+          comparison_operator: '{{ comparison_operator }}'
+      - name: request_based_sli
         value:
-          RequestBasedSliMetric:
-            KeyAttributes: null
-            OperationName: '{{ OperationName }}'
-            MetricType: '{{ MetricType }}'
-            TotalRequestCountMetric: null
-            MonitoredRequestCountMetric:
-              GoodCountMetric: null
-              BadCountMetric: null
-            DependencyConfig: null
-          MetricThreshold: null
-          ComparisonOperator: '{{ ComparisonOperator }}'
-      - name: Goal
+          request_based_sli_metric:
+            key_attributes: null
+            operation_name: '{{ operation_name }}'
+            metric_type: '{{ metric_type }}'
+            total_request_count_metric: null
+            monitored_request_count_metric:
+              good_count_metric: null
+              bad_count_metric: null
+            dependency_config: null
+          metric_threshold: null
+          comparison_operator: '{{ comparison_operator }}'
+      - name: goal
         value:
-          Interval:
-            RollingInterval:
-              DurationUnit: '{{ DurationUnit }}'
-              Duration: '{{ Duration }}'
-            CalendarInterval:
-              StartTime: '{{ StartTime }}'
-              DurationUnit: null
-              Duration: null
-          AttainmentGoal: null
-          WarningThreshold: null
-      - name: Tags
+          interval:
+            rolling_interval:
+              duration_unit: '{{ duration_unit }}'
+              duration: '{{ duration }}'
+            calendar_interval:
+              start_time: '{{ start_time }}'
+              duration_unit: null
+              duration: null
+          attainment_goal: null
+          warning_threshold: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: BurnRateConfigurations
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: burn_rate_configurations
         value:
-          - LookBackWindowMinutes: '{{ LookBackWindowMinutes }}'
-      - name: ExclusionWindows
+          - look_back_window_minutes: '{{ look_back_window_minutes }}'
+      - name: exclusion_windows
         value:
-          - Window:
-              DurationUnit: null
-              Duration: null
-            StartTime: '{{ StartTime }}'
-            RecurrenceRule:
-              Expression: '{{ Expression }}'
-            Reason: '{{ Reason }}'
-
+          - window:
+              duration_unit: null
+              duration: null
+            start_time: '{{ start_time }}'
+            recurrence_rule:
+              expression: '{{ expression }}'
+            reason: '{{ reason }}'
 ```
 </TabItem>
 </Tabs>
@@ -676,7 +675,7 @@ SET PatchDocument = string('{{ {
     "ExclusionWindows": exclusion_windows
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -685,7 +684,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationsignals.service_level_objectives
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

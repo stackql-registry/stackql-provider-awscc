@@ -146,7 +146,7 @@ account_id,
 log_bucket_list,
 role_arn
 FROM awscc.shield.drt_accesses
-WHERE Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -157,7 +157,7 @@ SELECT
 region,
 account_id
 FROM awscc.shield.drt_accesses_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -182,8 +182,8 @@ INSERT INTO awscc.shield.drt_accesses (
  RoleArn,
  region
 )
-SELECT 
-'{{ RoleArn }}',
+SELECT
+'{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,9 +196,9 @@ INSERT INTO awscc.shield.drt_accesses (
  RoleArn,
  region
 )
-SELECT 
- '{{ LogBucketList }}',
- '{{ RoleArn }}',
+SELECT
+ '{{ log_bucket_list }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -216,12 +216,11 @@ globals:
 resources:
   - name: drt_access
     props:
-      - name: LogBucketList
+      - name: log_bucket_list
         value:
-          - '{{ LogBucketList[0] }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-
+          - '{{ log_bucket_list[0] }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -238,7 +237,7 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -247,7 +246,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.drt_accesses
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

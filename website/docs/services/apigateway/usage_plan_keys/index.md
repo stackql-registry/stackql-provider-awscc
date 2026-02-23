@@ -146,7 +146,7 @@ key_type,
 usage_plan_id,
 id
 FROM awscc.apigateway.usage_plan_keys
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +184,10 @@ INSERT INTO awscc.apigateway.usage_plan_keys (
  UsagePlanId,
  region
 )
-SELECT 
-'{{ KeyId }}',
- '{{ KeyType }}',
- '{{ UsagePlanId }}',
+SELECT
+'{{ key_id }}',
+ '{{ key_type }}',
+ '{{ usage_plan_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -201,10 +201,10 @@ INSERT INTO awscc.apigateway.usage_plan_keys (
  UsagePlanId,
  region
 )
-SELECT 
- '{{ KeyId }}',
- '{{ KeyType }}',
- '{{ UsagePlanId }}',
+SELECT
+ '{{ key_id }}',
+ '{{ key_type }}',
+ '{{ usage_plan_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,13 +222,12 @@ globals:
 resources:
   - name: usage_plan_key
     props:
-      - name: KeyId
-        value: '{{ KeyId }}'
-      - name: KeyType
-        value: '{{ KeyType }}'
-      - name: UsagePlanId
-        value: '{{ UsagePlanId }}'
-
+      - name: key_id
+        value: '{{ key_id }}'
+      - name: key_type
+        value: '{{ key_type }}'
+      - name: usage_plan_id
+        value: '{{ usage_plan_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -239,7 +238,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.usage_plan_keys
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -258,7 +258,7 @@ kinesis_video_stream_config,
 kinesis_stream_config,
 kinesis_firehose_config
 FROM awscc.connect.instance_storage_configs
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -298,10 +298,10 @@ INSERT INTO awscc.connect.instance_storage_configs (
  StorageType,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ ResourceType }}',
- '{{ StorageType }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ resource_type }}',
+ '{{ storage_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -319,14 +319,14 @@ INSERT INTO awscc.connect.instance_storage_configs (
  KinesisFirehoseConfig,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ ResourceType }}',
- '{{ StorageType }}',
- '{{ S3Config }}',
- '{{ KinesisVideoStreamConfig }}',
- '{{ KinesisStreamConfig }}',
- '{{ KinesisFirehoseConfig }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ resource_type }}',
+ '{{ storage_type }}',
+ '{{ s3_config }}',
+ '{{ kinesis_video_stream_config }}',
+ '{{ kinesis_stream_config }}',
+ '{{ kinesis_firehose_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -344,31 +344,30 @@ globals:
 resources:
   - name: instance_storage_config
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: StorageType
-        value: '{{ StorageType }}'
-      - name: S3Config
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: storage_type
+        value: '{{ storage_type }}'
+      - name: s3_config
         value:
-          BucketName: '{{ BucketName }}'
-          BucketPrefix: '{{ BucketPrefix }}'
-          EncryptionConfig:
-            EncryptionType: '{{ EncryptionType }}'
-            KeyId: '{{ KeyId }}'
-      - name: KinesisVideoStreamConfig
+          bucket_name: '{{ bucket_name }}'
+          bucket_prefix: '{{ bucket_prefix }}'
+          encryption_config:
+            encryption_type: '{{ encryption_type }}'
+            key_id: '{{ key_id }}'
+      - name: kinesis_video_stream_config
         value:
-          Prefix: null
-          RetentionPeriodHours: null
-          EncryptionConfig: null
-      - name: KinesisStreamConfig
+          prefix: null
+          retention_period_hours: null
+          encryption_config: null
+      - name: kinesis_stream_config
         value:
-          StreamArn: '{{ StreamArn }}'
-      - name: KinesisFirehoseConfig
+          stream_arn: '{{ stream_arn }}'
+      - name: kinesis_firehose_config
         value:
-          FirehoseArn: '{{ FirehoseArn }}'
-
+          firehose_arn: '{{ firehose_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +387,7 @@ SET PatchDocument = string('{{ {
     "KinesisFirehoseConfig": kinesis_firehose_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
+AND Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```
 
 
@@ -397,7 +396,7 @@ AND Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.instance_storage_configs
-WHERE Identifier = '<InstanceArn|AssociationId|ResourceType>'
+WHERE Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}'
 AND region = 'us-east-1';
 ```
 

@@ -213,7 +213,7 @@ policy,
 policy_arn,
 tags
 FROM awscc.resiliencehub.resiliency_policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,10 +251,10 @@ INSERT INTO awscc.resiliencehub.resiliency_policies (
  Policy,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ Tier }}',
- '{{ Policy }}',
+SELECT
+'{{ policy_name }}',
+ '{{ tier }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,13 +271,13 @@ INSERT INTO awscc.resiliencehub.resiliency_policies (
  Tags,
  region
 )
-SELECT 
- '{{ PolicyName }}',
- '{{ PolicyDescription }}',
- '{{ DataLocationConstraint }}',
- '{{ Tier }}',
- '{{ Policy }}',
- '{{ Tags }}',
+SELECT
+ '{{ policy_name }}',
+ '{{ policy_description }}',
+ '{{ data_location_constraint }}',
+ '{{ tier }}',
+ '{{ policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -295,25 +295,24 @@ globals:
 resources:
   - name: resiliency_policy
     props:
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: PolicyDescription
-        value: '{{ PolicyDescription }}'
-      - name: DataLocationConstraint
-        value: '{{ DataLocationConstraint }}'
-      - name: Tier
-        value: '{{ Tier }}'
-      - name: Policy
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: policy_description
+        value: '{{ policy_description }}'
+      - name: data_location_constraint
+        value: '{{ data_location_constraint }}'
+      - name: tier
+        value: '{{ tier }}'
+      - name: policy
         value:
-          AZ:
-            RtoInSecs: '{{ RtoInSecs }}'
-            RpoInSecs: '{{ RpoInSecs }}'
-          Hardware: null
-          Software: null
-          Region: null
-      - name: Tags
+          az:
+            rto_in_secs: '{{ rto_in_secs }}'
+            rpo_in_secs: '{{ rpo_in_secs }}'
+          hardware: null
+          software: null
+          region: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +333,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyArn>';
+AND Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -343,7 +342,7 @@ AND Identifier = '<PolicyArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resiliencehub.resiliency_policies
-WHERE Identifier = '<PolicyArn>'
+WHERE Identifier = '{{ policy_arn }}'
 AND region = 'us-east-1';
 ```
 

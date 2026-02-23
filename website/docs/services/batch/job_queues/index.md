@@ -229,7 +229,7 @@ state,
 scheduling_policy_arn,
 tags
 FROM awscc.batch.job_queues
-WHERE region = 'us-east-1' AND Identifier = '<JobQueueArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ job_queue_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,8 +265,8 @@ INSERT INTO awscc.batch.job_queues (
  Priority,
  region
 )
-SELECT 
-'{{ Priority }}',
+SELECT
+'{{ priority }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -286,16 +286,16 @@ INSERT INTO awscc.batch.job_queues (
  Tags,
  region
 )
-SELECT 
- '{{ JobQueueName }}',
- '{{ JobQueueType }}',
- '{{ ComputeEnvironmentOrder }}',
- '{{ ServiceEnvironmentOrder }}',
- '{{ JobStateTimeLimitActions }}',
- '{{ Priority }}',
- '{{ State }}',
- '{{ SchedulingPolicyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ job_queue_name }}',
+ '{{ job_queue_type }}',
+ '{{ compute_environment_order }}',
+ '{{ service_environment_order }}',
+ '{{ job_state_time_limit_actions }}',
+ '{{ priority }}',
+ '{{ state }}',
+ '{{ scheduling_policy_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -313,33 +313,32 @@ globals:
 resources:
   - name: job_queue
     props:
-      - name: JobQueueName
-        value: '{{ JobQueueName }}'
-      - name: JobQueueType
-        value: '{{ JobQueueType }}'
-      - name: ComputeEnvironmentOrder
+      - name: job_queue_name
+        value: '{{ job_queue_name }}'
+      - name: job_queue_type
+        value: '{{ job_queue_type }}'
+      - name: compute_environment_order
         value:
-          - ComputeEnvironment: '{{ ComputeEnvironment }}'
-            Order: '{{ Order }}'
-      - name: ServiceEnvironmentOrder
+          - compute_environment: '{{ compute_environment }}'
+            order: '{{ order }}'
+      - name: service_environment_order
         value:
-          - ServiceEnvironment: '{{ ServiceEnvironment }}'
-            Order: '{{ Order }}'
-      - name: JobStateTimeLimitActions
+          - service_environment: '{{ service_environment }}'
+            order: '{{ order }}'
+      - name: job_state_time_limit_actions
         value:
-          - Action: '{{ Action }}'
-            MaxTimeSeconds: '{{ MaxTimeSeconds }}'
-            Reason: '{{ Reason }}'
-            State: '{{ State }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: State
-        value: '{{ State }}'
-      - name: SchedulingPolicyArn
-        value: '{{ SchedulingPolicyArn }}'
-      - name: Tags
+          - action: '{{ action }}'
+            max_time_seconds: '{{ max_time_seconds }}'
+            reason: '{{ reason }}'
+            state: '{{ state }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: state
+        value: '{{ state }}'
+      - name: scheduling_policy_arn
+        value: '{{ scheduling_policy_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "SchedulingPolicyArn": scheduling_policy_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<JobQueueArn>';
+AND Identifier = '{{ job_queue_arn }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<JobQueueArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.job_queues
-WHERE Identifier = '<JobQueueArn>'
+WHERE Identifier = '{{ job_queue_arn }}'
 AND region = 'us-east-1';
 ```
 

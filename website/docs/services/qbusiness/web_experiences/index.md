@@ -276,7 +276,7 @@ origins,
 customization_configuration,
 browser_extension_configuration
 FROM awscc.qbusiness.web_experiences
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<WebExperienceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -313,8 +313,8 @@ INSERT INTO awscc.qbusiness.web_experiences (
  ApplicationId,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
+SELECT
+'{{ application_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -336,18 +336,18 @@ INSERT INTO awscc.qbusiness.web_experiences (
  BrowserExtensionConfiguration,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ IdentityProviderConfiguration }}',
- '{{ RoleArn }}',
- '{{ SamplePromptsControlMode }}',
- '{{ Subtitle }}',
- '{{ Tags }}',
- '{{ Title }}',
- '{{ WelcomeMessage }}',
- '{{ Origins }}',
- '{{ CustomizationConfiguration }}',
- '{{ BrowserExtensionConfiguration }}',
+SELECT
+ '{{ application_id }}',
+ '{{ identity_provider_configuration }}',
+ '{{ role_arn }}',
+ '{{ sample_prompts_control_mode }}',
+ '{{ subtitle }}',
+ '{{ tags }}',
+ '{{ title }}',
+ '{{ welcome_message }}',
+ '{{ origins }}',
+ '{{ customization_configuration }}',
+ '{{ browser_extension_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -365,38 +365,37 @@ globals:
 resources:
   - name: web_experience
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: IdentityProviderConfiguration
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: identity_provider_configuration
         value: null
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: SamplePromptsControlMode
-        value: '{{ SamplePromptsControlMode }}'
-      - name: Subtitle
-        value: '{{ Subtitle }}'
-      - name: Tags
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: sample_prompts_control_mode
+        value: '{{ sample_prompts_control_mode }}'
+      - name: subtitle
+        value: '{{ subtitle }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Title
-        value: '{{ Title }}'
-      - name: WelcomeMessage
-        value: '{{ WelcomeMessage }}'
-      - name: Origins
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: title
+        value: '{{ title }}'
+      - name: welcome_message
+        value: '{{ welcome_message }}'
+      - name: origins
         value:
-          - '{{ Origins[0] }}'
-      - name: CustomizationConfiguration
+          - '{{ origins[0] }}'
+      - name: customization_configuration
         value:
-          CustomCSSUrl: '{{ CustomCSSUrl }}'
-          LogoUrl: '{{ LogoUrl }}'
-          FontUrl: '{{ FontUrl }}'
-          FaviconUrl: '{{ FaviconUrl }}'
-      - name: BrowserExtensionConfiguration
+          custom_cs_surl: '{{ custom_cs_surl }}'
+          logo_url: '{{ logo_url }}'
+          font_url: '{{ font_url }}'
+          favicon_url: '{{ favicon_url }}'
+      - name: browser_extension_configuration
         value:
-          EnabledBrowserExtensions:
-            - '{{ EnabledBrowserExtensions[0] }}'
-
+          enabled_browser_extensions:
+            - '{{ enabled_browser_extensions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -421,7 +420,7 @@ SET PatchDocument = string('{{ {
     "BrowserExtensionConfiguration": browser_extension_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<WebExperienceId>';
+AND Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```
 
 
@@ -430,7 +429,7 @@ AND Identifier = '<ApplicationId>|<WebExperienceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.web_experiences
-WHERE Identifier = '<ApplicationId|WebExperienceId>'
+WHERE Identifier = '{{ application_id }}|{{ web_experience_id }}'
 AND region = 'us-east-1';
 ```
 

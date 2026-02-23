@@ -157,7 +157,7 @@ certificate_s3_bucket_name,
 certificate_s3_object_key,
 encryption_kms_key_id
 FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE region = 'us-east-1' AND Identifier = '<CertificateArn>|<RoleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_arn }}|{{ role_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.ec2.enclave_certificate_iam_role_associations (
  RoleArn,
  region
 )
-SELECT 
-'{{ CertificateArn }}',
- '{{ RoleArn }}',
+SELECT
+'{{ certificate_arn }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.ec2.enclave_certificate_iam_role_associations (
  RoleArn,
  region
 )
-SELECT 
- '{{ CertificateArn }}',
- '{{ RoleArn }}',
+SELECT
+ '{{ certificate_arn }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,10 @@ globals:
 resources:
   - name: enclave_certificate_iam_role_association
     props:
-      - name: CertificateArn
-        value: '{{ CertificateArn }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-
+      - name: certificate_arn
+        value: '{{ certificate_arn }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE Identifier = '<CertificateArn|RoleArn>'
+WHERE Identifier = '{{ certificate_arn }}|{{ role_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -114,7 +114,7 @@ vdm_attributes_resource_id,
 dashboard_attributes,
 guardian_attributes
 FROM awscc.ses.vdm_attributes
-WHERE region = 'us-east-1' AND Identifier = '<VdmAttributesResourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vdm_attributes_resource_id }}';
 ```
 
 ## `INSERT` example
@@ -138,9 +138,9 @@ INSERT INTO awscc.ses.vdm_attributes (
  GuardianAttributes,
  region
 )
-SELECT 
-'{{ DashboardAttributes }}',
- '{{ GuardianAttributes }}',
+SELECT
+'{{ dashboard_attributes }}',
+ '{{ guardian_attributes }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -153,9 +153,9 @@ INSERT INTO awscc.ses.vdm_attributes (
  GuardianAttributes,
  region
 )
-SELECT 
- '{{ DashboardAttributes }}',
- '{{ GuardianAttributes }}',
+SELECT
+ '{{ dashboard_attributes }}',
+ '{{ guardian_attributes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -173,13 +173,12 @@ globals:
 resources:
   - name: vdm_attribute
     props:
-      - name: DashboardAttributes
+      - name: dashboard_attributes
         value:
-          EngagementMetrics: '{{ EngagementMetrics }}'
-      - name: GuardianAttributes
+          engagement_metrics: '{{ engagement_metrics }}'
+      - name: guardian_attributes
         value:
-          OptimizedSharedDelivery: '{{ OptimizedSharedDelivery }}'
-
+          optimized_shared_delivery: '{{ optimized_shared_delivery }}'
 ```
 </TabItem>
 </Tabs>
@@ -196,7 +195,7 @@ SET PatchDocument = string('{{ {
     "GuardianAttributes": guardian_attributes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VdmAttributesResourceId>';
+AND Identifier = '{{ vdm_attributes_resource_id }}';
 ```
 
 
@@ -205,7 +204,7 @@ AND Identifier = '<VdmAttributesResourceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.vdm_attributes
-WHERE Identifier = '<VdmAttributesResourceId>'
+WHERE Identifier = '{{ vdm_attributes_resource_id }}'
 AND region = 'us-east-1';
 ```
 

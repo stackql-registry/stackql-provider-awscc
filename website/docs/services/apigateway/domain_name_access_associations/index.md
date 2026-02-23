@@ -164,7 +164,7 @@ access_association_source,
 access_association_source_type,
 tags
 FROM awscc.apigateway.domain_name_access_associations
-WHERE region = 'us-east-1' AND Identifier = '<DomainNameAccessAssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_access_association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.apigateway.domain_name_access_associations (
  AccessAssociationSourceType,
  region
 )
-SELECT 
-'{{ DomainNameArn }}',
- '{{ AccessAssociationSource }}',
- '{{ AccessAssociationSourceType }}',
+SELECT
+'{{ domain_name_arn }}',
+ '{{ access_association_source }}',
+ '{{ access_association_source_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,11 +220,11 @@ INSERT INTO awscc.apigateway.domain_name_access_associations (
  Tags,
  region
 )
-SELECT 
- '{{ DomainNameArn }}',
- '{{ AccessAssociationSource }}',
- '{{ AccessAssociationSourceType }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name_arn }}',
+ '{{ access_association_source }}',
+ '{{ access_association_source_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,17 +242,16 @@ globals:
 resources:
   - name: domain_name_access_association
     props:
-      - name: DomainNameArn
-        value: '{{ DomainNameArn }}'
-      - name: AccessAssociationSource
-        value: '{{ AccessAssociationSource }}'
-      - name: AccessAssociationSourceType
-        value: '{{ AccessAssociationSourceType }}'
-      - name: Tags
+      - name: domain_name_arn
+        value: '{{ domain_name_arn }}'
+      - name: access_association_source
+        value: '{{ access_association_source }}'
+      - name: access_association_source_type
+        value: '{{ access_association_source_type }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_name_access_associations
-WHERE Identifier = '<DomainNameAccessAssociationArn>'
+WHERE Identifier = '{{ domain_name_access_association_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -188,7 +188,7 @@ endpoint_type,
 tags,
 agent_arn
 FROM awscc.datasync.agents
-WHERE region = 'us-east-1' AND Identifier = '<AgentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ agent_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,7 +224,7 @@ INSERT INTO awscc.datasync.agents (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -242,13 +242,13 @@ INSERT INTO awscc.datasync.agents (
  Tags,
  region
 )
-SELECT 
- '{{ AgentName }}',
- '{{ ActivationKey }}',
- '{{ SecurityGroupArns }}',
- '{{ SubnetArns }}',
- '{{ VpcEndpointId }}',
- '{{ Tags }}',
+SELECT
+ '{{ agent_name }}',
+ '{{ activation_key }}',
+ '{{ security_group_arns }}',
+ '{{ subnet_arns }}',
+ '{{ vpc_endpoint_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,23 +266,22 @@ globals:
 resources:
   - name: agent
     props:
-      - name: AgentName
-        value: '{{ AgentName }}'
-      - name: ActivationKey
-        value: '{{ ActivationKey }}'
-      - name: SecurityGroupArns
+      - name: agent_name
+        value: '{{ agent_name }}'
+      - name: activation_key
+        value: '{{ activation_key }}'
+      - name: security_group_arns
         value:
-          - '{{ SecurityGroupArns[0] }}'
-      - name: SubnetArns
+          - '{{ security_group_arns[0] }}'
+      - name: subnet_arns
         value:
-          - '{{ SubnetArns[0] }}'
-      - name: VpcEndpointId
-        value: '{{ VpcEndpointId }}'
-      - name: Tags
+          - '{{ subnet_arns[0] }}'
+      - name: vpc_endpoint_id
+        value: '{{ vpc_endpoint_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AgentArn>';
+AND Identifier = '{{ agent_arn }}';
 ```
 
 
@@ -308,7 +307,7 @@ AND Identifier = '<AgentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.agents
-WHERE Identifier = '<AgentArn>'
+WHERE Identifier = '{{ agent_arn }}'
 AND region = 'us-east-1';
 ```
 

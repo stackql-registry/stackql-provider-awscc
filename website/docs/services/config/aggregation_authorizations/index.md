@@ -169,7 +169,7 @@ authorized_aws_region,
 aggregation_authorization_arn,
 tags
 FROM awscc.config.aggregation_authorizations
-WHERE region = 'us-east-1' AND Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
+WHERE region = 'us-east-1' AND Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.config.aggregation_authorizations (
  AuthorizedAwsRegion,
  region
 )
-SELECT 
-'{{ AuthorizedAccountId }}',
- '{{ AuthorizedAwsRegion }}',
+SELECT
+'{{ authorized_account_id }}',
+ '{{ authorized_aws_region }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.config.aggregation_authorizations (
  Tags,
  region
 )
-SELECT 
- '{{ AuthorizedAccountId }}',
- '{{ AuthorizedAwsRegion }}',
- '{{ Tags }}',
+SELECT
+ '{{ authorized_account_id }}',
+ '{{ authorized_aws_region }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: aggregation_authorization
     props:
-      - name: AuthorizedAccountId
-        value: '{{ AuthorizedAccountId }}'
-      - name: AuthorizedAwsRegion
-        value: '{{ AuthorizedAwsRegion }}'
-      - name: Tags
+      - name: authorized_account_id
+        value: '{{ authorized_account_id }}'
+      - name: authorized_aws_region
+        value: '{{ authorized_aws_region }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
+AND Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.aggregation_authorizations
-WHERE Identifier = '<AuthorizedAccountId|AuthorizedAwsRegion>'
+WHERE Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}'
 AND region = 'us-east-1';
 ```
 

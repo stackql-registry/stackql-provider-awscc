@@ -294,7 +294,7 @@ readme_path,
 readme_uri,
 readme_markdown
 FROM awscc.omics.workflow_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -331,9 +331,9 @@ INSERT INTO awscc.omics.workflow_versions (
  VersionName,
  region
 )
-SELECT 
-'{{ WorkflowId }}',
- '{{ VersionName }}',
+SELECT
+'{{ workflow_id }}',
+ '{{ version_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -361,24 +361,24 @@ INSERT INTO awscc.omics.workflow_versions (
  readmeMarkdown,
  region
 )
-SELECT 
- '{{ WorkflowId }}',
- '{{ VersionName }}',
- '{{ DefinitionUri }}',
- '{{ Description }}',
- '{{ Engine }}',
- '{{ Main }}',
- '{{ ParameterTemplate }}',
- '{{ Accelerators }}',
- '{{ StorageType }}',
- '{{ StorageCapacity }}',
- '{{ Tags }}',
- '{{ WorkflowBucketOwnerId }}',
- '{{ ParameterTemplatePath }}',
- '{{ DefinitionRepository }}',
- '{{ readmePath }}',
- '{{ readmeUri }}',
- '{{ readmeMarkdown }}',
+SELECT
+ '{{ workflow_id }}',
+ '{{ version_name }}',
+ '{{ definition_uri }}',
+ '{{ description }}',
+ '{{ engine }}',
+ '{{ main }}',
+ '{{ parameter_template }}',
+ '{{ accelerators }}',
+ '{{ storage_type }}',
+ '{{ storage_capacity }}',
+ '{{ tags }}',
+ '{{ workflow_bucket_owner_id }}',
+ '{{ parameter_template_path }}',
+ '{{ definition_repository }}',
+ '{{ readme_path }}',
+ '{{ readme_uri }}',
+ '{{ readme_markdown }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -396,48 +396,47 @@ globals:
 resources:
   - name: workflow_version
     props:
-      - name: WorkflowId
-        value: '{{ WorkflowId }}'
-      - name: VersionName
-        value: '{{ VersionName }}'
-      - name: DefinitionUri
-        value: '{{ DefinitionUri }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: Main
-        value: '{{ Main }}'
-      - name: ParameterTemplate
+      - name: workflow_id
+        value: '{{ workflow_id }}'
+      - name: version_name
+        value: '{{ version_name }}'
+      - name: definition_uri
+        value: '{{ definition_uri }}'
+      - name: description
+        value: '{{ description }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: main
+        value: '{{ main }}'
+      - name: parameter_template
         value: {}
-      - name: Accelerators
-        value: '{{ Accelerators }}'
-      - name: StorageType
-        value: '{{ StorageType }}'
-      - name: StorageCapacity
+      - name: accelerators
+        value: '{{ accelerators }}'
+      - name: storage_type
+        value: '{{ storage_type }}'
+      - name: storage_capacity
         value: null
-      - name: Tags
+      - name: tags
         value: {}
-      - name: WorkflowBucketOwnerId
-        value: '{{ WorkflowBucketOwnerId }}'
-      - name: ParameterTemplatePath
-        value: '{{ ParameterTemplatePath }}'
-      - name: DefinitionRepository
+      - name: workflow_bucket_owner_id
+        value: '{{ workflow_bucket_owner_id }}'
+      - name: parameter_template_path
+        value: '{{ parameter_template_path }}'
+      - name: definition_repository
         value:
-          connectionArn: '{{ connectionArn }}'
-          fullRepositoryId: '{{ fullRepositoryId }}'
-          sourceReference:
+          connection_arn: '{{ connection_arn }}'
+          full_repository_id: '{{ full_repository_id }}'
+          source_reference:
             type: '{{ type }}'
             value: '{{ value }}'
-          excludeFilePatterns:
-            - '{{ excludeFilePatterns[0] }}'
-      - name: readmePath
-        value: '{{ readmePath }}'
-      - name: readmeUri
-        value: '{{ readmeUri }}'
-      - name: readmeMarkdown
-        value: '{{ readmeMarkdown }}'
-
+          exclude_file_patterns:
+            - '{{ exclude_file_patterns[0] }}'
+      - name: readme_path
+        value: '{{ readme_path }}'
+      - name: readme_uri
+        value: '{{ readme_uri }}'
+      - name: readme_markdown
+        value: '{{ readme_markdown }}'
 ```
 </TabItem>
 </Tabs>
@@ -457,7 +456,7 @@ SET PatchDocument = string('{{ {
     "readmeMarkdown": readme_markdown
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -466,7 +465,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.workflow_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

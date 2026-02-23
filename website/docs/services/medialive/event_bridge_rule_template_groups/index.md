@@ -181,7 +181,7 @@ modified_at,
 name,
 tags
 FROM awscc.medialive.event_bridge_rule_template_groups
-WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,8 +217,8 @@ INSERT INTO awscc.medialive.event_bridge_rule_template_groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,10 +232,10 @@ INSERT INTO awscc.medialive.event_bridge_rule_template_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,13 +253,12 @@ globals:
 resources:
   - name: event_bridge_rule_template_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Identifier>';
+AND Identifier = '{{ identifier }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.event_bridge_rule_template_groups
-WHERE Identifier = '<Identifier>'
+WHERE Identifier = '{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

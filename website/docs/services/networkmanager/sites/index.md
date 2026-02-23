@@ -210,7 +210,7 @@ location,
 created_at,
 state
 FROM awscc.networkmanager.sites
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<SiteId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ site_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,8 +247,8 @@ INSERT INTO awscc.networkmanager.sites (
  GlobalNetworkId,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
+SELECT
+'{{ global_network_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,11 +263,11 @@ INSERT INTO awscc.networkmanager.sites (
  Location,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
- '{{ GlobalNetworkId }}',
- '{{ Location }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ global_network_id }}',
+ '{{ location }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -285,20 +285,19 @@ globals:
 resources:
   - name: site
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: Location
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: location
         value:
-          Address: '{{ Address }}'
-          Latitude: '{{ Latitude }}'
-          Longitude: '{{ Longitude }}'
-
+          address: '{{ address }}'
+          latitude: '{{ latitude }}'
+          longitude: '{{ longitude }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Location": location
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GlobalNetworkId>|<SiteId>';
+AND Identifier = '{{ global_network_id }}|{{ site_id }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<GlobalNetworkId>|<SiteId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.sites
-WHERE Identifier = '<GlobalNetworkId|SiteId>'
+WHERE Identifier = '{{ global_network_id }}|{{ site_id }}'
 AND region = 'us-east-1';
 ```
 

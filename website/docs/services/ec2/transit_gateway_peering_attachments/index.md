@@ -206,7 +206,7 @@ peer_region,
 tags,
 transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_peering_attachments
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayAttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,11 +245,11 @@ INSERT INTO awscc.ec2.transit_gateway_peering_attachments (
  PeerRegion,
  region
 )
-SELECT 
-'{{ TransitGatewayId }}',
- '{{ PeerTransitGatewayId }}',
- '{{ PeerAccountId }}',
- '{{ PeerRegion }}',
+SELECT
+'{{ transit_gateway_id }}',
+ '{{ peer_transit_gateway_id }}',
+ '{{ peer_account_id }}',
+ '{{ peer_region }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,12 +265,12 @@ INSERT INTO awscc.ec2.transit_gateway_peering_attachments (
  Tags,
  region
 )
-SELECT 
- '{{ TransitGatewayId }}',
- '{{ PeerTransitGatewayId }}',
- '{{ PeerAccountId }}',
- '{{ PeerRegion }}',
- '{{ Tags }}',
+SELECT
+ '{{ transit_gateway_id }}',
+ '{{ peer_transit_gateway_id }}',
+ '{{ peer_account_id }}',
+ '{{ peer_region }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -288,19 +288,18 @@ globals:
 resources:
   - name: transit_gateway_peering_attachment
     props:
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: PeerTransitGatewayId
-        value: '{{ PeerTransitGatewayId }}'
-      - name: PeerAccountId
-        value: '{{ PeerAccountId }}'
-      - name: PeerRegion
-        value: '{{ PeerRegion }}'
-      - name: Tags
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: peer_transit_gateway_id
+        value: '{{ peer_transit_gateway_id }}'
+      - name: peer_account_id
+        value: '{{ peer_account_id }}'
+      - name: peer_region
+        value: '{{ peer_region }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransitGatewayAttachmentId>';
+AND Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<TransitGatewayAttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_peering_attachments
-WHERE Identifier = '<TransitGatewayAttachmentId>'
+WHERE Identifier = '{{ transit_gateway_attachment_id }}'
 AND region = 'us-east-1';
 ```
 

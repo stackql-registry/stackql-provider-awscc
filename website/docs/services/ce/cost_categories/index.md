@@ -188,7 +188,7 @@ split_charge_rules,
 default_value,
 tags
 FROM awscc.ce.cost_categories
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.ce.cost_categories (
  Rules,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RuleVersion }}',
- '{{ Rules }}',
+SELECT
+'{{ name }}',
+ '{{ rule_version }}',
+ '{{ rules }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,13 @@ INSERT INTO awscc.ce.cost_categories (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RuleVersion }}',
- '{{ Rules }}',
- '{{ SplitChargeRules }}',
- '{{ DefaultValue }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ rule_version }}',
+ '{{ rules }}',
+ '{{ split_charge_rules }}',
+ '{{ default_value }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,21 +270,20 @@ globals:
 resources:
   - name: cost_category
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RuleVersion
-        value: '{{ RuleVersion }}'
-      - name: Rules
-        value: '{{ Rules }}'
-      - name: SplitChargeRules
-        value: '{{ SplitChargeRules }}'
-      - name: DefaultValue
-        value: '{{ DefaultValue }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: rule_version
+        value: '{{ rule_version }}'
+      - name: rules
+        value: '{{ rules }}'
+      - name: split_charge_rules
+        value: '{{ split_charge_rules }}'
+      - name: default_value
+        value: '{{ default_value }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +303,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -313,7 +312,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.cost_categories
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -504,7 +504,7 @@ defer_maintenance_duration,
 db_name,
 snapshot_copy_retention_period
 FROM awscc.redshift.clusters
-WHERE region = 'us-east-1' AND Identifier = '<ClusterIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -543,11 +543,11 @@ INSERT INTO awscc.redshift.clusters (
  DBName,
  region
 )
-SELECT 
-'{{ NodeType }}',
- '{{ MasterUsername }}',
- '{{ ClusterType }}',
- '{{ DBName }}',
+SELECT
+'{{ node_type }}',
+ '{{ master_username }}',
+ '{{ cluster_type }}',
+ '{{ db_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -610,59 +610,59 @@ INSERT INTO awscc.redshift.clusters (
  SnapshotCopyRetentionPeriod,
  region
 )
-SELECT 
- '{{ RevisionTarget }}',
- '{{ AutomatedSnapshotRetentionPeriod }}',
- '{{ Encrypted }}',
- '{{ Port }}',
- '{{ NumberOfNodes }}',
- '{{ DestinationRegion }}',
- '{{ AllowVersionUpgrade }}',
- '{{ Endpoint }}',
- '{{ NamespaceResourcePolicy }}',
- '{{ MaintenanceTrackName }}',
- '{{ OwnerAccount }}',
- '{{ MultiAZ }}',
- '{{ Tags }}',
- '{{ SnapshotClusterIdentifier }}',
- '{{ IamRoles }}',
- '{{ KmsKeyId }}',
- '{{ SnapshotCopyManual }}',
- '{{ ManageMasterPassword }}',
- '{{ AvailabilityZone }}',
- '{{ ClusterSecurityGroups }}',
- '{{ ClusterIdentifier }}',
- '{{ MasterUserPassword }}',
- '{{ ClusterSubnetGroupName }}',
- '{{ LoggingProperties }}',
- '{{ DeferMaintenance }}',
- '{{ NodeType }}',
- '{{ MasterUsername }}',
- '{{ PubliclyAccessible }}',
- '{{ ManualSnapshotRetentionPeriod }}',
- '{{ ResourceAction }}',
- '{{ HsmClientCertificateIdentifier }}',
- '{{ ElasticIp }}',
- '{{ AvailabilityZoneRelocationStatus }}',
- '{{ AquaConfigurationStatus }}',
- '{{ SnapshotIdentifier }}',
- '{{ AvailabilityZoneRelocation }}',
- '{{ SnapshotCopyGrantName }}',
- '{{ EnhancedVpcRouting }}',
- '{{ ClusterParameterGroupName }}',
- '{{ DeferMaintenanceEndTime }}',
- '{{ RotateEncryptionKey }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ ClusterVersion }}',
- '{{ HsmConfigurationIdentifier }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ DeferMaintenanceStartTime }}',
- '{{ ClusterType }}',
- '{{ Classic }}',
- '{{ MasterPasswordSecretKmsKeyId }}',
- '{{ DeferMaintenanceDuration }}',
- '{{ DBName }}',
- '{{ SnapshotCopyRetentionPeriod }}',
+SELECT
+ '{{ revision_target }}',
+ '{{ automated_snapshot_retention_period }}',
+ '{{ encrypted }}',
+ '{{ port }}',
+ '{{ number_of_nodes }}',
+ '{{ destination_region }}',
+ '{{ allow_version_upgrade }}',
+ '{{ endpoint }}',
+ '{{ namespace_resource_policy }}',
+ '{{ maintenance_track_name }}',
+ '{{ owner_account }}',
+ '{{ multi_az }}',
+ '{{ tags }}',
+ '{{ snapshot_cluster_identifier }}',
+ '{{ iam_roles }}',
+ '{{ kms_key_id }}',
+ '{{ snapshot_copy_manual }}',
+ '{{ manage_master_password }}',
+ '{{ availability_zone }}',
+ '{{ cluster_security_groups }}',
+ '{{ cluster_identifier }}',
+ '{{ master_user_password }}',
+ '{{ cluster_subnet_group_name }}',
+ '{{ logging_properties }}',
+ '{{ defer_maintenance }}',
+ '{{ node_type }}',
+ '{{ master_username }}',
+ '{{ publicly_accessible }}',
+ '{{ manual_snapshot_retention_period }}',
+ '{{ resource_action }}',
+ '{{ hsm_client_certificate_identifier }}',
+ '{{ elastic_ip }}',
+ '{{ availability_zone_relocation_status }}',
+ '{{ aqua_configuration_status }}',
+ '{{ snapshot_identifier }}',
+ '{{ availability_zone_relocation }}',
+ '{{ snapshot_copy_grant_name }}',
+ '{{ enhanced_vpc_routing }}',
+ '{{ cluster_parameter_group_name }}',
+ '{{ defer_maintenance_end_time }}',
+ '{{ rotate_encryption_key }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ cluster_version }}',
+ '{{ hsm_configuration_identifier }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ defer_maintenance_start_time }}',
+ '{{ cluster_type }}',
+ '{{ classic }}',
+ '{{ master_password_secret_kms_key_id }}',
+ '{{ defer_maintenance_duration }}',
+ '{{ db_name }}',
+ '{{ snapshot_copy_retention_period }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -680,123 +680,122 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: RevisionTarget
-        value: '{{ RevisionTarget }}'
-      - name: AutomatedSnapshotRetentionPeriod
-        value: '{{ AutomatedSnapshotRetentionPeriod }}'
-      - name: Encrypted
-        value: '{{ Encrypted }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: NumberOfNodes
-        value: '{{ NumberOfNodes }}'
-      - name: DestinationRegion
-        value: '{{ DestinationRegion }}'
-      - name: AllowVersionUpgrade
-        value: '{{ AllowVersionUpgrade }}'
-      - name: Endpoint
+      - name: revision_target
+        value: '{{ revision_target }}'
+      - name: automated_snapshot_retention_period
+        value: '{{ automated_snapshot_retention_period }}'
+      - name: encrypted
+        value: '{{ encrypted }}'
+      - name: port
+        value: '{{ port }}'
+      - name: number_of_nodes
+        value: '{{ number_of_nodes }}'
+      - name: destination_region
+        value: '{{ destination_region }}'
+      - name: allow_version_upgrade
+        value: '{{ allow_version_upgrade }}'
+      - name: endpoint
         value:
-          Address: '{{ Address }}'
-          Port: '{{ Port }}'
-      - name: NamespaceResourcePolicy
+          address: '{{ address }}'
+          port: '{{ port }}'
+      - name: namespace_resource_policy
         value: {}
-      - name: MaintenanceTrackName
-        value: '{{ MaintenanceTrackName }}'
-      - name: OwnerAccount
-        value: '{{ OwnerAccount }}'
-      - name: MultiAZ
-        value: '{{ MultiAZ }}'
-      - name: Tags
+      - name: maintenance_track_name
+        value: '{{ maintenance_track_name }}'
+      - name: owner_account
+        value: '{{ owner_account }}'
+      - name: multi_az
+        value: '{{ multi_az }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SnapshotClusterIdentifier
-        value: '{{ SnapshotClusterIdentifier }}'
-      - name: IamRoles
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: snapshot_cluster_identifier
+        value: '{{ snapshot_cluster_identifier }}'
+      - name: iam_roles
         value:
-          - '{{ IamRoles[0] }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: SnapshotCopyManual
-        value: '{{ SnapshotCopyManual }}'
-      - name: ManageMasterPassword
-        value: '{{ ManageMasterPassword }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: ClusterSecurityGroups
+          - '{{ iam_roles[0] }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: snapshot_copy_manual
+        value: '{{ snapshot_copy_manual }}'
+      - name: manage_master_password
+        value: '{{ manage_master_password }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: cluster_security_groups
         value:
-          - '{{ ClusterSecurityGroups[0] }}'
-      - name: ClusterIdentifier
-        value: '{{ ClusterIdentifier }}'
-      - name: MasterUserPassword
-        value: '{{ MasterUserPassword }}'
-      - name: ClusterSubnetGroupName
-        value: '{{ ClusterSubnetGroupName }}'
-      - name: LoggingProperties
+          - '{{ cluster_security_groups[0] }}'
+      - name: cluster_identifier
+        value: '{{ cluster_identifier }}'
+      - name: master_user_password
+        value: '{{ master_user_password }}'
+      - name: cluster_subnet_group_name
+        value: '{{ cluster_subnet_group_name }}'
+      - name: logging_properties
         value:
-          BucketName: '{{ BucketName }}'
-          S3KeyPrefix: '{{ S3KeyPrefix }}'
-          LogDestinationType: '{{ LogDestinationType }}'
-          LogExports:
-            - '{{ LogExports[0] }}'
-      - name: DeferMaintenance
-        value: '{{ DeferMaintenance }}'
-      - name: NodeType
-        value: '{{ NodeType }}'
-      - name: MasterUsername
-        value: '{{ MasterUsername }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: ManualSnapshotRetentionPeriod
-        value: '{{ ManualSnapshotRetentionPeriod }}'
-      - name: ResourceAction
-        value: '{{ ResourceAction }}'
-      - name: HsmClientCertificateIdentifier
-        value: '{{ HsmClientCertificateIdentifier }}'
-      - name: ElasticIp
-        value: '{{ ElasticIp }}'
-      - name: AvailabilityZoneRelocationStatus
-        value: '{{ AvailabilityZoneRelocationStatus }}'
-      - name: AquaConfigurationStatus
-        value: '{{ AquaConfigurationStatus }}'
-      - name: SnapshotIdentifier
-        value: '{{ SnapshotIdentifier }}'
-      - name: AvailabilityZoneRelocation
-        value: '{{ AvailabilityZoneRelocation }}'
-      - name: SnapshotCopyGrantName
-        value: '{{ SnapshotCopyGrantName }}'
-      - name: EnhancedVpcRouting
-        value: '{{ EnhancedVpcRouting }}'
-      - name: ClusterParameterGroupName
-        value: '{{ ClusterParameterGroupName }}'
-      - name: DeferMaintenanceEndTime
-        value: '{{ DeferMaintenanceEndTime }}'
-      - name: RotateEncryptionKey
-        value: '{{ RotateEncryptionKey }}'
-      - name: VpcSecurityGroupIds
+          bucket_name: '{{ bucket_name }}'
+          s3_key_prefix: '{{ s3_key_prefix }}'
+          log_destination_type: '{{ log_destination_type }}'
+          log_exports:
+            - '{{ log_exports[0] }}'
+      - name: defer_maintenance
+        value: '{{ defer_maintenance }}'
+      - name: node_type
+        value: '{{ node_type }}'
+      - name: master_username
+        value: '{{ master_username }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: manual_snapshot_retention_period
+        value: '{{ manual_snapshot_retention_period }}'
+      - name: resource_action
+        value: '{{ resource_action }}'
+      - name: hsm_client_certificate_identifier
+        value: '{{ hsm_client_certificate_identifier }}'
+      - name: elastic_ip
+        value: '{{ elastic_ip }}'
+      - name: availability_zone_relocation_status
+        value: '{{ availability_zone_relocation_status }}'
+      - name: aqua_configuration_status
+        value: '{{ aqua_configuration_status }}'
+      - name: snapshot_identifier
+        value: '{{ snapshot_identifier }}'
+      - name: availability_zone_relocation
+        value: '{{ availability_zone_relocation }}'
+      - name: snapshot_copy_grant_name
+        value: '{{ snapshot_copy_grant_name }}'
+      - name: enhanced_vpc_routing
+        value: '{{ enhanced_vpc_routing }}'
+      - name: cluster_parameter_group_name
+        value: '{{ cluster_parameter_group_name }}'
+      - name: defer_maintenance_end_time
+        value: '{{ defer_maintenance_end_time }}'
+      - name: rotate_encryption_key
+        value: '{{ rotate_encryption_key }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: ClusterVersion
-        value: '{{ ClusterVersion }}'
-      - name: HsmConfigurationIdentifier
-        value: '{{ HsmConfigurationIdentifier }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: DeferMaintenanceStartTime
-        value: '{{ DeferMaintenanceStartTime }}'
-      - name: ClusterType
-        value: '{{ ClusterType }}'
-      - name: Classic
-        value: '{{ Classic }}'
-      - name: MasterPasswordSecretKmsKeyId
-        value: '{{ MasterPasswordSecretKmsKeyId }}'
-      - name: DeferMaintenanceDuration
-        value: '{{ DeferMaintenanceDuration }}'
-      - name: DBName
-        value: '{{ DBName }}'
-      - name: SnapshotCopyRetentionPeriod
-        value: '{{ SnapshotCopyRetentionPeriod }}'
-
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: cluster_version
+        value: '{{ cluster_version }}'
+      - name: hsm_configuration_identifier
+        value: '{{ hsm_configuration_identifier }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: defer_maintenance_start_time
+        value: '{{ defer_maintenance_start_time }}'
+      - name: cluster_type
+        value: '{{ cluster_type }}'
+      - name: classic
+        value: '{{ classic }}'
+      - name: master_password_secret_kms_key_id
+        value: '{{ master_password_secret_kms_key_id }}'
+      - name: defer_maintenance_duration
+        value: '{{ defer_maintenance_duration }}'
+      - name: db_name
+        value: '{{ db_name }}'
+      - name: snapshot_copy_retention_period
+        value: '{{ snapshot_copy_retention_period }}'
 ```
 </TabItem>
 </Tabs>
@@ -855,7 +854,7 @@ SET PatchDocument = string('{{ {
     "SnapshotCopyRetentionPeriod": snapshot_copy_retention_period
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterIdentifier>';
+AND Identifier = '{{ cluster_identifier }}';
 ```
 
 
@@ -864,7 +863,7 @@ AND Identifier = '<ClusterIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.clusters
-WHERE Identifier = '<ClusterIdentifier>'
+WHERE Identifier = '{{ cluster_identifier }}'
 AND region = 'us-east-1';
 ```
 

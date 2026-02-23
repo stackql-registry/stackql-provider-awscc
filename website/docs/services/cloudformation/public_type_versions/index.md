@@ -174,7 +174,7 @@ type_name,
 log_delivery_bucket,
 type
 FROM awscc.cloudformation.public_type_versions
-WHERE region = 'us-east-1' AND Identifier = '<PublicTypeArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ public_type_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,12 +214,12 @@ INSERT INTO awscc.cloudformation.public_type_versions (
  Type,
  region
 )
-SELECT 
-'{{ Arn }}',
- '{{ PublicVersionNumber }}',
- '{{ TypeName }}',
- '{{ LogDeliveryBucket }}',
- '{{ Type }}',
+SELECT
+'{{ arn }}',
+ '{{ public_version_number }}',
+ '{{ type_name }}',
+ '{{ log_delivery_bucket }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,12 +235,12 @@ INSERT INTO awscc.cloudformation.public_type_versions (
  Type,
  region
 )
-SELECT 
- '{{ Arn }}',
- '{{ PublicVersionNumber }}',
- '{{ TypeName }}',
- '{{ LogDeliveryBucket }}',
- '{{ Type }}',
+SELECT
+ '{{ arn }}',
+ '{{ public_version_number }}',
+ '{{ type_name }}',
+ '{{ log_delivery_bucket }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: public_type_version
     props:
-      - name: Arn
-        value: '{{ Arn }}'
-      - name: PublicVersionNumber
-        value: '{{ PublicVersionNumber }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: LogDeliveryBucket
-        value: '{{ LogDeliveryBucket }}'
-      - name: Type
-        value: '{{ Type }}'
-
+      - name: arn
+        value: '{{ arn }}'
+      - name: public_version_number
+        value: '{{ public_version_number }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: log_delivery_bucket
+        value: '{{ log_delivery_bucket }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>

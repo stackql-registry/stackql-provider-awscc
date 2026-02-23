@@ -310,7 +310,7 @@ license_arn,
 status,
 version
 FROM awscc.licensemanager.licenses
-WHERE region = 'us-east-1' AND Identifier = '<LicenseArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ license_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,14 +352,14 @@ INSERT INTO awscc.licensemanager.licenses (
  ConsumptionConfiguration,
  region
 )
-SELECT 
-'{{ Issuer }}',
- '{{ LicenseName }}',
- '{{ ProductName }}',
- '{{ HomeRegion }}',
- '{{ Validity }}',
- '{{ Entitlements }}',
- '{{ ConsumptionConfiguration }}',
+SELECT
+'{{ issuer }}',
+ '{{ license_name }}',
+ '{{ product_name }}',
+ '{{ home_region }}',
+ '{{ validity }}',
+ '{{ entitlements }}',
+ '{{ consumption_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -381,18 +381,18 @@ INSERT INTO awscc.licensemanager.licenses (
  Status,
  region
 )
-SELECT 
- '{{ ProductSKU }}',
- '{{ Issuer }}',
- '{{ LicenseName }}',
- '{{ ProductName }}',
- '{{ HomeRegion }}',
- '{{ Validity }}',
- '{{ Entitlements }}',
- '{{ Beneficiary }}',
- '{{ ConsumptionConfiguration }}',
- '{{ LicenseMetadata }}',
- '{{ Status }}',
+SELECT
+ '{{ product_sku }}',
+ '{{ issuer }}',
+ '{{ license_name }}',
+ '{{ product_name }}',
+ '{{ home_region }}',
+ '{{ validity }}',
+ '{{ entitlements }}',
+ '{{ beneficiary }}',
+ '{{ consumption_configuration }}',
+ '{{ license_metadata }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -410,47 +410,46 @@ globals:
 resources:
   - name: license
     props:
-      - name: ProductSKU
-        value: '{{ ProductSKU }}'
-      - name: Issuer
+      - name: product_sku
+        value: '{{ product_sku }}'
+      - name: issuer
         value:
-          Name: '{{ Name }}'
-          SignKey: '{{ SignKey }}'
-      - name: LicenseName
-        value: '{{ LicenseName }}'
-      - name: ProductName
-        value: '{{ ProductName }}'
-      - name: HomeRegion
-        value: '{{ HomeRegion }}'
-      - name: Validity
+          name: '{{ name }}'
+          sign_key: '{{ sign_key }}'
+      - name: license_name
+        value: '{{ license_name }}'
+      - name: product_name
+        value: '{{ product_name }}'
+      - name: home_region
+        value: '{{ home_region }}'
+      - name: validity
         value:
-          Begin: '{{ Begin }}'
-          End: '{{ End }}'
-      - name: Entitlements
+          begin: '{{ begin }}'
+          end: '{{ end }}'
+      - name: entitlements
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-            MaxCount: '{{ MaxCount }}'
-            Overage: '{{ Overage }}'
-            Unit: '{{ Unit }}'
-            AllowCheckIn: '{{ AllowCheckIn }}'
-      - name: Beneficiary
-        value: '{{ Beneficiary }}'
-      - name: ConsumptionConfiguration
+          - name: '{{ name }}'
+            value: '{{ value }}'
+            max_count: '{{ max_count }}'
+            overage: '{{ overage }}'
+            unit: '{{ unit }}'
+            allow_check_in: '{{ allow_check_in }}'
+      - name: beneficiary
+        value: '{{ beneficiary }}'
+      - name: consumption_configuration
         value:
-          RenewType: '{{ RenewType }}'
-          ProvisionalConfiguration:
-            MaxTimeToLiveInMinutes: '{{ MaxTimeToLiveInMinutes }}'
-          BorrowConfiguration:
-            MaxTimeToLiveInMinutes: '{{ MaxTimeToLiveInMinutes }}'
-            AllowEarlyCheckIn: '{{ AllowEarlyCheckIn }}'
-      - name: LicenseMetadata
+          renew_type: '{{ renew_type }}'
+          provisional_configuration:
+            max_time_to_live_in_minutes: '{{ max_time_to_live_in_minutes }}'
+          borrow_configuration:
+            max_time_to_live_in_minutes: '{{ max_time_to_live_in_minutes }}'
+            allow_early_check_in: '{{ allow_early_check_in }}'
+      - name: license_metadata
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-      - name: Status
-        value: '{{ Status }}'
-
+          - name: '{{ name }}'
+            value: '{{ value }}'
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -476,7 +475,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LicenseArn>';
+AND Identifier = '{{ license_arn }}';
 ```
 
 
@@ -485,7 +484,7 @@ AND Identifier = '<LicenseArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.licensemanager.licenses
-WHERE Identifier = '<LicenseArn>'
+WHERE Identifier = '{{ license_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -152,7 +152,7 @@ revision_id,
 policy,
 id
 FROM awscc.lex.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.lex.resource_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ResourceArn }}',
- '{{ Policy }}',
+SELECT
+'{{ resource_arn }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -204,9 +204,9 @@ INSERT INTO awscc.lex.resource_policies (
  Policy,
  region
 )
-SELECT 
- '{{ ResourceArn }}',
- '{{ Policy }}',
+SELECT
+ '{{ resource_arn }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,10 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: Policy
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -254,7 +253,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.resource_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

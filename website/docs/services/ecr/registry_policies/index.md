@@ -140,7 +140,7 @@ region,
 registry_id,
 policy_text
 FROM awscc.ecr.registry_policies
-WHERE region = 'us-east-1' AND Identifier = '<RegistryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.ecr.registry_policies (
  PolicyText,
  region
 )
-SELECT 
-'{{ PolicyText }}',
+SELECT
+'{{ policy_text }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -189,8 +189,8 @@ INSERT INTO awscc.ecr.registry_policies (
  PolicyText,
  region
 )
-SELECT 
- '{{ PolicyText }}',
+SELECT
+ '{{ policy_text }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,8 @@ globals:
 resources:
   - name: registry_policy
     props:
-      - name: PolicyText
+      - name: policy_text
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -226,7 +225,7 @@ SET PatchDocument = string('{{ {
     "PolicyText": policy_text
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RegistryId>';
+AND Identifier = '{{ registry_id }}';
 ```
 
 
@@ -235,7 +234,7 @@ AND Identifier = '<RegistryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.registry_policies
-WHERE Identifier = '<RegistryId>'
+WHERE Identifier = '{{ registry_id }}'
 AND region = 'us-east-1';
 ```
 

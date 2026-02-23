@@ -366,7 +366,7 @@ status,
 status_reason,
 desired_state
 FROM awscc.sagemaker.inference_experiments
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -406,12 +406,12 @@ INSERT INTO awscc.sagemaker.inference_experiments (
  ModelVariants,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ RoleArn }}',
- '{{ EndpointName }}',
- '{{ ModelVariants }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ role_arn }}',
+ '{{ endpoint_name }}',
+ '{{ model_variants }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -435,20 +435,20 @@ INSERT INTO awscc.sagemaker.inference_experiments (
  DesiredState,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ Description }}',
- '{{ RoleArn }}',
- '{{ EndpointName }}',
- '{{ Schedule }}',
- '{{ KmsKey }}',
- '{{ DataStorageConfig }}',
- '{{ ModelVariants }}',
- '{{ ShadowModeConfig }}',
- '{{ Tags }}',
- '{{ StatusReason }}',
- '{{ DesiredState }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ description }}',
+ '{{ role_arn }}',
+ '{{ endpoint_name }}',
+ '{{ schedule }}',
+ '{{ kms_key }}',
+ '{{ data_storage_config }}',
+ '{{ model_variants }}',
+ '{{ shadow_mode_config }}',
+ '{{ tags }}',
+ '{{ status_reason }}',
+ '{{ desired_state }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -466,55 +466,54 @@ globals:
 resources:
   - name: inference_experiment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: EndpointName
-        value: '{{ EndpointName }}'
-      - name: Schedule
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: endpoint_name
+        value: '{{ endpoint_name }}'
+      - name: schedule
         value:
-          StartTime: '{{ StartTime }}'
-          EndTime: '{{ EndTime }}'
-      - name: KmsKey
-        value: '{{ KmsKey }}'
-      - name: DataStorageConfig
+          start_time: '{{ start_time }}'
+          end_time: '{{ end_time }}'
+      - name: kms_key
+        value: '{{ kms_key }}'
+      - name: data_storage_config
         value:
-          Destination: '{{ Destination }}'
-          KmsKey: '{{ KmsKey }}'
-          ContentType:
-            CsvContentTypes:
-              - '{{ CsvContentTypes[0] }}'
-            JsonContentTypes:
-              - '{{ JsonContentTypes[0] }}'
-      - name: ModelVariants
+          destination: '{{ destination }}'
+          kms_key: '{{ kms_key }}'
+          content_type:
+            csv_content_types:
+              - '{{ csv_content_types[0] }}'
+            json_content_types:
+              - '{{ json_content_types[0] }}'
+      - name: model_variants
         value:
-          - ModelName: '{{ ModelName }}'
-            VariantName: '{{ VariantName }}'
-            InfrastructureConfig:
-              InfrastructureType: '{{ InfrastructureType }}'
-              RealTimeInferenceConfig:
-                InstanceType: '{{ InstanceType }}'
-                InstanceCount: '{{ InstanceCount }}'
-      - name: ShadowModeConfig
+          - model_name: '{{ model_name }}'
+            variant_name: '{{ variant_name }}'
+            infrastructure_config:
+              infrastructure_type: '{{ infrastructure_type }}'
+              real_time_inference_config:
+                instance_type: '{{ instance_type }}'
+                instance_count: '{{ instance_count }}'
+      - name: shadow_mode_config
         value:
-          SourceModelVariantName: '{{ SourceModelVariantName }}'
-          ShadowModelVariants:
-            - ShadowModelVariantName: '{{ ShadowModelVariantName }}'
-              SamplingPercentage: '{{ SamplingPercentage }}'
-      - name: Tags
+          source_model_variant_name: '{{ source_model_variant_name }}'
+          shadow_model_variants:
+            - shadow_model_variant_name: '{{ shadow_model_variant_name }}'
+              sampling_percentage: '{{ sampling_percentage }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: StatusReason
-        value: '{{ StatusReason }}'
-      - name: DesiredState
-        value: '{{ DesiredState }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: status_reason
+        value: '{{ status_reason }}'
+      - name: desired_state
+        value: '{{ desired_state }}'
 ```
 </TabItem>
 </Tabs>
@@ -537,7 +536,7 @@ SET PatchDocument = string('{{ {
     "DesiredState": desired_state
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -546,7 +545,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.inference_experiments
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

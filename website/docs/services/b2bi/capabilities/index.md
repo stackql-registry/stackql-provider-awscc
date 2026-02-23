@@ -206,7 +206,7 @@ name,
 tags,
 type
 FROM awscc.b2bi.capabilities
-WHERE region = 'us-east-1' AND Identifier = '<CapabilityId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ capability_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +244,10 @@ INSERT INTO awscc.b2bi.capabilities (
  Type,
  region
 )
-SELECT 
-'{{ Configuration }}',
- '{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ configuration }}',
+ '{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,12 +263,12 @@ INSERT INTO awscc.b2bi.capabilities (
  Type,
  region
 )
-SELECT 
- '{{ Configuration }}',
- '{{ InstructionsDocuments }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ configuration }}',
+ '{{ instructions_documents }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,21 +286,20 @@ globals:
 resources:
   - name: capability
     props:
-      - name: Configuration
+      - name: configuration
         value: null
-      - name: InstructionsDocuments
+      - name: instructions_documents
         value:
-          - BucketName: '{{ BucketName }}'
-            Key: '{{ Key }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - bucket_name: '{{ bucket_name }}'
+            key: '{{ key }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +318,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CapabilityId>';
+AND Identifier = '{{ capability_id }}';
 ```
 
 
@@ -328,7 +327,7 @@ AND Identifier = '<CapabilityId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.capabilities
-WHERE Identifier = '<CapabilityId>'
+WHERE Identifier = '{{ capability_id }}'
 AND region = 'us-east-1';
 ```
 

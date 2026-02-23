@@ -394,7 +394,7 @@ sq_error_report_configuration,
 sq_kms_key_id,
 tags
 FROM awscc.timestream.scheduled_queries
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -434,12 +434,12 @@ INSERT INTO awscc.timestream.scheduled_queries (
  ErrorReportConfiguration,
  region
 )
-SELECT 
-'{{ QueryString }}',
- '{{ ScheduleConfiguration }}',
- '{{ NotificationConfiguration }}',
- '{{ ScheduledQueryExecutionRoleArn }}',
- '{{ ErrorReportConfiguration }}',
+SELECT
+'{{ query_string }}',
+ '{{ schedule_configuration }}',
+ '{{ notification_configuration }}',
+ '{{ scheduled_query_execution_role_arn }}',
+ '{{ error_report_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -460,17 +460,17 @@ INSERT INTO awscc.timestream.scheduled_queries (
  Tags,
  region
 )
-SELECT 
- '{{ ScheduledQueryName }}',
- '{{ QueryString }}',
- '{{ ScheduleConfiguration }}',
- '{{ NotificationConfiguration }}',
- '{{ ClientToken }}',
- '{{ ScheduledQueryExecutionRoleArn }}',
- '{{ TargetConfiguration }}',
- '{{ ErrorReportConfiguration }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
+SELECT
+ '{{ scheduled_query_name }}',
+ '{{ query_string }}',
+ '{{ schedule_configuration }}',
+ '{{ notification_configuration }}',
+ '{{ client_token }}',
+ '{{ scheduled_query_execution_role_arn }}',
+ '{{ target_configuration }}',
+ '{{ error_report_configuration }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -488,56 +488,55 @@ globals:
 resources:
   - name: scheduled_query
     props:
-      - name: ScheduledQueryName
-        value: '{{ ScheduledQueryName }}'
-      - name: QueryString
-        value: '{{ QueryString }}'
-      - name: ScheduleConfiguration
+      - name: scheduled_query_name
+        value: '{{ scheduled_query_name }}'
+      - name: query_string
+        value: '{{ query_string }}'
+      - name: schedule_configuration
         value:
-          ScheduleExpression: '{{ ScheduleExpression }}'
-      - name: NotificationConfiguration
+          schedule_expression: '{{ schedule_expression }}'
+      - name: notification_configuration
         value:
-          SnsConfiguration:
-            TopicArn: '{{ TopicArn }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: ScheduledQueryExecutionRoleArn
-        value: '{{ ScheduledQueryExecutionRoleArn }}'
-      - name: TargetConfiguration
+          sns_configuration:
+            topic_arn: '{{ topic_arn }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: scheduled_query_execution_role_arn
+        value: '{{ scheduled_query_execution_role_arn }}'
+      - name: target_configuration
         value:
-          TimestreamConfiguration:
-            DatabaseName: '{{ DatabaseName }}'
-            TableName: '{{ TableName }}'
-            TimeColumn: '{{ TimeColumn }}'
-            DimensionMappings:
-              - Name: '{{ Name }}'
-                DimensionValueType: '{{ DimensionValueType }}'
-            MultiMeasureMappings:
-              TargetMultiMeasureName: '{{ TargetMultiMeasureName }}'
-              MultiMeasureAttributeMappings:
-                - SourceColumn: '{{ SourceColumn }}'
-                  MeasureValueType: '{{ MeasureValueType }}'
-                  TargetMultiMeasureAttributeName: '{{ TargetMultiMeasureAttributeName }}'
-            MixedMeasureMappings:
-              - MeasureName: '{{ MeasureName }}'
-                SourceColumn: '{{ SourceColumn }}'
-                TargetMeasureName: '{{ TargetMeasureName }}'
-                MeasureValueType: '{{ MeasureValueType }}'
-                MultiMeasureAttributeMappings: null
-            MeasureNameColumn: '{{ MeasureNameColumn }}'
-      - name: ErrorReportConfiguration
+          timestream_configuration:
+            database_name: '{{ database_name }}'
+            table_name: '{{ table_name }}'
+            time_column: '{{ time_column }}'
+            dimension_mappings:
+              - name: '{{ name }}'
+                dimension_value_type: '{{ dimension_value_type }}'
+            multi_measure_mappings:
+              target_multi_measure_name: '{{ target_multi_measure_name }}'
+              multi_measure_attribute_mappings:
+                - source_column: '{{ source_column }}'
+                  measure_value_type: '{{ measure_value_type }}'
+                  target_multi_measure_attribute_name: '{{ target_multi_measure_attribute_name }}'
+            mixed_measure_mappings:
+              - measure_name: '{{ measure_name }}'
+                source_column: '{{ source_column }}'
+                target_measure_name: '{{ target_measure_name }}'
+                measure_value_type: '{{ measure_value_type }}'
+                multi_measure_attribute_mappings: null
+            measure_name_column: '{{ measure_name_column }}'
+      - name: error_report_configuration
         value:
-          S3Configuration:
-            BucketName: '{{ BucketName }}'
-            ObjectKeyPrefix: '{{ ObjectKeyPrefix }}'
-            EncryptionOption: '{{ EncryptionOption }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+          s3_configuration:
+            bucket_name: '{{ bucket_name }}'
+            object_key_prefix: '{{ object_key_prefix }}'
+            encryption_option: '{{ encryption_option }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -554,7 +553,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -563,7 +562,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.scheduled_queries
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -163,7 +163,7 @@ configuration_arn,
 configuration,
 configuration_alias
 FROM awscc.cloudformation.hook_type_configs
-WHERE region = 'us-east-1' AND Identifier = '<ConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +202,11 @@ INSERT INTO awscc.cloudformation.hook_type_configs (
  ConfigurationAlias,
  region
 )
-SELECT 
-'{{ TypeArn }}',
- '{{ TypeName }}',
- '{{ Configuration }}',
- '{{ ConfigurationAlias }}',
+SELECT
+'{{ type_arn }}',
+ '{{ type_name }}',
+ '{{ configuration }}',
+ '{{ configuration_alias }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,11 +221,11 @@ INSERT INTO awscc.cloudformation.hook_type_configs (
  ConfigurationAlias,
  region
 )
-SELECT 
- '{{ TypeArn }}',
- '{{ TypeName }}',
- '{{ Configuration }}',
- '{{ ConfigurationAlias }}',
+SELECT
+ '{{ type_arn }}',
+ '{{ type_name }}',
+ '{{ configuration }}',
+ '{{ configuration_alias }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -243,15 +243,14 @@ globals:
 resources:
   - name: hook_type_config
     props:
-      - name: TypeArn
-        value: '{{ TypeArn }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: Configuration
-        value: '{{ Configuration }}'
-      - name: ConfigurationAlias
-        value: '{{ ConfigurationAlias }}'
-
+      - name: type_arn
+        value: '{{ type_arn }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: configuration
+        value: '{{ configuration }}'
+      - name: configuration_alias
+        value: '{{ configuration_alias }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Configuration": configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConfigurationArn>';
+AND Identifier = '{{ configuration_arn }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<ConfigurationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.hook_type_configs
-WHERE Identifier = '<ConfigurationArn>'
+WHERE Identifier = '{{ configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

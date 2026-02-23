@@ -100,7 +100,7 @@ policy_document,
 policy_name,
 role_name
 FROM awscc.iam.role_policies
-WHERE Identifier = '<PolicyName>|<RoleName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}|{{ role_name }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.iam.role_policies (
  RoleName,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ RoleName }}',
+SELECT
+'{{ policy_name }}',
+ '{{ role_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -140,10 +140,10 @@ INSERT INTO awscc.iam.role_policies (
  RoleName,
  region
 )
-SELECT 
- '{{ PolicyDocument }}',
- '{{ PolicyName }}',
- '{{ RoleName }}',
+SELECT
+ '{{ policy_document }}',
+ '{{ policy_name }}',
+ '{{ role_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -161,13 +161,12 @@ globals:
 resources:
   - name: role_policy
     props:
-      - name: PolicyDocument
+      - name: policy_document
         value: {}
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: RoleName
-        value: '{{ RoleName }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: role_name
+        value: '{{ role_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -183,7 +182,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyName>|<RoleName>';
+AND Identifier = '{{ policy_name }}|{{ role_name }}';
 ```
 
 
@@ -192,7 +191,7 @@ AND Identifier = '<PolicyName>|<RoleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.role_policies
-WHERE Identifier = '<PolicyName|RoleName>'
+WHERE Identifier = '{{ policy_name }}|{{ role_name }}'
 AND region = 'us-east-1';
 ```
 

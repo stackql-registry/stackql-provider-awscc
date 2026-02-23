@@ -365,7 +365,7 @@ capacity_units,
 user_context_policy,
 user_token_configurations
 FROM awscc.kendra.indices
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -403,10 +403,10 @@ INSERT INTO awscc.kendra.indices (
  Edition,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoleArn }}',
- '{{ Edition }}',
+SELECT
+'{{ name }}',
+ '{{ role_arn }}',
+ '{{ edition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -427,17 +427,17 @@ INSERT INTO awscc.kendra.indices (
  UserTokenConfigurations,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ServerSideEncryptionConfiguration }}',
- '{{ Tags }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ Edition }}',
- '{{ DocumentMetadataConfigurations }}',
- '{{ CapacityUnits }}',
- '{{ UserContextPolicy }}',
- '{{ UserTokenConfigurations }}',
+SELECT
+ '{{ description }}',
+ '{{ server_side_encryption_configuration }}',
+ '{{ tags }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ edition }}',
+ '{{ document_metadata_configurations }}',
+ '{{ capacity_units }}',
+ '{{ user_context_policy }}',
+ '{{ user_token_configurations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -455,58 +455,57 @@ globals:
 resources:
   - name: index
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ServerSideEncryptionConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: server_side_encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: Tags
+          kms_key_id: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Edition
-        value: '{{ Edition }}'
-      - name: DocumentMetadataConfigurations
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: edition
+        value: '{{ edition }}'
+      - name: document_metadata_configurations
         value:
-          - Name: '{{ Name }}'
-            Type: '{{ Type }}'
-            Relevance:
-              Freshness: '{{ Freshness }}'
-              Importance: '{{ Importance }}'
-              Duration: '{{ Duration }}'
-              RankOrder: '{{ RankOrder }}'
-              ValueImportanceItems:
-                - Key: '{{ Key }}'
-                  Value: null
-            Search:
-              Facetable: '{{ Facetable }}'
-              Searchable: '{{ Searchable }}'
-              Displayable: '{{ Displayable }}'
-              Sortable: '{{ Sortable }}'
-      - name: CapacityUnits
+          - name: '{{ name }}'
+            type: '{{ type }}'
+            relevance:
+              freshness: '{{ freshness }}'
+              importance: '{{ importance }}'
+              duration: '{{ duration }}'
+              rank_order: '{{ rank_order }}'
+              value_importance_items:
+                - key: '{{ key }}'
+                  value: null
+            search:
+              facetable: '{{ facetable }}'
+              searchable: '{{ searchable }}'
+              displayable: '{{ displayable }}'
+              sortable: '{{ sortable }}'
+      - name: capacity_units
         value:
-          StorageCapacityUnits: '{{ StorageCapacityUnits }}'
-          QueryCapacityUnits: '{{ QueryCapacityUnits }}'
-      - name: UserContextPolicy
-        value: '{{ UserContextPolicy }}'
-      - name: UserTokenConfigurations
+          storage_capacity_units: '{{ storage_capacity_units }}'
+          query_capacity_units: '{{ query_capacity_units }}'
+      - name: user_context_policy
+        value: '{{ user_context_policy }}'
+      - name: user_token_configurations
         value:
-          - JwtTokenTypeConfiguration:
-              KeyLocation: '{{ KeyLocation }}'
-              URL: '{{ URL }}'
-              SecretManagerArn: null
-              UserNameAttributeField: '{{ UserNameAttributeField }}'
-              GroupAttributeField: '{{ GroupAttributeField }}'
-              Issuer: '{{ Issuer }}'
-              ClaimRegex: '{{ ClaimRegex }}'
-            JsonTokenTypeConfiguration:
-              UserNameAttributeField: null
-              GroupAttributeField: null
-
+          - jwt_token_type_configuration:
+              key_location: '{{ key_location }}'
+              url: '{{ url }}'
+              secret_manager_arn: null
+              user_name_attribute_field: '{{ user_name_attribute_field }}'
+              group_attribute_field: '{{ group_attribute_field }}'
+              issuer: '{{ issuer }}'
+              claim_regex: '{{ claim_regex }}'
+            json_token_type_configuration:
+              user_name_attribute_field: null
+              group_attribute_field: null
 ```
 </TabItem>
 </Tabs>
@@ -529,7 +528,7 @@ SET PatchDocument = string('{{ {
     "UserTokenConfigurations": user_token_configurations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -538,7 +537,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendra.indices
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

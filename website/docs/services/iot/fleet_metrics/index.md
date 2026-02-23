@@ -231,7 +231,7 @@ last_modified_date,
 version,
 tags
 FROM awscc.iot.fleet_metrics
-WHERE region = 'us-east-1' AND Identifier = '<MetricName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,8 +267,8 @@ INSERT INTO awscc.iot.fleet_metrics (
  MetricName,
  region
 )
-SELECT 
-'{{ MetricName }}',
+SELECT
+'{{ metric_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -289,17 +289,17 @@ INSERT INTO awscc.iot.fleet_metrics (
  Tags,
  region
 )
-SELECT 
- '{{ MetricName }}',
- '{{ Description }}',
- '{{ QueryString }}',
- '{{ Period }}',
- '{{ AggregationField }}',
- '{{ QueryVersion }}',
- '{{ IndexName }}',
- '{{ Unit }}',
- '{{ AggregationType }}',
- '{{ Tags }}',
+SELECT
+ '{{ metric_name }}',
+ '{{ description }}',
+ '{{ query_string }}',
+ '{{ period }}',
+ '{{ aggregation_field }}',
+ '{{ query_version }}',
+ '{{ index_name }}',
+ '{{ unit }}',
+ '{{ aggregation_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -317,32 +317,31 @@ globals:
 resources:
   - name: fleet_metric
     props:
-      - name: MetricName
-        value: '{{ MetricName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: QueryString
-        value: '{{ QueryString }}'
-      - name: Period
-        value: '{{ Period }}'
-      - name: AggregationField
-        value: '{{ AggregationField }}'
-      - name: QueryVersion
-        value: '{{ QueryVersion }}'
-      - name: IndexName
-        value: '{{ IndexName }}'
-      - name: Unit
-        value: '{{ Unit }}'
-      - name: AggregationType
+      - name: metric_name
+        value: '{{ metric_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: query_string
+        value: '{{ query_string }}'
+      - name: period
+        value: '{{ period }}'
+      - name: aggregation_field
+        value: '{{ aggregation_field }}'
+      - name: query_version
+        value: '{{ query_version }}'
+      - name: index_name
+        value: '{{ index_name }}'
+      - name: unit
+        value: '{{ unit }}'
+      - name: aggregation_type
         value:
-          Name: '{{ Name }}'
-          Values:
-            - '{{ Values[0] }}'
-      - name: Tags
+          name: '{{ name }}'
+          values:
+            - '{{ values[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MetricName>';
+AND Identifier = '{{ metric_name }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<MetricName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.fleet_metrics
-WHERE Identifier = '<MetricName>'
+WHERE Identifier = '{{ metric_name }}'
 AND region = 'us-east-1';
 ```
 

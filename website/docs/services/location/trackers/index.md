@@ -213,7 +213,7 @@ tracker_name,
 update_time,
 arn
 FROM awscc.location.trackers
-WHERE region = 'us-east-1' AND Identifier = '<TrackerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,8 +249,8 @@ INSERT INTO awscc.location.trackers (
  TrackerName,
  region
 )
-SELECT 
-'{{ TrackerName }}',
+SELECT
+'{{ tracker_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -270,16 +270,16 @@ INSERT INTO awscc.location.trackers (
  TrackerName,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ EventBridgeEnabled }}',
- '{{ KmsKeyEnableGeospatialQueries }}',
- '{{ KmsKeyId }}',
- '{{ PositionFiltering }}',
- '{{ PricingPlan }}',
- '{{ PricingPlanDataSource }}',
- '{{ Tags }}',
- '{{ TrackerName }}',
+SELECT
+ '{{ description }}',
+ '{{ event_bridge_enabled }}',
+ '{{ kms_key_enable_geospatial_queries }}',
+ '{{ kms_key_id }}',
+ '{{ position_filtering }}',
+ '{{ pricing_plan }}',
+ '{{ pricing_plan_data_source }}',
+ '{{ tags }}',
+ '{{ tracker_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,27 +297,26 @@ globals:
 resources:
   - name: tracker
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: EventBridgeEnabled
-        value: '{{ EventBridgeEnabled }}'
-      - name: KmsKeyEnableGeospatialQueries
-        value: '{{ KmsKeyEnableGeospatialQueries }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: PositionFiltering
-        value: '{{ PositionFiltering }}'
-      - name: PricingPlan
-        value: '{{ PricingPlan }}'
-      - name: PricingPlanDataSource
-        value: '{{ PricingPlanDataSource }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: event_bridge_enabled
+        value: '{{ event_bridge_enabled }}'
+      - name: kms_key_enable_geospatial_queries
+        value: '{{ kms_key_enable_geospatial_queries }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: position_filtering
+        value: '{{ position_filtering }}'
+      - name: pricing_plan
+        value: '{{ pricing_plan }}'
+      - name: pricing_plan_data_source
+        value: '{{ pricing_plan_data_source }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrackerName
-        value: '{{ TrackerName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: tracker_name
+        value: '{{ tracker_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrackerName>';
+AND Identifier = '{{ tracker_name }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<TrackerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.trackers
-WHERE Identifier = '<TrackerName>'
+WHERE Identifier = '{{ tracker_name }}'
 AND region = 'us-east-1';
 ```
 

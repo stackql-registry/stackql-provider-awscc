@@ -277,7 +277,7 @@ status,
 updated_at,
 user_parameters
 FROM awscc.datazone.environments
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -316,10 +316,10 @@ INSERT INTO awscc.datazone.environments (
  ProjectIdentifier,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -340,17 +340,17 @@ INSERT INTO awscc.datazone.environments (
  UserParameters,
  region
 )
-SELECT 
- '{{ EnvironmentAccountIdentifier }}',
- '{{ EnvironmentAccountRegion }}',
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentProfileIdentifier }}',
- '{{ GlossaryTerms }}',
- '{{ EnvironmentRoleArn }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
- '{{ UserParameters }}',
+SELECT
+ '{{ environment_account_identifier }}',
+ '{{ environment_account_region }}',
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ environment_profile_identifier }}',
+ '{{ glossary_terms }}',
+ '{{ environment_role_arn }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
+ '{{ user_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -368,30 +368,29 @@ globals:
 resources:
   - name: environment
     props:
-      - name: EnvironmentAccountIdentifier
-        value: '{{ EnvironmentAccountIdentifier }}'
-      - name: EnvironmentAccountRegion
-        value: '{{ EnvironmentAccountRegion }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentProfileIdentifier
-        value: '{{ EnvironmentProfileIdentifier }}'
-      - name: GlossaryTerms
+      - name: environment_account_identifier
+        value: '{{ environment_account_identifier }}'
+      - name: environment_account_region
+        value: '{{ environment_account_region }}'
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_profile_identifier
+        value: '{{ environment_profile_identifier }}'
+      - name: glossary_terms
         value:
-          - '{{ GlossaryTerms[0] }}'
-      - name: EnvironmentRoleArn
-        value: '{{ EnvironmentRoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProjectIdentifier
-        value: '{{ ProjectIdentifier }}'
-      - name: UserParameters
+          - '{{ glossary_terms[0] }}'
+      - name: environment_role_arn
+        value: '{{ environment_role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: project_identifier
+        value: '{{ project_identifier }}'
+      - name: user_parameters
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-
+          - name: '{{ name }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +409,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -419,7 +418,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environments
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

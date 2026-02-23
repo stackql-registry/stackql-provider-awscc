@@ -240,7 +240,7 @@ ssh_public_keys,
 tags,
 user_name
 FROM awscc.transfer.users
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,10 +278,10 @@ INSERT INTO awscc.transfer.users (
  UserName,
  region
 )
-SELECT 
-'{{ Role }}',
- '{{ ServerId }}',
- '{{ UserName }}',
+SELECT
+'{{ role }}',
+ '{{ server_id }}',
+ '{{ user_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -302,17 +302,17 @@ INSERT INTO awscc.transfer.users (
  UserName,
  region
 )
-SELECT 
- '{{ HomeDirectory }}',
- '{{ HomeDirectoryMappings }}',
- '{{ HomeDirectoryType }}',
- '{{ Policy }}',
- '{{ PosixProfile }}',
- '{{ Role }}',
- '{{ ServerId }}',
- '{{ SshPublicKeys }}',
- '{{ Tags }}',
- '{{ UserName }}',
+SELECT
+ '{{ home_directory }}',
+ '{{ home_directory_mappings }}',
+ '{{ home_directory_type }}',
+ '{{ policy }}',
+ '{{ posix_profile }}',
+ '{{ role }}',
+ '{{ server_id }}',
+ '{{ ssh_public_keys }}',
+ '{{ tags }}',
+ '{{ user_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -330,37 +330,36 @@ globals:
 resources:
   - name: user
     props:
-      - name: HomeDirectory
-        value: '{{ HomeDirectory }}'
-      - name: HomeDirectoryMappings
+      - name: home_directory
+        value: '{{ home_directory }}'
+      - name: home_directory_mappings
         value:
-          - Entry: '{{ Entry }}'
-            Target: '{{ Target }}'
-            Type: '{{ Type }}'
-      - name: HomeDirectoryType
-        value: '{{ HomeDirectoryType }}'
-      - name: Policy
-        value: '{{ Policy }}'
-      - name: PosixProfile
+          - entry: '{{ entry }}'
+            target: '{{ target }}'
+            type: '{{ type }}'
+      - name: home_directory_type
+        value: '{{ home_directory_type }}'
+      - name: policy
+        value: '{{ policy }}'
+      - name: posix_profile
         value:
-          Uid: null
-          Gid: null
-          SecondaryGids:
+          uid: null
+          gid: null
+          secondary_gids:
             - null
-      - name: Role
-        value: '{{ Role }}'
-      - name: ServerId
-        value: '{{ ServerId }}'
-      - name: SshPublicKeys
+      - name: role
+        value: '{{ role }}'
+      - name: server_id
+        value: '{{ server_id }}'
+      - name: ssh_public_keys
         value:
-          - '{{ SshPublicKeys[0] }}'
-      - name: Tags
+          - '{{ ssh_public_keys[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: UserName
-        value: '{{ UserName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: user_name
+        value: '{{ user_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +382,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -392,7 +391,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.users
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -263,7 +263,7 @@ task_definition_type,
 arn,
 tags
 FROM awscc.iotwireless.task_definitions
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,8 +299,8 @@ INSERT INTO awscc.iotwireless.task_definitions (
  AutoCreateTasks,
  region
 )
-SELECT 
-'{{ AutoCreateTasks }}',
+SELECT
+'{{ auto_create_tasks }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,13 +317,13 @@ INSERT INTO awscc.iotwireless.task_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ AutoCreateTasks }}',
- '{{ Update }}',
- '{{ LoRaWANUpdateGatewayTaskEntry }}',
- '{{ TaskDefinitionType }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ auto_create_tasks }}',
+ '{{ update }}',
+ '{{ lo_ra_wan_update_gateway_task_entry }}',
+ '{{ task_definition_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -341,33 +341,32 @@ globals:
 resources:
   - name: task_definition
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: AutoCreateTasks
-        value: '{{ AutoCreateTasks }}'
-      - name: Update
+      - name: name
+        value: '{{ name }}'
+      - name: auto_create_tasks
+        value: '{{ auto_create_tasks }}'
+      - name: update
         value:
-          UpdateDataSource: '{{ UpdateDataSource }}'
-          UpdateDataRole: '{{ UpdateDataRole }}'
-          LoRaWAN:
-            UpdateSignature: '{{ UpdateSignature }}'
-            SigKeyCrc: '{{ SigKeyCrc }}'
-            CurrentVersion:
-              PackageVersion: '{{ PackageVersion }}'
-              Model: '{{ Model }}'
-              Station: '{{ Station }}'
-            UpdateVersion: null
-      - name: LoRaWANUpdateGatewayTaskEntry
+          update_data_source: '{{ update_data_source }}'
+          update_data_role: '{{ update_data_role }}'
+          lo_ra_wan:
+            update_signature: '{{ update_signature }}'
+            sig_key_crc: '{{ sig_key_crc }}'
+            current_version:
+              package_version: '{{ package_version }}'
+              model: '{{ model }}'
+              station: '{{ station }}'
+            update_version: null
+      - name: lo_ra_wan_update_gateway_task_entry
         value:
-          CurrentVersion: null
-          UpdateVersion: null
-      - name: TaskDefinitionType
-        value: '{{ TaskDefinitionType }}'
-      - name: Tags
+          current_version: null
+          update_version: null
+      - name: task_definition_type
+        value: '{{ task_definition_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +387,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -397,7 +396,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.task_definitions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -291,7 +291,7 @@ superuser_parameters,
 data_bundles,
 tags
 FROM awscc.finspace.environments
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,8 +327,8 @@ INSERT INTO awscc.finspace.environments (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -347,15 +347,15 @@ INSERT INTO awscc.finspace.environments (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ KmsKeyId }}',
- '{{ FederationMode }}',
- '{{ FederationParameters }}',
- '{{ SuperuserParameters }}',
- '{{ DataBundles }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ kms_key_id }}',
+ '{{ federation_mode }}',
+ '{{ federation_parameters }}',
+ '{{ superuser_parameters }}',
+ '{{ data_bundles }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -373,37 +373,36 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: FederationMode
-        value: '{{ FederationMode }}'
-      - name: FederationParameters
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: federation_mode
+        value: '{{ federation_mode }}'
+      - name: federation_parameters
         value:
-          SamlMetadataURL: '{{ SamlMetadataURL }}'
-          FederationProviderName: '{{ FederationProviderName }}'
-          SamlMetadataDocument: '{{ SamlMetadataDocument }}'
-          ApplicationCallBackURL: '{{ ApplicationCallBackURL }}'
-          FederationURN: '{{ FederationURN }}'
-          AttributeMap:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: SuperuserParameters
+          saml_metadata_url: '{{ saml_metadata_url }}'
+          federation_provider_name: '{{ federation_provider_name }}'
+          saml_metadata_document: '{{ saml_metadata_document }}'
+          application_call_back_url: '{{ application_call_back_url }}'
+          federation_ur_n: '{{ federation_ur_n }}'
+          attribute_map:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: superuser_parameters
         value:
-          FirstName: '{{ FirstName }}'
-          LastName: '{{ LastName }}'
-          EmailAddress: '{{ EmailAddress }}'
-      - name: DataBundles
+          first_name: '{{ first_name }}'
+          last_name: '{{ last_name }}'
+          email_address: '{{ email_address }}'
+      - name: data_bundles
         value:
-          - '{{ DataBundles[0] }}'
-      - name: Tags
+          - '{{ data_bundles[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -421,7 +420,7 @@ SET PatchDocument = string('{{ {
     "FederationMode": federation_mode
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentId>';
+AND Identifier = '{{ environment_id }}';
 ```
 
 
@@ -430,7 +429,7 @@ AND Identifier = '<EnvironmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.finspace.environments
-WHERE Identifier = '<EnvironmentId>'
+WHERE Identifier = '{{ environment_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -183,7 +183,7 @@ function_name,
 provisioned_concurrency_config,
 runtime_policy
 FROM awscc.lambda.versions
-WHERE region = 'us-east-1' AND Identifier = '<FunctionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,8 +219,8 @@ INSERT INTO awscc.lambda.versions (
  FunctionName,
  region
 )
-SELECT 
-'{{ FunctionName }}',
+SELECT
+'{{ function_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,12 +236,12 @@ INSERT INTO awscc.lambda.versions (
  RuntimePolicy,
  region
 )
-SELECT 
- '{{ CodeSha256 }}',
- '{{ Description }}',
- '{{ FunctionName }}',
- '{{ ProvisionedConcurrencyConfig }}',
- '{{ RuntimePolicy }}',
+SELECT
+ '{{ code_sha256 }}',
+ '{{ description }}',
+ '{{ function_name }}',
+ '{{ provisioned_concurrency_config }}',
+ '{{ runtime_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,20 +259,19 @@ globals:
 resources:
   - name: version
     props:
-      - name: CodeSha256
-        value: '{{ CodeSha256 }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: ProvisionedConcurrencyConfig
+      - name: code_sha256
+        value: '{{ code_sha256 }}'
+      - name: description
+        value: '{{ description }}'
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: provisioned_concurrency_config
         value:
-          ProvisionedConcurrentExecutions: '{{ ProvisionedConcurrentExecutions }}'
-      - name: RuntimePolicy
+          provisioned_concurrent_executions: '{{ provisioned_concurrent_executions }}'
+      - name: runtime_policy
         value:
-          RuntimeVersionArn: '{{ RuntimeVersionArn }}'
-          UpdateRuntimeOn: '{{ UpdateRuntimeOn }}'
-
+          runtime_version_arn: '{{ runtime_version_arn }}'
+          update_runtime_on: '{{ update_runtime_on }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.versions
-WHERE Identifier = '<FunctionArn>'
+WHERE Identifier = '{{ function_arn }}'
 AND region = 'us-east-1';
 ```
 

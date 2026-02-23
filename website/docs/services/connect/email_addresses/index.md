@@ -181,7 +181,7 @@ email_address,
 display_name,
 tags
 FROM awscc.connect.email_addresses
-WHERE region = 'us-east-1' AND Identifier = '<EmailAddressArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ email_address_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,9 +218,9 @@ INSERT INTO awscc.connect.email_addresses (
  EmailAddress,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ EmailAddress }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ email_address }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,12 +236,12 @@ INSERT INTO awscc.connect.email_addresses (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Description }}',
- '{{ EmailAddress }}',
- '{{ DisplayName }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ description }}',
+ '{{ email_address }}',
+ '{{ display_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,19 +259,18 @@ globals:
 resources:
   - name: email_address
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EmailAddress
-        value: '{{ EmailAddress }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: email_address
+        value: '{{ email_address }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +289,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EmailAddressArn>';
+AND Identifier = '{{ email_address_arn }}';
 ```
 
 
@@ -299,7 +298,7 @@ AND Identifier = '<EmailAddressArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.email_addresses
-WHERE Identifier = '<EmailAddressArn>'
+WHERE Identifier = '{{ email_address_arn }}'
 AND region = 'us-east-1';
 ```
 

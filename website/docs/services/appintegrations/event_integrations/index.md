@@ -183,7 +183,7 @@ event_bridge_bus,
 event_filter,
 tags
 FROM awscc.appintegrations.event_integrations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +221,10 @@ INSERT INTO awscc.appintegrations.event_integrations (
  EventFilter,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ EventBridgeBus }}',
- '{{ EventFilter }}',
+SELECT
+'{{ name }}',
+ '{{ event_bridge_bus }}',
+ '{{ event_filter }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,12 +240,12 @@ INSERT INTO awscc.appintegrations.event_integrations (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ EventBridgeBus }}',
- '{{ EventFilter }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ event_bridge_bus }}',
+ '{{ event_filter }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,20 +263,19 @@ globals:
 resources:
   - name: event_integration
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: EventBridgeBus
-        value: '{{ EventBridgeBus }}'
-      - name: EventFilter
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: event_bridge_bus
+        value: '{{ event_bridge_bus }}'
+      - name: event_filter
         value:
-          Source: '{{ Source }}'
-      - name: Tags
+          source: '{{ source }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.event_integrations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -206,7 +206,7 @@ tags,
 entries,
 arn
 FROM awscc.ec2.prefix_lists
-WHERE region = 'us-east-1' AND Identifier = '<PrefixListId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ prefix_list_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,9 +243,9 @@ INSERT INTO awscc.ec2.prefix_lists (
  AddressFamily,
  region
 )
-SELECT 
-'{{ PrefixListName }}',
- '{{ AddressFamily }}',
+SELECT
+'{{ prefix_list_name }}',
+ '{{ address_family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,12 +261,12 @@ INSERT INTO awscc.ec2.prefix_lists (
  Entries,
  region
 )
-SELECT 
- '{{ PrefixListName }}',
- '{{ AddressFamily }}',
- '{{ MaxEntries }}',
- '{{ Tags }}',
- '{{ Entries }}',
+SELECT
+ '{{ prefix_list_name }}',
+ '{{ address_family }}',
+ '{{ max_entries }}',
+ '{{ tags }}',
+ '{{ entries }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,21 +284,20 @@ globals:
 resources:
   - name: prefix_list
     props:
-      - name: PrefixListName
-        value: '{{ PrefixListName }}'
-      - name: AddressFamily
-        value: '{{ AddressFamily }}'
-      - name: MaxEntries
-        value: '{{ MaxEntries }}'
-      - name: Tags
+      - name: prefix_list_name
+        value: '{{ prefix_list_name }}'
+      - name: address_family
+        value: '{{ address_family }}'
+      - name: max_entries
+        value: '{{ max_entries }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Entries
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: entries
         value:
-          - Cidr: '{{ Cidr }}'
-            Description: '{{ Description }}'
-
+          - cidr: '{{ cidr }}'
+            description: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "Entries": entries
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PrefixListId>';
+AND Identifier = '{{ prefix_list_id }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<PrefixListId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.prefix_lists
-WHERE Identifier = '<PrefixListId>'
+WHERE Identifier = '{{ prefix_list_id }}'
 AND region = 'us-east-1';
 ```
 

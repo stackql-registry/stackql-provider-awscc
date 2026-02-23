@@ -152,7 +152,7 @@ region,
 internet_gateway_id,
 tags
 FROM awscc.ec2.internet_gateways
-WHERE region = 'us-east-1' AND Identifier = '<InternetGatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ internet_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.ec2.internet_gateways (
  Tags,
  region
 )
-SELECT 
-'{{ Tags }}',
+SELECT
+'{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -201,8 +201,8 @@ INSERT INTO awscc.ec2.internet_gateways (
  Tags,
  region
 )
-SELECT 
- '{{ Tags }}',
+SELECT
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,11 +220,10 @@ globals:
 resources:
   - name: internet_gateway
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -240,7 +239,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InternetGatewayId>';
+AND Identifier = '{{ internet_gateway_id }}';
 ```
 
 
@@ -249,7 +248,7 @@ AND Identifier = '<InternetGatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.internet_gateways
-WHERE Identifier = '<InternetGatewayId>'
+WHERE Identifier = '{{ internet_gateway_id }}'
 AND region = 'us-east-1';
 ```
 

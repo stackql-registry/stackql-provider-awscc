@@ -360,7 +360,7 @@ creation_time,
 last_modified_time,
 tags
 FROM awscc.sagemaker.inference_components
-WHERE region = 'us-east-1' AND Identifier = '<InferenceComponentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ inference_component_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -397,9 +397,9 @@ INSERT INTO awscc.sagemaker.inference_components (
  Specification,
  region
 )
-SELECT 
-'{{ EndpointName }}',
- '{{ Specification }}',
+SELECT
+'{{ endpoint_name }}',
+ '{{ specification }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -418,15 +418,15 @@ INSERT INTO awscc.sagemaker.inference_components (
  Tags,
  region
 )
-SELECT 
- '{{ InferenceComponentName }}',
- '{{ EndpointArn }}',
- '{{ EndpointName }}',
- '{{ VariantName }}',
- '{{ Specification }}',
- '{{ RuntimeConfig }}',
- '{{ DeploymentConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ inference_component_name }}',
+ '{{ endpoint_arn }}',
+ '{{ endpoint_name }}',
+ '{{ variant_name }}',
+ '{{ specification }}',
+ '{{ runtime_config }}',
+ '{{ deployment_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -444,56 +444,55 @@ globals:
 resources:
   - name: inference_component
     props:
-      - name: InferenceComponentName
-        value: '{{ InferenceComponentName }}'
-      - name: EndpointArn
-        value: '{{ EndpointArn }}'
-      - name: EndpointName
-        value: '{{ EndpointName }}'
-      - name: VariantName
-        value: '{{ VariantName }}'
-      - name: Specification
+      - name: inference_component_name
+        value: '{{ inference_component_name }}'
+      - name: endpoint_arn
+        value: '{{ endpoint_arn }}'
+      - name: endpoint_name
+        value: '{{ endpoint_name }}'
+      - name: variant_name
+        value: '{{ variant_name }}'
+      - name: specification
         value:
-          ModelName: '{{ ModelName }}'
-          BaseInferenceComponentName: '{{ BaseInferenceComponentName }}'
-          Container:
-            DeployedImage:
-              SpecifiedImage: '{{ SpecifiedImage }}'
-              ResolvedImage: null
-              ResolutionTime: '{{ ResolutionTime }}'
-            Image: null
-            ArtifactUrl: '{{ ArtifactUrl }}'
-            Environment: {}
-          StartupParameters:
-            ModelDataDownloadTimeoutInSeconds: '{{ ModelDataDownloadTimeoutInSeconds }}'
-            ContainerStartupHealthCheckTimeoutInSeconds: null
-          ComputeResourceRequirements:
-            NumberOfCpuCoresRequired: null
-            NumberOfAcceleratorDevicesRequired: null
-            MinMemoryRequiredInMb: '{{ MinMemoryRequiredInMb }}'
-            MaxMemoryRequiredInMb: null
-      - name: RuntimeConfig
+          model_name: '{{ model_name }}'
+          base_inference_component_name: '{{ base_inference_component_name }}'
+          container:
+            deployed_image:
+              specified_image: '{{ specified_image }}'
+              resolved_image: null
+              resolution_time: '{{ resolution_time }}'
+            image: null
+            artifact_url: '{{ artifact_url }}'
+            environment: {}
+          startup_parameters:
+            model_data_download_timeout_in_seconds: '{{ model_data_download_timeout_in_seconds }}'
+            container_startup_health_check_timeout_in_seconds: null
+          compute_resource_requirements:
+            number_of_cpu_cores_required: null
+            number_of_accelerator_devices_required: null
+            min_memory_required_in_mb: '{{ min_memory_required_in_mb }}'
+            max_memory_required_in_mb: null
+      - name: runtime_config
         value:
-          CopyCount: '{{ CopyCount }}'
-          DesiredCopyCount: null
-          CurrentCopyCount: null
-      - name: DeploymentConfig
+          copy_count: '{{ copy_count }}'
+          desired_copy_count: null
+          current_copy_count: null
+      - name: deployment_config
         value:
-          RollingUpdatePolicy:
-            MaximumBatchSize:
-              Type: '{{ Type }}'
-              Value: '{{ Value }}'
-            WaitIntervalInSeconds: '{{ WaitIntervalInSeconds }}'
-            RollbackMaximumBatchSize: null
-            MaximumExecutionTimeoutInSeconds: '{{ MaximumExecutionTimeoutInSeconds }}'
-          AutoRollbackConfiguration:
-            Alarms:
-              - AlarmName: '{{ AlarmName }}'
-      - name: Tags
+          rolling_update_policy:
+            maximum_batch_size:
+              type: '{{ type }}'
+              value: '{{ value }}'
+            wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+            rollback_maximum_batch_size: null
+            maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+          auto_rollback_configuration:
+            alarms:
+              - alarm_name: '{{ alarm_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -514,7 +513,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InferenceComponentArn>';
+AND Identifier = '{{ inference_component_arn }}';
 ```
 
 
@@ -523,7 +522,7 @@ AND Identifier = '<InferenceComponentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.inference_components
-WHERE Identifier = '<InferenceComponentArn>'
+WHERE Identifier = '{{ inference_component_arn }}'
 AND region = 'us-east-1';
 ```
 

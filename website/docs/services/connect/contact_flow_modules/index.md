@@ -188,7 +188,7 @@ state,
 status,
 tags
 FROM awscc.connect.contact_flow_modules
-WHERE region = 'us-east-1' AND Identifier = '<ContactFlowModuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_module_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.connect.contact_flow_modules (
  Content,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Content }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,13 @@ INSERT INTO awscc.connect.contact_flow_modules (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Content }}',
- '{{ Description }}',
- '{{ State }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ content }}',
+ '{{ description }}',
+ '{{ state }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,21 +270,20 @@ globals:
 resources:
   - name: contact_flow_module
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Content
-        value: '{{ Content }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: content
+        value: '{{ content }}'
+      - name: description
+        value: '{{ description }}'
+      - name: state
+        value: '{{ state }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ContactFlowModuleArn>';
+AND Identifier = '{{ contact_flow_module_arn }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<ContactFlowModuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flow_modules
-WHERE Identifier = '<ContactFlowModuleArn>'
+WHERE Identifier = '{{ contact_flow_module_arn }}'
 AND region = 'us-east-1';
 ```
 

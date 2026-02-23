@@ -186,7 +186,7 @@ video,
 name,
 tags
 FROM awscc.ivs.encoder_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,7 +222,7 @@ INSERT INTO awscc.ivs.encoder_configurations (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -237,10 +237,10 @@ INSERT INTO awscc.ivs.encoder_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Video }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ video }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,19 +258,18 @@ globals:
 resources:
   - name: encoder_configuration
     props:
-      - name: Video
+      - name: video
         value:
-          Bitrate: '{{ Bitrate }}'
-          Framerate: null
-          Height: '{{ Height }}'
-          Width: '{{ Width }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          bitrate: '{{ bitrate }}'
+          framerate: null
+          height: '{{ height }}'
+          width: '{{ width }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.encoder_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

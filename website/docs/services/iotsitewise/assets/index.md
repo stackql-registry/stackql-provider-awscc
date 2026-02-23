@@ -248,7 +248,7 @@ asset_properties,
 asset_hierarchies,
 tags
 FROM awscc.iotsitewise.assets
-WHERE region = 'us-east-1' AND Identifier = '<AssetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ asset_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,9 +285,9 @@ INSERT INTO awscc.iotsitewise.assets (
  AssetName,
  region
 )
-SELECT 
-'{{ AssetModelId }}',
- '{{ AssetName }}',
+SELECT
+'{{ asset_model_id }}',
+ '{{ asset_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -305,14 +305,14 @@ INSERT INTO awscc.iotsitewise.assets (
  Tags,
  region
 )
-SELECT 
- '{{ AssetExternalId }}',
- '{{ AssetModelId }}',
- '{{ AssetName }}',
- '{{ AssetDescription }}',
- '{{ AssetProperties }}',
- '{{ AssetHierarchies }}',
- '{{ Tags }}',
+SELECT
+ '{{ asset_external_id }}',
+ '{{ asset_model_id }}',
+ '{{ asset_name }}',
+ '{{ asset_description }}',
+ '{{ asset_properties }}',
+ '{{ asset_hierarchies }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -330,33 +330,32 @@ globals:
 resources:
   - name: asset
     props:
-      - name: AssetExternalId
-        value: '{{ AssetExternalId }}'
-      - name: AssetModelId
-        value: '{{ AssetModelId }}'
-      - name: AssetName
-        value: '{{ AssetName }}'
-      - name: AssetDescription
-        value: '{{ AssetDescription }}'
-      - name: AssetProperties
+      - name: asset_external_id
+        value: '{{ asset_external_id }}'
+      - name: asset_model_id
+        value: '{{ asset_model_id }}'
+      - name: asset_name
+        value: '{{ asset_name }}'
+      - name: asset_description
+        value: '{{ asset_description }}'
+      - name: asset_properties
         value:
-          - Id: '{{ Id }}'
-            ExternalId: '{{ ExternalId }}'
-            LogicalId: '{{ LogicalId }}'
-            Alias: '{{ Alias }}'
-            NotificationState: '{{ NotificationState }}'
-            Unit: '{{ Unit }}'
-      - name: AssetHierarchies
+          - id: '{{ id }}'
+            external_id: '{{ external_id }}'
+            logical_id: '{{ logical_id }}'
+            alias: '{{ alias }}'
+            notification_state: '{{ notification_state }}'
+            unit: '{{ unit }}'
+      - name: asset_hierarchies
         value:
-          - Id: '{{ Id }}'
-            ExternalId: '{{ ExternalId }}'
-            LogicalId: '{{ LogicalId }}'
-            ChildAssetId: '{{ ChildAssetId }}'
-      - name: Tags
+          - id: '{{ id }}'
+            external_id: '{{ external_id }}'
+            logical_id: '{{ logical_id }}'
+            child_asset_id: '{{ child_asset_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -376,7 +375,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssetId>';
+AND Identifier = '{{ asset_id }}';
 ```
 
 
@@ -385,7 +384,7 @@ AND Identifier = '<AssetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.assets
-WHERE Identifier = '<AssetId>'
+WHERE Identifier = '{{ asset_id }}'
 AND region = 'us-east-1';
 ```
 

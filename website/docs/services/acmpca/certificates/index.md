@@ -386,7 +386,7 @@ validity_not_before,
 certificate,
 arn
 FROM awscc.acmpca.certificates
-WHERE region = 'us-east-1' AND Identifier = '<Arn>|<CertificateAuthorityArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ certificate_authority_arn }}';
 ```
 
 ## `INSERT` example
@@ -412,11 +412,11 @@ INSERT INTO awscc.acmpca.certificates (
  Validity,
  region
 )
-SELECT 
-'{{ CertificateAuthorityArn }}',
- '{{ CertificateSigningRequest }}',
- '{{ SigningAlgorithm }}',
- '{{ Validity }}',
+SELECT
+'{{ certificate_authority_arn }}',
+ '{{ certificate_signing_request }}',
+ '{{ signing_algorithm }}',
+ '{{ validity }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -434,14 +434,14 @@ INSERT INTO awscc.acmpca.certificates (
  ValidityNotBefore,
  region
 )
-SELECT 
- '{{ ApiPassthrough }}',
- '{{ CertificateAuthorityArn }}',
- '{{ CertificateSigningRequest }}',
- '{{ SigningAlgorithm }}',
- '{{ TemplateArn }}',
- '{{ Validity }}',
- '{{ ValidityNotBefore }}',
+SELECT
+ '{{ api_passthrough }}',
+ '{{ certificate_authority_arn }}',
+ '{{ certificate_signing_request }}',
+ '{{ signing_algorithm }}',
+ '{{ template_arn }}',
+ '{{ validity }}',
+ '{{ validity_not_before }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -459,78 +459,77 @@ globals:
 resources:
   - name: certificate
     props:
-      - name: ApiPassthrough
+      - name: api_passthrough
         value:
-          Extensions:
-            CertificatePolicies:
-              - CertPolicyId: '{{ CertPolicyId }}'
-                PolicyQualifiers:
-                  - PolicyQualifierId: '{{ PolicyQualifierId }}'
-                    Qualifier:
-                      CpsUri: '{{ CpsUri }}'
-            ExtendedKeyUsage:
-              - ExtendedKeyUsageType: '{{ ExtendedKeyUsageType }}'
-                ExtendedKeyUsageObjectIdentifier: null
-            KeyUsage:
-              DigitalSignature: '{{ DigitalSignature }}'
-              NonRepudiation: '{{ NonRepudiation }}'
-              KeyEncipherment: '{{ KeyEncipherment }}'
-              DataEncipherment: '{{ DataEncipherment }}'
-              KeyAgreement: '{{ KeyAgreement }}'
-              KeyCertSign: '{{ KeyCertSign }}'
-              CRLSign: '{{ CRLSign }}'
-              EncipherOnly: '{{ EncipherOnly }}'
-              DecipherOnly: '{{ DecipherOnly }}'
-            SubjectAlternativeNames:
-              - OtherName:
-                  TypeId: null
-                  Value: '{{ Value }}'
-                Rfc822Name: '{{ Rfc822Name }}'
-                DnsName: '{{ DnsName }}'
-                DirectoryName:
-                  Country: '{{ Country }}'
-                  Organization: '{{ Organization }}'
-                  OrganizationalUnit: '{{ OrganizationalUnit }}'
-                  DistinguishedNameQualifier: '{{ DistinguishedNameQualifier }}'
-                  State: '{{ State }}'
-                  CommonName: '{{ CommonName }}'
-                  SerialNumber: '{{ SerialNumber }}'
-                  Locality: '{{ Locality }}'
-                  Title: '{{ Title }}'
-                  Surname: '{{ Surname }}'
-                  GivenName: '{{ GivenName }}'
-                  Initials: '{{ Initials }}'
-                  Pseudonym: '{{ Pseudonym }}'
-                  GenerationQualifier: '{{ GenerationQualifier }}'
-                  CustomAttributes:
-                    - ObjectIdentifier: null
-                      Value: '{{ Value }}'
-                EdiPartyName:
-                  PartyName: '{{ PartyName }}'
-                  NameAssigner: '{{ NameAssigner }}'
-                UniformResourceIdentifier: '{{ UniformResourceIdentifier }}'
-                IpAddress: '{{ IpAddress }}'
-                RegisteredId: null
-            CustomExtensions:
-              - Critical: '{{ Critical }}'
-                ObjectIdentifier: null
-                Value: '{{ Value }}'
-          Subject: null
-      - name: CertificateAuthorityArn
-        value: '{{ CertificateAuthorityArn }}'
-      - name: CertificateSigningRequest
-        value: '{{ CertificateSigningRequest }}'
-      - name: SigningAlgorithm
-        value: '{{ SigningAlgorithm }}'
-      - name: TemplateArn
+          extensions:
+            certificate_policies:
+              - cert_policy_id: '{{ cert_policy_id }}'
+                policy_qualifiers:
+                  - policy_qualifier_id: '{{ policy_qualifier_id }}'
+                    qualifier:
+                      cps_uri: '{{ cps_uri }}'
+            extended_key_usage:
+              - extended_key_usage_type: '{{ extended_key_usage_type }}'
+                extended_key_usage_object_identifier: null
+            key_usage:
+              digital_signature: '{{ digital_signature }}'
+              non_repudiation: '{{ non_repudiation }}'
+              key_encipherment: '{{ key_encipherment }}'
+              data_encipherment: '{{ data_encipherment }}'
+              key_agreement: '{{ key_agreement }}'
+              key_cert_sign: '{{ key_cert_sign }}'
+              c_rl_sign: '{{ c_rl_sign }}'
+              encipher_only: '{{ encipher_only }}'
+              decipher_only: '{{ decipher_only }}'
+            subject_alternative_names:
+              - other_name:
+                  type_id: null
+                  value: '{{ value }}'
+                rfc822_name: '{{ rfc822_name }}'
+                dns_name: '{{ dns_name }}'
+                directory_name:
+                  country: '{{ country }}'
+                  organization: '{{ organization }}'
+                  organizational_unit: '{{ organizational_unit }}'
+                  distinguished_name_qualifier: '{{ distinguished_name_qualifier }}'
+                  state: '{{ state }}'
+                  common_name: '{{ common_name }}'
+                  serial_number: '{{ serial_number }}'
+                  locality: '{{ locality }}'
+                  title: '{{ title }}'
+                  surname: '{{ surname }}'
+                  given_name: '{{ given_name }}'
+                  initials: '{{ initials }}'
+                  pseudonym: '{{ pseudonym }}'
+                  generation_qualifier: '{{ generation_qualifier }}'
+                  custom_attributes:
+                    - object_identifier: null
+                      value: '{{ value }}'
+                edi_party_name:
+                  party_name: '{{ party_name }}'
+                  name_assigner: '{{ name_assigner }}'
+                uniform_resource_identifier: '{{ uniform_resource_identifier }}'
+                ip_address: '{{ ip_address }}'
+                registered_id: null
+            custom_extensions:
+              - critical: '{{ critical }}'
+                object_identifier: null
+                value: '{{ value }}'
+          subject: null
+      - name: certificate_authority_arn
+        value: '{{ certificate_authority_arn }}'
+      - name: certificate_signing_request
+        value: '{{ certificate_signing_request }}'
+      - name: signing_algorithm
+        value: '{{ signing_algorithm }}'
+      - name: template_arn
         value: null
-      - name: Validity
+      - name: validity
         value:
-          Value: null
-          Type: '{{ Type }}'
-      - name: ValidityNotBefore
+          value: null
+          type: '{{ type }}'
+      - name: validity_not_before
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -541,7 +540,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificates
-WHERE Identifier = '<Arn|CertificateAuthorityArn>'
+WHERE Identifier = '{{ arn }}|{{ certificate_authority_arn }}'
 AND region = 'us-east-1';
 ```
 

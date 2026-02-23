@@ -139,7 +139,7 @@ region,
 channel_arn,
 managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations
-WHERE region = 'us-east-1' AND Identifier = '<ChannelArn>|<ManagedNotificationConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.notifications.managed_notification_additional_channel_associat
  ManagedNotificationConfigurationArn,
  region
 )
-SELECT 
-'{{ ChannelArn }}',
- '{{ ManagedNotificationConfigurationArn }}',
+SELECT
+'{{ channel_arn }}',
+ '{{ managed_notification_configuration_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.notifications.managed_notification_additional_channel_associat
  ManagedNotificationConfigurationArn,
  region
 )
-SELECT 
- '{{ ChannelArn }}',
- '{{ ManagedNotificationConfigurationArn }}',
+SELECT
+ '{{ channel_arn }}',
+ '{{ managed_notification_configuration_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: managed_notification_additional_channel_association
     props:
-      - name: ChannelArn
-        value: '{{ ChannelArn }}'
-      - name: ManagedNotificationConfigurationArn
-        value: '{{ ManagedNotificationConfigurationArn }}'
-
+      - name: channel_arn
+        value: '{{ channel_arn }}'
+      - name: managed_notification_configuration_arn
+        value: '{{ managed_notification_configuration_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.managed_notification_additional_channel_associations
-WHERE Identifier = '<ChannelArn|ManagedNotificationConfigurationArn>'
+WHERE Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

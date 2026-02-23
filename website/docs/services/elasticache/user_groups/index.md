@@ -176,7 +176,7 @@ user_ids,
 arn,
 tags
 FROM awscc.elasticache.user_groups
-WHERE region = 'us-east-1' AND Identifier = '<UserGroupId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.elasticache.user_groups (
  UserIds,
  region
 )
-SELECT 
-'{{ UserGroupId }}',
- '{{ Engine }}',
- '{{ UserIds }}',
+SELECT
+'{{ user_group_id }}',
+ '{{ engine }}',
+ '{{ user_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,11 +232,11 @@ INSERT INTO awscc.elasticache.user_groups (
  Tags,
  region
 )
-SELECT 
- '{{ UserGroupId }}',
- '{{ Engine }}',
- '{{ UserIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ user_group_id }}',
+ '{{ engine }}',
+ '{{ user_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,18 +254,17 @@ globals:
 resources:
   - name: user_group
     props:
-      - name: UserGroupId
-        value: '{{ UserGroupId }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: UserIds
+      - name: user_group_id
+        value: '{{ user_group_id }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: user_ids
         value:
-          - '{{ UserIds[0] }}'
-      - name: Tags
+          - '{{ user_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserGroupId>';
+AND Identifier = '{{ user_group_id }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<UserGroupId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.user_groups
-WHERE Identifier = '<UserGroupId>'
+WHERE Identifier = '{{ user_group_id }}'
 AND region = 'us-east-1';
 ```
 

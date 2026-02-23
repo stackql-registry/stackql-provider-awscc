@@ -353,7 +353,7 @@ access_policy_identity,
 access_policy_permission,
 access_policy_resource
 FROM awscc.iotsitewise.access_policies
-WHERE region = 'us-east-1' AND Identifier = '<AccessPolicyId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ access_policy_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,10 +391,10 @@ INSERT INTO awscc.iotsitewise.access_policies (
  AccessPolicyResource,
  region
 )
-SELECT 
-'{{ AccessPolicyIdentity }}',
- '{{ AccessPolicyPermission }}',
- '{{ AccessPolicyResource }}',
+SELECT
+'{{ access_policy_identity }}',
+ '{{ access_policy_permission }}',
+ '{{ access_policy_resource }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -408,10 +408,10 @@ INSERT INTO awscc.iotsitewise.access_policies (
  AccessPolicyResource,
  region
 )
-SELECT 
- '{{ AccessPolicyIdentity }}',
- '{{ AccessPolicyPermission }}',
- '{{ AccessPolicyResource }}',
+SELECT
+ '{{ access_policy_identity }}',
+ '{{ access_policy_permission }}',
+ '{{ access_policy_resource }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -429,42 +429,41 @@ globals:
 resources:
   - name: access_policy
     props:
-      - name: AccessPolicyIdentity
+      - name: access_policy_identity
         value:
-          User:
+          user:
             id: '{{ id }}'
-          IamUser:
+          iam_user:
             arn: '{{ arn }}'
-          IamRole:
+          iam_role:
             arn: '{{ arn }}'
-      - name: AccessPolicyPermission
-        value: '{{ AccessPolicyPermission }}'
-      - name: AccessPolicyResource
+      - name: access_policy_permission
+        value: '{{ access_policy_permission }}'
+      - name: access_policy_resource
         value:
-          Portal:
-            PortalAuthMode: '{{ PortalAuthMode }}'
-            PortalContactEmail: '{{ PortalContactEmail }}'
-            PortalDescription: '{{ PortalDescription }}'
-            PortalName: '{{ PortalName }}'
-            PortalType: '{{ PortalType }}'
-            PortalTypeConfiguration: {}
-            RoleArn: '{{ RoleArn }}'
-            NotificationSenderEmail: '{{ NotificationSenderEmail }}'
-            Alarms:
-              AlarmRoleArn: '{{ AlarmRoleArn }}'
-              NotificationLambdaArn: '{{ NotificationLambdaArn }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-          Project:
-            PortalId: '{{ PortalId }}'
-            ProjectName: '{{ ProjectName }}'
-            ProjectDescription: '{{ ProjectDescription }}'
-            AssetIds:
-              - '{{ AssetIds[0] }}'
-            Tags:
+          portal:
+            portal_auth_mode: '{{ portal_auth_mode }}'
+            portal_contact_email: '{{ portal_contact_email }}'
+            portal_description: '{{ portal_description }}'
+            portal_name: '{{ portal_name }}'
+            portal_type: '{{ portal_type }}'
+            portal_type_configuration: {}
+            role_arn: '{{ role_arn }}'
+            notification_sender_email: '{{ notification_sender_email }}'
+            alarms:
+              alarm_role_arn: '{{ alarm_role_arn }}'
+              notification_lambda_arn: '{{ notification_lambda_arn }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+          project:
+            portal_id: '{{ portal_id }}'
+            project_name: '{{ project_name }}'
+            project_description: '{{ project_description }}'
+            asset_ids:
+              - '{{ asset_ids[0] }}'
+            tags:
               - null
-
 ```
 </TabItem>
 </Tabs>
@@ -482,7 +481,7 @@ SET PatchDocument = string('{{ {
     "AccessPolicyResource": access_policy_resource
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccessPolicyId>';
+AND Identifier = '{{ access_policy_id }}';
 ```
 
 
@@ -491,7 +490,7 @@ AND Identifier = '<AccessPolicyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.access_policies
-WHERE Identifier = '<AccessPolicyId>'
+WHERE Identifier = '{{ access_policy_id }}'
 AND region = 'us-east-1';
 ```
 

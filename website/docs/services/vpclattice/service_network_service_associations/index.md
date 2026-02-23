@@ -236,7 +236,7 @@ service_name,
 status,
 tags
 FROM awscc.vpclattice.service_network_service_associations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,11 +275,11 @@ INSERT INTO awscc.vpclattice.service_network_service_associations (
  Tags,
  region
 )
-SELECT 
-'{{ DnsEntry }}',
- '{{ ServiceNetworkIdentifier }}',
- '{{ ServiceIdentifier }}',
- '{{ Tags }}',
+SELECT
+'{{ dns_entry }}',
+ '{{ service_network_identifier }}',
+ '{{ service_identifier }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,11 +294,11 @@ INSERT INTO awscc.vpclattice.service_network_service_associations (
  Tags,
  region
 )
-SELECT 
- '{{ DnsEntry }}',
- '{{ ServiceNetworkIdentifier }}',
- '{{ ServiceIdentifier }}',
- '{{ Tags }}',
+SELECT
+ '{{ dns_entry }}',
+ '{{ service_network_identifier }}',
+ '{{ service_identifier }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,19 +316,18 @@ globals:
 resources:
   - name: service_network_service_association
     props:
-      - name: DnsEntry
+      - name: dns_entry
         value:
-          DomainName: '{{ DomainName }}'
-          HostedZoneId: '{{ HostedZoneId }}'
-      - name: ServiceNetworkIdentifier
-        value: '{{ ServiceNetworkIdentifier }}'
-      - name: ServiceIdentifier
-        value: '{{ ServiceIdentifier }}'
-      - name: Tags
+          domain_name: '{{ domain_name }}'
+          hosted_zone_id: '{{ hosted_zone_id }}'
+      - name: service_network_identifier
+        value: '{{ service_network_identifier }}'
+      - name: service_identifier
+        value: '{{ service_identifier }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -344,7 +343,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -353,7 +352,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_network_service_associations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

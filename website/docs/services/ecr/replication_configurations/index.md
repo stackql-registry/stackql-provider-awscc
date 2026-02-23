@@ -147,7 +147,7 @@ region,
 replication_configuration,
 registry_id
 FROM awscc.ecr.replication_configurations
-WHERE region = 'us-east-1' AND Identifier = '<RegistryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,8 +183,8 @@ INSERT INTO awscc.ecr.replication_configurations (
  ReplicationConfiguration,
  region
 )
-SELECT 
-'{{ ReplicationConfiguration }}',
+SELECT
+'{{ replication_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,8 +196,8 @@ INSERT INTO awscc.ecr.replication_configurations (
  ReplicationConfiguration,
  region
 )
-SELECT 
- '{{ ReplicationConfiguration }}',
+SELECT
+ '{{ replication_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -215,10 +215,9 @@ globals:
 resources:
   - name: replication_configuration
     props:
-      - name: ReplicationConfiguration
+      - name: replication_configuration
         value:
-          ReplicationConfiguration: null
-
+          replication_configuration: null
 ```
 </TabItem>
 </Tabs>
@@ -234,7 +233,7 @@ SET PatchDocument = string('{{ {
     "ReplicationConfiguration": replication_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RegistryId>';
+AND Identifier = '{{ registry_id }}';
 ```
 
 
@@ -243,7 +242,7 @@ AND Identifier = '<RegistryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.replication_configurations
-WHERE Identifier = '<RegistryId>'
+WHERE Identifier = '{{ registry_id }}'
 AND region = 'us-east-1';
 ```
 

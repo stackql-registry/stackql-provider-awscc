@@ -207,7 +207,7 @@ routes,
 state,
 tags
 FROM awscc.medialive.networks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,9 +244,9 @@ INSERT INTO awscc.medialive.networks (
  Name,
  region
 )
-SELECT 
-'{{ IpPools }}',
- '{{ Name }}',
+SELECT
+'{{ ip_pools }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,11 +261,11 @@ INSERT INTO awscc.medialive.networks (
  Tags,
  region
 )
-SELECT 
- '{{ IpPools }}',
- '{{ Name }}',
- '{{ Routes }}',
- '{{ Tags }}',
+SELECT
+ '{{ ip_pools }}',
+ '{{ name }}',
+ '{{ routes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -283,20 +283,19 @@ globals:
 resources:
   - name: network
     props:
-      - name: IpPools
+      - name: ip_pools
         value:
-          - Cidr: '{{ Cidr }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Routes
+          - cidr: '{{ cidr }}'
+      - name: name
+        value: '{{ name }}'
+      - name: routes
         value:
-          - Cidr: '{{ Cidr }}'
-            Gateway: '{{ Gateway }}'
-      - name: Tags
+          - cidr: '{{ cidr }}'
+            gateway: '{{ gateway }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.networks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

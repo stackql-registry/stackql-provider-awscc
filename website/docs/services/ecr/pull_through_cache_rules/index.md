@@ -164,7 +164,7 @@ upstream_registry,
 custom_role_arn,
 upstream_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
-WHERE region = 'us-east-1' AND Identifier = '<EcrRepositoryPrefix>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ecr_repository_prefix }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -205,13 +205,13 @@ INSERT INTO awscc.ecr.pull_through_cache_rules (
  UpstreamRepositoryPrefix,
  region
 )
-SELECT 
-'{{ EcrRepositoryPrefix }}',
- '{{ UpstreamRegistryUrl }}',
- '{{ CredentialArn }}',
- '{{ UpstreamRegistry }}',
- '{{ CustomRoleArn }}',
- '{{ UpstreamRepositoryPrefix }}',
+SELECT
+'{{ ecr_repository_prefix }}',
+ '{{ upstream_registry_url }}',
+ '{{ credential_arn }}',
+ '{{ upstream_registry }}',
+ '{{ custom_role_arn }}',
+ '{{ upstream_repository_prefix }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,13 @@ INSERT INTO awscc.ecr.pull_through_cache_rules (
  UpstreamRepositoryPrefix,
  region
 )
-SELECT 
- '{{ EcrRepositoryPrefix }}',
- '{{ UpstreamRegistryUrl }}',
- '{{ CredentialArn }}',
- '{{ UpstreamRegistry }}',
- '{{ CustomRoleArn }}',
- '{{ UpstreamRepositoryPrefix }}',
+SELECT
+ '{{ ecr_repository_prefix }}',
+ '{{ upstream_registry_url }}',
+ '{{ credential_arn }}',
+ '{{ upstream_registry }}',
+ '{{ custom_role_arn }}',
+ '{{ upstream_repository_prefix }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,19 +252,18 @@ globals:
 resources:
   - name: pull_through_cache_rule
     props:
-      - name: EcrRepositoryPrefix
-        value: '{{ EcrRepositoryPrefix }}'
-      - name: UpstreamRegistryUrl
-        value: '{{ UpstreamRegistryUrl }}'
-      - name: CredentialArn
-        value: '{{ CredentialArn }}'
-      - name: UpstreamRegistry
-        value: '{{ UpstreamRegistry }}'
-      - name: CustomRoleArn
-        value: '{{ CustomRoleArn }}'
-      - name: UpstreamRepositoryPrefix
-        value: '{{ UpstreamRepositoryPrefix }}'
-
+      - name: ecr_repository_prefix
+        value: '{{ ecr_repository_prefix }}'
+      - name: upstream_registry_url
+        value: '{{ upstream_registry_url }}'
+      - name: credential_arn
+        value: '{{ credential_arn }}'
+      - name: upstream_registry
+        value: '{{ upstream_registry }}'
+      - name: custom_role_arn
+        value: '{{ custom_role_arn }}'
+      - name: upstream_repository_prefix
+        value: '{{ upstream_repository_prefix }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.pull_through_cache_rules
-WHERE Identifier = '<EcrRepositoryPrefix>'
+WHERE Identifier = '{{ ecr_repository_prefix }}'
 AND region = 'us-east-1';
 ```
 

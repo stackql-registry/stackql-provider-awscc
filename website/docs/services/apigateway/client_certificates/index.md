@@ -158,7 +158,7 @@ client_certificate_id,
 description,
 tags
 FROM awscc.apigateway.client_certificates
-WHERE region = 'us-east-1' AND Identifier = '<ClientCertificateId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ client_certificate_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.apigateway.client_certificates (
  Tags,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Tags }}',
+SELECT
+'{{ description }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.apigateway.client_certificates (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,12 @@ globals:
 resources:
   - name: client_certificate
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClientCertificateId>';
+AND Identifier = '{{ client_certificate_id }}';
 ```
 
 
@@ -262,7 +261,7 @@ AND Identifier = '<ClientCertificateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.client_certificates
-WHERE Identifier = '<ClientCertificateId>'
+WHERE Identifier = '{{ client_certificate_id }}'
 AND region = 'us-east-1';
 ```
 

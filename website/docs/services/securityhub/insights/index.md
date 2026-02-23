@@ -760,7 +760,7 @@ name,
 filters,
 group_by_attribute
 FROM awscc.securityhub.insights
-WHERE region = 'us-east-1' AND Identifier = '<InsightArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ insight_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -798,10 +798,10 @@ INSERT INTO awscc.securityhub.insights (
  GroupByAttribute,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Filters }}',
- '{{ GroupByAttribute }}',
+SELECT
+'{{ name }}',
+ '{{ filters }}',
+ '{{ group_by_attribute }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -815,10 +815,10 @@ INSERT INTO awscc.securityhub.insights (
  GroupByAttribute,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Filters }}',
- '{{ GroupByAttribute }}',
+SELECT
+ '{{ name }}',
+ '{{ filters }}',
+ '{{ group_by_attribute }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -836,230 +836,229 @@ globals:
 resources:
   - name: insight
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Filters
+      - name: name
+        value: '{{ name }}'
+      - name: filters
         value:
-          ProductArn:
-            - Comparison: '{{ Comparison }}'
-              Value: '{{ Value }}'
-          AwsAccountId:
+          product_arn:
+            - comparison: '{{ comparison }}'
+              value: '{{ value }}'
+          aws_account_id:
             - null
-          AwsAccountName:
+          aws_account_name:
             - null
-          Id:
+          id:
             - null
-          GeneratorId:
+          generator_id:
             - null
-          Type:
+          type:
             - null
-          Region:
+          region:
             - null
-          FirstObservedAt:
-            - DateRange:
-                Unit: '{{ Unit }}'
-                Value: null
-              End: '{{ End }}'
-              Start: null
-          LastObservedAt:
+          first_observed_at:
+            - date_range:
+                unit: '{{ unit }}'
+                value: null
+              end: '{{ end }}'
+              start: null
+          last_observed_at:
             - null
-          CreatedAt:
+          created_at:
             - null
-          UpdatedAt:
+          updated_at:
             - null
-          SeverityLabel:
+          severity_label:
             - null
-          Confidence:
-            - Eq: null
-              Gte: null
-              Lte: null
-          Criticality:
+          confidence:
+            - eq: null
+              gte: null
+              lte: null
+          criticality:
             - null
-          Title:
+          title:
             - null
-          Description:
+          description:
             - null
-          RecommendationText:
+          recommendation_text:
             - null
-          SourceUrl:
+          source_url:
             - null
-          ProductFields:
-            - Comparison: '{{ Comparison }}'
-              Key: null
-              Value: null
-          ProductName:
+          product_fields:
+            - comparison: '{{ comparison }}'
+              key: null
+              value: null
+          product_name:
             - null
-          CompanyName:
+          company_name:
             - null
-          UserDefinedFields:
+          user_defined_fields:
             - null
-          MalwareName:
+          malware_name:
             - null
-          MalwareType:
+          malware_type:
             - null
-          MalwarePath:
+          malware_path:
             - null
-          MalwareState:
+          malware_state:
             - null
-          NetworkDirection:
+          network_direction:
             - null
-          NetworkProtocol:
+          network_protocol:
             - null
-          NetworkSourceIpV4:
-            - Cidr: null
-          NetworkSourceIpV6:
+          network_source_ip_v4:
+            - cidr: null
+          network_source_ip_v6:
             - null
-          NetworkSourcePort:
+          network_source_port:
             - null
-          NetworkSourceDomain:
+          network_source_domain:
             - null
-          NetworkSourceMac:
+          network_source_mac:
             - null
-          NetworkDestinationIpV4:
+          network_destination_ip_v4:
             - null
-          NetworkDestinationIpV6:
+          network_destination_ip_v6:
             - null
-          NetworkDestinationPort:
+          network_destination_port:
             - null
-          NetworkDestinationDomain:
+          network_destination_domain:
             - null
-          ProcessName:
+          process_name:
             - null
-          ProcessPath:
+          process_path:
             - null
-          ProcessPid:
+          process_pid:
             - null
-          ProcessParentPid:
+          process_parent_pid:
             - null
-          ProcessLaunchedAt:
+          process_launched_at:
             - null
-          ProcessTerminatedAt:
+          process_terminated_at:
             - null
-          ThreatIntelIndicatorType:
+          threat_intel_indicator_type:
             - null
-          ThreatIntelIndicatorValue:
+          threat_intel_indicator_value:
             - null
-          ThreatIntelIndicatorCategory:
+          threat_intel_indicator_category:
             - null
-          ThreatIntelIndicatorLastObservedAt:
+          threat_intel_indicator_last_observed_at:
             - null
-          ThreatIntelIndicatorSource:
+          threat_intel_indicator_source:
             - null
-          ThreatIntelIndicatorSourceUrl:
+          threat_intel_indicator_source_url:
             - null
-          ResourceType:
+          resource_type:
             - null
-          ResourceId:
+          resource_id:
             - null
-          ResourcePartition:
+          resource_partition:
             - null
-          ResourceRegion:
+          resource_region:
             - null
-          ResourceTags:
+          resource_tags:
             - null
-          ResourceAwsEc2InstanceType:
+          resource_aws_ec2_instance_type:
             - null
-          ResourceAwsEc2InstanceImageId:
+          resource_aws_ec2_instance_image_id:
             - null
-          ResourceAwsEc2InstanceIpV4Addresses:
+          resource_aws_ec2_instance_ip_v4_addresses:
             - null
-          ResourceAwsEc2InstanceIpV6Addresses:
+          resource_aws_ec2_instance_ip_v6_addresses:
             - null
-          ResourceAwsEc2InstanceKeyName:
+          resource_aws_ec2_instance_key_name:
             - null
-          ResourceAwsEc2InstanceIamInstanceProfileArn:
+          resource_aws_ec2_instance_iam_instance_profile_arn:
             - null
-          ResourceAwsEc2InstanceVpcId:
+          resource_aws_ec2_instance_vpc_id:
             - null
-          ResourceAwsEc2InstanceSubnetId:
+          resource_aws_ec2_instance_subnet_id:
             - null
-          ResourceAwsEc2InstanceLaunchedAt:
+          resource_aws_ec2_instance_launched_at:
             - null
-          ResourceAwsS3BucketOwnerId:
+          resource_aws_s3_bucket_owner_id:
             - null
-          ResourceAwsS3BucketOwnerName:
+          resource_aws_s3_bucket_owner_name:
             - null
-          ResourceAwsIamAccessKeyStatus:
+          resource_aws_iam_access_key_status:
             - null
-          ResourceAwsIamAccessKeyCreatedAt:
+          resource_aws_iam_access_key_created_at:
             - null
-          ResourceContainerName:
+          resource_container_name:
             - null
-          ResourceContainerImageId:
+          resource_container_image_id:
             - null
-          ResourceContainerImageName:
+          resource_container_image_name:
             - null
-          ResourceContainerLaunchedAt:
+          resource_container_launched_at:
             - null
-          ResourceDetailsOther:
+          resource_details_other:
             - null
-          ComplianceStatus:
+          compliance_status:
             - null
-          VerificationState:
+          verification_state:
             - null
-          WorkflowState:
+          workflow_state:
             - null
-          WorkflowStatus:
+          workflow_status:
             - null
-          RecordState:
+          record_state:
             - null
-          RelatedFindingsProductArn:
+          related_findings_product_arn:
             - null
-          RelatedFindingsId:
+          related_findings_id:
             - null
-          ResourceApplicationArn:
+          resource_application_arn:
             - null
-          ResourceApplicationName:
+          resource_application_name:
             - null
-          NoteText:
+          note_text:
             - null
-          NoteUpdatedAt:
+          note_updated_at:
             - null
-          NoteUpdatedBy:
+          note_updated_by:
             - null
-          Sample:
-            - Value: '{{ Value }}'
-          ComplianceAssociatedStandardsId:
+          sample:
+            - value: '{{ value }}'
+          compliance_associated_standards_id:
             - null
-          ComplianceSecurityControlId:
+          compliance_security_control_id:
             - null
-          ComplianceSecurityControlParametersName:
+          compliance_security_control_parameters_name:
             - null
-          ComplianceSecurityControlParametersValue:
+          compliance_security_control_parameters_value:
             - null
-          FindingProviderFieldsConfidence:
+          finding_provider_fields_confidence:
             - null
-          FindingProviderFieldsCriticality:
+          finding_provider_fields_criticality:
             - null
-          FindingProviderFieldsRelatedFindingsId:
+          finding_provider_fields_related_findings_id:
             - null
-          FindingProviderFieldsRelatedFindingsProductArn:
+          finding_provider_fields_related_findings_product_arn:
             - null
-          FindingProviderFieldsSeverityLabel:
+          finding_provider_fields_severity_label:
             - null
-          FindingProviderFieldsSeverityOriginal:
+          finding_provider_fields_severity_original:
             - null
-          FindingProviderFieldsTypes:
+          finding_provider_fields_types:
             - null
-          ResourceAwsIamAccessKeyPrincipalName:
+          resource_aws_iam_access_key_principal_name:
             - null
-          ResourceAwsIamUserUserName:
+          resource_aws_iam_user_user_name:
             - null
-          VulnerabilitiesExploitAvailable:
+          vulnerabilities_exploit_available:
             - null
-          VulnerabilitiesFixAvailable:
+          vulnerabilities_fix_available:
             - null
-          Keyword:
-            - Value: null
-          ResourceAwsIamAccessKeyUserName:
+          keyword:
+            - value: null
+          resource_aws_iam_access_key_user_name:
             - null
-          SeverityNormalized:
+          severity_normalized:
             - null
-          SeverityProduct:
+          severity_product:
             - null
-      - name: GroupByAttribute
+      - name: group_by_attribute
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -1077,7 +1076,7 @@ SET PatchDocument = string('{{ {
     "GroupByAttribute": group_by_attribute
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InsightArn>';
+AND Identifier = '{{ insight_arn }}';
 ```
 
 
@@ -1086,7 +1085,7 @@ AND Identifier = '<InsightArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.insights
-WHERE Identifier = '<InsightArn>'
+WHERE Identifier = '{{ insight_arn }}'
 AND region = 'us-east-1';
 ```
 

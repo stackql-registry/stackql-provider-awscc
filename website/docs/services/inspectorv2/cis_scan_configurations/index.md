@@ -265,7 +265,7 @@ targets,
 arn,
 tags
 FROM awscc.inspectorv2.cis_scan_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,11 +304,11 @@ INSERT INTO awscc.inspectorv2.cis_scan_configurations (
  Targets,
  region
 )
-SELECT 
-'{{ ScanName }}',
- '{{ SecurityLevel }}',
- '{{ Schedule }}',
- '{{ Targets }}',
+SELECT
+'{{ scan_name }}',
+ '{{ security_level }}',
+ '{{ schedule }}',
+ '{{ targets }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -324,12 +324,12 @@ INSERT INTO awscc.inspectorv2.cis_scan_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ ScanName }}',
- '{{ SecurityLevel }}',
- '{{ Schedule }}',
- '{{ Targets }}',
- '{{ Tags }}',
+SELECT
+ '{{ scan_name }}',
+ '{{ security_level }}',
+ '{{ schedule }}',
+ '{{ targets }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -347,17 +347,16 @@ globals:
 resources:
   - name: cis_scan_configuration
     props:
-      - name: ScanName
-        value: '{{ ScanName }}'
-      - name: SecurityLevel
-        value: '{{ SecurityLevel }}'
-      - name: Schedule
+      - name: scan_name
+        value: '{{ scan_name }}'
+      - name: security_level
+        value: '{{ security_level }}'
+      - name: schedule
         value: null
-      - name: Targets
+      - name: targets
         value: null
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -377,7 +376,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -386,7 +385,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.cis_scan_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

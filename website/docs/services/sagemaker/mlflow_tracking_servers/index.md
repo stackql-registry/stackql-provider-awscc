@@ -194,7 +194,7 @@ automatic_model_registration,
 weekly_maintenance_window_start,
 tags
 FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE region = 'us-east-1' AND Identifier = '<TrackingServerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ tracking_server_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.sagemaker.mlflow_tracking_servers (
  ArtifactStoreUri,
  region
 )
-SELECT 
-'{{ TrackingServerName }}',
- '{{ RoleArn }}',
- '{{ ArtifactStoreUri }}',
+SELECT
+'{{ tracking_server_name }}',
+ '{{ role_arn }}',
+ '{{ artifact_store_uri }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,15 +254,15 @@ INSERT INTO awscc.sagemaker.mlflow_tracking_servers (
  Tags,
  region
 )
-SELECT 
- '{{ TrackingServerName }}',
- '{{ TrackingServerSize }}',
- '{{ MlflowVersion }}',
- '{{ RoleArn }}',
- '{{ ArtifactStoreUri }}',
- '{{ AutomaticModelRegistration }}',
- '{{ WeeklyMaintenanceWindowStart }}',
- '{{ Tags }}',
+SELECT
+ '{{ tracking_server_name }}',
+ '{{ tracking_server_size }}',
+ '{{ mlflow_version }}',
+ '{{ role_arn }}',
+ '{{ artifact_store_uri }}',
+ '{{ automatic_model_registration }}',
+ '{{ weekly_maintenance_window_start }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,25 +280,24 @@ globals:
 resources:
   - name: mlflow_tracking_server
     props:
-      - name: TrackingServerName
-        value: '{{ TrackingServerName }}'
-      - name: TrackingServerSize
-        value: '{{ TrackingServerSize }}'
-      - name: MlflowVersion
-        value: '{{ MlflowVersion }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: ArtifactStoreUri
-        value: '{{ ArtifactStoreUri }}'
-      - name: AutomaticModelRegistration
-        value: '{{ AutomaticModelRegistration }}'
-      - name: WeeklyMaintenanceWindowStart
-        value: '{{ WeeklyMaintenanceWindowStart }}'
-      - name: Tags
+      - name: tracking_server_name
+        value: '{{ tracking_server_name }}'
+      - name: tracking_server_size
+        value: '{{ tracking_server_size }}'
+      - name: mlflow_version
+        value: '{{ mlflow_version }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: artifact_store_uri
+        value: '{{ artifact_store_uri }}'
+      - name: automatic_model_registration
+        value: '{{ automatic_model_registration }}'
+      - name: weekly_maintenance_window_start
+        value: '{{ weekly_maintenance_window_start }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +319,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrackingServerName>';
+AND Identifier = '{{ tracking_server_name }}';
 ```
 
 
@@ -329,7 +328,7 @@ AND Identifier = '<TrackingServerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE Identifier = '<TrackingServerName>'
+WHERE Identifier = '{{ tracking_server_name }}'
 AND region = 'us-east-1';
 ```
 

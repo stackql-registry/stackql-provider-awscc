@@ -152,7 +152,7 @@ tags,
 type,
 index_state
 FROM awscc.resourceexplorer2.indices
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.resourceexplorer2.indices (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,9 @@ INSERT INTO awscc.resourceexplorer2.indices (
  Type,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,10 @@ globals:
 resources:
   - name: index
     props:
-      - name: Tags
+      - name: tags
         value: {}
-      - name: Type
-        value: '{{ Type }}'
-
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -243,7 +242,7 @@ SET PatchDocument = string('{{ {
     "Type": type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -252,7 +251,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.indices
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

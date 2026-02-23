@@ -184,7 +184,7 @@ sink_identifier,
 link_configuration,
 tags
 FROM awscc.oam.links
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,9 +221,9 @@ INSERT INTO awscc.oam.links (
  SinkIdentifier,
  region
 )
-SELECT 
-'{{ ResourceTypes }}',
- '{{ SinkIdentifier }}',
+SELECT
+'{{ resource_types }}',
+ '{{ sink_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,12 +239,12 @@ INSERT INTO awscc.oam.links (
  Tags,
  region
 )
-SELECT 
- '{{ LabelTemplate }}',
- '{{ ResourceTypes }}',
- '{{ SinkIdentifier }}',
- '{{ LinkConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ label_template }}',
+ '{{ resource_types }}',
+ '{{ sink_identifier }}',
+ '{{ link_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,21 +262,20 @@ globals:
 resources:
   - name: link
     props:
-      - name: LabelTemplate
-        value: '{{ LabelTemplate }}'
-      - name: ResourceTypes
+      - name: label_template
+        value: '{{ label_template }}'
+      - name: resource_types
         value:
-          - '{{ ResourceTypes[0] }}'
-      - name: SinkIdentifier
-        value: '{{ SinkIdentifier }}'
-      - name: LinkConfiguration
+          - '{{ resource_types[0] }}'
+      - name: sink_identifier
+        value: '{{ sink_identifier }}'
+      - name: link_configuration
         value:
-          MetricConfiguration:
-            Filter: '{{ Filter }}'
-          LogGroupConfiguration: null
-      - name: Tags
+          metric_configuration:
+            filter: '{{ filter }}'
+          log_group_configuration: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.oam.links
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -185,7 +185,7 @@ vpc_configs,
 client_authentication,
 tags
 FROM awscc.msk.serverless_clusters
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,10 +223,10 @@ INSERT INTO awscc.msk.serverless_clusters (
  ClientAuthentication,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ VpcConfigs }}',
- '{{ ClientAuthentication }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ vpc_configs }}',
+ '{{ client_authentication }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,11 +241,11 @@ INSERT INTO awscc.msk.serverless_clusters (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ VpcConfigs }}',
- '{{ ClientAuthentication }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ vpc_configs }}',
+ '{{ client_authentication }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,22 +263,21 @@ globals:
 resources:
   - name: serverless_cluster
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: VpcConfigs
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: vpc_configs
         value:
-          - SecurityGroups:
-              - '{{ SecurityGroups[0] }}'
-            SubnetIds:
-              - '{{ SubnetIds[0] }}'
-      - name: ClientAuthentication
+          - security_groups:
+              - '{{ security_groups[0] }}'
+            subnet_ids:
+              - '{{ subnet_ids[0] }}'
+      - name: client_authentication
         value:
-          Sasl:
-            Iam:
-              Enabled: '{{ Enabled }}'
-      - name: Tags
+          sasl:
+            iam:
+              enabled: '{{ enabled }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +288,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.serverless_clusters
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

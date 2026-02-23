@@ -152,7 +152,7 @@ publisher_status,
 publisher_profile,
 identity_provider
 FROM awscc.cloudformation.publishers
-WHERE region = 'us-east-1' AND Identifier = '<PublisherId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ publisher_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.cloudformation.publishers (
  AcceptTermsAndConditions,
  region
 )
-SELECT 
-'{{ AcceptTermsAndConditions }}',
+SELECT
+'{{ accept_terms_and_conditions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,9 @@ INSERT INTO awscc.cloudformation.publishers (
  ConnectionArn,
  region
 )
-SELECT 
- '{{ AcceptTermsAndConditions }}',
- '{{ ConnectionArn }}',
+SELECT
+ '{{ accept_terms_and_conditions }}',
+ '{{ connection_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,10 @@ globals:
 resources:
   - name: publisher
     props:
-      - name: AcceptTermsAndConditions
-        value: '{{ AcceptTermsAndConditions }}'
-      - name: ConnectionArn
-        value: '{{ ConnectionArn }}'
-
+      - name: accept_terms_and_conditions
+        value: '{{ accept_terms_and_conditions }}'
+      - name: connection_arn
+        value: '{{ connection_arn }}'
 ```
 </TabItem>
 </Tabs>

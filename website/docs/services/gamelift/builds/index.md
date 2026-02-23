@@ -210,7 +210,7 @@ server_sdk_version,
 tags,
 build_arn
 FROM awscc.gamelift.builds
-WHERE region = 'us-east-1' AND Identifier = '<BuildId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ build_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,7 +246,7 @@ INSERT INTO awscc.gamelift.builds (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -264,13 +264,13 @@ INSERT INTO awscc.gamelift.builds (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ OperatingSystem }}',
- '{{ StorageLocation }}',
- '{{ Version }}',
- '{{ ServerSdkVersion }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ operating_system }}',
+ '{{ storage_location }}',
+ '{{ version }}',
+ '{{ server_sdk_version }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -288,25 +288,24 @@ globals:
 resources:
   - name: build
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: OperatingSystem
-        value: '{{ OperatingSystem }}'
-      - name: StorageLocation
+      - name: name
+        value: '{{ name }}'
+      - name: operating_system
+        value: '{{ operating_system }}'
+      - name: storage_location
         value:
-          Bucket: '{{ Bucket }}'
-          Key: '{{ Key }}'
-          ObjectVersion: '{{ ObjectVersion }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: ServerSdkVersion
-        value: '{{ ServerSdkVersion }}'
-      - name: Tags
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+          object_version: '{{ object_version }}'
+          role_arn: '{{ role_arn }}'
+      - name: version
+        value: '{{ version }}'
+      - name: server_sdk_version
+        value: '{{ server_sdk_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BuildId>';
+AND Identifier = '{{ build_id }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<BuildId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.builds
-WHERE Identifier = '<BuildId>'
+WHERE Identifier = '{{ build_id }}'
 AND region = 'us-east-1';
 ```
 

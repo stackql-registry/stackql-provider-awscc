@@ -188,7 +188,7 @@ ntp_servers,
 ipv6_address_preferred_lease_time,
 tags
 FROM awscc.ec2.dhcp_options
-WHERE region = 'us-east-1' AND Identifier = '<DhcpOptionsId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dhcp_options_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,14 +230,14 @@ INSERT INTO awscc.ec2.dhcp_options (
  Tags,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ DomainNameServers }}',
- '{{ NetbiosNameServers }}',
- '{{ NetbiosNodeType }}',
- '{{ NtpServers }}',
- '{{ Ipv6AddressPreferredLeaseTime }}',
- '{{ Tags }}',
+SELECT
+'{{ domain_name }}',
+ '{{ domain_name_servers }}',
+ '{{ netbios_name_servers }}',
+ '{{ netbios_node_type }}',
+ '{{ ntp_servers }}',
+ '{{ ipv6_address_preferred_lease_time }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,14 +255,14 @@ INSERT INTO awscc.ec2.dhcp_options (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ DomainNameServers }}',
- '{{ NetbiosNameServers }}',
- '{{ NetbiosNodeType }}',
- '{{ NtpServers }}',
- '{{ Ipv6AddressPreferredLeaseTime }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ domain_name_servers }}',
+ '{{ netbios_name_servers }}',
+ '{{ netbios_node_type }}',
+ '{{ ntp_servers }}',
+ '{{ ipv6_address_preferred_lease_time }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,26 +280,25 @@ globals:
 resources:
   - name: dhcp_option
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: DomainNameServers
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: domain_name_servers
         value:
-          - '{{ DomainNameServers[0] }}'
-      - name: NetbiosNameServers
+          - '{{ domain_name_servers[0] }}'
+      - name: netbios_name_servers
         value:
-          - '{{ NetbiosNameServers[0] }}'
-      - name: NetbiosNodeType
-        value: '{{ NetbiosNodeType }}'
-      - name: NtpServers
+          - '{{ netbios_name_servers[0] }}'
+      - name: netbios_node_type
+        value: '{{ netbios_node_type }}'
+      - name: ntp_servers
         value:
-          - '{{ NtpServers[0] }}'
-      - name: Ipv6AddressPreferredLeaseTime
-        value: '{{ Ipv6AddressPreferredLeaseTime }}'
-      - name: Tags
+          - '{{ ntp_servers[0] }}'
+      - name: ipv6_address_preferred_lease_time
+        value: '{{ ipv6_address_preferred_lease_time }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DhcpOptionsId>';
+AND Identifier = '{{ dhcp_options_id }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<DhcpOptionsId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.dhcp_options
-WHERE Identifier = '<DhcpOptionsId>'
+WHERE Identifier = '{{ dhcp_options_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -157,7 +157,7 @@ description,
 stage_name,
 api_id
 FROM awscc.apigatewayv2.deployments
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<DeploymentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.apigatewayv2.deployments (
  ApiId,
  region
 )
-SELECT 
-'{{ ApiId }}',
+SELECT
+'{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -209,10 +209,10 @@ INSERT INTO awscc.apigatewayv2.deployments (
  ApiId,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ StageName }}',
- '{{ ApiId }}',
+SELECT
+ '{{ description }}',
+ '{{ stage_name }}',
+ '{{ api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,12 @@ globals:
 resources:
   - name: deployment
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: StageName
-        value: '{{ StageName }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: stage_name
+        value: '{{ stage_name }}'
+      - name: api_id
+        value: '{{ api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ SET PatchDocument = string('{{ {
     "StageName": stage_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>|<DeploymentId>';
+AND Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```
 
 
@@ -262,7 +261,7 @@ AND Identifier = '<ApiId>|<DeploymentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.deployments
-WHERE Identifier = '<ApiId|DeploymentId>'
+WHERE Identifier = '{{ api_id }}|{{ deployment_id }}'
 AND region = 'us-east-1';
 ```
 

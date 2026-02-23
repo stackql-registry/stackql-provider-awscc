@@ -272,7 +272,7 @@ document_version,
 association_id,
 automation_target_parameter_name
 FROM awscc.ssm.associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,8 +308,8 @@ INSERT INTO awscc.ssm.associations (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -337,24 +337,24 @@ INSERT INTO awscc.ssm.associations (
  AutomationTargetParameterName,
  region
 )
-SELECT 
- '{{ AssociationName }}',
- '{{ CalendarNames }}',
- '{{ ScheduleExpression }}',
- '{{ MaxErrors }}',
- '{{ Parameters }}',
- '{{ InstanceId }}',
- '{{ WaitForSuccessTimeoutSeconds }}',
- '{{ MaxConcurrency }}',
- '{{ ComplianceSeverity }}',
- '{{ Targets }}',
- '{{ SyncCompliance }}',
- '{{ OutputLocation }}',
- '{{ ScheduleOffset }}',
- '{{ Name }}',
- '{{ ApplyOnlyAtCronInterval }}',
- '{{ DocumentVersion }}',
- '{{ AutomationTargetParameterName }}',
+SELECT
+ '{{ association_name }}',
+ '{{ calendar_names }}',
+ '{{ schedule_expression }}',
+ '{{ max_errors }}',
+ '{{ parameters }}',
+ '{{ instance_id }}',
+ '{{ wait_for_success_timeout_seconds }}',
+ '{{ max_concurrency }}',
+ '{{ compliance_severity }}',
+ '{{ targets }}',
+ '{{ sync_compliance }}',
+ '{{ output_location }}',
+ '{{ schedule_offset }}',
+ '{{ name }}',
+ '{{ apply_only_at_cron_interval }}',
+ '{{ document_version }}',
+ '{{ automation_target_parameter_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -372,49 +372,48 @@ globals:
 resources:
   - name: association
     props:
-      - name: AssociationName
-        value: '{{ AssociationName }}'
-      - name: CalendarNames
+      - name: association_name
+        value: '{{ association_name }}'
+      - name: calendar_names
         value:
-          - '{{ CalendarNames[0] }}'
-      - name: ScheduleExpression
-        value: '{{ ScheduleExpression }}'
-      - name: MaxErrors
-        value: '{{ MaxErrors }}'
-      - name: Parameters
+          - '{{ calendar_names[0] }}'
+      - name: schedule_expression
+        value: '{{ schedule_expression }}'
+      - name: max_errors
+        value: '{{ max_errors }}'
+      - name: parameters
         value: {}
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: WaitForSuccessTimeoutSeconds
-        value: '{{ WaitForSuccessTimeoutSeconds }}'
-      - name: MaxConcurrency
-        value: '{{ MaxConcurrency }}'
-      - name: ComplianceSeverity
-        value: '{{ ComplianceSeverity }}'
-      - name: Targets
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: wait_for_success_timeout_seconds
+        value: '{{ wait_for_success_timeout_seconds }}'
+      - name: max_concurrency
+        value: '{{ max_concurrency }}'
+      - name: compliance_severity
+        value: '{{ compliance_severity }}'
+      - name: targets
         value:
-          - Values:
-              - '{{ Values[0] }}'
-            Key: '{{ Key }}'
-      - name: SyncCompliance
-        value: '{{ SyncCompliance }}'
-      - name: OutputLocation
+          - values:
+              - '{{ values[0] }}'
+            key: '{{ key }}'
+      - name: sync_compliance
+        value: '{{ sync_compliance }}'
+      - name: output_location
         value:
-          S3Location:
-            OutputS3KeyPrefix: '{{ OutputS3KeyPrefix }}'
-            OutputS3Region: '{{ OutputS3Region }}'
-            OutputS3BucketName: '{{ OutputS3BucketName }}'
-      - name: ScheduleOffset
-        value: '{{ ScheduleOffset }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ApplyOnlyAtCronInterval
-        value: '{{ ApplyOnlyAtCronInterval }}'
-      - name: DocumentVersion
-        value: '{{ DocumentVersion }}'
-      - name: AutomationTargetParameterName
-        value: '{{ AutomationTargetParameterName }}'
-
+          s3_location:
+            output_s3_key_prefix: '{{ output_s3_key_prefix }}'
+            output_s3_region: '{{ output_s3_region }}'
+            output_s3_bucket_name: '{{ output_s3_bucket_name }}'
+      - name: schedule_offset
+        value: '{{ schedule_offset }}'
+      - name: name
+        value: '{{ name }}'
+      - name: apply_only_at_cron_interval
+        value: '{{ apply_only_at_cron_interval }}'
+      - name: document_version
+        value: '{{ document_version }}'
+      - name: automation_target_parameter_name
+        value: '{{ automation_target_parameter_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -446,7 +445,7 @@ SET PatchDocument = string('{{ {
     "AutomationTargetParameterName": automation_target_parameter_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociationId>';
+AND Identifier = '{{ association_id }}';
 ```
 
 
@@ -455,7 +454,7 @@ AND Identifier = '<AssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.associations
-WHERE Identifier = '<AssociationId>'
+WHERE Identifier = '{{ association_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -180,7 +180,7 @@ zonal_autoshift_status,
 practice_run_configuration,
 resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configurations
-WHERE region = 'us-east-1' AND Identifier = '<ResourceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,10 +218,10 @@ INSERT INTO awscc.arczonalshift.zonal_autoshift_configurations (
  ResourceIdentifier,
  region
 )
-SELECT 
-'{{ ZonalAutoshiftStatus }}',
- '{{ PracticeRunConfiguration }}',
- '{{ ResourceIdentifier }}',
+SELECT
+'{{ zonal_autoshift_status }}',
+ '{{ practice_run_configuration }}',
+ '{{ resource_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,10 +235,10 @@ INSERT INTO awscc.arczonalshift.zonal_autoshift_configurations (
  ResourceIdentifier,
  region
 )
-SELECT 
- '{{ ZonalAutoshiftStatus }}',
- '{{ PracticeRunConfiguration }}',
- '{{ ResourceIdentifier }}',
+SELECT
+ '{{ zonal_autoshift_status }}',
+ '{{ practice_run_configuration }}',
+ '{{ resource_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,22 +256,21 @@ globals:
 resources:
   - name: zonal_autoshift_configuration
     props:
-      - name: ZonalAutoshiftStatus
-        value: '{{ ZonalAutoshiftStatus }}'
-      - name: PracticeRunConfiguration
+      - name: zonal_autoshift_status
+        value: '{{ zonal_autoshift_status }}'
+      - name: practice_run_configuration
         value:
-          BlockingAlarms:
-            - Type: '{{ Type }}'
-              AlarmIdentifier: '{{ AlarmIdentifier }}'
-          OutcomeAlarms:
+          blocking_alarms:
+            - type: '{{ type }}'
+              alarm_identifier: '{{ alarm_identifier }}'
+          outcome_alarms:
             - null
-          BlockedDates:
-            - '{{ BlockedDates[0] }}'
-          BlockedWindows:
-            - '{{ BlockedWindows[0] }}'
-      - name: ResourceIdentifier
-        value: '{{ ResourceIdentifier }}'
-
+          blocked_dates:
+            - '{{ blocked_dates[0] }}'
+          blocked_windows:
+            - '{{ blocked_windows[0] }}'
+      - name: resource_identifier
+        value: '{{ resource_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "PracticeRunConfiguration": practice_run_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceIdentifier>';
+AND Identifier = '{{ resource_identifier }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<ResourceIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.arczonalshift.zonal_autoshift_configurations
-WHERE Identifier = '<ResourceIdentifier>'
+WHERE Identifier = '{{ resource_identifier }}'
 AND region = 'us-east-1';
 ```
 

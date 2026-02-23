@@ -243,7 +243,7 @@ target_arn,
 rules,
 tags
 FROM awscc.databrew.rulesets
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -281,10 +281,10 @@ INSERT INTO awscc.databrew.rulesets (
  Rules,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ TargetArn }}',
- '{{ Rules }}',
+SELECT
+'{{ name }}',
+ '{{ target_arn }}',
+ '{{ rules }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -300,12 +300,12 @@ INSERT INTO awscc.databrew.rulesets (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ TargetArn }}',
- '{{ Rules }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ target_arn }}',
+ '{{ rules }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -323,32 +323,31 @@ globals:
 resources:
   - name: ruleset
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: TargetArn
-        value: '{{ TargetArn }}'
-      - name: Rules
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: target_arn
+        value: '{{ target_arn }}'
+      - name: rules
         value:
-          - Name: '{{ Name }}'
-            Disabled: '{{ Disabled }}'
-            CheckExpression: '{{ CheckExpression }}'
-            SubstitutionMap:
-              - ValueReference: '{{ ValueReference }}'
-                Value: '{{ Value }}'
-            Threshold:
-              Value: null
-              Type: '{{ Type }}'
-              Unit: '{{ Unit }}'
-            ColumnSelectors:
-              - Regex: '{{ Regex }}'
-                Name: '{{ Name }}'
-      - name: Tags
+          - name: '{{ name }}'
+            disabled: '{{ disabled }}'
+            check_expression: '{{ check_expression }}'
+            substitution_map:
+              - value_reference: '{{ value_reference }}'
+                value: '{{ value }}'
+            threshold:
+              value: null
+              type: '{{ type }}'
+              unit: '{{ unit }}'
+            column_selectors:
+              - regex: '{{ regex }}'
+                name: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.rulesets
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -146,7 +146,7 @@ policy,
 cluster_arn,
 current_version
 FROM awscc.msk.cluster_policies
-WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.msk.cluster_policies (
  ClusterArn,
  region
 )
-SELECT 
-'{{ Policy }}',
- '{{ ClusterArn }}',
+SELECT
+'{{ policy }}',
+ '{{ cluster_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -198,9 +198,9 @@ INSERT INTO awscc.msk.cluster_policies (
  ClusterArn,
  region
 )
-SELECT 
- '{{ Policy }}',
- '{{ ClusterArn }}',
+SELECT
+ '{{ policy }}',
+ '{{ cluster_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,10 @@ globals:
 resources:
   - name: cluster_policy
     props:
-      - name: Policy
+      - name: policy
         value: {}
-      - name: ClusterArn
-        value: '{{ ClusterArn }}'
-
+      - name: cluster_arn
+        value: '{{ cluster_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -238,7 +237,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterArn>';
+AND Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -247,7 +246,7 @@ AND Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.cluster_policies
-WHERE Identifier = '<ClusterArn>'
+WHERE Identifier = '{{ cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

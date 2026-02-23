@@ -211,7 +211,7 @@ threshold_expression,
 frequency,
 resource_tags
 FROM awscc.ce.anomaly_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<SubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,11 +250,11 @@ INSERT INTO awscc.ce.anomaly_subscriptions (
  Frequency,
  region
 )
-SELECT 
-'{{ SubscriptionName }}',
- '{{ MonitorArnList }}',
- '{{ Subscribers }}',
- '{{ Frequency }}',
+SELECT
+'{{ subscription_name }}',
+ '{{ monitor_arn_list }}',
+ '{{ subscribers }}',
+ '{{ frequency }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,14 +272,14 @@ INSERT INTO awscc.ce.anomaly_subscriptions (
  ResourceTags,
  region
 )
-SELECT 
- '{{ SubscriptionName }}',
- '{{ MonitorArnList }}',
- '{{ Subscribers }}',
- '{{ Threshold }}',
- '{{ ThresholdExpression }}',
- '{{ Frequency }}',
- '{{ ResourceTags }}',
+SELECT
+ '{{ subscription_name }}',
+ '{{ monitor_arn_list }}',
+ '{{ subscribers }}',
+ '{{ threshold }}',
+ '{{ threshold_expression }}',
+ '{{ frequency }}',
+ '{{ resource_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,27 +297,26 @@ globals:
 resources:
   - name: anomaly_subscription
     props:
-      - name: SubscriptionName
-        value: '{{ SubscriptionName }}'
-      - name: MonitorArnList
+      - name: subscription_name
+        value: '{{ subscription_name }}'
+      - name: monitor_arn_list
         value:
-          - '{{ MonitorArnList[0] }}'
-      - name: Subscribers
+          - '{{ monitor_arn_list[0] }}'
+      - name: subscribers
         value:
-          - Address: '{{ Address }}'
-            Status: '{{ Status }}'
-            Type: '{{ Type }}'
-      - name: Threshold
+          - address: '{{ address }}'
+            status: '{{ status }}'
+            type: '{{ type }}'
+      - name: threshold
         value: null
-      - name: ThresholdExpression
-        value: '{{ ThresholdExpression }}'
-      - name: Frequency
-        value: '{{ Frequency }}'
-      - name: ResourceTags
+      - name: threshold_expression
+        value: '{{ threshold_expression }}'
+      - name: frequency
+        value: '{{ frequency }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +336,7 @@ SET PatchDocument = string('{{ {
     "Frequency": frequency
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubscriptionArn>';
+AND Identifier = '{{ subscription_arn }}';
 ```
 
 
@@ -346,7 +345,7 @@ AND Identifier = '<SubscriptionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_subscriptions
-WHERE Identifier = '<SubscriptionArn>'
+WHERE Identifier = '{{ subscription_arn }}'
 AND region = 'us-east-1';
 ```
 

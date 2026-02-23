@@ -188,7 +188,7 @@ manifest,
 landing_zone_identifier,
 tags
 FROM awscc.controltower.landing_zones
-WHERE region = 'us-east-1' AND Identifier = '<LandingZoneIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ landing_zone_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.controltower.landing_zones (
  Manifest,
  region
 )
-SELECT 
-'{{ Version }}',
- '{{ Manifest }}',
+SELECT
+'{{ version }}',
+ '{{ manifest }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,10 +241,10 @@ INSERT INTO awscc.controltower.landing_zones (
  Tags,
  region
 )
-SELECT 
- '{{ Version }}',
- '{{ Manifest }}',
- '{{ Tags }}',
+SELECT
+ '{{ version }}',
+ '{{ manifest }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,15 +262,14 @@ globals:
 resources:
   - name: landing_zone
     props:
-      - name: Version
-        value: '{{ Version }}'
-      - name: Manifest
+      - name: version
+        value: '{{ version }}'
+      - name: manifest
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LandingZoneIdentifier>';
+AND Identifier = '{{ landing_zone_identifier }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<LandingZoneIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.landing_zones
-WHERE Identifier = '<LandingZoneIdentifier>'
+WHERE Identifier = '{{ landing_zone_identifier }}'
 AND region = 'us-east-1';
 ```
 

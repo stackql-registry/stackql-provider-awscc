@@ -200,7 +200,7 @@ dual_stack_dns_name,
 accelerator_arn,
 tags
 FROM awscc.globalaccelerator.accelerators
-WHERE Identifier = '<AcceleratorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ accelerator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -211,7 +211,7 @@ SELECT
 region,
 accelerator_arn
 FROM awscc.globalaccelerator.accelerators_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -236,8 +236,8 @@ INSERT INTO awscc.globalaccelerator.accelerators (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,12 +253,12 @@ INSERT INTO awscc.globalaccelerator.accelerators (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ IpAddressType }}',
- '{{ IpAddresses }}',
- '{{ Enabled }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ ip_address_type }}',
+ '{{ ip_addresses }}',
+ '{{ enabled }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,20 +276,19 @@ globals:
 resources:
   - name: accelerator
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: IpAddresses
+      - name: name
+        value: '{{ name }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: ip_addresses
         value:
-          - '{{ IpAddresses[0] }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Tags
+          - '{{ ip_addresses[0] }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AcceleratorArn>';
+AND Identifier = '{{ accelerator_arn }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<AcceleratorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.accelerators
-WHERE Identifier = '<AcceleratorArn>'
+WHERE Identifier = '{{ accelerator_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -551,7 +551,7 @@ table_class,
 tags,
 time_to_live_specification
 FROM awscc.dynamodb.tables
-WHERE region = 'us-east-1' AND Identifier = '<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -587,8 +587,8 @@ INSERT INTO awscc.dynamodb.tables (
  KeySchema,
  region
 )
-SELECT 
-'{{ KeySchema }}',
+SELECT
+'{{ key_schema }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -619,27 +619,27 @@ INSERT INTO awscc.dynamodb.tables (
  TimeToLiveSpecification,
  region
 )
-SELECT 
- '{{ OnDemandThroughput }}',
- '{{ SSESpecification }}',
- '{{ KinesisStreamSpecification }}',
- '{{ StreamSpecification }}',
- '{{ ContributorInsightsSpecification }}',
- '{{ ImportSourceSpecification }}',
- '{{ PointInTimeRecoverySpecification }}',
- '{{ ProvisionedThroughput }}',
- '{{ WarmThroughput }}',
- '{{ TableName }}',
- '{{ AttributeDefinitions }}',
- '{{ BillingMode }}',
- '{{ GlobalSecondaryIndexes }}',
- '{{ ResourcePolicy }}',
- '{{ KeySchema }}',
- '{{ LocalSecondaryIndexes }}',
- '{{ DeletionProtectionEnabled }}',
- '{{ TableClass }}',
- '{{ Tags }}',
- '{{ TimeToLiveSpecification }}',
+SELECT
+ '{{ on_demand_throughput }}',
+ '{{ sse_specification }}',
+ '{{ kinesis_stream_specification }}',
+ '{{ stream_specification }}',
+ '{{ contributor_insights_specification }}',
+ '{{ import_source_specification }}',
+ '{{ point_in_time_recovery_specification }}',
+ '{{ provisioned_throughput }}',
+ '{{ warm_throughput }}',
+ '{{ table_name }}',
+ '{{ attribute_definitions }}',
+ '{{ billing_mode }}',
+ '{{ global_secondary_indexes }}',
+ '{{ resource_policy }}',
+ '{{ key_schema }}',
+ '{{ local_secondary_indexes }}',
+ '{{ deletion_protection_enabled }}',
+ '{{ table_class }}',
+ '{{ tags }}',
+ '{{ time_to_live_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -657,98 +657,97 @@ globals:
 resources:
   - name: table
     props:
-      - name: OnDemandThroughput
+      - name: on_demand_throughput
         value:
-          MaxReadRequestUnits: '{{ MaxReadRequestUnits }}'
-          MaxWriteRequestUnits: '{{ MaxWriteRequestUnits }}'
-      - name: SSESpecification
+          max_read_request_units: '{{ max_read_request_units }}'
+          max_write_request_units: '{{ max_write_request_units }}'
+      - name: sse_specification
         value:
-          SSEEnabled: '{{ SSEEnabled }}'
-          SSEType: '{{ SSEType }}'
-          KMSMasterKeyId: '{{ KMSMasterKeyId }}'
-      - name: KinesisStreamSpecification
+          sse_enabled: '{{ sse_enabled }}'
+          sse_type: '{{ sse_type }}'
+          kms_master_key_id: '{{ kms_master_key_id }}'
+      - name: kinesis_stream_specification
         value:
-          ApproximateCreationDateTimePrecision: '{{ ApproximateCreationDateTimePrecision }}'
-          StreamArn: '{{ StreamArn }}'
-      - name: StreamSpecification
+          approximate_creation_date_time_precision: '{{ approximate_creation_date_time_precision }}'
+          stream_arn: '{{ stream_arn }}'
+      - name: stream_specification
         value:
-          StreamViewType: '{{ StreamViewType }}'
-          ResourcePolicy:
-            PolicyDocument: {}
-      - name: ContributorInsightsSpecification
+          stream_view_type: '{{ stream_view_type }}'
+          resource_policy:
+            policy_document: {}
+      - name: contributor_insights_specification
         value:
-          Mode: '{{ Mode }}'
-          Enabled: '{{ Enabled }}'
-      - name: ImportSourceSpecification
+          mode: '{{ mode }}'
+          enabled: '{{ enabled }}'
+      - name: import_source_specification
         value:
-          S3BucketSource:
-            S3Bucket: '{{ S3Bucket }}'
-            S3KeyPrefix: '{{ S3KeyPrefix }}'
-            S3BucketOwner: '{{ S3BucketOwner }}'
-          InputFormat: '{{ InputFormat }}'
-          InputFormatOptions:
-            Csv:
-              Delimiter: '{{ Delimiter }}'
-              HeaderList:
-                - '{{ HeaderList[0] }}'
-          InputCompressionType: '{{ InputCompressionType }}'
-      - name: PointInTimeRecoverySpecification
+          s3_bucket_source:
+            s3_bucket: '{{ s3_bucket }}'
+            s3_key_prefix: '{{ s3_key_prefix }}'
+            s3_bucket_owner: '{{ s3_bucket_owner }}'
+          input_format: '{{ input_format }}'
+          input_format_options:
+            csv:
+              delimiter: '{{ delimiter }}'
+              header_list:
+                - '{{ header_list[0] }}'
+          input_compression_type: '{{ input_compression_type }}'
+      - name: point_in_time_recovery_specification
         value:
-          PointInTimeRecoveryEnabled: '{{ PointInTimeRecoveryEnabled }}'
-          RecoveryPeriodInDays: '{{ RecoveryPeriodInDays }}'
-      - name: ProvisionedThroughput
+          point_in_time_recovery_enabled: '{{ point_in_time_recovery_enabled }}'
+          recovery_period_in_days: '{{ recovery_period_in_days }}'
+      - name: provisioned_throughput
         value:
-          WriteCapacityUnits: '{{ WriteCapacityUnits }}'
-          ReadCapacityUnits: '{{ ReadCapacityUnits }}'
-      - name: WarmThroughput
+          write_capacity_units: '{{ write_capacity_units }}'
+          read_capacity_units: '{{ read_capacity_units }}'
+      - name: warm_throughput
         value:
-          ReadUnitsPerSecond: '{{ ReadUnitsPerSecond }}'
-          WriteUnitsPerSecond: '{{ WriteUnitsPerSecond }}'
-      - name: TableName
-        value: '{{ TableName }}'
-      - name: AttributeDefinitions
+          read_units_per_second: '{{ read_units_per_second }}'
+          write_units_per_second: '{{ write_units_per_second }}'
+      - name: table_name
+        value: '{{ table_name }}'
+      - name: attribute_definitions
         value:
-          - AttributeType: '{{ AttributeType }}'
-            AttributeName: '{{ AttributeName }}'
-      - name: BillingMode
-        value: '{{ BillingMode }}'
-      - name: GlobalSecondaryIndexes
+          - attribute_type: '{{ attribute_type }}'
+            attribute_name: '{{ attribute_name }}'
+      - name: billing_mode
+        value: '{{ billing_mode }}'
+      - name: global_secondary_indexes
         value:
-          - IndexName: '{{ IndexName }}'
-            OnDemandThroughput: null
-            ContributorInsightsSpecification: null
-            Projection:
-              NonKeyAttributes:
-                - '{{ NonKeyAttributes[0] }}'
-              ProjectionType: '{{ ProjectionType }}'
-            ProvisionedThroughput: null
-            KeySchema:
-              - KeyType: '{{ KeyType }}'
-                AttributeName: '{{ AttributeName }}'
-            WarmThroughput: null
-      - name: ResourcePolicy
+          - index_name: '{{ index_name }}'
+            on_demand_throughput: null
+            contributor_insights_specification: null
+            projection:
+              non_key_attributes:
+                - '{{ non_key_attributes[0] }}'
+              projection_type: '{{ projection_type }}'
+            provisioned_throughput: null
+            key_schema:
+              - key_type: '{{ key_type }}'
+                attribute_name: '{{ attribute_name }}'
+            warm_throughput: null
+      - name: resource_policy
         value: null
-      - name: KeySchema
+      - name: key_schema
         value: null
-      - name: LocalSecondaryIndexes
+      - name: local_secondary_indexes
         value:
-          - IndexName: '{{ IndexName }}'
-            Projection: null
-            KeySchema:
+          - index_name: '{{ index_name }}'
+            projection: null
+            key_schema:
               - null
-      - name: DeletionProtectionEnabled
-        value: '{{ DeletionProtectionEnabled }}'
-      - name: TableClass
-        value: '{{ TableClass }}'
-      - name: Tags
+      - name: deletion_protection_enabled
+        value: '{{ deletion_protection_enabled }}'
+      - name: table_class
+        value: '{{ table_class }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: TimeToLiveSpecification
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: time_to_live_specification
         value:
-          Enabled: '{{ Enabled }}'
-          AttributeName: '{{ AttributeName }}'
-
+          enabled: '{{ enabled }}'
+          attribute_name: '{{ attribute_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -781,7 +780,7 @@ SET PatchDocument = string('{{ {
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TableName>';
+AND Identifier = '{{ table_name }}';
 ```
 
 
@@ -790,7 +789,7 @@ AND Identifier = '<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.tables
-WHERE Identifier = '<TableName>'
+WHERE Identifier = '{{ table_name }}'
 AND region = 'us-east-1';
 ```
 

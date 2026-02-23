@@ -212,7 +212,7 @@ vpc_id,
 vpc_identifier,
 tags
 FROM awscc.vpclattice.service_network_vpc_associations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,11 +251,11 @@ INSERT INTO awscc.vpclattice.service_network_vpc_associations (
  Tags,
  region
 )
-SELECT 
-'{{ SecurityGroupIds }}',
- '{{ ServiceNetworkIdentifier }}',
- '{{ VpcIdentifier }}',
- '{{ Tags }}',
+SELECT
+'{{ security_group_ids }}',
+ '{{ service_network_identifier }}',
+ '{{ vpc_identifier }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -270,11 +270,11 @@ INSERT INTO awscc.vpclattice.service_network_vpc_associations (
  Tags,
  region
 )
-SELECT 
- '{{ SecurityGroupIds }}',
- '{{ ServiceNetworkIdentifier }}',
- '{{ VpcIdentifier }}',
- '{{ Tags }}',
+SELECT
+ '{{ security_group_ids }}',
+ '{{ service_network_identifier }}',
+ '{{ vpc_identifier }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,18 +292,17 @@ globals:
 resources:
   - name: service_network_vpc_association
     props:
-      - name: SecurityGroupIds
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: ServiceNetworkIdentifier
-        value: '{{ ServiceNetworkIdentifier }}'
-      - name: VpcIdentifier
-        value: '{{ VpcIdentifier }}'
-      - name: Tags
+          - '{{ security_group_ids[0] }}'
+      - name: service_network_identifier
+        value: '{{ service_network_identifier }}'
+      - name: vpc_identifier
+        value: '{{ vpc_identifier }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +319,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -329,7 +328,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_network_vpc_associations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

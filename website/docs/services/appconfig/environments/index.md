@@ -199,7 +199,7 @@ application_id,
 tags,
 name
 FROM awscc.appconfig.environments
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<EnvironmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.appconfig.environments (
  Name,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ Name }}',
+SELECT
+'{{ application_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -256,13 +256,13 @@ INSERT INTO awscc.appconfig.environments (
  Name,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Monitors }}',
- '{{ DeletionProtectionCheck }}',
- '{{ ApplicationId }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ description }}',
+ '{{ monitors }}',
+ '{{ deletion_protection_check }}',
+ '{{ application_id }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,23 +280,22 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Monitors
+      - name: description
+        value: '{{ description }}'
+      - name: monitors
         value:
-          - AlarmArn: '{{ AlarmArn }}'
-            AlarmRoleArn: '{{ AlarmRoleArn }}'
-      - name: DeletionProtectionCheck
-        value: '{{ DeletionProtectionCheck }}'
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: Tags
+          - alarm_arn: '{{ alarm_arn }}'
+            alarm_role_arn: '{{ alarm_role_arn }}'
+      - name: deletion_protection_check
+        value: '{{ deletion_protection_check }}'
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<EnvironmentId>';
+AND Identifier = '{{ application_id }}|{{ environment_id }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<ApplicationId>|<EnvironmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.environments
-WHERE Identifier = '<ApplicationId|EnvironmentId>'
+WHERE Identifier = '{{ application_id }}|{{ environment_id }}'
 AND region = 'us-east-1';
 ```
 

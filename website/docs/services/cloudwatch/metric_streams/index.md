@@ -254,7 +254,7 @@ statistics_configurations,
 tags,
 include_linked_accounts_metrics
 FROM awscc.cloudwatch.metric_streams
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -298,16 +298,16 @@ INSERT INTO awscc.cloudwatch.metric_streams (
  IncludeLinkedAccountsMetrics,
  region
 )
-SELECT 
-'{{ ExcludeFilters }}',
- '{{ FirehoseArn }}',
- '{{ IncludeFilters }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ OutputFormat }}',
- '{{ StatisticsConfigurations }}',
- '{{ Tags }}',
- '{{ IncludeLinkedAccountsMetrics }}',
+SELECT
+'{{ exclude_filters }}',
+ '{{ firehose_arn }}',
+ '{{ include_filters }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ output_format }}',
+ '{{ statistics_configurations }}',
+ '{{ tags }}',
+ '{{ include_linked_accounts_metrics }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -327,16 +327,16 @@ INSERT INTO awscc.cloudwatch.metric_streams (
  IncludeLinkedAccountsMetrics,
  region
 )
-SELECT 
- '{{ ExcludeFilters }}',
- '{{ FirehoseArn }}',
- '{{ IncludeFilters }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ OutputFormat }}',
- '{{ StatisticsConfigurations }}',
- '{{ Tags }}',
- '{{ IncludeLinkedAccountsMetrics }}',
+SELECT
+ '{{ exclude_filters }}',
+ '{{ firehose_arn }}',
+ '{{ include_filters }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ output_format }}',
+ '{{ statistics_configurations }}',
+ '{{ tags }}',
+ '{{ include_linked_accounts_metrics }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -354,36 +354,35 @@ globals:
 resources:
   - name: metric_stream
     props:
-      - name: ExcludeFilters
+      - name: exclude_filters
         value:
-          - Namespace: '{{ Namespace }}'
-            MetricNames:
-              - '{{ MetricNames[0] }}'
-      - name: FirehoseArn
-        value: '{{ FirehoseArn }}'
-      - name: IncludeFilters
+          - namespace: '{{ namespace }}'
+            metric_names:
+              - '{{ metric_names[0] }}'
+      - name: firehose_arn
+        value: '{{ firehose_arn }}'
+      - name: include_filters
         value:
           - null
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: OutputFormat
-        value: '{{ OutputFormat }}'
-      - name: StatisticsConfigurations
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: output_format
+        value: '{{ output_format }}'
+      - name: statistics_configurations
         value:
-          - AdditionalStatistics:
-              - '{{ AdditionalStatistics[0] }}'
-            IncludeMetrics:
-              - MetricName: '{{ MetricName }}'
-                Namespace: '{{ Namespace }}'
-      - name: Tags
+          - additional_statistics:
+              - '{{ additional_statistics[0] }}'
+            include_metrics:
+              - metric_name: '{{ metric_name }}'
+                namespace: '{{ namespace }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: IncludeLinkedAccountsMetrics
-        value: '{{ IncludeLinkedAccountsMetrics }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: include_linked_accounts_metrics
+        value: '{{ include_linked_accounts_metrics }}'
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +405,7 @@ SET PatchDocument = string('{{ {
     "IncludeLinkedAccountsMetrics": include_linked_accounts_metrics
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -415,7 +414,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.metric_streams
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

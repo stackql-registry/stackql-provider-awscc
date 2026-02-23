@@ -236,7 +236,7 @@ custom_role_arn,
 created_at,
 updated_at
 FROM awscc.ecr.repository_creation_templates
-WHERE region = 'us-east-1' AND Identifier = '<Prefix>';
+WHERE region = 'us-east-1' AND Identifier = '{{ prefix }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,9 +273,9 @@ INSERT INTO awscc.ecr.repository_creation_templates (
  AppliedFor,
  region
 )
-SELECT 
-'{{ Prefix }}',
- '{{ AppliedFor }}',
+SELECT
+'{{ prefix }}',
+ '{{ applied_for }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -296,17 +296,17 @@ INSERT INTO awscc.ecr.repository_creation_templates (
  CustomRoleArn,
  region
 )
-SELECT 
- '{{ Prefix }}',
- '{{ Description }}',
- '{{ ImageTagMutability }}',
- '{{ ImageTagMutabilityExclusionFilters }}',
- '{{ RepositoryPolicy }}',
- '{{ LifecyclePolicy }}',
- '{{ EncryptionConfiguration }}',
- '{{ ResourceTags }}',
- '{{ AppliedFor }}',
- '{{ CustomRoleArn }}',
+SELECT
+ '{{ prefix }}',
+ '{{ description }}',
+ '{{ image_tag_mutability }}',
+ '{{ image_tag_mutability_exclusion_filters }}',
+ '{{ repository_policy }}',
+ '{{ lifecycle_policy }}',
+ '{{ encryption_configuration }}',
+ '{{ resource_tags }}',
+ '{{ applied_for }}',
+ '{{ custom_role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -324,34 +324,33 @@ globals:
 resources:
   - name: repository_creation_template
     props:
-      - name: Prefix
-        value: '{{ Prefix }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ImageTagMutability
-        value: '{{ ImageTagMutability }}'
-      - name: ImageTagMutabilityExclusionFilters
+      - name: prefix
+        value: '{{ prefix }}'
+      - name: description
+        value: '{{ description }}'
+      - name: image_tag_mutability
+        value: '{{ image_tag_mutability }}'
+      - name: image_tag_mutability_exclusion_filters
         value:
-          - ImageTagMutabilityExclusionFilterType: '{{ ImageTagMutabilityExclusionFilterType }}'
-            ImageTagMutabilityExclusionFilterValue: '{{ ImageTagMutabilityExclusionFilterValue }}'
-      - name: RepositoryPolicy
-        value: '{{ RepositoryPolicy }}'
-      - name: LifecyclePolicy
-        value: '{{ LifecyclePolicy }}'
-      - name: EncryptionConfiguration
+          - image_tag_mutability_exclusion_filter_type: '{{ image_tag_mutability_exclusion_filter_type }}'
+            image_tag_mutability_exclusion_filter_value: '{{ image_tag_mutability_exclusion_filter_value }}'
+      - name: repository_policy
+        value: '{{ repository_policy }}'
+      - name: lifecycle_policy
+        value: '{{ lifecycle_policy }}'
+      - name: encryption_configuration
         value:
-          EncryptionType: '{{ EncryptionType }}'
-          KmsKey: '{{ KmsKey }}'
-      - name: ResourceTags
+          encryption_type: '{{ encryption_type }}'
+          kms_key: '{{ kms_key }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AppliedFor
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: applied_for
         value:
-          - '{{ AppliedFor[0] }}'
-      - name: CustomRoleArn
-        value: '{{ CustomRoleArn }}'
-
+          - '{{ applied_for[0] }}'
+      - name: custom_role_arn
+        value: '{{ custom_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -375,7 +374,7 @@ SET PatchDocument = string('{{ {
     "CustomRoleArn": custom_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Prefix>';
+AND Identifier = '{{ prefix }}';
 ```
 
 
@@ -384,7 +383,7 @@ AND Identifier = '<Prefix>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repository_creation_templates
-WHERE Identifier = '<Prefix>'
+WHERE Identifier = '{{ prefix }}'
 AND region = 'us-east-1';
 ```
 

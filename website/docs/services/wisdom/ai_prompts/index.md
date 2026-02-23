@@ -211,7 +211,7 @@ template_type,
 type,
 modified_time_seconds
 FROM awscc.wisdom.ai_prompts
-WHERE region = 'us-east-1' AND Identifier = '<AIPromptId>|<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,12 +252,12 @@ INSERT INTO awscc.wisdom.ai_prompts (
  Type,
  region
 )
-SELECT 
-'{{ ApiFormat }}',
- '{{ ModelId }}',
- '{{ TemplateConfiguration }}',
- '{{ TemplateType }}',
- '{{ Type }}',
+SELECT
+'{{ api_format }}',
+ '{{ model_id }}',
+ '{{ template_configuration }}',
+ '{{ template_type }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,16 +277,16 @@ INSERT INTO awscc.wisdom.ai_prompts (
  Type,
  region
 )
-SELECT 
- '{{ ApiFormat }}',
- '{{ AssistantId }}',
- '{{ Description }}',
- '{{ ModelId }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ TemplateConfiguration }}',
- '{{ TemplateType }}',
- '{{ Type }}',
+SELECT
+ '{{ api_format }}',
+ '{{ assistant_id }}',
+ '{{ description }}',
+ '{{ model_id }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ template_configuration }}',
+ '{{ template_type }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,25 +304,24 @@ globals:
 resources:
   - name: ai_prompt
     props:
-      - name: ApiFormat
-        value: '{{ ApiFormat }}'
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ModelId
-        value: '{{ ModelId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: api_format
+        value: '{{ api_format }}'
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: model_id
+        value: '{{ model_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-      - name: TemplateConfiguration
+      - name: template_configuration
         value: {}
-      - name: TemplateType
-        value: '{{ TemplateType }}'
-      - name: Type
-        value: '{{ Type }}'
-
+      - name: template_type
+        value: '{{ template_type }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +339,7 @@ SET PatchDocument = string('{{ {
     "TemplateConfiguration": template_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AIPromptId>|<AssistantId>';
+AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```
 
 
@@ -349,7 +348,7 @@ AND Identifier = '<AIPromptId>|<AssistantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_prompts
-WHERE Identifier = '<AIPromptId|AssistantId>'
+WHERE Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}'
 AND region = 'us-east-1';
 ```
 

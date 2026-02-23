@@ -517,7 +517,7 @@ kms_key_id,
 kms_encryption_context,
 tags
 FROM awscc.bedrock.data_automation_projects
-WHERE region = 'us-east-1' AND Identifier = '<ProjectArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -553,8 +553,8 @@ INSERT INTO awscc.bedrock.data_automation_projects (
  ProjectName,
  region
 )
-SELECT 
-'{{ ProjectName }}',
+SELECT
+'{{ project_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -573,15 +573,15 @@ INSERT INTO awscc.bedrock.data_automation_projects (
  Tags,
  region
 )
-SELECT 
- '{{ CustomOutputConfiguration }}',
- '{{ OverrideConfiguration }}',
- '{{ ProjectDescription }}',
- '{{ ProjectName }}',
- '{{ StandardOutputConfiguration }}',
- '{{ KmsKeyId }}',
- '{{ KmsEncryptionContext }}',
- '{{ Tags }}',
+SELECT
+ '{{ custom_output_configuration }}',
+ '{{ override_configuration }}',
+ '{{ project_description }}',
+ '{{ project_name }}',
+ '{{ standard_output_configuration }}',
+ '{{ kms_key_id }}',
+ '{{ kms_encryption_context }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -599,94 +599,93 @@ globals:
 resources:
   - name: data_automation_project
     props:
-      - name: CustomOutputConfiguration
+      - name: custom_output_configuration
         value:
-          Blueprints:
-            - BlueprintArn: '{{ BlueprintArn }}'
-              BlueprintVersion: '{{ BlueprintVersion }}'
-              BlueprintStage: '{{ BlueprintStage }}'
-      - name: OverrideConfiguration
+          blueprints:
+            - blueprint_arn: '{{ blueprint_arn }}'
+              blueprint_version: '{{ blueprint_version }}'
+              blueprint_stage: '{{ blueprint_stage }}'
+      - name: override_configuration
         value:
-          Document:
-            Splitter:
-              State: '{{ State }}'
-            ModalityProcessing:
-              State: null
-          Audio:
-            ModalityProcessing: null
-          Video:
-            ModalityProcessing: null
-          Image:
-            ModalityProcessing: null
-          ModalityRouting:
+          document:
+            splitter:
+              state: '{{ state }}'
+            modality_processing:
+              state: null
+          audio:
+            modality_processing: null
+          video:
+            modality_processing: null
+          image:
+            modality_processing: null
+          modality_routing:
             jpeg: '{{ jpeg }}'
             png: null
             mp4: null
             mov: null
-      - name: ProjectDescription
-        value: '{{ ProjectDescription }}'
-      - name: ProjectName
-        value: '{{ ProjectName }}'
-      - name: StandardOutputConfiguration
+      - name: project_description
+        value: '{{ project_description }}'
+      - name: project_name
+        value: '{{ project_name }}'
+      - name: standard_output_configuration
         value:
-          Document:
-            Extraction:
-              Granularity:
-                Types:
-                  - '{{ Types[0] }}'
-              BoundingBox:
-                State: null
-            GenerativeField:
-              State: null
-            OutputFormat:
-              TextFormat:
-                Types:
-                  - '{{ Types[0] }}'
-              AdditionalFileFormat:
-                State: null
-          Image:
-            Extraction:
-              Category:
-                State: null
-                Types:
-                  - '{{ Types[0] }}'
-              BoundingBox:
-                State: null
-            GenerativeField:
-              State: null
-              Types:
-                - '{{ Types[0] }}'
-          Video:
-            Extraction:
-              Category:
-                State: null
-                Types:
-                  - '{{ Types[0] }}'
-              BoundingBox:
-                State: null
-            GenerativeField:
-              State: null
-              Types:
-                - '{{ Types[0] }}'
-          Audio:
-            Extraction:
-              Category:
-                State: null
-                Types:
-                  - '{{ Types[0] }}'
-            GenerativeField:
-              State: null
-              Types:
-                - '{{ Types[0] }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: KmsEncryptionContext
+          document:
+            extraction:
+              granularity:
+                types:
+                  - '{{ types[0] }}'
+              bounding_box:
+                state: null
+            generative_field:
+              state: null
+            output_format:
+              text_format:
+                types:
+                  - '{{ types[0] }}'
+              additional_file_format:
+                state: null
+          image:
+            extraction:
+              category:
+                state: null
+                types:
+                  - '{{ types[0] }}'
+              bounding_box:
+                state: null
+            generative_field:
+              state: null
+              types:
+                - '{{ types[0] }}'
+          video:
+            extraction:
+              category:
+                state: null
+                types:
+                  - '{{ types[0] }}'
+              bounding_box:
+                state: null
+            generative_field:
+              state: null
+              types:
+                - '{{ types[0] }}'
+          audio:
+            extraction:
+              category:
+                state: null
+                types:
+                  - '{{ types[0] }}'
+            generative_field:
+              state: null
+              types:
+                - '{{ types[0] }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: kms_encryption_context
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -708,7 +707,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProjectArn>';
+AND Identifier = '{{ project_arn }}';
 ```
 
 
@@ -717,7 +716,7 @@ AND Identifier = '<ProjectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.data_automation_projects
-WHERE Identifier = '<ProjectArn>'
+WHERE Identifier = '{{ project_arn }}'
 AND region = 'us-east-1';
 ```
 

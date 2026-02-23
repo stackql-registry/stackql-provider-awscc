@@ -237,7 +237,7 @@ maintenance_config,
 client_token,
 tags
 FROM awscc.sagemaker.partner_apps
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,12 +277,12 @@ INSERT INTO awscc.sagemaker.partner_apps (
  AuthType,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ ExecutionRoleArn }}',
- '{{ Tier }}',
- '{{ AuthType }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ execution_role_arn }}',
+ '{{ tier }}',
+ '{{ auth_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -304,18 +304,18 @@ INSERT INTO awscc.sagemaker.partner_apps (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ ExecutionRoleArn }}',
- '{{ KmsKeyId }}',
- '{{ Tier }}',
- '{{ EnableIamSessionBasedIdentity }}',
- '{{ ApplicationConfig }}',
- '{{ AuthType }}',
- '{{ MaintenanceConfig }}',
- '{{ ClientToken }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ execution_role_arn }}',
+ '{{ kms_key_id }}',
+ '{{ tier }}',
+ '{{ enable_iam_session_based_identity }}',
+ '{{ application_config }}',
+ '{{ auth_type }}',
+ '{{ maintenance_config }}',
+ '{{ client_token }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -333,35 +333,34 @@ globals:
 resources:
   - name: partner_app
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tier
-        value: '{{ Tier }}'
-      - name: EnableIamSessionBasedIdentity
-        value: '{{ EnableIamSessionBasedIdentity }}'
-      - name: ApplicationConfig
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tier
+        value: '{{ tier }}'
+      - name: enable_iam_session_based_identity
+        value: '{{ enable_iam_session_based_identity }}'
+      - name: application_config
         value:
-          AdminUsers:
-            - '{{ AdminUsers[0] }}'
-          Arguments: {}
-      - name: AuthType
-        value: '{{ AuthType }}'
-      - name: MaintenanceConfig
+          admin_users:
+            - '{{ admin_users[0] }}'
+          arguments: {}
+      - name: auth_type
+        value: '{{ auth_type }}'
+      - name: maintenance_config
         value:
-          MaintenanceWindowStart: '{{ MaintenanceWindowStart }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: Tags
+          maintenance_window_start: '{{ maintenance_window_start }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +381,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -391,7 +390,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.partner_apps
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

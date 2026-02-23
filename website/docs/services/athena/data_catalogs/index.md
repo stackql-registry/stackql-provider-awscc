@@ -188,7 +188,7 @@ status,
 connection_type,
 error
 FROM awscc.athena.data_catalogs
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.athena.data_catalogs (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,15 +246,15 @@ INSERT INTO awscc.athena.data_catalogs (
  Error,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Parameters }}',
- '{{ Tags }}',
- '{{ Type }}',
- '{{ Status }}',
- '{{ ConnectionType }}',
- '{{ Error }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ parameters }}',
+ '{{ tags }}',
+ '{{ type }}',
+ '{{ status }}',
+ '{{ connection_type }}',
+ '{{ error }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,25 +272,24 @@ globals:
 resources:
   - name: data_catalog
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Parameters
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: parameters
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: ConnectionType
-        value: '{{ ConnectionType }}'
-      - name: Error
-        value: '{{ Error }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
+      - name: status
+        value: '{{ status }}'
+      - name: connection_type
+        value: '{{ connection_type }}'
+      - name: error
+        value: '{{ error }}'
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +311,7 @@ SET PatchDocument = string('{{ {
     "Error": error
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -321,7 +320,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.data_catalogs
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

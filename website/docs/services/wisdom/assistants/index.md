@@ -189,7 +189,7 @@ server_side_encryption_configuration,
 tags,
 name
 FROM awscc.wisdom.assistants
-WHERE region = 'us-east-1' AND Identifier = '<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,9 +226,9 @@ INSERT INTO awscc.wisdom.assistants (
  Name,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ Name }}',
+SELECT
+'{{ type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,12 +244,12 @@ INSERT INTO awscc.wisdom.assistants (
  Name,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ Description }}',
- '{{ ServerSideEncryptionConfiguration }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ type }}',
+ '{{ description }}',
+ '{{ server_side_encryption_configuration }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -267,20 +267,19 @@ globals:
 resources:
   - name: assistant
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ServerSideEncryptionConfiguration
+      - name: type
+        value: '{{ type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: server_side_encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: Tags
+          kms_key_id: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +290,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.assistants
-WHERE Identifier = '<AssistantId>'
+WHERE Identifier = '{{ assistant_id }}'
 AND region = 'us-east-1';
 ```
 

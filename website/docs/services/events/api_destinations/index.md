@@ -176,7 +176,7 @@ invocation_rate_limit_per_second,
 invocation_endpoint,
 http_method
 FROM awscc.events.api_destinations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.events.api_destinations (
  HttpMethod,
  region
 )
-SELECT 
-'{{ ConnectionArn }}',
- '{{ InvocationEndpoint }}',
- '{{ HttpMethod }}',
+SELECT
+'{{ connection_arn }}',
+ '{{ invocation_endpoint }}',
+ '{{ http_method }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,13 @@ INSERT INTO awscc.events.api_destinations (
  HttpMethod,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ConnectionArn }}',
- '{{ InvocationRateLimitPerSecond }}',
- '{{ InvocationEndpoint }}',
- '{{ HttpMethod }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ connection_arn }}',
+ '{{ invocation_rate_limit_per_second }}',
+ '{{ invocation_endpoint }}',
+ '{{ http_method }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,19 +258,18 @@ globals:
 resources:
   - name: api_destination
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ConnectionArn
-        value: '{{ ConnectionArn }}'
-      - name: InvocationRateLimitPerSecond
-        value: '{{ InvocationRateLimitPerSecond }}'
-      - name: InvocationEndpoint
-        value: '{{ InvocationEndpoint }}'
-      - name: HttpMethod
-        value: '{{ HttpMethod }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: connection_arn
+        value: '{{ connection_arn }}'
+      - name: invocation_rate_limit_per_second
+        value: '{{ invocation_rate_limit_per_second }}'
+      - name: invocation_endpoint
+        value: '{{ invocation_endpoint }}'
+      - name: http_method
+        value: '{{ http_method }}'
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +289,7 @@ SET PatchDocument = string('{{ {
     "HttpMethod": http_method
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -299,7 +298,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.api_destinations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

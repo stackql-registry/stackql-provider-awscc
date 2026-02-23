@@ -176,7 +176,7 @@ resource_type_list,
 resources,
 tags
 FROM awscc.fms.resource_sets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.fms.resource_sets (
  ResourceTypeList,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ResourceTypeList }}',
+SELECT
+'{{ name }}',
+ '{{ resource_type_list }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.fms.resource_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ResourceTypeList }}',
- '{{ Resources }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ resource_type_list }}',
+ '{{ resources }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,21 +254,20 @@ globals:
 resources:
   - name: resource_set
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ResourceTypeList
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: resource_type_list
         value:
-          - '{{ ResourceTypeList[0] }}'
-      - name: Resources
+          - '{{ resource_type_list[0] }}'
+      - name: resources
         value:
-          - '{{ Resources[0] }}'
-      - name: Tags
+          - '{{ resources[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.resource_sets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

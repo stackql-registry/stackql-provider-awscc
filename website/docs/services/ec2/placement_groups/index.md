@@ -164,7 +164,7 @@ spread_level,
 partition_count,
 tags
 FROM awscc.ec2.placement_groups
-WHERE region = 'us-east-1' AND Identifier = '<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,11 +203,11 @@ INSERT INTO awscc.ec2.placement_groups (
  Tags,
  region
 )
-SELECT 
-'{{ Strategy }}',
- '{{ SpreadLevel }}',
- '{{ PartitionCount }}',
- '{{ Tags }}',
+SELECT
+'{{ strategy }}',
+ '{{ spread_level }}',
+ '{{ partition_count }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.ec2.placement_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Strategy }}',
- '{{ SpreadLevel }}',
- '{{ PartitionCount }}',
- '{{ Tags }}',
+SELECT
+ '{{ strategy }}',
+ '{{ spread_level }}',
+ '{{ partition_count }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: placement_group
     props:
-      - name: Strategy
-        value: '{{ Strategy }}'
-      - name: SpreadLevel
-        value: '{{ SpreadLevel }}'
-      - name: PartitionCount
-        value: '{{ PartitionCount }}'
-      - name: Tags
+      - name: strategy
+        value: '{{ strategy }}'
+      - name: spread_level
+        value: '{{ spread_level }}'
+      - name: partition_count
+        value: '{{ partition_count }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.placement_groups
-WHERE Identifier = '<GroupName>'
+WHERE Identifier = '{{ group_name }}'
 AND region = 'us-east-1';
 ```
 

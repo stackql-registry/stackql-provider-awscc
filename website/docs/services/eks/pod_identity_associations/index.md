@@ -200,7 +200,7 @@ external_id,
 disable_session_tags,
 tags
 FROM awscc.eks.pod_identity_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,11 +239,11 @@ INSERT INTO awscc.eks.pod_identity_associations (
  ServiceAccount,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ RoleArn }}',
- '{{ Namespace }}',
- '{{ ServiceAccount }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ role_arn }}',
+ '{{ namespace }}',
+ '{{ service_account }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,14 +261,14 @@ INSERT INTO awscc.eks.pod_identity_associations (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ RoleArn }}',
- '{{ Namespace }}',
- '{{ ServiceAccount }}',
- '{{ TargetRoleArn }}',
- '{{ DisableSessionTags }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ role_arn }}',
+ '{{ namespace }}',
+ '{{ service_account }}',
+ '{{ target_role_arn }}',
+ '{{ disable_session_tags }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,23 +286,22 @@ globals:
 resources:
   - name: pod_identity_association
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Namespace
-        value: '{{ Namespace }}'
-      - name: ServiceAccount
-        value: '{{ ServiceAccount }}'
-      - name: TargetRoleArn
-        value: '{{ TargetRoleArn }}'
-      - name: DisableSessionTags
-        value: '{{ DisableSessionTags }}'
-      - name: Tags
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: namespace
+        value: '{{ namespace }}'
+      - name: service_account
+        value: '{{ service_account }}'
+      - name: target_role_arn
+        value: '{{ target_role_arn }}'
+      - name: disable_session_tags
+        value: '{{ disable_session_tags }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociationArn>';
+AND Identifier = '{{ association_arn }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<AssociationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.pod_identity_associations
-WHERE Identifier = '<AssociationArn>'
+WHERE Identifier = '{{ association_arn }}'
 AND region = 'us-east-1';
 ```
 

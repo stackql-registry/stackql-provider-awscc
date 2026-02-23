@@ -176,7 +176,7 @@ certificate_arn,
 status,
 tags
 FROM awscc.lightsail.certificates
-WHERE region = 'us-east-1' AND Identifier = '<CertificateName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.lightsail.certificates (
  DomainName,
  region
 )
-SELECT 
-'{{ CertificateName }}',
- '{{ DomainName }}',
+SELECT
+'{{ certificate_name }}',
+ '{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.lightsail.certificates (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateName }}',
- '{{ DomainName }}',
- '{{ SubjectAlternativeNames }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_name }}',
+ '{{ domain_name }}',
+ '{{ subject_alternative_names }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,18 +252,17 @@ globals:
 resources:
   - name: certificate
     props:
-      - name: CertificateName
-        value: '{{ CertificateName }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: SubjectAlternativeNames
+      - name: certificate_name
+        value: '{{ certificate_name }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: subject_alternative_names
         value:
-          - '{{ SubjectAlternativeNames[0] }}'
-      - name: Tags
+          - '{{ subject_alternative_names[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CertificateName>';
+AND Identifier = '{{ certificate_name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<CertificateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.certificates
-WHERE Identifier = '<CertificateName>'
+WHERE Identifier = '{{ certificate_name }}'
 AND region = 'us-east-1';
 ```
 

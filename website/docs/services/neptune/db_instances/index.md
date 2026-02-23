@@ -218,7 +218,7 @@ preferred_maintenance_window,
 port,
 tags
 FROM awscc.neptune.db_instances
-WHERE region = 'us-east-1' AND Identifier = '<DBInstanceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_instance_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,8 +254,8 @@ INSERT INTO awscc.neptune.db_instances (
  DBInstanceClass,
  region
 )
-SELECT 
-'{{ DBInstanceClass }}',
+SELECT
+'{{ db_instance_class }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,18 +277,18 @@ INSERT INTO awscc.neptune.db_instances (
  Tags,
  region
 )
-SELECT 
- '{{ AllowMajorVersionUpgrade }}',
- '{{ AutoMinorVersionUpgrade }}',
- '{{ AvailabilityZone }}',
- '{{ DBClusterIdentifier }}',
- '{{ DBInstanceClass }}',
- '{{ DBInstanceIdentifier }}',
- '{{ DBParameterGroupName }}',
- '{{ DBSnapshotIdentifier }}',
- '{{ DBSubnetGroupName }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ Tags }}',
+SELECT
+ '{{ allow_major_version_upgrade }}',
+ '{{ auto_minor_version_upgrade }}',
+ '{{ availability_zone }}',
+ '{{ db_cluster_identifier }}',
+ '{{ db_instance_class }}',
+ '{{ db_instance_identifier }}',
+ '{{ db_parameter_group_name }}',
+ '{{ db_snapshot_identifier }}',
+ '{{ db_subnet_group_name }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,31 +306,30 @@ globals:
 resources:
   - name: db_instance
     props:
-      - name: AllowMajorVersionUpgrade
-        value: '{{ AllowMajorVersionUpgrade }}'
-      - name: AutoMinorVersionUpgrade
-        value: '{{ AutoMinorVersionUpgrade }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: DBClusterIdentifier
-        value: '{{ DBClusterIdentifier }}'
-      - name: DBInstanceClass
-        value: '{{ DBInstanceClass }}'
-      - name: DBInstanceIdentifier
-        value: '{{ DBInstanceIdentifier }}'
-      - name: DBParameterGroupName
-        value: '{{ DBParameterGroupName }}'
-      - name: DBSnapshotIdentifier
-        value: '{{ DBSnapshotIdentifier }}'
-      - name: DBSubnetGroupName
-        value: '{{ DBSubnetGroupName }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: Tags
+      - name: allow_major_version_upgrade
+        value: '{{ allow_major_version_upgrade }}'
+      - name: auto_minor_version_upgrade
+        value: '{{ auto_minor_version_upgrade }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: db_cluster_identifier
+        value: '{{ db_cluster_identifier }}'
+      - name: db_instance_class
+        value: '{{ db_instance_class }}'
+      - name: db_instance_identifier
+        value: '{{ db_instance_identifier }}'
+      - name: db_parameter_group_name
+        value: '{{ db_parameter_group_name }}'
+      - name: db_snapshot_identifier
+        value: '{{ db_snapshot_identifier }}'
+      - name: db_subnet_group_name
+        value: '{{ db_subnet_group_name }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -351,7 +350,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBInstanceIdentifier>';
+AND Identifier = '{{ db_instance_identifier }}';
 ```
 
 
@@ -360,7 +359,7 @@ AND Identifier = '<DBInstanceIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_instances
-WHERE Identifier = '<DBInstanceIdentifier>'
+WHERE Identifier = '{{ db_instance_identifier }}'
 AND region = 'us-east-1';
 ```
 

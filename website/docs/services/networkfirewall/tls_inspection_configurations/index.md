@@ -249,7 +249,7 @@ tls_inspection_configuration_id,
 description,
 tags
 FROM awscc.networkfirewall.tls_inspection_configurations
-WHERE region = 'us-east-1' AND Identifier = '<TLSInspectionConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ tls_inspection_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,9 +286,9 @@ INSERT INTO awscc.networkfirewall.tls_inspection_configurations (
  TLSInspectionConfiguration,
  region
 )
-SELECT 
-'{{ TLSInspectionConfigurationName }}',
- '{{ TLSInspectionConfiguration }}',
+SELECT
+'{{ tls_inspection_configuration_name }}',
+ '{{ tls_inspection_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -303,11 +303,11 @@ INSERT INTO awscc.networkfirewall.tls_inspection_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ TLSInspectionConfigurationName }}',
- '{{ TLSInspectionConfiguration }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ tls_inspection_configuration_name }}',
+ '{{ tls_inspection_configuration }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,22 +325,21 @@ globals:
 resources:
   - name: tls_inspection_configuration
     props:
-      - name: TLSInspectionConfigurationName
-        value: '{{ TLSInspectionConfigurationName }}'
-      - name: TLSInspectionConfiguration
+      - name: tls_inspection_configuration_name
+        value: '{{ tls_inspection_configuration_name }}'
+      - name: tls_inspection_configuration
         value:
-          TLSInspectionConfigurationName: '{{ TLSInspectionConfigurationName }}'
-          TLSInspectionConfiguration: null
-          Description: '{{ Description }}'
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          tls_inspection_configuration_name: '{{ tls_inspection_configuration_name }}'
+          tls_inspection_configuration: null
+          description: '{{ description }}'
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +357,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TLSInspectionConfigurationArn>';
+AND Identifier = '{{ tls_inspection_configuration_arn }}';
 ```
 
 
@@ -367,7 +366,7 @@ AND Identifier = '<TLSInspectionConfigurationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.tls_inspection_configurations
-WHERE Identifier = '<TLSInspectionConfigurationArn>'
+WHERE Identifier = '{{ tls_inspection_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

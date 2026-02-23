@@ -172,7 +172,7 @@ resource_type,
 application_arn,
 resource_arn
 FROM awscc.servicecatalogappregistry.resource_associations
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>|<ResourceArn>|<ResourceType>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,10 +212,10 @@ INSERT INTO awscc.servicecatalogappregistry.resource_associations (
  ResourceType,
  region
 )
-SELECT 
-'{{ Application }}',
- '{{ Resource }}',
- '{{ ResourceType }}',
+SELECT
+'{{ application }}',
+ '{{ resource }}',
+ '{{ resource_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -229,10 +229,10 @@ INSERT INTO awscc.servicecatalogappregistry.resource_associations (
  ResourceType,
  region
 )
-SELECT 
- '{{ Application }}',
- '{{ Resource }}',
- '{{ ResourceType }}',
+SELECT
+ '{{ application }}',
+ '{{ resource }}',
+ '{{ resource_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,13 +250,12 @@ globals:
 resources:
   - name: resource_association
     props:
-      - name: Application
-        value: '{{ Application }}'
-      - name: Resource
-        value: '{{ Resource }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-
+      - name: application
+        value: '{{ application }}'
+      - name: resource
+        value: '{{ resource }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.resource_associations
-WHERE Identifier = '<ApplicationArn|ResourceArn|ResourceType>'
+WHERE Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}'
 AND region = 'us-east-1';
 ```
 

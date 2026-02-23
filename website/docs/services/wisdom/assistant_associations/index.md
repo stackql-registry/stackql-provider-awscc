@@ -206,7 +206,7 @@ association,
 association_type,
 tags
 FROM awscc.wisdom.assistant_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssistantAssociationId>|<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ assistant_association_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,10 +245,10 @@ INSERT INTO awscc.wisdom.assistant_associations (
  AssociationType,
  region
 )
-SELECT 
-'{{ AssistantId }}',
- '{{ Association }}',
- '{{ AssociationType }}',
+SELECT
+'{{ assistant_id }}',
+ '{{ association }}',
+ '{{ association_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,11 +263,11 @@ INSERT INTO awscc.wisdom.assistant_associations (
  Tags,
  region
 )
-SELECT 
- '{{ AssistantId }}',
- '{{ Association }}',
- '{{ AssociationType }}',
- '{{ Tags }}',
+SELECT
+ '{{ assistant_id }}',
+ '{{ association }}',
+ '{{ association_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -285,18 +285,17 @@ globals:
 resources:
   - name: assistant_association
     props:
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: Association
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: association
         value:
-          KnowledgeBaseId: '{{ KnowledgeBaseId }}'
-      - name: AssociationType
-        value: '{{ AssociationType }}'
-      - name: Tags
+          knowledge_base_id: '{{ knowledge_base_id }}'
+      - name: association_type
+        value: '{{ association_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.assistant_associations
-WHERE Identifier = '<AssistantAssociationId|AssistantId>'
+WHERE Identifier = '{{ assistant_association_id }}|{{ assistant_id }}'
 AND region = 'us-east-1';
 ```
 

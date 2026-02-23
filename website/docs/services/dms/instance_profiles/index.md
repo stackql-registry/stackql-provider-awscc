@@ -212,7 +212,7 @@ subnet_group_identifier,
 vpc_security_groups,
 tags
 FROM awscc.dms.instance_profiles
-WHERE region = 'us-east-1' AND Identifier = '<InstanceProfileArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,17 +257,17 @@ INSERT INTO awscc.dms.instance_profiles (
  Tags,
  region
 )
-SELECT 
-'{{ InstanceProfileIdentifier }}',
- '{{ AvailabilityZone }}',
- '{{ Description }}',
- '{{ KmsKeyArn }}',
- '{{ PubliclyAccessible }}',
- '{{ NetworkType }}',
- '{{ InstanceProfileName }}',
- '{{ SubnetGroupIdentifier }}',
- '{{ VpcSecurityGroups }}',
- '{{ Tags }}',
+SELECT
+'{{ instance_profile_identifier }}',
+ '{{ availability_zone }}',
+ '{{ description }}',
+ '{{ kms_key_arn }}',
+ '{{ publicly_accessible }}',
+ '{{ network_type }}',
+ '{{ instance_profile_name }}',
+ '{{ subnet_group_identifier }}',
+ '{{ vpc_security_groups }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -288,17 +288,17 @@ INSERT INTO awscc.dms.instance_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceProfileIdentifier }}',
- '{{ AvailabilityZone }}',
- '{{ Description }}',
- '{{ KmsKeyArn }}',
- '{{ PubliclyAccessible }}',
- '{{ NetworkType }}',
- '{{ InstanceProfileName }}',
- '{{ SubnetGroupIdentifier }}',
- '{{ VpcSecurityGroups }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_profile_identifier }}',
+ '{{ availability_zone }}',
+ '{{ description }}',
+ '{{ kms_key_arn }}',
+ '{{ publicly_accessible }}',
+ '{{ network_type }}',
+ '{{ instance_profile_name }}',
+ '{{ subnet_group_identifier }}',
+ '{{ vpc_security_groups }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,30 +316,29 @@ globals:
 resources:
   - name: instance_profile
     props:
-      - name: InstanceProfileIdentifier
-        value: '{{ InstanceProfileIdentifier }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: InstanceProfileName
-        value: '{{ InstanceProfileName }}'
-      - name: SubnetGroupIdentifier
-        value: '{{ SubnetGroupIdentifier }}'
-      - name: VpcSecurityGroups
+      - name: instance_profile_identifier
+        value: '{{ instance_profile_identifier }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: instance_profile_name
+        value: '{{ instance_profile_name }}'
+      - name: subnet_group_identifier
+        value: '{{ subnet_group_identifier }}'
+      - name: vpc_security_groups
         value:
-          - '{{ VpcSecurityGroups[0] }}'
-      - name: Tags
+          - '{{ vpc_security_groups[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -364,7 +363,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceProfileArn>';
+AND Identifier = '{{ instance_profile_arn }}';
 ```
 
 
@@ -373,7 +372,7 @@ AND Identifier = '<InstanceProfileArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.instance_profiles
-WHERE Identifier = '<InstanceProfileArn>'
+WHERE Identifier = '{{ instance_profile_arn }}'
 AND region = 'us-east-1';
 ```
 

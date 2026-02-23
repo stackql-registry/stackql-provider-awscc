@@ -244,7 +244,7 @@ metered_account,
 default_resource_discovery_organizational_unit_exclusions,
 tags
 FROM awscc.ec2.ipams
-WHERE region = 'us-east-1' AND Identifier = '<IpamId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,7 +280,7 @@ INSERT INTO awscc.ec2.ipams (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -299,14 +299,14 @@ INSERT INTO awscc.ec2.ipams (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ OperatingRegions }}',
- '{{ Tier }}',
- '{{ EnablePrivateGua }}',
- '{{ MeteredAccount }}',
- '{{ DefaultResourceDiscoveryOrganizationalUnitExclusions }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ operating_regions }}',
+ '{{ tier }}',
+ '{{ enable_private_gua }}',
+ '{{ metered_account }}',
+ '{{ default_resource_discovery_organizational_unit_exclusions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -324,25 +324,24 @@ globals:
 resources:
   - name: ipam
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: OperatingRegions
+      - name: description
+        value: '{{ description }}'
+      - name: operating_regions
         value:
-          - RegionName: '{{ RegionName }}'
-      - name: Tier
-        value: '{{ Tier }}'
-      - name: EnablePrivateGua
-        value: '{{ EnablePrivateGua }}'
-      - name: MeteredAccount
-        value: '{{ MeteredAccount }}'
-      - name: DefaultResourceDiscoveryOrganizationalUnitExclusions
+          - region_name: '{{ region_name }}'
+      - name: tier
+        value: '{{ tier }}'
+      - name: enable_private_gua
+        value: '{{ enable_private_gua }}'
+      - name: metered_account
+        value: '{{ metered_account }}'
+      - name: default_resource_discovery_organizational_unit_exclusions
         value:
-          - OrganizationsEntityPath: '{{ OrganizationsEntityPath }}'
-      - name: Tags
+          - organizations_entity_path: '{{ organizations_entity_path }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -364,7 +363,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpamId>';
+AND Identifier = '{{ ipam_id }}';
 ```
 
 
@@ -373,7 +372,7 @@ AND Identifier = '<IpamId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipams
-WHERE Identifier = '<IpamId>'
+WHERE Identifier = '{{ ipam_id }}'
 AND region = 'us-east-1';
 ```
 

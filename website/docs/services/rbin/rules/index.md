@@ -242,7 +242,7 @@ status,
 lock_configuration,
 lock_state
 FROM awscc.rbin.rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -279,9 +279,9 @@ INSERT INTO awscc.rbin.rules (
  RetentionPeriod,
  region
 )
-SELECT 
-'{{ ResourceType }}',
- '{{ RetentionPeriod }}',
+SELECT
+'{{ resource_type }}',
+ '{{ retention_period }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -300,15 +300,15 @@ INSERT INTO awscc.rbin.rules (
  LockConfiguration,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ResourceTags }}',
- '{{ ExcludeResourceTags }}',
- '{{ ResourceType }}',
- '{{ Tags }}',
- '{{ RetentionPeriod }}',
- '{{ Status }}',
- '{{ LockConfiguration }}',
+SELECT
+ '{{ description }}',
+ '{{ resource_tags }}',
+ '{{ exclude_resource_tags }}',
+ '{{ resource_type }}',
+ '{{ tags }}',
+ '{{ retention_period }}',
+ '{{ status }}',
+ '{{ lock_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,32 +326,31 @@ globals:
 resources:
   - name: rule
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ResourceTags
+      - name: description
+        value: '{{ description }}'
+      - name: resource_tags
         value:
-          - ResourceTagKey: '{{ ResourceTagKey }}'
-            ResourceTagValue: '{{ ResourceTagValue }}'
-      - name: ExcludeResourceTags
+          - resource_tag_key: '{{ resource_tag_key }}'
+            resource_tag_value: '{{ resource_tag_value }}'
+      - name: exclude_resource_tags
         value:
           - null
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: Tags
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: RetentionPeriod
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: retention_period
         value:
-          RetentionPeriodValue: '{{ RetentionPeriodValue }}'
-          RetentionPeriodUnit: '{{ RetentionPeriodUnit }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: LockConfiguration
+          retention_period_value: '{{ retention_period_value }}'
+          retention_period_unit: '{{ retention_period_unit }}'
+      - name: status
+        value: '{{ status }}'
+      - name: lock_configuration
         value:
-          UnlockDelayValue: '{{ UnlockDelayValue }}'
-          UnlockDelayUnit: '{{ UnlockDelayUnit }}'
-
+          unlock_delay_value: '{{ unlock_delay_value }}'
+          unlock_delay_unit: '{{ unlock_delay_unit }}'
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +372,7 @@ SET PatchDocument = string('{{ {
     "LockConfiguration": lock_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -382,7 +381,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rbin.rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

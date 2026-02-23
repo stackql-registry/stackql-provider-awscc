@@ -274,7 +274,7 @@ configuration,
 subnet_arn,
 tags
 FROM awscc.networkmanager.connect_peers
-WHERE region = 'us-east-1' AND Identifier = '<ConnectPeerId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connect_peer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -311,9 +311,9 @@ INSERT INTO awscc.networkmanager.connect_peers (
  ConnectAttachmentId,
  region
 )
-SELECT 
-'{{ PeerAddress }}',
- '{{ ConnectAttachmentId }}',
+SELECT
+'{{ peer_address }}',
+ '{{ connect_attachment_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -331,14 +331,14 @@ INSERT INTO awscc.networkmanager.connect_peers (
  Tags,
  region
 )
-SELECT 
- '{{ PeerAddress }}',
- '{{ CoreNetworkAddress }}',
- '{{ BgpOptions }}',
- '{{ InsideCidrBlocks }}',
- '{{ ConnectAttachmentId }}',
- '{{ SubnetArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ peer_address }}',
+ '{{ core_network_address }}',
+ '{{ bgp_options }}',
+ '{{ inside_cidr_blocks }}',
+ '{{ connect_attachment_id }}',
+ '{{ subnet_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -356,25 +356,24 @@ globals:
 resources:
   - name: connect_peer
     props:
-      - name: PeerAddress
-        value: '{{ PeerAddress }}'
-      - name: CoreNetworkAddress
-        value: '{{ CoreNetworkAddress }}'
-      - name: BgpOptions
+      - name: peer_address
+        value: '{{ peer_address }}'
+      - name: core_network_address
+        value: '{{ core_network_address }}'
+      - name: bgp_options
         value:
-          PeerAsn: null
-      - name: InsideCidrBlocks
+          peer_asn: null
+      - name: inside_cidr_blocks
         value:
-          - '{{ InsideCidrBlocks[0] }}'
-      - name: ConnectAttachmentId
-        value: '{{ ConnectAttachmentId }}'
-      - name: SubnetArn
-        value: '{{ SubnetArn }}'
-      - name: Tags
+          - '{{ inside_cidr_blocks[0] }}'
+      - name: connect_attachment_id
+        value: '{{ connect_attachment_id }}'
+      - name: subnet_arn
+        value: '{{ subnet_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -390,7 +389,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectPeerId>';
+AND Identifier = '{{ connect_peer_id }}';
 ```
 
 
@@ -399,7 +398,7 @@ AND Identifier = '<ConnectPeerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.connect_peers
-WHERE Identifier = '<ConnectPeerId>'
+WHERE Identifier = '{{ connect_peer_id }}'
 AND region = 'us-east-1';
 ```
 

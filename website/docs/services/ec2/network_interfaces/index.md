@@ -322,7 +322,7 @@ id,
 tags,
 connection_tracking_specification
 FROM awscc.ec2.network_interfaces
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -358,8 +358,8 @@ INSERT INTO awscc.ec2.network_interfaces (
  SubnetId,
  region
 )
-SELECT 
-'{{ SubnetId }}',
+SELECT
+'{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -387,24 +387,24 @@ INSERT INTO awscc.ec2.network_interfaces (
  ConnectionTrackingSpecification,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ PrivateIpAddress }}',
- '{{ PrivateIpAddresses }}',
- '{{ SecondaryPrivateIpAddressCount }}',
- '{{ Ipv6PrefixCount }}',
- '{{ Ipv4Prefixes }}',
- '{{ Ipv4PrefixCount }}',
- '{{ EnablePrimaryIpv6 }}',
- '{{ GroupSet }}',
- '{{ Ipv6Addresses }}',
- '{{ Ipv6Prefixes }}',
- '{{ SubnetId }}',
- '{{ SourceDestCheck }}',
- '{{ InterfaceType }}',
- '{{ Ipv6AddressCount }}',
- '{{ Tags }}',
- '{{ ConnectionTrackingSpecification }}',
+SELECT
+ '{{ description }}',
+ '{{ private_ip_address }}',
+ '{{ private_ip_addresses }}',
+ '{{ secondary_private_ip_address_count }}',
+ '{{ ipv6_prefix_count }}',
+ '{{ ipv4_prefixes }}',
+ '{{ ipv4_prefix_count }}',
+ '{{ enable_primary_ipv6 }}',
+ '{{ group_set }}',
+ '{{ ipv6_addresses }}',
+ '{{ ipv6_prefixes }}',
+ '{{ subnet_id }}',
+ '{{ source_dest_check }}',
+ '{{ interface_type }}',
+ '{{ ipv6_address_count }}',
+ '{{ tags }}',
+ '{{ connection_tracking_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -422,52 +422,51 @@ globals:
 resources:
   - name: network_interface
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: PrivateIpAddress
-        value: '{{ PrivateIpAddress }}'
-      - name: PrivateIpAddresses
+      - name: description
+        value: '{{ description }}'
+      - name: private_ip_address
+        value: '{{ private_ip_address }}'
+      - name: private_ip_addresses
         value:
-          - Primary: '{{ Primary }}'
-            PrivateIpAddress: '{{ PrivateIpAddress }}'
-      - name: SecondaryPrivateIpAddressCount
-        value: '{{ SecondaryPrivateIpAddressCount }}'
-      - name: Ipv6PrefixCount
-        value: '{{ Ipv6PrefixCount }}'
-      - name: Ipv4Prefixes
+          - primary: '{{ primary }}'
+            private_ip_address: '{{ private_ip_address }}'
+      - name: secondary_private_ip_address_count
+        value: '{{ secondary_private_ip_address_count }}'
+      - name: ipv6_prefix_count
+        value: '{{ ipv6_prefix_count }}'
+      - name: ipv4_prefixes
         value:
-          - Ipv4Prefix: '{{ Ipv4Prefix }}'
-      - name: Ipv4PrefixCount
-        value: '{{ Ipv4PrefixCount }}'
-      - name: EnablePrimaryIpv6
-        value: '{{ EnablePrimaryIpv6 }}'
-      - name: GroupSet
+          - ipv4_prefix: '{{ ipv4_prefix }}'
+      - name: ipv4_prefix_count
+        value: '{{ ipv4_prefix_count }}'
+      - name: enable_primary_ipv6
+        value: '{{ enable_primary_ipv6 }}'
+      - name: group_set
         value:
-          - '{{ GroupSet[0] }}'
-      - name: Ipv6Addresses
+          - '{{ group_set[0] }}'
+      - name: ipv6_addresses
         value:
-          - Ipv6Address: '{{ Ipv6Address }}'
-      - name: Ipv6Prefixes
+          - ipv6_address: '{{ ipv6_address }}'
+      - name: ipv6_prefixes
         value:
-          - Ipv6Prefix: '{{ Ipv6Prefix }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: SourceDestCheck
-        value: '{{ SourceDestCheck }}'
-      - name: InterfaceType
-        value: '{{ InterfaceType }}'
-      - name: Ipv6AddressCount
-        value: '{{ Ipv6AddressCount }}'
-      - name: Tags
+          - ipv6_prefix: '{{ ipv6_prefix }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: source_dest_check
+        value: '{{ source_dest_check }}'
+      - name: interface_type
+        value: '{{ interface_type }}'
+      - name: ipv6_address_count
+        value: '{{ ipv6_address_count }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ConnectionTrackingSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: connection_tracking_specification
         value:
-          UdpTimeout: '{{ UdpTimeout }}'
-          TcpEstablishedTimeout: '{{ TcpEstablishedTimeout }}'
-          UdpStreamTimeout: '{{ UdpStreamTimeout }}'
-
+          udp_timeout: '{{ udp_timeout }}'
+          tcp_established_timeout: '{{ tcp_established_timeout }}'
+          udp_stream_timeout: '{{ udp_stream_timeout }}'
 ```
 </TabItem>
 </Tabs>
@@ -496,7 +495,7 @@ SET PatchDocument = string('{{ {
     "ConnectionTrackingSpecification": connection_tracking_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -505,7 +504,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_interfaces
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

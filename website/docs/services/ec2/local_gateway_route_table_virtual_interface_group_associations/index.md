@@ -188,7 +188,7 @@ owner_id,
 state,
 tags
 FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-WHERE region = 'us-east-1' AND Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_virtual_interface_group_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.ec2.local_gateway_route_table_virtual_interface_group_associat
  LocalGatewayVirtualInterfaceGroupId,
  region
 )
-SELECT 
-'{{ LocalGatewayRouteTableId }}',
- '{{ LocalGatewayVirtualInterfaceGroupId }}',
+SELECT
+'{{ local_gateway_route_table_id }}',
+ '{{ local_gateway_virtual_interface_group_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,10 +241,10 @@ INSERT INTO awscc.ec2.local_gateway_route_table_virtual_interface_group_associat
  Tags,
  region
 )
-SELECT 
- '{{ LocalGatewayRouteTableId }}',
- '{{ LocalGatewayVirtualInterfaceGroupId }}',
- '{{ Tags }}',
+SELECT
+ '{{ local_gateway_route_table_id }}',
+ '{{ local_gateway_virtual_interface_group_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,15 +262,14 @@ globals:
 resources:
   - name: local_gateway_route_table_virtual_interface_group_association
     props:
-      - name: LocalGatewayRouteTableId
-        value: '{{ LocalGatewayRouteTableId }}'
-      - name: LocalGatewayVirtualInterfaceGroupId
-        value: '{{ LocalGatewayVirtualInterfaceGroupId }}'
-      - name: Tags
+      - name: local_gateway_route_table_id
+        value: '{{ local_gateway_route_table_id }}'
+      - name: local_gateway_virtual_interface_group_id
+        value: '{{ local_gateway_virtual_interface_group_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
+AND Identifier = '{{ local_gateway_route_table_virtual_interface_group_association_id }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-WHERE Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>'
+WHERE Identifier = '{{ local_gateway_route_table_virtual_interface_group_association_id }}'
 AND region = 'us-east-1';
 ```
 

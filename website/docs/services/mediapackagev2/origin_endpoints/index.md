@@ -788,7 +788,7 @@ hls_manifest_urls,
 low_latency_hls_manifest_urls,
 tags
 FROM awscc.mediapackagev2.origin_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -827,11 +827,11 @@ INSERT INTO awscc.mediapackagev2.origin_endpoints (
  OriginEndpointName,
  region
 )
-SELECT 
-'{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ ContainerType }}',
- '{{ OriginEndpointName }}',
+SELECT
+'{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ container_type }}',
+ '{{ origin_endpoint_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -854,19 +854,19 @@ INSERT INTO awscc.mediapackagev2.origin_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ ContainerType }}',
- '{{ DashManifests }}',
- '{{ Description }}',
- '{{ ForceEndpointErrorConfiguration }}',
- '{{ HlsManifests }}',
- '{{ LowLatencyHlsManifests }}',
- '{{ OriginEndpointName }}',
- '{{ Segment }}',
- '{{ StartoverWindowSeconds }}',
- '{{ Tags }}',
+SELECT
+ '{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ container_type }}',
+ '{{ dash_manifests }}',
+ '{{ description }}',
+ '{{ force_endpoint_error_configuration }}',
+ '{{ hls_manifests }}',
+ '{{ low_latency_hls_manifests }}',
+ '{{ origin_endpoint_name }}',
+ '{{ segment }}',
+ '{{ startover_window_seconds }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -884,125 +884,124 @@ globals:
 resources:
   - name: origin_endpoint
     props:
-      - name: ChannelGroupName
-        value: '{{ ChannelGroupName }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: ContainerType
-        value: '{{ ContainerType }}'
-      - name: DashManifests
+      - name: channel_group_name
+        value: '{{ channel_group_name }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: container_type
+        value: '{{ container_type }}'
+      - name: dash_manifests
         value:
-          - ManifestName: '{{ ManifestName }}'
-            ManifestWindowSeconds: '{{ ManifestWindowSeconds }}'
-            FilterConfiguration:
-              ManifestFilter: '{{ ManifestFilter }}'
-              Start: '{{ Start }}'
-              End: '{{ End }}'
-              TimeDelaySeconds: '{{ TimeDelaySeconds }}'
-              ClipStartTime: '{{ ClipStartTime }}'
-            MinUpdatePeriodSeconds: '{{ MinUpdatePeriodSeconds }}'
-            MinBufferTimeSeconds: '{{ MinBufferTimeSeconds }}'
-            SuggestedPresentationDelaySeconds: '{{ SuggestedPresentationDelaySeconds }}'
-            SegmentTemplateFormat: '{{ SegmentTemplateFormat }}'
-            PeriodTriggers:
-              - '{{ PeriodTriggers[0] }}'
-            ScteDash:
-              AdMarkerDash: '{{ AdMarkerDash }}'
-            DrmSignaling: '{{ DrmSignaling }}'
-            UtcTiming:
-              TimingMode: '{{ TimingMode }}'
-              TimingSource: '{{ TimingSource }}'
-            Profiles:
-              - '{{ Profiles[0] }}'
-            BaseUrls:
-              - Url: '{{ Url }}'
-                ServiceLocation: '{{ ServiceLocation }}'
-                DvbPriority: '{{ DvbPriority }}'
-                DvbWeight: '{{ DvbWeight }}'
-            ProgramInformation:
-              Title: '{{ Title }}'
-              Source: '{{ Source }}'
-              Copyright: '{{ Copyright }}'
-              LanguageCode: '{{ LanguageCode }}'
-              MoreInformationUrl: '{{ MoreInformationUrl }}'
-            DvbSettings:
-              FontDownload:
-                Url: '{{ Url }}'
-                MimeType: '{{ MimeType }}'
-                FontFamily: '{{ FontFamily }}'
-              ErrorMetrics:
-                - ReportingUrl: '{{ ReportingUrl }}'
-                  Probability: '{{ Probability }}'
-            Compactness: '{{ Compactness }}'
-            SubtitleConfiguration:
-              TtmlConfiguration:
-                TtmlProfile: '{{ TtmlProfile }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ForceEndpointErrorConfiguration
+          - manifest_name: '{{ manifest_name }}'
+            manifest_window_seconds: '{{ manifest_window_seconds }}'
+            filter_configuration:
+              manifest_filter: '{{ manifest_filter }}'
+              start: '{{ start }}'
+              end: '{{ end }}'
+              time_delay_seconds: '{{ time_delay_seconds }}'
+              clip_start_time: '{{ clip_start_time }}'
+            min_update_period_seconds: '{{ min_update_period_seconds }}'
+            min_buffer_time_seconds: '{{ min_buffer_time_seconds }}'
+            suggested_presentation_delay_seconds: '{{ suggested_presentation_delay_seconds }}'
+            segment_template_format: '{{ segment_template_format }}'
+            period_triggers:
+              - '{{ period_triggers[0] }}'
+            scte_dash:
+              ad_marker_dash: '{{ ad_marker_dash }}'
+            drm_signaling: '{{ drm_signaling }}'
+            utc_timing:
+              timing_mode: '{{ timing_mode }}'
+              timing_source: '{{ timing_source }}'
+            profiles:
+              - '{{ profiles[0] }}'
+            base_urls:
+              - url: '{{ url }}'
+                service_location: '{{ service_location }}'
+                dvb_priority: '{{ dvb_priority }}'
+                dvb_weight: '{{ dvb_weight }}'
+            program_information:
+              title: '{{ title }}'
+              source: '{{ source }}'
+              copyright: '{{ copyright }}'
+              language_code: '{{ language_code }}'
+              more_information_url: '{{ more_information_url }}'
+            dvb_settings:
+              font_download:
+                url: '{{ url }}'
+                mime_type: '{{ mime_type }}'
+                font_family: '{{ font_family }}'
+              error_metrics:
+                - reporting_url: '{{ reporting_url }}'
+                  probability: '{{ probability }}'
+            compactness: '{{ compactness }}'
+            subtitle_configuration:
+              ttml_configuration:
+                ttml_profile: '{{ ttml_profile }}'
+      - name: description
+        value: '{{ description }}'
+      - name: force_endpoint_error_configuration
         value:
-          EndpointErrorConditions:
-            - '{{ EndpointErrorConditions[0] }}'
-      - name: HlsManifests
+          endpoint_error_conditions:
+            - '{{ endpoint_error_conditions[0] }}'
+      - name: hls_manifests
         value:
-          - ManifestName: '{{ ManifestName }}'
-            Url: '{{ Url }}'
-            ChildManifestName: '{{ ChildManifestName }}'
-            ManifestWindowSeconds: '{{ ManifestWindowSeconds }}'
-            ProgramDateTimeIntervalSeconds: '{{ ProgramDateTimeIntervalSeconds }}'
-            ScteHls:
-              AdMarkerHls: '{{ AdMarkerHls }}'
-            FilterConfiguration: null
-            StartTag:
-              TimeOffset: null
-              Precise: '{{ Precise }}'
-            UrlEncodeChildManifest: '{{ UrlEncodeChildManifest }}'
-      - name: LowLatencyHlsManifests
+          - manifest_name: '{{ manifest_name }}'
+            url: '{{ url }}'
+            child_manifest_name: '{{ child_manifest_name }}'
+            manifest_window_seconds: '{{ manifest_window_seconds }}'
+            program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
+            scte_hls:
+              ad_marker_hls: '{{ ad_marker_hls }}'
+            filter_configuration: null
+            start_tag:
+              time_offset: null
+              precise: '{{ precise }}'
+            url_encode_child_manifest: '{{ url_encode_child_manifest }}'
+      - name: low_latency_hls_manifests
         value:
-          - ManifestName: '{{ ManifestName }}'
-            Url: '{{ Url }}'
-            ChildManifestName: '{{ ChildManifestName }}'
-            ManifestWindowSeconds: '{{ ManifestWindowSeconds }}'
-            ProgramDateTimeIntervalSeconds: '{{ ProgramDateTimeIntervalSeconds }}'
-            ScteHls: null
-            FilterConfiguration: null
-            StartTag: null
-            UrlEncodeChildManifest: '{{ UrlEncodeChildManifest }}'
-      - name: OriginEndpointName
-        value: '{{ OriginEndpointName }}'
-      - name: Segment
+          - manifest_name: '{{ manifest_name }}'
+            url: '{{ url }}'
+            child_manifest_name: '{{ child_manifest_name }}'
+            manifest_window_seconds: '{{ manifest_window_seconds }}'
+            program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
+            scte_hls: null
+            filter_configuration: null
+            start_tag: null
+            url_encode_child_manifest: '{{ url_encode_child_manifest }}'
+      - name: origin_endpoint_name
+        value: '{{ origin_endpoint_name }}'
+      - name: segment
         value:
-          SegmentDurationSeconds: '{{ SegmentDurationSeconds }}'
-          SegmentName: '{{ SegmentName }}'
-          TsUseAudioRenditionGroup: '{{ TsUseAudioRenditionGroup }}'
-          IncludeIframeOnlyStreams: '{{ IncludeIframeOnlyStreams }}'
-          TsIncludeDvbSubtitles: '{{ TsIncludeDvbSubtitles }}'
-          Scte:
-            ScteFilter:
-              - '{{ ScteFilter[0] }}'
-          Encryption:
-            ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-            EncryptionMethod:
-              TsEncryptionMethod: '{{ TsEncryptionMethod }}'
-              CmafEncryptionMethod: '{{ CmafEncryptionMethod }}'
-            KeyRotationIntervalSeconds: '{{ KeyRotationIntervalSeconds }}'
-            CmafExcludeSegmentDrmMetadata: '{{ CmafExcludeSegmentDrmMetadata }}'
-            SpekeKeyProvider:
-              EncryptionContractConfiguration:
-                PresetSpeke20Audio: '{{ PresetSpeke20Audio }}'
-                PresetSpeke20Video: '{{ PresetSpeke20Video }}'
-              ResourceId: '{{ ResourceId }}'
-              DrmSystems:
-                - '{{ DrmSystems[0] }}'
-              RoleArn: '{{ RoleArn }}'
-              Url: '{{ Url }}'
-      - name: StartoverWindowSeconds
-        value: '{{ StartoverWindowSeconds }}'
-      - name: Tags
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
+          segment_name: '{{ segment_name }}'
+          ts_use_audio_rendition_group: '{{ ts_use_audio_rendition_group }}'
+          include_iframe_only_streams: '{{ include_iframe_only_streams }}'
+          ts_include_dvb_subtitles: '{{ ts_include_dvb_subtitles }}'
+          scte:
+            scte_filter:
+              - '{{ scte_filter[0] }}'
+          encryption:
+            constant_initialization_vector: '{{ constant_initialization_vector }}'
+            encryption_method:
+              ts_encryption_method: '{{ ts_encryption_method }}'
+              cmaf_encryption_method: '{{ cmaf_encryption_method }}'
+            key_rotation_interval_seconds: '{{ key_rotation_interval_seconds }}'
+            cmaf_exclude_segment_drm_metadata: '{{ cmaf_exclude_segment_drm_metadata }}'
+            speke_key_provider:
+              encryption_contract_configuration:
+                preset_speke20_audio: '{{ preset_speke20_audio }}'
+                preset_speke20_video: '{{ preset_speke20_video }}'
+              resource_id: '{{ resource_id }}'
+              drm_systems:
+                - '{{ drm_systems[0] }}'
+              role_arn: '{{ role_arn }}'
+              url: '{{ url }}'
+      - name: startover_window_seconds
+        value: '{{ startover_window_seconds }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -1024,7 +1023,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -1033,7 +1032,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.origin_endpoints
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

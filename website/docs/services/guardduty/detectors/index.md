@@ -257,7 +257,7 @@ features,
 id,
 tags
 FROM awscc.guardduty.detectors
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,8 +293,8 @@ INSERT INTO awscc.guardduty.detectors (
  Enable,
  region
 )
-SELECT 
-'{{ Enable }}',
+SELECT
+'{{ enable }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -310,12 +310,12 @@ INSERT INTO awscc.guardduty.detectors (
  Tags,
  region
 )
-SELECT 
- '{{ FindingPublishingFrequency }}',
- '{{ Enable }}',
- '{{ DataSources }}',
- '{{ Features }}',
- '{{ Tags }}',
+SELECT
+ '{{ finding_publishing_frequency }}',
+ '{{ enable }}',
+ '{{ data_sources }}',
+ '{{ features }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -333,32 +333,31 @@ globals:
 resources:
   - name: detector
     props:
-      - name: FindingPublishingFrequency
-        value: '{{ FindingPublishingFrequency }}'
-      - name: Enable
-        value: '{{ Enable }}'
-      - name: DataSources
+      - name: finding_publishing_frequency
+        value: '{{ finding_publishing_frequency }}'
+      - name: enable
+        value: '{{ enable }}'
+      - name: data_sources
         value:
-          S3Logs:
-            Enable: '{{ Enable }}'
-          Kubernetes:
-            AuditLogs:
-              Enable: '{{ Enable }}'
-          MalwareProtection:
-            ScanEc2InstanceWithFindings:
-              EbsVolumes: '{{ EbsVolumes }}'
-      - name: Features
+          s3_logs:
+            enable: '{{ enable }}'
+          kubernetes:
+            audit_logs:
+              enable: '{{ enable }}'
+          malware_protection:
+            scan_ec2_instance_with_findings:
+              ebs_volumes: '{{ ebs_volumes }}'
+      - name: features
         value:
-          - Name: '{{ Name }}'
-            Status: '{{ Status }}'
-            AdditionalConfiguration:
-              - Name: '{{ Name }}'
-                Status: '{{ Status }}'
-      - name: Tags
+          - name: '{{ name }}'
+            status: '{{ status }}'
+            additional_configuration:
+              - name: '{{ name }}'
+                status: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +377,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -387,7 +386,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.detectors
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

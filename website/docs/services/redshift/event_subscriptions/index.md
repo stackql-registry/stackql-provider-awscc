@@ -224,7 +224,7 @@ sns_topic_arn,
 subscription_creation_time,
 tags
 FROM awscc.redshift.event_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<SubscriptionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,8 +260,8 @@ INSERT INTO awscc.redshift.event_subscriptions (
  SubscriptionName,
  region
 )
-SELECT 
-'{{ SubscriptionName }}',
+SELECT
+'{{ subscription_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -280,15 +280,15 @@ INSERT INTO awscc.redshift.event_subscriptions (
  Tags,
  region
 )
-SELECT 
- '{{ SourceType }}',
- '{{ EventCategories }}',
- '{{ Enabled }}',
- '{{ Severity }}',
- '{{ SubscriptionName }}',
- '{{ SourceIds }}',
- '{{ SnsTopicArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ source_type }}',
+ '{{ event_categories }}',
+ '{{ enabled }}',
+ '{{ severity }}',
+ '{{ subscription_name }}',
+ '{{ source_ids }}',
+ '{{ sns_topic_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,27 +306,26 @@ globals:
 resources:
   - name: event_subscription
     props:
-      - name: SourceType
-        value: '{{ SourceType }}'
-      - name: EventCategories
+      - name: source_type
+        value: '{{ source_type }}'
+      - name: event_categories
         value:
-          - '{{ EventCategories[0] }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Severity
-        value: '{{ Severity }}'
-      - name: SubscriptionName
-        value: '{{ SubscriptionName }}'
-      - name: SourceIds
+          - '{{ event_categories[0] }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: severity
+        value: '{{ severity }}'
+      - name: subscription_name
+        value: '{{ subscription_name }}'
+      - name: source_ids
         value:
-          - '{{ SourceIds[0] }}'
-      - name: SnsTopicArn
-        value: '{{ SnsTopicArn }}'
-      - name: Tags
+          - '{{ source_ids[0] }}'
+      - name: sns_topic_arn
+        value: '{{ sns_topic_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +347,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubscriptionName>';
+AND Identifier = '{{ subscription_name }}';
 ```
 
 
@@ -357,7 +356,7 @@ AND Identifier = '<SubscriptionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.event_subscriptions
-WHERE Identifier = '<SubscriptionName>'
+WHERE Identifier = '{{ subscription_name }}'
 AND region = 'us-east-1';
 ```
 

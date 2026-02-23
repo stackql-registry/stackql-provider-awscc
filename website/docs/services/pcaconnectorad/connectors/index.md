@@ -170,7 +170,7 @@ directory_id,
 tags,
 vpc_information
 FROM awscc.pcaconnectorad.connectors
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.pcaconnectorad.connectors (
  VpcInformation,
  region
 )
-SELECT 
-'{{ CertificateAuthorityArn }}',
- '{{ DirectoryId }}',
- '{{ VpcInformation }}',
+SELECT
+'{{ certificate_authority_arn }}',
+ '{{ directory_id }}',
+ '{{ vpc_information }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,11 +226,11 @@ INSERT INTO awscc.pcaconnectorad.connectors (
  VpcInformation,
  region
 )
-SELECT 
- '{{ CertificateAuthorityArn }}',
- '{{ DirectoryId }}',
- '{{ Tags }}',
- '{{ VpcInformation }}',
+SELECT
+ '{{ certificate_authority_arn }}',
+ '{{ directory_id }}',
+ '{{ tags }}',
+ '{{ vpc_information }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,18 +248,17 @@ globals:
 resources:
   - name: connector
     props:
-      - name: CertificateAuthorityArn
-        value: '{{ CertificateAuthorityArn }}'
-      - name: DirectoryId
-        value: '{{ DirectoryId }}'
-      - name: Tags
+      - name: certificate_authority_arn
+        value: '{{ certificate_authority_arn }}'
+      - name: directory_id
+        value: '{{ directory_id }}'
+      - name: tags
         value: {}
-      - name: VpcInformation
+      - name: vpc_information
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          IpAddressType: '{{ IpAddressType }}'
-
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          ip_address_type: '{{ ip_address_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectorArn>';
+AND Identifier = '{{ connector_arn }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<ConnectorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.connectors
-WHERE Identifier = '<ConnectorArn>'
+WHERE Identifier = '{{ connector_arn }}'
 AND region = 'us-east-1';
 ```
 

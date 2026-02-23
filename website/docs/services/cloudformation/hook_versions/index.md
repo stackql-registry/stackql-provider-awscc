@@ -188,7 +188,7 @@ type_name,
 version_id,
 visibility
 FROM awscc.cloudformation.hook_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.cloudformation.hook_versions (
  TypeName,
  region
 )
-SELECT 
-'{{ SchemaHandlerPackage }}',
- '{{ TypeName }}',
+SELECT
+'{{ schema_handler_package }}',
+ '{{ type_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,11 +242,11 @@ INSERT INTO awscc.cloudformation.hook_versions (
  TypeName,
  region
 )
-SELECT 
- '{{ ExecutionRoleArn }}',
- '{{ LoggingConfig }}',
- '{{ SchemaHandlerPackage }}',
- '{{ TypeName }}',
+SELECT
+ '{{ execution_role_arn }}',
+ '{{ logging_config }}',
+ '{{ schema_handler_package }}',
+ '{{ type_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,17 +264,16 @@ globals:
 resources:
   - name: hook_version
     props:
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: LoggingConfig
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: logging_config
         value:
-          LogGroupName: '{{ LogGroupName }}'
-          LogRoleArn: '{{ LogRoleArn }}'
-      - name: SchemaHandlerPackage
-        value: '{{ SchemaHandlerPackage }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-
+          log_group_name: '{{ log_group_name }}'
+          log_role_arn: '{{ log_role_arn }}'
+      - name: schema_handler_package
+        value: '{{ schema_handler_package }}'
+      - name: type_name
+        value: '{{ type_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.hook_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

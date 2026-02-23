@@ -315,7 +315,7 @@ volume_kms_key_id,
 vpc_config,
 arn
 FROM awscc.comprehend.document_classifiers
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -354,11 +354,11 @@ INSERT INTO awscc.comprehend.document_classifiers (
  DocumentClassifierName,
  region
 )
-SELECT 
-'{{ DataAccessRoleArn }}',
- '{{ InputDataConfig }}',
- '{{ LanguageCode }}',
- '{{ DocumentClassifierName }}',
+SELECT
+'{{ data_access_role_arn }}',
+ '{{ input_data_config }}',
+ '{{ language_code }}',
+ '{{ document_classifier_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -381,19 +381,19 @@ INSERT INTO awscc.comprehend.document_classifiers (
  VpcConfig,
  region
 )
-SELECT 
- '{{ DataAccessRoleArn }}',
- '{{ InputDataConfig }}',
- '{{ OutputDataConfig }}',
- '{{ LanguageCode }}',
- '{{ ModelKmsKeyId }}',
- '{{ ModelPolicy }}',
- '{{ DocumentClassifierName }}',
- '{{ Mode }}',
- '{{ Tags }}',
- '{{ VersionName }}',
- '{{ VolumeKmsKeyId }}',
- '{{ VpcConfig }}',
+SELECT
+ '{{ data_access_role_arn }}',
+ '{{ input_data_config }}',
+ '{{ output_data_config }}',
+ '{{ language_code }}',
+ '{{ model_kms_key_id }}',
+ '{{ model_policy }}',
+ '{{ document_classifier_name }}',
+ '{{ mode }}',
+ '{{ tags }}',
+ '{{ version_name }}',
+ '{{ volume_kms_key_id }}',
+ '{{ vpc_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -411,57 +411,56 @@ globals:
 resources:
   - name: document_classifier
     props:
-      - name: DataAccessRoleArn
-        value: '{{ DataAccessRoleArn }}'
-      - name: InputDataConfig
+      - name: data_access_role_arn
+        value: '{{ data_access_role_arn }}'
+      - name: input_data_config
         value:
-          AugmentedManifests:
-            - AttributeNames:
-                - '{{ AttributeNames[0] }}'
-              S3Uri: '{{ S3Uri }}'
-              Split: '{{ Split }}'
-          DataFormat: '{{ DataFormat }}'
-          LabelDelimiter: '{{ LabelDelimiter }}'
-          DocumentType: '{{ DocumentType }}'
-          Documents:
-            S3Uri: null
-            TestS3Uri: null
-          DocumentReaderConfig:
-            DocumentReadAction: '{{ DocumentReadAction }}'
-            DocumentReadMode: '{{ DocumentReadMode }}'
-            FeatureTypes:
-              - '{{ FeatureTypes[0] }}'
-          S3Uri: null
-          TestS3Uri: null
-      - name: OutputDataConfig
+          augmented_manifests:
+            - attribute_names:
+                - '{{ attribute_names[0] }}'
+              s3_uri: '{{ s3_uri }}'
+              split: '{{ split }}'
+          data_format: '{{ data_format }}'
+          label_delimiter: '{{ label_delimiter }}'
+          document_type: '{{ document_type }}'
+          documents:
+            s3_uri: null
+            test_s3_uri: null
+          document_reader_config:
+            document_read_action: '{{ document_read_action }}'
+            document_read_mode: '{{ document_read_mode }}'
+            feature_types:
+              - '{{ feature_types[0] }}'
+          s3_uri: null
+          test_s3_uri: null
+      - name: output_data_config
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          S3Uri: null
-      - name: LanguageCode
-        value: '{{ LanguageCode }}'
-      - name: ModelKmsKeyId
+          kms_key_id: '{{ kms_key_id }}'
+          s3_uri: null
+      - name: language_code
+        value: '{{ language_code }}'
+      - name: model_kms_key_id
         value: null
-      - name: ModelPolicy
-        value: '{{ ModelPolicy }}'
-      - name: DocumentClassifierName
-        value: '{{ DocumentClassifierName }}'
-      - name: Mode
-        value: '{{ Mode }}'
-      - name: Tags
+      - name: model_policy
+        value: '{{ model_policy }}'
+      - name: document_classifier_name
+        value: '{{ document_classifier_name }}'
+      - name: mode
+        value: '{{ mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VersionName
-        value: '{{ VersionName }}'
-      - name: VolumeKmsKeyId
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: version_name
+        value: '{{ version_name }}'
+      - name: volume_kms_key_id
         value: null
-      - name: VpcConfig
+      - name: vpc_config
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          Subnets:
-            - '{{ Subnets[0] }}'
-
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnets:
+            - '{{ subnets[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -478,7 +477,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -487,7 +486,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.comprehend.document_classifiers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

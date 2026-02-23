@@ -193,7 +193,7 @@ parent_domain_unit_id,
 identifier,
 last_updated_at
 FROM awscc.datazone.domain_units
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.datazone.domain_units (
  ParentDomainUnitIdentifier,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ Name }}',
- '{{ ParentDomainUnitIdentifier }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ name }}',
+ '{{ parent_domain_unit_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,11 +250,11 @@ INSERT INTO awscc.datazone.domain_units (
  ParentDomainUnitIdentifier,
  region
 )
-SELECT 
- '{{ DomainIdentifier }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ ParentDomainUnitIdentifier }}',
+SELECT
+ '{{ domain_identifier }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ parent_domain_unit_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,15 +272,14 @@ globals:
 resources:
   - name: domain_unit
     props:
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ParentDomainUnitIdentifier
-        value: '{{ ParentDomainUnitIdentifier }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: parent_domain_unit_identifier
+        value: '{{ parent_domain_unit_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +296,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -306,7 +305,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.domain_units
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

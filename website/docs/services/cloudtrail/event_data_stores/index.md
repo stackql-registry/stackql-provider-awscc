@@ -323,7 +323,7 @@ max_event_size,
 context_key_selectors,
 ingestion_enabled
 FROM awscc.cloudtrail.event_data_stores
-WHERE region = 'us-east-1' AND Identifier = '<EventDataStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ event_data_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -359,7 +359,7 @@ INSERT INTO awscc.cloudtrail.event_data_stores (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -387,23 +387,23 @@ INSERT INTO awscc.cloudtrail.event_data_stores (
  IngestionEnabled,
  region
 )
-SELECT 
- '{{ AdvancedEventSelectors }}',
- '{{ FederationEnabled }}',
- '{{ FederationRoleArn }}',
- '{{ MultiRegionEnabled }}',
- '{{ Name }}',
- '{{ OrganizationEnabled }}',
- '{{ BillingMode }}',
- '{{ RetentionPeriod }}',
- '{{ TerminationProtectionEnabled }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
- '{{ InsightSelectors }}',
- '{{ InsightsDestination }}',
- '{{ MaxEventSize }}',
- '{{ ContextKeySelectors }}',
- '{{ IngestionEnabled }}',
+SELECT
+ '{{ advanced_event_selectors }}',
+ '{{ federation_enabled }}',
+ '{{ federation_role_arn }}',
+ '{{ multi_region_enabled }}',
+ '{{ name }}',
+ '{{ organization_enabled }}',
+ '{{ billing_mode }}',
+ '{{ retention_period }}',
+ '{{ termination_protection_enabled }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
+ '{{ insight_selectors }}',
+ '{{ insights_destination }}',
+ '{{ max_event_size }}',
+ '{{ context_key_selectors }}',
+ '{{ ingestion_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -421,60 +421,59 @@ globals:
 resources:
   - name: event_data_store
     props:
-      - name: AdvancedEventSelectors
+      - name: advanced_event_selectors
         value:
-          - FieldSelectors:
-              - Field: '{{ Field }}'
-                Equals:
-                  - '{{ Equals[0] }}'
-                NotStartsWith:
-                  - '{{ NotStartsWith[0] }}'
-                NotEndsWith:
-                  - '{{ NotEndsWith[0] }}'
-                StartsWith:
-                  - '{{ StartsWith[0] }}'
-                EndsWith:
-                  - '{{ EndsWith[0] }}'
-                NotEquals:
-                  - '{{ NotEquals[0] }}'
-            Name: '{{ Name }}'
-      - name: FederationEnabled
-        value: '{{ FederationEnabled }}'
-      - name: FederationRoleArn
-        value: '{{ FederationRoleArn }}'
-      - name: MultiRegionEnabled
-        value: '{{ MultiRegionEnabled }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OrganizationEnabled
-        value: '{{ OrganizationEnabled }}'
-      - name: BillingMode
-        value: '{{ BillingMode }}'
-      - name: RetentionPeriod
-        value: '{{ RetentionPeriod }}'
-      - name: TerminationProtectionEnabled
-        value: '{{ TerminationProtectionEnabled }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+          - field_selectors:
+              - field: '{{ field }}'
+                equals:
+                  - '{{ equals[0] }}'
+                not_starts_with:
+                  - '{{ not_starts_with[0] }}'
+                not_ends_with:
+                  - '{{ not_ends_with[0] }}'
+                starts_with:
+                  - '{{ starts_with[0] }}'
+                ends_with:
+                  - '{{ ends_with[0] }}'
+                not_equals:
+                  - '{{ not_equals[0] }}'
+            name: '{{ name }}'
+      - name: federation_enabled
+        value: '{{ federation_enabled }}'
+      - name: federation_role_arn
+        value: '{{ federation_role_arn }}'
+      - name: multi_region_enabled
+        value: '{{ multi_region_enabled }}'
+      - name: name
+        value: '{{ name }}'
+      - name: organization_enabled
+        value: '{{ organization_enabled }}'
+      - name: billing_mode
+        value: '{{ billing_mode }}'
+      - name: retention_period
+        value: '{{ retention_period }}'
+      - name: termination_protection_enabled
+        value: '{{ termination_protection_enabled }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: InsightSelectors
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: insight_selectors
         value:
-          - InsightType: '{{ InsightType }}'
-      - name: InsightsDestination
-        value: '{{ InsightsDestination }}'
-      - name: MaxEventSize
-        value: '{{ MaxEventSize }}'
-      - name: ContextKeySelectors
+          - insight_type: '{{ insight_type }}'
+      - name: insights_destination
+        value: '{{ insights_destination }}'
+      - name: max_event_size
+        value: '{{ max_event_size }}'
+      - name: context_key_selectors
         value:
-          - Type: '{{ Type }}'
-            Equals:
-              - '{{ Equals[0] }}'
-      - name: IngestionEnabled
-        value: '{{ IngestionEnabled }}'
-
+          - type: '{{ type }}'
+            equals:
+              - '{{ equals[0] }}'
+      - name: ingestion_enabled
+        value: '{{ ingestion_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -505,7 +504,7 @@ SET PatchDocument = string('{{ {
     "IngestionEnabled": ingestion_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EventDataStoreArn>';
+AND Identifier = '{{ event_data_store_arn }}';
 ```
 
 
@@ -514,7 +513,7 @@ AND Identifier = '<EventDataStoreArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.event_data_stores
-WHERE Identifier = '<EventDataStoreArn>'
+WHERE Identifier = '{{ event_data_store_arn }}'
 AND region = 'us-east-1';
 ```
 

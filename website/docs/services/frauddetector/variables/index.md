@@ -200,7 +200,7 @@ arn,
 created_time,
 last_updated_time
 FROM awscc.frauddetector.variables
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,11 +239,11 @@ INSERT INTO awscc.frauddetector.variables (
  DefaultValue,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DataSource }}',
- '{{ DataType }}',
- '{{ DefaultValue }}',
+SELECT
+'{{ name }}',
+ '{{ data_source }}',
+ '{{ data_type }}',
+ '{{ default_value }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,14 +261,14 @@ INSERT INTO awscc.frauddetector.variables (
  VariableType,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DataSource }}',
- '{{ DataType }}',
- '{{ DefaultValue }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ VariableType }}',
+SELECT
+ '{{ name }}',
+ '{{ data_source }}',
+ '{{ data_type }}',
+ '{{ default_value }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ variable_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,23 +286,22 @@ globals:
 resources:
   - name: variable
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DataSource
-        value: '{{ DataSource }}'
-      - name: DataType
-        value: '{{ DataType }}'
-      - name: DefaultValue
-        value: '{{ DefaultValue }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: data_source
+        value: '{{ data_source }}'
+      - name: data_type
+        value: '{{ data_type }}'
+      - name: default_value
+        value: '{{ default_value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VariableType
-        value: '{{ VariableType }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: variable_type
+        value: '{{ variable_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ SET PatchDocument = string('{{ {
     "VariableType": variable_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -332,7 +331,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.variables
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

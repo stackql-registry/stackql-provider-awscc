@@ -287,7 +287,7 @@ tags,
 template_description,
 template_name
 FROM awscc.pinpoint.in_app_templates
-WHERE region = 'us-east-1' AND Identifier = '<TemplateName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,8 +323,8 @@ INSERT INTO awscc.pinpoint.in_app_templates (
  TemplateName,
  region
 )
-SELECT 
-'{{ TemplateName }}',
+SELECT
+'{{ template_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -341,13 +341,13 @@ INSERT INTO awscc.pinpoint.in_app_templates (
  TemplateName,
  region
 )
-SELECT 
- '{{ Content }}',
- '{{ CustomConfig }}',
- '{{ Layout }}',
- '{{ Tags }}',
- '{{ TemplateDescription }}',
- '{{ TemplateName }}',
+SELECT
+ '{{ content }}',
+ '{{ custom_config }}',
+ '{{ layout }}',
+ '{{ tags }}',
+ '{{ template_description }}',
+ '{{ template_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -365,43 +365,42 @@ globals:
 resources:
   - name: in_app_template
     props:
-      - name: Content
+      - name: content
         value:
-          - BackgroundColor: '{{ BackgroundColor }}'
-            BodyConfig:
-              Alignment: '{{ Alignment }}'
-              Body: '{{ Body }}'
-              TextColor: '{{ TextColor }}'
-            HeaderConfig:
-              Alignment: null
-              Header: '{{ Header }}'
-              TextColor: '{{ TextColor }}'
-            ImageUrl: '{{ ImageUrl }}'
-            PrimaryBtn:
-              Android:
-                ButtonAction: '{{ ButtonAction }}'
-                Link: '{{ Link }}'
-              DefaultConfig:
-                BackgroundColor: '{{ BackgroundColor }}'
-                BorderRadius: '{{ BorderRadius }}'
-                ButtonAction: null
-                Link: '{{ Link }}'
-                Text: '{{ Text }}'
-                TextColor: '{{ TextColor }}'
-              IOS: null
-              Web: null
-            SecondaryBtn: null
-      - name: CustomConfig
+          - background_color: '{{ background_color }}'
+            body_config:
+              alignment: '{{ alignment }}'
+              body: '{{ body }}'
+              text_color: '{{ text_color }}'
+            header_config:
+              alignment: null
+              header: '{{ header }}'
+              text_color: '{{ text_color }}'
+            image_url: '{{ image_url }}'
+            primary_btn:
+              android:
+                button_action: '{{ button_action }}'
+                link: '{{ link }}'
+              default_config:
+                background_color: '{{ background_color }}'
+                border_radius: '{{ border_radius }}'
+                button_action: null
+                link: '{{ link }}'
+                text: '{{ text }}'
+                text_color: '{{ text_color }}'
+              i_os: null
+              web: null
+            secondary_btn: null
+      - name: custom_config
         value: {}
-      - name: Layout
-        value: '{{ Layout }}'
-      - name: Tags
+      - name: layout
+        value: '{{ layout }}'
+      - name: tags
         value: {}
-      - name: TemplateDescription
-        value: '{{ TemplateDescription }}'
-      - name: TemplateName
-        value: '{{ TemplateName }}'
-
+      - name: template_description
+        value: '{{ template_description }}'
+      - name: template_name
+        value: '{{ template_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -421,7 +420,7 @@ SET PatchDocument = string('{{ {
     "TemplateDescription": template_description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TemplateName>';
+AND Identifier = '{{ template_name }}';
 ```
 
 
@@ -430,7 +429,7 @@ AND Identifier = '<TemplateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pinpoint.in_app_templates
-WHERE Identifier = '<TemplateName>'
+WHERE Identifier = '{{ template_name }}'
 AND region = 'us-east-1';
 ```
 

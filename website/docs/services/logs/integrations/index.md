@@ -170,7 +170,7 @@ integration_type,
 resource_config,
 integration_status
 FROM awscc.logs.integrations
-WHERE region = 'us-east-1' AND Identifier = '<IntegrationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ integration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.logs.integrations (
  ResourceConfig,
  region
 )
-SELECT 
-'{{ IntegrationName }}',
- '{{ IntegrationType }}',
- '{{ ResourceConfig }}',
+SELECT
+'{{ integration_name }}',
+ '{{ integration_type }}',
+ '{{ resource_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,10 +225,10 @@ INSERT INTO awscc.logs.integrations (
  ResourceConfig,
  region
 )
-SELECT 
- '{{ IntegrationName }}',
- '{{ IntegrationType }}',
- '{{ ResourceConfig }}',
+SELECT
+ '{{ integration_name }}',
+ '{{ integration_type }}',
+ '{{ resource_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,20 +246,19 @@ globals:
 resources:
   - name: integration
     props:
-      - name: IntegrationName
-        value: '{{ IntegrationName }}'
-      - name: IntegrationType
-        value: '{{ IntegrationType }}'
-      - name: ResourceConfig
+      - name: integration_name
+        value: '{{ integration_name }}'
+      - name: integration_type
+        value: '{{ integration_type }}'
+      - name: resource_config
         value:
-          OpenSearchResourceConfig:
-            KmsKeyArn: '{{ KmsKeyArn }}'
-            DataSourceRoleArn: null
-            DashboardViewerPrincipals:
+          open_search_resource_config:
+            kms_key_arn: '{{ kms_key_arn }}'
+            data_source_role_arn: null
+            dashboard_viewer_principals:
               - null
-            ApplicationARN: null
-            RetentionDays: '{{ RetentionDays }}'
-
+            application_arn: null
+            retention_days: '{{ retention_days }}'
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +269,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.integrations
-WHERE Identifier = '<IntegrationName>'
+WHERE Identifier = '{{ integration_name }}'
 AND region = 'us-east-1';
 ```
 

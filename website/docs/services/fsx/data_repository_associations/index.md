@@ -220,7 +220,7 @@ imported_file_chunk_size,
 s3,
 tags
 FROM awscc.fsx.data_repository_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,10 +258,10 @@ INSERT INTO awscc.fsx.data_repository_associations (
  DataRepositoryPath,
  region
 )
-SELECT 
-'{{ FileSystemId }}',
- '{{ FileSystemPath }}',
- '{{ DataRepositoryPath }}',
+SELECT
+'{{ file_system_id }}',
+ '{{ file_system_path }}',
+ '{{ data_repository_path }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -279,14 +279,14 @@ INSERT INTO awscc.fsx.data_repository_associations (
  Tags,
  region
 )
-SELECT 
- '{{ FileSystemId }}',
- '{{ FileSystemPath }}',
- '{{ DataRepositoryPath }}',
- '{{ BatchImportMetaDataOnCreate }}',
- '{{ ImportedFileChunkSize }}',
- '{{ S3 }}',
- '{{ Tags }}',
+SELECT
+ '{{ file_system_id }}',
+ '{{ file_system_path }}',
+ '{{ data_repository_path }}',
+ '{{ batch_import_meta_data_on_create }}',
+ '{{ imported_file_chunk_size }}',
+ '{{ s3 }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,28 +304,27 @@ globals:
 resources:
   - name: data_repository_association
     props:
-      - name: FileSystemId
-        value: '{{ FileSystemId }}'
-      - name: FileSystemPath
-        value: '{{ FileSystemPath }}'
-      - name: DataRepositoryPath
-        value: '{{ DataRepositoryPath }}'
-      - name: BatchImportMetaDataOnCreate
-        value: '{{ BatchImportMetaDataOnCreate }}'
-      - name: ImportedFileChunkSize
-        value: '{{ ImportedFileChunkSize }}'
-      - name: S3
+      - name: file_system_id
+        value: '{{ file_system_id }}'
+      - name: file_system_path
+        value: '{{ file_system_path }}'
+      - name: data_repository_path
+        value: '{{ data_repository_path }}'
+      - name: batch_import_meta_data_on_create
+        value: '{{ batch_import_meta_data_on_create }}'
+      - name: imported_file_chunk_size
+        value: '{{ imported_file_chunk_size }}'
+      - name: s3
         value:
-          AutoImportPolicy:
-            Events:
-              - '{{ Events[0] }}'
-          AutoExportPolicy:
-            Events: null
-      - name: Tags
+          auto_import_policy:
+            events:
+              - '{{ events[0] }}'
+          auto_export_policy:
+            events: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociationId>';
+AND Identifier = '{{ association_id }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<AssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fsx.data_repository_associations
-WHERE Identifier = '<AssociationId>'
+WHERE Identifier = '{{ association_id }}'
 AND region = 'us-east-1';
 ```
 

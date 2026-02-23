@@ -241,7 +241,7 @@ network_origin,
 arn,
 tags
 FROM awscc.s3express.access_points
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,8 +277,8 @@ INSERT INTO awscc.s3express.access_points (
  Bucket,
  region
 )
-SELECT 
-'{{ Bucket }}',
+SELECT
+'{{ bucket }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,15 +297,15 @@ INSERT INTO awscc.s3express.access_points (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Bucket }}',
- '{{ BucketAccountId }}',
- '{{ VpcConfiguration }}',
- '{{ PublicAccessBlockConfiguration }}',
- '{{ Scope }}',
- '{{ Policy }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ bucket }}',
+ '{{ bucket_account_id }}',
+ '{{ vpc_configuration }}',
+ '{{ public_access_block_configuration }}',
+ '{{ scope }}',
+ '{{ policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -323,34 +323,33 @@ globals:
 resources:
   - name: access_point
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Bucket
-        value: '{{ Bucket }}'
-      - name: BucketAccountId
-        value: '{{ BucketAccountId }}'
-      - name: VpcConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: bucket
+        value: '{{ bucket }}'
+      - name: bucket_account_id
+        value: '{{ bucket_account_id }}'
+      - name: vpc_configuration
         value:
-          VpcId: '{{ VpcId }}'
-      - name: PublicAccessBlockConfiguration
+          vpc_id: '{{ vpc_id }}'
+      - name: public_access_block_configuration
         value:
-          BlockPublicAcls: '{{ BlockPublicAcls }}'
-          IgnorePublicAcls: '{{ IgnorePublicAcls }}'
-          BlockPublicPolicy: '{{ BlockPublicPolicy }}'
-          RestrictPublicBuckets: '{{ RestrictPublicBuckets }}'
-      - name: Scope
+          block_public_acls: '{{ block_public_acls }}'
+          ignore_public_acls: '{{ ignore_public_acls }}'
+          block_public_policy: '{{ block_public_policy }}'
+          restrict_public_buckets: '{{ restrict_public_buckets }}'
+      - name: scope
         value:
-          Prefixes:
-            - '{{ Prefixes[0] }}'
-          Permissions:
-            - '{{ Permissions[0] }}'
-      - name: Policy
+          prefixes:
+            - '{{ prefixes[0] }}'
+          permissions:
+            - '{{ permissions[0] }}'
+      - name: policy
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3express.access_points
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

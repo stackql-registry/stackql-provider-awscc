@@ -229,7 +229,7 @@ multi_region_properties,
 kms_encryption_key,
 encryption_details
 FROM awscc.dsql.clusters
-WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,7 +265,7 @@ INSERT INTO awscc.dsql.clusters (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -281,11 +281,11 @@ INSERT INTO awscc.dsql.clusters (
  KmsEncryptionKey,
  region
 )
-SELECT 
- '{{ DeletionProtectionEnabled }}',
- '{{ Tags }}',
- '{{ MultiRegionProperties }}',
- '{{ KmsEncryptionKey }}',
+SELECT
+ '{{ deletion_protection_enabled }}',
+ '{{ tags }}',
+ '{{ multi_region_properties }}',
+ '{{ kms_encryption_key }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -303,20 +303,19 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: DeletionProtectionEnabled
-        value: '{{ DeletionProtectionEnabled }}'
-      - name: Tags
+      - name: deletion_protection_enabled
+        value: '{{ deletion_protection_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: MultiRegionProperties
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: multi_region_properties
         value:
-          WitnessRegion: '{{ WitnessRegion }}'
-          Clusters:
-            - '{{ Clusters[0] }}'
-      - name: KmsEncryptionKey
-        value: '{{ KmsEncryptionKey }}'
-
+          witness_region: '{{ witness_region }}'
+          clusters:
+            - '{{ clusters[0] }}'
+      - name: kms_encryption_key
+        value: '{{ kms_encryption_key }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "KmsEncryptionKey": kms_encryption_key
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Identifier>';
+AND Identifier = '{{ identifier }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dsql.clusters
-WHERE Identifier = '<Identifier>'
+WHERE Identifier = '{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

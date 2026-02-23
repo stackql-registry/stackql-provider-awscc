@@ -176,7 +176,7 @@ service_environment_type,
 capacity_limits,
 tags
 FROM awscc.batch.service_environments
-WHERE region = 'us-east-1' AND Identifier = '<ServiceEnvironmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.batch.service_environments (
  CapacityLimits,
  region
 )
-SELECT 
-'{{ ServiceEnvironmentType }}',
- '{{ CapacityLimits }}',
+SELECT
+'{{ service_environment_type }}',
+ '{{ capacity_limits }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.batch.service_environments (
  Tags,
  region
 )
-SELECT 
- '{{ ServiceEnvironmentName }}',
- '{{ State }}',
- '{{ ServiceEnvironmentType }}',
- '{{ CapacityLimits }}',
- '{{ Tags }}',
+SELECT
+ '{{ service_environment_name }}',
+ '{{ state }}',
+ '{{ service_environment_type }}',
+ '{{ capacity_limits }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: service_environment
     props:
-      - name: ServiceEnvironmentName
-        value: '{{ ServiceEnvironmentName }}'
-      - name: State
-        value: '{{ State }}'
-      - name: ServiceEnvironmentType
-        value: '{{ ServiceEnvironmentType }}'
-      - name: CapacityLimits
+      - name: service_environment_name
+        value: '{{ service_environment_name }}'
+      - name: state
+        value: '{{ state }}'
+      - name: service_environment_type
+        value: '{{ service_environment_type }}'
+      - name: capacity_limits
         value:
-          - MaxCapacity: '{{ MaxCapacity }}'
-            CapacityUnit: '{{ CapacityUnit }}'
-      - name: Tags
+          - max_capacity: '{{ max_capacity }}'
+            capacity_unit: '{{ capacity_unit }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceEnvironmentArn>';
+AND Identifier = '{{ service_environment_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<ServiceEnvironmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.service_environments
-WHERE Identifier = '<ServiceEnvironmentArn>'
+WHERE Identifier = '{{ service_environment_arn }}'
 AND region = 'us-east-1';
 ```
 

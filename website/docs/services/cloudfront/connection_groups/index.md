@@ -218,7 +218,7 @@ enabled,
 is_default,
 e_tag
 FROM awscc.cloudfront.connection_groups
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,7 +229,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.connection_groups_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -254,8 +254,8 @@ INSERT INTO awscc.cloudfront.connection_groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,12 +271,12 @@ INSERT INTO awscc.cloudfront.connection_groups (
  Enabled,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Ipv6Enabled }}',
- '{{ AnycastIpListId }}',
- '{{ Enabled }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ ipv6_enabled }}',
+ '{{ anycast_ip_list_id }}',
+ '{{ enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,19 +294,18 @@ globals:
 resources:
   - name: connection_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Ipv6Enabled
-        value: '{{ Ipv6Enabled }}'
-      - name: AnycastIpListId
-        value: '{{ AnycastIpListId }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: ipv6_enabled
+        value: '{{ ipv6_enabled }}'
+      - name: anycast_ip_list_id
+        value: '{{ anycast_ip_list_id }}'
+      - name: enabled
+        value: '{{ enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -325,7 +324,7 @@ SET PatchDocument = string('{{ {
     "Enabled": enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -334,7 +333,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.connection_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

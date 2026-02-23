@@ -219,7 +219,7 @@ update_time,
 force_delete,
 arn
 FROM awscc.location.api_keys
-WHERE region = 'us-east-1' AND Identifier = '<KeyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,9 +256,9 @@ INSERT INTO awscc.location.api_keys (
  Restrictions,
  region
 )
-SELECT 
-'{{ KeyName }}',
- '{{ Restrictions }}',
+SELECT
+'{{ key_name }}',
+ '{{ restrictions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,15 +277,15 @@ INSERT INTO awscc.location.api_keys (
  ForceDelete,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ExpireTime }}',
- '{{ ForceUpdate }}',
- '{{ KeyName }}',
- '{{ NoExpiry }}',
- '{{ Restrictions }}',
- '{{ Tags }}',
- '{{ ForceDelete }}',
+SELECT
+ '{{ description }}',
+ '{{ expire_time }}',
+ '{{ force_update }}',
+ '{{ key_name }}',
+ '{{ no_expiry }}',
+ '{{ restrictions }}',
+ '{{ tags }}',
+ '{{ force_delete }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -303,31 +303,30 @@ globals:
 resources:
   - name: api_key
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExpireTime
-        value: '{{ ExpireTime }}'
-      - name: ForceUpdate
-        value: '{{ ForceUpdate }}'
-      - name: KeyName
-        value: '{{ KeyName }}'
-      - name: NoExpiry
-        value: '{{ NoExpiry }}'
-      - name: Restrictions
+      - name: description
+        value: '{{ description }}'
+      - name: expire_time
+        value: '{{ expire_time }}'
+      - name: force_update
+        value: '{{ force_update }}'
+      - name: key_name
+        value: '{{ key_name }}'
+      - name: no_expiry
+        value: '{{ no_expiry }}'
+      - name: restrictions
         value:
-          AllowActions:
-            - '{{ AllowActions[0] }}'
-          AllowResources:
-            - '{{ AllowResources[0] }}'
-          AllowReferers:
-            - '{{ AllowReferers[0] }}'
-      - name: Tags
+          allow_actions:
+            - '{{ allow_actions[0] }}'
+          allow_resources:
+            - '{{ allow_resources[0] }}'
+          allow_referers:
+            - '{{ allow_referers[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ForceDelete
-        value: '{{ ForceDelete }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: force_delete
+        value: '{{ force_delete }}'
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +348,7 @@ SET PatchDocument = string('{{ {
     "ForceDelete": force_delete
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyName>';
+AND Identifier = '{{ key_name }}';
 ```
 
 
@@ -358,7 +357,7 @@ AND Identifier = '<KeyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.api_keys
-WHERE Identifier = '<KeyName>'
+WHERE Identifier = '{{ key_name }}'
 AND region = 'us-east-1';
 ```
 

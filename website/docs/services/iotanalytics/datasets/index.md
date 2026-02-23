@@ -435,7 +435,7 @@ id,
 retention_period,
 tags
 FROM awscc.iotanalytics.datasets
-WHERE region = 'us-east-1' AND Identifier = '<DatasetName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dataset_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -471,8 +471,8 @@ INSERT INTO awscc.iotanalytics.datasets (
  Actions,
  region
 )
-SELECT 
-'{{ Actions }}',
+SELECT
+'{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -491,15 +491,15 @@ INSERT INTO awscc.iotanalytics.datasets (
  Tags,
  region
 )
-SELECT 
- '{{ Actions }}',
- '{{ LateDataRules }}',
- '{{ DatasetName }}',
- '{{ ContentDeliveryRules }}',
- '{{ Triggers }}',
- '{{ VersioningConfiguration }}',
- '{{ RetentionPeriod }}',
- '{{ Tags }}',
+SELECT
+ '{{ actions }}',
+ '{{ late_data_rules }}',
+ '{{ dataset_name }}',
+ '{{ content_delivery_rules }}',
+ '{{ triggers }}',
+ '{{ versioning_configuration }}',
+ '{{ retention_period }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -517,70 +517,69 @@ globals:
 resources:
   - name: dataset
     props:
-      - name: Actions
+      - name: actions
         value:
-          - ActionName: '{{ ActionName }}'
-            ContainerAction:
-              Variables:
-                - VariableName: '{{ VariableName }}'
-                  DatasetContentVersionValue:
-                    DatasetName: '{{ DatasetName }}'
-                  StringValue: '{{ StringValue }}'
-                  DoubleValue: null
-                  OutputFileUriValue:
-                    FileName: '{{ FileName }}'
-              ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-              Image: '{{ Image }}'
-              ResourceConfiguration:
-                VolumeSizeInGB: '{{ VolumeSizeInGB }}'
-                ComputeType: '{{ ComputeType }}'
-            QueryAction:
-              Filters:
-                - Filter: '{{ Filter }}'
-                  Next: '{{ Next }}'
-                  Name: '{{ Name }}'
-              SqlQuery: '{{ SqlQuery }}'
-      - name: LateDataRules
+          - action_name: '{{ action_name }}'
+            container_action:
+              variables:
+                - variable_name: '{{ variable_name }}'
+                  dataset_content_version_value:
+                    dataset_name: '{{ dataset_name }}'
+                  string_value: '{{ string_value }}'
+                  double_value: null
+                  output_file_uri_value:
+                    file_name: '{{ file_name }}'
+              execution_role_arn: '{{ execution_role_arn }}'
+              image: '{{ image }}'
+              resource_configuration:
+                volume_size_in_gb: '{{ volume_size_in_gb }}'
+                compute_type: '{{ compute_type }}'
+            query_action:
+              filters:
+                - filter: '{{ filter }}'
+                  next: '{{ next }}'
+                  name: '{{ name }}'
+              sql_query: '{{ sql_query }}'
+      - name: late_data_rules
         value:
-          - RuleConfiguration:
-              DeltaTimeSessionWindowConfiguration:
-                TimeoutInMinutes: '{{ TimeoutInMinutes }}'
-            RuleName: '{{ RuleName }}'
-      - name: DatasetName
-        value: '{{ DatasetName }}'
-      - name: ContentDeliveryRules
+          - rule_configuration:
+              delta_time_session_window_configuration:
+                timeout_in_minutes: '{{ timeout_in_minutes }}'
+            rule_name: '{{ rule_name }}'
+      - name: dataset_name
+        value: '{{ dataset_name }}'
+      - name: content_delivery_rules
         value:
-          - Destination:
-              IotEventsDestinationConfiguration:
-                InputName: '{{ InputName }}'
-                RoleArn: '{{ RoleArn }}'
-              S3DestinationConfiguration:
-                GlueConfiguration:
-                  DatabaseName: '{{ DatabaseName }}'
-                  TableName: '{{ TableName }}'
-                Bucket: '{{ Bucket }}'
-                Key: '{{ Key }}'
-                RoleArn: '{{ RoleArn }}'
-            EntryName: '{{ EntryName }}'
-      - name: Triggers
+          - destination:
+              iot_events_destination_configuration:
+                input_name: '{{ input_name }}'
+                role_arn: '{{ role_arn }}'
+              s3_destination_configuration:
+                glue_configuration:
+                  database_name: '{{ database_name }}'
+                  table_name: '{{ table_name }}'
+                bucket: '{{ bucket }}'
+                key: '{{ key }}'
+                role_arn: '{{ role_arn }}'
+            entry_name: '{{ entry_name }}'
+      - name: triggers
         value:
-          - TriggeringDataset:
-              DatasetName: '{{ DatasetName }}'
-            Schedule:
-              ScheduleExpression: '{{ ScheduleExpression }}'
-      - name: VersioningConfiguration
+          - triggering_dataset:
+              dataset_name: '{{ dataset_name }}'
+            schedule:
+              schedule_expression: '{{ schedule_expression }}'
+      - name: versioning_configuration
         value:
-          Unlimited: '{{ Unlimited }}'
-          MaxVersions: '{{ MaxVersions }}'
-      - name: RetentionPeriod
+          unlimited: '{{ unlimited }}'
+          max_versions: '{{ max_versions }}'
+      - name: retention_period
         value:
-          NumberOfDays: '{{ NumberOfDays }}'
-          Unlimited: '{{ Unlimited }}'
-      - name: Tags
+          number_of_days: '{{ number_of_days }}'
+          unlimited: '{{ unlimited }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -602,7 +601,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatasetName>';
+AND Identifier = '{{ dataset_name }}';
 ```
 
 
@@ -611,7 +610,7 @@ AND Identifier = '<DatasetName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotanalytics.datasets
-WHERE Identifier = '<DatasetName>'
+WHERE Identifier = '{{ dataset_name }}'
 AND region = 'us-east-1';
 ```
 

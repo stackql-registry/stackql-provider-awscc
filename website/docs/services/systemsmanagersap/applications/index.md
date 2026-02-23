@@ -234,7 +234,7 @@ tags,
 database_arn,
 components_info
 FROM awscc.systemsmanagersap.applications
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,9 +271,9 @@ INSERT INTO awscc.systemsmanagersap.applications (
  ApplicationType,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ ApplicationType }}',
+SELECT
+'{{ application_id }}',
+ '{{ application_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,16 +293,16 @@ INSERT INTO awscc.systemsmanagersap.applications (
  ComponentsInfo,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ ApplicationType }}',
- '{{ Credentials }}',
- '{{ Instances }}',
- '{{ SapInstanceNumber }}',
- '{{ Sid }}',
- '{{ Tags }}',
- '{{ DatabaseArn }}',
- '{{ ComponentsInfo }}',
+SELECT
+ '{{ application_id }}',
+ '{{ application_type }}',
+ '{{ credentials }}',
+ '{{ instances }}',
+ '{{ sap_instance_number }}',
+ '{{ sid }}',
+ '{{ tags }}',
+ '{{ database_arn }}',
+ '{{ components_info }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,34 +320,33 @@ globals:
 resources:
   - name: application
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: ApplicationType
-        value: '{{ ApplicationType }}'
-      - name: Credentials
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: application_type
+        value: '{{ application_type }}'
+      - name: credentials
         value:
-          - DatabaseName: '{{ DatabaseName }}'
-            CredentialType: '{{ CredentialType }}'
-            SecretId: '{{ SecretId }}'
-      - name: Instances
+          - database_name: '{{ database_name }}'
+            credential_type: '{{ credential_type }}'
+            secret_id: '{{ secret_id }}'
+      - name: instances
         value:
-          - '{{ Instances[0] }}'
-      - name: SapInstanceNumber
-        value: '{{ SapInstanceNumber }}'
-      - name: Sid
-        value: '{{ Sid }}'
-      - name: Tags
+          - '{{ instances[0] }}'
+      - name: sap_instance_number
+        value: '{{ sap_instance_number }}'
+      - name: sid
+        value: '{{ sid }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DatabaseArn
-        value: '{{ DatabaseArn }}'
-      - name: ComponentsInfo
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: database_arn
+        value: '{{ database_arn }}'
+      - name: components_info
         value:
-          - ComponentType: '{{ ComponentType }}'
-            Ec2InstanceId: '{{ Ec2InstanceId }}'
-            Sid: '{{ Sid }}'
-
+          - component_type: '{{ component_type }}'
+            ec2_instance_id: '{{ ec2_instance_id }}'
+            sid: '{{ sid }}'
 ```
 </TabItem>
 </Tabs>
@@ -365,7 +364,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -374,7 +373,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.systemsmanagersap.applications
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

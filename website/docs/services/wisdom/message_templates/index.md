@@ -654,7 +654,7 @@ message_template_content_sha256,
 message_template_attachments,
 tags
 FROM awscc.wisdom.message_templates
-WHERE region = 'us-east-1' AND Identifier = '<MessageTemplateArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ message_template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -693,11 +693,11 @@ INSERT INTO awscc.wisdom.message_templates (
  Content,
  region
 )
-SELECT 
-'{{ KnowledgeBaseArn }}',
- '{{ Name }}',
- '{{ ChannelSubtype }}',
- '{{ Content }}',
+SELECT
+'{{ knowledge_base_arn }}',
+ '{{ name }}',
+ '{{ channel_subtype }}',
+ '{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -718,17 +718,17 @@ INSERT INTO awscc.wisdom.message_templates (
  Tags,
  region
 )
-SELECT 
- '{{ KnowledgeBaseArn }}',
- '{{ Name }}',
- '{{ ChannelSubtype }}',
- '{{ Content }}',
- '{{ Description }}',
- '{{ Language }}',
- '{{ GroupingConfiguration }}',
- '{{ DefaultAttributes }}',
- '{{ MessageTemplateAttachments }}',
- '{{ Tags }}',
+SELECT
+ '{{ knowledge_base_arn }}',
+ '{{ name }}',
+ '{{ channel_subtype }}',
+ '{{ content }}',
+ '{{ description }}',
+ '{{ language }}',
+ '{{ grouping_configuration }}',
+ '{{ default_attributes }}',
+ '{{ message_template_attachments }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -746,115 +746,114 @@ globals:
 resources:
   - name: message_template
     props:
-      - name: KnowledgeBaseArn
-        value: '{{ KnowledgeBaseArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ChannelSubtype
-        value: '{{ ChannelSubtype }}'
-      - name: Content
+      - name: knowledge_base_arn
+        value: '{{ knowledge_base_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: channel_subtype
+        value: '{{ channel_subtype }}'
+      - name: content
         value:
-          EmailMessageTemplateContent:
-            Subject: '{{ Subject }}'
-            Body:
-              PlainText:
-                Content: '{{ Content }}'
-              Html: null
-            Headers:
-              - Name: '{{ Name }}'
-                Value: '{{ Value }}'
-          SmsMessageTemplateContent:
-            Body:
-              PlainText: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: Language
-        value: '{{ Language }}'
-      - name: GroupingConfiguration
+          email_message_template_content:
+            subject: '{{ subject }}'
+            body:
+              plain_text:
+                content: '{{ content }}'
+              html: null
+            headers:
+              - name: '{{ name }}'
+                value: '{{ value }}'
+          sms_message_template_content:
+            body:
+              plain_text: null
+      - name: description
+        value: '{{ description }}'
+      - name: language
+        value: '{{ language }}'
+      - name: grouping_configuration
         value:
-          Criteria: '{{ Criteria }}'
-          Values:
-            - '{{ Values[0] }}'
-      - name: DefaultAttributes
+          criteria: '{{ criteria }}'
+          values:
+            - '{{ values[0] }}'
+      - name: default_attributes
         value:
-          SystemAttributes:
-            Name: '{{ Name }}'
-            CustomerEndpoint:
-              Address: '{{ Address }}'
-            SystemEndpoint: null
-          AgentAttributes:
-            FirstName: '{{ FirstName }}'
-            LastName: '{{ LastName }}'
-          CustomerProfileAttributes:
-            ProfileId: '{{ ProfileId }}'
-            ProfileARN: '{{ ProfileARN }}'
-            FirstName: '{{ FirstName }}'
-            MiddleName: '{{ MiddleName }}'
-            LastName: '{{ LastName }}'
-            AccountNumber: '{{ AccountNumber }}'
-            EmailAddress: '{{ EmailAddress }}'
-            PhoneNumber: '{{ PhoneNumber }}'
-            AdditionalInformation: '{{ AdditionalInformation }}'
-            PartyType: '{{ PartyType }}'
-            BusinessName: '{{ BusinessName }}'
-            BirthDate: '{{ BirthDate }}'
-            Gender: '{{ Gender }}'
-            MobilePhoneNumber: '{{ MobilePhoneNumber }}'
-            HomePhoneNumber: '{{ HomePhoneNumber }}'
-            BusinessPhoneNumber: '{{ BusinessPhoneNumber }}'
-            BusinessEmailAddress: '{{ BusinessEmailAddress }}'
-            Address1: '{{ Address1 }}'
-            Address2: '{{ Address2 }}'
-            Address3: '{{ Address3 }}'
-            Address4: '{{ Address4 }}'
-            City: '{{ City }}'
-            County: '{{ County }}'
-            Country: '{{ Country }}'
-            PostalCode: '{{ PostalCode }}'
-            Province: '{{ Province }}'
-            State: '{{ State }}'
-            ShippingAddress1: '{{ ShippingAddress1 }}'
-            ShippingAddress2: '{{ ShippingAddress2 }}'
-            ShippingAddress3: '{{ ShippingAddress3 }}'
-            ShippingAddress4: '{{ ShippingAddress4 }}'
-            ShippingCity: '{{ ShippingCity }}'
-            ShippingCounty: '{{ ShippingCounty }}'
-            ShippingCountry: '{{ ShippingCountry }}'
-            ShippingPostalCode: '{{ ShippingPostalCode }}'
-            ShippingProvince: '{{ ShippingProvince }}'
-            ShippingState: '{{ ShippingState }}'
-            MailingAddress1: '{{ MailingAddress1 }}'
-            MailingAddress2: '{{ MailingAddress2 }}'
-            MailingAddress3: '{{ MailingAddress3 }}'
-            MailingAddress4: '{{ MailingAddress4 }}'
-            MailingCity: '{{ MailingCity }}'
-            MailingCounty: '{{ MailingCounty }}'
-            MailingCountry: '{{ MailingCountry }}'
-            MailingPostalCode: '{{ MailingPostalCode }}'
-            MailingProvince: '{{ MailingProvince }}'
-            MailingState: '{{ MailingState }}'
-            BillingAddress1: '{{ BillingAddress1 }}'
-            BillingAddress2: '{{ BillingAddress2 }}'
-            BillingAddress3: '{{ BillingAddress3 }}'
-            BillingAddress4: '{{ BillingAddress4 }}'
-            BillingCity: '{{ BillingCity }}'
-            BillingCounty: '{{ BillingCounty }}'
-            BillingCountry: '{{ BillingCountry }}'
-            BillingPostalCode: '{{ BillingPostalCode }}'
-            BillingProvince: '{{ BillingProvince }}'
-            BillingState: '{{ BillingState }}'
-            Custom: {}
-          CustomAttributes: null
-      - name: MessageTemplateAttachments
+          system_attributes:
+            name: '{{ name }}'
+            customer_endpoint:
+              address: '{{ address }}'
+            system_endpoint: null
+          agent_attributes:
+            first_name: '{{ first_name }}'
+            last_name: '{{ last_name }}'
+          customer_profile_attributes:
+            profile_id: '{{ profile_id }}'
+            profile_arn: '{{ profile_arn }}'
+            first_name: '{{ first_name }}'
+            middle_name: '{{ middle_name }}'
+            last_name: '{{ last_name }}'
+            account_number: '{{ account_number }}'
+            email_address: '{{ email_address }}'
+            phone_number: '{{ phone_number }}'
+            additional_information: '{{ additional_information }}'
+            party_type: '{{ party_type }}'
+            business_name: '{{ business_name }}'
+            birth_date: '{{ birth_date }}'
+            gender: '{{ gender }}'
+            mobile_phone_number: '{{ mobile_phone_number }}'
+            home_phone_number: '{{ home_phone_number }}'
+            business_phone_number: '{{ business_phone_number }}'
+            business_email_address: '{{ business_email_address }}'
+            address1: '{{ address1 }}'
+            address2: '{{ address2 }}'
+            address3: '{{ address3 }}'
+            address4: '{{ address4 }}'
+            city: '{{ city }}'
+            county: '{{ county }}'
+            country: '{{ country }}'
+            postal_code: '{{ postal_code }}'
+            province: '{{ province }}'
+            state: '{{ state }}'
+            shipping_address1: '{{ shipping_address1 }}'
+            shipping_address2: '{{ shipping_address2 }}'
+            shipping_address3: '{{ shipping_address3 }}'
+            shipping_address4: '{{ shipping_address4 }}'
+            shipping_city: '{{ shipping_city }}'
+            shipping_county: '{{ shipping_county }}'
+            shipping_country: '{{ shipping_country }}'
+            shipping_postal_code: '{{ shipping_postal_code }}'
+            shipping_province: '{{ shipping_province }}'
+            shipping_state: '{{ shipping_state }}'
+            mailing_address1: '{{ mailing_address1 }}'
+            mailing_address2: '{{ mailing_address2 }}'
+            mailing_address3: '{{ mailing_address3 }}'
+            mailing_address4: '{{ mailing_address4 }}'
+            mailing_city: '{{ mailing_city }}'
+            mailing_county: '{{ mailing_county }}'
+            mailing_country: '{{ mailing_country }}'
+            mailing_postal_code: '{{ mailing_postal_code }}'
+            mailing_province: '{{ mailing_province }}'
+            mailing_state: '{{ mailing_state }}'
+            billing_address1: '{{ billing_address1 }}'
+            billing_address2: '{{ billing_address2 }}'
+            billing_address3: '{{ billing_address3 }}'
+            billing_address4: '{{ billing_address4 }}'
+            billing_city: '{{ billing_city }}'
+            billing_county: '{{ billing_county }}'
+            billing_country: '{{ billing_country }}'
+            billing_postal_code: '{{ billing_postal_code }}'
+            billing_province: '{{ billing_province }}'
+            billing_state: '{{ billing_state }}'
+            custom: {}
+          custom_attributes: null
+      - name: message_template_attachments
         value:
-          - AttachmentId: '{{ AttachmentId }}'
-            AttachmentName: '{{ AttachmentName }}'
-            S3PresignedUrl: '{{ S3PresignedUrl }}'
-      - name: Tags
+          - attachment_id: '{{ attachment_id }}'
+            attachment_name: '{{ attachment_name }}'
+            s3_presigned_url: '{{ s3_presigned_url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -876,7 +875,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MessageTemplateArn>';
+AND Identifier = '{{ message_template_arn }}';
 ```
 
 
@@ -885,7 +884,7 @@ AND Identifier = '<MessageTemplateArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.message_templates
-WHERE Identifier = '<MessageTemplateArn>'
+WHERE Identifier = '{{ message_template_arn }}'
 AND region = 'us-east-1';
 ```
 

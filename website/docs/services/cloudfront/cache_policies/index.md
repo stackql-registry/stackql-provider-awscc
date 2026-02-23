@@ -241,7 +241,7 @@ cache_policy_config,
 id,
 last_modified_time
 FROM awscc.cloudfront.cache_policies
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,7 +252,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.cache_policies_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -277,8 +277,8 @@ INSERT INTO awscc.cloudfront.cache_policies (
  CachePolicyConfig,
  region
 )
-SELECT 
-'{{ CachePolicyConfig }}',
+SELECT
+'{{ cache_policy_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,8 +290,8 @@ INSERT INTO awscc.cloudfront.cache_policies (
  CachePolicyConfig,
  region
 )
-SELECT 
- '{{ CachePolicyConfig }}',
+SELECT
+ '{{ cache_policy_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,29 +309,28 @@ globals:
 resources:
   - name: cache_policy
     props:
-      - name: CachePolicyConfig
+      - name: cache_policy_config
         value:
-          Comment: '{{ Comment }}'
-          DefaultTTL: null
-          MaxTTL: null
-          MinTTL: null
-          Name: '{{ Name }}'
-          ParametersInCacheKeyAndForwardedToOrigin:
-            CookiesConfig:
-              CookieBehavior: '{{ CookieBehavior }}'
-              Cookies:
-                - '{{ Cookies[0] }}'
-            EnableAcceptEncodingBrotli: '{{ EnableAcceptEncodingBrotli }}'
-            EnableAcceptEncodingGzip: '{{ EnableAcceptEncodingGzip }}'
-            HeadersConfig:
-              HeaderBehavior: '{{ HeaderBehavior }}'
-              Headers:
-                - '{{ Headers[0] }}'
-            QueryStringsConfig:
-              QueryStringBehavior: '{{ QueryStringBehavior }}'
-              QueryStrings:
-                - '{{ QueryStrings[0] }}'
-
+          comment: '{{ comment }}'
+          default_ttl: null
+          max_ttl: null
+          min_ttl: null
+          name: '{{ name }}'
+          parameters_in_cache_key_and_forwarded_to_origin:
+            cookies_config:
+              cookie_behavior: '{{ cookie_behavior }}'
+              cookies:
+                - '{{ cookies[0] }}'
+            enable_accept_encoding_brotli: '{{ enable_accept_encoding_brotli }}'
+            enable_accept_encoding_gzip: '{{ enable_accept_encoding_gzip }}'
+            headers_config:
+              header_behavior: '{{ header_behavior }}'
+              headers:
+                - '{{ headers[0] }}'
+            query_strings_config:
+              query_string_behavior: '{{ query_string_behavior }}'
+              query_strings:
+                - '{{ query_strings[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ SET PatchDocument = string('{{ {
     "CachePolicyConfig": cache_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -356,7 +355,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.cache_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

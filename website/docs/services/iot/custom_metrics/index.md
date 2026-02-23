@@ -170,7 +170,7 @@ metric_type,
 metric_arn,
 tags
 FROM awscc.iot.custom_metrics
-WHERE region = 'us-east-1' AND Identifier = '<MetricName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.iot.custom_metrics (
  MetricType,
  region
 )
-SELECT 
-'{{ MetricType }}',
+SELECT
+'{{ metric_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.iot.custom_metrics (
  Tags,
  region
 )
-SELECT 
- '{{ MetricName }}',
- '{{ DisplayName }}',
- '{{ MetricType }}',
- '{{ Tags }}',
+SELECT
+ '{{ metric_name }}',
+ '{{ display_name }}',
+ '{{ metric_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: custom_metric
     props:
-      - name: MetricName
-        value: '{{ MetricName }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: MetricType
-        value: '{{ MetricType }}'
-      - name: Tags
+      - name: metric_name
+        value: '{{ metric_name }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: metric_type
+        value: '{{ metric_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MetricName>';
+AND Identifier = '{{ metric_name }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<MetricName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.custom_metrics
-WHERE Identifier = '<MetricName>'
+WHERE Identifier = '{{ metric_name }}'
 AND region = 'us-east-1';
 ```
 

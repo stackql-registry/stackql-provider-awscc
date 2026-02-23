@@ -164,7 +164,7 @@ description,
 registry_arn,
 tags
 FROM awscc.eventschemas.registries
-WHERE region = 'us-east-1' AND Identifier = '<RegistryArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ registry_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.eventschemas.registries (
  Tags,
  region
 )
-SELECT 
-'{{ RegistryName }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+'{{ registry_name }}',
+ '{{ description }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.eventschemas.registries (
  Tags,
  region
 )
-SELECT 
- '{{ RegistryName }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ registry_name }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,14 @@ globals:
 resources:
   - name: registry
     props:
-      - name: RegistryName
-        value: '{{ RegistryName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: registry_name
+        value: '{{ registry_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RegistryArn>';
+AND Identifier = '{{ registry_arn }}';
 ```
 
 
@@ -274,7 +273,7 @@ AND Identifier = '<RegistryArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.registries
-WHERE Identifier = '<RegistryArn>'
+WHERE Identifier = '{{ registry_arn }}'
 AND region = 'us-east-1';
 ```
 

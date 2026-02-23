@@ -158,7 +158,7 @@ security_group_ids,
 tags,
 name
 FROM awscc.apigatewayv2.vpc_links
-WHERE region = 'us-east-1' AND Identifier = '<VpcLinkId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.apigatewayv2.vpc_links (
  Name,
  region
 )
-SELECT 
-'{{ SubnetIds }}',
- '{{ Name }}',
+SELECT
+'{{ subnet_ids }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,11 @@ INSERT INTO awscc.apigatewayv2.vpc_links (
  Name,
  region
 )
-SELECT 
- '{{ SubnetIds }}',
- '{{ SecurityGroupIds }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ subnet_ids }}',
+ '{{ security_group_ids }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,17 +234,16 @@ globals:
 resources:
   - name: vpc_link
     props:
-      - name: SubnetIds
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: SecurityGroupIds
+          - '{{ subnet_ids[0] }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: Tags
+          - '{{ security_group_ids[0] }}'
+      - name: tags
         value: {}
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpcLinkId>';
+AND Identifier = '{{ vpc_link_id }}';
 ```
 
 
@@ -270,7 +269,7 @@ AND Identifier = '<VpcLinkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.vpc_links
-WHERE Identifier = '<VpcLinkId>'
+WHERE Identifier = '{{ vpc_link_id }}'
 AND region = 'us-east-1';
 ```
 

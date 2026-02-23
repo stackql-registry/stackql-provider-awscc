@@ -309,7 +309,7 @@ maintenance_window,
 job_mode,
 job_run_queuing_enabled
 FROM awscc.glue.jobs
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,9 +346,9 @@ INSERT INTO awscc.glue.jobs (
  Command,
  region
 )
-SELECT 
-'{{ Role }}',
- '{{ Command }}',
+SELECT
+'{{ role }}',
+ '{{ command }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -382,30 +382,30 @@ INSERT INTO awscc.glue.jobs (
  JobRunQueuingEnabled,
  region
 )
-SELECT 
- '{{ Connections }}',
- '{{ MaxRetries }}',
- '{{ Description }}',
- '{{ Timeout }}',
- '{{ AllocatedCapacity }}',
- '{{ Name }}',
- '{{ Role }}',
- '{{ DefaultArguments }}',
- '{{ NotificationProperty }}',
- '{{ WorkerType }}',
- '{{ ExecutionClass }}',
- '{{ LogUri }}',
- '{{ Command }}',
- '{{ GlueVersion }}',
- '{{ ExecutionProperty }}',
- '{{ SecurityConfiguration }}',
- '{{ NumberOfWorkers }}',
- '{{ Tags }}',
- '{{ MaxCapacity }}',
- '{{ NonOverridableArguments }}',
- '{{ MaintenanceWindow }}',
- '{{ JobMode }}',
- '{{ JobRunQueuingEnabled }}',
+SELECT
+ '{{ connections }}',
+ '{{ max_retries }}',
+ '{{ description }}',
+ '{{ timeout }}',
+ '{{ allocated_capacity }}',
+ '{{ name }}',
+ '{{ role }}',
+ '{{ default_arguments }}',
+ '{{ notification_property }}',
+ '{{ worker_type }}',
+ '{{ execution_class }}',
+ '{{ log_uri }}',
+ '{{ command }}',
+ '{{ glue_version }}',
+ '{{ execution_property }}',
+ '{{ security_configuration }}',
+ '{{ number_of_workers }}',
+ '{{ tags }}',
+ '{{ max_capacity }}',
+ '{{ non_overridable_arguments }}',
+ '{{ maintenance_window }}',
+ '{{ job_mode }}',
+ '{{ job_run_queuing_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -423,61 +423,60 @@ globals:
 resources:
   - name: job
     props:
-      - name: Connections
+      - name: connections
         value:
-          Connections:
-            - '{{ Connections[0] }}'
-      - name: MaxRetries
+          connections:
+            - '{{ connections[0] }}'
+      - name: max_retries
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: Timeout
-        value: '{{ Timeout }}'
-      - name: AllocatedCapacity
+      - name: description
+        value: '{{ description }}'
+      - name: timeout
+        value: '{{ timeout }}'
+      - name: allocated_capacity
         value: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: Role
-        value: '{{ Role }}'
-      - name: DefaultArguments
+      - name: name
+        value: '{{ name }}'
+      - name: role
+        value: '{{ role }}'
+      - name: default_arguments
         value: {}
-      - name: NotificationProperty
+      - name: notification_property
         value:
-          NotifyDelayAfter: '{{ NotifyDelayAfter }}'
-      - name: WorkerType
-        value: '{{ WorkerType }}'
-      - name: ExecutionClass
-        value: '{{ ExecutionClass }}'
-      - name: LogUri
-        value: '{{ LogUri }}'
-      - name: Command
+          notify_delay_after: '{{ notify_delay_after }}'
+      - name: worker_type
+        value: '{{ worker_type }}'
+      - name: execution_class
+        value: '{{ execution_class }}'
+      - name: log_uri
+        value: '{{ log_uri }}'
+      - name: command
         value:
-          Name: '{{ Name }}'
-          PythonVersion: '{{ PythonVersion }}'
-          Runtime: '{{ Runtime }}'
-          ScriptLocation: '{{ ScriptLocation }}'
-      - name: GlueVersion
-        value: '{{ GlueVersion }}'
-      - name: ExecutionProperty
+          name: '{{ name }}'
+          python_version: '{{ python_version }}'
+          runtime: '{{ runtime }}'
+          script_location: '{{ script_location }}'
+      - name: glue_version
+        value: '{{ glue_version }}'
+      - name: execution_property
         value:
-          MaxConcurrentRuns: null
-      - name: SecurityConfiguration
-        value: '{{ SecurityConfiguration }}'
-      - name: NumberOfWorkers
-        value: '{{ NumberOfWorkers }}'
-      - name: Tags
+          max_concurrent_runs: null
+      - name: security_configuration
+        value: '{{ security_configuration }}'
+      - name: number_of_workers
+        value: '{{ number_of_workers }}'
+      - name: tags
         value: {}
-      - name: MaxCapacity
+      - name: max_capacity
         value: null
-      - name: NonOverridableArguments
+      - name: non_overridable_arguments
         value: {}
-      - name: MaintenanceWindow
-        value: '{{ MaintenanceWindow }}'
-      - name: JobMode
-        value: '{{ JobMode }}'
-      - name: JobRunQueuingEnabled
-        value: '{{ JobRunQueuingEnabled }}'
-
+      - name: maintenance_window
+        value: '{{ maintenance_window }}'
+      - name: job_mode
+        value: '{{ job_mode }}'
+      - name: job_run_queuing_enabled
+        value: '{{ job_run_queuing_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -514,7 +513,7 @@ SET PatchDocument = string('{{ {
     "JobRunQueuingEnabled": job_run_queuing_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -523,7 +522,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.jobs
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

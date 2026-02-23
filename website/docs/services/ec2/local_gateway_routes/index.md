@@ -169,7 +169,7 @@ network_interface_id,
 state,
 type
 FROM awscc.ec2.local_gateway_routes
-WHERE region = 'us-east-1' AND Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,11 +209,11 @@ INSERT INTO awscc.ec2.local_gateway_routes (
  NetworkInterfaceId,
  region
 )
-SELECT 
-'{{ DestinationCidrBlock }}',
- '{{ LocalGatewayRouteTableId }}',
- '{{ LocalGatewayVirtualInterfaceGroupId }}',
- '{{ NetworkInterfaceId }}',
+SELECT
+'{{ destination_cidr_block }}',
+ '{{ local_gateway_route_table_id }}',
+ '{{ local_gateway_virtual_interface_group_id }}',
+ '{{ network_interface_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.ec2.local_gateway_routes (
  NetworkInterfaceId,
  region
 )
-SELECT 
- '{{ DestinationCidrBlock }}',
- '{{ LocalGatewayRouteTableId }}',
- '{{ LocalGatewayVirtualInterfaceGroupId }}',
- '{{ NetworkInterfaceId }}',
+SELECT
+ '{{ destination_cidr_block }}',
+ '{{ local_gateway_route_table_id }}',
+ '{{ local_gateway_virtual_interface_group_id }}',
+ '{{ network_interface_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,15 +250,14 @@ globals:
 resources:
   - name: local_gateway_route
     props:
-      - name: DestinationCidrBlock
-        value: '{{ DestinationCidrBlock }}'
-      - name: LocalGatewayRouteTableId
-        value: '{{ LocalGatewayRouteTableId }}'
-      - name: LocalGatewayVirtualInterfaceGroupId
-        value: '{{ LocalGatewayVirtualInterfaceGroupId }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-
+      - name: destination_cidr_block
+        value: '{{ destination_cidr_block }}'
+      - name: local_gateway_route_table_id
+        value: '{{ local_gateway_route_table_id }}'
+      - name: local_gateway_virtual_interface_group_id
+        value: '{{ local_gateway_virtual_interface_group_id }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "NetworkInterfaceId": network_interface_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
+AND Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_routes
-WHERE Identifier = '<DestinationCidrBlock|LocalGatewayRouteTableId>'
+WHERE Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}'
 AND region = 'us-east-1';
 ```
 

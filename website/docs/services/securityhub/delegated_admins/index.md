@@ -140,7 +140,7 @@ delegated_admin_identifier,
 admin_account_id,
 status
 FROM awscc.securityhub.delegated_admins
-WHERE region = 'us-east-1' AND Identifier = '<DelegatedAdminIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ delegated_admin_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.securityhub.delegated_admins (
  AdminAccountId,
  region
 )
-SELECT 
-'{{ AdminAccountId }}',
+SELECT
+'{{ admin_account_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -189,8 +189,8 @@ INSERT INTO awscc.securityhub.delegated_admins (
  AdminAccountId,
  region
 )
-SELECT 
- '{{ AdminAccountId }}',
+SELECT
+ '{{ admin_account_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,8 @@ globals:
 resources:
   - name: delegated_admin
     props:
-      - name: AdminAccountId
-        value: '{{ AdminAccountId }}'
-
+      - name: admin_account_id
+        value: '{{ admin_account_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -221,7 +220,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.delegated_admins
-WHERE Identifier = '<DelegatedAdminIdentifier>'
+WHERE Identifier = '{{ delegated_admin_identifier }}'
 AND region = 'us-east-1';
 ```
 

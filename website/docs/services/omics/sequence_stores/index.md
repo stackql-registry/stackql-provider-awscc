@@ -242,7 +242,7 @@ status_message,
 tags,
 update_time
 FROM awscc.omics.sequence_stores
-WHERE region = 'us-east-1' AND Identifier = '<SequenceStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ sequence_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,8 +278,8 @@ INSERT INTO awscc.omics.sequence_stores (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -299,16 +299,16 @@ INSERT INTO awscc.omics.sequence_stores (
  Tags,
  region
 )
-SELECT 
- '{{ AccessLogLocation }}',
- '{{ Description }}',
- '{{ ETagAlgorithmFamily }}',
- '{{ FallbackLocation }}',
- '{{ Name }}',
- '{{ PropagatedSetLevelTags }}',
- '{{ S3AccessPolicy }}',
- '{{ SseConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ access_log_location }}',
+ '{{ description }}',
+ '{{ e_tag_algorithm_family }}',
+ '{{ fallback_location }}',
+ '{{ name }}',
+ '{{ propagated_set_level_tags }}',
+ '{{ s3_access_policy }}',
+ '{{ sse_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,28 +326,27 @@ globals:
 resources:
   - name: sequence_store
     props:
-      - name: AccessLogLocation
-        value: '{{ AccessLogLocation }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ETagAlgorithmFamily
-        value: '{{ ETagAlgorithmFamily }}'
-      - name: FallbackLocation
-        value: '{{ FallbackLocation }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: PropagatedSetLevelTags
+      - name: access_log_location
+        value: '{{ access_log_location }}'
+      - name: description
+        value: '{{ description }}'
+      - name: e_tag_algorithm_family
+        value: '{{ e_tag_algorithm_family }}'
+      - name: fallback_location
+        value: '{{ fallback_location }}'
+      - name: name
+        value: '{{ name }}'
+      - name: propagated_set_level_tags
         value:
-          - '{{ PropagatedSetLevelTags[0] }}'
-      - name: S3AccessPolicy
+          - '{{ propagated_set_level_tags[0] }}'
+      - name: s3_access_policy
         value: {}
-      - name: SseConfig
+      - name: sse_config
         value:
-          Type: '{{ Type }}'
-          KeyArn: '{{ KeyArn }}'
-      - name: Tags
+          type: '{{ type }}'
+          key_arn: '{{ key_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SequenceStoreId>';
+AND Identifier = '{{ sequence_store_id }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<SequenceStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.sequence_stores
-WHERE Identifier = '<SequenceStoreId>'
+WHERE Identifier = '{{ sequence_store_id }}'
 AND region = 'us-east-1';
 ```
 

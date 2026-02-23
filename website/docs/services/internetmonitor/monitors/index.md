@@ -295,7 +295,7 @@ traffic_percentage_to_monitor,
 internet_measurements_log_delivery,
 health_events_config
 FROM awscc.internetmonitor.monitors
-WHERE region = 'us-east-1' AND Identifier = '<MonitorName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ monitor_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -331,8 +331,8 @@ INSERT INTO awscc.internetmonitor.monitors (
  MonitorName,
  region
 )
-SELECT 
-'{{ MonitorName }}',
+SELECT
+'{{ monitor_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -355,19 +355,19 @@ INSERT INTO awscc.internetmonitor.monitors (
  HealthEventsConfig,
  region
 )
-SELECT 
- '{{ MonitorName }}',
- '{{ LinkedAccountId }}',
- '{{ IncludeLinkedAccounts }}',
- '{{ Resources }}',
- '{{ ResourcesToAdd }}',
- '{{ ResourcesToRemove }}',
- '{{ Status }}',
- '{{ Tags }}',
- '{{ MaxCityNetworksToMonitor }}',
- '{{ TrafficPercentageToMonitor }}',
- '{{ InternetMeasurementsLogDelivery }}',
- '{{ HealthEventsConfig }}',
+SELECT
+ '{{ monitor_name }}',
+ '{{ linked_account_id }}',
+ '{{ include_linked_accounts }}',
+ '{{ resources }}',
+ '{{ resources_to_add }}',
+ '{{ resources_to_remove }}',
+ '{{ status }}',
+ '{{ tags }}',
+ '{{ max_city_networks_to_monitor }}',
+ '{{ traffic_percentage_to_monitor }}',
+ '{{ internet_measurements_log_delivery }}',
+ '{{ health_events_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -385,47 +385,46 @@ globals:
 resources:
   - name: monitor
     props:
-      - name: MonitorName
-        value: '{{ MonitorName }}'
-      - name: LinkedAccountId
-        value: '{{ LinkedAccountId }}'
-      - name: IncludeLinkedAccounts
-        value: '{{ IncludeLinkedAccounts }}'
-      - name: Resources
+      - name: monitor_name
+        value: '{{ monitor_name }}'
+      - name: linked_account_id
+        value: '{{ linked_account_id }}'
+      - name: include_linked_accounts
+        value: '{{ include_linked_accounts }}'
+      - name: resources
         value:
-          - '{{ Resources[0] }}'
-      - name: ResourcesToAdd
+          - '{{ resources[0] }}'
+      - name: resources_to_add
         value:
-          - '{{ ResourcesToAdd[0] }}'
-      - name: ResourcesToRemove
+          - '{{ resources_to_add[0] }}'
+      - name: resources_to_remove
         value:
-          - '{{ ResourcesToRemove[0] }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Tags
+          - '{{ resources_to_remove[0] }}'
+      - name: status
+        value: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: MaxCityNetworksToMonitor
-        value: '{{ MaxCityNetworksToMonitor }}'
-      - name: TrafficPercentageToMonitor
-        value: '{{ TrafficPercentageToMonitor }}'
-      - name: InternetMeasurementsLogDelivery
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: max_city_networks_to_monitor
+        value: '{{ max_city_networks_to_monitor }}'
+      - name: traffic_percentage_to_monitor
+        value: '{{ traffic_percentage_to_monitor }}'
+      - name: internet_measurements_log_delivery
         value:
-          S3Config:
-            BucketName: '{{ BucketName }}'
-            BucketPrefix: '{{ BucketPrefix }}'
-            LogDeliveryStatus: '{{ LogDeliveryStatus }}'
-      - name: HealthEventsConfig
+          s3_config:
+            bucket_name: '{{ bucket_name }}'
+            bucket_prefix: '{{ bucket_prefix }}'
+            log_delivery_status: '{{ log_delivery_status }}'
+      - name: health_events_config
         value:
-          AvailabilityScoreThreshold: null
-          PerformanceScoreThreshold: null
-          AvailabilityLocalHealthEventsConfig:
-            Status: '{{ Status }}'
-            HealthScoreThreshold: null
-            MinTrafficImpact: null
-          PerformanceLocalHealthEventsConfig: null
-
+          availability_score_threshold: null
+          performance_score_threshold: null
+          availability_local_health_events_config:
+            status: '{{ status }}'
+            health_score_threshold: null
+            min_traffic_impact: null
+          performance_local_health_events_config: null
 ```
 </TabItem>
 </Tabs>
@@ -451,7 +450,7 @@ SET PatchDocument = string('{{ {
     "HealthEventsConfig": health_events_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MonitorName>';
+AND Identifier = '{{ monitor_name }}';
 ```
 
 
@@ -460,7 +459,7 @@ AND Identifier = '<MonitorName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.internetmonitor.monitors
-WHERE Identifier = '<MonitorName>'
+WHERE Identifier = '{{ monitor_name }}'
 AND region = 'us-east-1';
 ```
 

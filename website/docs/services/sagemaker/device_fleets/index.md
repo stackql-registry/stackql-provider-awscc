@@ -136,7 +136,7 @@ output_config,
 role_arn,
 tags
 FROM awscc.sagemaker.device_fleets
-WHERE region = 'us-east-1' AND Identifier = '<DeviceFleetName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ device_fleet_name }}';
 ```
 
 ## `INSERT` example
@@ -161,10 +161,10 @@ INSERT INTO awscc.sagemaker.device_fleets (
  RoleArn,
  region
 )
-SELECT 
-'{{ DeviceFleetName }}',
- '{{ OutputConfig }}',
- '{{ RoleArn }}',
+SELECT
+'{{ device_fleet_name }}',
+ '{{ output_config }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -180,12 +180,12 @@ INSERT INTO awscc.sagemaker.device_fleets (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DeviceFleetName }}',
- '{{ OutputConfig }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ device_fleet_name }}',
+ '{{ output_config }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -203,21 +203,20 @@ globals:
 resources:
   - name: device_fleet
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DeviceFleetName
-        value: '{{ DeviceFleetName }}'
-      - name: OutputConfig
+      - name: description
+        value: '{{ description }}'
+      - name: device_fleet_name
+        value: '{{ device_fleet_name }}'
+      - name: output_config
         value:
-          S3OutputLocation: '{{ S3OutputLocation }}'
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          s3_output_location: '{{ s3_output_location }}'
+          kms_key_id: '{{ kms_key_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -236,7 +235,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DeviceFleetName>';
+AND Identifier = '{{ device_fleet_name }}';
 ```
 
 
@@ -245,7 +244,7 @@ AND Identifier = '<DeviceFleetName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.device_fleets
-WHERE Identifier = '<DeviceFleetName>'
+WHERE Identifier = '{{ device_fleet_name }}'
 AND region = 'us-east-1';
 ```
 

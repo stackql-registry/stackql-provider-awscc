@@ -96,7 +96,7 @@ region,
 distribution_id,
 monitoring_subscription
 FROM awscc.cloudfront.monitoring_subscriptions
-WHERE Identifier = '<DistributionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ distribution_id }}';
 ```
 
 ## `INSERT` example
@@ -120,9 +120,9 @@ INSERT INTO awscc.cloudfront.monitoring_subscriptions (
  MonitoringSubscription,
  region
 )
-SELECT 
-'{{ DistributionId }}',
- '{{ MonitoringSubscription }}',
+SELECT
+'{{ distribution_id }}',
+ '{{ monitoring_subscription }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -135,9 +135,9 @@ INSERT INTO awscc.cloudfront.monitoring_subscriptions (
  MonitoringSubscription,
  region
 )
-SELECT 
- '{{ DistributionId }}',
- '{{ MonitoringSubscription }}',
+SELECT
+ '{{ distribution_id }}',
+ '{{ monitoring_subscription }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -155,13 +155,12 @@ globals:
 resources:
   - name: monitoring_subscription
     props:
-      - name: DistributionId
-        value: '{{ DistributionId }}'
-      - name: MonitoringSubscription
+      - name: distribution_id
+        value: '{{ distribution_id }}'
+      - name: monitoring_subscription
         value:
-          DistributionId: '{{ DistributionId }}'
-          MonitoringSubscription: null
-
+          distribution_id: '{{ distribution_id }}'
+          monitoring_subscription: null
 ```
 </TabItem>
 </Tabs>
@@ -172,7 +171,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.monitoring_subscriptions
-WHERE Identifier = '<DistributionId>'
+WHERE Identifier = '{{ distribution_id }}'
 AND region = 'us-east-1';
 ```
 

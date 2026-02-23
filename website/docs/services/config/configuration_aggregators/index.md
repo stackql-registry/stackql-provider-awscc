@@ -204,7 +204,7 @@ configuration_aggregator_arn,
 organization_aggregation_source,
 tags
 FROM awscc.config.configuration_aggregators
-WHERE region = 'us-east-1' AND Identifier = '<ConfigurationAggregatorName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ configuration_aggregator_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,11 +243,11 @@ INSERT INTO awscc.config.configuration_aggregators (
  Tags,
  region
 )
-SELECT 
-'{{ AccountAggregationSources }}',
- '{{ ConfigurationAggregatorName }}',
- '{{ OrganizationAggregationSource }}',
- '{{ Tags }}',
+SELECT
+'{{ account_aggregation_sources }}',
+ '{{ configuration_aggregator_name }}',
+ '{{ organization_aggregation_source }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,11 +262,11 @@ INSERT INTO awscc.config.configuration_aggregators (
  Tags,
  region
 )
-SELECT 
- '{{ AccountAggregationSources }}',
- '{{ ConfigurationAggregatorName }}',
- '{{ OrganizationAggregationSource }}',
- '{{ Tags }}',
+SELECT
+ '{{ account_aggregation_sources }}',
+ '{{ configuration_aggregator_name }}',
+ '{{ organization_aggregation_source }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,26 +284,25 @@ globals:
 resources:
   - name: configuration_aggregator
     props:
-      - name: AccountAggregationSources
+      - name: account_aggregation_sources
         value:
-          - AllAwsRegions: '{{ AllAwsRegions }}'
-            AwsRegions:
-              - '{{ AwsRegions[0] }}'
-            AccountIds:
-              - '{{ AccountIds[0] }}'
-      - name: ConfigurationAggregatorName
-        value: '{{ ConfigurationAggregatorName }}'
-      - name: OrganizationAggregationSource
+          - all_aws_regions: '{{ all_aws_regions }}'
+            aws_regions:
+              - '{{ aws_regions[0] }}'
+            account_ids:
+              - '{{ account_ids[0] }}'
+      - name: configuration_aggregator_name
+        value: '{{ configuration_aggregator_name }}'
+      - name: organization_aggregation_source
         value:
-          AllAwsRegions: '{{ AllAwsRegions }}'
-          AwsRegions:
-            - '{{ AwsRegions[0] }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: Tags
+          all_aws_regions: '{{ all_aws_regions }}'
+          aws_regions:
+            - '{{ aws_regions[0] }}'
+          role_arn: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConfigurationAggregatorName>';
+AND Identifier = '{{ configuration_aggregator_name }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<ConfigurationAggregatorName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.configuration_aggregators
-WHERE Identifier = '<ConfigurationAggregatorName>'
+WHERE Identifier = '{{ configuration_aggregator_name }}'
 AND region = 'us-east-1';
 ```
 

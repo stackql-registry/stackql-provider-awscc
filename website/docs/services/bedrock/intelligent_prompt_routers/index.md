@@ -220,7 +220,7 @@ tags,
 type,
 updated_at
 FROM awscc.bedrock.intelligent_prompt_routers
-WHERE region = 'us-east-1' AND Identifier = '<PromptRouterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ prompt_router_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,11 +259,11 @@ INSERT INTO awscc.bedrock.intelligent_prompt_routers (
  RoutingCriteria,
  region
 )
-SELECT 
-'{{ FallbackModel }}',
- '{{ Models }}',
- '{{ PromptRouterName }}',
- '{{ RoutingCriteria }}',
+SELECT
+'{{ fallback_model }}',
+ '{{ models }}',
+ '{{ prompt_router_name }}',
+ '{{ routing_criteria }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -280,13 +280,13 @@ INSERT INTO awscc.bedrock.intelligent_prompt_routers (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ FallbackModel }}',
- '{{ Models }}',
- '{{ PromptRouterName }}',
- '{{ RoutingCriteria }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ fallback_model }}',
+ '{{ models }}',
+ '{{ prompt_router_name }}',
+ '{{ routing_criteria }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,24 +304,23 @@ globals:
 resources:
   - name: intelligent_prompt_router
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: FallbackModel
+      - name: description
+        value: '{{ description }}'
+      - name: fallback_model
         value:
-          ModelArn: '{{ ModelArn }}'
-      - name: Models
+          model_arn: '{{ model_arn }}'
+      - name: models
         value:
           - null
-      - name: PromptRouterName
-        value: '{{ PromptRouterName }}'
-      - name: RoutingCriteria
+      - name: prompt_router_name
+        value: '{{ prompt_router_name }}'
+      - name: routing_criteria
         value:
-          ResponseQualityDifference: null
-      - name: Tags
+          response_quality_difference: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +336,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PromptRouterArn>';
+AND Identifier = '{{ prompt_router_arn }}';
 ```
 
 
@@ -346,7 +345,7 @@ AND Identifier = '<PromptRouterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.intelligent_prompt_routers
-WHERE Identifier = '<PromptRouterArn>'
+WHERE Identifier = '{{ prompt_router_arn }}'
 AND region = 'us-east-1';
 ```
 

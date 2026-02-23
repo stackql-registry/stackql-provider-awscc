@@ -219,7 +219,7 @@ tags,
 gateway_id,
 gateway_capability_summaries
 FROM awscc.iotsitewise.gateways
-WHERE region = 'us-east-1' AND Identifier = '<GatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,9 +256,9 @@ INSERT INTO awscc.iotsitewise.gateways (
  GatewayPlatform,
  region
 )
-SELECT 
-'{{ GatewayName }}',
- '{{ GatewayPlatform }}',
+SELECT
+'{{ gateway_name }}',
+ '{{ gateway_platform }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -274,12 +274,12 @@ INSERT INTO awscc.iotsitewise.gateways (
  GatewayCapabilitySummaries,
  region
 )
-SELECT 
- '{{ GatewayName }}',
- '{{ GatewayPlatform }}',
- '{{ GatewayVersion }}',
- '{{ Tags }}',
- '{{ GatewayCapabilitySummaries }}',
+SELECT
+ '{{ gateway_name }}',
+ '{{ gateway_platform }}',
+ '{{ gateway_version }}',
+ '{{ tags }}',
+ '{{ gateway_capability_summaries }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,26 +297,25 @@ globals:
 resources:
   - name: gateway
     props:
-      - name: GatewayName
-        value: '{{ GatewayName }}'
-      - name: GatewayPlatform
+      - name: gateway_name
+        value: '{{ gateway_name }}'
+      - name: gateway_platform
         value:
-          GreengrassV2:
-            CoreDeviceThingName: '{{ CoreDeviceThingName }}'
-            CoreDeviceOperatingSystem: '{{ CoreDeviceOperatingSystem }}'
-          SiemensIE:
-            IotCoreThingName: '{{ IotCoreThingName }}'
-      - name: GatewayVersion
-        value: '{{ GatewayVersion }}'
-      - name: Tags
+          greengrass_v2:
+            core_device_thing_name: '{{ core_device_thing_name }}'
+            core_device_operating_system: '{{ core_device_operating_system }}'
+          siemens_ie:
+            iot_core_thing_name: '{{ iot_core_thing_name }}'
+      - name: gateway_version
+        value: '{{ gateway_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: GatewayCapabilitySummaries
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: gateway_capability_summaries
         value:
-          - CapabilityNamespace: '{{ CapabilityNamespace }}'
-            CapabilityConfiguration: '{{ CapabilityConfiguration }}'
-
+          - capability_namespace: '{{ capability_namespace }}'
+            capability_configuration: '{{ capability_configuration }}'
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +333,7 @@ SET PatchDocument = string('{{ {
     "GatewayCapabilitySummaries": gateway_capability_summaries
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GatewayId>';
+AND Identifier = '{{ gateway_id }}';
 ```
 
 
@@ -343,7 +342,7 @@ AND Identifier = '<GatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.gateways
-WHERE Identifier = '<GatewayId>'
+WHERE Identifier = '{{ gateway_id }}'
 AND region = 'us-east-1';
 ```
 

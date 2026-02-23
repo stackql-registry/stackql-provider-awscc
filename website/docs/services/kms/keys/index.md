@@ -224,7 +224,7 @@ key_id,
 bypass_policy_lockout_safety_check,
 rotation_period_in_days
 FROM awscc.kms.keys
-WHERE region = 'us-east-1' AND Identifier = '<KeyId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,19 +271,19 @@ INSERT INTO awscc.kms.keys (
  RotationPeriodInDays,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Enabled }}',
- '{{ EnableKeyRotation }}',
- '{{ KeyPolicy }}',
- '{{ KeyUsage }}',
- '{{ Origin }}',
- '{{ KeySpec }}',
- '{{ MultiRegion }}',
- '{{ PendingWindowInDays }}',
- '{{ Tags }}',
- '{{ BypassPolicyLockoutSafetyCheck }}',
- '{{ RotationPeriodInDays }}',
+SELECT
+'{{ description }}',
+ '{{ enabled }}',
+ '{{ enable_key_rotation }}',
+ '{{ key_policy }}',
+ '{{ key_usage }}',
+ '{{ origin }}',
+ '{{ key_spec }}',
+ '{{ multi_region }}',
+ '{{ pending_window_in_days }}',
+ '{{ tags }}',
+ '{{ bypass_policy_lockout_safety_check }}',
+ '{{ rotation_period_in_days }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -306,19 +306,19 @@ INSERT INTO awscc.kms.keys (
  RotationPeriodInDays,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Enabled }}',
- '{{ EnableKeyRotation }}',
- '{{ KeyPolicy }}',
- '{{ KeyUsage }}',
- '{{ Origin }}',
- '{{ KeySpec }}',
- '{{ MultiRegion }}',
- '{{ PendingWindowInDays }}',
- '{{ Tags }}',
- '{{ BypassPolicyLockoutSafetyCheck }}',
- '{{ RotationPeriodInDays }}',
+SELECT
+ '{{ description }}',
+ '{{ enabled }}',
+ '{{ enable_key_rotation }}',
+ '{{ key_policy }}',
+ '{{ key_usage }}',
+ '{{ origin }}',
+ '{{ key_spec }}',
+ '{{ multi_region }}',
+ '{{ pending_window_in_days }}',
+ '{{ tags }}',
+ '{{ bypass_policy_lockout_safety_check }}',
+ '{{ rotation_period_in_days }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,33 +336,32 @@ globals:
 resources:
   - name: key
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: EnableKeyRotation
-        value: '{{ EnableKeyRotation }}'
-      - name: KeyPolicy
+      - name: description
+        value: '{{ description }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: enable_key_rotation
+        value: '{{ enable_key_rotation }}'
+      - name: key_policy
         value: {}
-      - name: KeyUsage
-        value: '{{ KeyUsage }}'
-      - name: Origin
-        value: '{{ Origin }}'
-      - name: KeySpec
-        value: '{{ KeySpec }}'
-      - name: MultiRegion
-        value: '{{ MultiRegion }}'
-      - name: PendingWindowInDays
-        value: '{{ PendingWindowInDays }}'
-      - name: Tags
+      - name: key_usage
+        value: '{{ key_usage }}'
+      - name: origin
+        value: '{{ origin }}'
+      - name: key_spec
+        value: '{{ key_spec }}'
+      - name: multi_region
+        value: '{{ multi_region }}'
+      - name: pending_window_in_days
+        value: '{{ pending_window_in_days }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: BypassPolicyLockoutSafetyCheck
-        value: '{{ BypassPolicyLockoutSafetyCheck }}'
-      - name: RotationPeriodInDays
-        value: '{{ RotationPeriodInDays }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: bypass_policy_lockout_safety_check
+        value: '{{ bypass_policy_lockout_safety_check }}'
+      - name: rotation_period_in_days
+        value: '{{ rotation_period_in_days }}'
 ```
 </TabItem>
 </Tabs>
@@ -389,7 +388,7 @@ SET PatchDocument = string('{{ {
     "RotationPeriodInDays": rotation_period_in_days
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyId>';
+AND Identifier = '{{ key_id }}';
 ```
 
 
@@ -398,7 +397,7 @@ AND Identifier = '<KeyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.keys
-WHERE Identifier = '<KeyId>'
+WHERE Identifier = '{{ key_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -146,7 +146,7 @@ owner_id,
 resource_id,
 validation_status
 FROM awscc.route53resolver.resolverdnssec_configs
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,8 +182,8 @@ INSERT INTO awscc.route53resolver.resolverdnssec_configs (
  ResourceId,
  region
 )
-SELECT 
-'{{ ResourceId }}',
+SELECT
+'{{ resource_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -195,8 +195,8 @@ INSERT INTO awscc.route53resolver.resolverdnssec_configs (
  ResourceId,
  region
 )
-SELECT 
- '{{ ResourceId }}',
+SELECT
+ '{{ resource_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,8 @@ globals:
 resources:
   - name: resolverdnssec_config
     props:
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-
+      - name: resource_id
+        value: '{{ resource_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolverdnssec_configs
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

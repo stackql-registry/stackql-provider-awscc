@@ -178,7 +178,7 @@ created_time,
 packaging_type,
 post_setup_script_details
 FROM awscc.appstream.app_blocks
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -202,9 +202,9 @@ INSERT INTO awscc.appstream.app_blocks (
  SourceS3Location,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SourceS3Location }}',
+SELECT
+'{{ name }}',
+ '{{ source_s3_location }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,15 +223,15 @@ INSERT INTO awscc.appstream.app_blocks (
  PostSetupScriptDetails,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ SourceS3Location }}',
- '{{ SetupScriptDetails }}',
- '{{ Tags }}',
- '{{ PackagingType }}',
- '{{ PostSetupScriptDetails }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ source_s3_location }}',
+ '{{ setup_script_details }}',
+ '{{ tags }}',
+ '{{ packaging_type }}',
+ '{{ post_setup_script_details }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -249,31 +249,30 @@ globals:
 resources:
   - name: app_block
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: SourceS3Location
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: source_s3_location
         value:
-          S3Bucket: '{{ S3Bucket }}'
-          S3Key: '{{ S3Key }}'
-      - name: SetupScriptDetails
+          s3_bucket: '{{ s3_bucket }}'
+          s3_key: '{{ s3_key }}'
+      - name: setup_script_details
         value:
-          ScriptS3Location: null
-          ExecutablePath: '{{ ExecutablePath }}'
-          ExecutableParameters: '{{ ExecutableParameters }}'
-          TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-      - name: Tags
+          script_s3_location: null
+          executable_path: '{{ executable_path }}'
+          executable_parameters: '{{ executable_parameters }}'
+          timeout_in_seconds: '{{ timeout_in_seconds }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: PackagingType
-        value: '{{ PackagingType }}'
-      - name: PostSetupScriptDetails
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: packaging_type
+        value: '{{ packaging_type }}'
+      - name: post_setup_script_details
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +288,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -298,7 +297,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.app_blocks
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

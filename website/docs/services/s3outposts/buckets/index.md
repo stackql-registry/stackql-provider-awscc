@@ -233,7 +233,7 @@ outpost_id,
 tags,
 lifecycle_configuration
 FROM awscc.s3outposts.buckets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,9 +270,9 @@ INSERT INTO awscc.s3outposts.buckets (
  OutpostId,
  region
 )
-SELECT 
-'{{ BucketName }}',
- '{{ OutpostId }}',
+SELECT
+'{{ bucket_name }}',
+ '{{ outpost_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,11 +287,11 @@ INSERT INTO awscc.s3outposts.buckets (
  LifecycleConfiguration,
  region
 )
-SELECT 
- '{{ BucketName }}',
- '{{ OutpostId }}',
- '{{ Tags }}',
- '{{ LifecycleConfiguration }}',
+SELECT
+ '{{ bucket_name }}',
+ '{{ outpost_id }}',
+ '{{ tags }}',
+ '{{ lifecycle_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,30 +309,29 @@ globals:
 resources:
   - name: bucket
     props:
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: OutpostId
-        value: '{{ OutpostId }}'
-      - name: Tags
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: outpost_id
+        value: '{{ outpost_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: LifecycleConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: lifecycle_configuration
         value:
-          Rules:
-            - Status: '{{ Status }}'
-              Id: '{{ Id }}'
-              AbortIncompleteMultipartUpload:
-                DaysAfterInitiation: '{{ DaysAfterInitiation }}'
-              ExpirationDate: '{{ ExpirationDate }}'
-              ExpirationInDays: '{{ ExpirationInDays }}'
-              Filter:
-                Prefix: '{{ Prefix }}'
-                Tag:
-                  Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-                AndOperator: null
-
+          rules:
+            - status: '{{ status }}'
+              id: '{{ id }}'
+              abort_incomplete_multipart_upload:
+                days_after_initiation: '{{ days_after_initiation }}'
+              expiration_date: '{{ expiration_date }}'
+              expiration_in_days: '{{ expiration_in_days }}'
+              filter:
+                prefix: '{{ prefix }}'
+                tag:
+                  key: '{{ key }}'
+                  value: '{{ value }}'
+                and_operator: null
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +348,7 @@ SET PatchDocument = string('{{ {
     "LifecycleConfiguration": lifecycle_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -358,7 +357,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.buckets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -194,7 +194,7 @@ rank,
 name,
 tags
 FROM awscc.guardduty.filters
-WHERE region = 'us-east-1' AND Identifier = '<DetectorId>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,10 +233,10 @@ INSERT INTO awscc.guardduty.filters (
  Name,
  region
 )
-SELECT 
-'{{ DetectorId }}',
- '{{ FindingCriteria }}',
- '{{ Name }}',
+SELECT
+'{{ detector_id }}',
+ '{{ finding_criteria }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,14 +254,14 @@ INSERT INTO awscc.guardduty.filters (
  Tags,
  region
 )
-SELECT 
- '{{ Action }}',
- '{{ Description }}',
- '{{ DetectorId }}',
- '{{ FindingCriteria }}',
- '{{ Rank }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ action }}',
+ '{{ description }}',
+ '{{ detector_id }}',
+ '{{ finding_criteria }}',
+ '{{ rank }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -279,24 +279,23 @@ globals:
 resources:
   - name: filter
     props:
-      - name: Action
-        value: '{{ Action }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-      - name: FindingCriteria
+      - name: action
+        value: '{{ action }}'
+      - name: description
+        value: '{{ description }}'
+      - name: detector_id
+        value: '{{ detector_id }}'
+      - name: finding_criteria
         value:
-          Criterion: {}
-      - name: Rank
-        value: '{{ Rank }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          criterion: {}
+      - name: rank
+        value: '{{ rank }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DetectorId>|<Name>';
+AND Identifier = '{{ detector_id }}|{{ name }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<DetectorId>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.filters
-WHERE Identifier = '<DetectorId|Name>'
+WHERE Identifier = '{{ detector_id }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

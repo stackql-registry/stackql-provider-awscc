@@ -140,7 +140,7 @@ region,
 cluster_arn,
 secret_arn_list
 FROM awscc.msk.batch_scram_secrets
-WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.msk.batch_scram_secrets (
  ClusterArn,
  region
 )
-SELECT 
-'{{ ClusterArn }}',
+SELECT
+'{{ cluster_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.msk.batch_scram_secrets (
  SecretArnList,
  region
 )
-SELECT 
- '{{ ClusterArn }}',
- '{{ SecretArnList }}',
+SELECT
+ '{{ cluster_arn }}',
+ '{{ secret_arn_list }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,12 +210,11 @@ globals:
 resources:
   - name: batch_scram_secret
     props:
-      - name: ClusterArn
-        value: '{{ ClusterArn }}'
-      - name: SecretArnList
+      - name: cluster_arn
+        value: '{{ cluster_arn }}'
+      - name: secret_arn_list
         value:
-          - '{{ SecretArnList[0] }}'
-
+          - '{{ secret_arn_list[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +230,7 @@ SET PatchDocument = string('{{ {
     "SecretArnList": secret_arn_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterArn>';
+AND Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -240,7 +239,7 @@ AND Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.batch_scram_secrets
-WHERE Identifier = '<ClusterArn>'
+WHERE Identifier = '{{ cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

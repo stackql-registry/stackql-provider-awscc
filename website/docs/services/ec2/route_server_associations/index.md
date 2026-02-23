@@ -139,7 +139,7 @@ region,
 route_server_id,
 vpc_id
 FROM awscc.ec2.route_server_associations
-WHERE region = 'us-east-1' AND Identifier = '<RouteServerId>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ route_server_id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.route_server_associations (
  VpcId,
  region
 )
-SELECT 
-'{{ RouteServerId }}',
- '{{ VpcId }}',
+SELECT
+'{{ route_server_id }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.route_server_associations (
  VpcId,
  region
 )
-SELECT 
- '{{ RouteServerId }}',
- '{{ VpcId }}',
+SELECT
+ '{{ route_server_id }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: route_server_association
     props:
-      - name: RouteServerId
-        value: '{{ RouteServerId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+      - name: route_server_id
+        value: '{{ route_server_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_associations
-WHERE Identifier = '<RouteServerId|VpcId>'
+WHERE Identifier = '{{ route_server_id }}|{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

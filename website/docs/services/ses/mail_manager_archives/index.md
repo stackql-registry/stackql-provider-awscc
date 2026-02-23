@@ -182,7 +182,7 @@ kms_key_arn,
 retention,
 tags
 FROM awscc.ses.mail_manager_archives
-WHERE region = 'us-east-1' AND Identifier = '<ArchiveId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ archive_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,11 +221,11 @@ INSERT INTO awscc.ses.mail_manager_archives (
  Tags,
  region
 )
-SELECT 
-'{{ ArchiveName }}',
- '{{ KmsKeyArn }}',
- '{{ Retention }}',
- '{{ Tags }}',
+SELECT
+'{{ archive_name }}',
+ '{{ kms_key_arn }}',
+ '{{ retention }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.ses.mail_manager_archives (
  Tags,
  region
 )
-SELECT 
- '{{ ArchiveName }}',
- '{{ KmsKeyArn }}',
- '{{ Retention }}',
- '{{ Tags }}',
+SELECT
+ '{{ archive_name }}',
+ '{{ kms_key_arn }}',
+ '{{ retention }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,17 +262,16 @@ globals:
 resources:
   - name: mail_manager_archive
     props:
-      - name: ArchiveName
-        value: '{{ ArchiveName }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Retention
+      - name: archive_name
+        value: '{{ archive_name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: retention
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +289,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ArchiveId>';
+AND Identifier = '{{ archive_id }}';
 ```
 
 
@@ -299,7 +298,7 @@ AND Identifier = '<ArchiveId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_archives
-WHERE Identifier = '<ArchiveId>'
+WHERE Identifier = '{{ archive_id }}'
 AND region = 'us-east-1';
 ```
 

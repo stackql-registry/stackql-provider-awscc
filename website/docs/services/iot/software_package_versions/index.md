@@ -265,7 +265,7 @@ status,
 tags,
 version_name
 FROM awscc.iot.software_package_versions
-WHERE region = 'us-east-1' AND Identifier = '<PackageName>|<VersionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}|{{ version_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,8 +302,8 @@ INSERT INTO awscc.iot.software_package_versions (
  PackageName,
  region
 )
-SELECT 
-'{{ PackageName }}',
+SELECT
+'{{ package_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -322,15 +322,15 @@ INSERT INTO awscc.iot.software_package_versions (
  VersionName,
  region
 )
-SELECT 
- '{{ Attributes }}',
- '{{ Artifact }}',
- '{{ Description }}',
- '{{ PackageName }}',
- '{{ Recipe }}',
- '{{ Sbom }}',
- '{{ Tags }}',
- '{{ VersionName }}',
+SELECT
+ '{{ attributes }}',
+ '{{ artifact }}',
+ '{{ description }}',
+ '{{ package_name }}',
+ '{{ recipe }}',
+ '{{ sbom }}',
+ '{{ tags }}',
+ '{{ version_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -348,30 +348,29 @@ globals:
 resources:
   - name: software_package_version
     props:
-      - name: Attributes
+      - name: attributes
         value: {}
-      - name: Artifact
+      - name: artifact
         value:
-          S3Location:
-            Bucket: '{{ Bucket }}'
-            Key: '{{ Key }}'
-            Version: '{{ Version }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PackageName
-        value: '{{ PackageName }}'
-      - name: Recipe
-        value: '{{ Recipe }}'
-      - name: Sbom
+          s3_location:
+            bucket: '{{ bucket }}'
+            key: '{{ key }}'
+            version: '{{ version }}'
+      - name: description
+        value: '{{ description }}'
+      - name: package_name
+        value: '{{ package_name }}'
+      - name: recipe
+        value: '{{ recipe }}'
+      - name: sbom
         value:
-          S3Location: null
-      - name: Tags
+          s3_location: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VersionName
-        value: '{{ VersionName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: version_name
+        value: '{{ version_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +391,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PackageName>|<VersionName>';
+AND Identifier = '{{ package_name }}|{{ version_name }}';
 ```
 
 
@@ -401,7 +400,7 @@ AND Identifier = '<PackageName>|<VersionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.software_package_versions
-WHERE Identifier = '<PackageName|VersionName>'
+WHERE Identifier = '{{ package_name }}|{{ version_name }}'
 AND region = 'us-east-1';
 ```
 

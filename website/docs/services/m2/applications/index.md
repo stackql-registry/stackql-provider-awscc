@@ -182,7 +182,7 @@ name,
 role_arn,
 tags
 FROM awscc.m2.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.m2.applications (
  Name,
  region
 )
-SELECT 
-'{{ EngineType }}',
- '{{ Name }}',
+SELECT
+'{{ engine_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,14 +239,14 @@ INSERT INTO awscc.m2.applications (
  Tags,
  region
 )
-SELECT 
- '{{ Definition }}',
- '{{ Description }}',
- '{{ EngineType }}',
- '{{ KmsKeyId }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ definition }}',
+ '{{ description }}',
+ '{{ engine_type }}',
+ '{{ kms_key_id }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,21 +264,20 @@ globals:
 resources:
   - name: application
     props:
-      - name: Definition
+      - name: definition
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: EngineType
-        value: '{{ EngineType }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: engine_type
+        value: '{{ engine_type }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +295,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationArn>';
+AND Identifier = '{{ application_arn }}';
 ```
 
 
@@ -305,7 +304,7 @@ AND Identifier = '<ApplicationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.applications
-WHERE Identifier = '<ApplicationArn>'
+WHERE Identifier = '{{ application_arn }}'
 AND region = 'us-east-1';
 ```
 

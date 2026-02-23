@@ -169,7 +169,7 @@ provider_details,
 idp_identifiers,
 attribute_mapping
 FROM awscc.cognito.user_pool_identity_providers
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ProviderName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,11 +209,11 @@ INSERT INTO awscc.cognito.user_pool_identity_providers (
  ProviderDetails,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
- '{{ ProviderName }}',
- '{{ ProviderType }}',
- '{{ ProviderDetails }}',
+SELECT
+'{{ user_pool_id }}',
+ '{{ provider_name }}',
+ '{{ provider_type }}',
+ '{{ provider_details }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,13 @@ INSERT INTO awscc.cognito.user_pool_identity_providers (
  AttributeMapping,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ ProviderName }}',
- '{{ ProviderType }}',
- '{{ ProviderDetails }}',
- '{{ IdpIdentifiers }}',
- '{{ AttributeMapping }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ provider_name }}',
+ '{{ provider_type }}',
+ '{{ provider_details }}',
+ '{{ idp_identifiers }}',
+ '{{ attribute_mapping }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,20 +254,19 @@ globals:
 resources:
   - name: user_pool_identity_provider
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: ProviderName
-        value: '{{ ProviderName }}'
-      - name: ProviderType
-        value: '{{ ProviderType }}'
-      - name: ProviderDetails
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: provider_name
+        value: '{{ provider_name }}'
+      - name: provider_type
+        value: '{{ provider_type }}'
+      - name: provider_details
         value: {}
-      - name: IdpIdentifiers
+      - name: idp_identifiers
         value:
-          - '{{ IdpIdentifiers[0] }}'
-      - name: AttributeMapping
+          - '{{ idp_identifiers[0] }}'
+      - name: attribute_mapping
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "AttributeMapping": attribute_mapping
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<ProviderName>';
+AND Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<UserPoolId>|<ProviderName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_identity_providers
-WHERE Identifier = '<UserPoolId|ProviderName>'
+WHERE Identifier = '{{ user_pool_id }}|{{ provider_name }}'
 AND region = 'us-east-1';
 ```
 

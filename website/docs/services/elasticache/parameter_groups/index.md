@@ -170,7 +170,7 @@ tags,
 cache_parameter_group_name,
 cache_parameter_group_family
 FROM awscc.elasticache.parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<CacheParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cache_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.elasticache.parameter_groups (
  CacheParameterGroupFamily,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ CacheParameterGroupFamily }}',
+SELECT
+'{{ description }}',
+ '{{ cache_parameter_group_family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,11 @@ INSERT INTO awscc.elasticache.parameter_groups (
  CacheParameterGroupFamily,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Properties }}',
- '{{ Tags }}',
- '{{ CacheParameterGroupFamily }}',
+SELECT
+ '{{ description }}',
+ '{{ properties }}',
+ '{{ tags }}',
+ '{{ cache_parameter_group_family }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,17 +246,16 @@ globals:
 resources:
   - name: parameter_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Properties
+      - name: description
+        value: '{{ description }}'
+      - name: properties
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CacheParameterGroupFamily
-        value: '{{ CacheParameterGroupFamily }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: cache_parameter_group_family
+        value: '{{ cache_parameter_group_family }}'
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +273,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CacheParameterGroupName>';
+AND Identifier = '{{ cache_parameter_group_name }}';
 ```
 
 
@@ -283,7 +282,7 @@ AND Identifier = '<CacheParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.parameter_groups
-WHERE Identifier = '<CacheParameterGroupName>'
+WHERE Identifier = '{{ cache_parameter_group_name }}'
 AND region = 'us-east-1';
 ```
 

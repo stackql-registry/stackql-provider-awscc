@@ -181,7 +181,7 @@ name,
 tags,
 encryption_configuration
 FROM awscc.stepfunctions.activities
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,8 +217,8 @@ INSERT INTO awscc.stepfunctions.activities (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,10 +232,10 @@ INSERT INTO awscc.stepfunctions.activities (
  EncryptionConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ EncryptionConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ encryption_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,18 +253,17 @@ globals:
 resources:
   - name: activity
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EncryptionConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          KmsDataKeyReusePeriodSeconds: '{{ KmsDataKeyReusePeriodSeconds }}'
-          Type: '{{ Type }}'
-
+          kms_key_id: '{{ kms_key_id }}'
+          kms_data_key_reuse_period_seconds: '{{ kms_data_key_reuse_period_seconds }}'
+          type: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +279,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -289,7 +288,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.activities
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

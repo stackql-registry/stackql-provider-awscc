@@ -140,7 +140,7 @@ region,
 state,
 account_id
 FROM awscc.ec2.snapshot_block_public_accesses
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.ec2.snapshot_block_public_accesses (
  State,
  region
 )
-SELECT 
-'{{ State }}',
+SELECT
+'{{ state }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -189,8 +189,8 @@ INSERT INTO awscc.ec2.snapshot_block_public_accesses (
  State,
  region
 )
-SELECT 
- '{{ State }}',
+SELECT
+ '{{ state }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,8 @@ globals:
 resources:
   - name: snapshot_block_public_access
     props:
-      - name: State
-        value: '{{ State }}'
-
+      - name: state
+        value: '{{ state }}'
 ```
 </TabItem>
 </Tabs>
@@ -226,7 +225,7 @@ SET PatchDocument = string('{{ {
     "State": state
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -235,7 +234,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.snapshot_block_public_accesses
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

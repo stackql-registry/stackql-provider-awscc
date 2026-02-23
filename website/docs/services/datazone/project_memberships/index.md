@@ -162,7 +162,7 @@ designation,
 member,
 domain_identifier
 FROM awscc.datazone.project_memberships
-WHERE region = 'us-east-1' AND Identifier = '<DomainIdentifier>|<MemberIdentifier>|<MemberIdentifierType>|<ProjectIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,11 +204,11 @@ INSERT INTO awscc.datazone.project_memberships (
  DomainIdentifier,
  region
 )
-SELECT 
-'{{ ProjectIdentifier }}',
- '{{ Designation }}',
- '{{ Member }}',
- '{{ DomainIdentifier }}',
+SELECT
+'{{ project_identifier }}',
+ '{{ designation }}',
+ '{{ member }}',
+ '{{ domain_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,11 +223,11 @@ INSERT INTO awscc.datazone.project_memberships (
  DomainIdentifier,
  region
 )
-SELECT 
- '{{ ProjectIdentifier }}',
- '{{ Designation }}',
- '{{ Member }}',
- '{{ DomainIdentifier }}',
+SELECT
+ '{{ project_identifier }}',
+ '{{ designation }}',
+ '{{ member }}',
+ '{{ domain_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -245,15 +245,14 @@ globals:
 resources:
   - name: project_membership
     props:
-      - name: ProjectIdentifier
-        value: '{{ ProjectIdentifier }}'
-      - name: Designation
-        value: '{{ Designation }}'
-      - name: Member
+      - name: project_identifier
+        value: '{{ project_identifier }}'
+      - name: designation
+        value: '{{ designation }}'
+      - name: member
         value: null
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Designation": designation
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainIdentifier>|<MemberIdentifier>|<MemberIdentifierType>|<ProjectIdentifier>';
+AND Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<DomainIdentifier>|<MemberIdentifier>|<MemberIdentifierType>|<
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.project_memberships
-WHERE Identifier = '<DomainIdentifier|MemberIdentifier|MemberIdentifierType|ProjectIdentifier>'
+WHERE Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}'
 AND region = 'us-east-1';
 ```
 

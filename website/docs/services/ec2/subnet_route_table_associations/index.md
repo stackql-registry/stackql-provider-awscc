@@ -140,7 +140,7 @@ route_table_id,
 id,
 subnet_id
 FROM awscc.ec2.subnet_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.subnet_route_table_associations (
  SubnetId,
  region
 )
-SELECT 
-'{{ RouteTableId }}',
- '{{ SubnetId }}',
+SELECT
+'{{ route_table_id }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.subnet_route_table_associations (
  SubnetId,
  region
 )
-SELECT 
- '{{ RouteTableId }}',
- '{{ SubnetId }}',
+SELECT
+ '{{ route_table_id }}',
+ '{{ subnet_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: subnet_route_table_association
     props:
-      - name: RouteTableId
-        value: '{{ RouteTableId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-
+      - name: route_table_id
+        value: '{{ route_table_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_route_table_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

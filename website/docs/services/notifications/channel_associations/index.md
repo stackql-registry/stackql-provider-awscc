@@ -139,7 +139,7 @@ region,
 arn,
 notification_configuration_arn
 FROM awscc.notifications.channel_associations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>|<NotificationConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ notification_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.notifications.channel_associations (
  NotificationConfigurationArn,
  region
 )
-SELECT 
-'{{ Arn }}',
- '{{ NotificationConfigurationArn }}',
+SELECT
+'{{ arn }}',
+ '{{ notification_configuration_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.notifications.channel_associations (
  NotificationConfigurationArn,
  region
 )
-SELECT 
- '{{ Arn }}',
- '{{ NotificationConfigurationArn }}',
+SELECT
+ '{{ arn }}',
+ '{{ notification_configuration_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: channel_association
     props:
-      - name: Arn
-        value: '{{ Arn }}'
-      - name: NotificationConfigurationArn
-        value: '{{ NotificationConfigurationArn }}'
-
+      - name: arn
+        value: '{{ arn }}'
+      - name: notification_configuration_arn
+        value: '{{ notification_configuration_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.channel_associations
-WHERE Identifier = '<Arn|NotificationConfigurationArn>'
+WHERE Identifier = '{{ arn }}|{{ notification_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

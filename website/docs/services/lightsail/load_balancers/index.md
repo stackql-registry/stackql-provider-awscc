@@ -200,7 +200,7 @@ session_stickiness_lb_cookie_duration_seconds,
 tls_policy_name,
 tags
 FROM awscc.lightsail.load_balancers
-WHERE region = 'us-east-1' AND Identifier = '<LoadBalancerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.lightsail.load_balancers (
  InstancePort,
  region
 )
-SELECT 
-'{{ LoadBalancerName }}',
- '{{ InstancePort }}',
+SELECT
+'{{ load_balancer_name }}',
+ '{{ instance_port }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -259,16 +259,16 @@ INSERT INTO awscc.lightsail.load_balancers (
  Tags,
  region
 )
-SELECT 
- '{{ LoadBalancerName }}',
- '{{ InstancePort }}',
- '{{ IpAddressType }}',
- '{{ AttachedInstances }}',
- '{{ HealthCheckPath }}',
- '{{ SessionStickinessEnabled }}',
- '{{ SessionStickinessLBCookieDurationSeconds }}',
- '{{ TlsPolicyName }}',
- '{{ Tags }}',
+SELECT
+ '{{ load_balancer_name }}',
+ '{{ instance_port }}',
+ '{{ ip_address_type }}',
+ '{{ attached_instances }}',
+ '{{ health_check_path }}',
+ '{{ session_stickiness_enabled }}',
+ '{{ session_stickiness_lb_cookie_duration_seconds }}',
+ '{{ tls_policy_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,28 +286,27 @@ globals:
 resources:
   - name: load_balancer
     props:
-      - name: LoadBalancerName
-        value: '{{ LoadBalancerName }}'
-      - name: InstancePort
-        value: '{{ InstancePort }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: AttachedInstances
+      - name: load_balancer_name
+        value: '{{ load_balancer_name }}'
+      - name: instance_port
+        value: '{{ instance_port }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: attached_instances
         value:
-          - '{{ AttachedInstances[0] }}'
-      - name: HealthCheckPath
-        value: '{{ HealthCheckPath }}'
-      - name: SessionStickinessEnabled
-        value: '{{ SessionStickinessEnabled }}'
-      - name: SessionStickinessLBCookieDurationSeconds
-        value: '{{ SessionStickinessLBCookieDurationSeconds }}'
-      - name: TlsPolicyName
-        value: '{{ TlsPolicyName }}'
-      - name: Tags
+          - '{{ attached_instances[0] }}'
+      - name: health_check_path
+        value: '{{ health_check_path }}'
+      - name: session_stickiness_enabled
+        value: '{{ session_stickiness_enabled }}'
+      - name: session_stickiness_lb_cookie_duration_seconds
+        value: '{{ session_stickiness_lb_cookie_duration_seconds }}'
+      - name: tls_policy_name
+        value: '{{ tls_policy_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -328,7 +327,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LoadBalancerName>';
+AND Identifier = '{{ load_balancer_name }}';
 ```
 
 
@@ -337,7 +336,7 @@ AND Identifier = '<LoadBalancerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.load_balancers
-WHERE Identifier = '<LoadBalancerName>'
+WHERE Identifier = '{{ load_balancer_name }}'
 AND region = 'us-east-1';
 ```
 

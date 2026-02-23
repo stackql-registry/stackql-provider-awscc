@@ -164,7 +164,7 @@ defer_activation,
 channel_address,
 arn
 FROM awscc.ssmcontacts.contact_channels
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,12 +204,12 @@ INSERT INTO awscc.ssmcontacts.contact_channels (
  ChannelAddress,
  region
 )
-SELECT 
-'{{ ContactId }}',
- '{{ ChannelName }}',
- '{{ ChannelType }}',
- '{{ DeferActivation }}',
- '{{ ChannelAddress }}',
+SELECT
+'{{ contact_id }}',
+ '{{ channel_name }}',
+ '{{ channel_type }}',
+ '{{ defer_activation }}',
+ '{{ channel_address }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,12 +225,12 @@ INSERT INTO awscc.ssmcontacts.contact_channels (
  ChannelAddress,
  region
 )
-SELECT 
- '{{ ContactId }}',
- '{{ ChannelName }}',
- '{{ ChannelType }}',
- '{{ DeferActivation }}',
- '{{ ChannelAddress }}',
+SELECT
+ '{{ contact_id }}',
+ '{{ channel_name }}',
+ '{{ channel_type }}',
+ '{{ defer_activation }}',
+ '{{ channel_address }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,17 +248,16 @@ globals:
 resources:
   - name: contact_channel
     props:
-      - name: ContactId
-        value: '{{ ContactId }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: ChannelType
-        value: '{{ ChannelType }}'
-      - name: DeferActivation
-        value: '{{ DeferActivation }}'
-      - name: ChannelAddress
-        value: '{{ ChannelAddress }}'
-
+      - name: contact_id
+        value: '{{ contact_id }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: channel_type
+        value: '{{ channel_type }}'
+      - name: defer_activation
+        value: '{{ defer_activation }}'
+      - name: channel_address
+        value: '{{ channel_address }}'
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +275,7 @@ SET PatchDocument = string('{{ {
     "ChannelAddress": channel_address
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -285,7 +284,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.contact_channels
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

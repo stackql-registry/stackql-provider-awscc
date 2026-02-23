@@ -170,7 +170,7 @@ type,
 message_ttl_seconds,
 tags
 FROM awscc.kinesisvideo.signaling_channels
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,7 +206,7 @@ INSERT INTO awscc.kinesisvideo.signaling_channels (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -222,11 +222,11 @@ INSERT INTO awscc.kinesisvideo.signaling_channels (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ MessageTtlSeconds }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ message_ttl_seconds }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: signaling_channel
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: MessageTtlSeconds
-        value: '{{ MessageTtlSeconds }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: message_ttl_seconds
+        value: '{{ message_ttl_seconds }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisvideo.signaling_channels
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

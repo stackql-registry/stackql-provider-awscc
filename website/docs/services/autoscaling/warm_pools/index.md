@@ -165,7 +165,7 @@ min_size,
 pool_state,
 instance_reuse_policy
 FROM awscc.autoscaling.warm_pools
-WHERE region = 'us-east-1' AND Identifier = '<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,8 +201,8 @@ INSERT INTO awscc.autoscaling.warm_pools (
  AutoScalingGroupName,
  region
 )
-SELECT 
-'{{ AutoScalingGroupName }}',
+SELECT
+'{{ auto_scaling_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,12 +218,12 @@ INSERT INTO awscc.autoscaling.warm_pools (
  InstanceReusePolicy,
  region
 )
-SELECT 
- '{{ AutoScalingGroupName }}',
- '{{ MaxGroupPreparedCapacity }}',
- '{{ MinSize }}',
- '{{ PoolState }}',
- '{{ InstanceReusePolicy }}',
+SELECT
+ '{{ auto_scaling_group_name }}',
+ '{{ max_group_prepared_capacity }}',
+ '{{ min_size }}',
+ '{{ pool_state }}',
+ '{{ instance_reuse_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -241,18 +241,17 @@ globals:
 resources:
   - name: warm_pool
     props:
-      - name: AutoScalingGroupName
-        value: '{{ AutoScalingGroupName }}'
-      - name: MaxGroupPreparedCapacity
-        value: '{{ MaxGroupPreparedCapacity }}'
-      - name: MinSize
-        value: '{{ MinSize }}'
-      - name: PoolState
-        value: '{{ PoolState }}'
-      - name: InstanceReusePolicy
+      - name: auto_scaling_group_name
+        value: '{{ auto_scaling_group_name }}'
+      - name: max_group_prepared_capacity
+        value: '{{ max_group_prepared_capacity }}'
+      - name: min_size
+        value: '{{ min_size }}'
+      - name: pool_state
+        value: '{{ pool_state }}'
+      - name: instance_reuse_policy
         value:
-          ReuseOnScaleIn: '{{ ReuseOnScaleIn }}'
-
+          reuse_on_scale_in: '{{ reuse_on_scale_in }}'
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "InstanceReusePolicy": instance_reuse_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AutoScalingGroupName>';
+AND Identifier = '{{ auto_scaling_group_name }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.warm_pools
-WHERE Identifier = '<AutoScalingGroupName>'
+WHERE Identifier = '{{ auto_scaling_group_name }}'
 AND region = 'us-east-1';
 ```
 

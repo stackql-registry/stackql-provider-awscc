@@ -189,7 +189,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.route_calculators
-WHERE region = 'us-east-1' AND Identifier = '<CalculatorName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ calculator_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,9 +226,9 @@ INSERT INTO awscc.location.route_calculators (
  DataSource,
  region
 )
-SELECT 
-'{{ CalculatorName }}',
- '{{ DataSource }}',
+SELECT
+'{{ calculator_name }}',
+ '{{ data_source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,12 +244,12 @@ INSERT INTO awscc.location.route_calculators (
  Tags,
  region
 )
-SELECT 
- '{{ CalculatorName }}',
- '{{ DataSource }}',
- '{{ Description }}',
- '{{ PricingPlan }}',
- '{{ Tags }}',
+SELECT
+ '{{ calculator_name }}',
+ '{{ data_source }}',
+ '{{ description }}',
+ '{{ pricing_plan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -267,19 +267,18 @@ globals:
 resources:
   - name: route_calculator
     props:
-      - name: CalculatorName
-        value: '{{ CalculatorName }}'
-      - name: DataSource
-        value: '{{ DataSource }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PricingPlan
-        value: '{{ PricingPlan }}'
-      - name: Tags
+      - name: calculator_name
+        value: '{{ calculator_name }}'
+      - name: data_source
+        value: '{{ data_source }}'
+      - name: description
+        value: '{{ description }}'
+      - name: pricing_plan
+        value: '{{ pricing_plan }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +296,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CalculatorName>';
+AND Identifier = '{{ calculator_name }}';
 ```
 
 
@@ -306,7 +305,7 @@ AND Identifier = '<CalculatorName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.route_calculators
-WHERE Identifier = '<CalculatorName>'
+WHERE Identifier = '{{ calculator_name }}'
 AND region = 'us-east-1';
 ```
 

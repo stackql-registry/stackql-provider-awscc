@@ -157,7 +157,7 @@ policy_id,
 policy_store_id,
 policy_type
 FROM awscc.verifiedpermissions.policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyId>|<PolicyStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.verifiedpermissions.policies (
  PolicyStoreId,
  region
 )
-SELECT 
-'{{ Definition }}',
- '{{ PolicyStoreId }}',
+SELECT
+'{{ definition }}',
+ '{{ policy_store_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.verifiedpermissions.policies (
  PolicyStoreId,
  region
 )
-SELECT 
- '{{ Definition }}',
- '{{ PolicyStoreId }}',
+SELECT
+ '{{ definition }}',
+ '{{ policy_store_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,10 @@ globals:
 resources:
   - name: policy
     props:
-      - name: Definition
+      - name: definition
         value: null
-      - name: PolicyStoreId
-        value: '{{ PolicyStoreId }}'
-
+      - name: policy_store_id
+        value: '{{ policy_store_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Definition": definition
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyId>|<PolicyStoreId>';
+AND Identifier = '{{ policy_id }}|{{ policy_store_id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<PolicyId>|<PolicyStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policies
-WHERE Identifier = '<PolicyId|PolicyStoreId>'
+WHERE Identifier = '{{ policy_id }}|{{ policy_store_id }}'
 AND region = 'us-east-1';
 ```
 

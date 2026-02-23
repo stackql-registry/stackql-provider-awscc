@@ -164,7 +164,7 @@ cells,
 recovery_group_arn,
 tags
 FROM awscc.route53recoveryreadiness.recovery_groups
-WHERE region = 'us-east-1' AND Identifier = '<RecoveryGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ recovery_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.route53recoveryreadiness.recovery_groups (
  Tags,
  region
 )
-SELECT 
-'{{ RecoveryGroupName }}',
- '{{ Cells }}',
- '{{ Tags }}',
+SELECT
+'{{ recovery_group_name }}',
+ '{{ cells }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.route53recoveryreadiness.recovery_groups (
  Tags,
  region
 )
-SELECT 
- '{{ RecoveryGroupName }}',
- '{{ Cells }}',
- '{{ Tags }}',
+SELECT
+ '{{ recovery_group_name }}',
+ '{{ cells }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,16 +240,15 @@ globals:
 resources:
   - name: recovery_group
     props:
-      - name: RecoveryGroupName
-        value: '{{ RecoveryGroupName }}'
-      - name: Cells
+      - name: recovery_group_name
+        value: '{{ recovery_group_name }}'
+      - name: cells
         value:
-          - '{{ Cells[0] }}'
-      - name: Tags
+          - '{{ cells[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RecoveryGroupName>';
+AND Identifier = '{{ recovery_group_name }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<RecoveryGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.recovery_groups
-WHERE Identifier = '<RecoveryGroupName>'
+WHERE Identifier = '{{ recovery_group_name }}'
 AND region = 'us-east-1';
 ```
 

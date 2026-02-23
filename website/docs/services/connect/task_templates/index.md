@@ -319,7 +319,7 @@ status,
 client_token,
 tags
 FROM awscc.connect.task_templates
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -355,8 +355,8 @@ INSERT INTO awscc.connect.task_templates (
  InstanceArn,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
+SELECT
+'{{ instance_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -378,18 +378,18 @@ INSERT INTO awscc.connect.task_templates (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ ContactFlowArn }}',
- '{{ SelfAssignContactFlowArn }}',
- '{{ Constraints }}',
- '{{ Defaults }}',
- '{{ Fields }}',
- '{{ Status }}',
- '{{ ClientToken }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ contact_flow_arn }}',
+ '{{ self_assign_contact_flow_arn }}',
+ '{{ constraints }}',
+ '{{ defaults }}',
+ '{{ fields }}',
+ '{{ status }}',
+ '{{ client_token }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -407,45 +407,44 @@ globals:
 resources:
   - name: task_template
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ContactFlowArn
-        value: '{{ ContactFlowArn }}'
-      - name: SelfAssignContactFlowArn
-        value: '{{ SelfAssignContactFlowArn }}'
-      - name: Constraints
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: contact_flow_arn
+        value: '{{ contact_flow_arn }}'
+      - name: self_assign_contact_flow_arn
+        value: '{{ self_assign_contact_flow_arn }}'
+      - name: constraints
         value:
-          InvisibleFields:
-            - Id:
-                Name: '{{ Name }}'
-          RequiredFields:
-            - Id: null
-          ReadOnlyFields:
-            - Id: null
-      - name: Defaults
+          invisible_fields:
+            - id:
+                name: '{{ name }}'
+          required_fields:
+            - id: null
+          read_only_fields:
+            - id: null
+      - name: defaults
         value:
-          - Id: null
-            DefaultValue: '{{ DefaultValue }}'
-      - name: Fields
+          - id: null
+            default_value: '{{ default_value }}'
+      - name: fields
         value:
-          - Id: null
-            Description: '{{ Description }}'
-            Type: '{{ Type }}'
-            SingleSelectOptions:
-              - '{{ SingleSelectOptions[0] }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: Tags
+          - id: null
+            description: '{{ description }}'
+            type: '{{ type }}'
+            single_select_options:
+              - '{{ single_select_options[0] }}'
+      - name: status
+        value: '{{ status }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -471,7 +470,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -480,7 +479,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.task_templates
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

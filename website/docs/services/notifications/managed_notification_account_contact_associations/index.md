@@ -145,7 +145,7 @@ region,
 managed_notification_configuration_arn,
 contact_identifier
 FROM awscc.notifications.managed_notification_account_contact_associations
-WHERE region = 'us-east-1' AND Identifier = '<ManagedNotificationConfigurationArn>|<ContactIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.notifications.managed_notification_account_contact_association
  ContactIdentifier,
  region
 )
-SELECT 
-'{{ ManagedNotificationConfigurationArn }}',
- '{{ ContactIdentifier }}',
+SELECT
+'{{ managed_notification_configuration_arn }}',
+ '{{ contact_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -198,9 +198,9 @@ INSERT INTO awscc.notifications.managed_notification_account_contact_association
  ContactIdentifier,
  region
 )
-SELECT 
- '{{ ManagedNotificationConfigurationArn }}',
- '{{ ContactIdentifier }}',
+SELECT
+ '{{ managed_notification_configuration_arn }}',
+ '{{ contact_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,10 @@ globals:
 resources:
   - name: managed_notification_account_contact_association
     props:
-      - name: ManagedNotificationConfigurationArn
-        value: '{{ ManagedNotificationConfigurationArn }}'
-      - name: ContactIdentifier
-        value: '{{ ContactIdentifier }}'
-
+      - name: managed_notification_configuration_arn
+        value: '{{ managed_notification_configuration_arn }}'
+      - name: contact_identifier
+        value: '{{ contact_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +232,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.managed_notification_account_contact_associations
-WHERE Identifier = '<ManagedNotificationConfigurationArn|ContactIdentifier>'
+WHERE Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}'
 AND region = 'us-east-1';
 ```
 

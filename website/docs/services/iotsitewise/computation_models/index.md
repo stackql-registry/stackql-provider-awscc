@@ -201,7 +201,7 @@ computation_model_configuration,
 computation_model_data_binding,
 tags
 FROM awscc.iotsitewise.computation_models
-WHERE region = 'us-east-1' AND Identifier = '<ComputationModelId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ computation_model_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +239,10 @@ INSERT INTO awscc.iotsitewise.computation_models (
  ComputationModelDataBinding,
  region
 )
-SELECT 
-'{{ ComputationModelName }}',
- '{{ ComputationModelConfiguration }}',
- '{{ ComputationModelDataBinding }}',
+SELECT
+'{{ computation_model_name }}',
+ '{{ computation_model_configuration }}',
+ '{{ computation_model_data_binding }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,12 +258,12 @@ INSERT INTO awscc.iotsitewise.computation_models (
  Tags,
  region
 )
-SELECT 
- '{{ ComputationModelName }}',
- '{{ ComputationModelDescription }}',
- '{{ ComputationModelConfiguration }}',
- '{{ ComputationModelDataBinding }}',
- '{{ Tags }}',
+SELECT
+ '{{ computation_model_name }}',
+ '{{ computation_model_description }}',
+ '{{ computation_model_configuration }}',
+ '{{ computation_model_data_binding }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -281,22 +281,21 @@ globals:
 resources:
   - name: computation_model
     props:
-      - name: ComputationModelName
-        value: '{{ ComputationModelName }}'
-      - name: ComputationModelDescription
-        value: '{{ ComputationModelDescription }}'
-      - name: ComputationModelConfiguration
+      - name: computation_model_name
+        value: '{{ computation_model_name }}'
+      - name: computation_model_description
+        value: '{{ computation_model_description }}'
+      - name: computation_model_configuration
         value:
-          AnomalyDetection:
-            InputProperties: '{{ InputProperties }}'
-            ResultProperty: '{{ ResultProperty }}'
-      - name: ComputationModelDataBinding
+          anomaly_detection:
+            input_properties: '{{ input_properties }}'
+            result_property: '{{ result_property }}'
+      - name: computation_model_data_binding
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ComputationModelId>';
+AND Identifier = '{{ computation_model_id }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<ComputationModelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.computation_models
-WHERE Identifier = '<ComputationModelId>'
+WHERE Identifier = '{{ computation_model_id }}'
 AND region = 'us-east-1';
 ```
 

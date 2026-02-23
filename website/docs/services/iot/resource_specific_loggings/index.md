@@ -152,7 +152,7 @@ target_name,
 log_level,
 target_id
 FROM awscc.iot.resource_specific_loggings
-WHERE region = 'us-east-1' AND Identifier = '<TargetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ target_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.iot.resource_specific_loggings (
  LogLevel,
  region
 )
-SELECT 
-'{{ TargetType }}',
- '{{ TargetName }}',
- '{{ LogLevel }}',
+SELECT
+'{{ target_type }}',
+ '{{ target_name }}',
+ '{{ log_level }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.iot.resource_specific_loggings (
  LogLevel,
  region
 )
-SELECT 
- '{{ TargetType }}',
- '{{ TargetName }}',
- '{{ LogLevel }}',
+SELECT
+ '{{ target_type }}',
+ '{{ target_name }}',
+ '{{ log_level }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: resource_specific_logging
     props:
-      - name: TargetType
-        value: '{{ TargetType }}'
-      - name: TargetName
-        value: '{{ TargetName }}'
-      - name: LogLevel
-        value: '{{ LogLevel }}'
-
+      - name: target_type
+        value: '{{ target_type }}'
+      - name: target_name
+        value: '{{ target_name }}'
+      - name: log_level
+        value: '{{ log_level }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "LogLevel": log_level
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TargetId>';
+AND Identifier = '{{ target_id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<TargetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.resource_specific_loggings
-WHERE Identifier = '<TargetId>'
+WHERE Identifier = '{{ target_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -202,7 +202,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.place_indices
-WHERE region = 'us-east-1' AND Identifier = '<IndexName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,9 +239,9 @@ INSERT INTO awscc.location.place_indices (
  IndexName,
  region
 )
-SELECT 
-'{{ DataSource }}',
- '{{ IndexName }}',
+SELECT
+'{{ data_source }}',
+ '{{ index_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,13 +258,13 @@ INSERT INTO awscc.location.place_indices (
  Tags,
  region
 )
-SELECT 
- '{{ DataSource }}',
- '{{ DataSourceConfiguration }}',
- '{{ Description }}',
- '{{ IndexName }}',
- '{{ PricingPlan }}',
- '{{ Tags }}',
+SELECT
+ '{{ data_source }}',
+ '{{ data_source_configuration }}',
+ '{{ description }}',
+ '{{ index_name }}',
+ '{{ pricing_plan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,22 +282,21 @@ globals:
 resources:
   - name: place_index
     props:
-      - name: DataSource
-        value: '{{ DataSource }}'
-      - name: DataSourceConfiguration
+      - name: data_source
+        value: '{{ data_source }}'
+      - name: data_source_configuration
         value:
-          IntendedUse: '{{ IntendedUse }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: IndexName
-        value: '{{ IndexName }}'
-      - name: PricingPlan
-        value: '{{ PricingPlan }}'
-      - name: Tags
+          intended_use: '{{ intended_use }}'
+      - name: description
+        value: '{{ description }}'
+      - name: index_name
+        value: '{{ index_name }}'
+      - name: pricing_plan
+        value: '{{ pricing_plan }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IndexName>';
+AND Identifier = '{{ index_name }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<IndexName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.place_indices
-WHERE Identifier = '<IndexName>'
+WHERE Identifier = '{{ index_name }}'
 AND region = 'us-east-1';
 ```
 

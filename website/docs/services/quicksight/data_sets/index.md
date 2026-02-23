@@ -652,7 +652,7 @@ data_set_usage_configuration,
 output_columns,
 arn
 FROM awscc.quicksight.data_sets
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<DataSetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -708,27 +708,27 @@ INSERT INTO awscc.quicksight.data_sets (
  DataSetUsageConfiguration,
  region
 )
-SELECT 
-'{{ FolderArns }}',
- '{{ RowLevelPermissionDataSet }}',
- '{{ IngestionWaitPolicy }}',
- '{{ ColumnLevelPermissionRules }}',
- '{{ Name }}',
- '{{ Permissions }}',
- '{{ UseAs }}',
- '{{ Tags }}',
- '{{ PhysicalTableMap }}',
- '{{ FieldFolders }}',
- '{{ DataSetId }}',
- '{{ PerformanceConfiguration }}',
- '{{ DataSetRefreshProperties }}',
- '{{ RowLevelPermissionTagConfiguration }}',
- '{{ ColumnGroups }}',
- '{{ ImportMode }}',
- '{{ DatasetParameters }}',
- '{{ LogicalTableMap }}',
- '{{ AwsAccountId }}',
- '{{ DataSetUsageConfiguration }}',
+SELECT
+'{{ folder_arns }}',
+ '{{ row_level_permission_data_set }}',
+ '{{ ingestion_wait_policy }}',
+ '{{ column_level_permission_rules }}',
+ '{{ name }}',
+ '{{ permissions }}',
+ '{{ use_as }}',
+ '{{ tags }}',
+ '{{ physical_table_map }}',
+ '{{ field_folders }}',
+ '{{ data_set_id }}',
+ '{{ performance_configuration }}',
+ '{{ data_set_refresh_properties }}',
+ '{{ row_level_permission_tag_configuration }}',
+ '{{ column_groups }}',
+ '{{ import_mode }}',
+ '{{ dataset_parameters }}',
+ '{{ logical_table_map }}',
+ '{{ aws_account_id }}',
+ '{{ data_set_usage_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -759,27 +759,27 @@ INSERT INTO awscc.quicksight.data_sets (
  DataSetUsageConfiguration,
  region
 )
-SELECT 
- '{{ FolderArns }}',
- '{{ RowLevelPermissionDataSet }}',
- '{{ IngestionWaitPolicy }}',
- '{{ ColumnLevelPermissionRules }}',
- '{{ Name }}',
- '{{ Permissions }}',
- '{{ UseAs }}',
- '{{ Tags }}',
- '{{ PhysicalTableMap }}',
- '{{ FieldFolders }}',
- '{{ DataSetId }}',
- '{{ PerformanceConfiguration }}',
- '{{ DataSetRefreshProperties }}',
- '{{ RowLevelPermissionTagConfiguration }}',
- '{{ ColumnGroups }}',
- '{{ ImportMode }}',
- '{{ DatasetParameters }}',
- '{{ LogicalTableMap }}',
- '{{ AwsAccountId }}',
- '{{ DataSetUsageConfiguration }}',
+SELECT
+ '{{ folder_arns }}',
+ '{{ row_level_permission_data_set }}',
+ '{{ ingestion_wait_policy }}',
+ '{{ column_level_permission_rules }}',
+ '{{ name }}',
+ '{{ permissions }}',
+ '{{ use_as }}',
+ '{{ tags }}',
+ '{{ physical_table_map }}',
+ '{{ field_folders }}',
+ '{{ data_set_id }}',
+ '{{ performance_configuration }}',
+ '{{ data_set_refresh_properties }}',
+ '{{ row_level_permission_tag_configuration }}',
+ '{{ column_groups }}',
+ '{{ import_mode }}',
+ '{{ dataset_parameters }}',
+ '{{ logical_table_map }}',
+ '{{ aws_account_id }}',
+ '{{ data_set_usage_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -797,120 +797,119 @@ globals:
 resources:
   - name: data_set
     props:
-      - name: FolderArns
+      - name: folder_arns
         value:
-          - '{{ FolderArns[0] }}'
-      - name: RowLevelPermissionDataSet
+          - '{{ folder_arns[0] }}'
+      - name: row_level_permission_data_set
         value:
-          Status: '{{ Status }}'
-          FormatVersion: '{{ FormatVersion }}'
-          Arn: '{{ Arn }}'
-          Namespace: '{{ Namespace }}'
-          PermissionPolicy: '{{ PermissionPolicy }}'
-      - name: IngestionWaitPolicy
+          status: '{{ status }}'
+          format_version: '{{ format_version }}'
+          arn: '{{ arn }}'
+          namespace: '{{ namespace }}'
+          permission_policy: '{{ permission_policy }}'
+      - name: ingestion_wait_policy
         value:
-          WaitForSpiceIngestion: '{{ WaitForSpiceIngestion }}'
-          IngestionWaitTimeInHours: null
-      - name: ColumnLevelPermissionRules
+          wait_for_spice_ingestion: '{{ wait_for_spice_ingestion }}'
+          ingestion_wait_time_in_hours: null
+      - name: column_level_permission_rules
         value:
-          - ColumnNames:
-              - '{{ ColumnNames[0] }}'
-            Principals:
-              - '{{ Principals[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Permissions
+          - column_names:
+              - '{{ column_names[0] }}'
+            principals:
+              - '{{ principals[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: permissions
         value:
-          - Principal: '{{ Principal }}'
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: UseAs
-        value: '{{ UseAs }}'
-      - name: Tags
+          - principal: '{{ principal }}'
+            actions:
+              - '{{ actions[0] }}'
+      - name: use_as
+        value: '{{ use_as }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: PhysicalTableMap
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: physical_table_map
         value: {}
-      - name: FieldFolders
+      - name: field_folders
         value: {}
-      - name: DataSetId
-        value: '{{ DataSetId }}'
-      - name: PerformanceConfiguration
+      - name: data_set_id
+        value: '{{ data_set_id }}'
+      - name: performance_configuration
         value:
-          UniqueKeys:
-            - ColumnNames:
-                - '{{ ColumnNames[0] }}'
-      - name: DataSetRefreshProperties
+          unique_keys:
+            - column_names:
+                - '{{ column_names[0] }}'
+      - name: data_set_refresh_properties
         value:
-          RefreshConfiguration:
-            IncrementalRefresh:
-              LookbackWindow:
-                ColumnName: '{{ ColumnName }}'
-                SizeUnit: '{{ SizeUnit }}'
-                Size: null
-          FailureConfiguration:
-            EmailAlert:
-              AlertStatus: '{{ AlertStatus }}'
-      - name: RowLevelPermissionTagConfiguration
+          refresh_configuration:
+            incremental_refresh:
+              lookback_window:
+                column_name: '{{ column_name }}'
+                size_unit: '{{ size_unit }}'
+                size: null
+          failure_configuration:
+            email_alert:
+              alert_status: '{{ alert_status }}'
+      - name: row_level_permission_tag_configuration
         value:
-          Status: null
-          TagRules:
-            - ColumnName: '{{ ColumnName }}'
-              TagKey: '{{ TagKey }}'
-              MatchAllValue: '{{ MatchAllValue }}'
-              TagMultiValueDelimiter: '{{ TagMultiValueDelimiter }}'
-          TagRuleConfigurations:
+          status: null
+          tag_rules:
+            - column_name: '{{ column_name }}'
+              tag_key: '{{ tag_key }}'
+              match_all_value: '{{ match_all_value }}'
+              tag_multi_value_delimiter: '{{ tag_multi_value_delimiter }}'
+          tag_rule_configurations:
             - - '{{ 0[0] }}'
-      - name: ColumnGroups
+      - name: column_groups
         value:
-          - GeoSpatialColumnGroup:
-              Columns:
-                - '{{ Columns[0] }}'
-              CountryCode: '{{ CountryCode }}'
-              Name: '{{ Name }}'
-      - name: ImportMode
-        value: '{{ ImportMode }}'
-      - name: DatasetParameters
+          - geo_spatial_column_group:
+              columns:
+                - '{{ columns[0] }}'
+              country_code: '{{ country_code }}'
+              name: '{{ name }}'
+      - name: import_mode
+        value: '{{ import_mode }}'
+      - name: dataset_parameters
         value:
-          - IntegerDatasetParameter:
-              ValueType: '{{ ValueType }}'
-              DefaultValues:
-                StaticValues:
+          - integer_dataset_parameter:
+              value_type: '{{ value_type }}'
+              default_values:
+                static_values:
                   - null
-              Id: '{{ Id }}'
-              Name: '{{ Name }}'
-            DateTimeDatasetParameter:
-              ValueType: null
-              TimeGranularity: '{{ TimeGranularity }}'
-              DefaultValues:
-                StaticValues:
-                  - '{{ StaticValues[0] }}'
-              Id: '{{ Id }}'
-              Name: '{{ Name }}'
-            DecimalDatasetParameter:
-              ValueType: null
-              DefaultValues:
-                StaticValues:
+              id: '{{ id }}'
+              name: '{{ name }}'
+            date_time_dataset_parameter:
+              value_type: null
+              time_granularity: '{{ time_granularity }}'
+              default_values:
+                static_values:
+                  - '{{ static_values[0] }}'
+              id: '{{ id }}'
+              name: '{{ name }}'
+            decimal_dataset_parameter:
+              value_type: null
+              default_values:
+                static_values:
                   - null
-              Id: '{{ Id }}'
-              Name: '{{ Name }}'
-            StringDatasetParameter:
-              ValueType: null
-              DefaultValues:
-                StaticValues:
-                  - '{{ StaticValues[0] }}'
-              Id: '{{ Id }}'
-              Name: '{{ Name }}'
-      - name: LogicalTableMap
+              id: '{{ id }}'
+              name: '{{ name }}'
+            string_dataset_parameter:
+              value_type: null
+              default_values:
+                static_values:
+                  - '{{ static_values[0] }}'
+              id: '{{ id }}'
+              name: '{{ name }}'
+      - name: logical_table_map
         value: {}
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: DataSetUsageConfiguration
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: data_set_usage_configuration
         value:
-          DisableUseAsImportedSource: '{{ DisableUseAsImportedSource }}'
-          DisableUseAsDirectQuerySource: '{{ DisableUseAsDirectQuerySource }}'
-
+          disable_use_as_imported_source: '{{ disable_use_as_imported_source }}'
+          disable_use_as_direct_query_source: '{{ disable_use_as_direct_query_source }}'
 ```
 </TabItem>
 </Tabs>
@@ -943,7 +942,7 @@ SET PatchDocument = string('{{ {
     "DataSetUsageConfiguration": data_set_usage_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<DataSetId>';
+AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```
 
 
@@ -952,7 +951,7 @@ AND Identifier = '<AwsAccountId>|<DataSetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.data_sets
-WHERE Identifier = '<AwsAccountId|DataSetId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ data_set_id }}'
 AND region = 'us-east-1';
 ```
 

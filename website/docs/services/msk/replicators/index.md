@@ -319,7 +319,7 @@ replication_info_list,
 service_execution_role_arn,
 tags
 FROM awscc.msk.replicators
-WHERE region = 'us-east-1' AND Identifier = '<ReplicatorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ replicator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -358,11 +358,11 @@ INSERT INTO awscc.msk.replicators (
  ServiceExecutionRoleArn,
  region
 )
-SELECT 
-'{{ ReplicatorName }}',
- '{{ KafkaClusters }}',
- '{{ ReplicationInfoList }}',
- '{{ ServiceExecutionRoleArn }}',
+SELECT
+'{{ replicator_name }}',
+ '{{ kafka_clusters }}',
+ '{{ replication_info_list }}',
+ '{{ service_execution_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -379,13 +379,13 @@ INSERT INTO awscc.msk.replicators (
  Tags,
  region
 )
-SELECT 
- '{{ ReplicatorName }}',
- '{{ Description }}',
- '{{ KafkaClusters }}',
- '{{ ReplicationInfoList }}',
- '{{ ServiceExecutionRoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ replicator_name }}',
+ '{{ description }}',
+ '{{ kafka_clusters }}',
+ '{{ replication_info_list }}',
+ '{{ service_execution_role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -403,50 +403,49 @@ globals:
 resources:
   - name: replicator
     props:
-      - name: ReplicatorName
-        value: '{{ ReplicatorName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KafkaClusters
+      - name: replicator_name
+        value: '{{ replicator_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kafka_clusters
         value:
-          - AmazonMskCluster:
-              MskClusterArn: '{{ MskClusterArn }}'
-            VpcConfig:
-              SecurityGroupIds:
-                - '{{ SecurityGroupIds[0] }}'
-              SubnetIds:
-                - '{{ SubnetIds[0] }}'
-      - name: ReplicationInfoList
+          - amazon_msk_cluster:
+              msk_cluster_arn: '{{ msk_cluster_arn }}'
+            vpc_config:
+              security_group_ids:
+                - '{{ security_group_ids[0] }}'
+              subnet_ids:
+                - '{{ subnet_ids[0] }}'
+      - name: replication_info_list
         value:
-          - SourceKafkaClusterArn: '{{ SourceKafkaClusterArn }}'
-            TargetKafkaClusterArn: '{{ TargetKafkaClusterArn }}'
-            TargetCompressionType: '{{ TargetCompressionType }}'
-            TopicReplication:
-              TopicsToReplicate:
-                - '{{ TopicsToReplicate[0] }}'
-              TopicsToExclude:
-                - '{{ TopicsToExclude[0] }}'
-              CopyTopicConfigurations: '{{ CopyTopicConfigurations }}'
-              CopyAccessControlListsForTopics: '{{ CopyAccessControlListsForTopics }}'
-              DetectAndCopyNewTopics: '{{ DetectAndCopyNewTopics }}'
-              StartingPosition:
-                Type: '{{ Type }}'
-              TopicNameConfiguration:
-                Type: '{{ Type }}'
-            ConsumerGroupReplication:
-              ConsumerGroupsToReplicate:
-                - '{{ ConsumerGroupsToReplicate[0] }}'
-              ConsumerGroupsToExclude:
-                - '{{ ConsumerGroupsToExclude[0] }}'
-              SynchroniseConsumerGroupOffsets: '{{ SynchroniseConsumerGroupOffsets }}'
-              DetectAndCopyNewConsumerGroups: '{{ DetectAndCopyNewConsumerGroups }}'
-      - name: ServiceExecutionRoleArn
-        value: '{{ ServiceExecutionRoleArn }}'
-      - name: Tags
+          - source_kafka_cluster_arn: '{{ source_kafka_cluster_arn }}'
+            target_kafka_cluster_arn: '{{ target_kafka_cluster_arn }}'
+            target_compression_type: '{{ target_compression_type }}'
+            topic_replication:
+              topics_to_replicate:
+                - '{{ topics_to_replicate[0] }}'
+              topics_to_exclude:
+                - '{{ topics_to_exclude[0] }}'
+              copy_topic_configurations: '{{ copy_topic_configurations }}'
+              copy_access_control_lists_for_topics: '{{ copy_access_control_lists_for_topics }}'
+              detect_and_copy_new_topics: '{{ detect_and_copy_new_topics }}'
+              starting_position:
+                type: '{{ type }}'
+              topic_name_configuration:
+                type: '{{ type }}'
+            consumer_group_replication:
+              consumer_groups_to_replicate:
+                - '{{ consumer_groups_to_replicate[0] }}'
+              consumer_groups_to_exclude:
+                - '{{ consumer_groups_to_exclude[0] }}'
+              synchronise_consumer_group_offsets: '{{ synchronise_consumer_group_offsets }}'
+              detect_and_copy_new_consumer_groups: '{{ detect_and_copy_new_consumer_groups }}'
+      - name: service_execution_role_arn
+        value: '{{ service_execution_role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -462,7 +461,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ReplicatorArn>';
+AND Identifier = '{{ replicator_arn }}';
 ```
 
 
@@ -471,7 +470,7 @@ AND Identifier = '<ReplicatorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.replicators
-WHERE Identifier = '<ReplicatorArn>'
+WHERE Identifier = '{{ replicator_arn }}'
 AND region = 'us-east-1';
 ```
 

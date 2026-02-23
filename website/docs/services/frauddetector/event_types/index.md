@@ -320,7 +320,7 @@ arn,
 created_time,
 last_updated_time
 FROM awscc.frauddetector.event_types
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -359,11 +359,11 @@ INSERT INTO awscc.frauddetector.event_types (
  EntityTypes,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ EventVariables }}',
- '{{ Labels }}',
- '{{ EntityTypes }}',
+SELECT
+'{{ name }}',
+ '{{ event_variables }}',
+ '{{ labels }}',
+ '{{ entity_types }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -380,13 +380,13 @@ INSERT INTO awscc.frauddetector.event_types (
  EntityTypes,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Description }}',
- '{{ EventVariables }}',
- '{{ Labels }}',
- '{{ EntityTypes }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ description }}',
+ '{{ event_variables }}',
+ '{{ labels }}',
+ '{{ entity_types }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -404,45 +404,44 @@ globals:
 resources:
   - name: event_type
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EventVariables
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: event_variables
         value:
-          - Arn: '{{ Arn }}'
-            Inline: '{{ Inline }}'
-            Name: '{{ Name }}'
-            DataSource: '{{ DataSource }}'
-            DataType: '{{ DataType }}'
-            DefaultValue: '{{ DefaultValue }}'
-            VariableType: '{{ VariableType }}'
-            Description: '{{ Description }}'
-            Tags:
+          - arn: '{{ arn }}'
+            inline: '{{ inline }}'
+            name: '{{ name }}'
+            data_source: '{{ data_source }}'
+            data_type: '{{ data_type }}'
+            default_value: '{{ default_value }}'
+            variable_type: '{{ variable_type }}'
+            description: '{{ description }}'
+            tags:
               - null
-            CreatedTime: '{{ CreatedTime }}'
-            LastUpdatedTime: '{{ LastUpdatedTime }}'
-      - name: Labels
+            created_time: '{{ created_time }}'
+            last_updated_time: '{{ last_updated_time }}'
+      - name: labels
         value:
-          - Name: '{{ Name }}'
-            Tags:
+          - name: '{{ name }}'
+            tags:
               - null
-            Description: '{{ Description }}'
-      - name: EntityTypes
+            description: '{{ description }}'
+      - name: entity_types
         value:
-          - Arn: '{{ Arn }}'
-            Inline: '{{ Inline }}'
-            Name: '{{ Name }}'
-            Description: '{{ Description }}'
-            Tags:
+          - arn: '{{ arn }}'
+            inline: '{{ inline }}'
+            name: '{{ name }}'
+            description: '{{ description }}'
+            tags:
               - null
-            CreatedTime: '{{ CreatedTime }}'
-            LastUpdatedTime: '{{ LastUpdatedTime }}'
-
+            created_time: '{{ created_time }}'
+            last_updated_time: '{{ last_updated_time }}'
 ```
 </TabItem>
 </Tabs>
@@ -459,7 +458,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -468,7 +467,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.event_types
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

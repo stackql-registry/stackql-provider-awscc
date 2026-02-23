@@ -163,7 +163,7 @@ id,
 key_group_config,
 last_modified_time
 FROM awscc.cloudfront.key_groups
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -174,7 +174,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.key_groups_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -199,8 +199,8 @@ INSERT INTO awscc.cloudfront.key_groups (
  KeyGroupConfig,
  region
 )
-SELECT 
-'{{ KeyGroupConfig }}',
+SELECT
+'{{ key_group_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -212,8 +212,8 @@ INSERT INTO awscc.cloudfront.key_groups (
  KeyGroupConfig,
  region
 )
-SELECT 
- '{{ KeyGroupConfig }}',
+SELECT
+ '{{ key_group_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -231,13 +231,12 @@ globals:
 resources:
   - name: key_group
     props:
-      - name: KeyGroupConfig
+      - name: key_group_config
         value:
-          Comment: '{{ Comment }}'
-          Items:
-            - '{{ Items[0] }}'
-          Name: '{{ Name }}'
-
+          comment: '{{ comment }}'
+          items:
+            - '{{ items[0] }}'
+          name: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ SET PatchDocument = string('{{ {
     "KeyGroupConfig": key_group_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -262,7 +261,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.key_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

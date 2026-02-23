@@ -333,7 +333,7 @@ tags,
 total_storage_size_in_gbs,
 db_server_ids
 FROM awscc.odb.cloud_exadata_infrastructures
-WHERE region = 'us-east-1' AND Identifier = '<CloudExadataInfrastructureArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cloud_exadata_infrastructure_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -378,17 +378,17 @@ INSERT INTO awscc.odb.cloud_exadata_infrastructures (
  Tags,
  region
 )
-SELECT 
-'{{ AvailabilityZone }}',
- '{{ AvailabilityZoneId }}',
- '{{ ComputeCount }}',
- '{{ CustomerContactsToSendToOCI }}',
- '{{ DatabaseServerType }}',
- '{{ DisplayName }}',
- '{{ Shape }}',
- '{{ StorageCount }}',
- '{{ StorageServerType }}',
- '{{ Tags }}',
+SELECT
+'{{ availability_zone }}',
+ '{{ availability_zone_id }}',
+ '{{ compute_count }}',
+ '{{ customer_contacts_to_send_to_oc_i }}',
+ '{{ database_server_type }}',
+ '{{ display_name }}',
+ '{{ shape }}',
+ '{{ storage_count }}',
+ '{{ storage_server_type }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -409,17 +409,17 @@ INSERT INTO awscc.odb.cloud_exadata_infrastructures (
  Tags,
  region
 )
-SELECT 
- '{{ AvailabilityZone }}',
- '{{ AvailabilityZoneId }}',
- '{{ ComputeCount }}',
- '{{ CustomerContactsToSendToOCI }}',
- '{{ DatabaseServerType }}',
- '{{ DisplayName }}',
- '{{ Shape }}',
- '{{ StorageCount }}',
- '{{ StorageServerType }}',
- '{{ Tags }}',
+SELECT
+ '{{ availability_zone }}',
+ '{{ availability_zone_id }}',
+ '{{ compute_count }}',
+ '{{ customer_contacts_to_send_to_oc_i }}',
+ '{{ database_server_type }}',
+ '{{ display_name }}',
+ '{{ shape }}',
+ '{{ storage_count }}',
+ '{{ storage_server_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -437,30 +437,29 @@ globals:
 resources:
   - name: cloud_exadata_infrastructure
     props:
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: AvailabilityZoneId
-        value: '{{ AvailabilityZoneId }}'
-      - name: ComputeCount
-        value: '{{ ComputeCount }}'
-      - name: CustomerContactsToSendToOCI
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: availability_zone_id
+        value: '{{ availability_zone_id }}'
+      - name: compute_count
+        value: '{{ compute_count }}'
+      - name: customer_contacts_to_send_to_oc_i
         value:
-          - Email: '{{ Email }}'
-      - name: DatabaseServerType
-        value: '{{ DatabaseServerType }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Shape
-        value: '{{ Shape }}'
-      - name: StorageCount
-        value: '{{ StorageCount }}'
-      - name: StorageServerType
-        value: '{{ StorageServerType }}'
-      - name: Tags
+          - email: '{{ email }}'
+      - name: database_server_type
+        value: '{{ database_server_type }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: shape
+        value: '{{ shape }}'
+      - name: storage_count
+        value: '{{ storage_count }}'
+      - name: storage_server_type
+        value: '{{ storage_server_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -476,7 +475,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CloudExadataInfrastructureArn>';
+AND Identifier = '{{ cloud_exadata_infrastructure_arn }}';
 ```
 
 
@@ -485,7 +484,7 @@ AND Identifier = '<CloudExadataInfrastructureArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_exadata_infrastructures
-WHERE Identifier = '<CloudExadataInfrastructureArn>'
+WHERE Identifier = '{{ cloud_exadata_infrastructure_arn }}'
 AND region = 'us-east-1';
 ```
 

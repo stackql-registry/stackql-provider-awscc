@@ -290,7 +290,7 @@ contact_pre_pass_duration_seconds,
 contact_post_pass_duration_seconds,
 tags
 FROM awscc.groundstation.dataflow_endpoint_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,8 +326,8 @@ INSERT INTO awscc.groundstation.dataflow_endpoint_groups (
  EndpointDetails,
  region
 )
-SELECT 
-'{{ EndpointDetails }}',
+SELECT
+'{{ endpoint_details }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -342,11 +342,11 @@ INSERT INTO awscc.groundstation.dataflow_endpoint_groups (
  Tags,
  region
 )
-SELECT 
- '{{ EndpointDetails }}',
- '{{ ContactPrePassDurationSeconds }}',
- '{{ ContactPostPassDurationSeconds }}',
- '{{ Tags }}',
+SELECT
+ '{{ endpoint_details }}',
+ '{{ contact_pre_pass_duration_seconds }}',
+ '{{ contact_post_pass_duration_seconds }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -364,43 +364,42 @@ globals:
 resources:
   - name: dataflow_endpoint_group
     props:
-      - name: EndpointDetails
+      - name: endpoint_details
         value:
-          - SecurityDetails:
-              SubnetIds:
-                - '{{ SubnetIds[0] }}'
-              SecurityGroupIds:
-                - '{{ SecurityGroupIds[0] }}'
-              RoleArn: '{{ RoleArn }}'
-            Endpoint:
-              Name: '{{ Name }}'
-              Address:
-                Name: '{{ Name }}'
-                Port: '{{ Port }}'
-              Mtu: '{{ Mtu }}'
-            AwsGroundStationAgentEndpoint:
-              Name: '{{ Name }}'
-              EgressAddress:
-                SocketAddress: null
-                Mtu: '{{ Mtu }}'
-              IngressAddress:
-                SocketAddress:
-                  Name: '{{ Name }}'
-                  PortRange:
-                    Minimum: '{{ Minimum }}'
-                    Maximum: '{{ Maximum }}'
-                Mtu: '{{ Mtu }}'
-              AgentStatus: '{{ AgentStatus }}'
-              AuditResults: '{{ AuditResults }}'
-      - name: ContactPrePassDurationSeconds
-        value: '{{ ContactPrePassDurationSeconds }}'
-      - name: ContactPostPassDurationSeconds
-        value: '{{ ContactPostPassDurationSeconds }}'
-      - name: Tags
+          - security_details:
+              subnet_ids:
+                - '{{ subnet_ids[0] }}'
+              security_group_ids:
+                - '{{ security_group_ids[0] }}'
+              role_arn: '{{ role_arn }}'
+            endpoint:
+              name: '{{ name }}'
+              address:
+                name: '{{ name }}'
+                port: '{{ port }}'
+              mtu: '{{ mtu }}'
+            aws_ground_station_agent_endpoint:
+              name: '{{ name }}'
+              egress_address:
+                socket_address: null
+                mtu: '{{ mtu }}'
+              ingress_address:
+                socket_address:
+                  name: '{{ name }}'
+                  port_range:
+                    minimum: '{{ minimum }}'
+                    maximum: '{{ maximum }}'
+                mtu: '{{ mtu }}'
+              agent_status: '{{ agent_status }}'
+              audit_results: '{{ audit_results }}'
+      - name: contact_pre_pass_duration_seconds
+        value: '{{ contact_pre_pass_duration_seconds }}'
+      - name: contact_post_pass_duration_seconds
+        value: '{{ contact_post_pass_duration_seconds }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -416,7 +415,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -425,7 +424,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.dataflow_endpoint_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -212,7 +212,7 @@ creation_time,
 modification_time,
 tags
 FROM awscc.route53resolver.outpost_resolvers
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.route53resolver.outpost_resolvers (
  PreferredInstanceType,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ OutpostArn }}',
- '{{ PreferredInstanceType }}',
+SELECT
+'{{ name }}',
+ '{{ outpost_arn }}',
+ '{{ preferred_instance_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -269,12 +269,12 @@ INSERT INTO awscc.route53resolver.outpost_resolvers (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ OutpostArn }}',
- '{{ PreferredInstanceType }}',
- '{{ InstanceCount }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ outpost_arn }}',
+ '{{ preferred_instance_type }}',
+ '{{ instance_count }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,19 +292,18 @@ globals:
 resources:
   - name: outpost_resolver
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: OutpostArn
-        value: '{{ OutpostArn }}'
-      - name: PreferredInstanceType
-        value: '{{ PreferredInstanceType }}'
-      - name: InstanceCount
-        value: '{{ InstanceCount }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: outpost_arn
+        value: '{{ outpost_arn }}'
+      - name: preferred_instance_type
+        value: '{{ preferred_instance_type }}'
+      - name: instance_count
+        value: '{{ instance_count }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -332,7 +331,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.outpost_resolvers
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

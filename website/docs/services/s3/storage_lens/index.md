@@ -534,7 +534,7 @@ region,
 storage_lens_configuration,
 tags
 FROM awscc.s3.storage_lens
-WHERE region = 'us-east-1' AND Identifier = '<StorageLensConfiguration/Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ storage_lens_configuration/id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -570,8 +570,8 @@ INSERT INTO awscc.s3.storage_lens (
  StorageLensConfiguration,
  region
 )
-SELECT 
-'{{ StorageLensConfiguration }}',
+SELECT
+'{{ storage_lens_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -584,9 +584,9 @@ INSERT INTO awscc.s3.storage_lens (
  Tags,
  region
 )
-SELECT 
- '{{ StorageLensConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ storage_lens_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -604,61 +604,60 @@ globals:
 resources:
   - name: storage_len
     props:
-      - name: StorageLensConfiguration
+      - name: storage_lens_configuration
         value:
-          AccountLevel:
-            AdvancedDataProtectionMetrics:
-              IsEnabled: '{{ IsEnabled }}'
-            StorageLensGroupLevel:
-              StorageLensGroupSelectionCriteria:
-                Exclude:
-                  - '{{ Exclude[0] }}'
-                Include:
+          account_level:
+            advanced_data_protection_metrics:
+              is_enabled: '{{ is_enabled }}'
+            storage_lens_group_level:
+              storage_lens_group_selection_criteria:
+                exclude:
+                  - '{{ exclude[0] }}'
+                include:
                   - null
-            ActivityMetrics:
-              IsEnabled: '{{ IsEnabled }}'
-            BucketLevel:
-              AdvancedDataProtectionMetrics: null
-              PrefixLevel:
-                StorageMetrics:
-                  IsEnabled: '{{ IsEnabled }}'
-                  SelectionCriteria:
-                    Delimiter: '{{ Delimiter }}'
-                    MaxDepth: '{{ MaxDepth }}'
-                    MinStorageBytesPercentage: null
-              ActivityMetrics: null
-              AdvancedCostOptimizationMetrics:
-                IsEnabled: '{{ IsEnabled }}'
-              DetailedStatusCodesMetrics:
-                IsEnabled: '{{ IsEnabled }}'
-            AdvancedCostOptimizationMetrics: null
-            DetailedStatusCodesMetrics: null
-          Exclude:
-            Regions:
-              - '{{ Regions[0] }}'
-            Buckets:
-              - '{{ Buckets[0] }}'
-          IsEnabled: '{{ IsEnabled }}'
-          Include: null
-          AwsOrg:
-            Arn: null
-          Id: '{{ Id }}'
-          StorageLensArn: '{{ StorageLensArn }}'
-          DataExport:
-            S3BucketDestination:
-              OutputSchemaVersion: '{{ OutputSchemaVersion }}'
-              Format: '{{ Format }}'
-              AccountId: '{{ AccountId }}'
-              Prefix: '{{ Prefix }}'
-              Encryption: {}
-              Arn: '{{ Arn }}'
-            CloudWatchMetrics:
-              IsEnabled: '{{ IsEnabled }}'
-      - name: Tags
+            activity_metrics:
+              is_enabled: '{{ is_enabled }}'
+            bucket_level:
+              advanced_data_protection_metrics: null
+              prefix_level:
+                storage_metrics:
+                  is_enabled: '{{ is_enabled }}'
+                  selection_criteria:
+                    delimiter: '{{ delimiter }}'
+                    max_depth: '{{ max_depth }}'
+                    min_storage_bytes_percentage: null
+              activity_metrics: null
+              advanced_cost_optimization_metrics:
+                is_enabled: '{{ is_enabled }}'
+              detailed_status_codes_metrics:
+                is_enabled: '{{ is_enabled }}'
+            advanced_cost_optimization_metrics: null
+            detailed_status_codes_metrics: null
+          exclude:
+            regions:
+              - '{{ regions[0] }}'
+            buckets:
+              - '{{ buckets[0] }}'
+          is_enabled: '{{ is_enabled }}'
+          include: null
+          aws_org:
+            arn: null
+          id: '{{ id }}'
+          storage_lens_arn: '{{ storage_lens_arn }}'
+          data_export:
+            s3_bucket_destination:
+              output_schema_version: '{{ output_schema_version }}'
+              format: '{{ format }}'
+              account_id: '{{ account_id }}'
+              prefix: '{{ prefix }}'
+              encryption: {}
+              arn: '{{ arn }}'
+            cloud_watch_metrics:
+              is_enabled: '{{ is_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -674,7 +673,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StorageLensConfiguration/Id>';
+AND Identifier = '{{ storage_lens_configuration/id }}';
 ```
 
 
@@ -683,7 +682,7 @@ AND Identifier = '<StorageLensConfiguration/Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.storage_lens
-WHERE Identifier = '<StorageLensConfiguration/Id>'
+WHERE Identifier = '{{ storage_lens_configuration/id }}'
 AND region = 'us-east-1';
 ```
 

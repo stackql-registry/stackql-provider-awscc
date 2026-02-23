@@ -158,7 +158,7 @@ pool_name,
 scaling_mode,
 tags
 FROM awscc.ses.dedicated_ip_pools
-WHERE region = 'us-east-1' AND Identifier = '<PoolName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pool_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.ses.dedicated_ip_pools (
  Tags,
  region
 )
-SELECT 
-'{{ PoolName }}',
- '{{ ScalingMode }}',
- '{{ Tags }}',
+SELECT
+'{{ pool_name }}',
+ '{{ scaling_mode }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -213,10 +213,10 @@ INSERT INTO awscc.ses.dedicated_ip_pools (
  Tags,
  region
 )
-SELECT 
- '{{ PoolName }}',
- '{{ ScalingMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ pool_name }}',
+ '{{ scaling_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,15 +234,14 @@ globals:
 resources:
   - name: dedicated_ip_pool
     props:
-      - name: PoolName
-        value: '{{ PoolName }}'
-      - name: ScalingMode
-        value: '{{ ScalingMode }}'
-      - name: Tags
+      - name: pool_name
+        value: '{{ pool_name }}'
+      - name: scaling_mode
+        value: '{{ scaling_mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -259,7 +258,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PoolName>';
+AND Identifier = '{{ pool_name }}';
 ```
 
 
@@ -268,7 +267,7 @@ AND Identifier = '<PoolName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.dedicated_ip_pools
-WHERE Identifier = '<PoolName>'
+WHERE Identifier = '{{ pool_name }}'
 AND region = 'us-east-1';
 ```
 

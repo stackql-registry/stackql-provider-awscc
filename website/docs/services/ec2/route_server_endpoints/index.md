@@ -188,7 +188,7 @@ eni_id,
 eni_address,
 tags
 FROM awscc.ec2.route_server_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.ec2.route_server_endpoints (
  SubnetId,
  region
 )
-SELECT 
-'{{ RouteServerId }}',
- '{{ SubnetId }}',
+SELECT
+'{{ route_server_id }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,10 +241,10 @@ INSERT INTO awscc.ec2.route_server_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ RouteServerId }}',
- '{{ SubnetId }}',
- '{{ Tags }}',
+SELECT
+ '{{ route_server_id }}',
+ '{{ subnet_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,15 +262,14 @@ globals:
 resources:
   - name: route_server_endpoint
     props:
-      - name: RouteServerId
-        value: '{{ RouteServerId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: Tags
+      - name: route_server_id
+        value: '{{ route_server_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_endpoints
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

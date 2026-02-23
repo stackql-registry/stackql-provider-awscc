@@ -223,7 +223,7 @@ image_id,
 status,
 tags
 FROM awscc.rds.customdb_engine_versions
-WHERE region = 'us-east-1' AND Identifier = '<Engine>|<EngineVersion>';
+WHERE region = 'us-east-1' AND Identifier = '{{ engine }}|{{ engine_version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,9 +261,9 @@ INSERT INTO awscc.rds.customdb_engine_versions (
  EngineVersion,
  region
 )
-SELECT 
-'{{ Engine }}',
- '{{ EngineVersion }}',
+SELECT
+'{{ engine }}',
+ '{{ engine_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -286,19 +286,19 @@ INSERT INTO awscc.rds.customdb_engine_versions (
  Tags,
  region
 )
-SELECT 
- '{{ DatabaseInstallationFilesS3BucketName }}',
- '{{ DatabaseInstallationFilesS3Prefix }}',
- '{{ Description }}',
- '{{ Engine }}',
- '{{ EngineVersion }}',
- '{{ KMSKeyId }}',
- '{{ Manifest }}',
- '{{ SourceCustomDbEngineVersionIdentifier }}',
- '{{ UseAwsProvidedLatestImage }}',
- '{{ ImageId }}',
- '{{ Status }}',
- '{{ Tags }}',
+SELECT
+ '{{ database_installation_files_s3_bucket_name }}',
+ '{{ database_installation_files_s3_prefix }}',
+ '{{ description }}',
+ '{{ engine }}',
+ '{{ engine_version }}',
+ '{{ kms_key_id }}',
+ '{{ manifest }}',
+ '{{ source_custom_db_engine_version_identifier }}',
+ '{{ use_aws_provided_latest_image }}',
+ '{{ image_id }}',
+ '{{ status }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,33 +316,32 @@ globals:
 resources:
   - name: customdb_engine_version
     props:
-      - name: DatabaseInstallationFilesS3BucketName
-        value: '{{ DatabaseInstallationFilesS3BucketName }}'
-      - name: DatabaseInstallationFilesS3Prefix
-        value: '{{ DatabaseInstallationFilesS3Prefix }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: KMSKeyId
-        value: '{{ KMSKeyId }}'
-      - name: Manifest
-        value: '{{ Manifest }}'
-      - name: SourceCustomDbEngineVersionIdentifier
-        value: '{{ SourceCustomDbEngineVersionIdentifier }}'
-      - name: UseAwsProvidedLatestImage
-        value: '{{ UseAwsProvidedLatestImage }}'
-      - name: ImageId
-        value: '{{ ImageId }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Tags
+      - name: database_installation_files_s3_bucket_name
+        value: '{{ database_installation_files_s3_bucket_name }}'
+      - name: database_installation_files_s3_prefix
+        value: '{{ database_installation_files_s3_prefix }}'
+      - name: description
+        value: '{{ description }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: manifest
+        value: '{{ manifest }}'
+      - name: source_custom_db_engine_version_identifier
+        value: '{{ source_custom_db_engine_version_identifier }}'
+      - name: use_aws_provided_latest_image
+        value: '{{ use_aws_provided_latest_image }}'
+      - name: image_id
+        value: '{{ image_id }}'
+      - name: status
+        value: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Engine>|<EngineVersion>';
+AND Identifier = '{{ engine }}|{{ engine_version }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<Engine>|<EngineVersion>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.customdb_engine_versions
-WHERE Identifier = '<Engine|EngineVersion>'
+WHERE Identifier = '{{ engine }}|{{ engine_version }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ kms_key_arn,
 arn,
 tags
 FROM awscc.deadline.farms
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.deadline.farms (
  DisplayName,
  region
 )
-SELECT 
-'{{ DisplayName }}',
+SELECT
+'{{ display_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.deadline.farms (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ KmsKeyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ kms_key_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,17 +250,16 @@ globals:
 resources:
   - name: farm
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +277,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -287,7 +286,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.farms
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

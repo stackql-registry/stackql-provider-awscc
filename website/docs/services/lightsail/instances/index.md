@@ -439,7 +439,7 @@ key_pair_name,
 tags,
 instance_arn
 FROM awscc.lightsail.instances
-WHERE region = 'us-east-1' AND Identifier = '<InstanceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -477,10 +477,10 @@ INSERT INTO awscc.lightsail.instances (
  BlueprintId,
  region
 )
-SELECT 
-'{{ InstanceName }}',
- '{{ BundleId }}',
- '{{ BlueprintId }}',
+SELECT
+'{{ instance_name }}',
+ '{{ bundle_id }}',
+ '{{ blueprint_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -503,19 +503,19 @@ INSERT INTO awscc.lightsail.instances (
  Tags,
  region
 )
-SELECT 
- '{{ Location }}',
- '{{ Hardware }}',
- '{{ State }}',
- '{{ Networking }}',
- '{{ InstanceName }}',
- '{{ AvailabilityZone }}',
- '{{ BundleId }}',
- '{{ BlueprintId }}',
- '{{ AddOns }}',
- '{{ UserData }}',
- '{{ KeyPairName }}',
- '{{ Tags }}',
+SELECT
+ '{{ location }}',
+ '{{ hardware }}',
+ '{{ state }}',
+ '{{ networking }}',
+ '{{ instance_name }}',
+ '{{ availability_zone }}',
+ '{{ bundle_id }}',
+ '{{ blueprint_id }}',
+ '{{ add_ons }}',
+ '{{ user_data }}',
+ '{{ key_pair_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -533,67 +533,66 @@ globals:
 resources:
   - name: instance
     props:
-      - name: Location
+      - name: location
         value:
-          AvailabilityZone: '{{ AvailabilityZone }}'
-          RegionName: '{{ RegionName }}'
-      - name: Hardware
+          availability_zone: '{{ availability_zone }}'
+          region_name: '{{ region_name }}'
+      - name: hardware
         value:
-          CpuCount: '{{ CpuCount }}'
-          RamSizeInGb: '{{ RamSizeInGb }}'
-          Disks:
-            - DiskName: '{{ DiskName }}'
-              SizeInGb: '{{ SizeInGb }}'
-              IsSystemDisk: '{{ IsSystemDisk }}'
-              IOPS: '{{ IOPS }}'
-              Path: '{{ Path }}'
-              AttachedTo: '{{ AttachedTo }}'
-              AttachmentState: '{{ AttachmentState }}'
-      - name: State
+          cpu_count: '{{ cpu_count }}'
+          ram_size_in_gb: '{{ ram_size_in_gb }}'
+          disks:
+            - disk_name: '{{ disk_name }}'
+              size_in_gb: '{{ size_in_gb }}'
+              is_system_disk: '{{ is_system_disk }}'
+              i_op_s: '{{ i_op_s }}'
+              path: '{{ path }}'
+              attached_to: '{{ attached_to }}'
+              attachment_state: '{{ attachment_state }}'
+      - name: state
         value:
-          Code: '{{ Code }}'
-          Name: '{{ Name }}'
-      - name: Networking
+          code: '{{ code }}'
+          name: '{{ name }}'
+      - name: networking
         value:
-          Ports:
-            - FromPort: '{{ FromPort }}'
-              ToPort: '{{ ToPort }}'
-              Protocol: '{{ Protocol }}'
-              AccessFrom: '{{ AccessFrom }}'
-              AccessType: '{{ AccessType }}'
-              CommonName: '{{ CommonName }}'
-              AccessDirection: '{{ AccessDirection }}'
-              Ipv6Cidrs:
-                - '{{ Ipv6Cidrs[0] }}'
-              CidrListAliases:
-                - '{{ CidrListAliases[0] }}'
-              Cidrs:
-                - '{{ Cidrs[0] }}'
-          MonthlyTransfer:
-            GbPerMonthAllocated: '{{ GbPerMonthAllocated }}'
-      - name: InstanceName
-        value: '{{ InstanceName }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: BundleId
-        value: '{{ BundleId }}'
-      - name: BlueprintId
-        value: '{{ BlueprintId }}'
-      - name: AddOns
+          ports:
+            - from_port: '{{ from_port }}'
+              to_port: '{{ to_port }}'
+              protocol: '{{ protocol }}'
+              access_from: '{{ access_from }}'
+              access_type: '{{ access_type }}'
+              common_name: '{{ common_name }}'
+              access_direction: '{{ access_direction }}'
+              ipv6_cidrs:
+                - '{{ ipv6_cidrs[0] }}'
+              cidr_list_aliases:
+                - '{{ cidr_list_aliases[0] }}'
+              cidrs:
+                - '{{ cidrs[0] }}'
+          monthly_transfer:
+            gb_per_month_allocated: '{{ gb_per_month_allocated }}'
+      - name: instance_name
+        value: '{{ instance_name }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: bundle_id
+        value: '{{ bundle_id }}'
+      - name: blueprint_id
+        value: '{{ blueprint_id }}'
+      - name: add_ons
         value:
-          - AddOnType: '{{ AddOnType }}'
-            Status: '{{ Status }}'
-            AutoSnapshotAddOnRequest:
-              SnapshotTimeOfDay: '{{ SnapshotTimeOfDay }}'
-      - name: UserData
-        value: '{{ UserData }}'
-      - name: KeyPairName
-        value: '{{ KeyPairName }}'
-      - name: Tags
+          - add_on_type: '{{ add_on_type }}'
+            status: '{{ status }}'
+            auto_snapshot_add_on_request:
+              snapshot_time_of_day: '{{ snapshot_time_of_day }}'
+      - name: user_data
+        value: '{{ user_data }}'
+      - name: key_pair_name
+        value: '{{ key_pair_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -612,7 +611,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceName>';
+AND Identifier = '{{ instance_name }}';
 ```
 
 
@@ -621,7 +620,7 @@ AND Identifier = '<InstanceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.instances
-WHERE Identifier = '<InstanceName>'
+WHERE Identifier = '{{ instance_name }}'
 AND region = 'us-east-1';
 ```
 

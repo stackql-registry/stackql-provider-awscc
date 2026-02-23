@@ -213,7 +213,7 @@ source_api_association_status,
 source_api_association_status_detail,
 last_successful_merge_date
 FROM awscc.appsync.source_api_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,11 +252,11 @@ INSERT INTO awscc.appsync.source_api_associations (
  SourceApiAssociationConfig,
  region
 )
-SELECT 
-'{{ SourceApiIdentifier }}',
- '{{ MergedApiIdentifier }}',
- '{{ Description }}',
- '{{ SourceApiAssociationConfig }}',
+SELECT
+'{{ source_api_identifier }}',
+ '{{ merged_api_identifier }}',
+ '{{ description }}',
+ '{{ source_api_association_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,11 +271,11 @@ INSERT INTO awscc.appsync.source_api_associations (
  SourceApiAssociationConfig,
  region
 )
-SELECT 
- '{{ SourceApiIdentifier }}',
- '{{ MergedApiIdentifier }}',
- '{{ Description }}',
- '{{ SourceApiAssociationConfig }}',
+SELECT
+ '{{ source_api_identifier }}',
+ '{{ merged_api_identifier }}',
+ '{{ description }}',
+ '{{ source_api_association_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -293,15 +293,14 @@ globals:
 resources:
   - name: source_api_association
     props:
-      - name: SourceApiIdentifier
-        value: '{{ SourceApiIdentifier }}'
-      - name: MergedApiIdentifier
-        value: '{{ MergedApiIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SourceApiAssociationConfig
+      - name: source_api_identifier
+        value: '{{ source_api_identifier }}'
+      - name: merged_api_identifier
+        value: '{{ merged_api_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: source_api_association_config
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "SourceApiAssociationConfig": source_api_association_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociationArn>';
+AND Identifier = '{{ association_arn }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<AssociationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.source_api_associations
-WHERE Identifier = '<AssociationArn>'
+WHERE Identifier = '{{ association_arn }}'
 AND region = 'us-east-1';
 ```
 

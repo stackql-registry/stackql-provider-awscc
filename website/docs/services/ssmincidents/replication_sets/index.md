@@ -183,7 +183,7 @@ regions,
 deletion_protected,
 tags
 FROM awscc.ssmincidents.replication_sets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,8 +219,8 @@ INSERT INTO awscc.ssmincidents.replication_sets (
  Regions,
  region
 )
-SELECT 
-'{{ Regions }}',
+SELECT
+'{{ regions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,10 +234,10 @@ INSERT INTO awscc.ssmincidents.replication_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Regions }}',
- '{{ DeletionProtected }}',
- '{{ Tags }}',
+SELECT
+ '{{ regions }}',
+ '{{ deletion_protected }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -255,18 +255,17 @@ globals:
 resources:
   - name: replication_set
     props:
-      - name: Regions
+      - name: regions
         value:
-          - RegionName: '{{ RegionName }}'
-            RegionConfiguration:
-              SseKmsKeyId: '{{ SseKmsKeyId }}'
-      - name: DeletionProtected
-        value: '{{ DeletionProtected }}'
-      - name: Tags
+          - region_name: '{{ region_name }}'
+            region_configuration:
+              sse_kms_key_id: '{{ sse_kms_key_id }}'
+      - name: deletion_protected
+        value: '{{ deletion_protected }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmincidents.replication_sets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

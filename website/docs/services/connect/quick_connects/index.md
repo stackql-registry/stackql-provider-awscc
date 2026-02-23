@@ -235,7 +235,7 @@ quick_connect_arn,
 tags,
 quick_connect_type
 FROM awscc.connect.quick_connects
-WHERE region = 'us-east-1' AND Identifier = '<QuickConnectArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ quick_connect_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,10 +273,10 @@ INSERT INTO awscc.connect.quick_connects (
  QuickConnectConfig,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ QuickConnectConfig }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ quick_connect_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,12 +292,12 @@ INSERT INTO awscc.connect.quick_connects (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ QuickConnectConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ quick_connect_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,28 +315,27 @@ globals:
 resources:
   - name: quick_connect
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: QuickConnectConfig
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: quick_connect_config
         value:
-          QuickConnectType: '{{ QuickConnectType }}'
-          PhoneConfig:
-            PhoneNumber: '{{ PhoneNumber }}'
-          QueueConfig:
-            ContactFlowArn: '{{ ContactFlowArn }}'
-            QueueArn: '{{ QueueArn }}'
-          UserConfig:
-            ContactFlowArn: null
-            UserArn: '{{ UserArn }}'
-      - name: Tags
+          quick_connect_type: '{{ quick_connect_type }}'
+          phone_config:
+            phone_number: '{{ phone_number }}'
+          queue_config:
+            contact_flow_arn: '{{ contact_flow_arn }}'
+            queue_arn: '{{ queue_arn }}'
+          user_config:
+            contact_flow_arn: null
+            user_arn: '{{ user_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +355,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QuickConnectArn>';
+AND Identifier = '{{ quick_connect_arn }}';
 ```
 
 
@@ -365,7 +364,7 @@ AND Identifier = '<QuickConnectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.quick_connects
-WHERE Identifier = '<QuickConnectArn>'
+WHERE Identifier = '{{ quick_connect_arn }}'
 AND region = 'us-east-1';
 ```
 

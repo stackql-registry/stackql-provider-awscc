@@ -158,7 +158,7 @@ vpc_id,
 id,
 tags
 FROM awscc.ec2.network_acls
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.ec2.network_acls (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.ec2.network_acls (
  Tags,
  region
 )
-SELECT 
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: network_acl
     props:
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_acls
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

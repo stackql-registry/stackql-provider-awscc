@@ -185,7 +185,7 @@ tags,
 attributes_to_delete,
 created_time
 FROM awscc.appstream.applications
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -213,13 +213,13 @@ INSERT INTO awscc.appstream.applications (
  Platforms,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ LaunchPath }}',
- '{{ InstanceFamilies }}',
- '{{ IconS3Location }}',
- '{{ AppBlockArn }}',
- '{{ Platforms }}',
+SELECT
+'{{ name }}',
+ '{{ launch_path }}',
+ '{{ instance_families }}',
+ '{{ icon_s3_location }}',
+ '{{ app_block_arn }}',
+ '{{ platforms }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,19 +242,19 @@ INSERT INTO awscc.appstream.applications (
  AttributesToDelete,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DisplayName }}',
- '{{ Description }}',
- '{{ LaunchPath }}',
- '{{ LaunchParameters }}',
- '{{ WorkingDirectory }}',
- '{{ InstanceFamilies }}',
- '{{ IconS3Location }}',
- '{{ AppBlockArn }}',
- '{{ Platforms }}',
- '{{ Tags }}',
- '{{ AttributesToDelete }}',
+SELECT
+ '{{ name }}',
+ '{{ display_name }}',
+ '{{ description }}',
+ '{{ launch_path }}',
+ '{{ launch_parameters }}',
+ '{{ working_directory }}',
+ '{{ instance_families }}',
+ '{{ icon_s3_location }}',
+ '{{ app_block_arn }}',
+ '{{ platforms }}',
+ '{{ tags }}',
+ '{{ attributes_to_delete }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,38 +272,37 @@ globals:
 resources:
   - name: application
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: LaunchPath
-        value: '{{ LaunchPath }}'
-      - name: LaunchParameters
-        value: '{{ LaunchParameters }}'
-      - name: WorkingDirectory
-        value: '{{ WorkingDirectory }}'
-      - name: InstanceFamilies
+      - name: name
+        value: '{{ name }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: launch_path
+        value: '{{ launch_path }}'
+      - name: launch_parameters
+        value: '{{ launch_parameters }}'
+      - name: working_directory
+        value: '{{ working_directory }}'
+      - name: instance_families
         value:
-          - '{{ InstanceFamilies[0] }}'
-      - name: IconS3Location
+          - '{{ instance_families[0] }}'
+      - name: icon_s3_location
         value:
-          S3Bucket: '{{ S3Bucket }}'
-          S3Key: '{{ S3Key }}'
-      - name: AppBlockArn
-        value: '{{ AppBlockArn }}'
-      - name: Platforms
+          s3_bucket: '{{ s3_bucket }}'
+          s3_key: '{{ s3_key }}'
+      - name: app_block_arn
+        value: '{{ app_block_arn }}'
+      - name: platforms
         value:
-          - '{{ Platforms[0] }}'
-      - name: Tags
+          - '{{ platforms[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: AttributesToDelete
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: attributes_to_delete
         value:
-          - '{{ AttributesToDelete[0] }}'
-
+          - '{{ attributes_to_delete[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +326,7 @@ SET PatchDocument = string('{{ {
     "AttributesToDelete": attributes_to_delete
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -336,7 +335,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.applications
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

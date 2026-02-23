@@ -217,7 +217,7 @@ parameters,
 membership_arn,
 membership_identifier
 FROM awscc.cleanrooms.privacy_budget_templates
-WHERE region = 'us-east-1' AND Identifier = '<PrivacyBudgetTemplateIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,11 +257,11 @@ INSERT INTO awscc.cleanrooms.privacy_budget_templates (
  MembershipIdentifier,
  region
 )
-SELECT 
-'{{ AutoRefresh }}',
- '{{ PrivacyBudgetType }}',
- '{{ Parameters }}',
- '{{ MembershipIdentifier }}',
+SELECT
+'{{ auto_refresh }}',
+ '{{ privacy_budget_type }}',
+ '{{ parameters }}',
+ '{{ membership_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,12 +277,12 @@ INSERT INTO awscc.cleanrooms.privacy_budget_templates (
  MembershipIdentifier,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ AutoRefresh }}',
- '{{ PrivacyBudgetType }}',
- '{{ Parameters }}',
- '{{ MembershipIdentifier }}',
+SELECT
+ '{{ tags }}',
+ '{{ auto_refresh }}',
+ '{{ privacy_budget_type }}',
+ '{{ parameters }}',
+ '{{ membership_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,21 +300,20 @@ globals:
 resources:
   - name: privacy_budget_template
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AutoRefresh
-        value: '{{ AutoRefresh }}'
-      - name: PrivacyBudgetType
-        value: '{{ PrivacyBudgetType }}'
-      - name: Parameters
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: auto_refresh
+        value: '{{ auto_refresh }}'
+      - name: privacy_budget_type
+        value: '{{ privacy_budget_type }}'
+      - name: parameters
         value:
-          Epsilon: '{{ Epsilon }}'
-          UsersNoisePerQuery: '{{ UsersNoisePerQuery }}'
-      - name: MembershipIdentifier
-        value: '{{ MembershipIdentifier }}'
-
+          epsilon: '{{ epsilon }}'
+          users_noise_per_query: '{{ users_noise_per_query }}'
+      - name: membership_identifier
+        value: '{{ membership_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -331,7 +330,7 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PrivacyBudgetTemplateIdentifier>|<MembershipIdentifier>';
+AND Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -340,7 +339,7 @@ AND Identifier = '<PrivacyBudgetTemplateIdentifier>|<MembershipIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.privacy_budget_templates
-WHERE Identifier = '<PrivacyBudgetTemplateIdentifier|MembershipIdentifier>'
+WHERE Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ error,
 error_message,
 creation_time
 FROM awscc.route53resolver.resolver_query_logging_config_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.route53resolver.resolver_query_logging_config_associations (
  ResourceId,
  region
 )
-SELECT 
-'{{ ResolverQueryLogConfigId }}',
- '{{ ResourceId }}',
+SELECT
+'{{ resolver_query_log_config_id }}',
+ '{{ resource_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,9 +216,9 @@ INSERT INTO awscc.route53resolver.resolver_query_logging_config_associations (
  ResourceId,
  region
 )
-SELECT 
- '{{ ResolverQueryLogConfigId }}',
- '{{ ResourceId }}',
+SELECT
+ '{{ resolver_query_log_config_id }}',
+ '{{ resource_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,10 @@ globals:
 resources:
   - name: resolver_query_logging_config_association
     props:
-      - name: ResolverQueryLogConfigId
-        value: '{{ ResolverQueryLogConfigId }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-
+      - name: resolver_query_log_config_id
+        value: '{{ resolver_query_log_config_id }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +250,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_query_logging_config_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

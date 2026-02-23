@@ -223,7 +223,7 @@ test_case_arn,
 test_case_id,
 test_case_version
 FROM awscc.apptest.test_cases
-WHERE region = 'us-east-1' AND Identifier = '<TestCaseId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ test_case_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,9 +260,9 @@ INSERT INTO awscc.apptest.test_cases (
  Steps,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Steps }}',
+SELECT
+'{{ name }}',
+ '{{ steps }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,11 +277,11 @@ INSERT INTO awscc.apptest.test_cases (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Steps }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ steps }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,18 +299,17 @@ globals:
 resources:
   - name: test_case
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Steps
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: steps
         value:
-          - Name: '{{ Name }}'
-            Description: '{{ Description }}'
-            Action: null
-      - name: Tags
+          - name: '{{ name }}'
+            description: '{{ description }}'
+            action: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -328,7 +327,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TestCaseId>';
+AND Identifier = '{{ test_case_id }}';
 ```
 
 
@@ -337,7 +336,7 @@ AND Identifier = '<TestCaseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apptest.test_cases
-WHERE Identifier = '<TestCaseId>'
+WHERE Identifier = '{{ test_case_id }}'
 AND region = 'us-east-1';
 ```
 

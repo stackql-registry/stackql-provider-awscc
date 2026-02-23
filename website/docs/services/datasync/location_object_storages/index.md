@@ -261,7 +261,7 @@ cmk_secret_config,
 custom_secret_config,
 managed_secret_config
 FROM awscc.datasync.location_object_storages
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,19 +308,19 @@ INSERT INTO awscc.datasync.location_object_storages (
  CustomSecretConfig,
  region
 )
-SELECT 
-'{{ AccessKey }}',
- '{{ AgentArns }}',
- '{{ BucketName }}',
- '{{ SecretKey }}',
- '{{ ServerCertificate }}',
- '{{ ServerHostname }}',
- '{{ ServerPort }}',
- '{{ ServerProtocol }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
- '{{ CmkSecretConfig }}',
- '{{ CustomSecretConfig }}',
+SELECT
+'{{ access_key }}',
+ '{{ agent_arns }}',
+ '{{ bucket_name }}',
+ '{{ secret_key }}',
+ '{{ server_certificate }}',
+ '{{ server_hostname }}',
+ '{{ server_port }}',
+ '{{ server_protocol }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
+ '{{ cmk_secret_config }}',
+ '{{ custom_secret_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,19 +343,19 @@ INSERT INTO awscc.datasync.location_object_storages (
  CustomSecretConfig,
  region
 )
-SELECT 
- '{{ AccessKey }}',
- '{{ AgentArns }}',
- '{{ BucketName }}',
- '{{ SecretKey }}',
- '{{ ServerCertificate }}',
- '{{ ServerHostname }}',
- '{{ ServerPort }}',
- '{{ ServerProtocol }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
- '{{ CmkSecretConfig }}',
- '{{ CustomSecretConfig }}',
+SELECT
+ '{{ access_key }}',
+ '{{ agent_arns }}',
+ '{{ bucket_name }}',
+ '{{ secret_key }}',
+ '{{ server_certificate }}',
+ '{{ server_hostname }}',
+ '{{ server_port }}',
+ '{{ server_protocol }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
+ '{{ cmk_secret_config }}',
+ '{{ custom_secret_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -373,38 +373,37 @@ globals:
 resources:
   - name: location_object_storage
     props:
-      - name: AccessKey
-        value: '{{ AccessKey }}'
-      - name: AgentArns
+      - name: access_key
+        value: '{{ access_key }}'
+      - name: agent_arns
         value:
-          - '{{ AgentArns[0] }}'
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: SecretKey
-        value: '{{ SecretKey }}'
-      - name: ServerCertificate
-        value: '{{ ServerCertificate }}'
-      - name: ServerHostname
-        value: '{{ ServerHostname }}'
-      - name: ServerPort
-        value: '{{ ServerPort }}'
-      - name: ServerProtocol
-        value: '{{ ServerProtocol }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          - '{{ agent_arns[0] }}'
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: secret_key
+        value: '{{ secret_key }}'
+      - name: server_certificate
+        value: '{{ server_certificate }}'
+      - name: server_hostname
+        value: '{{ server_hostname }}'
+      - name: server_port
+        value: '{{ server_port }}'
+      - name: server_protocol
+        value: '{{ server_protocol }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CmkSecretConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: cmk_secret_config
         value:
-          SecretArn: '{{ SecretArn }}'
-          KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: CustomSecretConfig
+          secret_arn: '{{ secret_arn }}'
+          kms_key_arn: '{{ kms_key_arn }}'
+      - name: custom_secret_config
         value:
-          SecretArn: '{{ SecretArn }}'
-          SecretAccessRoleArn: '{{ SecretAccessRoleArn }}'
-
+          secret_arn: '{{ secret_arn }}'
+          secret_access_role_arn: '{{ secret_access_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -429,7 +428,7 @@ SET PatchDocument = string('{{ {
     "CustomSecretConfig": custom_secret_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -438,7 +437,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_object_storages
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

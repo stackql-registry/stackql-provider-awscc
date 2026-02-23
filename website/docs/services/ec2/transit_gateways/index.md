@@ -230,7 +230,7 @@ tags,
 association_default_route_table_id,
 propagation_default_route_table_id
 FROM awscc.ec2.transit_gateways
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,20 +278,20 @@ INSERT INTO awscc.ec2.transit_gateways (
  PropagationDefaultRouteTableId,
  region
 )
-SELECT 
-'{{ DefaultRouteTablePropagation }}',
- '{{ Description }}',
- '{{ AutoAcceptSharedAttachments }}',
- '{{ DefaultRouteTableAssociation }}',
- '{{ VpnEcmpSupport }}',
- '{{ DnsSupport }}',
- '{{ SecurityGroupReferencingSupport }}',
- '{{ MulticastSupport }}',
- '{{ AmazonSideAsn }}',
- '{{ TransitGatewayCidrBlocks }}',
- '{{ Tags }}',
- '{{ AssociationDefaultRouteTableId }}',
- '{{ PropagationDefaultRouteTableId }}',
+SELECT
+'{{ default_route_table_propagation }}',
+ '{{ description }}',
+ '{{ auto_accept_shared_attachments }}',
+ '{{ default_route_table_association }}',
+ '{{ vpn_ecmp_support }}',
+ '{{ dns_support }}',
+ '{{ security_group_referencing_support }}',
+ '{{ multicast_support }}',
+ '{{ amazon_side_asn }}',
+ '{{ transit_gateway_cidr_blocks }}',
+ '{{ tags }}',
+ '{{ association_default_route_table_id }}',
+ '{{ propagation_default_route_table_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -315,20 +315,20 @@ INSERT INTO awscc.ec2.transit_gateways (
  PropagationDefaultRouteTableId,
  region
 )
-SELECT 
- '{{ DefaultRouteTablePropagation }}',
- '{{ Description }}',
- '{{ AutoAcceptSharedAttachments }}',
- '{{ DefaultRouteTableAssociation }}',
- '{{ VpnEcmpSupport }}',
- '{{ DnsSupport }}',
- '{{ SecurityGroupReferencingSupport }}',
- '{{ MulticastSupport }}',
- '{{ AmazonSideAsn }}',
- '{{ TransitGatewayCidrBlocks }}',
- '{{ Tags }}',
- '{{ AssociationDefaultRouteTableId }}',
- '{{ PropagationDefaultRouteTableId }}',
+SELECT
+ '{{ default_route_table_propagation }}',
+ '{{ description }}',
+ '{{ auto_accept_shared_attachments }}',
+ '{{ default_route_table_association }}',
+ '{{ vpn_ecmp_support }}',
+ '{{ dns_support }}',
+ '{{ security_group_referencing_support }}',
+ '{{ multicast_support }}',
+ '{{ amazon_side_asn }}',
+ '{{ transit_gateway_cidr_blocks }}',
+ '{{ tags }}',
+ '{{ association_default_route_table_id }}',
+ '{{ propagation_default_route_table_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -346,36 +346,35 @@ globals:
 resources:
   - name: transit_gateway
     props:
-      - name: DefaultRouteTablePropagation
-        value: '{{ DefaultRouteTablePropagation }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: AutoAcceptSharedAttachments
-        value: '{{ AutoAcceptSharedAttachments }}'
-      - name: DefaultRouteTableAssociation
-        value: '{{ DefaultRouteTableAssociation }}'
-      - name: VpnEcmpSupport
-        value: '{{ VpnEcmpSupport }}'
-      - name: DnsSupport
-        value: '{{ DnsSupport }}'
-      - name: SecurityGroupReferencingSupport
-        value: '{{ SecurityGroupReferencingSupport }}'
-      - name: MulticastSupport
-        value: '{{ MulticastSupport }}'
-      - name: AmazonSideAsn
-        value: '{{ AmazonSideAsn }}'
-      - name: TransitGatewayCidrBlocks
+      - name: default_route_table_propagation
+        value: '{{ default_route_table_propagation }}'
+      - name: description
+        value: '{{ description }}'
+      - name: auto_accept_shared_attachments
+        value: '{{ auto_accept_shared_attachments }}'
+      - name: default_route_table_association
+        value: '{{ default_route_table_association }}'
+      - name: vpn_ecmp_support
+        value: '{{ vpn_ecmp_support }}'
+      - name: dns_support
+        value: '{{ dns_support }}'
+      - name: security_group_referencing_support
+        value: '{{ security_group_referencing_support }}'
+      - name: multicast_support
+        value: '{{ multicast_support }}'
+      - name: amazon_side_asn
+        value: '{{ amazon_side_asn }}'
+      - name: transit_gateway_cidr_blocks
         value:
-          - '{{ TransitGatewayCidrBlocks[0] }}'
-      - name: Tags
+          - '{{ transit_gateway_cidr_blocks[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AssociationDefaultRouteTableId
-        value: '{{ AssociationDefaultRouteTableId }}'
-      - name: PropagationDefaultRouteTableId
-        value: '{{ PropagationDefaultRouteTableId }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: association_default_route_table_id
+        value: '{{ association_default_route_table_id }}'
+      - name: propagation_default_route_table_id
+        value: '{{ propagation_default_route_table_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +400,7 @@ SET PatchDocument = string('{{ {
     "PropagationDefaultRouteTableId": propagation_default_route_table_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -410,7 +409,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateways
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

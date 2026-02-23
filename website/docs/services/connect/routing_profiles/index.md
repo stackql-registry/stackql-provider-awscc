@@ -247,7 +247,7 @@ queue_configs,
 tags,
 agent_availability_timer
 FROM awscc.connect.routing_profiles
-WHERE region = 'us-east-1' AND Identifier = '<RoutingProfileArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ routing_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,12 +287,12 @@ INSERT INTO awscc.connect.routing_profiles (
  DefaultOutboundQueueArn,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ MediaConcurrencies }}',
- '{{ DefaultOutboundQueueArn }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ media_concurrencies }}',
+ '{{ default_outbound_queue_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -311,15 +311,15 @@ INSERT INTO awscc.connect.routing_profiles (
  AgentAvailabilityTimer,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ MediaConcurrencies }}',
- '{{ DefaultOutboundQueueArn }}',
- '{{ QueueConfigs }}',
- '{{ Tags }}',
- '{{ AgentAvailabilityTimer }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ media_concurrencies }}',
+ '{{ default_outbound_queue_arn }}',
+ '{{ queue_configs }}',
+ '{{ tags }}',
+ '{{ agent_availability_timer }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -337,34 +337,33 @@ globals:
 resources:
   - name: routing_profile
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MediaConcurrencies
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: media_concurrencies
         value:
-          - Channel: '{{ Channel }}'
-            Concurrency: '{{ Concurrency }}'
-            CrossChannelBehavior:
-              BehaviorType: '{{ BehaviorType }}'
-      - name: DefaultOutboundQueueArn
-        value: '{{ DefaultOutboundQueueArn }}'
-      - name: QueueConfigs
+          - channel: '{{ channel }}'
+            concurrency: '{{ concurrency }}'
+            cross_channel_behavior:
+              behavior_type: '{{ behavior_type }}'
+      - name: default_outbound_queue_arn
+        value: '{{ default_outbound_queue_arn }}'
+      - name: queue_configs
         value:
-          - Delay: '{{ Delay }}'
-            Priority: '{{ Priority }}'
-            QueueReference:
-              Channel: null
-              QueueArn: '{{ QueueArn }}'
-      - name: Tags
+          - delay: '{{ delay }}'
+            priority: '{{ priority }}'
+            queue_reference:
+              channel: null
+              queue_arn: '{{ queue_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AgentAvailabilityTimer
-        value: '{{ AgentAvailabilityTimer }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: agent_availability_timer
+        value: '{{ agent_availability_timer }}'
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +386,7 @@ SET PatchDocument = string('{{ {
     "AgentAvailabilityTimer": agent_availability_timer
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoutingProfileArn>';
+AND Identifier = '{{ routing_profile_arn }}';
 ```
 
 
@@ -396,7 +395,7 @@ AND Identifier = '<RoutingProfileArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.routing_profiles
-WHERE Identifier = '<RoutingProfileArn>'
+WHERE Identifier = '{{ routing_profile_arn }}'
 AND region = 'us-east-1';
 ```
 

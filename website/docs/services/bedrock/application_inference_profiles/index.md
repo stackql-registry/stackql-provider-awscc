@@ -224,7 +224,7 @@ tags,
 type,
 updated_at
 FROM awscc.bedrock.application_inference_profiles
-WHERE region = 'us-east-1' AND Identifier = '<InferenceProfileIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ inference_profile_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,8 +260,8 @@ INSERT INTO awscc.bedrock.application_inference_profiles (
  InferenceProfileName,
  region
 )
-SELECT 
-'{{ InferenceProfileName }}',
+SELECT
+'{{ inference_profile_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,11 +276,11 @@ INSERT INTO awscc.bedrock.application_inference_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ InferenceProfileName }}',
- '{{ ModelSource }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ inference_profile_name }}',
+ '{{ model_source }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,17 +298,16 @@ globals:
 resources:
   - name: application_inference_profile
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: InferenceProfileName
-        value: '{{ InferenceProfileName }}'
-      - name: ModelSource
+      - name: description
+        value: '{{ description }}'
+      - name: inference_profile_name
+        value: '{{ inference_profile_name }}'
+      - name: model_source
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InferenceProfileIdentifier>';
+AND Identifier = '{{ inference_profile_identifier }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<InferenceProfileIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.application_inference_profiles
-WHERE Identifier = '<InferenceProfileIdentifier>'
+WHERE Identifier = '{{ inference_profile_identifier }}'
 AND region = 'us-east-1';
 ```
 

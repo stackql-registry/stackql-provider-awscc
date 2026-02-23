@@ -189,7 +189,7 @@ traffic_policy_arn,
 traffic_policy_id,
 traffic_policy_name
 FROM awscc.ses.mail_manager_traffic_policies
-WHERE region = 'us-east-1' AND Identifier = '<TrafficPolicyId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ traffic_policy_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,9 +226,9 @@ INSERT INTO awscc.ses.mail_manager_traffic_policies (
  PolicyStatements,
  region
 )
-SELECT 
-'{{ DefaultAction }}',
- '{{ PolicyStatements }}',
+SELECT
+'{{ default_action }}',
+ '{{ policy_statements }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,12 +244,12 @@ INSERT INTO awscc.ses.mail_manager_traffic_policies (
  TrafficPolicyName,
  region
 )
-SELECT 
- '{{ DefaultAction }}',
- '{{ MaxMessageSizeBytes }}',
- '{{ PolicyStatements }}',
- '{{ Tags }}',
- '{{ TrafficPolicyName }}',
+SELECT
+ '{{ default_action }}',
+ '{{ max_message_size_bytes }}',
+ '{{ policy_statements }}',
+ '{{ tags }}',
+ '{{ traffic_policy_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -267,22 +267,21 @@ globals:
 resources:
   - name: mail_manager_traffic_policy
     props:
-      - name: DefaultAction
-        value: '{{ DefaultAction }}'
-      - name: MaxMessageSizeBytes
+      - name: default_action
+        value: '{{ default_action }}'
+      - name: max_message_size_bytes
         value: null
-      - name: PolicyStatements
+      - name: policy_statements
         value:
-          - Conditions:
+          - conditions:
               - null
-            Action: null
-      - name: Tags
+            action: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrafficPolicyName
-        value: '{{ TrafficPolicyName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: traffic_policy_name
+        value: '{{ traffic_policy_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +301,7 @@ SET PatchDocument = string('{{ {
     "TrafficPolicyName": traffic_policy_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrafficPolicyId>';
+AND Identifier = '{{ traffic_policy_id }}';
 ```
 
 
@@ -311,7 +310,7 @@ AND Identifier = '<TrafficPolicyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_traffic_policies
-WHERE Identifier = '<TrafficPolicyId>'
+WHERE Identifier = '{{ traffic_policy_id }}'
 AND region = 'us-east-1';
 ```
 

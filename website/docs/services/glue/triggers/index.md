@@ -278,7 +278,7 @@ tags,
 name,
 predicate
 FROM awscc.glue.triggers
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -315,9 +315,9 @@ INSERT INTO awscc.glue.triggers (
  Actions,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ Actions }}',
+SELECT
+'{{ type }}',
+ '{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -338,17 +338,17 @@ INSERT INTO awscc.glue.triggers (
  Predicate,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ StartOnCreation }}',
- '{{ Description }}',
- '{{ Actions }}',
- '{{ EventBatchingCondition }}',
- '{{ WorkflowName }}',
- '{{ Schedule }}',
- '{{ Tags }}',
- '{{ Name }}',
- '{{ Predicate }}',
+SELECT
+ '{{ type }}',
+ '{{ start_on_creation }}',
+ '{{ description }}',
+ '{{ actions }}',
+ '{{ event_batching_condition }}',
+ '{{ workflow_name }}',
+ '{{ schedule }}',
+ '{{ tags }}',
+ '{{ name }}',
+ '{{ predicate }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -366,43 +366,42 @@ globals:
 resources:
   - name: trigger
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: StartOnCreation
-        value: '{{ StartOnCreation }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Actions
+      - name: type
+        value: '{{ type }}'
+      - name: start_on_creation
+        value: '{{ start_on_creation }}'
+      - name: description
+        value: '{{ description }}'
+      - name: actions
         value:
-          - NotificationProperty:
-              NotifyDelayAfter: '{{ NotifyDelayAfter }}'
-            CrawlerName: '{{ CrawlerName }}'
-            Timeout: '{{ Timeout }}'
-            JobName: '{{ JobName }}'
-            Arguments: {}
-            SecurityConfiguration: '{{ SecurityConfiguration }}'
-      - name: EventBatchingCondition
+          - notification_property:
+              notify_delay_after: '{{ notify_delay_after }}'
+            crawler_name: '{{ crawler_name }}'
+            timeout: '{{ timeout }}'
+            job_name: '{{ job_name }}'
+            arguments: {}
+            security_configuration: '{{ security_configuration }}'
+      - name: event_batching_condition
         value:
-          BatchSize: '{{ BatchSize }}'
-          BatchWindow: '{{ BatchWindow }}'
-      - name: WorkflowName
-        value: '{{ WorkflowName }}'
-      - name: Schedule
-        value: '{{ Schedule }}'
-      - name: Tags
+          batch_size: '{{ batch_size }}'
+          batch_window: '{{ batch_window }}'
+      - name: workflow_name
+        value: '{{ workflow_name }}'
+      - name: schedule
+        value: '{{ schedule }}'
+      - name: tags
         value: {}
-      - name: Name
-        value: '{{ Name }}'
-      - name: Predicate
+      - name: name
+        value: '{{ name }}'
+      - name: predicate
         value:
-          Logical: '{{ Logical }}'
-          Conditions:
-            - JobName: '{{ JobName }}'
-              CrawlerName: '{{ CrawlerName }}'
-              State: '{{ State }}'
-              CrawlState: '{{ CrawlState }}'
-              LogicalOperator: '{{ LogicalOperator }}'
-
+          logical: '{{ logical }}'
+          conditions:
+            - job_name: '{{ job_name }}'
+              crawler_name: '{{ crawler_name }}'
+              state: '{{ state }}'
+              crawl_state: '{{ crawl_state }}'
+              logical_operator: '{{ logical_operator }}'
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "Predicate": predicate
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.triggers
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

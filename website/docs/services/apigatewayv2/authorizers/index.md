@@ -217,7 +217,7 @@ api_id,
 authorizer_id,
 name
 FROM awscc.apigatewayv2.authorizers
-WHERE region = 'us-east-1' AND Identifier = '<AuthorizerId>|<ApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +256,10 @@ INSERT INTO awscc.apigatewayv2.authorizers (
  Name,
  region
 )
-SELECT 
-'{{ AuthorizerType }}',
- '{{ ApiId }}',
- '{{ Name }}',
+SELECT
+'{{ authorizer_type }}',
+ '{{ api_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,18 +281,18 @@ INSERT INTO awscc.apigatewayv2.authorizers (
  Name,
  region
 )
-SELECT 
- '{{ IdentityValidationExpression }}',
- '{{ AuthorizerUri }}',
- '{{ AuthorizerCredentialsArn }}',
- '{{ AuthorizerType }}',
- '{{ IdentitySource }}',
- '{{ JwtConfiguration }}',
- '{{ AuthorizerResultTtlInSeconds }}',
- '{{ AuthorizerPayloadFormatVersion }}',
- '{{ EnableSimpleResponses }}',
- '{{ ApiId }}',
- '{{ Name }}',
+SELECT
+ '{{ identity_validation_expression }}',
+ '{{ authorizer_uri }}',
+ '{{ authorizer_credentials_arn }}',
+ '{{ authorizer_type }}',
+ '{{ identity_source }}',
+ '{{ jwt_configuration }}',
+ '{{ authorizer_result_ttl_in_seconds }}',
+ '{{ authorizer_payload_format_version }}',
+ '{{ enable_simple_responses }}',
+ '{{ api_id }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -310,33 +310,32 @@ globals:
 resources:
   - name: authorizer
     props:
-      - name: IdentityValidationExpression
-        value: '{{ IdentityValidationExpression }}'
-      - name: AuthorizerUri
-        value: '{{ AuthorizerUri }}'
-      - name: AuthorizerCredentialsArn
-        value: '{{ AuthorizerCredentialsArn }}'
-      - name: AuthorizerType
-        value: '{{ AuthorizerType }}'
-      - name: IdentitySource
+      - name: identity_validation_expression
+        value: '{{ identity_validation_expression }}'
+      - name: authorizer_uri
+        value: '{{ authorizer_uri }}'
+      - name: authorizer_credentials_arn
+        value: '{{ authorizer_credentials_arn }}'
+      - name: authorizer_type
+        value: '{{ authorizer_type }}'
+      - name: identity_source
         value:
-          - '{{ IdentitySource[0] }}'
-      - name: JwtConfiguration
+          - '{{ identity_source[0] }}'
+      - name: jwt_configuration
         value:
-          Issuer: '{{ Issuer }}'
-          Audience:
-            - '{{ Audience[0] }}'
-      - name: AuthorizerResultTtlInSeconds
-        value: '{{ AuthorizerResultTtlInSeconds }}'
-      - name: AuthorizerPayloadFormatVersion
-        value: '{{ AuthorizerPayloadFormatVersion }}'
-      - name: EnableSimpleResponses
-        value: '{{ EnableSimpleResponses }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          issuer: '{{ issuer }}'
+          audience:
+            - '{{ audience[0] }}'
+      - name: authorizer_result_ttl_in_seconds
+        value: '{{ authorizer_result_ttl_in_seconds }}'
+      - name: authorizer_payload_format_version
+        value: '{{ authorizer_payload_format_version }}'
+      - name: enable_simple_responses
+        value: '{{ enable_simple_responses }}'
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +360,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AuthorizerId>|<ApiId>';
+AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
 ```
 
 
@@ -370,7 +369,7 @@ AND Identifier = '<AuthorizerId>|<ApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.authorizers
-WHERE Identifier = '<AuthorizerId|ApiId>'
+WHERE Identifier = '{{ authorizer_id }}|{{ api_id }}'
 AND region = 'us-east-1';
 ```
 

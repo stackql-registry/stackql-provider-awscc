@@ -223,7 +223,7 @@ permissions,
 sharing_model,
 tags
 FROM awscc.quicksight.folders
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<FolderId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,15 +267,15 @@ INSERT INTO awscc.quicksight.folders (
  Tags,
  region
 )
-SELECT 
-'{{ AwsAccountId }}',
- '{{ FolderId }}',
- '{{ FolderType }}',
- '{{ Name }}',
- '{{ ParentFolderArn }}',
- '{{ Permissions }}',
- '{{ SharingModel }}',
- '{{ Tags }}',
+SELECT
+'{{ aws_account_id }}',
+ '{{ folder_id }}',
+ '{{ folder_type }}',
+ '{{ name }}',
+ '{{ parent_folder_arn }}',
+ '{{ permissions }}',
+ '{{ sharing_model }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,15 +294,15 @@ INSERT INTO awscc.quicksight.folders (
  Tags,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ FolderId }}',
- '{{ FolderType }}',
- '{{ Name }}',
- '{{ ParentFolderArn }}',
- '{{ Permissions }}',
- '{{ SharingModel }}',
- '{{ Tags }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ folder_id }}',
+ '{{ folder_type }}',
+ '{{ name }}',
+ '{{ parent_folder_arn }}',
+ '{{ permissions }}',
+ '{{ sharing_model }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,28 +320,27 @@ globals:
 resources:
   - name: folder
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: FolderId
-        value: '{{ FolderId }}'
-      - name: FolderType
-        value: '{{ FolderType }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ParentFolderArn
-        value: '{{ ParentFolderArn }}'
-      - name: Permissions
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: folder_id
+        value: '{{ folder_id }}'
+      - name: folder_type
+        value: '{{ folder_type }}'
+      - name: name
+        value: '{{ name }}'
+      - name: parent_folder_arn
+        value: '{{ parent_folder_arn }}'
+      - name: permissions
         value:
-          - Principal: '{{ Principal }}'
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: SharingModel
-        value: '{{ SharingModel }}'
-      - name: Tags
+          - principal: '{{ principal }}'
+            actions:
+              - '{{ actions[0] }}'
+      - name: sharing_model
+        value: '{{ sharing_model }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +358,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<FolderId>';
+AND Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```
 
 
@@ -368,7 +367,7 @@ AND Identifier = '<AwsAccountId>|<FolderId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.folders
-WHERE Identifier = '<AwsAccountId|FolderId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ folder_id }}'
 AND region = 'us-east-1';
 ```
 

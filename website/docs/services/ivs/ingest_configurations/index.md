@@ -200,7 +200,7 @@ stream_key,
 user_id,
 tags
 FROM awscc.ivs.ingest_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,7 +236,7 @@ INSERT INTO awscc.ivs.ingest_configurations (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -254,13 +254,13 @@ INSERT INTO awscc.ivs.ingest_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ StageArn }}',
- '{{ IngestProtocol }}',
- '{{ InsecureIngest }}',
- '{{ UserId }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ stage_arn }}',
+ '{{ ingest_protocol }}',
+ '{{ insecure_ingest }}',
+ '{{ user_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,21 +278,20 @@ globals:
 resources:
   - name: ingest_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: StageArn
-        value: '{{ StageArn }}'
-      - name: IngestProtocol
-        value: '{{ IngestProtocol }}'
-      - name: InsecureIngest
-        value: '{{ InsecureIngest }}'
-      - name: UserId
-        value: '{{ UserId }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: stage_arn
+        value: '{{ stage_arn }}'
+      - name: ingest_protocol
+        value: '{{ ingest_protocol }}'
+      - name: insecure_ingest
+        value: '{{ insecure_ingest }}'
+      - name: user_id
+        value: '{{ user_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.ingest_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

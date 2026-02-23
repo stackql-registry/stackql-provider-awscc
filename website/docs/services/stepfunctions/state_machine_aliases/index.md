@@ -197,7 +197,7 @@ description,
 routing_configuration,
 deployment_preference
 FROM awscc.stepfunctions.state_machine_aliases
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,11 +236,11 @@ INSERT INTO awscc.stepfunctions.state_machine_aliases (
  DeploymentPreference,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Description }}',
- '{{ RoutingConfiguration }}',
- '{{ DeploymentPreference }}',
+SELECT
+'{{ name }}',
+ '{{ description }}',
+ '{{ routing_configuration }}',
+ '{{ deployment_preference }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,11 +255,11 @@ INSERT INTO awscc.stepfunctions.state_machine_aliases (
  DeploymentPreference,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ RoutingConfiguration }}',
- '{{ DeploymentPreference }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ routing_configuration }}',
+ '{{ deployment_preference }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,23 +277,22 @@ globals:
 resources:
   - name: state_machine_alias
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RoutingConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: routing_configuration
         value:
-          - StateMachineVersionArn: '{{ StateMachineVersionArn }}'
-            Weight: '{{ Weight }}'
-      - name: DeploymentPreference
+          - state_machine_version_arn: '{{ state_machine_version_arn }}'
+            weight: '{{ weight }}'
+      - name: deployment_preference
         value:
-          StateMachineVersionArn: '{{ StateMachineVersionArn }}'
-          Type: '{{ Type }}'
-          Percentage: '{{ Percentage }}'
-          Interval: '{{ Interval }}'
-          Alarms:
-            - '{{ Alarms[0] }}'
-
+          state_machine_version_arn: '{{ state_machine_version_arn }}'
+          type: '{{ type }}'
+          percentage: '{{ percentage }}'
+          interval: '{{ interval }}'
+          alarms:
+            - '{{ alarms[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "DeploymentPreference": deployment_preference
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machine_aliases
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

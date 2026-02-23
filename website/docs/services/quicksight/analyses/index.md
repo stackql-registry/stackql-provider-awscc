@@ -1159,7 +1159,7 @@ arn,
 tags,
 sheets
 FROM awscc.quicksight.analyses
-WHERE region = 'us-east-1' AND Identifier = '<AnalysisId>|<AwsAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1198,10 +1198,10 @@ INSERT INTO awscc.quicksight.analyses (
  AwsAccountId,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ AnalysisId }}',
- '{{ AwsAccountId }}',
+SELECT
+'{{ name }}',
+ '{{ analysis_id }}',
+ '{{ aws_account_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1226,21 +1226,21 @@ INSERT INTO awscc.quicksight.analyses (
  Sheets,
  region
 )
-SELECT 
- '{{ Status }}',
- '{{ Parameters }}',
- '{{ SourceEntity }}',
- '{{ ThemeArn }}',
- '{{ Definition }}',
- '{{ ValidationStrategy }}',
- '{{ FolderArns }}',
- '{{ Name }}',
- '{{ Errors }}',
- '{{ AnalysisId }}',
- '{{ AwsAccountId }}',
- '{{ Permissions }}',
- '{{ Tags }}',
- '{{ Sheets }}',
+SELECT
+ '{{ status }}',
+ '{{ parameters }}',
+ '{{ source_entity }}',
+ '{{ theme_arn }}',
+ '{{ definition }}',
+ '{{ validation_strategy }}',
+ '{{ folder_arns }}',
+ '{{ name }}',
+ '{{ errors }}',
+ '{{ analysis_id }}',
+ '{{ aws_account_id }}',
+ '{{ permissions }}',
+ '{{ tags }}',
+ '{{ sheets }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1258,1956 +1258,1955 @@ globals:
 resources:
   - name: analysis
     props:
-      - name: Status
-        value: '{{ Status }}'
-      - name: Parameters
+      - name: status
+        value: '{{ status }}'
+      - name: parameters
         value:
-          StringParameters:
-            - Values:
-                - '{{ Values[0] }}'
-              Name: '{{ Name }}'
-          DecimalParameters:
-            - Values:
+          string_parameters:
+            - values:
+                - '{{ values[0] }}'
+              name: '{{ name }}'
+          decimal_parameters:
+            - values:
                 - null
-              Name: '{{ Name }}'
-          IntegerParameters:
-            - Values:
+              name: '{{ name }}'
+          integer_parameters:
+            - values:
                 - null
-              Name: '{{ Name }}'
-          DateTimeParameters:
-            - Values:
-                - '{{ Values[0] }}'
-              Name: '{{ Name }}'
-      - name: SourceEntity
+              name: '{{ name }}'
+          date_time_parameters:
+            - values:
+                - '{{ values[0] }}'
+              name: '{{ name }}'
+      - name: source_entity
         value:
-          SourceTemplate:
-            DataSetReferences:
-              - DataSetArn: '{{ DataSetArn }}'
-                DataSetPlaceholder: '{{ DataSetPlaceholder }}'
-            Arn: '{{ Arn }}'
-      - name: ThemeArn
-        value: '{{ ThemeArn }}'
-      - name: Definition
+          source_template:
+            data_set_references:
+              - data_set_arn: '{{ data_set_arn }}'
+                data_set_placeholder: '{{ data_set_placeholder }}'
+            arn: '{{ arn }}'
+      - name: theme_arn
+        value: '{{ theme_arn }}'
+      - name: definition
         value:
-          Options:
-            Timezone: '{{ Timezone }}'
-            WeekStart: '{{ WeekStart }}'
-          FilterGroups:
-            - Status: '{{ Status }}'
-              Filters:
-                - NestedFilter:
-                    Column:
-                      ColumnName: '{{ ColumnName }}'
-                      DataSetIdentifier: '{{ DataSetIdentifier }}'
-                    InnerFilter:
-                      CategoryInnerFilter:
-                        Configuration:
-                          CustomFilterListConfiguration:
-                            CategoryValues:
-                              - '{{ CategoryValues[0] }}'
-                            NullOption: '{{ NullOption }}'
-                            MatchOperator: '{{ MatchOperator }}'
-                            SelectAllOptions: '{{ SelectAllOptions }}'
-                          CustomFilterConfiguration:
-                            CategoryValue: '{{ CategoryValue }}'
-                            ParameterName: '{{ ParameterName }}'
-                            NullOption: null
-                            MatchOperator: null
-                            SelectAllOptions: null
-                          FilterListConfiguration:
-                            CategoryValues:
-                              - '{{ CategoryValues[0] }}'
-                            NullOption: null
-                            MatchOperator: null
-                            SelectAllOptions: null
-                        Column: null
-                        DefaultFilterControlConfiguration:
-                          ControlOptions:
-                            DefaultSliderOptions:
-                              Type: '{{ Type }}'
-                              StepSize: null
-                              DisplayOptions:
-                                TitleOptions:
-                                  CustomLabel: '{{ CustomLabel }}'
-                                  Visibility: null
-                                  FontConfiguration:
-                                    FontFamily: '{{ FontFamily }}'
-                                    FontStyle: '{{ FontStyle }}'
-                                    FontSize:
-                                      Relative: '{{ Relative }}'
-                                      Absolute: '{{ Absolute }}'
-                                    FontDecoration: '{{ FontDecoration }}'
-                                    FontColor: '{{ FontColor }}'
-                                    FontWeight:
-                                      Name: '{{ Name }}'
-                                InfoIconLabelOptions:
-                                  Visibility: null
-                                  InfoIconText: '{{ InfoIconText }}'
-                              MaximumValue: null
-                              MinimumValue: null
-                            DefaultRelativeDateTimeOptions:
-                              DisplayOptions:
-                                TitleOptions: null
-                                InfoIconLabelOptions: null
-                                DateTimeFormat: '{{ DateTimeFormat }}'
-                              CommitMode: '{{ CommitMode }}'
-                            DefaultTextFieldOptions:
-                              DisplayOptions:
-                                TitleOptions: null
-                                PlaceholderOptions:
-                                  Visibility: null
-                                InfoIconLabelOptions: null
-                            DefaultTextAreaOptions:
-                              Delimiter: '{{ Delimiter }}'
-                              DisplayOptions:
-                                TitleOptions: null
-                                PlaceholderOptions: null
-                                InfoIconLabelOptions: null
-                            DefaultDropdownOptions:
-                              Type: '{{ Type }}'
-                              DisplayOptions:
-                                TitleOptions: null
-                                SelectAllOptions:
-                                  Visibility: null
-                                InfoIconLabelOptions: null
-                              CommitMode: null
-                              SelectableValues:
-                                Values:
-                                  - '{{ Values[0] }}'
-                            DefaultDateTimePickerOptions:
-                              Type: '{{ Type }}'
-                              DisplayOptions:
-                                TitleOptions: null
-                                InfoIconLabelOptions: null
-                                HelperTextVisibility: null
-                                DateIconVisibility: null
-                                DateTimeFormat: '{{ DateTimeFormat }}'
-                              CommitMode: null
-                            DefaultListOptions:
-                              Type: null
-                              DisplayOptions:
-                                TitleOptions: null
-                                SearchOptions:
-                                  Visibility: null
-                                SelectAllOptions: null
-                                InfoIconLabelOptions: null
-                              SelectableValues: null
-                          Title: '{{ Title }}'
-                    IncludeInnerSet: '{{ IncludeInnerSet }}'
-                    FilterId: '{{ FilterId }}'
-                  NumericEqualityFilter:
-                    AggregationFunction:
-                      AttributeAggregationFunction:
-                        SimpleAttributeAggregation: '{{ SimpleAttributeAggregation }}'
-                        ValueForMultipleValues: '{{ ValueForMultipleValues }}'
-                      DateAggregationFunction: '{{ DateAggregationFunction }}'
-                      NumericalAggregationFunction:
-                        PercentileAggregation:
-                          PercentileValue: null
-                        SimpleNumericalAggregation: '{{ SimpleNumericalAggregation }}'
-                      CategoricalAggregationFunction: '{{ CategoricalAggregationFunction }}'
-                    Column: null
-                    Value: null
-                    ParameterName: '{{ ParameterName }}'
-                    NullOption: null
-                    MatchOperator: '{{ MatchOperator }}'
-                    SelectAllOptions: '{{ SelectAllOptions }}'
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                  NumericRangeFilter:
-                    AggregationFunction: null
-                    Column: null
-                    IncludeMaximum: '{{ IncludeMaximum }}'
-                    RangeMinimum:
-                      StaticValue: null
-                      Parameter: '{{ Parameter }}'
-                    NullOption: null
-                    SelectAllOptions: null
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                    RangeMaximum: null
-                    IncludeMinimum: '{{ IncludeMinimum }}'
-                  TimeRangeFilter:
-                    RangeMinimumValue:
-                      RollingDate:
-                        Expression: '{{ Expression }}'
-                        DataSetIdentifier: '{{ DataSetIdentifier }}'
-                      StaticValue: '{{ StaticValue }}'
-                      Parameter: '{{ Parameter }}'
-                    Column: null
-                    RangeMaximumValue: null
-                    IncludeMaximum: '{{ IncludeMaximum }}'
-                    TimeGranularity: '{{ TimeGranularity }}'
-                    NullOption: null
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                    IncludeMinimum: '{{ IncludeMinimum }}'
-                    ExcludePeriodConfiguration:
-                      Status: null
-                      Amount: null
-                      Granularity: null
-                  RelativeDatesFilter:
-                    RelativeDateValue: null
-                    Column: null
-                    RelativeDateType: '{{ RelativeDateType }}'
-                    TimeGranularity: null
-                    ParameterName: '{{ ParameterName }}'
-                    NullOption: null
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                    AnchorDateConfiguration:
-                      AnchorOption: '{{ AnchorOption }}'
-                      ParameterName: '{{ ParameterName }}'
-                    MinimumGranularity: null
-                    ExcludePeriodConfiguration: null
-                  TopBottomFilter:
-                    AggregationSortConfigurations:
-                      - AggregationFunction: null
-                        SortDirection: '{{ SortDirection }}'
-                        Column: null
-                    Column: null
-                    TimeGranularity: null
-                    ParameterName: '{{ ParameterName }}'
-                    Limit: null
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                  TimeEqualityFilter:
-                    Column: null
-                    RollingDate: null
-                    Value: '{{ Value }}'
-                    TimeGranularity: null
-                    ParameterName: '{{ ParameterName }}'
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-                  CategoryFilter:
-                    Configuration: null
-                    Column: null
-                    DefaultFilterControlConfiguration: null
-                    FilterId: '{{ FilterId }}'
-              CrossDataset: '{{ CrossDataset }}'
-              ScopeConfiguration:
-                AllSheets: {}
-                SelectedSheets:
-                  SheetVisualScopingConfigurations:
-                    - Scope: '{{ Scope }}'
-                      SheetId: '{{ SheetId }}'
-                      VisualIds:
-                        - '{{ VisualIds[0] }}'
-              FilterGroupId: '{{ FilterGroupId }}'
-          QueryExecutionOptions:
-            QueryExecutionMode: '{{ QueryExecutionMode }}'
-          StaticFiles:
-            - ImageStaticFile:
-                StaticFileId: '{{ StaticFileId }}'
-                Source:
-                  UrlOptions:
-                    Url: '{{ Url }}'
-                  S3Options:
-                    BucketName: '{{ BucketName }}'
-                    ObjectKey: '{{ ObjectKey }}'
-                    Region: '{{ Region }}'
-              SpatialStaticFile:
-                StaticFileId: '{{ StaticFileId }}'
-                Source: null
-          CalculatedFields:
-            - Expression: '{{ Expression }}'
-              DataSetIdentifier: '{{ DataSetIdentifier }}'
-              Name: '{{ Name }}'
-          DataSetIdentifierDeclarations:
-            - Identifier: '{{ Identifier }}'
-              DataSetArn: '{{ DataSetArn }}'
-          ColumnConfigurations:
-            - Role: '{{ Role }}'
-              FormatConfiguration:
-                NumberFormatConfiguration:
-                  FormatConfiguration:
-                    NumberDisplayFormatConfiguration:
-                      NegativeValueConfiguration:
-                        DisplayMode: '{{ DisplayMode }}'
-                      DecimalPlacesConfiguration:
-                        DecimalPlaces: null
-                      NumberScale: '{{ NumberScale }}'
-                      NullValueFormatConfiguration:
-                        NullString: '{{ NullString }}'
-                      Suffix: '{{ Suffix }}'
-                      SeparatorConfiguration:
-                        DecimalSeparator: '{{ DecimalSeparator }}'
-                        ThousandsSeparator:
-                          Symbol: null
-                          Visibility: null
-                          GroupingStyle: '{{ GroupingStyle }}'
-                      Prefix: '{{ Prefix }}'
-                    CurrencyDisplayFormatConfiguration:
-                      NegativeValueConfiguration: null
-                      DecimalPlacesConfiguration: null
-                      NumberScale: null
-                      NullValueFormatConfiguration: null
-                      Suffix: '{{ Suffix }}'
-                      SeparatorConfiguration: null
-                      Symbol: '{{ Symbol }}'
-                      Prefix: '{{ Prefix }}'
-                    PercentageDisplayFormatConfiguration:
-                      NegativeValueConfiguration: null
-                      DecimalPlacesConfiguration: null
-                      NullValueFormatConfiguration: null
-                      Suffix: '{{ Suffix }}'
-                      SeparatorConfiguration: null
-                      Prefix: '{{ Prefix }}'
-                DateTimeFormatConfiguration:
-                  NumericFormatConfiguration: null
-                  NullValueFormatConfiguration: null
-                  DateTimeFormat: '{{ DateTimeFormat }}'
-                StringFormatConfiguration:
-                  NumericFormatConfiguration: null
-                  NullValueFormatConfiguration: null
-              Column: null
-              ColorsConfiguration:
-                CustomColors:
-                  - Color: '{{ Color }}'
-                    FieldValue: '{{ FieldValue }}'
-                    SpecialValue: '{{ SpecialValue }}'
-          AnalysisDefaults:
-            DefaultNewSheetConfiguration:
-              SheetContentType: '{{ SheetContentType }}'
-              InteractiveLayoutConfiguration:
-                FreeForm:
-                  CanvasSizeOptions:
-                    ScreenCanvasSizeOptions:
-                      OptimizedViewPortWidth: '{{ OptimizedViewPortWidth }}'
-                Grid:
-                  CanvasSizeOptions:
-                    ScreenCanvasSizeOptions:
-                      OptimizedViewPortWidth: '{{ OptimizedViewPortWidth }}'
-                      ResizeOption: '{{ ResizeOption }}'
-              PaginatedLayoutConfiguration:
-                SectionBased:
-                  CanvasSizeOptions:
-                    PaperCanvasSizeOptions:
-                      PaperMargin:
-                        Left: '{{ Left }}'
-                        Top: '{{ Top }}'
-                        Right: '{{ Right }}'
-                        Bottom: '{{ Bottom }}'
-                      PaperSize: '{{ PaperSize }}'
-                      PaperOrientation: '{{ PaperOrientation }}'
-          Sheets:
-            - Description: '{{ Description }}'
-              ParameterControls:
-                - Slider:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    StepSize: null
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    Title: '{{ Title }}'
-                    MaximumValue: null
-                    MinimumValue: null
-                  TextArea:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    Delimiter: '{{ Delimiter }}'
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    Title: '{{ Title }}'
-                  Dropdown:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    Type: null
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    CascadingControlConfiguration:
-                      SourceControls:
-                        - SourceSheetControlId: '{{ SourceSheetControlId }}'
-                          ColumnToMatch: null
-                    Title: '{{ Title }}'
-                    CommitMode: null
-                    SelectableValues:
-                      LinkToDataSetColumn: null
-                      Values:
-                        - '{{ Values[0] }}'
-                  TextField:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    Title: '{{ Title }}'
-                  List:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    Type: null
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    CascadingControlConfiguration: null
-                    Title: '{{ Title }}'
-                    SelectableValues: null
-                  DateTimePicker:
-                    ParameterControlId: '{{ ParameterControlId }}'
-                    DisplayOptions: null
-                    SourceParameterName: '{{ SourceParameterName }}'
-                    Title: '{{ Title }}'
-              ContentType: null
-              SheetId: '{{ SheetId }}'
-              Images:
-                - Actions:
-                    - Status: null
-                      Trigger: '{{ Trigger }}'
-                      CustomActionId: '{{ CustomActionId }}'
-                      Name: '{{ Name }}'
-                      ActionOperations:
-                        - NavigationOperation:
-                            LocalNavigationConfiguration:
-                              TargetSheetId: '{{ TargetSheetId }}'
-                          SetParametersOperation:
-                            ParameterValueConfigurations:
-                              - DestinationParameterName: '{{ DestinationParameterName }}'
-                                Value:
-                                  CustomValuesConfiguration:
-                                    IncludeNullValue: '{{ IncludeNullValue }}'
-                                    CustomValues:
-                                      DecimalValues:
+          options:
+            timezone: '{{ timezone }}'
+            week_start: '{{ week_start }}'
+          filter_groups:
+            - status: '{{ status }}'
+              filters:
+                - nested_filter:
+                    column:
+                      column_name: '{{ column_name }}'
+                      data_set_identifier: '{{ data_set_identifier }}'
+                    inner_filter:
+                      category_inner_filter:
+                        configuration:
+                          custom_filter_list_configuration:
+                            category_values:
+                              - '{{ category_values[0] }}'
+                            null_option: '{{ null_option }}'
+                            match_operator: '{{ match_operator }}'
+                            select_all_options: '{{ select_all_options }}'
+                          custom_filter_configuration:
+                            category_value: '{{ category_value }}'
+                            parameter_name: '{{ parameter_name }}'
+                            null_option: null
+                            match_operator: null
+                            select_all_options: null
+                          filter_list_configuration:
+                            category_values:
+                              - '{{ category_values[0] }}'
+                            null_option: null
+                            match_operator: null
+                            select_all_options: null
+                        column: null
+                        default_filter_control_configuration:
+                          control_options:
+                            default_slider_options:
+                              type: '{{ type }}'
+                              step_size: null
+                              display_options:
+                                title_options:
+                                  custom_label: '{{ custom_label }}'
+                                  visibility: null
+                                  font_configuration:
+                                    font_family: '{{ font_family }}'
+                                    font_style: '{{ font_style }}'
+                                    font_size:
+                                      relative: '{{ relative }}'
+                                      absolute: '{{ absolute }}'
+                                    font_decoration: '{{ font_decoration }}'
+                                    font_color: '{{ font_color }}'
+                                    font_weight:
+                                      name: '{{ name }}'
+                                info_icon_label_options:
+                                  visibility: null
+                                  info_icon_text: '{{ info_icon_text }}'
+                              maximum_value: null
+                              minimum_value: null
+                            default_relative_date_time_options:
+                              display_options:
+                                title_options: null
+                                info_icon_label_options: null
+                                date_time_format: '{{ date_time_format }}'
+                              commit_mode: '{{ commit_mode }}'
+                            default_text_field_options:
+                              display_options:
+                                title_options: null
+                                placeholder_options:
+                                  visibility: null
+                                info_icon_label_options: null
+                            default_text_area_options:
+                              delimiter: '{{ delimiter }}'
+                              display_options:
+                                title_options: null
+                                placeholder_options: null
+                                info_icon_label_options: null
+                            default_dropdown_options:
+                              type: '{{ type }}'
+                              display_options:
+                                title_options: null
+                                select_all_options:
+                                  visibility: null
+                                info_icon_label_options: null
+                              commit_mode: null
+                              selectable_values:
+                                values:
+                                  - '{{ values[0] }}'
+                            default_date_time_picker_options:
+                              type: '{{ type }}'
+                              display_options:
+                                title_options: null
+                                info_icon_label_options: null
+                                helper_text_visibility: null
+                                date_icon_visibility: null
+                                date_time_format: '{{ date_time_format }}'
+                              commit_mode: null
+                            default_list_options:
+                              type: null
+                              display_options:
+                                title_options: null
+                                search_options:
+                                  visibility: null
+                                select_all_options: null
+                                info_icon_label_options: null
+                              selectable_values: null
+                          title: '{{ title }}'
+                    include_inner_set: '{{ include_inner_set }}'
+                    filter_id: '{{ filter_id }}'
+                  numeric_equality_filter:
+                    aggregation_function:
+                      attribute_aggregation_function:
+                        simple_attribute_aggregation: '{{ simple_attribute_aggregation }}'
+                        value_for_multiple_values: '{{ value_for_multiple_values }}'
+                      date_aggregation_function: '{{ date_aggregation_function }}'
+                      numerical_aggregation_function:
+                        percentile_aggregation:
+                          percentile_value: null
+                        simple_numerical_aggregation: '{{ simple_numerical_aggregation }}'
+                      categorical_aggregation_function: '{{ categorical_aggregation_function }}'
+                    column: null
+                    value: null
+                    parameter_name: '{{ parameter_name }}'
+                    null_option: null
+                    match_operator: '{{ match_operator }}'
+                    select_all_options: '{{ select_all_options }}'
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                  numeric_range_filter:
+                    aggregation_function: null
+                    column: null
+                    include_maximum: '{{ include_maximum }}'
+                    range_minimum:
+                      static_value: null
+                      parameter: '{{ parameter }}'
+                    null_option: null
+                    select_all_options: null
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                    range_maximum: null
+                    include_minimum: '{{ include_minimum }}'
+                  time_range_filter:
+                    range_minimum_value:
+                      rolling_date:
+                        expression: '{{ expression }}'
+                        data_set_identifier: '{{ data_set_identifier }}'
+                      static_value: '{{ static_value }}'
+                      parameter: '{{ parameter }}'
+                    column: null
+                    range_maximum_value: null
+                    include_maximum: '{{ include_maximum }}'
+                    time_granularity: '{{ time_granularity }}'
+                    null_option: null
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                    include_minimum: '{{ include_minimum }}'
+                    exclude_period_configuration:
+                      status: null
+                      amount: null
+                      granularity: null
+                  relative_dates_filter:
+                    relative_date_value: null
+                    column: null
+                    relative_date_type: '{{ relative_date_type }}'
+                    time_granularity: null
+                    parameter_name: '{{ parameter_name }}'
+                    null_option: null
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                    anchor_date_configuration:
+                      anchor_option: '{{ anchor_option }}'
+                      parameter_name: '{{ parameter_name }}'
+                    minimum_granularity: null
+                    exclude_period_configuration: null
+                  top_bottom_filter:
+                    aggregation_sort_configurations:
+                      - aggregation_function: null
+                        sort_direction: '{{ sort_direction }}'
+                        column: null
+                    column: null
+                    time_granularity: null
+                    parameter_name: '{{ parameter_name }}'
+                    limit: null
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                  time_equality_filter:
+                    column: null
+                    rolling_date: null
+                    value: '{{ value }}'
+                    time_granularity: null
+                    parameter_name: '{{ parameter_name }}'
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+                  category_filter:
+                    configuration: null
+                    column: null
+                    default_filter_control_configuration: null
+                    filter_id: '{{ filter_id }}'
+              cross_dataset: '{{ cross_dataset }}'
+              scope_configuration:
+                all_sheets: {}
+                selected_sheets:
+                  sheet_visual_scoping_configurations:
+                    - scope: '{{ scope }}'
+                      sheet_id: '{{ sheet_id }}'
+                      visual_ids:
+                        - '{{ visual_ids[0] }}'
+              filter_group_id: '{{ filter_group_id }}'
+          query_execution_options:
+            query_execution_mode: '{{ query_execution_mode }}'
+          static_files:
+            - image_static_file:
+                static_file_id: '{{ static_file_id }}'
+                source:
+                  url_options:
+                    url: '{{ url }}'
+                  s3_options:
+                    bucket_name: '{{ bucket_name }}'
+                    object_key: '{{ object_key }}'
+                    region: '{{ region }}'
+              spatial_static_file:
+                static_file_id: '{{ static_file_id }}'
+                source: null
+          calculated_fields:
+            - expression: '{{ expression }}'
+              data_set_identifier: '{{ data_set_identifier }}'
+              name: '{{ name }}'
+          data_set_identifier_declarations:
+            - identifier: '{{ identifier }}'
+              data_set_arn: '{{ data_set_arn }}'
+          column_configurations:
+            - role: '{{ role }}'
+              format_configuration:
+                number_format_configuration:
+                  format_configuration:
+                    number_display_format_configuration:
+                      negative_value_configuration:
+                        display_mode: '{{ display_mode }}'
+                      decimal_places_configuration:
+                        decimal_places: null
+                      number_scale: '{{ number_scale }}'
+                      null_value_format_configuration:
+                        null_string: '{{ null_string }}'
+                      suffix: '{{ suffix }}'
+                      separator_configuration:
+                        decimal_separator: '{{ decimal_separator }}'
+                        thousands_separator:
+                          symbol: null
+                          visibility: null
+                          grouping_style: '{{ grouping_style }}'
+                      prefix: '{{ prefix }}'
+                    currency_display_format_configuration:
+                      negative_value_configuration: null
+                      decimal_places_configuration: null
+                      number_scale: null
+                      null_value_format_configuration: null
+                      suffix: '{{ suffix }}'
+                      separator_configuration: null
+                      symbol: '{{ symbol }}'
+                      prefix: '{{ prefix }}'
+                    percentage_display_format_configuration:
+                      negative_value_configuration: null
+                      decimal_places_configuration: null
+                      null_value_format_configuration: null
+                      suffix: '{{ suffix }}'
+                      separator_configuration: null
+                      prefix: '{{ prefix }}'
+                date_time_format_configuration:
+                  numeric_format_configuration: null
+                  null_value_format_configuration: null
+                  date_time_format: '{{ date_time_format }}'
+                string_format_configuration:
+                  numeric_format_configuration: null
+                  null_value_format_configuration: null
+              column: null
+              colors_configuration:
+                custom_colors:
+                  - color: '{{ color }}'
+                    field_value: '{{ field_value }}'
+                    special_value: '{{ special_value }}'
+          analysis_defaults:
+            default_new_sheet_configuration:
+              sheet_content_type: '{{ sheet_content_type }}'
+              interactive_layout_configuration:
+                free_form:
+                  canvas_size_options:
+                    screen_canvas_size_options:
+                      optimized_view_port_width: '{{ optimized_view_port_width }}'
+                grid:
+                  canvas_size_options:
+                    screen_canvas_size_options:
+                      optimized_view_port_width: '{{ optimized_view_port_width }}'
+                      resize_option: '{{ resize_option }}'
+              paginated_layout_configuration:
+                section_based:
+                  canvas_size_options:
+                    paper_canvas_size_options:
+                      paper_margin:
+                        left: '{{ left }}'
+                        top: '{{ top }}'
+                        right: '{{ right }}'
+                        bottom: '{{ bottom }}'
+                      paper_size: '{{ paper_size }}'
+                      paper_orientation: '{{ paper_orientation }}'
+          sheets:
+            - description: '{{ description }}'
+              parameter_controls:
+                - slider:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    step_size: null
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    title: '{{ title }}'
+                    maximum_value: null
+                    minimum_value: null
+                  text_area:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    delimiter: '{{ delimiter }}'
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    title: '{{ title }}'
+                  dropdown:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    type: null
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    cascading_control_configuration:
+                      source_controls:
+                        - source_sheet_control_id: '{{ source_sheet_control_id }}'
+                          column_to_match: null
+                    title: '{{ title }}'
+                    commit_mode: null
+                    selectable_values:
+                      link_to_data_set_column: null
+                      values:
+                        - '{{ values[0] }}'
+                  text_field:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    title: '{{ title }}'
+                  list:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    type: null
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    cascading_control_configuration: null
+                    title: '{{ title }}'
+                    selectable_values: null
+                  date_time_picker:
+                    parameter_control_id: '{{ parameter_control_id }}'
+                    display_options: null
+                    source_parameter_name: '{{ source_parameter_name }}'
+                    title: '{{ title }}'
+              content_type: null
+              sheet_id: '{{ sheet_id }}'
+              images:
+                - actions:
+                    - status: null
+                      trigger: '{{ trigger }}'
+                      custom_action_id: '{{ custom_action_id }}'
+                      name: '{{ name }}'
+                      action_operations:
+                        - navigation_operation:
+                            local_navigation_configuration:
+                              target_sheet_id: '{{ target_sheet_id }}'
+                          set_parameters_operation:
+                            parameter_value_configurations:
+                              - destination_parameter_name: '{{ destination_parameter_name }}'
+                                value:
+                                  custom_values_configuration:
+                                    include_null_value: '{{ include_null_value }}'
+                                    custom_values:
+                                      decimal_values:
                                         - null
-                                      IntegerValues:
+                                      integer_values:
                                         - null
-                                      StringValues:
-                                        - '{{ StringValues[0] }}'
-                                      DateTimeValues:
-                                        - '{{ DateTimeValues[0] }}'
-                                  SourceParameterName: '{{ SourceParameterName }}'
-                                  SelectAllValueOptions: '{{ SelectAllValueOptions }}'
-                                  SourceField: '{{ SourceField }}'
-                                  SourceColumn: null
-                          URLOperation:
-                            URLTemplate: '{{ URLTemplate }}'
-                            URLTarget: '{{ URLTarget }}'
-                  SheetImageId: '{{ SheetImageId }}'
-                  Tooltip:
-                    Visibility: null
-                    TooltipText:
-                      PlainText: '{{ PlainText }}'
-                  Scaling:
-                    ScalingType: '{{ ScalingType }}'
-                  Interactions:
-                    ImageMenuOption:
-                      AvailabilityStatus: '{{ AvailabilityStatus }}'
-                  Source:
-                    SheetImageStaticFileSource:
-                      StaticFileId: '{{ StaticFileId }}'
-                  ImageContentAltText: '{{ ImageContentAltText }}'
-              SheetControlLayouts:
-                - Configuration:
-                    GridLayout:
-                      CanvasSizeOptions: null
-                      Elements:
-                        - ElementType: '{{ ElementType }}'
-                          ColumnSpan: null
-                          ColumnIndex: null
-                          RowIndex: null
-                          RowSpan: null
-                          ElementId: '{{ ElementId }}'
-              Title: '{{ Title }}'
-              Name: '{{ Name }}'
-              TextBoxes:
-                - SheetTextBoxId: '{{ SheetTextBoxId }}'
-                  Content: '{{ Content }}'
-              Layouts:
-                - Configuration:
-                    GridLayout: null
-                    FreeFormLayout:
-                      CanvasSizeOptions: null
-                      Elements:
-                        - ElementType: null
-                          BorderStyle:
-                            Color: '{{ Color }}'
-                            Visibility: null
-                          Height: '{{ Height }}'
-                          Visibility: null
-                          RenderingRules:
-                            - Expression: '{{ Expression }}'
-                              ConfigurationOverrides:
-                                Visibility: null
-                          YAxisLocation: '{{ YAxisLocation }}'
-                          LoadingAnimation:
-                            Visibility: null
-                          Width: '{{ Width }}'
-                          BackgroundStyle:
-                            Color: '{{ Color }}'
-                            Visibility: null
-                          ElementId: '{{ ElementId }}'
-                          XAxisLocation: '{{ XAxisLocation }}'
-                          SelectedBorderStyle: null
-                    SectionBasedLayout:
-                      CanvasSizeOptions: null
-                      FooterSections:
-                        - Layout:
-                            FreeFormLayout:
-                              Elements:
+                                      string_values:
+                                        - '{{ string_values[0] }}'
+                                      date_time_values:
+                                        - '{{ date_time_values[0] }}'
+                                  source_parameter_name: '{{ source_parameter_name }}'
+                                  select_all_value_options: '{{ select_all_value_options }}'
+                                  source_field: '{{ source_field }}'
+                                  source_column: null
+                          url_operation:
+                            url_template: '{{ url_template }}'
+                            url_target: '{{ url_target }}'
+                  sheet_image_id: '{{ sheet_image_id }}'
+                  tooltip:
+                    visibility: null
+                    tooltip_text:
+                      plain_text: '{{ plain_text }}'
+                  scaling:
+                    scaling_type: '{{ scaling_type }}'
+                  interactions:
+                    image_menu_option:
+                      availability_status: '{{ availability_status }}'
+                  source:
+                    sheet_image_static_file_source:
+                      static_file_id: '{{ static_file_id }}'
+                  image_content_alt_text: '{{ image_content_alt_text }}'
+              sheet_control_layouts:
+                - configuration:
+                    grid_layout:
+                      canvas_size_options: null
+                      elements:
+                        - element_type: '{{ element_type }}'
+                          column_span: null
+                          column_index: null
+                          row_index: null
+                          row_span: null
+                          element_id: '{{ element_id }}'
+              title: '{{ title }}'
+              name: '{{ name }}'
+              text_boxes:
+                - sheet_text_box_id: '{{ sheet_text_box_id }}'
+                  content: '{{ content }}'
+              layouts:
+                - configuration:
+                    grid_layout: null
+                    free_form_layout:
+                      canvas_size_options: null
+                      elements:
+                        - element_type: null
+                          border_style:
+                            color: '{{ color }}'
+                            visibility: null
+                          height: '{{ height }}'
+                          visibility: null
+                          rendering_rules:
+                            - expression: '{{ expression }}'
+                              configuration_overrides:
+                                visibility: null
+                          y_axis_location: '{{ y_axis_location }}'
+                          loading_animation:
+                            visibility: null
+                          width: '{{ width }}'
+                          background_style:
+                            color: '{{ color }}'
+                            visibility: null
+                          element_id: '{{ element_id }}'
+                          x_axis_location: '{{ x_axis_location }}'
+                          selected_border_style: null
+                    section_based_layout:
+                      canvas_size_options: null
+                      footer_sections:
+                        - layout:
+                            free_form_layout:
+                              elements:
                                 - null
-                          Style:
-                            Padding: null
-                            Height: '{{ Height }}'
-                          SectionId: '{{ SectionId }}'
-                      BodySections:
-                        - Content:
-                            Layout: null
-                          Style: null
-                          PageBreakConfiguration:
-                            After:
-                              Status: '{{ Status }}'
-                          SectionId: '{{ SectionId }}'
-                          RepeatConfiguration:
-                            DimensionConfigurations:
-                              - DynamicNumericDimensionConfiguration:
-                                  Column: null
-                                  SortByMetrics:
-                                    - AggregationFunction: null
-                                      SortBy: null
-                                      Direction: null
-                                  Limit: null
-                                DynamicCategoryDimensionConfiguration:
-                                  Column: null
-                                  SortByMetrics:
+                          style:
+                            padding: null
+                            height: '{{ height }}'
+                          section_id: '{{ section_id }}'
+                      body_sections:
+                        - content:
+                            layout: null
+                          style: null
+                          page_break_configuration:
+                            after:
+                              status: '{{ status }}'
+                          section_id: '{{ section_id }}'
+                          repeat_configuration:
+                            dimension_configurations:
+                              - dynamic_numeric_dimension_configuration:
+                                  column: null
+                                  sort_by_metrics:
+                                    - aggregation_function: null
+                                      sort_by: null
+                                      direction: null
+                                  limit: null
+                                dynamic_category_dimension_configuration:
+                                  column: null
+                                  sort_by_metrics:
                                     - null
-                                  Limit: null
-                            NonRepeatingVisuals:
-                              - '{{ NonRepeatingVisuals[0] }}'
-                            PageBreakConfiguration:
-                              After: null
-                      HeaderSections:
+                                  limit: null
+                            non_repeating_visuals:
+                              - '{{ non_repeating_visuals[0] }}'
+                            page_break_configuration:
+                              after: null
+                      header_sections:
                         - null
-              FilterControls:
-                - Slider:
-                    FilterControlId: '{{ FilterControlId }}'
-                    Type: null
-                    StepSize: null
-                    DisplayOptions: null
-                    Title: '{{ Title }}'
-                    MaximumValue: null
-                    SourceFilterId: '{{ SourceFilterId }}'
-                    MinimumValue: null
-                  TextArea:
-                    FilterControlId: '{{ FilterControlId }}'
-                    Delimiter: '{{ Delimiter }}'
-                    DisplayOptions: null
-                    Title: '{{ Title }}'
-                    SourceFilterId: '{{ SourceFilterId }}'
-                  Dropdown:
-                    FilterControlId: '{{ FilterControlId }}'
-                    Type: null
-                    DisplayOptions: null
-                    CascadingControlConfiguration: null
-                    Title: '{{ Title }}'
-                    CommitMode: null
-                    SourceFilterId: '{{ SourceFilterId }}'
-                    SelectableValues: null
-                  TextField:
-                    FilterControlId: '{{ FilterControlId }}'
-                    DisplayOptions: null
-                    Title: '{{ Title }}'
-                    SourceFilterId: '{{ SourceFilterId }}'
-                  List:
-                    FilterControlId: '{{ FilterControlId }}'
-                    Type: null
-                    DisplayOptions: null
-                    CascadingControlConfiguration: null
-                    Title: '{{ Title }}'
-                    SourceFilterId: '{{ SourceFilterId }}'
-                    SelectableValues: null
-                  DateTimePicker:
-                    FilterControlId: '{{ FilterControlId }}'
-                    Type: null
-                    DisplayOptions: null
-                    Title: '{{ Title }}'
-                    CommitMode: null
-                    SourceFilterId: '{{ SourceFilterId }}'
-                  RelativeDateTime:
-                    FilterControlId: '{{ FilterControlId }}'
-                    DisplayOptions: null
-                    Title: '{{ Title }}'
-                    CommitMode: null
-                    SourceFilterId: '{{ SourceFilterId }}'
-                  CrossSheet:
-                    FilterControlId: '{{ FilterControlId }}'
-                    CascadingControlConfiguration: null
-                    SourceFilterId: '{{ SourceFilterId }}'
-              Visuals:
-                - FunnelChartVisual:
-                    Subtitle:
-                      Visibility: null
-                      FormatText:
-                        RichText: '{{ RichText }}'
-                        PlainText: '{{ PlainText }}'
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        CategoryItemsLimit:
-                          ItemsLimit: null
-                          OtherCategories: '{{ OtherCategories }}'
-                        CategorySort:
-                          - FieldSort:
-                              FieldId: '{{ FieldId }}'
-                              Direction: null
-                            ColumnSort: null
-                      DataLabelOptions:
-                        MeasureLabelVisibility: null
-                        Position: '{{ Position }}'
-                        Visibility: null
-                        CategoryLabelVisibility: null
-                        LabelColor: '{{ LabelColor }}'
-                        MeasureDataLabelStyle: '{{ MeasureDataLabelStyle }}'
-                        LabelFontConfiguration: null
-                      CategoryLabelOptions:
-                        Visibility: null
-                        SortIconVisibility: null
-                        AxisLabelOptions:
-                          - CustomLabel: '{{ CustomLabel }}'
-                            ApplyTo:
-                              Column: null
-                              FieldId: '{{ FieldId }}'
-                            FontConfiguration: null
-                      FieldWells:
-                        FunnelChartAggregatedFieldWells:
-                          Category:
-                            - DateDimensionField:
-                                HierarchyId: '{{ HierarchyId }}'
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                                DateGranularity: null
-                              NumericalDimensionField:
-                                HierarchyId: '{{ HierarchyId }}'
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                              CategoricalDimensionField:
-                                HierarchyId: '{{ HierarchyId }}'
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                          Values:
-                            - DateMeasureField:
-                                AggregationFunction: null
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                              NumericalMeasureField:
-                                AggregationFunction: null
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                              CategoricalMeasureField:
-                                AggregationFunction: null
-                                FormatConfiguration: null
-                                Column: null
-                                FieldId: '{{ FieldId }}'
-                              CalculatedMeasureField:
-                                Expression: '{{ Expression }}'
-                                FieldId: '{{ FieldId }}'
-                      Tooltip:
-                        SelectedTooltipType: '{{ SelectedTooltipType }}'
-                        TooltipVisibility: null
-                        FieldBasedTooltip:
-                          TooltipFields:
-                            - FieldTooltipItem:
-                                TooltipTarget: '{{ TooltipTarget }}'
-                                FieldId: '{{ FieldId }}'
-                                Label: '{{ Label }}'
-                                Visibility: null
-                              ColumnTooltipItem:
-                                Aggregation: null
-                                TooltipTarget: null
-                                Column: null
-                                Label: '{{ Label }}'
-                                Visibility: null
-                          AggregationVisibility: null
-                          TooltipTitleType: '{{ TooltipTitleType }}'
-                      Interactions:
-                        ContextMenuOption:
-                          AvailabilityStatus: null
-                        VisualMenuOption:
-                          AvailabilityStatus: null
-                      ValueLabelOptions: null
-                      VisualPalette:
-                        ChartColor: '{{ ChartColor }}'
-                        ColorMap:
-                          - Element:
-                              DataPathType:
-                                PivotTableDataPathType: '{{ PivotTableDataPathType }}'
-                              FieldId: '{{ FieldId }}'
-                              FieldValue: '{{ FieldValue }}'
-                            Color: '{{ Color }}'
-                            TimeGranularity: null
-                    Actions:
-                      - Status: null
-                        Trigger: '{{ Trigger }}'
-                        CustomActionId: '{{ CustomActionId }}'
-                        Name: '{{ Name }}'
-                        ActionOperations:
-                          - NavigationOperation: null
-                            SetParametersOperation: null
-                            FilterOperation:
-                              SelectedFieldsConfiguration:
-                                SelectedColumns:
+              filter_controls:
+                - slider:
+                    filter_control_id: '{{ filter_control_id }}'
+                    type: null
+                    step_size: null
+                    display_options: null
+                    title: '{{ title }}'
+                    maximum_value: null
+                    source_filter_id: '{{ source_filter_id }}'
+                    minimum_value: null
+                  text_area:
+                    filter_control_id: '{{ filter_control_id }}'
+                    delimiter: '{{ delimiter }}'
+                    display_options: null
+                    title: '{{ title }}'
+                    source_filter_id: '{{ source_filter_id }}'
+                  dropdown:
+                    filter_control_id: '{{ filter_control_id }}'
+                    type: null
+                    display_options: null
+                    cascading_control_configuration: null
+                    title: '{{ title }}'
+                    commit_mode: null
+                    source_filter_id: '{{ source_filter_id }}'
+                    selectable_values: null
+                  text_field:
+                    filter_control_id: '{{ filter_control_id }}'
+                    display_options: null
+                    title: '{{ title }}'
+                    source_filter_id: '{{ source_filter_id }}'
+                  list:
+                    filter_control_id: '{{ filter_control_id }}'
+                    type: null
+                    display_options: null
+                    cascading_control_configuration: null
+                    title: '{{ title }}'
+                    source_filter_id: '{{ source_filter_id }}'
+                    selectable_values: null
+                  date_time_picker:
+                    filter_control_id: '{{ filter_control_id }}'
+                    type: null
+                    display_options: null
+                    title: '{{ title }}'
+                    commit_mode: null
+                    source_filter_id: '{{ source_filter_id }}'
+                  relative_date_time:
+                    filter_control_id: '{{ filter_control_id }}'
+                    display_options: null
+                    title: '{{ title }}'
+                    commit_mode: null
+                    source_filter_id: '{{ source_filter_id }}'
+                  cross_sheet:
+                    filter_control_id: '{{ filter_control_id }}'
+                    cascading_control_configuration: null
+                    source_filter_id: '{{ source_filter_id }}'
+              visuals:
+                - funnel_chart_visual:
+                    subtitle:
+                      visibility: null
+                      format_text:
+                        rich_text: '{{ rich_text }}'
+                        plain_text: '{{ plain_text }}'
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        category_items_limit:
+                          items_limit: null
+                          other_categories: '{{ other_categories }}'
+                        category_sort:
+                          - field_sort:
+                              field_id: '{{ field_id }}'
+                              direction: null
+                            column_sort: null
+                      data_label_options:
+                        measure_label_visibility: null
+                        position: '{{ position }}'
+                        visibility: null
+                        category_label_visibility: null
+                        label_color: '{{ label_color }}'
+                        measure_data_label_style: '{{ measure_data_label_style }}'
+                        label_font_configuration: null
+                      category_label_options:
+                        visibility: null
+                        sort_icon_visibility: null
+                        axis_label_options:
+                          - custom_label: '{{ custom_label }}'
+                            apply_to:
+                              column: null
+                              field_id: '{{ field_id }}'
+                            font_configuration: null
+                      field_wells:
+                        funnel_chart_aggregated_field_wells:
+                          category:
+                            - date_dimension_field:
+                                hierarchy_id: '{{ hierarchy_id }}'
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                                date_granularity: null
+                              numerical_dimension_field:
+                                hierarchy_id: '{{ hierarchy_id }}'
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                              categorical_dimension_field:
+                                hierarchy_id: '{{ hierarchy_id }}'
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                          values:
+                            - date_measure_field:
+                                aggregation_function: null
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                              numerical_measure_field:
+                                aggregation_function: null
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                              categorical_measure_field:
+                                aggregation_function: null
+                                format_configuration: null
+                                column: null
+                                field_id: '{{ field_id }}'
+                              calculated_measure_field:
+                                expression: '{{ expression }}'
+                                field_id: '{{ field_id }}'
+                      tooltip:
+                        selected_tooltip_type: '{{ selected_tooltip_type }}'
+                        tooltip_visibility: null
+                        field_based_tooltip:
+                          tooltip_fields:
+                            - field_tooltip_item:
+                                tooltip_target: '{{ tooltip_target }}'
+                                field_id: '{{ field_id }}'
+                                label: '{{ label }}'
+                                visibility: null
+                              column_tooltip_item:
+                                aggregation: null
+                                tooltip_target: null
+                                column: null
+                                label: '{{ label }}'
+                                visibility: null
+                          aggregation_visibility: null
+                          tooltip_title_type: '{{ tooltip_title_type }}'
+                      interactions:
+                        context_menu_option:
+                          availability_status: null
+                        visual_menu_option:
+                          availability_status: null
+                      value_label_options: null
+                      visual_palette:
+                        chart_color: '{{ chart_color }}'
+                        color_map:
+                          - element:
+                              data_path_type:
+                                pivot_table_data_path_type: '{{ pivot_table_data_path_type }}'
+                              field_id: '{{ field_id }}'
+                              field_value: '{{ field_value }}'
+                            color: '{{ color }}'
+                            time_granularity: null
+                    actions:
+                      - status: null
+                        trigger: '{{ trigger }}'
+                        custom_action_id: '{{ custom_action_id }}'
+                        name: '{{ name }}'
+                        action_operations:
+                          - navigation_operation: null
+                            set_parameters_operation: null
+                            filter_operation:
+                              selected_fields_configuration:
+                                selected_columns:
                                   - null
-                                SelectedFields:
-                                  - '{{ SelectedFields[0] }}'
-                                SelectedFieldOptions: '{{ SelectedFieldOptions }}'
-                              TargetVisualsConfiguration:
-                                SameSheetTargetVisualConfiguration:
-                                  TargetVisualOptions: '{{ TargetVisualOptions }}'
-                                  TargetVisuals:
-                                    - '{{ TargetVisuals[0] }}'
-                            URLOperation: null
-                    Title:
-                      Visibility: null
-                      FormatText:
-                        RichText: '{{ RichText }}'
-                        PlainText: '{{ PlainText }}'
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
-                      - DateTimeHierarchy:
-                          HierarchyId: '{{ HierarchyId }}'
-                          DrillDownFilters:
-                            - NumericEqualityFilter:
-                                Column: null
-                                Value: null
-                              TimeRangeFilter:
-                                Column: null
-                                RangeMinimum: '{{ RangeMinimum }}'
-                                TimeGranularity: null
-                                RangeMaximum: '{{ RangeMaximum }}'
-                              CategoryFilter:
-                                Column: null
-                                CategoryValues:
-                                  - '{{ CategoryValues[0] }}'
-                        ExplicitHierarchy:
-                          HierarchyId: '{{ HierarchyId }}'
-                          DrillDownFilters:
+                                selected_fields:
+                                  - '{{ selected_fields[0] }}'
+                                selected_field_options: '{{ selected_field_options }}'
+                              target_visuals_configuration:
+                                same_sheet_target_visual_configuration:
+                                  target_visual_options: '{{ target_visual_options }}'
+                                  target_visuals:
+                                    - '{{ target_visuals[0] }}'
+                            url_operation: null
+                    title:
+                      visibility: null
+                      format_text:
+                        rich_text: '{{ rich_text }}'
+                        plain_text: '{{ plain_text }}'
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
+                      - date_time_hierarchy:
+                          hierarchy_id: '{{ hierarchy_id }}'
+                          drill_down_filters:
+                            - numeric_equality_filter:
+                                column: null
+                                value: null
+                              time_range_filter:
+                                column: null
+                                range_minimum: '{{ range_minimum }}'
+                                time_granularity: null
+                                range_maximum: '{{ range_maximum }}'
+                              category_filter:
+                                column: null
+                                category_values:
+                                  - '{{ category_values[0] }}'
+                        explicit_hierarchy:
+                          hierarchy_id: '{{ hierarchy_id }}'
+                          drill_down_filters:
                             - null
-                          Columns:
+                          columns:
                             - null
-                        PredefinedHierarchy:
-                          HierarchyId: '{{ HierarchyId }}'
-                          DrillDownFilters:
+                        predefined_hierarchy:
+                          hierarchy_id: '{{ hierarchy_id }}'
+                          drill_down_filters:
                             - null
-                          Columns:
+                          columns:
                             - null
-                  BoxPlotVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        CategorySort:
+                  box_plot_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        category_sort:
                           - null
-                        PaginationConfiguration:
-                          PageSize: null
-                          PageNumber: null
-                      Legend:
-                        Position: '{{ Position }}'
-                        ValueFontConfiguration: null
-                        Title: null
-                        Visibility: null
-                        Height: '{{ Height }}'
-                        Width: '{{ Width }}'
-                      ReferenceLines:
-                        - Status: null
-                          DataConfiguration:
-                            DynamicConfiguration:
-                              Column: null
-                              MeasureAggregationFunction: null
-                              Calculation: null
-                            AxisBinding: '{{ AxisBinding }}'
-                            SeriesType: '{{ SeriesType }}'
-                            StaticConfiguration:
-                              Value: null
-                          LabelConfiguration:
-                            HorizontalPosition: '{{ HorizontalPosition }}'
-                            ValueLabelConfiguration:
-                              FormatConfiguration: null
-                              RelativePosition: '{{ RelativePosition }}'
-                            CustomLabelConfiguration:
-                              CustomLabel: '{{ CustomLabel }}'
-                            FontColor: '{{ FontColor }}'
-                            FontConfiguration: null
-                            VerticalPosition: '{{ VerticalPosition }}'
-                          StyleConfiguration:
-                            Pattern: '{{ Pattern }}'
-                            Color: '{{ Color }}'
-                      CategoryAxis:
-                        DataOptions:
-                          DateAxisOptions:
-                            MissingDateVisibility: null
-                          NumericAxisOptions:
-                            Scale:
-                              Logarithmic:
-                                Base: null
-                              Linear:
-                                StepSize: null
-                                StepCount: null
-                            Range:
-                              DataDriven: {}
-                              MinMax:
-                                Minimum: null
-                                Maximum: null
-                        TickLabelOptions:
-                          RotationAngle: null
-                          LabelOptions: null
-                        AxisOffset: '{{ AxisOffset }}'
-                        AxisLineVisibility: null
-                        GridLineVisibility: null
-                        ScrollbarOptions:
-                          VisibleRange:
-                            PercentRange:
-                              From: null
-                              To: null
-                          Visibility: null
-                      PrimaryYAxisLabelOptions: null
-                      CategoryLabelOptions: null
-                      FieldWells:
-                        BoxPlotAggregatedFieldWells:
-                          GroupBy:
+                        pagination_configuration:
+                          page_size: null
+                          page_number: null
+                      legend:
+                        position: '{{ position }}'
+                        value_font_configuration: null
+                        title: null
+                        visibility: null
+                        height: '{{ height }}'
+                        width: '{{ width }}'
+                      reference_lines:
+                        - status: null
+                          data_configuration:
+                            dynamic_configuration:
+                              column: null
+                              measure_aggregation_function: null
+                              calculation: null
+                            axis_binding: '{{ axis_binding }}'
+                            series_type: '{{ series_type }}'
+                            static_configuration:
+                              value: null
+                          label_configuration:
+                            horizontal_position: '{{ horizontal_position }}'
+                            value_label_configuration:
+                              format_configuration: null
+                              relative_position: '{{ relative_position }}'
+                            custom_label_configuration:
+                              custom_label: '{{ custom_label }}'
+                            font_color: '{{ font_color }}'
+                            font_configuration: null
+                            vertical_position: '{{ vertical_position }}'
+                          style_configuration:
+                            pattern: '{{ pattern }}'
+                            color: '{{ color }}'
+                      category_axis:
+                        data_options:
+                          date_axis_options:
+                            missing_date_visibility: null
+                          numeric_axis_options:
+                            scale:
+                              logarithmic:
+                                base: null
+                              linear:
+                                step_size: null
+                                step_count: null
+                            range:
+                              data_driven: {}
+                              min_max:
+                                minimum: null
+                                maximum: null
+                        tick_label_options:
+                          rotation_angle: null
+                          label_options: null
+                        axis_offset: '{{ axis_offset }}'
+                        axis_line_visibility: null
+                        grid_line_visibility: null
+                        scrollbar_options:
+                          visible_range:
+                            percent_range:
+                              from: null
+                              to: null
+                          visibility: null
+                      primary_yaxis_label_options: null
+                      category_label_options: null
+                      field_wells:
+                        box_plot_aggregated_field_wells:
+                          group_by:
                             - null
-                          Values:
+                          values:
                             - null
-                      Tooltip: null
-                      BoxPlotOptions:
-                        StyleOptions:
-                          FillStyle: '{{ FillStyle }}'
-                        OutlierVisibility: null
-                        AllDataPointsVisibility: null
-                      Interactions: null
-                      PrimaryYAxisDisplayOptions: null
-                      VisualPalette: null
-                    Actions:
+                      tooltip: null
+                      box_plot_options:
+                        style_options:
+                          fill_style: '{{ fill_style }}'
+                        outlier_visibility: null
+                        all_data_points_visibility: null
+                      interactions: null
+                      primary_yaxis_display_options: null
+                      visual_palette: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  GeospatialMapVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      Legend: null
-                      MapStyleOptions:
-                        BaseMapStyle: '{{ BaseMapStyle }}'
-                      FieldWells:
-                        GeospatialMapAggregatedFieldWells:
-                          Colors:
+                  geospatial_map_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      legend: null
+                      map_style_options:
+                        base_map_style: '{{ base_map_style }}'
+                      field_wells:
+                        geospatial_map_aggregated_field_wells:
+                          colors:
                             - null
-                          Values:
+                          values:
                             - null
-                          Geospatial:
+                          geospatial:
                             - null
-                      Tooltip: null
-                      WindowOptions:
-                        Bounds:
-                          West: null
-                          South: null
-                          North: null
-                          East: null
-                        MapZoomMode: '{{ MapZoomMode }}'
-                      PointStyleOptions:
-                        SelectedPointStyle: '{{ SelectedPointStyle }}'
-                        ClusterMarkerConfiguration:
-                          ClusterMarker:
-                            SimpleClusterMarker:
-                              Color: '{{ Color }}'
-                        HeatmapConfiguration:
-                          HeatmapColor:
-                            Colors:
-                              - Color: '{{ Color }}'
-                      VisualPalette: null
-                    Actions:
+                      tooltip: null
+                      window_options:
+                        bounds:
+                          west: null
+                          south: null
+                          north: null
+                          east: null
+                        map_zoom_mode: '{{ map_zoom_mode }}'
+                      point_style_options:
+                        selected_point_style: '{{ selected_point_style }}'
+                        cluster_marker_configuration:
+                          cluster_marker:
+                            simple_cluster_marker:
+                              color: '{{ color }}'
+                        heatmap_configuration:
+                          heatmap_color:
+                            colors:
+                              - color: '{{ color }}'
+                      visual_palette: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  ScatterPlotVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      YAxisLabelOptions: null
-                      SortConfiguration:
-                        ScatterPlotLimitConfiguration: null
-                      Legend: null
-                      YAxisDisplayOptions: null
-                      DataLabels:
-                        DataLabelTypes:
-                          - MaximumLabelType:
-                              Visibility: null
-                            DataPathLabelType:
-                              FieldId: '{{ FieldId }}'
-                              Visibility: null
-                              FieldValue: '{{ FieldValue }}'
-                            RangeEndsLabelType:
-                              Visibility: null
-                            FieldLabelType:
-                              FieldId: '{{ FieldId }}'
-                              Visibility: null
-                            MinimumLabelType:
-                              Visibility: null
-                        MeasureLabelVisibility: null
-                        Position: null
-                        LabelContent: '{{ LabelContent }}'
-                        Visibility: null
-                        TotalsVisibility: null
-                        Overlap: '{{ Overlap }}'
-                        CategoryLabelVisibility: null
-                        LabelColor: '{{ LabelColor }}'
-                        LabelFontConfiguration: null
-                      FieldWells:
-                        ScatterPlotUnaggregatedFieldWells:
-                          Category:
+                  scatter_plot_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      y_axis_label_options: null
+                      sort_configuration:
+                        scatter_plot_limit_configuration: null
+                      legend: null
+                      y_axis_display_options: null
+                      data_labels:
+                        data_label_types:
+                          - maximum_label_type:
+                              visibility: null
+                            data_path_label_type:
+                              field_id: '{{ field_id }}'
+                              visibility: null
+                              field_value: '{{ field_value }}'
+                            range_ends_label_type:
+                              visibility: null
+                            field_label_type:
+                              field_id: '{{ field_id }}'
+                              visibility: null
+                            minimum_label_type:
+                              visibility: null
+                        measure_label_visibility: null
+                        position: null
+                        label_content: '{{ label_content }}'
+                        visibility: null
+                        totals_visibility: null
+                        overlap: '{{ overlap }}'
+                        category_label_visibility: null
+                        label_color: '{{ label_color }}'
+                        label_font_configuration: null
+                      field_wells:
+                        scatter_plot_unaggregated_field_wells:
+                          category:
                             - null
-                          Size:
+                          size:
                             - null
-                          Label:
+                          label:
                             - null
-                          XAxis:
+                          x_axis:
                             - null
-                          YAxis:
+                          y_axis:
                             - null
-                        ScatterPlotCategoricallyAggregatedFieldWells:
-                          Category:
+                        scatter_plot_categorically_aggregated_field_wells:
+                          category:
                             - null
-                          Size:
+                          size:
                             - null
-                          Label:
+                          label:
                             - null
-                          XAxis:
+                          x_axis:
                             - null
-                          YAxis:
+                          y_axis:
                             - null
-                      Tooltip: null
-                      XAxisLabelOptions: null
-                      Interactions: null
-                      VisualPalette: null
-                      XAxisDisplayOptions: null
-                    Actions:
+                      tooltip: null
+                      x_axis_label_options: null
+                      interactions: null
+                      visual_palette: null
+                      x_axis_display_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  RadarChartVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        ColorSort:
+                  radar_chart_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        color_sort:
                           - null
-                        ColorItemsLimit: null
-                        CategoryItemsLimit: null
-                        CategorySort:
+                        color_items_limit: null
+                        category_items_limit: null
+                        category_sort:
                           - null
-                      Legend: null
-                      Shape: '{{ Shape }}'
-                      BaseSeriesSettings:
-                        AreaStyleSettings:
-                          Visibility: null
-                      ColorLabelOptions: null
-                      CategoryLabelOptions: null
-                      AxesRangeScale: '{{ AxesRangeScale }}'
-                      VisualPalette: null
-                      AlternateBandColorsVisibility: null
-                      StartAngle: null
-                      CategoryAxis: null
-                      FieldWells:
-                        RadarChartAggregatedFieldWells:
-                          Category:
+                      legend: null
+                      shape: '{{ shape }}'
+                      base_series_settings:
+                        area_style_settings:
+                          visibility: null
+                      color_label_options: null
+                      category_label_options: null
+                      axes_range_scale: '{{ axes_range_scale }}'
+                      visual_palette: null
+                      alternate_band_colors_visibility: null
+                      start_angle: null
+                      category_axis: null
+                      field_wells:
+                        radar_chart_aggregated_field_wells:
+                          category:
                             - null
-                          Color:
+                          color:
                             - null
-                          Values:
+                          values:
                             - null
-                      ColorAxis: null
-                      AlternateBandOddColor: '{{ AlternateBandOddColor }}'
-                      Interactions: null
-                      AlternateBandEvenColor: '{{ AlternateBandEvenColor }}'
-                    Actions:
+                      color_axis: null
+                      alternate_band_odd_color: '{{ alternate_band_odd_color }}'
+                      interactions: null
+                      alternate_band_even_color: '{{ alternate_band_even_color }}'
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  ComboChartVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        ColorSort:
+                  combo_chart_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        color_sort:
                           - null
-                        ColorItemsLimit: null
-                        CategoryItemsLimit: null
-                        CategorySort:
+                        color_items_limit: null
+                        category_items_limit: null
+                        category_sort:
                           - null
-                      Legend: null
-                      ReferenceLines:
+                      legend: null
+                      reference_lines:
                         - null
-                      ColorLabelOptions: null
-                      BarDataLabels: null
-                      CategoryLabelOptions: null
-                      Tooltip: null
-                      SingleAxisOptions:
-                        YAxisOptions:
-                          YAxis: '{{ YAxis }}'
-                      PrimaryYAxisDisplayOptions: null
-                      VisualPalette: null
-                      BarsArrangement: '{{ BarsArrangement }}'
-                      SecondaryYAxisLabelOptions: null
-                      LineDataLabels: null
-                      CategoryAxis: null
-                      PrimaryYAxisLabelOptions: null
-                      FieldWells:
-                        ComboChartAggregatedFieldWells:
-                          BarValues:
+                      color_label_options: null
+                      bar_data_labels: null
+                      category_label_options: null
+                      tooltip: null
+                      single_axis_options:
+                        y_axis_options:
+                          y_axis: '{{ y_axis }}'
+                      primary_yaxis_display_options: null
+                      visual_palette: null
+                      bars_arrangement: '{{ bars_arrangement }}'
+                      secondary_yaxis_label_options: null
+                      line_data_labels: null
+                      category_axis: null
+                      primary_yaxis_label_options: null
+                      field_wells:
+                        combo_chart_aggregated_field_wells:
+                          bar_values:
                             - null
-                          Category:
+                          category:
                             - null
-                          Colors:
+                          colors:
                             - null
-                          LineValues:
+                          line_values:
                             - null
-                      SecondaryYAxisDisplayOptions: null
-                      Interactions: null
-                    Actions:
+                      secondary_yaxis_display_options: null
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  WordCloudVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        CategoryItemsLimit: null
-                        CategorySort:
+                  word_cloud_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        category_items_limit: null
+                        category_sort:
                           - null
-                      CategoryLabelOptions: null
-                      FieldWells:
-                        WordCloudAggregatedFieldWells:
-                          GroupBy:
+                      category_label_options: null
+                      field_wells:
+                        word_cloud_aggregated_field_wells:
+                          group_by:
                             - null
-                          Size:
+                          size:
                             - null
-                      WordCloudOptions:
-                        WordOrientation: '{{ WordOrientation }}'
-                        WordScaling: '{{ WordScaling }}'
-                        CloudLayout: '{{ CloudLayout }}'
-                        MaximumStringLength: null
-                        WordCasing: '{{ WordCasing }}'
-                        WordPadding: '{{ WordPadding }}'
-                      Interactions: null
-                    Actions:
+                      word_cloud_options:
+                        word_orientation: '{{ word_orientation }}'
+                        word_scaling: '{{ word_scaling }}'
+                        cloud_layout: '{{ cloud_layout }}'
+                        maximum_string_length: null
+                        word_casing: '{{ word_casing }}'
+                        word_padding: '{{ word_padding }}'
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  SankeyDiagramVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        WeightSort:
+                  sankey_diagram_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        weight_sort:
                           - null
-                        SourceItemsLimit: null
-                        DestinationItemsLimit: null
-                      DataLabels: null
-                      FieldWells:
-                        SankeyDiagramAggregatedFieldWells:
-                          Destination:
+                        source_items_limit: null
+                        destination_items_limit: null
+                      data_labels: null
+                      field_wells:
+                        sankey_diagram_aggregated_field_wells:
+                          destination:
                             - null
-                          Source:
+                          source:
                             - null
-                          Weight:
+                          weight:
                             - null
-                      Interactions: null
-                    Actions:
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  GaugeChartVisual:
-                    Subtitle: null
-                    ConditionalFormatting:
-                      ConditionalFormattingOptions:
-                        - Arc:
-                            ForegroundColor:
-                              Gradient:
-                                Expression: '{{ Expression }}'
-                                Color:
-                                  Stops:
-                                    - GradientOffset: null
-                                      DataValue: null
-                                      Color: '{{ Color }}'
-                              Solid:
-                                Expression: '{{ Expression }}'
-                                Color: '{{ Color }}'
-                          PrimaryValue:
-                            TextColor: null
-                            Icon:
-                              CustomCondition:
-                                Expression: '{{ Expression }}'
-                                Color: '{{ Color }}'
-                                DisplayConfiguration:
-                                  IconDisplayOption: '{{ IconDisplayOption }}'
-                                IconOptions:
-                                  UnicodeIcon: '{{ UnicodeIcon }}'
-                                  Icon: '{{ Icon }}'
-                              IconSet:
-                                Expression: '{{ Expression }}'
-                                IconSetType: '{{ IconSetType }}'
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      DataLabels: null
-                      FieldWells:
-                        TargetValues:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  gauge_chart_visual:
+                    subtitle: null
+                    conditional_formatting:
+                      conditional_formatting_options:
+                        - arc:
+                            foreground_color:
+                              gradient:
+                                expression: '{{ expression }}'
+                                color:
+                                  stops:
+                                    - gradient_offset: null
+                                      data_value: null
+                                      color: '{{ color }}'
+                              solid:
+                                expression: '{{ expression }}'
+                                color: '{{ color }}'
+                          primary_value:
+                            text_color: null
+                            icon:
+                              custom_condition:
+                                expression: '{{ expression }}'
+                                color: '{{ color }}'
+                                display_configuration:
+                                  icon_display_option: '{{ icon_display_option }}'
+                                icon_options:
+                                  unicode_icon: '{{ unicode_icon }}'
+                                  icon: '{{ icon }}'
+                              icon_set:
+                                expression: '{{ expression }}'
+                                icon_set_type: '{{ icon_set_type }}'
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      data_labels: null
+                      field_wells:
+                        target_values:
                           - null
-                        Values:
+                        values:
                           - null
-                      TooltipOptions: null
-                      GaugeChartOptions:
-                        Arc:
-                          ArcAngle: null
-                          ArcThickness: '{{ ArcThickness }}'
-                        Comparison:
-                          ComparisonMethod: '{{ ComparisonMethod }}'
-                          ComparisonFormat:
-                            NumberDisplayFormatConfiguration: null
-                            PercentageDisplayFormatConfiguration: null
-                        PrimaryValueDisplayType: '{{ PrimaryValueDisplayType }}'
-                        ArcAxis:
-                          Range:
-                            Min: null
-                            Max: null
-                          ReserveRange: null
-                        PrimaryValueFontConfiguration: null
-                      ColorConfiguration:
-                        ForegroundColor: '{{ ForegroundColor }}'
-                        BackgroundColor: '{{ BackgroundColor }}'
-                      Interactions: null
-                      VisualPalette: null
-                    Actions:
+                      tooltip_options: null
+                      gauge_chart_options:
+                        arc:
+                          arc_angle: null
+                          arc_thickness: '{{ arc_thickness }}'
+                        comparison:
+                          comparison_method: '{{ comparison_method }}'
+                          comparison_format:
+                            number_display_format_configuration: null
+                            percentage_display_format_configuration: null
+                        primary_value_display_type: '{{ primary_value_display_type }}'
+                        arc_axis:
+                          range:
+                            min: null
+                            max: null
+                          reserve_range: null
+                        primary_value_font_configuration: null
+                      color_configuration:
+                        foreground_color: '{{ foreground_color }}'
+                        background_color: '{{ background_color }}'
+                      interactions: null
+                      visual_palette: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  FilledMapVisual:
-                    Subtitle: null
-                    ConditionalFormatting:
-                      ConditionalFormattingOptions:
-                        - Shape:
-                            Format:
-                              BackgroundColor: null
-                            FieldId: '{{ FieldId }}'
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        CategorySort:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  filled_map_visual:
+                    subtitle: null
+                    conditional_formatting:
+                      conditional_formatting_options:
+                        - shape:
+                            format:
+                              background_color: null
+                            field_id: '{{ field_id }}'
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        category_sort:
                           - null
-                      Legend: null
-                      MapStyleOptions: null
-                      FieldWells:
-                        FilledMapAggregatedFieldWells:
-                          Values:
+                      legend: null
+                      map_style_options: null
+                      field_wells:
+                        filled_map_aggregated_field_wells:
+                          values:
                             - null
-                          Geospatial:
+                          geospatial:
                             - null
-                      Tooltip: null
-                      Interactions: null
-                      WindowOptions: null
-                    Actions:
+                      tooltip: null
+                      interactions: null
+                      window_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  WaterfallVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      CategoryAxisLabelOptions: null
-                      SortConfiguration:
-                        BreakdownItemsLimit: null
-                        CategorySort:
+                  waterfall_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      category_axis_label_options: null
+                      sort_configuration:
+                        breakdown_items_limit: null
+                        category_sort:
                           - null
-                      Legend: null
-                      DataLabels: null
-                      PrimaryYAxisLabelOptions: null
-                      FieldWells:
-                        WaterfallChartAggregatedFieldWells:
-                          Categories:
+                      legend: null
+                      data_labels: null
+                      primary_yaxis_label_options: null
+                      field_wells:
+                        waterfall_chart_aggregated_field_wells:
+                          categories:
                             - null
-                          Breakdowns:
+                          breakdowns:
                             - null
-                          Values:
+                          values:
                             - null
-                      WaterfallChartOptions:
-                        TotalBarLabel: '{{ TotalBarLabel }}'
-                      ColorConfiguration:
-                        GroupColorConfiguration:
-                          NegativeBarColor: '{{ NegativeBarColor }}'
-                          TotalBarColor: '{{ TotalBarColor }}'
-                          PositiveBarColor: '{{ PositiveBarColor }}'
-                      Interactions: null
-                      CategoryAxisDisplayOptions: null
-                      PrimaryYAxisDisplayOptions: null
-                      VisualPalette: null
-                    Actions:
+                      waterfall_chart_options:
+                        total_bar_label: '{{ total_bar_label }}'
+                      color_configuration:
+                        group_color_configuration:
+                          negative_bar_color: '{{ negative_bar_color }}'
+                          total_bar_color: '{{ total_bar_color }}'
+                          positive_bar_color: '{{ positive_bar_color }}'
+                      interactions: null
+                      category_axis_display_options: null
+                      primary_yaxis_display_options: null
+                      visual_palette: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  CustomContentVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      ContentUrl: '{{ ContentUrl }}'
-                      ContentType: '{{ ContentType }}'
-                      ImageScaling: '{{ ImageScaling }}'
-                      Interactions: null
-                    Actions:
+                  custom_content_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      content_url: '{{ content_url }}'
+                      content_type: '{{ content_type }}'
+                      image_scaling: '{{ image_scaling }}'
+                      interactions: null
+                    actions:
                       - null
-                    DataSetIdentifier: '{{ DataSetIdentifier }}'
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  PieChartVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        SmallMultiplesSort:
+                    data_set_identifier: '{{ data_set_identifier }}'
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  pie_chart_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        small_multiples_sort:
                           - null
-                        CategoryItemsLimit: null
-                        CategorySort:
+                        category_items_limit: null
+                        category_sort:
                           - null
-                        SmallMultiplesLimitConfiguration: null
-                      Legend: null
-                      DataLabels: null
-                      ContributionAnalysisDefaults:
-                        - MeasureFieldId: '{{ MeasureFieldId }}'
-                          ContributorDimensions:
+                        small_multiples_limit_configuration: null
+                      legend: null
+                      data_labels: null
+                      contribution_analysis_defaults:
+                        - measure_field_id: '{{ measure_field_id }}'
+                          contributor_dimensions:
                             - null
-                      CategoryLabelOptions: null
-                      FieldWells:
-                        PieChartAggregatedFieldWells:
-                          Category:
+                      category_label_options: null
+                      field_wells:
+                        pie_chart_aggregated_field_wells:
+                          category:
                             - null
-                          Values:
+                          values:
                             - null
-                          SmallMultiples:
+                          small_multiples:
                             - null
-                      Tooltip: null
-                      DonutOptions:
-                        DonutCenterOptions:
-                          LabelVisibility: null
-                        ArcOptions:
-                          ArcThickness: '{{ ArcThickness }}'
-                      SmallMultiplesOptions:
-                        MaxVisibleRows: null
-                        PanelConfiguration:
-                          BorderThickness: '{{ BorderThickness }}'
-                          BorderStyle: '{{ BorderStyle }}'
-                          GutterSpacing: '{{ GutterSpacing }}'
-                          BackgroundVisibility: null
-                          BorderVisibility: null
-                          BorderColor: '{{ BorderColor }}'
-                          Title:
-                            Visibility: null
-                            FontConfiguration: null
-                            HorizontalTextAlignment: '{{ HorizontalTextAlignment }}'
-                          GutterVisibility: null
-                          BackgroundColor: '{{ BackgroundColor }}'
-                        MaxVisibleColumns: null
-                        XAxis:
-                          Placement: '{{ Placement }}'
-                          Scale: '{{ Scale }}'
-                        YAxis: null
-                      Interactions: null
-                      ValueLabelOptions: null
-                      VisualPalette: null
-                    Actions:
+                      tooltip: null
+                      donut_options:
+                        donut_center_options:
+                          label_visibility: null
+                        arc_options:
+                          arc_thickness: '{{ arc_thickness }}'
+                      small_multiples_options:
+                        max_visible_rows: null
+                        panel_configuration:
+                          border_thickness: '{{ border_thickness }}'
+                          border_style: '{{ border_style }}'
+                          gutter_spacing: '{{ gutter_spacing }}'
+                          background_visibility: null
+                          border_visibility: null
+                          border_color: '{{ border_color }}'
+                          title:
+                            visibility: null
+                            font_configuration: null
+                            horizontal_text_alignment: '{{ horizontal_text_alignment }}'
+                          gutter_visibility: null
+                          background_color: '{{ background_color }}'
+                        max_visible_columns: null
+                        x_axis:
+                          placement: '{{ placement }}'
+                          scale: '{{ scale }}'
+                        y_axis: null
+                      interactions: null
+                      value_label_options: null
+                      visual_palette: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  KPIVisual:
-                    Subtitle: null
-                    ConditionalFormatting:
-                      ConditionalFormattingOptions:
-                        - PrimaryValue:
-                            TextColor: null
-                            Icon: null
-                          ActualValue:
-                            TextColor: null
-                            Icon: null
-                          ComparisonValue:
-                            TextColor: null
-                            Icon: null
-                          ProgressBar:
-                            ForegroundColor: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        TrendGroupSort:
+                  k_pi_visual:
+                    subtitle: null
+                    conditional_formatting:
+                      conditional_formatting_options:
+                        - primary_value:
+                            text_color: null
+                            icon: null
+                          actual_value:
+                            text_color: null
+                            icon: null
+                          comparison_value:
+                            text_color: null
+                            icon: null
+                          progress_bar:
+                            foreground_color: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        trend_group_sort:
                           - null
-                      KPIOptions:
-                        SecondaryValueFontConfiguration: null
-                        VisualLayoutOptions:
-                          StandardLayout:
-                            Type: '{{ Type }}'
-                        TrendArrows:
-                          Visibility: null
-                        SecondaryValue:
-                          Visibility: null
-                        Comparison: null
-                        PrimaryValueDisplayType: null
-                        ProgressBar:
-                          Visibility: null
-                        PrimaryValueFontConfiguration: null
-                        Sparkline:
-                          Type: '{{ Type }}'
-                          Color: '{{ Color }}'
-                          TooltipVisibility: null
-                          Visibility: null
-                      FieldWells:
-                        TargetValues:
+                      k_pi_options:
+                        secondary_value_font_configuration: null
+                        visual_layout_options:
+                          standard_layout:
+                            type: '{{ type }}'
+                        trend_arrows:
+                          visibility: null
+                        secondary_value:
+                          visibility: null
+                        comparison: null
+                        primary_value_display_type: null
+                        progress_bar:
+                          visibility: null
+                        primary_value_font_configuration: null
+                        sparkline:
+                          type: '{{ type }}'
+                          color: '{{ color }}'
+                          tooltip_visibility: null
+                          visibility: null
+                      field_wells:
+                        target_values:
                           - null
-                        TrendGroups:
+                        trend_groups:
                           - null
-                        Values:
+                        values:
                           - null
-                      Interactions: null
-                    Actions:
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  HistogramVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      YAxisDisplayOptions: null
-                      DataLabels: null
-                      BinOptions:
-                        BinWidth:
-                          BinCountLimit: null
-                          Value: null
-                        StartValue: null
-                        SelectedBinType: '{{ SelectedBinType }}'
-                        BinCount:
-                          Value: null
-                      FieldWells:
-                        HistogramAggregatedFieldWells:
-                          Values:
+                  histogram_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      y_axis_display_options: null
+                      data_labels: null
+                      bin_options:
+                        bin_width:
+                          bin_count_limit: null
+                          value: null
+                        start_value: null
+                        selected_bin_type: '{{ selected_bin_type }}'
+                        bin_count:
+                          value: null
+                      field_wells:
+                        histogram_aggregated_field_wells:
+                          values:
                             - null
-                      Tooltip: null
-                      XAxisLabelOptions: null
-                      Interactions: null
-                      VisualPalette: null
-                      XAxisDisplayOptions: null
-                    Actions:
+                      tooltip: null
+                      x_axis_label_options: null
+                      interactions: null
+                      visual_palette: null
+                      x_axis_display_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  PluginVisual:
-                    Subtitle: null
-                    PluginArn: '{{ PluginArn }}'
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        PluginVisualTableQuerySort:
-                          ItemsLimitConfiguration:
-                            ItemsLimit: null
-                          RowSort:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  plugin_visual:
+                    subtitle: null
+                    plugin_arn: '{{ plugin_arn }}'
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        plugin_visual_table_query_sort:
+                          items_limit_configuration:
+                            items_limit: null
+                          row_sort:
                             - null
-                      VisualOptions:
-                        VisualProperties:
-                          - Value: '{{ Value }}'
-                            Name: '{{ Name }}'
-                      FieldWells:
-                        - Unaggregated:
-                            - FormatConfiguration: null
-                              Column: null
-                              FieldId: '{{ FieldId }}'
-                          AxisName: '{{ AxisName }}'
-                          Measures:
+                      visual_options:
+                        visual_properties:
+                          - value: '{{ value }}'
+                            name: '{{ name }}'
+                      field_wells:
+                        - unaggregated:
+                            - format_configuration: null
+                              column: null
+                              field_id: '{{ field_id }}'
+                          axis_name: '{{ axis_name }}'
+                          measures:
                             - null
-                          Dimensions:
+                          dimensions:
                             - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  TableVisual:
-                    Subtitle: null
-                    ConditionalFormatting:
-                      ConditionalFormattingOptions:
-                        - Row:
-                            TextColor: null
-                            BackgroundColor: null
-                          Cell:
-                            FieldId: '{{ FieldId }}'
-                            TextFormat:
-                              TextColor: null
-                              Icon: null
-                              BackgroundColor: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        RowSort:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  table_visual:
+                    subtitle: null
+                    conditional_formatting:
+                      conditional_formatting_options:
+                        - row:
+                            text_color: null
+                            background_color: null
+                          cell:
+                            field_id: '{{ field_id }}'
+                            text_format:
+                              text_color: null
+                              icon: null
+                              background_color: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        row_sort:
                           - null
-                        PaginationConfiguration: null
-                      PaginatedReportOptions:
-                        OverflowColumnHeaderVisibility: null
-                        VerticalOverflowVisibility: null
-                      TableOptions:
-                        HeaderStyle:
-                          VerticalTextAlignment: '{{ VerticalTextAlignment }}'
-                          Visibility: null
-                          Height: null
-                          FontConfiguration: null
-                          Border:
-                            UniformBorder:
-                              Thickness: null
-                              Color: '{{ Color }}'
-                              Style: '{{ Style }}'
-                            SideSpecificBorder:
-                              Left: null
-                              Top: null
-                              InnerHorizontal: null
-                              Right: null
-                              Bottom: null
-                              InnerVertical: null
-                          TextWrap: '{{ TextWrap }}'
-                          HorizontalTextAlignment: null
-                          BackgroundColor: '{{ BackgroundColor }}'
-                        CellStyle: null
-                        Orientation: '{{ Orientation }}'
-                        RowAlternateColorOptions:
-                          Status: null
-                          UsePrimaryBackgroundColor: null
-                          RowAlternateColors:
-                            - '{{ RowAlternateColors[0] }}'
-                      TableInlineVisualizations:
-                        - DataBars:
-                            PositiveColor: '{{ PositiveColor }}'
-                            FieldId: '{{ FieldId }}'
-                            NegativeColor: '{{ NegativeColor }}'
-                      FieldWells:
-                        TableUnaggregatedFieldWells:
-                          Values:
+                        pagination_configuration: null
+                      paginated_report_options:
+                        overflow_column_header_visibility: null
+                        vertical_overflow_visibility: null
+                      table_options:
+                        header_style:
+                          vertical_text_alignment: '{{ vertical_text_alignment }}'
+                          visibility: null
+                          height: null
+                          font_configuration: null
+                          border:
+                            uniform_border:
+                              thickness: null
+                              color: '{{ color }}'
+                              style: '{{ style }}'
+                            side_specific_border:
+                              left: null
+                              top: null
+                              inner_horizontal: null
+                              right: null
+                              bottom: null
+                              inner_vertical: null
+                          text_wrap: '{{ text_wrap }}'
+                          horizontal_text_alignment: null
+                          background_color: '{{ background_color }}'
+                        cell_style: null
+                        orientation: '{{ orientation }}'
+                        row_alternate_color_options:
+                          status: null
+                          use_primary_background_color: null
+                          row_alternate_colors:
+                            - '{{ row_alternate_colors[0] }}'
+                      table_inline_visualizations:
+                        - data_bars:
+                            positive_color: '{{ positive_color }}'
+                            field_id: '{{ field_id }}'
+                            negative_color: '{{ negative_color }}'
+                      field_wells:
+                        table_unaggregated_field_wells:
+                          values:
                             - null
-                        TableAggregatedFieldWells:
-                          GroupBy:
+                        table_aggregated_field_wells:
+                          group_by:
                             - null
-                          Values:
+                          values:
                             - null
-                      FieldOptions:
-                        Order:
-                          - '{{ Order[0] }}'
-                        PinnedFieldOptions:
-                          PinnedLeftFields:
-                            - '{{ PinnedLeftFields[0] }}'
-                        TransposedTableOptions:
-                          - ColumnWidth: '{{ ColumnWidth }}'
-                            ColumnIndex: null
-                            ColumnType: '{{ ColumnType }}'
-                        SelectedFieldOptions:
-                          - CustomLabel: '{{ CustomLabel }}'
-                            URLStyling:
-                              LinkConfiguration:
-                                Target: null
-                                Content:
-                                  CustomIconContent:
-                                    Icon: '{{ Icon }}'
-                                  CustomTextContent:
-                                    Value: '{{ Value }}'
-                                    FontConfiguration: null
-                              ImageConfiguration:
-                                SizingOptions:
-                                  TableCellImageScalingConfiguration: '{{ TableCellImageScalingConfiguration }}'
-                            FieldId: '{{ FieldId }}'
-                            Visibility: null
-                            Width: '{{ Width }}'
-                      Interactions: null
-                      TotalOptions:
-                        TotalAggregationOptions:
-                          - TotalAggregationFunction:
-                              SimpleTotalAggregationFunction: '{{ SimpleTotalAggregationFunction }}'
-                            FieldId: '{{ FieldId }}'
-                        CustomLabel: '{{ CustomLabel }}'
-                        ScrollStatus: '{{ ScrollStatus }}'
-                        Placement: '{{ Placement }}'
-                        TotalCellStyle: null
-                        TotalsVisibility: null
-                    Actions:
+                      field_options:
+                        order:
+                          - '{{ order[0] }}'
+                        pinned_field_options:
+                          pinned_left_fields:
+                            - '{{ pinned_left_fields[0] }}'
+                        transposed_table_options:
+                          - column_width: '{{ column_width }}'
+                            column_index: null
+                            column_type: '{{ column_type }}'
+                        selected_field_options:
+                          - custom_label: '{{ custom_label }}'
+                            url_styling:
+                              link_configuration:
+                                target: null
+                                content:
+                                  custom_icon_content:
+                                    icon: '{{ icon }}'
+                                  custom_text_content:
+                                    value: '{{ value }}'
+                                    font_configuration: null
+                              image_configuration:
+                                sizing_options:
+                                  table_cell_image_scaling_configuration: '{{ table_cell_image_scaling_configuration }}'
+                            field_id: '{{ field_id }}'
+                            visibility: null
+                            width: '{{ width }}'
+                      interactions: null
+                      total_options:
+                        total_aggregation_options:
+                          - total_aggregation_function:
+                              simple_total_aggregation_function: '{{ simple_total_aggregation_function }}'
+                            field_id: '{{ field_id }}'
+                        custom_label: '{{ custom_label }}'
+                        scroll_status: '{{ scroll_status }}'
+                        placement: '{{ placement }}'
+                        total_cell_style: null
+                        totals_visibility: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  PivotTableVisual:
-                    Subtitle: null
-                    ConditionalFormatting:
-                      ConditionalFormattingOptions:
-                        - Cell:
-                            Scope:
-                              Role: '{{ Role }}'
-                            Scopes:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  pivot_table_visual:
+                    subtitle: null
+                    conditional_formatting:
+                      conditional_formatting_options:
+                        - cell:
+                            scope:
+                              role: '{{ role }}'
+                            scopes:
                               - null
-                            FieldId: '{{ FieldId }}'
-                            TextFormat: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        FieldSortOptions:
-                          - SortBy:
-                              Field: null
-                              DataPath:
-                                SortPaths:
+                            field_id: '{{ field_id }}'
+                            text_format: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        field_sort_options:
+                          - sort_by:
+                              field: null
+                              data_path:
+                                sort_paths:
                                   - null
-                                Direction: null
-                              Column: null
-                            FieldId: '{{ FieldId }}'
-                      PaginatedReportOptions:
-                        OverflowColumnHeaderVisibility: null
-                        VerticalOverflowVisibility: null
-                      TableOptions:
-                        RowFieldNamesStyle: null
-                        RowHeaderStyle: null
-                        CollapsedRowDimensionsVisibility: null
-                        RowsLayout: '{{ RowsLayout }}'
-                        MetricPlacement: '{{ MetricPlacement }}'
-                        DefaultCellWidth: '{{ DefaultCellWidth }}'
-                        ColumnNamesVisibility: null
-                        RowsLabelOptions:
-                          CustomLabel: '{{ CustomLabel }}'
-                          Visibility: null
-                        SingleMetricVisibility: null
-                        ColumnHeaderStyle: null
-                        ToggleButtonsVisibility: null
-                        CellStyle: null
-                        RowAlternateColorOptions: null
-                      FieldWells:
-                        PivotTableAggregatedFieldWells:
-                          Values:
+                                direction: null
+                              column: null
+                            field_id: '{{ field_id }}'
+                      paginated_report_options:
+                        overflow_column_header_visibility: null
+                        vertical_overflow_visibility: null
+                      table_options:
+                        row_field_names_style: null
+                        row_header_style: null
+                        collapsed_row_dimensions_visibility: null
+                        rows_layout: '{{ rows_layout }}'
+                        metric_placement: '{{ metric_placement }}'
+                        default_cell_width: '{{ default_cell_width }}'
+                        column_names_visibility: null
+                        rows_label_options:
+                          custom_label: '{{ custom_label }}'
+                          visibility: null
+                        single_metric_visibility: null
+                        column_header_style: null
+                        toggle_buttons_visibility: null
+                        cell_style: null
+                        row_alternate_color_options: null
+                      field_wells:
+                        pivot_table_aggregated_field_wells:
+                          values:
                             - null
-                          Columns:
+                          columns:
                             - null
-                          Rows:
+                          rows:
                             - null
-                      FieldOptions:
-                        CollapseStateOptions:
-                          - Target:
-                              FieldId: '{{ FieldId }}'
-                              FieldDataPathValues:
+                      field_options:
+                        collapse_state_options:
+                          - target:
+                              field_id: '{{ field_id }}'
+                              field_data_path_values:
                                 - null
-                            State: '{{ State }}'
-                        DataPathOptions:
-                          - DataPathList:
+                            state: '{{ state }}'
+                        data_path_options:
+                          - data_path_list:
                               - null
-                            Width: '{{ Width }}'
-                        SelectedFieldOptions:
-                          - CustomLabel: '{{ CustomLabel }}'
-                            FieldId: '{{ FieldId }}'
-                            Visibility: null
-                      Interactions: null
-                      TotalOptions:
-                        ColumnSubtotalOptions:
-                          CustomLabel: '{{ CustomLabel }}'
-                          FieldLevelOptions:
-                            - FieldId: '{{ FieldId }}'
-                          ValueCellStyle: null
-                          TotalCellStyle: null
-                          TotalsVisibility: null
-                          FieldLevel: '{{ FieldLevel }}'
-                          MetricHeaderCellStyle: null
-                          StyleTargets:
-                            - CellType: '{{ CellType }}'
-                        RowSubtotalOptions: null
-                        RowTotalOptions:
-                          TotalAggregationOptions:
+                            width: '{{ width }}'
+                        selected_field_options:
+                          - custom_label: '{{ custom_label }}'
+                            field_id: '{{ field_id }}'
+                            visibility: null
+                      interactions: null
+                      total_options:
+                        column_subtotal_options:
+                          custom_label: '{{ custom_label }}'
+                          field_level_options:
+                            - field_id: '{{ field_id }}'
+                          value_cell_style: null
+                          total_cell_style: null
+                          totals_visibility: null
+                          field_level: '{{ field_level }}'
+                          metric_header_cell_style: null
+                          style_targets:
+                            - cell_type: '{{ cell_type }}'
+                        row_subtotal_options: null
+                        row_total_options:
+                          total_aggregation_options:
                             - null
-                          CustomLabel: '{{ CustomLabel }}'
-                          ValueCellStyle: null
-                          ScrollStatus: null
-                          Placement: null
-                          TotalCellStyle: null
-                          TotalsVisibility: null
-                          MetricHeaderCellStyle: null
-                        ColumnTotalOptions: null
-                    Actions:
+                          custom_label: '{{ custom_label }}'
+                          value_cell_style: null
+                          scroll_status: null
+                          placement: null
+                          total_cell_style: null
+                          totals_visibility: null
+                          metric_header_cell_style: null
+                        column_total_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  BarChartVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        SmallMultiplesSort:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  bar_chart_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        small_multiples_sort:
                           - null
-                        ColorSort:
+                        color_sort:
                           - null
-                        ColorItemsLimit: null
-                        CategoryItemsLimit: null
-                        CategorySort:
+                        color_items_limit: null
+                        category_items_limit: null
+                        category_sort:
                           - null
-                        SmallMultiplesLimitConfiguration: null
-                      Legend: null
-                      ReferenceLines:
+                        small_multiples_limit_configuration: null
+                      legend: null
+                      reference_lines:
                         - null
-                      DataLabels: null
-                      ColorLabelOptions: null
-                      CategoryLabelOptions: null
-                      Tooltip: null
-                      SmallMultiplesOptions: null
-                      Orientation: '{{ Orientation }}'
-                      VisualPalette: null
-                      ValueLabelOptions: null
-                      BarsArrangement: null
-                      CategoryAxis: null
-                      ContributionAnalysisDefaults:
+                      data_labels: null
+                      color_label_options: null
+                      category_label_options: null
+                      tooltip: null
+                      small_multiples_options: null
+                      orientation: '{{ orientation }}'
+                      visual_palette: null
+                      value_label_options: null
+                      bars_arrangement: null
+                      category_axis: null
+                      contribution_analysis_defaults:
                         - null
-                      FieldWells:
-                        BarChartAggregatedFieldWells:
-                          Category:
+                      field_wells:
+                        bar_chart_aggregated_field_wells:
+                          category:
                             - null
-                          Colors:
+                          colors:
                             - null
-                          Values:
+                          values:
                             - null
-                          SmallMultiples:
+                          small_multiples:
                             - null
-                      ValueAxis: null
-                      Interactions: null
-                    Actions:
+                      value_axis: null
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  HeatMapVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        HeatMapRowSort:
+                  heat_map_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        heat_map_row_sort:
                           - null
-                        HeatMapRowItemsLimitConfiguration: null
-                        HeatMapColumnItemsLimitConfiguration: null
-                        HeatMapColumnSort:
+                        heat_map_row_items_limit_configuration: null
+                        heat_map_column_items_limit_configuration: null
+                        heat_map_column_sort:
                           - null
-                      ColumnLabelOptions: null
-                      Legend: null
-                      DataLabels: null
-                      FieldWells:
-                        HeatMapAggregatedFieldWells:
-                          Values:
+                      column_label_options: null
+                      legend: null
+                      data_labels: null
+                      field_wells:
+                        heat_map_aggregated_field_wells:
+                          values:
                             - null
-                          Columns:
+                          columns:
                             - null
-                          Rows:
+                          rows:
                             - null
-                      Tooltip: null
-                      ColorScale:
-                        Colors:
-                          - DataValue: null
-                            Color: '{{ Color }}'
-                        ColorFillType: '{{ ColorFillType }}'
-                        NullValueColor: null
-                      Interactions: null
-                      RowLabelOptions: null
-                    Actions:
+                      tooltip: null
+                      color_scale:
+                        colors:
+                          - data_value: null
+                            color: '{{ color }}'
+                        color_fill_type: '{{ color_fill_type }}'
+                        null_value_color: null
+                      interactions: null
+                      row_label_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  TreeMapVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        TreeMapSort:
+                  tree_map_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        tree_map_sort:
                           - null
-                        TreeMapGroupItemsLimitConfiguration: null
-                      Legend: null
-                      DataLabels: null
-                      ColorLabelOptions: null
-                      SizeLabelOptions: null
-                      FieldWells:
-                        TreeMapAggregatedFieldWells:
-                          Sizes:
+                        tree_map_group_items_limit_configuration: null
+                      legend: null
+                      data_labels: null
+                      color_label_options: null
+                      size_label_options: null
+                      field_wells:
+                        tree_map_aggregated_field_wells:
+                          sizes:
                             - null
-                          Colors:
+                          colors:
                             - null
-                          Groups:
+                          groups:
                             - null
-                      Tooltip: null
-                      ColorScale: null
-                      Interactions: null
-                      GroupLabelOptions: null
-                    Actions:
+                      tooltip: null
+                      color_scale: null
+                      interactions: null
+                      group_label_options: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  InsightVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    Actions:
+                  insight_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    actions:
                       - null
-                    DataSetIdentifier: '{{ DataSetIdentifier }}'
-                    InsightConfiguration:
-                      Computations:
-                        - PeriodToDate:
-                            PeriodTimeGranularity: null
-                            Value: null
-                            Time: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          GrowthRate:
-                            Value: null
-                            Time: null
-                            PeriodSize: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          TopBottomRanked:
-                            Type: '{{ Type }}'
-                            Category: null
-                            ResultSize: null
-                            Value: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          TotalAggregation:
-                            Value: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          Forecast:
-                            PeriodsBackward: null
-                            PeriodsForward: null
-                            PredictionInterval: null
-                            Seasonality: '{{ Seasonality }}'
-                            CustomSeasonalityValue: null
-                            Value: null
-                            Time: null
-                            UpperBoundary: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                            LowerBoundary: null
-                          MaximumMinimum:
-                            Type: '{{ Type }}'
-                            Value: null
-                            Time: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          PeriodOverPeriod:
-                            Value: null
-                            Time: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          MetricComparison:
-                            TargetValue: null
-                            Time: null
-                            ComputationId: '{{ ComputationId }}'
-                            FromValue: null
-                            Name: '{{ Name }}'
-                          TopBottomMovers:
-                            Type: null
-                            Category: null
-                            Value: null
-                            SortOrder: '{{ SortOrder }}'
-                            Time: null
-                            MoverSize: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                          UniqueValues:
-                            Category: null
-                            ComputationId: '{{ ComputationId }}'
-                            Name: '{{ Name }}'
-                      CustomNarrative:
-                        Narrative: '{{ Narrative }}'
-                      Interactions: null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                  LineChartVisual:
-                    Subtitle: null
-                    VisualId: '{{ VisualId }}'
-                    ChartConfiguration:
-                      SortConfiguration:
-                        CategoryItemsLimitConfiguration: null
-                        ColorItemsLimitConfiguration: null
-                        SmallMultiplesSort:
+                    data_set_identifier: '{{ data_set_identifier }}'
+                    insight_configuration:
+                      computations:
+                        - period_to_date:
+                            period_time_granularity: null
+                            value: null
+                            time: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          growth_rate:
+                            value: null
+                            time: null
+                            period_size: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          top_bottom_ranked:
+                            type: '{{ type }}'
+                            category: null
+                            result_size: null
+                            value: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          total_aggregation:
+                            value: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          forecast:
+                            periods_backward: null
+                            periods_forward: null
+                            prediction_interval: null
+                            seasonality: '{{ seasonality }}'
+                            custom_seasonality_value: null
+                            value: null
+                            time: null
+                            upper_boundary: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                            lower_boundary: null
+                          maximum_minimum:
+                            type: '{{ type }}'
+                            value: null
+                            time: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          period_over_period:
+                            value: null
+                            time: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          metric_comparison:
+                            target_value: null
+                            time: null
+                            computation_id: '{{ computation_id }}'
+                            from_value: null
+                            name: '{{ name }}'
+                          top_bottom_movers:
+                            type: null
+                            category: null
+                            value: null
+                            sort_order: '{{ sort_order }}'
+                            time: null
+                            mover_size: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                          unique_values:
+                            category: null
+                            computation_id: '{{ computation_id }}'
+                            name: '{{ name }}'
+                      custom_narrative:
+                        narrative: '{{ narrative }}'
+                      interactions: null
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                  line_chart_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      sort_configuration:
+                        category_items_limit_configuration: null
+                        color_items_limit_configuration: null
+                        small_multiples_sort:
                           - null
-                        CategorySort:
+                        category_sort:
                           - null
-                        SmallMultiplesLimitConfiguration: null
-                      Legend: null
-                      ReferenceLines:
+                        small_multiples_limit_configuration: null
+                      legend: null
+                      reference_lines:
                         - null
-                      DataLabels: null
-                      Tooltip: null
-                      SingleAxisOptions: null
-                      SmallMultiplesOptions: null
-                      PrimaryYAxisDisplayOptions:
-                        MissingDataConfigurations:
-                          - TreatmentOption: '{{ TreatmentOption }}'
-                        AxisOptions: null
-                      VisualPalette: null
-                      XAxisDisplayOptions: null
-                      DefaultSeriesSettings:
-                        LineStyleSettings:
-                          LineInterpolation: '{{ LineInterpolation }}'
-                          LineStyle: '{{ LineStyle }}'
-                          LineVisibility: null
-                          LineWidth: '{{ LineWidth }}'
-                        AxisBinding: null
-                        MarkerStyleSettings:
-                          MarkerShape: '{{ MarkerShape }}'
-                          MarkerSize: '{{ MarkerSize }}'
-                          MarkerVisibility: null
-                          MarkerColor: '{{ MarkerColor }}'
-                      SecondaryYAxisLabelOptions: null
-                      ForecastConfigurations:
-                        - ForecastProperties:
-                            PeriodsBackward: null
-                            PeriodsForward: null
-                            PredictionInterval: null
-                            Seasonality: null
-                            UpperBoundary: null
-                            LowerBoundary: null
-                          Scenario:
-                            WhatIfRangeScenario:
-                              StartDate: '{{ StartDate }}'
-                              Value: null
-                              EndDate: '{{ EndDate }}'
-                            WhatIfPointScenario:
-                              Value: null
-                              Date: '{{ Date }}'
-                      Series:
-                        - FieldSeriesItem:
-                            FieldId: '{{ FieldId }}'
-                            AxisBinding: null
-                            Settings:
-                              LineStyleSettings: null
-                              MarkerStyleSettings: null
-                          DataFieldSeriesItem:
-                            FieldId: '{{ FieldId }}'
-                            AxisBinding: null
-                            FieldValue: '{{ FieldValue }}'
-                            Settings: null
-                      Type: '{{ Type }}'
-                      PrimaryYAxisLabelOptions: null
-                      ContributionAnalysisDefaults:
+                      data_labels: null
+                      tooltip: null
+                      single_axis_options: null
+                      small_multiples_options: null
+                      primary_yaxis_display_options:
+                        missing_data_configurations:
+                          - treatment_option: '{{ treatment_option }}'
+                        axis_options: null
+                      visual_palette: null
+                      x_axis_display_options: null
+                      default_series_settings:
+                        line_style_settings:
+                          line_interpolation: '{{ line_interpolation }}'
+                          line_style: '{{ line_style }}'
+                          line_visibility: null
+                          line_width: '{{ line_width }}'
+                        axis_binding: null
+                        marker_style_settings:
+                          marker_shape: '{{ marker_shape }}'
+                          marker_size: '{{ marker_size }}'
+                          marker_visibility: null
+                          marker_color: '{{ marker_color }}'
+                      secondary_yaxis_label_options: null
+                      forecast_configurations:
+                        - forecast_properties:
+                            periods_backward: null
+                            periods_forward: null
+                            prediction_interval: null
+                            seasonality: null
+                            upper_boundary: null
+                            lower_boundary: null
+                          scenario:
+                            what_if_range_scenario:
+                              start_date: '{{ start_date }}'
+                              value: null
+                              end_date: '{{ end_date }}'
+                            what_if_point_scenario:
+                              value: null
+                              date: '{{ date }}'
+                      series:
+                        - field_series_item:
+                            field_id: '{{ field_id }}'
+                            axis_binding: null
+                            settings:
+                              line_style_settings: null
+                              marker_style_settings: null
+                          data_field_series_item:
+                            field_id: '{{ field_id }}'
+                            axis_binding: null
+                            field_value: '{{ field_value }}'
+                            settings: null
+                      type: '{{ type }}'
+                      primary_yaxis_label_options: null
+                      contribution_analysis_defaults:
                         - null
-                      FieldWells:
-                        LineChartAggregatedFieldWells:
-                          Category:
+                      field_wells:
+                        line_chart_aggregated_field_wells:
+                          category:
                             - null
-                          Colors:
+                          colors:
                             - null
-                          Values:
+                          values:
                             - null
-                          SmallMultiples:
+                          small_multiples:
                             - null
-                      SecondaryYAxisDisplayOptions: null
-                      XAxisLabelOptions: null
-                      Interactions: null
-                    Actions:
+                      secondary_yaxis_display_options: null
+                      x_axis_label_options: null
+                      interactions: null
+                    actions:
                       - null
-                    Title: null
-                    VisualContentAltText: '{{ VisualContentAltText }}'
-                    ColumnHierarchies:
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
+                    column_hierarchies:
                       - null
-                  EmptyVisual:
-                    VisualId: '{{ VisualId }}'
-                    Actions:
+                  empty_visual:
+                    visual_id: '{{ visual_id }}'
+                    actions:
                       - null
-                    DataSetIdentifier: '{{ DataSetIdentifier }}'
-          ParameterDeclarations:
-            - StringParameterDeclaration:
-                MappedDataSetParameters:
-                  - DataSetParameterName: '{{ DataSetParameterName }}'
-                    DataSetIdentifier: '{{ DataSetIdentifier }}'
-                DefaultValues:
-                  DynamicValue:
-                    GroupNameColumn: null
-                    DefaultValueColumn: null
-                    UserNameColumn: null
-                  StaticValues:
-                    - '{{ StaticValues[0] }}'
-                ParameterValueType: '{{ ParameterValueType }}'
-                ValueWhenUnset:
-                  ValueWhenUnsetOption: '{{ ValueWhenUnsetOption }}'
-                  CustomValue: '{{ CustomValue }}'
-                Name: '{{ Name }}'
-              DateTimeParameterDeclaration:
-                MappedDataSetParameters:
+                    data_set_identifier: '{{ data_set_identifier }}'
+          parameter_declarations:
+            - string_parameter_declaration:
+                mapped_data_set_parameters:
+                  - data_set_parameter_name: '{{ data_set_parameter_name }}'
+                    data_set_identifier: '{{ data_set_identifier }}'
+                default_values:
+                  dynamic_value:
+                    group_name_column: null
+                    default_value_column: null
+                    user_name_column: null
+                  static_values:
+                    - '{{ static_values[0] }}'
+                parameter_value_type: '{{ parameter_value_type }}'
+                value_when_unset:
+                  value_when_unset_option: '{{ value_when_unset_option }}'
+                  custom_value: '{{ custom_value }}'
+                name: '{{ name }}'
+              date_time_parameter_declaration:
+                mapped_data_set_parameters:
                   - null
-                DefaultValues:
-                  RollingDate: null
-                  DynamicValue: null
-                  StaticValues:
-                    - '{{ StaticValues[0] }}'
-                TimeGranularity: null
-                ValueWhenUnset:
-                  ValueWhenUnsetOption: null
-                  CustomValue: '{{ CustomValue }}'
-                Name: '{{ Name }}'
-              DecimalParameterDeclaration:
-                MappedDataSetParameters:
+                default_values:
+                  rolling_date: null
+                  dynamic_value: null
+                  static_values:
+                    - '{{ static_values[0] }}'
+                time_granularity: null
+                value_when_unset:
+                  value_when_unset_option: null
+                  custom_value: '{{ custom_value }}'
+                name: '{{ name }}'
+              decimal_parameter_declaration:
+                mapped_data_set_parameters:
                   - null
-                DefaultValues:
-                  DynamicValue: null
-                  StaticValues:
+                default_values:
+                  dynamic_value: null
+                  static_values:
                     - null
-                ParameterValueType: null
-                ValueWhenUnset:
-                  ValueWhenUnsetOption: null
-                  CustomValue: null
-                Name: '{{ Name }}'
-              IntegerParameterDeclaration:
-                MappedDataSetParameters:
+                parameter_value_type: null
+                value_when_unset:
+                  value_when_unset_option: null
+                  custom_value: null
+                name: '{{ name }}'
+              integer_parameter_declaration:
+                mapped_data_set_parameters:
                   - null
-                DefaultValues:
-                  DynamicValue: null
-                  StaticValues:
+                default_values:
+                  dynamic_value: null
+                  static_values:
                     - null
-                ParameterValueType: null
-                ValueWhenUnset:
-                  ValueWhenUnsetOption: null
-                  CustomValue: null
-                Name: '{{ Name }}'
-      - name: ValidationStrategy
+                parameter_value_type: null
+                value_when_unset:
+                  value_when_unset_option: null
+                  custom_value: null
+                name: '{{ name }}'
+      - name: validation_strategy
         value:
-          Mode: '{{ Mode }}'
-      - name: FolderArns
+          mode: '{{ mode }}'
+      - name: folder_arns
         value:
-          - '{{ FolderArns[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Errors
+          - '{{ folder_arns[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: errors
         value:
-          - Type: '{{ Type }}'
-            Message: '{{ Message }}'
-            ViolatedEntities:
-              - Path: '{{ Path }}'
-      - name: AnalysisId
-        value: '{{ AnalysisId }}'
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: Permissions
+          - type: '{{ type }}'
+            message: '{{ message }}'
+            violated_entities:
+              - path: '{{ path }}'
+      - name: analysis_id
+        value: '{{ analysis_id }}'
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: permissions
         value:
-          - Principal: '{{ Principal }}'
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: Tags
+          - principal: '{{ principal }}'
+            actions:
+              - '{{ actions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Sheets
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sheets
         value:
-          - SheetId: '{{ SheetId }}'
-            Name: '{{ Name }}'
-
+          - sheet_id: '{{ sheet_id }}'
+            name: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -3234,7 +3233,7 @@ SET PatchDocument = string('{{ {
     "Sheets": sheets
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AnalysisId>|<AwsAccountId>';
+AND Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```
 
 
@@ -3243,7 +3242,7 @@ AND Identifier = '<AnalysisId>|<AwsAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.analyses
-WHERE Identifier = '<AnalysisId|AwsAccountId>'
+WHERE Identifier = '{{ analysis_id }}|{{ aws_account_id }}'
 AND region = 'us-east-1';
 ```
 

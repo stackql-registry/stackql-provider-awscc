@@ -402,7 +402,7 @@ last_modified_time,
 last_monitoring_execution_summary,
 monitoring_schedule_status
 FROM awscc.sagemaker.monitoring_schedules
-WHERE region = 'us-east-1' AND Identifier = '<MonitoringScheduleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ monitoring_schedule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -439,9 +439,9 @@ INSERT INTO awscc.sagemaker.monitoring_schedules (
  MonitoringScheduleConfig,
  region
 )
-SELECT 
-'{{ MonitoringScheduleName }}',
- '{{ MonitoringScheduleConfig }}',
+SELECT
+'{{ monitoring_schedule_name }}',
+ '{{ monitoring_schedule_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -459,14 +459,14 @@ INSERT INTO awscc.sagemaker.monitoring_schedules (
  MonitoringScheduleStatus,
  region
 )
-SELECT 
- '{{ MonitoringScheduleName }}',
- '{{ MonitoringScheduleConfig }}',
- '{{ Tags }}',
- '{{ EndpointName }}',
- '{{ FailureReason }}',
- '{{ LastMonitoringExecutionSummary }}',
- '{{ MonitoringScheduleStatus }}',
+SELECT
+ '{{ monitoring_schedule_name }}',
+ '{{ monitoring_schedule_config }}',
+ '{{ tags }}',
+ '{{ endpoint_name }}',
+ '{{ failure_reason }}',
+ '{{ last_monitoring_execution_summary }}',
+ '{{ monitoring_schedule_status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -484,95 +484,94 @@ globals:
 resources:
   - name: monitoring_schedule
     props:
-      - name: MonitoringScheduleName
-        value: '{{ MonitoringScheduleName }}'
-      - name: MonitoringScheduleConfig
+      - name: monitoring_schedule_name
+        value: '{{ monitoring_schedule_name }}'
+      - name: monitoring_schedule_config
         value:
-          MonitoringJobDefinition:
-            BaselineConfig:
-              ConstraintsResource:
-                S3Uri: '{{ S3Uri }}'
-              StatisticsResource:
-                S3Uri: null
-            Environment: {}
-            MonitoringAppSpecification:
-              ContainerArguments:
-                - '{{ ContainerArguments[0] }}'
-              ContainerEntrypoint:
-                - '{{ ContainerEntrypoint[0] }}'
-              ImageUri: '{{ ImageUri }}'
-              PostAnalyticsProcessorSourceUri: null
-              RecordPreprocessorSourceUri: null
-            MonitoringInputs:
-              - EndpointInput:
-                  EndpointName: '{{ EndpointName }}'
-                  LocalPath: '{{ LocalPath }}'
-                  S3DataDistributionType: '{{ S3DataDistributionType }}'
-                  S3InputMode: '{{ S3InputMode }}'
-                  ExcludeFeaturesAttribute: '{{ ExcludeFeaturesAttribute }}'
-                BatchTransformInput:
-                  DataCapturedDestinationS3Uri: '{{ DataCapturedDestinationS3Uri }}'
-                  DatasetFormat:
-                    Csv:
-                      Header: '{{ Header }}'
-                    Json:
-                      Line: '{{ Line }}'
-                    Parquet: '{{ Parquet }}'
-                  LocalPath: '{{ LocalPath }}'
-                  S3DataDistributionType: '{{ S3DataDistributionType }}'
-                  S3InputMode: '{{ S3InputMode }}'
-                  ExcludeFeaturesAttribute: '{{ ExcludeFeaturesAttribute }}'
-            MonitoringOutputConfig:
-              KmsKeyId: '{{ KmsKeyId }}'
-              MonitoringOutputs:
-                - S3Output:
-                    LocalPath: '{{ LocalPath }}'
-                    S3UploadMode: '{{ S3UploadMode }}'
-                    S3Uri: '{{ S3Uri }}'
-            MonitoringResources:
-              ClusterConfig:
-                InstanceCount: '{{ InstanceCount }}'
-                InstanceType: '{{ InstanceType }}'
-                VolumeSizeInGB: '{{ VolumeSizeInGB }}'
-                VolumeKmsKeyId: '{{ VolumeKmsKeyId }}'
-            NetworkConfig:
-              EnableInterContainerTrafficEncryption: '{{ EnableInterContainerTrafficEncryption }}'
-              EnableNetworkIsolation: '{{ EnableNetworkIsolation }}'
-              VpcConfig:
-                SecurityGroupIds:
-                  - '{{ SecurityGroupIds[0] }}'
-                Subnets:
-                  - '{{ Subnets[0] }}'
-            RoleArn: '{{ RoleArn }}'
-            StoppingCondition:
-              MaxRuntimeInSeconds: '{{ MaxRuntimeInSeconds }}'
-          MonitoringJobDefinitionName: '{{ MonitoringJobDefinitionName }}'
-          MonitoringType: '{{ MonitoringType }}'
-          ScheduleConfig:
-            ScheduleExpression: '{{ ScheduleExpression }}'
-            DataAnalysisStartTime: '{{ DataAnalysisStartTime }}'
-            DataAnalysisEndTime: null
-      - name: Tags
+          monitoring_job_definition:
+            baseline_config:
+              constraints_resource:
+                s3_uri: '{{ s3_uri }}'
+              statistics_resource:
+                s3_uri: null
+            environment: {}
+            monitoring_app_specification:
+              container_arguments:
+                - '{{ container_arguments[0] }}'
+              container_entrypoint:
+                - '{{ container_entrypoint[0] }}'
+              image_uri: '{{ image_uri }}'
+              post_analytics_processor_source_uri: null
+              record_preprocessor_source_uri: null
+            monitoring_inputs:
+              - endpoint_input:
+                  endpoint_name: '{{ endpoint_name }}'
+                  local_path: '{{ local_path }}'
+                  s3_data_distribution_type: '{{ s3_data_distribution_type }}'
+                  s3_input_mode: '{{ s3_input_mode }}'
+                  exclude_features_attribute: '{{ exclude_features_attribute }}'
+                batch_transform_input:
+                  data_captured_destination_s3_uri: '{{ data_captured_destination_s3_uri }}'
+                  dataset_format:
+                    csv:
+                      header: '{{ header }}'
+                    json:
+                      line: '{{ line }}'
+                    parquet: '{{ parquet }}'
+                  local_path: '{{ local_path }}'
+                  s3_data_distribution_type: '{{ s3_data_distribution_type }}'
+                  s3_input_mode: '{{ s3_input_mode }}'
+                  exclude_features_attribute: '{{ exclude_features_attribute }}'
+            monitoring_output_config:
+              kms_key_id: '{{ kms_key_id }}'
+              monitoring_outputs:
+                - s3_output:
+                    local_path: '{{ local_path }}'
+                    s3_upload_mode: '{{ s3_upload_mode }}'
+                    s3_uri: '{{ s3_uri }}'
+            monitoring_resources:
+              cluster_config:
+                instance_count: '{{ instance_count }}'
+                instance_type: '{{ instance_type }}'
+                volume_size_in_gb: '{{ volume_size_in_gb }}'
+                volume_kms_key_id: '{{ volume_kms_key_id }}'
+            network_config:
+              enable_inter_container_traffic_encryption: '{{ enable_inter_container_traffic_encryption }}'
+              enable_network_isolation: '{{ enable_network_isolation }}'
+              vpc_config:
+                security_group_ids:
+                  - '{{ security_group_ids[0] }}'
+                subnets:
+                  - '{{ subnets[0] }}'
+            role_arn: '{{ role_arn }}'
+            stopping_condition:
+              max_runtime_in_seconds: '{{ max_runtime_in_seconds }}'
+          monitoring_job_definition_name: '{{ monitoring_job_definition_name }}'
+          monitoring_type: '{{ monitoring_type }}'
+          schedule_config:
+            schedule_expression: '{{ schedule_expression }}'
+            data_analysis_start_time: '{{ data_analysis_start_time }}'
+            data_analysis_end_time: null
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: EndpointName
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: endpoint_name
         value: null
-      - name: FailureReason
-        value: '{{ FailureReason }}'
-      - name: LastMonitoringExecutionSummary
+      - name: failure_reason
+        value: '{{ failure_reason }}'
+      - name: last_monitoring_execution_summary
         value:
-          CreationTime: '{{ CreationTime }}'
-          EndpointName: null
-          FailureReason: '{{ FailureReason }}'
-          LastModifiedTime: '{{ LastModifiedTime }}'
-          MonitoringExecutionStatus: '{{ MonitoringExecutionStatus }}'
-          MonitoringScheduleName: null
-          ProcessingJobArn: '{{ ProcessingJobArn }}'
-          ScheduledTime: '{{ ScheduledTime }}'
-      - name: MonitoringScheduleStatus
-        value: '{{ MonitoringScheduleStatus }}'
-
+          creation_time: '{{ creation_time }}'
+          endpoint_name: null
+          failure_reason: '{{ failure_reason }}'
+          last_modified_time: '{{ last_modified_time }}'
+          monitoring_execution_status: '{{ monitoring_execution_status }}'
+          monitoring_schedule_name: null
+          processing_job_arn: '{{ processing_job_arn }}'
+          scheduled_time: '{{ scheduled_time }}'
+      - name: monitoring_schedule_status
+        value: '{{ monitoring_schedule_status }}'
 ```
 </TabItem>
 </Tabs>
@@ -593,7 +592,7 @@ SET PatchDocument = string('{{ {
     "MonitoringScheduleStatus": monitoring_schedule_status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MonitoringScheduleArn>';
+AND Identifier = '{{ monitoring_schedule_arn }}';
 ```
 
 
@@ -602,7 +601,7 @@ AND Identifier = '<MonitoringScheduleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.monitoring_schedules
-WHERE Identifier = '<MonitoringScheduleArn>'
+WHERE Identifier = '{{ monitoring_schedule_arn }}'
 AND region = 'us-east-1';
 ```
 

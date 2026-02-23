@@ -200,7 +200,7 @@ kms_key_id,
 kms_encryption_context,
 tags
 FROM awscc.bedrock.blueprints
-WHERE region = 'us-east-1' AND Identifier = '<BlueprintArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ blueprint_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.bedrock.blueprints (
  Type,
  region
 )
-SELECT 
-'{{ BlueprintName }}',
- '{{ Schema }}',
- '{{ Type }}',
+SELECT
+'{{ blueprint_name }}',
+ '{{ schema }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,13 +258,13 @@ INSERT INTO awscc.bedrock.blueprints (
  Tags,
  region
 )
-SELECT 
- '{{ BlueprintName }}',
- '{{ Schema }}',
- '{{ Type }}',
- '{{ KmsKeyId }}',
- '{{ KmsEncryptionContext }}',
- '{{ Tags }}',
+SELECT
+ '{{ blueprint_name }}',
+ '{{ schema }}',
+ '{{ type }}',
+ '{{ kms_key_id }}',
+ '{{ kms_encryption_context }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,21 +282,20 @@ globals:
 resources:
   - name: blueprint
     props:
-      - name: BlueprintName
-        value: '{{ BlueprintName }}'
-      - name: Schema
+      - name: blueprint_name
+        value: '{{ blueprint_name }}'
+      - name: schema
         value: {}
-      - name: Type
-        value: '{{ Type }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: KmsEncryptionContext
+      - name: type
+        value: '{{ type }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: kms_encryption_context
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BlueprintArn>';
+AND Identifier = '{{ blueprint_arn }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<BlueprintArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.blueprints
-WHERE Identifier = '<BlueprintArn>'
+WHERE Identifier = '{{ blueprint_arn }}'
 AND region = 'us-east-1';
 ```
 

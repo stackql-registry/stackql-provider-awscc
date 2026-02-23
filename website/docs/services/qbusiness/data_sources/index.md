@@ -404,7 +404,7 @@ type,
 updated_at,
 vpc_configuration
 FROM awscc.qbusiness.data_sources
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<DataSourceId>|<IndexId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -445,11 +445,11 @@ INSERT INTO awscc.qbusiness.data_sources (
  IndexId,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ Configuration }}',
- '{{ DisplayName }}',
- '{{ IndexId }}',
+SELECT
+'{{ application_id }}',
+ '{{ configuration }}',
+ '{{ display_name }}',
+ '{{ index_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -471,18 +471,18 @@ INSERT INTO awscc.qbusiness.data_sources (
  VpcConfiguration,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ Configuration }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ DocumentEnrichmentConfiguration }}',
- '{{ MediaExtractionConfiguration }}',
- '{{ IndexId }}',
- '{{ RoleArn }}',
- '{{ SyncSchedule }}',
- '{{ Tags }}',
- '{{ VpcConfiguration }}',
+SELECT
+ '{{ application_id }}',
+ '{{ configuration }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ document_enrichment_configuration }}',
+ '{{ media_extraction_configuration }}',
+ '{{ index_id }}',
+ '{{ role_arn }}',
+ '{{ sync_schedule }}',
+ '{{ tags }}',
+ '{{ vpc_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -500,57 +500,56 @@ globals:
 resources:
   - name: data_source
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: Configuration
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: configuration
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: DocumentEnrichmentConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: document_enrichment_configuration
         value:
-          InlineConfigurations:
-            - Condition:
-                Key: '{{ Key }}'
-                Operator: '{{ Operator }}'
-                Value: null
-              Target:
-                Key: '{{ Key }}'
-                Value: null
-                AttributeValueOperator: '{{ AttributeValueOperator }}'
-              DocumentContentOperator: '{{ DocumentContentOperator }}'
-          PreExtractionHookConfiguration:
-            InvocationCondition: null
-            LambdaArn: '{{ LambdaArn }}'
-            S3BucketName: '{{ S3BucketName }}'
-            RoleArn: '{{ RoleArn }}'
-          PostExtractionHookConfiguration: null
-      - name: MediaExtractionConfiguration
+          inline_configurations:
+            - condition:
+                key: '{{ key }}'
+                operator: '{{ operator }}'
+                value: null
+              target:
+                key: '{{ key }}'
+                value: null
+                attribute_value_operator: '{{ attribute_value_operator }}'
+              document_content_operator: '{{ document_content_operator }}'
+          pre_extraction_hook_configuration:
+            invocation_condition: null
+            lambda_arn: '{{ lambda_arn }}'
+            s3_bucket_name: '{{ s3_bucket_name }}'
+            role_arn: '{{ role_arn }}'
+          post_extraction_hook_configuration: null
+      - name: media_extraction_configuration
         value:
-          ImageExtractionConfiguration:
-            ImageExtractionStatus: '{{ ImageExtractionStatus }}'
-          AudioExtractionConfiguration:
-            AudioExtractionStatus: '{{ AudioExtractionStatus }}'
-          VideoExtractionConfiguration:
-            VideoExtractionStatus: '{{ VideoExtractionStatus }}'
-      - name: IndexId
-        value: '{{ IndexId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: SyncSchedule
-        value: '{{ SyncSchedule }}'
-      - name: Tags
+          image_extraction_configuration:
+            image_extraction_status: '{{ image_extraction_status }}'
+          audio_extraction_configuration:
+            audio_extraction_status: '{{ audio_extraction_status }}'
+          video_extraction_configuration:
+            video_extraction_status: '{{ video_extraction_status }}'
+      - name: index_id
+        value: '{{ index_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: sync_schedule
+        value: '{{ sync_schedule }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_configuration
         value:
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -574,7 +573,7 @@ SET PatchDocument = string('{{ {
     "VpcConfiguration": vpc_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<DataSourceId>|<IndexId>';
+AND Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```
 
 
@@ -583,7 +582,7 @@ AND Identifier = '<ApplicationId>|<DataSourceId>|<IndexId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.data_sources
-WHERE Identifier = '<ApplicationId|DataSourceId|IndexId>'
+WHERE Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}'
 AND region = 'us-east-1';
 ```
 

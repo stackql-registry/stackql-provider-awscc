@@ -221,7 +221,7 @@ target_ips,
 arn,
 resolver_rule_id
 FROM awscc.route53resolver.resolver_rules
-WHERE region = 'us-east-1' AND Identifier = '<ResolverRuleId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,8 +257,8 @@ INSERT INTO awscc.route53resolver.resolver_rules (
  RuleType,
  region
 )
-SELECT 
-'{{ RuleType }}',
+SELECT
+'{{ rule_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,14 +276,14 @@ INSERT INTO awscc.route53resolver.resolver_rules (
  TargetIps,
  region
 )
-SELECT 
- '{{ ResolverEndpointId }}',
- '{{ DomainName }}',
- '{{ Name }}',
- '{{ RuleType }}',
- '{{ DelegationRecord }}',
- '{{ Tags }}',
- '{{ TargetIps }}',
+SELECT
+ '{{ resolver_endpoint_id }}',
+ '{{ domain_name }}',
+ '{{ name }}',
+ '{{ rule_type }}',
+ '{{ delegation_record }}',
+ '{{ tags }}',
+ '{{ target_ips }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -301,28 +301,27 @@ globals:
 resources:
   - name: resolver_rule
     props:
-      - name: ResolverEndpointId
-        value: '{{ ResolverEndpointId }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RuleType
-        value: '{{ RuleType }}'
-      - name: DelegationRecord
-        value: '{{ DelegationRecord }}'
-      - name: Tags
+      - name: resolver_endpoint_id
+        value: '{{ resolver_endpoint_id }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: rule_type
+        value: '{{ rule_type }}'
+      - name: delegation_record
+        value: '{{ delegation_record }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TargetIps
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: target_ips
         value:
-          - Ip: '{{ Ip }}'
-            Ipv6: '{{ Ipv6 }}'
-            Port: '{{ Port }}'
-            Protocol: '{{ Protocol }}'
-            ServerNameIndication: '{{ ServerNameIndication }}'
-
+          - ip: '{{ ip }}'
+            ipv6: '{{ ipv6 }}'
+            port: '{{ port }}'
+            protocol: '{{ protocol }}'
+            server_name_indication: '{{ server_name_indication }}'
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "TargetIps": target_ips
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResolverRuleId>';
+AND Identifier = '{{ resolver_rule_id }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<ResolverRuleId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_rules
-WHERE Identifier = '<ResolverRuleId>'
+WHERE Identifier = '{{ resolver_rule_id }}'
 AND region = 'us-east-1';
 ```
 

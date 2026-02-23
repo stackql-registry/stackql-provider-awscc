@@ -194,7 +194,7 @@ parameters,
 latest_version_number,
 tags
 FROM awscc.appconfig.extensions
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.appconfig.extensions (
  Actions,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Actions }}',
+SELECT
+'{{ name }}',
+ '{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,13 +250,13 @@ INSERT INTO awscc.appconfig.extensions (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Actions }}',
- '{{ Parameters }}',
- '{{ LatestVersionNumber }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ actions }}',
+ '{{ parameters }}',
+ '{{ latest_version_number }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,21 +274,20 @@ globals:
 resources:
   - name: extension
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Actions
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: actions
         value: {}
-      - name: Parameters
+      - name: parameters
         value: {}
-      - name: LatestVersionNumber
-        value: '{{ LatestVersionNumber }}'
-      - name: Tags
+      - name: latest_version_number
+        value: '{{ latest_version_number }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.extensions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

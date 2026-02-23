@@ -247,7 +247,7 @@ arn,
 configuration,
 resources
 FROM awscc.resourcegroups.groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -283,8 +283,8 @@ INSERT INTO awscc.resourcegroups.groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -301,13 +301,13 @@ INSERT INTO awscc.resourcegroups.groups (
  Resources,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ResourceQuery }}',
- '{{ Tags }}',
- '{{ Configuration }}',
- '{{ Resources }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ resource_query }}',
+ '{{ tags }}',
+ '{{ configuration }}',
+ '{{ resources }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,36 +325,35 @@ globals:
 resources:
   - name: group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ResourceQuery
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: resource_query
         value:
-          Type: '{{ Type }}'
-          Query:
-            ResourceTypeFilters:
-              - '{{ ResourceTypeFilters[0] }}'
-            StackIdentifier: '{{ StackIdentifier }}'
-            TagFilters:
-              - Key: '{{ Key }}'
-                Values:
-                  - '{{ Values[0] }}'
-      - name: Tags
+          type: '{{ type }}'
+          query:
+            resource_type_filters:
+              - '{{ resource_type_filters[0] }}'
+            stack_identifier: '{{ stack_identifier }}'
+            tag_filters:
+              - key: '{{ key }}'
+                values:
+                  - '{{ values[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Configuration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: configuration
         value:
-          - Type: '{{ Type }}'
-            Parameters:
-              - Name: '{{ Name }}'
-                Values:
-                  - '{{ Values[0] }}'
-      - name: Resources
+          - type: '{{ type }}'
+            parameters:
+              - name: '{{ name }}'
+                values:
+                  - '{{ values[0] }}'
+      - name: resources
         value:
-          - '{{ Resources[0] }}'
-
+          - '{{ resources[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +373,7 @@ SET PatchDocument = string('{{ {
     "Resources": resources
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -383,7 +382,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourcegroups.groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -200,7 +200,7 @@ tags,
 last_modified_region,
 last_modified_time
 FROM awscc.connect.agent_statuses
-WHERE region = 'us-east-1' AND Identifier = '<AgentStatusArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ agent_status_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.connect.agent_statuses (
  State,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ State }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ state }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -260,15 +260,15 @@ INSERT INTO awscc.connect.agent_statuses (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ DisplayOrder }}',
- '{{ State }}',
- '{{ Type }}',
- '{{ ResetOrderNumber }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ display_order }}',
+ '{{ state }}',
+ '{{ type }}',
+ '{{ reset_order_number }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,25 +286,24 @@ globals:
 resources:
   - name: agent_status
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: DisplayOrder
-        value: '{{ DisplayOrder }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: ResetOrderNumber
-        value: '{{ ResetOrderNumber }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: display_order
+        value: '{{ display_order }}'
+      - name: state
+        value: '{{ state }}'
+      - name: type
+        value: '{{ type }}'
+      - name: reset_order_number
+        value: '{{ reset_order_number }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +326,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AgentStatusArn>';
+AND Identifier = '{{ agent_status_arn }}';
 ```
 
 

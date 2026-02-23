@@ -158,7 +158,7 @@ finding_publishing_frequency,
 service_role,
 automated_discovery_status
 FROM awscc.macie.sessions
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.macie.sessions (
  FindingPublishingFrequency,
  region
 )
-SELECT 
-'{{ Status }}',
- '{{ FindingPublishingFrequency }}',
+SELECT
+'{{ status }}',
+ '{{ finding_publishing_frequency }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.macie.sessions (
  FindingPublishingFrequency,
  region
 )
-SELECT 
- '{{ Status }}',
- '{{ FindingPublishingFrequency }}',
+SELECT
+ '{{ status }}',
+ '{{ finding_publishing_frequency }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,10 @@ globals:
 resources:
   - name: session
     props:
-      - name: Status
-        value: '{{ Status }}'
-      - name: FindingPublishingFrequency
-        value: '{{ FindingPublishingFrequency }}'
-
+      - name: status
+        value: '{{ status }}'
+      - name: finding_publishing_frequency
+        value: '{{ finding_publishing_frequency }}'
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +250,7 @@ SET PatchDocument = string('{{ {
     "FindingPublishingFrequency": finding_publishing_frequency
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>';
+AND Identifier = '{{ aws_account_id }}';
 ```
 
 
@@ -260,7 +259,7 @@ AND Identifier = '<AwsAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.sessions
-WHERE Identifier = '<AwsAccountId>'
+WHERE Identifier = '{{ aws_account_id }}'
 AND region = 'us-east-1';
 ```
 

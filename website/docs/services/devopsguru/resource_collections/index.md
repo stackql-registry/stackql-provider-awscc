@@ -171,7 +171,7 @@ region,
 resource_collection_filter,
 resource_collection_type
 FROM awscc.devopsguru.resource_collections
-WHERE region = 'us-east-1' AND Identifier = '<ResourceCollectionType>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_collection_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,8 +207,8 @@ INSERT INTO awscc.devopsguru.resource_collections (
  ResourceCollectionFilter,
  region
 )
-SELECT 
-'{{ ResourceCollectionFilter }}',
+SELECT
+'{{ resource_collection_filter }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,8 +220,8 @@ INSERT INTO awscc.devopsguru.resource_collections (
  ResourceCollectionFilter,
  region
 )
-SELECT 
- '{{ ResourceCollectionFilter }}',
+SELECT
+ '{{ resource_collection_filter }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -239,16 +239,15 @@ globals:
 resources:
   - name: resource_collection
     props:
-      - name: ResourceCollectionFilter
+      - name: resource_collection_filter
         value:
-          CloudFormation:
-            StackNames:
-              - '{{ StackNames[0] }}'
-          Tags:
-            - AppBoundaryKey: '{{ AppBoundaryKey }}'
-              TagValues:
-                - '{{ TagValues[0] }}'
-
+          cloud_formation:
+            stack_names:
+              - '{{ stack_names[0] }}'
+          tags:
+            - app_boundary_key: '{{ app_boundary_key }}'
+              tag_values:
+                - '{{ tag_values[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +263,7 @@ SET PatchDocument = string('{{ {
     "ResourceCollectionFilter": resource_collection_filter
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceCollectionType>';
+AND Identifier = '{{ resource_collection_type }}';
 ```
 
 
@@ -273,7 +272,7 @@ AND Identifier = '<ResourceCollectionType>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.devopsguru.resource_collections
-WHERE Identifier = '<ResourceCollectionType>'
+WHERE Identifier = '{{ resource_collection_type }}'
 AND region = 'us-east-1';
 ```
 

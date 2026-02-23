@@ -175,7 +175,7 @@ farm_id,
 limit_id,
 max_count
 FROM awscc.deadline.limits
-WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<LimitId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,11 +215,11 @@ INSERT INTO awscc.deadline.limits (
  MaxCount,
  region
 )
-SELECT 
-'{{ AmountRequirementName }}',
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ MaxCount }}',
+SELECT
+'{{ amount_requirement_name }}',
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ max_count }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,12 +235,12 @@ INSERT INTO awscc.deadline.limits (
  MaxCount,
  region
 )
-SELECT 
- '{{ AmountRequirementName }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ MaxCount }}',
+SELECT
+ '{{ amount_requirement_name }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ max_count }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: limit
     props:
-      - name: AmountRequirementName
-        value: '{{ AmountRequirementName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: MaxCount
-        value: '{{ MaxCount }}'
-
+      - name: amount_requirement_name
+        value: '{{ amount_requirement_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: max_count
+        value: '{{ max_count }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "MaxCount": max_count
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FarmId>|<LimitId>';
+AND Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<FarmId>|<LimitId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.limits
-WHERE Identifier = '<FarmId|LimitId>'
+WHERE Identifier = '{{ farm_id }}|{{ limit_id }}'
 AND region = 'us-east-1';
 ```
 

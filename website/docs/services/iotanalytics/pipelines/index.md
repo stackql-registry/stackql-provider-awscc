@@ -411,7 +411,7 @@ pipeline_name,
 tags,
 pipeline_activities
 FROM awscc.iotanalytics.pipelines
-WHERE region = 'us-east-1' AND Identifier = '<PipelineName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -447,8 +447,8 @@ INSERT INTO awscc.iotanalytics.pipelines (
  PipelineActivities,
  region
 )
-SELECT 
-'{{ PipelineActivities }}',
+SELECT
+'{{ pipeline_activities }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -462,10 +462,10 @@ INSERT INTO awscc.iotanalytics.pipelines (
  PipelineActivities,
  region
 )
-SELECT 
- '{{ PipelineName }}',
- '{{ Tags }}',
- '{{ PipelineActivities }}',
+SELECT
+ '{{ pipeline_name }}',
+ '{{ tags }}',
+ '{{ pipeline_activities }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -483,62 +483,61 @@ globals:
 resources:
   - name: pipeline
     props:
-      - name: PipelineName
-        value: '{{ PipelineName }}'
-      - name: Tags
+      - name: pipeline_name
+        value: '{{ pipeline_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: PipelineActivities
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: pipeline_activities
         value:
-          - SelectAttributes:
-              Next: '{{ Next }}'
-              Attributes:
-                - '{{ Attributes[0] }}'
-              Name: '{{ Name }}'
-            Datastore:
-              DatastoreName: '{{ DatastoreName }}'
-              Name: '{{ Name }}'
-            Filter:
-              Filter: '{{ Filter }}'
-              Next: '{{ Next }}'
-              Name: '{{ Name }}'
-            AddAttributes:
-              Next: '{{ Next }}'
-              Attributes: {}
-              Name: '{{ Name }}'
-            Channel:
-              ChannelName: '{{ ChannelName }}'
-              Next: '{{ Next }}'
-              Name: '{{ Name }}'
-            DeviceShadowEnrich:
-              Attribute: '{{ Attribute }}'
-              Next: '{{ Next }}'
-              ThingName: '{{ ThingName }}'
-              RoleArn: '{{ RoleArn }}'
-              Name: '{{ Name }}'
-            Math:
-              Attribute: '{{ Attribute }}'
-              Next: '{{ Next }}'
-              Math: '{{ Math }}'
-              Name: '{{ Name }}'
-            Lambda:
-              BatchSize: '{{ BatchSize }}'
-              Next: '{{ Next }}'
-              LambdaName: '{{ LambdaName }}'
-              Name: '{{ Name }}'
-            DeviceRegistryEnrich:
-              Attribute: '{{ Attribute }}'
-              Next: '{{ Next }}'
-              ThingName: '{{ ThingName }}'
-              RoleArn: '{{ RoleArn }}'
-              Name: '{{ Name }}'
-            RemoveAttributes:
-              Next: '{{ Next }}'
-              Attributes:
-                - '{{ Attributes[0] }}'
-              Name: '{{ Name }}'
-
+          - select_attributes:
+              next: '{{ next }}'
+              attributes:
+                - '{{ attributes[0] }}'
+              name: '{{ name }}'
+            datastore:
+              datastore_name: '{{ datastore_name }}'
+              name: '{{ name }}'
+            filter:
+              filter: '{{ filter }}'
+              next: '{{ next }}'
+              name: '{{ name }}'
+            add_attributes:
+              next: '{{ next }}'
+              attributes: {}
+              name: '{{ name }}'
+            channel:
+              channel_name: '{{ channel_name }}'
+              next: '{{ next }}'
+              name: '{{ name }}'
+            device_shadow_enrich:
+              attribute: '{{ attribute }}'
+              next: '{{ next }}'
+              thing_name: '{{ thing_name }}'
+              role_arn: '{{ role_arn }}'
+              name: '{{ name }}'
+            math:
+              attribute: '{{ attribute }}'
+              next: '{{ next }}'
+              math: '{{ math }}'
+              name: '{{ name }}'
+            lambda:
+              batch_size: '{{ batch_size }}'
+              next: '{{ next }}'
+              lambda_name: '{{ lambda_name }}'
+              name: '{{ name }}'
+            device_registry_enrich:
+              attribute: '{{ attribute }}'
+              next: '{{ next }}'
+              thing_name: '{{ thing_name }}'
+              role_arn: '{{ role_arn }}'
+              name: '{{ name }}'
+            remove_attributes:
+              next: '{{ next }}'
+              attributes:
+                - '{{ attributes[0] }}'
+              name: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -555,7 +554,7 @@ SET PatchDocument = string('{{ {
     "PipelineActivities": pipeline_activities
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PipelineName>';
+AND Identifier = '{{ pipeline_name }}';
 ```
 
 
@@ -564,7 +563,7 @@ AND Identifier = '<PipelineName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotanalytics.pipelines
-WHERE Identifier = '<PipelineName>'
+WHERE Identifier = '{{ pipeline_name }}'
 AND region = 'us-east-1';
 ```
 

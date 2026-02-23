@@ -194,7 +194,7 @@ updated_at,
 policy_id,
 tags
 FROM awscc.bedrock.automated_reasoning_policy_versions
-WHERE region = 'us-east-1' AND Identifier = '<PolicyArn>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,8 +231,8 @@ INSERT INTO awscc.bedrock.automated_reasoning_policy_versions (
  PolicyArn,
  region
 )
-SELECT 
-'{{ PolicyArn }}',
+SELECT
+'{{ policy_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,10 +246,10 @@ INSERT INTO awscc.bedrock.automated_reasoning_policy_versions (
  Tags,
  region
 )
-SELECT 
- '{{ PolicyArn }}',
- '{{ LastUpdatedDefinitionHash }}',
- '{{ Tags }}',
+SELECT
+ '{{ policy_arn }}',
+ '{{ last_updated_definition_hash }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -267,15 +267,14 @@ globals:
 resources:
   - name: automated_reasoning_policy_version
     props:
-      - name: PolicyArn
-        value: '{{ PolicyArn }}'
-      - name: LastUpdatedDefinitionHash
-        value: '{{ LastUpdatedDefinitionHash }}'
-      - name: Tags
+      - name: policy_arn
+        value: '{{ policy_arn }}'
+      - name: last_updated_definition_hash
+        value: '{{ last_updated_definition_hash }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.automated_reasoning_policy_versions
-WHERE Identifier = '<PolicyArn|Version>'
+WHERE Identifier = '{{ policy_arn }}|{{ version }}'
 AND region = 'us-east-1';
 ```
 

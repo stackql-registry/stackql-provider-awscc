@@ -1006,7 +1006,7 @@ tasks,
 tags,
 metadata_catalog_config
 FROM awscc.appflow.flows
-WHERE region = 'us-east-1' AND Identifier = '<FlowName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ flow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1046,12 +1046,12 @@ INSERT INTO awscc.appflow.flows (
  Tasks,
  region
 )
-SELECT 
-'{{ FlowName }}',
- '{{ TriggerConfig }}',
- '{{ SourceFlowConfig }}',
- '{{ DestinationFlowConfigList }}',
- '{{ Tasks }}',
+SELECT
+'{{ flow_name }}',
+ '{{ trigger_config }}',
+ '{{ source_flow_config }}',
+ '{{ destination_flow_config_list }}',
+ '{{ tasks }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1072,17 +1072,17 @@ INSERT INTO awscc.appflow.flows (
  MetadataCatalogConfig,
  region
 )
-SELECT 
- '{{ FlowName }}',
- '{{ Description }}',
- '{{ KMSArn }}',
- '{{ TriggerConfig }}',
- '{{ FlowStatus }}',
- '{{ SourceFlowConfig }}',
- '{{ DestinationFlowConfigList }}',
- '{{ Tasks }}',
- '{{ Tags }}',
- '{{ MetadataCatalogConfig }}',
+SELECT
+ '{{ flow_name }}',
+ '{{ description }}',
+ '{{ kms_arn }}',
+ '{{ trigger_config }}',
+ '{{ flow_status }}',
+ '{{ source_flow_config }}',
+ '{{ destination_flow_config_list }}',
+ '{{ tasks }}',
+ '{{ tags }}',
+ '{{ metadata_catalog_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1100,201 +1100,200 @@ globals:
 resources:
   - name: flow
     props:
-      - name: FlowName
-        value: '{{ FlowName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KMSArn
-        value: '{{ KMSArn }}'
-      - name: TriggerConfig
+      - name: flow_name
+        value: '{{ flow_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_arn
+        value: '{{ kms_arn }}'
+      - name: trigger_config
         value:
-          TriggerType: '{{ TriggerType }}'
-          TriggerProperties:
-            ScheduleExpression: '{{ ScheduleExpression }}'
-            DataPullMode: '{{ DataPullMode }}'
-            ScheduleStartTime: null
-            ScheduleEndTime: null
-            FirstExecutionFrom: null
-            TimeZone: '{{ TimeZone }}'
-            ScheduleOffset: null
-            FlowErrorDeactivationThreshold: '{{ FlowErrorDeactivationThreshold }}'
-      - name: FlowStatus
-        value: '{{ FlowStatus }}'
-      - name: SourceFlowConfig
+          trigger_type: '{{ trigger_type }}'
+          trigger_properties:
+            schedule_expression: '{{ schedule_expression }}'
+            data_pull_mode: '{{ data_pull_mode }}'
+            schedule_start_time: null
+            schedule_end_time: null
+            first_execution_from: null
+            time_zone: '{{ time_zone }}'
+            schedule_offset: null
+            flow_error_deactivation_threshold: '{{ flow_error_deactivation_threshold }}'
+      - name: flow_status
+        value: '{{ flow_status }}'
+      - name: source_flow_config
         value:
-          ConnectorType: '{{ ConnectorType }}'
-          ApiVersion: '{{ ApiVersion }}'
-          ConnectorProfileName: '{{ ConnectorProfileName }}'
-          SourceConnectorProperties:
-            Amplitude:
-              Object: '{{ Object }}'
-            Datadog:
-              Object: null
-            Dynatrace:
-              Object: null
-            GoogleAnalytics:
-              Object: null
-            InforNexus:
-              Object: null
-            Marketo:
-              Object: null
-            S3:
-              BucketName: '{{ BucketName }}'
-              BucketPrefix: '{{ BucketPrefix }}'
-              S3InputFormatConfig:
-                S3InputFileType: '{{ S3InputFileType }}'
-            SAPOData:
-              ObjectPath: null
-              parallelismConfig:
-                maxParallelism: '{{ maxParallelism }}'
-              paginationConfig:
-                maxPageSize: '{{ maxPageSize }}'
-            Salesforce:
-              Object: null
-              EnableDynamicFieldUpdate: '{{ EnableDynamicFieldUpdate }}'
-              IncludeDeletedRecords: '{{ IncludeDeletedRecords }}'
-              DataTransferApi: '{{ DataTransferApi }}'
-            Pardot:
-              Object: null
-            ServiceNow:
-              Object: null
-            Singular:
-              Object: null
-            Slack:
-              Object: null
-            Trendmicro:
-              Object: null
-            Veeva:
-              Object: null
-              DocumentType: '{{ DocumentType }}'
-              IncludeSourceFiles: '{{ IncludeSourceFiles }}'
-              IncludeRenditions: '{{ IncludeRenditions }}'
-              IncludeAllVersions: '{{ IncludeAllVersions }}'
-            Zendesk:
-              Object: null
-            CustomConnector:
-              EntityName: '{{ EntityName }}'
-              CustomProperties: {}
-              DataTransferApi:
-                Name: '{{ Name }}'
-                Type: '{{ Type }}'
-          IncrementalPullConfig:
-            DatetimeTypeFieldName: '{{ DatetimeTypeFieldName }}'
-      - name: DestinationFlowConfigList
+          connector_type: '{{ connector_type }}'
+          api_version: '{{ api_version }}'
+          connector_profile_name: '{{ connector_profile_name }}'
+          source_connector_properties:
+            amplitude:
+              object: '{{ object }}'
+            datadog:
+              object: null
+            dynatrace:
+              object: null
+            google_analytics:
+              object: null
+            infor_nexus:
+              object: null
+            marketo:
+              object: null
+            s3:
+              bucket_name: '{{ bucket_name }}'
+              bucket_prefix: '{{ bucket_prefix }}'
+              s3_input_format_config:
+                s3_input_file_type: '{{ s3_input_file_type }}'
+            s_ap_odata:
+              object_path: null
+              parallelism_config:
+                max_parallelism: '{{ max_parallelism }}'
+              pagination_config:
+                max_page_size: '{{ max_page_size }}'
+            salesforce:
+              object: null
+              enable_dynamic_field_update: '{{ enable_dynamic_field_update }}'
+              include_deleted_records: '{{ include_deleted_records }}'
+              data_transfer_api: '{{ data_transfer_api }}'
+            pardot:
+              object: null
+            service_now:
+              object: null
+            singular:
+              object: null
+            slack:
+              object: null
+            trendmicro:
+              object: null
+            veeva:
+              object: null
+              document_type: '{{ document_type }}'
+              include_source_files: '{{ include_source_files }}'
+              include_renditions: '{{ include_renditions }}'
+              include_all_versions: '{{ include_all_versions }}'
+            zendesk:
+              object: null
+            custom_connector:
+              entity_name: '{{ entity_name }}'
+              custom_properties: {}
+              data_transfer_api:
+                name: '{{ name }}'
+                type: '{{ type }}'
+          incremental_pull_config:
+            datetime_type_field_name: '{{ datetime_type_field_name }}'
+      - name: destination_flow_config_list
         value:
-          - ConnectorType: null
-            ApiVersion: null
-            ConnectorProfileName: null
-            DestinationConnectorProperties:
-              Redshift:
-                Object: null
-                IntermediateBucketName: null
-                BucketPrefix: null
-                ErrorHandlingConfig:
-                  FailOnFirstError: '{{ FailOnFirstError }}'
-                  BucketPrefix: null
-                  BucketName: null
-              S3:
-                BucketName: null
-                BucketPrefix: null
-                S3OutputFormatConfig:
-                  FileType: '{{ FileType }}'
-                  PrefixConfig:
-                    PrefixType: '{{ PrefixType }}'
-                    PrefixFormat: '{{ PrefixFormat }}'
-                    PathPrefixHierarchy:
-                      - '{{ PathPrefixHierarchy[0] }}'
-                  AggregationConfig:
-                    AggregationType: '{{ AggregationType }}'
-                    TargetFileSize: '{{ TargetFileSize }}'
-                  PreserveSourceDataTyping: '{{ PreserveSourceDataTyping }}'
-              Salesforce:
-                Object: null
-                ErrorHandlingConfig: null
-                IdFieldNames:
-                  - '{{ IdFieldNames[0] }}'
-                WriteOperationType: '{{ WriteOperationType }}'
-                DataTransferApi: null
-              Snowflake:
-                Object: null
-                IntermediateBucketName: null
-                BucketPrefix: null
-                ErrorHandlingConfig: null
-              EventBridge:
-                Object: null
-                ErrorHandlingConfig: null
-              Upsolver:
-                BucketName: '{{ BucketName }}'
-                BucketPrefix: null
-                S3OutputFormatConfig:
-                  FileType: null
-                  PrefixConfig: null
-                  AggregationConfig: null
-              LookoutMetrics:
-                Object: null
-              Marketo:
-                Object: null
-                ErrorHandlingConfig: null
-              Zendesk:
-                Object: null
-                ErrorHandlingConfig: null
-                IdFieldNames:
-                  - '{{ IdFieldNames[0] }}'
-                WriteOperationType: null
-              CustomConnector:
-                EntityName: null
-                ErrorHandlingConfig: null
-                WriteOperationType: null
-                IdFieldNames:
-                  - '{{ IdFieldNames[0] }}'
-                CustomProperties: null
-              SAPOData:
-                ObjectPath: null
-                ErrorHandlingConfig: null
-                SuccessResponseHandlingConfig:
-                  BucketPrefix: null
-                  BucketName: null
-                IdFieldNames:
-                  - '{{ IdFieldNames[0] }}'
-                WriteOperationType: null
-      - name: Tasks
+          - connector_type: null
+            api_version: null
+            connector_profile_name: null
+            destination_connector_properties:
+              redshift:
+                object: null
+                intermediate_bucket_name: null
+                bucket_prefix: null
+                error_handling_config:
+                  fail_on_first_error: '{{ fail_on_first_error }}'
+                  bucket_prefix: null
+                  bucket_name: null
+              s3:
+                bucket_name: null
+                bucket_prefix: null
+                s3_output_format_config:
+                  file_type: '{{ file_type }}'
+                  prefix_config:
+                    prefix_type: '{{ prefix_type }}'
+                    prefix_format: '{{ prefix_format }}'
+                    path_prefix_hierarchy:
+                      - '{{ path_prefix_hierarchy[0] }}'
+                  aggregation_config:
+                    aggregation_type: '{{ aggregation_type }}'
+                    target_file_size: '{{ target_file_size }}'
+                  preserve_source_data_typing: '{{ preserve_source_data_typing }}'
+              salesforce:
+                object: null
+                error_handling_config: null
+                id_field_names:
+                  - '{{ id_field_names[0] }}'
+                write_operation_type: '{{ write_operation_type }}'
+                data_transfer_api: null
+              snowflake:
+                object: null
+                intermediate_bucket_name: null
+                bucket_prefix: null
+                error_handling_config: null
+              event_bridge:
+                object: null
+                error_handling_config: null
+              upsolver:
+                bucket_name: '{{ bucket_name }}'
+                bucket_prefix: null
+                s3_output_format_config:
+                  file_type: null
+                  prefix_config: null
+                  aggregation_config: null
+              lookout_metrics:
+                object: null
+              marketo:
+                object: null
+                error_handling_config: null
+              zendesk:
+                object: null
+                error_handling_config: null
+                id_field_names:
+                  - '{{ id_field_names[0] }}'
+                write_operation_type: null
+              custom_connector:
+                entity_name: null
+                error_handling_config: null
+                write_operation_type: null
+                id_field_names:
+                  - '{{ id_field_names[0] }}'
+                custom_properties: null
+              s_ap_odata:
+                object_path: null
+                error_handling_config: null
+                success_response_handling_config:
+                  bucket_prefix: null
+                  bucket_name: null
+                id_field_names:
+                  - '{{ id_field_names[0] }}'
+                write_operation_type: null
+      - name: tasks
         value:
-          - SourceFields:
-              - '{{ SourceFields[0] }}'
-            ConnectorOperator:
-              Amplitude: '{{ Amplitude }}'
-              Datadog: '{{ Datadog }}'
-              Dynatrace: '{{ Dynatrace }}'
-              GoogleAnalytics: '{{ GoogleAnalytics }}'
-              InforNexus: '{{ InforNexus }}'
-              Marketo: '{{ Marketo }}'
-              S3: '{{ S3 }}'
-              SAPOData: '{{ SAPOData }}'
-              Salesforce: '{{ Salesforce }}'
-              Pardot: '{{ Pardot }}'
-              ServiceNow: '{{ ServiceNow }}'
-              Singular: '{{ Singular }}'
-              Slack: '{{ Slack }}'
-              Trendmicro: '{{ Trendmicro }}'
-              Veeva: '{{ Veeva }}'
-              Zendesk: '{{ Zendesk }}'
-              CustomConnector: '{{ CustomConnector }}'
-            DestinationField: '{{ DestinationField }}'
-            TaskType: '{{ TaskType }}'
-            TaskProperties:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: Tags
+          - source_fields:
+              - '{{ source_fields[0] }}'
+            connector_operator:
+              amplitude: '{{ amplitude }}'
+              datadog: '{{ datadog }}'
+              dynatrace: '{{ dynatrace }}'
+              google_analytics: '{{ google_analytics }}'
+              infor_nexus: '{{ infor_nexus }}'
+              marketo: '{{ marketo }}'
+              s3: '{{ s3 }}'
+              s_ap_odata: '{{ s_ap_odata }}'
+              salesforce: '{{ salesforce }}'
+              pardot: '{{ pardot }}'
+              service_now: '{{ service_now }}'
+              singular: '{{ singular }}'
+              slack: '{{ slack }}'
+              trendmicro: '{{ trendmicro }}'
+              veeva: '{{ veeva }}'
+              zendesk: '{{ zendesk }}'
+              custom_connector: '{{ custom_connector }}'
+            destination_field: '{{ destination_field }}'
+            task_type: '{{ task_type }}'
+            task_properties:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: MetadataCatalogConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: metadata_catalog_config
         value:
-          GlueDataCatalog:
-            RoleArn: '{{ RoleArn }}'
-            DatabaseName: '{{ DatabaseName }}'
-            TablePrefix: '{{ TablePrefix }}'
-
+          glue_data_catalog:
+            role_arn: '{{ role_arn }}'
+            database_name: '{{ database_name }}'
+            table_prefix: '{{ table_prefix }}'
 ```
 </TabItem>
 </Tabs>
@@ -1317,7 +1316,7 @@ SET PatchDocument = string('{{ {
     "MetadataCatalogConfig": metadata_catalog_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FlowName>';
+AND Identifier = '{{ flow_name }}';
 ```
 
 
@@ -1326,7 +1325,7 @@ AND Identifier = '<FlowName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.flows
-WHERE Identifier = '<FlowName>'
+WHERE Identifier = '{{ flow_name }}'
 AND region = 'us-east-1';
 ```
 

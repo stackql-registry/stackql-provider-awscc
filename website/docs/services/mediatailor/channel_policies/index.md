@@ -94,7 +94,7 @@ region,
 channel_name,
 policy
 FROM awscc.mediatailor.channel_policies
-WHERE region = 'us-east-1' AND Identifier = '<ChannelName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_name }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.mediatailor.channel_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ChannelName }}',
- '{{ Policy }}',
+SELECT
+'{{ channel_name }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.mediatailor.channel_policies (
  Policy,
  region
 )
-SELECT 
- '{{ ChannelName }}',
- '{{ Policy }}',
+SELECT
+ '{{ channel_name }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: channel_policy
     props:
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: Policy
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelName>';
+AND Identifier = '{{ channel_name }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<ChannelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.channel_policies
-WHERE Identifier = '<ChannelName>'
+WHERE Identifier = '{{ channel_name }}'
 AND region = 'us-east-1';
 ```
 

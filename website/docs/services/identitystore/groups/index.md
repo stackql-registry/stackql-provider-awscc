@@ -157,7 +157,7 @@ display_name,
 group_id,
 identity_store_id
 FROM awscc.identitystore.groups
-WHERE region = 'us-east-1' AND Identifier = '<GroupId>|<IdentityStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.identitystore.groups (
  IdentityStoreId,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ IdentityStoreId }}',
+SELECT
+'{{ display_name }}',
+ '{{ identity_store_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -211,10 +211,10 @@ INSERT INTO awscc.identitystore.groups (
  IdentityStoreId,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ IdentityStoreId }}',
+SELECT
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ identity_store_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -232,13 +232,12 @@ globals:
 resources:
   - name: group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: IdentityStoreId
-        value: '{{ IdentityStoreId }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: identity_store_id
+        value: '{{ identity_store_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +254,7 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GroupId>|<IdentityStoreId>';
+AND Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```
 
 
@@ -264,7 +263,7 @@ AND Identifier = '<GroupId>|<IdentityStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.identitystore.groups
-WHERE Identifier = '<GroupId|IdentityStoreId>'
+WHERE Identifier = '{{ group_id }}|{{ identity_store_id }}'
 AND region = 'us-east-1';
 ```
 

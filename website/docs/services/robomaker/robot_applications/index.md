@@ -199,7 +199,7 @@ current_revision_id,
 arn,
 tags
 FROM awscc.robomaker.robot_applications
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,8 +235,8 @@ INSERT INTO awscc.robomaker.robot_applications (
  RobotSoftwareSuite,
  region
 )
-SELECT 
-'{{ RobotSoftwareSuite }}',
+SELECT
+'{{ robot_software_suite }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,13 +253,13 @@ INSERT INTO awscc.robomaker.robot_applications (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Sources }}',
- '{{ Environment }}',
- '{{ RobotSoftwareSuite }}',
- '{{ CurrentRevisionId }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ sources }}',
+ '{{ environment }}',
+ '{{ robot_software_suite }}',
+ '{{ current_revision_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,24 +277,23 @@ globals:
 resources:
   - name: robot_application
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Sources
+      - name: name
+        value: '{{ name }}'
+      - name: sources
         value:
-          - S3Bucket: '{{ S3Bucket }}'
-            S3Key: '{{ S3Key }}'
-            Architecture: '{{ Architecture }}'
-      - name: Environment
-        value: '{{ Environment }}'
-      - name: RobotSoftwareSuite
+          - s3_bucket: '{{ s3_bucket }}'
+            s3_key: '{{ s3_key }}'
+            architecture: '{{ architecture }}'
+      - name: environment
+        value: '{{ environment }}'
+      - name: robot_software_suite
         value:
-          Name: '{{ Name }}'
-          Version: '{{ Version }}'
-      - name: CurrentRevisionId
-        value: '{{ CurrentRevisionId }}'
-      - name: Tags
+          name: '{{ name }}'
+          version: '{{ version }}'
+      - name: current_revision_id
+        value: '{{ current_revision_id }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.robot_applications
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

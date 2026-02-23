@@ -237,7 +237,7 @@ segment_delivery_configurations,
 source_location_name,
 tags
 FROM awscc.mediatailor.source_locations
-WHERE region = 'us-east-1' AND Identifier = '<SourceLocationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,9 +274,9 @@ INSERT INTO awscc.mediatailor.source_locations (
  SourceLocationName,
  region
 )
-SELECT 
-'{{ HttpConfiguration }}',
- '{{ SourceLocationName }}',
+SELECT
+'{{ http_configuration }}',
+ '{{ source_location_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,13 +293,13 @@ INSERT INTO awscc.mediatailor.source_locations (
  Tags,
  region
 )
-SELECT 
- '{{ AccessConfiguration }}',
- '{{ DefaultSegmentDeliveryConfiguration }}',
- '{{ HttpConfiguration }}',
- '{{ SegmentDeliveryConfigurations }}',
- '{{ SourceLocationName }}',
- '{{ Tags }}',
+SELECT
+ '{{ access_configuration }}',
+ '{{ default_segment_delivery_configuration }}',
+ '{{ http_configuration }}',
+ '{{ segment_delivery_configurations }}',
+ '{{ source_location_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -317,30 +317,29 @@ globals:
 resources:
   - name: source_location
     props:
-      - name: AccessConfiguration
+      - name: access_configuration
         value:
-          AccessType: '{{ AccessType }}'
-          SecretsManagerAccessTokenConfiguration:
-            HeaderName: '{{ HeaderName }}'
-            SecretArn: '{{ SecretArn }}'
-            SecretStringKey: '{{ SecretStringKey }}'
-      - name: DefaultSegmentDeliveryConfiguration
+          access_type: '{{ access_type }}'
+          secrets_manager_access_token_configuration:
+            header_name: '{{ header_name }}'
+            secret_arn: '{{ secret_arn }}'
+            secret_string_key: '{{ secret_string_key }}'
+      - name: default_segment_delivery_configuration
         value:
-          BaseUrl: '{{ BaseUrl }}'
-      - name: HttpConfiguration
+          base_url: '{{ base_url }}'
+      - name: http_configuration
         value:
-          BaseUrl: '{{ BaseUrl }}'
-      - name: SegmentDeliveryConfigurations
+          base_url: '{{ base_url }}'
+      - name: segment_delivery_configurations
         value:
-          - BaseUrl: '{{ BaseUrl }}'
-            Name: '{{ Name }}'
-      - name: SourceLocationName
-        value: '{{ SourceLocationName }}'
-      - name: Tags
+          - base_url: '{{ base_url }}'
+            name: '{{ name }}'
+      - name: source_location_name
+        value: '{{ source_location_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SourceLocationName>';
+AND Identifier = '{{ source_location_name }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<SourceLocationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.source_locations
-WHERE Identifier = '<SourceLocationName>'
+WHERE Identifier = '{{ source_location_name }}'
 AND region = 'us-east-1';
 ```
 

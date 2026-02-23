@@ -163,7 +163,7 @@ stage,
 api_mapping_key,
 api_id
 FROM awscc.apigatewayv2.api_mappings
-WHERE region = 'us-east-1' AND Identifier = '<ApiMappingId>|<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.apigatewayv2.api_mappings (
  ApiId,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ Stage }}',
- '{{ ApiId }}',
+SELECT
+'{{ domain_name }}',
+ '{{ stage }}',
+ '{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,11 +220,11 @@ INSERT INTO awscc.apigatewayv2.api_mappings (
  ApiId,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ Stage }}',
- '{{ ApiMappingKey }}',
- '{{ ApiId }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ stage }}',
+ '{{ api_mapping_key }}',
+ '{{ api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,15 +242,14 @@ globals:
 resources:
   - name: api_mapping
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: Stage
-        value: '{{ Stage }}'
-      - name: ApiMappingKey
-        value: '{{ ApiMappingKey }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: stage
+        value: '{{ stage }}'
+      - name: api_mapping_key
+        value: '{{ api_mapping_key }}'
+      - name: api_id
+        value: '{{ api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "ApiId": api_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiMappingId>|<DomainName>';
+AND Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<ApiMappingId>|<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.api_mappings
-WHERE Identifier = '<ApiMappingId|DomainName>'
+WHERE Identifier = '{{ api_mapping_id }}|{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

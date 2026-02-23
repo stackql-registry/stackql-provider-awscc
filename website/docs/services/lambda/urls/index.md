@@ -202,7 +202,7 @@ function_arn,
 function_url,
 cors
 FROM awscc.lambda.urls
-WHERE region = 'us-east-1' AND Identifier = '<FunctionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,9 +239,9 @@ INSERT INTO awscc.lambda.urls (
  AuthType,
  region
 )
-SELECT 
-'{{ TargetFunctionArn }}',
- '{{ AuthType }}',
+SELECT
+'{{ target_function_arn }}',
+ '{{ auth_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,12 +257,12 @@ INSERT INTO awscc.lambda.urls (
  Cors,
  region
 )
-SELECT 
- '{{ TargetFunctionArn }}',
- '{{ Qualifier }}',
- '{{ AuthType }}',
- '{{ InvokeMode }}',
- '{{ Cors }}',
+SELECT
+ '{{ target_function_arn }}',
+ '{{ qualifier }}',
+ '{{ auth_type }}',
+ '{{ invoke_mode }}',
+ '{{ cors }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,27 +280,26 @@ globals:
 resources:
   - name: url
     props:
-      - name: TargetFunctionArn
-        value: '{{ TargetFunctionArn }}'
-      - name: Qualifier
-        value: '{{ Qualifier }}'
-      - name: AuthType
-        value: '{{ AuthType }}'
-      - name: InvokeMode
-        value: '{{ InvokeMode }}'
-      - name: Cors
+      - name: target_function_arn
+        value: '{{ target_function_arn }}'
+      - name: qualifier
+        value: '{{ qualifier }}'
+      - name: auth_type
+        value: '{{ auth_type }}'
+      - name: invoke_mode
+        value: '{{ invoke_mode }}'
+      - name: cors
         value:
-          AllowCredentials: '{{ AllowCredentials }}'
-          AllowHeaders:
-            - '{{ AllowHeaders[0] }}'
-          AllowMethods:
-            - '{{ AllowMethods[0] }}'
-          AllowOrigins:
-            - '{{ AllowOrigins[0] }}'
-          ExposeHeaders:
-            - '{{ ExposeHeaders[0] }}'
-          MaxAge: '{{ MaxAge }}'
-
+          allow_credentials: '{{ allow_credentials }}'
+          allow_headers:
+            - '{{ allow_headers[0] }}'
+          allow_methods:
+            - '{{ allow_methods[0] }}'
+          allow_origins:
+            - '{{ allow_origins[0] }}'
+          expose_headers:
+            - '{{ expose_headers[0] }}'
+          max_age: '{{ max_age }}'
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "Cors": cors
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FunctionArn>';
+AND Identifier = '{{ function_arn }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<FunctionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.urls
-WHERE Identifier = '<FunctionArn>'
+WHERE Identifier = '{{ function_arn }}'
 AND region = 'us-east-1';
 ```
 

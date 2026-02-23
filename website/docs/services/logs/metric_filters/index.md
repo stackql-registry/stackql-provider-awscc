@@ -207,7 +207,7 @@ log_group_name,
 apply_on_transformed_logs,
 filter_name
 FROM awscc.logs.metric_filters
-WHERE region = 'us-east-1' AND Identifier = '<LogGroupName>|<FilterName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +246,10 @@ INSERT INTO awscc.logs.metric_filters (
  LogGroupName,
  region
 )
-SELECT 
-'{{ MetricTransformations }}',
- '{{ FilterPattern }}',
- '{{ LogGroupName }}',
+SELECT
+'{{ metric_transformations }}',
+ '{{ filter_pattern }}',
+ '{{ log_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,12 +265,12 @@ INSERT INTO awscc.logs.metric_filters (
  FilterName,
  region
 )
-SELECT 
- '{{ MetricTransformations }}',
- '{{ FilterPattern }}',
- '{{ LogGroupName }}',
- '{{ ApplyOnTransformedLogs }}',
- '{{ FilterName }}',
+SELECT
+ '{{ metric_transformations }}',
+ '{{ filter_pattern }}',
+ '{{ log_group_name }}',
+ '{{ apply_on_transformed_logs }}',
+ '{{ filter_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -288,25 +288,24 @@ globals:
 resources:
   - name: metric_filter
     props:
-      - name: MetricTransformations
+      - name: metric_transformations
         value:
-          - DefaultValue: null
-            MetricName: '{{ MetricName }}'
-            MetricValue: '{{ MetricValue }}'
-            MetricNamespace: '{{ MetricNamespace }}'
-            Dimensions:
-              - Value: '{{ Value }}'
-                Key: '{{ Key }}'
-            Unit: '{{ Unit }}'
-      - name: FilterPattern
-        value: '{{ FilterPattern }}'
-      - name: LogGroupName
-        value: '{{ LogGroupName }}'
-      - name: ApplyOnTransformedLogs
-        value: '{{ ApplyOnTransformedLogs }}'
-      - name: FilterName
-        value: '{{ FilterName }}'
-
+          - default_value: null
+            metric_name: '{{ metric_name }}'
+            metric_value: '{{ metric_value }}'
+            metric_namespace: '{{ metric_namespace }}'
+            dimensions:
+              - value: '{{ value }}'
+                key: '{{ key }}'
+            unit: '{{ unit }}'
+      - name: filter_pattern
+        value: '{{ filter_pattern }}'
+      - name: log_group_name
+        value: '{{ log_group_name }}'
+      - name: apply_on_transformed_logs
+        value: '{{ apply_on_transformed_logs }}'
+      - name: filter_name
+        value: '{{ filter_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LogGroupName>|<FilterName>';
+AND Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<LogGroupName>|<FilterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.metric_filters
-WHERE Identifier = '<LogGroupName|FilterName>'
+WHERE Identifier = '{{ log_group_name }}|{{ filter_name }}'
 AND region = 'us-east-1';
 ```
 

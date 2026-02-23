@@ -366,7 +366,7 @@ datapoints_to_alarm,
 threshold,
 tags
 FROM awscc.cloudwatch.alarms
-WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -403,9 +403,9 @@ INSERT INTO awscc.cloudwatch.alarms (
  EvaluationPeriods,
  region
 )
-SELECT 
-'{{ ComparisonOperator }}',
- '{{ EvaluationPeriods }}',
+SELECT
+'{{ comparison_operator }}',
+ '{{ evaluation_periods }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -438,29 +438,29 @@ INSERT INTO awscc.cloudwatch.alarms (
  Tags,
  region
 )
-SELECT 
- '{{ ThresholdMetricId }}',
- '{{ EvaluateLowSampleCountPercentile }}',
- '{{ ExtendedStatistic }}',
- '{{ ComparisonOperator }}',
- '{{ TreatMissingData }}',
- '{{ Dimensions }}',
- '{{ Period }}',
- '{{ EvaluationPeriods }}',
- '{{ Unit }}',
- '{{ Namespace }}',
- '{{ OKActions }}',
- '{{ AlarmActions }}',
- '{{ MetricName }}',
- '{{ ActionsEnabled }}',
- '{{ Metrics }}',
- '{{ AlarmDescription }}',
- '{{ AlarmName }}',
- '{{ Statistic }}',
- '{{ InsufficientDataActions }}',
- '{{ DatapointsToAlarm }}',
- '{{ Threshold }}',
- '{{ Tags }}',
+SELECT
+ '{{ threshold_metric_id }}',
+ '{{ evaluate_low_sample_count_percentile }}',
+ '{{ extended_statistic }}',
+ '{{ comparison_operator }}',
+ '{{ treat_missing_data }}',
+ '{{ dimensions }}',
+ '{{ period }}',
+ '{{ evaluation_periods }}',
+ '{{ unit }}',
+ '{{ namespace }}',
+ '{{ ok_actions }}',
+ '{{ alarm_actions }}',
+ '{{ metric_name }}',
+ '{{ actions_enabled }}',
+ '{{ metrics }}',
+ '{{ alarm_description }}',
+ '{{ alarm_name }}',
+ '{{ statistic }}',
+ '{{ insufficient_data_actions }}',
+ '{{ datapoints_to_alarm }}',
+ '{{ threshold }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -478,73 +478,72 @@ globals:
 resources:
   - name: alarm
     props:
-      - name: ThresholdMetricId
-        value: '{{ ThresholdMetricId }}'
-      - name: EvaluateLowSampleCountPercentile
-        value: '{{ EvaluateLowSampleCountPercentile }}'
-      - name: ExtendedStatistic
-        value: '{{ ExtendedStatistic }}'
-      - name: ComparisonOperator
-        value: '{{ ComparisonOperator }}'
-      - name: TreatMissingData
-        value: '{{ TreatMissingData }}'
-      - name: Dimensions
+      - name: threshold_metric_id
+        value: '{{ threshold_metric_id }}'
+      - name: evaluate_low_sample_count_percentile
+        value: '{{ evaluate_low_sample_count_percentile }}'
+      - name: extended_statistic
+        value: '{{ extended_statistic }}'
+      - name: comparison_operator
+        value: '{{ comparison_operator }}'
+      - name: treat_missing_data
+        value: '{{ treat_missing_data }}'
+      - name: dimensions
         value:
-          - Value: '{{ Value }}'
-            Name: '{{ Name }}'
-      - name: Period
-        value: '{{ Period }}'
-      - name: EvaluationPeriods
-        value: '{{ EvaluationPeriods }}'
-      - name: Unit
-        value: '{{ Unit }}'
-      - name: Namespace
-        value: '{{ Namespace }}'
-      - name: OKActions
+          - value: '{{ value }}'
+            name: '{{ name }}'
+      - name: period
+        value: '{{ period }}'
+      - name: evaluation_periods
+        value: '{{ evaluation_periods }}'
+      - name: unit
+        value: '{{ unit }}'
+      - name: namespace
+        value: '{{ namespace }}'
+      - name: ok_actions
         value:
-          - '{{ OKActions[0] }}'
-      - name: AlarmActions
+          - '{{ ok_actions[0] }}'
+      - name: alarm_actions
         value:
-          - '{{ AlarmActions[0] }}'
-      - name: MetricName
-        value: '{{ MetricName }}'
-      - name: ActionsEnabled
-        value: '{{ ActionsEnabled }}'
-      - name: Metrics
+          - '{{ alarm_actions[0] }}'
+      - name: metric_name
+        value: '{{ metric_name }}'
+      - name: actions_enabled
+        value: '{{ actions_enabled }}'
+      - name: metrics
         value:
-          - Label: '{{ Label }}'
-            MetricStat:
-              Period: '{{ Period }}'
-              Metric:
-                MetricName: '{{ MetricName }}'
-                Dimensions:
+          - label: '{{ label }}'
+            metric_stat:
+              period: '{{ period }}'
+              metric:
+                metric_name: '{{ metric_name }}'
+                dimensions:
                   - null
-                Namespace: '{{ Namespace }}'
-              Stat: '{{ Stat }}'
-              Unit: '{{ Unit }}'
-            Id: '{{ Id }}'
-            ReturnData: '{{ ReturnData }}'
-            Expression: '{{ Expression }}'
-            Period: '{{ Period }}'
-            AccountId: '{{ AccountId }}'
-      - name: AlarmDescription
-        value: '{{ AlarmDescription }}'
-      - name: AlarmName
-        value: '{{ AlarmName }}'
-      - name: Statistic
-        value: '{{ Statistic }}'
-      - name: InsufficientDataActions
+                namespace: '{{ namespace }}'
+              stat: '{{ stat }}'
+              unit: '{{ unit }}'
+            id: '{{ id }}'
+            return_data: '{{ return_data }}'
+            expression: '{{ expression }}'
+            period: '{{ period }}'
+            account_id: '{{ account_id }}'
+      - name: alarm_description
+        value: '{{ alarm_description }}'
+      - name: alarm_name
+        value: '{{ alarm_name }}'
+      - name: statistic
+        value: '{{ statistic }}'
+      - name: insufficient_data_actions
         value:
-          - '{{ InsufficientDataActions[0] }}'
-      - name: DatapointsToAlarm
-        value: '{{ DatapointsToAlarm }}'
-      - name: Threshold
+          - '{{ insufficient_data_actions[0] }}'
+      - name: datapoints_to_alarm
+        value: '{{ datapoints_to_alarm }}'
+      - name: threshold
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -580,7 +579,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AlarmName>';
+AND Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -589,7 +588,7 @@ AND Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.alarms
-WHERE Identifier = '<AlarmName>'
+WHERE Identifier = '{{ alarm_name }}'
 AND region = 'us-east-1';
 ```
 

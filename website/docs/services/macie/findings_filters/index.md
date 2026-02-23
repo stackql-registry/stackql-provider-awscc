@@ -195,7 +195,7 @@ id,
 arn,
 tags
 FROM awscc.macie.findings_filters
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,9 +232,9 @@ INSERT INTO awscc.macie.findings_filters (
  FindingCriteria,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ FindingCriteria }}',
+SELECT
+'{{ name }}',
+ '{{ finding_criteria }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,13 +251,13 @@ INSERT INTO awscc.macie.findings_filters (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ FindingCriteria }}',
- '{{ Action }}',
- '{{ Position }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ finding_criteria }}',
+ '{{ action }}',
+ '{{ position }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -275,22 +275,21 @@ globals:
 resources:
   - name: findings_filter
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FindingCriteria
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: finding_criteria
         value:
-          Criterion: {}
-      - name: Action
-        value: '{{ Action }}'
-      - name: Position
-        value: '{{ Position }}'
-      - name: Tags
+          criterion: {}
+      - name: action
+        value: '{{ action }}'
+      - name: position
+        value: '{{ position }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.findings_filters
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

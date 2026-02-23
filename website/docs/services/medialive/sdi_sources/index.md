@@ -188,7 +188,7 @@ type,
 inputs,
 tags
 FROM awscc.medialive.sdi_sources
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.medialive.sdi_sources (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,11 +242,11 @@ INSERT INTO awscc.medialive.sdi_sources (
  Tags,
  region
 )
-SELECT 
- '{{ Mode }}',
- '{{ Name }}',
- '{{ Type }}',
- '{{ Tags }}',
+SELECT
+ '{{ mode }}',
+ '{{ name }}',
+ '{{ type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,17 +264,16 @@ globals:
 resources:
   - name: sdi_source
     props:
-      - name: Mode
-        value: '{{ Mode }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+      - name: mode
+        value: '{{ mode }}'
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.sdi_sources
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

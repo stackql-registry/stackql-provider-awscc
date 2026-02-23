@@ -164,7 +164,7 @@ id,
 tags,
 resource_arns
 FROM awscc.synthetics.groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.synthetics.groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,10 +215,10 @@ INSERT INTO awscc.synthetics.groups (
  ResourceArns,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ ResourceArns }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ resource_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,16 +236,15 @@ globals:
 resources:
   - name: group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ResourceArns
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: resource_arns
         value:
-          - '{{ ResourceArns[0] }}'
-
+          - '{{ resource_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ SET PatchDocument = string('{{ {
     "ResourceArns": resource_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -271,7 +270,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.synthetics.groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

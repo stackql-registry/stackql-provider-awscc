@@ -139,7 +139,7 @@ region,
 transit_gateway_route_table_id,
 transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_route_table_propagations
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayRouteTableId>|<TransitGatewayAttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.transit_gateway_route_table_propagations (
  TransitGatewayAttachmentId,
  region
 )
-SELECT 
-'{{ TransitGatewayRouteTableId }}',
- '{{ TransitGatewayAttachmentId }}',
+SELECT
+'{{ transit_gateway_route_table_id }}',
+ '{{ transit_gateway_attachment_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.transit_gateway_route_table_propagations (
  TransitGatewayAttachmentId,
  region
 )
-SELECT 
- '{{ TransitGatewayRouteTableId }}',
- '{{ TransitGatewayAttachmentId }}',
+SELECT
+ '{{ transit_gateway_route_table_id }}',
+ '{{ transit_gateway_attachment_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: transit_gateway_route_table_propagation
     props:
-      - name: TransitGatewayRouteTableId
-        value: '{{ TransitGatewayRouteTableId }}'
-      - name: TransitGatewayAttachmentId
-        value: '{{ TransitGatewayAttachmentId }}'
-
+      - name: transit_gateway_route_table_id
+        value: '{{ transit_gateway_route_table_id }}'
+      - name: transit_gateway_attachment_id
+        value: '{{ transit_gateway_attachment_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_route_table_propagations
-WHERE Identifier = '<TransitGatewayRouteTableId|TransitGatewayAttachmentId>'
+WHERE Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -365,7 +365,7 @@ thing_name,
 last_uplink_received_at,
 positioning
 FROM awscc.iotwireless.wireless_devices
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -402,9 +402,9 @@ INSERT INTO awscc.iotwireless.wireless_devices (
  DestinationName,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ DestinationName }}',
+SELECT
+'{{ type }}',
+ '{{ destination_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -424,16 +424,16 @@ INSERT INTO awscc.iotwireless.wireless_devices (
  Positioning,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ DestinationName }}',
- '{{ LoRaWAN }}',
- '{{ Tags }}',
- '{{ ThingArn }}',
- '{{ LastUplinkReceivedAt }}',
- '{{ Positioning }}',
+SELECT
+ '{{ type }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ destination_name }}',
+ '{{ lo_ra_wan }}',
+ '{{ tags }}',
+ '{{ thing_arn }}',
+ '{{ last_uplink_received_at }}',
+ '{{ positioning }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -451,54 +451,53 @@ globals:
 resources:
   - name: wireless_device
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DestinationName
-        value: '{{ DestinationName }}'
-      - name: LoRaWAN
+      - name: type
+        value: '{{ type }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: destination_name
+        value: '{{ destination_name }}'
+      - name: lo_ra_wan
         value:
-          DevEui: '{{ DevEui }}'
-          DeviceProfileId: '{{ DeviceProfileId }}'
-          ServiceProfileId: '{{ ServiceProfileId }}'
-          OtaaV11:
-            AppKey: '{{ AppKey }}'
-            NwkKey: '{{ NwkKey }}'
-            JoinEui: '{{ JoinEui }}'
-          OtaaV10x:
-            AppKey: '{{ AppKey }}'
-            AppEui: '{{ AppEui }}'
-          AbpV11:
-            DevAddr: '{{ DevAddr }}'
-            SessionKeys:
-              FNwkSIntKey: '{{ FNwkSIntKey }}'
-              SNwkSIntKey: '{{ SNwkSIntKey }}'
-              NwkSEncKey: '{{ NwkSEncKey }}'
-              AppSKey: '{{ AppSKey }}'
-          AbpV10x:
-            DevAddr: '{{ DevAddr }}'
-            SessionKeys:
-              NwkSKey: '{{ NwkSKey }}'
-              AppSKey: '{{ AppSKey }}'
-          FPorts:
-            Applications:
-              - DestinationName: '{{ DestinationName }}'
-                FPort: '{{ FPort }}'
-                Type: '{{ Type }}'
-      - name: Tags
+          dev_eui: '{{ dev_eui }}'
+          device_profile_id: '{{ device_profile_id }}'
+          service_profile_id: '{{ service_profile_id }}'
+          otaa_v11:
+            app_key: '{{ app_key }}'
+            nwk_key: '{{ nwk_key }}'
+            join_eui: '{{ join_eui }}'
+          otaa_v10x:
+            app_key: '{{ app_key }}'
+            app_eui: '{{ app_eui }}'
+          abp_v11:
+            dev_addr: '{{ dev_addr }}'
+            session_keys:
+              f_nwk_sint_key: '{{ f_nwk_sint_key }}'
+              s_nwk_sint_key: '{{ s_nwk_sint_key }}'
+              nwk_senc_key: '{{ nwk_senc_key }}'
+              app_skey: '{{ app_skey }}'
+          abp_v10x:
+            dev_addr: '{{ dev_addr }}'
+            session_keys:
+              nwk_skey: '{{ nwk_skey }}'
+              app_skey: '{{ app_skey }}'
+          f_ports:
+            applications:
+              - destination_name: '{{ destination_name }}'
+                f_port: '{{ f_port }}'
+                type: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ThingArn
-        value: '{{ ThingArn }}'
-      - name: LastUplinkReceivedAt
-        value: '{{ LastUplinkReceivedAt }}'
-      - name: Positioning
-        value: '{{ Positioning }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: thing_arn
+        value: '{{ thing_arn }}'
+      - name: last_uplink_received_at
+        value: '{{ last_uplink_received_at }}'
+      - name: positioning
+        value: '{{ positioning }}'
 ```
 </TabItem>
 </Tabs>
@@ -522,7 +521,7 @@ SET PatchDocument = string('{{ {
     "Positioning": positioning
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -531,7 +530,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_devices
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

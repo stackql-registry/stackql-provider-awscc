@@ -313,7 +313,7 @@ updated_at,
 transport_attachment_id,
 options
 FROM awscc.networkmanager.connect_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,11 +352,11 @@ INSERT INTO awscc.networkmanager.connect_attachments (
  Options,
  region
 )
-SELECT 
-'{{ CoreNetworkId }}',
- '{{ EdgeLocation }}',
- '{{ TransportAttachmentId }}',
- '{{ Options }}',
+SELECT
+'{{ core_network_id }}',
+ '{{ edge_location }}',
+ '{{ transport_attachment_id }}',
+ '{{ options }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -375,15 +375,15 @@ INSERT INTO awscc.networkmanager.connect_attachments (
  Options,
  region
 )
-SELECT 
- '{{ CoreNetworkId }}',
- '{{ EdgeLocation }}',
- '{{ ProposedSegmentChange }}',
- '{{ NetworkFunctionGroupName }}',
- '{{ ProposedNetworkFunctionGroupChange }}',
- '{{ Tags }}',
- '{{ TransportAttachmentId }}',
- '{{ Options }}',
+SELECT
+ '{{ core_network_id }}',
+ '{{ edge_location }}',
+ '{{ proposed_segment_change }}',
+ '{{ network_function_group_name }}',
+ '{{ proposed_network_function_group_change }}',
+ '{{ tags }}',
+ '{{ transport_attachment_id }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -401,34 +401,33 @@ globals:
 resources:
   - name: connect_attachment
     props:
-      - name: CoreNetworkId
-        value: '{{ CoreNetworkId }}'
-      - name: EdgeLocation
-        value: '{{ EdgeLocation }}'
-      - name: ProposedSegmentChange
+      - name: core_network_id
+        value: '{{ core_network_id }}'
+      - name: edge_location
+        value: '{{ edge_location }}'
+      - name: proposed_segment_change
         value:
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          SegmentName: '{{ SegmentName }}'
-      - name: NetworkFunctionGroupName
-        value: '{{ NetworkFunctionGroupName }}'
-      - name: ProposedNetworkFunctionGroupChange
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          segment_name: '{{ segment_name }}'
+      - name: network_function_group_name
+        value: '{{ network_function_group_name }}'
+      - name: proposed_network_function_group_change
         value:
-          Tags:
+          tags:
             - null
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          NetworkFunctionGroupName: '{{ NetworkFunctionGroupName }}'
-      - name: Tags
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          network_function_group_name: '{{ network_function_group_name }}'
+      - name: tags
         value:
           - null
-      - name: TransportAttachmentId
-        value: '{{ TransportAttachmentId }}'
-      - name: Options
+      - name: transport_attachment_id
+        value: '{{ transport_attachment_id }}'
+      - name: options
         value:
-          Protocol: '{{ Protocol }}'
-
+          protocol: '{{ protocol }}'
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +446,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -456,7 +455,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.connect_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

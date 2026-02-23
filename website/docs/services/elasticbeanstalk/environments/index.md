@@ -257,7 +257,7 @@ solution_stack_name,
 cname_prefix,
 tags
 FROM awscc.elasticbeanstalk.environments
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,8 +293,8 @@ INSERT INTO awscc.elasticbeanstalk.environments (
  ApplicationName,
  region
 )
-SELECT 
-'{{ ApplicationName }}',
+SELECT
+'{{ application_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,19 +317,19 @@ INSERT INTO awscc.elasticbeanstalk.environments (
  Tags,
  region
 )
-SELECT 
- '{{ PlatformArn }}',
- '{{ ApplicationName }}',
- '{{ Description }}',
- '{{ EnvironmentName }}',
- '{{ OperationsRole }}',
- '{{ Tier }}',
- '{{ VersionLabel }}',
- '{{ OptionSettings }}',
- '{{ TemplateName }}',
- '{{ SolutionStackName }}',
- '{{ CNAMEPrefix }}',
- '{{ Tags }}',
+SELECT
+ '{{ platform_arn }}',
+ '{{ application_name }}',
+ '{{ description }}',
+ '{{ environment_name }}',
+ '{{ operations_role }}',
+ '{{ tier }}',
+ '{{ version_label }}',
+ '{{ option_settings }}',
+ '{{ template_name }}',
+ '{{ solution_stack_name }}',
+ '{{ cname_prefix }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -347,40 +347,39 @@ globals:
 resources:
   - name: environment
     props:
-      - name: PlatformArn
-        value: '{{ PlatformArn }}'
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: OperationsRole
-        value: '{{ OperationsRole }}'
-      - name: Tier
+      - name: platform_arn
+        value: '{{ platform_arn }}'
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: operations_role
+        value: '{{ operations_role }}'
+      - name: tier
         value:
-          Type: '{{ Type }}'
-          Version: '{{ Version }}'
-          Name: '{{ Name }}'
-      - name: VersionLabel
-        value: '{{ VersionLabel }}'
-      - name: OptionSettings
+          type: '{{ type }}'
+          version: '{{ version }}'
+          name: '{{ name }}'
+      - name: version_label
+        value: '{{ version_label }}'
+      - name: option_settings
         value:
-          - ResourceName: '{{ ResourceName }}'
-            Value: '{{ Value }}'
-            Namespace: '{{ Namespace }}'
-            OptionName: '{{ OptionName }}'
-      - name: TemplateName
-        value: '{{ TemplateName }}'
-      - name: SolutionStackName
-        value: '{{ SolutionStackName }}'
-      - name: CNAMEPrefix
-        value: '{{ CNAMEPrefix }}'
-      - name: Tags
+          - resource_name: '{{ resource_name }}'
+            value: '{{ value }}'
+            namespace: '{{ namespace }}'
+            option_name: '{{ option_name }}'
+      - name: template_name
+        value: '{{ template_name }}'
+      - name: solution_stack_name
+        value: '{{ solution_stack_name }}'
+      - name: cname_prefix
+        value: '{{ cname_prefix }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -402,7 +401,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentName>';
+AND Identifier = '{{ environment_name }}';
 ```
 
 
@@ -411,7 +410,7 @@ AND Identifier = '<EnvironmentName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.environments
-WHERE Identifier = '<EnvironmentName>'
+WHERE Identifier = '{{ environment_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -278,7 +278,7 @@ trust_store_arn,
 user_access_logging_settings_arn,
 user_settings_arn
 FROM awscc.workspacesweb.portals
-WHERE region = 'us-east-1' AND Identifier = '<PortalArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ portal_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,22 +328,22 @@ INSERT INTO awscc.workspacesweb.portals (
  UserSettingsArn,
  region
 )
-SELECT 
-'{{ AdditionalEncryptionContext }}',
- '{{ AuthenticationType }}',
- '{{ BrowserSettingsArn }}',
- '{{ CustomerManagedKey }}',
- '{{ DataProtectionSettingsArn }}',
- '{{ DisplayName }}',
- '{{ InstanceType }}',
- '{{ IpAccessSettingsArn }}',
- '{{ MaxConcurrentSessions }}',
- '{{ NetworkSettingsArn }}',
- '{{ SessionLoggerArn }}',
- '{{ Tags }}',
- '{{ TrustStoreArn }}',
- '{{ UserAccessLoggingSettingsArn }}',
- '{{ UserSettingsArn }}',
+SELECT
+'{{ additional_encryption_context }}',
+ '{{ authentication_type }}',
+ '{{ browser_settings_arn }}',
+ '{{ customer_managed_key }}',
+ '{{ data_protection_settings_arn }}',
+ '{{ display_name }}',
+ '{{ instance_type }}',
+ '{{ ip_access_settings_arn }}',
+ '{{ max_concurrent_sessions }}',
+ '{{ network_settings_arn }}',
+ '{{ session_logger_arn }}',
+ '{{ tags }}',
+ '{{ trust_store_arn }}',
+ '{{ user_access_logging_settings_arn }}',
+ '{{ user_settings_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -369,22 +369,22 @@ INSERT INTO awscc.workspacesweb.portals (
  UserSettingsArn,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ AuthenticationType }}',
- '{{ BrowserSettingsArn }}',
- '{{ CustomerManagedKey }}',
- '{{ DataProtectionSettingsArn }}',
- '{{ DisplayName }}',
- '{{ InstanceType }}',
- '{{ IpAccessSettingsArn }}',
- '{{ MaxConcurrentSessions }}',
- '{{ NetworkSettingsArn }}',
- '{{ SessionLoggerArn }}',
- '{{ Tags }}',
- '{{ TrustStoreArn }}',
- '{{ UserAccessLoggingSettingsArn }}',
- '{{ UserSettingsArn }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ authentication_type }}',
+ '{{ browser_settings_arn }}',
+ '{{ customer_managed_key }}',
+ '{{ data_protection_settings_arn }}',
+ '{{ display_name }}',
+ '{{ instance_type }}',
+ '{{ ip_access_settings_arn }}',
+ '{{ max_concurrent_sessions }}',
+ '{{ network_settings_arn }}',
+ '{{ session_logger_arn }}',
+ '{{ tags }}',
+ '{{ trust_store_arn }}',
+ '{{ user_access_logging_settings_arn }}',
+ '{{ user_settings_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -402,39 +402,38 @@ globals:
 resources:
   - name: portal
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: AuthenticationType
-        value: '{{ AuthenticationType }}'
-      - name: BrowserSettingsArn
-        value: '{{ BrowserSettingsArn }}'
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: DataProtectionSettingsArn
-        value: '{{ DataProtectionSettingsArn }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: IpAccessSettingsArn
-        value: '{{ IpAccessSettingsArn }}'
-      - name: MaxConcurrentSessions
+      - name: authentication_type
+        value: '{{ authentication_type }}'
+      - name: browser_settings_arn
+        value: '{{ browser_settings_arn }}'
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: data_protection_settings_arn
+        value: '{{ data_protection_settings_arn }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: ip_access_settings_arn
+        value: '{{ ip_access_settings_arn }}'
+      - name: max_concurrent_sessions
         value: null
-      - name: NetworkSettingsArn
-        value: '{{ NetworkSettingsArn }}'
-      - name: SessionLoggerArn
-        value: '{{ SessionLoggerArn }}'
-      - name: Tags
+      - name: network_settings_arn
+        value: '{{ network_settings_arn }}'
+      - name: session_logger_arn
+        value: '{{ session_logger_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrustStoreArn
-        value: '{{ TrustStoreArn }}'
-      - name: UserAccessLoggingSettingsArn
-        value: '{{ UserAccessLoggingSettingsArn }}'
-      - name: UserSettingsArn
-        value: '{{ UserSettingsArn }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: trust_store_arn
+        value: '{{ trust_store_arn }}'
+      - name: user_access_logging_settings_arn
+        value: '{{ user_access_logging_settings_arn }}'
+      - name: user_settings_arn
+        value: '{{ user_settings_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -462,7 +461,7 @@ SET PatchDocument = string('{{ {
     "UserSettingsArn": user_settings_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PortalArn>';
+AND Identifier = '{{ portal_arn }}';
 ```
 
 
@@ -471,7 +470,7 @@ AND Identifier = '<PortalArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.portals
-WHERE Identifier = '<PortalArn>'
+WHERE Identifier = '{{ portal_arn }}'
 AND region = 'us-east-1';
 ```
 

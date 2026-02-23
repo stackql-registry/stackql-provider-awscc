@@ -229,7 +229,7 @@ application_id,
 tags,
 name
 FROM awscc.appconfig.configuration_profiles
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<ConfigurationProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +268,10 @@ INSERT INTO awscc.appconfig.configuration_profiles (
  Name,
  region
 )
-SELECT 
-'{{ LocationUri }}',
- '{{ ApplicationId }}',
- '{{ Name }}',
+SELECT
+'{{ location_uri }}',
+ '{{ application_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,17 +292,17 @@ INSERT INTO awscc.appconfig.configuration_profiles (
  Name,
  region
 )
-SELECT 
- '{{ LocationUri }}',
- '{{ Type }}',
- '{{ KmsKeyIdentifier }}',
- '{{ Description }}',
- '{{ Validators }}',
- '{{ RetrievalRoleArn }}',
- '{{ DeletionProtectionCheck }}',
- '{{ ApplicationId }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ location_uri }}',
+ '{{ type }}',
+ '{{ kms_key_identifier }}',
+ '{{ description }}',
+ '{{ validators }}',
+ '{{ retrieval_role_arn }}',
+ '{{ deletion_protection_check }}',
+ '{{ application_id }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,31 +320,30 @@ globals:
 resources:
   - name: configuration_profile
     props:
-      - name: LocationUri
-        value: '{{ LocationUri }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Validators
+      - name: location_uri
+        value: '{{ location_uri }}'
+      - name: type
+        value: '{{ type }}'
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: validators
         value:
-          - Type: '{{ Type }}'
-            Content: '{{ Content }}'
-      - name: RetrievalRoleArn
-        value: '{{ RetrievalRoleArn }}'
-      - name: DeletionProtectionCheck
-        value: '{{ DeletionProtectionCheck }}'
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: Tags
+          - type: '{{ type }}'
+            content: '{{ content }}'
+      - name: retrieval_role_arn
+        value: '{{ retrieval_role_arn }}'
+      - name: deletion_protection_check
+        value: '{{ deletion_protection_check }}'
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<ConfigurationProfileId>';
+AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<ApplicationId>|<ConfigurationProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.configuration_profiles
-WHERE Identifier = '<ApplicationId|ConfigurationProfileId>'
+WHERE Identifier = '{{ application_id }}|{{ configuration_profile_id }}'
 AND region = 'us-east-1';
 ```
 

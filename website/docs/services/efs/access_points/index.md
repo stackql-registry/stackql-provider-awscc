@@ -228,7 +228,7 @@ file_system_id,
 posix_user,
 root_directory
 FROM awscc.efs.access_points
-WHERE region = 'us-east-1' AND Identifier = '<AccessPointId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ access_point_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,8 +264,8 @@ INSERT INTO awscc.efs.access_points (
  FileSystemId,
  region
 )
-SELECT 
-'{{ FileSystemId }}',
+SELECT
+'{{ file_system_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,12 +281,12 @@ INSERT INTO awscc.efs.access_points (
  RootDirectory,
  region
 )
-SELECT 
- '{{ ClientToken }}',
- '{{ AccessPointTags }}',
- '{{ FileSystemId }}',
- '{{ PosixUser }}',
- '{{ RootDirectory }}',
+SELECT
+ '{{ client_token }}',
+ '{{ access_point_tags }}',
+ '{{ file_system_id }}',
+ '{{ posix_user }}',
+ '{{ root_directory }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,28 +304,27 @@ globals:
 resources:
   - name: access_point
     props:
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: AccessPointTags
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: access_point_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: FileSystemId
-        value: '{{ FileSystemId }}'
-      - name: PosixUser
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: file_system_id
+        value: '{{ file_system_id }}'
+      - name: posix_user
         value:
-          Uid: '{{ Uid }}'
-          Gid: '{{ Gid }}'
-          SecondaryGids:
-            - '{{ SecondaryGids[0] }}'
-      - name: RootDirectory
+          uid: '{{ uid }}'
+          gid: '{{ gid }}'
+          secondary_gids:
+            - '{{ secondary_gids[0] }}'
+      - name: root_directory
         value:
-          Path: '{{ Path }}'
-          CreationInfo:
-            OwnerUid: '{{ OwnerUid }}'
-            OwnerGid: '{{ OwnerGid }}'
-            Permissions: '{{ Permissions }}'
-
+          path: '{{ path }}'
+          creation_info:
+            owner_uid: '{{ owner_uid }}'
+            owner_gid: '{{ owner_gid }}'
+            permissions: '{{ permissions }}'
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +340,7 @@ SET PatchDocument = string('{{ {
     "AccessPointTags": access_point_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccessPointId>';
+AND Identifier = '{{ access_point_id }}';
 ```
 
 
@@ -350,7 +349,7 @@ AND Identifier = '<AccessPointId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.access_points
-WHERE Identifier = '<AccessPointId>'
+WHERE Identifier = '{{ access_point_id }}'
 AND region = 'us-east-1';
 ```
 

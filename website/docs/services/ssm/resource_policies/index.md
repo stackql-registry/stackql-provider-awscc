@@ -162,7 +162,7 @@ policy,
 policy_id,
 policy_hash
 FROM awscc.ssm.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<PolicyId>|<ResourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,9 +200,9 @@ INSERT INTO awscc.ssm.resource_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ResourceArn }}',
- '{{ Policy }}',
+SELECT
+'{{ resource_arn }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,9 +215,9 @@ INSERT INTO awscc.ssm.resource_policies (
  Policy,
  region
 )
-SELECT 
- '{{ ResourceArn }}',
- '{{ Policy }}',
+SELECT
+ '{{ resource_arn }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -235,11 +235,10 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: Policy
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +254,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyId>|<ResourceArn>';
+AND Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```
 
 
@@ -264,7 +263,7 @@ AND Identifier = '<PolicyId>|<ResourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_policies
-WHERE Identifier = '<PolicyId|ResourceArn>'
+WHERE Identifier = '{{ policy_id }}|{{ resource_arn }}'
 AND region = 'us-east-1';
 ```
 

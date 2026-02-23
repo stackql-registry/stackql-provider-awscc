@@ -212,7 +212,7 @@ status,
 portal_options,
 tags
 FROM awscc.sso.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.sso.applications (
  ApplicationProviderArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ InstanceArn }}',
- '{{ ApplicationProviderArn }}',
+SELECT
+'{{ name }}',
+ '{{ instance_arn }}',
+ '{{ application_provider_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,14 +271,14 @@ INSERT INTO awscc.sso.applications (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ InstanceArn }}',
- '{{ ApplicationProviderArn }}',
- '{{ Status }}',
- '{{ PortalOptions }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ instance_arn }}',
+ '{{ application_provider_arn }}',
+ '{{ status }}',
+ '{{ portal_options }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,27 +296,26 @@ globals:
 resources:
   - name: application
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: ApplicationProviderArn
-        value: '{{ ApplicationProviderArn }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: PortalOptions
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: application_provider_arn
+        value: '{{ application_provider_arn }}'
+      - name: status
+        value: '{{ status }}'
+      - name: portal_options
         value:
-          Visibility: '{{ Visibility }}'
-          SignInOptions:
-            Origin: '{{ Origin }}'
-            ApplicationUrl: '{{ ApplicationUrl }}'
-      - name: Tags
+          visibility: '{{ visibility }}'
+          sign_in_options:
+            origin: '{{ origin }}'
+            application_url: '{{ application_url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationArn>';
+AND Identifier = '{{ application_arn }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<ApplicationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.applications
-WHERE Identifier = '<ApplicationArn>'
+WHERE Identifier = '{{ application_arn }}'
 AND region = 'us-east-1';
 ```
 

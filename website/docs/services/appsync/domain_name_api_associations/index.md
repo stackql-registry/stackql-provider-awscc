@@ -100,7 +100,7 @@ domain_name,
 api_id,
 api_association_identifier
 FROM awscc.appsync.domain_name_api_associations
-WHERE region = 'us-east-1' AND Identifier = '<ApiAssociationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_association_identifier }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.appsync.domain_name_api_associations (
  ApiId,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ ApiId }}',
+SELECT
+'{{ domain_name }}',
+ '{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -139,9 +139,9 @@ INSERT INTO awscc.appsync.domain_name_api_associations (
  ApiId,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ ApiId }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -159,11 +159,10 @@ globals:
 resources:
   - name: domain_name_api_association
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: api_id
+        value: '{{ api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -179,7 +178,7 @@ SET PatchDocument = string('{{ {
     "ApiId": api_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiAssociationIdentifier>';
+AND Identifier = '{{ api_association_identifier }}';
 ```
 
 
@@ -188,7 +187,7 @@ AND Identifier = '<ApiAssociationIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.domain_name_api_associations
-WHERE Identifier = '<ApiAssociationIdentifier>'
+WHERE Identifier = '{{ api_association_identifier }}'
 AND region = 'us-east-1';
 ```
 

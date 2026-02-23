@@ -227,7 +227,7 @@ application_id,
 dynamic_extension_parameters,
 tags
 FROM awscc.appconfig.deployments
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<EnvironmentId>|<DeploymentNumber>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,12 +269,12 @@ INSERT INTO awscc.appconfig.deployments (
  ApplicationId,
  region
 )
-SELECT 
-'{{ DeploymentStrategyId }}',
- '{{ ConfigurationProfileId }}',
- '{{ EnvironmentId }}',
- '{{ ConfigurationVersion }}',
- '{{ ApplicationId }}',
+SELECT
+'{{ deployment_strategy_id }}',
+ '{{ configuration_profile_id }}',
+ '{{ environment_id }}',
+ '{{ configuration_version }}',
+ '{{ application_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,16 +294,16 @@ INSERT INTO awscc.appconfig.deployments (
  Tags,
  region
 )
-SELECT 
- '{{ DeploymentStrategyId }}',
- '{{ ConfigurationProfileId }}',
- '{{ EnvironmentId }}',
- '{{ KmsKeyIdentifier }}',
- '{{ Description }}',
- '{{ ConfigurationVersion }}',
- '{{ ApplicationId }}',
- '{{ DynamicExtensionParameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ deployment_strategy_id }}',
+ '{{ configuration_profile_id }}',
+ '{{ environment_id }}',
+ '{{ kms_key_identifier }}',
+ '{{ description }}',
+ '{{ configuration_version }}',
+ '{{ application_id }}',
+ '{{ dynamic_extension_parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -321,30 +321,29 @@ globals:
 resources:
   - name: deployment
     props:
-      - name: DeploymentStrategyId
-        value: '{{ DeploymentStrategyId }}'
-      - name: ConfigurationProfileId
-        value: '{{ ConfigurationProfileId }}'
-      - name: EnvironmentId
-        value: '{{ EnvironmentId }}'
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ConfigurationVersion
-        value: '{{ ConfigurationVersion }}'
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: DynamicExtensionParameters
+      - name: deployment_strategy_id
+        value: '{{ deployment_strategy_id }}'
+      - name: configuration_profile_id
+        value: '{{ configuration_profile_id }}'
+      - name: environment_id
+        value: '{{ environment_id }}'
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: configuration_version
+        value: '{{ configuration_version }}'
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: dynamic_extension_parameters
         value:
-          - ParameterValue: '{{ ParameterValue }}'
-            ExtensionReference: '{{ ExtensionReference }}'
-            ParameterName: '{{ ParameterName }}'
-      - name: Tags
+          - parameter_value: '{{ parameter_value }}'
+            extension_reference: '{{ extension_reference }}'
+            parameter_name: '{{ parameter_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +354,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.deployments
-WHERE Identifier = '<ApplicationId|EnvironmentId|DeploymentNumber>'
+WHERE Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}'
 AND region = 'us-east-1';
 ```
 

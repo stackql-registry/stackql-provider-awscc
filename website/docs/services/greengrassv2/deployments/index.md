@@ -294,7 +294,7 @@ iot_job_configuration,
 deployment_policies,
 tags
 FROM awscc.greengrassv2.deployments
-WHERE region = 'us-east-1' AND Identifier = '<DeploymentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ deployment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,8 +330,8 @@ INSERT INTO awscc.greengrassv2.deployments (
  TargetArn,
  region
 )
-SELECT 
-'{{ TargetArn }}',
+SELECT
+'{{ target_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -349,14 +349,14 @@ INSERT INTO awscc.greengrassv2.deployments (
  Tags,
  region
 )
-SELECT 
- '{{ TargetArn }}',
- '{{ ParentTargetArn }}',
- '{{ DeploymentName }}',
- '{{ Components }}',
- '{{ IotJobConfiguration }}',
- '{{ DeploymentPolicies }}',
- '{{ Tags }}',
+SELECT
+ '{{ target_arn }}',
+ '{{ parent_target_arn }}',
+ '{{ deployment_name }}',
+ '{{ components }}',
+ '{{ iot_job_configuration }}',
+ '{{ deployment_policies }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -374,41 +374,40 @@ globals:
 resources:
   - name: deployment
     props:
-      - name: TargetArn
-        value: '{{ TargetArn }}'
-      - name: ParentTargetArn
-        value: '{{ ParentTargetArn }}'
-      - name: DeploymentName
-        value: '{{ DeploymentName }}'
-      - name: Components
+      - name: target_arn
+        value: '{{ target_arn }}'
+      - name: parent_target_arn
+        value: '{{ parent_target_arn }}'
+      - name: deployment_name
+        value: '{{ deployment_name }}'
+      - name: components
         value: {}
-      - name: IotJobConfiguration
+      - name: iot_job_configuration
         value:
-          JobExecutionsRolloutConfig:
-            ExponentialRate:
-              BaseRatePerMinute: '{{ BaseRatePerMinute }}'
-              IncrementFactor: null
-              RateIncreaseCriteria: {}
-            MaximumPerMinute: '{{ MaximumPerMinute }}'
-          AbortConfig:
-            CriteriaList:
-              - FailureType: '{{ FailureType }}'
-                Action: '{{ Action }}'
-                ThresholdPercentage: null
-                MinNumberOfExecutedThings: '{{ MinNumberOfExecutedThings }}'
-          TimeoutConfig:
-            InProgressTimeoutInMinutes: '{{ InProgressTimeoutInMinutes }}'
-      - name: DeploymentPolicies
+          job_executions_rollout_config:
+            exponential_rate:
+              base_rate_per_minute: '{{ base_rate_per_minute }}'
+              increment_factor: null
+              rate_increase_criteria: {}
+            maximum_per_minute: '{{ maximum_per_minute }}'
+          abort_config:
+            criteria_list:
+              - failure_type: '{{ failure_type }}'
+                action: '{{ action }}'
+                threshold_percentage: null
+                min_number_of_executed_things: '{{ min_number_of_executed_things }}'
+          timeout_config:
+            in_progress_timeout_in_minutes: '{{ in_progress_timeout_in_minutes }}'
+      - name: deployment_policies
         value:
-          FailureHandlingPolicy: '{{ FailureHandlingPolicy }}'
-          ComponentUpdatePolicy:
-            TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-            Action: '{{ Action }}'
-          ConfigurationValidationPolicy:
-            TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-      - name: Tags
+          failure_handling_policy: '{{ failure_handling_policy }}'
+          component_update_policy:
+            timeout_in_seconds: '{{ timeout_in_seconds }}'
+            action: '{{ action }}'
+          configuration_validation_policy:
+            timeout_in_seconds: '{{ timeout_in_seconds }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DeploymentId>';
+AND Identifier = '{{ deployment_id }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<DeploymentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.greengrassv2.deployments
-WHERE Identifier = '<DeploymentId>'
+WHERE Identifier = '{{ deployment_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ network_interface_id,
 gateway_load_balancer_endpoint_id,
 tags
 FROM awscc.ec2.traffic_mirror_targets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -216,12 +216,12 @@ INSERT INTO awscc.ec2.traffic_mirror_targets (
  Tags,
  region
 )
-SELECT 
-'{{ NetworkLoadBalancerArn }}',
- '{{ Description }}',
- '{{ NetworkInterfaceId }}',
- '{{ GatewayLoadBalancerEndpointId }}',
- '{{ Tags }}',
+SELECT
+'{{ network_load_balancer_arn }}',
+ '{{ description }}',
+ '{{ network_interface_id }}',
+ '{{ gateway_load_balancer_endpoint_id }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,12 +237,12 @@ INSERT INTO awscc.ec2.traffic_mirror_targets (
  Tags,
  region
 )
-SELECT 
- '{{ NetworkLoadBalancerArn }}',
- '{{ Description }}',
- '{{ NetworkInterfaceId }}',
- '{{ GatewayLoadBalancerEndpointId }}',
- '{{ Tags }}',
+SELECT
+ '{{ network_load_balancer_arn }}',
+ '{{ description }}',
+ '{{ network_interface_id }}',
+ '{{ gateway_load_balancer_endpoint_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,19 +260,18 @@ globals:
 resources:
   - name: traffic_mirror_target
     props:
-      - name: NetworkLoadBalancerArn
-        value: '{{ NetworkLoadBalancerArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-      - name: GatewayLoadBalancerEndpointId
-        value: '{{ GatewayLoadBalancerEndpointId }}'
-      - name: Tags
+      - name: network_load_balancer_arn
+        value: '{{ network_load_balancer_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
+      - name: gateway_load_balancer_endpoint_id
+        value: '{{ gateway_load_balancer_endpoint_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_targets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

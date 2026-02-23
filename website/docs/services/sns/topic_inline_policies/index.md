@@ -94,7 +94,7 @@ region,
 policy_document,
 topic_arn
 FROM awscc.sns.topic_inline_policies
-WHERE region = 'us-east-1' AND Identifier = '<TopicArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ topic_arn }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.sns.topic_inline_policies (
  TopicArn,
  region
 )
-SELECT 
-'{{ PolicyDocument }}',
- '{{ TopicArn }}',
+SELECT
+'{{ policy_document }}',
+ '{{ topic_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.sns.topic_inline_policies (
  TopicArn,
  region
 )
-SELECT 
- '{{ PolicyDocument }}',
- '{{ TopicArn }}',
+SELECT
+ '{{ policy_document }}',
+ '{{ topic_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: topic_inline_policy
     props:
-      - name: PolicyDocument
+      - name: policy_document
         value: {}
-      - name: TopicArn
-        value: '{{ TopicArn }}'
-
+      - name: topic_arn
+        value: '{{ topic_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TopicArn>';
+AND Identifier = '{{ topic_arn }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<TopicArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sns.topic_inline_policies
-WHERE Identifier = '<TopicArn>'
+WHERE Identifier = '{{ topic_arn }}'
 AND region = 'us-east-1';
 ```
 

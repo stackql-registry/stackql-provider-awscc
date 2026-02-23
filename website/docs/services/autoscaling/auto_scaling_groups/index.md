@@ -569,7 +569,7 @@ capacity_reservation_specification,
 health_check_type,
 max_instance_lifetime
 FROM awscc.autoscaling.auto_scaling_groups
-WHERE region = 'us-east-1' AND Identifier = '<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -606,9 +606,9 @@ INSERT INTO awscc.autoscaling.auto_scaling_groups (
  MinSize,
  region
 )
-SELECT 
-'{{ MaxSize }}',
- '{{ MinSize }}',
+SELECT
+'{{ max_size }}',
+ '{{ min_size }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -654,42 +654,42 @@ INSERT INTO awscc.autoscaling.auto_scaling_groups (
  MaxInstanceLifetime,
  region
 )
-SELECT 
- '{{ LifecycleHookSpecificationList }}',
- '{{ LoadBalancerNames }}',
- '{{ LaunchConfigurationName }}',
- '{{ ServiceLinkedRoleARN }}',
- '{{ AvailabilityZoneImpairmentPolicy }}',
- '{{ TargetGroupARNs }}',
- '{{ Cooldown }}',
- '{{ NotificationConfigurations }}',
- '{{ DesiredCapacity }}',
- '{{ HealthCheckGracePeriod }}',
- '{{ DefaultInstanceWarmup }}',
- '{{ SkipZonalShiftValidation }}',
- '{{ NewInstancesProtectedFromScaleIn }}',
- '{{ LaunchTemplate }}',
- '{{ MixedInstancesPolicy }}',
- '{{ VPCZoneIdentifier }}',
- '{{ Tags }}',
- '{{ Context }}',
- '{{ CapacityRebalance }}',
- '{{ InstanceId }}',
- '{{ AvailabilityZones }}',
- '{{ NotificationConfiguration }}',
- '{{ AvailabilityZoneDistribution }}',
- '{{ MetricsCollection }}',
- '{{ InstanceMaintenancePolicy }}',
- '{{ MaxSize }}',
- '{{ MinSize }}',
- '{{ TerminationPolicies }}',
- '{{ AutoScalingGroupName }}',
- '{{ TrafficSources }}',
- '{{ DesiredCapacityType }}',
- '{{ PlacementGroup }}',
- '{{ CapacityReservationSpecification }}',
- '{{ HealthCheckType }}',
- '{{ MaxInstanceLifetime }}',
+SELECT
+ '{{ lifecycle_hook_specification_list }}',
+ '{{ load_balancer_names }}',
+ '{{ launch_configuration_name }}',
+ '{{ service_linked_role_arn }}',
+ '{{ availability_zone_impairment_policy }}',
+ '{{ target_group_arns }}',
+ '{{ cooldown }}',
+ '{{ notification_configurations }}',
+ '{{ desired_capacity }}',
+ '{{ health_check_grace_period }}',
+ '{{ default_instance_warmup }}',
+ '{{ skip_zonal_shift_validation }}',
+ '{{ new_instances_protected_from_scale_in }}',
+ '{{ launch_template }}',
+ '{{ mixed_instances_policy }}',
+ '{{ vpc_zone_identifier }}',
+ '{{ tags }}',
+ '{{ context }}',
+ '{{ capacity_rebalance }}',
+ '{{ instance_id }}',
+ '{{ availability_zones }}',
+ '{{ notification_configuration }}',
+ '{{ availability_zone_distribution }}',
+ '{{ metrics_collection }}',
+ '{{ instance_maintenance_policy }}',
+ '{{ max_size }}',
+ '{{ min_size }}',
+ '{{ termination_policies }}',
+ '{{ auto_scaling_group_name }}',
+ '{{ traffic_sources }}',
+ '{{ desired_capacity_type }}',
+ '{{ placement_group }}',
+ '{{ capacity_reservation_specification }}',
+ '{{ health_check_type }}',
+ '{{ max_instance_lifetime }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -707,183 +707,182 @@ globals:
 resources:
   - name: auto_scaling_group
     props:
-      - name: LifecycleHookSpecificationList
+      - name: lifecycle_hook_specification_list
         value:
-          - LifecycleHookName: '{{ LifecycleHookName }}'
-            LifecycleTransition: '{{ LifecycleTransition }}'
-            HeartbeatTimeout: '{{ HeartbeatTimeout }}'
-            NotificationMetadata: '{{ NotificationMetadata }}'
-            DefaultResult: '{{ DefaultResult }}'
-            NotificationTargetARN: '{{ NotificationTargetARN }}'
-            RoleARN: '{{ RoleARN }}'
-      - name: LoadBalancerNames
+          - lifecycle_hook_name: '{{ lifecycle_hook_name }}'
+            lifecycle_transition: '{{ lifecycle_transition }}'
+            heartbeat_timeout: '{{ heartbeat_timeout }}'
+            notification_metadata: '{{ notification_metadata }}'
+            default_result: '{{ default_result }}'
+            notification_target_arn: '{{ notification_target_arn }}'
+            role_arn: '{{ role_arn }}'
+      - name: load_balancer_names
         value:
-          - '{{ LoadBalancerNames[0] }}'
-      - name: LaunchConfigurationName
-        value: '{{ LaunchConfigurationName }}'
-      - name: ServiceLinkedRoleARN
-        value: '{{ ServiceLinkedRoleARN }}'
-      - name: AvailabilityZoneImpairmentPolicy
+          - '{{ load_balancer_names[0] }}'
+      - name: launch_configuration_name
+        value: '{{ launch_configuration_name }}'
+      - name: service_linked_role_arn
+        value: '{{ service_linked_role_arn }}'
+      - name: availability_zone_impairment_policy
         value:
-          ZonalShiftEnabled: '{{ ZonalShiftEnabled }}'
-          ImpairedZoneHealthCheckBehavior: '{{ ImpairedZoneHealthCheckBehavior }}'
-      - name: TargetGroupARNs
+          zonal_shift_enabled: '{{ zonal_shift_enabled }}'
+          impaired_zone_health_check_behavior: '{{ impaired_zone_health_check_behavior }}'
+      - name: target_group_arns
         value:
-          - '{{ TargetGroupARNs[0] }}'
-      - name: Cooldown
-        value: '{{ Cooldown }}'
-      - name: NotificationConfigurations
+          - '{{ target_group_arns[0] }}'
+      - name: cooldown
+        value: '{{ cooldown }}'
+      - name: notification_configurations
         value:
-          - TopicARN:
-              - '{{ TopicARN[0] }}'
-            NotificationTypes:
-              - '{{ NotificationTypes[0] }}'
-      - name: DesiredCapacity
-        value: '{{ DesiredCapacity }}'
-      - name: HealthCheckGracePeriod
-        value: '{{ HealthCheckGracePeriod }}'
-      - name: DefaultInstanceWarmup
-        value: '{{ DefaultInstanceWarmup }}'
-      - name: SkipZonalShiftValidation
-        value: '{{ SkipZonalShiftValidation }}'
-      - name: NewInstancesProtectedFromScaleIn
-        value: '{{ NewInstancesProtectedFromScaleIn }}'
-      - name: LaunchTemplate
+          - topic_arn:
+              - '{{ topic_arn[0] }}'
+            notification_types:
+              - '{{ notification_types[0] }}'
+      - name: desired_capacity
+        value: '{{ desired_capacity }}'
+      - name: health_check_grace_period
+        value: '{{ health_check_grace_period }}'
+      - name: default_instance_warmup
+        value: '{{ default_instance_warmup }}'
+      - name: skip_zonal_shift_validation
+        value: '{{ skip_zonal_shift_validation }}'
+      - name: new_instances_protected_from_scale_in
+        value: '{{ new_instances_protected_from_scale_in }}'
+      - name: launch_template
         value:
-          LaunchTemplateName: '{{ LaunchTemplateName }}'
-          Version: '{{ Version }}'
-          LaunchTemplateId: '{{ LaunchTemplateId }}'
-      - name: MixedInstancesPolicy
+          launch_template_name: '{{ launch_template_name }}'
+          version: '{{ version }}'
+          launch_template_id: '{{ launch_template_id }}'
+      - name: mixed_instances_policy
         value:
-          InstancesDistribution:
-            OnDemandAllocationStrategy: '{{ OnDemandAllocationStrategy }}'
-            OnDemandBaseCapacity: '{{ OnDemandBaseCapacity }}'
-            OnDemandPercentageAboveBaseCapacity: '{{ OnDemandPercentageAboveBaseCapacity }}'
-            SpotInstancePools: '{{ SpotInstancePools }}'
-            SpotAllocationStrategy: '{{ SpotAllocationStrategy }}'
-            SpotMaxPrice: '{{ SpotMaxPrice }}'
-          LaunchTemplate:
-            LaunchTemplateSpecification: null
-            Overrides:
-              - LaunchTemplateSpecification: null
-                WeightedCapacity: '{{ WeightedCapacity }}'
-                InstanceRequirements:
-                  InstanceGenerations:
-                    - '{{ InstanceGenerations[0] }}'
-                  AcceleratorTypes:
-                    - '{{ AcceleratorTypes[0] }}'
-                  MemoryGiBPerVCpu:
-                    Min: null
-                    Max: null
-                  AcceleratorManufacturers:
-                    - '{{ AcceleratorManufacturers[0] }}'
-                  VCpuCount:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  LocalStorage: '{{ LocalStorage }}'
-                  CpuManufacturers:
-                    - '{{ CpuManufacturers[0] }}'
-                  BareMetal: '{{ BareMetal }}'
-                  RequireHibernateSupport: '{{ RequireHibernateSupport }}'
-                  MaxSpotPriceAsPercentageOfOptimalOnDemandPrice: '{{ MaxSpotPriceAsPercentageOfOptimalOnDemandPrice }}'
-                  OnDemandMaxPricePercentageOverLowestPrice: '{{ OnDemandMaxPricePercentageOverLowestPrice }}'
-                  MemoryMiB:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  LocalStorageTypes:
-                    - '{{ LocalStorageTypes[0] }}'
-                  NetworkInterfaceCount:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  ExcludedInstanceTypes:
-                    - '{{ ExcludedInstanceTypes[0] }}'
-                  AllowedInstanceTypes:
-                    - '{{ AllowedInstanceTypes[0] }}'
-                  AcceleratorCount:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  NetworkBandwidthGbps:
-                    Min: null
-                    Max: null
-                  BaselinePerformanceFactors:
-                    Cpu:
-                      References:
-                        - InstanceFamily: '{{ InstanceFamily }}'
-                  BaselineEbsBandwidthMbps:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  SpotMaxPricePercentageOverLowestPrice: '{{ SpotMaxPricePercentageOverLowestPrice }}'
-                  AcceleratorNames:
-                    - '{{ AcceleratorNames[0] }}'
-                  AcceleratorTotalMemoryMiB:
-                    Min: '{{ Min }}'
-                    Max: '{{ Max }}'
-                  BurstablePerformance: '{{ BurstablePerformance }}'
-                  TotalLocalStorageGB:
-                    Min: null
-                    Max: null
-                InstanceType: '{{ InstanceType }}'
-      - name: VPCZoneIdentifier
+          instances_distribution:
+            on_demand_allocation_strategy: '{{ on_demand_allocation_strategy }}'
+            on_demand_base_capacity: '{{ on_demand_base_capacity }}'
+            on_demand_percentage_above_base_capacity: '{{ on_demand_percentage_above_base_capacity }}'
+            spot_instance_pools: '{{ spot_instance_pools }}'
+            spot_allocation_strategy: '{{ spot_allocation_strategy }}'
+            spot_max_price: '{{ spot_max_price }}'
+          launch_template:
+            launch_template_specification: null
+            overrides:
+              - launch_template_specification: null
+                weighted_capacity: '{{ weighted_capacity }}'
+                instance_requirements:
+                  instance_generations:
+                    - '{{ instance_generations[0] }}'
+                  accelerator_types:
+                    - '{{ accelerator_types[0] }}'
+                  memory_gi_bper_vcpu:
+                    min: null
+                    max: null
+                  accelerator_manufacturers:
+                    - '{{ accelerator_manufacturers[0] }}'
+                  v_cpu_count:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  local_storage: '{{ local_storage }}'
+                  cpu_manufacturers:
+                    - '{{ cpu_manufacturers[0] }}'
+                  bare_metal: '{{ bare_metal }}'
+                  require_hibernate_support: '{{ require_hibernate_support }}'
+                  max_spot_price_as_percentage_of_optimal_on_demand_price: '{{ max_spot_price_as_percentage_of_optimal_on_demand_price }}'
+                  on_demand_max_price_percentage_over_lowest_price: '{{ on_demand_max_price_percentage_over_lowest_price }}'
+                  memory_mi_b:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  local_storage_types:
+                    - '{{ local_storage_types[0] }}'
+                  network_interface_count:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  excluded_instance_types:
+                    - '{{ excluded_instance_types[0] }}'
+                  allowed_instance_types:
+                    - '{{ allowed_instance_types[0] }}'
+                  accelerator_count:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  network_bandwidth_gbps:
+                    min: null
+                    max: null
+                  baseline_performance_factors:
+                    cpu:
+                      references:
+                        - instance_family: '{{ instance_family }}'
+                  baseline_ebs_bandwidth_mbps:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  spot_max_price_percentage_over_lowest_price: '{{ spot_max_price_percentage_over_lowest_price }}'
+                  accelerator_names:
+                    - '{{ accelerator_names[0] }}'
+                  accelerator_total_memory_mi_b:
+                    min: '{{ min }}'
+                    max: '{{ max }}'
+                  burstable_performance: '{{ burstable_performance }}'
+                  total_local_storage_gb:
+                    min: null
+                    max: null
+                instance_type: '{{ instance_type }}'
+      - name: vpc_zone_identifier
         value:
-          - '{{ VPCZoneIdentifier[0] }}'
-      - name: Tags
+          - '{{ vpc_zone_identifier[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-            PropagateAtLaunch: '{{ PropagateAtLaunch }}'
-      - name: Context
-        value: '{{ Context }}'
-      - name: CapacityRebalance
-        value: '{{ CapacityRebalance }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: AvailabilityZones
+          - value: '{{ value }}'
+            key: '{{ key }}'
+            propagate_at_launch: '{{ propagate_at_launch }}'
+      - name: context
+        value: '{{ context }}'
+      - name: capacity_rebalance
+        value: '{{ capacity_rebalance }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: availability_zones
         value:
-          - '{{ AvailabilityZones[0] }}'
-      - name: NotificationConfiguration
+          - '{{ availability_zones[0] }}'
+      - name: notification_configuration
         value: null
-      - name: AvailabilityZoneDistribution
+      - name: availability_zone_distribution
         value:
-          CapacityDistributionStrategy: '{{ CapacityDistributionStrategy }}'
-      - name: MetricsCollection
+          capacity_distribution_strategy: '{{ capacity_distribution_strategy }}'
+      - name: metrics_collection
         value:
-          - Metrics:
-              - '{{ Metrics[0] }}'
-            Granularity: '{{ Granularity }}'
-      - name: InstanceMaintenancePolicy
+          - metrics:
+              - '{{ metrics[0] }}'
+            granularity: '{{ granularity }}'
+      - name: instance_maintenance_policy
         value:
-          MaxHealthyPercentage: '{{ MaxHealthyPercentage }}'
-          MinHealthyPercentage: '{{ MinHealthyPercentage }}'
-      - name: MaxSize
-        value: '{{ MaxSize }}'
-      - name: MinSize
-        value: '{{ MinSize }}'
-      - name: TerminationPolicies
+          max_healthy_percentage: '{{ max_healthy_percentage }}'
+          min_healthy_percentage: '{{ min_healthy_percentage }}'
+      - name: max_size
+        value: '{{ max_size }}'
+      - name: min_size
+        value: '{{ min_size }}'
+      - name: termination_policies
         value:
-          - '{{ TerminationPolicies[0] }}'
-      - name: AutoScalingGroupName
-        value: '{{ AutoScalingGroupName }}'
-      - name: TrafficSources
+          - '{{ termination_policies[0] }}'
+      - name: auto_scaling_group_name
+        value: '{{ auto_scaling_group_name }}'
+      - name: traffic_sources
         value:
-          - Type: '{{ Type }}'
-            Identifier: '{{ Identifier }}'
-      - name: DesiredCapacityType
-        value: '{{ DesiredCapacityType }}'
-      - name: PlacementGroup
-        value: '{{ PlacementGroup }}'
-      - name: CapacityReservationSpecification
+          - type: '{{ type }}'
+            identifier: '{{ identifier }}'
+      - name: desired_capacity_type
+        value: '{{ desired_capacity_type }}'
+      - name: placement_group
+        value: '{{ placement_group }}'
+      - name: capacity_reservation_specification
         value:
-          CapacityReservationPreference: '{{ CapacityReservationPreference }}'
-          CapacityReservationTarget:
-            CapacityReservationIds:
-              - '{{ CapacityReservationIds[0] }}'
-            CapacityReservationResourceGroupArns:
-              - '{{ CapacityReservationResourceGroupArns[0] }}'
-      - name: HealthCheckType
-        value: '{{ HealthCheckType }}'
-      - name: MaxInstanceLifetime
-        value: '{{ MaxInstanceLifetime }}'
-
+          capacity_reservation_preference: '{{ capacity_reservation_preference }}'
+          capacity_reservation_target:
+            capacity_reservation_ids:
+              - '{{ capacity_reservation_ids[0] }}'
+            capacity_reservation_resource_group_arns:
+              - '{{ capacity_reservation_resource_group_arns[0] }}'
+      - name: health_check_type
+        value: '{{ health_check_type }}'
+      - name: max_instance_lifetime
+        value: '{{ max_instance_lifetime }}'
 ```
 </TabItem>
 </Tabs>
@@ -931,7 +930,7 @@ SET PatchDocument = string('{{ {
     "MaxInstanceLifetime": max_instance_lifetime
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AutoScalingGroupName>';
+AND Identifier = '{{ auto_scaling_group_name }}';
 ```
 
 
@@ -940,7 +939,7 @@ AND Identifier = '<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.auto_scaling_groups
-WHERE Identifier = '<AutoScalingGroupName>'
+WHERE Identifier = '{{ auto_scaling_group_name }}'
 AND region = 'us-east-1';
 ```
 

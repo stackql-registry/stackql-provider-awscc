@@ -147,7 +147,7 @@ region_linking_mode,
 regions,
 finding_aggregation_region
 FROM awscc.securityhub.finding_aggregators
-WHERE region = 'us-east-1' AND Identifier = '<FindingAggregatorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ finding_aggregator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,8 +183,8 @@ INSERT INTO awscc.securityhub.finding_aggregators (
  RegionLinkingMode,
  region
 )
-SELECT 
-'{{ RegionLinkingMode }}',
+SELECT
+'{{ region_linking_mode }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -197,9 +197,9 @@ INSERT INTO awscc.securityhub.finding_aggregators (
  Regions,
  region
 )
-SELECT 
- '{{ RegionLinkingMode }}',
- '{{ Regions }}',
+SELECT
+ '{{ region_linking_mode }}',
+ '{{ regions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -217,12 +217,11 @@ globals:
 resources:
   - name: finding_aggregator
     props:
-      - name: RegionLinkingMode
-        value: '{{ RegionLinkingMode }}'
-      - name: Regions
+      - name: region_linking_mode
+        value: '{{ region_linking_mode }}'
+      - name: regions
         value:
-          - '{{ Regions[0] }}'
-
+          - '{{ regions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -239,7 +238,7 @@ SET PatchDocument = string('{{ {
     "Regions": regions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FindingAggregatorArn>';
+AND Identifier = '{{ finding_aggregator_arn }}';
 ```
 
 
@@ -248,7 +247,7 @@ AND Identifier = '<FindingAggregatorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.finding_aggregators
-WHERE Identifier = '<FindingAggregatorArn>'
+WHERE Identifier = '{{ finding_aggregator_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -374,7 +374,7 @@ config_data,
 arn,
 id
 FROM awscc.groundstation.configs
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -411,9 +411,9 @@ INSERT INTO awscc.groundstation.configs (
  ConfigData,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ConfigData }}',
+SELECT
+'{{ name }}',
+ '{{ config_data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -427,10 +427,10 @@ INSERT INTO awscc.groundstation.configs (
  ConfigData,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ ConfigData }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ config_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -448,50 +448,49 @@ globals:
 resources:
   - name: config
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ConfigData
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: config_data
         value:
-          AntennaDownlinkConfig:
-            SpectrumConfig:
-              CenterFrequency:
-                Value: null
-                Units: '{{ Units }}'
-              Bandwidth:
-                Value: null
-                Units: '{{ Units }}'
-              Polarization: '{{ Polarization }}'
-          TrackingConfig:
-            Autotrack: '{{ Autotrack }}'
-          DataflowEndpointConfig:
-            DataflowEndpointName: '{{ DataflowEndpointName }}'
-            DataflowEndpointRegion: '{{ DataflowEndpointRegion }}'
-          AntennaDownlinkDemodDecodeConfig:
-            SpectrumConfig: null
-            DemodulationConfig:
-              UnvalidatedJSON: '{{ UnvalidatedJSON }}'
-            DecodeConfig:
-              UnvalidatedJSON: null
-          AntennaUplinkConfig:
-            SpectrumConfig:
-              CenterFrequency: null
-              Polarization: null
-            TargetEirp:
-              Value: null
-              Units: '{{ Units }}'
-            TransmitDisabled: '{{ TransmitDisabled }}'
-          UplinkEchoConfig:
-            Enabled: '{{ Enabled }}'
-            AntennaUplinkConfigArn: '{{ AntennaUplinkConfigArn }}'
-          S3RecordingConfig:
-            BucketArn: '{{ BucketArn }}'
-            RoleArn: '{{ RoleArn }}'
-            Prefix: '{{ Prefix }}'
-
+          antenna_downlink_config:
+            spectrum_config:
+              center_frequency:
+                value: null
+                units: '{{ units }}'
+              bandwidth:
+                value: null
+                units: '{{ units }}'
+              polarization: '{{ polarization }}'
+          tracking_config:
+            autotrack: '{{ autotrack }}'
+          dataflow_endpoint_config:
+            dataflow_endpoint_name: '{{ dataflow_endpoint_name }}'
+            dataflow_endpoint_region: '{{ dataflow_endpoint_region }}'
+          antenna_downlink_demod_decode_config:
+            spectrum_config: null
+            demodulation_config:
+              unvalidated_js_on: '{{ unvalidated_js_on }}'
+            decode_config:
+              unvalidated_js_on: null
+          antenna_uplink_config:
+            spectrum_config:
+              center_frequency: null
+              polarization: null
+            target_eirp:
+              value: null
+              units: '{{ units }}'
+            transmit_disabled: '{{ transmit_disabled }}'
+          uplink_echo_config:
+            enabled: '{{ enabled }}'
+            antenna_uplink_config_arn: '{{ antenna_uplink_config_arn }}'
+          s3_recording_config:
+            bucket_arn: '{{ bucket_arn }}'
+            role_arn: '{{ role_arn }}'
+            prefix: '{{ prefix }}'
 ```
 </TabItem>
 </Tabs>
@@ -509,7 +508,7 @@ SET PatchDocument = string('{{ {
     "ConfigData": config_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -518,7 +517,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.configs
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ resource_type,
 created_at,
 tags
 FROM awscc.batch.consumable_resources
-WHERE region = 'us-east-1' AND Identifier = '<ConsumableResourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ consumable_resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.batch.consumable_resources (
  ResourceType,
  region
 )
-SELECT 
-'{{ TotalQuantity }}',
- '{{ ResourceType }}',
+SELECT
+'{{ total_quantity }}',
+ '{{ resource_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.batch.consumable_resources (
  Tags,
  region
 )
-SELECT 
- '{{ ConsumableResourceName }}',
- '{{ TotalQuantity }}',
- '{{ ResourceType }}',
- '{{ Tags }}',
+SELECT
+ '{{ consumable_resource_name }}',
+ '{{ total_quantity }}',
+ '{{ resource_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,15 +252,14 @@ globals:
 resources:
   - name: consumable_resource
     props:
-      - name: ConsumableResourceName
-        value: '{{ ConsumableResourceName }}'
-      - name: TotalQuantity
-        value: '{{ TotalQuantity }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: Tags
+      - name: consumable_resource_name
+        value: '{{ consumable_resource_name }}'
+      - name: total_quantity
+        value: '{{ total_quantity }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +275,7 @@ SET PatchDocument = string('{{ {
     "TotalQuantity": total_quantity
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConsumableResourceArn>';
+AND Identifier = '{{ consumable_resource_arn }}';
 ```
 
 
@@ -285,7 +284,7 @@ AND Identifier = '<ConsumableResourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.consumable_resources
-WHERE Identifier = '<ConsumableResourceArn>'
+WHERE Identifier = '{{ consumable_resource_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -254,7 +254,7 @@ subdirectory,
 location_arn,
 location_uri
 FROM awscc.datasync.location_hdfs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,10 +292,10 @@ INSERT INTO awscc.datasync.location_hdfs (
  AgentArns,
  region
 )
-SELECT 
-'{{ NameNodes }}',
- '{{ AuthenticationType }}',
- '{{ AgentArns }}',
+SELECT
+'{{ name_nodes }}',
+ '{{ authentication_type }}',
+ '{{ agent_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -319,20 +319,20 @@ INSERT INTO awscc.datasync.location_hdfs (
  Subdirectory,
  region
 )
-SELECT 
- '{{ NameNodes }}',
- '{{ BlockSize }}',
- '{{ ReplicationFactor }}',
- '{{ KmsKeyProviderUri }}',
- '{{ QopConfiguration }}',
- '{{ AuthenticationType }}',
- '{{ SimpleUser }}',
- '{{ KerberosPrincipal }}',
- '{{ KerberosKeytab }}',
- '{{ KerberosKrb5Conf }}',
- '{{ Tags }}',
- '{{ AgentArns }}',
- '{{ Subdirectory }}',
+SELECT
+ '{{ name_nodes }}',
+ '{{ block_size }}',
+ '{{ replication_factor }}',
+ '{{ kms_key_provider_uri }}',
+ '{{ qop_configuration }}',
+ '{{ authentication_type }}',
+ '{{ simple_user }}',
+ '{{ kerberos_principal }}',
+ '{{ kerberos_keytab }}',
+ '{{ kerberos_krb5_conf }}',
+ '{{ tags }}',
+ '{{ agent_arns }}',
+ '{{ subdirectory }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -350,40 +350,39 @@ globals:
 resources:
   - name: location_hdf
     props:
-      - name: NameNodes
+      - name: name_nodes
         value:
-          - Hostname: '{{ Hostname }}'
-            Port: '{{ Port }}'
-      - name: BlockSize
-        value: '{{ BlockSize }}'
-      - name: ReplicationFactor
-        value: '{{ ReplicationFactor }}'
-      - name: KmsKeyProviderUri
-        value: '{{ KmsKeyProviderUri }}'
-      - name: QopConfiguration
+          - hostname: '{{ hostname }}'
+            port: '{{ port }}'
+      - name: block_size
+        value: '{{ block_size }}'
+      - name: replication_factor
+        value: '{{ replication_factor }}'
+      - name: kms_key_provider_uri
+        value: '{{ kms_key_provider_uri }}'
+      - name: qop_configuration
         value:
-          RpcProtection: '{{ RpcProtection }}'
-          DataTransferProtection: '{{ DataTransferProtection }}'
-      - name: AuthenticationType
-        value: '{{ AuthenticationType }}'
-      - name: SimpleUser
-        value: '{{ SimpleUser }}'
-      - name: KerberosPrincipal
-        value: '{{ KerberosPrincipal }}'
-      - name: KerberosKeytab
-        value: '{{ KerberosKeytab }}'
-      - name: KerberosKrb5Conf
-        value: '{{ KerberosKrb5Conf }}'
-      - name: Tags
+          rpc_protection: '{{ rpc_protection }}'
+          data_transfer_protection: '{{ data_transfer_protection }}'
+      - name: authentication_type
+        value: '{{ authentication_type }}'
+      - name: simple_user
+        value: '{{ simple_user }}'
+      - name: kerberos_principal
+        value: '{{ kerberos_principal }}'
+      - name: kerberos_keytab
+        value: '{{ kerberos_keytab }}'
+      - name: kerberos_krb5_conf
+        value: '{{ kerberos_krb5_conf }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AgentArns
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: agent_arns
         value:
-          - '{{ AgentArns[0] }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-
+          - '{{ agent_arns[0] }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
 ```
 </TabItem>
 </Tabs>
@@ -411,7 +410,7 @@ SET PatchDocument = string('{{ {
     "Subdirectory": subdirectory
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -420,7 +419,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_hdfs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

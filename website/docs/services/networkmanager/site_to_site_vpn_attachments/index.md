@@ -300,7 +300,7 @@ created_at,
 updated_at,
 vpn_connection_arn
 FROM awscc.networkmanager.site_to_site_vpn_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -337,9 +337,9 @@ INSERT INTO awscc.networkmanager.site_to_site_vpn_attachments (
  VpnConnectionArn,
  region
 )
-SELECT 
-'{{ CoreNetworkId }}',
- '{{ VpnConnectionArn }}',
+SELECT
+'{{ core_network_id }}',
+ '{{ vpn_connection_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -356,13 +356,13 @@ INSERT INTO awscc.networkmanager.site_to_site_vpn_attachments (
  VpnConnectionArn,
  region
 )
-SELECT 
- '{{ CoreNetworkId }}',
- '{{ ProposedSegmentChange }}',
- '{{ NetworkFunctionGroupName }}',
- '{{ ProposedNetworkFunctionGroupChange }}',
- '{{ Tags }}',
- '{{ VpnConnectionArn }}',
+SELECT
+ '{{ core_network_id }}',
+ '{{ proposed_segment_change }}',
+ '{{ network_function_group_name }}',
+ '{{ proposed_network_function_group_change }}',
+ '{{ tags }}',
+ '{{ vpn_connection_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -380,29 +380,28 @@ globals:
 resources:
   - name: site_to_site_vpn_attachment
     props:
-      - name: CoreNetworkId
-        value: '{{ CoreNetworkId }}'
-      - name: ProposedSegmentChange
+      - name: core_network_id
+        value: '{{ core_network_id }}'
+      - name: proposed_segment_change
         value:
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          SegmentName: '{{ SegmentName }}'
-      - name: NetworkFunctionGroupName
-        value: '{{ NetworkFunctionGroupName }}'
-      - name: ProposedNetworkFunctionGroupChange
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          segment_name: '{{ segment_name }}'
+      - name: network_function_group_name
+        value: '{{ network_function_group_name }}'
+      - name: proposed_network_function_group_change
         value:
-          Tags:
+          tags:
             - null
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          NetworkFunctionGroupName: '{{ NetworkFunctionGroupName }}'
-      - name: Tags
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          network_function_group_name: '{{ network_function_group_name }}'
+      - name: tags
         value:
           - null
-      - name: VpnConnectionArn
-        value: '{{ VpnConnectionArn }}'
-
+      - name: vpn_connection_arn
+        value: '{{ vpn_connection_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -421,7 +420,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -430,7 +429,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.site_to_site_vpn_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

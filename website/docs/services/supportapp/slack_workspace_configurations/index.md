@@ -140,7 +140,7 @@ region,
 team_id,
 version_id
 FROM awscc.supportapp.slack_workspace_configurations
-WHERE region = 'us-east-1' AND Identifier = '<TeamId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.supportapp.slack_workspace_configurations (
  TeamId,
  region
 )
-SELECT 
-'{{ TeamId }}',
+SELECT
+'{{ team_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.supportapp.slack_workspace_configurations (
  VersionId,
  region
 )
-SELECT 
- '{{ TeamId }}',
- '{{ VersionId }}',
+SELECT
+ '{{ team_id }}',
+ '{{ version_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,11 +210,10 @@ globals:
 resources:
   - name: slack_workspace_configuration
     props:
-      - name: TeamId
-        value: '{{ TeamId }}'
-      - name: VersionId
-        value: '{{ VersionId }}'
-
+      - name: team_id
+        value: '{{ team_id }}'
+      - name: version_id
+        value: '{{ version_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -230,7 +229,7 @@ SET PatchDocument = string('{{ {
     "VersionId": version_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TeamId>';
+AND Identifier = '{{ team_id }}';
 ```
 
 
@@ -239,7 +238,7 @@ AND Identifier = '<TeamId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.slack_workspace_configurations
-WHERE Identifier = '<TeamId>'
+WHERE Identifier = '{{ team_id }}'
 AND region = 'us-east-1';
 ```
 

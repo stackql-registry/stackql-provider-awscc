@@ -217,7 +217,7 @@ domain_identifier,
 environment_role_permission_boundary,
 manage_access_role_arn
 FROM awscc.datazone.environment_blueprint_configurations
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<EnvironmentBlueprintId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +256,10 @@ INSERT INTO awscc.datazone.environment_blueprint_configurations (
  DomainIdentifier,
  region
 )
-SELECT 
-'{{ EnabledRegions }}',
- '{{ EnvironmentBlueprintIdentifier }}',
- '{{ DomainIdentifier }}',
+SELECT
+'{{ enabled_regions }}',
+ '{{ environment_blueprint_identifier }}',
+ '{{ domain_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -278,15 +278,15 @@ INSERT INTO awscc.datazone.environment_blueprint_configurations (
  ManageAccessRoleArn,
  region
 )
-SELECT 
- '{{ EnabledRegions }}',
- '{{ EnvironmentBlueprintIdentifier }}',
- '{{ RegionalParameters }}',
- '{{ ProvisioningRoleArn }}',
- '{{ ProvisioningConfigurations }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentRolePermissionBoundary }}',
- '{{ ManageAccessRoleArn }}',
+SELECT
+ '{{ enabled_regions }}',
+ '{{ environment_blueprint_identifier }}',
+ '{{ regional_parameters }}',
+ '{{ provisioning_role_arn }}',
+ '{{ provisioning_configurations }}',
+ '{{ domain_identifier }}',
+ '{{ environment_role_permission_boundary }}',
+ '{{ manage_access_role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,27 +304,26 @@ globals:
 resources:
   - name: environment_blueprint_configuration
     props:
-      - name: EnabledRegions
+      - name: enabled_regions
         value:
-          - '{{ EnabledRegions[0] }}'
-      - name: EnvironmentBlueprintIdentifier
-        value: '{{ EnvironmentBlueprintIdentifier }}'
-      - name: RegionalParameters
+          - '{{ enabled_regions[0] }}'
+      - name: environment_blueprint_identifier
+        value: '{{ environment_blueprint_identifier }}'
+      - name: regional_parameters
         value:
-          - Parameters: {}
-            Region: '{{ Region }}'
-      - name: ProvisioningRoleArn
-        value: '{{ ProvisioningRoleArn }}'
-      - name: ProvisioningConfigurations
+          - parameters: {}
+            region: '{{ region }}'
+      - name: provisioning_role_arn
+        value: '{{ provisioning_role_arn }}'
+      - name: provisioning_configurations
         value:
           - null
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentRolePermissionBoundary
-        value: '{{ EnvironmentRolePermissionBoundary }}'
-      - name: ManageAccessRoleArn
-        value: '{{ ManageAccessRoleArn }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_role_permission_boundary
+        value: '{{ environment_role_permission_boundary }}'
+      - name: manage_access_role_arn
+        value: '{{ manage_access_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -345,7 +344,7 @@ SET PatchDocument = string('{{ {
     "ManageAccessRoleArn": manage_access_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<EnvironmentBlueprintId>';
+AND Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```
 
 
@@ -354,7 +353,7 @@ AND Identifier = '<DomainId>|<EnvironmentBlueprintId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_blueprint_configurations
-WHERE Identifier = '<DomainId|EnvironmentBlueprintId>'
+WHERE Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}'
 AND region = 'us-east-1';
 ```
 

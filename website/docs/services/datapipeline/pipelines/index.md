@@ -258,7 +258,7 @@ pipeline_objects,
 pipeline_tags,
 pipeline_id
 FROM awscc.datapipeline.pipelines
-WHERE region = 'us-east-1' AND Identifier = '<PipelineId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,8 +294,8 @@ INSERT INTO awscc.datapipeline.pipelines (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -313,14 +313,14 @@ INSERT INTO awscc.datapipeline.pipelines (
  PipelineTags,
  region
 )
-SELECT 
- '{{ Activate }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ ParameterObjects }}',
- '{{ ParameterValues }}',
- '{{ PipelineObjects }}',
- '{{ PipelineTags }}',
+SELECT
+ '{{ activate }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ parameter_objects }}',
+ '{{ parameter_values }}',
+ '{{ pipeline_objects }}',
+ '{{ pipeline_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -338,35 +338,34 @@ globals:
 resources:
   - name: pipeline
     props:
-      - name: Activate
-        value: '{{ Activate }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ParameterObjects
+      - name: activate
+        value: '{{ activate }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: parameter_objects
         value:
-          - Attributes:
-              - Key: '{{ Key }}'
-                StringValue: '{{ StringValue }}'
-            Id: '{{ Id }}'
-      - name: ParameterValues
+          - attributes:
+              - key: '{{ key }}'
+                string_value: '{{ string_value }}'
+            id: '{{ id }}'
+      - name: parameter_values
         value:
-          - Id: '{{ Id }}'
-            StringValue: '{{ StringValue }}'
-      - name: PipelineObjects
+          - id: '{{ id }}'
+            string_value: '{{ string_value }}'
+      - name: pipeline_objects
         value:
-          - Fields:
-              - Key: '{{ Key }}'
-                RefValue: '{{ RefValue }}'
-                StringValue: '{{ StringValue }}'
-            Id: '{{ Id }}'
-            Name: '{{ Name }}'
-      - name: PipelineTags
+          - fields:
+              - key: '{{ key }}'
+                ref_value: '{{ ref_value }}'
+                string_value: '{{ string_value }}'
+            id: '{{ id }}'
+            name: '{{ name }}'
+      - name: pipeline_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -386,7 +385,7 @@ SET PatchDocument = string('{{ {
     "PipelineTags": pipeline_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PipelineId>';
+AND Identifier = '{{ pipeline_id }}';
 ```
 
 
@@ -395,7 +394,7 @@ AND Identifier = '<PipelineId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datapipeline.pipelines
-WHERE Identifier = '<PipelineId>'
+WHERE Identifier = '{{ pipeline_id }}'
 AND region = 'us-east-1';
 ```
 

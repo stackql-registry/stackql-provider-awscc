@@ -158,7 +158,7 @@ name,
 status,
 cluster_arn
 FROM awscc.route53recoverycontrol.routing_controls
-WHERE region = 'us-east-1' AND Identifier = '<RoutingControlArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ routing_control_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.route53recoverycontrol.routing_controls (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -209,10 +209,10 @@ INSERT INTO awscc.route53recoverycontrol.routing_controls (
  ClusterArn,
  region
 )
-SELECT 
- '{{ ControlPanelArn }}',
- '{{ Name }}',
- '{{ ClusterArn }}',
+SELECT
+ '{{ control_panel_arn }}',
+ '{{ name }}',
+ '{{ cluster_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,12 @@ globals:
 resources:
   - name: routing_control
     props:
-      - name: ControlPanelArn
-        value: '{{ ControlPanelArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ClusterArn
-        value: '{{ ClusterArn }}'
-
+      - name: control_panel_arn
+        value: '{{ control_panel_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: cluster_arn
+        value: '{{ cluster_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoutingControlArn>';
+AND Identifier = '{{ routing_control_arn }}';
 ```
 
 
@@ -261,7 +260,7 @@ AND Identifier = '<RoutingControlArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.routing_controls
-WHERE Identifier = '<RoutingControlArn>'
+WHERE Identifier = '{{ routing_control_arn }}'
 AND region = 'us-east-1';
 ```
 

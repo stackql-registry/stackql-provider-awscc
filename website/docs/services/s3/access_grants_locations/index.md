@@ -170,7 +170,7 @@ iam_role_arn,
 location_scope,
 tags
 FROM awscc.s3.access_grants_locations
-WHERE region = 'us-east-1' AND Identifier = '<AccessGrantsLocationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_location_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,7 +206,7 @@ INSERT INTO awscc.s3.access_grants_locations (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -221,10 +221,10 @@ INSERT INTO awscc.s3.access_grants_locations (
  Tags,
  region
 )
-SELECT 
- '{{ IamRoleArn }}',
- '{{ LocationScope }}',
- '{{ Tags }}',
+SELECT
+ '{{ iam_role_arn }}',
+ '{{ location_scope }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,15 +242,14 @@ globals:
 resources:
   - name: access_grants_location
     props:
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: LocationScope
-        value: '{{ LocationScope }}'
-      - name: Tags
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: location_scope
+        value: '{{ location_scope }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ SET PatchDocument = string('{{ {
     "LocationScope": location_scope
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccessGrantsLocationId>';
+AND Identifier = '{{ access_grants_location_id }}';
 ```
 
 
@@ -276,7 +275,7 @@ AND Identifier = '<AccessGrantsLocationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants_locations
-WHERE Identifier = '<AccessGrantsLocationId>'
+WHERE Identifier = '{{ access_grants_location_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -182,7 +182,7 @@ provider_type,
 host_arn,
 tags
 FROM awscc.codestarconnections.connections
-WHERE region = 'us-east-1' AND Identifier = '<ConnectionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.codestarconnections.connections (
  ConnectionName,
  region
 )
-SELECT 
-'{{ ConnectionName }}',
+SELECT
+'{{ connection_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.codestarconnections.connections (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectionName }}',
- '{{ ProviderType }}',
- '{{ HostArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ connection_name }}',
+ '{{ provider_type }}',
+ '{{ host_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: connection
     props:
-      - name: ConnectionName
-        value: '{{ ConnectionName }}'
-      - name: ProviderType
-        value: '{{ ProviderType }}'
-      - name: HostArn
-        value: '{{ HostArn }}'
-      - name: Tags
+      - name: connection_name
+        value: '{{ connection_name }}'
+      - name: provider_type
+        value: '{{ provider_type }}'
+      - name: host_arn
+        value: '{{ host_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +281,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectionArn>';
+AND Identifier = '{{ connection_arn }}';
 ```
 
 
@@ -291,7 +290,7 @@ AND Identifier = '<ConnectionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.connections
-WHERE Identifier = '<ConnectionArn>'
+WHERE Identifier = '{{ connection_arn }}'
 AND region = 'us-east-1';
 ```
 

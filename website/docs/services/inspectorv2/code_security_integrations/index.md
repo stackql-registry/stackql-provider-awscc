@@ -244,7 +244,7 @@ created_at,
 last_updated_at,
 tags
 FROM awscc.inspectorv2.code_security_integrations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,12 +284,12 @@ INSERT INTO awscc.inspectorv2.code_security_integrations (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ CreateIntegrationDetails }}',
- '{{ UpdateIntegrationDetails }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ create_integration_details }}',
+ '{{ update_integration_details }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -305,12 +305,12 @@ INSERT INTO awscc.inspectorv2.code_security_integrations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ CreateIntegrationDetails }}',
- '{{ UpdateIntegrationDetails }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ create_integration_details }}',
+ '{{ update_integration_details }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -328,25 +328,24 @@ globals:
 resources:
   - name: code_security_integration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: CreateIntegrationDetails
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: create_integration_details
         value:
-          gitlabSelfManaged:
-            instanceUrl: '{{ instanceUrl }}'
-            accessToken: '{{ accessToken }}'
-      - name: UpdateIntegrationDetails
+          gitlab_self_managed:
+            instance_url: '{{ instance_url }}'
+            access_token: '{{ access_token }}'
+      - name: update_integration_details
         value:
-          gitlabSelfManaged:
-            authCode: '{{ authCode }}'
+          gitlab_self_managed:
+            auth_code: '{{ auth_code }}'
           github:
             code: '{{ code }}'
-            installationId: '{{ installationId }}'
-      - name: Tags
+            installation_id: '{{ installation_id }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -364,7 +363,7 @@ SET PatchDocument = string('{{ {
     "UpdateIntegrationDetails": update_integration_details
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -373,7 +372,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.code_security_integrations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -203,7 +203,7 @@ storage_location,
 created_time,
 tags
 FROM awscc.panorama.packages
-WHERE region = 'us-east-1' AND Identifier = '<PackageId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ package_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,8 +239,8 @@ INSERT INTO awscc.panorama.packages (
  PackageName,
  region
 )
-SELECT 
-'{{ PackageName }}',
+SELECT
+'{{ package_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,10 +254,10 @@ INSERT INTO awscc.panorama.packages (
  Tags,
  region
 )
-SELECT 
- '{{ PackageName }}',
- '{{ StorageLocation }}',
- '{{ Tags }}',
+SELECT
+ '{{ package_name }}',
+ '{{ storage_location }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -275,20 +275,19 @@ globals:
 resources:
   - name: package
     props:
-      - name: PackageName
-        value: '{{ PackageName }}'
-      - name: StorageLocation
+      - name: package_name
+        value: '{{ package_name }}'
+      - name: storage_location
         value:
-          Bucket: '{{ Bucket }}'
-          RepoPrefixLocation: '{{ RepoPrefixLocation }}'
-          GeneratedPrefixLocation: '{{ GeneratedPrefixLocation }}'
-          BinaryPrefixLocation: '{{ BinaryPrefixLocation }}'
-          ManifestPrefixLocation: '{{ ManifestPrefixLocation }}'
-      - name: Tags
+          bucket: '{{ bucket }}'
+          repo_prefix_location: '{{ repo_prefix_location }}'
+          generated_prefix_location: '{{ generated_prefix_location }}'
+          binary_prefix_location: '{{ binary_prefix_location }}'
+          manifest_prefix_location: '{{ manifest_prefix_location }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +303,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PackageId>';
+AND Identifier = '{{ package_id }}';
 ```
 
 
@@ -313,7 +312,7 @@ AND Identifier = '<PackageId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.packages
-WHERE Identifier = '<PackageId>'
+WHERE Identifier = '{{ package_id }}'
 AND region = 'us-east-1';
 ```
 

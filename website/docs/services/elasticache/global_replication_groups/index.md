@@ -246,7 +246,7 @@ members,
 status,
 regional_configurations
 FROM awscc.elasticache.global_replication_groups
-WHERE region = 'us-east-1' AND Identifier = '<GlobalReplicationGroupId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_replication_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,8 +282,8 @@ INSERT INTO awscc.elasticache.global_replication_groups (
  Members,
  region
 )
-SELECT 
-'{{ Members }}',
+SELECT
+'{{ members }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -304,17 +304,17 @@ INSERT INTO awscc.elasticache.global_replication_groups (
  RegionalConfigurations,
  region
 )
-SELECT 
- '{{ GlobalReplicationGroupIdSuffix }}',
- '{{ AutomaticFailoverEnabled }}',
- '{{ CacheNodeType }}',
- '{{ EngineVersion }}',
- '{{ Engine }}',
- '{{ CacheParameterGroupName }}',
- '{{ GlobalNodeGroupCount }}',
- '{{ GlobalReplicationGroupDescription }}',
- '{{ Members }}',
- '{{ RegionalConfigurations }}',
+SELECT
+ '{{ global_replication_group_id_suffix }}',
+ '{{ automatic_failover_enabled }}',
+ '{{ cache_node_type }}',
+ '{{ engine_version }}',
+ '{{ engine }}',
+ '{{ cache_parameter_group_name }}',
+ '{{ global_node_group_count }}',
+ '{{ global_replication_group_description }}',
+ '{{ members }}',
+ '{{ regional_configurations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -332,36 +332,35 @@ globals:
 resources:
   - name: global_replication_group
     props:
-      - name: GlobalReplicationGroupIdSuffix
-        value: '{{ GlobalReplicationGroupIdSuffix }}'
-      - name: AutomaticFailoverEnabled
-        value: '{{ AutomaticFailoverEnabled }}'
-      - name: CacheNodeType
-        value: '{{ CacheNodeType }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: CacheParameterGroupName
-        value: '{{ CacheParameterGroupName }}'
-      - name: GlobalNodeGroupCount
-        value: '{{ GlobalNodeGroupCount }}'
-      - name: GlobalReplicationGroupDescription
-        value: '{{ GlobalReplicationGroupDescription }}'
-      - name: Members
+      - name: global_replication_group_id_suffix
+        value: '{{ global_replication_group_id_suffix }}'
+      - name: automatic_failover_enabled
+        value: '{{ automatic_failover_enabled }}'
+      - name: cache_node_type
+        value: '{{ cache_node_type }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: cache_parameter_group_name
+        value: '{{ cache_parameter_group_name }}'
+      - name: global_node_group_count
+        value: '{{ global_node_group_count }}'
+      - name: global_replication_group_description
+        value: '{{ global_replication_group_description }}'
+      - name: members
         value:
-          - ReplicationGroupId: '{{ ReplicationGroupId }}'
-            ReplicationGroupRegion: '{{ ReplicationGroupRegion }}'
-            Role: '{{ Role }}'
-      - name: RegionalConfigurations
+          - replication_group_id: '{{ replication_group_id }}'
+            replication_group_region: '{{ replication_group_region }}'
+            role: '{{ role }}'
+      - name: regional_configurations
         value:
-          - ReplicationGroupId: '{{ ReplicationGroupId }}'
-            ReplicationGroupRegion: '{{ ReplicationGroupRegion }}'
-            ReshardingConfigurations:
-              - NodeGroupId: '{{ NodeGroupId }}'
-                PreferredAvailabilityZones:
-                  - '{{ PreferredAvailabilityZones[0] }}'
-
+          - replication_group_id: '{{ replication_group_id }}'
+            replication_group_region: '{{ replication_group_region }}'
+            resharding_configurations:
+              - node_group_id: '{{ node_group_id }}'
+                preferred_availability_zones:
+                  - '{{ preferred_availability_zones[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -386,7 +385,7 @@ SET PatchDocument = string('{{ {
     "RegionalConfigurations": regional_configurations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GlobalReplicationGroupId>';
+AND Identifier = '{{ global_replication_group_id }}';
 ```
 
 
@@ -395,7 +394,7 @@ AND Identifier = '<GlobalReplicationGroupId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.global_replication_groups
-WHERE Identifier = '<GlobalReplicationGroupId>'
+WHERE Identifier = '{{ global_replication_group_id }}'
 AND region = 'us-east-1';
 ```
 

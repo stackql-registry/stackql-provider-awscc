@@ -164,7 +164,7 @@ amazon_side_asn,
 tags,
 type
 FROM awscc.ec2.vpn_gateways
-WHERE region = 'us-east-1' AND Identifier = '<VPNGatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ v_pn_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.ec2.vpn_gateways (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,10 +215,10 @@ INSERT INTO awscc.ec2.vpn_gateways (
  Type,
  region
 )
-SELECT 
- '{{ AmazonSideAsn }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ amazon_side_asn }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: vpn_gateway
     props:
-      - name: AmazonSideAsn
-        value: '{{ AmazonSideAsn }}'
-      - name: Tags
+      - name: amazon_side_asn
+        value: '{{ amazon_side_asn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -260,7 +259,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VPNGatewayId>';
+AND Identifier = '{{ v_pn_gateway_id }}';
 ```
 
 
@@ -269,7 +268,7 @@ AND Identifier = '<VPNGatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_gateways
-WHERE Identifier = '<VPNGatewayId>'
+WHERE Identifier = '{{ v_pn_gateway_id }}'
 AND region = 'us-east-1';
 ```
 

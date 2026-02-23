@@ -231,7 +231,7 @@ catalog_id,
 database_input,
 database_name
 FROM awscc.glue.databases
-WHERE region = 'us-east-1' AND Identifier = '<DatabaseName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,9 +268,9 @@ INSERT INTO awscc.glue.databases (
  DatabaseInput,
  region
 )
-SELECT 
-'{{ CatalogId }}',
- '{{ DatabaseInput }}',
+SELECT
+'{{ catalog_id }}',
+ '{{ database_input }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,10 +284,10 @@ INSERT INTO awscc.glue.databases (
  DatabaseName,
  region
 )
-SELECT 
- '{{ CatalogId }}',
- '{{ DatabaseInput }}',
- '{{ DatabaseName }}',
+SELECT
+ '{{ catalog_id }}',
+ '{{ database_input }}',
+ '{{ database_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -305,29 +305,28 @@ globals:
 resources:
   - name: database
     props:
-      - name: CatalogId
-        value: '{{ CatalogId }}'
-      - name: DatabaseInput
+      - name: catalog_id
+        value: '{{ catalog_id }}'
+      - name: database_input
         value:
-          LocationUri: '{{ LocationUri }}'
-          CreateTableDefaultPermissions:
-            - Permissions:
-                - '{{ Permissions[0] }}'
-              Principal:
-                DataLakePrincipalIdentifier: '{{ DataLakePrincipalIdentifier }}'
-          Description: '{{ Description }}'
-          Parameters: {}
-          TargetDatabase:
-            DatabaseName: '{{ DatabaseName }}'
-            Region: '{{ Region }}'
-            CatalogId: '{{ CatalogId }}'
-          FederatedDatabase:
-            ConnectionName: '{{ ConnectionName }}'
-            Identifier: '{{ Identifier }}'
-          Name: '{{ Name }}'
-      - name: DatabaseName
-        value: '{{ DatabaseName }}'
-
+          location_uri: '{{ location_uri }}'
+          create_table_default_permissions:
+            - permissions:
+                - '{{ permissions[0] }}'
+              principal:
+                data_lake_principal_identifier: '{{ data_lake_principal_identifier }}'
+          description: '{{ description }}'
+          parameters: {}
+          target_database:
+            database_name: '{{ database_name }}'
+            region: '{{ region }}'
+            catalog_id: '{{ catalog_id }}'
+          federated_database:
+            connection_name: '{{ connection_name }}'
+            identifier: '{{ identifier }}'
+          name: '{{ name }}'
+      - name: database_name
+        value: '{{ database_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -344,7 +343,7 @@ SET PatchDocument = string('{{ {
     "DatabaseInput": database_input
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatabaseName>';
+AND Identifier = '{{ database_name }}';
 ```
 
 
@@ -353,7 +352,7 @@ AND Identifier = '<DatabaseName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.databases
-WHERE Identifier = '<DatabaseName>'
+WHERE Identifier = '{{ database_name }}'
 AND region = 'us-east-1';
 ```
 

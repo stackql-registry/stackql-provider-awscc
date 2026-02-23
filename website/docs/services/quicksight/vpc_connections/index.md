@@ -262,7 +262,7 @@ tags,
 vpc_connection_id,
 vpc_id
 FROM awscc.quicksight.vpc_connections
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<VPCConnectionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,16 +307,16 @@ INSERT INTO awscc.quicksight.vpc_connections (
  VPCConnectionId,
  region
 )
-SELECT 
-'{{ AvailabilityStatus }}',
- '{{ AwsAccountId }}',
- '{{ DnsResolvers }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
- '{{ VPCConnectionId }}',
+SELECT
+'{{ availability_status }}',
+ '{{ aws_account_id }}',
+ '{{ dns_resolvers }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
+ '{{ vpc_connection_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -336,16 +336,16 @@ INSERT INTO awscc.quicksight.vpc_connections (
  VPCConnectionId,
  region
 )
-SELECT 
- '{{ AvailabilityStatus }}',
- '{{ AwsAccountId }}',
- '{{ DnsResolvers }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
- '{{ VPCConnectionId }}',
+SELECT
+ '{{ availability_status }}',
+ '{{ aws_account_id }}',
+ '{{ dns_resolvers }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
+ '{{ vpc_connection_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -363,30 +363,29 @@ globals:
 resources:
   - name: vpc_connection
     props:
-      - name: AvailabilityStatus
-        value: '{{ AvailabilityStatus }}'
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: DnsResolvers
+      - name: availability_status
+        value: '{{ availability_status }}'
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: dns_resolvers
         value:
-          - '{{ DnsResolvers[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: SecurityGroupIds
+          - '{{ dns_resolvers[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VPCConnectionId
-        value: '{{ VPCConnectionId }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_connection_id
+        value: '{{ vpc_connection_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -408,7 +407,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<VPCConnectionId>';
+AND Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```
 
 
@@ -417,7 +416,7 @@ AND Identifier = '<AwsAccountId>|<VPCConnectionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.vpc_connections
-WHERE Identifier = '<AwsAccountId|VPCConnectionId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}'
 AND region = 'us-east-1';
 ```
 

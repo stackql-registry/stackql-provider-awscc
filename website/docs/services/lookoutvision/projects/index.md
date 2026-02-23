@@ -134,7 +134,7 @@ region,
 arn,
 project_name
 FROM awscc.lookoutvision.projects
-WHERE region = 'us-east-1' AND Identifier = '<ProjectName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ project_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,8 +170,8 @@ INSERT INTO awscc.lookoutvision.projects (
  ProjectName,
  region
 )
-SELECT 
-'{{ ProjectName }}',
+SELECT
+'{{ project_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -183,8 +183,8 @@ INSERT INTO awscc.lookoutvision.projects (
  ProjectName,
  region
 )
-SELECT 
- '{{ ProjectName }}',
+SELECT
+ '{{ project_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,8 @@ globals:
 resources:
   - name: project
     props:
-      - name: ProjectName
-        value: '{{ ProjectName }}'
-
+      - name: project_name
+        value: '{{ project_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -215,7 +214,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lookoutvision.projects
-WHERE Identifier = '<ProjectName>'
+WHERE Identifier = '{{ project_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -997,7 +997,7 @@ ephemeral_storage,
 tags,
 task_definition_arn
 FROM awscc.ecs.task_definitions
-WHERE region = 'us-east-1' AND Identifier = '<TaskDefinitionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ task_definition_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1050,25 +1050,25 @@ INSERT INTO awscc.ecs.task_definitions (
  Tags,
  region
 )
-SELECT 
-'{{ TaskRoleArn }}',
- '{{ IpcMode }}',
- '{{ InferenceAccelerators }}',
- '{{ Memory }}',
- '{{ PlacementConstraints }}',
- '{{ Cpu }}',
- '{{ RequiresCompatibilities }}',
- '{{ NetworkMode }}',
- '{{ PidMode }}',
- '{{ EnableFaultInjection }}',
- '{{ ExecutionRoleArn }}',
- '{{ RuntimePlatform }}',
- '{{ ProxyConfiguration }}',
- '{{ Volumes }}',
- '{{ ContainerDefinitions }}',
- '{{ Family }}',
- '{{ EphemeralStorage }}',
- '{{ Tags }}',
+SELECT
+'{{ task_role_arn }}',
+ '{{ ipc_mode }}',
+ '{{ inference_accelerators }}',
+ '{{ memory }}',
+ '{{ placement_constraints }}',
+ '{{ cpu }}',
+ '{{ requires_compatibilities }}',
+ '{{ network_mode }}',
+ '{{ pid_mode }}',
+ '{{ enable_fault_injection }}',
+ '{{ execution_role_arn }}',
+ '{{ runtime_platform }}',
+ '{{ proxy_configuration }}',
+ '{{ volumes }}',
+ '{{ container_definitions }}',
+ '{{ family }}',
+ '{{ ephemeral_storage }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1097,25 +1097,25 @@ INSERT INTO awscc.ecs.task_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ TaskRoleArn }}',
- '{{ IpcMode }}',
- '{{ InferenceAccelerators }}',
- '{{ Memory }}',
- '{{ PlacementConstraints }}',
- '{{ Cpu }}',
- '{{ RequiresCompatibilities }}',
- '{{ NetworkMode }}',
- '{{ PidMode }}',
- '{{ EnableFaultInjection }}',
- '{{ ExecutionRoleArn }}',
- '{{ RuntimePlatform }}',
- '{{ ProxyConfiguration }}',
- '{{ Volumes }}',
- '{{ ContainerDefinitions }}',
- '{{ Family }}',
- '{{ EphemeralStorage }}',
- '{{ Tags }}',
+SELECT
+ '{{ task_role_arn }}',
+ '{{ ipc_mode }}',
+ '{{ inference_accelerators }}',
+ '{{ memory }}',
+ '{{ placement_constraints }}',
+ '{{ cpu }}',
+ '{{ requires_compatibilities }}',
+ '{{ network_mode }}',
+ '{{ pid_mode }}',
+ '{{ enable_fault_injection }}',
+ '{{ execution_role_arn }}',
+ '{{ runtime_platform }}',
+ '{{ proxy_configuration }}',
+ '{{ volumes }}',
+ '{{ container_definitions }}',
+ '{{ family }}',
+ '{{ ephemeral_storage }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1133,194 +1133,193 @@ globals:
 resources:
   - name: task_definition
     props:
-      - name: TaskRoleArn
-        value: '{{ TaskRoleArn }}'
-      - name: IpcMode
-        value: '{{ IpcMode }}'
-      - name: InferenceAccelerators
+      - name: task_role_arn
+        value: '{{ task_role_arn }}'
+      - name: ipc_mode
+        value: '{{ ipc_mode }}'
+      - name: inference_accelerators
         value:
-          - DeviceType: '{{ DeviceType }}'
-            DeviceName: '{{ DeviceName }}'
-      - name: Memory
-        value: '{{ Memory }}'
-      - name: PlacementConstraints
+          - device_type: '{{ device_type }}'
+            device_name: '{{ device_name }}'
+      - name: memory
+        value: '{{ memory }}'
+      - name: placement_constraints
         value:
-          - Type: '{{ Type }}'
-            Expression: '{{ Expression }}'
-      - name: Cpu
-        value: '{{ Cpu }}'
-      - name: RequiresCompatibilities
+          - type: '{{ type }}'
+            expression: '{{ expression }}'
+      - name: cpu
+        value: '{{ cpu }}'
+      - name: requires_compatibilities
         value:
-          - '{{ RequiresCompatibilities[0] }}'
-      - name: NetworkMode
-        value: '{{ NetworkMode }}'
-      - name: PidMode
-        value: '{{ PidMode }}'
-      - name: EnableFaultInjection
-        value: '{{ EnableFaultInjection }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: RuntimePlatform
+          - '{{ requires_compatibilities[0] }}'
+      - name: network_mode
+        value: '{{ network_mode }}'
+      - name: pid_mode
+        value: '{{ pid_mode }}'
+      - name: enable_fault_injection
+        value: '{{ enable_fault_injection }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: runtime_platform
         value:
-          OperatingSystemFamily: '{{ OperatingSystemFamily }}'
-          CpuArchitecture: '{{ CpuArchitecture }}'
-      - name: ProxyConfiguration
+          operating_system_family: '{{ operating_system_family }}'
+          cpu_architecture: '{{ cpu_architecture }}'
+      - name: proxy_configuration
         value:
-          ProxyConfigurationProperties:
-            - Value: '{{ Value }}'
-              Name: '{{ Name }}'
-          Type: '{{ Type }}'
-          ContainerName: '{{ ContainerName }}'
-      - name: Volumes
+          proxy_configuration_properties:
+            - value: '{{ value }}'
+              name: '{{ name }}'
+          type: '{{ type }}'
+          container_name: '{{ container_name }}'
+      - name: volumes
         value:
-          - EFSVolumeConfiguration:
-              FilesystemId: '{{ FilesystemId }}'
-              TransitEncryption: '{{ TransitEncryption }}'
-              AuthorizationConfig:
-                IAM: '{{ IAM }}'
-                AccessPointId: '{{ AccessPointId }}'
-              RootDirectory: '{{ RootDirectory }}'
-              TransitEncryptionPort: '{{ TransitEncryptionPort }}'
-            Host:
-              SourcePath: '{{ SourcePath }}'
-            ConfiguredAtLaunch: '{{ ConfiguredAtLaunch }}'
-            DockerVolumeConfiguration:
-              DriverOpts: {}
-              Scope: '{{ Scope }}'
-              Autoprovision: '{{ Autoprovision }}'
-              Driver: '{{ Driver }}'
-              Labels: {}
-            FSxWindowsFileServerVolumeConfiguration:
-              AuthorizationConfig:
-                CredentialsParameter: '{{ CredentialsParameter }}'
-                Domain: '{{ Domain }}'
-              FileSystemId: '{{ FileSystemId }}'
-              RootDirectory: '{{ RootDirectory }}'
-            Name: '{{ Name }}'
-      - name: ContainerDefinitions
+          - e_fs_volume_configuration:
+              filesystem_id: '{{ filesystem_id }}'
+              transit_encryption: '{{ transit_encryption }}'
+              authorization_config:
+                iam: '{{ iam }}'
+                access_point_id: '{{ access_point_id }}'
+              root_directory: '{{ root_directory }}'
+              transit_encryption_port: '{{ transit_encryption_port }}'
+            host:
+              source_path: '{{ source_path }}'
+            configured_at_launch: '{{ configured_at_launch }}'
+            docker_volume_configuration:
+              driver_opts: {}
+              scope: '{{ scope }}'
+              autoprovision: '{{ autoprovision }}'
+              driver: '{{ driver }}'
+              labels: {}
+            f_sx_windows_file_server_volume_configuration:
+              authorization_config:
+                credentials_parameter: '{{ credentials_parameter }}'
+                domain: '{{ domain }}'
+              file_system_id: '{{ file_system_id }}'
+              root_directory: '{{ root_directory }}'
+            name: '{{ name }}'
+      - name: container_definitions
         value:
-          - User: '{{ User }}'
-            Secrets:
-              - ValueFrom: '{{ ValueFrom }}'
-                Name: '{{ Name }}'
-            Memory: '{{ Memory }}'
-            Privileged: '{{ Privileged }}'
-            HealthCheck:
-              Command:
-                - '{{ Command[0] }}'
-              Timeout: '{{ Timeout }}'
-              Retries: '{{ Retries }}'
-              Interval: '{{ Interval }}'
-              StartPeriod: '{{ StartPeriod }}'
-            StartTimeout: '{{ StartTimeout }}'
-            VolumesFrom:
-              - ReadOnly: '{{ ReadOnly }}'
-                SourceContainer: '{{ SourceContainer }}'
-            Cpu: '{{ Cpu }}'
-            EntryPoint:
-              - '{{ EntryPoint[0] }}'
-            DnsServers:
-              - '{{ DnsServers[0] }}'
-            ReadonlyRootFilesystem: '{{ ReadonlyRootFilesystem }}'
-            Image: '{{ Image }}'
-            Essential: '{{ Essential }}'
-            LogConfiguration:
-              SecretOptions:
+          - user: '{{ user }}'
+            secrets:
+              - value_from: '{{ value_from }}'
+                name: '{{ name }}'
+            memory: '{{ memory }}'
+            privileged: '{{ privileged }}'
+            health_check:
+              command:
+                - '{{ command[0] }}'
+              timeout: '{{ timeout }}'
+              retries: '{{ retries }}'
+              interval: '{{ interval }}'
+              start_period: '{{ start_period }}'
+            start_timeout: '{{ start_timeout }}'
+            volumes_from:
+              - read_only: '{{ read_only }}'
+                source_container: '{{ source_container }}'
+            cpu: '{{ cpu }}'
+            entry_point:
+              - '{{ entry_point[0] }}'
+            dns_servers:
+              - '{{ dns_servers[0] }}'
+            readonly_root_filesystem: '{{ readonly_root_filesystem }}'
+            image: '{{ image }}'
+            essential: '{{ essential }}'
+            log_configuration:
+              secret_options:
                 - null
-              Options: {}
-              LogDriver: '{{ LogDriver }}'
-            ResourceRequirements:
-              - Type: '{{ Type }}'
-                Value: '{{ Value }}'
-            EnvironmentFiles:
-              - Type: '{{ Type }}'
-                Value: '{{ Value }}'
-            Name: '{{ Name }}'
-            FirelensConfiguration:
-              Options: {}
-              Type: '{{ Type }}'
-            DockerSecurityOptions:
-              - '{{ DockerSecurityOptions[0] }}'
-            SystemControls:
-              - Value: '{{ Value }}'
-                Namespace: '{{ Namespace }}'
-            Interactive: '{{ Interactive }}'
-            DnsSearchDomains:
-              - '{{ DnsSearchDomains[0] }}'
-            CredentialSpecs:
-              - '{{ CredentialSpecs[0] }}'
-            Ulimits:
-              - SoftLimit: '{{ SoftLimit }}'
-                HardLimit: '{{ HardLimit }}'
-                Name: '{{ Name }}'
-            StopTimeout: '{{ StopTimeout }}'
-            WorkingDirectory: '{{ WorkingDirectory }}'
-            MemoryReservation: '{{ MemoryReservation }}'
-            RepositoryCredentials:
-              CredentialsParameter: '{{ CredentialsParameter }}'
-            ExtraHosts:
-              - Hostname: '{{ Hostname }}'
-                IpAddress: '{{ IpAddress }}'
-            Hostname: '{{ Hostname }}'
-            LinuxParameters:
-              Capabilities:
-                Add:
-                  - '{{ Add[0] }}'
-                Drop:
-                  - '{{ Drop[0] }}'
-              Swappiness: '{{ Swappiness }}'
-              Tmpfs:
-                - Size: '{{ Size }}'
-                  ContainerPath: '{{ ContainerPath }}'
-                  MountOptions:
-                    - '{{ MountOptions[0] }}'
-              SharedMemorySize: '{{ SharedMemorySize }}'
-              Devices:
-                - HostPath: '{{ HostPath }}'
-                  Permissions:
-                    - '{{ Permissions[0] }}'
-                  ContainerPath: '{{ ContainerPath }}'
-              InitProcessEnabled: '{{ InitProcessEnabled }}'
-              MaxSwap: '{{ MaxSwap }}'
-            VersionConsistency: '{{ VersionConsistency }}'
-            RestartPolicy:
-              IgnoredExitCodes:
-                - '{{ IgnoredExitCodes[0] }}'
-              RestartAttemptPeriod: '{{ RestartAttemptPeriod }}'
-              Enabled: '{{ Enabled }}'
-            DisableNetworking: '{{ DisableNetworking }}'
-            PseudoTerminal: '{{ PseudoTerminal }}'
-            MountPoints:
-              - ReadOnly: '{{ ReadOnly }}'
-                SourceVolume: '{{ SourceVolume }}'
-                ContainerPath: '{{ ContainerPath }}'
-            DependsOn:
-              - Condition: '{{ Condition }}'
-                ContainerName: '{{ ContainerName }}'
-            DockerLabels: {}
-            PortMappings:
-              - AppProtocol: '{{ AppProtocol }}'
-                ContainerPortRange: '{{ ContainerPortRange }}'
-                HostPort: '{{ HostPort }}'
-                ContainerPort: '{{ ContainerPort }}'
-                Protocol: '{{ Protocol }}'
-                Name: '{{ Name }}'
-            Command:
-              - '{{ Command[0] }}'
-            Environment:
+              options: {}
+              log_driver: '{{ log_driver }}'
+            resource_requirements:
+              - type: '{{ type }}'
+                value: '{{ value }}'
+            environment_files:
+              - type: '{{ type }}'
+                value: '{{ value }}'
+            name: '{{ name }}'
+            firelens_configuration:
+              options: {}
+              type: '{{ type }}'
+            docker_security_options:
+              - '{{ docker_security_options[0] }}'
+            system_controls:
+              - value: '{{ value }}'
+                namespace: '{{ namespace }}'
+            interactive: '{{ interactive }}'
+            dns_search_domains:
+              - '{{ dns_search_domains[0] }}'
+            credential_specs:
+              - '{{ credential_specs[0] }}'
+            ulimits:
+              - soft_limit: '{{ soft_limit }}'
+                hard_limit: '{{ hard_limit }}'
+                name: '{{ name }}'
+            stop_timeout: '{{ stop_timeout }}'
+            working_directory: '{{ working_directory }}'
+            memory_reservation: '{{ memory_reservation }}'
+            repository_credentials:
+              credentials_parameter: '{{ credentials_parameter }}'
+            extra_hosts:
+              - hostname: '{{ hostname }}'
+                ip_address: '{{ ip_address }}'
+            hostname: '{{ hostname }}'
+            linux_parameters:
+              capabilities:
+                add:
+                  - '{{ add[0] }}'
+                drop:
+                  - '{{ drop[0] }}'
+              swappiness: '{{ swappiness }}'
+              tmpfs:
+                - size: '{{ size }}'
+                  container_path: '{{ container_path }}'
+                  mount_options:
+                    - '{{ mount_options[0] }}'
+              shared_memory_size: '{{ shared_memory_size }}'
+              devices:
+                - host_path: '{{ host_path }}'
+                  permissions:
+                    - '{{ permissions[0] }}'
+                  container_path: '{{ container_path }}'
+              init_process_enabled: '{{ init_process_enabled }}'
+              max_swap: '{{ max_swap }}'
+            version_consistency: '{{ version_consistency }}'
+            restart_policy:
+              ignored_exit_codes:
+                - '{{ ignored_exit_codes[0] }}'
+              restart_attempt_period: '{{ restart_attempt_period }}'
+              enabled: '{{ enabled }}'
+            disable_networking: '{{ disable_networking }}'
+            pseudo_terminal: '{{ pseudo_terminal }}'
+            mount_points:
+              - read_only: '{{ read_only }}'
+                source_volume: '{{ source_volume }}'
+                container_path: '{{ container_path }}'
+            depends_on:
+              - condition: '{{ condition }}'
+                container_name: '{{ container_name }}'
+            docker_labels: {}
+            port_mappings:
+              - app_protocol: '{{ app_protocol }}'
+                container_port_range: '{{ container_port_range }}'
+                host_port: '{{ host_port }}'
+                container_port: '{{ container_port }}'
+                protocol: '{{ protocol }}'
+                name: '{{ name }}'
+            command:
+              - '{{ command[0] }}'
+            environment:
               - null
-            Links:
-              - '{{ Links[0] }}'
-      - name: Family
-        value: '{{ Family }}'
-      - name: EphemeralStorage
+            links:
+              - '{{ links[0] }}'
+      - name: family
+        value: '{{ family }}'
+      - name: ephemeral_storage
         value:
-          SizeInGiB: '{{ SizeInGiB }}'
-      - name: Tags
+          size_in_gi_b: '{{ size_in_gi_b }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -1336,7 +1335,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TaskDefinitionArn>';
+AND Identifier = '{{ task_definition_arn }}';
 ```
 
 
@@ -1345,7 +1344,7 @@ AND Identifier = '<TaskDefinitionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.task_definitions
-WHERE Identifier = '<TaskDefinitionArn>'
+WHERE Identifier = '{{ task_definition_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -530,7 +530,7 @@ updated_at,
 version,
 word_policy_config
 FROM awscc.bedrock.guardrails
-WHERE region = 'us-east-1' AND Identifier = '<GuardrailArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ guardrail_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -568,10 +568,10 @@ INSERT INTO awscc.bedrock.guardrails (
  Name,
  region
 )
-SELECT 
-'{{ BlockedInputMessaging }}',
- '{{ BlockedOutputsMessaging }}',
- '{{ Name }}',
+SELECT
+'{{ blocked_input_messaging }}',
+ '{{ blocked_outputs_messaging }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -594,19 +594,19 @@ INSERT INTO awscc.bedrock.guardrails (
  WordPolicyConfig,
  region
 )
-SELECT 
- '{{ BlockedInputMessaging }}',
- '{{ BlockedOutputsMessaging }}',
- '{{ ContentPolicyConfig }}',
- '{{ ContextualGroundingPolicyConfig }}',
- '{{ CrossRegionConfig }}',
- '{{ Description }}',
- '{{ KmsKeyArn }}',
- '{{ Name }}',
- '{{ SensitiveInformationPolicyConfig }}',
- '{{ Tags }}',
- '{{ TopicPolicyConfig }}',
- '{{ WordPolicyConfig }}',
+SELECT
+ '{{ blocked_input_messaging }}',
+ '{{ blocked_outputs_messaging }}',
+ '{{ content_policy_config }}',
+ '{{ contextual_grounding_policy_config }}',
+ '{{ cross_region_config }}',
+ '{{ description }}',
+ '{{ kms_key_arn }}',
+ '{{ name }}',
+ '{{ sensitive_information_policy_config }}',
+ '{{ tags }}',
+ '{{ topic_policy_config }}',
+ '{{ word_policy_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -624,93 +624,92 @@ globals:
 resources:
   - name: guardrail
     props:
-      - name: BlockedInputMessaging
-        value: '{{ BlockedInputMessaging }}'
-      - name: BlockedOutputsMessaging
-        value: '{{ BlockedOutputsMessaging }}'
-      - name: ContentPolicyConfig
+      - name: blocked_input_messaging
+        value: '{{ blocked_input_messaging }}'
+      - name: blocked_outputs_messaging
+        value: '{{ blocked_outputs_messaging }}'
+      - name: content_policy_config
         value:
-          FiltersConfig:
-            - Type: '{{ Type }}'
-              InputStrength: '{{ InputStrength }}'
-              OutputStrength: null
-              InputModalities:
-                - '{{ InputModalities[0] }}'
-              OutputModalities:
+          filters_config:
+            - type: '{{ type }}'
+              input_strength: '{{ input_strength }}'
+              output_strength: null
+              input_modalities:
+                - '{{ input_modalities[0] }}'
+              output_modalities:
                 - null
-              InputAction: '{{ InputAction }}'
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-          ContentFiltersTierConfig:
-            TierName: '{{ TierName }}'
-      - name: ContextualGroundingPolicyConfig
+              input_action: '{{ input_action }}'
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
+          content_filters_tier_config:
+            tier_name: '{{ tier_name }}'
+      - name: contextual_grounding_policy_config
         value:
-          FiltersConfig:
-            - Type: '{{ Type }}'
-              Threshold: null
-              Action: '{{ Action }}'
-              Enabled: '{{ Enabled }}'
-      - name: CrossRegionConfig
+          filters_config:
+            - type: '{{ type }}'
+              threshold: null
+              action: '{{ action }}'
+              enabled: '{{ enabled }}'
+      - name: cross_region_config
         value:
-          GuardrailProfileArn: '{{ GuardrailProfileArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SensitiveInformationPolicyConfig
+          guardrail_profile_arn: '{{ guardrail_profile_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: sensitive_information_policy_config
         value:
-          PiiEntitiesConfig:
-            - Type: '{{ Type }}'
-              Action: '{{ Action }}'
-              InputAction: null
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-          RegexesConfig:
-            - Name: '{{ Name }}'
-              Description: '{{ Description }}'
-              Pattern: '{{ Pattern }}'
-              Action: null
-              InputAction: null
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-      - name: Tags
+          pii_entities_config:
+            - type: '{{ type }}'
+              action: '{{ action }}'
+              input_action: null
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
+          regexes_config:
+            - name: '{{ name }}'
+              description: '{{ description }}'
+              pattern: '{{ pattern }}'
+              action: null
+              input_action: null
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TopicPolicyConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: topic_policy_config
         value:
-          TopicsConfig:
-            - Name: '{{ Name }}'
-              Definition: '{{ Definition }}'
-              Examples:
-                - '{{ Examples[0] }}'
-              Type: '{{ Type }}'
-              InputAction: '{{ InputAction }}'
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-          TopicsTierConfig:
-            TierName: '{{ TierName }}'
-      - name: WordPolicyConfig
+          topics_config:
+            - name: '{{ name }}'
+              definition: '{{ definition }}'
+              examples:
+                - '{{ examples[0] }}'
+              type: '{{ type }}'
+              input_action: '{{ input_action }}'
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
+          topics_tier_config:
+            tier_name: '{{ tier_name }}'
+      - name: word_policy_config
         value:
-          WordsConfig:
-            - Text: '{{ Text }}'
-              InputAction: '{{ InputAction }}'
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-          ManagedWordListsConfig:
-            - Type: '{{ Type }}'
-              InputAction: null
-              OutputAction: null
-              InputEnabled: '{{ InputEnabled }}'
-              OutputEnabled: '{{ OutputEnabled }}'
-
+          words_config:
+            - text: '{{ text }}'
+              input_action: '{{ input_action }}'
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
+          managed_word_lists_config:
+            - type: '{{ type }}'
+              input_action: null
+              output_action: null
+              input_enabled: '{{ input_enabled }}'
+              output_enabled: '{{ output_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -737,7 +736,7 @@ SET PatchDocument = string('{{ {
     "WordPolicyConfig": word_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GuardrailArn>';
+AND Identifier = '{{ guardrail_arn }}';
 ```
 
 
@@ -746,7 +745,7 @@ AND Identifier = '<GuardrailArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.guardrails
-WHERE Identifier = '<GuardrailArn>'
+WHERE Identifier = '{{ guardrail_arn }}'
 AND region = 'us-east-1';
 ```
 

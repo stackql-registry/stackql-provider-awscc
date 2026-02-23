@@ -486,7 +486,7 @@ namespace_resource_policy,
 redshift_idc_application_arn,
 snapshot_copy_configurations
 FROM awscc.redshiftserverless.namespaces
-WHERE region = 'us-east-1' AND Identifier = '<NamespaceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ namespace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -522,8 +522,8 @@ INSERT INTO awscc.redshiftserverless.namespaces (
  NamespaceName,
  region
 )
-SELECT 
-'{{ NamespaceName }}',
+SELECT
+'{{ namespace_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -550,23 +550,23 @@ INSERT INTO awscc.redshiftserverless.namespaces (
  SnapshotCopyConfigurations,
  region
 )
-SELECT 
- '{{ AdminPasswordSecretKmsKeyId }}',
- '{{ AdminUserPassword }}',
- '{{ AdminUsername }}',
- '{{ DbName }}',
- '{{ DefaultIamRoleArn }}',
- '{{ IamRoles }}',
- '{{ KmsKeyId }}',
- '{{ LogExports }}',
- '{{ ManageAdminPassword }}',
- '{{ NamespaceName }}',
- '{{ Tags }}',
- '{{ FinalSnapshotName }}',
- '{{ FinalSnapshotRetentionPeriod }}',
- '{{ NamespaceResourcePolicy }}',
- '{{ RedshiftIdcApplicationArn }}',
- '{{ SnapshotCopyConfigurations }}',
+SELECT
+ '{{ admin_password_secret_kms_key_id }}',
+ '{{ admin_user_password }}',
+ '{{ admin_username }}',
+ '{{ db_name }}',
+ '{{ default_iam_role_arn }}',
+ '{{ iam_roles }}',
+ '{{ kms_key_id }}',
+ '{{ log_exports }}',
+ '{{ manage_admin_password }}',
+ '{{ namespace_name }}',
+ '{{ tags }}',
+ '{{ final_snapshot_name }}',
+ '{{ final_snapshot_retention_period }}',
+ '{{ namespace_resource_policy }}',
+ '{{ redshift_idc_application_arn }}',
+ '{{ snapshot_copy_configurations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -584,46 +584,45 @@ globals:
 resources:
   - name: namespace
     props:
-      - name: AdminPasswordSecretKmsKeyId
-        value: '{{ AdminPasswordSecretKmsKeyId }}'
-      - name: AdminUserPassword
-        value: '{{ AdminUserPassword }}'
-      - name: AdminUsername
-        value: '{{ AdminUsername }}'
-      - name: DbName
-        value: '{{ DbName }}'
-      - name: DefaultIamRoleArn
-        value: '{{ DefaultIamRoleArn }}'
-      - name: IamRoles
+      - name: admin_password_secret_kms_key_id
+        value: '{{ admin_password_secret_kms_key_id }}'
+      - name: admin_user_password
+        value: '{{ admin_user_password }}'
+      - name: admin_username
+        value: '{{ admin_username }}'
+      - name: db_name
+        value: '{{ db_name }}'
+      - name: default_iam_role_arn
+        value: '{{ default_iam_role_arn }}'
+      - name: iam_roles
         value:
-          - '{{ IamRoles[0] }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: LogExports
+          - '{{ iam_roles[0] }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: log_exports
         value:
-          - '{{ LogExports[0] }}'
-      - name: ManageAdminPassword
-        value: '{{ ManageAdminPassword }}'
-      - name: NamespaceName
-        value: '{{ NamespaceName }}'
-      - name: Tags
+          - '{{ log_exports[0] }}'
+      - name: manage_admin_password
+        value: '{{ manage_admin_password }}'
+      - name: namespace_name
+        value: '{{ namespace_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: FinalSnapshotName
-        value: '{{ FinalSnapshotName }}'
-      - name: FinalSnapshotRetentionPeriod
-        value: '{{ FinalSnapshotRetentionPeriod }}'
-      - name: NamespaceResourcePolicy
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: final_snapshot_name
+        value: '{{ final_snapshot_name }}'
+      - name: final_snapshot_retention_period
+        value: '{{ final_snapshot_retention_period }}'
+      - name: namespace_resource_policy
         value: {}
-      - name: RedshiftIdcApplicationArn
-        value: '{{ RedshiftIdcApplicationArn }}'
-      - name: SnapshotCopyConfigurations
+      - name: redshift_idc_application_arn
+        value: '{{ redshift_idc_application_arn }}'
+      - name: snapshot_copy_configurations
         value:
-          - DestinationRegion: '{{ DestinationRegion }}'
-            DestinationKmsKeyId: '{{ DestinationKmsKeyId }}'
-            SnapshotRetentionPeriod: '{{ SnapshotRetentionPeriod }}'
-
+          - destination_region: '{{ destination_region }}'
+            destination_kms_key_id: '{{ destination_kms_key_id }}'
+            snapshot_retention_period: '{{ snapshot_retention_period }}'
 ```
 </TabItem>
 </Tabs>
@@ -653,7 +652,7 @@ SET PatchDocument = string('{{ {
     "SnapshotCopyConfigurations": snapshot_copy_configurations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NamespaceName>';
+AND Identifier = '{{ namespace_name }}';
 ```
 
 
@@ -662,7 +661,7 @@ AND Identifier = '<NamespaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.namespaces
-WHERE Identifier = '<NamespaceName>'
+WHERE Identifier = '{{ namespace_name }}'
 AND region = 'us-east-1';
 ```
 

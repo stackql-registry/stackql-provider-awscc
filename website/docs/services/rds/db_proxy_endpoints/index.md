@@ -205,7 +205,7 @@ target_role,
 is_default,
 tags
 FROM awscc.rds.db_proxy_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<DBProxyEndpointName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_endpoint_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +243,10 @@ INSERT INTO awscc.rds.db_proxy_endpoints (
  VpcSubnetIds,
  region
 )
-SELECT 
-'{{ DBProxyEndpointName }}',
- '{{ DBProxyName }}',
- '{{ VpcSubnetIds }}',
+SELECT
+'{{ db_proxy_endpoint_name }}',
+ '{{ db_proxy_name }}',
+ '{{ vpc_subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,13 +263,13 @@ INSERT INTO awscc.rds.db_proxy_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ DBProxyEndpointName }}',
- '{{ DBProxyName }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ VpcSubnetIds }}',
- '{{ TargetRole }}',
- '{{ Tags }}',
+SELECT
+ '{{ db_proxy_endpoint_name }}',
+ '{{ db_proxy_name }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ vpc_subnet_ids }}',
+ '{{ target_role }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -287,23 +287,22 @@ globals:
 resources:
   - name: db_proxy_endpoint
     props:
-      - name: DBProxyEndpointName
-        value: '{{ DBProxyEndpointName }}'
-      - name: DBProxyName
-        value: '{{ DBProxyName }}'
-      - name: VpcSecurityGroupIds
+      - name: db_proxy_endpoint_name
+        value: '{{ db_proxy_endpoint_name }}'
+      - name: db_proxy_name
+        value: '{{ db_proxy_name }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: VpcSubnetIds
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: vpc_subnet_ids
         value:
-          - '{{ VpcSubnetIds[0] }}'
-      - name: TargetRole
-        value: '{{ TargetRole }}'
-      - name: Tags
+          - '{{ vpc_subnet_ids[0] }}'
+      - name: target_role
+        value: '{{ target_role }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBProxyEndpointName>';
+AND Identifier = '{{ db_proxy_endpoint_name }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<DBProxyEndpointName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxy_endpoints
-WHERE Identifier = '<DBProxyEndpointName>'
+WHERE Identifier = '{{ db_proxy_endpoint_name }}'
 AND region = 'us-east-1';
 ```
 

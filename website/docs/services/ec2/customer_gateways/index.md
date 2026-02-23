@@ -188,7 +188,7 @@ tags,
 certificate_arn,
 device_name
 FROM awscc.ec2.customer_gateways
-WHERE region = 'us-east-1' AND Identifier = '<CustomerGatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ customer_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.ec2.customer_gateways (
  IpAddress,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ IpAddress }}',
+SELECT
+'{{ type }}',
+ '{{ ip_address }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -245,14 +245,14 @@ INSERT INTO awscc.ec2.customer_gateways (
  DeviceName,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ IpAddress }}',
- '{{ BgpAsnExtended }}',
- '{{ BgpAsn }}',
- '{{ Tags }}',
- '{{ CertificateArn }}',
- '{{ DeviceName }}',
+SELECT
+ '{{ type }}',
+ '{{ ip_address }}',
+ '{{ bgp_asn_extended }}',
+ '{{ bgp_asn }}',
+ '{{ tags }}',
+ '{{ certificate_arn }}',
+ '{{ device_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,23 +270,22 @@ globals:
 resources:
   - name: customer_gateway
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: IpAddress
-        value: '{{ IpAddress }}'
-      - name: BgpAsnExtended
+      - name: type
+        value: '{{ type }}'
+      - name: ip_address
+        value: '{{ ip_address }}'
+      - name: bgp_asn_extended
         value: null
-      - name: BgpAsn
-        value: '{{ BgpAsn }}'
-      - name: Tags
+      - name: bgp_asn
+        value: '{{ bgp_asn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CertificateArn
-        value: '{{ CertificateArn }}'
-      - name: DeviceName
-        value: '{{ DeviceName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: certificate_arn
+        value: '{{ certificate_arn }}'
+      - name: device_name
+        value: '{{ device_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +301,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CustomerGatewayId>';
+AND Identifier = '{{ customer_gateway_id }}';
 ```
 
 
@@ -311,7 +310,7 @@ AND Identifier = '<CustomerGatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.customer_gateways
-WHERE Identifier = '<CustomerGatewayId>'
+WHERE Identifier = '{{ customer_gateway_id }}'
 AND region = 'us-east-1';
 ```
 

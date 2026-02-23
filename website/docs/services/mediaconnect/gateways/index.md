@@ -164,7 +164,7 @@ gateway_state,
 egress_cidr_blocks,
 networks
 FROM awscc.mediaconnect.gateways
-WHERE region = 'us-east-1' AND Identifier = '<GatewayArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ gateway_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.mediaconnect.gateways (
  Networks,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ EgressCidrBlocks }}',
- '{{ Networks }}',
+SELECT
+'{{ name }}',
+ '{{ egress_cidr_blocks }}',
+ '{{ networks }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.mediaconnect.gateways (
  Networks,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ EgressCidrBlocks }}',
- '{{ Networks }}',
+SELECT
+ '{{ name }}',
+ '{{ egress_cidr_blocks }}',
+ '{{ networks }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,16 +240,15 @@ globals:
 resources:
   - name: gateway
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: EgressCidrBlocks
+      - name: name
+        value: '{{ name }}'
+      - name: egress_cidr_blocks
         value:
-          - '{{ EgressCidrBlocks[0] }}'
-      - name: Networks
+          - '{{ egress_cidr_blocks[0] }}'
+      - name: networks
         value:
-          - Name: '{{ Name }}'
-            CidrBlock: '{{ CidrBlock }}'
-
+          - name: '{{ name }}'
+            cidr_block: '{{ cidr_block }}'
 ```
 </TabItem>
 </Tabs>
@@ -260,7 +259,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.gateways
-WHERE Identifier = '<GatewayArn>'
+WHERE Identifier = '{{ gateway_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -218,7 +218,7 @@ role_id,
 role_name,
 tags
 FROM awscc.iam.roles
-WHERE Identifier = '<RoleName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ role_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,7 +229,7 @@ SELECT
 region,
 role_name
 FROM awscc.iam.roles_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -254,8 +254,8 @@ INSERT INTO awscc.iam.roles (
  AssumeRolePolicyDocument,
  region
 )
-SELECT 
-'{{ AssumeRolePolicyDocument }}',
+SELECT
+'{{ assume_role_policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,16 +275,16 @@ INSERT INTO awscc.iam.roles (
  Tags,
  region
 )
-SELECT 
- '{{ AssumeRolePolicyDocument }}',
- '{{ Description }}',
- '{{ ManagedPolicyArns }}',
- '{{ MaxSessionDuration }}',
- '{{ Path }}',
- '{{ PermissionsBoundary }}',
- '{{ Policies }}',
- '{{ RoleName }}',
- '{{ Tags }}',
+SELECT
+ '{{ assume_role_policy_document }}',
+ '{{ description }}',
+ '{{ managed_policy_arns }}',
+ '{{ max_session_duration }}',
+ '{{ path }}',
+ '{{ permissions_boundary }}',
+ '{{ policies }}',
+ '{{ role_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,30 +302,29 @@ globals:
 resources:
   - name: role
     props:
-      - name: AssumeRolePolicyDocument
+      - name: assume_role_policy_document
         value: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: ManagedPolicyArns
+      - name: description
+        value: '{{ description }}'
+      - name: managed_policy_arns
         value:
-          - '{{ ManagedPolicyArns[0] }}'
-      - name: MaxSessionDuration
-        value: '{{ MaxSessionDuration }}'
-      - name: Path
-        value: '{{ Path }}'
-      - name: PermissionsBoundary
-        value: '{{ PermissionsBoundary }}'
-      - name: Policies
+          - '{{ managed_policy_arns[0] }}'
+      - name: max_session_duration
+        value: '{{ max_session_duration }}'
+      - name: path
+        value: '{{ path }}'
+      - name: permissions_boundary
+        value: '{{ permissions_boundary }}'
+      - name: policies
         value:
-          - PolicyDocument: {}
-            PolicyName: '{{ PolicyName }}'
-      - name: RoleName
-        value: '{{ RoleName }}'
-      - name: Tags
+          - policy_document: {}
+            policy_name: '{{ policy_name }}'
+      - name: role_name
+        value: '{{ role_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoleName>';
+AND Identifier = '{{ role_name }}';
 ```
 
 
@@ -356,7 +355,7 @@ AND Identifier = '<RoleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.roles
-WHERE Identifier = '<RoleName>'
+WHERE Identifier = '{{ role_name }}'
 AND region = 'us-east-1';
 ```
 

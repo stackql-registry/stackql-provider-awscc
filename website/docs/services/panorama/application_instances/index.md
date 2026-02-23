@@ -235,7 +235,7 @@ manifest_payload,
 arn,
 tags
 FROM awscc.panorama.application_instances
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,9 +272,9 @@ INSERT INTO awscc.panorama.application_instances (
  ManifestPayload,
  region
 )
-SELECT 
-'{{ DefaultRuntimeContextDevice }}',
- '{{ ManifestPayload }}',
+SELECT
+'{{ default_runtime_context_device }}',
+ '{{ manifest_payload }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,15 +293,15 @@ INSERT INTO awscc.panorama.application_instances (
  Tags,
  region
 )
-SELECT 
- '{{ DefaultRuntimeContextDevice }}',
- '{{ Description }}',
- '{{ ApplicationInstanceIdToReplace }}',
- '{{ ManifestOverridesPayload }}',
- '{{ RuntimeRoleArn }}',
- '{{ Name }}',
- '{{ ManifestPayload }}',
- '{{ Tags }}',
+SELECT
+ '{{ default_runtime_context_device }}',
+ '{{ description }}',
+ '{{ application_instance_id_to_replace }}',
+ '{{ manifest_overrides_payload }}',
+ '{{ runtime_role_arn }}',
+ '{{ name }}',
+ '{{ manifest_payload }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -319,27 +319,26 @@ globals:
 resources:
   - name: application_instance
     props:
-      - name: DefaultRuntimeContextDevice
-        value: '{{ DefaultRuntimeContextDevice }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ApplicationInstanceIdToReplace
-        value: '{{ ApplicationInstanceIdToReplace }}'
-      - name: ManifestOverridesPayload
+      - name: default_runtime_context_device
+        value: '{{ default_runtime_context_device }}'
+      - name: description
+        value: '{{ description }}'
+      - name: application_instance_id_to_replace
+        value: '{{ application_instance_id_to_replace }}'
+      - name: manifest_overrides_payload
         value:
-          PayloadData: '{{ PayloadData }}'
-      - name: RuntimeRoleArn
-        value: '{{ RuntimeRoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ManifestPayload
+          payload_data: '{{ payload_data }}'
+      - name: runtime_role_arn
+        value: '{{ runtime_role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: manifest_payload
         value:
-          PayloadData: '{{ PayloadData }}'
-      - name: Tags
+          payload_data: '{{ payload_data }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +354,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationInstanceId>';
+AND Identifier = '{{ application_instance_id }}';
 ```
 
 
@@ -364,7 +363,7 @@ AND Identifier = '<ApplicationInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.application_instances
-WHERE Identifier = '<ApplicationInstanceId>'
+WHERE Identifier = '{{ application_instance_id }}'
 AND region = 'us-east-1';
 ```
 

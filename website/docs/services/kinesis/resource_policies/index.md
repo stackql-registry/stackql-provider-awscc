@@ -94,7 +94,7 @@ region,
 resource_arn,
 resource_policy
 FROM awscc.kinesis.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<ResourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.kinesis.resource_policies (
  ResourcePolicy,
  region
 )
-SELECT 
-'{{ ResourceArn }}',
- '{{ ResourcePolicy }}',
+SELECT
+'{{ resource_arn }}',
+ '{{ resource_policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.kinesis.resource_policies (
  ResourcePolicy,
  region
 )
-SELECT 
- '{{ ResourceArn }}',
- '{{ ResourcePolicy }}',
+SELECT
+ '{{ resource_arn }}',
+ '{{ resource_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: ResourcePolicy
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: resource_policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceArn>';
+AND Identifier = '{{ resource_arn }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<ResourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.resource_policies
-WHERE Identifier = '<ResourceArn>'
+WHERE Identifier = '{{ resource_arn }}'
 AND region = 'us-east-1';
 ```
 

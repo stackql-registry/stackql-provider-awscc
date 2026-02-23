@@ -163,7 +163,7 @@ default_capacity_provider_strategy,
 capacity_providers,
 cluster
 FROM awscc.ecs.cluster_capacity_provider_associations
-WHERE region = 'us-east-1' AND Identifier = '<Cluster>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,10 +201,10 @@ INSERT INTO awscc.ecs.cluster_capacity_provider_associations (
  Cluster,
  region
 )
-SELECT 
-'{{ DefaultCapacityProviderStrategy }}',
- '{{ CapacityProviders }}',
- '{{ Cluster }}',
+SELECT
+'{{ default_capacity_provider_strategy }}',
+ '{{ capacity_providers }}',
+ '{{ cluster }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,10 +218,10 @@ INSERT INTO awscc.ecs.cluster_capacity_provider_associations (
  Cluster,
  region
 )
-SELECT 
- '{{ DefaultCapacityProviderStrategy }}',
- '{{ CapacityProviders }}',
- '{{ Cluster }}',
+SELECT
+ '{{ default_capacity_provider_strategy }}',
+ '{{ capacity_providers }}',
+ '{{ cluster }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -239,17 +239,16 @@ globals:
 resources:
   - name: cluster_capacity_provider_association
     props:
-      - name: DefaultCapacityProviderStrategy
+      - name: default_capacity_provider_strategy
         value:
-          - CapacityProvider: '{{ CapacityProvider }}'
-            Base: '{{ Base }}'
-            Weight: '{{ Weight }}'
-      - name: CapacityProviders
+          - capacity_provider: '{{ capacity_provider }}'
+            base: '{{ base }}'
+            weight: '{{ weight }}'
+      - name: capacity_providers
         value:
           - null
-      - name: Cluster
-        value: '{{ Cluster }}'
-
+      - name: cluster
+        value: '{{ cluster }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "CapacityProviders": capacity_providers
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Cluster>';
+AND Identifier = '{{ cluster }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<Cluster>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.cluster_capacity_provider_associations
-WHERE Identifier = '<Cluster>'
+WHERE Identifier = '{{ cluster }}'
 AND region = 'us-east-1';
 ```
 

@@ -195,7 +195,7 @@ rule,
 last_modified,
 resource_tags
 FROM awscc.invoicing.invoice_units
-WHERE region = 'us-east-1' AND Identifier = '<InvoiceUnitArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ invoice_unit_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,10 +233,10 @@ INSERT INTO awscc.invoicing.invoice_units (
  Rule,
  region
 )
-SELECT 
-'{{ InvoiceReceiver }}',
- '{{ Name }}',
- '{{ Rule }}',
+SELECT
+'{{ invoice_receiver }}',
+ '{{ name }}',
+ '{{ rule }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,13 +253,13 @@ INSERT INTO awscc.invoicing.invoice_units (
  ResourceTags,
  region
 )
-SELECT 
- '{{ InvoiceReceiver }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ TaxInheritanceDisabled }}',
- '{{ Rule }}',
- '{{ ResourceTags }}',
+SELECT
+ '{{ invoice_receiver }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ tax_inheritance_disabled }}',
+ '{{ rule }}',
+ '{{ resource_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,23 +277,22 @@ globals:
 resources:
   - name: invoice_unit
     props:
-      - name: InvoiceReceiver
-        value: '{{ InvoiceReceiver }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: TaxInheritanceDisabled
-        value: '{{ TaxInheritanceDisabled }}'
-      - name: Rule
+      - name: invoice_receiver
+        value: '{{ invoice_receiver }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tax_inheritance_disabled
+        value: '{{ tax_inheritance_disabled }}'
+      - name: rule
         value:
-          LinkedAccounts:
-            - '{{ LinkedAccounts[0] }}'
-      - name: ResourceTags
+          linked_accounts:
+            - '{{ linked_accounts[0] }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +311,7 @@ SET PatchDocument = string('{{ {
     "ResourceTags": resource_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InvoiceUnitArn>';
+AND Identifier = '{{ invoice_unit_arn }}';
 ```
 
 
@@ -321,7 +320,7 @@ AND Identifier = '<InvoiceUnitArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.invoicing.invoice_units
-WHERE Identifier = '<InvoiceUnitArn>'
+WHERE Identifier = '{{ invoice_unit_arn }}'
 AND region = 'us-east-1';
 ```
 

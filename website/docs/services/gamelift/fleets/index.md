@@ -558,7 +558,7 @@ server_launch_path,
 tags,
 fleet_arn
 FROM awscc.gamelift.fleets
-WHERE region = 'us-east-1' AND Identifier = '<FleetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -594,8 +594,8 @@ INSERT INTO awscc.gamelift.fleets (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -634,35 +634,35 @@ INSERT INTO awscc.gamelift.fleets (
  Tags,
  region
 )
-SELECT 
- '{{ ScalingPolicies }}',
- '{{ AnywhereConfiguration }}',
- '{{ ApplyCapacity }}',
- '{{ CertificateConfiguration }}',
- '{{ ComputeType }}',
- '{{ Description }}',
- '{{ DesiredEC2Instances }}',
- '{{ EC2InboundPermissions }}',
- '{{ EC2InstanceType }}',
- '{{ FleetType }}',
- '{{ InstanceRoleARN }}',
- '{{ InstanceRoleCredentialsProvider }}',
- '{{ Locations }}',
- '{{ LogPaths }}',
- '{{ MaxSize }}',
- '{{ MetricGroups }}',
- '{{ MinSize }}',
- '{{ Name }}',
- '{{ NewGameSessionProtectionPolicy }}',
- '{{ PeerVpcAwsAccountId }}',
- '{{ PeerVpcId }}',
- '{{ ResourceCreationLimitPolicy }}',
- '{{ BuildId }}',
- '{{ ScriptId }}',
- '{{ RuntimeConfiguration }}',
- '{{ ServerLaunchParameters }}',
- '{{ ServerLaunchPath }}',
- '{{ Tags }}',
+SELECT
+ '{{ scaling_policies }}',
+ '{{ anywhere_configuration }}',
+ '{{ apply_capacity }}',
+ '{{ certificate_configuration }}',
+ '{{ compute_type }}',
+ '{{ description }}',
+ '{{ desired_ec2_instances }}',
+ '{{ e_c2_inbound_permissions }}',
+ '{{ e_c2_instance_type }}',
+ '{{ fleet_type }}',
+ '{{ instance_role_arn }}',
+ '{{ instance_role_credentials_provider }}',
+ '{{ locations }}',
+ '{{ log_paths }}',
+ '{{ max_size }}',
+ '{{ metric_groups }}',
+ '{{ min_size }}',
+ '{{ name }}',
+ '{{ new_game_session_protection_policy }}',
+ '{{ peer_vpc_aws_account_id }}',
+ '{{ peer_vpc_id }}',
+ '{{ resource_creation_limit_policy }}',
+ '{{ build_id }}',
+ '{{ script_id }}',
+ '{{ runtime_configuration }}',
+ '{{ server_launch_parameters }}',
+ '{{ server_launch_path }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -680,101 +680,100 @@ globals:
 resources:
   - name: fleet
     props:
-      - name: ScalingPolicies
+      - name: scaling_policies
         value:
-          - ComparisonOperator: '{{ ComparisonOperator }}'
-            EvaluationPeriods: '{{ EvaluationPeriods }}'
-            Location:
-              LocationName: '{{ LocationName }}'
-              Tags:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-            MetricName: '{{ MetricName }}'
-            Name: '{{ Name }}'
-            PolicyType: '{{ PolicyType }}'
-            ScalingAdjustment: '{{ ScalingAdjustment }}'
-            ScalingAdjustmentType: '{{ ScalingAdjustmentType }}'
-            Status: '{{ Status }}'
-            TargetConfiguration:
-              TargetValue: null
-            Threshold: null
-            UpdateStatus: '{{ UpdateStatus }}'
-      - name: AnywhereConfiguration
+          - comparison_operator: '{{ comparison_operator }}'
+            evaluation_periods: '{{ evaluation_periods }}'
+            location:
+              location_name: '{{ location_name }}'
+              tags:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+            metric_name: '{{ metric_name }}'
+            name: '{{ name }}'
+            policy_type: '{{ policy_type }}'
+            scaling_adjustment: '{{ scaling_adjustment }}'
+            scaling_adjustment_type: '{{ scaling_adjustment_type }}'
+            status: '{{ status }}'
+            target_configuration:
+              target_value: null
+            threshold: null
+            update_status: '{{ update_status }}'
+      - name: anywhere_configuration
         value: null
-      - name: ApplyCapacity
-        value: '{{ ApplyCapacity }}'
-      - name: CertificateConfiguration
+      - name: apply_capacity
+        value: '{{ apply_capacity }}'
+      - name: certificate_configuration
         value:
-          CertificateType: '{{ CertificateType }}'
-      - name: ComputeType
-        value: '{{ ComputeType }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DesiredEC2Instances
-        value: '{{ DesiredEC2Instances }}'
-      - name: EC2InboundPermissions
+          certificate_type: '{{ certificate_type }}'
+      - name: compute_type
+        value: '{{ compute_type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: desired_ec2_instances
+        value: '{{ desired_ec2_instances }}'
+      - name: e_c2_inbound_permissions
         value:
-          - FromPort: '{{ FromPort }}'
-            IpRange: '{{ IpRange }}'
-            Protocol: '{{ Protocol }}'
-            ToPort: '{{ ToPort }}'
-      - name: EC2InstanceType
-        value: '{{ EC2InstanceType }}'
-      - name: FleetType
-        value: '{{ FleetType }}'
-      - name: InstanceRoleARN
-        value: '{{ InstanceRoleARN }}'
-      - name: InstanceRoleCredentialsProvider
-        value: '{{ InstanceRoleCredentialsProvider }}'
-      - name: Locations
+          - from_port: '{{ from_port }}'
+            ip_range: '{{ ip_range }}'
+            protocol: '{{ protocol }}'
+            to_port: '{{ to_port }}'
+      - name: e_c2_instance_type
+        value: '{{ e_c2_instance_type }}'
+      - name: fleet_type
+        value: '{{ fleet_type }}'
+      - name: instance_role_arn
+        value: '{{ instance_role_arn }}'
+      - name: instance_role_credentials_provider
+        value: '{{ instance_role_credentials_provider }}'
+      - name: locations
         value:
-          - Location: null
-            LocationCapacity:
-              DesiredEC2Instances: '{{ DesiredEC2Instances }}'
-              MinSize: '{{ MinSize }}'
-              MaxSize: '{{ MaxSize }}'
-      - name: LogPaths
+          - location: null
+            location_capacity:
+              desired_ec2_instances: '{{ desired_ec2_instances }}'
+              min_size: '{{ min_size }}'
+              max_size: '{{ max_size }}'
+      - name: log_paths
         value:
-          - '{{ LogPaths[0] }}'
-      - name: MaxSize
-        value: '{{ MaxSize }}'
-      - name: MetricGroups
+          - '{{ log_paths[0] }}'
+      - name: max_size
+        value: '{{ max_size }}'
+      - name: metric_groups
         value:
-          - '{{ MetricGroups[0] }}'
-      - name: MinSize
-        value: '{{ MinSize }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NewGameSessionProtectionPolicy
-        value: '{{ NewGameSessionProtectionPolicy }}'
-      - name: PeerVpcAwsAccountId
-        value: '{{ PeerVpcAwsAccountId }}'
-      - name: PeerVpcId
-        value: '{{ PeerVpcId }}'
-      - name: ResourceCreationLimitPolicy
+          - '{{ metric_groups[0] }}'
+      - name: min_size
+        value: '{{ min_size }}'
+      - name: name
+        value: '{{ name }}'
+      - name: new_game_session_protection_policy
+        value: '{{ new_game_session_protection_policy }}'
+      - name: peer_vpc_aws_account_id
+        value: '{{ peer_vpc_aws_account_id }}'
+      - name: peer_vpc_id
+        value: '{{ peer_vpc_id }}'
+      - name: resource_creation_limit_policy
         value:
-          NewGameSessionsPerCreator: '{{ NewGameSessionsPerCreator }}'
-          PolicyPeriodInMinutes: '{{ PolicyPeriodInMinutes }}'
-      - name: BuildId
-        value: '{{ BuildId }}'
-      - name: ScriptId
-        value: '{{ ScriptId }}'
-      - name: RuntimeConfiguration
+          new_game_sessions_per_creator: '{{ new_game_sessions_per_creator }}'
+          policy_period_in_minutes: '{{ policy_period_in_minutes }}'
+      - name: build_id
+        value: '{{ build_id }}'
+      - name: script_id
+        value: '{{ script_id }}'
+      - name: runtime_configuration
         value:
-          GameSessionActivationTimeoutSeconds: '{{ GameSessionActivationTimeoutSeconds }}'
-          MaxConcurrentGameSessionActivations: '{{ MaxConcurrentGameSessionActivations }}'
-          ServerProcesses:
-            - ConcurrentExecutions: '{{ ConcurrentExecutions }}'
-              LaunchPath: '{{ LaunchPath }}'
-              Parameters: '{{ Parameters }}'
-      - name: ServerLaunchParameters
-        value: '{{ ServerLaunchParameters }}'
-      - name: ServerLaunchPath
-        value: '{{ ServerLaunchPath }}'
-      - name: Tags
+          game_session_activation_timeout_seconds: '{{ game_session_activation_timeout_seconds }}'
+          max_concurrent_game_session_activations: '{{ max_concurrent_game_session_activations }}'
+          server_processes:
+            - concurrent_executions: '{{ concurrent_executions }}'
+              launch_path: '{{ launch_path }}'
+              parameters: '{{ parameters }}'
+      - name: server_launch_parameters
+        value: '{{ server_launch_parameters }}'
+      - name: server_launch_path
+        value: '{{ server_launch_path }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -804,7 +803,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FleetId>';
+AND Identifier = '{{ fleet_id }}';
 ```
 
 
@@ -813,7 +812,7 @@ AND Identifier = '<FleetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.fleets
-WHERE Identifier = '<FleetId>'
+WHERE Identifier = '{{ fleet_id }}'
 AND region = 'us-east-1';
 ```
 

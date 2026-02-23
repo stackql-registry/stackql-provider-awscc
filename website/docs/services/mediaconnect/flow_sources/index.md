@@ -320,7 +320,7 @@ source_listener_port,
 vpc_interface_name,
 whitelist_cidr
 FROM awscc.mediaconnect.flow_sources
-WHERE region = 'us-east-1' AND Identifier = '<SourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -357,9 +357,9 @@ INSERT INTO awscc.mediaconnect.flow_sources (
  Name,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Name }}',
+SELECT
+'{{ description }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -388,25 +388,25 @@ INSERT INTO awscc.mediaconnect.flow_sources (
  WhitelistCidr,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ Decryption }}',
- '{{ Description }}',
- '{{ EntitlementArn }}',
- '{{ GatewayBridgeSource }}',
- '{{ IngestPort }}',
- '{{ MaxBitrate }}',
- '{{ MaxLatency }}',
- '{{ MinLatency }}',
- '{{ Name }}',
- '{{ Protocol }}',
- '{{ SenderIpAddress }}',
- '{{ SenderControlPort }}',
- '{{ StreamId }}',
- '{{ SourceListenerAddress }}',
- '{{ SourceListenerPort }}',
- '{{ VpcInterfaceName }}',
- '{{ WhitelistCidr }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ decryption }}',
+ '{{ description }}',
+ '{{ entitlement_arn }}',
+ '{{ gateway_bridge_source }}',
+ '{{ ingest_port }}',
+ '{{ max_bitrate }}',
+ '{{ max_latency }}',
+ '{{ min_latency }}',
+ '{{ name }}',
+ '{{ protocol }}',
+ '{{ sender_ip_address }}',
+ '{{ sender_control_port }}',
+ '{{ stream_id }}',
+ '{{ source_listener_address }}',
+ '{{ source_listener_port }}',
+ '{{ vpc_interface_name }}',
+ '{{ whitelist_cidr }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -424,55 +424,54 @@ globals:
 resources:
   - name: flow_source
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: Decryption
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: decryption
         value:
-          Algorithm: '{{ Algorithm }}'
-          ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-          DeviceId: '{{ DeviceId }}'
-          KeyType: '{{ KeyType }}'
-          Region: '{{ Region }}'
-          ResourceId: '{{ ResourceId }}'
-          RoleArn: '{{ RoleArn }}'
-          SecretArn: '{{ SecretArn }}'
-          Url: '{{ Url }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EntitlementArn
-        value: '{{ EntitlementArn }}'
-      - name: GatewayBridgeSource
+          algorithm: '{{ algorithm }}'
+          constant_initialization_vector: '{{ constant_initialization_vector }}'
+          device_id: '{{ device_id }}'
+          key_type: '{{ key_type }}'
+          region: '{{ region }}'
+          resource_id: '{{ resource_id }}'
+          role_arn: '{{ role_arn }}'
+          secret_arn: '{{ secret_arn }}'
+          url: '{{ url }}'
+      - name: description
+        value: '{{ description }}'
+      - name: entitlement_arn
+        value: '{{ entitlement_arn }}'
+      - name: gateway_bridge_source
         value:
-          BridgeArn: '{{ BridgeArn }}'
-          VpcInterfaceAttachment:
-            VpcInterfaceName: '{{ VpcInterfaceName }}'
-      - name: IngestPort
-        value: '{{ IngestPort }}'
-      - name: MaxBitrate
-        value: '{{ MaxBitrate }}'
-      - name: MaxLatency
-        value: '{{ MaxLatency }}'
-      - name: MinLatency
-        value: '{{ MinLatency }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: SenderIpAddress
-        value: '{{ SenderIpAddress }}'
-      - name: SenderControlPort
-        value: '{{ SenderControlPort }}'
-      - name: StreamId
-        value: '{{ StreamId }}'
-      - name: SourceListenerAddress
-        value: '{{ SourceListenerAddress }}'
-      - name: SourceListenerPort
-        value: '{{ SourceListenerPort }}'
-      - name: VpcInterfaceName
-        value: '{{ VpcInterfaceName }}'
-      - name: WhitelistCidr
-        value: '{{ WhitelistCidr }}'
-
+          bridge_arn: '{{ bridge_arn }}'
+          vpc_interface_attachment:
+            vpc_interface_name: '{{ vpc_interface_name }}'
+      - name: ingest_port
+        value: '{{ ingest_port }}'
+      - name: max_bitrate
+        value: '{{ max_bitrate }}'
+      - name: max_latency
+        value: '{{ max_latency }}'
+      - name: min_latency
+        value: '{{ min_latency }}'
+      - name: name
+        value: '{{ name }}'
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: sender_ip_address
+        value: '{{ sender_ip_address }}'
+      - name: sender_control_port
+        value: '{{ sender_control_port }}'
+      - name: stream_id
+        value: '{{ stream_id }}'
+      - name: source_listener_address
+        value: '{{ source_listener_address }}'
+      - name: source_listener_port
+        value: '{{ source_listener_port }}'
+      - name: vpc_interface_name
+        value: '{{ vpc_interface_name }}'
+      - name: whitelist_cidr
+        value: '{{ whitelist_cidr }}'
 ```
 </TabItem>
 </Tabs>
@@ -504,7 +503,7 @@ SET PatchDocument = string('{{ {
     "WhitelistCidr": whitelist_cidr
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SourceArn>';
+AND Identifier = '{{ source_arn }}';
 ```
 
 
@@ -513,7 +512,7 @@ AND Identifier = '<SourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_sources
-WHERE Identifier = '<SourceArn>'
+WHERE Identifier = '{{ source_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -258,7 +258,7 @@ vendor,
 created_at,
 state
 FROM awscc.networkmanager.devices
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<DeviceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,8 +295,8 @@ INSERT INTO awscc.networkmanager.devices (
  GlobalNetworkId,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
+SELECT
+'{{ global_network_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,17 +317,17 @@ INSERT INTO awscc.networkmanager.devices (
  Vendor,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
- '{{ GlobalNetworkId }}',
- '{{ AWSLocation }}',
- '{{ Location }}',
- '{{ Model }}',
- '{{ SerialNumber }}',
- '{{ SiteId }}',
- '{{ Type }}',
- '{{ Vendor }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ global_network_id }}',
+ '{{ aws_location }}',
+ '{{ location }}',
+ '{{ model }}',
+ '{{ serial_number }}',
+ '{{ site_id }}',
+ '{{ type }}',
+ '{{ vendor }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -345,34 +345,33 @@ globals:
 resources:
   - name: device
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: AWSLocation
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: aws_location
         value:
-          Zone: '{{ Zone }}'
-          SubnetArn: '{{ SubnetArn }}'
-      - name: Location
+          zone: '{{ zone }}'
+          subnet_arn: '{{ subnet_arn }}'
+      - name: location
         value:
-          Address: '{{ Address }}'
-          Latitude: '{{ Latitude }}'
-          Longitude: '{{ Longitude }}'
-      - name: Model
-        value: '{{ Model }}'
-      - name: SerialNumber
-        value: '{{ SerialNumber }}'
-      - name: SiteId
-        value: '{{ SiteId }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Vendor
-        value: '{{ Vendor }}'
-
+          address: '{{ address }}'
+          latitude: '{{ latitude }}'
+          longitude: '{{ longitude }}'
+      - name: model
+        value: '{{ model }}'
+      - name: serial_number
+        value: '{{ serial_number }}'
+      - name: site_id
+        value: '{{ site_id }}'
+      - name: type
+        value: '{{ type }}'
+      - name: vendor
+        value: '{{ vendor }}'
 ```
 </TabItem>
 </Tabs>
@@ -396,7 +395,7 @@ SET PatchDocument = string('{{ {
     "Vendor": vendor
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GlobalNetworkId>|<DeviceId>';
+AND Identifier = '{{ global_network_id }}|{{ device_id }}';
 ```
 
 
@@ -405,7 +404,7 @@ AND Identifier = '<GlobalNetworkId>|<DeviceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.devices
-WHERE Identifier = '<GlobalNetworkId|DeviceId>'
+WHERE Identifier = '{{ global_network_id }}|{{ device_id }}'
 AND region = 'us-east-1';
 ```
 

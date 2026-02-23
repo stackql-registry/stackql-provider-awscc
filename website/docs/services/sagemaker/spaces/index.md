@@ -496,7 +496,7 @@ space_sharing_settings,
 space_display_name,
 url
 FROM awscc.sagemaker.spaces
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<SpaceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ space_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -534,9 +534,9 @@ INSERT INTO awscc.sagemaker.spaces (
  SpaceName,
  region
 )
-SELECT 
-'{{ DomainId }}',
- '{{ SpaceName }}',
+SELECT
+'{{ domain_id }}',
+ '{{ space_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -554,14 +554,14 @@ INSERT INTO awscc.sagemaker.spaces (
  SpaceDisplayName,
  region
 )
-SELECT 
- '{{ DomainId }}',
- '{{ SpaceName }}',
- '{{ SpaceSettings }}',
- '{{ Tags }}',
- '{{ OwnershipSettings }}',
- '{{ SpaceSharingSettings }}',
- '{{ SpaceDisplayName }}',
+SELECT
+ '{{ domain_id }}',
+ '{{ space_name }}',
+ '{{ space_settings }}',
+ '{{ tags }}',
+ '{{ ownership_settings }}',
+ '{{ space_sharing_settings }}',
+ '{{ space_display_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -579,64 +579,63 @@ globals:
 resources:
   - name: space
     props:
-      - name: DomainId
-        value: '{{ DomainId }}'
-      - name: SpaceName
-        value: '{{ SpaceName }}'
-      - name: SpaceSettings
+      - name: domain_id
+        value: '{{ domain_id }}'
+      - name: space_name
+        value: '{{ space_name }}'
+      - name: space_settings
         value:
-          JupyterServerAppSettings:
-            DefaultResourceSpec:
-              InstanceType: '{{ InstanceType }}'
-              SageMakerImageArn: '{{ SageMakerImageArn }}'
-              SageMakerImageVersionArn: '{{ SageMakerImageVersionArn }}'
-              LifecycleConfigArn: '{{ LifecycleConfigArn }}'
-            LifecycleConfigArns:
-              - '{{ LifecycleConfigArns[0] }}'
-          KernelGatewayAppSettings:
-            CustomImages:
-              - AppImageConfigName: '{{ AppImageConfigName }}'
-                ImageName: '{{ ImageName }}'
-                ImageVersionNumber: '{{ ImageVersionNumber }}'
-            DefaultResourceSpec: null
-            LifecycleConfigArns:
+          jupyter_server_app_settings:
+            default_resource_spec:
+              instance_type: '{{ instance_type }}'
+              sage_maker_image_arn: '{{ sage_maker_image_arn }}'
+              sage_maker_image_version_arn: '{{ sage_maker_image_version_arn }}'
+              lifecycle_config_arn: '{{ lifecycle_config_arn }}'
+            lifecycle_config_arns:
+              - '{{ lifecycle_config_arns[0] }}'
+          kernel_gateway_app_settings:
+            custom_images:
+              - app_image_config_name: '{{ app_image_config_name }}'
+                image_name: '{{ image_name }}'
+                image_version_number: '{{ image_version_number }}'
+            default_resource_spec: null
+            lifecycle_config_arns:
               - null
-          JupyterLabAppSettings:
-            DefaultResourceSpec: null
-            AppLifecycleManagement:
-              IdleSettings:
-                IdleTimeoutInMinutes: '{{ IdleTimeoutInMinutes }}'
-            CodeRepositories:
-              - RepositoryUrl: '{{ RepositoryUrl }}'
-          CodeEditorAppSettings:
-            DefaultResourceSpec: null
-            AppLifecycleManagement: null
-          SpaceStorageSettings:
-            EbsStorageSettings:
-              EbsVolumeSizeInGb: '{{ EbsVolumeSizeInGb }}'
-          SpaceManagedResources: '{{ SpaceManagedResources }}'
-          RemoteAccess: '{{ RemoteAccess }}'
-          AppType: '{{ AppType }}'
-          CustomFileSystems:
-            - EFSFileSystem:
-                FileSystemId: '{{ FileSystemId }}'
-              FSxLustreFileSystem:
-                FileSystemId: '{{ FileSystemId }}'
-              S3FileSystem:
-                S3Uri: '{{ S3Uri }}'
-      - name: Tags
+          jupyter_lab_app_settings:
+            default_resource_spec: null
+            app_lifecycle_management:
+              idle_settings:
+                idle_timeout_in_minutes: '{{ idle_timeout_in_minutes }}'
+            code_repositories:
+              - repository_url: '{{ repository_url }}'
+          code_editor_app_settings:
+            default_resource_spec: null
+            app_lifecycle_management: null
+          space_storage_settings:
+            ebs_storage_settings:
+              ebs_volume_size_in_gb: '{{ ebs_volume_size_in_gb }}'
+          space_managed_resources: '{{ space_managed_resources }}'
+          remote_access: '{{ remote_access }}'
+          app_type: '{{ app_type }}'
+          custom_file_systems:
+            - e_fs_file_system:
+                file_system_id: '{{ file_system_id }}'
+              f_sx_lustre_file_system:
+                file_system_id: '{{ file_system_id }}'
+              s3_file_system:
+                s3_uri: '{{ s3_uri }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: OwnershipSettings
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: ownership_settings
         value:
-          OwnerUserProfileName: '{{ OwnerUserProfileName }}'
-      - name: SpaceSharingSettings
+          owner_user_profile_name: '{{ owner_user_profile_name }}'
+      - name: space_sharing_settings
         value:
-          SharingType: '{{ SharingType }}'
-      - name: SpaceDisplayName
-        value: '{{ SpaceDisplayName }}'
-
+          sharing_type: '{{ sharing_type }}'
+      - name: space_display_name
+        value: '{{ space_display_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -654,7 +653,7 @@ SET PatchDocument = string('{{ {
     "SpaceDisplayName": space_display_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<SpaceName>';
+AND Identifier = '{{ domain_id }}|{{ space_name }}';
 ```
 
 
@@ -663,7 +662,7 @@ AND Identifier = '<DomainId>|<SpaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.spaces
-WHERE Identifier = '<DomainId|SpaceName>'
+WHERE Identifier = '{{ domain_id }}|{{ space_name }}'
 AND region = 'us-east-1';
 ```
 

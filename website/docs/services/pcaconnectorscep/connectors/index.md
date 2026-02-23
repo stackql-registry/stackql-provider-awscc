@@ -187,7 +187,7 @@ mobile_device_management,
 open_id_configuration,
 tags
 FROM awscc.pcaconnectorscep.connectors
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,8 +223,8 @@ INSERT INTO awscc.pcaconnectorscep.connectors (
  CertificateAuthorityArn,
  region
 )
-SELECT 
-'{{ CertificateAuthorityArn }}',
+SELECT
+'{{ certificate_authority_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -238,10 +238,10 @@ INSERT INTO awscc.pcaconnectorscep.connectors (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateAuthorityArn }}',
- '{{ MobileDeviceManagement }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_authority_arn }}',
+ '{{ mobile_device_management }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,13 +259,12 @@ globals:
 resources:
   - name: connector
     props:
-      - name: CertificateAuthorityArn
-        value: '{{ CertificateAuthorityArn }}'
-      - name: MobileDeviceManagement
+      - name: certificate_authority_arn
+        value: '{{ certificate_authority_arn }}'
+      - name: mobile_device_management
         value: {}
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectorArn>';
+AND Identifier = '{{ connector_arn }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<ConnectorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorscep.connectors
-WHERE Identifier = '<ConnectorArn>'
+WHERE Identifier = '{{ connector_arn }}'
 AND region = 'us-east-1';
 ```
 

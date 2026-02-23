@@ -253,7 +253,7 @@ source,
 source_metadata,
 format
 FROM awscc.cleanrooms.analysis_templates
-WHERE region = 'us-east-1' AND Identifier = '<AnalysisTemplateIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,11 +293,11 @@ INSERT INTO awscc.cleanrooms.analysis_templates (
  Format,
  region
 )
-SELECT 
-'{{ MembershipIdentifier }}',
- '{{ Name }}',
- '{{ Source }}',
- '{{ Format }}',
+SELECT
+'{{ membership_identifier }}',
+ '{{ name }}',
+ '{{ source }}',
+ '{{ format }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,16 +317,16 @@ INSERT INTO awscc.cleanrooms.analysis_templates (
  Format,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ AnalysisParameters }}',
- '{{ Description }}',
- '{{ MembershipIdentifier }}',
- '{{ Name }}',
- '{{ Schema }}',
- '{{ Source }}',
- '{{ SourceMetadata }}',
- '{{ Format }}',
+SELECT
+ '{{ tags }}',
+ '{{ analysis_parameters }}',
+ '{{ description }}',
+ '{{ membership_identifier }}',
+ '{{ name }}',
+ '{{ schema }}',
+ '{{ source }}',
+ '{{ source_metadata }}',
+ '{{ format }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -344,32 +344,31 @@ globals:
 resources:
   - name: analysis_template
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AnalysisParameters
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: analysis_parameters
         value:
-          - DefaultValue: '{{ DefaultValue }}'
-            Name: '{{ Name }}'
-            Type: '{{ Type }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MembershipIdentifier
-        value: '{{ MembershipIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Schema
+          - default_value: '{{ default_value }}'
+            name: '{{ name }}'
+            type: '{{ type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: membership_identifier
+        value: '{{ membership_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: schema
         value:
-          ReferencedTables:
-            - '{{ ReferencedTables[0] }}'
-      - name: Source
+          referenced_tables:
+            - '{{ referenced_tables[0] }}'
+      - name: source
         value: null
-      - name: SourceMetadata
+      - name: source_metadata
         value: null
-      - name: Format
-        value: '{{ Format }}'
-
+      - name: format
+        value: '{{ format }}'
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +386,7 @@ SET PatchDocument = string('{{ {
     "SourceMetadata": source_metadata
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AnalysisTemplateIdentifier>|<MembershipIdentifier>';
+AND Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -396,7 +395,7 @@ AND Identifier = '<AnalysisTemplateIdentifier>|<MembershipIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.analysis_templates
-WHERE Identifier = '<AnalysisTemplateIdentifier|MembershipIdentifier>'
+WHERE Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

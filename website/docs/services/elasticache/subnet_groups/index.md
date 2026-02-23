@@ -164,7 +164,7 @@ subnet_ids,
 cache_subnet_group_name,
 tags
 FROM awscc.elasticache.subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '<CacheSubnetGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cache_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.elasticache.subnet_groups (
  SubnetIds,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ SubnetIds }}',
+SELECT
+'{{ description }}',
+ '{{ subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,11 @@ INSERT INTO awscc.elasticache.subnet_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ SubnetIds }}',
- '{{ CacheSubnetGroupName }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ subnet_ids }}',
+ '{{ cache_subnet_group_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,18 +240,17 @@ globals:
 resources:
   - name: subnet_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: SubnetIds
+      - name: description
+        value: '{{ description }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: CacheSubnetGroupName
-        value: '{{ CacheSubnetGroupName }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: cache_subnet_group_name
+        value: '{{ cache_subnet_group_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CacheSubnetGroupName>';
+AND Identifier = '{{ cache_subnet_group_name }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<CacheSubnetGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.subnet_groups
-WHERE Identifier = '<CacheSubnetGroupName>'
+WHERE Identifier = '{{ cache_subnet_group_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -185,7 +185,7 @@ identity_source_id,
 policy_store_id,
 principal_entity_type
 FROM awscc.verifiedpermissions.identity_sources
-WHERE region = 'us-east-1' AND Identifier = '<IdentitySourceId>|<PolicyStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,9 +223,9 @@ INSERT INTO awscc.verifiedpermissions.identity_sources (
  PolicyStoreId,
  region
 )
-SELECT 
-'{{ Configuration }}',
- '{{ PolicyStoreId }}',
+SELECT
+'{{ configuration }}',
+ '{{ policy_store_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,10 +239,10 @@ INSERT INTO awscc.verifiedpermissions.identity_sources (
  PrincipalEntityType,
  region
 )
-SELECT 
- '{{ Configuration }}',
- '{{ PolicyStoreId }}',
- '{{ PrincipalEntityType }}',
+SELECT
+ '{{ configuration }}',
+ '{{ policy_store_id }}',
+ '{{ principal_entity_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,13 +260,12 @@ globals:
 resources:
   - name: identity_source
     props:
-      - name: Configuration
+      - name: configuration
         value: null
-      - name: PolicyStoreId
-        value: '{{ PolicyStoreId }}'
-      - name: PrincipalEntityType
-        value: '{{ PrincipalEntityType }}'
-
+      - name: policy_store_id
+        value: '{{ policy_store_id }}'
+      - name: principal_entity_type
+        value: '{{ principal_entity_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "PrincipalEntityType": principal_entity_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdentitySourceId>|<PolicyStoreId>';
+AND Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<IdentitySourceId>|<PolicyStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.identity_sources
-WHERE Identifier = '<IdentitySourceId|PolicyStoreId>'
+WHERE Identifier = '{{ identity_source_id }}|{{ policy_store_id }}'
 AND region = 'us-east-1';
 ```
 

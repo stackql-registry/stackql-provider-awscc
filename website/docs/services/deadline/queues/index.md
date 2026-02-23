@@ -265,7 +265,7 @@ role_arn,
 arn,
 tags
 FROM awscc.deadline.queues
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,9 +302,9 @@ INSERT INTO awscc.deadline.queues (
  FarmId,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ FarmId }}',
+SELECT
+'{{ display_name }}',
+ '{{ farm_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -325,17 +325,17 @@ INSERT INTO awscc.deadline.queues (
  Tags,
  region
 )
-SELECT 
- '{{ AllowedStorageProfileIds }}',
- '{{ DefaultBudgetAction }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ JobAttachmentSettings }}',
- '{{ JobRunAsUser }}',
- '{{ RequiredFileSystemLocationNames }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ allowed_storage_profile_ids }}',
+ '{{ default_budget_action }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ job_attachment_settings }}',
+ '{{ job_run_as_user }}',
+ '{{ required_file_system_location_names }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -353,40 +353,39 @@ globals:
 resources:
   - name: queue
     props:
-      - name: AllowedStorageProfileIds
+      - name: allowed_storage_profile_ids
         value:
-          - '{{ AllowedStorageProfileIds[0] }}'
-      - name: DefaultBudgetAction
-        value: '{{ DefaultBudgetAction }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: JobAttachmentSettings
+          - '{{ allowed_storage_profile_ids[0] }}'
+      - name: default_budget_action
+        value: '{{ default_budget_action }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: job_attachment_settings
         value:
-          S3BucketName: '{{ S3BucketName }}'
-          RootPrefix: '{{ RootPrefix }}'
-      - name: JobRunAsUser
+          s3_bucket_name: '{{ s3_bucket_name }}'
+          root_prefix: '{{ root_prefix }}'
+      - name: job_run_as_user
         value:
-          Posix:
-            User: '{{ User }}'
-            Group: '{{ Group }}'
-          Windows:
-            User: '{{ User }}'
-            PasswordArn: '{{ PasswordArn }}'
-          RunAs: '{{ RunAs }}'
-      - name: RequiredFileSystemLocationNames
+          posix:
+            user: '{{ user }}'
+            group: '{{ group }}'
+          windows:
+            user: '{{ user }}'
+            password_arn: '{{ password_arn }}'
+          run_as: '{{ run_as }}'
+      - name: required_file_system_location_names
         value:
-          - '{{ RequiredFileSystemLocationNames[0] }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          - '{{ required_file_system_location_names[0] }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +409,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -419,7 +418,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queues
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

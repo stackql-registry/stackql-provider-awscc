@@ -181,7 +181,7 @@ table_bucket_name,
 unreferenced_file_removal,
 encryption_configuration
 FROM awscc.s3tables.table_buckets
-WHERE region = 'us-east-1' AND Identifier = '<TableBucketARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_bucket_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,8 +217,8 @@ INSERT INTO awscc.s3tables.table_buckets (
  TableBucketName,
  region
 )
-SELECT 
-'{{ TableBucketName }}',
+SELECT
+'{{ table_bucket_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,10 +232,10 @@ INSERT INTO awscc.s3tables.table_buckets (
  EncryptionConfiguration,
  region
 )
-SELECT 
- '{{ TableBucketName }}',
- '{{ UnreferencedFileRemoval }}',
- '{{ EncryptionConfiguration }}',
+SELECT
+ '{{ table_bucket_name }}',
+ '{{ unreferenced_file_removal }}',
+ '{{ encryption_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,18 +253,17 @@ globals:
 resources:
   - name: table_bucket
     props:
-      - name: TableBucketName
-        value: '{{ TableBucketName }}'
-      - name: UnreferencedFileRemoval
+      - name: table_bucket_name
+        value: '{{ table_bucket_name }}'
+      - name: unreferenced_file_removal
         value:
-          Status: '{{ Status }}'
-          UnreferencedDays: '{{ UnreferencedDays }}'
-          NoncurrentDays: '{{ NoncurrentDays }}'
-      - name: EncryptionConfiguration
+          status: '{{ status }}'
+          unreferenced_days: '{{ unreferenced_days }}'
+          noncurrent_days: '{{ noncurrent_days }}'
+      - name: encryption_configuration
         value:
-          SSEAlgorithm: '{{ SSEAlgorithm }}'
-          KMSKeyArn: '{{ KMSKeyArn }}'
-
+          sse_algorithm: '{{ sse_algorithm }}'
+          kms_key_arn: '{{ kms_key_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "EncryptionConfiguration": encryption_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TableBucketARN>';
+AND Identifier = '{{ table_bucket_arn }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<TableBucketARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.table_buckets
-WHERE Identifier = '<TableBucketARN>'
+WHERE Identifier = '{{ table_bucket_arn }}'
 AND region = 'us-east-1';
 ```
 

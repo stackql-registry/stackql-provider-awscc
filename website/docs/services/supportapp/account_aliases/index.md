@@ -145,7 +145,7 @@ region,
 account_alias,
 account_alias_resource_id
 FROM awscc.supportapp.account_aliases
-WHERE region = 'us-east-1' AND Identifier = '<AccountAliasResourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_alias_resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -181,8 +181,8 @@ INSERT INTO awscc.supportapp.account_aliases (
  AccountAlias,
  region
 )
-SELECT 
-'{{ AccountAlias }}',
+SELECT
+'{{ account_alias }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -194,8 +194,8 @@ INSERT INTO awscc.supportapp.account_aliases (
  AccountAlias,
  region
 )
-SELECT 
- '{{ AccountAlias }}',
+SELECT
+ '{{ account_alias }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -213,9 +213,8 @@ globals:
 resources:
   - name: account_alias
     props:
-      - name: AccountAlias
-        value: '{{ AccountAlias }}'
-
+      - name: account_alias
+        value: '{{ account_alias }}'
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +230,7 @@ SET PatchDocument = string('{{ {
     "AccountAlias": account_alias
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountAliasResourceId>';
+AND Identifier = '{{ account_alias_resource_id }}';
 ```
 
 
@@ -240,7 +239,7 @@ AND Identifier = '<AccountAliasResourceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.account_aliases
-WHERE Identifier = '<AccountAliasResourceId>'
+WHERE Identifier = '{{ account_alias_resource_id }}'
 AND region = 'us-east-1';
 ```
 

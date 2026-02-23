@@ -200,7 +200,7 @@ created_at,
 state,
 destination_details
 FROM awscc.customerprofiles.event_streams
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<EventStreamName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +239,10 @@ INSERT INTO awscc.customerprofiles.event_streams (
  Uri,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ EventStreamName }}',
- '{{ Uri }}',
+SELECT
+'{{ domain_name }}',
+ '{{ event_stream_name }}',
+ '{{ uri }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,11 +257,11 @@ INSERT INTO awscc.customerprofiles.event_streams (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ EventStreamName }}',
- '{{ Uri }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ event_stream_name }}',
+ '{{ uri }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -279,17 +279,16 @@ globals:
 resources:
   - name: event_stream
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: EventStreamName
-        value: '{{ EventStreamName }}'
-      - name: Uri
-        value: '{{ Uri }}'
-      - name: Tags
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: event_stream_name
+        value: '{{ event_stream_name }}'
+      - name: uri
+        value: '{{ uri }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<EventStreamName>';
+AND Identifier = '{{ domain_name }}|{{ event_stream_name }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<DomainName>|<EventStreamName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.event_streams
-WHERE Identifier = '<DomainName|EventStreamName>'
+WHERE Identifier = '{{ domain_name }}|{{ event_stream_name }}'
 AND region = 'us-east-1';
 ```
 

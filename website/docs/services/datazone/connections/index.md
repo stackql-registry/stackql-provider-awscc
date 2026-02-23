@@ -233,7 +233,7 @@ project_id,
 props,
 type
 FROM awscc.datazone.connections
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<ConnectionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,10 +272,10 @@ INSERT INTO awscc.datazone.connections (
  Name,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Name }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,13 +292,13 @@ INSERT INTO awscc.datazone.connections (
  Props,
  region
 )
-SELECT 
- '{{ AwsLocation }}',
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Name }}',
- '{{ Props }}',
+SELECT
+ '{{ aws_location }}',
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ name }}',
+ '{{ props }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,23 +316,22 @@ globals:
 resources:
   - name: connection
     props:
-      - name: AwsLocation
+      - name: aws_location
         value:
-          AccessRole: '{{ AccessRole }}'
-          AwsAccountId: '{{ AwsAccountId }}'
-          AwsRegion: '{{ AwsRegion }}'
-          IamConnectionId: '{{ IamConnectionId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Props
+          access_role: '{{ access_role }}'
+          aws_account_id: '{{ aws_account_id }}'
+          aws_region: '{{ aws_region }}'
+          iam_connection_id: '{{ iam_connection_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: props
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +349,7 @@ SET PatchDocument = string('{{ {
     "Props": props
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<ConnectionId>';
+AND Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```
 
 
@@ -359,7 +358,7 @@ AND Identifier = '<DomainId>|<ConnectionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.connections
-WHERE Identifier = '<DomainId|ConnectionId>'
+WHERE Identifier = '{{ domain_id }}|{{ connection_id }}'
 AND region = 'us-east-1';
 ```
 

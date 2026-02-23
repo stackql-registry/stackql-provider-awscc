@@ -96,7 +96,7 @@ current_revision_id,
 application_version,
 arn
 FROM awscc.robomaker.simulation_application_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -119,8 +119,8 @@ INSERT INTO awscc.robomaker.simulation_application_versions (
  Application,
  region
 )
-SELECT 
-'{{ Application }}',
+SELECT
+'{{ application }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.robomaker.simulation_application_versions (
  CurrentRevisionId,
  region
 )
-SELECT 
- '{{ Application }}',
- '{{ CurrentRevisionId }}',
+SELECT
+ '{{ application }}',
+ '{{ current_revision_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: simulation_application_version
     props:
-      - name: Application
-        value: '{{ Application }}'
-      - name: CurrentRevisionId
-        value: '{{ CurrentRevisionId }}'
-
+      - name: application
+        value: '{{ application }}'
+      - name: current_revision_id
+        value: '{{ current_revision_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -168,7 +167,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.simulation_application_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

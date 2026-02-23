@@ -216,7 +216,7 @@ tags,
 trust_anchor_id,
 trust_anchor_arn
 FROM awscc.rolesanywhere.trust_anchors
-WHERE region = 'us-east-1' AND Identifier = '<TrustAnchorId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ trust_anchor_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,9 +253,9 @@ INSERT INTO awscc.rolesanywhere.trust_anchors (
  Source,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Source }}',
+SELECT
+'{{ name }}',
+ '{{ source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,12 +271,12 @@ INSERT INTO awscc.rolesanywhere.trust_anchors (
  Tags,
  region
 )
-SELECT 
- '{{ Enabled }}',
- '{{ Name }}',
- '{{ NotificationSettings }}',
- '{{ Source }}',
- '{{ Tags }}',
+SELECT
+ '{{ enabled }}',
+ '{{ name }}',
+ '{{ notification_settings }}',
+ '{{ source }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,25 +294,24 @@ globals:
 resources:
   - name: trust_anchor
     props:
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NotificationSettings
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: name
+        value: '{{ name }}'
+      - name: notification_settings
         value:
-          - Enabled: '{{ Enabled }}'
-            Event: '{{ Event }}'
-            Threshold: null
-            Channel: '{{ Channel }}'
-      - name: Source
+          - enabled: '{{ enabled }}'
+            event: '{{ event }}'
+            threshold: null
+            channel: '{{ channel }}'
+      - name: source
         value:
-          SourceType: '{{ SourceType }}'
-          SourceData: null
-      - name: Tags
+          source_type: '{{ source_type }}'
+          source_data: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -332,7 +331,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrustAnchorId>';
+AND Identifier = '{{ trust_anchor_id }}';
 ```
 
 
@@ -341,7 +340,7 @@ AND Identifier = '<TrustAnchorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.trust_anchors
-WHERE Identifier = '<TrustAnchorId>'
+WHERE Identifier = '{{ trust_anchor_id }}'
 AND region = 'us-east-1';
 ```
 

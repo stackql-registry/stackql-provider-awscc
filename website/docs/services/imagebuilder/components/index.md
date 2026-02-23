@@ -206,7 +206,7 @@ tags,
 uri,
 supported_os_versions
 FROM awscc.imagebuilder.components
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +244,10 @@ INSERT INTO awscc.imagebuilder.components (
  Platform,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Version }}',
- '{{ Platform }}',
+SELECT
+'{{ name }}',
+ '{{ version }}',
+ '{{ platform }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -268,17 +268,17 @@ INSERT INTO awscc.imagebuilder.components (
  SupportedOsVersions,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Version }}',
- '{{ Description }}',
- '{{ ChangeDescription }}',
- '{{ Platform }}',
- '{{ Data }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
- '{{ Uri }}',
- '{{ SupportedOsVersions }}',
+SELECT
+ '{{ name }}',
+ '{{ version }}',
+ '{{ description }}',
+ '{{ change_description }}',
+ '{{ platform }}',
+ '{{ data }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
+ '{{ uri }}',
+ '{{ supported_os_versions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,28 +296,27 @@ globals:
 resources:
   - name: component
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ChangeDescription
-        value: '{{ ChangeDescription }}'
-      - name: Platform
-        value: '{{ Platform }}'
-      - name: Data
-        value: '{{ Data }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: version
+        value: '{{ version }}'
+      - name: description
+        value: '{{ description }}'
+      - name: change_description
+        value: '{{ change_description }}'
+      - name: platform
+        value: '{{ platform }}'
+      - name: data
+        value: '{{ data }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value: {}
-      - name: Uri
-        value: '{{ Uri }}'
-      - name: SupportedOsVersions
+      - name: uri
+        value: '{{ uri }}'
+      - name: supported_os_versions
         value:
-          - '{{ SupportedOsVersions[0] }}'
-
+          - '{{ supported_os_versions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.components
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ group_display_name,
 group_security_identifier,
 template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries
-WHERE region = 'us-east-1' AND Identifier = '<GroupSecurityIdentifier>|<TemplateArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,9 +202,9 @@ INSERT INTO awscc.pcaconnectorad.template_group_access_control_entries (
  GroupDisplayName,
  region
 )
-SELECT 
-'{{ AccessRights }}',
- '{{ GroupDisplayName }}',
+SELECT
+'{{ access_rights }}',
+ '{{ group_display_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,11 +219,11 @@ INSERT INTO awscc.pcaconnectorad.template_group_access_control_entries (
  TemplateArn,
  region
 )
-SELECT 
- '{{ AccessRights }}',
- '{{ GroupDisplayName }}',
- '{{ GroupSecurityIdentifier }}',
- '{{ TemplateArn }}',
+SELECT
+ '{{ access_rights }}',
+ '{{ group_display_name }}',
+ '{{ group_security_identifier }}',
+ '{{ template_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -241,17 +241,16 @@ globals:
 resources:
   - name: template_group_access_control_entry
     props:
-      - name: AccessRights
+      - name: access_rights
         value:
-          Enroll: '{{ Enroll }}'
-          AutoEnroll: null
-      - name: GroupDisplayName
-        value: '{{ GroupDisplayName }}'
-      - name: GroupSecurityIdentifier
-        value: '{{ GroupSecurityIdentifier }}'
-      - name: TemplateArn
-        value: '{{ TemplateArn }}'
-
+          enroll: '{{ enroll }}'
+          auto_enroll: null
+      - name: group_display_name
+        value: '{{ group_display_name }}'
+      - name: group_security_identifier
+        value: '{{ group_security_identifier }}'
+      - name: template_arn
+        value: '{{ template_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "GroupDisplayName": group_display_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GroupSecurityIdentifier>|<TemplateArn>';
+AND Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<GroupSecurityIdentifier>|<TemplateArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.template_group_access_control_entries
-WHERE Identifier = '<GroupSecurityIdentifier|TemplateArn>'
+WHERE Identifier = '{{ group_security_identifier }}|{{ template_arn }}'
 AND region = 'us-east-1';
 ```
 

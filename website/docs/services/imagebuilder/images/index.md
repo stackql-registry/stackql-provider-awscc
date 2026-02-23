@@ -282,7 +282,7 @@ enhanced_image_metadata_enabled,
 execution_role,
 tags
 FROM awscc.imagebuilder.images
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,17 +327,17 @@ INSERT INTO awscc.imagebuilder.images (
  Tags,
  region
 )
-SELECT 
-'{{ ImageScanningConfiguration }}',
- '{{ ContainerRecipeArn }}',
- '{{ Workflows }}',
- '{{ InfrastructureConfigurationArn }}',
- '{{ ImageRecipeArn }}',
- '{{ DistributionConfigurationArn }}',
- '{{ ImageTestsConfiguration }}',
- '{{ EnhancedImageMetadataEnabled }}',
- '{{ ExecutionRole }}',
- '{{ Tags }}',
+SELECT
+'{{ image_scanning_configuration }}',
+ '{{ container_recipe_arn }}',
+ '{{ workflows }}',
+ '{{ infrastructure_configuration_arn }}',
+ '{{ image_recipe_arn }}',
+ '{{ distribution_configuration_arn }}',
+ '{{ image_tests_configuration }}',
+ '{{ enhanced_image_metadata_enabled }}',
+ '{{ execution_role }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -358,17 +358,17 @@ INSERT INTO awscc.imagebuilder.images (
  Tags,
  region
 )
-SELECT 
- '{{ ImageScanningConfiguration }}',
- '{{ ContainerRecipeArn }}',
- '{{ Workflows }}',
- '{{ InfrastructureConfigurationArn }}',
- '{{ ImageRecipeArn }}',
- '{{ DistributionConfigurationArn }}',
- '{{ ImageTestsConfiguration }}',
- '{{ EnhancedImageMetadataEnabled }}',
- '{{ ExecutionRole }}',
- '{{ Tags }}',
+SELECT
+ '{{ image_scanning_configuration }}',
+ '{{ container_recipe_arn }}',
+ '{{ workflows }}',
+ '{{ infrastructure_configuration_arn }}',
+ '{{ image_recipe_arn }}',
+ '{{ distribution_configuration_arn }}',
+ '{{ image_tests_configuration }}',
+ '{{ enhanced_image_metadata_enabled }}',
+ '{{ execution_role }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -386,41 +386,40 @@ globals:
 resources:
   - name: image
     props:
-      - name: ImageScanningConfiguration
+      - name: image_scanning_configuration
         value:
-          EcrConfiguration:
-            ContainerTags:
-              - '{{ ContainerTags[0] }}'
-            RepositoryName: '{{ RepositoryName }}'
-          ImageScanningEnabled: '{{ ImageScanningEnabled }}'
-      - name: ContainerRecipeArn
-        value: '{{ ContainerRecipeArn }}'
-      - name: Workflows
+          ecr_configuration:
+            container_tags:
+              - '{{ container_tags[0] }}'
+            repository_name: '{{ repository_name }}'
+          image_scanning_enabled: '{{ image_scanning_enabled }}'
+      - name: container_recipe_arn
+        value: '{{ container_recipe_arn }}'
+      - name: workflows
         value:
-          - WorkflowArn: '{{ WorkflowArn }}'
-            Parameters:
-              - Name: '{{ Name }}'
-                Value:
-                  - '{{ Value[0] }}'
-            ParallelGroup: '{{ ParallelGroup }}'
-            OnFailure: '{{ OnFailure }}'
-      - name: InfrastructureConfigurationArn
-        value: '{{ InfrastructureConfigurationArn }}'
-      - name: ImageRecipeArn
-        value: '{{ ImageRecipeArn }}'
-      - name: DistributionConfigurationArn
-        value: '{{ DistributionConfigurationArn }}'
-      - name: ImageTestsConfiguration
+          - workflow_arn: '{{ workflow_arn }}'
+            parameters:
+              - name: '{{ name }}'
+                value:
+                  - '{{ value[0] }}'
+            parallel_group: '{{ parallel_group }}'
+            on_failure: '{{ on_failure }}'
+      - name: infrastructure_configuration_arn
+        value: '{{ infrastructure_configuration_arn }}'
+      - name: image_recipe_arn
+        value: '{{ image_recipe_arn }}'
+      - name: distribution_configuration_arn
+        value: '{{ distribution_configuration_arn }}'
+      - name: image_tests_configuration
         value:
-          ImageTestsEnabled: '{{ ImageTestsEnabled }}'
-          TimeoutMinutes: '{{ TimeoutMinutes }}'
-      - name: EnhancedImageMetadataEnabled
-        value: '{{ EnhancedImageMetadataEnabled }}'
-      - name: ExecutionRole
-        value: '{{ ExecutionRole }}'
-      - name: Tags
+          image_tests_enabled: '{{ image_tests_enabled }}'
+          timeout_minutes: '{{ timeout_minutes }}'
+      - name: enhanced_image_metadata_enabled
+        value: '{{ enhanced_image_metadata_enabled }}'
+      - name: execution_role
+        value: '{{ execution_role }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -437,7 +436,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -446,7 +445,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.images
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

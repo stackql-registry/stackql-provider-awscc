@@ -157,7 +157,7 @@ vpc_owner_id,
 state,
 state_reason
 FROM awscc.ec2.security_group_vpc_associations
-WHERE region = 'us-east-1' AND Identifier = '<GroupId>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.ec2.security_group_vpc_associations (
  VpcId,
  region
 )
-SELECT 
-'{{ GroupId }}',
- '{{ VpcId }}',
+SELECT
+'{{ group_id }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.ec2.security_group_vpc_associations (
  VpcId,
  region
 )
-SELECT 
- '{{ GroupId }}',
- '{{ VpcId }}',
+SELECT
+ '{{ group_id }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,10 @@ globals:
 resources:
   - name: security_group_vpc_association
     props:
-      - name: GroupId
-        value: '{{ GroupId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+      - name: group_id
+        value: '{{ group_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_vpc_associations
-WHERE Identifier = '<GroupId|VpcId>'
+WHERE Identifier = '{{ group_id }}|{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

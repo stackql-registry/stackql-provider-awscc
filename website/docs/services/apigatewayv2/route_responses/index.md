@@ -180,7 +180,7 @@ api_id,
 response_models,
 route_response_id
 FROM awscc.apigatewayv2.route_responses
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.apigatewayv2.route_responses (
  ApiId,
  region
 )
-SELECT 
-'{{ RouteResponseKey }}',
- '{{ RouteId }}',
- '{{ ApiId }}',
+SELECT
+'{{ route_response_key }}',
+ '{{ route_id }}',
+ '{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,13 +240,13 @@ INSERT INTO awscc.apigatewayv2.route_responses (
  ResponseModels,
  region
 )
-SELECT 
- '{{ RouteResponseKey }}',
- '{{ ResponseParameters }}',
- '{{ RouteId }}',
- '{{ ModelSelectionExpression }}',
- '{{ ApiId }}',
- '{{ ResponseModels }}',
+SELECT
+ '{{ route_response_key }}',
+ '{{ response_parameters }}',
+ '{{ route_id }}',
+ '{{ model_selection_expression }}',
+ '{{ api_id }}',
+ '{{ response_models }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,19 +264,18 @@ globals:
 resources:
   - name: route_response
     props:
-      - name: RouteResponseKey
-        value: '{{ RouteResponseKey }}'
-      - name: ResponseParameters
+      - name: route_response_key
+        value: '{{ route_response_key }}'
+      - name: response_parameters
         value: null
-      - name: RouteId
-        value: '{{ RouteId }}'
-      - name: ModelSelectionExpression
-        value: '{{ ModelSelectionExpression }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: ResponseModels
+      - name: route_id
+        value: '{{ route_id }}'
+      - name: model_selection_expression
+        value: '{{ model_selection_expression }}'
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: response_models
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +294,7 @@ SET PatchDocument = string('{{ {
     "ResponseModels": response_models
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
+AND Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```
 
 
@@ -304,7 +303,7 @@ AND Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.route_responses
-WHERE Identifier = '<ApiId|RouteId|RouteResponseId>'
+WHERE Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}'
 AND region = 'us-east-1';
 ```
 

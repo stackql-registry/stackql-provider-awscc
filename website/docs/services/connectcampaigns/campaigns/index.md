@@ -258,7 +258,7 @@ name,
 outbound_call_config,
 tags
 FROM awscc.connectcampaigns.campaigns
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,11 +297,11 @@ INSERT INTO awscc.connectcampaigns.campaigns (
  OutboundCallConfig,
  region
 )
-SELECT 
-'{{ ConnectInstanceArn }}',
- '{{ DialerConfig }}',
- '{{ Name }}',
- '{{ OutboundCallConfig }}',
+SELECT
+'{{ connect_instance_arn }}',
+ '{{ dialer_config }}',
+ '{{ name }}',
+ '{{ outbound_call_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,12 +317,12 @@ INSERT INTO awscc.connectcampaigns.campaigns (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectInstanceArn }}',
- '{{ DialerConfig }}',
- '{{ Name }}',
- '{{ OutboundCallConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ connect_instance_arn }}',
+ '{{ dialer_config }}',
+ '{{ name }}',
+ '{{ outbound_call_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -340,33 +340,32 @@ globals:
 resources:
   - name: campaign
     props:
-      - name: ConnectInstanceArn
-        value: '{{ ConnectInstanceArn }}'
-      - name: DialerConfig
+      - name: connect_instance_arn
+        value: '{{ connect_instance_arn }}'
+      - name: dialer_config
         value:
-          ProgressiveDialerConfig:
-            BandwidthAllocation: null
-            DialingCapacity: null
-          PredictiveDialerConfig:
-            BandwidthAllocation: null
-            DialingCapacity: null
-          AgentlessDialerConfig:
-            DialingCapacity: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: OutboundCallConfig
+          progressive_dialer_config:
+            bandwidth_allocation: null
+            dialing_capacity: null
+          predictive_dialer_config:
+            bandwidth_allocation: null
+            dialing_capacity: null
+          agentless_dialer_config:
+            dialing_capacity: null
+      - name: name
+        value: '{{ name }}'
+      - name: outbound_call_config
         value:
-          ConnectContactFlowArn: '{{ ConnectContactFlowArn }}'
-          ConnectSourcePhoneNumber: '{{ ConnectSourcePhoneNumber }}'
-          ConnectQueueArn: '{{ ConnectQueueArn }}'
-          AnswerMachineDetectionConfig:
-            EnableAnswerMachineDetection: '{{ EnableAnswerMachineDetection }}'
-            AwaitAnswerMachinePrompt: '{{ AwaitAnswerMachinePrompt }}'
-      - name: Tags
+          connect_contact_flow_arn: '{{ connect_contact_flow_arn }}'
+          connect_source_phone_number: '{{ connect_source_phone_number }}'
+          connect_queue_arn: '{{ connect_queue_arn }}'
+          answer_machine_detection_config:
+            enable_answer_machine_detection: '{{ enable_answer_machine_detection }}'
+            await_answer_machine_prompt: '{{ await_answer_machine_prompt }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -385,7 +384,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -394,7 +393,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connectcampaigns.campaigns
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

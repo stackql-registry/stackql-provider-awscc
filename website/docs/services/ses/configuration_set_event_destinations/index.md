@@ -233,7 +233,7 @@ id,
 configuration_set_name,
 event_destination
 FROM awscc.ses.configuration_set_event_destinations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,9 +270,9 @@ INSERT INTO awscc.ses.configuration_set_event_destinations (
  EventDestination,
  region
 )
-SELECT 
-'{{ ConfigurationSetName }}',
- '{{ EventDestination }}',
+SELECT
+'{{ configuration_set_name }}',
+ '{{ event_destination }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -285,9 +285,9 @@ INSERT INTO awscc.ses.configuration_set_event_destinations (
  EventDestination,
  region
 )
-SELECT 
- '{{ ConfigurationSetName }}',
- '{{ EventDestination }}',
+SELECT
+ '{{ configuration_set_name }}',
+ '{{ event_destination }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -305,27 +305,26 @@ globals:
 resources:
   - name: configuration_set_event_destination
     props:
-      - name: ConfigurationSetName
-        value: '{{ ConfigurationSetName }}'
-      - name: EventDestination
+      - name: configuration_set_name
+        value: '{{ configuration_set_name }}'
+      - name: event_destination
         value:
-          Name: '{{ Name }}'
-          Enabled: '{{ Enabled }}'
-          MatchingEventTypes:
-            - '{{ MatchingEventTypes[0] }}'
-          CloudWatchDestination:
-            DimensionConfigurations:
-              - DimensionValueSource: '{{ DimensionValueSource }}'
-                DefaultDimensionValue: '{{ DefaultDimensionValue }}'
-                DimensionName: '{{ DimensionName }}'
-          KinesisFirehoseDestination:
-            IAMRoleARN: '{{ IAMRoleARN }}'
-            DeliveryStreamARN: '{{ DeliveryStreamARN }}'
-          SnsDestination:
-            TopicARN: '{{ TopicARN }}'
-          EventBridgeDestination:
-            EventBusArn: '{{ EventBusArn }}'
-
+          name: '{{ name }}'
+          enabled: '{{ enabled }}'
+          matching_event_types:
+            - '{{ matching_event_types[0] }}'
+          cloud_watch_destination:
+            dimension_configurations:
+              - dimension_value_source: '{{ dimension_value_source }}'
+                default_dimension_value: '{{ default_dimension_value }}'
+                dimension_name: '{{ dimension_name }}'
+          kinesis_firehose_destination:
+            iam_role_arn: '{{ iam_role_arn }}'
+            delivery_stream_arn: '{{ delivery_stream_arn }}'
+          sns_destination:
+            topic_arn: '{{ topic_arn }}'
+          event_bridge_destination:
+            event_bus_arn: '{{ event_bus_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +340,7 @@ SET PatchDocument = string('{{ {
     "EventDestination": event_destination
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -350,7 +349,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.configuration_set_event_destinations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

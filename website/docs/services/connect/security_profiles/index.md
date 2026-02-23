@@ -230,7 +230,7 @@ tags,
 last_modified_region,
 last_modified_time
 FROM awscc.connect.security_profiles
-WHERE region = 'us-east-1' AND Identifier = '<SecurityProfileArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,9 +267,9 @@ INSERT INTO awscc.connect.security_profiles (
  SecurityProfileName,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ SecurityProfileName }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ security_profile_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,17 +290,17 @@ INSERT INTO awscc.connect.security_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ AllowedAccessControlTags }}',
- '{{ Description }}',
- '{{ InstanceArn }}',
- '{{ Permissions }}',
- '{{ SecurityProfileName }}',
- '{{ TagRestrictedResources }}',
- '{{ HierarchyRestrictedResources }}',
- '{{ AllowedAccessControlHierarchyGroupId }}',
- '{{ Applications }}',
- '{{ Tags }}',
+SELECT
+ '{{ allowed_access_control_tags }}',
+ '{{ description }}',
+ '{{ instance_arn }}',
+ '{{ permissions }}',
+ '{{ security_profile_name }}',
+ '{{ tag_restricted_resources }}',
+ '{{ hierarchy_restricted_resources }}',
+ '{{ allowed_access_control_hierarchy_group_id }}',
+ '{{ applications }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -318,36 +318,35 @@ globals:
 resources:
   - name: security_profile
     props:
-      - name: AllowedAccessControlTags
+      - name: allowed_access_control_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Permissions
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: permissions
         value:
-          - '{{ Permissions[0] }}'
-      - name: SecurityProfileName
-        value: '{{ SecurityProfileName }}'
-      - name: TagRestrictedResources
+          - '{{ permissions[0] }}'
+      - name: security_profile_name
+        value: '{{ security_profile_name }}'
+      - name: tag_restricted_resources
         value:
-          - '{{ TagRestrictedResources[0] }}'
-      - name: HierarchyRestrictedResources
-        value:
-          - null
-      - name: AllowedAccessControlHierarchyGroupId
-        value: '{{ AllowedAccessControlHierarchyGroupId }}'
-      - name: Applications
-        value:
-          - ApplicationPermissions:
-              - '{{ ApplicationPermissions[0] }}'
-            Namespace: '{{ Namespace }}'
-      - name: Tags
+          - '{{ tag_restricted_resources[0] }}'
+      - name: hierarchy_restricted_resources
         value:
           - null
-
+      - name: allowed_access_control_hierarchy_group_id
+        value: '{{ allowed_access_control_hierarchy_group_id }}'
+      - name: applications
+        value:
+          - application_permissions:
+              - '{{ application_permissions[0] }}'
+            namespace: '{{ namespace }}'
+      - name: tags
+        value:
+          - null
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +369,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SecurityProfileArn>';
+AND Identifier = '{{ security_profile_arn }}';
 ```
 
 
@@ -379,7 +378,7 @@ AND Identifier = '<SecurityProfileArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.security_profiles
-WHERE Identifier = '<SecurityProfileArn>'
+WHERE Identifier = '{{ security_profile_arn }}'
 AND region = 'us-east-1';
 ```
 

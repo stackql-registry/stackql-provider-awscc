@@ -218,7 +218,7 @@ certificate_arn,
 custom_domain_name,
 tags
 FROM awscc.vpclattice.services
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,13 +259,13 @@ INSERT INTO awscc.vpclattice.services (
  Tags,
  region
 )
-SELECT 
-'{{ AuthType }}',
- '{{ DnsEntry }}',
- '{{ Name }}',
- '{{ CertificateArn }}',
- '{{ CustomDomainName }}',
- '{{ Tags }}',
+SELECT
+'{{ auth_type }}',
+ '{{ dns_entry }}',
+ '{{ name }}',
+ '{{ certificate_arn }}',
+ '{{ custom_domain_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -282,13 +282,13 @@ INSERT INTO awscc.vpclattice.services (
  Tags,
  region
 )
-SELECT 
- '{{ AuthType }}',
- '{{ DnsEntry }}',
- '{{ Name }}',
- '{{ CertificateArn }}',
- '{{ CustomDomainName }}',
- '{{ Tags }}',
+SELECT
+ '{{ auth_type }}',
+ '{{ dns_entry }}',
+ '{{ name }}',
+ '{{ certificate_arn }}',
+ '{{ custom_domain_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,23 +306,22 @@ globals:
 resources:
   - name: service
     props:
-      - name: AuthType
-        value: '{{ AuthType }}'
-      - name: DnsEntry
+      - name: auth_type
+        value: '{{ auth_type }}'
+      - name: dns_entry
         value:
-          DomainName: '{{ DomainName }}'
-          HostedZoneId: '{{ HostedZoneId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: CertificateArn
-        value: '{{ CertificateArn }}'
-      - name: CustomDomainName
-        value: '{{ CustomDomainName }}'
-      - name: Tags
+          domain_name: '{{ domain_name }}'
+          hosted_zone_id: '{{ hosted_zone_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: certificate_arn
+        value: '{{ certificate_arn }}'
+      - name: custom_domain_name
+        value: '{{ custom_domain_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +339,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -349,7 +348,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.services
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

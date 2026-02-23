@@ -224,7 +224,7 @@ plan,
 tags,
 arn
 FROM awscc.ssmcontacts.contacts
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +262,10 @@ INSERT INTO awscc.ssmcontacts.contacts (
  Type,
  region
 )
-SELECT 
-'{{ Alias }}',
- '{{ DisplayName }}',
- '{{ Type }}',
+SELECT
+'{{ alias }}',
+ '{{ display_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,12 +281,12 @@ INSERT INTO awscc.ssmcontacts.contacts (
  Tags,
  region
 )
-SELECT 
- '{{ Alias }}',
- '{{ DisplayName }}',
- '{{ Type }}',
- '{{ Plan }}',
- '{{ Tags }}',
+SELECT
+ '{{ alias }}',
+ '{{ display_name }}',
+ '{{ type }}',
+ '{{ plan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,27 +304,26 @@ globals:
 resources:
   - name: contact
     props:
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Plan
+      - name: alias
+        value: '{{ alias }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: plan
         value:
-          - DurationInMinutes: '{{ DurationInMinutes }}'
-            Targets:
-              - ContactTargetInfo:
-                  ContactId: '{{ ContactId }}'
-                  IsEssential: '{{ IsEssential }}'
-                ChannelTargetInfo:
-                  ChannelId: '{{ ChannelId }}'
-                  RetryIntervalInMinutes: '{{ RetryIntervalInMinutes }}'
-      - name: Tags
+          - duration_in_minutes: '{{ duration_in_minutes }}'
+            targets:
+              - contact_target_info:
+                  contact_id: '{{ contact_id }}'
+                  is_essential: '{{ is_essential }}'
+                channel_target_info:
+                  channel_id: '{{ channel_id }}'
+                  retry_interval_in_minutes: '{{ retry_interval_in_minutes }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.contacts
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

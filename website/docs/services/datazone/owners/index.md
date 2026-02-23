@@ -161,7 +161,7 @@ owner,
 entity_identifier,
 domain_identifier
 FROM awscc.datazone.owners
-WHERE region = 'us-east-1' AND Identifier = '<DomainIdentifier>|<EntityType>|<EntityIdentifier>|<OwnerType>|<OwnerIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,11 +204,11 @@ INSERT INTO awscc.datazone.owners (
  DomainIdentifier,
  region
 )
-SELECT 
-'{{ EntityType }}',
- '{{ Owner }}',
- '{{ EntityIdentifier }}',
- '{{ DomainIdentifier }}',
+SELECT
+'{{ entity_type }}',
+ '{{ owner }}',
+ '{{ entity_identifier }}',
+ '{{ domain_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,11 +223,11 @@ INSERT INTO awscc.datazone.owners (
  DomainIdentifier,
  region
 )
-SELECT 
- '{{ EntityType }}',
- '{{ Owner }}',
- '{{ EntityIdentifier }}',
- '{{ DomainIdentifier }}',
+SELECT
+ '{{ entity_type }}',
+ '{{ owner }}',
+ '{{ entity_identifier }}',
+ '{{ domain_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -245,15 +245,14 @@ globals:
 resources:
   - name: owner
     props:
-      - name: EntityType
-        value: '{{ EntityType }}'
-      - name: Owner
+      - name: entity_type
+        value: '{{ entity_type }}'
+      - name: owner
         value: {}
-      - name: EntityIdentifier
-        value: '{{ EntityIdentifier }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-
+      - name: entity_identifier
+        value: '{{ entity_identifier }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.owners
-WHERE Identifier = '<DomainIdentifier|EntityType|EntityIdentifier|OwnerType|OwnerIdentifier>'
+WHERE Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}'
 AND region = 'us-east-1';
 ```
 

@@ -307,7 +307,7 @@ status,
 tags,
 updated_at
 FROM awscc.qbusiness.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -343,8 +343,8 @@ INSERT INTO awscc.qbusiness.applications (
  DisplayName,
  region
 )
-SELECT 
-'{{ DisplayName }}',
+SELECT
+'{{ display_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -369,21 +369,21 @@ INSERT INTO awscc.qbusiness.applications (
  Tags,
  region
 )
-SELECT 
- '{{ AttachmentsConfiguration }}',
- '{{ AutoSubscriptionConfiguration }}',
- '{{ ClientIdsForOIDC }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ EncryptionConfiguration }}',
- '{{ IamIdentityProviderArn }}',
- '{{ IdentityCenterInstanceArn }}',
- '{{ IdentityType }}',
- '{{ PersonalizationConfiguration }}',
- '{{ QAppsConfiguration }}',
- '{{ QuickSightConfiguration }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ attachments_configuration }}',
+ '{{ auto_subscription_configuration }}',
+ '{{ client_ids_for_oid_c }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ encryption_configuration }}',
+ '{{ iam_identity_provider_arn }}',
+ '{{ identity_center_instance_arn }}',
+ '{{ identity_type }}',
+ '{{ personalization_configuration }}',
+ '{{ q_apps_configuration }}',
+ '{{ quick_sight_configuration }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -401,45 +401,44 @@ globals:
 resources:
   - name: application
     props:
-      - name: AttachmentsConfiguration
+      - name: attachments_configuration
         value:
-          AttachmentsControlMode: '{{ AttachmentsControlMode }}'
-      - name: AutoSubscriptionConfiguration
+          attachments_control_mode: '{{ attachments_control_mode }}'
+      - name: auto_subscription_configuration
         value:
-          AutoSubscribe: '{{ AutoSubscribe }}'
-          DefaultSubscriptionType: '{{ DefaultSubscriptionType }}'
-      - name: ClientIdsForOIDC
+          auto_subscribe: '{{ auto_subscribe }}'
+          default_subscription_type: '{{ default_subscription_type }}'
+      - name: client_ids_for_oid_c
         value:
-          - '{{ ClientIdsForOIDC[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: EncryptionConfiguration
+          - '{{ client_ids_for_oid_c[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: IamIdentityProviderArn
-        value: '{{ IamIdentityProviderArn }}'
-      - name: IdentityCenterInstanceArn
-        value: '{{ IdentityCenterInstanceArn }}'
-      - name: IdentityType
-        value: '{{ IdentityType }}'
-      - name: PersonalizationConfiguration
+          kms_key_id: '{{ kms_key_id }}'
+      - name: iam_identity_provider_arn
+        value: '{{ iam_identity_provider_arn }}'
+      - name: identity_center_instance_arn
+        value: '{{ identity_center_instance_arn }}'
+      - name: identity_type
+        value: '{{ identity_type }}'
+      - name: personalization_configuration
         value:
-          PersonalizationControlMode: '{{ PersonalizationControlMode }}'
-      - name: QAppsConfiguration
+          personalization_control_mode: '{{ personalization_control_mode }}'
+      - name: q_apps_configuration
         value:
-          QAppsControlMode: '{{ QAppsControlMode }}'
-      - name: QuickSightConfiguration
+          q_apps_control_mode: '{{ q_apps_control_mode }}'
+      - name: quick_sight_configuration
         value:
-          ClientNamespace: '{{ ClientNamespace }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          client_namespace: '{{ client_namespace }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -463,7 +462,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>';
+AND Identifier = '{{ application_id }}';
 ```
 
 
@@ -472,7 +471,7 @@ AND Identifier = '<ApplicationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.applications
-WHERE Identifier = '<ApplicationId>'
+WHERE Identifier = '{{ application_id }}'
 AND region = 'us-east-1';
 ```
 

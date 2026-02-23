@@ -170,7 +170,7 @@ string_values,
 tags,
 arn
 FROM awscc.iot.dimensions
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.iot.dimensions (
  StringValues,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ StringValues }}',
+SELECT
+'{{ type }}',
+ '{{ string_values }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,11 @@ INSERT INTO awscc.iot.dimensions (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ StringValues }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ string_values }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,18 +246,17 @@ globals:
 resources:
   - name: dimension
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: StringValues
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: string_values
         value:
-          - '{{ StringValues[0] }}'
-      - name: Tags
+          - '{{ string_values[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +273,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -283,7 +282,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.dimensions
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

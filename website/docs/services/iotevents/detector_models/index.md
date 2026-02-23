@@ -242,7 +242,7 @@ key,
 role_arn,
 tags
 FROM awscc.iotevents.detector_models
-WHERE region = 'us-east-1' AND Identifier = '<DetectorModelName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ detector_model_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -279,9 +279,9 @@ INSERT INTO awscc.iotevents.detector_models (
  RoleArn,
  region
 )
-SELECT 
-'{{ DetectorModelDefinition }}',
- '{{ RoleArn }}',
+SELECT
+'{{ detector_model_definition }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -299,14 +299,14 @@ INSERT INTO awscc.iotevents.detector_models (
  Tags,
  region
 )
-SELECT 
- '{{ DetectorModelDefinition }}',
- '{{ DetectorModelDescription }}',
- '{{ DetectorModelName }}',
- '{{ EvaluationMethod }}',
- '{{ Key }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ detector_model_definition }}',
+ '{{ detector_model_description }}',
+ '{{ detector_model_name }}',
+ '{{ evaluation_method }}',
+ '{{ key }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -324,105 +324,104 @@ globals:
 resources:
   - name: detector_model
     props:
-      - name: DetectorModelDefinition
+      - name: detector_model_definition
         value:
-          InitialStateName: '{{ InitialStateName }}'
-          States:
-            - OnEnter:
-                Events:
-                  - Actions:
-                      - ClearTimer:
-                          TimerName: '{{ TimerName }}'
-                        DynamoDB:
-                          HashKeyField: '{{ HashKeyField }}'
-                          HashKeyType: '{{ HashKeyType }}'
-                          HashKeyValue: '{{ HashKeyValue }}'
-                          Operation: '{{ Operation }}'
-                          Payload:
-                            ContentExpression: '{{ ContentExpression }}'
-                            Type: '{{ Type }}'
-                          PayloadField: '{{ PayloadField }}'
-                          RangeKeyField: '{{ RangeKeyField }}'
-                          RangeKeyType: '{{ RangeKeyType }}'
-                          RangeKeyValue: '{{ RangeKeyValue }}'
-                          TableName: '{{ TableName }}'
-                        DynamoDBv2:
-                          Payload: null
-                          TableName: '{{ TableName }}'
-                        Firehose:
-                          DeliveryStreamName: '{{ DeliveryStreamName }}'
-                          Payload: null
-                          Separator: '{{ Separator }}'
-                        IotEvents:
-                          InputName: '{{ InputName }}'
-                          Payload: null
-                        IotSiteWise:
-                          AssetId: '{{ AssetId }}'
-                          EntryId: '{{ EntryId }}'
-                          PropertyAlias: '{{ PropertyAlias }}'
-                          PropertyId: '{{ PropertyId }}'
-                          PropertyValue:
-                            Quality: '{{ Quality }}'
-                            Timestamp:
-                              OffsetInNanos: '{{ OffsetInNanos }}'
-                              TimeInSeconds: '{{ TimeInSeconds }}'
-                            Value:
-                              BooleanValue: '{{ BooleanValue }}'
-                              DoubleValue: '{{ DoubleValue }}'
-                              IntegerValue: '{{ IntegerValue }}'
-                              StringValue: '{{ StringValue }}'
-                        IotTopicPublish:
-                          MqttTopic: '{{ MqttTopic }}'
-                          Payload: null
-                        Lambda:
-                          FunctionArn: '{{ FunctionArn }}'
-                          Payload: null
-                        ResetTimer:
-                          TimerName: '{{ TimerName }}'
-                        SetTimer:
-                          DurationExpression: '{{ DurationExpression }}'
-                          Seconds: '{{ Seconds }}'
-                          TimerName: '{{ TimerName }}'
-                        SetVariable:
-                          Value: '{{ Value }}'
-                          VariableName: '{{ VariableName }}'
-                        Sns:
-                          Payload: null
-                          TargetArn: '{{ TargetArn }}'
-                        Sqs:
-                          Payload: null
-                          QueueUrl: '{{ QueueUrl }}'
-                          UseBase64: '{{ UseBase64 }}'
-                    Condition: '{{ Condition }}'
-                    EventName: '{{ EventName }}'
-              OnExit:
-                Events:
+          initial_state_name: '{{ initial_state_name }}'
+          states:
+            - on_enter:
+                events:
+                  - actions:
+                      - clear_timer:
+                          timer_name: '{{ timer_name }}'
+                        dynamo_db:
+                          hash_key_field: '{{ hash_key_field }}'
+                          hash_key_type: '{{ hash_key_type }}'
+                          hash_key_value: '{{ hash_key_value }}'
+                          operation: '{{ operation }}'
+                          payload:
+                            content_expression: '{{ content_expression }}'
+                            type: '{{ type }}'
+                          payload_field: '{{ payload_field }}'
+                          range_key_field: '{{ range_key_field }}'
+                          range_key_type: '{{ range_key_type }}'
+                          range_key_value: '{{ range_key_value }}'
+                          table_name: '{{ table_name }}'
+                        dynamo_dbv2:
+                          payload: null
+                          table_name: '{{ table_name }}'
+                        firehose:
+                          delivery_stream_name: '{{ delivery_stream_name }}'
+                          payload: null
+                          separator: '{{ separator }}'
+                        iot_events:
+                          input_name: '{{ input_name }}'
+                          payload: null
+                        iot_site_wise:
+                          asset_id: '{{ asset_id }}'
+                          entry_id: '{{ entry_id }}'
+                          property_alias: '{{ property_alias }}'
+                          property_id: '{{ property_id }}'
+                          property_value:
+                            quality: '{{ quality }}'
+                            timestamp:
+                              offset_in_nanos: '{{ offset_in_nanos }}'
+                              time_in_seconds: '{{ time_in_seconds }}'
+                            value:
+                              boolean_value: '{{ boolean_value }}'
+                              double_value: '{{ double_value }}'
+                              integer_value: '{{ integer_value }}'
+                              string_value: '{{ string_value }}'
+                        iot_topic_publish:
+                          mqtt_topic: '{{ mqtt_topic }}'
+                          payload: null
+                        lambda:
+                          function_arn: '{{ function_arn }}'
+                          payload: null
+                        reset_timer:
+                          timer_name: '{{ timer_name }}'
+                        set_timer:
+                          duration_expression: '{{ duration_expression }}'
+                          seconds: '{{ seconds }}'
+                          timer_name: '{{ timer_name }}'
+                        set_variable:
+                          value: '{{ value }}'
+                          variable_name: '{{ variable_name }}'
+                        sns:
+                          payload: null
+                          target_arn: '{{ target_arn }}'
+                        sqs:
+                          payload: null
+                          queue_url: '{{ queue_url }}'
+                          use_base64: '{{ use_base64 }}'
+                    condition: '{{ condition }}'
+                    event_name: '{{ event_name }}'
+              on_exit:
+                events:
                   - null
-              OnInput:
-                Events:
+              on_input:
+                events:
                   - null
-                TransitionEvents:
-                  - Actions:
+                transition_events:
+                  - actions:
                       - null
-                    Condition: '{{ Condition }}'
-                    EventName: '{{ EventName }}'
-                    NextState: '{{ NextState }}'
-              StateName: '{{ StateName }}'
-      - name: DetectorModelDescription
-        value: '{{ DetectorModelDescription }}'
-      - name: DetectorModelName
-        value: '{{ DetectorModelName }}'
-      - name: EvaluationMethod
-        value: '{{ EvaluationMethod }}'
-      - name: Key
-        value: '{{ Key }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+                    condition: '{{ condition }}'
+                    event_name: '{{ event_name }}'
+                    next_state: '{{ next_state }}'
+              state_name: '{{ state_name }}'
+      - name: detector_model_description
+        value: '{{ detector_model_description }}'
+      - name: detector_model_name
+        value: '{{ detector_model_name }}'
+      - name: evaluation_method
+        value: '{{ evaluation_method }}'
+      - name: key
+        value: '{{ key }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -442,7 +441,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DetectorModelName>';
+AND Identifier = '{{ detector_model_name }}';
 ```
 
 
@@ -451,7 +450,7 @@ AND Identifier = '<DetectorModelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.detector_models
-WHERE Identifier = '<DetectorModelName>'
+WHERE Identifier = '{{ detector_model_name }}'
 AND region = 'us-east-1';
 ```
 

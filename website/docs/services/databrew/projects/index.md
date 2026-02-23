@@ -188,7 +188,7 @@ role_arn,
 sample,
 tags
 FROM awscc.databrew.projects
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,11 +227,11 @@ INSERT INTO awscc.databrew.projects (
  RoleArn,
  region
 )
-SELECT 
-'{{ DatasetName }}',
- '{{ Name }}',
- '{{ RecipeName }}',
- '{{ RoleArn }}',
+SELECT
+'{{ dataset_name }}',
+ '{{ name }}',
+ '{{ recipe_name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,13 +248,13 @@ INSERT INTO awscc.databrew.projects (
  Tags,
  region
 )
-SELECT 
- '{{ DatasetName }}',
- '{{ Name }}',
- '{{ RecipeName }}',
- '{{ RoleArn }}',
- '{{ Sample }}',
- '{{ Tags }}',
+SELECT
+ '{{ dataset_name }}',
+ '{{ name }}',
+ '{{ recipe_name }}',
+ '{{ role_arn }}',
+ '{{ sample }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,23 +272,22 @@ globals:
 resources:
   - name: project
     props:
-      - name: DatasetName
-        value: '{{ DatasetName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RecipeName
-        value: '{{ RecipeName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Sample
+      - name: dataset_name
+        value: '{{ dataset_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: recipe_name
+        value: '{{ recipe_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: sample
         value:
-          Size: '{{ Size }}'
-          Type: '{{ Type }}'
-      - name: Tags
+          size: '{{ size }}'
+          type: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.projects
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

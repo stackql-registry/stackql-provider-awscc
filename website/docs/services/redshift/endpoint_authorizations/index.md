@@ -190,7 +190,7 @@ vpc_ids,
 cluster_identifier,
 cluster_status
 FROM awscc.redshift.endpoint_authorizations
-WHERE region = 'us-east-1' AND Identifier = '<ClusterIdentifier>|<Account>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,9 +228,9 @@ INSERT INTO awscc.redshift.endpoint_authorizations (
  ClusterIdentifier,
  region
 )
-SELECT 
-'{{ Account }}',
- '{{ ClusterIdentifier }}',
+SELECT
+'{{ account }}',
+ '{{ cluster_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -245,11 +245,11 @@ INSERT INTO awscc.redshift.endpoint_authorizations (
  ClusterIdentifier,
  region
 )
-SELECT 
- '{{ Account }}',
- '{{ Force }}',
- '{{ VpcIds }}',
- '{{ ClusterIdentifier }}',
+SELECT
+ '{{ account }}',
+ '{{ force }}',
+ '{{ vpc_ids }}',
+ '{{ cluster_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -267,16 +267,15 @@ globals:
 resources:
   - name: endpoint_authorization
     props:
-      - name: Account
-        value: '{{ Account }}'
-      - name: Force
-        value: '{{ Force }}'
-      - name: VpcIds
+      - name: account
+        value: '{{ account }}'
+      - name: force
+        value: '{{ force }}'
+      - name: vpc_ids
         value:
-          - '{{ VpcIds[0] }}'
-      - name: ClusterIdentifier
-        value: '{{ ClusterIdentifier }}'
-
+          - '{{ vpc_ids[0] }}'
+      - name: cluster_identifier
+        value: '{{ cluster_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "VpcIds": vpc_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterIdentifier>|<Account>';
+AND Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<ClusterIdentifier>|<Account>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.endpoint_authorizations
-WHERE Identifier = '<ClusterIdentifier|Account>'
+WHERE Identifier = '{{ cluster_identifier }}|{{ account }}'
 AND region = 'us-east-1';
 ```
 

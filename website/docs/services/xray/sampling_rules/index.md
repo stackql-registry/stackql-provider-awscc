@@ -363,7 +363,7 @@ rule_arn,
 rule_name,
 tags
 FROM awscc.xray.sampling_rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -403,12 +403,12 @@ INSERT INTO awscc.xray.sampling_rules (
  Tags,
  region
 )
-SELECT 
-'{{ SamplingRule }}',
- '{{ SamplingRuleRecord }}',
- '{{ SamplingRuleUpdate }}',
- '{{ RuleName }}',
- '{{ Tags }}',
+SELECT
+'{{ sampling_rule }}',
+ '{{ sampling_rule_record }}',
+ '{{ sampling_rule_update }}',
+ '{{ rule_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -424,12 +424,12 @@ INSERT INTO awscc.xray.sampling_rules (
  Tags,
  region
 )
-SELECT 
- '{{ SamplingRule }}',
- '{{ SamplingRuleRecord }}',
- '{{ SamplingRuleUpdate }}',
- '{{ RuleName }}',
- '{{ Tags }}',
+SELECT
+ '{{ sampling_rule }}',
+ '{{ sampling_rule_record }}',
+ '{{ sampling_rule_update }}',
+ '{{ rule_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -447,39 +447,38 @@ globals:
 resources:
   - name: sampling_rule
     props:
-      - name: SamplingRule
+      - name: sampling_rule
         value:
-          SamplingRule: null
-          SamplingRuleRecord:
-            CreatedAt: '{{ CreatedAt }}'
-            ModifiedAt: '{{ ModifiedAt }}'
-            SamplingRule: null
-          SamplingRuleUpdate:
-            Attributes: {}
-            FixedRate: null
-            Host: '{{ Host }}'
-            HTTPMethod: '{{ HTTPMethod }}'
-            Priority: '{{ Priority }}'
-            ReservoirSize: '{{ ReservoirSize }}'
-            ResourceARN: '{{ ResourceARN }}'
-            RuleARN: '{{ RuleARN }}'
-            RuleName: '{{ RuleName }}'
-            ServiceName: '{{ ServiceName }}'
-            ServiceType: '{{ ServiceType }}'
-            URLPath: '{{ URLPath }}'
-          RuleName: null
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: SamplingRuleRecord
+          sampling_rule: null
+          sampling_rule_record:
+            created_at: '{{ created_at }}'
+            modified_at: '{{ modified_at }}'
+            sampling_rule: null
+          sampling_rule_update:
+            attributes: {}
+            fixed_rate: null
+            host: '{{ host }}'
+            h_tt_pmethod: '{{ h_tt_pmethod }}'
+            priority: '{{ priority }}'
+            reservoir_size: '{{ reservoir_size }}'
+            resource_arn: '{{ resource_arn }}'
+            rule_arn: '{{ rule_arn }}'
+            rule_name: '{{ rule_name }}'
+            service_name: '{{ service_name }}'
+            service_type: '{{ service_type }}'
+            url_path: '{{ url_path }}'
+          rule_name: null
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: sampling_rule_record
         value: null
-      - name: SamplingRuleUpdate
+      - name: sampling_rule_update
         value: null
-      - name: RuleName
+      - name: rule_name
         value: null
-      - name: Tags
+      - name: tags
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -498,7 +497,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleARN>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -507,7 +506,7 @@ AND Identifier = '<RuleARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.sampling_rules
-WHERE Identifier = '<RuleARN>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

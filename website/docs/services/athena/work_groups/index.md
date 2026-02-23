@@ -480,7 +480,7 @@ creation_time,
 state,
 recursive_delete_option
 FROM awscc.athena.work_groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -516,8 +516,8 @@ INSERT INTO awscc.athena.work_groups (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -535,14 +535,14 @@ INSERT INTO awscc.athena.work_groups (
  RecursiveDeleteOption,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ WorkGroupConfiguration }}',
- '{{ WorkGroupConfigurationUpdates }}',
- '{{ State }}',
- '{{ RecursiveDeleteOption }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ work_group_configuration }}',
+ '{{ work_group_configuration_updates }}',
+ '{{ state }}',
+ '{{ recursive_delete_option }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -560,66 +560,65 @@ globals:
 resources:
   - name: work_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: WorkGroupConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: work_group_configuration
         value:
-          BytesScannedCutoffPerQuery: '{{ BytesScannedCutoffPerQuery }}'
-          EnforceWorkGroupConfiguration: '{{ EnforceWorkGroupConfiguration }}'
-          PublishCloudWatchMetricsEnabled: '{{ PublishCloudWatchMetricsEnabled }}'
-          RequesterPaysEnabled: '{{ RequesterPaysEnabled }}'
-          ResultConfiguration:
-            EncryptionConfiguration:
-              EncryptionOption: '{{ EncryptionOption }}'
-              KmsKey: '{{ KmsKey }}'
-            OutputLocation: '{{ OutputLocation }}'
-            ExpectedBucketOwner: '{{ ExpectedBucketOwner }}'
-            AclConfiguration:
-              S3AclOption: '{{ S3AclOption }}'
-          EngineVersion:
-            SelectedEngineVersion: '{{ SelectedEngineVersion }}'
-            EffectiveEngineVersion: '{{ EffectiveEngineVersion }}'
-          AdditionalConfiguration: '{{ AdditionalConfiguration }}'
-          ExecutionRole: '{{ ExecutionRole }}'
-          CustomerContentEncryptionConfiguration:
-            KmsKey: null
-          ManagedQueryResultsConfiguration:
-            EncryptionConfiguration:
-              KmsKey: null
-            Enabled: '{{ Enabled }}'
-      - name: WorkGroupConfigurationUpdates
+          bytes_scanned_cutoff_per_query: '{{ bytes_scanned_cutoff_per_query }}'
+          enforce_work_group_configuration: '{{ enforce_work_group_configuration }}'
+          publish_cloud_watch_metrics_enabled: '{{ publish_cloud_watch_metrics_enabled }}'
+          requester_pays_enabled: '{{ requester_pays_enabled }}'
+          result_configuration:
+            encryption_configuration:
+              encryption_option: '{{ encryption_option }}'
+              kms_key: '{{ kms_key }}'
+            output_location: '{{ output_location }}'
+            expected_bucket_owner: '{{ expected_bucket_owner }}'
+            acl_configuration:
+              s3_acl_option: '{{ s3_acl_option }}'
+          engine_version:
+            selected_engine_version: '{{ selected_engine_version }}'
+            effective_engine_version: '{{ effective_engine_version }}'
+          additional_configuration: '{{ additional_configuration }}'
+          execution_role: '{{ execution_role }}'
+          customer_content_encryption_configuration:
+            kms_key: null
+          managed_query_results_configuration:
+            encryption_configuration:
+              kms_key: null
+            enabled: '{{ enabled }}'
+      - name: work_group_configuration_updates
         value:
-          BytesScannedCutoffPerQuery: null
-          EnforceWorkGroupConfiguration: null
-          PublishCloudWatchMetricsEnabled: null
-          RequesterPaysEnabled: null
-          ResultConfigurationUpdates:
-            EncryptionConfiguration: null
-            OutputLocation: null
-            ExpectedBucketOwner: null
-            AclConfiguration: null
-            RemoveEncryptionConfiguration: '{{ RemoveEncryptionConfiguration }}'
-            RemoveOutputLocation: '{{ RemoveOutputLocation }}'
-            RemoveExpectedBucketOwner: '{{ RemoveExpectedBucketOwner }}'
-            RemoveAclConfiguration: '{{ RemoveAclConfiguration }}'
-          RemoveBytesScannedCutoffPerQuery: '{{ RemoveBytesScannedCutoffPerQuery }}'
-          EngineVersion: null
-          AdditionalConfiguration: null
-          ExecutionRole: null
-          CustomerContentEncryptionConfiguration: null
-          RemoveCustomerContentEncryptionConfiguration: '{{ RemoveCustomerContentEncryptionConfiguration }}'
-          ManagedQueryResultsConfiguration: null
-      - name: State
-        value: '{{ State }}'
-      - name: RecursiveDeleteOption
-        value: '{{ RecursiveDeleteOption }}'
-
+          bytes_scanned_cutoff_per_query: null
+          enforce_work_group_configuration: null
+          publish_cloud_watch_metrics_enabled: null
+          requester_pays_enabled: null
+          result_configuration_updates:
+            encryption_configuration: null
+            output_location: null
+            expected_bucket_owner: null
+            acl_configuration: null
+            remove_encryption_configuration: '{{ remove_encryption_configuration }}'
+            remove_output_location: '{{ remove_output_location }}'
+            remove_expected_bucket_owner: '{{ remove_expected_bucket_owner }}'
+            remove_acl_configuration: '{{ remove_acl_configuration }}'
+          remove_bytes_scanned_cutoff_per_query: '{{ remove_bytes_scanned_cutoff_per_query }}'
+          engine_version: null
+          additional_configuration: null
+          execution_role: null
+          customer_content_encryption_configuration: null
+          remove_customer_content_encryption_configuration: '{{ remove_customer_content_encryption_configuration }}'
+          managed_query_results_configuration: null
+      - name: state
+        value: '{{ state }}'
+      - name: recursive_delete_option
+        value: '{{ recursive_delete_option }}'
 ```
 </TabItem>
 </Tabs>
@@ -638,7 +637,7 @@ SET PatchDocument = string('{{ {
     "RecursiveDeleteOption": recursive_delete_option
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -647,7 +646,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.work_groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

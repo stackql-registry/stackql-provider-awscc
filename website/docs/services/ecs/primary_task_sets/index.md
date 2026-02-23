@@ -95,7 +95,7 @@ task_set_id,
 cluster,
 service
 FROM awscc.ecs.primary_task_sets
-WHERE region = 'us-east-1' AND Identifier = '<Cluster>|<Service>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}|{{ service }}';
 ```
 
 ## `INSERT` example
@@ -120,10 +120,10 @@ INSERT INTO awscc.ecs.primary_task_sets (
  Service,
  region
 )
-SELECT 
-'{{ TaskSetId }}',
- '{{ Cluster }}',
- '{{ Service }}',
+SELECT
+'{{ task_set_id }}',
+ '{{ cluster }}',
+ '{{ service }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -137,10 +137,10 @@ INSERT INTO awscc.ecs.primary_task_sets (
  Service,
  region
 )
-SELECT 
- '{{ TaskSetId }}',
- '{{ Cluster }}',
- '{{ Service }}',
+SELECT
+ '{{ task_set_id }}',
+ '{{ cluster }}',
+ '{{ service }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -158,13 +158,12 @@ globals:
 resources:
   - name: primary_task_set
     props:
-      - name: TaskSetId
-        value: '{{ TaskSetId }}'
-      - name: Cluster
-        value: '{{ Cluster }}'
-      - name: Service
-        value: '{{ Service }}'
-
+      - name: task_set_id
+        value: '{{ task_set_id }}'
+      - name: cluster
+        value: '{{ cluster }}'
+      - name: service
+        value: '{{ service }}'
 ```
 </TabItem>
 </Tabs>
@@ -180,7 +179,7 @@ SET PatchDocument = string('{{ {
     "TaskSetId": task_set_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Cluster>|<Service>';
+AND Identifier = '{{ cluster }}|{{ service }}';
 ```
 
 

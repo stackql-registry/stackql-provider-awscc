@@ -289,7 +289,7 @@ jupyter_lab_app_image_config,
 code_editor_app_image_config,
 tags
 FROM awscc.sagemaker.app_image_configs
-WHERE region = 'us-east-1' AND Identifier = '<AppImageConfigName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_image_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,8 +325,8 @@ INSERT INTO awscc.sagemaker.app_image_configs (
  AppImageConfigName,
  region
 )
-SELECT 
-'{{ AppImageConfigName }}',
+SELECT
+'{{ app_image_config_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -342,12 +342,12 @@ INSERT INTO awscc.sagemaker.app_image_configs (
  Tags,
  region
 )
-SELECT 
- '{{ AppImageConfigName }}',
- '{{ KernelGatewayImageConfig }}',
- '{{ JupyterLabAppImageConfig }}',
- '{{ CodeEditorAppImageConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ app_image_config_name }}',
+ '{{ kernel_gateway_image_config }}',
+ '{{ jupyter_lab_app_image_config }}',
+ '{{ code_editor_app_image_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -365,35 +365,34 @@ globals:
 resources:
   - name: app_image_config
     props:
-      - name: AppImageConfigName
-        value: '{{ AppImageConfigName }}'
-      - name: KernelGatewayImageConfig
+      - name: app_image_config_name
+        value: '{{ app_image_config_name }}'
+      - name: kernel_gateway_image_config
         value:
-          FileSystemConfig:
-            DefaultGid: '{{ DefaultGid }}'
-            DefaultUid: '{{ DefaultUid }}'
-            MountPath: '{{ MountPath }}'
-          KernelSpecs:
-            - DisplayName: '{{ DisplayName }}'
-              Name: '{{ Name }}'
-      - name: JupyterLabAppImageConfig
+          file_system_config:
+            default_gid: '{{ default_gid }}'
+            default_uid: '{{ default_uid }}'
+            mount_path: '{{ mount_path }}'
+          kernel_specs:
+            - display_name: '{{ display_name }}'
+              name: '{{ name }}'
+      - name: jupyter_lab_app_image_config
         value:
-          ContainerConfig:
-            ContainerArguments:
-              - '{{ ContainerArguments[0] }}'
-            ContainerEntrypoint:
-              - '{{ ContainerEntrypoint[0] }}'
-            ContainerEnvironmentVariables:
-              - Value: '{{ Value }}'
-                Key: '{{ Key }}'
-      - name: CodeEditorAppImageConfig
+          container_config:
+            container_arguments:
+              - '{{ container_arguments[0] }}'
+            container_entrypoint:
+              - '{{ container_entrypoint[0] }}'
+            container_environment_variables:
+              - value: '{{ value }}'
+                key: '{{ key }}'
+      - name: code_editor_app_image_config
         value:
-          ContainerConfig: null
-      - name: Tags
+          container_config: null
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -412,7 +411,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppImageConfigName>';
+AND Identifier = '{{ app_image_config_name }}';
 ```
 
 
@@ -421,7 +420,7 @@ AND Identifier = '<AppImageConfigName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.app_image_configs
-WHERE Identifier = '<AppImageConfigName>'
+WHERE Identifier = '{{ app_image_config_name }}'
 AND region = 'us-east-1';
 ```
 

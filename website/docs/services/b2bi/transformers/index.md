@@ -338,7 +338,7 @@ tags,
 transformer_arn,
 transformer_id
 FROM awscc.b2bi.transformers
-WHERE region = 'us-east-1' AND Identifier = '<TransformerId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transformer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -375,9 +375,9 @@ INSERT INTO awscc.b2bi.transformers (
  Status,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Status }}',
+SELECT
+'{{ name }}',
+ '{{ status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -399,18 +399,18 @@ INSERT INTO awscc.b2bi.transformers (
  Tags,
  region
 )
-SELECT 
- '{{ EdiType }}',
- '{{ FileFormat }}',
- '{{ InputConversion }}',
- '{{ Mapping }}',
- '{{ MappingTemplate }}',
- '{{ Name }}',
- '{{ OutputConversion }}',
- '{{ SampleDocument }}',
- '{{ SampleDocuments }}',
- '{{ Status }}',
- '{{ Tags }}',
+SELECT
+ '{{ edi_type }}',
+ '{{ file_format }}',
+ '{{ input_conversion }}',
+ '{{ mapping }}',
+ '{{ mapping_template }}',
+ '{{ name }}',
+ '{{ output_conversion }}',
+ '{{ sample_document }}',
+ '{{ sample_documents }}',
+ '{{ status }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -428,49 +428,48 @@ globals:
 resources:
   - name: transformer
     props:
-      - name: EdiType
+      - name: edi_type
         value: null
-      - name: FileFormat
-        value: '{{ FileFormat }}'
-      - name: InputConversion
+      - name: file_format
+        value: '{{ file_format }}'
+      - name: input_conversion
         value:
-          FromFormat: '{{ FromFormat }}'
-          FormatOptions: null
-          AdvancedOptions:
-            X12:
-              SplitOptions:
-                SplitBy: '{{ SplitBy }}'
-              ValidationOptions:
-                ValidationRules:
+          from_format: '{{ from_format }}'
+          format_options: null
+          advanced_options:
+            x12:
+              split_options:
+                split_by: '{{ split_by }}'
+              validation_options:
+                validation_rules:
                   - null
-      - name: Mapping
+      - name: mapping
         value:
-          TemplateLanguage: '{{ TemplateLanguage }}'
-          Template: '{{ Template }}'
-      - name: MappingTemplate
-        value: '{{ MappingTemplate }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OutputConversion
+          template_language: '{{ template_language }}'
+          template: '{{ template }}'
+      - name: mapping_template
+        value: '{{ mapping_template }}'
+      - name: name
+        value: '{{ name }}'
+      - name: output_conversion
         value:
-          ToFormat: '{{ ToFormat }}'
-          FormatOptions: null
-          AdvancedOptions: null
-      - name: SampleDocument
-        value: '{{ SampleDocument }}'
-      - name: SampleDocuments
+          to_format: '{{ to_format }}'
+          format_options: null
+          advanced_options: null
+      - name: sample_document
+        value: '{{ sample_document }}'
+      - name: sample_documents
         value:
-          BucketName: '{{ BucketName }}'
-          Keys:
-            - Input: '{{ Input }}'
-              Output: '{{ Output }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Tags
+          bucket_name: '{{ bucket_name }}'
+          keys:
+            - input: '{{ input }}'
+              output: '{{ output }}'
+      - name: status
+        value: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -496,7 +495,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransformerId>';
+AND Identifier = '{{ transformer_id }}';
 ```
 
 
@@ -505,7 +504,7 @@ AND Identifier = '<TransformerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.transformers
-WHERE Identifier = '<TransformerId>'
+WHERE Identifier = '{{ transformer_id }}'
 AND region = 'us-east-1';
 ```
 

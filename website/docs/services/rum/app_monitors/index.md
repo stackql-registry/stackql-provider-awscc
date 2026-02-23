@@ -339,7 +339,7 @@ custom_events,
 resource_policy,
 deobfuscation_configuration
 FROM awscc.rum.app_monitors
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -375,8 +375,8 @@ INSERT INTO awscc.rum.app_monitors (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -396,16 +396,16 @@ INSERT INTO awscc.rum.app_monitors (
  DeobfuscationConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Domain }}',
- '{{ DomainList }}',
- '{{ CwLogEnabled }}',
- '{{ Tags }}',
- '{{ AppMonitorConfiguration }}',
- '{{ CustomEvents }}',
- '{{ ResourcePolicy }}',
- '{{ DeobfuscationConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ domain }}',
+ '{{ domain_list }}',
+ '{{ cw_log_enabled }}',
+ '{{ tags }}',
+ '{{ app_monitor_configuration }}',
+ '{{ custom_events }}',
+ '{{ resource_policy }}',
+ '{{ deobfuscation_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -423,57 +423,56 @@ globals:
 resources:
   - name: app_monitor
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: DomainList
+      - name: name
+        value: '{{ name }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: domain_list
         value:
-          - '{{ DomainList[0] }}'
-      - name: CwLogEnabled
-        value: '{{ CwLogEnabled }}'
-      - name: Tags
+          - '{{ domain_list[0] }}'
+      - name: cw_log_enabled
+        value: '{{ cw_log_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AppMonitorConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: app_monitor_configuration
         value:
-          IdentityPoolId: '{{ IdentityPoolId }}'
-          ExcludedPages:
-            - '{{ ExcludedPages[0] }}'
-          IncludedPages: null
-          FavoritePages:
-            - '{{ FavoritePages[0] }}'
-          SessionSampleRate: null
-          GuestRoleArn: '{{ GuestRoleArn }}'
-          AllowCookies: '{{ AllowCookies }}'
-          Telemetries:
-            - '{{ Telemetries[0] }}'
-          EnableXRay: '{{ EnableXRay }}'
-          MetricDestinations:
-            - Destination: '{{ Destination }}'
-              DestinationArn: '{{ DestinationArn }}'
-              IamRoleArn: '{{ IamRoleArn }}'
-              MetricDefinitions:
-                - Name: '{{ Name }}'
-                  Namespace: '{{ Namespace }}'
-                  ValueKey: '{{ ValueKey }}'
-                  UnitLabel: '{{ UnitLabel }}'
-                  DimensionKeys: {}
-                  EventPattern: '{{ EventPattern }}'
-      - name: CustomEvents
+          identity_pool_id: '{{ identity_pool_id }}'
+          excluded_pages:
+            - '{{ excluded_pages[0] }}'
+          included_pages: null
+          favorite_pages:
+            - '{{ favorite_pages[0] }}'
+          session_sample_rate: null
+          guest_role_arn: '{{ guest_role_arn }}'
+          allow_cookies: '{{ allow_cookies }}'
+          telemetries:
+            - '{{ telemetries[0] }}'
+          enable_xray: '{{ enable_xray }}'
+          metric_destinations:
+            - destination: '{{ destination }}'
+              destination_arn: '{{ destination_arn }}'
+              iam_role_arn: '{{ iam_role_arn }}'
+              metric_definitions:
+                - name: '{{ name }}'
+                  namespace: '{{ namespace }}'
+                  value_key: '{{ value_key }}'
+                  unit_label: '{{ unit_label }}'
+                  dimension_keys: {}
+                  event_pattern: '{{ event_pattern }}'
+      - name: custom_events
         value:
-          Status: '{{ Status }}'
-      - name: ResourcePolicy
+          status: '{{ status }}'
+      - name: resource_policy
         value:
-          PolicyDocument: '{{ PolicyDocument }}'
-          PolicyRevisionId: '{{ PolicyRevisionId }}'
-      - name: DeobfuscationConfiguration
+          policy_document: '{{ policy_document }}'
+          policy_revision_id: '{{ policy_revision_id }}'
+      - name: deobfuscation_configuration
         value:
-          JavaScriptSourceMaps:
-            Status: '{{ Status }}'
-            S3Uri: '{{ S3Uri }}'
-
+          java_script_source_maps:
+            status: '{{ status }}'
+            s3_uri: '{{ s3_uri }}'
 ```
 </TabItem>
 </Tabs>
@@ -496,7 +495,7 @@ SET PatchDocument = string('{{ {
     "DeobfuscationConfiguration": deobfuscation_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -505,7 +504,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rum.app_monitors
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

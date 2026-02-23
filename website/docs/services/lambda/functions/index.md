@@ -467,7 +467,7 @@ arn,
 ephemeral_storage,
 architectures
 FROM awscc.lambda.functions
-WHERE region = 'us-east-1' AND Identifier = '<FunctionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -504,9 +504,9 @@ INSERT INTO awscc.lambda.functions (
  Role,
  region
 )
-SELECT 
-'{{ Code }}',
- '{{ Role }}',
+SELECT
+'{{ code }}',
+ '{{ role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -543,33 +543,33 @@ INSERT INTO awscc.lambda.functions (
  Architectures,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ TracingConfig }}',
- '{{ VpcConfig }}',
- '{{ RuntimeManagementConfig }}',
- '{{ ReservedConcurrentExecutions }}',
- '{{ SnapStart }}',
- '{{ FileSystemConfigs }}',
- '{{ FunctionName }}',
- '{{ Runtime }}',
- '{{ KmsKeyArn }}',
- '{{ PackageType }}',
- '{{ CodeSigningConfigArn }}',
- '{{ Layers }}',
- '{{ Tags }}',
- '{{ ImageConfig }}',
- '{{ MemorySize }}',
- '{{ DeadLetterConfig }}',
- '{{ Timeout }}',
- '{{ Handler }}',
- '{{ Code }}',
- '{{ Role }}',
- '{{ LoggingConfig }}',
- '{{ RecursiveLoop }}',
- '{{ Environment }}',
- '{{ EphemeralStorage }}',
- '{{ Architectures }}',
+SELECT
+ '{{ description }}',
+ '{{ tracing_config }}',
+ '{{ vpc_config }}',
+ '{{ runtime_management_config }}',
+ '{{ reserved_concurrent_executions }}',
+ '{{ snap_start }}',
+ '{{ file_system_configs }}',
+ '{{ function_name }}',
+ '{{ runtime }}',
+ '{{ kms_key_arn }}',
+ '{{ package_type }}',
+ '{{ code_signing_config_arn }}',
+ '{{ layers }}',
+ '{{ tags }}',
+ '{{ image_config }}',
+ '{{ memory_size }}',
+ '{{ dead_letter_config }}',
+ '{{ timeout }}',
+ '{{ handler }}',
+ '{{ code }}',
+ '{{ role }}',
+ '{{ logging_config }}',
+ '{{ recursive_loop }}',
+ '{{ environment }}',
+ '{{ ephemeral_storage }}',
+ '{{ architectures }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -587,92 +587,91 @@ globals:
 resources:
   - name: function
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: TracingConfig
+      - name: description
+        value: '{{ description }}'
+      - name: tracing_config
         value:
-          Mode: '{{ Mode }}'
-      - name: VpcConfig
+          mode: '{{ mode }}'
+      - name: vpc_config
         value:
-          Ipv6AllowedForDualStack: '{{ Ipv6AllowedForDualStack }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: RuntimeManagementConfig
+          ipv6_allowed_for_dual_stack: '{{ ipv6_allowed_for_dual_stack }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: runtime_management_config
         value:
-          UpdateRuntimeOn: '{{ UpdateRuntimeOn }}'
-          RuntimeVersionArn: '{{ RuntimeVersionArn }}'
-      - name: ReservedConcurrentExecutions
-        value: '{{ ReservedConcurrentExecutions }}'
-      - name: SnapStart
+          update_runtime_on: '{{ update_runtime_on }}'
+          runtime_version_arn: '{{ runtime_version_arn }}'
+      - name: reserved_concurrent_executions
+        value: '{{ reserved_concurrent_executions }}'
+      - name: snap_start
         value:
-          ApplyOn: '{{ ApplyOn }}'
-      - name: FileSystemConfigs
+          apply_on: '{{ apply_on }}'
+      - name: file_system_configs
         value:
-          - Arn: '{{ Arn }}'
-            LocalMountPath: '{{ LocalMountPath }}'
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: Runtime
-        value: '{{ Runtime }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: PackageType
-        value: '{{ PackageType }}'
-      - name: CodeSigningConfigArn
-        value: '{{ CodeSigningConfigArn }}'
-      - name: Layers
+          - arn: '{{ arn }}'
+            local_mount_path: '{{ local_mount_path }}'
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: runtime
+        value: '{{ runtime }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: package_type
+        value: '{{ package_type }}'
+      - name: code_signing_config_arn
+        value: '{{ code_signing_config_arn }}'
+      - name: layers
         value:
-          - '{{ Layers[0] }}'
-      - name: Tags
+          - '{{ layers[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ImageConfig
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: image_config
         value:
-          WorkingDirectory: '{{ WorkingDirectory }}'
-          Command:
-            - '{{ Command[0] }}'
-          EntryPoint:
-            - '{{ EntryPoint[0] }}'
-      - name: MemorySize
-        value: '{{ MemorySize }}'
-      - name: DeadLetterConfig
+          working_directory: '{{ working_directory }}'
+          command:
+            - '{{ command[0] }}'
+          entry_point:
+            - '{{ entry_point[0] }}'
+      - name: memory_size
+        value: '{{ memory_size }}'
+      - name: dead_letter_config
         value:
-          TargetArn: '{{ TargetArn }}'
-      - name: Timeout
-        value: '{{ Timeout }}'
-      - name: Handler
-        value: '{{ Handler }}'
-      - name: Code
+          target_arn: '{{ target_arn }}'
+      - name: timeout
+        value: '{{ timeout }}'
+      - name: handler
+        value: '{{ handler }}'
+      - name: code
         value:
-          SourceKMSKeyArn: '{{ SourceKMSKeyArn }}'
-          S3ObjectVersion: '{{ S3ObjectVersion }}'
-          S3Bucket: '{{ S3Bucket }}'
-          ZipFile: '{{ ZipFile }}'
-          S3Key: '{{ S3Key }}'
-          ImageUri: '{{ ImageUri }}'
-      - name: Role
-        value: '{{ Role }}'
-      - name: LoggingConfig
+          source_kms_key_arn: '{{ source_kms_key_arn }}'
+          s3_object_version: '{{ s3_object_version }}'
+          s3_bucket: '{{ s3_bucket }}'
+          zip_file: '{{ zip_file }}'
+          s3_key: '{{ s3_key }}'
+          image_uri: '{{ image_uri }}'
+      - name: role
+        value: '{{ role }}'
+      - name: logging_config
         value:
-          LogFormat: '{{ LogFormat }}'
-          ApplicationLogLevel: '{{ ApplicationLogLevel }}'
-          LogGroup: '{{ LogGroup }}'
-          SystemLogLevel: '{{ SystemLogLevel }}'
-      - name: RecursiveLoop
-        value: '{{ RecursiveLoop }}'
-      - name: Environment
+          log_format: '{{ log_format }}'
+          application_log_level: '{{ application_log_level }}'
+          log_group: '{{ log_group }}'
+          system_log_level: '{{ system_log_level }}'
+      - name: recursive_loop
+        value: '{{ recursive_loop }}'
+      - name: environment
         value:
-          Variables: {}
-      - name: EphemeralStorage
+          variables: {}
+      - name: ephemeral_storage
         value:
-          Size: '{{ Size }}'
-      - name: Architectures
+          size: '{{ size }}'
+      - name: architectures
         value:
-          - '{{ Architectures[0] }}'
-
+          - '{{ architectures[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -711,7 +710,7 @@ SET PatchDocument = string('{{ {
     "Architectures": architectures
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FunctionName>';
+AND Identifier = '{{ function_name }}';
 ```
 
 
@@ -720,7 +719,7 @@ AND Identifier = '<FunctionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.functions
-WHERE Identifier = '<FunctionName>'
+WHERE Identifier = '{{ function_name }}'
 AND region = 'us-east-1';
 ```
 

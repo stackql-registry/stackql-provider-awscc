@@ -186,7 +186,7 @@ integration_id,
 integration_response_key,
 api_id
 FROM awscc.apigatewayv2.integration_responses
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<IntegrationId>|<IntegrationResponseId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.apigatewayv2.integration_responses (
  ApiId,
  region
 )
-SELECT 
-'{{ IntegrationId }}',
- '{{ IntegrationResponseKey }}',
- '{{ ApiId }}',
+SELECT
+'{{ integration_id }}',
+ '{{ integration_response_key }}',
+ '{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,14 +247,14 @@ INSERT INTO awscc.apigatewayv2.integration_responses (
  ApiId,
  region
 )
-SELECT 
- '{{ ResponseTemplates }}',
- '{{ TemplateSelectionExpression }}',
- '{{ ResponseParameters }}',
- '{{ ContentHandlingStrategy }}',
- '{{ IntegrationId }}',
- '{{ IntegrationResponseKey }}',
- '{{ ApiId }}',
+SELECT
+ '{{ response_templates }}',
+ '{{ template_selection_expression }}',
+ '{{ response_parameters }}',
+ '{{ content_handling_strategy }}',
+ '{{ integration_id }}',
+ '{{ integration_response_key }}',
+ '{{ api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,21 +272,20 @@ globals:
 resources:
   - name: integration_response
     props:
-      - name: ResponseTemplates
+      - name: response_templates
         value: {}
-      - name: TemplateSelectionExpression
-        value: '{{ TemplateSelectionExpression }}'
-      - name: ResponseParameters
+      - name: template_selection_expression
+        value: '{{ template_selection_expression }}'
+      - name: response_parameters
         value: {}
-      - name: ContentHandlingStrategy
-        value: '{{ ContentHandlingStrategy }}'
-      - name: IntegrationId
-        value: '{{ IntegrationId }}'
-      - name: IntegrationResponseKey
-        value: '{{ IntegrationResponseKey }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-
+      - name: content_handling_strategy
+        value: '{{ content_handling_strategy }}'
+      - name: integration_id
+        value: '{{ integration_id }}'
+      - name: integration_response_key
+        value: '{{ integration_response_key }}'
+      - name: api_id
+        value: '{{ api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "IntegrationResponseKey": integration_response_key
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>|<IntegrationId>|<IntegrationResponseId>';
+AND Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<ApiId>|<IntegrationId>|<IntegrationResponseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.integration_responses
-WHERE Identifier = '<ApiId|IntegrationId|IntegrationResponseId>'
+WHERE Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}'
 AND region = 'us-east-1';
 ```
 

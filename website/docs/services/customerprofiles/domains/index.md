@@ -418,7 +418,7 @@ tags,
 created_at,
 last_updated_at
 FROM awscc.customerprofiles.domains
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -455,9 +455,9 @@ INSERT INTO awscc.customerprofiles.domains (
  DefaultExpirationDays,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ DefaultExpirationDays }}',
+SELECT
+'{{ domain_name }}',
+ '{{ default_expiration_days }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -475,14 +475,14 @@ INSERT INTO awscc.customerprofiles.domains (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ DeadLetterQueueUrl }}',
- '{{ DefaultEncryptionKey }}',
- '{{ DefaultExpirationDays }}',
- '{{ Matching }}',
- '{{ RuleBasedMatching }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ dead_letter_queue_url }}',
+ '{{ default_encryption_key }}',
+ '{{ default_expiration_days }}',
+ '{{ matching }}',
+ '{{ rule_based_matching }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -500,57 +500,56 @@ globals:
 resources:
   - name: domain
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: DeadLetterQueueUrl
-        value: '{{ DeadLetterQueueUrl }}'
-      - name: DefaultEncryptionKey
-        value: '{{ DefaultEncryptionKey }}'
-      - name: DefaultExpirationDays
-        value: '{{ DefaultExpirationDays }}'
-      - name: Matching
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: dead_letter_queue_url
+        value: '{{ dead_letter_queue_url }}'
+      - name: default_encryption_key
+        value: '{{ default_encryption_key }}'
+      - name: default_expiration_days
+        value: '{{ default_expiration_days }}'
+      - name: matching
         value:
-          Enabled: '{{ Enabled }}'
-          AutoMerging:
-            Enabled: '{{ Enabled }}'
-            ConflictResolution:
-              ConflictResolvingModel: '{{ ConflictResolvingModel }}'
-              SourceName: '{{ SourceName }}'
-            Consolidation:
-              MatchingAttributesList:
+          enabled: '{{ enabled }}'
+          auto_merging:
+            enabled: '{{ enabled }}'
+            conflict_resolution:
+              conflict_resolving_model: '{{ conflict_resolving_model }}'
+              source_name: '{{ source_name }}'
+            consolidation:
+              matching_attributes_list:
                 - - '{{ 0[0] }}'
-            MinAllowedConfidenceScoreForMerging: null
-          ExportingConfig:
-            S3Exporting:
-              S3BucketName: '{{ S3BucketName }}'
-              S3KeyName: '{{ S3KeyName }}'
-          JobSchedule:
-            DayOfTheWeek: '{{ DayOfTheWeek }}'
-            Time: '{{ Time }}'
-      - name: RuleBasedMatching
+            min_allowed_confidence_score_for_merging: null
+          exporting_config:
+            s3_exporting:
+              s3_bucket_name: '{{ s3_bucket_name }}'
+              s3_key_name: '{{ s3_key_name }}'
+          job_schedule:
+            day_of_the_week: '{{ day_of_the_week }}'
+            time: '{{ time }}'
+      - name: rule_based_matching
         value:
-          Enabled: '{{ Enabled }}'
-          AttributeTypesSelector:
-            AttributeMatchingModel: '{{ AttributeMatchingModel }}'
-            Address:
-              - '{{ Address[0] }}'
-            EmailAddress:
-              - '{{ EmailAddress[0] }}'
-            PhoneNumber:
-              - '{{ PhoneNumber[0] }}'
-          ConflictResolution: null
-          ExportingConfig: null
-          MatchingRules:
-            - Rule:
-                - '{{ Rule[0] }}'
-          MaxAllowedRuleLevelForMatching: '{{ MaxAllowedRuleLevelForMatching }}'
-          MaxAllowedRuleLevelForMerging: '{{ MaxAllowedRuleLevelForMerging }}'
-          Status: '{{ Status }}'
-      - name: Tags
+          enabled: '{{ enabled }}'
+          attribute_types_selector:
+            attribute_matching_model: '{{ attribute_matching_model }}'
+            address:
+              - '{{ address[0] }}'
+            email_address:
+              - '{{ email_address[0] }}'
+            phone_number:
+              - '{{ phone_number[0] }}'
+          conflict_resolution: null
+          exporting_config: null
+          matching_rules:
+            - rule:
+                - '{{ rule[0] }}'
+          max_allowed_rule_level_for_matching: '{{ max_allowed_rule_level_for_matching }}'
+          max_allowed_rule_level_for_merging: '{{ max_allowed_rule_level_for_merging }}'
+          status: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -570,7 +569,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>';
+AND Identifier = '{{ domain_name }}';
 ```
 
 
@@ -579,7 +578,7 @@ AND Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.domains
-WHERE Identifier = '<DomainName>'
+WHERE Identifier = '{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

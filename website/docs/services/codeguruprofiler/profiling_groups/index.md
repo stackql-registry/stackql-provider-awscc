@@ -195,7 +195,7 @@ anomaly_detection_notification_configuration,
 arn,
 tags
 FROM awscc.codeguruprofiler.profiling_groups
-WHERE region = 'us-east-1' AND Identifier = '<ProfilingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ profiling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,8 +231,8 @@ INSERT INTO awscc.codeguruprofiler.profiling_groups (
  ProfilingGroupName,
  region
 )
-SELECT 
-'{{ ProfilingGroupName }}',
+SELECT
+'{{ profiling_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,12 +248,12 @@ INSERT INTO awscc.codeguruprofiler.profiling_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ProfilingGroupName }}',
- '{{ ComputePlatform }}',
- '{{ AgentPermissions }}',
- '{{ AnomalyDetectionNotificationConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ profiling_group_name }}',
+ '{{ compute_platform }}',
+ '{{ agent_permissions }}',
+ '{{ anomaly_detection_notification_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -271,23 +271,22 @@ globals:
 resources:
   - name: profiling_group
     props:
-      - name: ProfilingGroupName
-        value: '{{ ProfilingGroupName }}'
-      - name: ComputePlatform
-        value: '{{ ComputePlatform }}'
-      - name: AgentPermissions
+      - name: profiling_group_name
+        value: '{{ profiling_group_name }}'
+      - name: compute_platform
+        value: '{{ compute_platform }}'
+      - name: agent_permissions
         value:
-          Principals:
-            - '{{ Principals[0] }}'
-      - name: AnomalyDetectionNotificationConfiguration
+          principals:
+            - '{{ principals[0] }}'
+      - name: anomaly_detection_notification_configuration
         value:
-          - channelId: '{{ channelId }}'
-            channelUri: '{{ channelUri }}'
-      - name: Tags
+          - channel_id: '{{ channel_id }}'
+            channel_uri: '{{ channel_uri }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProfilingGroupName>';
+AND Identifier = '{{ profiling_group_name }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<ProfilingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeguruprofiler.profiling_groups
-WHERE Identifier = '<ProfilingGroupName>'
+WHERE Identifier = '{{ profiling_group_name }}'
 AND region = 'us-east-1';
 ```
 

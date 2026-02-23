@@ -224,7 +224,7 @@ creation_time,
 modification_time,
 tags
 FROM awscc.route53resolver.firewall_rule_group_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +262,10 @@ INSERT INTO awscc.route53resolver.firewall_rule_group_associations (
  Priority,
  region
 )
-SELECT 
-'{{ FirewallRuleGroupId }}',
- '{{ VpcId }}',
- '{{ Priority }}',
+SELECT
+'{{ firewall_rule_group_id }}',
+ '{{ vpc_id }}',
+ '{{ priority }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -282,13 +282,13 @@ INSERT INTO awscc.route53resolver.firewall_rule_group_associations (
  Tags,
  region
 )
-SELECT 
- '{{ FirewallRuleGroupId }}',
- '{{ VpcId }}',
- '{{ Name }}',
- '{{ Priority }}',
- '{{ MutationProtection }}',
- '{{ Tags }}',
+SELECT
+ '{{ firewall_rule_group_id }}',
+ '{{ vpc_id }}',
+ '{{ name }}',
+ '{{ priority }}',
+ '{{ mutation_protection }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,21 +306,20 @@ globals:
 resources:
   - name: firewall_rule_group_association
     props:
-      - name: FirewallRuleGroupId
-        value: '{{ FirewallRuleGroupId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: MutationProtection
-        value: '{{ MutationProtection }}'
-      - name: Tags
+      - name: firewall_rule_group_id
+        value: '{{ firewall_rule_group_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: mutation_protection
+        value: '{{ mutation_protection }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.firewall_rule_group_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

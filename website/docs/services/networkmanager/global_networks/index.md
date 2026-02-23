@@ -176,7 +176,7 @@ tags,
 created_at,
 state
 FROM awscc.networkmanager.global_networks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,11 +215,11 @@ INSERT INTO awscc.networkmanager.global_networks (
  State,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Tags }}',
- '{{ CreatedAt }}',
- '{{ State }}',
+SELECT
+'{{ description }}',
+ '{{ tags }}',
+ '{{ created_at }}',
+ '{{ state }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.networkmanager.global_networks (
  State,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
- '{{ CreatedAt }}',
- '{{ State }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ created_at }}',
+ '{{ state }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: global_network
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CreatedAt
-        value: '{{ CreatedAt }}'
-      - name: State
-        value: '{{ State }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: created_at
+        value: '{{ created_at }}'
+      - name: state
+        value: '{{ state }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "State": state
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.global_networks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

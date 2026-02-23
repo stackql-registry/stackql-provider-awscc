@@ -182,7 +182,7 @@ destinations,
 channel_arn,
 tags
 FROM awscc.cloudtrail.channels
-WHERE region = 'us-east-1' AND Identifier = '<ChannelArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,7 +218,7 @@ INSERT INTO awscc.cloudtrail.channels (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -234,11 +234,11 @@ INSERT INTO awscc.cloudtrail.channels (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Source }}',
- '{{ Destinations }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ source }}',
+ '{{ destinations }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: channel
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Source
-        value: '{{ Source }}'
-      - name: Destinations
+      - name: name
+        value: '{{ name }}'
+      - name: source
+        value: '{{ source }}'
+      - name: destinations
         value:
-          - Type: '{{ Type }}'
-            Location: '{{ Location }}'
-      - name: Tags
+          - type: '{{ type }}'
+            location: '{{ location }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelArn>';
+AND Identifier = '{{ channel_arn }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<ChannelArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.channels
-WHERE Identifier = '<ChannelArn>'
+WHERE Identifier = '{{ channel_arn }}'
 AND region = 'us-east-1';
 ```
 

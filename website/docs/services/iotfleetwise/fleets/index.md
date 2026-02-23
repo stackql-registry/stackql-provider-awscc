@@ -182,7 +182,7 @@ last_modification_time,
 signal_catalog_arn,
 tags
 FROM awscc.iotfleetwise.fleets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.iotfleetwise.fleets (
  SignalCatalogArn,
  region
 )
-SELECT 
-'{{ Id }}',
- '{{ SignalCatalogArn }}',
+SELECT
+'{{ id }}',
+ '{{ signal_catalog_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.iotfleetwise.fleets (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Id }}',
- '{{ SignalCatalogArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ id }}',
+ '{{ signal_catalog_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: fleet
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Id
-        value: '{{ Id }}'
-      - name: SignalCatalogArn
-        value: '{{ SignalCatalogArn }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: id
+        value: '{{ id }}'
+      - name: signal_catalog_arn
+        value: '{{ signal_catalog_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.fleets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

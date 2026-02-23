@@ -240,7 +240,7 @@ tags,
 type,
 updated_at
 FROM awscc.qbusiness.plugins
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<PluginId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -279,10 +279,10 @@ INSERT INTO awscc.qbusiness.plugins (
  Type,
  region
 )
-SELECT 
-'{{ AuthConfiguration }}',
- '{{ DisplayName }}',
- '{{ Type }}',
+SELECT
+'{{ auth_configuration }}',
+ '{{ display_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -301,15 +301,15 @@ INSERT INTO awscc.qbusiness.plugins (
  Type,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ AuthConfiguration }}',
- '{{ CustomPluginConfiguration }}',
- '{{ DisplayName }}',
- '{{ ServerUrl }}',
- '{{ State }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ application_id }}',
+ '{{ auth_configuration }}',
+ '{{ custom_plugin_configuration }}',
+ '{{ display_name }}',
+ '{{ server_url }}',
+ '{{ state }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -327,28 +327,27 @@ globals:
 resources:
   - name: plugin
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: AuthConfiguration
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: auth_configuration
         value: null
-      - name: CustomPluginConfiguration
+      - name: custom_plugin_configuration
         value:
-          Description: '{{ Description }}'
-          ApiSchemaType: '{{ ApiSchemaType }}'
-          ApiSchema: null
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: ServerUrl
-        value: '{{ ServerUrl }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Tags
+          description: '{{ description }}'
+          api_schema_type: '{{ api_schema_type }}'
+          api_schema: null
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: server_url
+        value: '{{ server_url }}'
+      - name: state
+        value: '{{ state }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<PluginId>';
+AND Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<ApplicationId>|<PluginId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.plugins
-WHERE Identifier = '<ApplicationId|PluginId>'
+WHERE Identifier = '{{ application_id }}|{{ plugin_id }}'
 AND region = 'us-east-1';
 ```
 

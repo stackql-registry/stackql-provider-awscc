@@ -182,7 +182,7 @@ private_key,
 arn,
 tags
 FROM awscc.iam.server_certificates
-WHERE Identifier = '<ServerCertificateName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ server_certificate_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,7 +193,7 @@ SELECT
 region,
 server_certificate_name
 FROM awscc.iam.server_certificates_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -223,13 +223,13 @@ INSERT INTO awscc.iam.server_certificates (
  Tags,
  region
 )
-SELECT 
-'{{ CertificateBody }}',
- '{{ CertificateChain }}',
- '{{ ServerCertificateName }}',
- '{{ Path }}',
- '{{ PrivateKey }}',
- '{{ Tags }}',
+SELECT
+'{{ certificate_body }}',
+ '{{ certificate_chain }}',
+ '{{ server_certificate_name }}',
+ '{{ path }}',
+ '{{ private_key }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,13 @@ INSERT INTO awscc.iam.server_certificates (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateBody }}',
- '{{ CertificateChain }}',
- '{{ ServerCertificateName }}',
- '{{ Path }}',
- '{{ PrivateKey }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_body }}',
+ '{{ certificate_chain }}',
+ '{{ server_certificate_name }}',
+ '{{ path }}',
+ '{{ private_key }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,21 +270,20 @@ globals:
 resources:
   - name: server_certificate
     props:
-      - name: CertificateBody
-        value: '{{ CertificateBody }}'
-      - name: CertificateChain
-        value: '{{ CertificateChain }}'
-      - name: ServerCertificateName
-        value: '{{ ServerCertificateName }}'
-      - name: Path
-        value: '{{ Path }}'
-      - name: PrivateKey
-        value: '{{ PrivateKey }}'
-      - name: Tags
+      - name: certificate_body
+        value: '{{ certificate_body }}'
+      - name: certificate_chain
+        value: '{{ certificate_chain }}'
+      - name: server_certificate_name
+        value: '{{ server_certificate_name }}'
+      - name: path
+        value: '{{ path }}'
+      - name: private_key
+        value: '{{ private_key }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServerCertificateName>';
+AND Identifier = '{{ server_certificate_name }}';
 ```
 
 
@@ -310,7 +309,7 @@ AND Identifier = '<ServerCertificateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.server_certificates
-WHERE Identifier = '<ServerCertificateName>'
+WHERE Identifier = '{{ server_certificate_name }}'
 AND region = 'us-east-1';
 ```
 

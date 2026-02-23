@@ -238,7 +238,7 @@ service_id,
 service_identifier,
 tags
 FROM awscc.vpclattice.listeners
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,9 +275,9 @@ INSERT INTO awscc.vpclattice.listeners (
  Protocol,
  region
 )
-SELECT 
-'{{ DefaultAction }}',
- '{{ Protocol }}',
+SELECT
+'{{ default_action }}',
+ '{{ protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,13 +294,13 @@ INSERT INTO awscc.vpclattice.listeners (
  Tags,
  region
 )
-SELECT 
- '{{ DefaultAction }}',
- '{{ Name }}',
- '{{ Port }}',
- '{{ Protocol }}',
- '{{ ServiceIdentifier }}',
- '{{ Tags }}',
+SELECT
+ '{{ default_action }}',
+ '{{ name }}',
+ '{{ port }}',
+ '{{ protocol }}',
+ '{{ service_identifier }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -318,27 +318,26 @@ globals:
 resources:
   - name: listener
     props:
-      - name: DefaultAction
+      - name: default_action
         value:
-          Forward:
-            TargetGroups:
-              - TargetGroupIdentifier: '{{ TargetGroupIdentifier }}'
-                Weight: '{{ Weight }}'
-          FixedResponse:
-            StatusCode: '{{ StatusCode }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: ServiceIdentifier
-        value: '{{ ServiceIdentifier }}'
-      - name: Tags
+          forward:
+            target_groups:
+              - target_group_identifier: '{{ target_group_identifier }}'
+                weight: '{{ weight }}'
+          fixed_response:
+            status_code: '{{ status_code }}'
+      - name: name
+        value: '{{ name }}'
+      - name: port
+        value: '{{ port }}'
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: service_identifier
+        value: '{{ service_identifier }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +354,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -364,7 +363,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.listeners
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -177,7 +177,7 @@ service,
 log_type,
 tags
 FROM awscc.logs.delivery_sources
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,8 +213,8 @@ INSERT INTO awscc.logs.delivery_sources (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -229,11 +229,11 @@ INSERT INTO awscc.logs.delivery_sources (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ResourceArn }}',
- '{{ LogType }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ resource_arn }}',
+ '{{ log_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -251,17 +251,16 @@ globals:
 resources:
   - name: delivery_source
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ResourceArn
-        value: '{{ ResourceArn }}'
-      - name: LogType
-        value: '{{ LogType }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: resource_arn
+        value: '{{ resource_arn }}'
+      - name: log_type
+        value: '{{ log_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.delivery_sources
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

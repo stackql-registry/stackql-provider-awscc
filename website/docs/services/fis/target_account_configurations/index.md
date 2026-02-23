@@ -157,7 +157,7 @@ account_id,
 role_arn,
 description
 FROM awscc.fis.target_account_configurations
-WHERE region = 'us-east-1' AND Identifier = '<ExperimentTemplateId>|<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.fis.target_account_configurations (
  RoleArn,
  region
 )
-SELECT 
-'{{ ExperimentTemplateId }}',
- '{{ AccountId }}',
- '{{ RoleArn }}',
+SELECT
+'{{ experiment_template_id }}',
+ '{{ account_id }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,11 +214,11 @@ INSERT INTO awscc.fis.target_account_configurations (
  Description,
  region
 )
-SELECT 
- '{{ ExperimentTemplateId }}',
- '{{ AccountId }}',
- '{{ RoleArn }}',
- '{{ Description }}',
+SELECT
+ '{{ experiment_template_id }}',
+ '{{ account_id }}',
+ '{{ role_arn }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: target_account_configuration
     props:
-      - name: ExperimentTemplateId
-        value: '{{ ExperimentTemplateId }}'
-      - name: AccountId
-        value: '{{ AccountId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: experiment_template_id
+        value: '{{ experiment_template_id }}'
+      - name: account_id
+        value: '{{ account_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ExperimentTemplateId>|<AccountId>';
+AND Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```
 
 
@@ -270,7 +269,7 @@ AND Identifier = '<ExperimentTemplateId>|<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fis.target_account_configurations
-WHERE Identifier = '<ExperimentTemplateId|AccountId>'
+WHERE Identifier = '{{ experiment_template_id }}|{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

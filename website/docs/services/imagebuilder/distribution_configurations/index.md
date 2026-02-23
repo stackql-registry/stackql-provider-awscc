@@ -363,7 +363,7 @@ description,
 distributions,
 tags
 FROM awscc.imagebuilder.distribution_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -400,9 +400,9 @@ INSERT INTO awscc.imagebuilder.distribution_configurations (
  Distributions,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Distributions }}',
+SELECT
+'{{ name }}',
+ '{{ distributions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -417,11 +417,11 @@ INSERT INTO awscc.imagebuilder.distribution_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Distributions }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ distributions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -439,59 +439,58 @@ globals:
 resources:
   - name: distribution_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Distributions
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: distributions
         value:
-          - Region: '{{ Region }}'
-            AmiDistributionConfiguration:
-              Name: '{{ Name }}'
-              KmsKeyId: '{{ KmsKeyId }}'
-              Description: '{{ Description }}'
-              AmiTags: {}
-              TargetAccountIds:
-                - '{{ TargetAccountIds[0] }}'
-              LaunchPermissionConfiguration:
-                UserIds:
-                  - '{{ UserIds[0] }}'
-                UserGroups:
-                  - '{{ UserGroups[0] }}'
-                OrganizationArns:
-                  - '{{ OrganizationArns[0] }}'
-                OrganizationalUnitArns:
-                  - '{{ OrganizationalUnitArns[0] }}'
-            ContainerDistributionConfiguration:
-              Description: '{{ Description }}'
-              ContainerTags:
-                - '{{ ContainerTags[0] }}'
-              TargetRepository:
-                Service: '{{ Service }}'
-                RepositoryName: '{{ RepositoryName }}'
-            LicenseConfigurationArns:
-              - '{{ LicenseConfigurationArns[0] }}'
-            LaunchTemplateConfigurations:
-              - LaunchTemplateId: '{{ LaunchTemplateId }}'
-                AccountId: '{{ AccountId }}'
-                SetDefaultVersion: '{{ SetDefaultVersion }}'
-            FastLaunchConfigurations:
-              - AccountId: '{{ AccountId }}'
-                Enabled: '{{ Enabled }}'
-                LaunchTemplate:
-                  LaunchTemplateId: '{{ LaunchTemplateId }}'
-                  LaunchTemplateName: '{{ LaunchTemplateName }}'
-                  LaunchTemplateVersion: '{{ LaunchTemplateVersion }}'
-                MaxParallelLaunches: '{{ MaxParallelLaunches }}'
-                SnapshotConfiguration:
-                  TargetResourceCount: '{{ TargetResourceCount }}'
-            SsmParameterConfigurations:
-              - AmiAccountId: '{{ AmiAccountId }}'
-                ParameterName: '{{ ParameterName }}'
-                DataType: '{{ DataType }}'
-      - name: Tags
+          - region: '{{ region }}'
+            ami_distribution_configuration:
+              name: '{{ name }}'
+              kms_key_id: '{{ kms_key_id }}'
+              description: '{{ description }}'
+              ami_tags: {}
+              target_account_ids:
+                - '{{ target_account_ids[0] }}'
+              launch_permission_configuration:
+                user_ids:
+                  - '{{ user_ids[0] }}'
+                user_groups:
+                  - '{{ user_groups[0] }}'
+                organization_arns:
+                  - '{{ organization_arns[0] }}'
+                organizational_unit_arns:
+                  - '{{ organizational_unit_arns[0] }}'
+            container_distribution_configuration:
+              description: '{{ description }}'
+              container_tags:
+                - '{{ container_tags[0] }}'
+              target_repository:
+                service: '{{ service }}'
+                repository_name: '{{ repository_name }}'
+            license_configuration_arns:
+              - '{{ license_configuration_arns[0] }}'
+            launch_template_configurations:
+              - launch_template_id: '{{ launch_template_id }}'
+                account_id: '{{ account_id }}'
+                set_default_version: '{{ set_default_version }}'
+            fast_launch_configurations:
+              - account_id: '{{ account_id }}'
+                enabled: '{{ enabled }}'
+                launch_template:
+                  launch_template_id: '{{ launch_template_id }}'
+                  launch_template_name: '{{ launch_template_name }}'
+                  launch_template_version: '{{ launch_template_version }}'
+                max_parallel_launches: '{{ max_parallel_launches }}'
+                snapshot_configuration:
+                  target_resource_count: '{{ target_resource_count }}'
+            ssm_parameter_configurations:
+              - ami_account_id: '{{ ami_account_id }}'
+                parameter_name: '{{ parameter_name }}'
+                data_type: '{{ data_type }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -509,7 +508,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -518,7 +517,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.distribution_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

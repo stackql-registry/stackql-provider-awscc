@@ -280,7 +280,7 @@ source,
 input_parameters,
 evaluation_modes
 FROM awscc.config.config_rules
-WHERE region = 'us-east-1' AND Identifier = '<ConfigRuleName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ config_rule_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -316,8 +316,8 @@ INSERT INTO awscc.config.config_rules (
  Source,
  region
 )
-SELECT 
-'{{ Source }}',
+SELECT
+'{{ source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -336,15 +336,15 @@ INSERT INTO awscc.config.config_rules (
  EvaluationModes,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Scope }}',
- '{{ ConfigRuleName }}',
- '{{ Compliance }}',
- '{{ MaximumExecutionFrequency }}',
- '{{ Source }}',
- '{{ InputParameters }}',
- '{{ EvaluationModes }}',
+SELECT
+ '{{ description }}',
+ '{{ scope }}',
+ '{{ config_rule_name }}',
+ '{{ compliance }}',
+ '{{ maximum_execution_frequency }}',
+ '{{ source }}',
+ '{{ input_parameters }}',
+ '{{ evaluation_modes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -362,40 +362,39 @@ globals:
 resources:
   - name: config_rule
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Scope
+      - name: description
+        value: '{{ description }}'
+      - name: scope
         value:
-          TagKey: '{{ TagKey }}'
-          ComplianceResourceTypes:
-            - '{{ ComplianceResourceTypes[0] }}'
-          TagValue: '{{ TagValue }}'
-          ComplianceResourceId: '{{ ComplianceResourceId }}'
-      - name: ConfigRuleName
-        value: '{{ ConfigRuleName }}'
-      - name: Compliance
+          tag_key: '{{ tag_key }}'
+          compliance_resource_types:
+            - '{{ compliance_resource_types[0] }}'
+          tag_value: '{{ tag_value }}'
+          compliance_resource_id: '{{ compliance_resource_id }}'
+      - name: config_rule_name
+        value: '{{ config_rule_name }}'
+      - name: compliance
         value:
-          Type: '{{ Type }}'
-      - name: MaximumExecutionFrequency
-        value: '{{ MaximumExecutionFrequency }}'
-      - name: Source
+          type: '{{ type }}'
+      - name: maximum_execution_frequency
+        value: '{{ maximum_execution_frequency }}'
+      - name: source
         value:
-          CustomPolicyDetails:
-            EnableDebugLogDelivery: '{{ EnableDebugLogDelivery }}'
-            PolicyText: '{{ PolicyText }}'
-            PolicyRuntime: '{{ PolicyRuntime }}'
-          SourceIdentifier: '{{ SourceIdentifier }}'
-          Owner: '{{ Owner }}'
-          SourceDetails:
-            - EventSource: '{{ EventSource }}'
-              MaximumExecutionFrequency: '{{ MaximumExecutionFrequency }}'
-              MessageType: '{{ MessageType }}'
-      - name: InputParameters
+          custom_policy_details:
+            enable_debug_log_delivery: '{{ enable_debug_log_delivery }}'
+            policy_text: '{{ policy_text }}'
+            policy_runtime: '{{ policy_runtime }}'
+          source_identifier: '{{ source_identifier }}'
+          owner: '{{ owner }}'
+          source_details:
+            - event_source: '{{ event_source }}'
+              maximum_execution_frequency: '{{ maximum_execution_frequency }}'
+              message_type: '{{ message_type }}'
+      - name: input_parameters
         value: {}
-      - name: EvaluationModes
+      - name: evaluation_modes
         value:
-          - Mode: '{{ Mode }}'
-
+          - mode: '{{ mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -416,7 +415,7 @@ SET PatchDocument = string('{{ {
     "EvaluationModes": evaluation_modes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConfigRuleName>';
+AND Identifier = '{{ config_rule_name }}';
 ```
 
 
@@ -425,7 +424,7 @@ AND Identifier = '<ConfigRuleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.config_rules
-WHERE Identifier = '<ConfigRuleName>'
+WHERE Identifier = '{{ config_rule_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -140,7 +140,7 @@ region,
 workspace_arn,
 policy_document
 FROM awscc.aps.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.aps.resource_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ WorkspaceArn }}',
- '{{ PolicyDocument }}',
+SELECT
+'{{ workspace_arn }}',
+ '{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.aps.resource_policies (
  PolicyDocument,
  region
 )
-SELECT 
- '{{ WorkspaceArn }}',
- '{{ PolicyDocument }}',
+SELECT
+ '{{ workspace_arn }}',
+ '{{ policy_document }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: WorkspaceArn
-        value: '{{ WorkspaceArn }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-
+      - name: workspace_arn
+        value: '{{ workspace_arn }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
 ```
 </TabItem>
 </Tabs>
@@ -232,7 +231,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceArn>';
+AND Identifier = '{{ workspace_arn }}';
 ```
 
 
@@ -241,7 +240,7 @@ AND Identifier = '<WorkspaceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.resource_policies
-WHERE Identifier = '<WorkspaceArn>'
+WHERE Identifier = '{{ workspace_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -339,7 +339,7 @@ description,
 workflow_id,
 arn
 FROM awscc.transfer.workflows
-WHERE region = 'us-east-1' AND Identifier = '<WorkflowId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workflow_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -375,8 +375,8 @@ INSERT INTO awscc.transfer.workflows (
  Steps,
  region
 )
-SELECT 
-'{{ Steps }}',
+SELECT
+'{{ steps }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -391,11 +391,11 @@ INSERT INTO awscc.transfer.workflows (
  Description,
  region
 )
-SELECT 
- '{{ OnExceptionSteps }}',
- '{{ Steps }}',
- '{{ Tags }}',
- '{{ Description }}',
+SELECT
+ '{{ on_exception_steps }}',
+ '{{ steps }}',
+ '{{ tags }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -413,51 +413,50 @@ globals:
 resources:
   - name: workflow
     props:
-      - name: OnExceptionSteps
+      - name: on_exception_steps
         value:
-          - CopyStepDetails:
-              DestinationFileLocation:
-                S3FileLocation:
-                  Bucket: '{{ Bucket }}'
-                  Key: '{{ Key }}'
-              Name: '{{ Name }}'
-              OverwriteExisting: '{{ OverwriteExisting }}'
-              SourceFileLocation: '{{ SourceFileLocation }}'
-            CustomStepDetails:
-              Name: '{{ Name }}'
-              Target: '{{ Target }}'
-              TimeoutSeconds: '{{ TimeoutSeconds }}'
-              SourceFileLocation: '{{ SourceFileLocation }}'
-            DecryptStepDetails:
-              DestinationFileLocation:
-                S3FileLocation: null
-                EfsFileLocation:
-                  FileSystemId: '{{ FileSystemId }}'
-                  Path: '{{ Path }}'
-              Name: '{{ Name }}'
-              Type: '{{ Type }}'
-              OverwriteExisting: '{{ OverwriteExisting }}'
-              SourceFileLocation: '{{ SourceFileLocation }}'
-            DeleteStepDetails:
-              Name: '{{ Name }}'
-              SourceFileLocation: '{{ SourceFileLocation }}'
-            TagStepDetails:
-              Name: '{{ Name }}'
-              Tags:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-              SourceFileLocation: '{{ SourceFileLocation }}'
-            Type: '{{ Type }}'
-      - name: Steps
+          - copy_step_details:
+              destination_file_location:
+                s3_file_location:
+                  bucket: '{{ bucket }}'
+                  key: '{{ key }}'
+              name: '{{ name }}'
+              overwrite_existing: '{{ overwrite_existing }}'
+              source_file_location: '{{ source_file_location }}'
+            custom_step_details:
+              name: '{{ name }}'
+              target: '{{ target }}'
+              timeout_seconds: '{{ timeout_seconds }}'
+              source_file_location: '{{ source_file_location }}'
+            decrypt_step_details:
+              destination_file_location:
+                s3_file_location: null
+                efs_file_location:
+                  file_system_id: '{{ file_system_id }}'
+                  path: '{{ path }}'
+              name: '{{ name }}'
+              type: '{{ type }}'
+              overwrite_existing: '{{ overwrite_existing }}'
+              source_file_location: '{{ source_file_location }}'
+            delete_step_details:
+              name: '{{ name }}'
+              source_file_location: '{{ source_file_location }}'
+            tag_step_details:
+              name: '{{ name }}'
+              tags:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+              source_file_location: '{{ source_file_location }}'
+            type: '{{ type }}'
+      - name: steps
         value:
           - null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -473,7 +472,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkflowId>';
+AND Identifier = '{{ workflow_id }}';
 ```
 
 
@@ -482,7 +481,7 @@ AND Identifier = '<WorkflowId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.workflows
-WHERE Identifier = '<WorkflowId>'
+WHERE Identifier = '{{ workflow_id }}'
 AND region = 'us-east-1';
 ```
 

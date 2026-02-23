@@ -387,7 +387,7 @@ unmanagedv_cpus,
 eks_configuration,
 context
 FROM awscc.batch.compute_environments
-WHERE region = 'us-east-1' AND Identifier = '<ComputeEnvironmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ compute_environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -423,8 +423,8 @@ INSERT INTO awscc.batch.compute_environments (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -446,18 +446,18 @@ INSERT INTO awscc.batch.compute_environments (
  Context,
  region
 )
-SELECT 
- '{{ ComputeEnvironmentName }}',
- '{{ ComputeResources }}',
- '{{ ReplaceComputeEnvironment }}',
- '{{ ServiceRole }}',
- '{{ State }}',
- '{{ Tags }}',
- '{{ Type }}',
- '{{ UpdatePolicy }}',
- '{{ UnmanagedvCpus }}',
- '{{ EksConfiguration }}',
- '{{ Context }}',
+SELECT
+ '{{ compute_environment_name }}',
+ '{{ compute_resources }}',
+ '{{ replace_compute_environment }}',
+ '{{ service_role }}',
+ '{{ state }}',
+ '{{ tags }}',
+ '{{ type }}',
+ '{{ update_policy }}',
+ '{{ unmanagedv_cpus }}',
+ '{{ eks_configuration }}',
+ '{{ context }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -475,68 +475,67 @@ globals:
 resources:
   - name: compute_environment
     props:
-      - name: ComputeEnvironmentName
-        value: '{{ ComputeEnvironmentName }}'
-      - name: ComputeResources
+      - name: compute_environment_name
+        value: '{{ compute_environment_name }}'
+      - name: compute_resources
         value:
-          AllocationStrategy: '{{ AllocationStrategy }}'
-          BidPercentage: '{{ BidPercentage }}'
-          DesiredvCpus: '{{ DesiredvCpus }}'
-          Ec2Configuration:
-            - ImageIdOverride: '{{ ImageIdOverride }}'
-              ImageType: '{{ ImageType }}'
-              ImageKubernetesVersion: '{{ ImageKubernetesVersion }}'
-          Ec2KeyPair: '{{ Ec2KeyPair }}'
-          ImageId: '{{ ImageId }}'
-          InstanceRole: '{{ InstanceRole }}'
-          InstanceTypes:
-            - '{{ InstanceTypes[0] }}'
-          LaunchTemplate:
-            LaunchTemplateId: '{{ LaunchTemplateId }}'
-            LaunchTemplateName: '{{ LaunchTemplateName }}'
-            Version: '{{ Version }}'
-            UserdataType: '{{ UserdataType }}'
-            Overrides:
-              - LaunchTemplateId: '{{ LaunchTemplateId }}'
-                LaunchTemplateName: '{{ LaunchTemplateName }}'
-                Version: '{{ Version }}'
-                UserdataType: '{{ UserdataType }}'
-                TargetInstanceTypes:
-                  - '{{ TargetInstanceTypes[0] }}'
-          MaxvCpus: '{{ MaxvCpus }}'
-          MinvCpus: '{{ MinvCpus }}'
-          PlacementGroup: '{{ PlacementGroup }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SpotIamFleetRole: '{{ SpotIamFleetRole }}'
-          Subnets:
-            - '{{ Subnets[0] }}'
-          Tags: {}
-          Type: '{{ Type }}'
-          UpdateToLatestImageVersion: '{{ UpdateToLatestImageVersion }}'
-      - name: ReplaceComputeEnvironment
-        value: '{{ ReplaceComputeEnvironment }}'
-      - name: ServiceRole
-        value: '{{ ServiceRole }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Tags
+          allocation_strategy: '{{ allocation_strategy }}'
+          bid_percentage: '{{ bid_percentage }}'
+          desiredv_cpus: '{{ desiredv_cpus }}'
+          ec2_configuration:
+            - image_id_override: '{{ image_id_override }}'
+              image_type: '{{ image_type }}'
+              image_kubernetes_version: '{{ image_kubernetes_version }}'
+          ec2_key_pair: '{{ ec2_key_pair }}'
+          image_id: '{{ image_id }}'
+          instance_role: '{{ instance_role }}'
+          instance_types:
+            - '{{ instance_types[0] }}'
+          launch_template:
+            launch_template_id: '{{ launch_template_id }}'
+            launch_template_name: '{{ launch_template_name }}'
+            version: '{{ version }}'
+            userdata_type: '{{ userdata_type }}'
+            overrides:
+              - launch_template_id: '{{ launch_template_id }}'
+                launch_template_name: '{{ launch_template_name }}'
+                version: '{{ version }}'
+                userdata_type: '{{ userdata_type }}'
+                target_instance_types:
+                  - '{{ target_instance_types[0] }}'
+          maxv_cpus: '{{ maxv_cpus }}'
+          minv_cpus: '{{ minv_cpus }}'
+          placement_group: '{{ placement_group }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          spot_iam_fleet_role: '{{ spot_iam_fleet_role }}'
+          subnets:
+            - '{{ subnets[0] }}'
+          tags: {}
+          type: '{{ type }}'
+          update_to_latest_image_version: '{{ update_to_latest_image_version }}'
+      - name: replace_compute_environment
+        value: '{{ replace_compute_environment }}'
+      - name: service_role
+        value: '{{ service_role }}'
+      - name: state
+        value: '{{ state }}'
+      - name: tags
         value: {}
-      - name: Type
-        value: '{{ Type }}'
-      - name: UpdatePolicy
+      - name: type
+        value: '{{ type }}'
+      - name: update_policy
         value:
-          TerminateJobsOnUpdate: '{{ TerminateJobsOnUpdate }}'
-          JobExecutionTimeoutMinutes: '{{ JobExecutionTimeoutMinutes }}'
-      - name: UnmanagedvCpus
-        value: '{{ UnmanagedvCpus }}'
-      - name: EksConfiguration
+          terminate_jobs_on_update: '{{ terminate_jobs_on_update }}'
+          job_execution_timeout_minutes: '{{ job_execution_timeout_minutes }}'
+      - name: unmanagedv_cpus
+        value: '{{ unmanagedv_cpus }}'
+      - name: eks_configuration
         value:
-          EksClusterArn: '{{ EksClusterArn }}'
-          KubernetesNamespace: '{{ KubernetesNamespace }}'
-      - name: Context
-        value: '{{ Context }}'
-
+          eks_cluster_arn: '{{ eks_cluster_arn }}'
+          kubernetes_namespace: '{{ kubernetes_namespace }}'
+      - name: context
+        value: '{{ context }}'
 ```
 </TabItem>
 </Tabs>
@@ -557,7 +556,7 @@ SET PatchDocument = string('{{ {
     "Context": context
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ComputeEnvironmentArn>';
+AND Identifier = '{{ compute_environment_arn }}';
 ```
 
 
@@ -566,7 +565,7 @@ AND Identifier = '<ComputeEnvironmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.compute_environments
-WHERE Identifier = '<ComputeEnvironmentArn>'
+WHERE Identifier = '{{ compute_environment_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -313,7 +313,7 @@ description,
 sentiment_analysis_settings,
 bot_alias_tags
 FROM awscc.lex.bot_aliases
-WHERE region = 'us-east-1' AND Identifier = '<BotAliasId>|<BotId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -351,9 +351,9 @@ INSERT INTO awscc.lex.bot_aliases (
  BotAliasName,
  region
 )
-SELECT 
-'{{ BotId }}',
- '{{ BotAliasName }}',
+SELECT
+'{{ bot_id }}',
+ '{{ bot_alias_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -372,15 +372,15 @@ INSERT INTO awscc.lex.bot_aliases (
  BotAliasTags,
  region
 )
-SELECT 
- '{{ BotId }}',
- '{{ BotAliasLocaleSettings }}',
- '{{ BotAliasName }}',
- '{{ BotVersion }}',
- '{{ ConversationLogSettings }}',
- '{{ Description }}',
- '{{ SentimentAnalysisSettings }}',
- '{{ BotAliasTags }}',
+SELECT
+ '{{ bot_id }}',
+ '{{ bot_alias_locale_settings }}',
+ '{{ bot_alias_name }}',
+ '{{ bot_version }}',
+ '{{ conversation_log_settings }}',
+ '{{ description }}',
+ '{{ sentiment_analysis_settings }}',
+ '{{ bot_alias_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -398,52 +398,51 @@ globals:
 resources:
   - name: bot_alias
     props:
-      - name: BotId
-        value: '{{ BotId }}'
-      - name: BotAliasLocaleSettings
+      - name: bot_id
+        value: '{{ bot_id }}'
+      - name: bot_alias_locale_settings
         value:
-          - LocaleId: '{{ LocaleId }}'
-            BotAliasLocaleSetting:
-              CodeHookSpecification:
-                LambdaCodeHook:
-                  CodeHookInterfaceVersion: '{{ CodeHookInterfaceVersion }}'
-                  LambdaArn: '{{ LambdaArn }}'
-              Enabled: '{{ Enabled }}'
-      - name: BotAliasName
-        value: '{{ BotAliasName }}'
-      - name: BotVersion
+          - locale_id: '{{ locale_id }}'
+            bot_alias_locale_setting:
+              code_hook_specification:
+                lambda_code_hook:
+                  code_hook_interface_version: '{{ code_hook_interface_version }}'
+                  lambda_arn: '{{ lambda_arn }}'
+              enabled: '{{ enabled }}'
+      - name: bot_alias_name
+        value: '{{ bot_alias_name }}'
+      - name: bot_version
         value:
-          BotId: null
-          Description: '{{ Description }}'
-          BotVersionLocaleSpecification:
-            - LocaleId: '{{ LocaleId }}'
-              BotVersionLocaleDetails:
-                SourceBotVersion: null
-      - name: ConversationLogSettings
+          bot_id: null
+          description: '{{ description }}'
+          bot_version_locale_specification:
+            - locale_id: '{{ locale_id }}'
+              bot_version_locale_details:
+                source_bot_version: null
+      - name: conversation_log_settings
         value:
-          AudioLogSettings:
-            - Destination:
-                S3Bucket:
-                  S3BucketArn: '{{ S3BucketArn }}'
-                  LogPrefix: '{{ LogPrefix }}'
-                  KmsKeyArn: '{{ KmsKeyArn }}'
-              Enabled: '{{ Enabled }}'
-          TextLogSettings:
-            - Destination:
-                CloudWatch:
-                  CloudWatchLogGroupArn: '{{ CloudWatchLogGroupArn }}'
-                  LogPrefix: '{{ LogPrefix }}'
-              Enabled: '{{ Enabled }}'
-      - name: Description
+          audio_log_settings:
+            - destination:
+                s3_bucket:
+                  s3_bucket_arn: '{{ s3_bucket_arn }}'
+                  log_prefix: '{{ log_prefix }}'
+                  kms_key_arn: '{{ kms_key_arn }}'
+              enabled: '{{ enabled }}'
+          text_log_settings:
+            - destination:
+                cloud_watch:
+                  cloud_watch_log_group_arn: '{{ cloud_watch_log_group_arn }}'
+                  log_prefix: '{{ log_prefix }}'
+              enabled: '{{ enabled }}'
+      - name: description
         value: null
-      - name: SentimentAnalysisSettings
+      - name: sentiment_analysis_settings
         value:
-          DetectSentiment: '{{ DetectSentiment }}'
-      - name: BotAliasTags
+          detect_sentiment: '{{ detect_sentiment }}'
+      - name: bot_alias_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -465,7 +464,7 @@ SET PatchDocument = string('{{ {
     "BotAliasTags": bot_alias_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BotAliasId>|<BotId>';
+AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```
 
 
@@ -474,7 +473,7 @@ AND Identifier = '<BotAliasId>|<BotId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_aliases
-WHERE Identifier = '<BotAliasId|BotId>'
+WHERE Identifier = '{{ bot_alias_id }}|{{ bot_id }}'
 AND region = 'us-east-1';
 ```
 

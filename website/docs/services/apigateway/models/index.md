@@ -163,7 +163,7 @@ name,
 rest_api_id,
 schema
 FROM awscc.apigateway.models
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.apigateway.models (
  RestApiId,
  region
 )
-SELECT 
-'{{ RestApiId }}',
+SELECT
+'{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,12 +217,12 @@ INSERT INTO awscc.apigateway.models (
  Schema,
  region
 )
-SELECT 
- '{{ ContentType }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ RestApiId }}',
- '{{ Schema }}',
+SELECT
+ '{{ content_type }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ rest_api_id }}',
+ '{{ schema }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,17 +240,16 @@ globals:
 resources:
   - name: model
     props:
-      - name: ContentType
-        value: '{{ ContentType }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: Schema
+      - name: content_type
+        value: '{{ content_type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: schema
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ SET PatchDocument = string('{{ {
     "Schema": schema
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>|<Name>';
+AND Identifier = '{{ rest_api_id }}|{{ name }}';
 ```
 
 
@@ -276,7 +275,7 @@ AND Identifier = '<RestApiId>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.models
-WHERE Identifier = '<RestApiId|Name>'
+WHERE Identifier = '{{ rest_api_id }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -219,7 +219,7 @@ traffic_direction,
 protocol,
 tags
 FROM awscc.ec2.traffic_mirror_filter_rules
-WHERE region = 'us-east-1' AND Identifier = '<TrafficMirrorFilterRuleId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,13 +260,13 @@ INSERT INTO awscc.ec2.traffic_mirror_filter_rules (
  TrafficDirection,
  region
 )
-SELECT 
-'{{ RuleAction }}',
- '{{ SourceCidrBlock }}',
- '{{ RuleNumber }}',
- '{{ DestinationCidrBlock }}',
- '{{ TrafficMirrorFilterId }}',
- '{{ TrafficDirection }}',
+SELECT
+'{{ rule_action }}',
+ '{{ source_cidr_block }}',
+ '{{ rule_number }}',
+ '{{ destination_cidr_block }}',
+ '{{ traffic_mirror_filter_id }}',
+ '{{ traffic_direction }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -288,18 +288,18 @@ INSERT INTO awscc.ec2.traffic_mirror_filter_rules (
  Tags,
  region
 )
-SELECT 
- '{{ DestinationPortRange }}',
- '{{ Description }}',
- '{{ SourcePortRange }}',
- '{{ RuleAction }}',
- '{{ SourceCidrBlock }}',
- '{{ RuleNumber }}',
- '{{ DestinationCidrBlock }}',
- '{{ TrafficMirrorFilterId }}',
- '{{ TrafficDirection }}',
- '{{ Protocol }}',
- '{{ Tags }}',
+SELECT
+ '{{ destination_port_range }}',
+ '{{ description }}',
+ '{{ source_port_range }}',
+ '{{ rule_action }}',
+ '{{ source_cidr_block }}',
+ '{{ rule_number }}',
+ '{{ destination_cidr_block }}',
+ '{{ traffic_mirror_filter_id }}',
+ '{{ traffic_direction }}',
+ '{{ protocol }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -317,33 +317,32 @@ globals:
 resources:
   - name: traffic_mirror_filter_rule
     props:
-      - name: DestinationPortRange
+      - name: destination_port_range
         value:
-          FromPort: '{{ FromPort }}'
-          ToPort: '{{ ToPort }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SourcePortRange
+          from_port: '{{ from_port }}'
+          to_port: '{{ to_port }}'
+      - name: description
+        value: '{{ description }}'
+      - name: source_port_range
         value: null
-      - name: RuleAction
-        value: '{{ RuleAction }}'
-      - name: SourceCidrBlock
-        value: '{{ SourceCidrBlock }}'
-      - name: RuleNumber
-        value: '{{ RuleNumber }}'
-      - name: DestinationCidrBlock
-        value: '{{ DestinationCidrBlock }}'
-      - name: TrafficMirrorFilterId
-        value: '{{ TrafficMirrorFilterId }}'
-      - name: TrafficDirection
-        value: '{{ TrafficDirection }}'
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: Tags
+      - name: rule_action
+        value: '{{ rule_action }}'
+      - name: source_cidr_block
+        value: '{{ source_cidr_block }}'
+      - name: rule_number
+        value: '{{ rule_number }}'
+      - name: destination_cidr_block
+        value: '{{ destination_cidr_block }}'
+      - name: traffic_mirror_filter_id
+        value: '{{ traffic_mirror_filter_id }}'
+      - name: traffic_direction
+        value: '{{ traffic_direction }}'
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -368,7 +367,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrafficMirrorFilterRuleId>';
+AND Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```
 
 
@@ -377,7 +376,7 @@ AND Identifier = '<TrafficMirrorFilterRuleId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_filter_rules
-WHERE Identifier = '<TrafficMirrorFilterRuleId>'
+WHERE Identifier = '{{ traffic_mirror_filter_rule_id }}'
 AND region = 'us-east-1';
 ```
 

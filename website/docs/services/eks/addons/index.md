@@ -282,7 +282,7 @@ arn,
 namespace_config,
 tags
 FROM awscc.eks.addons
-WHERE region = 'us-east-1' AND Identifier = '<ClusterName>|<AddonName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ addon_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,9 +320,9 @@ INSERT INTO awscc.eks.addons (
  AddonName,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ AddonName }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ addon_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,17 +343,17 @@ INSERT INTO awscc.eks.addons (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ AddonName }}',
- '{{ AddonVersion }}',
- '{{ PreserveOnDelete }}',
- '{{ ResolveConflicts }}',
- '{{ ServiceAccountRoleArn }}',
- '{{ PodIdentityAssociations }}',
- '{{ ConfigurationValues }}',
- '{{ NamespaceConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ addon_name }}',
+ '{{ addon_version }}',
+ '{{ preserve_on_delete }}',
+ '{{ resolve_conflicts }}',
+ '{{ service_account_role_arn }}',
+ '{{ pod_identity_associations }}',
+ '{{ configuration_values }}',
+ '{{ namespace_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -371,38 +371,37 @@ globals:
 resources:
   - name: addon
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: AddonName
-        value: '{{ AddonName }}'
-      - name: AddonVersion
-        value: '{{ AddonVersion }}'
-      - name: PreserveOnDelete
-        value: '{{ PreserveOnDelete }}'
-      - name: ResolveConflicts
-        value: '{{ ResolveConflicts }}'
-      - name: ServiceAccountRoleArn
-        value: '{{ ServiceAccountRoleArn }}'
-      - name: PodIdentityAssociations
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: addon_name
+        value: '{{ addon_name }}'
+      - name: addon_version
+        value: '{{ addon_version }}'
+      - name: preserve_on_delete
+        value: '{{ preserve_on_delete }}'
+      - name: resolve_conflicts
+        value: '{{ resolve_conflicts }}'
+      - name: service_account_role_arn
+        value: '{{ service_account_role_arn }}'
+      - name: pod_identity_associations
         value:
-          - ClusterName: '{{ ClusterName }}'
-            RoleArn: '{{ RoleArn }}'
-            Namespace: '{{ Namespace }}'
-            ServiceAccount: '{{ ServiceAccount }}'
-            TargetRoleArn: '{{ TargetRoleArn }}'
-            DisableSessionTags: '{{ DisableSessionTags }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: ConfigurationValues
-        value: '{{ ConfigurationValues }}'
-      - name: NamespaceConfig
+          - cluster_name: '{{ cluster_name }}'
+            role_arn: '{{ role_arn }}'
+            namespace: '{{ namespace }}'
+            service_account: '{{ service_account }}'
+            target_role_arn: '{{ target_role_arn }}'
+            disable_session_tags: '{{ disable_session_tags }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: configuration_values
+        value: '{{ configuration_values }}'
+      - name: namespace_config
         value:
-          Namespace: '{{ Namespace }}'
-      - name: Tags
+          namespace: '{{ namespace }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterName>|<AddonName>';
+AND Identifier = '{{ cluster_name }}|{{ addon_name }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<ClusterName>|<AddonName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.addons
-WHERE Identifier = '<ClusterName|AddonName>'
+WHERE Identifier = '{{ cluster_name }}|{{ addon_name }}'
 AND region = 'us-east-1';
 ```
 

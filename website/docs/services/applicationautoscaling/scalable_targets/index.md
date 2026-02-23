@@ -258,7 +258,7 @@ min_capacity,
 role_arn,
 max_capacity
 FROM awscc.applicationautoscaling.scalable_targets
-WHERE region = 'us-east-1' AND Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -300,12 +300,12 @@ INSERT INTO awscc.applicationautoscaling.scalable_targets (
  MaxCapacity,
  region
 )
-SELECT 
-'{{ ResourceId }}',
- '{{ ServiceNamespace }}',
- '{{ ScalableDimension }}',
- '{{ MinCapacity }}',
- '{{ MaxCapacity }}',
+SELECT
+'{{ resource_id }}',
+ '{{ service_namespace }}',
+ '{{ scalable_dimension }}',
+ '{{ min_capacity }}',
+ '{{ max_capacity }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -324,15 +324,15 @@ INSERT INTO awscc.applicationautoscaling.scalable_targets (
  MaxCapacity,
  region
 )
-SELECT 
- '{{ ScheduledActions }}',
- '{{ ResourceId }}',
- '{{ ServiceNamespace }}',
- '{{ ScalableDimension }}',
- '{{ SuspendedState }}',
- '{{ MinCapacity }}',
- '{{ RoleARN }}',
- '{{ MaxCapacity }}',
+SELECT
+ '{{ scheduled_actions }}',
+ '{{ resource_id }}',
+ '{{ service_namespace }}',
+ '{{ scalable_dimension }}',
+ '{{ suspended_state }}',
+ '{{ min_capacity }}',
+ '{{ role_arn }}',
+ '{{ max_capacity }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -350,34 +350,33 @@ globals:
 resources:
   - name: scalable_target
     props:
-      - name: ScheduledActions
+      - name: scheduled_actions
         value:
-          - Timezone: '{{ Timezone }}'
-            ScheduledActionName: '{{ ScheduledActionName }}'
-            EndTime: '{{ EndTime }}'
-            Schedule: '{{ Schedule }}'
-            StartTime: '{{ StartTime }}'
-            ScalableTargetAction:
-              MinCapacity: '{{ MinCapacity }}'
-              MaxCapacity: '{{ MaxCapacity }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: ServiceNamespace
-        value: '{{ ServiceNamespace }}'
-      - name: ScalableDimension
-        value: '{{ ScalableDimension }}'
-      - name: SuspendedState
+          - timezone: '{{ timezone }}'
+            scheduled_action_name: '{{ scheduled_action_name }}'
+            end_time: '{{ end_time }}'
+            schedule: '{{ schedule }}'
+            start_time: '{{ start_time }}'
+            scalable_target_action:
+              min_capacity: '{{ min_capacity }}'
+              max_capacity: '{{ max_capacity }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: service_namespace
+        value: '{{ service_namespace }}'
+      - name: scalable_dimension
+        value: '{{ scalable_dimension }}'
+      - name: suspended_state
         value:
-          DynamicScalingOutSuspended: '{{ DynamicScalingOutSuspended }}'
-          ScheduledScalingSuspended: '{{ ScheduledScalingSuspended }}'
-          DynamicScalingInSuspended: '{{ DynamicScalingInSuspended }}'
-      - name: MinCapacity
-        value: '{{ MinCapacity }}'
-      - name: RoleARN
-        value: '{{ RoleARN }}'
-      - name: MaxCapacity
-        value: '{{ MaxCapacity }}'
-
+          dynamic_scaling_out_suspended: '{{ dynamic_scaling_out_suspended }}'
+          scheduled_scaling_suspended: '{{ scheduled_scaling_suspended }}'
+          dynamic_scaling_in_suspended: '{{ dynamic_scaling_in_suspended }}'
+      - name: min_capacity
+        value: '{{ min_capacity }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: max_capacity
+        value: '{{ max_capacity }}'
 ```
 </TabItem>
 </Tabs>
@@ -397,7 +396,7 @@ SET PatchDocument = string('{{ {
     "MaxCapacity": max_capacity
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
+AND Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
 ```
 
 
@@ -406,7 +405,7 @@ AND Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationautoscaling.scalable_targets
-WHERE Identifier = '<ResourceId|ScalableDimension|ServiceNamespace>'
+WHERE Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ channel_arn,
 tags,
 value
 FROM awscc.ivs.stream_keys
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.ivs.stream_keys (
  ChannelArn,
  region
 )
-SELECT 
-'{{ ChannelArn }}',
+SELECT
+'{{ channel_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.ivs.stream_keys (
  Tags,
  region
 )
-SELECT 
- '{{ ChannelArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ channel_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: stream_key
     props:
-      - name: ChannelArn
-        value: '{{ ChannelArn }}'
-      - name: Tags
+      - name: channel_arn
+        value: '{{ channel_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +255,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -265,7 +264,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.stream_keys
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

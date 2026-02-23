@@ -936,7 +936,7 @@ source_uri,
 model_card,
 security_config
 FROM awscc.sagemaker.model_packages
-WHERE region = 'us-east-1' AND Identifier = '<ModelPackageArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ model_package_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -998,34 +998,34 @@ INSERT INTO awscc.sagemaker.model_packages (
  SecurityConfig,
  region
 )
-SELECT 
-'{{ Tags }}',
- '{{ AdditionalInferenceSpecifications }}',
- '{{ CertifyForMarketplace }}',
- '{{ ClientToken }}',
- '{{ CustomerMetadataProperties }}',
- '{{ Domain }}',
- '{{ DriftCheckBaselines }}',
- '{{ InferenceSpecification }}',
- '{{ MetadataProperties }}',
- '{{ ModelApprovalStatus }}',
- '{{ ModelMetrics }}',
- '{{ ModelPackageDescription }}',
- '{{ ModelPackageGroupName }}',
- '{{ ModelPackageName }}',
- '{{ SamplePayloadUrl }}',
- '{{ SkipModelValidation }}',
- '{{ SourceAlgorithmSpecification }}',
- '{{ Task }}',
- '{{ ValidationSpecification }}',
- '{{ ApprovalDescription }}',
- '{{ LastModifiedTime }}',
- '{{ ModelPackageVersion }}',
- '{{ AdditionalInferenceSpecificationsToAdd }}',
- '{{ ModelPackageStatusDetails }}',
- '{{ SourceUri }}',
- '{{ ModelCard }}',
- '{{ SecurityConfig }}',
+SELECT
+'{{ tags }}',
+ '{{ additional_inference_specifications }}',
+ '{{ certify_for_marketplace }}',
+ '{{ client_token }}',
+ '{{ customer_metadata_properties }}',
+ '{{ domain }}',
+ '{{ drift_check_baselines }}',
+ '{{ inference_specification }}',
+ '{{ metadata_properties }}',
+ '{{ model_approval_status }}',
+ '{{ model_metrics }}',
+ '{{ model_package_description }}',
+ '{{ model_package_group_name }}',
+ '{{ model_package_name }}',
+ '{{ sample_payload_url }}',
+ '{{ skip_model_validation }}',
+ '{{ source_algorithm_specification }}',
+ '{{ task }}',
+ '{{ validation_specification }}',
+ '{{ approval_description }}',
+ '{{ last_modified_time }}',
+ '{{ model_package_version }}',
+ '{{ additional_inference_specifications_to_add }}',
+ '{{ model_package_status_details }}',
+ '{{ source_uri }}',
+ '{{ model_card }}',
+ '{{ security_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1063,34 +1063,34 @@ INSERT INTO awscc.sagemaker.model_packages (
  SecurityConfig,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ AdditionalInferenceSpecifications }}',
- '{{ CertifyForMarketplace }}',
- '{{ ClientToken }}',
- '{{ CustomerMetadataProperties }}',
- '{{ Domain }}',
- '{{ DriftCheckBaselines }}',
- '{{ InferenceSpecification }}',
- '{{ MetadataProperties }}',
- '{{ ModelApprovalStatus }}',
- '{{ ModelMetrics }}',
- '{{ ModelPackageDescription }}',
- '{{ ModelPackageGroupName }}',
- '{{ ModelPackageName }}',
- '{{ SamplePayloadUrl }}',
- '{{ SkipModelValidation }}',
- '{{ SourceAlgorithmSpecification }}',
- '{{ Task }}',
- '{{ ValidationSpecification }}',
- '{{ ApprovalDescription }}',
- '{{ LastModifiedTime }}',
- '{{ ModelPackageVersion }}',
- '{{ AdditionalInferenceSpecificationsToAdd }}',
- '{{ ModelPackageStatusDetails }}',
- '{{ SourceUri }}',
- '{{ ModelCard }}',
- '{{ SecurityConfig }}',
+SELECT
+ '{{ tags }}',
+ '{{ additional_inference_specifications }}',
+ '{{ certify_for_marketplace }}',
+ '{{ client_token }}',
+ '{{ customer_metadata_properties }}',
+ '{{ domain }}',
+ '{{ drift_check_baselines }}',
+ '{{ inference_specification }}',
+ '{{ metadata_properties }}',
+ '{{ model_approval_status }}',
+ '{{ model_metrics }}',
+ '{{ model_package_description }}',
+ '{{ model_package_group_name }}',
+ '{{ model_package_name }}',
+ '{{ sample_payload_url }}',
+ '{{ skip_model_validation }}',
+ '{{ source_algorithm_specification }}',
+ '{{ task }}',
+ '{{ validation_specification }}',
+ '{{ approval_description }}',
+ '{{ last_modified_time }}',
+ '{{ model_package_version }}',
+ '{{ additional_inference_specifications_to_add }}',
+ '{{ model_package_status_details }}',
+ '{{ source_uri }}',
+ '{{ model_card }}',
+ '{{ security_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1108,171 +1108,170 @@ globals:
 resources:
   - name: model_package
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: AdditionalInferenceSpecifications
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: additional_inference_specifications
         value:
-          - Containers:
-              - ContainerHostname: '{{ ContainerHostname }}'
-                Environment: {}
-                ModelInput:
-                  DataInputConfig: '{{ DataInputConfig }}'
-                Image: '{{ Image }}'
-                ImageDigest: '{{ ImageDigest }}'
-                ModelDataUrl: '{{ ModelDataUrl }}'
-                ModelDataSource:
-                  S3DataSource:
-                    S3DataType: '{{ S3DataType }}'
-                    S3Uri: '{{ S3Uri }}'
-                    CompressionType: '{{ CompressionType }}'
-                    ModelAccessConfig:
-                      AcceptEula: '{{ AcceptEula }}'
-                Framework: '{{ Framework }}'
-                FrameworkVersion: '{{ FrameworkVersion }}'
-                NearestModelName: '{{ NearestModelName }}'
-            Description: '{{ Description }}'
-            Name: '{{ Name }}'
-            SupportedContentTypes:
-              - '{{ SupportedContentTypes[0] }}'
-            SupportedRealtimeInferenceInstanceTypes:
-              - '{{ SupportedRealtimeInferenceInstanceTypes[0] }}'
-            SupportedResponseMIMETypes:
-              - '{{ SupportedResponseMIMETypes[0] }}'
-            SupportedTransformInstanceTypes:
-              - '{{ SupportedTransformInstanceTypes[0] }}'
-      - name: CertifyForMarketplace
-        value: '{{ CertifyForMarketplace }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: CustomerMetadataProperties
+          - containers:
+              - container_hostname: '{{ container_hostname }}'
+                environment: {}
+                model_input:
+                  data_input_config: '{{ data_input_config }}'
+                image: '{{ image }}'
+                image_digest: '{{ image_digest }}'
+                model_data_url: '{{ model_data_url }}'
+                model_data_source:
+                  s3_data_source:
+                    s3_data_type: '{{ s3_data_type }}'
+                    s3_uri: '{{ s3_uri }}'
+                    compression_type: '{{ compression_type }}'
+                    model_access_config:
+                      accept_eula: '{{ accept_eula }}'
+                framework: '{{ framework }}'
+                framework_version: '{{ framework_version }}'
+                nearest_model_name: '{{ nearest_model_name }}'
+            description: '{{ description }}'
+            name: '{{ name }}'
+            supported_content_types:
+              - '{{ supported_content_types[0] }}'
+            supported_realtime_inference_instance_types:
+              - '{{ supported_realtime_inference_instance_types[0] }}'
+            supported_response_mi_me_types:
+              - '{{ supported_response_mi_me_types[0] }}'
+            supported_transform_instance_types:
+              - '{{ supported_transform_instance_types[0] }}'
+      - name: certify_for_marketplace
+        value: '{{ certify_for_marketplace }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: customer_metadata_properties
         value: {}
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: DriftCheckBaselines
+      - name: domain
+        value: '{{ domain }}'
+      - name: drift_check_baselines
         value:
-          Bias:
-            PostTrainingConstraints:
-              ContentDigest: '{{ ContentDigest }}'
-              ContentType: '{{ ContentType }}'
-              S3Uri: '{{ S3Uri }}'
-            PreTrainingConstraints: null
-            ConfigFile:
-              ContentDigest: '{{ ContentDigest }}'
-              ContentType: '{{ ContentType }}'
-              S3Uri: '{{ S3Uri }}'
-          Explainability:
-            Constraints: null
-            ConfigFile: null
-          ModelDataQuality:
-            Constraints: null
-            Statistics: null
-          ModelQuality:
-            Constraints: null
-            Statistics: null
-      - name: InferenceSpecification
+          bias:
+            post_training_constraints:
+              content_digest: '{{ content_digest }}'
+              content_type: '{{ content_type }}'
+              s3_uri: '{{ s3_uri }}'
+            pre_training_constraints: null
+            config_file:
+              content_digest: '{{ content_digest }}'
+              content_type: '{{ content_type }}'
+              s3_uri: '{{ s3_uri }}'
+          explainability:
+            constraints: null
+            config_file: null
+          model_data_quality:
+            constraints: null
+            statistics: null
+          model_quality:
+            constraints: null
+            statistics: null
+      - name: inference_specification
         value:
-          Containers:
+          containers:
             - null
-          SupportedContentTypes:
+          supported_content_types:
             - null
-          SupportedRealtimeInferenceInstanceTypes:
+          supported_realtime_inference_instance_types:
             - null
-          SupportedResponseMIMETypes:
+          supported_response_mi_me_types:
             - null
-          SupportedTransformInstanceTypes:
+          supported_transform_instance_types:
             - null
-      - name: MetadataProperties
+      - name: metadata_properties
         value:
-          CommitId: '{{ CommitId }}'
-          GeneratedBy: '{{ GeneratedBy }}'
-          ProjectId: '{{ ProjectId }}'
-          Repository: '{{ Repository }}'
-      - name: ModelApprovalStatus
-        value: '{{ ModelApprovalStatus }}'
-      - name: ModelMetrics
+          commit_id: '{{ commit_id }}'
+          generated_by: '{{ generated_by }}'
+          project_id: '{{ project_id }}'
+          repository: '{{ repository }}'
+      - name: model_approval_status
+        value: '{{ model_approval_status }}'
+      - name: model_metrics
         value:
-          Bias:
-            Report: null
-            PreTrainingReport: null
-            PostTrainingReport: null
-          Explainability:
-            Report: null
-          ModelDataQuality:
-            Constraints: null
-            Statistics: null
-          ModelQuality:
-            Constraints: null
-            Statistics: null
-      - name: ModelPackageDescription
-        value: '{{ ModelPackageDescription }}'
-      - name: ModelPackageGroupName
-        value: '{{ ModelPackageGroupName }}'
-      - name: ModelPackageName
-        value: '{{ ModelPackageName }}'
-      - name: SamplePayloadUrl
-        value: '{{ SamplePayloadUrl }}'
-      - name: SkipModelValidation
-        value: '{{ SkipModelValidation }}'
-      - name: SourceAlgorithmSpecification
+          bias:
+            report: null
+            pre_training_report: null
+            post_training_report: null
+          explainability:
+            report: null
+          model_data_quality:
+            constraints: null
+            statistics: null
+          model_quality:
+            constraints: null
+            statistics: null
+      - name: model_package_description
+        value: '{{ model_package_description }}'
+      - name: model_package_group_name
+        value: '{{ model_package_group_name }}'
+      - name: model_package_name
+        value: '{{ model_package_name }}'
+      - name: sample_payload_url
+        value: '{{ sample_payload_url }}'
+      - name: skip_model_validation
+        value: '{{ skip_model_validation }}'
+      - name: source_algorithm_specification
         value:
-          SourceAlgorithms:
-            - AlgorithmName: '{{ AlgorithmName }}'
-              ModelDataUrl: '{{ ModelDataUrl }}'
-      - name: Task
-        value: '{{ Task }}'
-      - name: ValidationSpecification
+          source_algorithms:
+            - algorithm_name: '{{ algorithm_name }}'
+              model_data_url: '{{ model_data_url }}'
+      - name: task
+        value: '{{ task }}'
+      - name: validation_specification
         value:
-          ValidationProfiles:
-            - TransformJobDefinition:
-                Environment: null
-                BatchStrategy: '{{ BatchStrategy }}'
-                MaxConcurrentTransforms: '{{ MaxConcurrentTransforms }}'
-                MaxPayloadInMB: '{{ MaxPayloadInMB }}'
-                TransformInput:
-                  CompressionType: '{{ CompressionType }}'
-                  ContentType: '{{ ContentType }}'
-                  DataSource:
-                    S3DataSource:
-                      S3DataType: '{{ S3DataType }}'
-                      S3Uri: '{{ S3Uri }}'
-                  SplitType: '{{ SplitType }}'
-                TransformOutput:
-                  Accept: '{{ Accept }}'
-                  KmsKeyId: '{{ KmsKeyId }}'
-                  S3OutputPath: '{{ S3OutputPath }}'
-                  AssembleWith: '{{ AssembleWith }}'
-                TransformResources:
-                  InstanceCount: '{{ InstanceCount }}'
-                  InstanceType: '{{ InstanceType }}'
-                  VolumeKmsKeyId: '{{ VolumeKmsKeyId }}'
-              ProfileName: '{{ ProfileName }}'
-          ValidationRole: '{{ ValidationRole }}'
-      - name: ApprovalDescription
-        value: '{{ ApprovalDescription }}'
-      - name: LastModifiedTime
-        value: '{{ LastModifiedTime }}'
-      - name: ModelPackageVersion
-        value: '{{ ModelPackageVersion }}'
-      - name: AdditionalInferenceSpecificationsToAdd
+          validation_profiles:
+            - transform_job_definition:
+                environment: null
+                batch_strategy: '{{ batch_strategy }}'
+                max_concurrent_transforms: '{{ max_concurrent_transforms }}'
+                max_payload_in_mb: '{{ max_payload_in_mb }}'
+                transform_input:
+                  compression_type: '{{ compression_type }}'
+                  content_type: '{{ content_type }}'
+                  data_source:
+                    s3_data_source:
+                      s3_data_type: '{{ s3_data_type }}'
+                      s3_uri: '{{ s3_uri }}'
+                  split_type: '{{ split_type }}'
+                transform_output:
+                  accept: '{{ accept }}'
+                  kms_key_id: '{{ kms_key_id }}'
+                  s3_output_path: '{{ s3_output_path }}'
+                  assemble_with: '{{ assemble_with }}'
+                transform_resources:
+                  instance_count: '{{ instance_count }}'
+                  instance_type: '{{ instance_type }}'
+                  volume_kms_key_id: '{{ volume_kms_key_id }}'
+              profile_name: '{{ profile_name }}'
+          validation_role: '{{ validation_role }}'
+      - name: approval_description
+        value: '{{ approval_description }}'
+      - name: last_modified_time
+        value: '{{ last_modified_time }}'
+      - name: model_package_version
+        value: '{{ model_package_version }}'
+      - name: additional_inference_specifications_to_add
         value: null
-      - name: ModelPackageStatusDetails
+      - name: model_package_status_details
         value:
-          ValidationStatuses:
-            - FailureReason: '{{ FailureReason }}'
-              Name: '{{ Name }}'
-              Status: '{{ Status }}'
-      - name: SourceUri
-        value: '{{ SourceUri }}'
-      - name: ModelCard
+          validation_statuses:
+            - failure_reason: '{{ failure_reason }}'
+              name: '{{ name }}'
+              status: '{{ status }}'
+      - name: source_uri
+        value: '{{ source_uri }}'
+      - name: model_card
         value:
-          ModelCardContent: '{{ ModelCardContent }}'
-          ModelCardStatus: '{{ ModelCardStatus }}'
-      - name: SecurityConfig
+          model_card_content: '{{ model_card_content }}'
+          model_card_status: '{{ model_card_status }}'
+      - name: security_config
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-
+          kms_key_id: '{{ kms_key_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -1301,7 +1300,7 @@ SET PatchDocument = string('{{ {
     "ModelCard": model_card
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ModelPackageArn>';
+AND Identifier = '{{ model_package_arn }}';
 ```
 
 
@@ -1310,7 +1309,7 @@ AND Identifier = '<ModelPackageArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.model_packages
-WHERE Identifier = '<ModelPackageArn>'
+WHERE Identifier = '{{ model_package_arn }}'
 AND region = 'us-east-1';
 ```
 

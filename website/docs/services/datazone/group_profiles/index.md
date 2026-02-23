@@ -169,7 +169,7 @@ group_name,
 id,
 status
 FROM awscc.datazone.group_profiles
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.datazone.group_profiles (
  GroupIdentifier,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ GroupIdentifier }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ group_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.datazone.group_profiles (
  Status,
  region
 )
-SELECT 
- '{{ DomainIdentifier }}',
- '{{ GroupIdentifier }}',
- '{{ Status }}',
+SELECT
+ '{{ domain_identifier }}',
+ '{{ group_identifier }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,13 +244,12 @@ globals:
 resources:
   - name: group_profile
     props:
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: GroupIdentifier
-        value: '{{ GroupIdentifier }}'
-      - name: Status
-        value: '{{ Status }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: group_identifier
+        value: '{{ group_identifier }}'
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.group_profiles
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

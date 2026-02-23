@@ -170,7 +170,7 @@ arn,
 retention_days,
 kms_key_identifier
 FROM awscc.events.archives
-WHERE region = 'us-east-1' AND Identifier = '<ArchiveName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ archive_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.events.archives (
  SourceArn,
  region
 )
-SELECT 
-'{{ SourceArn }}',
+SELECT
+'{{ source_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,13 +224,13 @@ INSERT INTO awscc.events.archives (
  KmsKeyIdentifier,
  region
 )
-SELECT 
- '{{ ArchiveName }}',
- '{{ SourceArn }}',
- '{{ Description }}',
- '{{ EventPattern }}',
- '{{ RetentionDays }}',
- '{{ KmsKeyIdentifier }}',
+SELECT
+ '{{ archive_name }}',
+ '{{ source_arn }}',
+ '{{ description }}',
+ '{{ event_pattern }}',
+ '{{ retention_days }}',
+ '{{ kms_key_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,19 +248,18 @@ globals:
 resources:
   - name: archive
     props:
-      - name: ArchiveName
-        value: '{{ ArchiveName }}'
-      - name: SourceArn
-        value: '{{ SourceArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EventPattern
+      - name: archive_name
+        value: '{{ archive_name }}'
+      - name: source_arn
+        value: '{{ source_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: event_pattern
         value: {}
-      - name: RetentionDays
-        value: '{{ RetentionDays }}'
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-
+      - name: retention_days
+        value: '{{ retention_days }}'
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "KmsKeyIdentifier": kms_key_identifier
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ArchiveName>';
+AND Identifier = '{{ archive_name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<ArchiveName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.archives
-WHERE Identifier = '<ArchiveName>'
+WHERE Identifier = '{{ archive_name }}'
 AND region = 'us-east-1';
 ```
 

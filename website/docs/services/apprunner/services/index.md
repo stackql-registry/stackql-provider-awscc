@@ -441,7 +441,7 @@ observability_configuration,
 auto_scaling_configuration_arn,
 network_configuration
 FROM awscc.apprunner.services
-WHERE region = 'us-east-1' AND Identifier = '<ServiceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -477,8 +477,8 @@ INSERT INTO awscc.apprunner.services (
  SourceConfiguration,
  region
 )
-SELECT 
-'{{ SourceConfiguration }}',
+SELECT
+'{{ source_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -498,16 +498,16 @@ INSERT INTO awscc.apprunner.services (
  NetworkConfiguration,
  region
 )
-SELECT 
- '{{ ServiceName }}',
- '{{ SourceConfiguration }}',
- '{{ InstanceConfiguration }}',
- '{{ Tags }}',
- '{{ EncryptionConfiguration }}',
- '{{ HealthCheckConfiguration }}',
- '{{ ObservabilityConfiguration }}',
- '{{ AutoScalingConfigurationArn }}',
- '{{ NetworkConfiguration }}',
+SELECT
+ '{{ service_name }}',
+ '{{ source_configuration }}',
+ '{{ instance_configuration }}',
+ '{{ tags }}',
+ '{{ encryption_configuration }}',
+ '{{ health_check_configuration }}',
+ '{{ observability_configuration }}',
+ '{{ auto_scaling_configuration_arn }}',
+ '{{ network_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -525,77 +525,76 @@ globals:
 resources:
   - name: service
     props:
-      - name: ServiceName
-        value: '{{ ServiceName }}'
-      - name: SourceConfiguration
+      - name: service_name
+        value: '{{ service_name }}'
+      - name: source_configuration
         value:
-          CodeRepository:
-            RepositoryUrl: '{{ RepositoryUrl }}'
-            SourceCodeVersion:
-              Type: '{{ Type }}'
-              Value: '{{ Value }}'
-            CodeConfiguration:
-              ConfigurationSource: '{{ ConfigurationSource }}'
-              CodeConfigurationValues:
-                Runtime: '{{ Runtime }}'
-                BuildCommand: '{{ BuildCommand }}'
-                StartCommand: '{{ StartCommand }}'
-                Port: '{{ Port }}'
-                RuntimeEnvironmentVariables:
-                  - Name: '{{ Name }}'
-                    Value: '{{ Value }}'
-                RuntimeEnvironmentSecrets:
+          code_repository:
+            repository_url: '{{ repository_url }}'
+            source_code_version:
+              type: '{{ type }}'
+              value: '{{ value }}'
+            code_configuration:
+              configuration_source: '{{ configuration_source }}'
+              code_configuration_values:
+                runtime: '{{ runtime }}'
+                build_command: '{{ build_command }}'
+                start_command: '{{ start_command }}'
+                port: '{{ port }}'
+                runtime_environment_variables:
+                  - name: '{{ name }}'
+                    value: '{{ value }}'
+                runtime_environment_secrets:
                   - null
-            SourceDirectory: '{{ SourceDirectory }}'
-          ImageRepository:
-            ImageIdentifier: '{{ ImageIdentifier }}'
-            ImageConfiguration:
-              StartCommand: '{{ StartCommand }}'
-              Port: '{{ Port }}'
-              RuntimeEnvironmentVariables:
+            source_directory: '{{ source_directory }}'
+          image_repository:
+            image_identifier: '{{ image_identifier }}'
+            image_configuration:
+              start_command: '{{ start_command }}'
+              port: '{{ port }}'
+              runtime_environment_variables:
                 - null
-              RuntimeEnvironmentSecrets:
+              runtime_environment_secrets:
                 - null
-            ImageRepositoryType: '{{ ImageRepositoryType }}'
-          AutoDeploymentsEnabled: '{{ AutoDeploymentsEnabled }}'
-          AuthenticationConfiguration:
-            ConnectionArn: '{{ ConnectionArn }}'
-            AccessRoleArn: '{{ AccessRoleArn }}'
-      - name: InstanceConfiguration
+            image_repository_type: '{{ image_repository_type }}'
+          auto_deployments_enabled: '{{ auto_deployments_enabled }}'
+          authentication_configuration:
+            connection_arn: '{{ connection_arn }}'
+            access_role_arn: '{{ access_role_arn }}'
+      - name: instance_configuration
         value:
-          Cpu: '{{ Cpu }}'
-          Memory: '{{ Memory }}'
-          InstanceRoleArn: null
-      - name: Tags
+          cpu: '{{ cpu }}'
+          memory: '{{ memory }}'
+          instance_role_arn: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EncryptionConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: encryption_configuration
         value:
-          KmsKey: '{{ KmsKey }}'
-      - name: HealthCheckConfiguration
+          kms_key: '{{ kms_key }}'
+      - name: health_check_configuration
         value:
-          Protocol: '{{ Protocol }}'
-          Path: '{{ Path }}'
-          Interval: '{{ Interval }}'
-          Timeout: '{{ Timeout }}'
-          HealthyThreshold: '{{ HealthyThreshold }}'
-          UnhealthyThreshold: '{{ UnhealthyThreshold }}'
-      - name: ObservabilityConfiguration
+          protocol: '{{ protocol }}'
+          path: '{{ path }}'
+          interval: '{{ interval }}'
+          timeout: '{{ timeout }}'
+          healthy_threshold: '{{ healthy_threshold }}'
+          unhealthy_threshold: '{{ unhealthy_threshold }}'
+      - name: observability_configuration
         value:
-          ObservabilityEnabled: '{{ ObservabilityEnabled }}'
-          ObservabilityConfigurationArn: '{{ ObservabilityConfigurationArn }}'
-      - name: AutoScalingConfigurationArn
-        value: '{{ AutoScalingConfigurationArn }}'
-      - name: NetworkConfiguration
+          observability_enabled: '{{ observability_enabled }}'
+          observability_configuration_arn: '{{ observability_configuration_arn }}'
+      - name: auto_scaling_configuration_arn
+        value: '{{ auto_scaling_configuration_arn }}'
+      - name: network_configuration
         value:
-          EgressConfiguration:
-            EgressType: '{{ EgressType }}'
-            VpcConnectorArn: '{{ VpcConnectorArn }}'
-          IngressConfiguration:
-            IsPubliclyAccessible: '{{ IsPubliclyAccessible }}'
-          IpAddressType: '{{ IpAddressType }}'
-
+          egress_configuration:
+            egress_type: '{{ egress_type }}'
+            vpc_connector_arn: '{{ vpc_connector_arn }}'
+          ingress_configuration:
+            is_publicly_accessible: '{{ is_publicly_accessible }}'
+          ip_address_type: '{{ ip_address_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -617,7 +616,7 @@ SET PatchDocument = string('{{ {
     "NetworkConfiguration": network_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceArn>';
+AND Identifier = '{{ service_arn }}';
 ```
 
 
@@ -626,7 +625,7 @@ AND Identifier = '<ServiceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.services
-WHERE Identifier = '<ServiceArn>'
+WHERE Identifier = '{{ service_arn }}'
 AND region = 'us-east-1';
 ```
 

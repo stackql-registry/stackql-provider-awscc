@@ -213,7 +213,7 @@ access_type,
 customer_owned_ipv4_pool,
 failed_reason
 FROM awscc.s3outposts.endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,10 +251,10 @@ INSERT INTO awscc.s3outposts.endpoints (
  SubnetId,
  region
 )
-SELECT 
-'{{ OutpostId }}',
- '{{ SecurityGroupId }}',
- '{{ SubnetId }}',
+SELECT
+'{{ outpost_id }}',
+ '{{ security_group_id }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,13 +271,13 @@ INSERT INTO awscc.s3outposts.endpoints (
  FailedReason,
  region
 )
-SELECT 
- '{{ OutpostId }}',
- '{{ SecurityGroupId }}',
- '{{ SubnetId }}',
- '{{ AccessType }}',
- '{{ CustomerOwnedIpv4Pool }}',
- '{{ FailedReason }}',
+SELECT
+ '{{ outpost_id }}',
+ '{{ security_group_id }}',
+ '{{ subnet_id }}',
+ '{{ access_type }}',
+ '{{ customer_owned_ipv4_pool }}',
+ '{{ failed_reason }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -295,21 +295,20 @@ globals:
 resources:
   - name: endpoint
     props:
-      - name: OutpostId
-        value: '{{ OutpostId }}'
-      - name: SecurityGroupId
-        value: '{{ SecurityGroupId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: AccessType
-        value: '{{ AccessType }}'
-      - name: CustomerOwnedIpv4Pool
-        value: '{{ CustomerOwnedIpv4Pool }}'
-      - name: FailedReason
+      - name: outpost_id
+        value: '{{ outpost_id }}'
+      - name: security_group_id
+        value: '{{ security_group_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: access_type
+        value: '{{ access_type }}'
+      - name: customer_owned_ipv4_pool
+        value: '{{ customer_owned_ipv4_pool }}'
+      - name: failed_reason
         value:
-          ErrorCode: '{{ ErrorCode }}'
-          Message: '{{ Message }}'
-
+          error_code: '{{ error_code }}'
+          message: '{{ message }}'
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +319,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.endpoints
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -201,7 +201,7 @@ source_db_cluster_identifier,
 storage_encrypted,
 global_endpoint
 FROM awscc.rds.global_clusters
-WHERE region = 'us-east-1' AND Identifier = '<GlobalClusterIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_cluster_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,15 +244,15 @@ INSERT INTO awscc.rds.global_clusters (
  StorageEncrypted,
  region
 )
-SELECT 
-'{{ Engine }}',
- '{{ Tags }}',
- '{{ EngineLifecycleSupport }}',
- '{{ EngineVersion }}',
- '{{ DeletionProtection }}',
- '{{ GlobalClusterIdentifier }}',
- '{{ SourceDBClusterIdentifier }}',
- '{{ StorageEncrypted }}',
+SELECT
+'{{ engine }}',
+ '{{ tags }}',
+ '{{ engine_lifecycle_support }}',
+ '{{ engine_version }}',
+ '{{ deletion_protection }}',
+ '{{ global_cluster_identifier }}',
+ '{{ source_db_cluster_identifier }}',
+ '{{ storage_encrypted }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,15 +271,15 @@ INSERT INTO awscc.rds.global_clusters (
  StorageEncrypted,
  region
 )
-SELECT 
- '{{ Engine }}',
- '{{ Tags }}',
- '{{ EngineLifecycleSupport }}',
- '{{ EngineVersion }}',
- '{{ DeletionProtection }}',
- '{{ GlobalClusterIdentifier }}',
- '{{ SourceDBClusterIdentifier }}',
- '{{ StorageEncrypted }}',
+SELECT
+ '{{ engine }}',
+ '{{ tags }}',
+ '{{ engine_lifecycle_support }}',
+ '{{ engine_version }}',
+ '{{ deletion_protection }}',
+ '{{ global_cluster_identifier }}',
+ '{{ source_db_cluster_identifier }}',
+ '{{ storage_encrypted }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,25 +297,24 @@ globals:
 resources:
   - name: global_cluster
     props:
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: Tags
+      - name: engine
+        value: '{{ engine }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EngineLifecycleSupport
-        value: '{{ EngineLifecycleSupport }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: DeletionProtection
-        value: '{{ DeletionProtection }}'
-      - name: GlobalClusterIdentifier
-        value: '{{ GlobalClusterIdentifier }}'
-      - name: SourceDBClusterIdentifier
-        value: '{{ SourceDBClusterIdentifier }}'
-      - name: StorageEncrypted
-        value: '{{ StorageEncrypted }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: engine_lifecycle_support
+        value: '{{ engine_lifecycle_support }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: deletion_protection
+        value: '{{ deletion_protection }}'
+      - name: global_cluster_identifier
+        value: '{{ global_cluster_identifier }}'
+      - name: source_db_cluster_identifier
+        value: '{{ source_db_cluster_identifier }}'
+      - name: storage_encrypted
+        value: '{{ storage_encrypted }}'
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +333,7 @@ SET PatchDocument = string('{{ {
     "DeletionProtection": deletion_protection
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GlobalClusterIdentifier>';
+AND Identifier = '{{ global_cluster_identifier }}';
 ```
 
 
@@ -343,7 +342,7 @@ AND Identifier = '<GlobalClusterIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.global_clusters
-WHERE Identifier = '<GlobalClusterIdentifier>'
+WHERE Identifier = '{{ global_cluster_identifier }}'
 AND region = 'us-east-1';
 ```
 

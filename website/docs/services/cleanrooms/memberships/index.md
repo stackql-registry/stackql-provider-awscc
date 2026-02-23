@@ -335,7 +335,7 @@ default_result_configuration,
 default_job_result_configuration,
 payment_configuration
 FROM awscc.cleanrooms.memberships
-WHERE region = 'us-east-1' AND Identifier = '<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -372,9 +372,9 @@ INSERT INTO awscc.cleanrooms.memberships (
  QueryLogStatus,
  region
 )
-SELECT 
-'{{ CollaborationIdentifier }}',
- '{{ QueryLogStatus }}',
+SELECT
+'{{ collaboration_identifier }}',
+ '{{ query_log_status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -392,14 +392,14 @@ INSERT INTO awscc.cleanrooms.memberships (
  PaymentConfiguration,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ CollaborationIdentifier }}',
- '{{ QueryLogStatus }}',
- '{{ JobLogStatus }}',
- '{{ DefaultResultConfiguration }}',
- '{{ DefaultJobResultConfiguration }}',
- '{{ PaymentConfiguration }}',
+SELECT
+ '{{ tags }}',
+ '{{ collaboration_identifier }}',
+ '{{ query_log_status }}',
+ '{{ job_log_status }}',
+ '{{ default_result_configuration }}',
+ '{{ default_job_result_configuration }}',
+ '{{ payment_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -417,44 +417,43 @@ globals:
 resources:
   - name: membership
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CollaborationIdentifier
-        value: '{{ CollaborationIdentifier }}'
-      - name: QueryLogStatus
-        value: '{{ QueryLogStatus }}'
-      - name: JobLogStatus
-        value: '{{ JobLogStatus }}'
-      - name: DefaultResultConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: collaboration_identifier
+        value: '{{ collaboration_identifier }}'
+      - name: query_log_status
+        value: '{{ query_log_status }}'
+      - name: job_log_status
+        value: '{{ job_log_status }}'
+      - name: default_result_configuration
         value:
-          OutputConfiguration:
-            S3:
-              ResultFormat: '{{ ResultFormat }}'
-              Bucket: '{{ Bucket }}'
-              KeyPrefix: '{{ KeyPrefix }}'
-              SingleFileOutput: '{{ SingleFileOutput }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: DefaultJobResultConfiguration
+          output_configuration:
+            s3:
+              result_format: '{{ result_format }}'
+              bucket: '{{ bucket }}'
+              key_prefix: '{{ key_prefix }}'
+              single_file_output: '{{ single_file_output }}'
+          role_arn: '{{ role_arn }}'
+      - name: default_job_result_configuration
         value:
-          OutputConfiguration:
-            S3:
-              Bucket: '{{ Bucket }}'
-              KeyPrefix: '{{ KeyPrefix }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: PaymentConfiguration
+          output_configuration:
+            s3:
+              bucket: '{{ bucket }}'
+              key_prefix: '{{ key_prefix }}'
+          role_arn: '{{ role_arn }}'
+      - name: payment_configuration
         value:
-          QueryCompute:
-            IsResponsible: '{{ IsResponsible }}'
-          MachineLearning:
-            ModelTraining:
-              IsResponsible: '{{ IsResponsible }}'
-            ModelInference:
-              IsResponsible: '{{ IsResponsible }}'
-          JobCompute:
-            IsResponsible: '{{ IsResponsible }}'
-
+          query_compute:
+            is_responsible: '{{ is_responsible }}'
+          machine_learning:
+            model_training:
+              is_responsible: '{{ is_responsible }}'
+            model_inference:
+              is_responsible: '{{ is_responsible }}'
+          job_compute:
+            is_responsible: '{{ is_responsible }}'
 ```
 </TabItem>
 </Tabs>
@@ -475,7 +474,7 @@ SET PatchDocument = string('{{ {
     "PaymentConfiguration": payment_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MembershipIdentifier>';
+AND Identifier = '{{ membership_identifier }}';
 ```
 
 
@@ -484,7 +483,7 @@ AND Identifier = '<MembershipIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.memberships
-WHERE Identifier = '<MembershipIdentifier>'
+WHERE Identifier = '{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

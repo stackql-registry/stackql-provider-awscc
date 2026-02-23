@@ -140,7 +140,7 @@ region,
 resource_policy,
 table_bucket_arn
 FROM awscc.s3tables.table_bucket_policies
-WHERE region = 'us-east-1' AND Identifier = '<TableBucketARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_bucket_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.s3tables.table_bucket_policies (
  TableBucketARN,
  region
 )
-SELECT 
-'{{ ResourcePolicy }}',
- '{{ TableBucketARN }}',
+SELECT
+'{{ resource_policy }}',
+ '{{ table_bucket_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.s3tables.table_bucket_policies (
  TableBucketARN,
  region
 )
-SELECT 
- '{{ ResourcePolicy }}',
- '{{ TableBucketARN }}',
+SELECT
+ '{{ resource_policy }}',
+ '{{ table_bucket_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: table_bucket_policy
     props:
-      - name: ResourcePolicy
+      - name: resource_policy
         value: {}
-      - name: TableBucketARN
-        value: '{{ TableBucketARN }}'
-
+      - name: table_bucket_arn
+        value: '{{ table_bucket_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -232,7 +231,7 @@ SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TableBucketARN>';
+AND Identifier = '{{ table_bucket_arn }}';
 ```
 
 
@@ -241,7 +240,7 @@ AND Identifier = '<TableBucketARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.table_bucket_policies
-WHERE Identifier = '<TableBucketARN>'
+WHERE Identifier = '{{ table_bucket_arn }}'
 AND region = 'us-east-1';
 ```
 

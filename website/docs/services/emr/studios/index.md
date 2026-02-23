@@ -245,7 +245,7 @@ idc_user_assignment,
 idc_instance_arn,
 encryption_key_arn
 FROM awscc.emr.studios
-WHERE region = 'us-east-1' AND Identifier = '<StudioId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -288,15 +288,15 @@ INSERT INTO awscc.emr.studios (
  WorkspaceSecurityGroupId,
  region
 )
-SELECT 
-'{{ AuthMode }}',
- '{{ DefaultS3Location }}',
- '{{ EngineSecurityGroupId }}',
- '{{ Name }}',
- '{{ ServiceRole }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
- '{{ WorkspaceSecurityGroupId }}',
+SELECT
+'{{ auth_mode }}',
+ '{{ default_s3_location }}',
+ '{{ engine_security_group_id }}',
+ '{{ name }}',
+ '{{ service_role }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
+ '{{ workspace_security_group_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -324,24 +324,24 @@ INSERT INTO awscc.emr.studios (
  EncryptionKeyArn,
  region
 )
-SELECT 
- '{{ AuthMode }}',
- '{{ DefaultS3Location }}',
- '{{ Description }}',
- '{{ EngineSecurityGroupId }}',
- '{{ Name }}',
- '{{ ServiceRole }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
- '{{ UserRole }}',
- '{{ VpcId }}',
- '{{ WorkspaceSecurityGroupId }}',
- '{{ IdpAuthUrl }}',
- '{{ IdpRelayStateParameterName }}',
- '{{ TrustedIdentityPropagationEnabled }}',
- '{{ IdcUserAssignment }}',
- '{{ IdcInstanceArn }}',
- '{{ EncryptionKeyArn }}',
+SELECT
+ '{{ auth_mode }}',
+ '{{ default_s3_location }}',
+ '{{ description }}',
+ '{{ engine_security_group_id }}',
+ '{{ name }}',
+ '{{ service_role }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
+ '{{ user_role }}',
+ '{{ vpc_id }}',
+ '{{ workspace_security_group_id }}',
+ '{{ idp_auth_url }}',
+ '{{ idp_relay_state_parameter_name }}',
+ '{{ trusted_identity_propagation_enabled }}',
+ '{{ idc_user_assignment }}',
+ '{{ idc_instance_arn }}',
+ '{{ encryption_key_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,44 +359,43 @@ globals:
 resources:
   - name: studio
     props:
-      - name: AuthMode
-        value: '{{ AuthMode }}'
-      - name: DefaultS3Location
-        value: '{{ DefaultS3Location }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EngineSecurityGroupId
-        value: '{{ EngineSecurityGroupId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ServiceRole
-        value: '{{ ServiceRole }}'
-      - name: SubnetIds
+      - name: auth_mode
+        value: '{{ auth_mode }}'
+      - name: default_s3_location
+        value: '{{ default_s3_location }}'
+      - name: description
+        value: '{{ description }}'
+      - name: engine_security_group_id
+        value: '{{ engine_security_group_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: service_role
+        value: '{{ service_role }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: UserRole
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: user_role
         value: null
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: WorkspaceSecurityGroupId
-        value: '{{ WorkspaceSecurityGroupId }}'
-      - name: IdpAuthUrl
-        value: '{{ IdpAuthUrl }}'
-      - name: IdpRelayStateParameterName
-        value: '{{ IdpRelayStateParameterName }}'
-      - name: TrustedIdentityPropagationEnabled
-        value: '{{ TrustedIdentityPropagationEnabled }}'
-      - name: IdcUserAssignment
-        value: '{{ IdcUserAssignment }}'
-      - name: IdcInstanceArn
-        value: '{{ IdcInstanceArn }}'
-      - name: EncryptionKeyArn
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: workspace_security_group_id
+        value: '{{ workspace_security_group_id }}'
+      - name: idp_auth_url
+        value: '{{ idp_auth_url }}'
+      - name: idp_relay_state_parameter_name
+        value: '{{ idp_relay_state_parameter_name }}'
+      - name: trusted_identity_propagation_enabled
+        value: '{{ trusted_identity_propagation_enabled }}'
+      - name: idc_user_assignment
+        value: '{{ idc_user_assignment }}'
+      - name: idc_instance_arn
+        value: '{{ idc_instance_arn }}'
+      - name: encryption_key_arn
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -418,7 +417,7 @@ SET PatchDocument = string('{{ {
     "IdpRelayStateParameterName": idp_relay_state_parameter_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StudioId>';
+AND Identifier = '{{ studio_id }}';
 ```
 
 
@@ -427,7 +426,7 @@ AND Identifier = '<StudioId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.studios
-WHERE Identifier = '<StudioId>'
+WHERE Identifier = '{{ studio_id }}'
 AND region = 'us-east-1';
 ```
 

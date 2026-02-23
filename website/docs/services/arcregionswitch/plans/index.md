@@ -329,7 +329,7 @@ workflows,
 health_checks_for_plan,
 route53_health_checks
 FROM awscc.arcregionswitch.plans
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -369,12 +369,12 @@ INSERT INTO awscc.arcregionswitch.plans (
  Workflows,
  region
 )
-SELECT 
-'{{ ExecutionRole }}',
- '{{ Name }}',
- '{{ RecoveryApproach }}',
- '{{ Regions }}',
- '{{ Workflows }}',
+SELECT
+'{{ execution_role }}',
+ '{{ name }}',
+ '{{ recovery_approach }}',
+ '{{ regions }}',
+ '{{ workflows }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -396,18 +396,18 @@ INSERT INTO awscc.arcregionswitch.plans (
  Workflows,
  region
 )
-SELECT 
- '{{ AssociatedAlarms }}',
- '{{ Description }}',
- '{{ ExecutionRole }}',
- '{{ Name }}',
- '{{ PrimaryRegion }}',
- '{{ RecoveryApproach }}',
- '{{ RecoveryTimeObjectiveMinutes }}',
- '{{ Regions }}',
- '{{ Tags }}',
- '{{ Triggers }}',
- '{{ Workflows }}',
+SELECT
+ '{{ associated_alarms }}',
+ '{{ description }}',
+ '{{ execution_role }}',
+ '{{ name }}',
+ '{{ primary_region }}',
+ '{{ recovery_approach }}',
+ '{{ recovery_time_objective_minutes }}',
+ '{{ regions }}',
+ '{{ tags }}',
+ '{{ triggers }}',
+ '{{ workflows }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -425,45 +425,44 @@ globals:
 resources:
   - name: plan
     props:
-      - name: AssociatedAlarms
+      - name: associated_alarms
         value: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExecutionRole
-        value: '{{ ExecutionRole }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: PrimaryRegion
-        value: '{{ PrimaryRegion }}'
-      - name: RecoveryApproach
-        value: '{{ RecoveryApproach }}'
-      - name: RecoveryTimeObjectiveMinutes
+      - name: description
+        value: '{{ description }}'
+      - name: execution_role
+        value: '{{ execution_role }}'
+      - name: name
+        value: '{{ name }}'
+      - name: primary_region
+        value: '{{ primary_region }}'
+      - name: recovery_approach
+        value: '{{ recovery_approach }}'
+      - name: recovery_time_objective_minutes
         value: null
-      - name: Regions
+      - name: regions
         value:
-          - '{{ Regions[0] }}'
-      - name: Tags
+          - '{{ regions[0] }}'
+      - name: tags
         value: {}
-      - name: Triggers
+      - name: triggers
         value:
-          - Description: '{{ Description }}'
-            TargetRegion: '{{ TargetRegion }}'
-            Action: '{{ Action }}'
-            Conditions:
-              - AssociatedAlarmName: '{{ AssociatedAlarmName }}'
-                Condition: '{{ Condition }}'
-            MinDelayMinutesBetweenExecutions: null
-      - name: Workflows
+          - description: '{{ description }}'
+            target_region: '{{ target_region }}'
+            action: '{{ action }}'
+            conditions:
+              - associated_alarm_name: '{{ associated_alarm_name }}'
+                condition: '{{ condition }}'
+            min_delay_minutes_between_executions: null
+      - name: workflows
         value:
-          - Steps:
-              - Name: '{{ Name }}'
-                Description: '{{ Description }}'
-                ExecutionBlockConfiguration: null
-                ExecutionBlockType: '{{ ExecutionBlockType }}'
-            WorkflowTargetAction: null
-            WorkflowTargetRegion: '{{ WorkflowTargetRegion }}'
-            WorkflowDescription: '{{ WorkflowDescription }}'
-
+          - steps:
+              - name: '{{ name }}'
+                description: '{{ description }}'
+                execution_block_configuration: null
+                execution_block_type: '{{ execution_block_type }}'
+            workflow_target_action: null
+            workflow_target_region: '{{ workflow_target_region }}'
+            workflow_description: '{{ workflow_description }}'
 ```
 </TabItem>
 </Tabs>
@@ -485,7 +484,7 @@ SET PatchDocument = string('{{ {
     "Workflows": workflows
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -494,7 +493,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.arcregionswitch.plans
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

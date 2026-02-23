@@ -176,7 +176,7 @@ tags,
 parameters,
 arn
 FROM awscc.memorydb.parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<ParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.memorydb.parameter_groups (
  Family,
  region
 )
-SELECT 
-'{{ ParameterGroupName }}',
- '{{ Family }}',
+SELECT
+'{{ parameter_group_name }}',
+ '{{ family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.memorydb.parameter_groups (
  Parameters,
  region
 )
-SELECT 
- '{{ ParameterGroupName }}',
- '{{ Family }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ Parameters }}',
+SELECT
+ '{{ parameter_group_name }}',
+ '{{ family }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: parameter_group
     props:
-      - name: ParameterGroupName
-        value: '{{ ParameterGroupName }}'
-      - name: Family
-        value: '{{ Family }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: parameter_group_name
+        value: '{{ parameter_group_name }}'
+      - name: family
+        value: '{{ family }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Parameters
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: parameters
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ParameterGroupName>';
+AND Identifier = '{{ parameter_group_name }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<ParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.parameter_groups
-WHERE Identifier = '<ParameterGroupName>'
+WHERE Identifier = '{{ parameter_group_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -170,7 +170,7 @@ file_system_id,
 security_groups,
 subnet_id
 FROM awscc.efs.mount_targets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.efs.mount_targets (
  SubnetId,
  region
 )
-SELECT 
-'{{ FileSystemId }}',
- '{{ SecurityGroups }}',
- '{{ SubnetId }}',
+SELECT
+'{{ file_system_id }}',
+ '{{ security_groups }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,13 @@ INSERT INTO awscc.efs.mount_targets (
  SubnetId,
  region
 )
-SELECT 
- '{{ IpAddress }}',
- '{{ Ipv6Address }}',
- '{{ IpAddressType }}',
- '{{ FileSystemId }}',
- '{{ SecurityGroups }}',
- '{{ SubnetId }}',
+SELECT
+ '{{ ip_address }}',
+ '{{ ipv6_address }}',
+ '{{ ip_address_type }}',
+ '{{ file_system_id }}',
+ '{{ security_groups }}',
+ '{{ subnet_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,20 +252,19 @@ globals:
 resources:
   - name: mount_target
     props:
-      - name: IpAddress
-        value: '{{ IpAddress }}'
-      - name: Ipv6Address
-        value: '{{ Ipv6Address }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: FileSystemId
-        value: '{{ FileSystemId }}'
-      - name: SecurityGroups
+      - name: ip_address
+        value: '{{ ip_address }}'
+      - name: ipv6_address
+        value: '{{ ipv6_address }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: file_system_id
+        value: '{{ file_system_id }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-
+          - '{{ security_groups[0] }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "SecurityGroups": security_groups
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.mount_targets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

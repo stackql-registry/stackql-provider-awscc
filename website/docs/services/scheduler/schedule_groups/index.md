@@ -176,7 +176,7 @@ name,
 state,
 tags
 FROM awscc.scheduler.schedule_groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.scheduler.schedule_groups (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,9 +228,9 @@ INSERT INTO awscc.scheduler.schedule_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,13 +248,12 @@ globals:
 resources:
   - name: schedule_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +269,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -279,7 +278,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.scheduler.schedule_groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

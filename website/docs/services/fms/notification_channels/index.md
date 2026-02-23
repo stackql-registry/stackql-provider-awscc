@@ -130,7 +130,7 @@ region,
 sns_role_name,
 sns_topic_arn
 FROM awscc.fms.notification_channels
-WHERE region = 'us-east-1' AND Identifier = '<SnsTopicArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ sns_topic_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -167,9 +167,9 @@ INSERT INTO awscc.fms.notification_channels (
  SnsTopicArn,
  region
 )
-SELECT 
-'{{ SnsRoleName }}',
- '{{ SnsTopicArn }}',
+SELECT
+'{{ sns_role_name }}',
+ '{{ sns_topic_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -182,9 +182,9 @@ INSERT INTO awscc.fms.notification_channels (
  SnsTopicArn,
  region
 )
-SELECT 
- '{{ SnsRoleName }}',
- '{{ SnsTopicArn }}',
+SELECT
+ '{{ sns_role_name }}',
+ '{{ sns_topic_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -202,11 +202,10 @@ globals:
 resources:
   - name: notification_channel
     props:
-      - name: SnsRoleName
-        value: '{{ SnsRoleName }}'
-      - name: SnsTopicArn
+      - name: sns_role_name
+        value: '{{ sns_role_name }}'
+      - name: sns_topic_arn
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -223,7 +222,7 @@ SET PatchDocument = string('{{ {
     "SnsTopicArn": sns_topic_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SnsTopicArn>';
+AND Identifier = '{{ sns_topic_arn }}';
 ```
 
 
@@ -232,7 +231,7 @@ AND Identifier = '<SnsTopicArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.notification_channels
-WHERE Identifier = '<SnsTopicArn>'
+WHERE Identifier = '{{ sns_topic_arn }}'
 AND region = 'us-east-1';
 ```
 

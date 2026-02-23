@@ -170,7 +170,7 @@ tag_value,
 role_arn,
 status
 FROM awscc.resourcegroups.tag_sync_tasks
-WHERE region = 'us-east-1' AND Identifier = '<TaskArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,11 +209,11 @@ INSERT INTO awscc.resourcegroups.tag_sync_tasks (
  RoleArn,
  region
 )
-SELECT 
-'{{ Group }}',
- '{{ TagKey }}',
- '{{ TagValue }}',
- '{{ RoleArn }}',
+SELECT
+'{{ group }}',
+ '{{ tag_key }}',
+ '{{ tag_value }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.resourcegroups.tag_sync_tasks (
  RoleArn,
  region
 )
-SELECT 
- '{{ Group }}',
- '{{ TagKey }}',
- '{{ TagValue }}',
- '{{ RoleArn }}',
+SELECT
+ '{{ group }}',
+ '{{ tag_key }}',
+ '{{ tag_value }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,15 +250,14 @@ globals:
 resources:
   - name: tag_sync_task
     props:
-      - name: Group
-        value: '{{ Group }}'
-      - name: TagKey
-        value: '{{ TagKey }}'
-      - name: TagValue
-        value: '{{ TagValue }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-
+      - name: group
+        value: '{{ group }}'
+      - name: tag_key
+        value: '{{ tag_key }}'
+      - name: tag_value
+        value: '{{ tag_value }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourcegroups.tag_sync_tasks
-WHERE Identifier = '<TaskArn>'
+WHERE Identifier = '{{ task_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -251,7 +251,7 @@ source,
 destination,
 tags
 FROM awscc.aps.scrapers
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -289,10 +289,10 @@ INSERT INTO awscc.aps.scrapers (
  Destination,
  region
 )
-SELECT 
-'{{ ScrapeConfiguration }}',
- '{{ Source }}',
- '{{ Destination }}',
+SELECT
+'{{ scrape_configuration }}',
+ '{{ source }}',
+ '{{ destination }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -309,13 +309,13 @@ INSERT INTO awscc.aps.scrapers (
  Tags,
  region
 )
-SELECT 
- '{{ Alias }}',
- '{{ ScrapeConfiguration }}',
- '{{ RoleConfiguration }}',
- '{{ Source }}',
- '{{ Destination }}',
- '{{ Tags }}',
+SELECT
+ '{{ alias }}',
+ '{{ scrape_configuration }}',
+ '{{ role_configuration }}',
+ '{{ source }}',
+ '{{ destination }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -333,32 +333,31 @@ globals:
 resources:
   - name: scraper
     props:
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: ScrapeConfiguration
+      - name: alias
+        value: '{{ alias }}'
+      - name: scrape_configuration
         value:
-          ConfigurationBlob: '{{ ConfigurationBlob }}'
-      - name: RoleConfiguration
+          configuration_blob: '{{ configuration_blob }}'
+      - name: role_configuration
         value:
-          SourceRoleArn: '{{ SourceRoleArn }}'
-          TargetRoleArn: '{{ TargetRoleArn }}'
-      - name: Source
+          source_role_arn: '{{ source_role_arn }}'
+          target_role_arn: '{{ target_role_arn }}'
+      - name: source
         value:
-          EksConfiguration:
-            ClusterArn: '{{ ClusterArn }}'
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            SubnetIds:
-              - '{{ SubnetIds[0] }}'
-      - name: Destination
+          eks_configuration:
+            cluster_arn: '{{ cluster_arn }}'
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            subnet_ids:
+              - '{{ subnet_ids[0] }}'
+      - name: destination
         value:
-          AmpConfiguration:
-            WorkspaceArn: '{{ WorkspaceArn }}'
-      - name: Tags
+          amp_configuration:
+            workspace_arn: '{{ workspace_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +377,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -387,7 +386,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.scrapers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

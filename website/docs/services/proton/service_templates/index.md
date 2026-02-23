@@ -182,7 +182,7 @@ name,
 pipeline_provisioning,
 tags
 FROM awscc.proton.service_templates
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,13 +223,13 @@ INSERT INTO awscc.proton.service_templates (
  Tags,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ DisplayName }}',
- '{{ EncryptionKey }}',
- '{{ Name }}',
- '{{ PipelineProvisioning }}',
- '{{ Tags }}',
+SELECT
+'{{ description }}',
+ '{{ display_name }}',
+ '{{ encryption_key }}',
+ '{{ name }}',
+ '{{ pipeline_provisioning }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,13 @@ INSERT INTO awscc.proton.service_templates (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ EncryptionKey }}',
- '{{ Name }}',
- '{{ PipelineProvisioning }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ encryption_key }}',
+ '{{ name }}',
+ '{{ pipeline_provisioning }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,21 +270,20 @@ globals:
 resources:
   - name: service_template
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: EncryptionKey
-        value: '{{ EncryptionKey }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: PipelineProvisioning
-        value: '{{ PipelineProvisioning }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: encryption_key
+        value: '{{ encryption_key }}'
+      - name: name
+        value: '{{ name }}'
+      - name: pipeline_provisioning
+        value: '{{ pipeline_provisioning }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +301,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -311,7 +310,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.proton.service_templates
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

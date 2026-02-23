@@ -349,7 +349,7 @@ sources,
 ingress_gateway_bridge,
 egress_gateway_bridge
 FROM awscc.mediaconnect.bridges
-WHERE region = 'us-east-1' AND Identifier = '<BridgeArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -387,10 +387,10 @@ INSERT INTO awscc.mediaconnect.bridges (
  Sources,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ PlacementArn }}',
- '{{ Sources }}',
+SELECT
+'{{ name }}',
+ '{{ placement_arn }}',
+ '{{ sources }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -408,14 +408,14 @@ INSERT INTO awscc.mediaconnect.bridges (
  EgressGatewayBridge,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ PlacementArn }}',
- '{{ SourceFailoverConfig }}',
- '{{ Outputs }}',
- '{{ Sources }}',
- '{{ IngressGatewayBridge }}',
- '{{ EgressGatewayBridge }}',
+SELECT
+ '{{ name }}',
+ '{{ placement_arn }}',
+ '{{ source_failover_config }}',
+ '{{ outputs }}',
+ '{{ sources }}',
+ '{{ ingress_gateway_bridge }}',
+ '{{ egress_gateway_bridge }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -433,50 +433,49 @@ globals:
 resources:
   - name: bridge
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: PlacementArn
-        value: '{{ PlacementArn }}'
-      - name: SourceFailoverConfig
+      - name: name
+        value: '{{ name }}'
+      - name: placement_arn
+        value: '{{ placement_arn }}'
+      - name: source_failover_config
         value:
-          State: '{{ State }}'
-          RecoveryWindow: '{{ RecoveryWindow }}'
-          FailoverMode: '{{ FailoverMode }}'
-          SourcePriority:
-            PrimarySource: '{{ PrimarySource }}'
-      - name: Outputs
+          state: '{{ state }}'
+          recovery_window: '{{ recovery_window }}'
+          failover_mode: '{{ failover_mode }}'
+          source_priority:
+            primary_source: '{{ primary_source }}'
+      - name: outputs
         value:
-          - BridgeArn: '{{ BridgeArn }}'
-            NetworkOutput:
-              Protocol: '{{ Protocol }}'
-              IpAddress: '{{ IpAddress }}'
-              Port: '{{ Port }}'
-              NetworkName: '{{ NetworkName }}'
-              Ttl: '{{ Ttl }}'
-            Name: '{{ Name }}'
-      - name: Sources
+          - bridge_arn: '{{ bridge_arn }}'
+            network_output:
+              protocol: '{{ protocol }}'
+              ip_address: '{{ ip_address }}'
+              port: '{{ port }}'
+              network_name: '{{ network_name }}'
+              ttl: '{{ ttl }}'
+            name: '{{ name }}'
+      - name: sources
         value:
-          - Name: '{{ Name }}'
-            BridgeArn: '{{ BridgeArn }}'
-            FlowSource:
-              FlowArn: '{{ FlowArn }}'
-              FlowVpcInterfaceAttachment:
-                VpcInterfaceName: '{{ VpcInterfaceName }}'
-            NetworkSource:
-              Protocol: '{{ Protocol }}'
-              MulticastIp: '{{ MulticastIp }}'
-              MulticastSourceSettings:
-                MulticastSourceIp: '{{ MulticastSourceIp }}'
-              Port: '{{ Port }}'
-              NetworkName: '{{ NetworkName }}'
-      - name: IngressGatewayBridge
+          - name: '{{ name }}'
+            bridge_arn: '{{ bridge_arn }}'
+            flow_source:
+              flow_arn: '{{ flow_arn }}'
+              flow_vpc_interface_attachment:
+                vpc_interface_name: '{{ vpc_interface_name }}'
+            network_source:
+              protocol: '{{ protocol }}'
+              multicast_ip: '{{ multicast_ip }}'
+              multicast_source_settings:
+                multicast_source_ip: '{{ multicast_source_ip }}'
+              port: '{{ port }}'
+              network_name: '{{ network_name }}'
+      - name: ingress_gateway_bridge
         value:
-          MaxBitrate: '{{ MaxBitrate }}'
-          MaxOutputs: '{{ MaxOutputs }}'
-      - name: EgressGatewayBridge
+          max_bitrate: '{{ max_bitrate }}'
+          max_outputs: '{{ max_outputs }}'
+      - name: egress_gateway_bridge
         value:
-          MaxBitrate: '{{ MaxBitrate }}'
-
+          max_bitrate: '{{ max_bitrate }}'
 ```
 </TabItem>
 </Tabs>
@@ -498,7 +497,7 @@ SET PatchDocument = string('{{ {
     "EgressGatewayBridge": egress_gateway_bridge
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BridgeArn>';
+AND Identifier = '{{ bridge_arn }}';
 ```
 
 
@@ -507,7 +506,7 @@ AND Identifier = '<BridgeArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridges
-WHERE Identifier = '<BridgeArn>'
+WHERE Identifier = '{{ bridge_arn }}'
 AND region = 'us-east-1';
 ```
 

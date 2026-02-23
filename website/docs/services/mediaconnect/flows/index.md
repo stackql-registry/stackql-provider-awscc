@@ -694,7 +694,7 @@ flow_size,
 ndi_config,
 flow_ndi_machine_name
 FROM awscc.mediaconnect.flows
-WHERE region = 'us-east-1' AND Identifier = '<FlowArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -731,9 +731,9 @@ INSERT INTO awscc.mediaconnect.flows (
  Source,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Source }}',
+SELECT
+'{{ name }}',
+ '{{ source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -754,17 +754,17 @@ INSERT INTO awscc.mediaconnect.flows (
  NdiConfig,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ AvailabilityZone }}',
- '{{ Source }}',
- '{{ SourceFailoverConfig }}',
- '{{ VpcInterfaces }}',
- '{{ MediaStreams }}',
- '{{ Maintenance }}',
- '{{ SourceMonitoringConfig }}',
- '{{ FlowSize }}',
- '{{ NdiConfig }}',
+SELECT
+ '{{ name }}',
+ '{{ availability_zone }}',
+ '{{ source }}',
+ '{{ source_failover_config }}',
+ '{{ vpc_interfaces }}',
+ '{{ media_streams }}',
+ '{{ maintenance }}',
+ '{{ source_monitoring_config }}',
+ '{{ flow_size }}',
+ '{{ ndi_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -782,118 +782,117 @@ globals:
 resources:
   - name: flow
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: Source
+      - name: name
+        value: '{{ name }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: source
         value:
-          SourceArn: '{{ SourceArn }}'
-          Decryption:
-            Algorithm: '{{ Algorithm }}'
-            ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-            DeviceId: '{{ DeviceId }}'
-            KeyType: '{{ KeyType }}'
-            Region: '{{ Region }}'
-            ResourceId: '{{ ResourceId }}'
-            RoleArn: '{{ RoleArn }}'
-            SecretArn: '{{ SecretArn }}'
-            Url: '{{ Url }}'
-          Description: '{{ Description }}'
-          EntitlementArn: '{{ EntitlementArn }}'
-          GatewayBridgeSource:
-            BridgeArn: '{{ BridgeArn }}'
-            VpcInterfaceAttachment:
-              VpcInterfaceName: '{{ VpcInterfaceName }}'
-          IngestIp: '{{ IngestIp }}'
-          IngestPort: '{{ IngestPort }}'
-          MaxBitrate: '{{ MaxBitrate }}'
-          MaxLatency: '{{ MaxLatency }}'
-          MinLatency: '{{ MinLatency }}'
-          Name: '{{ Name }}'
-          Protocol: '{{ Protocol }}'
-          SenderIpAddress: '{{ SenderIpAddress }}'
-          SenderControlPort: '{{ SenderControlPort }}'
-          StreamId: '{{ StreamId }}'
-          SourceIngestPort: '{{ SourceIngestPort }}'
-          SourceListenerAddress: '{{ SourceListenerAddress }}'
-          SourceListenerPort: '{{ SourceListenerPort }}'
-          VpcInterfaceName: '{{ VpcInterfaceName }}'
-          WhitelistCidr: '{{ WhitelistCidr }}'
-          MaxSyncBuffer: '{{ MaxSyncBuffer }}'
-          MediaStreamSourceConfigurations:
-            - EncodingName: '{{ EncodingName }}'
-              InputConfigurations:
-                - InputPort: '{{ InputPort }}'
-                  Interface:
-                    Name: '{{ Name }}'
-              MediaStreamName: '{{ MediaStreamName }}'
-      - name: SourceFailoverConfig
+          source_arn: '{{ source_arn }}'
+          decryption:
+            algorithm: '{{ algorithm }}'
+            constant_initialization_vector: '{{ constant_initialization_vector }}'
+            device_id: '{{ device_id }}'
+            key_type: '{{ key_type }}'
+            region: '{{ region }}'
+            resource_id: '{{ resource_id }}'
+            role_arn: '{{ role_arn }}'
+            secret_arn: '{{ secret_arn }}'
+            url: '{{ url }}'
+          description: '{{ description }}'
+          entitlement_arn: '{{ entitlement_arn }}'
+          gateway_bridge_source:
+            bridge_arn: '{{ bridge_arn }}'
+            vpc_interface_attachment:
+              vpc_interface_name: '{{ vpc_interface_name }}'
+          ingest_ip: '{{ ingest_ip }}'
+          ingest_port: '{{ ingest_port }}'
+          max_bitrate: '{{ max_bitrate }}'
+          max_latency: '{{ max_latency }}'
+          min_latency: '{{ min_latency }}'
+          name: '{{ name }}'
+          protocol: '{{ protocol }}'
+          sender_ip_address: '{{ sender_ip_address }}'
+          sender_control_port: '{{ sender_control_port }}'
+          stream_id: '{{ stream_id }}'
+          source_ingest_port: '{{ source_ingest_port }}'
+          source_listener_address: '{{ source_listener_address }}'
+          source_listener_port: '{{ source_listener_port }}'
+          vpc_interface_name: '{{ vpc_interface_name }}'
+          whitelist_cidr: '{{ whitelist_cidr }}'
+          max_sync_buffer: '{{ max_sync_buffer }}'
+          media_stream_source_configurations:
+            - encoding_name: '{{ encoding_name }}'
+              input_configurations:
+                - input_port: '{{ input_port }}'
+                  interface:
+                    name: '{{ name }}'
+              media_stream_name: '{{ media_stream_name }}'
+      - name: source_failover_config
         value:
-          State: '{{ State }}'
-          RecoveryWindow: '{{ RecoveryWindow }}'
-          FailoverMode: '{{ FailoverMode }}'
-          SourcePriority:
-            PrimarySource: '{{ PrimarySource }}'
-      - name: VpcInterfaces
+          state: '{{ state }}'
+          recovery_window: '{{ recovery_window }}'
+          failover_mode: '{{ failover_mode }}'
+          source_priority:
+            primary_source: '{{ primary_source }}'
+      - name: vpc_interfaces
         value:
-          - Name: '{{ Name }}'
-            NetworkInterfaceType: '{{ NetworkInterfaceType }}'
-            RoleArn: '{{ RoleArn }}'
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            SubnetId: '{{ SubnetId }}'
-            NetworkInterfaceIds:
-              - '{{ NetworkInterfaceIds[0] }}'
-      - name: MediaStreams
+          - name: '{{ name }}'
+            network_interface_type: '{{ network_interface_type }}'
+            role_arn: '{{ role_arn }}'
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            subnet_id: '{{ subnet_id }}'
+            network_interface_ids:
+              - '{{ network_interface_ids[0] }}'
+      - name: media_streams
         value:
-          - MediaStreamId: '{{ MediaStreamId }}'
-            MediaStreamType: '{{ MediaStreamType }}'
-            VideoFormat: '{{ VideoFormat }}'
-            MediaStreamName: '{{ MediaStreamName }}'
-            Description: '{{ Description }}'
-            Attributes:
-              Fmtp:
-                ExactFramerate: '{{ ExactFramerate }}'
-                Colorimetry: '{{ Colorimetry }}'
-                ScanMode: '{{ ScanMode }}'
-                Tcs: '{{ Tcs }}'
-                Range: '{{ Range }}'
-                Par: '{{ Par }}'
-                ChannelOrder: '{{ ChannelOrder }}'
-              Lang: '{{ Lang }}'
-            ClockRate: '{{ ClockRate }}'
-            Fmt: '{{ Fmt }}'
-      - name: Maintenance
+          - media_stream_id: '{{ media_stream_id }}'
+            media_stream_type: '{{ media_stream_type }}'
+            video_format: '{{ video_format }}'
+            media_stream_name: '{{ media_stream_name }}'
+            description: '{{ description }}'
+            attributes:
+              fmtp:
+                exact_framerate: '{{ exact_framerate }}'
+                colorimetry: '{{ colorimetry }}'
+                scan_mode: '{{ scan_mode }}'
+                tcs: '{{ tcs }}'
+                range: '{{ range }}'
+                par: '{{ par }}'
+                channel_order: '{{ channel_order }}'
+              lang: '{{ lang }}'
+            clock_rate: '{{ clock_rate }}'
+            fmt: '{{ fmt }}'
+      - name: maintenance
         value:
-          MaintenanceDay: '{{ MaintenanceDay }}'
-          MaintenanceStartHour: '{{ MaintenanceStartHour }}'
-      - name: SourceMonitoringConfig
+          maintenance_day: '{{ maintenance_day }}'
+          maintenance_start_hour: '{{ maintenance_start_hour }}'
+      - name: source_monitoring_config
         value:
-          ThumbnailState: '{{ ThumbnailState }}'
-          ContentQualityAnalysisState: '{{ ContentQualityAnalysisState }}'
-          AudioMonitoringSettings:
-            - SilentAudio:
-                State: '{{ State }}'
-                ThresholdSeconds: '{{ ThresholdSeconds }}'
-          VideoMonitoringSettings:
-            - BlackFrames:
-                State: '{{ State }}'
-                ThresholdSeconds: '{{ ThresholdSeconds }}'
-              FrozenFrames:
-                State: '{{ State }}'
-                ThresholdSeconds: '{{ ThresholdSeconds }}'
-      - name: FlowSize
-        value: '{{ FlowSize }}'
-      - name: NdiConfig
+          thumbnail_state: '{{ thumbnail_state }}'
+          content_quality_analysis_state: '{{ content_quality_analysis_state }}'
+          audio_monitoring_settings:
+            - silent_audio:
+                state: '{{ state }}'
+                threshold_seconds: '{{ threshold_seconds }}'
+          video_monitoring_settings:
+            - black_frames:
+                state: '{{ state }}'
+                threshold_seconds: '{{ threshold_seconds }}'
+              frozen_frames:
+                state: '{{ state }}'
+                threshold_seconds: '{{ threshold_seconds }}'
+      - name: flow_size
+        value: '{{ flow_size }}'
+      - name: ndi_config
         value:
-          NdiDiscoveryServers:
-            - VpcInterfaceAdapter: '{{ VpcInterfaceAdapter }}'
-              DiscoveryServerAddress: '{{ DiscoveryServerAddress }}'
-              DiscoveryServerPort: '{{ DiscoveryServerPort }}'
-          NdiState: '{{ NdiState }}'
-          MachineName: '{{ MachineName }}'
-
+          ndi_discovery_servers:
+            - vpc_interface_adapter: '{{ vpc_interface_adapter }}'
+              discovery_server_address: '{{ discovery_server_address }}'
+              discovery_server_port: '{{ discovery_server_port }}'
+          ndi_state: '{{ ndi_state }}'
+          machine_name: '{{ machine_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -913,7 +912,7 @@ SET PatchDocument = string('{{ {
     "NdiConfig": ndi_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FlowArn>';
+AND Identifier = '{{ flow_arn }}';
 ```
 
 
@@ -922,7 +921,7 @@ AND Identifier = '<FlowArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flows
-WHERE Identifier = '<FlowArn>'
+WHERE Identifier = '{{ flow_arn }}'
 AND region = 'us-east-1';
 ```
 

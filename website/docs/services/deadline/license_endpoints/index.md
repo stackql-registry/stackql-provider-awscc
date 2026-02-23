@@ -194,7 +194,7 @@ vpc_id,
 arn,
 tags
 FROM awscc.deadline.license_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.deadline.license_endpoints (
  VpcId,
  region
 )
-SELECT 
-'{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
+SELECT
+'{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,11 +250,11 @@ INSERT INTO awscc.deadline.license_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,19 +272,18 @@ globals:
 resources:
   - name: license_endpoint
     props:
-      - name: SecurityGroupIds
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +299,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -309,7 +308,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.license_endpoints
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

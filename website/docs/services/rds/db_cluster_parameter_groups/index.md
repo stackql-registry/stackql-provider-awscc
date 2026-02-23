@@ -170,7 +170,7 @@ parameters,
 db_cluster_parameter_group_name,
 tags
 FROM awscc.rds.db_cluster_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<DBClusterParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_cluster_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.rds.db_cluster_parameter_groups (
  Parameters,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Family }}',
- '{{ Parameters }}',
+SELECT
+'{{ description }}',
+ '{{ family }}',
+ '{{ parameters }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,12 +227,12 @@ INSERT INTO awscc.rds.db_cluster_parameter_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Family }}',
- '{{ Parameters }}',
- '{{ DBClusterParameterGroupName }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ family }}',
+ '{{ parameters }}',
+ '{{ db_cluster_parameter_group_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,19 +250,18 @@ globals:
 resources:
   - name: db_cluster_parameter_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Family
-        value: '{{ Family }}'
-      - name: Parameters
+      - name: description
+        value: '{{ description }}'
+      - name: family
+        value: '{{ family }}'
+      - name: parameters
         value: {}
-      - name: DBClusterParameterGroupName
-        value: '{{ DBClusterParameterGroupName }}'
-      - name: Tags
+      - name: db_cluster_parameter_group_name
+        value: '{{ db_cluster_parameter_group_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBClusterParameterGroupName>';
+AND Identifier = '{{ db_cluster_parameter_group_name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<DBClusterParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_cluster_parameter_groups
-WHERE Identifier = '<DBClusterParameterGroupName>'
+WHERE Identifier = '{{ db_cluster_parameter_group_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -356,7 +356,7 @@ auth_parameters,
 invocation_connectivity_parameters,
 kms_key_identifier
 FROM awscc.events.connections
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -397,13 +397,13 @@ INSERT INTO awscc.events.connections (
  KmsKeyIdentifier,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Description }}',
- '{{ AuthorizationType }}',
- '{{ AuthParameters }}',
- '{{ InvocationConnectivityParameters }}',
- '{{ KmsKeyIdentifier }}',
+SELECT
+'{{ name }}',
+ '{{ description }}',
+ '{{ authorization_type }}',
+ '{{ auth_parameters }}',
+ '{{ invocation_connectivity_parameters }}',
+ '{{ kms_key_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -420,13 +420,13 @@ INSERT INTO awscc.events.connections (
  KmsKeyIdentifier,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ AuthorizationType }}',
- '{{ AuthParameters }}',
- '{{ InvocationConnectivityParameters }}',
- '{{ KmsKeyIdentifier }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ authorization_type }}',
+ '{{ auth_parameters }}',
+ '{{ invocation_connectivity_parameters }}',
+ '{{ kms_key_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -444,46 +444,45 @@ globals:
 resources:
   - name: connection
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: AuthorizationType
-        value: '{{ AuthorizationType }}'
-      - name: AuthParameters
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: authorization_type
+        value: '{{ authorization_type }}'
+      - name: auth_parameters
         value:
-          ApiKeyAuthParameters:
-            ApiKeyName: '{{ ApiKeyName }}'
-            ApiKeyValue: '{{ ApiKeyValue }}'
-          BasicAuthParameters:
-            Username: '{{ Username }}'
-            Password: '{{ Password }}'
-          OAuthParameters:
-            ClientParameters:
-              ClientID: '{{ ClientID }}'
-              ClientSecret: '{{ ClientSecret }}'
-            AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-            HttpMethod: '{{ HttpMethod }}'
-            OAuthHttpParameters:
-              HeaderParameters:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-                  IsValueSecret: '{{ IsValueSecret }}'
-              QueryStringParameters:
+          api_key_auth_parameters:
+            api_key_name: '{{ api_key_name }}'
+            api_key_value: '{{ api_key_value }}'
+          basic_auth_parameters:
+            username: '{{ username }}'
+            password: '{{ password }}'
+          oauth_parameters:
+            client_parameters:
+              client_id: '{{ client_id }}'
+              client_secret: '{{ client_secret }}'
+            authorization_endpoint: '{{ authorization_endpoint }}'
+            http_method: '{{ http_method }}'
+            oauth_http_parameters:
+              header_parameters:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+                  is_value_secret: '{{ is_value_secret }}'
+              query_string_parameters:
                 - null
-              BodyParameters:
+              body_parameters:
                 - null
-          InvocationHttpParameters: null
-          ConnectivityParameters:
-            ResourceParameters:
-              ResourceConfigurationArn: '{{ ResourceConfigurationArn }}'
-              ResourceAssociationArn: '{{ ResourceAssociationArn }}'
-      - name: InvocationConnectivityParameters
+          invocation_http_parameters: null
+          connectivity_parameters:
+            resource_parameters:
+              resource_configuration_arn: '{{ resource_configuration_arn }}'
+              resource_association_arn: '{{ resource_association_arn }}'
+      - name: invocation_connectivity_parameters
         value:
-          ResourceParameters: null
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-
+          resource_parameters: null
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -501,7 +500,7 @@ SET PatchDocument = string('{{ {
     "KmsKeyIdentifier": kms_key_identifier
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -510,7 +509,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.connections
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

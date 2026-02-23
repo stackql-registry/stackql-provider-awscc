@@ -211,7 +211,7 @@ subnets,
 selectors,
 tags
 FROM awscc.eks.fargate_profiles
-WHERE region = 'us-east-1' AND Identifier = '<ClusterName>|<FargateProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.eks.fargate_profiles (
  Selectors,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ PodExecutionRoleArn }}',
- '{{ Selectors }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ pod_execution_role_arn }}',
+ '{{ selectors }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -270,13 +270,13 @@ INSERT INTO awscc.eks.fargate_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ FargateProfileName }}',
- '{{ PodExecutionRoleArn }}',
- '{{ Subnets }}',
- '{{ Selectors }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ fargate_profile_name }}',
+ '{{ pod_execution_role_arn }}',
+ '{{ subnets }}',
+ '{{ selectors }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,26 +294,25 @@ globals:
 resources:
   - name: fargate_profile
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: FargateProfileName
-        value: '{{ FargateProfileName }}'
-      - name: PodExecutionRoleArn
-        value: '{{ PodExecutionRoleArn }}'
-      - name: Subnets
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: fargate_profile_name
+        value: '{{ fargate_profile_name }}'
+      - name: pod_execution_role_arn
+        value: '{{ pod_execution_role_arn }}'
+      - name: subnets
         value:
-          - '{{ Subnets[0] }}'
-      - name: Selectors
+          - '{{ subnets[0] }}'
+      - name: selectors
         value:
-          - Namespace: '{{ Namespace }}'
-            Labels:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: Tags
+          - namespace: '{{ namespace }}'
+            labels:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +328,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterName>|<FargateProfileName>';
+AND Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
 ```
 
 
@@ -338,7 +337,7 @@ AND Identifier = '<ClusterName>|<FargateProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.fargate_profiles
-WHERE Identifier = '<ClusterName|FargateProfileName>'
+WHERE Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}'
 AND region = 'us-east-1';
 ```
 

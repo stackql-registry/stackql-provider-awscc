@@ -436,7 +436,7 @@ auto_scaling,
 cluster_status,
 tags
 FROM awscc.sagemaker.clusters
-WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -472,7 +472,7 @@ INSERT INTO awscc.sagemaker.clusters (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -494,17 +494,17 @@ INSERT INTO awscc.sagemaker.clusters (
  Tags,
  region
 )
-SELECT 
- '{{ VpcConfig }}',
- '{{ NodeRecovery }}',
- '{{ InstanceGroups }}',
- '{{ RestrictedInstanceGroups }}',
- '{{ Orchestrator }}',
- '{{ ClusterRole }}',
- '{{ NodeProvisioningMode }}',
- '{{ ClusterName }}',
- '{{ AutoScaling }}',
- '{{ Tags }}',
+SELECT
+ '{{ vpc_config }}',
+ '{{ node_recovery }}',
+ '{{ instance_groups }}',
+ '{{ restricted_instance_groups }}',
+ '{{ orchestrator }}',
+ '{{ cluster_role }}',
+ '{{ node_provisioning_mode }}',
+ '{{ cluster_name }}',
+ '{{ auto_scaling }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -522,88 +522,87 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: VpcConfig
+      - name: vpc_config
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          Subnets:
-            - '{{ Subnets[0] }}'
-      - name: NodeRecovery
-        value: '{{ NodeRecovery }}'
-      - name: InstanceGroups
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnets:
+            - '{{ subnets[0] }}'
+      - name: node_recovery
+        value: '{{ node_recovery }}'
+      - name: instance_groups
         value:
-          - InstanceGroupName: '{{ InstanceGroupName }}'
-            InstanceStorageConfigs:
+          - instance_group_name: '{{ instance_group_name }}'
+            instance_storage_configs:
               - {}
-            LifeCycleConfig:
-              SourceS3Uri: '{{ SourceS3Uri }}'
-              OnCreate: '{{ OnCreate }}'
-            TrainingPlanArn: '{{ TrainingPlanArn }}'
-            ThreadsPerCore: '{{ ThreadsPerCore }}'
-            OverrideVpcConfig: null
-            InstanceCount: '{{ InstanceCount }}'
-            OnStartDeepHealthChecks:
-              - '{{ OnStartDeepHealthChecks[0] }}'
-            ImageId: '{{ ImageId }}'
-            CurrentCount: '{{ CurrentCount }}'
-            ScheduledUpdateConfig:
-              ScheduleExpression: '{{ ScheduleExpression }}'
-              DeploymentConfig:
-                AutoRollbackConfiguration:
-                  Alarms:
-                    - AlarmName: '{{ AlarmName }}'
-                BlueGreenUpdatePolicy:
-                  MaximumExecutionTimeoutInSeconds: '{{ MaximumExecutionTimeoutInSeconds }}'
-                  TerminationWaitInSeconds: '{{ TerminationWaitInSeconds }}'
-                  TrafficRoutingConfiguration:
-                    CanarySize:
-                      Type: '{{ Type }}'
-                      Value: '{{ Value }}'
-                    LinearStepSize: null
-                    Type: '{{ Type }}'
-                    WaitIntervalInSeconds: '{{ WaitIntervalInSeconds }}'
-                RollingUpdatePolicy:
-                  MaximumBatchSize: null
-                  MaximumExecutionTimeoutInSeconds: '{{ MaximumExecutionTimeoutInSeconds }}'
-                  RollbackMaximumBatchSize: null
-                  WaitIntervalInSeconds: '{{ WaitIntervalInSeconds }}'
-            InstanceType: '{{ InstanceType }}'
-            ExecutionRole: '{{ ExecutionRole }}'
-      - name: RestrictedInstanceGroups
+            life_cycle_config:
+              source_s3_uri: '{{ source_s3_uri }}'
+              on_create: '{{ on_create }}'
+            training_plan_arn: '{{ training_plan_arn }}'
+            threads_per_core: '{{ threads_per_core }}'
+            override_vpc_config: null
+            instance_count: '{{ instance_count }}'
+            on_start_deep_health_checks:
+              - '{{ on_start_deep_health_checks[0] }}'
+            image_id: '{{ image_id }}'
+            current_count: '{{ current_count }}'
+            scheduled_update_config:
+              schedule_expression: '{{ schedule_expression }}'
+              deployment_config:
+                auto_rollback_configuration:
+                  alarms:
+                    - alarm_name: '{{ alarm_name }}'
+                blue_green_update_policy:
+                  maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+                  termination_wait_in_seconds: '{{ termination_wait_in_seconds }}'
+                  traffic_routing_configuration:
+                    canary_size:
+                      type: '{{ type }}'
+                      value: '{{ value }}'
+                    linear_step_size: null
+                    type: '{{ type }}'
+                    wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+                rolling_update_policy:
+                  maximum_batch_size: null
+                  maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+                  rollback_maximum_batch_size: null
+                  wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+            instance_type: '{{ instance_type }}'
+            execution_role: '{{ execution_role }}'
+      - name: restricted_instance_groups
         value:
-          - OverrideVpcConfig: null
-            InstanceCount: '{{ InstanceCount }}'
-            OnStartDeepHealthChecks: null
-            EnvironmentConfig:
-              FSxLustreConfig:
-                SizeInGiB: '{{ SizeInGiB }}'
-                PerUnitStorageThroughput: '{{ PerUnitStorageThroughput }}'
-            InstanceGroupName: null
-            InstanceStorageConfigs: null
-            CurrentCount: '{{ CurrentCount }}'
-            TrainingPlanArn: '{{ TrainingPlanArn }}'
-            InstanceType: null
-            ThreadsPerCore: '{{ ThreadsPerCore }}'
-            ExecutionRole: null
-      - name: Orchestrator
+          - override_vpc_config: null
+            instance_count: '{{ instance_count }}'
+            on_start_deep_health_checks: null
+            environment_config:
+              f_sx_lustre_config:
+                size_in_gi_b: '{{ size_in_gi_b }}'
+                per_unit_storage_throughput: '{{ per_unit_storage_throughput }}'
+            instance_group_name: null
+            instance_storage_configs: null
+            current_count: '{{ current_count }}'
+            training_plan_arn: '{{ training_plan_arn }}'
+            instance_type: null
+            threads_per_core: '{{ threads_per_core }}'
+            execution_role: null
+      - name: orchestrator
         value:
-          Eks:
-            ClusterArn: '{{ ClusterArn }}'
-      - name: ClusterRole
-        value: '{{ ClusterRole }}'
-      - name: NodeProvisioningMode
-        value: '{{ NodeProvisioningMode }}'
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: AutoScaling
+          eks:
+            cluster_arn: '{{ cluster_arn }}'
+      - name: cluster_role
+        value: '{{ cluster_role }}'
+      - name: node_provisioning_mode
+        value: '{{ node_provisioning_mode }}'
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: auto_scaling
         value:
-          Mode: '{{ Mode }}'
-          AutoScalerType: '{{ AutoScalerType }}'
-      - name: Tags
+          mode: '{{ mode }}'
+          auto_scaler_type: '{{ auto_scaler_type }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -623,7 +622,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterArn>';
+AND Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -632,7 +631,7 @@ AND Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.clusters
-WHERE Identifier = '<ClusterArn>'
+WHERE Identifier = '{{ cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

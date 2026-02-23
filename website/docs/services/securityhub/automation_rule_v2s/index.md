@@ -281,7 +281,7 @@ rule_id,
 created_at,
 updated_at
 FROM awscc.securityhub.automation_rule_v2s
-WHERE region = 'us-east-1' AND Identifier = '<RuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,12 +321,12 @@ INSERT INTO awscc.securityhub.automation_rule_v2s (
  Actions,
  region
 )
-SELECT 
-'{{ RuleName }}',
- '{{ Description }}',
- '{{ RuleOrder }}',
- '{{ Criteria }}',
- '{{ Actions }}',
+SELECT
+'{{ rule_name }}',
+ '{{ description }}',
+ '{{ rule_order }}',
+ '{{ criteria }}',
+ '{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -344,14 +344,14 @@ INSERT INTO awscc.securityhub.automation_rule_v2s (
  Tags,
  region
 )
-SELECT 
- '{{ RuleName }}',
- '{{ RuleStatus }}',
- '{{ Description }}',
- '{{ RuleOrder }}',
- '{{ Criteria }}',
- '{{ Actions }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_name }}',
+ '{{ rule_status }}',
+ '{{ description }}',
+ '{{ rule_order }}',
+ '{{ criteria }}',
+ '{{ actions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -369,61 +369,60 @@ globals:
 resources:
   - name: automation_rule_v2
     props:
-      - name: RuleName
-        value: '{{ RuleName }}'
-      - name: RuleStatus
-        value: '{{ RuleStatus }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RuleOrder
+      - name: rule_name
+        value: '{{ rule_name }}'
+      - name: rule_status
+        value: '{{ rule_status }}'
+      - name: description
+        value: '{{ description }}'
+      - name: rule_order
         value: null
-      - name: Criteria
+      - name: criteria
         value:
-          OcsfFindingCriteria:
-            CompositeFilters:
-              - StringFilters:
-                  - FieldName: '{{ FieldName }}'
-                    Filter:
-                      Comparison: '{{ Comparison }}'
-                      Value: '{{ Value }}'
-                DateFilters:
-                  - FieldName: '{{ FieldName }}'
-                    Filter:
-                      DateRange:
-                        Unit: '{{ Unit }}'
-                        Value: null
-                      End: '{{ End }}'
-                      Start: null
-                BooleanFilters:
-                  - FieldName: '{{ FieldName }}'
-                    Filter:
-                      Value: '{{ Value }}'
-                NumberFilters:
-                  - FieldName: '{{ FieldName }}'
-                    Filter:
-                      Eq: null
-                      Gte: null
-                      Lte: null
-                MapFilters:
-                  - FieldName: '{{ FieldName }}'
-                    Filter:
-                      Comparison: '{{ Comparison }}'
-                      Key: null
-                      Value: null
-                Operator: '{{ Operator }}'
-            CompositeOperator: null
-      - name: Actions
+          ocsf_finding_criteria:
+            composite_filters:
+              - string_filters:
+                  - field_name: '{{ field_name }}'
+                    filter:
+                      comparison: '{{ comparison }}'
+                      value: '{{ value }}'
+                date_filters:
+                  - field_name: '{{ field_name }}'
+                    filter:
+                      date_range:
+                        unit: '{{ unit }}'
+                        value: null
+                      end: '{{ end }}'
+                      start: null
+                boolean_filters:
+                  - field_name: '{{ field_name }}'
+                    filter:
+                      value: '{{ value }}'
+                number_filters:
+                  - field_name: '{{ field_name }}'
+                    filter:
+                      eq: null
+                      gte: null
+                      lte: null
+                map_filters:
+                  - field_name: '{{ field_name }}'
+                    filter:
+                      comparison: '{{ comparison }}'
+                      key: null
+                      value: null
+                operator: '{{ operator }}'
+            composite_operator: null
+      - name: actions
         value:
-          - Type: '{{ Type }}'
-            FindingFieldsUpdate:
-              SeverityId: '{{ SeverityId }}'
-              Comment: '{{ Comment }}'
-              StatusId: '{{ StatusId }}'
-            ExternalIntegrationConfiguration:
-              ConnectorArn: '{{ ConnectorArn }}'
-      - name: Tags
+          - type: '{{ type }}'
+            finding_fields_update:
+              severity_id: '{{ severity_id }}'
+              comment: '{{ comment }}'
+              status_id: '{{ status_id }}'
+            external_integration_configuration:
+              connector_arn: '{{ connector_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -445,7 +444,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleArn>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -454,7 +453,7 @@ AND Identifier = '<RuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.automation_rule_v2s
-WHERE Identifier = '<RuleArn>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -229,7 +229,7 @@ app_configs,
 data_sources,
 tags
 FROM awscc.opensearchservice.applications
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,8 +265,8 @@ INSERT INTO awscc.opensearchservice.applications (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -283,13 +283,13 @@ INSERT INTO awscc.opensearchservice.applications (
  Tags,
  region
 )
-SELECT 
- '{{ IamIdentityCenterOptions }}',
- '{{ Name }}',
- '{{ Endpoint }}',
- '{{ AppConfigs }}',
- '{{ DataSources }}',
- '{{ Tags }}',
+SELECT
+ '{{ iam_identity_center_options }}',
+ '{{ name }}',
+ '{{ endpoint }}',
+ '{{ app_configs }}',
+ '{{ data_sources }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -307,28 +307,27 @@ globals:
 resources:
   - name: application
     props:
-      - name: IamIdentityCenterOptions
+      - name: iam_identity_center_options
         value:
-          Enabled: '{{ Enabled }}'
-          IamIdentityCenterInstanceArn: '{{ IamIdentityCenterInstanceArn }}'
-          IamRoleForIdentityCenterApplicationArn: '{{ IamRoleForIdentityCenterApplicationArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Endpoint
-        value: '{{ Endpoint }}'
-      - name: AppConfigs
+          enabled: '{{ enabled }}'
+          iam_identity_center_instance_arn: '{{ iam_identity_center_instance_arn }}'
+          iam_role_for_identity_center_application_arn: '{{ iam_role_for_identity_center_application_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: endpoint
+        value: '{{ endpoint }}'
+      - name: app_configs
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DataSources
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: data_sources
         value:
-          - DataSourceArn: '{{ DataSourceArn }}'
-            DataSourceDescription: '{{ DataSourceDescription }}'
-      - name: Tags
+          - data_source_arn: '{{ data_source_arn }}'
+            data_source_description: '{{ data_source_description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +347,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -357,7 +356,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchservice.applications
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -200,7 +200,7 @@ monitor_specification,
 dimensional_value_count,
 resource_tags
 FROM awscc.ce.anomaly_monitors
-WHERE region = 'us-east-1' AND Identifier = '<MonitorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ monitor_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.ce.anomaly_monitors (
  MonitorName,
  region
 )
-SELECT 
-'{{ MonitorType }}',
- '{{ MonitorName }}',
+SELECT
+'{{ monitor_type }}',
+ '{{ monitor_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,12 +255,12 @@ INSERT INTO awscc.ce.anomaly_monitors (
  ResourceTags,
  region
 )
-SELECT 
- '{{ MonitorType }}',
- '{{ MonitorName }}',
- '{{ MonitorDimension }}',
- '{{ MonitorSpecification }}',
- '{{ ResourceTags }}',
+SELECT
+ '{{ monitor_type }}',
+ '{{ monitor_name }}',
+ '{{ monitor_dimension }}',
+ '{{ monitor_specification }}',
+ '{{ resource_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,19 +278,18 @@ globals:
 resources:
   - name: anomaly_monitor
     props:
-      - name: MonitorType
-        value: '{{ MonitorType }}'
-      - name: MonitorName
-        value: '{{ MonitorName }}'
-      - name: MonitorDimension
-        value: '{{ MonitorDimension }}'
-      - name: MonitorSpecification
-        value: '{{ MonitorSpecification }}'
-      - name: ResourceTags
+      - name: monitor_type
+        value: '{{ monitor_type }}'
+      - name: monitor_name
+        value: '{{ monitor_name }}'
+      - name: monitor_dimension
+        value: '{{ monitor_dimension }}'
+      - name: monitor_specification
+        value: '{{ monitor_specification }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "MonitorName": monitor_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MonitorArn>';
+AND Identifier = '{{ monitor_arn }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<MonitorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_monitors
-WHERE Identifier = '<MonitorArn>'
+WHERE Identifier = '{{ monitor_arn }}'
 AND region = 'us-east-1';
 ```
 

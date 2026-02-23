@@ -294,7 +294,7 @@ name,
 status,
 tags
 FROM awscc.medialive.signal_maps
-WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -331,9 +331,9 @@ INSERT INTO awscc.medialive.signal_maps (
  Name,
  region
 )
-SELECT 
-'{{ DiscoveryEntryPointArn }}',
- '{{ Name }}',
+SELECT
+'{{ discovery_entry_point_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -351,14 +351,14 @@ INSERT INTO awscc.medialive.signal_maps (
  Tags,
  region
 )
-SELECT 
- '{{ CloudWatchAlarmTemplateGroupIdentifiers }}',
- '{{ Description }}',
- '{{ DiscoveryEntryPointArn }}',
- '{{ EventBridgeRuleTemplateGroupIdentifiers }}',
- '{{ ForceRediscovery }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ cloud_watch_alarm_template_group_identifiers }}',
+ '{{ description }}',
+ '{{ discovery_entry_point_arn }}',
+ '{{ event_bridge_rule_template_group_identifiers }}',
+ '{{ force_rediscovery }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -376,23 +376,22 @@ globals:
 resources:
   - name: signal_map
     props:
-      - name: CloudWatchAlarmTemplateGroupIdentifiers
+      - name: cloud_watch_alarm_template_group_identifiers
         value:
-          - '{{ CloudWatchAlarmTemplateGroupIdentifiers[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DiscoveryEntryPointArn
-        value: '{{ DiscoveryEntryPointArn }}'
-      - name: EventBridgeRuleTemplateGroupIdentifiers
+          - '{{ cloud_watch_alarm_template_group_identifiers[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: discovery_entry_point_arn
+        value: '{{ discovery_entry_point_arn }}'
+      - name: event_bridge_rule_template_group_identifiers
         value:
-          - '{{ EventBridgeRuleTemplateGroupIdentifiers[0] }}'
-      - name: ForceRediscovery
-        value: '{{ ForceRediscovery }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - '{{ event_bridge_rule_template_group_identifiers[0] }}'
+      - name: force_rediscovery
+        value: '{{ force_rediscovery }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -413,7 +412,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Identifier>';
+AND Identifier = '{{ identifier }}';
 ```
 
 
@@ -422,7 +421,7 @@ AND Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.signal_maps
-WHERE Identifier = '<Identifier>'
+WHERE Identifier = '{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

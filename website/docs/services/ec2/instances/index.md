@@ -884,7 +884,7 @@ ramdisk_id,
 source_dest_check,
 credit_specification
 FROM awscc.ec2.instances
-WHERE region = 'us-east-1' AND Identifier = '<InstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -960,48 +960,48 @@ INSERT INTO awscc.ec2.instances (
  CreditSpecification,
  region
 )
-SELECT 
-'{{ Volumes }}',
- '{{ EnclaveOptions }}',
- '{{ ImageId }}',
- '{{ Tags }}',
- '{{ AdditionalInfo }}',
- '{{ HibernationOptions }}',
- '{{ LicenseSpecifications }}',
- '{{ MetadataOptions }}',
- '{{ CpuOptions }}',
- '{{ AvailabilityZone }}',
- '{{ PrivateDnsNameOptions }}',
- '{{ HostId }}',
- '{{ SecurityGroupIds }}',
- '{{ PlacementGroupName }}',
- '{{ SsmAssociations }}',
- '{{ Affinity }}',
- '{{ Tenancy }}',
- '{{ SecurityGroups }}',
- '{{ PrivateIpAddress }}',
- '{{ UserData }}',
- '{{ BlockDeviceMappings }}',
- '{{ IamInstanceProfile }}',
- '{{ Ipv6Addresses }}',
- '{{ KernelId }}',
- '{{ SubnetId }}',
- '{{ EbsOptimized }}',
- '{{ PropagateTagsToVolumeOnCreation }}',
- '{{ ElasticGpuSpecifications }}',
- '{{ ElasticInferenceAccelerators }}',
- '{{ Ipv6AddressCount }}',
- '{{ LaunchTemplate }}',
- '{{ NetworkInterfaces }}',
- '{{ InstanceType }}',
- '{{ Monitoring }}',
- '{{ InstanceInitiatedShutdownBehavior }}',
- '{{ HostResourceGroupArn }}',
- '{{ DisableApiTermination }}',
- '{{ KeyName }}',
- '{{ RamdiskId }}',
- '{{ SourceDestCheck }}',
- '{{ CreditSpecification }}',
+SELECT
+'{{ volumes }}',
+ '{{ enclave_options }}',
+ '{{ image_id }}',
+ '{{ tags }}',
+ '{{ additional_info }}',
+ '{{ hibernation_options }}',
+ '{{ license_specifications }}',
+ '{{ metadata_options }}',
+ '{{ cpu_options }}',
+ '{{ availability_zone }}',
+ '{{ private_dns_name_options }}',
+ '{{ host_id }}',
+ '{{ security_group_ids }}',
+ '{{ placement_group_name }}',
+ '{{ ssm_associations }}',
+ '{{ affinity }}',
+ '{{ tenancy }}',
+ '{{ security_groups }}',
+ '{{ private_ip_address }}',
+ '{{ user_data }}',
+ '{{ block_device_mappings }}',
+ '{{ iam_instance_profile }}',
+ '{{ ipv6_addresses }}',
+ '{{ kernel_id }}',
+ '{{ subnet_id }}',
+ '{{ ebs_optimized }}',
+ '{{ propagate_tags_to_volume_on_creation }}',
+ '{{ elastic_gpu_specifications }}',
+ '{{ elastic_inference_accelerators }}',
+ '{{ ipv6_address_count }}',
+ '{{ launch_template }}',
+ '{{ network_interfaces }}',
+ '{{ instance_type }}',
+ '{{ monitoring }}',
+ '{{ instance_initiated_shutdown_behavior }}',
+ '{{ host_resource_group_arn }}',
+ '{{ disable_api_termination }}',
+ '{{ key_name }}',
+ '{{ ramdisk_id }}',
+ '{{ source_dest_check }}',
+ '{{ credit_specification }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1053,48 +1053,48 @@ INSERT INTO awscc.ec2.instances (
  CreditSpecification,
  region
 )
-SELECT 
- '{{ Volumes }}',
- '{{ EnclaveOptions }}',
- '{{ ImageId }}',
- '{{ Tags }}',
- '{{ AdditionalInfo }}',
- '{{ HibernationOptions }}',
- '{{ LicenseSpecifications }}',
- '{{ MetadataOptions }}',
- '{{ CpuOptions }}',
- '{{ AvailabilityZone }}',
- '{{ PrivateDnsNameOptions }}',
- '{{ HostId }}',
- '{{ SecurityGroupIds }}',
- '{{ PlacementGroupName }}',
- '{{ SsmAssociations }}',
- '{{ Affinity }}',
- '{{ Tenancy }}',
- '{{ SecurityGroups }}',
- '{{ PrivateIpAddress }}',
- '{{ UserData }}',
- '{{ BlockDeviceMappings }}',
- '{{ IamInstanceProfile }}',
- '{{ Ipv6Addresses }}',
- '{{ KernelId }}',
- '{{ SubnetId }}',
- '{{ EbsOptimized }}',
- '{{ PropagateTagsToVolumeOnCreation }}',
- '{{ ElasticGpuSpecifications }}',
- '{{ ElasticInferenceAccelerators }}',
- '{{ Ipv6AddressCount }}',
- '{{ LaunchTemplate }}',
- '{{ NetworkInterfaces }}',
- '{{ InstanceType }}',
- '{{ Monitoring }}',
- '{{ InstanceInitiatedShutdownBehavior }}',
- '{{ HostResourceGroupArn }}',
- '{{ DisableApiTermination }}',
- '{{ KeyName }}',
- '{{ RamdiskId }}',
- '{{ SourceDestCheck }}',
- '{{ CreditSpecification }}',
+SELECT
+ '{{ volumes }}',
+ '{{ enclave_options }}',
+ '{{ image_id }}',
+ '{{ tags }}',
+ '{{ additional_info }}',
+ '{{ hibernation_options }}',
+ '{{ license_specifications }}',
+ '{{ metadata_options }}',
+ '{{ cpu_options }}',
+ '{{ availability_zone }}',
+ '{{ private_dns_name_options }}',
+ '{{ host_id }}',
+ '{{ security_group_ids }}',
+ '{{ placement_group_name }}',
+ '{{ ssm_associations }}',
+ '{{ affinity }}',
+ '{{ tenancy }}',
+ '{{ security_groups }}',
+ '{{ private_ip_address }}',
+ '{{ user_data }}',
+ '{{ block_device_mappings }}',
+ '{{ iam_instance_profile }}',
+ '{{ ipv6_addresses }}',
+ '{{ kernel_id }}',
+ '{{ subnet_id }}',
+ '{{ ebs_optimized }}',
+ '{{ propagate_tags_to_volume_on_creation }}',
+ '{{ elastic_gpu_specifications }}',
+ '{{ elastic_inference_accelerators }}',
+ '{{ ipv6_address_count }}',
+ '{{ launch_template }}',
+ '{{ network_interfaces }}',
+ '{{ instance_type }}',
+ '{{ monitoring }}',
+ '{{ instance_initiated_shutdown_behavior }}',
+ '{{ host_resource_group_arn }}',
+ '{{ disable_api_termination }}',
+ '{{ key_name }}',
+ '{{ ramdisk_id }}',
+ '{{ source_dest_check }}',
+ '{{ credit_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1112,170 +1112,169 @@ globals:
 resources:
   - name: instance
     props:
-      - name: Volumes
+      - name: volumes
         value:
-          - MultiAttachEnabled: '{{ MultiAttachEnabled }}'
-            KmsKeyId: '{{ KmsKeyId }}'
-            Encrypted: '{{ Encrypted }}'
-            Size: '{{ Size }}'
-            AutoEnableIO: '{{ AutoEnableIO }}'
-            OutpostArn: '{{ OutpostArn }}'
-            AvailabilityZone: '{{ AvailabilityZone }}'
-            Throughput: '{{ Throughput }}'
-            Iops: '{{ Iops }}'
-            VolumeInitializationRate: '{{ VolumeInitializationRate }}'
-            SnapshotId: '{{ SnapshotId }}'
-            VolumeType: '{{ VolumeType }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: EnclaveOptions
+          - multi_attach_enabled: '{{ multi_attach_enabled }}'
+            kms_key_id: '{{ kms_key_id }}'
+            encrypted: '{{ encrypted }}'
+            size: '{{ size }}'
+            auto_enable_io: '{{ auto_enable_io }}'
+            outpost_arn: '{{ outpost_arn }}'
+            availability_zone: '{{ availability_zone }}'
+            throughput: '{{ throughput }}'
+            iops: '{{ iops }}'
+            volume_initialization_rate: '{{ volume_initialization_rate }}'
+            snapshot_id: '{{ snapshot_id }}'
+            volume_type: '{{ volume_type }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: enclave_options
         value:
-          Enabled: '{{ Enabled }}'
-      - name: ImageId
-        value: '{{ ImageId }}'
-      - name: Tags
+          enabled: '{{ enabled }}'
+      - name: image_id
+        value: '{{ image_id }}'
+      - name: tags
         value:
           - null
-      - name: AdditionalInfo
-        value: '{{ AdditionalInfo }}'
-      - name: HibernationOptions
+      - name: additional_info
+        value: '{{ additional_info }}'
+      - name: hibernation_options
         value:
-          Configured: '{{ Configured }}'
-      - name: LicenseSpecifications
+          configured: '{{ configured }}'
+      - name: license_specifications
         value:
-          - LicenseConfigurationArn: '{{ LicenseConfigurationArn }}'
-      - name: MetadataOptions
+          - license_configuration_arn: '{{ license_configuration_arn }}'
+      - name: metadata_options
         value:
-          HttpPutResponseHopLimit: '{{ HttpPutResponseHopLimit }}'
-          HttpTokens: '{{ HttpTokens }}'
-          HttpProtocolIpv6: '{{ HttpProtocolIpv6 }}'
-          InstanceMetadataTags: '{{ InstanceMetadataTags }}'
-          HttpEndpoint: '{{ HttpEndpoint }}'
-      - name: CpuOptions
+          http_put_response_hop_limit: '{{ http_put_response_hop_limit }}'
+          http_tokens: '{{ http_tokens }}'
+          http_protocol_ipv6: '{{ http_protocol_ipv6 }}'
+          instance_metadata_tags: '{{ instance_metadata_tags }}'
+          http_endpoint: '{{ http_endpoint }}'
+      - name: cpu_options
         value:
-          ThreadsPerCore: '{{ ThreadsPerCore }}'
-          CoreCount: '{{ CoreCount }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: PrivateDnsNameOptions
+          threads_per_core: '{{ threads_per_core }}'
+          core_count: '{{ core_count }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: private_dns_name_options
         value:
-          EnableResourceNameDnsARecord: '{{ EnableResourceNameDnsARecord }}'
-          HostnameType: '{{ HostnameType }}'
-          EnableResourceNameDnsAAAARecord: '{{ EnableResourceNameDnsAAAARecord }}'
-      - name: HostId
-        value: '{{ HostId }}'
-      - name: SecurityGroupIds
+          enable_resource_name_dns_arecord: '{{ enable_resource_name_dns_arecord }}'
+          hostname_type: '{{ hostname_type }}'
+          enable_resource_name_dns_aa_aa_record: '{{ enable_resource_name_dns_aa_aa_record }}'
+      - name: host_id
+        value: '{{ host_id }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: PlacementGroupName
-        value: '{{ PlacementGroupName }}'
-      - name: SsmAssociations
+          - '{{ security_group_ids[0] }}'
+      - name: placement_group_name
+        value: '{{ placement_group_name }}'
+      - name: ssm_associations
         value:
-          - AssociationParameters:
-              - Value:
-                  - '{{ Value[0] }}'
-                Key: '{{ Key }}'
-            DocumentName: '{{ DocumentName }}'
-      - name: Affinity
-        value: '{{ Affinity }}'
-      - name: Tenancy
-        value: '{{ Tenancy }}'
-      - name: SecurityGroups
+          - association_parameters:
+              - value:
+                  - '{{ value[0] }}'
+                key: '{{ key }}'
+            document_name: '{{ document_name }}'
+      - name: affinity
+        value: '{{ affinity }}'
+      - name: tenancy
+        value: '{{ tenancy }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: PrivateIpAddress
-        value: '{{ PrivateIpAddress }}'
-      - name: UserData
-        value: '{{ UserData }}'
-      - name: BlockDeviceMappings
+          - '{{ security_groups[0] }}'
+      - name: private_ip_address
+        value: '{{ private_ip_address }}'
+      - name: user_data
+        value: '{{ user_data }}'
+      - name: block_device_mappings
         value:
-          - DeviceName: '{{ DeviceName }}'
-            Ebs:
-              DeleteOnTermination: '{{ DeleteOnTermination }}'
-              Encrypted: '{{ Encrypted }}'
-              Iops: '{{ Iops }}'
-              SnapshotId: '{{ SnapshotId }}'
-              VolumeSize: '{{ VolumeSize }}'
-              VolumeType: '{{ VolumeType }}'
-            NoDevice: '{{ NoDevice }}'
-            VirtualName: '{{ VirtualName }}'
-      - name: IamInstanceProfile
-        value: '{{ IamInstanceProfile }}'
-      - name: Ipv6Addresses
+          - device_name: '{{ device_name }}'
+            ebs:
+              delete_on_termination: '{{ delete_on_termination }}'
+              encrypted: '{{ encrypted }}'
+              iops: '{{ iops }}'
+              snapshot_id: '{{ snapshot_id }}'
+              volume_size: '{{ volume_size }}'
+              volume_type: '{{ volume_type }}'
+            no_device: '{{ no_device }}'
+            virtual_name: '{{ virtual_name }}'
+      - name: iam_instance_profile
+        value: '{{ iam_instance_profile }}'
+      - name: ipv6_addresses
         value:
-          - Ipv6Address: '{{ Ipv6Address }}'
-      - name: KernelId
-        value: '{{ KernelId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: EbsOptimized
-        value: '{{ EbsOptimized }}'
-      - name: PropagateTagsToVolumeOnCreation
-        value: '{{ PropagateTagsToVolumeOnCreation }}'
-      - name: ElasticGpuSpecifications
+          - ipv6_address: '{{ ipv6_address }}'
+      - name: kernel_id
+        value: '{{ kernel_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: ebs_optimized
+        value: '{{ ebs_optimized }}'
+      - name: propagate_tags_to_volume_on_creation
+        value: '{{ propagate_tags_to_volume_on_creation }}'
+      - name: elastic_gpu_specifications
         value:
-          - Type: '{{ Type }}'
-      - name: ElasticInferenceAccelerators
+          - type: '{{ type }}'
+      - name: elastic_inference_accelerators
         value:
-          - Type: '{{ Type }}'
-            Count: '{{ Count }}'
-      - name: Ipv6AddressCount
-        value: '{{ Ipv6AddressCount }}'
-      - name: LaunchTemplate
+          - type: '{{ type }}'
+            count: '{{ count }}'
+      - name: ipv6_address_count
+        value: '{{ ipv6_address_count }}'
+      - name: launch_template
         value:
-          LaunchTemplateName: '{{ LaunchTemplateName }}'
-          Version: '{{ Version }}'
-          LaunchTemplateId: '{{ LaunchTemplateId }}'
-      - name: NetworkInterfaces
+          launch_template_name: '{{ launch_template_name }}'
+          version: '{{ version }}'
+          launch_template_id: '{{ launch_template_id }}'
+      - name: network_interfaces
         value:
-          - Description: '{{ Description }}'
-            PrivateIpAddress: '{{ PrivateIpAddress }}'
-            PrivateIpAddresses:
-              - Primary: '{{ Primary }}'
-                PrivateIpAddress: '{{ PrivateIpAddress }}'
-            SecondaryPrivateIpAddressCount: '{{ SecondaryPrivateIpAddressCount }}'
-            Ipv6PrefixCount: '{{ Ipv6PrefixCount }}'
-            Ipv4Prefixes:
-              - Ipv4Prefix: '{{ Ipv4Prefix }}'
-            Ipv4PrefixCount: '{{ Ipv4PrefixCount }}'
-            EnablePrimaryIpv6: '{{ EnablePrimaryIpv6 }}'
-            GroupSet:
-              - '{{ GroupSet[0] }}'
-            Ipv6Addresses:
+          - description: '{{ description }}'
+            private_ip_address: '{{ private_ip_address }}'
+            private_ip_addresses:
+              - primary: '{{ primary }}'
+                private_ip_address: '{{ private_ip_address }}'
+            secondary_private_ip_address_count: '{{ secondary_private_ip_address_count }}'
+            ipv6_prefix_count: '{{ ipv6_prefix_count }}'
+            ipv4_prefixes:
+              - ipv4_prefix: '{{ ipv4_prefix }}'
+            ipv4_prefix_count: '{{ ipv4_prefix_count }}'
+            enable_primary_ipv6: '{{ enable_primary_ipv6 }}'
+            group_set:
+              - '{{ group_set[0] }}'
+            ipv6_addresses:
               - null
-            Ipv6Prefixes:
-              - Ipv6Prefix: '{{ Ipv6Prefix }}'
-            SubnetId: '{{ SubnetId }}'
-            SourceDestCheck: '{{ SourceDestCheck }}'
-            InterfaceType: '{{ InterfaceType }}'
-            Ipv6AddressCount: '{{ Ipv6AddressCount }}'
-            Tags:
+            ipv6_prefixes:
+              - ipv6_prefix: '{{ ipv6_prefix }}'
+            subnet_id: '{{ subnet_id }}'
+            source_dest_check: '{{ source_dest_check }}'
+            interface_type: '{{ interface_type }}'
+            ipv6_address_count: '{{ ipv6_address_count }}'
+            tags:
               - null
-            ConnectionTrackingSpecification:
-              UdpTimeout: '{{ UdpTimeout }}'
-              TcpEstablishedTimeout: '{{ TcpEstablishedTimeout }}'
-              UdpStreamTimeout: '{{ UdpStreamTimeout }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: Monitoring
-        value: '{{ Monitoring }}'
-      - name: InstanceInitiatedShutdownBehavior
-        value: '{{ InstanceInitiatedShutdownBehavior }}'
-      - name: HostResourceGroupArn
-        value: '{{ HostResourceGroupArn }}'
-      - name: DisableApiTermination
-        value: '{{ DisableApiTermination }}'
-      - name: KeyName
-        value: '{{ KeyName }}'
-      - name: RamdiskId
-        value: '{{ RamdiskId }}'
-      - name: SourceDestCheck
-        value: '{{ SourceDestCheck }}'
-      - name: CreditSpecification
+            connection_tracking_specification:
+              udp_timeout: '{{ udp_timeout }}'
+              tcp_established_timeout: '{{ tcp_established_timeout }}'
+              udp_stream_timeout: '{{ udp_stream_timeout }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: monitoring
+        value: '{{ monitoring }}'
+      - name: instance_initiated_shutdown_behavior
+        value: '{{ instance_initiated_shutdown_behavior }}'
+      - name: host_resource_group_arn
+        value: '{{ host_resource_group_arn }}'
+      - name: disable_api_termination
+        value: '{{ disable_api_termination }}'
+      - name: key_name
+        value: '{{ key_name }}'
+      - name: ramdisk_id
+        value: '{{ ramdisk_id }}'
+      - name: source_dest_check
+        value: '{{ source_dest_check }}'
+      - name: credit_specification
         value:
-          CPUCredits: '{{ CPUCredits }}'
-
+          c_pu_credits: '{{ c_pu_credits }}'
 ```
 </TabItem>
 </Tabs>
@@ -1313,7 +1312,7 @@ SET PatchDocument = string('{{ {
     "CreditSpecification": credit_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceId>';
+AND Identifier = '{{ instance_id }}';
 ```
 
 
@@ -1322,7 +1321,7 @@ AND Identifier = '<InstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.instances
-WHERE Identifier = '<InstanceId>'
+WHERE Identifier = '{{ instance_id }}'
 AND region = 'us-east-1';
 ```
 

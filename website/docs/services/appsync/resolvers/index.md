@@ -291,7 +291,7 @@ sync_config,
 type_name,
 metrics_config
 FROM awscc.appsync.resolvers
-WHERE region = 'us-east-1' AND Identifier = '<ResolverArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resolver_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -329,10 +329,10 @@ INSERT INTO awscc.appsync.resolvers (
  TypeName,
  region
 )
-SELECT 
-'{{ ApiId }}',
- '{{ FieldName }}',
- '{{ TypeName }}',
+SELECT
+'{{ api_id }}',
+ '{{ field_name }}',
+ '{{ type_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -360,24 +360,24 @@ INSERT INTO awscc.appsync.resolvers (
  MetricsConfig,
  region
 )
-SELECT 
- '{{ ApiId }}',
- '{{ CachingConfig }}',
- '{{ Code }}',
- '{{ CodeS3Location }}',
- '{{ DataSourceName }}',
- '{{ FieldName }}',
- '{{ Kind }}',
- '{{ MaxBatchSize }}',
- '{{ PipelineConfig }}',
- '{{ RequestMappingTemplate }}',
- '{{ RequestMappingTemplateS3Location }}',
- '{{ ResponseMappingTemplate }}',
- '{{ ResponseMappingTemplateS3Location }}',
- '{{ Runtime }}',
- '{{ SyncConfig }}',
- '{{ TypeName }}',
- '{{ MetricsConfig }}',
+SELECT
+ '{{ api_id }}',
+ '{{ caching_config }}',
+ '{{ code }}',
+ '{{ code_s3_location }}',
+ '{{ data_source_name }}',
+ '{{ field_name }}',
+ '{{ kind }}',
+ '{{ max_batch_size }}',
+ '{{ pipeline_config }}',
+ '{{ request_mapping_template }}',
+ '{{ request_mapping_template_s3_location }}',
+ '{{ response_mapping_template }}',
+ '{{ response_mapping_template_s3_location }}',
+ '{{ runtime }}',
+ '{{ sync_config }}',
+ '{{ type_name }}',
+ '{{ metrics_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -395,52 +395,51 @@ globals:
 resources:
   - name: resolver
     props:
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: CachingConfig
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: caching_config
         value:
-          CachingKeys:
-            - '{{ CachingKeys[0] }}'
-          Ttl: null
-      - name: Code
-        value: '{{ Code }}'
-      - name: CodeS3Location
-        value: '{{ CodeS3Location }}'
-      - name: DataSourceName
-        value: '{{ DataSourceName }}'
-      - name: FieldName
-        value: '{{ FieldName }}'
-      - name: Kind
-        value: '{{ Kind }}'
-      - name: MaxBatchSize
-        value: '{{ MaxBatchSize }}'
-      - name: PipelineConfig
+          caching_keys:
+            - '{{ caching_keys[0] }}'
+          ttl: null
+      - name: code
+        value: '{{ code }}'
+      - name: code_s3_location
+        value: '{{ code_s3_location }}'
+      - name: data_source_name
+        value: '{{ data_source_name }}'
+      - name: field_name
+        value: '{{ field_name }}'
+      - name: kind
+        value: '{{ kind }}'
+      - name: max_batch_size
+        value: '{{ max_batch_size }}'
+      - name: pipeline_config
         value:
-          Functions:
-            - '{{ Functions[0] }}'
-      - name: RequestMappingTemplate
-        value: '{{ RequestMappingTemplate }}'
-      - name: RequestMappingTemplateS3Location
-        value: '{{ RequestMappingTemplateS3Location }}'
-      - name: ResponseMappingTemplate
-        value: '{{ ResponseMappingTemplate }}'
-      - name: ResponseMappingTemplateS3Location
-        value: '{{ ResponseMappingTemplateS3Location }}'
-      - name: Runtime
+          functions:
+            - '{{ functions[0] }}'
+      - name: request_mapping_template
+        value: '{{ request_mapping_template }}'
+      - name: request_mapping_template_s3_location
+        value: '{{ request_mapping_template_s3_location }}'
+      - name: response_mapping_template
+        value: '{{ response_mapping_template }}'
+      - name: response_mapping_template_s3_location
+        value: '{{ response_mapping_template_s3_location }}'
+      - name: runtime
         value:
-          RuntimeVersion: '{{ RuntimeVersion }}'
-          Name: '{{ Name }}'
-      - name: SyncConfig
+          runtime_version: '{{ runtime_version }}'
+          name: '{{ name }}'
+      - name: sync_config
         value:
-          ConflictHandler: '{{ ConflictHandler }}'
-          ConflictDetection: '{{ ConflictDetection }}'
-          LambdaConflictHandlerConfig:
-            LambdaConflictHandlerArn: '{{ LambdaConflictHandlerArn }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: MetricsConfig
-        value: '{{ MetricsConfig }}'
-
+          conflict_handler: '{{ conflict_handler }}'
+          conflict_detection: '{{ conflict_detection }}'
+          lambda_conflict_handler_config:
+            lambda_conflict_handler_arn: '{{ lambda_conflict_handler_arn }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: metrics_config
+        value: '{{ metrics_config }}'
 ```
 </TabItem>
 </Tabs>
@@ -469,7 +468,7 @@ SET PatchDocument = string('{{ {
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResolverArn>';
+AND Identifier = '{{ resolver_arn }}';
 ```
 
 
@@ -478,7 +477,7 @@ AND Identifier = '<ResolverArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.resolvers
-WHERE Identifier = '<ResolverArn>'
+WHERE Identifier = '{{ resolver_arn }}'
 AND region = 'us-east-1';
 ```
 

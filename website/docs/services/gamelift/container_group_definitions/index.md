@@ -486,7 +486,7 @@ status,
 status_reason,
 tags
 FROM awscc.gamelift.container_group_definitions
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -525,11 +525,11 @@ INSERT INTO awscc.gamelift.container_group_definitions (
  TotalVcpuLimit,
  region
 )
-SELECT 
-'{{ OperatingSystem }}',
- '{{ Name }}',
- '{{ TotalMemoryLimitMebibytes }}',
- '{{ TotalVcpuLimit }}',
+SELECT
+'{{ operating_system }}',
+ '{{ name }}',
+ '{{ total_memory_limit_mebibytes }}',
+ '{{ total_vcpu_limit }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -550,17 +550,17 @@ INSERT INTO awscc.gamelift.container_group_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ OperatingSystem }}',
- '{{ Name }}',
- '{{ ContainerGroupType }}',
- '{{ TotalMemoryLimitMebibytes }}',
- '{{ TotalVcpuLimit }}',
- '{{ GameServerContainerDefinition }}',
- '{{ SupportContainerDefinitions }}',
- '{{ SourceVersionNumber }}',
- '{{ VersionDescription }}',
- '{{ Tags }}',
+SELECT
+ '{{ operating_system }}',
+ '{{ name }}',
+ '{{ container_group_type }}',
+ '{{ total_memory_limit_mebibytes }}',
+ '{{ total_vcpu_limit }}',
+ '{{ game_server_container_definition }}',
+ '{{ support_container_definitions }}',
+ '{{ source_version_number }}',
+ '{{ version_description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -578,68 +578,67 @@ globals:
 resources:
   - name: container_group_definition
     props:
-      - name: OperatingSystem
-        value: '{{ OperatingSystem }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ContainerGroupType
-        value: '{{ ContainerGroupType }}'
-      - name: TotalMemoryLimitMebibytes
-        value: '{{ TotalMemoryLimitMebibytes }}'
-      - name: TotalVcpuLimit
+      - name: operating_system
+        value: '{{ operating_system }}'
+      - name: name
+        value: '{{ name }}'
+      - name: container_group_type
+        value: '{{ container_group_type }}'
+      - name: total_memory_limit_mebibytes
+        value: '{{ total_memory_limit_mebibytes }}'
+      - name: total_vcpu_limit
         value: null
-      - name: GameServerContainerDefinition
+      - name: game_server_container_definition
         value:
-          ContainerName: '{{ ContainerName }}'
-          DependsOn:
-            - ContainerName: '{{ ContainerName }}'
-              Condition: '{{ Condition }}'
-          ServerSdkVersion: '{{ ServerSdkVersion }}'
-          ImageUri: '{{ ImageUri }}'
-          ResolvedImageDigest: '{{ ResolvedImageDigest }}'
-          EnvironmentOverride:
-            - Name: '{{ Name }}'
-              Value: '{{ Value }}'
-          PortConfiguration:
-            ContainerPortRanges:
-              - FromPort: '{{ FromPort }}'
-                Protocol: '{{ Protocol }}'
-                ToPort: '{{ ToPort }}'
-          MountPoints:
-            - InstancePath: '{{ InstancePath }}'
-              ContainerPath: '{{ ContainerPath }}'
-              AccessLevel: '{{ AccessLevel }}'
-      - name: SupportContainerDefinitions
+          container_name: '{{ container_name }}'
+          depends_on:
+            - container_name: '{{ container_name }}'
+              condition: '{{ condition }}'
+          server_sdk_version: '{{ server_sdk_version }}'
+          image_uri: '{{ image_uri }}'
+          resolved_image_digest: '{{ resolved_image_digest }}'
+          environment_override:
+            - name: '{{ name }}'
+              value: '{{ value }}'
+          port_configuration:
+            container_port_ranges:
+              - from_port: '{{ from_port }}'
+                protocol: '{{ protocol }}'
+                to_port: '{{ to_port }}'
+          mount_points:
+            - instance_path: '{{ instance_path }}'
+              container_path: '{{ container_path }}'
+              access_level: '{{ access_level }}'
+      - name: support_container_definitions
         value:
-          - ContainerName: '{{ ContainerName }}'
-            Vcpu: null
-            DependsOn:
+          - container_name: '{{ container_name }}'
+            vcpu: null
+            depends_on:
               - null
-            Essential: '{{ Essential }}'
-            ImageUri: '{{ ImageUri }}'
-            ResolvedImageDigest: '{{ ResolvedImageDigest }}'
-            MemoryHardLimitMebibytes: '{{ MemoryHardLimitMebibytes }}'
-            EnvironmentOverride:
+            essential: '{{ essential }}'
+            image_uri: '{{ image_uri }}'
+            resolved_image_digest: '{{ resolved_image_digest }}'
+            memory_hard_limit_mebibytes: '{{ memory_hard_limit_mebibytes }}'
+            environment_override:
               - null
-            PortConfiguration: null
-            HealthCheck:
-              Command:
-                - '{{ Command[0] }}'
-              Interval: '{{ Interval }}'
-              Timeout: '{{ Timeout }}'
-              Retries: '{{ Retries }}'
-              StartPeriod: '{{ StartPeriod }}'
-            MountPoints:
+            port_configuration: null
+            health_check:
+              command:
+                - '{{ command[0] }}'
+              interval: '{{ interval }}'
+              timeout: '{{ timeout }}'
+              retries: '{{ retries }}'
+              start_period: '{{ start_period }}'
+            mount_points:
               - null
-      - name: SourceVersionNumber
-        value: '{{ SourceVersionNumber }}'
-      - name: VersionDescription
-        value: '{{ VersionDescription }}'
-      - name: Tags
+      - name: source_version_number
+        value: '{{ source_version_number }}'
+      - name: version_description
+        value: '{{ version_description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -662,7 +661,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -671,7 +670,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.container_group_definitions
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

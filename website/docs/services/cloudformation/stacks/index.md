@@ -300,7 +300,7 @@ timeout_in_minutes,
 last_update_time,
 creation_time
 FROM awscc.cloudformation.stacks
-WHERE region = 'us-east-1' AND Identifier = '<StackId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ stack_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -336,8 +336,8 @@ INSERT INTO awscc.cloudformation.stacks (
  StackName,
  region
 )
-SELECT 
-'{{ StackName }}',
+SELECT
+'{{ stack_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -363,22 +363,22 @@ INSERT INTO awscc.cloudformation.stacks (
  TimeoutInMinutes,
  region
 )
-SELECT 
- '{{ Capabilities }}',
- '{{ RoleARN }}',
- '{{ Description }}',
- '{{ DisableRollback }}',
- '{{ EnableTerminationProtection }}',
- '{{ NotificationARNs }}',
- '{{ Parameters }}',
- '{{ StackName }}',
- '{{ StackPolicyBody }}',
- '{{ StackPolicyURL }}',
- '{{ StackStatusReason }}',
- '{{ Tags }}',
- '{{ TemplateBody }}',
- '{{ TemplateURL }}',
- '{{ TimeoutInMinutes }}',
+SELECT
+ '{{ capabilities }}',
+ '{{ role_arn }}',
+ '{{ description }}',
+ '{{ disable_rollback }}',
+ '{{ enable_termination_protection }}',
+ '{{ notification_arns }}',
+ '{{ parameters }}',
+ '{{ stack_name }}',
+ '{{ stack_policy_body }}',
+ '{{ stack_policy_url }}',
+ '{{ stack_status_reason }}',
+ '{{ tags }}',
+ '{{ template_body }}',
+ '{{ template_url }}',
+ '{{ timeout_in_minutes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -396,41 +396,40 @@ globals:
 resources:
   - name: stack
     props:
-      - name: Capabilities
+      - name: capabilities
         value:
-          - '{{ Capabilities[0] }}'
-      - name: RoleARN
-        value: '{{ RoleARN }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisableRollback
-        value: '{{ DisableRollback }}'
-      - name: EnableTerminationProtection
-        value: '{{ EnableTerminationProtection }}'
-      - name: NotificationARNs
+          - '{{ capabilities[0] }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: disable_rollback
+        value: '{{ disable_rollback }}'
+      - name: enable_termination_protection
+        value: '{{ enable_termination_protection }}'
+      - name: notification_arns
         value:
-          - '{{ NotificationARNs[0] }}'
-      - name: Parameters
+          - '{{ notification_arns[0] }}'
+      - name: parameters
         value: {}
-      - name: StackName
-        value: '{{ StackName }}'
-      - name: StackPolicyBody
+      - name: stack_name
+        value: '{{ stack_name }}'
+      - name: stack_policy_body
         value: {}
-      - name: StackPolicyURL
-        value: '{{ StackPolicyURL }}'
-      - name: StackStatusReason
-        value: '{{ StackStatusReason }}'
-      - name: Tags
+      - name: stack_policy_url
+        value: '{{ stack_policy_url }}'
+      - name: stack_status_reason
+        value: '{{ stack_status_reason }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TemplateBody
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: template_body
         value: {}
-      - name: TemplateURL
-        value: '{{ TemplateURL }}'
-      - name: TimeoutInMinutes
-        value: '{{ TimeoutInMinutes }}'
-
+      - name: template_url
+        value: '{{ template_url }}'
+      - name: timeout_in_minutes
+        value: '{{ timeout_in_minutes }}'
 ```
 </TabItem>
 </Tabs>
@@ -459,7 +458,7 @@ SET PatchDocument = string('{{ {
     "TimeoutInMinutes": timeout_in_minutes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StackId>';
+AND Identifier = '{{ stack_id }}';
 ```
 
 
@@ -468,7 +467,7 @@ AND Identifier = '<StackId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.stacks
-WHERE Identifier = '<StackId>'
+WHERE Identifier = '{{ stack_id }}'
 AND region = 'us-east-1';
 ```
 

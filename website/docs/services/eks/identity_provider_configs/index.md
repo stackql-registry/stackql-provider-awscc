@@ -235,7 +235,7 @@ oidc,
 tags,
 identity_provider_config_arn
 FROM awscc.eks.identity_provider_configs
-WHERE region = 'us-east-1' AND Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,9 +274,9 @@ INSERT INTO awscc.eks.identity_provider_configs (
  Type,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ Type }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,12 +292,12 @@ INSERT INTO awscc.eks.identity_provider_configs (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ Type }}',
- '{{ IdentityProviderConfigName }}',
- '{{ Oidc }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ type }}',
+ '{{ identity_provider_config_name }}',
+ '{{ oidc }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,28 +315,27 @@ globals:
 resources:
   - name: identity_provider_config
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: IdentityProviderConfigName
-        value: '{{ IdentityProviderConfigName }}'
-      - name: Oidc
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: identity_provider_config_name
+        value: '{{ identity_provider_config_name }}'
+      - name: oidc
         value:
-          ClientId: '{{ ClientId }}'
-          GroupsClaim: '{{ GroupsClaim }}'
-          GroupsPrefix: '{{ GroupsPrefix }}'
-          IssuerUrl: '{{ IssuerUrl }}'
-          RequiredClaims:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          UsernameClaim: '{{ UsernameClaim }}'
-          UsernamePrefix: '{{ UsernamePrefix }}'
-      - name: Tags
+          client_id: '{{ client_id }}'
+          groups_claim: '{{ groups_claim }}'
+          groups_prefix: '{{ groups_prefix }}'
+          issuer_url: '{{ issuer_url }}'
+          required_claims:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          username_claim: '{{ username_claim }}'
+          username_prefix: '{{ username_prefix }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -352,7 +351,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
+AND Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
 ```
 
 
@@ -361,7 +360,7 @@ AND Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.identity_provider_configs
-WHERE Identifier = '<IdentityProviderConfigName|ClusterName|Type>'
+WHERE Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}'
 AND region = 'us-east-1';
 ```
 

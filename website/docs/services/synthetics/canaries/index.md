@@ -449,7 +449,7 @@ dry_run_and_update,
 browser_configs,
 visual_references
 FROM awscc.synthetics.canaries
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -490,13 +490,13 @@ INSERT INTO awscc.synthetics.canaries (
  RuntimeVersion,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Code }}',
- '{{ ArtifactS3Location }}',
- '{{ Schedule }}',
- '{{ ExecutionRoleArn }}',
- '{{ RuntimeVersion }}',
+SELECT
+'{{ name }}',
+ '{{ code }}',
+ '{{ artifact_s3_location }}',
+ '{{ schedule }}',
+ '{{ execution_role_arn }}',
+ '{{ runtime_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -527,27 +527,27 @@ INSERT INTO awscc.synthetics.canaries (
  VisualReferences,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Code }}',
- '{{ ArtifactS3Location }}',
- '{{ ArtifactConfig }}',
- '{{ Schedule }}',
- '{{ ExecutionRoleArn }}',
- '{{ RuntimeVersion }}',
- '{{ SuccessRetentionPeriod }}',
- '{{ FailureRetentionPeriod }}',
- '{{ Tags }}',
- '{{ VPCConfig }}',
- '{{ RunConfig }}',
- '{{ StartCanaryAfterCreation }}',
- '{{ VisualReference }}',
- '{{ DeleteLambdaResourcesOnCanaryDeletion }}',
- '{{ ResourcesToReplicateTags }}',
- '{{ ProvisionedResourceCleanup }}',
- '{{ DryRunAndUpdate }}',
- '{{ BrowserConfigs }}',
- '{{ VisualReferences }}',
+SELECT
+ '{{ name }}',
+ '{{ code }}',
+ '{{ artifact_s3_location }}',
+ '{{ artifact_config }}',
+ '{{ schedule }}',
+ '{{ execution_role_arn }}',
+ '{{ runtime_version }}',
+ '{{ success_retention_period }}',
+ '{{ failure_retention_period }}',
+ '{{ tags }}',
+ '{{ vpc_config }}',
+ '{{ run_config }}',
+ '{{ start_canary_after_creation }}',
+ '{{ visual_reference }}',
+ '{{ delete_lambda_resources_on_canary_deletion }}',
+ '{{ resources_to_replicate_tags }}',
+ '{{ provisioned_resource_cleanup }}',
+ '{{ dry_run_and_update }}',
+ '{{ browser_configs }}',
+ '{{ visual_references }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -565,85 +565,84 @@ globals:
 resources:
   - name: canary
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Code
+      - name: name
+        value: '{{ name }}'
+      - name: code
         value:
-          S3Bucket: '{{ S3Bucket }}'
-          S3Key: '{{ S3Key }}'
-          S3ObjectVersion: '{{ S3ObjectVersion }}'
-          Script: '{{ Script }}'
-          Handler: '{{ Handler }}'
-          SourceLocationArn: '{{ SourceLocationArn }}'
-          Dependencies:
-            - Type: '{{ Type }}'
-              Reference: '{{ Reference }}'
-      - name: ArtifactS3Location
-        value: '{{ ArtifactS3Location }}'
-      - name: ArtifactConfig
+          s3_bucket: '{{ s3_bucket }}'
+          s3_key: '{{ s3_key }}'
+          s3_object_version: '{{ s3_object_version }}'
+          script: '{{ script }}'
+          handler: '{{ handler }}'
+          source_location_arn: '{{ source_location_arn }}'
+          dependencies:
+            - type: '{{ type }}'
+              reference: '{{ reference }}'
+      - name: artifact_s3_location
+        value: '{{ artifact_s3_location }}'
+      - name: artifact_config
         value:
-          S3Encryption:
-            EncryptionMode: '{{ EncryptionMode }}'
-            KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: Schedule
+          s3_encryption:
+            encryption_mode: '{{ encryption_mode }}'
+            kms_key_arn: '{{ kms_key_arn }}'
+      - name: schedule
         value:
-          Expression: '{{ Expression }}'
-          DurationInSeconds: '{{ DurationInSeconds }}'
-          RetryConfig:
-            MaxRetries: '{{ MaxRetries }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: RuntimeVersion
-        value: '{{ RuntimeVersion }}'
-      - name: SuccessRetentionPeriod
-        value: '{{ SuccessRetentionPeriod }}'
-      - name: FailureRetentionPeriod
-        value: '{{ FailureRetentionPeriod }}'
-      - name: Tags
+          expression: '{{ expression }}'
+          duration_in_seconds: '{{ duration_in_seconds }}'
+          retry_config:
+            max_retries: '{{ max_retries }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: runtime_version
+        value: '{{ runtime_version }}'
+      - name: success_retention_period
+        value: '{{ success_retention_period }}'
+      - name: failure_retention_period
+        value: '{{ failure_retention_period }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VPCConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_config
         value:
-          VpcId: '{{ VpcId }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          Ipv6AllowedForDualStack: '{{ Ipv6AllowedForDualStack }}'
-      - name: RunConfig
+          vpc_id: '{{ vpc_id }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          ipv6_allowed_for_dual_stack: '{{ ipv6_allowed_for_dual_stack }}'
+      - name: run_config
         value:
-          TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-          MemoryInMB: '{{ MemoryInMB }}'
-          EphemeralStorage: '{{ EphemeralStorage }}'
-          ActiveTracing: '{{ ActiveTracing }}'
-          EnvironmentVariables: {}
-      - name: StartCanaryAfterCreation
-        value: '{{ StartCanaryAfterCreation }}'
-      - name: VisualReference
+          timeout_in_seconds: '{{ timeout_in_seconds }}'
+          memory_in_mb: '{{ memory_in_mb }}'
+          ephemeral_storage: '{{ ephemeral_storage }}'
+          active_tracing: '{{ active_tracing }}'
+          environment_variables: {}
+      - name: start_canary_after_creation
+        value: '{{ start_canary_after_creation }}'
+      - name: visual_reference
         value:
-          BaseCanaryRunId: '{{ BaseCanaryRunId }}'
-          BaseScreenshots:
-            - ScreenshotName: '{{ ScreenshotName }}'
-              IgnoreCoordinates:
-                - '{{ IgnoreCoordinates[0] }}'
-          BrowserType: '{{ BrowserType }}'
-      - name: DeleteLambdaResourcesOnCanaryDeletion
-        value: '{{ DeleteLambdaResourcesOnCanaryDeletion }}'
-      - name: ResourcesToReplicateTags
+          base_canary_run_id: '{{ base_canary_run_id }}'
+          base_screenshots:
+            - screenshot_name: '{{ screenshot_name }}'
+              ignore_coordinates:
+                - '{{ ignore_coordinates[0] }}'
+          browser_type: '{{ browser_type }}'
+      - name: delete_lambda_resources_on_canary_deletion
+        value: '{{ delete_lambda_resources_on_canary_deletion }}'
+      - name: resources_to_replicate_tags
         value:
-          - '{{ ResourcesToReplicateTags[0] }}'
-      - name: ProvisionedResourceCleanup
-        value: '{{ ProvisionedResourceCleanup }}'
-      - name: DryRunAndUpdate
-        value: '{{ DryRunAndUpdate }}'
-      - name: BrowserConfigs
+          - '{{ resources_to_replicate_tags[0] }}'
+      - name: provisioned_resource_cleanup
+        value: '{{ provisioned_resource_cleanup }}'
+      - name: dry_run_and_update
+        value: '{{ dry_run_and_update }}'
+      - name: browser_configs
         value:
-          - BrowserType: null
-      - name: VisualReferences
+          - browser_type: null
+      - name: visual_references
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -676,7 +675,7 @@ SET PatchDocument = string('{{ {
     "VisualReferences": visual_references
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -685,7 +684,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.synthetics.canaries
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

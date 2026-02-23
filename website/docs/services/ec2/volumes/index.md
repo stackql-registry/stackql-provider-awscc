@@ -224,7 +224,7 @@ volume_id,
 volume_type,
 tags
 FROM awscc.ec2.volumes
-WHERE region = 'us-east-1' AND Identifier = '<VolumeId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,8 +260,8 @@ INSERT INTO awscc.ec2.volumes (
  AvailabilityZone,
  region
 )
-SELECT 
-'{{ AvailabilityZone }}',
+SELECT
+'{{ availability_zone }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -285,20 +285,20 @@ INSERT INTO awscc.ec2.volumes (
  Tags,
  region
 )
-SELECT 
- '{{ MultiAttachEnabled }}',
- '{{ KmsKeyId }}',
- '{{ Encrypted }}',
- '{{ Size }}',
- '{{ AutoEnableIO }}',
- '{{ OutpostArn }}',
- '{{ AvailabilityZone }}',
- '{{ Throughput }}',
- '{{ Iops }}',
- '{{ VolumeInitializationRate }}',
- '{{ SnapshotId }}',
- '{{ VolumeType }}',
- '{{ Tags }}',
+SELECT
+ '{{ multi_attach_enabled }}',
+ '{{ kms_key_id }}',
+ '{{ encrypted }}',
+ '{{ size }}',
+ '{{ auto_enable_io }}',
+ '{{ outpost_arn }}',
+ '{{ availability_zone }}',
+ '{{ throughput }}',
+ '{{ iops }}',
+ '{{ volume_initialization_rate }}',
+ '{{ snapshot_id }}',
+ '{{ volume_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,35 +316,34 @@ globals:
 resources:
   - name: volume
     props:
-      - name: MultiAttachEnabled
-        value: '{{ MultiAttachEnabled }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Encrypted
-        value: '{{ Encrypted }}'
-      - name: Size
-        value: '{{ Size }}'
-      - name: AutoEnableIO
-        value: '{{ AutoEnableIO }}'
-      - name: OutpostArn
-        value: '{{ OutpostArn }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: Throughput
-        value: '{{ Throughput }}'
-      - name: Iops
-        value: '{{ Iops }}'
-      - name: VolumeInitializationRate
-        value: '{{ VolumeInitializationRate }}'
-      - name: SnapshotId
-        value: '{{ SnapshotId }}'
-      - name: VolumeType
-        value: '{{ VolumeType }}'
-      - name: Tags
+      - name: multi_attach_enabled
+        value: '{{ multi_attach_enabled }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: encrypted
+        value: '{{ encrypted }}'
+      - name: size
+        value: '{{ size }}'
+      - name: auto_enable_io
+        value: '{{ auto_enable_io }}'
+      - name: outpost_arn
+        value: '{{ outpost_arn }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: throughput
+        value: '{{ throughput }}'
+      - name: iops
+        value: '{{ iops }}'
+      - name: volume_initialization_rate
+        value: '{{ volume_initialization_rate }}'
+      - name: snapshot_id
+        value: '{{ snapshot_id }}'
+      - name: volume_type
+        value: '{{ volume_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +371,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VolumeId>';
+AND Identifier = '{{ volume_id }}';
 ```
 
 
@@ -381,7 +380,7 @@ AND Identifier = '<VolumeId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.volumes
-WHERE Identifier = '<VolumeId>'
+WHERE Identifier = '{{ volume_id }}'
 AND region = 'us-east-1';
 ```
 

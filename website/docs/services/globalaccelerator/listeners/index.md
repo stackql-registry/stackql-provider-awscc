@@ -165,7 +165,7 @@ port_ranges,
 protocol,
 client_affinity
 FROM awscc.globalaccelerator.listeners
-WHERE Identifier = '<ListenerArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ listener_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,7 +176,7 @@ SELECT
 region,
 listener_arn
 FROM awscc.globalaccelerator.listeners_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,10 +203,10 @@ INSERT INTO awscc.globalaccelerator.listeners (
  Protocol,
  region
 )
-SELECT 
-'{{ AcceleratorArn }}',
- '{{ PortRanges }}',
- '{{ Protocol }}',
+SELECT
+'{{ accelerator_arn }}',
+ '{{ port_ranges }}',
+ '{{ protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,11 +221,11 @@ INSERT INTO awscc.globalaccelerator.listeners (
  ClientAffinity,
  region
 )
-SELECT 
- '{{ AcceleratorArn }}',
- '{{ PortRanges }}',
- '{{ Protocol }}',
- '{{ ClientAffinity }}',
+SELECT
+ '{{ accelerator_arn }}',
+ '{{ port_ranges }}',
+ '{{ protocol }}',
+ '{{ client_affinity }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -243,17 +243,16 @@ globals:
 resources:
   - name: listener
     props:
-      - name: AcceleratorArn
-        value: '{{ AcceleratorArn }}'
-      - name: PortRanges
+      - name: accelerator_arn
+        value: '{{ accelerator_arn }}'
+      - name: port_ranges
         value:
-          - FromPort: '{{ FromPort }}'
-            ToPort: null
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: ClientAffinity
-        value: '{{ ClientAffinity }}'
-
+          - from_port: '{{ from_port }}'
+            to_port: null
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: client_affinity
+        value: '{{ client_affinity }}'
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "ClientAffinity": client_affinity
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ListenerArn>';
+AND Identifier = '{{ listener_arn }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<ListenerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.listeners
-WHERE Identifier = '<ListenerArn>'
+WHERE Identifier = '{{ listener_arn }}'
 AND region = 'us-east-1';
 ```
 

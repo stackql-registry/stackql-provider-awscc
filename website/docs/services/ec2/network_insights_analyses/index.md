@@ -1109,7 +1109,7 @@ forward_path_components,
 additional_accounts,
 tags
 FROM awscc.ec2.network_insights_analyses
-WHERE region = 'us-east-1' AND Identifier = '<NetworkInsightsAnalysisId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_analysis_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1145,8 +1145,8 @@ INSERT INTO awscc.ec2.network_insights_analyses (
  NetworkInsightsPathId,
  region
 )
-SELECT 
-'{{ NetworkInsightsPathId }}',
+SELECT
+'{{ network_insights_path_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1162,12 +1162,12 @@ INSERT INTO awscc.ec2.network_insights_analyses (
  Tags,
  region
 )
-SELECT 
- '{{ FilterOutArns }}',
- '{{ NetworkInsightsPathId }}',
- '{{ FilterInArns }}',
- '{{ AdditionalAccounts }}',
- '{{ Tags }}',
+SELECT
+ '{{ filter_out_arns }}',
+ '{{ network_insights_path_id }}',
+ '{{ filter_in_arns }}',
+ '{{ additional_accounts }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1185,22 +1185,21 @@ globals:
 resources:
   - name: network_insights_analysis
     props:
-      - name: FilterOutArns
+      - name: filter_out_arns
         value:
-          - '{{ FilterOutArns[0] }}'
-      - name: NetworkInsightsPathId
-        value: '{{ NetworkInsightsPathId }}'
-      - name: FilterInArns
+          - '{{ filter_out_arns[0] }}'
+      - name: network_insights_path_id
+        value: '{{ network_insights_path_id }}'
+      - name: filter_in_arns
         value:
           - null
-      - name: AdditionalAccounts
+      - name: additional_accounts
         value:
-          - '{{ AdditionalAccounts[0] }}'
-      - name: Tags
+          - '{{ additional_accounts[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -1217,7 +1216,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NetworkInsightsAnalysisId>';
+AND Identifier = '{{ network_insights_analysis_id }}';
 ```
 
 
@@ -1226,7 +1225,7 @@ AND Identifier = '<NetworkInsightsAnalysisId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_analyses
-WHERE Identifier = '<NetworkInsightsAnalysisId>'
+WHERE Identifier = '{{ network_insights_analysis_id }}'
 AND region = 'us-east-1';
 ```
 

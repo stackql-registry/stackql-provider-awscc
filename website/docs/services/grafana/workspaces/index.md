@@ -379,7 +379,7 @@ organizational_units,
 role_arn,
 plugin_admin_enabled
 FROM awscc.grafana.workspaces
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -417,10 +417,10 @@ INSERT INTO awscc.grafana.workspaces (
  PermissionType,
  region
 )
-SELECT 
-'{{ AuthenticationProviders }}',
- '{{ AccountAccessType }}',
- '{{ PermissionType }}',
+SELECT
+'{{ authentication_providers }}',
+ '{{ account_access_type }}',
+ '{{ permission_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -448,24 +448,24 @@ INSERT INTO awscc.grafana.workspaces (
  PluginAdminEnabled,
  region
 )
-SELECT 
- '{{ AuthenticationProviders }}',
- '{{ SamlConfiguration }}',
- '{{ NetworkAccessControl }}',
- '{{ VpcConfiguration }}',
- '{{ ClientToken }}',
- '{{ GrafanaVersion }}',
- '{{ AccountAccessType }}',
- '{{ OrganizationRoleName }}',
- '{{ PermissionType }}',
- '{{ StackSetName }}',
- '{{ DataSources }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ NotificationDestinations }}',
- '{{ OrganizationalUnits }}',
- '{{ RoleArn }}',
- '{{ PluginAdminEnabled }}',
+SELECT
+ '{{ authentication_providers }}',
+ '{{ saml_configuration }}',
+ '{{ network_access_control }}',
+ '{{ vpc_configuration }}',
+ '{{ client_token }}',
+ '{{ grafana_version }}',
+ '{{ account_access_type }}',
+ '{{ organization_role_name }}',
+ '{{ permission_type }}',
+ '{{ stack_set_name }}',
+ '{{ data_sources }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ notification_destinations }}',
+ '{{ organizational_units }}',
+ '{{ role_arn }}',
+ '{{ plugin_admin_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -483,71 +483,70 @@ globals:
 resources:
   - name: workspace
     props:
-      - name: AuthenticationProviders
+      - name: authentication_providers
         value:
-          - '{{ AuthenticationProviders[0] }}'
-      - name: SamlConfiguration
+          - '{{ authentication_providers[0] }}'
+      - name: saml_configuration
         value:
-          IdpMetadata:
-            Url: '{{ Url }}'
-            Xml: '{{ Xml }}'
-          AssertionAttributes:
-            Name: '{{ Name }}'
-            Login: '{{ Login }}'
-            Email: '{{ Email }}'
-            Groups: '{{ Groups }}'
-            Role: '{{ Role }}'
-            Org: '{{ Org }}'
-          RoleValues:
-            Editor:
-              - '{{ Editor[0] }}'
-            Admin:
-              - '{{ Admin[0] }}'
-          AllowedOrganizations:
-            - '{{ AllowedOrganizations[0] }}'
-          LoginValidityDuration: null
-      - name: NetworkAccessControl
+          idp_metadata:
+            url: '{{ url }}'
+            xml: '{{ xml }}'
+          assertion_attributes:
+            name: '{{ name }}'
+            login: '{{ login }}'
+            email: '{{ email }}'
+            groups: '{{ groups }}'
+            role: '{{ role }}'
+            org: '{{ org }}'
+          role_values:
+            editor:
+              - '{{ editor[0] }}'
+            admin:
+              - '{{ admin[0] }}'
+          allowed_organizations:
+            - '{{ allowed_organizations[0] }}'
+          login_validity_duration: null
+      - name: network_access_control
         value:
-          PrefixListIds:
-            - '{{ PrefixListIds[0] }}'
-          VpceIds:
-            - '{{ VpceIds[0] }}'
-      - name: VpcConfiguration
+          prefix_list_ids:
+            - '{{ prefix_list_ids[0] }}'
+          vpce_ids:
+            - '{{ vpce_ids[0] }}'
+      - name: vpc_configuration
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: GrafanaVersion
-        value: '{{ GrafanaVersion }}'
-      - name: AccountAccessType
-        value: '{{ AccountAccessType }}'
-      - name: OrganizationRoleName
-        value: '{{ OrganizationRoleName }}'
-      - name: PermissionType
-        value: '{{ PermissionType }}'
-      - name: StackSetName
-        value: '{{ StackSetName }}'
-      - name: DataSources
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: grafana_version
+        value: '{{ grafana_version }}'
+      - name: account_access_type
+        value: '{{ account_access_type }}'
+      - name: organization_role_name
+        value: '{{ organization_role_name }}'
+      - name: permission_type
+        value: '{{ permission_type }}'
+      - name: stack_set_name
+        value: '{{ stack_set_name }}'
+      - name: data_sources
         value:
-          - '{{ DataSources[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NotificationDestinations
+          - '{{ data_sources[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: notification_destinations
         value:
-          - '{{ NotificationDestinations[0] }}'
-      - name: OrganizationalUnits
+          - '{{ notification_destinations[0] }}'
+      - name: organizational_units
         value:
-          - '{{ OrganizationalUnits[0] }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: PluginAdminEnabled
-        value: '{{ PluginAdminEnabled }}'
-
+          - '{{ organizational_units[0] }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: plugin_admin_enabled
+        value: '{{ plugin_admin_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -578,7 +577,7 @@ SET PatchDocument = string('{{ {
     "PluginAdminEnabled": plugin_admin_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -587,7 +586,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.grafana.workspaces
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

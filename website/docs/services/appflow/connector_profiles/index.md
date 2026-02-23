@@ -881,7 +881,7 @@ connection_mode,
 connector_profile_config,
 credentials_arn
 FROM awscc.appflow.connector_profiles
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -919,10 +919,10 @@ INSERT INTO awscc.appflow.connector_profiles (
  ConnectionMode,
  region
 )
-SELECT 
-'{{ ConnectorProfileName }}',
- '{{ ConnectorType }}',
- '{{ ConnectionMode }}',
+SELECT
+'{{ connector_profile_name }}',
+ '{{ connector_type }}',
+ '{{ connection_mode }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -939,13 +939,13 @@ INSERT INTO awscc.appflow.connector_profiles (
  ConnectorProfileConfig,
  region
 )
-SELECT 
- '{{ ConnectorLabel }}',
- '{{ ConnectorProfileName }}',
- '{{ KMSArn }}',
- '{{ ConnectorType }}',
- '{{ ConnectionMode }}',
- '{{ ConnectorProfileConfig }}',
+SELECT
+ '{{ connector_label }}',
+ '{{ connector_profile_name }}',
+ '{{ kms_arn }}',
+ '{{ connector_type }}',
+ '{{ connection_mode }}',
+ '{{ connector_profile_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -963,172 +963,171 @@ globals:
 resources:
   - name: connector_profile
     props:
-      - name: ConnectorLabel
-        value: '{{ ConnectorLabel }}'
-      - name: ConnectorProfileName
-        value: '{{ ConnectorProfileName }}'
-      - name: KMSArn
-        value: '{{ KMSArn }}'
-      - name: ConnectorType
-        value: '{{ ConnectorType }}'
-      - name: ConnectionMode
-        value: '{{ ConnectionMode }}'
-      - name: ConnectorProfileConfig
+      - name: connector_label
+        value: '{{ connector_label }}'
+      - name: connector_profile_name
+        value: '{{ connector_profile_name }}'
+      - name: kms_arn
+        value: '{{ kms_arn }}'
+      - name: connector_type
+        value: '{{ connector_type }}'
+      - name: connection_mode
+        value: '{{ connection_mode }}'
+      - name: connector_profile_config
         value:
-          ConnectorProfileProperties:
-            Datadog:
-              InstanceUrl: '{{ InstanceUrl }}'
-            Dynatrace:
-              InstanceUrl: null
-            InforNexus:
-              InstanceUrl: null
-            Marketo:
-              InstanceUrl: null
-            Redshift:
-              DatabaseUrl: '{{ DatabaseUrl }}'
-              BucketName: '{{ BucketName }}'
-              BucketPrefix: '{{ BucketPrefix }}'
-              RoleArn: '{{ RoleArn }}'
-              IsRedshiftServerless: '{{ IsRedshiftServerless }}'
-              DataApiRoleArn: '{{ DataApiRoleArn }}'
-              ClusterIdentifier: '{{ ClusterIdentifier }}'
-              WorkgroupName: '{{ WorkgroupName }}'
-              DatabaseName: '{{ DatabaseName }}'
-            SAPOData:
-              ApplicationHostUrl: '{{ ApplicationHostUrl }}'
-              ApplicationServicePath: '{{ ApplicationServicePath }}'
-              PortNumber: '{{ PortNumber }}'
-              ClientNumber: '{{ ClientNumber }}'
-              LogonLanguage: '{{ LogonLanguage }}'
-              PrivateLinkServiceName: '{{ PrivateLinkServiceName }}'
-              OAuthProperties:
-                AuthCodeUrl: '{{ AuthCodeUrl }}'
-                TokenUrl: '{{ TokenUrl }}'
-                OAuthScopes:
-                  - '{{ OAuthScopes[0] }}'
-              DisableSSO: '{{ DisableSSO }}'
-            Salesforce:
-              InstanceUrl: null
-              isSandboxEnvironment: '{{ isSandboxEnvironment }}'
-              usePrivateLinkForMetadataAndAuthorization: '{{ usePrivateLinkForMetadataAndAuthorization }}'
-            Pardot:
-              InstanceUrl: null
-              IsSandboxEnvironment: '{{ IsSandboxEnvironment }}'
-              BusinessUnitId: '{{ BusinessUnitId }}'
-            ServiceNow:
-              InstanceUrl: null
-            Slack:
-              InstanceUrl: null
-            Snowflake:
-              Warehouse: '{{ Warehouse }}'
-              Stage: '{{ Stage }}'
-              BucketName: null
-              BucketPrefix: null
-              PrivateLinkServiceName: null
-              AccountName: '{{ AccountName }}'
-              Region: '{{ Region }}'
-            Veeva:
-              InstanceUrl: null
-            Zendesk:
-              InstanceUrl: null
-            CustomConnector:
-              ProfileProperties: {}
-              OAuth2Properties:
-                TokenUrl: '{{ TokenUrl }}'
-                OAuth2GrantType: '{{ OAuth2GrantType }}'
-                TokenUrlCustomProperties: {}
-          ConnectorProfileCredentials:
-            Amplitude:
-              ApiKey: '{{ ApiKey }}'
-              SecretKey: '{{ SecretKey }}'
-            Datadog:
-              ApiKey: null
-              ApplicationKey: '{{ ApplicationKey }}'
-            Dynatrace:
-              ApiToken: '{{ ApiToken }}'
-            GoogleAnalytics:
-              ClientId: '{{ ClientId }}'
-              ClientSecret: '{{ ClientSecret }}'
-              AccessToken: '{{ AccessToken }}'
-              RefreshToken: '{{ RefreshToken }}'
-              ConnectorOAuthRequest:
-                AuthCode: '{{ AuthCode }}'
-                RedirectUri: '{{ RedirectUri }}'
-            InforNexus:
-              AccessKeyId: '{{ AccessKeyId }}'
-              UserId: '{{ UserId }}'
-              SecretAccessKey: '{{ SecretAccessKey }}'
-              Datakey: null
-            Marketo:
-              ClientId: null
-              ClientSecret: null
-              AccessToken: null
-              ConnectorOAuthRequest: null
-            Redshift:
-              Username: null
-              Password: '{{ Password }}'
-            SAPOData:
-              BasicAuthCredentials:
-                Username: null
-                Password: null
-              OAuthCredentials:
-                AccessToken: null
-                RefreshToken: null
-                ConnectorOAuthRequest: null
-                ClientId: null
-                ClientSecret: null
-            Salesforce:
-              AccessToken: null
-              RefreshToken: null
-              ConnectorOAuthRequest: null
-              ClientCredentialsArn: '{{ ClientCredentialsArn }}'
-              OAuth2GrantType: null
-              JwtToken: '{{ JwtToken }}'
-            Pardot:
-              AccessToken: null
-              RefreshToken: null
-              ConnectorOAuthRequest: null
-              ClientCredentialsArn: null
-            ServiceNow:
-              Username: null
-              Password: null
-              OAuth2Credentials:
-                ClientId: null
-                ClientSecret: null
-                AccessToken: null
-                RefreshToken: null
-                OAuthRequest: null
-            Singular:
-              ApiKey: null
-            Slack:
-              ClientId: null
-              ClientSecret: null
-              AccessToken: null
-              ConnectorOAuthRequest: null
-            Snowflake:
-              Username: null
-              Password: null
-            Trendmicro:
-              ApiSecretKey: '{{ ApiSecretKey }}'
-            Veeva:
-              Username: null
-              Password: null
-            Zendesk:
-              ClientId: null
-              ClientSecret: null
-              AccessToken: null
-              ConnectorOAuthRequest: null
-            CustomConnector:
-              AuthenticationType: '{{ AuthenticationType }}'
-              Basic: null
-              Oauth2: null
-              ApiKey:
-                ApiKey: null
-                ApiSecretKey: null
-              Custom:
-                CustomAuthenticationType: '{{ CustomAuthenticationType }}'
-                CredentialsMap: {}
-
+          connector_profile_properties:
+            datadog:
+              instance_url: '{{ instance_url }}'
+            dynatrace:
+              instance_url: null
+            infor_nexus:
+              instance_url: null
+            marketo:
+              instance_url: null
+            redshift:
+              database_url: '{{ database_url }}'
+              bucket_name: '{{ bucket_name }}'
+              bucket_prefix: '{{ bucket_prefix }}'
+              role_arn: '{{ role_arn }}'
+              is_redshift_serverless: '{{ is_redshift_serverless }}'
+              data_api_role_arn: '{{ data_api_role_arn }}'
+              cluster_identifier: '{{ cluster_identifier }}'
+              workgroup_name: '{{ workgroup_name }}'
+              database_name: '{{ database_name }}'
+            s_ap_odata:
+              application_host_url: '{{ application_host_url }}'
+              application_service_path: '{{ application_service_path }}'
+              port_number: '{{ port_number }}'
+              client_number: '{{ client_number }}'
+              logon_language: '{{ logon_language }}'
+              private_link_service_name: '{{ private_link_service_name }}'
+              oauth_properties:
+                auth_code_url: '{{ auth_code_url }}'
+                token_url: '{{ token_url }}'
+                oauth_scopes:
+                  - '{{ oauth_scopes[0] }}'
+              disable_ss_o: '{{ disable_ss_o }}'
+            salesforce:
+              instance_url: null
+              is_sandbox_environment: '{{ is_sandbox_environment }}'
+              use_private_link_for_metadata_and_authorization: '{{ use_private_link_for_metadata_and_authorization }}'
+            pardot:
+              instance_url: null
+              is_sandbox_environment: '{{ is_sandbox_environment }}'
+              business_unit_id: '{{ business_unit_id }}'
+            service_now:
+              instance_url: null
+            slack:
+              instance_url: null
+            snowflake:
+              warehouse: '{{ warehouse }}'
+              stage: '{{ stage }}'
+              bucket_name: null
+              bucket_prefix: null
+              private_link_service_name: null
+              account_name: '{{ account_name }}'
+              region: '{{ region }}'
+            veeva:
+              instance_url: null
+            zendesk:
+              instance_url: null
+            custom_connector:
+              profile_properties: {}
+              oauth2_properties:
+                token_url: '{{ token_url }}'
+                oauth2_grant_type: '{{ oauth2_grant_type }}'
+                token_url_custom_properties: {}
+          connector_profile_credentials:
+            amplitude:
+              api_key: '{{ api_key }}'
+              secret_key: '{{ secret_key }}'
+            datadog:
+              api_key: null
+              application_key: '{{ application_key }}'
+            dynatrace:
+              api_token: '{{ api_token }}'
+            google_analytics:
+              client_id: '{{ client_id }}'
+              client_secret: '{{ client_secret }}'
+              access_token: '{{ access_token }}'
+              refresh_token: '{{ refresh_token }}'
+              connector_oauth_request:
+                auth_code: '{{ auth_code }}'
+                redirect_uri: '{{ redirect_uri }}'
+            infor_nexus:
+              access_key_id: '{{ access_key_id }}'
+              user_id: '{{ user_id }}'
+              secret_access_key: '{{ secret_access_key }}'
+              datakey: null
+            marketo:
+              client_id: null
+              client_secret: null
+              access_token: null
+              connector_oauth_request: null
+            redshift:
+              username: null
+              password: '{{ password }}'
+            s_ap_odata:
+              basic_auth_credentials:
+                username: null
+                password: null
+              oauth_credentials:
+                access_token: null
+                refresh_token: null
+                connector_oauth_request: null
+                client_id: null
+                client_secret: null
+            salesforce:
+              access_token: null
+              refresh_token: null
+              connector_oauth_request: null
+              client_credentials_arn: '{{ client_credentials_arn }}'
+              oauth2_grant_type: null
+              jwt_token: '{{ jwt_token }}'
+            pardot:
+              access_token: null
+              refresh_token: null
+              connector_oauth_request: null
+              client_credentials_arn: null
+            service_now:
+              username: null
+              password: null
+              oauth2_credentials:
+                client_id: null
+                client_secret: null
+                access_token: null
+                refresh_token: null
+                oauth_request: null
+            singular:
+              api_key: null
+            slack:
+              client_id: null
+              client_secret: null
+              access_token: null
+              connector_oauth_request: null
+            snowflake:
+              username: null
+              password: null
+            trendmicro:
+              api_secret_key: '{{ api_secret_key }}'
+            veeva:
+              username: null
+              password: null
+            zendesk:
+              client_id: null
+              client_secret: null
+              access_token: null
+              connector_oauth_request: null
+            custom_connector:
+              authentication_type: '{{ authentication_type }}'
+              basic: null
+              oauth2: null
+              api_key:
+                api_key: null
+                api_secret_key: null
+              custom:
+                custom_authentication_type: '{{ custom_authentication_type }}'
+                credentials_map: {}
 ```
 </TabItem>
 </Tabs>
@@ -1146,7 +1145,7 @@ SET PatchDocument = string('{{ {
     "ConnectorProfileConfig": connector_profile_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectorProfileName>';
+AND Identifier = '{{ connector_profile_name }}';
 ```
 
 
@@ -1155,7 +1154,7 @@ AND Identifier = '<ConnectorProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connector_profiles
-WHERE Identifier = '<ConnectorProfileName>'
+WHERE Identifier = '{{ connector_profile_name }}'
 AND region = 'us-east-1';
 ```
 

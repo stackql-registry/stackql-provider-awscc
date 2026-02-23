@@ -182,7 +182,7 @@ target_check_names,
 scheduled_audit_arn,
 tags
 FROM awscc.iot.scheduled_audits
-WHERE region = 'us-east-1' AND Identifier = '<ScheduledAuditName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_audit_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.iot.scheduled_audits (
  TargetCheckNames,
  region
 )
-SELECT 
-'{{ Frequency }}',
- '{{ TargetCheckNames }}',
+SELECT
+'{{ frequency }}',
+ '{{ target_check_names }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -238,13 +238,13 @@ INSERT INTO awscc.iot.scheduled_audits (
  Tags,
  region
 )
-SELECT 
- '{{ ScheduledAuditName }}',
- '{{ Frequency }}',
- '{{ DayOfMonth }}',
- '{{ DayOfWeek }}',
- '{{ TargetCheckNames }}',
- '{{ Tags }}',
+SELECT
+ '{{ scheduled_audit_name }}',
+ '{{ frequency }}',
+ '{{ day_of_month }}',
+ '{{ day_of_week }}',
+ '{{ target_check_names }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,22 +262,21 @@ globals:
 resources:
   - name: scheduled_audit
     props:
-      - name: ScheduledAuditName
-        value: '{{ ScheduledAuditName }}'
-      - name: Frequency
-        value: '{{ Frequency }}'
-      - name: DayOfMonth
-        value: '{{ DayOfMonth }}'
-      - name: DayOfWeek
-        value: '{{ DayOfWeek }}'
-      - name: TargetCheckNames
+      - name: scheduled_audit_name
+        value: '{{ scheduled_audit_name }}'
+      - name: frequency
+        value: '{{ frequency }}'
+      - name: day_of_month
+        value: '{{ day_of_month }}'
+      - name: day_of_week
+        value: '{{ day_of_week }}'
+      - name: target_check_names
         value:
-          - '{{ TargetCheckNames[0] }}'
-      - name: Tags
+          - '{{ target_check_names[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +296,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ScheduledAuditName>';
+AND Identifier = '{{ scheduled_audit_name }}';
 ```
 
 
@@ -306,7 +305,7 @@ AND Identifier = '<ScheduledAuditName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.scheduled_audits
-WHERE Identifier = '<ScheduledAuditName>'
+WHERE Identifier = '{{ scheduled_audit_name }}'
 AND region = 'us-east-1';
 ```
 

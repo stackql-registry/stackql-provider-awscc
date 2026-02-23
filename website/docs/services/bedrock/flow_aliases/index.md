@@ -218,7 +218,7 @@ routing_configuration,
 updated_at,
 tags
 FROM awscc.bedrock.flow_aliases
-WHERE region = 'us-east-1' AND Identifier = '<Arn>|<FlowArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ flow_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +257,10 @@ INSERT INTO awscc.bedrock.flow_aliases (
  RoutingConfiguration,
  region
 )
-SELECT 
-'{{ FlowArn }}',
- '{{ Name }}',
- '{{ RoutingConfiguration }}',
+SELECT
+'{{ flow_arn }}',
+ '{{ name }}',
+ '{{ routing_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,13 +277,13 @@ INSERT INTO awscc.bedrock.flow_aliases (
  Tags,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ ConcurrencyConfiguration }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ RoutingConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ concurrency_configuration }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ routing_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -301,22 +301,21 @@ globals:
 resources:
   - name: flow_alias
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: ConcurrencyConfiguration
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: concurrency_configuration
         value:
-          Type: '{{ Type }}'
-          MaxConcurrency: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoutingConfiguration
+          type: '{{ type }}'
+          max_concurrency: null
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: routing_configuration
         value:
-          - FlowVersion: '{{ FlowVersion }}'
-      - name: Tags
+          - flow_version: '{{ flow_version }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>|<FlowArn>';
+AND Identifier = '{{ arn }}|{{ flow_arn }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<Arn>|<FlowArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_aliases
-WHERE Identifier = '<Arn|FlowArn>'
+WHERE Identifier = '{{ arn }}|{{ flow_arn }}'
 AND region = 'us-east-1';
 ```
 

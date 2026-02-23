@@ -176,7 +176,7 @@ identity_store_id,
 status,
 tags
 FROM awscc.sso.instances
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.sso.instances (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,9 +228,9 @@ INSERT INTO awscc.sso.instances (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,13 +248,12 @@ globals:
 resources:
   - name: instance
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceArn>';
+AND Identifier = '{{ instance_arn }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<InstanceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.instances
-WHERE Identifier = '<InstanceArn>'
+WHERE Identifier = '{{ instance_arn }}'
 AND region = 'us-east-1';
 ```
 

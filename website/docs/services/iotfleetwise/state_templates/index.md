@@ -206,7 +206,7 @@ data_extra_dimensions,
 metadata_extra_dimensions,
 tags
 FROM awscc.iotfleetwise.state_templates
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +244,10 @@ INSERT INTO awscc.iotfleetwise.state_templates (
  StateTemplateProperties,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SignalCatalogArn }}',
- '{{ StateTemplateProperties }}',
+SELECT
+'{{ name }}',
+ '{{ signal_catalog_arn }}',
+ '{{ state_template_properties }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,14 +265,14 @@ INSERT INTO awscc.iotfleetwise.state_templates (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ SignalCatalogArn }}',
- '{{ StateTemplateProperties }}',
- '{{ DataExtraDimensions }}',
- '{{ MetadataExtraDimensions }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ signal_catalog_arn }}',
+ '{{ state_template_properties }}',
+ '{{ data_extra_dimensions }}',
+ '{{ metadata_extra_dimensions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,26 +290,25 @@ globals:
 resources:
   - name: state_template
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SignalCatalogArn
-        value: '{{ SignalCatalogArn }}'
-      - name: StateTemplateProperties
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: signal_catalog_arn
+        value: '{{ signal_catalog_arn }}'
+      - name: state_template_properties
         value:
-          - '{{ StateTemplateProperties[0] }}'
-      - name: DataExtraDimensions
+          - '{{ state_template_properties[0] }}'
+      - name: data_extra_dimensions
         value:
-          - '{{ DataExtraDimensions[0] }}'
-      - name: MetadataExtraDimensions
+          - '{{ data_extra_dimensions[0] }}'
+      - name: metadata_extra_dimensions
         value:
-          - '{{ MetadataExtraDimensions[0] }}'
-      - name: Tags
+          - '{{ metadata_extra_dimensions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +328,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -338,7 +337,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.state_templates
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

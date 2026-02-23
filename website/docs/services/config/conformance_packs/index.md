@@ -194,7 +194,7 @@ template_s3_uri,
 template_ssm_document_details,
 conformance_pack_input_parameters
 FROM awscc.config.conformance_packs
-WHERE region = 'us-east-1' AND Identifier = '<ConformancePackName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ conformance_pack_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,8 +230,8 @@ INSERT INTO awscc.config.conformance_packs (
  ConformancePackName,
  region
 )
-SELECT 
-'{{ ConformancePackName }}',
+SELECT
+'{{ conformance_pack_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,14 +249,14 @@ INSERT INTO awscc.config.conformance_packs (
  ConformancePackInputParameters,
  region
 )
-SELECT 
- '{{ ConformancePackName }}',
- '{{ DeliveryS3Bucket }}',
- '{{ DeliveryS3KeyPrefix }}',
- '{{ TemplateBody }}',
- '{{ TemplateS3Uri }}',
- '{{ TemplateSSMDocumentDetails }}',
- '{{ ConformancePackInputParameters }}',
+SELECT
+ '{{ conformance_pack_name }}',
+ '{{ delivery_s3_bucket }}',
+ '{{ delivery_s3_key_prefix }}',
+ '{{ template_body }}',
+ '{{ template_s3_uri }}',
+ '{{ template_ssm_document_details }}',
+ '{{ conformance_pack_input_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,25 +274,24 @@ globals:
 resources:
   - name: conformance_pack
     props:
-      - name: ConformancePackName
-        value: '{{ ConformancePackName }}'
-      - name: DeliveryS3Bucket
-        value: '{{ DeliveryS3Bucket }}'
-      - name: DeliveryS3KeyPrefix
-        value: '{{ DeliveryS3KeyPrefix }}'
-      - name: TemplateBody
-        value: '{{ TemplateBody }}'
-      - name: TemplateS3Uri
-        value: '{{ TemplateS3Uri }}'
-      - name: TemplateSSMDocumentDetails
+      - name: conformance_pack_name
+        value: '{{ conformance_pack_name }}'
+      - name: delivery_s3_bucket
+        value: '{{ delivery_s3_bucket }}'
+      - name: delivery_s3_key_prefix
+        value: '{{ delivery_s3_key_prefix }}'
+      - name: template_body
+        value: '{{ template_body }}'
+      - name: template_s3_uri
+        value: '{{ template_s3_uri }}'
+      - name: template_ssm_document_details
         value:
-          DocumentName: '{{ DocumentName }}'
-          DocumentVersion: '{{ DocumentVersion }}'
-      - name: ConformancePackInputParameters
+          document_name: '{{ document_name }}'
+          document_version: '{{ document_version }}'
+      - name: conformance_pack_input_parameters
         value:
-          - ParameterName: '{{ ParameterName }}'
-            ParameterValue: '{{ ParameterValue }}'
-
+          - parameter_name: '{{ parameter_name }}'
+            parameter_value: '{{ parameter_value }}'
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +312,7 @@ SET PatchDocument = string('{{ {
     "ConformancePackInputParameters": conformance_pack_input_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConformancePackName>';
+AND Identifier = '{{ conformance_pack_name }}';
 ```
 
 
@@ -322,7 +321,7 @@ AND Identifier = '<ConformancePackName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.conformance_packs
-WHERE Identifier = '<ConformancePackName>'
+WHERE Identifier = '{{ conformance_pack_name }}'
 AND region = 'us-east-1';
 ```
 

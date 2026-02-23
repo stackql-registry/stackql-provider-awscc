@@ -164,7 +164,7 @@ application_id,
 tags,
 name
 FROM awscc.appconfig.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.appconfig.applications (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,10 +215,10 @@ INSERT INTO awscc.appconfig.applications (
  Name,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: application
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>';
+AND Identifier = '{{ application_id }}';
 ```
 
 
@@ -271,7 +270,7 @@ AND Identifier = '<ApplicationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.applications
-WHERE Identifier = '<ApplicationId>'
+WHERE Identifier = '{{ application_id }}'
 AND region = 'us-east-1';
 ```
 

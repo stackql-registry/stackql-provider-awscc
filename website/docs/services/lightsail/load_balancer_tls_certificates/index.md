@@ -181,7 +181,7 @@ is_attached,
 https_redirection_enabled,
 status
 FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE region = 'us-east-1' AND Identifier = '<CertificateName>|<LoadBalancerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.lightsail.load_balancer_tls_certificates (
  CertificateDomainName,
  region
 )
-SELECT 
-'{{ LoadBalancerName }}',
- '{{ CertificateName }}',
- '{{ CertificateDomainName }}',
+SELECT
+'{{ load_balancer_name }}',
+ '{{ certificate_name }}',
+ '{{ certificate_domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,13 +240,13 @@ INSERT INTO awscc.lightsail.load_balancer_tls_certificates (
  HttpsRedirectionEnabled,
  region
 )
-SELECT 
- '{{ LoadBalancerName }}',
- '{{ CertificateName }}',
- '{{ CertificateDomainName }}',
- '{{ CertificateAlternativeNames }}',
- '{{ IsAttached }}',
- '{{ HttpsRedirectionEnabled }}',
+SELECT
+ '{{ load_balancer_name }}',
+ '{{ certificate_name }}',
+ '{{ certificate_domain_name }}',
+ '{{ certificate_alternative_names }}',
+ '{{ is_attached }}',
+ '{{ https_redirection_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,20 +264,19 @@ globals:
 resources:
   - name: load_balancer_tls_certificate
     props:
-      - name: LoadBalancerName
-        value: '{{ LoadBalancerName }}'
-      - name: CertificateName
-        value: '{{ CertificateName }}'
-      - name: CertificateDomainName
-        value: '{{ CertificateDomainName }}'
-      - name: CertificateAlternativeNames
+      - name: load_balancer_name
+        value: '{{ load_balancer_name }}'
+      - name: certificate_name
+        value: '{{ certificate_name }}'
+      - name: certificate_domain_name
+        value: '{{ certificate_domain_name }}'
+      - name: certificate_alternative_names
         value:
-          - '{{ CertificateAlternativeNames[0] }}'
-      - name: IsAttached
-        value: '{{ IsAttached }}'
-      - name: HttpsRedirectionEnabled
-        value: '{{ HttpsRedirectionEnabled }}'
-
+          - '{{ certificate_alternative_names[0] }}'
+      - name: is_attached
+        value: '{{ is_attached }}'
+      - name: https_redirection_enabled
+        value: '{{ https_redirection_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "HttpsRedirectionEnabled": https_redirection_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CertificateName>|<LoadBalancerName>';
+AND Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<CertificateName>|<LoadBalancerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE Identifier = '<CertificateName|LoadBalancerName>'
+WHERE Identifier = '{{ certificate_name }}|{{ load_balancer_name }}'
 AND region = 'us-east-1';
 ```
 

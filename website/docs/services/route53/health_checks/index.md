@@ -257,7 +257,7 @@ health_check_id,
 health_check_config,
 health_check_tags
 FROM awscc.route53.health_checks
-WHERE Identifier = '<HealthCheckId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ health_check_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,7 +268,7 @@ SELECT
 region,
 health_check_id
 FROM awscc.route53.health_checks_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,8 +293,8 @@ INSERT INTO awscc.route53.health_checks (
  HealthCheckConfig,
  region
 )
-SELECT 
-'{{ HealthCheckConfig }}',
+SELECT
+'{{ health_check_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -307,9 +307,9 @@ INSERT INTO awscc.route53.health_checks (
  HealthCheckTags,
  region
 )
-SELECT 
- '{{ HealthCheckConfig }}',
- '{{ HealthCheckTags }}',
+SELECT
+ '{{ health_check_config }}',
+ '{{ health_check_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -327,34 +327,33 @@ globals:
 resources:
   - name: health_check
     props:
-      - name: HealthCheckConfig
+      - name: health_check_config
         value:
-          AlarmIdentifier:
-            Name: '{{ Name }}'
-            Region: '{{ Region }}'
-          ChildHealthChecks:
-            - '{{ ChildHealthChecks[0] }}'
-          EnableSNI: '{{ EnableSNI }}'
-          FailureThreshold: '{{ FailureThreshold }}'
-          FullyQualifiedDomainName: '{{ FullyQualifiedDomainName }}'
-          HealthThreshold: '{{ HealthThreshold }}'
-          InsufficientDataHealthStatus: '{{ InsufficientDataHealthStatus }}'
-          Inverted: '{{ Inverted }}'
-          IPAddress: '{{ IPAddress }}'
-          MeasureLatency: '{{ MeasureLatency }}'
-          Port: '{{ Port }}'
-          Regions:
-            - '{{ Regions[0] }}'
-          RequestInterval: '{{ RequestInterval }}'
-          ResourcePath: '{{ ResourcePath }}'
-          SearchString: '{{ SearchString }}'
-          RoutingControlArn: '{{ RoutingControlArn }}'
-          Type: '{{ Type }}'
-      - name: HealthCheckTags
+          alarm_identifier:
+            name: '{{ name }}'
+            region: '{{ region }}'
+          child_health_checks:
+            - '{{ child_health_checks[0] }}'
+          enable_sn_i: '{{ enable_sn_i }}'
+          failure_threshold: '{{ failure_threshold }}'
+          fully_qualified_domain_name: '{{ fully_qualified_domain_name }}'
+          health_threshold: '{{ health_threshold }}'
+          insufficient_data_health_status: '{{ insufficient_data_health_status }}'
+          inverted: '{{ inverted }}'
+          ip_address: '{{ ip_address }}'
+          measure_latency: '{{ measure_latency }}'
+          port: '{{ port }}'
+          regions:
+            - '{{ regions[0] }}'
+          request_interval: '{{ request_interval }}'
+          resource_path: '{{ resource_path }}'
+          search_string: '{{ search_string }}'
+          routing_control_arn: '{{ routing_control_arn }}'
+          type: '{{ type }}'
+      - name: health_check_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +369,7 @@ SET PatchDocument = string('{{ {
     "HealthCheckTags": health_check_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HealthCheckId>';
+AND Identifier = '{{ health_check_id }}';
 ```
 
 
@@ -379,7 +378,7 @@ AND Identifier = '<HealthCheckId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.health_checks
-WHERE Identifier = '<HealthCheckId>'
+WHERE Identifier = '{{ health_check_id }}'
 AND region = 'us-east-1';
 ```
 

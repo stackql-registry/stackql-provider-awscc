@@ -205,7 +205,7 @@ ipv6_address_attribute,
 ip_source,
 ipv6_cidr_block_network_border_group
 FROM awscc.ec2.vpc_cidr_blocks
-WHERE region = 'us-east-1' AND Identifier = '<Id>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.ec2.vpc_cidr_blocks (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,17 +264,17 @@ INSERT INTO awscc.ec2.vpc_cidr_blocks (
  Ipv6CidrBlockNetworkBorderGroup,
  region
 )
-SELECT 
- '{{ CidrBlock }}',
- '{{ Ipv6Pool }}',
- '{{ VpcId }}',
- '{{ Ipv6CidrBlock }}',
- '{{ Ipv4IpamPoolId }}',
- '{{ Ipv4NetmaskLength }}',
- '{{ Ipv6IpamPoolId }}',
- '{{ Ipv6NetmaskLength }}',
- '{{ AmazonProvidedIpv6CidrBlock }}',
- '{{ Ipv6CidrBlockNetworkBorderGroup }}',
+SELECT
+ '{{ cidr_block }}',
+ '{{ ipv6_pool }}',
+ '{{ vpc_id }}',
+ '{{ ipv6_cidr_block }}',
+ '{{ ipv4_ipam_pool_id }}',
+ '{{ ipv4_netmask_length }}',
+ '{{ ipv6_ipam_pool_id }}',
+ '{{ ipv6_netmask_length }}',
+ '{{ amazon_provided_ipv6_cidr_block }}',
+ '{{ ipv6_cidr_block_network_border_group }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,27 +292,26 @@ globals:
 resources:
   - name: vpc_cidr_block
     props:
-      - name: CidrBlock
-        value: '{{ CidrBlock }}'
-      - name: Ipv6Pool
-        value: '{{ Ipv6Pool }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Ipv6CidrBlock
-        value: '{{ Ipv6CidrBlock }}'
-      - name: Ipv4IpamPoolId
-        value: '{{ Ipv4IpamPoolId }}'
-      - name: Ipv4NetmaskLength
-        value: '{{ Ipv4NetmaskLength }}'
-      - name: Ipv6IpamPoolId
-        value: '{{ Ipv6IpamPoolId }}'
-      - name: Ipv6NetmaskLength
-        value: '{{ Ipv6NetmaskLength }}'
-      - name: AmazonProvidedIpv6CidrBlock
-        value: '{{ AmazonProvidedIpv6CidrBlock }}'
-      - name: Ipv6CidrBlockNetworkBorderGroup
-        value: '{{ Ipv6CidrBlockNetworkBorderGroup }}'
-
+      - name: cidr_block
+        value: '{{ cidr_block }}'
+      - name: ipv6_pool
+        value: '{{ ipv6_pool }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: ipv6_cidr_block
+        value: '{{ ipv6_cidr_block }}'
+      - name: ipv4_ipam_pool_id
+        value: '{{ ipv4_ipam_pool_id }}'
+      - name: ipv4_netmask_length
+        value: '{{ ipv4_netmask_length }}'
+      - name: ipv6_ipam_pool_id
+        value: '{{ ipv6_ipam_pool_id }}'
+      - name: ipv6_netmask_length
+        value: '{{ ipv6_netmask_length }}'
+      - name: amazon_provided_ipv6_cidr_block
+        value: '{{ amazon_provided_ipv6_cidr_block }}'
+      - name: ipv6_cidr_block_network_border_group
+        value: '{{ ipv6_cidr_block_network_border_group }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_cidr_blocks
-WHERE Identifier = '<Id|VpcId>'
+WHERE Identifier = '{{ id }}|{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

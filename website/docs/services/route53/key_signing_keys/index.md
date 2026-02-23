@@ -157,7 +157,7 @@ status,
 name,
 key_management_service_arn
 FROM awscc.route53.key_signing_keys
-WHERE Identifier = '<HostedZoneId>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -169,7 +169,7 @@ region,
 hosted_zone_id,
 name
 FROM awscc.route53.key_signing_keys_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,11 +197,11 @@ INSERT INTO awscc.route53.key_signing_keys (
  KeyManagementServiceArn,
  region
 )
-SELECT 
-'{{ HostedZoneId }}',
- '{{ Status }}',
- '{{ Name }}',
- '{{ KeyManagementServiceArn }}',
+SELECT
+'{{ hosted_zone_id }}',
+ '{{ status }}',
+ '{{ name }}',
+ '{{ key_management_service_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,11 @@ INSERT INTO awscc.route53.key_signing_keys (
  KeyManagementServiceArn,
  region
 )
-SELECT 
- '{{ HostedZoneId }}',
- '{{ Status }}',
- '{{ Name }}',
- '{{ KeyManagementServiceArn }}',
+SELECT
+ '{{ hosted_zone_id }}',
+ '{{ status }}',
+ '{{ name }}',
+ '{{ key_management_service_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,15 +238,14 @@ globals:
 resources:
   - name: key_signing_key
     props:
-      - name: HostedZoneId
-        value: '{{ HostedZoneId }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: KeyManagementServiceArn
-        value: '{{ KeyManagementServiceArn }}'
-
+      - name: hosted_zone_id
+        value: '{{ hosted_zone_id }}'
+      - name: status
+        value: '{{ status }}'
+      - name: name
+        value: '{{ name }}'
+      - name: key_management_service_arn
+        value: '{{ key_management_service_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HostedZoneId>|<Name>';
+AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
 ```
 
 
@@ -271,7 +270,7 @@ AND Identifier = '<HostedZoneId>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.key_signing_keys
-WHERE Identifier = '<HostedZoneId|Name>'
+WHERE Identifier = '{{ hosted_zone_id }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

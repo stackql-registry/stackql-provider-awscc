@@ -212,7 +212,7 @@ dataset_description,
 dataset_source,
 tags
 FROM awscc.iotsitewise.datasets
-WHERE region = 'us-east-1' AND Identifier = '<DatasetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dataset_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.iotsitewise.datasets (
  DatasetSource,
  region
 )
-SELECT 
-'{{ DatasetName }}',
- '{{ DatasetSource }}',
+SELECT
+'{{ dataset_name }}',
+ '{{ dataset_source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -266,11 +266,11 @@ INSERT INTO awscc.iotsitewise.datasets (
  Tags,
  region
 )
-SELECT 
- '{{ DatasetName }}',
- '{{ DatasetDescription }}',
- '{{ DatasetSource }}',
- '{{ Tags }}',
+SELECT
+ '{{ dataset_name }}',
+ '{{ dataset_description }}',
+ '{{ dataset_source }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -288,23 +288,22 @@ globals:
 resources:
   - name: dataset
     props:
-      - name: DatasetName
-        value: '{{ DatasetName }}'
-      - name: DatasetDescription
-        value: '{{ DatasetDescription }}'
-      - name: DatasetSource
+      - name: dataset_name
+        value: '{{ dataset_name }}'
+      - name: dataset_description
+        value: '{{ dataset_description }}'
+      - name: dataset_source
         value:
-          SourceFormat: '{{ SourceFormat }}'
-          SourceType: '{{ SourceType }}'
-          SourceDetail:
-            Kendra:
-              KnowledgeBaseArn: '{{ KnowledgeBaseArn }}'
-              RoleArn: '{{ RoleArn }}'
-      - name: Tags
+          source_format: '{{ source_format }}'
+          source_type: '{{ source_type }}'
+          source_detail:
+            kendra:
+              knowledge_base_arn: '{{ knowledge_base_arn }}'
+              role_arn: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatasetId>';
+AND Identifier = '{{ dataset_id }}';
 ```
 
 
@@ -332,7 +331,7 @@ AND Identifier = '<DatasetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.datasets
-WHERE Identifier = '<DatasetId>'
+WHERE Identifier = '{{ dataset_id }}'
 AND region = 'us-east-1';
 ```
 

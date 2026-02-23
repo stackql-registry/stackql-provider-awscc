@@ -170,7 +170,7 @@ serial_number,
 users,
 tags
 FROM awscc.iam.virtualmfa_devices
-WHERE Identifier = '<SerialNumber>';
+WHERE region = 'us-east-1' AND Identifier = '{{ serial_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -181,7 +181,7 @@ SELECT
 region,
 serial_number
 FROM awscc.iam.virtualmfa_devices_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -206,8 +206,8 @@ INSERT INTO awscc.iam.virtualmfa_devices (
  Users,
  region
 )
-SELECT 
-'{{ Users }}',
+SELECT
+'{{ users }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.iam.virtualmfa_devices (
  Tags,
  region
 )
-SELECT 
- '{{ VirtualMfaDeviceName }}',
- '{{ Path }}',
- '{{ Users }}',
- '{{ Tags }}',
+SELECT
+ '{{ virtual_mfa_device_name }}',
+ '{{ path }}',
+ '{{ users }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,18 +244,17 @@ globals:
 resources:
   - name: virtualmfa_device
     props:
-      - name: VirtualMfaDeviceName
-        value: '{{ VirtualMfaDeviceName }}'
-      - name: Path
-        value: '{{ Path }}'
-      - name: Users
+      - name: virtual_mfa_device_name
+        value: '{{ virtual_mfa_device_name }}'
+      - name: path
+        value: '{{ path }}'
+      - name: users
         value:
-          - '{{ Users[0] }}'
-      - name: Tags
+          - '{{ users[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SerialNumber>';
+AND Identifier = '{{ serial_number }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<SerialNumber>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.virtualmfa_devices
-WHERE Identifier = '<SerialNumber>'
+WHERE Identifier = '{{ serial_number }}'
 AND region = 'us-east-1';
 ```
 

@@ -200,7 +200,7 @@ kms_key_id,
 additional_encryption_context,
 create_time
 FROM awscc.rds.integrations
-WHERE region = 'us-east-1' AND Identifier = '<IntegrationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ integration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.rds.integrations (
  TargetArn,
  region
 )
-SELECT 
-'{{ SourceArn }}',
- '{{ TargetArn }}',
+SELECT
+'{{ source_arn }}',
+ '{{ target_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,15 +258,15 @@ INSERT INTO awscc.rds.integrations (
  AdditionalEncryptionContext,
  region
 )
-SELECT 
- '{{ IntegrationName }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ DataFilter }}',
- '{{ SourceArn }}',
- '{{ TargetArn }}',
- '{{ KMSKeyId }}',
- '{{ AdditionalEncryptionContext }}',
+SELECT
+ '{{ integration_name }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ data_filter }}',
+ '{{ source_arn }}',
+ '{{ target_arn }}',
+ '{{ kms_key_id }}',
+ '{{ additional_encryption_context }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,25 +284,24 @@ globals:
 resources:
   - name: integration
     props:
-      - name: IntegrationName
-        value: '{{ IntegrationName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: integration_name
+        value: '{{ integration_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DataFilter
-        value: '{{ DataFilter }}'
-      - name: SourceArn
-        value: '{{ SourceArn }}'
-      - name: TargetArn
-        value: '{{ TargetArn }}'
-      - name: KMSKeyId
-        value: '{{ KMSKeyId }}'
-      - name: AdditionalEncryptionContext
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: data_filter
+        value: '{{ data_filter }}'
+      - name: source_arn
+        value: '{{ source_arn }}'
+      - name: target_arn
+        value: '{{ target_arn }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: additional_encryption_context
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "DataFilter": data_filter
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IntegrationArn>';
+AND Identifier = '{{ integration_arn }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<IntegrationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.integrations
-WHERE Identifier = '<IntegrationArn>'
+WHERE Identifier = '{{ integration_arn }}'
 AND region = 'us-east-1';
 ```
 

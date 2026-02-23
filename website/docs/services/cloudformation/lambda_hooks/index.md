@@ -223,7 +223,7 @@ alias,
 hook_arn,
 execution_role
 FROM awscc.cloudformation.lambda_hooks
-WHERE region = 'us-east-1' AND Identifier = '<HookArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,13 +264,13 @@ INSERT INTO awscc.cloudformation.lambda_hooks (
  ExecutionRole,
  region
 )
-SELECT 
-'{{ LambdaFunction }}',
- '{{ HookStatus }}',
- '{{ TargetOperations }}',
- '{{ FailureMode }}',
- '{{ Alias }}',
- '{{ ExecutionRole }}',
+SELECT
+'{{ lambda_function }}',
+ '{{ hook_status }}',
+ '{{ target_operations }}',
+ '{{ failure_mode }}',
+ '{{ alias }}',
+ '{{ execution_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -289,15 +289,15 @@ INSERT INTO awscc.cloudformation.lambda_hooks (
  ExecutionRole,
  region
 )
-SELECT 
- '{{ LambdaFunction }}',
- '{{ HookStatus }}',
- '{{ TargetOperations }}',
- '{{ FailureMode }}',
- '{{ TargetFilters }}',
- '{{ StackFilters }}',
- '{{ Alias }}',
- '{{ ExecutionRole }}',
+SELECT
+ '{{ lambda_function }}',
+ '{{ hook_status }}',
+ '{{ target_operations }}',
+ '{{ failure_mode }}',
+ '{{ target_filters }}',
+ '{{ stack_filters }}',
+ '{{ alias }}',
+ '{{ execution_role }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,35 +315,34 @@ globals:
 resources:
   - name: lambda_hook
     props:
-      - name: LambdaFunction
-        value: '{{ LambdaFunction }}'
-      - name: HookStatus
-        value: '{{ HookStatus }}'
-      - name: TargetOperations
+      - name: lambda_function
+        value: '{{ lambda_function }}'
+      - name: hook_status
+        value: '{{ hook_status }}'
+      - name: target_operations
         value:
-          - '{{ TargetOperations[0] }}'
-      - name: FailureMode
-        value: '{{ FailureMode }}'
-      - name: TargetFilters
+          - '{{ target_operations[0] }}'
+      - name: failure_mode
+        value: '{{ failure_mode }}'
+      - name: target_filters
         value: {}
-      - name: StackFilters
+      - name: stack_filters
         value:
-          FilteringCriteria: '{{ FilteringCriteria }}'
-          StackNames:
-            Include:
-              - '{{ Include[0] }}'
-            Exclude:
+          filtering_criteria: '{{ filtering_criteria }}'
+          stack_names:
+            include:
+              - '{{ include[0] }}'
+            exclude:
               - null
-          StackRoles:
-            Include:
-              - '{{ Include[0] }}'
-            Exclude:
+          stack_roles:
+            include:
+              - '{{ include[0] }}'
+            exclude:
               - null
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: ExecutionRole
-        value: '{{ ExecutionRole }}'
-
+      - name: alias
+        value: '{{ alias }}'
+      - name: execution_role
+        value: '{{ execution_role }}'
 ```
 </TabItem>
 </Tabs>
@@ -365,7 +364,7 @@ SET PatchDocument = string('{{ {
     "ExecutionRole": execution_role
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HookArn>';
+AND Identifier = '{{ hook_arn }}';
 ```
 
 
@@ -374,7 +373,7 @@ AND Identifier = '<HookArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.lambda_hooks
-WHERE Identifier = '<HookArn>'
+WHERE Identifier = '{{ hook_arn }}'
 AND region = 'us-east-1';
 ```
 

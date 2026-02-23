@@ -322,7 +322,7 @@ status,
 readiness,
 tags
 FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<CalculatedAttributeName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -362,11 +362,11 @@ INSERT INTO awscc.customerprofiles.calculated_attribute_definitions (
  Statistic,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ CalculatedAttributeName }}',
- '{{ AttributeDetails }}',
- '{{ Statistic }}',
+SELECT
+'{{ domain_name }}',
+ '{{ calculated_attribute_name }}',
+ '{{ attribute_details }}',
+ '{{ statistic }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -386,16 +386,16 @@ INSERT INTO awscc.customerprofiles.calculated_attribute_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ CalculatedAttributeName }}',
- '{{ DisplayName }}',
- '{{ Description }}',
- '{{ AttributeDetails }}',
- '{{ Conditions }}',
- '{{ Statistic }}',
- '{{ UseHistoricalData }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ calculated_attribute_name }}',
+ '{{ display_name }}',
+ '{{ description }}',
+ '{{ attribute_details }}',
+ '{{ conditions }}',
+ '{{ statistic }}',
+ '{{ use_historical_data }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -413,42 +413,41 @@ globals:
 resources:
   - name: calculated_attribute_definition
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: CalculatedAttributeName
-        value: '{{ CalculatedAttributeName }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: AttributeDetails
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: calculated_attribute_name
+        value: '{{ calculated_attribute_name }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: attribute_details
         value:
-          Attributes:
-            - Name: '{{ Name }}'
-          Expression: '{{ Expression }}'
-      - name: Conditions
+          attributes:
+            - name: '{{ name }}'
+          expression: '{{ expression }}'
+      - name: conditions
         value:
-          Range:
-            Value: '{{ Value }}'
-            Unit: '{{ Unit }}'
-            ValueRange:
-              Start: '{{ Start }}'
-              End: '{{ End }}'
-            TimestampSource: '{{ TimestampSource }}'
-            TimestampFormat: '{{ TimestampFormat }}'
-          ObjectCount: '{{ ObjectCount }}'
-          Threshold:
-            Value: '{{ Value }}'
-            Operator: '{{ Operator }}'
-      - name: Statistic
-        value: '{{ Statistic }}'
-      - name: UseHistoricalData
-        value: '{{ UseHistoricalData }}'
-      - name: Tags
+          range:
+            value: '{{ value }}'
+            unit: '{{ unit }}'
+            value_range:
+              start: '{{ start }}'
+              end: '{{ end }}'
+            timestamp_source: '{{ timestamp_source }}'
+            timestamp_format: '{{ timestamp_format }}'
+          object_count: '{{ object_count }}'
+          threshold:
+            value: '{{ value }}'
+            operator: '{{ operator }}'
+      - name: statistic
+        value: '{{ statistic }}'
+      - name: use_historical_data
+        value: '{{ use_historical_data }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -468,7 +467,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<CalculatedAttributeName>';
+AND Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```
 
 
@@ -477,7 +476,7 @@ AND Identifier = '<DomainName>|<CalculatedAttributeName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE Identifier = '<DomainName|CalculatedAttributeName>'
+WHERE Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}'
 AND region = 'us-east-1';
 ```
 

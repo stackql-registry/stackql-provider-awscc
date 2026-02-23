@@ -188,7 +188,7 @@ number_of_ca_certificates,
 tags,
 trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE region = 'us-east-1' AND Identifier = '<TrustStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,12 +228,12 @@ INSERT INTO awscc.elasticloadbalancingv2.trust_stores (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ CaCertificatesBundleS3Bucket }}',
- '{{ CaCertificatesBundleS3Key }}',
- '{{ CaCertificatesBundleS3ObjectVersion }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ ca_certificates_bundle_s3_bucket }}',
+ '{{ ca_certificates_bundle_s3_key }}',
+ '{{ ca_certificates_bundle_s3_object_version }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,12 +249,12 @@ INSERT INTO awscc.elasticloadbalancingv2.trust_stores (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ CaCertificatesBundleS3Bucket }}',
- '{{ CaCertificatesBundleS3Key }}',
- '{{ CaCertificatesBundleS3ObjectVersion }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ ca_certificates_bundle_s3_bucket }}',
+ '{{ ca_certificates_bundle_s3_key }}',
+ '{{ ca_certificates_bundle_s3_object_version }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,19 +272,18 @@ globals:
 resources:
   - name: trust_store
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: CaCertificatesBundleS3Bucket
-        value: '{{ CaCertificatesBundleS3Bucket }}'
-      - name: CaCertificatesBundleS3Key
-        value: '{{ CaCertificatesBundleS3Key }}'
-      - name: CaCertificatesBundleS3ObjectVersion
-        value: '{{ CaCertificatesBundleS3ObjectVersion }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: ca_certificates_bundle_s3_bucket
+        value: '{{ ca_certificates_bundle_s3_bucket }}'
+      - name: ca_certificates_bundle_s3_key
+        value: '{{ ca_certificates_bundle_s3_key }}'
+      - name: ca_certificates_bundle_s3_object_version
+        value: '{{ ca_certificates_bundle_s3_object_version }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +302,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrustStoreArn>';
+AND Identifier = '{{ trust_store_arn }}';
 ```
 
 
@@ -312,7 +311,7 @@ AND Identifier = '<TrustStoreArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE Identifier = '<TrustStoreArn>'
+WHERE Identifier = '{{ trust_store_arn }}'
 AND region = 'us-east-1';
 ```
 

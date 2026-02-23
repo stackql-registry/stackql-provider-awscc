@@ -599,7 +599,7 @@ role_arn,
 tags,
 name
 FROM awscc.events.rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -643,16 +643,16 @@ INSERT INTO awscc.events.rules (
  Name,
  region
 )
-SELECT 
-'{{ EventBusName }}',
- '{{ EventPattern }}',
- '{{ ScheduleExpression }}',
- '{{ Description }}',
- '{{ State }}',
- '{{ Targets }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+'{{ event_bus_name }}',
+ '{{ event_pattern }}',
+ '{{ schedule_expression }}',
+ '{{ description }}',
+ '{{ state }}',
+ '{{ targets }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -672,16 +672,16 @@ INSERT INTO awscc.events.rules (
  Name,
  region
 )
-SELECT 
- '{{ EventBusName }}',
- '{{ EventPattern }}',
- '{{ ScheduleExpression }}',
- '{{ Description }}',
- '{{ State }}',
- '{{ Targets }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ event_bus_name }}',
+ '{{ event_pattern }}',
+ '{{ schedule_expression }}',
+ '{{ description }}',
+ '{{ state }}',
+ '{{ targets }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -699,105 +699,104 @@ globals:
 resources:
   - name: rule
     props:
-      - name: EventBusName
-        value: '{{ EventBusName }}'
-      - name: EventPattern
+      - name: event_bus_name
+        value: '{{ event_bus_name }}'
+      - name: event_pattern
         value: {}
-      - name: ScheduleExpression
-        value: '{{ ScheduleExpression }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Targets
+      - name: schedule_expression
+        value: '{{ schedule_expression }}'
+      - name: description
+        value: '{{ description }}'
+      - name: state
+        value: '{{ state }}'
+      - name: targets
         value:
-          - InputPath: '{{ InputPath }}'
-            HttpParameters:
-              PathParameterValues:
-                - '{{ PathParameterValues[0] }}'
-              HeaderParameters: {}
-              QueryStringParameters: {}
-            DeadLetterConfig:
-              Arn: '{{ Arn }}'
-            RunCommandParameters:
-              RunCommandTargets:
-                - Values:
-                    - '{{ Values[0] }}'
-                  Key: '{{ Key }}'
-            InputTransformer:
-              InputPathsMap: {}
-              InputTemplate: '{{ InputTemplate }}'
-            KinesisParameters:
-              PartitionKeyPath: '{{ PartitionKeyPath }}'
-            RoleArn: '{{ RoleArn }}'
-            RedshiftDataParameters:
-              StatementName: '{{ StatementName }}'
-              Sqls:
-                - '{{ Sqls[0] }}'
-              Database: '{{ Database }}'
-              SecretManagerArn: '{{ SecretManagerArn }}'
-              DbUser: '{{ DbUser }}'
-              Sql: '{{ Sql }}'
-              WithEvent: '{{ WithEvent }}'
-            AppSyncParameters:
-              GraphQLOperation: '{{ GraphQLOperation }}'
-            Input: '{{ Input }}'
-            SqsParameters:
-              MessageGroupId: '{{ MessageGroupId }}'
-            EcsParameters:
-              PlatformVersion: '{{ PlatformVersion }}'
-              Group: '{{ Group }}'
-              EnableECSManagedTags: '{{ EnableECSManagedTags }}'
-              EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-              PlacementConstraints:
-                - Type: '{{ Type }}'
-                  Expression: '{{ Expression }}'
-              PropagateTags: '{{ PropagateTags }}'
-              TaskCount: '{{ TaskCount }}'
-              PlacementStrategies:
-                - Field: '{{ Field }}'
-                  Type: '{{ Type }}'
-              CapacityProviderStrategy:
-                - CapacityProvider: '{{ CapacityProvider }}'
-                  Base: '{{ Base }}'
-                  Weight: '{{ Weight }}'
-              LaunchType: '{{ LaunchType }}'
-              ReferenceId: '{{ ReferenceId }}'
-              TagList:
-                - Value: '{{ Value }}'
-                  Key: '{{ Key }}'
-              NetworkConfiguration:
-                AwsVpcConfiguration:
-                  SecurityGroups:
-                    - '{{ SecurityGroups[0] }}'
-                  Subnets:
-                    - '{{ Subnets[0] }}'
-                  AssignPublicIp: '{{ AssignPublicIp }}'
-              TaskDefinitionArn: '{{ TaskDefinitionArn }}'
-            BatchParameters:
-              ArrayProperties:
-                Size: '{{ Size }}'
-              JobName: '{{ JobName }}'
-              RetryStrategy:
-                Attempts: '{{ Attempts }}'
-              JobDefinition: '{{ JobDefinition }}'
-            Id: '{{ Id }}'
-            Arn: '{{ Arn }}'
-            SageMakerPipelineParameters:
-              PipelineParameterList:
-                - Value: '{{ Value }}'
-                  Name: '{{ Name }}'
-            RetryPolicy:
-              MaximumRetryAttempts: '{{ MaximumRetryAttempts }}'
-              MaximumEventAgeInSeconds: '{{ MaximumEventAgeInSeconds }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          - input_path: '{{ input_path }}'
+            http_parameters:
+              path_parameter_values:
+                - '{{ path_parameter_values[0] }}'
+              header_parameters: {}
+              query_string_parameters: {}
+            dead_letter_config:
+              arn: '{{ arn }}'
+            run_command_parameters:
+              run_command_targets:
+                - values:
+                    - '{{ values[0] }}'
+                  key: '{{ key }}'
+            input_transformer:
+              input_paths_map: {}
+              input_template: '{{ input_template }}'
+            kinesis_parameters:
+              partition_key_path: '{{ partition_key_path }}'
+            role_arn: '{{ role_arn }}'
+            redshift_data_parameters:
+              statement_name: '{{ statement_name }}'
+              sqls:
+                - '{{ sqls[0] }}'
+              database: '{{ database }}'
+              secret_manager_arn: '{{ secret_manager_arn }}'
+              db_user: '{{ db_user }}'
+              sql: '{{ sql }}'
+              with_event: '{{ with_event }}'
+            app_sync_parameters:
+              graph_ql_operation: '{{ graph_ql_operation }}'
+            input: '{{ input }}'
+            sqs_parameters:
+              message_group_id: '{{ message_group_id }}'
+            ecs_parameters:
+              platform_version: '{{ platform_version }}'
+              group: '{{ group }}'
+              enable_ecs_managed_tags: '{{ enable_ecs_managed_tags }}'
+              enable_execute_command: '{{ enable_execute_command }}'
+              placement_constraints:
+                - type: '{{ type }}'
+                  expression: '{{ expression }}'
+              propagate_tags: '{{ propagate_tags }}'
+              task_count: '{{ task_count }}'
+              placement_strategies:
+                - field: '{{ field }}'
+                  type: '{{ type }}'
+              capacity_provider_strategy:
+                - capacity_provider: '{{ capacity_provider }}'
+                  base: '{{ base }}'
+                  weight: '{{ weight }}'
+              launch_type: '{{ launch_type }}'
+              reference_id: '{{ reference_id }}'
+              tag_list:
+                - value: '{{ value }}'
+                  key: '{{ key }}'
+              network_configuration:
+                aws_vpc_configuration:
+                  security_groups:
+                    - '{{ security_groups[0] }}'
+                  subnets:
+                    - '{{ subnets[0] }}'
+                  assign_public_ip: '{{ assign_public_ip }}'
+              task_definition_arn: '{{ task_definition_arn }}'
+            batch_parameters:
+              array_properties:
+                size: '{{ size }}'
+              job_name: '{{ job_name }}'
+              retry_strategy:
+                attempts: '{{ attempts }}'
+              job_definition: '{{ job_definition }}'
+            id: '{{ id }}'
+            arn: '{{ arn }}'
+            sage_maker_pipeline_parameters:
+              pipeline_parameter_list:
+                - value: '{{ value }}'
+                  name: '{{ name }}'
+            retry_policy:
+              maximum_retry_attempts: '{{ maximum_retry_attempts }}'
+              maximum_event_age_in_seconds: '{{ maximum_event_age_in_seconds }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
           - null
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -820,7 +819,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -829,7 +828,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 
