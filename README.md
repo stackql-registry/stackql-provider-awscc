@@ -73,12 +73,6 @@ and ResourceTypeFilters = '["s3:bucket"]'
 and TagFilters = '[{"Key": "StackName", "Values": ["stackql-serverless"]}]'
 ) t
 where key = 'StackName' and value = 'stackql-serverless';
-
-select 
-*
-from  awscc.tagging.tagged_resources
-where region = 'us-east-1';
-
 ```
 
 ### 6. Generate web docs:
