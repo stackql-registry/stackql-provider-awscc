@@ -169,23 +169,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-name,
-display_name,
-description,
-launch_path,
-launch_parameters,
-working_directory,
-instance_families,
-icon_s3_location,
-arn,
-app_block_arn,
-platforms,
-tags,
-attributes_to_delete,
-created_time
+  region,
+  name,
+  display_name,
+  description,
+  launch_path,
+  launch_parameters,
+  working_directory,
+  instance_families,
+  icon_s3_location,
+  arn,
+  app_block_arn,
+  platforms,
+  tags,
+  attributes_to_delete,
+  created_time
 FROM awscc.appstream.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -205,22 +207,22 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.applications (
- Name,
- LaunchPath,
- InstanceFamilies,
- IconS3Location,
- AppBlockArn,
- Platforms,
- region
+  Name,
+  LaunchPath,
+  InstanceFamilies,
+  IconS3Location,
+  AppBlockArn,
+  Platforms,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ launch_path }}',
- '{{ instance_families }}',
- '{{ icon_s3_location }}',
- '{{ app_block_arn }}',
- '{{ platforms }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ launch_path }}',
+  '{{ instance_families }}',
+  '{{ icon_s3_location }}',
+  '{{ app_block_arn }}',
+  '{{ platforms }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,34 +230,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.applications (
- Name,
- DisplayName,
- Description,
- LaunchPath,
- LaunchParameters,
- WorkingDirectory,
- InstanceFamilies,
- IconS3Location,
- AppBlockArn,
- Platforms,
- Tags,
- AttributesToDelete,
- region
+  Name,
+  DisplayName,
+  Description,
+  LaunchPath,
+  LaunchParameters,
+  WorkingDirectory,
+  InstanceFamilies,
+  IconS3Location,
+  AppBlockArn,
+  Platforms,
+  Tags,
+  AttributesToDelete,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ display_name }}',
- '{{ description }}',
- '{{ launch_path }}',
- '{{ launch_parameters }}',
- '{{ working_directory }}',
- '{{ instance_families }}',
- '{{ icon_s3_location }}',
- '{{ app_block_arn }}',
- '{{ platforms }}',
- '{{ tags }}',
- '{{ attributes_to_delete }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ display_name }}',
+  '{{ description }}',
+  '{{ launch_path }}',
+  '{{ launch_parameters }}',
+  '{{ working_directory }}',
+  '{{ instance_families }}',
+  '{{ icon_s3_location }}',
+  '{{ app_block_arn }}',
+  '{{ platforms }}',
+  '{{ tags }}',
+  '{{ attributes_to_delete }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -325,8 +327,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "AttributesToDelete": attributes_to_delete
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -335,8 +338,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.applications
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -175,13 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>activity</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-tags,
-encryption_configuration
+  region,
+  arn,
+  name,
+  tags,
+  encryption_configuration
 FROM awscc.stepfunctions.activities
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>activities</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.stepfunctions.activities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,12 +217,12 @@ Use the following StackQL query and manifest file to create a new <code>activity
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.activities (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,16 +230,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.activities (
- Name,
- Tags,
- EncryptionConfiguration,
- region
+  Name,
+  Tags,
+  EncryptionConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ encryption_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ encryption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -278,8 +281,9 @@ UPDATE awscc.stepfunctions.activities
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -288,8 +292,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.activities
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

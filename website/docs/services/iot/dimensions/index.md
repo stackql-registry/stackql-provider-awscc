@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dimension</code>.
 ```sql
 SELECT
-region,
-name,
-type,
-string_values,
-tags,
-arn
+  region,
+  name,
+  type,
+  string_values,
+  tags,
+  arn
 FROM awscc.iot.dimensions
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>dimensions</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iot.dimensions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>dimensio
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.dimensions (
- Type,
- StringValues,
- region
+  Type,
+  StringValues,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ string_values }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ string_values }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,18 +221,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.dimensions (
- Name,
- Type,
- StringValues,
- Tags,
- region
+  Name,
+  Type,
+  StringValues,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ string_values }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ string_values }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ SET PatchDocument = string('{{ {
     "StringValues": string_values,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -282,8 +286,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.dimensions
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

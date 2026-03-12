@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cidr_collection</code>.
 ```sql
 SELECT
-region,
-id,
-name,
-arn,
-locations
+  region,
+  id,
+  name,
+  arn,
+  locations
 FROM awscc.route53.cidr_collections
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>cidr_collections</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53.cidr_collections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>cidr_col
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.cidr_collections (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.cidr_collections (
- Name,
- Locations,
- region
+  Name,
+  Locations,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ locations }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ locations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -255,8 +258,9 @@ UPDATE awscc.route53.cidr_collections
 SET PatchDocument = string('{{ {
     "Locations": locations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -265,8 +269,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.cidr_collections
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

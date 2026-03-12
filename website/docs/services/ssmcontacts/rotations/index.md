@@ -241,16 +241,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rotation</code>.
 ```sql
 SELECT
-region,
-name,
-contact_ids,
-start_time,
-time_zone_id,
-recurrence,
-tags,
-arn
+  region,
+  name,
+  contact_ids,
+  start_time,
+  time_zone_id,
+  recurrence,
+  tags,
+  arn
 FROM awscc.ssmcontacts.rotations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,10 +260,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rotations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ssmcontacts.rotations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -283,20 +286,20 @@ Use the following StackQL query and manifest file to create a new <code>rotation
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.rotations (
- Name,
- ContactIds,
- StartTime,
- TimeZoneId,
- Recurrence,
- region
+  Name,
+  ContactIds,
+  StartTime,
+  TimeZoneId,
+  Recurrence,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ contact_ids }}',
- '{{ start_time }}',
- '{{ time_zone_id }}',
- '{{ recurrence }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ contact_ids }}',
+  '{{ start_time }}',
+  '{{ time_zone_id }}',
+  '{{ recurrence }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -304,22 +307,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.rotations (
- Name,
- ContactIds,
- StartTime,
- TimeZoneId,
- Recurrence,
- Tags,
- region
+  Name,
+  ContactIds,
+  StartTime,
+  TimeZoneId,
+  Recurrence,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ contact_ids }}',
- '{{ start_time }}',
- '{{ time_zone_id }}',
- '{{ recurrence }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ contact_ids }}',
+  '{{ start_time }}',
+  '{{ time_zone_id }}',
+  '{{ recurrence }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -385,8 +388,9 @@ SET PatchDocument = string('{{ {
     "Recurrence": recurrence,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -395,8 +399,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.rotations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

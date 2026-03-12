@@ -146,14 +146,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>aggregator_v2</code>.
 ```sql
 SELECT
-region,
-aggregator_v2_arn,
-region_linking_mode,
-linked_regions,
-tags,
-aggregation_region
+  region,
+  aggregator_v2_arn,
+  region_linking_mode,
+  linked_regions,
+  tags,
+  aggregation_region
 FROM awscc.securityhub.aggregator_v2s
-WHERE region = 'us-east-1' AND Identifier = '{{ aggregator_v2_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aggregator_v2_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -161,10 +163,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aggregator_v2_arn }}';
 Lists all <code>aggregator_v2s</code> in a region.
 ```sql
 SELECT
-region,
-aggregator_v2_arn
+  region,
+  aggregator_v2_arn
 FROM awscc.securityhub.aggregator_v2s_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -186,14 +189,14 @@ Use the following StackQL query and manifest file to create a new <code>aggregat
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.aggregator_v2s (
- RegionLinkingMode,
- LinkedRegions,
- region
+  RegionLinkingMode,
+  LinkedRegions,
+  region
 )
 SELECT
-'{{ region_linking_mode }}',
- '{{ linked_regions }}',
-'{{ region }}';
+  '{{ region_linking_mode }}',
+  '{{ linked_regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -201,16 +204,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.aggregator_v2s (
- RegionLinkingMode,
- LinkedRegions,
- Tags,
- region
+  RegionLinkingMode,
+  LinkedRegions,
+  Tags,
+  region
 )
 SELECT
- '{{ region_linking_mode }}',
- '{{ linked_regions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ region_linking_mode }}',
+  '{{ linked_regions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ SET PatchDocument = string('{{ {
     "LinkedRegions": linked_regions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aggregator_v2_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aggregator_v2_arn }}';
 ```
 
 
@@ -260,8 +264,9 @@ AND Identifier = '{{ aggregator_v2_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.aggregator_v2s
-WHERE Identifier = '{{ aggregator_v2_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aggregator_v2_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

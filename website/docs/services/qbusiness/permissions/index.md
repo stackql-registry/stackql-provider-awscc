@@ -167,14 +167,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>permission</code>.
 ```sql
 SELECT
-region,
-application_id,
-statement_id,
-actions,
-conditions,
-principal
+  region,
+  application_id,
+  statement_id,
+  actions,
+  conditions,
+  principal
 FROM awscc.qbusiness.permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ statement_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ statement_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,11 +184,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ statement_i
 Lists all <code>permissions</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-statement_id
+  region,
+  application_id,
+  statement_id
 FROM awscc.qbusiness.permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -208,18 +211,18 @@ Use the following StackQL query and manifest file to create a new <code>permissi
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.permissions (
- ApplicationId,
- StatementId,
- Actions,
- Principal,
- region
+  ApplicationId,
+  StatementId,
+  Actions,
+  Principal,
+  region
 )
 SELECT
-'{{ application_id }}',
- '{{ statement_id }}',
- '{{ actions }}',
- '{{ principal }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ statement_id }}',
+  '{{ actions }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,20 +230,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.permissions (
- ApplicationId,
- StatementId,
- Actions,
- Conditions,
- Principal,
- region
+  ApplicationId,
+  StatementId,
+  Actions,
+  Conditions,
+  Principal,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ statement_id }}',
- '{{ actions }}',
- '{{ conditions }}',
- '{{ principal }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ statement_id }}',
+  '{{ actions }}',
+  '{{ conditions }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.permissions
-WHERE Identifier = '{{ application_id }}|{{ statement_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ statement_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-workspace_arn,
-policy_document
+  region,
+  workspace_arn,
+  policy_document
 FROM awscc.aps.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_arn }}';
 Lists all <code>resource_policies</code> in a region.
 ```sql
 SELECT
-region,
-workspace_arn
+  region,
+  workspace_arn
 FROM awscc.aps.resource_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.resource_policies (
- WorkspaceArn,
- PolicyDocument,
- region
+  WorkspaceArn,
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ workspace_arn }}',
- '{{ policy_document }}',
-'{{ region }}';
+  '{{ workspace_arn }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.resource_policies (
- WorkspaceArn,
- PolicyDocument,
- region
+  WorkspaceArn,
+  PolicyDocument,
+  region
 )
 SELECT
- '{{ workspace_arn }}',
- '{{ policy_document }}',
- '{{ region }}';
+  '{{ workspace_arn }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -230,8 +233,9 @@ UPDATE awscc.aps.resource_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_arn }}';
 ```
 
 
@@ -240,8 +244,9 @@ AND Identifier = '{{ workspace_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.resource_policies
-WHERE Identifier = '{{ workspace_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

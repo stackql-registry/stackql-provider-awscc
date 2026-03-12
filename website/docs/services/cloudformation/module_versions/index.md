@@ -125,19 +125,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>module_version</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-documentation_url,
-module_name,
-module_package,
-is_default_version,
-schema,
-time_created,
-version_id,
-visibility
+  region,
+  arn,
+  description,
+  documentation_url,
+  module_name,
+  module_package,
+  is_default_version,
+  schema,
+  time_created,
+  version_id,
+  visibility
 FROM awscc.cloudformation.module_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -157,14 +159,14 @@ Use the following StackQL query and manifest file to create a new <code>module_v
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.module_versions (
- ModuleName,
- ModulePackage,
- region
+  ModuleName,
+  ModulePackage,
+  region
 )
 SELECT
-'{{ module_name }}',
- '{{ module_package }}',
-'{{ region }}';
+  '{{ module_name }}',
+  '{{ module_package }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -172,14 +174,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.module_versions (
- ModuleName,
- ModulePackage,
- region
+  ModuleName,
+  ModulePackage,
+  region
 )
 SELECT
- '{{ module_name }}',
- '{{ module_package }}',
- '{{ region }}';
+  '{{ module_name }}',
+  '{{ module_package }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -210,8 +212,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.module_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -166,17 +166,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>consumable_resource</code>.
 ```sql
 SELECT
-region,
-consumable_resource_name,
-consumable_resource_arn,
-total_quantity,
-in_use_quantity,
-available_quantity,
-resource_type,
-created_at,
-tags
+  region,
+  consumable_resource_name,
+  consumable_resource_arn,
+  total_quantity,
+  in_use_quantity,
+  available_quantity,
+  resource_type,
+  created_at,
+  tags
 FROM awscc.batch.consumable_resources
-WHERE region = 'us-east-1' AND Identifier = '{{ consumable_resource_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ consumable_resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ consumable_resource_arn }}';
 Lists all <code>consumable_resources</code> in a region.
 ```sql
 SELECT
-region,
-consumable_resource_arn
+  region,
+  consumable_resource_arn
 FROM awscc.batch.consumable_resources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>consumab
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.consumable_resources (
- TotalQuantity,
- ResourceType,
- region
+  TotalQuantity,
+  ResourceType,
+  region
 )
 SELECT
-'{{ total_quantity }}',
- '{{ resource_type }}',
-'{{ region }}';
+  '{{ total_quantity }}',
+  '{{ resource_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.consumable_resources (
- ConsumableResourceName,
- TotalQuantity,
- ResourceType,
- Tags,
- region
+  ConsumableResourceName,
+  TotalQuantity,
+  ResourceType,
+  Tags,
+  region
 )
 SELECT
- '{{ consumable_resource_name }}',
- '{{ total_quantity }}',
- '{{ resource_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ consumable_resource_name }}',
+  '{{ total_quantity }}',
+  '{{ resource_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -274,8 +277,9 @@ UPDATE awscc.batch.consumable_resources
 SET PatchDocument = string('{{ {
     "TotalQuantity": total_quantity
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ consumable_resource_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ consumable_resource_arn }}';
 ```
 
 
@@ -284,8 +288,9 @@ AND Identifier = '{{ consumable_resource_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.consumable_resources
-WHERE Identifier = '{{ consumable_resource_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ consumable_resource_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -145,13 +145,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schema</code>.
 ```sql
 SELECT
-region,
-name,
-schema_arn,
-schema,
-domain
+  region,
+  name,
+  schema_arn,
+  schema,
+  domain
 FROM awscc.personalize.schemata
-WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ schema_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -159,10 +161,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
 Lists all <code>schemata</code> in a region.
 ```sql
 SELECT
-region,
-schema_arn
+  region,
+  schema_arn
 FROM awscc.personalize.schemata_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -184,14 +187,14 @@ Use the following StackQL query and manifest file to create a new <code>schema</
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.schemata (
- Name,
- Schema,
- region
+  Name,
+  Schema,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ schema }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ schema }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -199,16 +202,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.schemata (
- Name,
- Schema,
- Domain,
- region
+  Name,
+  Schema,
+  Domain,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ schema }}',
- '{{ domain }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ schema }}',
+  '{{ domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -241,8 +244,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.schemata
-WHERE Identifier = '{{ schema_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ schema_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

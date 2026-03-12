@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>location_s3</code>.
 ```sql
 SELECT
-region,
-s3_config,
-s3_bucket_arn,
-subdirectory,
-s3_storage_class,
-tags,
-location_arn,
-location_uri
+  region,
+  s3_config,
+  s3_bucket_arn,
+  subdirectory,
+  s3_storage_class,
+  tags,
+  location_arn,
+  location_uri
 FROM awscc.datasync.location_s3s
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>location_s3s</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.location_s3s_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,12 +225,12 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_s3s (
- S3Config,
- region
+  S3Config,
+  region
 )
 SELECT
-'{{ s3_config }}',
-'{{ region }}';
+  '{{ s3_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -235,20 +238,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_s3s (
- S3Config,
- S3BucketArn,
- Subdirectory,
- S3StorageClass,
- Tags,
- region
+  S3Config,
+  S3BucketArn,
+  Subdirectory,
+  S3StorageClass,
+  Tags,
+  region
 )
 SELECT
- '{{ s3_config }}',
- '{{ s3_bucket_arn }}',
- '{{ subdirectory }}',
- '{{ s3_storage_class }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ s3_config }}',
+  '{{ s3_bucket_arn }}',
+  '{{ subdirectory }}',
+  '{{ s3_storage_class }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -295,8 +298,9 @@ SET PatchDocument = string('{{ {
     "S3StorageClass": s3_storage_class,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -305,8 +309,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_s3s
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -190,19 +190,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>place_index</code>.
 ```sql
 SELECT
-region,
-create_time,
-data_source,
-data_source_configuration,
-description,
-index_arn,
-index_name,
-pricing_plan,
-tags,
-update_time,
-arn
+  region,
+  create_time,
+  data_source,
+  data_source_configuration,
+  description,
+  index_arn,
+  index_name,
+  pricing_plan,
+  tags,
+  update_time,
+  arn
 FROM awscc.location.place_indices
-WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ index_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -210,10 +212,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}';
 Lists all <code>place_indices</code> in a region.
 ```sql
 SELECT
-region,
-index_name
+  region,
+  index_name
 FROM awscc.location.place_indices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -235,14 +238,14 @@ Use the following StackQL query and manifest file to create a new <code>place_in
 ```sql
 /*+ create */
 INSERT INTO awscc.location.place_indices (
- DataSource,
- IndexName,
- region
+  DataSource,
+  IndexName,
+  region
 )
 SELECT
-'{{ data_source }}',
- '{{ index_name }}',
-'{{ region }}';
+  '{{ data_source }}',
+  '{{ index_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,22 +253,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.place_indices (
- DataSource,
- DataSourceConfiguration,
- Description,
- IndexName,
- PricingPlan,
- Tags,
- region
+  DataSource,
+  DataSourceConfiguration,
+  Description,
+  IndexName,
+  PricingPlan,
+  Tags,
+  region
 )
 SELECT
- '{{ data_source }}',
- '{{ data_source_configuration }}',
- '{{ description }}',
- '{{ index_name }}',
- '{{ pricing_plan }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ data_source }}',
+  '{{ data_source_configuration }}',
+  '{{ description }}',
+  '{{ index_name }}',
+  '{{ pricing_plan }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "PricingPlan": pricing_plan,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ index_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ index_name }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ index_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.place_indices
-WHERE Identifier = '{{ index_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ index_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

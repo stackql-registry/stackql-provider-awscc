@@ -475,20 +475,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate_authority</code>.
 ```sql
 SELECT
-region,
-arn,
-type,
-key_algorithm,
-signing_algorithm,
-subject,
-revocation_configuration,
-tags,
-certificate_signing_request,
-csr_extensions,
-key_storage_security_standard,
-usage_mode
+  region,
+  arn,
+  type,
+  key_algorithm,
+  signing_algorithm,
+  subject,
+  revocation_configuration,
+  tags,
+  certificate_signing_request,
+  csr_extensions,
+  key_storage_security_standard,
+  usage_mode
 FROM awscc.acmpca.certificate_authorities
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -496,10 +498,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>certificate_authorities</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.acmpca.certificate_authorities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -521,18 +524,18 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificate_authorities (
- Type,
- KeyAlgorithm,
- SigningAlgorithm,
- Subject,
- region
+  Type,
+  KeyAlgorithm,
+  SigningAlgorithm,
+  Subject,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ key_algorithm }}',
- '{{ signing_algorithm }}',
- '{{ subject }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ key_algorithm }}',
+  '{{ signing_algorithm }}',
+  '{{ subject }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -540,28 +543,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificate_authorities (
- Type,
- KeyAlgorithm,
- SigningAlgorithm,
- Subject,
- RevocationConfiguration,
- Tags,
- CsrExtensions,
- KeyStorageSecurityStandard,
- UsageMode,
- region
+  Type,
+  KeyAlgorithm,
+  SigningAlgorithm,
+  Subject,
+  RevocationConfiguration,
+  Tags,
+  CsrExtensions,
+  KeyStorageSecurityStandard,
+  UsageMode,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ key_algorithm }}',
- '{{ signing_algorithm }}',
- '{{ subject }}',
- '{{ revocation_configuration }}',
- '{{ tags }}',
- '{{ csr_extensions }}',
- '{{ key_storage_security_standard }}',
- '{{ usage_mode }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ key_algorithm }}',
+  '{{ signing_algorithm }}',
+  '{{ subject }}',
+  '{{ revocation_configuration }}',
+  '{{ tags }}',
+  '{{ csr_extensions }}',
+  '{{ key_storage_security_standard }}',
+  '{{ usage_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -670,8 +673,9 @@ SET PatchDocument = string('{{ {
     "RevocationConfiguration": revocation_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -680,8 +684,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificate_authorities
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

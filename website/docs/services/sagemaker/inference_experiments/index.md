@@ -346,27 +346,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>inference_experiment</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-type,
-description,
-role_arn,
-endpoint_name,
-endpoint_metadata,
-schedule,
-kms_key,
-data_storage_config,
-model_variants,
-shadow_mode_config,
-tags,
-creation_time,
-last_modified_time,
-status,
-status_reason,
-desired_state
+  region,
+  arn,
+  name,
+  type,
+  description,
+  role_arn,
+  endpoint_name,
+  endpoint_metadata,
+  schedule,
+  kms_key,
+  data_storage_config,
+  model_variants,
+  shadow_mode_config,
+  tags,
+  creation_time,
+  last_modified_time,
+  status,
+  status_reason,
+  desired_state
 FROM awscc.sagemaker.inference_experiments
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -374,10 +376,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>inference_experiments</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.sagemaker.inference_experiments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -399,20 +402,20 @@ Use the following StackQL query and manifest file to create a new <code>inferenc
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.inference_experiments (
- Name,
- Type,
- RoleArn,
- EndpointName,
- ModelVariants,
- region
+  Name,
+  Type,
+  RoleArn,
+  EndpointName,
+  ModelVariants,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ role_arn }}',
- '{{ endpoint_name }}',
- '{{ model_variants }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ role_arn }}',
+  '{{ endpoint_name }}',
+  '{{ model_variants }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -420,36 +423,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.inference_experiments (
- Name,
- Type,
- Description,
- RoleArn,
- EndpointName,
- Schedule,
- KmsKey,
- DataStorageConfig,
- ModelVariants,
- ShadowModeConfig,
- Tags,
- StatusReason,
- DesiredState,
- region
+  Name,
+  Type,
+  Description,
+  RoleArn,
+  EndpointName,
+  Schedule,
+  KmsKey,
+  DataStorageConfig,
+  ModelVariants,
+  ShadowModeConfig,
+  Tags,
+  StatusReason,
+  DesiredState,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ description }}',
- '{{ role_arn }}',
- '{{ endpoint_name }}',
- '{{ schedule }}',
- '{{ kms_key }}',
- '{{ data_storage_config }}',
- '{{ model_variants }}',
- '{{ shadow_mode_config }}',
- '{{ tags }}',
- '{{ status_reason }}',
- '{{ desired_state }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ description }}',
+  '{{ role_arn }}',
+  '{{ endpoint_name }}',
+  '{{ schedule }}',
+  '{{ kms_key }}',
+  '{{ data_storage_config }}',
+  '{{ model_variants }}',
+  '{{ shadow_mode_config }}',
+  '{{ tags }}',
+  '{{ status_reason }}',
+  '{{ desired_state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -535,8 +538,9 @@ SET PatchDocument = string('{{ {
     "StatusReason": status_reason,
     "DesiredState": desired_state
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -545,8 +549,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.inference_experiments
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

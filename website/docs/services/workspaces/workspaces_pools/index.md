@@ -234,21 +234,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workspaces_pool</code>.
 ```sql
 SELECT
-region,
-pool_id,
-pool_arn,
-capacity,
-pool_name,
-description,
-created_at,
-bundle_id,
-directory_id,
-application_settings,
-timeout_settings,
-running_mode,
-tags
+  region,
+  pool_id,
+  pool_arn,
+  capacity,
+  pool_name,
+  description,
+  created_at,
+  bundle_id,
+  directory_id,
+  application_settings,
+  timeout_settings,
+  running_mode,
+  tags
 FROM awscc.workspaces.workspaces_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ pool_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pool_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +258,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pool_id }}';
 Lists all <code>workspaces_pools</code> in a region.
 ```sql
 SELECT
-region,
-pool_id
+  region,
+  pool_id
 FROM awscc.workspaces.workspaces_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -281,18 +284,18 @@ Use the following StackQL query and manifest file to create a new <code>workspac
 ```sql
 /*+ create */
 INSERT INTO awscc.workspaces.workspaces_pools (
- Capacity,
- PoolName,
- BundleId,
- DirectoryId,
- region
+  Capacity,
+  PoolName,
+  BundleId,
+  DirectoryId,
+  region
 )
 SELECT
-'{{ capacity }}',
- '{{ pool_name }}',
- '{{ bundle_id }}',
- '{{ directory_id }}',
-'{{ region }}';
+  '{{ capacity }}',
+  '{{ pool_name }}',
+  '{{ bundle_id }}',
+  '{{ directory_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -300,28 +303,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspaces.workspaces_pools (
- Capacity,
- PoolName,
- Description,
- BundleId,
- DirectoryId,
- ApplicationSettings,
- TimeoutSettings,
- RunningMode,
- Tags,
- region
+  Capacity,
+  PoolName,
+  Description,
+  BundleId,
+  DirectoryId,
+  ApplicationSettings,
+  TimeoutSettings,
+  RunningMode,
+  Tags,
+  region
 )
 SELECT
- '{{ capacity }}',
- '{{ pool_name }}',
- '{{ description }}',
- '{{ bundle_id }}',
- '{{ directory_id }}',
- '{{ application_settings }}',
- '{{ timeout_settings }}',
- '{{ running_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ capacity }}',
+  '{{ pool_name }}',
+  '{{ description }}',
+  '{{ bundle_id }}',
+  '{{ directory_id }}',
+  '{{ application_settings }}',
+  '{{ timeout_settings }}',
+  '{{ running_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -385,8 +388,9 @@ SET PatchDocument = string('{{ {
     "RunningMode": running_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pool_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pool_id }}';
 ```
 
 
@@ -395,8 +399,9 @@ AND Identifier = '{{ pool_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.workspaces_pools
-WHERE Identifier = '{{ pool_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pool_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

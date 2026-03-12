@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>managed_notification_additional_channel_association</code>.
 ```sql
 SELECT
-region,
-channel_arn,
-managed_notification_configuration_arn
+  region,
+  channel_arn,
+  managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}|{{ managed_notifi
 Lists all <code>managed_notification_additional_channel_associations</code> in a region.
 ```sql
 SELECT
-region,
-channel_arn,
-managed_notification_configuration_arn
+  region,
+  channel_arn,
+  managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>managed_
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.managed_notification_additional_channel_associations (
- ChannelArn,
- ManagedNotificationConfigurationArn,
- region
+  ChannelArn,
+  ManagedNotificationConfigurationArn,
+  region
 )
 SELECT
-'{{ channel_arn }}',
- '{{ managed_notification_configuration_arn }}',
-'{{ region }}';
+  '{{ channel_arn }}',
+  '{{ managed_notification_configuration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.managed_notification_additional_channel_associations (
- ChannelArn,
- ManagedNotificationConfigurationArn,
- region
+  ChannelArn,
+  ManagedNotificationConfigurationArn,
+  region
 )
 SELECT
- '{{ channel_arn }}',
- '{{ managed_notification_configuration_arn }}',
- '{{ region }}';
+  '{{ channel_arn }}',
+  '{{ managed_notification_configuration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.managed_notification_additional_channel_associations
-WHERE Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

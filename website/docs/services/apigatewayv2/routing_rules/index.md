@@ -218,15 +218,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>routing_rule</code>.
 ```sql
 SELECT
-region,
-routing_rule_id,
-routing_rule_arn,
-domain_name_arn,
-priority,
-conditions,
-actions
+  region,
+  routing_rule_id,
+  routing_rule_arn,
+  domain_name_arn,
+  priority,
+  conditions,
+  actions
 FROM awscc.apigatewayv2.routing_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ routing_rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ routing_rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,10 +236,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ routing_rule_arn }}';
 Lists all <code>routing_rules</code> in a region.
 ```sql
 SELECT
-region,
-routing_rule_arn
+  region,
+  routing_rule_arn
 FROM awscc.apigatewayv2.routing_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -259,18 +262,18 @@ Use the following StackQL query and manifest file to create a new <code>routing_
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.routing_rules (
- DomainNameArn,
- Priority,
- Conditions,
- Actions,
- region
+  DomainNameArn,
+  Priority,
+  Conditions,
+  Actions,
+  region
 )
 SELECT
-'{{ domain_name_arn }}',
- '{{ priority }}',
- '{{ conditions }}',
- '{{ actions }}',
-'{{ region }}';
+  '{{ domain_name_arn }}',
+  '{{ priority }}',
+  '{{ conditions }}',
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -278,18 +281,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.routing_rules (
- DomainNameArn,
- Priority,
- Conditions,
- Actions,
- region
+  DomainNameArn,
+  Priority,
+  Conditions,
+  Actions,
+  region
 )
 SELECT
- '{{ domain_name_arn }}',
- '{{ priority }}',
- '{{ conditions }}',
- '{{ actions }}',
- '{{ region }}';
+  '{{ domain_name_arn }}',
+  '{{ priority }}',
+  '{{ conditions }}',
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ SET PatchDocument = string('{{ {
     "Conditions": conditions,
     "Actions": actions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ routing_rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ routing_rule_arn }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ routing_rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.routing_rules
-WHERE Identifier = '{{ routing_rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ routing_rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

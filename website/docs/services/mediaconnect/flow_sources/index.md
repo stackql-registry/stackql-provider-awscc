@@ -297,30 +297,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_source</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-source_arn,
-decryption,
-description,
-entitlement_arn,
-gateway_bridge_source,
-ingest_ip,
-ingest_port,
-max_bitrate,
-max_latency,
-min_latency,
-name,
-protocol,
-sender_ip_address,
-sender_control_port,
-stream_id,
-source_ingest_port,
-source_listener_address,
-source_listener_port,
-vpc_interface_name,
-whitelist_cidr
+  region,
+  flow_arn,
+  source_arn,
+  decryption,
+  description,
+  entitlement_arn,
+  gateway_bridge_source,
+  ingest_ip,
+  ingest_port,
+  max_bitrate,
+  max_latency,
+  min_latency,
+  name,
+  protocol,
+  sender_ip_address,
+  sender_control_port,
+  stream_id,
+  source_ingest_port,
+  source_listener_address,
+  source_listener_port,
+  vpc_interface_name,
+  whitelist_cidr
 FROM awscc.mediaconnect.flow_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ source_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,10 +330,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ source_arn }}';
 Lists all <code>flow_sources</code> in a region.
 ```sql
 SELECT
-region,
-source_arn
+  region,
+  source_arn
 FROM awscc.mediaconnect.flow_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -353,14 +356,14 @@ Use the following StackQL query and manifest file to create a new <code>flow_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_sources (
- Description,
- Name,
- region
+  Description,
+  Name,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -368,46 +371,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_sources (
- FlowArn,
- Decryption,
- Description,
- EntitlementArn,
- GatewayBridgeSource,
- IngestPort,
- MaxBitrate,
- MaxLatency,
- MinLatency,
- Name,
- Protocol,
- SenderIpAddress,
- SenderControlPort,
- StreamId,
- SourceListenerAddress,
- SourceListenerPort,
- VpcInterfaceName,
- WhitelistCidr,
- region
+  FlowArn,
+  Decryption,
+  Description,
+  EntitlementArn,
+  GatewayBridgeSource,
+  IngestPort,
+  MaxBitrate,
+  MaxLatency,
+  MinLatency,
+  Name,
+  Protocol,
+  SenderIpAddress,
+  SenderControlPort,
+  StreamId,
+  SourceListenerAddress,
+  SourceListenerPort,
+  VpcInterfaceName,
+  WhitelistCidr,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ decryption }}',
- '{{ description }}',
- '{{ entitlement_arn }}',
- '{{ gateway_bridge_source }}',
- '{{ ingest_port }}',
- '{{ max_bitrate }}',
- '{{ max_latency }}',
- '{{ min_latency }}',
- '{{ name }}',
- '{{ protocol }}',
- '{{ sender_ip_address }}',
- '{{ sender_control_port }}',
- '{{ stream_id }}',
- '{{ source_listener_address }}',
- '{{ source_listener_port }}',
- '{{ vpc_interface_name }}',
- '{{ whitelist_cidr }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ decryption }}',
+  '{{ description }}',
+  '{{ entitlement_arn }}',
+  '{{ gateway_bridge_source }}',
+  '{{ ingest_port }}',
+  '{{ max_bitrate }}',
+  '{{ max_latency }}',
+  '{{ min_latency }}',
+  '{{ name }}',
+  '{{ protocol }}',
+  '{{ sender_ip_address }}',
+  '{{ sender_control_port }}',
+  '{{ stream_id }}',
+  '{{ source_listener_address }}',
+  '{{ source_listener_port }}',
+  '{{ vpc_interface_name }}',
+  '{{ whitelist_cidr }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -502,8 +505,9 @@ SET PatchDocument = string('{{ {
     "VpcInterfaceName": vpc_interface_name,
     "WhitelistCidr": whitelist_cidr
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ source_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ source_arn }}';
 ```
 
 
@@ -512,8 +516,9 @@ AND Identifier = '{{ source_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_sources
-WHERE Identifier = '{{ source_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ source_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>list</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-variable_type,
-created_time,
-last_updated_time,
-tags,
-elements
+  region,
+  arn,
+  name,
+  description,
+  variable_type,
+  created_time,
+  last_updated_time,
+  tags,
+  elements
 FROM awscc.frauddetector.lists
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>lists</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.frauddetector.lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>list</co
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.lists (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,20 +237,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.lists (
- Name,
- Description,
- VariableType,
- Tags,
- Elements,
- region
+  Name,
+  Description,
+  VariableType,
+  Tags,
+  Elements,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ variable_type }}',
- '{{ tags }}',
- '{{ elements }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ variable_type }}',
+  '{{ tags }}',
+  '{{ elements }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -294,8 +297,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Elements": elements
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -304,8 +308,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.lists
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -351,21 +351,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>wireless_device</code>.
 ```sql
 SELECT
-region,
-type,
-name,
-description,
-destination_name,
-lo_ra_wan,
-tags,
-arn,
-id,
-thing_arn,
-thing_name,
-last_uplink_received_at,
-positioning
+  region,
+  type,
+  name,
+  description,
+  destination_name,
+  lo_ra_wan,
+  tags,
+  arn,
+  id,
+  thing_arn,
+  thing_name,
+  last_uplink_received_at,
+  positioning
 FROM awscc.iotwireless.wireless_devices
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -373,10 +375,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>wireless_devices</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.wireless_devices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -398,14 +401,14 @@ Use the following StackQL query and manifest file to create a new <code>wireless
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_devices (
- Type,
- DestinationName,
- region
+  Type,
+  DestinationName,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ destination_name }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ destination_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -413,28 +416,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_devices (
- Type,
- Name,
- Description,
- DestinationName,
- LoRaWAN,
- Tags,
- ThingArn,
- LastUplinkReceivedAt,
- Positioning,
- region
+  Type,
+  Name,
+  Description,
+  DestinationName,
+  LoRaWAN,
+  Tags,
+  ThingArn,
+  LastUplinkReceivedAt,
+  Positioning,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ name }}',
- '{{ description }}',
- '{{ destination_name }}',
- '{{ lo_ra_wan }}',
- '{{ tags }}',
- '{{ thing_arn }}',
- '{{ last_uplink_received_at }}',
- '{{ positioning }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ destination_name }}',
+  '{{ lo_ra_wan }}',
+  '{{ tags }}',
+  '{{ thing_arn }}',
+  '{{ last_uplink_received_at }}',
+  '{{ positioning }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -520,8 +523,9 @@ SET PatchDocument = string('{{ {
     "LastUplinkReceivedAt": last_uplink_received_at,
     "Positioning": positioning
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -530,8 +534,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_devices
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

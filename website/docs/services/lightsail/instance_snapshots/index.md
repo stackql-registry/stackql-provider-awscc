@@ -210,21 +210,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_snapshot</code>.
 ```sql
 SELECT
-region,
-instance_snapshot_name,
-arn,
-instance_name,
-resource_type,
-state,
-from_instance_name,
-from_instance_arn,
-size_in_gb,
-is_from_auto_snapshot,
-support_code,
-location,
-tags
+  region,
+  instance_snapshot_name,
+  arn,
+  instance_name,
+  resource_type,
+  state,
+  from_instance_name,
+  from_instance_arn,
+  size_in_gb,
+  is_from_auto_snapshot,
+  support_code,
+  location,
+  tags
 FROM awscc.lightsail.instance_snapshots
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_snapshot_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_snapshot_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_snapshot_name }}';
 Lists all <code>instance_snapshots</code> in a region.
 ```sql
 SELECT
-region,
-instance_snapshot_name
+  region,
+  instance_snapshot_name
 FROM awscc.lightsail.instance_snapshots_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,14 +260,14 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.instance_snapshots (
- InstanceSnapshotName,
- InstanceName,
- region
+  InstanceSnapshotName,
+  InstanceName,
+  region
 )
 SELECT
-'{{ instance_snapshot_name }}',
- '{{ instance_name }}',
-'{{ region }}';
+  '{{ instance_snapshot_name }}',
+  '{{ instance_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,16 +275,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.instance_snapshots (
- InstanceSnapshotName,
- InstanceName,
- Tags,
- region
+  InstanceSnapshotName,
+  InstanceName,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_snapshot_name }}',
- '{{ instance_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_snapshot_name }}',
+  '{{ instance_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -320,8 +323,9 @@ UPDATE awscc.lightsail.instance_snapshots
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_snapshot_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_snapshot_name }}';
 ```
 
 
@@ -330,8 +334,9 @@ AND Identifier = '{{ instance_snapshot_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.instance_snapshots
-WHERE Identifier = '{{ instance_snapshot_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_snapshot_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

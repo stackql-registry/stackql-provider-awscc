@@ -161,17 +161,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>grant</code>.
 ```sql
 SELECT
-region,
-grant_arn,
-grant_name,
-license_arn,
-home_region,
-version,
-allowed_operations,
-principals,
-status
+  region,
+  grant_arn,
+  grant_name,
+  license_arn,
+  home_region,
+  version,
+  allowed_operations,
+  principals,
+  status
 FROM awscc.licensemanager.grants
-WHERE region = 'us-east-1' AND Identifier = '{{ grant_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ grant_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,10 +181,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ grant_arn }}';
 Lists all <code>grants</code> in a region.
 ```sql
 SELECT
-region,
-grant_arn
+  region,
+  grant_arn
 FROM awscc.licensemanager.grants_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,12 +207,12 @@ Use the following StackQL query and manifest file to create a new <code>grant</c
 ```sql
 /*+ create */
 INSERT INTO awscc.licensemanager.grants (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -217,22 +220,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.licensemanager.grants (
- GrantName,
- LicenseArn,
- HomeRegion,
- AllowedOperations,
- Principals,
- Status,
- region
+  GrantName,
+  LicenseArn,
+  HomeRegion,
+  AllowedOperations,
+  Principals,
+  Status,
+  region
 )
 SELECT
- '{{ grant_name }}',
- '{{ license_arn }}',
- '{{ home_region }}',
- '{{ allowed_operations }}',
- '{{ principals }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ grant_name }}',
+  '{{ license_arn }}',
+  '{{ home_region }}',
+  '{{ allowed_operations }}',
+  '{{ principals }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "Principals": principals,
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ grant_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ grant_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ grant_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.licensemanager.grants
-WHERE Identifier = '{{ grant_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ grant_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

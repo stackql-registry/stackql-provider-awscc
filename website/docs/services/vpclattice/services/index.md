@@ -205,20 +205,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT
-region,
-arn,
-auth_type,
-created_at,
-dns_entry,
-id,
-last_updated_at,
-name,
-status,
-certificate_arn,
-custom_domain_name,
-tags
+  region,
+  arn,
+  auth_type,
+  created_at,
+  dns_entry,
+  id,
+  last_updated_at,
+  name,
+  status,
+  certificate_arn,
+  custom_domain_name,
+  tags
 FROM awscc.vpclattice.services
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>services</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.services_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,22 +254,22 @@ Use the following StackQL query and manifest file to create a new <code>service<
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.services (
- AuthType,
- DnsEntry,
- Name,
- CertificateArn,
- CustomDomainName,
- Tags,
- region
+  AuthType,
+  DnsEntry,
+  Name,
+  CertificateArn,
+  CustomDomainName,
+  Tags,
+  region
 )
 SELECT
-'{{ auth_type }}',
- '{{ dns_entry }}',
- '{{ name }}',
- '{{ certificate_arn }}',
- '{{ custom_domain_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ auth_type }}',
+  '{{ dns_entry }}',
+  '{{ name }}',
+  '{{ certificate_arn }}',
+  '{{ custom_domain_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,22 +277,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.services (
- AuthType,
- DnsEntry,
- Name,
- CertificateArn,
- CustomDomainName,
- Tags,
- region
+  AuthType,
+  DnsEntry,
+  Name,
+  CertificateArn,
+  CustomDomainName,
+  Tags,
+  region
 )
 SELECT
- '{{ auth_type }}',
- '{{ dns_entry }}',
- '{{ name }}',
- '{{ certificate_arn }}',
- '{{ custom_domain_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ auth_type }}',
+  '{{ dns_entry }}',
+  '{{ name }}',
+  '{{ certificate_arn }}',
+  '{{ custom_domain_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -338,8 +341,9 @@ SET PatchDocument = string('{{ {
     "CertificateArn": certificate_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -348,8 +352,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.services
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

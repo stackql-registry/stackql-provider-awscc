@@ -587,19 +587,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT
-region,
-event_bus_name,
-event_pattern,
-schedule_expression,
-description,
-state,
-targets,
-arn,
-role_arn,
-tags,
-name
+  region,
+  event_bus_name,
+  event_pattern,
+  schedule_expression,
+  description,
+  state,
+  targets,
+  arn,
+  role_arn,
+  tags,
+  name
 FROM awscc.events.rules
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -607,10 +609,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rules</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.events.rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -632,28 +635,28 @@ Use the following StackQL query and manifest file to create a new <code>rule</co
 ```sql
 /*+ create */
 INSERT INTO awscc.events.rules (
- EventBusName,
- EventPattern,
- ScheduleExpression,
- Description,
- State,
- Targets,
- RoleArn,
- Tags,
- Name,
- region
+  EventBusName,
+  EventPattern,
+  ScheduleExpression,
+  Description,
+  State,
+  Targets,
+  RoleArn,
+  Tags,
+  Name,
+  region
 )
 SELECT
-'{{ event_bus_name }}',
- '{{ event_pattern }}',
- '{{ schedule_expression }}',
- '{{ description }}',
- '{{ state }}',
- '{{ targets }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ event_bus_name }}',
+  '{{ event_pattern }}',
+  '{{ schedule_expression }}',
+  '{{ description }}',
+  '{{ state }}',
+  '{{ targets }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -661,28 +664,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.rules (
- EventBusName,
- EventPattern,
- ScheduleExpression,
- Description,
- State,
- Targets,
- RoleArn,
- Tags,
- Name,
- region
+  EventBusName,
+  EventPattern,
+  ScheduleExpression,
+  Description,
+  State,
+  Targets,
+  RoleArn,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ event_bus_name }}',
- '{{ event_pattern }}',
- '{{ schedule_expression }}',
- '{{ description }}',
- '{{ state }}',
- '{{ targets }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ event_bus_name }}',
+  '{{ event_pattern }}',
+  '{{ schedule_expression }}',
+  '{{ description }}',
+  '{{ state }}',
+  '{{ targets }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -818,8 +821,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -828,8 +832,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.rules
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

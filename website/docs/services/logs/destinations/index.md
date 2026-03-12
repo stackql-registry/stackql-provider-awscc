@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>destination</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-destination_name,
-destination_policy,
-role_arn,
-target_arn
+  region,
+  arn,
+  tags,
+  destination_name,
+  destination_policy,
+  role_arn,
+  target_arn
 FROM awscc.logs.destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ destination_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ destination_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ destination_name }}';
 Lists all <code>destinations</code> in a region.
 ```sql
 SELECT
-region,
-destination_name
+  region,
+  destination_name
 FROM awscc.logs.destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>destinat
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.destinations (
- DestinationName,
- RoleArn,
- TargetArn,
- region
+  DestinationName,
+  RoleArn,
+  TargetArn,
+  region
 )
 SELECT
-'{{ destination_name }}',
- '{{ role_arn }}',
- '{{ target_arn }}',
-'{{ region }}';
+  '{{ destination_name }}',
+  '{{ role_arn }}',
+  '{{ target_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.destinations (
- Tags,
- DestinationName,
- DestinationPolicy,
- RoleArn,
- TargetArn,
- region
+  Tags,
+  DestinationName,
+  DestinationPolicy,
+  RoleArn,
+  TargetArn,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ destination_name }}',
- '{{ destination_policy }}',
- '{{ role_arn }}',
- '{{ target_arn }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ destination_name }}',
+  '{{ destination_policy }}',
+  '{{ role_arn }}',
+  '{{ target_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "TargetArn": target_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ destination_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ destination_name }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ destination_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.destinations
-WHERE Identifier = '{{ destination_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ destination_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

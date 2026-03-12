@@ -213,17 +213,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_entitlement</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-entitlement_arn,
-data_transfer_subscriber_fee_percent,
-description,
-encryption,
-entitlement_status,
-name,
-subscribers
+  region,
+  flow_arn,
+  entitlement_arn,
+  data_transfer_subscriber_fee_percent,
+  description,
+  encryption,
+  entitlement_status,
+  name,
+  subscribers
 FROM awscc.mediaconnect.flow_entitlements
-WHERE region = 'us-east-1' AND Identifier = '{{ entitlement_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ entitlement_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ entitlement_arn }}';
 Lists all <code>flow_entitlements</code> in a region.
 ```sql
 SELECT
-region,
-entitlement_arn
+  region,
+  entitlement_arn
 FROM awscc.mediaconnect.flow_entitlements_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,18 +259,18 @@ Use the following StackQL query and manifest file to create a new <code>flow_ent
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_entitlements (
- FlowArn,
- Description,
- Name,
- Subscribers,
- region
+  FlowArn,
+  Description,
+  Name,
+  Subscribers,
+  region
 )
 SELECT
-'{{ flow_arn }}',
- '{{ description }}',
- '{{ name }}',
- '{{ subscribers }}',
-'{{ region }}';
+  '{{ flow_arn }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ subscribers }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,24 +278,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_entitlements (
- FlowArn,
- DataTransferSubscriberFeePercent,
- Description,
- Encryption,
- EntitlementStatus,
- Name,
- Subscribers,
- region
+  FlowArn,
+  DataTransferSubscriberFeePercent,
+  Description,
+  Encryption,
+  EntitlementStatus,
+  Name,
+  Subscribers,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ data_transfer_subscriber_fee_percent }}',
- '{{ description }}',
- '{{ encryption }}',
- '{{ entitlement_status }}',
- '{{ name }}',
- '{{ subscribers }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ data_transfer_subscriber_fee_percent }}',
+  '{{ description }}',
+  '{{ encryption }}',
+  '{{ entitlement_status }}',
+  '{{ name }}',
+  '{{ subscribers }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -351,8 +354,9 @@ SET PatchDocument = string('{{ {
     "EntitlementStatus": entitlement_status,
     "Subscribers": subscribers
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ entitlement_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ entitlement_arn }}';
 ```
 
 
@@ -361,8 +365,9 @@ AND Identifier = '{{ entitlement_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_entitlements
-WHERE Identifier = '{{ entitlement_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ entitlement_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

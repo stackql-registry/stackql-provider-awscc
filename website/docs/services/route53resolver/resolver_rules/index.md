@@ -210,18 +210,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver_rule</code>.
 ```sql
 SELECT
-region,
-resolver_endpoint_id,
-domain_name,
-name,
-rule_type,
-delegation_record,
-tags,
-target_ips,
-arn,
-resolver_rule_id
+  region,
+  resolver_endpoint_id,
+  domain_name,
+  name,
+  rule_type,
+  delegation_record,
+  tags,
+  target_ips,
+  arn,
+  resolver_rule_id
 FROM awscc.route53resolver.resolver_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resolver_rule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,10 +231,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_id }}';
 Lists all <code>resolver_rules</code> in a region.
 ```sql
 SELECT
-region,
-resolver_rule_id
+  region,
+  resolver_rule_id
 FROM awscc.route53resolver.resolver_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -254,12 +257,12 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_rules (
- RuleType,
- region
+  RuleType,
+  region
 )
 SELECT
-'{{ rule_type }}',
-'{{ region }}';
+  '{{ rule_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -267,24 +270,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_rules (
- ResolverEndpointId,
- DomainName,
- Name,
- RuleType,
- DelegationRecord,
- Tags,
- TargetIps,
- region
+  ResolverEndpointId,
+  DomainName,
+  Name,
+  RuleType,
+  DelegationRecord,
+  Tags,
+  TargetIps,
+  region
 )
 SELECT
- '{{ resolver_endpoint_id }}',
- '{{ domain_name }}',
- '{{ name }}',
- '{{ rule_type }}',
- '{{ delegation_record }}',
- '{{ tags }}',
- '{{ target_ips }}',
- '{{ region }}';
+  '{{ resolver_endpoint_id }}',
+  '{{ domain_name }}',
+  '{{ name }}',
+  '{{ rule_type }}',
+  '{{ delegation_record }}',
+  '{{ tags }}',
+  '{{ target_ips }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TargetIps": target_ips
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resolver_rule_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resolver_rule_id }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ resolver_rule_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_rules
-WHERE Identifier = '{{ resolver_rule_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resolver_rule_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

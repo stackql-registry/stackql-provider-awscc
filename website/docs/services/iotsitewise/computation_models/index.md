@@ -192,16 +192,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>computation_model</code>.
 ```sql
 SELECT
-region,
-computation_model_id,
-computation_model_arn,
-computation_model_name,
-computation_model_description,
-computation_model_configuration,
-computation_model_data_binding,
-tags
+  region,
+  computation_model_id,
+  computation_model_arn,
+  computation_model_name,
+  computation_model_description,
+  computation_model_configuration,
+  computation_model_data_binding,
+  tags
 FROM awscc.iotsitewise.computation_models
-WHERE region = 'us-east-1' AND Identifier = '{{ computation_model_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ computation_model_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +211,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ computation_model_id }}';
 Lists all <code>computation_models</code> in a region.
 ```sql
 SELECT
-region,
-computation_model_id
+  region,
+  computation_model_id
 FROM awscc.iotsitewise.computation_models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,16 +237,16 @@ Use the following StackQL query and manifest file to create a new <code>computat
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.computation_models (
- ComputationModelName,
- ComputationModelConfiguration,
- ComputationModelDataBinding,
- region
+  ComputationModelName,
+  ComputationModelConfiguration,
+  ComputationModelDataBinding,
+  region
 )
 SELECT
-'{{ computation_model_name }}',
- '{{ computation_model_configuration }}',
- '{{ computation_model_data_binding }}',
-'{{ region }}';
+  '{{ computation_model_name }}',
+  '{{ computation_model_configuration }}',
+  '{{ computation_model_data_binding }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -251,20 +254,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.computation_models (
- ComputationModelName,
- ComputationModelDescription,
- ComputationModelConfiguration,
- ComputationModelDataBinding,
- Tags,
- region
+  ComputationModelName,
+  ComputationModelDescription,
+  ComputationModelConfiguration,
+  ComputationModelDataBinding,
+  Tags,
+  region
 )
 SELECT
- '{{ computation_model_name }}',
- '{{ computation_model_description }}',
- '{{ computation_model_configuration }}',
- '{{ computation_model_data_binding }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ computation_model_name }}',
+  '{{ computation_model_description }}',
+  '{{ computation_model_configuration }}',
+  '{{ computation_model_data_binding }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "ComputationModelDataBinding": computation_model_data_binding,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ computation_model_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ computation_model_id }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ computation_model_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.computation_models
-WHERE Identifier = '{{ computation_model_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ computation_model_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

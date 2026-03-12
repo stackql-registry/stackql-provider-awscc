@@ -192,15 +192,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>code_security_scan_configuration</code>.
 ```sql
 SELECT
-region,
-name,
-level,
-configuration,
-scope_settings,
-arn,
-tags
+  region,
+  name,
+  level,
+  configuration,
+  scope_settings,
+  arn,
+  tags
 FROM awscc.inspectorv2.code_security_scan_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>code_security_scan_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.inspectorv2.code_security_scan_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,20 +236,20 @@ Use the following StackQL query and manifest file to create a new <code>code_sec
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.code_security_scan_configurations (
- Name,
- Level,
- Configuration,
- ScopeSettings,
- Tags,
- region
+  Name,
+  Level,
+  Configuration,
+  ScopeSettings,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ level }}',
- '{{ configuration }}',
- '{{ scope_settings }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ level }}',
+  '{{ configuration }}',
+  '{{ scope_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,20 +257,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.code_security_scan_configurations (
- Name,
- Level,
- Configuration,
- ScopeSettings,
- Tags,
- region
+  Name,
+  Level,
+  Configuration,
+  ScopeSettings,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ level }}',
- '{{ configuration }}',
- '{{ scope_settings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ level }}',
+  '{{ configuration }}',
+  '{{ scope_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ UPDATE awscc.inspectorv2.code_security_scan_configurations
 SET PatchDocument = string('{{ {
     "Configuration": configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.code_security_scan_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

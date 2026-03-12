@@ -97,11 +97,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account</code>.
 ```sql
 SELECT
-region,
-expiry_events_configuration,
-account_id
+  region,
+  expiry_events_configuration,
+  account_id
 FROM awscc.certificatemanager.accounts
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 
 ## `INSERT` example
@@ -121,12 +123,12 @@ Use the following StackQL query and manifest file to create a new <code>account<
 ```sql
 /*+ create */
 INSERT INTO awscc.certificatemanager.accounts (
- ExpiryEventsConfiguration,
- region
+  ExpiryEventsConfiguration,
+  region
 )
 SELECT
-'{{ expiry_events_configuration }}',
-'{{ region }}';
+  '{{ expiry_events_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -134,12 +136,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.certificatemanager.accounts (
- ExpiryEventsConfiguration,
- region
+  ExpiryEventsConfiguration,
+  region
 )
 SELECT
- '{{ expiry_events_configuration }}',
- '{{ region }}';
+  '{{ expiry_events_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -173,8 +175,9 @@ UPDATE awscc.certificatemanager.accounts
 SET PatchDocument = string('{{ {
     "ExpiryEventsConfiguration": expiry_events_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -183,8 +186,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.certificatemanager.accounts
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

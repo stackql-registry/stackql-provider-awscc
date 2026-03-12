@@ -276,26 +276,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>monitor</code>.
 ```sql
 SELECT
-region,
-created_at,
-modified_at,
-monitor_arn,
-monitor_name,
-linked_account_id,
-include_linked_accounts,
-processing_status,
-processing_status_info,
-resources,
-resources_to_add,
-resources_to_remove,
-status,
-tags,
-max_city_networks_to_monitor,
-traffic_percentage_to_monitor,
-internet_measurements_log_delivery,
-health_events_config
+  region,
+  created_at,
+  modified_at,
+  monitor_arn,
+  monitor_name,
+  linked_account_id,
+  include_linked_accounts,
+  processing_status,
+  processing_status_info,
+  resources,
+  resources_to_add,
+  resources_to_remove,
+  status,
+  tags,
+  max_city_networks_to_monitor,
+  traffic_percentage_to_monitor,
+  internet_measurements_log_delivery,
+  health_events_config
 FROM awscc.internetmonitor.monitors
-WHERE region = 'us-east-1' AND Identifier = '{{ monitor_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ monitor_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -303,10 +305,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ monitor_name }}';
 Lists all <code>monitors</code> in a region.
 ```sql
 SELECT
-region,
-monitor_name
+  region,
+  monitor_name
 FROM awscc.internetmonitor.monitors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -328,12 +331,12 @@ Use the following StackQL query and manifest file to create a new <code>monitor<
 ```sql
 /*+ create */
 INSERT INTO awscc.internetmonitor.monitors (
- MonitorName,
- region
+  MonitorName,
+  region
 )
 SELECT
-'{{ monitor_name }}',
-'{{ region }}';
+  '{{ monitor_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -341,34 +344,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.internetmonitor.monitors (
- MonitorName,
- LinkedAccountId,
- IncludeLinkedAccounts,
- Resources,
- ResourcesToAdd,
- ResourcesToRemove,
- Status,
- Tags,
- MaxCityNetworksToMonitor,
- TrafficPercentageToMonitor,
- InternetMeasurementsLogDelivery,
- HealthEventsConfig,
- region
+  MonitorName,
+  LinkedAccountId,
+  IncludeLinkedAccounts,
+  Resources,
+  ResourcesToAdd,
+  ResourcesToRemove,
+  Status,
+  Tags,
+  MaxCityNetworksToMonitor,
+  TrafficPercentageToMonitor,
+  InternetMeasurementsLogDelivery,
+  HealthEventsConfig,
+  region
 )
 SELECT
- '{{ monitor_name }}',
- '{{ linked_account_id }}',
- '{{ include_linked_accounts }}',
- '{{ resources }}',
- '{{ resources_to_add }}',
- '{{ resources_to_remove }}',
- '{{ status }}',
- '{{ tags }}',
- '{{ max_city_networks_to_monitor }}',
- '{{ traffic_percentage_to_monitor }}',
- '{{ internet_measurements_log_delivery }}',
- '{{ health_events_config }}',
- '{{ region }}';
+  '{{ monitor_name }}',
+  '{{ linked_account_id }}',
+  '{{ include_linked_accounts }}',
+  '{{ resources }}',
+  '{{ resources_to_add }}',
+  '{{ resources_to_remove }}',
+  '{{ status }}',
+  '{{ tags }}',
+  '{{ max_city_networks_to_monitor }}',
+  '{{ traffic_percentage_to_monitor }}',
+  '{{ internet_measurements_log_delivery }}',
+  '{{ health_events_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -449,8 +452,9 @@ SET PatchDocument = string('{{ {
     "InternetMeasurementsLogDelivery": internet_measurements_log_delivery,
     "HealthEventsConfig": health_events_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ monitor_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ monitor_name }}';
 ```
 
 
@@ -459,8 +463,9 @@ AND Identifier = '{{ monitor_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.internetmonitor.monitors
-WHERE Identifier = '{{ monitor_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ monitor_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

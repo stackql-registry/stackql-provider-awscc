@@ -194,19 +194,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>volume</code>.
 ```sql
 SELECT
-region,
-volume_id,
-availability_zone,
-encrypted,
-iops,
-kms_key_id,
-size_in_gb,
-snapshot_id,
-throughput,
-volume_type,
-tag_specifications
+  region,
+  volume_id,
+  availability_zone,
+  encrypted,
+  iops,
+  kms_key_id,
+  size_in_gb,
+  snapshot_id,
+  throughput,
+  volume_type,
+  tag_specifications
 FROM awscc.workspacesinstances.volumes
-WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ volume_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
 Lists all <code>volumes</code> in a region.
 ```sql
 SELECT
-region,
-volume_id
+  region,
+  volume_id
 FROM awscc.workspacesinstances.volumes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>volume</
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.volumes (
- AvailabilityZone,
- region
+  AvailabilityZone,
+  region
 )
 SELECT
-'{{ availability_zone }}',
-'{{ region }}';
+  '{{ availability_zone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,28 +255,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.volumes (
- AvailabilityZone,
- Encrypted,
- Iops,
- KmsKeyId,
- SizeInGB,
- SnapshotId,
- Throughput,
- VolumeType,
- TagSpecifications,
- region
+  AvailabilityZone,
+  Encrypted,
+  Iops,
+  KmsKeyId,
+  SizeInGB,
+  SnapshotId,
+  Throughput,
+  VolumeType,
+  TagSpecifications,
+  region
 )
 SELECT
- '{{ availability_zone }}',
- '{{ encrypted }}',
- '{{ iops }}',
- '{{ kms_key_id }}',
- '{{ size_in_gb }}',
- '{{ snapshot_id }}',
- '{{ throughput }}',
- '{{ volume_type }}',
- '{{ tag_specifications }}',
- '{{ region }}';
+  '{{ availability_zone }}',
+  '{{ encrypted }}',
+  '{{ iops }}',
+  '{{ kms_key_id }}',
+  '{{ size_in_gb }}',
+  '{{ snapshot_id }}',
+  '{{ throughput }}',
+  '{{ volume_type }}',
+  '{{ tag_specifications }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volumes
-WHERE Identifier = '{{ volume_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ volume_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

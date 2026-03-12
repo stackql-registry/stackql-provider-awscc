@@ -170,14 +170,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>billing_group</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-billing_group_name,
-tags,
-billing_group_properties
+  region,
+  id,
+  arn,
+  billing_group_name,
+  tags,
+  billing_group_properties
 FROM awscc.iot.billing_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ billing_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ billing_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -185,10 +187,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ billing_group_name }}';
 Lists all <code>billing_groups</code> in a region.
 ```sql
 SELECT
-region,
-billing_group_name
+  region,
+  billing_group_name
 FROM awscc.iot.billing_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -210,16 +213,16 @@ Use the following StackQL query and manifest file to create a new <code>billing_
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.billing_groups (
- BillingGroupName,
- Tags,
- BillingGroupProperties,
- region
+  BillingGroupName,
+  Tags,
+  BillingGroupProperties,
+  region
 )
 SELECT
-'{{ billing_group_name }}',
- '{{ tags }}',
- '{{ billing_group_properties }}',
-'{{ region }}';
+  '{{ billing_group_name }}',
+  '{{ tags }}',
+  '{{ billing_group_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,16 +230,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.billing_groups (
- BillingGroupName,
- Tags,
- BillingGroupProperties,
- region
+  BillingGroupName,
+  Tags,
+  BillingGroupProperties,
+  region
 )
 SELECT
- '{{ billing_group_name }}',
- '{{ tags }}',
- '{{ billing_group_properties }}',
- '{{ region }}';
+  '{{ billing_group_name }}',
+  '{{ tags }}',
+  '{{ billing_group_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "BillingGroupProperties": billing_group_properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ billing_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ billing_group_name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ billing_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.billing_groups
-WHERE Identifier = '{{ billing_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ billing_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

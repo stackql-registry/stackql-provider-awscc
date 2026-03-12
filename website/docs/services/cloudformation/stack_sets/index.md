@@ -337,25 +337,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stack_set</code>.
 ```sql
 SELECT
-region,
-stack_set_name,
-stack_set_id,
-administration_role_arn,
-auto_deployment,
-capabilities,
-description,
-execution_role_name,
-operation_preferences,
-stack_instances_group,
-parameters,
-permission_model,
-tags,
-template_body,
-template_url,
-call_as,
-managed_execution
+  region,
+  stack_set_name,
+  stack_set_id,
+  administration_role_arn,
+  auto_deployment,
+  capabilities,
+  description,
+  execution_role_name,
+  operation_preferences,
+  stack_instances_group,
+  parameters,
+  permission_model,
+  tags,
+  template_body,
+  template_url,
+  call_as,
+  managed_execution
 FROM awscc.cloudformation.stack_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ stack_set_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ stack_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -363,10 +365,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ stack_set_id }}';
 Lists all <code>stack_sets</code> in a region.
 ```sql
 SELECT
-region,
-stack_set_id
+  region,
+  stack_set_id
 FROM awscc.cloudformation.stack_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -388,14 +391,14 @@ Use the following StackQL query and manifest file to create a new <code>stack_se
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.stack_sets (
- StackSetName,
- PermissionModel,
- region
+  StackSetName,
+  PermissionModel,
+  region
 )
 SELECT
-'{{ stack_set_name }}',
- '{{ permission_model }}',
-'{{ region }}';
+  '{{ stack_set_name }}',
+  '{{ permission_model }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -403,40 +406,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.stack_sets (
- StackSetName,
- AdministrationRoleARN,
- AutoDeployment,
- Capabilities,
- Description,
- ExecutionRoleName,
- OperationPreferences,
- StackInstancesGroup,
- Parameters,
- PermissionModel,
- Tags,
- TemplateBody,
- TemplateURL,
- CallAs,
- ManagedExecution,
- region
+  StackSetName,
+  AdministrationRoleARN,
+  AutoDeployment,
+  Capabilities,
+  Description,
+  ExecutionRoleName,
+  OperationPreferences,
+  StackInstancesGroup,
+  Parameters,
+  PermissionModel,
+  Tags,
+  TemplateBody,
+  TemplateURL,
+  CallAs,
+  ManagedExecution,
+  region
 )
 SELECT
- '{{ stack_set_name }}',
- '{{ administration_role_arn }}',
- '{{ auto_deployment }}',
- '{{ capabilities }}',
- '{{ description }}',
- '{{ execution_role_name }}',
- '{{ operation_preferences }}',
- '{{ stack_instances_group }}',
- '{{ parameters }}',
- '{{ permission_model }}',
- '{{ tags }}',
- '{{ template_body }}',
- '{{ template_url }}',
- '{{ call_as }}',
- '{{ managed_execution }}',
- '{{ region }}';
+  '{{ stack_set_name }}',
+  '{{ administration_role_arn }}',
+  '{{ auto_deployment }}',
+  '{{ capabilities }}',
+  '{{ description }}',
+  '{{ execution_role_name }}',
+  '{{ operation_preferences }}',
+  '{{ stack_instances_group }}',
+  '{{ parameters }}',
+  '{{ permission_model }}',
+  '{{ tags }}',
+  '{{ template_body }}',
+  '{{ template_url }}',
+  '{{ call_as }}',
+  '{{ managed_execution }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -536,8 +539,9 @@ SET PatchDocument = string('{{ {
     "CallAs": call_as,
     "ManagedExecution": managed_execution
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ stack_set_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ stack_set_id }}';
 ```
 
 
@@ -546,8 +550,9 @@ AND Identifier = '{{ stack_set_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.stack_sets
-WHERE Identifier = '{{ stack_set_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ stack_set_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

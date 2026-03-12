@@ -183,15 +183,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_proxy_target_group</code>.
 ```sql
 SELECT
-region,
-db_proxy_name,
-target_group_arn,
-target_group_name,
-connection_pool_configuration_info,
-db_instance_identifiers,
-db_cluster_identifiers
+  region,
+  db_proxy_name,
+  target_group_arn,
+  target_group_name,
+  connection_pool_configuration_info,
+  db_instance_identifiers,
+  db_cluster_identifiers
 FROM awscc.rds.db_proxy_target_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ target_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ target_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -199,10 +201,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ target_group_arn }}';
 Lists all <code>db_proxy_target_groups</code> in a region.
 ```sql
 SELECT
-region,
-target_group_arn
+  region,
+  target_group_arn
 FROM awscc.rds.db_proxy_target_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -224,14 +227,14 @@ Use the following StackQL query and manifest file to create a new <code>db_proxy
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxy_target_groups (
- DBProxyName,
- TargetGroupName,
- region
+  DBProxyName,
+  TargetGroupName,
+  region
 )
 SELECT
-'{{ db_proxy_name }}',
- '{{ target_group_name }}',
-'{{ region }}';
+  '{{ db_proxy_name }}',
+  '{{ target_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -239,20 +242,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxy_target_groups (
- DBProxyName,
- TargetGroupName,
- ConnectionPoolConfigurationInfo,
- DBInstanceIdentifiers,
- DBClusterIdentifiers,
- region
+  DBProxyName,
+  TargetGroupName,
+  ConnectionPoolConfigurationInfo,
+  DBInstanceIdentifiers,
+  DBClusterIdentifiers,
+  region
 )
 SELECT
- '{{ db_proxy_name }}',
- '{{ target_group_name }}',
- '{{ connection_pool_configuration_info }}',
- '{{ db_instance_identifiers }}',
- '{{ db_cluster_identifiers }}',
- '{{ region }}';
+  '{{ db_proxy_name }}',
+  '{{ target_group_name }}',
+  '{{ connection_pool_configuration_info }}',
+  '{{ db_instance_identifiers }}',
+  '{{ db_cluster_identifiers }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "DBInstanceIdentifiers": db_instance_identifiers,
     "DBClusterIdentifiers": db_cluster_identifiers
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ target_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ target_group_arn }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ target_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxy_target_groups
-WHERE Identifier = '{{ target_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ target_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -200,17 +200,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>script</code>.
 ```sql
 SELECT
-region,
-name,
-storage_location,
-version,
-tags,
-creation_time,
-arn,
-id,
-size_on_disk
+  region,
+  name,
+  storage_location,
+  version,
+  tags,
+  creation_time,
+  arn,
+  id,
+  size_on_disk
 FROM awscc.gamelift.scripts
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,10 +220,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>scripts</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.gamelift.scripts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -243,12 +246,12 @@ Use the following StackQL query and manifest file to create a new <code>script</
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.scripts (
- StorageLocation,
- region
+  StorageLocation,
+  region
 )
 SELECT
-'{{ storage_location }}',
-'{{ region }}';
+  '{{ storage_location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,18 +259,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.scripts (
- Name,
- StorageLocation,
- Version,
- Tags,
- region
+  Name,
+  StorageLocation,
+  Version,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ storage_location }}',
- '{{ version }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ storage_location }}',
+  '{{ version }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -315,8 +318,9 @@ SET PatchDocument = string('{{ {
     "Version": version,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -325,8 +329,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.scripts
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -145,12 +145,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>link_association</code>.
 ```sql
 SELECT
-region,
-global_network_id,
-device_id,
-link_id
+  region,
+  global_network_id,
+  device_id,
+  link_id
 FROM awscc.networkmanager.link_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -158,12 +160,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_i
 Lists all <code>link_associations</code> in a region.
 ```sql
 SELECT
-region,
-global_network_id,
-device_id,
-link_id
+  region,
+  global_network_id,
+  device_id,
+  link_id
 FROM awscc.networkmanager.link_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>link_ass
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.link_associations (
- GlobalNetworkId,
- DeviceId,
- LinkId,
- region
+  GlobalNetworkId,
+  DeviceId,
+  LinkId,
+  region
 )
 SELECT
-'{{ global_network_id }}',
- '{{ device_id }}',
- '{{ link_id }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ device_id }}',
+  '{{ link_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.link_associations (
- GlobalNetworkId,
- DeviceId,
- LinkId,
- region
+  GlobalNetworkId,
+  DeviceId,
+  LinkId,
+  region
 )
 SELECT
- '{{ global_network_id }}',
- '{{ device_id }}',
- '{{ link_id }}',
- '{{ region }}';
+  '{{ global_network_id }}',
+  '{{ device_id }}',
+  '{{ link_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.link_associations
-WHERE Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

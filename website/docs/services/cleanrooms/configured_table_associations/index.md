@@ -207,18 +207,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configured_table_association</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-configured_table_association_identifier,
-configured_table_identifier,
-description,
-membership_identifier,
-name,
-role_arn,
-configured_table_association_analysis_rules
+  region,
+  arn,
+  tags,
+  configured_table_association_identifier,
+  configured_table_identifier,
+  description,
+  membership_identifier,
+  name,
+  role_arn,
+  configured_table_association_analysis_rules
 FROM awscc.cleanrooms.configured_table_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,11 +228,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_association_ide
 Lists all <code>configured_table_associations</code> in a region.
 ```sql
 SELECT
-region,
-configured_table_association_identifier,
-membership_identifier
+  region,
+  configured_table_association_identifier,
+  membership_identifier
 FROM awscc.cleanrooms.configured_table_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,18 +255,18 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.configured_table_associations (
- ConfiguredTableIdentifier,
- MembershipIdentifier,
- Name,
- RoleArn,
- region
+  ConfiguredTableIdentifier,
+  MembershipIdentifier,
+  Name,
+  RoleArn,
+  region
 )
 SELECT
-'{{ configured_table_identifier }}',
- '{{ membership_identifier }}',
- '{{ name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ configured_table_identifier }}',
+  '{{ membership_identifier }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,24 +274,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.configured_table_associations (
- Tags,
- ConfiguredTableIdentifier,
- Description,
- MembershipIdentifier,
- Name,
- RoleArn,
- ConfiguredTableAssociationAnalysisRules,
- region
+  Tags,
+  ConfiguredTableIdentifier,
+  Description,
+  MembershipIdentifier,
+  Name,
+  RoleArn,
+  ConfiguredTableAssociationAnalysisRules,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ configured_table_identifier }}',
- '{{ description }}',
- '{{ membership_identifier }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ configured_table_association_analysis_rules }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ configured_table_identifier }}',
+  '{{ description }}',
+  '{{ membership_identifier }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ configured_table_association_analysis_rules }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "ConfiguredTableAssociationAnalysisRules": configured_table_association_analysis_rules
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ configured_table_association_identifier }}|{{ membership_id
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.configured_table_associations
-WHERE Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

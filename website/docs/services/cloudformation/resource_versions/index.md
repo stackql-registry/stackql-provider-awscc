@@ -182,19 +182,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_version</code>.
 ```sql
 SELECT
-region,
-arn,
-type_arn,
-execution_role_arn,
-is_default_version,
-logging_config,
-provisioning_type,
-schema_handler_package,
-type_name,
-version_id,
-visibility
+  region,
+  arn,
+  type_arn,
+  execution_role_arn,
+  is_default_version,
+  logging_config,
+  provisioning_type,
+  schema_handler_package,
+  type_name,
+  version_id,
+  visibility
 FROM awscc.cloudformation.resource_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>resource_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudformation.resource_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.resource_versions (
- SchemaHandlerPackage,
- TypeName,
- region
+  SchemaHandlerPackage,
+  TypeName,
+  region
 )
 SELECT
-'{{ schema_handler_package }}',
- '{{ type_name }}',
-'{{ region }}';
+  '{{ schema_handler_package }}',
+  '{{ type_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,18 +245,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.resource_versions (
- ExecutionRoleArn,
- LoggingConfig,
- SchemaHandlerPackage,
- TypeName,
- region
+  ExecutionRoleArn,
+  LoggingConfig,
+  SchemaHandlerPackage,
+  TypeName,
+  region
 )
 SELECT
- '{{ execution_role_arn }}',
- '{{ logging_config }}',
- '{{ schema_handler_package }}',
- '{{ type_name }}',
- '{{ region }}';
+  '{{ execution_role_arn }}',
+  '{{ logging_config }}',
+  '{{ schema_handler_package }}',
+  '{{ type_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.resource_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

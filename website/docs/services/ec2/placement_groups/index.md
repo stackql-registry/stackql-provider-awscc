@@ -157,14 +157,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>placement_group</code>.
 ```sql
 SELECT
-region,
-strategy,
-group_name,
-spread_level,
-partition_count,
-tags
+  region,
+  strategy,
+  group_name,
+  spread_level,
+  partition_count,
+  tags
 FROM awscc.ec2.placement_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
 Lists all <code>placement_groups</code> in a region.
 ```sql
 SELECT
-region,
-group_name
+  region,
+  group_name
 FROM awscc.ec2.placement_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,18 +200,18 @@ Use the following StackQL query and manifest file to create a new <code>placemen
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.placement_groups (
- Strategy,
- SpreadLevel,
- PartitionCount,
- Tags,
- region
+  Strategy,
+  SpreadLevel,
+  PartitionCount,
+  Tags,
+  region
 )
 SELECT
-'{{ strategy }}',
- '{{ spread_level }}',
- '{{ partition_count }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ strategy }}',
+  '{{ spread_level }}',
+  '{{ partition_count }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.placement_groups (
- Strategy,
- SpreadLevel,
- PartitionCount,
- Tags,
- region
+  Strategy,
+  SpreadLevel,
+  PartitionCount,
+  Tags,
+  region
 )
 SELECT
- '{{ strategy }}',
- '{{ spread_level }}',
- '{{ partition_count }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ strategy }}',
+  '{{ spread_level }}',
+  '{{ partition_count }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.placement_groups
-WHERE Identifier = '{{ group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

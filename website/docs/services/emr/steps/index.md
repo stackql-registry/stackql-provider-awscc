@@ -129,14 +129,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>step</code>.
 ```sql
 SELECT
-region,
-id,
-action_on_failure,
-hadoop_jar_step,
-job_flow_id,
-name
+  region,
+  id,
+  action_on_failure,
+  hadoop_jar_step,
+  job_flow_id,
+  name
 FROM awscc.emr.steps
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -156,18 +158,18 @@ Use the following StackQL query and manifest file to create a new <code>step</co
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.steps (
- ActionOnFailure,
- HadoopJarStep,
- JobFlowId,
- Name,
- region
+  ActionOnFailure,
+  HadoopJarStep,
+  JobFlowId,
+  Name,
+  region
 )
 SELECT
-'{{ action_on_failure }}',
- '{{ hadoop_jar_step }}',
- '{{ job_flow_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ action_on_failure }}',
+  '{{ hadoop_jar_step }}',
+  '{{ job_flow_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -175,18 +177,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.steps (
- ActionOnFailure,
- HadoopJarStep,
- JobFlowId,
- Name,
- region
+  ActionOnFailure,
+  HadoopJarStep,
+  JobFlowId,
+  Name,
+  region
 )
 SELECT
- '{{ action_on_failure }}',
- '{{ hadoop_jar_step }}',
- '{{ job_flow_id }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ action_on_failure }}',
+  '{{ hadoop_jar_step }}',
+  '{{ job_flow_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">

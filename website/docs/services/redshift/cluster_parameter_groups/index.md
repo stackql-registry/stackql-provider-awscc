@@ -175,14 +175,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster_parameter_group</code>.
 ```sql
 SELECT
-region,
-parameter_group_name,
-description,
-parameter_group_family,
-parameters,
-tags
+  region,
+  parameter_group_name,
+  description,
+  parameter_group_family,
+  parameters,
+  tags
 FROM awscc.redshift.cluster_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
 Lists all <code>cluster_parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-parameter_group_name
+  region,
+  parameter_group_name
 FROM awscc.redshift.cluster_parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>cluster_
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.cluster_parameter_groups (
- Description,
- ParameterGroupFamily,
- region
+  Description,
+  ParameterGroupFamily,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ parameter_group_family }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ parameter_group_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,20 +233,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.cluster_parameter_groups (
- ParameterGroupName,
- Description,
- ParameterGroupFamily,
- Parameters,
- Tags,
- region
+  ParameterGroupName,
+  Description,
+  ParameterGroupFamily,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ parameter_group_name }}',
- '{{ description }}',
- '{{ parameter_group_family }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ parameter_group_name }}',
+  '{{ description }}',
+  '{{ parameter_group_family }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -289,8 +292,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ parameter_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ parameter_group_name }}';
 ```
 
 
@@ -299,8 +303,9 @@ AND Identifier = '{{ parameter_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.cluster_parameter_groups
-WHERE Identifier = '{{ parameter_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ parameter_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

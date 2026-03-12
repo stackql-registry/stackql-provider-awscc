@@ -373,18 +373,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT
-region,
-domain_name,
-uri,
-flow_definition,
-object_type_name,
-created_at,
-last_updated_at,
-tags,
-object_type_names,
-event_trigger_names
+  region,
+  domain_name,
+  uri,
+  flow_definition,
+  object_type_name,
+  created_at,
+  last_updated_at,
+  tags,
+  object_type_names,
+  event_trigger_names
 FROM awscc.customerprofiles.integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ uri }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ uri }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -392,11 +394,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ uri }}';
 Lists all <code>integrations</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-uri
+  region,
+  domain_name,
+  uri
 FROM awscc.customerprofiles.integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -418,12 +421,12 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.integrations (
- DomainName,
- region
+  DomainName,
+  region
 )
 SELECT
-'{{ domain_name }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -431,24 +434,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.integrations (
- DomainName,
- Uri,
- FlowDefinition,
- ObjectTypeName,
- Tags,
- ObjectTypeNames,
- EventTriggerNames,
- region
+  DomainName,
+  Uri,
+  FlowDefinition,
+  ObjectTypeName,
+  Tags,
+  ObjectTypeNames,
+  EventTriggerNames,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ uri }}',
- '{{ flow_definition }}',
- '{{ object_type_name }}',
- '{{ tags }}',
- '{{ object_type_names }}',
- '{{ event_trigger_names }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ uri }}',
+  '{{ flow_definition }}',
+  '{{ object_type_name }}',
+  '{{ tags }}',
+  '{{ object_type_names }}',
+  '{{ event_trigger_names }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -549,8 +552,9 @@ SET PatchDocument = string('{{ {
     "ObjectTypeNames": object_type_names,
     "EventTriggerNames": event_trigger_names
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ uri }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ uri }}';
 ```
 
 
@@ -559,8 +563,9 @@ AND Identifier = '{{ domain_name }}|{{ uri }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.integrations
-WHERE Identifier = '{{ domain_name }}|{{ uri }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ uri }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

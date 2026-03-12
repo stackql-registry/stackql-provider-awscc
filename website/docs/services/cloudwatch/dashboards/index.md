@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT
-region,
-dashboard_name,
-dashboard_body
+  region,
+  dashboard_name,
+  dashboard_body
 FROM awscc.cloudwatch.dashboards
-WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dashboard_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_name }}';
 Lists all <code>dashboards</code> in a region.
 ```sql
 SELECT
-region,
-dashboard_name
+  region,
+  dashboard_name
 FROM awscc.cloudwatch.dashboards_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>dashboar
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.dashboards (
- DashboardBody,
- region
+  DashboardBody,
+  region
 )
 SELECT
-'{{ dashboard_body }}',
-'{{ region }}';
+  '{{ dashboard_body }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,14 +189,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.dashboards (
- DashboardName,
- DashboardBody,
- region
+  DashboardName,
+  DashboardBody,
+  region
 )
 SELECT
- '{{ dashboard_name }}',
- '{{ dashboard_body }}',
- '{{ region }}';
+  '{{ dashboard_name }}',
+  '{{ dashboard_body }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -228,8 +231,9 @@ UPDATE awscc.cloudwatch.dashboards
 SET PatchDocument = string('{{ {
     "DashboardBody": dashboard_body
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dashboard_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dashboard_name }}';
 ```
 
 
@@ -238,8 +242,9 @@ AND Identifier = '{{ dashboard_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.dashboards
-WHERE Identifier = '{{ dashboard_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dashboard_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -254,22 +254,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>form</code>.
 ```sql
 SELECT
-region,
-app_id,
-cta,
-data_type,
-environment_name,
-fields,
-form_action_type,
-id,
-label_decorator,
-name,
-schema_version,
-sectional_elements,
-style,
-tags
+  region,
+  app_id,
+  cta,
+  data_type,
+  environment_name,
+  fields,
+  form_action_type,
+  id,
+  label_decorator,
+  name,
+  schema_version,
+  sectional_elements,
+  style,
+  tags
 FROM awscc.amplifyuibuilder.forms
-WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,12 +279,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}
 Lists all <code>forms</code> in a region.
 ```sql
 SELECT
-region,
-app_id,
-environment_name,
-id
+  region,
+  app_id,
+  environment_name,
+  id
 FROM awscc.amplifyuibuilder.forms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -304,34 +307,34 @@ Use the following StackQL query and manifest file to create a new <code>form</co
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.forms (
- AppId,
- Cta,
- DataType,
- EnvironmentName,
- Fields,
- FormActionType,
- LabelDecorator,
- Name,
- SchemaVersion,
- SectionalElements,
- Style,
- Tags,
- region
+  AppId,
+  Cta,
+  DataType,
+  EnvironmentName,
+  Fields,
+  FormActionType,
+  LabelDecorator,
+  Name,
+  SchemaVersion,
+  SectionalElements,
+  Style,
+  Tags,
+  region
 )
 SELECT
-'{{ app_id }}',
- '{{ cta }}',
- '{{ data_type }}',
- '{{ environment_name }}',
- '{{ fields }}',
- '{{ form_action_type }}',
- '{{ label_decorator }}',
- '{{ name }}',
- '{{ schema_version }}',
- '{{ sectional_elements }}',
- '{{ style }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ app_id }}',
+  '{{ cta }}',
+  '{{ data_type }}',
+  '{{ environment_name }}',
+  '{{ fields }}',
+  '{{ form_action_type }}',
+  '{{ label_decorator }}',
+  '{{ name }}',
+  '{{ schema_version }}',
+  '{{ sectional_elements }}',
+  '{{ style }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -339,34 +342,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.forms (
- AppId,
- Cta,
- DataType,
- EnvironmentName,
- Fields,
- FormActionType,
- LabelDecorator,
- Name,
- SchemaVersion,
- SectionalElements,
- Style,
- Tags,
- region
+  AppId,
+  Cta,
+  DataType,
+  EnvironmentName,
+  Fields,
+  FormActionType,
+  LabelDecorator,
+  Name,
+  SchemaVersion,
+  SectionalElements,
+  Style,
+  Tags,
+  region
 )
 SELECT
- '{{ app_id }}',
- '{{ cta }}',
- '{{ data_type }}',
- '{{ environment_name }}',
- '{{ fields }}',
- '{{ form_action_type }}',
- '{{ label_decorator }}',
- '{{ name }}',
- '{{ schema_version }}',
- '{{ sectional_elements }}',
- '{{ style }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ app_id }}',
+  '{{ cta }}',
+  '{{ data_type }}',
+  '{{ environment_name }}',
+  '{{ fields }}',
+  '{{ form_action_type }}',
+  '{{ label_decorator }}',
+  '{{ name }}',
+  '{{ schema_version }}',
+  '{{ sectional_elements }}',
+  '{{ style }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -442,8 +445,9 @@ SET PatchDocument = string('{{ {
     "Style": style,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -452,8 +456,9 @@ AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.forms
-WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

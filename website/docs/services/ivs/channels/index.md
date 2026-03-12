@@ -220,22 +220,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-authorized,
-insecure_ingest,
-latency_mode,
-type,
-tags,
-playback_url,
-ingest_endpoint,
-recording_configuration_arn,
-preset,
-multitrack_input_configuration,
-container_format
+  region,
+  arn,
+  name,
+  authorized,
+  insecure_ingest,
+  latency_mode,
+  type,
+  tags,
+  playback_url,
+  ingest_endpoint,
+  recording_configuration_arn,
+  preset,
+  multitrack_input_configuration,
+  container_format
 FROM awscc.ivs.channels
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>channels</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,12 +271,12 @@ Use the following StackQL query and manifest file to create a new <code>channel<
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.channels (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -281,30 +284,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.channels (
- Name,
- Authorized,
- InsecureIngest,
- LatencyMode,
- Type,
- Tags,
- RecordingConfigurationArn,
- Preset,
- MultitrackInputConfiguration,
- ContainerFormat,
- region
+  Name,
+  Authorized,
+  InsecureIngest,
+  LatencyMode,
+  Type,
+  Tags,
+  RecordingConfigurationArn,
+  Preset,
+  MultitrackInputConfiguration,
+  ContainerFormat,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ authorized }}',
- '{{ insecure_ingest }}',
- '{{ latency_mode }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ recording_configuration_arn }}',
- '{{ preset }}',
- '{{ multitrack_input_configuration }}',
- '{{ container_format }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ authorized }}',
+  '{{ insecure_ingest }}',
+  '{{ latency_mode }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ recording_configuration_arn }}',
+  '{{ preset }}',
+  '{{ multitrack_input_configuration }}',
+  '{{ container_format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -369,8 +372,9 @@ SET PatchDocument = string('{{ {
     "MultitrackInputConfiguration": multitrack_input_configuration,
     "ContainerFormat": container_format
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -379,8 +383,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.channels
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

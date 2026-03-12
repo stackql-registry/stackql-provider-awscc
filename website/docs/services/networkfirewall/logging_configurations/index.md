@@ -112,13 +112,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>logging_configuration</code>.
 ```sql
 SELECT
-region,
-firewall_name,
-firewall_arn,
-logging_configuration,
-enable_monitoring_dashboard
+  region,
+  firewall_name,
+  firewall_arn,
+  logging_configuration,
+  enable_monitoring_dashboard
 FROM awscc.networkfirewall.logging_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ firewall_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ firewall_arn }}';
 ```
 
 ## `INSERT` example
@@ -138,14 +140,14 @@ Use the following StackQL query and manifest file to create a new <code>logging_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.logging_configurations (
- FirewallArn,
- LoggingConfiguration,
- region
+  FirewallArn,
+  LoggingConfiguration,
+  region
 )
 SELECT
-'{{ firewall_arn }}',
- '{{ logging_configuration }}',
-'{{ region }}';
+  '{{ firewall_arn }}',
+  '{{ logging_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -153,18 +155,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.logging_configurations (
- FirewallName,
- FirewallArn,
- LoggingConfiguration,
- EnableMonitoringDashboard,
- region
+  FirewallName,
+  FirewallArn,
+  LoggingConfiguration,
+  EnableMonitoringDashboard,
+  region
 )
 SELECT
- '{{ firewall_name }}',
- '{{ firewall_arn }}',
- '{{ logging_configuration }}',
- '{{ enable_monitoring_dashboard }}',
- '{{ region }}';
+  '{{ firewall_name }}',
+  '{{ firewall_arn }}',
+  '{{ logging_configuration }}',
+  '{{ enable_monitoring_dashboard }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -208,8 +210,9 @@ SET PatchDocument = string('{{ {
     "LoggingConfiguration": logging_configuration,
     "EnableMonitoringDashboard": enable_monitoring_dashboard
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ firewall_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ firewall_arn }}';
 ```
 
 
@@ -218,8 +221,9 @@ AND Identifier = '{{ firewall_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.logging_configurations
-WHERE Identifier = '{{ firewall_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ firewall_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

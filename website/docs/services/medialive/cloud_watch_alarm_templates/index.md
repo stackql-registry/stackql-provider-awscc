@@ -226,28 +226,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_watch_alarm_template</code>.
 ```sql
 SELECT
-region,
-arn,
-comparison_operator,
-created_at,
-datapoints_to_alarm,
-description,
-evaluation_periods,
-group_id,
-group_identifier,
-id,
-identifier,
-metric_name,
-modified_at,
-name,
-period,
-statistic,
-tags,
-target_resource_type,
-threshold,
-treat_missing_data
+  region,
+  arn,
+  comparison_operator,
+  created_at,
+  datapoints_to_alarm,
+  description,
+  evaluation_periods,
+  group_id,
+  group_identifier,
+  id,
+  identifier,
+  metric_name,
+  modified_at,
+  name,
+  period,
+  statistic,
+  tags,
+  target_resource_type,
+  threshold,
+  treat_missing_data
 FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,10 +257,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 Lists all <code>cloud_watch_alarm_templates</code> in a region.
 ```sql
 SELECT
-region,
-identifier
+  region,
+  identifier
 FROM awscc.medialive.cloud_watch_alarm_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -280,28 +283,28 @@ Use the following StackQL query and manifest file to create a new <code>cloud_wa
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.cloud_watch_alarm_templates (
- ComparisonOperator,
- EvaluationPeriods,
- MetricName,
- Name,
- Period,
- Statistic,
- TargetResourceType,
- Threshold,
- TreatMissingData,
- region
+  ComparisonOperator,
+  EvaluationPeriods,
+  MetricName,
+  Name,
+  Period,
+  Statistic,
+  TargetResourceType,
+  Threshold,
+  TreatMissingData,
+  region
 )
 SELECT
-'{{ comparison_operator }}',
- '{{ evaluation_periods }}',
- '{{ metric_name }}',
- '{{ name }}',
- '{{ period }}',
- '{{ statistic }}',
- '{{ target_resource_type }}',
- '{{ threshold }}',
- '{{ treat_missing_data }}',
-'{{ region }}';
+  '{{ comparison_operator }}',
+  '{{ evaluation_periods }}',
+  '{{ metric_name }}',
+  '{{ name }}',
+  '{{ period }}',
+  '{{ statistic }}',
+  '{{ target_resource_type }}',
+  '{{ threshold }}',
+  '{{ treat_missing_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -309,36 +312,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.cloud_watch_alarm_templates (
- ComparisonOperator,
- DatapointsToAlarm,
- Description,
- EvaluationPeriods,
- GroupIdentifier,
- MetricName,
- Name,
- Period,
- Statistic,
- Tags,
- TargetResourceType,
- Threshold,
- TreatMissingData,
- region
+  ComparisonOperator,
+  DatapointsToAlarm,
+  Description,
+  EvaluationPeriods,
+  GroupIdentifier,
+  MetricName,
+  Name,
+  Period,
+  Statistic,
+  Tags,
+  TargetResourceType,
+  Threshold,
+  TreatMissingData,
+  region
 )
 SELECT
- '{{ comparison_operator }}',
- '{{ datapoints_to_alarm }}',
- '{{ description }}',
- '{{ evaluation_periods }}',
- '{{ group_identifier }}',
- '{{ metric_name }}',
- '{{ name }}',
- '{{ period }}',
- '{{ statistic }}',
- '{{ tags }}',
- '{{ target_resource_type }}',
- '{{ threshold }}',
- '{{ treat_missing_data }}',
- '{{ region }}';
+  '{{ comparison_operator }}',
+  '{{ datapoints_to_alarm }}',
+  '{{ description }}',
+  '{{ evaluation_periods }}',
+  '{{ group_identifier }}',
+  '{{ metric_name }}',
+  '{{ name }}',
+  '{{ period }}',
+  '{{ statistic }}',
+  '{{ tags }}',
+  '{{ target_resource_type }}',
+  '{{ threshold }}',
+  '{{ treat_missing_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -406,8 +409,9 @@ SET PatchDocument = string('{{ {
     "Threshold": threshold,
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identifier }}';
 ```
 
 
@@ -416,8 +420,9 @@ AND Identifier = '{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE Identifier = '{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

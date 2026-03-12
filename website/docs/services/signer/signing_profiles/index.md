@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>signing_profile</code>.
 ```sql
 SELECT
-region,
-profile_name,
-profile_version,
-arn,
-profile_version_arn,
-signature_validity_period,
-platform_id,
-tags
+  region,
+  profile_name,
+  profile_version,
+  arn,
+  profile_version_arn,
+  signature_validity_period,
+  platform_id,
+  tags
 FROM awscc.signer.signing_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>signing_profiles</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.signer.signing_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,12 +225,12 @@ Use the following StackQL query and manifest file to create a new <code>signing_
 ```sql
 /*+ create */
 INSERT INTO awscc.signer.signing_profiles (
- PlatformId,
- region
+  PlatformId,
+  region
 )
 SELECT
-'{{ platform_id }}',
-'{{ region }}';
+  '{{ platform_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -235,16 +238,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.signer.signing_profiles (
- SignatureValidityPeriod,
- PlatformId,
- Tags,
- region
+  SignatureValidityPeriod,
+  PlatformId,
+  Tags,
+  region
 )
 SELECT
- '{{ signature_validity_period }}',
- '{{ platform_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ signature_validity_period }}',
+  '{{ platform_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ UPDATE awscc.signer.signing_profiles
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.signer.signing_profiles
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

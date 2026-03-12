@@ -171,17 +171,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>lifecycle_hook</code>.
 ```sql
 SELECT
-region,
-auto_scaling_group_name,
-default_result,
-heartbeat_timeout,
-lifecycle_hook_name,
-lifecycle_transition,
-notification_metadata,
-notification_target_arn,
-role_arn
+  region,
+  auto_scaling_group_name,
+  default_result,
+  heartbeat_timeout,
+  lifecycle_hook_name,
+  lifecycle_transition,
+  notification_metadata,
+  notification_target_arn,
+  role_arn
 FROM awscc.autoscaling.lifecycle_hooks
-WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}|{{ li
 Lists all <code>lifecycle_hooks</code> in a region.
 ```sql
 SELECT
-region,
-auto_scaling_group_name,
-lifecycle_hook_name
+  region,
+  auto_scaling_group_name,
+  lifecycle_hook_name
 FROM awscc.autoscaling.lifecycle_hooks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>lifecycl
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.lifecycle_hooks (
- AutoScalingGroupName,
- LifecycleTransition,
- region
+  AutoScalingGroupName,
+  LifecycleTransition,
+  region
 )
 SELECT
-'{{ auto_scaling_group_name }}',
- '{{ lifecycle_transition }}',
-'{{ region }}';
+  '{{ auto_scaling_group_name }}',
+  '{{ lifecycle_transition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,26 +233,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.lifecycle_hooks (
- AutoScalingGroupName,
- DefaultResult,
- HeartbeatTimeout,
- LifecycleHookName,
- LifecycleTransition,
- NotificationMetadata,
- NotificationTargetARN,
- RoleARN,
- region
+  AutoScalingGroupName,
+  DefaultResult,
+  HeartbeatTimeout,
+  LifecycleHookName,
+  LifecycleTransition,
+  NotificationMetadata,
+  NotificationTargetARN,
+  RoleARN,
+  region
 )
 SELECT
- '{{ auto_scaling_group_name }}',
- '{{ default_result }}',
- '{{ heartbeat_timeout }}',
- '{{ lifecycle_hook_name }}',
- '{{ lifecycle_transition }}',
- '{{ notification_metadata }}',
- '{{ notification_target_arn }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ auto_scaling_group_name }}',
+  '{{ default_result }}',
+  '{{ heartbeat_timeout }}',
+  '{{ lifecycle_hook_name }}',
+  '{{ lifecycle_transition }}',
+  '{{ notification_metadata }}',
+  '{{ notification_target_arn }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -301,8 +304,9 @@ SET PatchDocument = string('{{ {
     "NotificationTargetARN": notification_target_arn,
     "RoleARN": role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```
 
 
@@ -311,8 +315,9 @@ AND Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.lifecycle_hooks
-WHERE Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

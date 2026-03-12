@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_group</code>.
 ```sql
 SELECT
-region,
-description,
-group_name,
-precedence,
-role_arn,
-user_pool_id
+  region,
+  description,
+  group_name,
+  precedence,
+  role_arn,
+  user_pool_id
 FROM awscc.cognito.user_pool_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,11 +173,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ group_name }}
 Lists all <code>user_pool_groups</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id,
-group_name
+  region,
+  user_pool_id,
+  group_name
 FROM awscc.cognito.user_pool_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_groups (
- UserPoolId,
- region
+  UserPoolId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,20 +213,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_groups (
- Description,
- GroupName,
- Precedence,
- RoleArn,
- UserPoolId,
- region
+  Description,
+  GroupName,
+  Precedence,
+  RoleArn,
+  UserPoolId,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ group_name }}',
- '{{ precedence }}',
- '{{ role_arn }}',
- '{{ user_pool_id }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ group_name }}',
+  '{{ precedence }}',
+  '{{ role_arn }}',
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ SET PatchDocument = string('{{ {
     "Precedence": precedence,
     "RoleArn": role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ group_name }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ user_pool_id }}|{{ group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_groups
-WHERE Identifier = '{{ user_pool_id }}|{{ group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

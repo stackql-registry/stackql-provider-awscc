@@ -203,22 +203,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>odb_network</code>.
 ```sql
 SELECT
-region,
-availability_zone,
-availability_zone_id,
-backup_subnet_cidr,
-client_subnet_cidr,
-default_dns_prefix,
-delete_associated_resources,
-display_name,
-oci_network_anchor_id,
-oci_resource_anchor_name,
-oci_vcn_url,
-odb_network_arn,
-odb_network_id,
-tags
+  region,
+  availability_zone,
+  availability_zone_id,
+  backup_subnet_cidr,
+  client_subnet_cidr,
+  default_dns_prefix,
+  delete_associated_resources,
+  display_name,
+  oci_network_anchor_id,
+  oci_resource_anchor_name,
+  oci_vcn_url,
+  odb_network_arn,
+  odb_network_id,
+  tags
 FROM awscc.odb.odb_networks
-WHERE region = 'us-east-1' AND Identifier = '{{ odb_network_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ odb_network_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ odb_network_arn }}';
 Lists all <code>odb_networks</code> in a region.
 ```sql
 SELECT
-region,
-odb_network_arn
+  region,
+  odb_network_arn
 FROM awscc.odb.odb_networks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,26 +254,26 @@ Use the following StackQL query and manifest file to create a new <code>odb_netw
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.odb_networks (
- AvailabilityZone,
- AvailabilityZoneId,
- BackupSubnetCidr,
- ClientSubnetCidr,
- DefaultDnsPrefix,
- DeleteAssociatedResources,
- DisplayName,
- Tags,
- region
+  AvailabilityZone,
+  AvailabilityZoneId,
+  BackupSubnetCidr,
+  ClientSubnetCidr,
+  DefaultDnsPrefix,
+  DeleteAssociatedResources,
+  DisplayName,
+  Tags,
+  region
 )
 SELECT
-'{{ availability_zone }}',
- '{{ availability_zone_id }}',
- '{{ backup_subnet_cidr }}',
- '{{ client_subnet_cidr }}',
- '{{ default_dns_prefix }}',
- '{{ delete_associated_resources }}',
- '{{ display_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ availability_zone }}',
+  '{{ availability_zone_id }}',
+  '{{ backup_subnet_cidr }}',
+  '{{ client_subnet_cidr }}',
+  '{{ default_dns_prefix }}',
+  '{{ delete_associated_resources }}',
+  '{{ display_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -278,26 +281,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.odb_networks (
- AvailabilityZone,
- AvailabilityZoneId,
- BackupSubnetCidr,
- ClientSubnetCidr,
- DefaultDnsPrefix,
- DeleteAssociatedResources,
- DisplayName,
- Tags,
- region
+  AvailabilityZone,
+  AvailabilityZoneId,
+  BackupSubnetCidr,
+  ClientSubnetCidr,
+  DefaultDnsPrefix,
+  DeleteAssociatedResources,
+  DisplayName,
+  Tags,
+  region
 )
 SELECT
- '{{ availability_zone }}',
- '{{ availability_zone_id }}',
- '{{ backup_subnet_cidr }}',
- '{{ client_subnet_cidr }}',
- '{{ default_dns_prefix }}',
- '{{ delete_associated_resources }}',
- '{{ display_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ availability_zone }}',
+  '{{ availability_zone_id }}',
+  '{{ backup_subnet_cidr }}',
+  '{{ client_subnet_cidr }}',
+  '{{ default_dns_prefix }}',
+  '{{ delete_associated_resources }}',
+  '{{ display_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -347,8 +350,9 @@ SET PatchDocument = string('{{ {
     "DeleteAssociatedResources": delete_associated_resources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ odb_network_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ odb_network_arn }}';
 ```
 
 
@@ -357,8 +361,9 @@ AND Identifier = '{{ odb_network_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.odb_networks
-WHERE Identifier = '{{ odb_network_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ odb_network_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

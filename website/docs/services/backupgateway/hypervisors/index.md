@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hypervisor</code>.
 ```sql
 SELECT
-region,
-host,
-hypervisor_arn,
-kms_key_arn,
-log_group_arn,
-name,
-password,
-tags,
-username
+  region,
+  host,
+  hypervisor_arn,
+  kms_key_arn,
+  log_group_arn,
+  name,
+  password,
+  tags,
+  username
 FROM awscc.backupgateway.hypervisors
-WHERE region = 'us-east-1' AND Identifier = '{{ hypervisor_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hypervisor_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hypervisor_arn }}';
 Lists all <code>hypervisors</code> in a region.
 ```sql
 SELECT
-region,
-hypervisor_arn
+  region,
+  hypervisor_arn
 FROM awscc.backupgateway.hypervisors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,24 +224,24 @@ Use the following StackQL query and manifest file to create a new <code>hypervis
 ```sql
 /*+ create */
 INSERT INTO awscc.backupgateway.hypervisors (
- Host,
- KmsKeyArn,
- LogGroupArn,
- Name,
- Password,
- Tags,
- Username,
- region
+  Host,
+  KmsKeyArn,
+  LogGroupArn,
+  Name,
+  Password,
+  Tags,
+  Username,
+  region
 )
 SELECT
-'{{ host }}',
- '{{ kms_key_arn }}',
- '{{ log_group_arn }}',
- '{{ name }}',
- '{{ password }}',
- '{{ tags }}',
- '{{ username }}',
-'{{ region }}';
+  '{{ host }}',
+  '{{ kms_key_arn }}',
+  '{{ log_group_arn }}',
+  '{{ name }}',
+  '{{ password }}',
+  '{{ tags }}',
+  '{{ username }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,24 +249,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backupgateway.hypervisors (
- Host,
- KmsKeyArn,
- LogGroupArn,
- Name,
- Password,
- Tags,
- Username,
- region
+  Host,
+  KmsKeyArn,
+  LogGroupArn,
+  Name,
+  Password,
+  Tags,
+  Username,
+  region
 )
 SELECT
- '{{ host }}',
- '{{ kms_key_arn }}',
- '{{ log_group_arn }}',
- '{{ name }}',
- '{{ password }}',
- '{{ tags }}',
- '{{ username }}',
- '{{ region }}';
+  '{{ host }}',
+  '{{ kms_key_arn }}',
+  '{{ log_group_arn }}',
+  '{{ name }}',
+  '{{ password }}',
+  '{{ tags }}',
+  '{{ username }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Password": password,
     "Username": username
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hypervisor_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hypervisor_arn }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ hypervisor_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backupgateway.hypervisors
-WHERE Identifier = '{{ hypervisor_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hypervisor_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

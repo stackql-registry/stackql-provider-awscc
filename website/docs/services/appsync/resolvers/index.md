@@ -271,27 +271,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver</code>.
 ```sql
 SELECT
-region,
-api_id,
-caching_config,
-code,
-code_s3_location,
-data_source_name,
-field_name,
-kind,
-max_batch_size,
-pipeline_config,
-request_mapping_template,
-request_mapping_template_s3_location,
-resolver_arn,
-response_mapping_template,
-response_mapping_template_s3_location,
-runtime,
-sync_config,
-type_name,
-metrics_config
+  region,
+  api_id,
+  caching_config,
+  code,
+  code_s3_location,
+  data_source_name,
+  field_name,
+  kind,
+  max_batch_size,
+  pipeline_config,
+  request_mapping_template,
+  request_mapping_template_s3_location,
+  resolver_arn,
+  response_mapping_template,
+  response_mapping_template_s3_location,
+  runtime,
+  sync_config,
+  type_name,
+  metrics_config
 FROM awscc.appsync.resolvers
-WHERE region = 'us-east-1' AND Identifier = '{{ resolver_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resolver_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,10 +301,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resolver_arn }}';
 Lists all <code>resolvers</code> in a region.
 ```sql
 SELECT
-region,
-resolver_arn
+  region,
+  resolver_arn
 FROM awscc.appsync.resolvers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -324,16 +327,16 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.resolvers (
- ApiId,
- FieldName,
- TypeName,
- region
+  ApiId,
+  FieldName,
+  TypeName,
+  region
 )
 SELECT
-'{{ api_id }}',
- '{{ field_name }}',
- '{{ type_name }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ field_name }}',
+  '{{ type_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -341,44 +344,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.resolvers (
- ApiId,
- CachingConfig,
- Code,
- CodeS3Location,
- DataSourceName,
- FieldName,
- Kind,
- MaxBatchSize,
- PipelineConfig,
- RequestMappingTemplate,
- RequestMappingTemplateS3Location,
- ResponseMappingTemplate,
- ResponseMappingTemplateS3Location,
- Runtime,
- SyncConfig,
- TypeName,
- MetricsConfig,
- region
+  ApiId,
+  CachingConfig,
+  Code,
+  CodeS3Location,
+  DataSourceName,
+  FieldName,
+  Kind,
+  MaxBatchSize,
+  PipelineConfig,
+  RequestMappingTemplate,
+  RequestMappingTemplateS3Location,
+  ResponseMappingTemplate,
+  ResponseMappingTemplateS3Location,
+  Runtime,
+  SyncConfig,
+  TypeName,
+  MetricsConfig,
+  region
 )
 SELECT
- '{{ api_id }}',
- '{{ caching_config }}',
- '{{ code }}',
- '{{ code_s3_location }}',
- '{{ data_source_name }}',
- '{{ field_name }}',
- '{{ kind }}',
- '{{ max_batch_size }}',
- '{{ pipeline_config }}',
- '{{ request_mapping_template }}',
- '{{ request_mapping_template_s3_location }}',
- '{{ response_mapping_template }}',
- '{{ response_mapping_template_s3_location }}',
- '{{ runtime }}',
- '{{ sync_config }}',
- '{{ type_name }}',
- '{{ metrics_config }}',
- '{{ region }}';
+  '{{ api_id }}',
+  '{{ caching_config }}',
+  '{{ code }}',
+  '{{ code_s3_location }}',
+  '{{ data_source_name }}',
+  '{{ field_name }}',
+  '{{ kind }}',
+  '{{ max_batch_size }}',
+  '{{ pipeline_config }}',
+  '{{ request_mapping_template }}',
+  '{{ request_mapping_template_s3_location }}',
+  '{{ response_mapping_template }}',
+  '{{ response_mapping_template_s3_location }}',
+  '{{ runtime }}',
+  '{{ sync_config }}',
+  '{{ type_name }}',
+  '{{ metrics_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -467,8 +470,9 @@ SET PatchDocument = string('{{ {
     "SyncConfig": sync_config,
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resolver_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resolver_arn }}';
 ```
 
 
@@ -477,8 +481,9 @@ AND Identifier = '{{ resolver_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.resolvers
-WHERE Identifier = '{{ resolver_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resolver_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

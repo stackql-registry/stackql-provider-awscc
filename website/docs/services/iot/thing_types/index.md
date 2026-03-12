@@ -209,15 +209,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>thing_type</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-thing_type_name,
-deprecate_thing_type,
-thing_type_properties,
-tags
+  region,
+  id,
+  arn,
+  thing_type_name,
+  deprecate_thing_type,
+  thing_type_properties,
+  tags
 FROM awscc.iot.thing_types
-WHERE region = 'us-east-1' AND Identifier = '{{ thing_type_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ thing_type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,10 +227,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ thing_type_name }}';
 Lists all <code>thing_types</code> in a region.
 ```sql
 SELECT
-region,
-thing_type_name
+  region,
+  thing_type_name
 FROM awscc.iot.thing_types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -250,18 +253,18 @@ Use the following StackQL query and manifest file to create a new <code>thing_ty
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.thing_types (
- ThingTypeName,
- DeprecateThingType,
- ThingTypeProperties,
- Tags,
- region
+  ThingTypeName,
+  DeprecateThingType,
+  ThingTypeProperties,
+  Tags,
+  region
 )
 SELECT
-'{{ thing_type_name }}',
- '{{ deprecate_thing_type }}',
- '{{ thing_type_properties }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ thing_type_name }}',
+  '{{ deprecate_thing_type }}',
+  '{{ thing_type_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -269,18 +272,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.thing_types (
- ThingTypeName,
- DeprecateThingType,
- ThingTypeProperties,
- Tags,
- region
+  ThingTypeName,
+  DeprecateThingType,
+  ThingTypeProperties,
+  Tags,
+  region
 )
 SELECT
- '{{ thing_type_name }}',
- '{{ deprecate_thing_type }}',
- '{{ thing_type_properties }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ thing_type_name }}',
+  '{{ deprecate_thing_type }}',
+  '{{ thing_type_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ SET PatchDocument = string('{{ {
     "ThingTypeProperties": thing_type_properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ thing_type_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ thing_type_name }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ thing_type_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.thing_types
-WHERE Identifier = '{{ thing_type_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ thing_type_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

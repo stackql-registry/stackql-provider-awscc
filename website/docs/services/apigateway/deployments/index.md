@@ -373,15 +373,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT
-region,
-deployment_id,
-description,
-stage_description,
-stage_name,
-rest_api_id,
-deployment_canary_settings
+  region,
+  deployment_id,
+  description,
+  stage_description,
+  stage_name,
+  rest_api_id,
+  deployment_canary_settings
 FROM awscc.apigateway.deployments
-WHERE region = 'us-east-1' AND Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -389,11 +391,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ deployment_id }}|{{ rest_api_id 
 Lists all <code>deployments</code> in a region.
 ```sql
 SELECT
-region,
-deployment_id,
-rest_api_id
+  region,
+  deployment_id,
+  rest_api_id
 FROM awscc.apigateway.deployments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -415,12 +418,12 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.deployments (
- RestApiId,
- region
+  RestApiId,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -428,20 +431,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.deployments (
- Description,
- StageDescription,
- StageName,
- RestApiId,
- DeploymentCanarySettings,
- region
+  Description,
+  StageDescription,
+  StageName,
+  RestApiId,
+  DeploymentCanarySettings,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ stage_description }}',
- '{{ stage_name }}',
- '{{ rest_api_id }}',
- '{{ deployment_canary_settings }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ stage_description }}',
+  '{{ stage_name }}',
+  '{{ rest_api_id }}',
+  '{{ deployment_canary_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -524,8 +527,9 @@ SET PatchDocument = string('{{ {
     "StageDescription": stage_description,
     "StageName": stage_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
 ```
 
 
@@ -534,8 +538,9 @@ AND Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.deployments
-WHERE Identifier = '{{ deployment_id }}|{{ rest_api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ deployment_id }}|{{ rest_api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

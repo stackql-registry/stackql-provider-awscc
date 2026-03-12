@@ -268,13 +268,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>refresh_schedule</code>.
 ```sql
 SELECT
-region,
-arn,
-aws_account_id,
-data_set_id,
-schedule
+  region,
+  arn,
+  aws_account_id,
+  data_set_id,
+  schedule
 FROM awscc.quicksight.refresh_schedules
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,12 +284,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id
 Lists all <code>refresh_schedules</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-data_set_id,
-schedule/schedule_id
+  region,
+  aws_account_id,
+  data_set_id,
+  schedule/schedule_id
 FROM awscc.quicksight.refresh_schedules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -309,12 +312,12 @@ Use the following StackQL query and manifest file to create a new <code>refresh_
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.refresh_schedules (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -322,16 +325,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.refresh_schedules (
- AwsAccountId,
- DataSetId,
- Schedule,
- region
+  AwsAccountId,
+  DataSetId,
+  Schedule,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ data_set_id }}',
- '{{ schedule }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ data_set_id }}',
+  '{{ schedule }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -374,8 +377,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.refresh_schedules
-WHERE Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

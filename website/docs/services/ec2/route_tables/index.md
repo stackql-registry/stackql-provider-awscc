@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_table</code>.
 ```sql
 SELECT
-region,
-route_table_id,
-vpc_id,
-tags
+  region,
+  route_table_id,
+  vpc_id,
+  tags
 FROM awscc.ec2.route_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ route_table_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ route_table_id }}';
 Lists all <code>route_tables</code> in a region.
 ```sql
 SELECT
-region,
-route_table_id
+  region,
+  route_table_id
 FROM awscc.ec2.route_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>route_ta
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_tables (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_tables (
- VpcId,
- Tags,
- region
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.ec2.route_tables
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ route_table_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ route_table_id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ route_table_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_tables
-WHERE Identifier = '{{ route_table_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ route_table_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

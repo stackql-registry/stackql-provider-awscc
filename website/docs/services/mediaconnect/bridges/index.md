@@ -338,18 +338,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bridge</code>.
 ```sql
 SELECT
-region,
-name,
-bridge_arn,
-placement_arn,
-bridge_state,
-source_failover_config,
-outputs,
-sources,
-ingress_gateway_bridge,
-egress_gateway_bridge
+  region,
+  name,
+  bridge_arn,
+  placement_arn,
+  bridge_state,
+  source_failover_config,
+  outputs,
+  sources,
+  ingress_gateway_bridge,
+  egress_gateway_bridge
 FROM awscc.mediaconnect.bridges
-WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bridge_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -357,10 +359,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}';
 Lists all <code>bridges</code> in a region.
 ```sql
 SELECT
-region,
-bridge_arn
+  region,
+  bridge_arn
 FROM awscc.mediaconnect.bridges_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -382,16 +385,16 @@ Use the following StackQL query and manifest file to create a new <code>bridge</
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridges (
- Name,
- PlacementArn,
- Sources,
- region
+  Name,
+  PlacementArn,
+  Sources,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ placement_arn }}',
- '{{ sources }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ placement_arn }}',
+  '{{ sources }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -399,24 +402,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridges (
- Name,
- PlacementArn,
- SourceFailoverConfig,
- Outputs,
- Sources,
- IngressGatewayBridge,
- EgressGatewayBridge,
- region
+  Name,
+  PlacementArn,
+  SourceFailoverConfig,
+  Outputs,
+  Sources,
+  IngressGatewayBridge,
+  EgressGatewayBridge,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ placement_arn }}',
- '{{ source_failover_config }}',
- '{{ outputs }}',
- '{{ sources }}',
- '{{ ingress_gateway_bridge }}',
- '{{ egress_gateway_bridge }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ placement_arn }}',
+  '{{ source_failover_config }}',
+  '{{ outputs }}',
+  '{{ sources }}',
+  '{{ ingress_gateway_bridge }}',
+  '{{ egress_gateway_bridge }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -496,8 +499,9 @@ SET PatchDocument = string('{{ {
     "IngressGatewayBridge": ingress_gateway_bridge,
     "EgressGatewayBridge": egress_gateway_bridge
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bridge_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bridge_arn }}';
 ```
 
 
@@ -506,8 +510,9 @@ AND Identifier = '{{ bridge_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridges
-WHERE Identifier = '{{ bridge_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bridge_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -167,11 +167,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_collection</code>.
 ```sql
 SELECT
-region,
-resource_collection_filter,
-resource_collection_type
+  region,
+  resource_collection_filter,
+  resource_collection_type
 FROM awscc.devopsguru.resource_collections
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_collection_type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_collection_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,10 +181,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_collection_type }}';
 Lists all <code>resource_collections</code> in a region.
 ```sql
 SELECT
-region,
-resource_collection_type
+  region,
+  resource_collection_type
 FROM awscc.devopsguru.resource_collections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,12 +207,12 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.devopsguru.resource_collections (
- ResourceCollectionFilter,
- region
+  ResourceCollectionFilter,
+  region
 )
 SELECT
-'{{ resource_collection_filter }}',
-'{{ region }}';
+  '{{ resource_collection_filter }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -217,12 +220,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.devopsguru.resource_collections (
- ResourceCollectionFilter,
- region
+  ResourceCollectionFilter,
+  region
 )
 SELECT
- '{{ resource_collection_filter }}',
- '{{ region }}';
+  '{{ resource_collection_filter }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ UPDATE awscc.devopsguru.resource_collections
 SET PatchDocument = string('{{ {
     "ResourceCollectionFilter": resource_collection_filter
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_collection_type }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_collection_type }}';
 ```
 
 
@@ -272,8 +276,9 @@ AND Identifier = '{{ resource_collection_type }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.devopsguru.resource_collections
-WHERE Identifier = '{{ resource_collection_type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_collection_type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

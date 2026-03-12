@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tracker_consumer</code>.
 ```sql
 SELECT
-region,
-consumer_arn,
-tracker_name
+  region,
+  consumer_arn,
+  tracker_name
 FROM awscc.location.tracker_consumers
-WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}|{{ consumer_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ tracker_name }}|{{ consumer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}|{{ consumer_arn 
 Lists all <code>tracker_consumers</code> in a region.
 ```sql
 SELECT
-region,
-tracker_name,
-consumer_arn
+  region,
+  tracker_name,
+  consumer_arn
 FROM awscc.location.tracker_consumers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>tracker_
 ```sql
 /*+ create */
 INSERT INTO awscc.location.tracker_consumers (
- ConsumerArn,
- TrackerName,
- region
+  ConsumerArn,
+  TrackerName,
+  region
 )
 SELECT
-'{{ consumer_arn }}',
- '{{ tracker_name }}',
-'{{ region }}';
+  '{{ consumer_arn }}',
+  '{{ tracker_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.tracker_consumers (
- ConsumerArn,
- TrackerName,
- region
+  ConsumerArn,
+  TrackerName,
+  region
 )
 SELECT
- '{{ consumer_arn }}',
- '{{ tracker_name }}',
- '{{ region }}';
+  '{{ consumer_arn }}',
+  '{{ tracker_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.tracker_consumers
-WHERE Identifier = '{{ tracker_name }}|{{ consumer_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ tracker_name }}|{{ consumer_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

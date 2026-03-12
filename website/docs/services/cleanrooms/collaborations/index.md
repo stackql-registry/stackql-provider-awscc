@@ -349,23 +349,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>collaboration</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-collaboration_identifier,
-creator_display_name,
-creator_member_abilities,
-creator_ml_member_abilities,
-data_encryption_metadata,
-description,
-members,
-name,
-job_log_status,
-query_log_status,
-analytics_engine,
-creator_payment_configuration
+  region,
+  arn,
+  tags,
+  collaboration_identifier,
+  creator_display_name,
+  creator_member_abilities,
+  creator_ml_member_abilities,
+  data_encryption_metadata,
+  description,
+  members,
+  name,
+  job_log_status,
+  query_log_status,
+  analytics_engine,
+  creator_payment_configuration
 FROM awscc.cleanrooms.collaborations
-WHERE region = 'us-east-1' AND Identifier = '{{ collaboration_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ collaboration_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -373,10 +375,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ collaboration_identifier }}';
 Lists all <code>collaborations</code> in a region.
 ```sql
 SELECT
-region,
-collaboration_identifier
+  region,
+  collaboration_identifier
 FROM awscc.cleanrooms.collaborations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -398,18 +401,18 @@ Use the following StackQL query and manifest file to create a new <code>collabor
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.collaborations (
- CreatorDisplayName,
- Description,
- Name,
- QueryLogStatus,
- region
+  CreatorDisplayName,
+  Description,
+  Name,
+  QueryLogStatus,
+  region
 )
 SELECT
-'{{ creator_display_name }}',
- '{{ description }}',
- '{{ name }}',
- '{{ query_log_status }}',
-'{{ region }}';
+  '{{ creator_display_name }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ query_log_status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -417,34 +420,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.collaborations (
- Tags,
- CreatorDisplayName,
- CreatorMemberAbilities,
- CreatorMLMemberAbilities,
- DataEncryptionMetadata,
- Description,
- Members,
- Name,
- JobLogStatus,
- QueryLogStatus,
- AnalyticsEngine,
- CreatorPaymentConfiguration,
- region
+  Tags,
+  CreatorDisplayName,
+  CreatorMemberAbilities,
+  CreatorMLMemberAbilities,
+  DataEncryptionMetadata,
+  Description,
+  Members,
+  Name,
+  JobLogStatus,
+  QueryLogStatus,
+  AnalyticsEngine,
+  CreatorPaymentConfiguration,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ creator_display_name }}',
- '{{ creator_member_abilities }}',
- '{{ creator_ml_member_abilities }}',
- '{{ data_encryption_metadata }}',
- '{{ description }}',
- '{{ members }}',
- '{{ name }}',
- '{{ job_log_status }}',
- '{{ query_log_status }}',
- '{{ analytics_engine }}',
- '{{ creator_payment_configuration }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ creator_display_name }}',
+  '{{ creator_member_abilities }}',
+  '{{ creator_ml_member_abilities }}',
+  '{{ data_encryption_metadata }}',
+  '{{ description }}',
+  '{{ members }}',
+  '{{ name }}',
+  '{{ job_log_status }}',
+  '{{ query_log_status }}',
+  '{{ analytics_engine }}',
+  '{{ creator_payment_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -525,8 +528,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "AnalyticsEngine": analytics_engine
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ collaboration_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ collaboration_identifier }}';
 ```
 
 
@@ -535,8 +539,9 @@ AND Identifier = '{{ collaboration_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.collaborations
-WHERE Identifier = '{{ collaboration_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ collaboration_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

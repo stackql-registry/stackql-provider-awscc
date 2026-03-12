@@ -526,39 +526,41 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT
-region,
-scaling_policies,
-anywhere_configuration,
-apply_capacity,
-certificate_configuration,
-compute_type,
-description,
-desired_ec2_instances,
-e_c2_inbound_permissions,
-e_c2_instance_type,
-fleet_type,
-instance_role_arn,
-instance_role_credentials_provider,
-locations,
-log_paths,
-max_size,
-metric_groups,
-min_size,
-name,
-new_game_session_protection_policy,
-peer_vpc_aws_account_id,
-peer_vpc_id,
-resource_creation_limit_policy,
-fleet_id,
-build_id,
-script_id,
-runtime_configuration,
-server_launch_parameters,
-server_launch_path,
-tags,
-fleet_arn
+  region,
+  scaling_policies,
+  anywhere_configuration,
+  apply_capacity,
+  certificate_configuration,
+  compute_type,
+  description,
+  desired_ec2_instances,
+  e_c2_inbound_permissions,
+  e_c2_instance_type,
+  fleet_type,
+  instance_role_arn,
+  instance_role_credentials_provider,
+  locations,
+  log_paths,
+  max_size,
+  metric_groups,
+  min_size,
+  name,
+  new_game_session_protection_policy,
+  peer_vpc_aws_account_id,
+  peer_vpc_id,
+  resource_creation_limit_policy,
+  fleet_id,
+  build_id,
+  script_id,
+  runtime_configuration,
+  server_launch_parameters,
+  server_launch_path,
+  tags,
+  fleet_arn
 FROM awscc.gamelift.fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -566,10 +568,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
 Lists all <code>fleets</code> in a region.
 ```sql
 SELECT
-region,
-fleet_id
+  region,
+  fleet_id
 FROM awscc.gamelift.fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -591,12 +594,12 @@ Use the following StackQL query and manifest file to create a new <code>fleet</c
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.fleets (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -604,66 +607,66 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.fleets (
- ScalingPolicies,
- AnywhereConfiguration,
- ApplyCapacity,
- CertificateConfiguration,
- ComputeType,
- Description,
- DesiredEC2Instances,
- EC2InboundPermissions,
- EC2InstanceType,
- FleetType,
- InstanceRoleARN,
- InstanceRoleCredentialsProvider,
- Locations,
- LogPaths,
- MaxSize,
- MetricGroups,
- MinSize,
- Name,
- NewGameSessionProtectionPolicy,
- PeerVpcAwsAccountId,
- PeerVpcId,
- ResourceCreationLimitPolicy,
- BuildId,
- ScriptId,
- RuntimeConfiguration,
- ServerLaunchParameters,
- ServerLaunchPath,
- Tags,
- region
+  ScalingPolicies,
+  AnywhereConfiguration,
+  ApplyCapacity,
+  CertificateConfiguration,
+  ComputeType,
+  Description,
+  DesiredEC2Instances,
+  EC2InboundPermissions,
+  EC2InstanceType,
+  FleetType,
+  InstanceRoleARN,
+  InstanceRoleCredentialsProvider,
+  Locations,
+  LogPaths,
+  MaxSize,
+  MetricGroups,
+  MinSize,
+  Name,
+  NewGameSessionProtectionPolicy,
+  PeerVpcAwsAccountId,
+  PeerVpcId,
+  ResourceCreationLimitPolicy,
+  BuildId,
+  ScriptId,
+  RuntimeConfiguration,
+  ServerLaunchParameters,
+  ServerLaunchPath,
+  Tags,
+  region
 )
 SELECT
- '{{ scaling_policies }}',
- '{{ anywhere_configuration }}',
- '{{ apply_capacity }}',
- '{{ certificate_configuration }}',
- '{{ compute_type }}',
- '{{ description }}',
- '{{ desired_ec2_instances }}',
- '{{ e_c2_inbound_permissions }}',
- '{{ e_c2_instance_type }}',
- '{{ fleet_type }}',
- '{{ instance_role_arn }}',
- '{{ instance_role_credentials_provider }}',
- '{{ locations }}',
- '{{ log_paths }}',
- '{{ max_size }}',
- '{{ metric_groups }}',
- '{{ min_size }}',
- '{{ name }}',
- '{{ new_game_session_protection_policy }}',
- '{{ peer_vpc_aws_account_id }}',
- '{{ peer_vpc_id }}',
- '{{ resource_creation_limit_policy }}',
- '{{ build_id }}',
- '{{ script_id }}',
- '{{ runtime_configuration }}',
- '{{ server_launch_parameters }}',
- '{{ server_launch_path }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ scaling_policies }}',
+  '{{ anywhere_configuration }}',
+  '{{ apply_capacity }}',
+  '{{ certificate_configuration }}',
+  '{{ compute_type }}',
+  '{{ description }}',
+  '{{ desired_ec2_instances }}',
+  '{{ e_c2_inbound_permissions }}',
+  '{{ e_c2_instance_type }}',
+  '{{ fleet_type }}',
+  '{{ instance_role_arn }}',
+  '{{ instance_role_credentials_provider }}',
+  '{{ locations }}',
+  '{{ log_paths }}',
+  '{{ max_size }}',
+  '{{ metric_groups }}',
+  '{{ min_size }}',
+  '{{ name }}',
+  '{{ new_game_session_protection_policy }}',
+  '{{ peer_vpc_aws_account_id }}',
+  '{{ peer_vpc_id }}',
+  '{{ resource_creation_limit_policy }}',
+  '{{ build_id }}',
+  '{{ script_id }}',
+  '{{ runtime_configuration }}',
+  '{{ server_launch_parameters }}',
+  '{{ server_launch_path }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -802,8 +805,9 @@ SET PatchDocument = string('{{ {
     "RuntimeConfiguration": runtime_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ fleet_id }}';
 ```
 
 
@@ -812,8 +816,9 @@ AND Identifier = '{{ fleet_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.fleets
-WHERE Identifier = '{{ fleet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ fleet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

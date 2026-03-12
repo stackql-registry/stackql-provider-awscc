@@ -90,12 +90,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_entitlement_association</code>.
 ```sql
 SELECT
-region,
-stack_name,
-entitlement_name,
-application_identifier
+  region,
+  stack_name,
+  entitlement_name,
+  application_identifier
 FROM awscc.appstream.application_entitlement_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}';
 ```
 
 ## `INSERT` example
@@ -115,16 +117,16 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.application_entitlement_associations (
- StackName,
- EntitlementName,
- ApplicationIdentifier,
- region
+  StackName,
+  EntitlementName,
+  ApplicationIdentifier,
+  region
 )
 SELECT
-'{{ stack_name }}',
- '{{ entitlement_name }}',
- '{{ application_identifier }}',
-'{{ region }}';
+  '{{ stack_name }}',
+  '{{ entitlement_name }}',
+  '{{ application_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -132,16 +134,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.application_entitlement_associations (
- StackName,
- EntitlementName,
- ApplicationIdentifier,
- region
+  StackName,
+  EntitlementName,
+  ApplicationIdentifier,
+  region
 )
 SELECT
- '{{ stack_name }}',
- '{{ entitlement_name }}',
- '{{ application_identifier }}',
- '{{ region }}';
+  '{{ stack_name }}',
+  '{{ entitlement_name }}',
+  '{{ application_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -174,8 +176,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_entitlement_associations
-WHERE Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

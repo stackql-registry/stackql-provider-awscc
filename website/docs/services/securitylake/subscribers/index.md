@@ -246,21 +246,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subscriber</code>.
 ```sql
 SELECT
-region,
-access_types,
-data_lake_arn,
-subscriber_identity,
-subscriber_name,
-subscriber_description,
-tags,
-sources,
-resource_share_arn,
-resource_share_name,
-subscriber_role_arn,
-s3_bucket_arn,
-subscriber_arn
+  region,
+  access_types,
+  data_lake_arn,
+  subscriber_identity,
+  subscriber_name,
+  subscriber_description,
+  tags,
+  sources,
+  resource_share_arn,
+  resource_share_name,
+  subscriber_role_arn,
+  s3_bucket_arn,
+  subscriber_arn
 FROM awscc.securitylake.subscribers
-WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +270,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
 Lists all <code>subscribers</code> in a region.
 ```sql
 SELECT
-region,
-subscriber_arn
+  region,
+  subscriber_arn
 FROM awscc.securitylake.subscribers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,20 +296,20 @@ Use the following StackQL query and manifest file to create a new <code>subscrib
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.subscribers (
- AccessTypes,
- DataLakeArn,
- SubscriberIdentity,
- SubscriberName,
- Sources,
- region
+  AccessTypes,
+  DataLakeArn,
+  SubscriberIdentity,
+  SubscriberName,
+  Sources,
+  region
 )
 SELECT
-'{{ access_types }}',
- '{{ data_lake_arn }}',
- '{{ subscriber_identity }}',
- '{{ subscriber_name }}',
- '{{ sources }}',
-'{{ region }}';
+  '{{ access_types }}',
+  '{{ data_lake_arn }}',
+  '{{ subscriber_identity }}',
+  '{{ subscriber_name }}',
+  '{{ sources }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -314,24 +317,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.subscribers (
- AccessTypes,
- DataLakeArn,
- SubscriberIdentity,
- SubscriberName,
- SubscriberDescription,
- Tags,
- Sources,
- region
+  AccessTypes,
+  DataLakeArn,
+  SubscriberIdentity,
+  SubscriberName,
+  SubscriberDescription,
+  Tags,
+  Sources,
+  region
 )
 SELECT
- '{{ access_types }}',
- '{{ data_lake_arn }}',
- '{{ subscriber_identity }}',
- '{{ subscriber_name }}',
- '{{ subscriber_description }}',
- '{{ tags }}',
- '{{ sources }}',
- '{{ region }}';
+  '{{ access_types }}',
+  '{{ data_lake_arn }}',
+  '{{ subscriber_identity }}',
+  '{{ subscriber_name }}',
+  '{{ subscriber_description }}',
+  '{{ tags }}',
+  '{{ sources }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -387,8 +390,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Sources": sources
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subscriber_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subscriber_arn }}';
 ```
 
 
@@ -397,8 +401,9 @@ AND Identifier = '{{ subscriber_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.subscribers
-WHERE Identifier = '{{ subscriber_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subscriber_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

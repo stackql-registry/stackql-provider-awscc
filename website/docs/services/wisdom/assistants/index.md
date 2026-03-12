@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assistant</code>.
 ```sql
 SELECT
-region,
-type,
-description,
-assistant_arn,
-assistant_id,
-server_side_encryption_configuration,
-tags,
-name
+  region,
+  type,
+  description,
+  assistant_arn,
+  assistant_id,
+  server_side_encryption_configuration,
+  tags,
+  name
 FROM awscc.wisdom.assistants
-WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}';
 Lists all <code>assistants</code> in a region.
 ```sql
 SELECT
-region,
-assistant_id
+  region,
+  assistant_id
 FROM awscc.wisdom.assistants_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,14 +225,14 @@ Use the following StackQL query and manifest file to create a new <code>assistan
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.assistants (
- Type,
- Name,
- region
+  Type,
+  Name,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,20 +240,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.assistants (
- Type,
- Description,
- ServerSideEncryptionConfiguration,
- Tags,
- Name,
- region
+  Type,
+  Description,
+  ServerSideEncryptionConfiguration,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ description }}',
- '{{ server_side_encryption_configuration }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ description }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.assistants
-WHERE Identifier = '{{ assistant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ assistant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

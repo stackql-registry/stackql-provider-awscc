@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trust_store</code>.
 ```sql
 SELECT
-region,
-associated_portal_arns,
-certificate_list,
-tags,
-trust_store_arn
+  region,
+  associated_portal_arns,
+  certificate_list,
+  tags,
+  trust_store_arn
 FROM awscc.workspacesweb.trust_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
 Lists all <code>trust_stores</code> in a region.
 ```sql
 SELECT
-region,
-trust_store_arn
+  region,
+  trust_store_arn
 FROM awscc.workspacesweb.trust_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>trust_st
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.trust_stores (
- CertificateList,
- region
+  CertificateList,
+  region
 )
 SELECT
-'{{ certificate_list }}',
-'{{ region }}';
+  '{{ certificate_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.trust_stores (
- CertificateList,
- Tags,
- region
+  CertificateList,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_list }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_list }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -256,8 +259,9 @@ SET PatchDocument = string('{{ {
     "CertificateList": certificate_list,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ trust_store_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ trust_store_arn }}';
 ```
 
 
@@ -266,8 +270,9 @@ AND Identifier = '{{ trust_store_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.trust_stores
-WHERE Identifier = '{{ trust_store_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ trust_store_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

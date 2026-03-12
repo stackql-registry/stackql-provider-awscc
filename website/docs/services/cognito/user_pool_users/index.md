@@ -177,17 +177,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_user</code>.
 ```sql
 SELECT
-region,
-desired_delivery_mediums,
-force_alias_creation,
-user_attributes,
-message_action,
-username,
-user_pool_id,
-validation_data,
-client_metadata
+  region,
+  desired_delivery_mediums,
+  force_alias_creation,
+  user_attributes,
+  message_action,
+  username,
+  user_pool_id,
+  validation_data,
+  client_metadata
 FROM awscc.cognito.user_pool_users
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ username }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ username }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,11 +197,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ username }}';
 Lists all <code>user_pool_users</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id,
-username
+  region,
+  user_pool_id,
+  username
 FROM awscc.cognito.user_pool_users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_users (
- UserPoolId,
- region
+  UserPoolId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,26 +237,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_users (
- DesiredDeliveryMediums,
- ForceAliasCreation,
- UserAttributes,
- MessageAction,
- Username,
- UserPoolId,
- ValidationData,
- ClientMetadata,
- region
+  DesiredDeliveryMediums,
+  ForceAliasCreation,
+  UserAttributes,
+  MessageAction,
+  Username,
+  UserPoolId,
+  ValidationData,
+  ClientMetadata,
+  region
 )
 SELECT
- '{{ desired_delivery_mediums }}',
- '{{ force_alias_creation }}',
- '{{ user_attributes }}',
- '{{ message_action }}',
- '{{ username }}',
- '{{ user_pool_id }}',
- '{{ validation_data }}',
- '{{ client_metadata }}',
- '{{ region }}';
+  '{{ desired_delivery_mediums }}',
+  '{{ force_alias_creation }}',
+  '{{ user_attributes }}',
+  '{{ message_action }}',
+  '{{ username }}',
+  '{{ user_pool_id }}',
+  '{{ validation_data }}',
+  '{{ client_metadata }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -300,8 +303,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_users
-WHERE Identifier = '{{ user_pool_id }}|{{ username }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ username }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

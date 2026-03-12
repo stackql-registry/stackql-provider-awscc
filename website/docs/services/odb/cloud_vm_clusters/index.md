@@ -330,44 +330,46 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_vm_cluster</code>.
 ```sql
 SELECT
-region,
-cloud_exadata_infrastructure_id,
-cloud_vm_cluster_arn,
-cloud_vm_cluster_id,
-cluster_name,
-compute_model,
-cpu_core_count,
-data_collection_options,
-data_storage_size_in_tbs,
-db_node_storage_size_in_gbs,
-db_servers,
-display_name,
-disk_redundancy,
-domain,
-gi_version,
-hostname,
-is_local_backup_enabled,
-is_sparse_diskgroup_enabled,
-license_model,
-listener_port,
-memory_size_in_gbs,
-node_count,
-odb_network_id,
-ocid,
-oci_resource_anchor_name,
-oci_url,
-scan_dns_name,
-scan_ip_ids,
-scan_listener_port_tcp,
-shape,
-ssh_public_keys,
-storage_size_in_gbs,
-system_version,
-tags,
-time_zone,
-vip_ids
+  region,
+  cloud_exadata_infrastructure_id,
+  cloud_vm_cluster_arn,
+  cloud_vm_cluster_id,
+  cluster_name,
+  compute_model,
+  cpu_core_count,
+  data_collection_options,
+  data_storage_size_in_tbs,
+  db_node_storage_size_in_gbs,
+  db_servers,
+  display_name,
+  disk_redundancy,
+  domain,
+  gi_version,
+  hostname,
+  is_local_backup_enabled,
+  is_sparse_diskgroup_enabled,
+  license_model,
+  listener_port,
+  memory_size_in_gbs,
+  node_count,
+  odb_network_id,
+  ocid,
+  oci_resource_anchor_name,
+  oci_url,
+  scan_dns_name,
+  scan_ip_ids,
+  scan_listener_port_tcp,
+  shape,
+  ssh_public_keys,
+  storage_size_in_gbs,
+  system_version,
+  tags,
+  time_zone,
+  vip_ids
 FROM awscc.odb.cloud_vm_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cloud_vm_cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cloud_vm_cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -375,10 +377,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cloud_vm_cluster_arn }}';
 Lists all <code>cloud_vm_clusters</code> in a region.
 ```sql
 SELECT
-region,
-cloud_vm_cluster_arn
+  region,
+  cloud_vm_cluster_arn
 FROM awscc.odb.cloud_vm_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -400,50 +403,50 @@ Use the following StackQL query and manifest file to create a new <code>cloud_vm
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_vm_clusters (
- CloudExadataInfrastructureId,
- ClusterName,
- CpuCoreCount,
- DataCollectionOptions,
- DataStorageSizeInTBs,
- DbNodeStorageSizeInGBs,
- DbServers,
- DisplayName,
- GiVersion,
- Hostname,
- IsLocalBackupEnabled,
- IsSparseDiskgroupEnabled,
- LicenseModel,
- MemorySizeInGBs,
- OdbNetworkId,
- ScanListenerPortTcp,
- SshPublicKeys,
- SystemVersion,
- Tags,
- TimeZone,
- region
+  CloudExadataInfrastructureId,
+  ClusterName,
+  CpuCoreCount,
+  DataCollectionOptions,
+  DataStorageSizeInTBs,
+  DbNodeStorageSizeInGBs,
+  DbServers,
+  DisplayName,
+  GiVersion,
+  Hostname,
+  IsLocalBackupEnabled,
+  IsSparseDiskgroupEnabled,
+  LicenseModel,
+  MemorySizeInGBs,
+  OdbNetworkId,
+  ScanListenerPortTcp,
+  SshPublicKeys,
+  SystemVersion,
+  Tags,
+  TimeZone,
+  region
 )
 SELECT
-'{{ cloud_exadata_infrastructure_id }}',
- '{{ cluster_name }}',
- '{{ cpu_core_count }}',
- '{{ data_collection_options }}',
- '{{ data_storage_size_in_tbs }}',
- '{{ db_node_storage_size_in_gbs }}',
- '{{ db_servers }}',
- '{{ display_name }}',
- '{{ gi_version }}',
- '{{ hostname }}',
- '{{ is_local_backup_enabled }}',
- '{{ is_sparse_diskgroup_enabled }}',
- '{{ license_model }}',
- '{{ memory_size_in_gbs }}',
- '{{ odb_network_id }}',
- '{{ scan_listener_port_tcp }}',
- '{{ ssh_public_keys }}',
- '{{ system_version }}',
- '{{ tags }}',
- '{{ time_zone }}',
-'{{ region }}';
+  '{{ cloud_exadata_infrastructure_id }}',
+  '{{ cluster_name }}',
+  '{{ cpu_core_count }}',
+  '{{ data_collection_options }}',
+  '{{ data_storage_size_in_tbs }}',
+  '{{ db_node_storage_size_in_gbs }}',
+  '{{ db_servers }}',
+  '{{ display_name }}',
+  '{{ gi_version }}',
+  '{{ hostname }}',
+  '{{ is_local_backup_enabled }}',
+  '{{ is_sparse_diskgroup_enabled }}',
+  '{{ license_model }}',
+  '{{ memory_size_in_gbs }}',
+  '{{ odb_network_id }}',
+  '{{ scan_listener_port_tcp }}',
+  '{{ ssh_public_keys }}',
+  '{{ system_version }}',
+  '{{ tags }}',
+  '{{ time_zone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -451,50 +454,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_vm_clusters (
- CloudExadataInfrastructureId,
- ClusterName,
- CpuCoreCount,
- DataCollectionOptions,
- DataStorageSizeInTBs,
- DbNodeStorageSizeInGBs,
- DbServers,
- DisplayName,
- GiVersion,
- Hostname,
- IsLocalBackupEnabled,
- IsSparseDiskgroupEnabled,
- LicenseModel,
- MemorySizeInGBs,
- OdbNetworkId,
- ScanListenerPortTcp,
- SshPublicKeys,
- SystemVersion,
- Tags,
- TimeZone,
- region
+  CloudExadataInfrastructureId,
+  ClusterName,
+  CpuCoreCount,
+  DataCollectionOptions,
+  DataStorageSizeInTBs,
+  DbNodeStorageSizeInGBs,
+  DbServers,
+  DisplayName,
+  GiVersion,
+  Hostname,
+  IsLocalBackupEnabled,
+  IsSparseDiskgroupEnabled,
+  LicenseModel,
+  MemorySizeInGBs,
+  OdbNetworkId,
+  ScanListenerPortTcp,
+  SshPublicKeys,
+  SystemVersion,
+  Tags,
+  TimeZone,
+  region
 )
 SELECT
- '{{ cloud_exadata_infrastructure_id }}',
- '{{ cluster_name }}',
- '{{ cpu_core_count }}',
- '{{ data_collection_options }}',
- '{{ data_storage_size_in_tbs }}',
- '{{ db_node_storage_size_in_gbs }}',
- '{{ db_servers }}',
- '{{ display_name }}',
- '{{ gi_version }}',
- '{{ hostname }}',
- '{{ is_local_backup_enabled }}',
- '{{ is_sparse_diskgroup_enabled }}',
- '{{ license_model }}',
- '{{ memory_size_in_gbs }}',
- '{{ odb_network_id }}',
- '{{ scan_listener_port_tcp }}',
- '{{ ssh_public_keys }}',
- '{{ system_version }}',
- '{{ tags }}',
- '{{ time_zone }}',
- '{{ region }}';
+  '{{ cloud_exadata_infrastructure_id }}',
+  '{{ cluster_name }}',
+  '{{ cpu_core_count }}',
+  '{{ data_collection_options }}',
+  '{{ data_storage_size_in_tbs }}',
+  '{{ db_node_storage_size_in_gbs }}',
+  '{{ db_servers }}',
+  '{{ display_name }}',
+  '{{ gi_version }}',
+  '{{ hostname }}',
+  '{{ is_local_backup_enabled }}',
+  '{{ is_sparse_diskgroup_enabled }}',
+  '{{ license_model }}',
+  '{{ memory_size_in_gbs }}',
+  '{{ odb_network_id }}',
+  '{{ scan_listener_port_tcp }}',
+  '{{ ssh_public_keys }}',
+  '{{ system_version }}',
+  '{{ tags }}',
+  '{{ time_zone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -572,8 +575,9 @@ UPDATE awscc.odb.cloud_vm_clusters
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cloud_vm_cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cloud_vm_cluster_arn }}';
 ```
 
 
@@ -582,8 +586,9 @@ AND Identifier = '{{ cloud_vm_cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_vm_clusters
-WHERE Identifier = '{{ cloud_vm_cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cloud_vm_cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -224,21 +224,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>id_namespace_association</code>.
 ```sql
 SELECT
-region,
-id_namespace_association_identifier,
-arn,
-membership_identifier,
-membership_arn,
-collaboration_identifier,
-collaboration_arn,
-input_reference_config,
-tags,
-name,
-description,
-id_mapping_config,
-input_reference_properties
+  region,
+  id_namespace_association_identifier,
+  arn,
+  membership_identifier,
+  membership_arn,
+  collaboration_identifier,
+  collaboration_arn,
+  input_reference_config,
+  tags,
+  name,
+  description,
+  id_mapping_config,
+  input_reference_properties
 FROM awscc.cleanrooms.id_namespace_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,11 +248,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_association_identif
 Lists all <code>id_namespace_associations</code> in a region.
 ```sql
 SELECT
-region,
-id_namespace_association_identifier,
-membership_identifier
+  region,
+  id_namespace_association_identifier,
+  membership_identifier
 FROM awscc.cleanrooms.id_namespace_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -272,16 +275,16 @@ Use the following StackQL query and manifest file to create a new <code>id_names
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.id_namespace_associations (
- MembershipIdentifier,
- InputReferenceConfig,
- Name,
- region
+  MembershipIdentifier,
+  InputReferenceConfig,
+  Name,
+  region
 )
 SELECT
-'{{ membership_identifier }}',
- '{{ input_reference_config }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ membership_identifier }}',
+  '{{ input_reference_config }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -289,22 +292,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.id_namespace_associations (
- MembershipIdentifier,
- InputReferenceConfig,
- Tags,
- Name,
- Description,
- IdMappingConfig,
- region
+  MembershipIdentifier,
+  InputReferenceConfig,
+  Tags,
+  Name,
+  Description,
+  IdMappingConfig,
+  region
 )
 SELECT
- '{{ membership_identifier }}',
- '{{ input_reference_config }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ description }}',
- '{{ id_mapping_config }}',
- '{{ region }}';
+  '{{ membership_identifier }}',
+  '{{ input_reference_config }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ id_mapping_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -355,8 +358,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "IdMappingConfig": id_mapping_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -365,8 +369,9 @@ AND Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identi
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.id_namespace_associations
-WHERE Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -158,14 +158,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_hierarchy_group</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-user_hierarchy_group_arn,
-parent_group_arn,
-name,
-tags
+  region,
+  instance_arn,
+  user_hierarchy_group_arn,
+  parent_group_arn,
+  name,
+  tags
 FROM awscc.connect.user_hierarchy_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ user_hierarchy_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_hierarchy_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -173,10 +175,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_hierarchy_group_arn }}';
 Lists all <code>user_hierarchy_groups</code> in a region.
 ```sql
 SELECT
-region,
-user_hierarchy_group_arn
+  region,
+  user_hierarchy_group_arn
 FROM awscc.connect.user_hierarchy_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,14 +201,14 @@ Use the following StackQL query and manifest file to create a new <code>user_hie
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.user_hierarchy_groups (
- InstanceArn,
- Name,
- region
+  InstanceArn,
+  Name,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,18 +216,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.user_hierarchy_groups (
- InstanceArn,
- ParentGroupArn,
- Name,
- Tags,
- region
+  InstanceArn,
+  ParentGroupArn,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ parent_group_arn }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ parent_group_arn }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_hierarchy_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_hierarchy_group_arn }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ user_hierarchy_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.user_hierarchy_groups
-WHERE Identifier = '{{ user_hierarchy_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_hierarchy_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -176,19 +176,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_group_egress</code>.
 ```sql
 SELECT
-region,
-cidr_ip,
-cidr_ipv6,
-description,
-from_port,
-to_port,
-ip_protocol,
-destination_security_group_id,
-id,
-destination_prefix_list_id,
-group_id
+  region,
+  cidr_ip,
+  cidr_ipv6,
+  description,
+  from_port,
+  to_port,
+  ip_protocol,
+  destination_security_group_id,
+  id,
+  destination_prefix_list_id,
+  group_id
 FROM awscc.ec2.security_group_egresses
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>security_group_egresses</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.security_group_egresses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_egresses (
- IpProtocol,
- GroupId,
- region
+  IpProtocol,
+  GroupId,
+  region
 )
 SELECT
-'{{ ip_protocol }}',
- '{{ group_id }}',
-'{{ region }}';
+  '{{ ip_protocol }}',
+  '{{ group_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,28 +239,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_egresses (
- CidrIp,
- CidrIpv6,
- Description,
- FromPort,
- ToPort,
- IpProtocol,
- DestinationSecurityGroupId,
- DestinationPrefixListId,
- GroupId,
- region
+  CidrIp,
+  CidrIpv6,
+  Description,
+  FromPort,
+  ToPort,
+  IpProtocol,
+  DestinationSecurityGroupId,
+  DestinationPrefixListId,
+  GroupId,
+  region
 )
 SELECT
- '{{ cidr_ip }}',
- '{{ cidr_ipv6 }}',
- '{{ description }}',
- '{{ from_port }}',
- '{{ to_port }}',
- '{{ ip_protocol }}',
- '{{ destination_security_group_id }}',
- '{{ destination_prefix_list_id }}',
- '{{ group_id }}',
- '{{ region }}';
+  '{{ cidr_ip }}',
+  '{{ cidr_ipv6 }}',
+  '{{ description }}',
+  '{{ from_port }}',
+  '{{ to_port }}',
+  '{{ ip_protocol }}',
+  '{{ destination_security_group_id }}',
+  '{{ destination_prefix_list_id }}',
+  '{{ group_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ UPDATE awscc.ec2.security_group_egresses
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_egresses
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

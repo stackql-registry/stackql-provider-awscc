@@ -183,19 +183,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>delivery</code>.
 ```sql
 SELECT
-region,
-delivery_id,
-arn,
-delivery_source_name,
-delivery_destination_arn,
-delivery_destination_type,
-tags,
-record_fields,
-field_delimiter,
-s3_suffix_path,
-s3_enable_hive_compatible_path
+  region,
+  delivery_id,
+  arn,
+  delivery_source_name,
+  delivery_destination_arn,
+  delivery_destination_type,
+  tags,
+  record_fields,
+  field_delimiter,
+  s3_suffix_path,
+  s3_enable_hive_compatible_path
 FROM awscc.logs.deliveries
-WHERE region = 'us-east-1' AND Identifier = '{{ delivery_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ delivery_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ delivery_id }}';
 Lists all <code>deliveries</code> in a region.
 ```sql
 SELECT
-region,
-delivery_id
+  region,
+  delivery_id
 FROM awscc.logs.deliveries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,14 +231,14 @@ Use the following StackQL query and manifest file to create a new <code>delivery
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.deliveries (
- DeliverySourceName,
- DeliveryDestinationArn,
- region
+  DeliverySourceName,
+  DeliveryDestinationArn,
+  region
 )
 SELECT
-'{{ delivery_source_name }}',
- '{{ delivery_destination_arn }}',
-'{{ region }}';
+  '{{ delivery_source_name }}',
+  '{{ delivery_destination_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,24 +246,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.deliveries (
- DeliverySourceName,
- DeliveryDestinationArn,
- Tags,
- RecordFields,
- FieldDelimiter,
- S3SuffixPath,
- S3EnableHiveCompatiblePath,
- region
+  DeliverySourceName,
+  DeliveryDestinationArn,
+  Tags,
+  RecordFields,
+  FieldDelimiter,
+  S3SuffixPath,
+  S3EnableHiveCompatiblePath,
+  region
 )
 SELECT
- '{{ delivery_source_name }}',
- '{{ delivery_destination_arn }}',
- '{{ tags }}',
- '{{ record_fields }}',
- '{{ field_delimiter }}',
- '{{ s3_suffix_path }}',
- '{{ s3_enable_hive_compatible_path }}',
- '{{ region }}';
+  '{{ delivery_source_name }}',
+  '{{ delivery_destination_arn }}',
+  '{{ tags }}',
+  '{{ record_fields }}',
+  '{{ field_delimiter }}',
+  '{{ s3_suffix_path }}',
+  '{{ s3_enable_hive_compatible_path }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "S3SuffixPath": s3_suffix_path,
     "S3EnableHiveCompatiblePath": s3_enable_hive_compatible_path
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ delivery_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ delivery_id }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ delivery_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.deliveries
-WHERE Identifier = '{{ delivery_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ delivery_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

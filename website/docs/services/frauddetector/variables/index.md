@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>variable</code>.
 ```sql
 SELECT
-region,
-name,
-data_source,
-data_type,
-default_value,
-description,
-tags,
-variable_type,
-arn,
-created_time,
-last_updated_time
+  region,
+  name,
+  data_source,
+  data_type,
+  default_value,
+  description,
+  tags,
+  variable_type,
+  arn,
+  created_time,
+  last_updated_time
 FROM awscc.frauddetector.variables
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>variables</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.frauddetector.variables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,18 +236,18 @@ Use the following StackQL query and manifest file to create a new <code>variable
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.variables (
- Name,
- DataSource,
- DataType,
- DefaultValue,
- region
+  Name,
+  DataSource,
+  DataType,
+  DefaultValue,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ data_source }}',
- '{{ data_type }}',
- '{{ default_value }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ data_source }}',
+  '{{ data_type }}',
+  '{{ default_value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,24 +255,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.variables (
- Name,
- DataSource,
- DataType,
- DefaultValue,
- Description,
- Tags,
- VariableType,
- region
+  Name,
+  DataSource,
+  DataType,
+  DefaultValue,
+  Description,
+  Tags,
+  VariableType,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ data_source }}',
- '{{ data_type }}',
- '{{ default_value }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ variable_type }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ data_source }}',
+  '{{ data_type }}',
+  '{{ default_value }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ variable_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -321,8 +324,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VariableType": variable_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -331,8 +335,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.variables
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

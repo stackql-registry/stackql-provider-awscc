@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>software_package</code>.
 ```sql
 SELECT
-region,
-description,
-package_arn,
-package_name,
-tags
+  region,
+  description,
+  package_arn,
+  package_name,
+  tags
 FROM awscc.iot.software_packages
-WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ package_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}';
 Lists all <code>software_packages</code> in a region.
 ```sql
 SELECT
-region,
-package_name
+  region,
+  package_name
 FROM awscc.iot.software_packages_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>software
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.software_packages (
- Description,
- PackageName,
- Tags,
- region
+  Description,
+  PackageName,
+  Tags,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ package_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ package_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.software_packages (
- Description,
- PackageName,
- Tags,
- region
+  Description,
+  PackageName,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ package_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ package_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -263,8 +266,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ package_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ package_name }}';
 ```
 
 
@@ -273,8 +277,9 @@ AND Identifier = '{{ package_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.software_packages
-WHERE Identifier = '{{ package_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ package_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

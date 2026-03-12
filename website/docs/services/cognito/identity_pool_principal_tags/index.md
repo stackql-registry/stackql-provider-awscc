@@ -161,13 +161,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_pool_principal_tag</code>.
 ```sql
 SELECT
-region,
-identity_pool_id,
-identity_provider_name,
-use_defaults,
-principal_tags
+  region,
+  identity_pool_id,
+  identity_provider_name,
+  use_defaults,
+  principal_tags
 FROM awscc.cognito.identity_pool_principal_tags
-WHERE region = 'us-east-1' AND Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -175,11 +177,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identity_pool_id }}|{{ identity_
 Lists all <code>identity_pool_principal_tags</code> in a region.
 ```sql
 SELECT
-region,
-identity_pool_id,
-identity_provider_name
+  region,
+  identity_pool_id,
+  identity_provider_name
 FROM awscc.cognito.identity_pool_principal_tags_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -201,14 +204,14 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pool_principal_tags (
- IdentityPoolId,
- IdentityProviderName,
- region
+  IdentityPoolId,
+  IdentityProviderName,
+  region
 )
 SELECT
-'{{ identity_pool_id }}',
- '{{ identity_provider_name }}',
-'{{ region }}';
+  '{{ identity_pool_id }}',
+  '{{ identity_provider_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pool_principal_tags (
- IdentityPoolId,
- IdentityProviderName,
- UseDefaults,
- PrincipalTags,
- region
+  IdentityPoolId,
+  IdentityProviderName,
+  UseDefaults,
+  PrincipalTags,
+  region
 )
 SELECT
- '{{ identity_pool_id }}',
- '{{ identity_provider_name }}',
- '{{ use_defaults }}',
- '{{ principal_tags }}',
- '{{ region }}';
+  '{{ identity_pool_id }}',
+  '{{ identity_provider_name }}',
+  '{{ use_defaults }}',
+  '{{ principal_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "UseDefaults": use_defaults,
     "PrincipalTags": principal_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pool_principal_tags
-WHERE Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

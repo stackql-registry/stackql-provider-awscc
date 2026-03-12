@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>control_panel</code>.
 ```sql
 SELECT
-region,
-cluster_arn,
-control_panel_arn,
-name,
-status,
-default_control_panel,
-routing_control_count,
-tags
+  region,
+  cluster_arn,
+  control_panel_arn,
+  name,
+  status,
+  default_control_panel,
+  routing_control_count,
+  tags
 FROM awscc.route53recoverycontrol.control_panels
-WHERE region = 'us-east-1' AND Identifier = '{{ control_panel_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ control_panel_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ control_panel_arn }}';
 Lists all <code>control_panels</code> in a region.
 ```sql
 SELECT
-region,
-control_panel_arn
+  region,
+  control_panel_arn
 FROM awscc.route53recoverycontrol.control_panels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>control_
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.control_panels (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,16 +231,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.control_panels (
- ClusterArn,
- Name,
- Tags,
- region
+  ClusterArn,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_arn }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_arn }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -276,8 +279,9 @@ UPDATE awscc.route53recoverycontrol.control_panels
 SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ control_panel_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ control_panel_arn }}';
 ```
 
 
@@ -286,8 +290,9 @@ AND Identifier = '{{ control_panel_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.control_panels
-WHERE Identifier = '{{ control_panel_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ control_panel_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -251,20 +251,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_accessor</code>.
 ```sql
 SELECT
-region,
-action_configurations,
-application_id,
-authentication_detail,
-created_at,
-data_accessor_arn,
-data_accessor_id,
-display_name,
-idc_application_arn,
-principal,
-tags,
-updated_at
+  region,
+  action_configurations,
+  application_id,
+  authentication_detail,
+  created_at,
+  data_accessor_arn,
+  data_accessor_id,
+  display_name,
+  idc_application_arn,
+  principal,
+  tags,
+  updated_at
 FROM awscc.qbusiness.data_accessors
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_accessor_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,11 +274,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_access
 Lists all <code>data_accessors</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-data_accessor_id
+  region,
+  application_id,
+  data_accessor_id
 FROM awscc.qbusiness.data_accessors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -298,18 +301,18 @@ Use the following StackQL query and manifest file to create a new <code>data_acc
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.data_accessors (
- ActionConfigurations,
- ApplicationId,
- DisplayName,
- Principal,
- region
+  ActionConfigurations,
+  ApplicationId,
+  DisplayName,
+  Principal,
+  region
 )
 SELECT
-'{{ action_configurations }}',
- '{{ application_id }}',
- '{{ display_name }}',
- '{{ principal }}',
-'{{ region }}';
+  '{{ action_configurations }}',
+  '{{ application_id }}',
+  '{{ display_name }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -317,22 +320,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.data_accessors (
- ActionConfigurations,
- ApplicationId,
- AuthenticationDetail,
- DisplayName,
- Principal,
- Tags,
- region
+  ActionConfigurations,
+  ApplicationId,
+  AuthenticationDetail,
+  DisplayName,
+  Principal,
+  Tags,
+  region
 )
 SELECT
- '{{ action_configurations }}',
- '{{ application_id }}',
- '{{ authentication_detail }}',
- '{{ display_name }}',
- '{{ principal }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ action_configurations }}',
+  '{{ application_id }}',
+  '{{ authentication_detail }}',
+  '{{ display_name }}',
+  '{{ principal }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -401,8 +404,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ data_accessor_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```
 
 
@@ -411,8 +415,9 @@ AND Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.data_accessors
-WHERE Identifier = '{{ application_id }}|{{ data_accessor_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ data_accessor_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -221,18 +221,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel_namespace</code>.
 ```sql
 SELECT
-region,
-api_id,
-name,
-subscribe_auth_modes,
-publish_auth_modes,
-code_handlers,
-code_s3_location,
-channel_namespace_arn,
-tags,
-handler_configs
+  region,
+  api_id,
+  name,
+  subscribe_auth_modes,
+  publish_auth_modes,
+  code_handlers,
+  code_s3_location,
+  channel_namespace_arn,
+  tags,
+  handler_configs
 FROM awscc.appsync.channel_namespaces
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_namespace_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_namespace_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -240,10 +242,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ channel_namespace_arn }}';
 Lists all <code>channel_namespaces</code> in a region.
 ```sql
 SELECT
-region,
-channel_namespace_arn
+  region,
+  channel_namespace_arn
 FROM awscc.appsync.channel_namespaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -265,14 +268,14 @@ Use the following StackQL query and manifest file to create a new <code>channel_
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.channel_namespaces (
- ApiId,
- Name,
- region
+  ApiId,
+  Name,
+  region
 )
 SELECT
-'{{ api_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -280,26 +283,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.channel_namespaces (
- ApiId,
- Name,
- SubscribeAuthModes,
- PublishAuthModes,
- CodeHandlers,
- CodeS3Location,
- Tags,
- HandlerConfigs,
- region
+  ApiId,
+  Name,
+  SubscribeAuthModes,
+  PublishAuthModes,
+  CodeHandlers,
+  CodeS3Location,
+  Tags,
+  HandlerConfigs,
+  region
 )
 SELECT
- '{{ api_id }}',
- '{{ name }}',
- '{{ subscribe_auth_modes }}',
- '{{ publish_auth_modes }}',
- '{{ code_handlers }}',
- '{{ code_s3_location }}',
- '{{ tags }}',
- '{{ handler_configs }}',
- '{{ region }}';
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ subscribe_auth_modes }}',
+  '{{ publish_auth_modes }}',
+  '{{ code_handlers }}',
+  '{{ code_s3_location }}',
+  '{{ tags }}',
+  '{{ handler_configs }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -361,8 +364,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "HandlerConfigs": handler_configs
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ channel_namespace_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ channel_namespace_arn }}';
 ```
 
 
@@ -371,8 +375,9 @@ AND Identifier = '{{ channel_namespace_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.channel_namespaces
-WHERE Identifier = '{{ channel_namespace_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_namespace_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

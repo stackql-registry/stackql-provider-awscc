@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hook_type_config</code>.
 ```sql
 SELECT
-region,
-type_arn,
-type_name,
-configuration_arn,
-configuration,
-configuration_alias
+  region,
+  type_arn,
+  type_name,
+  configuration_arn,
+  configuration,
+  configuration_alias
 FROM awscc.cloudformation.hook_type_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ configuration_arn }}';
 Lists all <code>hook_type_configs</code> in a region.
 ```sql
 SELECT
-region,
-configuration_arn
+  region,
+  configuration_arn
 FROM awscc.cloudformation.hook_type_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,18 +199,18 @@ Use the following StackQL query and manifest file to create a new <code>hook_typ
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.hook_type_configs (
- TypeArn,
- TypeName,
- Configuration,
- ConfigurationAlias,
- region
+  TypeArn,
+  TypeName,
+  Configuration,
+  ConfigurationAlias,
+  region
 )
 SELECT
-'{{ type_arn }}',
- '{{ type_name }}',
- '{{ configuration }}',
- '{{ configuration_alias }}',
-'{{ region }}';
+  '{{ type_arn }}',
+  '{{ type_name }}',
+  '{{ configuration }}',
+  '{{ configuration_alias }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -215,18 +218,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.hook_type_configs (
- TypeArn,
- TypeName,
- Configuration,
- ConfigurationAlias,
- region
+  TypeArn,
+  TypeName,
+  Configuration,
+  ConfigurationAlias,
+  region
 )
 SELECT
- '{{ type_arn }}',
- '{{ type_name }}',
- '{{ configuration }}',
- '{{ configuration_alias }}',
- '{{ region }}';
+  '{{ type_arn }}',
+  '{{ type_name }}',
+  '{{ configuration }}',
+  '{{ configuration_alias }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "TypeName": type_name,
     "Configuration": configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ configuration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ configuration_arn }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ configuration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.hook_type_configs
-WHERE Identifier = '{{ configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-resource_arn,
-revision_id,
-policy,
-id
+  region,
+  resource_arn,
+  revision_id,
+  policy,
+  id
 FROM awscc.lex.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>resource_policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.lex.resource_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,14 +188,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.resource_policies (
- ResourceArn,
- Policy,
- region
+  ResourceArn,
+  Policy,
+  region
 )
 SELECT
-'{{ resource_arn }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ resource_arn }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -200,14 +203,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.resource_policies (
- ResourceArn,
- Policy,
- region
+  ResourceArn,
+  Policy,
+  region
 )
 SELECT
- '{{ resource_arn }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ resource_arn }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -243,8 +246,9 @@ SET PatchDocument = string('{{ {
     "ResourceArn": resource_arn,
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -253,8 +257,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.resource_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -474,28 +474,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-architecture,
-name,
-release_label,
-type,
-initial_capacity,
-maximum_capacity,
-tags,
-auto_start_configuration,
-auto_stop_configuration,
-image_configuration,
-monitoring_configuration,
-runtime_configuration,
-interactive_configuration,
-network_configuration,
-arn,
-application_id,
-worker_type_specifications,
-scheduler_configuration,
-identity_center_configuration
+  region,
+  architecture,
+  name,
+  release_label,
+  type,
+  initial_capacity,
+  maximum_capacity,
+  tags,
+  auto_start_configuration,
+  auto_stop_configuration,
+  image_configuration,
+  monitoring_configuration,
+  runtime_configuration,
+  interactive_configuration,
+  network_configuration,
+  arn,
+  application_id,
+  worker_type_specifications,
+  scheduler_configuration,
+  identity_center_configuration
 FROM awscc.emrserverless.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -503,10 +505,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_id
+  region,
+  application_id
 FROM awscc.emrserverless.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -528,14 +531,14 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.emrserverless.applications (
- ReleaseLabel,
- Type,
- region
+  ReleaseLabel,
+  Type,
+  region
 )
 SELECT
-'{{ release_label }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ release_label }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -543,44 +546,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emrserverless.applications (
- Architecture,
- Name,
- ReleaseLabel,
- Type,
- InitialCapacity,
- MaximumCapacity,
- Tags,
- AutoStartConfiguration,
- AutoStopConfiguration,
- ImageConfiguration,
- MonitoringConfiguration,
- RuntimeConfiguration,
- InteractiveConfiguration,
- NetworkConfiguration,
- WorkerTypeSpecifications,
- SchedulerConfiguration,
- IdentityCenterConfiguration,
- region
+  Architecture,
+  Name,
+  ReleaseLabel,
+  Type,
+  InitialCapacity,
+  MaximumCapacity,
+  Tags,
+  AutoStartConfiguration,
+  AutoStopConfiguration,
+  ImageConfiguration,
+  MonitoringConfiguration,
+  RuntimeConfiguration,
+  InteractiveConfiguration,
+  NetworkConfiguration,
+  WorkerTypeSpecifications,
+  SchedulerConfiguration,
+  IdentityCenterConfiguration,
+  region
 )
 SELECT
- '{{ architecture }}',
- '{{ name }}',
- '{{ release_label }}',
- '{{ type }}',
- '{{ initial_capacity }}',
- '{{ maximum_capacity }}',
- '{{ tags }}',
- '{{ auto_start_configuration }}',
- '{{ auto_stop_configuration }}',
- '{{ image_configuration }}',
- '{{ monitoring_configuration }}',
- '{{ runtime_configuration }}',
- '{{ interactive_configuration }}',
- '{{ network_configuration }}',
- '{{ worker_type_specifications }}',
- '{{ scheduler_configuration }}',
- '{{ identity_center_configuration }}',
- '{{ region }}';
+  '{{ architecture }}',
+  '{{ name }}',
+  '{{ release_label }}',
+  '{{ type }}',
+  '{{ initial_capacity }}',
+  '{{ maximum_capacity }}',
+  '{{ tags }}',
+  '{{ auto_start_configuration }}',
+  '{{ auto_stop_configuration }}',
+  '{{ image_configuration }}',
+  '{{ monitoring_configuration }}',
+  '{{ runtime_configuration }}',
+  '{{ interactive_configuration }}',
+  '{{ network_configuration }}',
+  '{{ worker_type_specifications }}',
+  '{{ scheduler_configuration }}',
+  '{{ identity_center_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -693,8 +696,9 @@ SET PatchDocument = string('{{ {
     "SchedulerConfiguration": scheduler_configuration,
     "IdentityCenterConfiguration": identity_center_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}';
 ```
 
 
@@ -703,8 +707,9 @@ AND Identifier = '{{ application_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emrserverless.applications
-WHERE Identifier = '{{ application_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

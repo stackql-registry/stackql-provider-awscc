@@ -150,15 +150,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>metered_product</code>.
 ```sql
 SELECT
-region,
-license_endpoint_id,
-product_id,
-port,
-family,
-vendor,
-arn
+  region,
+  license_endpoint_id,
+  product_id,
+  port,
+  family,
+  vendor,
+  arn
 FROM awscc.deadline.metered_products
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>metered_products</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.deadline.metered_products_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>metered_
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.metered_products (
- LicenseEndpointId,
- ProductId,
- region
+  LicenseEndpointId,
+  ProductId,
+  region
 )
 SELECT
-'{{ license_endpoint_id }}',
- '{{ product_id }}',
-'{{ region }}';
+  '{{ license_endpoint_id }}',
+  '{{ product_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.metered_products (
- LicenseEndpointId,
- ProductId,
- region
+  LicenseEndpointId,
+  ProductId,
+  region
 )
 SELECT
- '{{ license_endpoint_id }}',
- '{{ product_id }}',
- '{{ region }}';
+  '{{ license_endpoint_id }}',
+  '{{ product_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.metered_products
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

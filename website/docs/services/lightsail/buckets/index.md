@@ -200,19 +200,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bucket</code>.
 ```sql
 SELECT
-region,
-bucket_name,
-bundle_id,
-bucket_arn,
-object_versioning,
-access_rules,
-resources_receiving_access,
-read_only_access_accounts,
-tags,
-url,
-able_to_update_bundle
+  region,
+  bucket_name,
+  bundle_id,
+  bucket_arn,
+  object_versioning,
+  access_rules,
+  resources_receiving_access,
+  read_only_access_accounts,
+  tags,
+  url,
+  able_to_update_bundle
 FROM awscc.lightsail.buckets
-WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 Lists all <code>buckets</code> in a region.
 ```sql
 SELECT
-region,
-bucket_name
+  region,
+  bucket_name
 FROM awscc.lightsail.buckets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>bucket</
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.buckets (
- BucketName,
- BundleId,
- region
+  BucketName,
+  BundleId,
+  region
 )
 SELECT
-'{{ bucket_name }}',
- '{{ bundle_id }}',
-'{{ region }}';
+  '{{ bucket_name }}',
+  '{{ bundle_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,24 +263,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.buckets (
- BucketName,
- BundleId,
- ObjectVersioning,
- AccessRules,
- ResourcesReceivingAccess,
- ReadOnlyAccessAccounts,
- Tags,
- region
+  BucketName,
+  BundleId,
+  ObjectVersioning,
+  AccessRules,
+  ResourcesReceivingAccess,
+  ReadOnlyAccessAccounts,
+  Tags,
+  region
 )
 SELECT
- '{{ bucket_name }}',
- '{{ bundle_id }}',
- '{{ object_versioning }}',
- '{{ access_rules }}',
- '{{ resources_receiving_access }}',
- '{{ read_only_access_accounts }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ bucket_name }}',
+  '{{ bundle_id }}',
+  '{{ object_versioning }}',
+  '{{ access_rules }}',
+  '{{ resources_receiving_access }}',
+  '{{ read_only_access_accounts }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "ReadOnlyAccessAccounts": read_only_access_accounts,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ bucket_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.buckets
-WHERE Identifier = '{{ bucket_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bucket_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

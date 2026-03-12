@@ -155,15 +155,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>named_query</code>.
 ```sql
 SELECT
-region,
-name,
-database,
-description,
-query_string,
-work_group,
-named_query_id
+  region,
+  name,
+  database,
+  description,
+  query_string,
+  work_group,
+  named_query_id
 FROM awscc.athena.named_queries
-WHERE region = 'us-east-1' AND Identifier = '{{ named_query_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ named_query_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ named_query_id }}';
 Lists all <code>named_queries</code> in a region.
 ```sql
 SELECT
-region,
-named_query_id
+  region,
+  named_query_id
 FROM awscc.athena.named_queries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,14 +199,14 @@ Use the following StackQL query and manifest file to create a new <code>named_qu
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.named_queries (
- Database,
- QueryString,
- region
+  Database,
+  QueryString,
+  region
 )
 SELECT
-'{{ database }}',
- '{{ query_string }}',
-'{{ region }}';
+  '{{ database }}',
+  '{{ query_string }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,20 +214,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.named_queries (
- Name,
- Database,
- Description,
- QueryString,
- WorkGroup,
- region
+  Name,
+  Database,
+  Description,
+  QueryString,
+  WorkGroup,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ database }}',
- '{{ description }}',
- '{{ query_string }}',
- '{{ work_group }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ database }}',
+  '{{ description }}',
+  '{{ query_string }}',
+  '{{ work_group }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -261,8 +264,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.named_queries
-WHERE Identifier = '{{ named_query_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ named_query_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

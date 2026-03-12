@@ -100,13 +100,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>registry_policy</code>.
 ```sql
 SELECT
-region,
-id,
-policy,
-registry_name,
-revision_id
+  region,
+  id,
+  policy,
+  registry_name,
+  revision_id
 FROM awscc.eventschemas.registry_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -126,14 +128,14 @@ Use the following StackQL query and manifest file to create a new <code>registry
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.registry_policies (
- Policy,
- RegistryName,
- region
+  Policy,
+  RegistryName,
+  region
 )
 SELECT
-'{{ policy }}',
- '{{ registry_name }}',
-'{{ region }}';
+  '{{ policy }}',
+  '{{ registry_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -141,16 +143,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.registry_policies (
- Policy,
- RegistryName,
- RevisionId,
- region
+  Policy,
+  RegistryName,
+  RevisionId,
+  region
 )
 SELECT
- '{{ policy }}',
- '{{ registry_name }}',
- '{{ revision_id }}',
- '{{ region }}';
+  '{{ policy }}',
+  '{{ registry_name }}',
+  '{{ revision_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -189,8 +191,9 @@ SET PatchDocument = string('{{ {
     "RegistryName": registry_name,
     "RevisionId": revision_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -199,8 +202,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.registry_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

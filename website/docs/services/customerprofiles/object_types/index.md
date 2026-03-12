@@ -271,24 +271,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>object_type</code>.
 ```sql
 SELECT
-region,
-domain_name,
-object_type_name,
-allow_profile_creation,
-description,
-encryption_key,
-expiration_days,
-fields,
-keys,
-created_at,
-last_updated_at,
-source_last_updated_timestamp_format,
-tags,
-template_id,
-max_profile_object_count,
-max_available_profile_object_count
+  region,
+  domain_name,
+  object_type_name,
+  allow_profile_creation,
+  description,
+  encryption_key,
+  expiration_days,
+  fields,
+  keys,
+  created_at,
+  last_updated_at,
+  source_last_updated_timestamp_format,
+  tags,
+  template_id,
+  max_profile_object_count,
+  max_available_profile_object_count
 FROM awscc.customerprofiles.object_types
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ object_type_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,11 +298,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ object_type_na
 Lists all <code>object_types</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-object_type_name
+  region,
+  domain_name,
+  object_type_name
 FROM awscc.customerprofiles.object_types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,16 +325,16 @@ Use the following StackQL query and manifest file to create a new <code>object_t
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.object_types (
- DomainName,
- ObjectTypeName,
- Description,
- region
+  DomainName,
+  ObjectTypeName,
+  Description,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ object_type_name }}',
- '{{ description }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ object_type_name }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -339,34 +342,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.object_types (
- DomainName,
- ObjectTypeName,
- AllowProfileCreation,
- Description,
- EncryptionKey,
- ExpirationDays,
- Fields,
- Keys,
- SourceLastUpdatedTimestampFormat,
- Tags,
- TemplateId,
- MaxProfileObjectCount,
- region
+  DomainName,
+  ObjectTypeName,
+  AllowProfileCreation,
+  Description,
+  EncryptionKey,
+  ExpirationDays,
+  Fields,
+  Keys,
+  SourceLastUpdatedTimestampFormat,
+  Tags,
+  TemplateId,
+  MaxProfileObjectCount,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ object_type_name }}',
- '{{ allow_profile_creation }}',
- '{{ description }}',
- '{{ encryption_key }}',
- '{{ expiration_days }}',
- '{{ fields }}',
- '{{ keys }}',
- '{{ source_last_updated_timestamp_format }}',
- '{{ tags }}',
- '{{ template_id }}',
- '{{ max_profile_object_count }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ object_type_name }}',
+  '{{ allow_profile_creation }}',
+  '{{ description }}',
+  '{{ encryption_key }}',
+  '{{ expiration_days }}',
+  '{{ fields }}',
+  '{{ keys }}',
+  '{{ source_last_updated_timestamp_format }}',
+  '{{ tags }}',
+  '{{ template_id }}',
+  '{{ max_profile_object_count }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -443,8 +446,9 @@ SET PatchDocument = string('{{ {
     "TemplateId": template_id,
     "MaxProfileObjectCount": max_profile_object_count
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ object_type_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```
 
 
@@ -453,8 +457,9 @@ AND Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.object_types
-WHERE Identifier = '{{ domain_name }}|{{ object_type_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ object_type_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

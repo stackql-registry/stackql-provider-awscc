@@ -486,38 +486,40 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_source_mapping</code>.
 ```sql
 SELECT
-region,
-id,
-batch_size,
-bisect_batch_on_function_error,
-destination_config,
-enabled,
-event_source_arn,
-event_source_mapping_arn,
-filter_criteria,
-kms_key_arn,
-function_name,
-maximum_batching_window_in_seconds,
-maximum_record_age_in_seconds,
-maximum_retry_attempts,
-parallelization_factor,
-starting_position,
-starting_position_timestamp,
-tags,
-topics,
-queues,
-source_access_configurations,
-tumbling_window_in_seconds,
-function_response_types,
-self_managed_event_source,
-amazon_managed_kafka_event_source_config,
-self_managed_kafka_event_source_config,
-scaling_config,
-document_db_event_source_config,
-provisioned_poller_config,
-metrics_config
+  region,
+  id,
+  batch_size,
+  bisect_batch_on_function_error,
+  destination_config,
+  enabled,
+  event_source_arn,
+  event_source_mapping_arn,
+  filter_criteria,
+  kms_key_arn,
+  function_name,
+  maximum_batching_window_in_seconds,
+  maximum_record_age_in_seconds,
+  maximum_retry_attempts,
+  parallelization_factor,
+  starting_position,
+  starting_position_timestamp,
+  tags,
+  topics,
+  queues,
+  source_access_configurations,
+  tumbling_window_in_seconds,
+  function_response_types,
+  self_managed_event_source,
+  amazon_managed_kafka_event_source_config,
+  self_managed_kafka_event_source_config,
+  scaling_config,
+  document_db_event_source_config,
+  provisioned_poller_config,
+  metrics_config
 FROM awscc.lambda.event_source_mappings
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -525,10 +527,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>event_source_mappings</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.lambda.event_source_mappings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -550,12 +553,12 @@ Use the following StackQL query and manifest file to create a new <code>event_so
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.event_source_mappings (
- FunctionName,
- region
+  FunctionName,
+  region
 )
 SELECT
-'{{ function_name }}',
-'{{ region }}';
+  '{{ function_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -563,64 +566,64 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.event_source_mappings (
- BatchSize,
- BisectBatchOnFunctionError,
- DestinationConfig,
- Enabled,
- EventSourceArn,
- FilterCriteria,
- KmsKeyArn,
- FunctionName,
- MaximumBatchingWindowInSeconds,
- MaximumRecordAgeInSeconds,
- MaximumRetryAttempts,
- ParallelizationFactor,
- StartingPosition,
- StartingPositionTimestamp,
- Tags,
- Topics,
- Queues,
- SourceAccessConfigurations,
- TumblingWindowInSeconds,
- FunctionResponseTypes,
- SelfManagedEventSource,
- AmazonManagedKafkaEventSourceConfig,
- SelfManagedKafkaEventSourceConfig,
- ScalingConfig,
- DocumentDBEventSourceConfig,
- ProvisionedPollerConfig,
- MetricsConfig,
- region
+  BatchSize,
+  BisectBatchOnFunctionError,
+  DestinationConfig,
+  Enabled,
+  EventSourceArn,
+  FilterCriteria,
+  KmsKeyArn,
+  FunctionName,
+  MaximumBatchingWindowInSeconds,
+  MaximumRecordAgeInSeconds,
+  MaximumRetryAttempts,
+  ParallelizationFactor,
+  StartingPosition,
+  StartingPositionTimestamp,
+  Tags,
+  Topics,
+  Queues,
+  SourceAccessConfigurations,
+  TumblingWindowInSeconds,
+  FunctionResponseTypes,
+  SelfManagedEventSource,
+  AmazonManagedKafkaEventSourceConfig,
+  SelfManagedKafkaEventSourceConfig,
+  ScalingConfig,
+  DocumentDBEventSourceConfig,
+  ProvisionedPollerConfig,
+  MetricsConfig,
+  region
 )
 SELECT
- '{{ batch_size }}',
- '{{ bisect_batch_on_function_error }}',
- '{{ destination_config }}',
- '{{ enabled }}',
- '{{ event_source_arn }}',
- '{{ filter_criteria }}',
- '{{ kms_key_arn }}',
- '{{ function_name }}',
- '{{ maximum_batching_window_in_seconds }}',
- '{{ maximum_record_age_in_seconds }}',
- '{{ maximum_retry_attempts }}',
- '{{ parallelization_factor }}',
- '{{ starting_position }}',
- '{{ starting_position_timestamp }}',
- '{{ tags }}',
- '{{ topics }}',
- '{{ queues }}',
- '{{ source_access_configurations }}',
- '{{ tumbling_window_in_seconds }}',
- '{{ function_response_types }}',
- '{{ self_managed_event_source }}',
- '{{ amazon_managed_kafka_event_source_config }}',
- '{{ self_managed_kafka_event_source_config }}',
- '{{ scaling_config }}',
- '{{ document_db_event_source_config }}',
- '{{ provisioned_poller_config }}',
- '{{ metrics_config }}',
- '{{ region }}';
+  '{{ batch_size }}',
+  '{{ bisect_batch_on_function_error }}',
+  '{{ destination_config }}',
+  '{{ enabled }}',
+  '{{ event_source_arn }}',
+  '{{ filter_criteria }}',
+  '{{ kms_key_arn }}',
+  '{{ function_name }}',
+  '{{ maximum_batching_window_in_seconds }}',
+  '{{ maximum_record_age_in_seconds }}',
+  '{{ maximum_retry_attempts }}',
+  '{{ parallelization_factor }}',
+  '{{ starting_position }}',
+  '{{ starting_position_timestamp }}',
+  '{{ tags }}',
+  '{{ topics }}',
+  '{{ queues }}',
+  '{{ source_access_configurations }}',
+  '{{ tumbling_window_in_seconds }}',
+  '{{ function_response_types }}',
+  '{{ self_managed_event_source }}',
+  '{{ amazon_managed_kafka_event_source_config }}',
+  '{{ self_managed_kafka_event_source_config }}',
+  '{{ scaling_config }}',
+  '{{ document_db_event_source_config }}',
+  '{{ provisioned_poller_config }}',
+  '{{ metrics_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -760,8 +763,9 @@ SET PatchDocument = string('{{ {
     "ProvisionedPollerConfig": provisioned_poller_config,
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -770,8 +774,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_source_mappings
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

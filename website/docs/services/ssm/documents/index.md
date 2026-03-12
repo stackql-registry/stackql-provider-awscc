@@ -217,19 +217,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>document</code>.
 ```sql
 SELECT
-region,
-content,
-attachments,
-name,
-version_name,
-document_type,
-document_format,
-target_type,
-tags,
-requires,
-update_method
+  region,
+  content,
+  attachments,
+  name,
+  version_name,
+  document_type,
+  document_format,
+  target_type,
+  tags,
+  requires,
+  update_method
 FROM awscc.ssm.documents
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>documents</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.ssm.documents_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,12 +265,12 @@ Use the following StackQL query and manifest file to create a new <code>document
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.documents (
- Content,
- region
+  Content,
+  region
 )
 SELECT
-'{{ content }}',
-'{{ region }}';
+  '{{ content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,30 +278,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.documents (
- Content,
- Attachments,
- Name,
- VersionName,
- DocumentType,
- DocumentFormat,
- TargetType,
- Tags,
- Requires,
- UpdateMethod,
- region
+  Content,
+  Attachments,
+  Name,
+  VersionName,
+  DocumentType,
+  DocumentFormat,
+  TargetType,
+  Tags,
+  Requires,
+  UpdateMethod,
+  region
 )
 SELECT
- '{{ content }}',
- '{{ attachments }}',
- '{{ name }}',
- '{{ version_name }}',
- '{{ document_type }}',
- '{{ document_format }}',
- '{{ target_type }}',
- '{{ tags }}',
- '{{ requires }}',
- '{{ update_method }}',
- '{{ region }}';
+  '{{ content }}',
+  '{{ attachments }}',
+  '{{ name }}',
+  '{{ version_name }}',
+  '{{ document_type }}',
+  '{{ document_format }}',
+  '{{ target_type }}',
+  '{{ tags }}',
+  '{{ requires }}',
+  '{{ update_method }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "Requires": requires,
     "UpdateMethod": update_method
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.documents
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

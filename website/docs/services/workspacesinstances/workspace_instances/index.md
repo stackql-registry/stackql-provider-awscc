@@ -604,14 +604,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workspace_instance</code>.
 ```sql
 SELECT
-region,
-managed_instance,
-tags,
-workspace_instance_id,
-provision_state,
-e_c2_managed_instance
+  region,
+  managed_instance,
+  tags,
+  workspace_instance_id,
+  provision_state,
+  e_c2_managed_instance
 FROM awscc.workspacesinstances.workspace_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -619,10 +621,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}';
 Lists all <code>workspace_instances</code> in a region.
 ```sql
 SELECT
-region,
-workspace_instance_id
+  region,
+  workspace_instance_id
 FROM awscc.workspacesinstances.workspace_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -644,12 +647,12 @@ Use the following StackQL query and manifest file to create a new <code>workspac
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.workspace_instances (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -657,14 +660,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.workspace_instances (
- ManagedInstance,
- Tags,
- region
+  ManagedInstance,
+  Tags,
+  region
 )
 SELECT
- '{{ managed_instance }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ managed_instance }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -779,8 +782,9 @@ UPDATE awscc.workspacesinstances.workspace_instances
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_instance_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_instance_id }}';
 ```
 
 
@@ -789,8 +793,9 @@ AND Identifier = '{{ workspace_instance_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.workspace_instances
-WHERE Identifier = '{{ workspace_instance_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_instance_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

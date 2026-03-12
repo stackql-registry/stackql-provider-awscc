@@ -274,18 +274,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT
-region,
-action,
-arn,
-id,
-listener_identifier,
-match,
-name,
-priority,
-service_identifier,
-tags
+  region,
+  action,
+  arn,
+  id,
+  listener_identifier,
+  match,
+  name,
+  priority,
+  service_identifier,
+  tags
 FROM awscc.vpclattice.rules
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,10 +295,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rules</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -318,16 +321,16 @@ Use the following StackQL query and manifest file to create a new <code>rule</co
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.rules (
- Action,
- Match,
- Priority,
- region
+  Action,
+  Match,
+  Priority,
+  region
 )
 SELECT
-'{{ action }}',
- '{{ match }}',
- '{{ priority }}',
-'{{ region }}';
+  '{{ action }}',
+  '{{ match }}',
+  '{{ priority }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -335,24 +338,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.rules (
- Action,
- ListenerIdentifier,
- Match,
- Name,
- Priority,
- ServiceIdentifier,
- Tags,
- region
+  Action,
+  ListenerIdentifier,
+  Match,
+  Name,
+  Priority,
+  ServiceIdentifier,
+  Tags,
+  region
 )
 SELECT
- '{{ action }}',
- '{{ listener_identifier }}',
- '{{ match }}',
- '{{ name }}',
- '{{ priority }}',
- '{{ service_identifier }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ action }}',
+  '{{ listener_identifier }}',
+  '{{ match }}',
+  '{{ name }}',
+  '{{ priority }}',
+  '{{ service_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -422,8 +425,9 @@ SET PatchDocument = string('{{ {
     "Priority": priority,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -432,8 +436,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.rules
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

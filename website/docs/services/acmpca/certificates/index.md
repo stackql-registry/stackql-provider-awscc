@@ -375,18 +375,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate</code>.
 ```sql
 SELECT
-region,
-api_passthrough,
-certificate_authority_arn,
-certificate_signing_request,
-signing_algorithm,
-template_arn,
-validity,
-validity_not_before,
-certificate,
-arn
+  region,
+  api_passthrough,
+  certificate_authority_arn,
+  certificate_signing_request,
+  signing_algorithm,
+  template_arn,
+  validity,
+  validity_not_before,
+  certificate,
+  arn
 FROM awscc.acmpca.certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ certificate_authority_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}|{{ certificate_authority_arn }}';
 ```
 
 ## `INSERT` example
@@ -406,18 +408,18 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificates (
- CertificateAuthorityArn,
- CertificateSigningRequest,
- SigningAlgorithm,
- Validity,
- region
+  CertificateAuthorityArn,
+  CertificateSigningRequest,
+  SigningAlgorithm,
+  Validity,
+  region
 )
 SELECT
-'{{ certificate_authority_arn }}',
- '{{ certificate_signing_request }}',
- '{{ signing_algorithm }}',
- '{{ validity }}',
-'{{ region }}';
+  '{{ certificate_authority_arn }}',
+  '{{ certificate_signing_request }}',
+  '{{ signing_algorithm }}',
+  '{{ validity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -425,24 +427,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificates (
- ApiPassthrough,
- CertificateAuthorityArn,
- CertificateSigningRequest,
- SigningAlgorithm,
- TemplateArn,
- Validity,
- ValidityNotBefore,
- region
+  ApiPassthrough,
+  CertificateAuthorityArn,
+  CertificateSigningRequest,
+  SigningAlgorithm,
+  TemplateArn,
+  Validity,
+  ValidityNotBefore,
+  region
 )
 SELECT
- '{{ api_passthrough }}',
- '{{ certificate_authority_arn }}',
- '{{ certificate_signing_request }}',
- '{{ signing_algorithm }}',
- '{{ template_arn }}',
- '{{ validity }}',
- '{{ validity_not_before }}',
- '{{ region }}';
+  '{{ api_passthrough }}',
+  '{{ certificate_authority_arn }}',
+  '{{ certificate_signing_request }}',
+  '{{ signing_algorithm }}',
+  '{{ template_arn }}',
+  '{{ validity }}',
+  '{{ validity_not_before }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -540,8 +542,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificates
-WHERE Identifier = '{{ arn }}|{{ certificate_authority_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}|{{ certificate_authority_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -257,19 +257,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT
-region,
-access_role,
-as2_config,
-sftp_config,
-arn,
-connector_id,
-logging_role,
-service_managed_egress_ip_addresses,
-tags,
-url,
-security_policy_name
+  region,
+  access_role,
+  as2_config,
+  sftp_config,
+  arn,
+  connector_id,
+  logging_role,
+  service_managed_egress_ip_addresses,
+  tags,
+  url,
+  security_policy_name
 FROM awscc.transfer.connectors
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,10 +279,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_id }}';
 Lists all <code>connectors</code> in a region.
 ```sql
 SELECT
-region,
-connector_id
+  region,
+  connector_id
 FROM awscc.transfer.connectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -302,14 +305,14 @@ Use the following StackQL query and manifest file to create a new <code>connecto
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.connectors (
- AccessRole,
- Url,
- region
+  AccessRole,
+  Url,
+  region
 )
 SELECT
-'{{ access_role }}',
- '{{ url }}',
-'{{ region }}';
+  '{{ access_role }}',
+  '{{ url }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -317,24 +320,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.connectors (
- AccessRole,
- As2Config,
- SftpConfig,
- LoggingRole,
- Tags,
- Url,
- SecurityPolicyName,
- region
+  AccessRole,
+  As2Config,
+  SftpConfig,
+  LoggingRole,
+  Tags,
+  Url,
+  SecurityPolicyName,
+  region
 )
 SELECT
- '{{ access_role }}',
- '{{ as2_config }}',
- '{{ sftp_config }}',
- '{{ logging_role }}',
- '{{ tags }}',
- '{{ url }}',
- '{{ security_policy_name }}',
- '{{ region }}';
+  '{{ access_role }}',
+  '{{ as2_config }}',
+  '{{ sftp_config }}',
+  '{{ logging_role }}',
+  '{{ tags }}',
+  '{{ url }}',
+  '{{ security_policy_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -401,8 +404,9 @@ SET PatchDocument = string('{{ {
     "Url": url,
     "SecurityPolicyName": security_policy_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connector_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connector_id }}';
 ```
 
 
@@ -411,8 +415,9 @@ AND Identifier = '{{ connector_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.connectors
-WHERE Identifier = '{{ connector_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

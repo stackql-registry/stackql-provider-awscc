@@ -1253,36 +1253,38 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bucket</code>.
 ```sql
 SELECT
-region,
-accelerate_configuration,
-access_control,
-analytics_configurations,
-bucket_encryption,
-bucket_name,
-cors_configuration,
-intelligent_tiering_configurations,
-inventory_configurations,
-lifecycle_configuration,
-logging_configuration,
-metrics_configurations,
-metadata_table_configuration,
-metadata_configuration,
-notification_configuration,
-object_lock_configuration,
-object_lock_enabled,
-ownership_controls,
-public_access_block_configuration,
-replication_configuration,
-tags,
-versioning_configuration,
-website_configuration,
-arn,
-domain_name,
-dual_stack_domain_name,
-regional_domain_name,
-website_url
+  region,
+  accelerate_configuration,
+  access_control,
+  analytics_configurations,
+  bucket_encryption,
+  bucket_name,
+  cors_configuration,
+  intelligent_tiering_configurations,
+  inventory_configurations,
+  lifecycle_configuration,
+  logging_configuration,
+  metrics_configurations,
+  metadata_table_configuration,
+  metadata_configuration,
+  notification_configuration,
+  object_lock_configuration,
+  object_lock_enabled,
+  ownership_controls,
+  public_access_block_configuration,
+  replication_configuration,
+  tags,
+  versioning_configuration,
+  website_configuration,
+  arn,
+  domain_name,
+  dual_stack_domain_name,
+  regional_domain_name,
+  website_url
 FROM awscc.s3.buckets
-WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1290,10 +1292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 Lists all <code>buckets</code> in a region.
 ```sql
 SELECT
-region,
-bucket_name
+  region,
+  bucket_name
 FROM awscc.s3.buckets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1315,12 +1318,12 @@ Use the following StackQL query and manifest file to create a new <code>bucket</
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.buckets (
- BucketName,
- region
+  BucketName,
+  region
 )
 SELECT
-'{{ bucket_name }}',
-'{{ region }}';
+  '{{ bucket_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1328,54 +1331,54 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.buckets (
- AccelerateConfiguration,
- AccessControl,
- AnalyticsConfigurations,
- BucketEncryption,
- BucketName,
- CorsConfiguration,
- IntelligentTieringConfigurations,
- InventoryConfigurations,
- LifecycleConfiguration,
- LoggingConfiguration,
- MetricsConfigurations,
- MetadataTableConfiguration,
- MetadataConfiguration,
- NotificationConfiguration,
- ObjectLockConfiguration,
- ObjectLockEnabled,
- OwnershipControls,
- PublicAccessBlockConfiguration,
- ReplicationConfiguration,
- Tags,
- VersioningConfiguration,
- WebsiteConfiguration,
- region
+  AccelerateConfiguration,
+  AccessControl,
+  AnalyticsConfigurations,
+  BucketEncryption,
+  BucketName,
+  CorsConfiguration,
+  IntelligentTieringConfigurations,
+  InventoryConfigurations,
+  LifecycleConfiguration,
+  LoggingConfiguration,
+  MetricsConfigurations,
+  MetadataTableConfiguration,
+  MetadataConfiguration,
+  NotificationConfiguration,
+  ObjectLockConfiguration,
+  ObjectLockEnabled,
+  OwnershipControls,
+  PublicAccessBlockConfiguration,
+  ReplicationConfiguration,
+  Tags,
+  VersioningConfiguration,
+  WebsiteConfiguration,
+  region
 )
 SELECT
- '{{ accelerate_configuration }}',
- '{{ access_control }}',
- '{{ analytics_configurations }}',
- '{{ bucket_encryption }}',
- '{{ bucket_name }}',
- '{{ cors_configuration }}',
- '{{ intelligent_tiering_configurations }}',
- '{{ inventory_configurations }}',
- '{{ lifecycle_configuration }}',
- '{{ logging_configuration }}',
- '{{ metrics_configurations }}',
- '{{ metadata_table_configuration }}',
- '{{ metadata_configuration }}',
- '{{ notification_configuration }}',
- '{{ object_lock_configuration }}',
- '{{ object_lock_enabled }}',
- '{{ ownership_controls }}',
- '{{ public_access_block_configuration }}',
- '{{ replication_configuration }}',
- '{{ tags }}',
- '{{ versioning_configuration }}',
- '{{ website_configuration }}',
- '{{ region }}';
+  '{{ accelerate_configuration }}',
+  '{{ access_control }}',
+  '{{ analytics_configurations }}',
+  '{{ bucket_encryption }}',
+  '{{ bucket_name }}',
+  '{{ cors_configuration }}',
+  '{{ intelligent_tiering_configurations }}',
+  '{{ inventory_configurations }}',
+  '{{ lifecycle_configuration }}',
+  '{{ logging_configuration }}',
+  '{{ metrics_configurations }}',
+  '{{ metadata_table_configuration }}',
+  '{{ metadata_configuration }}',
+  '{{ notification_configuration }}',
+  '{{ object_lock_configuration }}',
+  '{{ object_lock_enabled }}',
+  '{{ ownership_controls }}',
+  '{{ public_access_block_configuration }}',
+  '{{ replication_configuration }}',
+  '{{ tags }}',
+  '{{ versioning_configuration }}',
+  '{{ website_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1665,8 +1668,9 @@ SET PatchDocument = string('{{ {
     "VersioningConfiguration": versioning_configuration,
     "WebsiteConfiguration": website_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -1675,8 +1679,9 @@ AND Identifier = '{{ bucket_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.buckets
-WHERE Identifier = '{{ bucket_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bucket_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

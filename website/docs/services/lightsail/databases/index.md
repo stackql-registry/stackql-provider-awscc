@@ -260,25 +260,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>database</code>.
 ```sql
 SELECT
-region,
-relational_database_name,
-database_arn,
-availability_zone,
-relational_database_blueprint_id,
-relational_database_bundle_id,
-master_database_name,
-master_username,
-master_user_password,
-preferred_backup_window,
-preferred_maintenance_window,
-publicly_accessible,
-ca_certificate_identifier,
-backup_retention,
-rotate_master_user_password,
-relational_database_parameters,
-tags
+  region,
+  relational_database_name,
+  database_arn,
+  availability_zone,
+  relational_database_blueprint_id,
+  relational_database_bundle_id,
+  master_database_name,
+  master_username,
+  master_user_password,
+  preferred_backup_window,
+  preferred_maintenance_window,
+  publicly_accessible,
+  ca_certificate_identifier,
+  backup_retention,
+  rotate_master_user_password,
+  relational_database_parameters,
+  tags
 FROM awscc.lightsail.databases
-WHERE region = 'us-east-1' AND Identifier = '{{ relational_database_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ relational_database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,10 +288,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ relational_database_name }}';
 Lists all <code>databases</code> in a region.
 ```sql
 SELECT
-region,
-relational_database_name
+  region,
+  relational_database_name
 FROM awscc.lightsail.databases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -311,20 +314,20 @@ Use the following StackQL query and manifest file to create a new <code>database
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.databases (
- RelationalDatabaseName,
- RelationalDatabaseBlueprintId,
- RelationalDatabaseBundleId,
- MasterDatabaseName,
- MasterUsername,
- region
+  RelationalDatabaseName,
+  RelationalDatabaseBlueprintId,
+  RelationalDatabaseBundleId,
+  MasterDatabaseName,
+  MasterUsername,
+  region
 )
 SELECT
-'{{ relational_database_name }}',
- '{{ relational_database_blueprint_id }}',
- '{{ relational_database_bundle_id }}',
- '{{ master_database_name }}',
- '{{ master_username }}',
-'{{ region }}';
+  '{{ relational_database_name }}',
+  '{{ relational_database_blueprint_id }}',
+  '{{ relational_database_bundle_id }}',
+  '{{ master_database_name }}',
+  '{{ master_username }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -332,40 +335,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.databases (
- RelationalDatabaseName,
- AvailabilityZone,
- RelationalDatabaseBlueprintId,
- RelationalDatabaseBundleId,
- MasterDatabaseName,
- MasterUsername,
- MasterUserPassword,
- PreferredBackupWindow,
- PreferredMaintenanceWindow,
- PubliclyAccessible,
- CaCertificateIdentifier,
- BackupRetention,
- RotateMasterUserPassword,
- RelationalDatabaseParameters,
- Tags,
- region
+  RelationalDatabaseName,
+  AvailabilityZone,
+  RelationalDatabaseBlueprintId,
+  RelationalDatabaseBundleId,
+  MasterDatabaseName,
+  MasterUsername,
+  MasterUserPassword,
+  PreferredBackupWindow,
+  PreferredMaintenanceWindow,
+  PubliclyAccessible,
+  CaCertificateIdentifier,
+  BackupRetention,
+  RotateMasterUserPassword,
+  RelationalDatabaseParameters,
+  Tags,
+  region
 )
 SELECT
- '{{ relational_database_name }}',
- '{{ availability_zone }}',
- '{{ relational_database_blueprint_id }}',
- '{{ relational_database_bundle_id }}',
- '{{ master_database_name }}',
- '{{ master_username }}',
- '{{ master_user_password }}',
- '{{ preferred_backup_window }}',
- '{{ preferred_maintenance_window }}',
- '{{ publicly_accessible }}',
- '{{ ca_certificate_identifier }}',
- '{{ backup_retention }}',
- '{{ rotate_master_user_password }}',
- '{{ relational_database_parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ relational_database_name }}',
+  '{{ availability_zone }}',
+  '{{ relational_database_blueprint_id }}',
+  '{{ relational_database_bundle_id }}',
+  '{{ master_database_name }}',
+  '{{ master_username }}',
+  '{{ master_user_password }}',
+  '{{ preferred_backup_window }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ publicly_accessible }}',
+  '{{ ca_certificate_identifier }}',
+  '{{ backup_retention }}',
+  '{{ rotate_master_user_password }}',
+  '{{ relational_database_parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -444,8 +447,9 @@ SET PatchDocument = string('{{ {
     "RelationalDatabaseParameters": relational_database_parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ relational_database_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ relational_database_name }}';
 ```
 
 
@@ -454,8 +458,9 @@ AND Identifier = '{{ relational_database_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.databases
-WHERE Identifier = '{{ relational_database_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ relational_database_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

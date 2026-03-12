@@ -207,16 +207,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trust_anchor</code>.
 ```sql
 SELECT
-region,
-enabled,
-name,
-notification_settings,
-source,
-tags,
-trust_anchor_id,
-trust_anchor_arn
+  region,
+  enabled,
+  name,
+  notification_settings,
+  source,
+  tags,
+  trust_anchor_id,
+  trust_anchor_arn
 FROM awscc.rolesanywhere.trust_anchors
-WHERE region = 'us-east-1' AND Identifier = '{{ trust_anchor_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ trust_anchor_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,10 +226,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ trust_anchor_id }}';
 Lists all <code>trust_anchors</code> in a region.
 ```sql
 SELECT
-region,
-trust_anchor_id
+  region,
+  trust_anchor_id
 FROM awscc.rolesanywhere.trust_anchors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -249,14 +252,14 @@ Use the following StackQL query and manifest file to create a new <code>trust_an
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.trust_anchors (
- Name,
- Source,
- region
+  Name,
+  Source,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ source }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,20 +267,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.trust_anchors (
- Enabled,
- Name,
- NotificationSettings,
- Source,
- Tags,
- region
+  Enabled,
+  Name,
+  NotificationSettings,
+  Source,
+  Tags,
+  region
 )
 SELECT
- '{{ enabled }}',
- '{{ name }}',
- '{{ notification_settings }}',
- '{{ source }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ enabled }}',
+  '{{ name }}',
+  '{{ notification_settings }}',
+  '{{ source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -330,8 +333,9 @@ SET PatchDocument = string('{{ {
     "Source": source,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ trust_anchor_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ trust_anchor_id }}';
 ```
 
 
@@ -340,8 +344,9 @@ AND Identifier = '{{ trust_anchor_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.trust_anchors
-WHERE Identifier = '{{ trust_anchor_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ trust_anchor_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

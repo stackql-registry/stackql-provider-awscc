@@ -425,31 +425,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>canary</code>.
 ```sql
 SELECT
-region,
-name,
-id,
-state,
-code,
-artifact_s3_location,
-artifact_config,
-schedule,
-execution_role_arn,
-runtime_version,
-success_retention_period,
-failure_retention_period,
-tags,
-vpc_config,
-run_config,
-start_canary_after_creation,
-visual_reference,
-delete_lambda_resources_on_canary_deletion,
-resources_to_replicate_tags,
-provisioned_resource_cleanup,
-dry_run_and_update,
-browser_configs,
-visual_references
+  region,
+  name,
+  id,
+  state,
+  code,
+  artifact_s3_location,
+  artifact_config,
+  schedule,
+  execution_role_arn,
+  runtime_version,
+  success_retention_period,
+  failure_retention_period,
+  tags,
+  vpc_config,
+  run_config,
+  start_canary_after_creation,
+  visual_reference,
+  delete_lambda_resources_on_canary_deletion,
+  resources_to_replicate_tags,
+  provisioned_resource_cleanup,
+  dry_run_and_update,
+  browser_configs,
+  visual_references
 FROM awscc.synthetics.canaries
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -457,10 +459,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>canaries</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.synthetics.canaries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -482,22 +485,22 @@ Use the following StackQL query and manifest file to create a new <code>canary</
 ```sql
 /*+ create */
 INSERT INTO awscc.synthetics.canaries (
- Name,
- Code,
- ArtifactS3Location,
- Schedule,
- ExecutionRoleArn,
- RuntimeVersion,
- region
+  Name,
+  Code,
+  ArtifactS3Location,
+  Schedule,
+  ExecutionRoleArn,
+  RuntimeVersion,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ code }}',
- '{{ artifact_s3_location }}',
- '{{ schedule }}',
- '{{ execution_role_arn }}',
- '{{ runtime_version }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ code }}',
+  '{{ artifact_s3_location }}',
+  '{{ schedule }}',
+  '{{ execution_role_arn }}',
+  '{{ runtime_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -505,50 +508,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.synthetics.canaries (
- Name,
- Code,
- ArtifactS3Location,
- ArtifactConfig,
- Schedule,
- ExecutionRoleArn,
- RuntimeVersion,
- SuccessRetentionPeriod,
- FailureRetentionPeriod,
- Tags,
- VPCConfig,
- RunConfig,
- StartCanaryAfterCreation,
- VisualReference,
- DeleteLambdaResourcesOnCanaryDeletion,
- ResourcesToReplicateTags,
- ProvisionedResourceCleanup,
- DryRunAndUpdate,
- BrowserConfigs,
- VisualReferences,
- region
+  Name,
+  Code,
+  ArtifactS3Location,
+  ArtifactConfig,
+  Schedule,
+  ExecutionRoleArn,
+  RuntimeVersion,
+  SuccessRetentionPeriod,
+  FailureRetentionPeriod,
+  Tags,
+  VPCConfig,
+  RunConfig,
+  StartCanaryAfterCreation,
+  VisualReference,
+  DeleteLambdaResourcesOnCanaryDeletion,
+  ResourcesToReplicateTags,
+  ProvisionedResourceCleanup,
+  DryRunAndUpdate,
+  BrowserConfigs,
+  VisualReferences,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ code }}',
- '{{ artifact_s3_location }}',
- '{{ artifact_config }}',
- '{{ schedule }}',
- '{{ execution_role_arn }}',
- '{{ runtime_version }}',
- '{{ success_retention_period }}',
- '{{ failure_retention_period }}',
- '{{ tags }}',
- '{{ vpc_config }}',
- '{{ run_config }}',
- '{{ start_canary_after_creation }}',
- '{{ visual_reference }}',
- '{{ delete_lambda_resources_on_canary_deletion }}',
- '{{ resources_to_replicate_tags }}',
- '{{ provisioned_resource_cleanup }}',
- '{{ dry_run_and_update }}',
- '{{ browser_configs }}',
- '{{ visual_references }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ code }}',
+  '{{ artifact_s3_location }}',
+  '{{ artifact_config }}',
+  '{{ schedule }}',
+  '{{ execution_role_arn }}',
+  '{{ runtime_version }}',
+  '{{ success_retention_period }}',
+  '{{ failure_retention_period }}',
+  '{{ tags }}',
+  '{{ vpc_config }}',
+  '{{ run_config }}',
+  '{{ start_canary_after_creation }}',
+  '{{ visual_reference }}',
+  '{{ delete_lambda_resources_on_canary_deletion }}',
+  '{{ resources_to_replicate_tags }}',
+  '{{ provisioned_resource_cleanup }}',
+  '{{ dry_run_and_update }}',
+  '{{ browser_configs }}',
+  '{{ visual_references }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -674,8 +677,9 @@ SET PatchDocument = string('{{ {
     "BrowserConfigs": browser_configs,
     "VisualReferences": visual_references
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -684,8 +688,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.synthetics.canaries
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

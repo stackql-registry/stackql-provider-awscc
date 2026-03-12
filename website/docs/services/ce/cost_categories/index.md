@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cost_category</code>.
 ```sql
 SELECT
-region,
-arn,
-effective_start,
-name,
-rule_version,
-rules,
-split_charge_rules,
-default_value,
-tags
+  region,
+  arn,
+  effective_start,
+  name,
+  rule_version,
+  rules,
+  split_charge_rules,
+  default_value,
+  tags
 FROM awscc.ce.cost_categories
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>cost_categories</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ce.cost_categories_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>cost_cat
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.cost_categories (
- Name,
- RuleVersion,
- Rules,
- region
+  Name,
+  RuleVersion,
+  Rules,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ rule_version }}',
- '{{ rules }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ rule_version }}',
+  '{{ rules }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,22 +241,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.cost_categories (
- Name,
- RuleVersion,
- Rules,
- SplitChargeRules,
- DefaultValue,
- Tags,
- region
+  Name,
+  RuleVersion,
+  Rules,
+  SplitChargeRules,
+  DefaultValue,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ rule_version }}',
- '{{ rules }}',
- '{{ split_charge_rules }}',
- '{{ default_value }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ rule_version }}',
+  '{{ rules }}',
+  '{{ split_charge_rules }}',
+  '{{ default_value }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -302,8 +305,9 @@ SET PatchDocument = string('{{ {
     "DefaultValue": default_value,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -312,8 +316,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.cost_categories
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

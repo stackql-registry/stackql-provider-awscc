@@ -17,6 +17,7 @@ const __dirname = dirname(__filename);
 const providerName = 'awscc';
 const providerDirName = 'awscc'; // Directory name differs from provider name
 const staticServices = [];
+const nativeServices = ['cloud_control', 'tagging'];
 const websiteDir = '../website';
 const providerDevDir = '../provider-dev';
 const openAPIdir = '../openapi';
@@ -69,7 +70,9 @@ async function createDocsForService(yamlFilePath) {
         const schema = data.components.schemas[schemaName] || {};
         const componentsSchemas = data.components.schemas;
 
-        resources.push({ name: resourceName, type: methodType, identifiers: identifiers, schemaName, schema, componentsSchemas, resourceData, schemaTypeName });
+        const servicePaths = data.paths || {};
+        const serviceResources = data.components['x-stackQL-resources'] || {};
+        resources.push({ name: resourceName, type: methodType, identifiers: identifiers, schemaName, schema, componentsSchemas, servicePaths, serviceResources, resourceData, schemaTypeName });
     }
 
     // Build map of _list_only resources to their base resources
@@ -102,7 +105,7 @@ async function createDocsForService(yamlFilePath) {
         }
 
         const resourceIndexPath = path.join(resourceFolder, 'index.md');
-        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
+        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.servicePaths, resource.serviceResources, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
         fs.writeFileSync(resourceIndexPath, resourceIndexContent);
     });
 
@@ -113,7 +116,7 @@ async function createDocsForService(yamlFilePath) {
         }
 
         const resourceIndexPath = path.join(resourceFolder, 'index.md');
-        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
+        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.servicePaths, resource.serviceResources, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
 
         try {
             fs.writeFileSync(resourceIndexPath, resourceIndexContent);
@@ -433,7 +436,78 @@ ${codeBlockEnd}
 </Tabs>`;
 }
 
-function createResourceIndexContent(serviceName, resourceName, resourceType, resourceIdentifiers, schemaName, schema, componentsSchemas, resourceData, schemaTypeName, listOnlyResource) {
+// Resolve the response schema for a schema-less native resource (e.g. tagging).
+// Follows: select sqlVerb $ref → method → operation $ref → path → POST response 200 → schema.
+// If the method has an objectKey (e.g. $.ResourceTagMappingList), unwraps the array items schema.
+function resolveNativeResponseSchema(resourceData, servicePaths, componentsSchemas) {
+    try {
+        const selectRefs = resourceData?.sqlVerbs?.select;
+        if (!selectRefs || !selectRefs.length) return null;
+
+        const methodRef = selectRefs[0]?.$ref;
+        if (!methodRef) return null;
+
+        // $ref is like '#/components/x-stackQL-resources/report_creation/methods/describe_report_creation'
+        const methodName = methodRef.split('/').pop();
+        const method = resourceData.methods?.[methodName];
+        if (!method) return null;
+
+        const opRef = method.operation?.$ref;
+        if (!opRef) return null;
+
+        // opRef is like '#/paths/~1?..../post' — extract path key and HTTP verb
+        const opRefParts = opRef.replace('#/paths/', '').split('/');
+        const pathKey = decodeURIComponent(opRefParts.slice(0, -1).join('/').replace(/~1/g, '/').replace(/~0/g, '~'));
+        const httpVerb = opRefParts[opRefParts.length - 1];
+
+        const operation = servicePaths?.[pathKey]?.[httpVerb];
+        if (!operation) return null;
+
+        // Get the 200 response schema ref
+        const responseContent = operation.responses?.['200']?.content;
+        if (!responseContent) return null;
+        const mediaType = Object.keys(responseContent)[0];
+        const schemaRef = responseContent[mediaType]?.schema?.$ref;
+        if (!schemaRef) return null;
+
+        const responseSchemaName = schemaRef.split('/').pop();
+        let responseSchema = componentsSchemas[responseSchemaName];
+        if (!responseSchema) return null;
+
+        // If the method has an objectKey like $.ResourceTagMappingList, resolve that property's items
+        const objectKey = method.response?.objectKey;
+        if (objectKey) {
+            const propName = objectKey.replace(/^\$\./, '');
+            const propDef = responseSchema.properties?.[propName];
+            if (propDef) {
+                let itemsRef = propDef.items?.$ref || propDef.allOf?.[0]?.items?.$ref;
+                // Handle allOf wrapping a $ref to an array type
+                if (!itemsRef && propDef.allOf) {
+                    for (const entry of propDef.allOf) {
+                        const resolved = entry.$ref ? componentsSchemas[entry.$ref.split('/').pop()] : entry;
+                        if (resolved?.items?.$ref) { itemsRef = resolved.items.$ref; break; }
+                        if (resolved?.items) { return resolved.items; }
+                    }
+                }
+                if (itemsRef) {
+                    const itemSchemaName = itemsRef.split('/').pop();
+                    return componentsSchemas[itemSchemaName] || null;
+                }
+            }
+        }
+
+        return responseSchema;
+    } catch (e) {
+        return null;
+    }
+}
+
+function generateNativeSelectExample(sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere) {
+    if (!sqlExampleListWhere) return '';
+    return `## ${mdCodeAnchor}SELECT${mdCodeAnchor} examples\n\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleListCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
+}
+
+function createResourceIndexContent(serviceName, resourceName, resourceType, resourceIdentifiers, schemaName, schema, componentsSchemas, servicePaths, serviceResources, resourceData, schemaTypeName, listOnlyResource) {
     // Create the markdown content for each resource index
     // resourceType is x-type, one of 'cloud_control' (cloud control), 'native' (native resource), 'view' (SQL view)
 
@@ -534,17 +608,47 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
     }
 
     if (resourceType === 'native') {
-        // isPlural = false;
-        resourceData['x-example-where-clause'] ? sqlExampleWhere = `${resourceData['x-example-where-clause']};` : isSelectable = false;
-        if(isSelectable){
-            fields = componentsSchemas[resourceData['x-cfn-schema-name']].properties;
-            resourceDescription = componentsSchemas[resourceData['x-cfn-schema-name']].description;
-        } else {
-            resourceDescription = resourceData['x-description'];
+        const rawSchema = resourceData['x-cfn-schema-name'] && componentsSchemas[resourceData['x-cfn-schema-name']];
+
+        // Unwrap array schemas (e.g. ResourceRequestStatusSummaries, ResourceDescriptions)
+        // to access the actual item properties
+        let resolvedNativeSchema = rawSchema || null;
+        if (resolvedNativeSchema?.type === 'array' && resolvedNativeSchema?.items?.$ref) {
+            const itemsSchemaName = resolvedNativeSchema.items.$ref.split('/').pop();
+            resolvedNativeSchema = componentsSchemas[itemsSchemaName] || resolvedNativeSchema;
+        }
+
+        const hasSchemaName = !!rawSchema;
+        const hasProperties = !!(resolvedNativeSchema?.properties && Object.keys(resolvedNativeSchema.properties).length > 0);
+
+        if (resourceData['x-example-where-clause']) {
+            sqlExampleWhere = `${resourceData['x-example-where-clause']};`;
+        } else if (hasSchemaName && !hasProperties) {
+            // Named-schema native with no resolvable properties and no where clause — not selectable
+            isSelectable = false;
+        }
+        // Schema-less native (e.g. tagging) with no x-example-where-clause keeps
+        // isSelectable = true and uses the default WHERE region = 'us-east-1'
+
+        if (isSelectable) {
+            if (hasSchemaName) {
+                // Standard native resource with an explicit schema (e.g. cloud_control)
+                fields = resolvedNativeSchema.properties;
+                schema = resolvedNativeSchema;
+                resourceDescription = resolvedNativeSchema.description || rawSchema.description;
+            } else {
+                // Schema-less native resource (e.g. tagging) — resolve fields from the
+                // select method's response schema via the path reference
+                const resolvedSchema = resolveNativeResponseSchema(resourceData, servicePaths, componentsSchemas);
+                if (resolvedSchema) {
+                    fields = resolvedSchema.properties || {};
+                    schema = resolvedSchema;
+                }
+            }
         }
 
         if (!resourceDescription) {
-            if('x-description' in resourceData){
+            if ('x-description' in resourceData) {
                 resourceDescription = resourceData['x-description'];
             }
         }
@@ -557,6 +661,12 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
                 requiredParams
             });
         });
+
+        // Set hasList if any select sqlVerb was registered
+        if (isSelectable && sqlVerbsList.some(v => v.sqlVerbName === 'select')) {
+            hasList = true;
+            sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
+        }
     }
 
     if (resourceType === 'cloud_control_view') {
@@ -584,6 +694,46 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
         hasList = true;
         sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
 
+    }
+
+    // DDL view exception: only for native services (cloud_control, tagging)
+    // These views have no x-type but have config.views.select.ddl with a SELECT * FROM <base_resource>
+    if (!resourceType && nativeServices.includes(serviceName) && resourceData?.config?.views?.select?.ddl) {
+        const ddl = resourceData.config.views.select.ddl;
+
+        // Extract the base resource name from "select * from awscc.<service>.<resource_name>"
+        const fromMatch = ddl.match(/from\s+\w+\.\w+\.(\w+)/i);
+        const baseResourceName = fromMatch ? fromMatch[1] : null;
+
+        if (baseResourceName) {
+            // Find the base resource's schema name and resolve its fields
+            const baseResource = serviceResources?.[baseResourceName];
+            const baseSchemaName = baseResource?.['x-cfn-schema-name'];
+            const baseSchema = baseSchemaName ? componentsSchemas[baseSchemaName] : null;
+
+            // If the base schema is an array, unwrap to the items schema for fields
+            let resolvedBaseSchema = baseSchema;
+            if (baseSchema?.type === 'array' && baseSchema?.items?.$ref) {
+                const itemsSchemaName = baseSchema.items.$ref.split('/').pop();
+                resolvedBaseSchema = componentsSchemas[itemsSchemaName] || baseSchema;
+            }
+
+            if (resolvedBaseSchema?.properties) {
+                fields = resolvedBaseSchema.properties;
+                schema = resolvedBaseSchema;
+            }
+        }
+
+        resourceDescription = `View of <code>${baseResourceName || resourceName}</code> filtered by the SQL WHERE clause; see <a href="/services/${serviceName}/${baseResourceName || resourceName}/"><code>${baseResourceName || resourceName}</code></a> for the full resource.`;
+
+        sqlVerbsList.push({
+            sqlVerbName: 'select',
+            methodName: 'view',
+            requiredParams: 'region'
+        });
+
+        hasList = true;
+        sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
     }
 
     if (resourceType === 'cloud_control') {
@@ -766,10 +916,10 @@ ${schemaName && resourceType === 'cloud_control' ? `\n${moreInfoCaption}\n` : ''
 ## Methods
 ${generateMethodsTable(serviceName, resourceName, sqlVerbsList, listOnlyResourceName)}
 
-${serviceName != 'cloud_control' ? generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere, listOnlyResourceName, listOnlyFrom): ''}
-${serviceName != 'cloud_control' ? createInsertExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
-${serviceName != 'cloud_control' ? createUpdateExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
-${serviceName != 'cloud_control' ? createDeleteExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
+${resourceType !== 'native' ? generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere, listOnlyResourceName, listOnlyFrom): generateNativeSelectExample(sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere)}
+${resourceType !== 'native' ? createInsertExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
+${resourceType !== 'native' ? createUpdateExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
+${resourceType !== 'native' ? createDeleteExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
 ${permissionsHeadingMarkdown}
 ${permissionsBylineMarkdown}
 ${permissionsMarkdown}`;
@@ -835,17 +985,18 @@ function cleanDescription(description) {
     let result = description;
     
     // Protect content inside <code> tags from MDX escaping
+    // Use a placeholder that contains no characters touched by escapeForMdx
     const codeBlocks = [];
     result = result.replace(/<code>(.*?)<\/code>/gi, (match, content) => {
         codeBlocks.push(content);
-        return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+        return `CODEBLOCK${codeBlocks.length - 1}END`;
     });
-    
+
     // Apply MDX escaping to non-code content
     result = escapeForMdx(result);
-    
+
     // Restore code blocks (unescaped)
-    result = result.replace(/__CODE_BLOCK_(\d+)__/g, (match, index) => {
+    result = result.replace(/CODEBLOCK(\d+)END/g, (match, index) => {
         return `<code>${codeBlocks[parseInt(index)]}</code>`;
     });
     

@@ -156,13 +156,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-resource_arn,
-policy,
-policy_id,
-policy_hash
+  region,
+  resource_arn,
+  policy,
+  policy_id,
+  policy_hash
 FROM awscc.ssm.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ resource_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,11 +172,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ resource_arn }}'
 Lists all <code>resource_policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_id,
-resource_arn
+  region,
+  policy_id,
+  resource_arn
 FROM awscc.ssm.resource_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,14 +199,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.resource_policies (
- ResourceArn,
- Policy,
- region
+  ResourceArn,
+  Policy,
+  region
 )
 SELECT
-'{{ resource_arn }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ resource_arn }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,14 +214,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.resource_policies (
- ResourceArn,
- Policy,
- region
+  ResourceArn,
+  Policy,
+  region
 )
 SELECT
- '{{ resource_arn }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ resource_arn }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -253,8 +256,9 @@ UPDATE awscc.ssm.resource_policies
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_id }}|{{ resource_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```
 
 
@@ -263,8 +267,9 @@ AND Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_policies
-WHERE Identifier = '{{ policy_id }}|{{ resource_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_id }}|{{ resource_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -257,22 +257,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>experiment</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-project,
-description,
-running_status,
-randomization_salt,
-treatments,
-metric_goals,
-sampling_rate,
-online_ab_config,
-segment,
-remove_segment,
-tags
+  region,
+  arn,
+  name,
+  project,
+  description,
+  running_status,
+  randomization_salt,
+  treatments,
+  metric_goals,
+  sampling_rate,
+  online_ab_config,
+  segment,
+  remove_segment,
+  tags
 FROM awscc.evidently.experiments
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -292,20 +294,20 @@ Use the following StackQL query and manifest file to create a new <code>experime
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.experiments (
- Name,
- Project,
- Treatments,
- MetricGoals,
- OnlineAbConfig,
- region
+  Name,
+  Project,
+  Treatments,
+  MetricGoals,
+  OnlineAbConfig,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ project }}',
- '{{ treatments }}',
- '{{ metric_goals }}',
- '{{ online_ab_config }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ project }}',
+  '{{ treatments }}',
+  '{{ metric_goals }}',
+  '{{ online_ab_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -313,34 +315,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.experiments (
- Name,
- Project,
- Description,
- RunningStatus,
- RandomizationSalt,
- Treatments,
- MetricGoals,
- SamplingRate,
- OnlineAbConfig,
- Segment,
- RemoveSegment,
- Tags,
- region
+  Name,
+  Project,
+  Description,
+  RunningStatus,
+  RandomizationSalt,
+  Treatments,
+  MetricGoals,
+  SamplingRate,
+  OnlineAbConfig,
+  Segment,
+  RemoveSegment,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ project }}',
- '{{ description }}',
- '{{ running_status }}',
- '{{ randomization_salt }}',
- '{{ treatments }}',
- '{{ metric_goals }}',
- '{{ sampling_rate }}',
- '{{ online_ab_config }}',
- '{{ segment }}',
- '{{ remove_segment }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ project }}',
+  '{{ description }}',
+  '{{ running_status }}',
+  '{{ randomization_salt }}',
+  '{{ treatments }}',
+  '{{ metric_goals }}',
+  '{{ sampling_rate }}',
+  '{{ online_ab_config }}',
+  '{{ segment }}',
+  '{{ remove_segment }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -424,8 +426,9 @@ SET PatchDocument = string('{{ {
     "RemoveSegment": remove_segment,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -434,8 +437,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.experiments
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

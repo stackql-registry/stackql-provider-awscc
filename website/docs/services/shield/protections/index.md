@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>protection</code>.
 ```sql
 SELECT
-region,
-protection_id,
-protection_arn,
-name,
-resource_arn,
-health_check_arns,
-application_layer_automatic_response_configuration,
-tags
+  region,
+  protection_id,
+  protection_arn,
+  name,
+  resource_arn,
+  health_check_arns,
+  application_layer_automatic_response_configuration,
+  tags
 FROM awscc.shield.protections
-WHERE region = 'us-east-1' AND Identifier = '{{ protection_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ protection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ protection_arn }}';
 Lists all <code>protections</code> in a region.
 ```sql
 SELECT
-region,
-protection_arn
+  region,
+  protection_arn
 FROM awscc.shield.protections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>protecti
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.protections (
- Name,
- ResourceArn,
- region
+  Name,
+  ResourceArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ resource_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ resource_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,20 +245,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.protections (
- Name,
- ResourceArn,
- HealthCheckArns,
- ApplicationLayerAutomaticResponseConfiguration,
- Tags,
- region
+  Name,
+  ResourceArn,
+  HealthCheckArns,
+  ApplicationLayerAutomaticResponseConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ resource_arn }}',
- '{{ health_check_arns }}',
- '{{ application_layer_automatic_response_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ resource_arn }}',
+  '{{ health_check_arns }}',
+  '{{ application_layer_automatic_response_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "ApplicationLayerAutomaticResponseConfiguration": application_layer_automatic_response_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ protection_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ protection_arn }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ protection_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.protections
-WHERE Identifier = '{{ protection_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ protection_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster_policy</code>.
 ```sql
 SELECT
-region,
-policy,
-cluster_arn,
-current_version
+  region,
+  policy,
+  cluster_arn,
+  current_version
 FROM awscc.msk.cluster_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 Lists all <code>cluster_policies</code> in a region.
 ```sql
 SELECT
-region,
-cluster_arn
+  region,
+  cluster_arn
 FROM awscc.msk.cluster_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>cluster_
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.cluster_policies (
- Policy,
- ClusterArn,
- region
+  Policy,
+  ClusterArn,
+  region
 )
 SELECT
-'{{ policy }}',
- '{{ cluster_arn }}',
-'{{ region }}';
+  '{{ policy }}',
+  '{{ cluster_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,14 +197,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.cluster_policies (
- Policy,
- ClusterArn,
- region
+  Policy,
+  ClusterArn,
+  region
 )
 SELECT
- '{{ policy }}',
- '{{ cluster_arn }}',
- '{{ region }}';
+  '{{ policy }}',
+  '{{ cluster_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ UPDATE awscc.msk.cluster_policies
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -246,8 +250,9 @@ AND Identifier = '{{ cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.cluster_policies
-WHERE Identifier = '{{ cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

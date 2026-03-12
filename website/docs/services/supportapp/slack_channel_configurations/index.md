@@ -171,17 +171,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
 SELECT
-region,
-team_id,
-channel_id,
-channel_name,
-notify_on_create_or_reopen_case,
-notify_on_add_correspondence_to_case,
-notify_on_resolve_case,
-notify_on_case_severity,
-channel_role_arn
+  region,
+  team_id,
+  channel_id,
+  channel_name,
+  notify_on_create_or_reopen_case,
+  notify_on_add_correspondence_to_case,
+  notify_on_resolve_case,
+  notify_on_case_severity,
+  channel_role_arn
 FROM awscc.supportapp.slack_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}|{{ channel_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ team_id }}|{{ channel_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}|{{ channel_id }}';
 Lists all <code>slack_channel_configurations</code> in a region.
 ```sql
 SELECT
-region,
-team_id,
-channel_id
+  region,
+  team_id,
+  channel_id
 FROM awscc.supportapp.slack_channel_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>slack_ch
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.slack_channel_configurations (
- TeamId,
- ChannelId,
- NotifyOnCaseSeverity,
- ChannelRoleArn,
- region
+  TeamId,
+  ChannelId,
+  NotifyOnCaseSeverity,
+  ChannelRoleArn,
+  region
 )
 SELECT
-'{{ team_id }}',
- '{{ channel_id }}',
- '{{ notify_on_case_severity }}',
- '{{ channel_role_arn }}',
-'{{ region }}';
+  '{{ team_id }}',
+  '{{ channel_id }}',
+  '{{ notify_on_case_severity }}',
+  '{{ channel_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,26 +237,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.slack_channel_configurations (
- TeamId,
- ChannelId,
- ChannelName,
- NotifyOnCreateOrReopenCase,
- NotifyOnAddCorrespondenceToCase,
- NotifyOnResolveCase,
- NotifyOnCaseSeverity,
- ChannelRoleArn,
- region
+  TeamId,
+  ChannelId,
+  ChannelName,
+  NotifyOnCreateOrReopenCase,
+  NotifyOnAddCorrespondenceToCase,
+  NotifyOnResolveCase,
+  NotifyOnCaseSeverity,
+  ChannelRoleArn,
+  region
 )
 SELECT
- '{{ team_id }}',
- '{{ channel_id }}',
- '{{ channel_name }}',
- '{{ notify_on_create_or_reopen_case }}',
- '{{ notify_on_add_correspondence_to_case }}',
- '{{ notify_on_resolve_case }}',
- '{{ notify_on_case_severity }}',
- '{{ channel_role_arn }}',
- '{{ region }}';
+  '{{ team_id }}',
+  '{{ channel_id }}',
+  '{{ channel_name }}',
+  '{{ notify_on_create_or_reopen_case }}',
+  '{{ notify_on_add_correspondence_to_case }}',
+  '{{ notify_on_resolve_case }}',
+  '{{ notify_on_case_severity }}',
+  '{{ channel_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -305,8 +308,9 @@ SET PatchDocument = string('{{ {
     "NotifyOnCaseSeverity": notify_on_case_severity,
     "ChannelRoleArn": channel_role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ team_id }}|{{ channel_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ team_id }}|{{ channel_id }}';
 ```
 
 
@@ -315,8 +319,9 @@ AND Identifier = '{{ team_id }}|{{ channel_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.slack_channel_configurations
-WHERE Identifier = '{{ team_id }}|{{ channel_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ team_id }}|{{ channel_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

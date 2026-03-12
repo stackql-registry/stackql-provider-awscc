@@ -141,11 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>managed_notification_account_contact_association</code>.
 ```sql
 SELECT
-region,
-managed_notification_configuration_arn,
-contact_identifier
+  region,
+  managed_notification_configuration_arn,
+  contact_identifier
 FROM awscc.notifications.managed_notification_account_contact_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -153,11 +155,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ managed_notification_configurati
 Lists all <code>managed_notification_account_contact_associations</code> in a region.
 ```sql
 SELECT
-region,
-managed_notification_configuration_arn,
-contact_identifier
+  region,
+  managed_notification_configuration_arn,
+  contact_identifier
 FROM awscc.notifications.managed_notification_account_contact_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>managed_
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.managed_notification_account_contact_associations (
- ManagedNotificationConfigurationArn,
- ContactIdentifier,
- region
+  ManagedNotificationConfigurationArn,
+  ContactIdentifier,
+  region
 )
 SELECT
-'{{ managed_notification_configuration_arn }}',
- '{{ contact_identifier }}',
-'{{ region }}';
+  '{{ managed_notification_configuration_arn }}',
+  '{{ contact_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,14 +197,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.managed_notification_account_contact_associations (
- ManagedNotificationConfigurationArn,
- ContactIdentifier,
- region
+  ManagedNotificationConfigurationArn,
+  ContactIdentifier,
+  region
 )
 SELECT
- '{{ managed_notification_configuration_arn }}',
- '{{ contact_identifier }}',
- '{{ region }}';
+  '{{ managed_notification_configuration_arn }}',
+  '{{ contact_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -232,8 +235,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.managed_notification_account_contact_associations
-WHERE Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

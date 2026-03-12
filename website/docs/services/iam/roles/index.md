@@ -205,20 +205,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>role</code>.
 ```sql
 SELECT
-region,
-arn,
-assume_role_policy_document,
-description,
-managed_policy_arns,
-max_session_duration,
-path,
-permissions_boundary,
-policies,
-role_id,
-role_name,
-tags
+  region,
+  arn,
+  assume_role_policy_document,
+  description,
+  managed_policy_arns,
+  max_session_duration,
+  path,
+  permissions_boundary,
+  policies,
+  role_id,
+  role_name,
+  tags
 FROM awscc.iam.roles
-WHERE region = 'us-east-1' AND Identifier = '{{ role_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ role_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ role_name }}';
 Lists all <code>roles</code> in a region.
 ```sql
 SELECT
-region,
-role_name
+  region,
+  role_name
 FROM awscc.iam.roles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,12 +254,12 @@ Use the following StackQL query and manifest file to create a new <code>role</co
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.roles (
- AssumeRolePolicyDocument,
- region
+  AssumeRolePolicyDocument,
+  region
 )
 SELECT
-'{{ assume_role_policy_document }}',
-'{{ region }}';
+  '{{ assume_role_policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,28 +267,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.roles (
- AssumeRolePolicyDocument,
- Description,
- ManagedPolicyArns,
- MaxSessionDuration,
- Path,
- PermissionsBoundary,
- Policies,
- RoleName,
- Tags,
- region
+  AssumeRolePolicyDocument,
+  Description,
+  ManagedPolicyArns,
+  MaxSessionDuration,
+  Path,
+  PermissionsBoundary,
+  Policies,
+  RoleName,
+  Tags,
+  region
 )
 SELECT
- '{{ assume_role_policy_document }}',
- '{{ description }}',
- '{{ managed_policy_arns }}',
- '{{ max_session_duration }}',
- '{{ path }}',
- '{{ permissions_boundary }}',
- '{{ policies }}',
- '{{ role_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ assume_role_policy_document }}',
+  '{{ description }}',
+  '{{ managed_policy_arns }}',
+  '{{ max_session_duration }}',
+  '{{ path }}',
+  '{{ permissions_boundary }}',
+  '{{ policies }}',
+  '{{ role_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -345,8 +348,9 @@ SET PatchDocument = string('{{ {
     "Policies": policies,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ role_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ role_name }}';
 ```
 
 
@@ -355,8 +359,9 @@ AND Identifier = '{{ role_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.roles
-WHERE Identifier = '{{ role_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ role_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

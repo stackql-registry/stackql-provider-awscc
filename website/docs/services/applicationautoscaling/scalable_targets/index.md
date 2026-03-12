@@ -247,18 +247,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scalable_target</code>.
 ```sql
 SELECT
-region,
-scheduled_actions,
-resource_id,
-service_namespace,
-scalable_dimension,
-suspended_state,
-id,
-min_capacity,
-role_arn,
-max_capacity
+  region,
+  scheduled_actions,
+  resource_id,
+  service_namespace,
+  scalable_dimension,
+  suspended_state,
+  id,
+  min_capacity,
+  role_arn,
+  max_capacity
 FROM awscc.applicationautoscaling.scalable_targets
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,12 +268,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}|{{ scalable_dimen
 Lists all <code>scalable_targets</code> in a region.
 ```sql
 SELECT
-region,
-resource_id,
-scalable_dimension,
-service_namespace
+  region,
+  resource_id,
+  scalable_dimension,
+  service_namespace
 FROM awscc.applicationautoscaling.scalable_targets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,20 +296,20 @@ Use the following StackQL query and manifest file to create a new <code>scalable
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationautoscaling.scalable_targets (
- ResourceId,
- ServiceNamespace,
- ScalableDimension,
- MinCapacity,
- MaxCapacity,
- region
+  ResourceId,
+  ServiceNamespace,
+  ScalableDimension,
+  MinCapacity,
+  MaxCapacity,
+  region
 )
 SELECT
-'{{ resource_id }}',
- '{{ service_namespace }}',
- '{{ scalable_dimension }}',
- '{{ min_capacity }}',
- '{{ max_capacity }}',
-'{{ region }}';
+  '{{ resource_id }}',
+  '{{ service_namespace }}',
+  '{{ scalable_dimension }}',
+  '{{ min_capacity }}',
+  '{{ max_capacity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -314,26 +317,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationautoscaling.scalable_targets (
- ScheduledActions,
- ResourceId,
- ServiceNamespace,
- ScalableDimension,
- SuspendedState,
- MinCapacity,
- RoleARN,
- MaxCapacity,
- region
+  ScheduledActions,
+  ResourceId,
+  ServiceNamespace,
+  ScalableDimension,
+  SuspendedState,
+  MinCapacity,
+  RoleARN,
+  MaxCapacity,
+  region
 )
 SELECT
- '{{ scheduled_actions }}',
- '{{ resource_id }}',
- '{{ service_namespace }}',
- '{{ scalable_dimension }}',
- '{{ suspended_state }}',
- '{{ min_capacity }}',
- '{{ role_arn }}',
- '{{ max_capacity }}',
- '{{ region }}';
+  '{{ scheduled_actions }}',
+  '{{ resource_id }}',
+  '{{ service_namespace }}',
+  '{{ scalable_dimension }}',
+  '{{ suspended_state }}',
+  '{{ min_capacity }}',
+  '{{ role_arn }}',
+  '{{ max_capacity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -395,8 +398,9 @@ SET PatchDocument = string('{{ {
     "RoleARN": role_arn,
     "MaxCapacity": max_capacity
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}';
 ```
 
 
@@ -405,8 +409,9 @@ AND Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespac
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationautoscaling.scalable_targets
-WHERE Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_id }}|{{ scalable_dimension }}|{{ service_namespace }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

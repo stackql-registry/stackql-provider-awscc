@@ -388,16 +388,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT
-region,
-name,
-format,
-format_options,
-input,
-source,
-path_options,
-tags
+  region,
+  name,
+  format,
+  format_options,
+  input,
+  source,
+  path_options,
+  tags
 FROM awscc.databrew.datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -405,10 +407,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>datasets</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.databrew.datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -430,14 +433,14 @@ Use the following StackQL query and manifest file to create a new <code>dataset<
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.datasets (
- Name,
- Input,
- region
+  Name,
+  Input,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ input }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ input }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -445,24 +448,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.datasets (
- Name,
- Format,
- FormatOptions,
- Input,
- Source,
- PathOptions,
- Tags,
- region
+  Name,
+  Format,
+  FormatOptions,
+  Input,
+  Source,
+  PathOptions,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ format }}',
- '{{ format_options }}',
- '{{ input }}',
- '{{ source }}',
- '{{ path_options }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ format }}',
+  '{{ format_options }}',
+  '{{ input }}',
+  '{{ source }}',
+  '{{ path_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -560,8 +563,9 @@ SET PatchDocument = string('{{ {
     "PathOptions": path_options,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -570,8 +574,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.datasets
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

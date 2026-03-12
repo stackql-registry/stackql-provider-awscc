@@ -243,21 +243,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-name,
-id,
-namespace,
-description,
-application_arn,
-application_source_config,
-permissions,
-tags,
-is_service,
-initialization_timeout,
-application_config,
-iframe_config
+  region,
+  name,
+  id,
+  namespace,
+  description,
+  application_arn,
+  application_source_config,
+  permissions,
+  tags,
+  is_service,
+  initialization_timeout,
+  application_config,
+  iframe_config
 FROM awscc.appintegrations.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,10 +267,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_arn
+  region,
+  application_arn
 FROM awscc.appintegrations.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -290,18 +293,18 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.applications (
- Name,
- Namespace,
- Description,
- ApplicationSourceConfig,
- region
+  Name,
+  Namespace,
+  Description,
+  ApplicationSourceConfig,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ namespace }}',
- '{{ description }}',
- '{{ application_source_config }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ namespace }}',
+  '{{ description }}',
+  '{{ application_source_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -309,30 +312,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.applications (
- Name,
- Namespace,
- Description,
- ApplicationSourceConfig,
- Permissions,
- Tags,
- IsService,
- InitializationTimeout,
- ApplicationConfig,
- IframeConfig,
- region
+  Name,
+  Namespace,
+  Description,
+  ApplicationSourceConfig,
+  Permissions,
+  Tags,
+  IsService,
+  InitializationTimeout,
+  ApplicationConfig,
+  IframeConfig,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ namespace }}',
- '{{ description }}',
- '{{ application_source_config }}',
- '{{ permissions }}',
- '{{ tags }}',
- '{{ is_service }}',
- '{{ initialization_timeout }}',
- '{{ application_config }}',
- '{{ iframe_config }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ namespace }}',
+  '{{ description }}',
+  '{{ application_source_config }}',
+  '{{ permissions }}',
+  '{{ tags }}',
+  '{{ is_service }}',
+  '{{ initialization_timeout }}',
+  '{{ application_config }}',
+  '{{ iframe_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -405,8 +408,9 @@ SET PatchDocument = string('{{ {
     "ApplicationConfig": application_config,
     "IframeConfig": iframe_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_arn }}';
 ```
 
 
@@ -415,8 +419,9 @@ AND Identifier = '{{ application_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.applications
-WHERE Identifier = '{{ application_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

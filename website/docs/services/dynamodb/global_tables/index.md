@@ -706,27 +706,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>global_table</code>.
 ```sql
 SELECT
-region,
-multi_region_consistency,
-table_id,
-sse_specification,
-stream_specification,
-warm_throughput,
-replicas,
-write_provisioned_throughput_settings,
-write_on_demand_throughput_settings,
-global_table_witnesses,
-table_name,
-attribute_definitions,
-billing_mode,
-global_secondary_indexes,
-key_schema,
-local_secondary_indexes,
-arn,
-stream_arn,
-time_to_live_specification
+  region,
+  multi_region_consistency,
+  table_id,
+  sse_specification,
+  stream_specification,
+  warm_throughput,
+  replicas,
+  write_provisioned_throughput_settings,
+  write_on_demand_throughput_settings,
+  global_table_witnesses,
+  table_name,
+  attribute_definitions,
+  billing_mode,
+  global_secondary_indexes,
+  key_schema,
+  local_secondary_indexes,
+  arn,
+  stream_arn,
+  time_to_live_specification
 FROM awscc.dynamodb.global_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -734,10 +736,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
 Lists all <code>global_tables</code> in a region.
 ```sql
 SELECT
-region,
-table_name
+  region,
+  table_name
 FROM awscc.dynamodb.global_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -759,16 +762,16 @@ Use the following StackQL query and manifest file to create a new <code>global_t
 ```sql
 /*+ create */
 INSERT INTO awscc.dynamodb.global_tables (
- Replicas,
- AttributeDefinitions,
- KeySchema,
- region
+  Replicas,
+  AttributeDefinitions,
+  KeySchema,
+  region
 )
 SELECT
-'{{ replicas }}',
- '{{ attribute_definitions }}',
- '{{ key_schema }}',
-'{{ region }}';
+  '{{ replicas }}',
+  '{{ attribute_definitions }}',
+  '{{ key_schema }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -776,40 +779,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dynamodb.global_tables (
- MultiRegionConsistency,
- SSESpecification,
- StreamSpecification,
- WarmThroughput,
- Replicas,
- WriteProvisionedThroughputSettings,
- WriteOnDemandThroughputSettings,
- GlobalTableWitnesses,
- TableName,
- AttributeDefinitions,
- BillingMode,
- GlobalSecondaryIndexes,
- KeySchema,
- LocalSecondaryIndexes,
- TimeToLiveSpecification,
- region
+  MultiRegionConsistency,
+  SSESpecification,
+  StreamSpecification,
+  WarmThroughput,
+  Replicas,
+  WriteProvisionedThroughputSettings,
+  WriteOnDemandThroughputSettings,
+  GlobalTableWitnesses,
+  TableName,
+  AttributeDefinitions,
+  BillingMode,
+  GlobalSecondaryIndexes,
+  KeySchema,
+  LocalSecondaryIndexes,
+  TimeToLiveSpecification,
+  region
 )
 SELECT
- '{{ multi_region_consistency }}',
- '{{ sse_specification }}',
- '{{ stream_specification }}',
- '{{ warm_throughput }}',
- '{{ replicas }}',
- '{{ write_provisioned_throughput_settings }}',
- '{{ write_on_demand_throughput_settings }}',
- '{{ global_table_witnesses }}',
- '{{ table_name }}',
- '{{ attribute_definitions }}',
- '{{ billing_mode }}',
- '{{ global_secondary_indexes }}',
- '{{ key_schema }}',
- '{{ local_secondary_indexes }}',
- '{{ time_to_live_specification }}',
- '{{ region }}';
+  '{{ multi_region_consistency }}',
+  '{{ sse_specification }}',
+  '{{ stream_specification }}',
+  '{{ warm_throughput }}',
+  '{{ replicas }}',
+  '{{ write_provisioned_throughput_settings }}',
+  '{{ write_on_demand_throughput_settings }}',
+  '{{ global_table_witnesses }}',
+  '{{ table_name }}',
+  '{{ attribute_definitions }}',
+  '{{ billing_mode }}',
+  '{{ global_secondary_indexes }}',
+  '{{ key_schema }}',
+  '{{ local_secondary_indexes }}',
+  '{{ time_to_live_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -955,8 +958,9 @@ SET PatchDocument = string('{{ {
     "GlobalSecondaryIndexes": global_secondary_indexes,
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ table_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ table_name }}';
 ```
 
 
@@ -965,8 +969,9 @@ AND Identifier = '{{ table_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.global_tables
-WHERE Identifier = '{{ table_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

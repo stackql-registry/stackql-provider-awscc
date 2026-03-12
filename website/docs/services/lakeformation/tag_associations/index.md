@@ -180,13 +180,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tag_association</code>.
 ```sql
 SELECT
-region,
-resource,
-lf_tags,
-resource_identifier,
-tags_identifier
+  region,
+  resource,
+  lf_tags,
+  resource_identifier,
+  tags_identifier
 FROM awscc.lakeformation.tag_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}|{{ tags_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_identifier }}|{{ tags_identifier }}';
 ```
 
 ## `INSERT` example
@@ -206,14 +208,14 @@ Use the following StackQL query and manifest file to create a new <code>tag_asso
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.tag_associations (
- Resource,
- LFTags,
- region
+  Resource,
+  LFTags,
+  region
 )
 SELECT
-'{{ resource }}',
- '{{ lf_tags }}',
-'{{ region }}';
+  '{{ resource }}',
+  '{{ lf_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -221,14 +223,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.tag_associations (
- Resource,
- LFTags,
- region
+  Resource,
+  LFTags,
+  region
 )
 SELECT
- '{{ resource }}',
- '{{ lf_tags }}',
- '{{ region }}';
+  '{{ resource }}',
+  '{{ lf_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -278,8 +280,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tag_associations
-WHERE Identifier = '{{ resource_identifier }}|{{ tags_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_identifier }}|{{ tags_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

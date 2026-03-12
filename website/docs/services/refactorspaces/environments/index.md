@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-description,
-environment_identifier,
-name,
-network_fabric_type,
-arn,
-transit_gateway_id,
-tags
+  region,
+  description,
+  environment_identifier,
+  name,
+  network_fabric_type,
+  arn,
+  transit_gateway_id,
+  tags
 FROM awscc.refactorspaces.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-environment_identifier
+  region,
+  environment_identifier
 FROM awscc.refactorspaces.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.environments (
- Description,
- Name,
- NetworkFabricType,
- Tags,
- region
+  Description,
+  Name,
+  NetworkFabricType,
+  Tags,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ name }}',
- '{{ network_fabric_type }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ network_fabric_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,18 +237,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.environments (
- Description,
- Name,
- NetworkFabricType,
- Tags,
- region
+  Description,
+  Name,
+  NetworkFabricType,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ network_fabric_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ network_fabric_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ UPDATE awscc.refactorspaces.environments
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_identifier }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ environment_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.environments
-WHERE Identifier = '{{ environment_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

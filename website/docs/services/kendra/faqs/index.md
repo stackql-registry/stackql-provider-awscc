@@ -205,19 +205,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>faq</code>.
 ```sql
 SELECT
-region,
-id,
-index_id,
-name,
-description,
-file_format,
-s3_path,
-role_arn,
-tags,
-arn,
-language_code
+  region,
+  id,
+  index_id,
+  name,
+  description,
+  file_format,
+  s3_path,
+  role_arn,
+  tags,
+  arn,
+  language_code
 FROM awscc.kendra.faqs
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ index_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ index_id }}';
 Lists all <code>faqs</code> in a region.
 ```sql
 SELECT
-region,
-id,
-index_id
+  region,
+  id,
+  index_id
 FROM awscc.kendra.faqs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,18 +254,18 @@ Use the following StackQL query and manifest file to create a new <code>faq</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.faqs (
- IndexId,
- Name,
- S3Path,
- RoleArn,
- region
+  IndexId,
+  Name,
+  S3Path,
+  RoleArn,
+  region
 )
 SELECT
-'{{ index_id }}',
- '{{ name }}',
- '{{ s3_path }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ index_id }}',
+  '{{ name }}',
+  '{{ s3_path }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,26 +273,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.faqs (
- IndexId,
- Name,
- Description,
- FileFormat,
- S3Path,
- RoleArn,
- Tags,
- LanguageCode,
- region
+  IndexId,
+  Name,
+  Description,
+  FileFormat,
+  S3Path,
+  RoleArn,
+  Tags,
+  LanguageCode,
+  region
 )
 SELECT
- '{{ index_id }}',
- '{{ name }}',
- '{{ description }}',
- '{{ file_format }}',
- '{{ s3_path }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ language_code }}',
- '{{ region }}';
+  '{{ index_id }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ file_format }}',
+  '{{ s3_path }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ language_code }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "LanguageCode": language_code
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}|{{ index_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}|{{ index_id }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ id }}|{{ index_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendra.faqs
-WHERE Identifier = '{{ id }}|{{ index_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ index_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

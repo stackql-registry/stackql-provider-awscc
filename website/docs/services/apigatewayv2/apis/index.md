@@ -280,29 +280,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api</code>.
 ```sql
 SELECT
-region,
-route_selection_expression,
-body,
-body_s3_location,
-base_path,
-credentials_arn,
-cors_configuration,
-route_key,
-target,
-fail_on_warnings,
-api_endpoint,
-description,
-disable_execute_api_endpoint,
-disable_schema_validation,
-name,
-version,
-protocol_type,
-api_id,
-tags,
-api_key_selection_expression,
-ip_address_type
+  region,
+  route_selection_expression,
+  body,
+  body_s3_location,
+  base_path,
+  credentials_arn,
+  cors_configuration,
+  route_key,
+  target,
+  fail_on_warnings,
+  api_endpoint,
+  description,
+  disable_execute_api_endpoint,
+  disable_schema_validation,
+  name,
+  version,
+  protocol_type,
+  api_id,
+  tags,
+  api_key_selection_expression,
+  ip_address_type
 FROM awscc.apigatewayv2.apis
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,10 +312,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
 Lists all <code>apis</code> in a region.
 ```sql
 SELECT
-region,
-api_id
+  region,
+  api_id
 FROM awscc.apigatewayv2.apis_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -335,46 +338,46 @@ Use the following StackQL query and manifest file to create a new <code>api</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.apis (
- RouteSelectionExpression,
- Body,
- BodyS3Location,
- BasePath,
- CredentialsArn,
- CorsConfiguration,
- RouteKey,
- Target,
- FailOnWarnings,
- Description,
- DisableExecuteApiEndpoint,
- DisableSchemaValidation,
- Name,
- Version,
- ProtocolType,
- Tags,
- ApiKeySelectionExpression,
- IpAddressType,
- region
+  RouteSelectionExpression,
+  Body,
+  BodyS3Location,
+  BasePath,
+  CredentialsArn,
+  CorsConfiguration,
+  RouteKey,
+  Target,
+  FailOnWarnings,
+  Description,
+  DisableExecuteApiEndpoint,
+  DisableSchemaValidation,
+  Name,
+  Version,
+  ProtocolType,
+  Tags,
+  ApiKeySelectionExpression,
+  IpAddressType,
+  region
 )
 SELECT
-'{{ route_selection_expression }}',
- '{{ body }}',
- '{{ body_s3_location }}',
- '{{ base_path }}',
- '{{ credentials_arn }}',
- '{{ cors_configuration }}',
- '{{ route_key }}',
- '{{ target }}',
- '{{ fail_on_warnings }}',
- '{{ description }}',
- '{{ disable_execute_api_endpoint }}',
- '{{ disable_schema_validation }}',
- '{{ name }}',
- '{{ version }}',
- '{{ protocol_type }}',
- '{{ tags }}',
- '{{ api_key_selection_expression }}',
- '{{ ip_address_type }}',
-'{{ region }}';
+  '{{ route_selection_expression }}',
+  '{{ body }}',
+  '{{ body_s3_location }}',
+  '{{ base_path }}',
+  '{{ credentials_arn }}',
+  '{{ cors_configuration }}',
+  '{{ route_key }}',
+  '{{ target }}',
+  '{{ fail_on_warnings }}',
+  '{{ description }}',
+  '{{ disable_execute_api_endpoint }}',
+  '{{ disable_schema_validation }}',
+  '{{ name }}',
+  '{{ version }}',
+  '{{ protocol_type }}',
+  '{{ tags }}',
+  '{{ api_key_selection_expression }}',
+  '{{ ip_address_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -382,46 +385,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.apis (
- RouteSelectionExpression,
- Body,
- BodyS3Location,
- BasePath,
- CredentialsArn,
- CorsConfiguration,
- RouteKey,
- Target,
- FailOnWarnings,
- Description,
- DisableExecuteApiEndpoint,
- DisableSchemaValidation,
- Name,
- Version,
- ProtocolType,
- Tags,
- ApiKeySelectionExpression,
- IpAddressType,
- region
+  RouteSelectionExpression,
+  Body,
+  BodyS3Location,
+  BasePath,
+  CredentialsArn,
+  CorsConfiguration,
+  RouteKey,
+  Target,
+  FailOnWarnings,
+  Description,
+  DisableExecuteApiEndpoint,
+  DisableSchemaValidation,
+  Name,
+  Version,
+  ProtocolType,
+  Tags,
+  ApiKeySelectionExpression,
+  IpAddressType,
+  region
 )
 SELECT
- '{{ route_selection_expression }}',
- '{{ body }}',
- '{{ body_s3_location }}',
- '{{ base_path }}',
- '{{ credentials_arn }}',
- '{{ cors_configuration }}',
- '{{ route_key }}',
- '{{ target }}',
- '{{ fail_on_warnings }}',
- '{{ description }}',
- '{{ disable_execute_api_endpoint }}',
- '{{ disable_schema_validation }}',
- '{{ name }}',
- '{{ version }}',
- '{{ protocol_type }}',
- '{{ tags }}',
- '{{ api_key_selection_expression }}',
- '{{ ip_address_type }}',
- '{{ region }}';
+  '{{ route_selection_expression }}',
+  '{{ body }}',
+  '{{ body_s3_location }}',
+  '{{ base_path }}',
+  '{{ credentials_arn }}',
+  '{{ cors_configuration }}',
+  '{{ route_key }}',
+  '{{ target }}',
+  '{{ fail_on_warnings }}',
+  '{{ description }}',
+  '{{ disable_execute_api_endpoint }}',
+  '{{ disable_schema_validation }}',
+  '{{ name }}',
+  '{{ version }}',
+  '{{ protocol_type }}',
+  '{{ tags }}',
+  '{{ api_key_selection_expression }}',
+  '{{ ip_address_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -518,8 +521,9 @@ SET PatchDocument = string('{{ {
     "ApiKeySelectionExpression": api_key_selection_expression,
     "IpAddressType": ip_address_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}';
 ```
 
 
@@ -528,8 +532,9 @@ AND Identifier = '{{ api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.apis
-WHERE Identifier = '{{ api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

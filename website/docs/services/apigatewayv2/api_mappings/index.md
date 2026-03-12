@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api_mapping</code>.
 ```sql
 SELECT
-region,
-api_mapping_id,
-domain_name,
-stage,
-api_mapping_key,
-api_id
+  region,
+  api_mapping_id,
+  domain_name,
+  stage,
+  api_mapping_key,
+  api_id
 FROM awscc.apigatewayv2.api_mappings
-WHERE region = 'us-east-1' AND Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,11 +173,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_mapping_id }}|{{ domain_name
 Lists all <code>api_mappings</code> in a region.
 ```sql
 SELECT
-region,
-api_mapping_id,
-domain_name
+  region,
+  api_mapping_id,
+  domain_name
 FROM awscc.apigatewayv2.api_mappings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>api_mapp
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.api_mappings (
- DomainName,
- Stage,
- ApiId,
- region
+  DomainName,
+  Stage,
+  ApiId,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ stage }}',
- '{{ api_id }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ stage }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,18 +217,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.api_mappings (
- DomainName,
- Stage,
- ApiMappingKey,
- ApiId,
- region
+  DomainName,
+  Stage,
+  ApiMappingKey,
+  ApiId,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ stage }}',
- '{{ api_mapping_key }}',
- '{{ api_id }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ stage }}',
+  '{{ api_mapping_key }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ SET PatchDocument = string('{{ {
     "ApiMappingKey": api_mapping_key,
     "ApiId": api_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.api_mappings
-WHERE Identifier = '{{ api_mapping_id }}|{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_mapping_id }}|{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

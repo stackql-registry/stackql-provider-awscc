@@ -217,18 +217,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>session_logger</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-display_name,
-event_filter,
-log_configuration,
-session_logger_arn,
-tags
+  region,
+  additional_encryption_context,
+  associated_portal_arns,
+  creation_date,
+  customer_managed_key,
+  display_name,
+  event_filter,
+  log_configuration,
+  session_logger_arn,
+  tags
 FROM awscc.workspacesweb.session_loggers
-WHERE region = 'us-east-1' AND Identifier = '{{ session_logger_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ session_logger_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,10 +238,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ session_logger_arn }}';
 Lists all <code>session_loggers</code> in a region.
 ```sql
 SELECT
-region,
-session_logger_arn
+  region,
+  session_logger_arn
 FROM awscc.workspacesweb.session_loggers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -261,14 +264,14 @@ Use the following StackQL query and manifest file to create a new <code>session_
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.session_loggers (
- EventFilter,
- LogConfiguration,
- region
+  EventFilter,
+  LogConfiguration,
+  region
 )
 SELECT
-'{{ event_filter }}',
- '{{ log_configuration }}',
-'{{ region }}';
+  '{{ event_filter }}',
+  '{{ log_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -276,22 +279,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.session_loggers (
- AdditionalEncryptionContext,
- CustomerManagedKey,
- DisplayName,
- EventFilter,
- LogConfiguration,
- Tags,
- region
+  AdditionalEncryptionContext,
+  CustomerManagedKey,
+  DisplayName,
+  EventFilter,
+  LogConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ customer_managed_key }}',
- '{{ display_name }}',
- '{{ event_filter }}',
- '{{ log_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ customer_managed_key }}',
+  '{{ display_name }}',
+  '{{ event_filter }}',
+  '{{ log_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -345,8 +348,9 @@ SET PatchDocument = string('{{ {
     "LogConfiguration": log_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ session_logger_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ session_logger_arn }}';
 ```
 
 
@@ -355,8 +359,9 @@ AND Identifier = '{{ session_logger_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.session_loggers
-WHERE Identifier = '{{ session_logger_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ session_logger_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

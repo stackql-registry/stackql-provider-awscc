@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
 SELECT
-region,
-slack_workspace_id,
-slack_channel_id,
-configuration_name,
-iam_role_arn,
-sns_topic_arns,
-logging_level,
-arn,
-guardrail_policies,
-tags,
-user_role_required,
-customization_resource_arns
+  region,
+  slack_workspace_id,
+  slack_channel_id,
+  configuration_name,
+  iam_role_arn,
+  sns_topic_arns,
+  logging_level,
+  arn,
+  guardrail_policies,
+  tags,
+  user_role_required,
+  customization_resource_arns
 FROM awscc.chatbot.slack_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>slack_channel_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.chatbot.slack_channel_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,18 +242,18 @@ Use the following StackQL query and manifest file to create a new <code>slack_ch
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.slack_channel_configurations (
- SlackWorkspaceId,
- SlackChannelId,
- ConfigurationName,
- IamRoleArn,
- region
+  SlackWorkspaceId,
+  SlackChannelId,
+  ConfigurationName,
+  IamRoleArn,
+  region
 )
 SELECT
-'{{ slack_workspace_id }}',
- '{{ slack_channel_id }}',
- '{{ configuration_name }}',
- '{{ iam_role_arn }}',
-'{{ region }}';
+  '{{ slack_workspace_id }}',
+  '{{ slack_channel_id }}',
+  '{{ configuration_name }}',
+  '{{ iam_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,30 +261,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.slack_channel_configurations (
- SlackWorkspaceId,
- SlackChannelId,
- ConfigurationName,
- IamRoleArn,
- SnsTopicArns,
- LoggingLevel,
- GuardrailPolicies,
- Tags,
- UserRoleRequired,
- CustomizationResourceArns,
- region
+  SlackWorkspaceId,
+  SlackChannelId,
+  ConfigurationName,
+  IamRoleArn,
+  SnsTopicArns,
+  LoggingLevel,
+  GuardrailPolicies,
+  Tags,
+  UserRoleRequired,
+  CustomizationResourceArns,
+  region
 )
 SELECT
- '{{ slack_workspace_id }}',
- '{{ slack_channel_id }}',
- '{{ configuration_name }}',
- '{{ iam_role_arn }}',
- '{{ sns_topic_arns }}',
- '{{ logging_level }}',
- '{{ guardrail_policies }}',
- '{{ tags }}',
- '{{ user_role_required }}',
- '{{ customization_resource_arns }}',
- '{{ region }}';
+  '{{ slack_workspace_id }}',
+  '{{ slack_channel_id }}',
+  '{{ configuration_name }}',
+  '{{ iam_role_arn }}',
+  '{{ sns_topic_arns }}',
+  '{{ logging_level }}',
+  '{{ guardrail_policies }}',
+  '{{ tags }}',
+  '{{ user_role_required }}',
+  '{{ customization_resource_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -344,8 +347,9 @@ SET PatchDocument = string('{{ {
     "UserRoleRequired": user_role_required,
     "CustomizationResourceArns": customization_resource_arns
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -354,8 +358,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.slack_channel_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

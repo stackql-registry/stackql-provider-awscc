@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>client_certificate</code>.
 ```sql
 SELECT
-region,
-client_certificate_id,
-description,
-tags
+  region,
+  client_certificate_id,
+  description,
+  tags
 FROM awscc.apigateway.client_certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ client_certificate_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ client_certificate_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ client_certificate_id }}';
 Lists all <code>client_certificates</code> in a region.
 ```sql
 SELECT
-region,
-client_certificate_id
+  region,
+  client_certificate_id
 FROM awscc.apigateway.client_certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>client_c
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.client_certificates (
- Description,
- Tags,
- region
+  Description,
+  Tags,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.client_certificates (
- Description,
- Tags,
- region
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ client_certificate_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ client_certificate_id }}';
 ```
 
 
@@ -261,8 +265,9 @@ AND Identifier = '{{ client_certificate_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.client_certificates
-WHERE Identifier = '{{ client_certificate_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ client_certificate_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

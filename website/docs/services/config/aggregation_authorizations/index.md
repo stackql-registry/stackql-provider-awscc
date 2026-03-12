@@ -163,13 +163,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>aggregation_authorization</code>.
 ```sql
 SELECT
-region,
-authorized_account_id,
-authorized_aws_region,
-aggregation_authorization_arn,
-tags
+  region,
+  authorized_account_id,
+  authorized_aws_region,
+  aggregation_authorization_arn,
+  tags
 FROM awscc.config.aggregation_authorizations
-WHERE region = 'us-east-1' AND Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ authorized_account_id }}|{{ auth
 Lists all <code>aggregation_authorizations</code> in a region.
 ```sql
 SELECT
-region,
-authorized_account_id,
-authorized_aws_region
+  region,
+  authorized_account_id,
+  authorized_aws_region
 FROM awscc.config.aggregation_authorizations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>aggregat
 ```sql
 /*+ create */
 INSERT INTO awscc.config.aggregation_authorizations (
- AuthorizedAccountId,
- AuthorizedAwsRegion,
- region
+  AuthorizedAccountId,
+  AuthorizedAwsRegion,
+  region
 )
 SELECT
-'{{ authorized_account_id }}',
- '{{ authorized_aws_region }}',
-'{{ region }}';
+  '{{ authorized_account_id }}',
+  '{{ authorized_aws_region }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.aggregation_authorizations (
- AuthorizedAccountId,
- AuthorizedAwsRegion,
- Tags,
- region
+  AuthorizedAccountId,
+  AuthorizedAwsRegion,
+  Tags,
+  region
 )
 SELECT
- '{{ authorized_account_id }}',
- '{{ authorized_aws_region }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ authorized_account_id }}',
+  '{{ authorized_aws_region }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.config.aggregation_authorizations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.aggregation_authorizations
-WHERE Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ authorized_account_id }}|{{ authorized_aws_region }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

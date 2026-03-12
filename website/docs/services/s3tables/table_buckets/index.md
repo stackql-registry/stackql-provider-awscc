@@ -175,13 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table_bucket</code>.
 ```sql
 SELECT
-region,
-table_bucket_arn,
-table_bucket_name,
-unreferenced_file_removal,
-encryption_configuration
+  region,
+  table_bucket_arn,
+  table_bucket_name,
+  unreferenced_file_removal,
+  encryption_configuration
 FROM awscc.s3tables.table_buckets
-WHERE region = 'us-east-1' AND Identifier = '{{ table_bucket_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_bucket_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_bucket_arn }}';
 Lists all <code>table_buckets</code> in a region.
 ```sql
 SELECT
-region,
-table_bucket_arn
+  region,
+  table_bucket_arn
 FROM awscc.s3tables.table_buckets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,12 +217,12 @@ Use the following StackQL query and manifest file to create a new <code>table_bu
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.table_buckets (
- TableBucketName,
- region
+  TableBucketName,
+  region
 )
 SELECT
-'{{ table_bucket_name }}',
-'{{ region }}';
+  '{{ table_bucket_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,16 +230,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.table_buckets (
- TableBucketName,
- UnreferencedFileRemoval,
- EncryptionConfiguration,
- region
+  TableBucketName,
+  UnreferencedFileRemoval,
+  EncryptionConfiguration,
+  region
 )
 SELECT
- '{{ table_bucket_name }}',
- '{{ unreferenced_file_removal }}',
- '{{ encryption_configuration }}',
- '{{ region }}';
+  '{{ table_bucket_name }}',
+  '{{ unreferenced_file_removal }}',
+  '{{ encryption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ SET PatchDocument = string('{{ {
     "UnreferencedFileRemoval": unreferenced_file_removal,
     "EncryptionConfiguration": encryption_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ table_bucket_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ table_bucket_arn }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ table_bucket_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.table_buckets
-WHERE Identifier = '{{ table_bucket_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_bucket_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -531,18 +531,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-application_configuration,
-application_description,
-application_mode,
-application_name,
-runtime_environment,
-service_execution_role,
-run_configuration,
-application_maintenance_configuration,
-tags
+  region,
+  application_configuration,
+  application_description,
+  application_mode,
+  application_name,
+  runtime_environment,
+  service_execution_role,
+  run_configuration,
+  application_maintenance_configuration,
+  tags
 FROM awscc.kinesisanalyticsv2.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -550,10 +552,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_name
+  region,
+  application_name
 FROM awscc.kinesisanalyticsv2.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -575,14 +578,14 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisanalyticsv2.applications (
- RuntimeEnvironment,
- ServiceExecutionRole,
- region
+  RuntimeEnvironment,
+  ServiceExecutionRole,
+  region
 )
 SELECT
-'{{ runtime_environment }}',
- '{{ service_execution_role }}',
-'{{ region }}';
+  '{{ runtime_environment }}',
+  '{{ service_execution_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -590,28 +593,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisanalyticsv2.applications (
- ApplicationConfiguration,
- ApplicationDescription,
- ApplicationMode,
- ApplicationName,
- RuntimeEnvironment,
- ServiceExecutionRole,
- RunConfiguration,
- ApplicationMaintenanceConfiguration,
- Tags,
- region
+  ApplicationConfiguration,
+  ApplicationDescription,
+  ApplicationMode,
+  ApplicationName,
+  RuntimeEnvironment,
+  ServiceExecutionRole,
+  RunConfiguration,
+  ApplicationMaintenanceConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ application_configuration }}',
- '{{ application_description }}',
- '{{ application_mode }}',
- '{{ application_name }}',
- '{{ runtime_environment }}',
- '{{ service_execution_role }}',
- '{{ run_configuration }}',
- '{{ application_maintenance_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ application_configuration }}',
+  '{{ application_description }}',
+  '{{ application_mode }}',
+  '{{ application_name }}',
+  '{{ runtime_environment }}',
+  '{{ service_execution_role }}',
+  '{{ run_configuration }}',
+  '{{ application_maintenance_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -757,8 +760,9 @@ SET PatchDocument = string('{{ {
     "ApplicationMaintenanceConfiguration": application_maintenance_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_name }}';
 ```
 
 
@@ -767,8 +771,9 @@ AND Identifier = '{{ application_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisanalyticsv2.applications
-WHERE Identifier = '{{ application_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

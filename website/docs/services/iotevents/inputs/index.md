@@ -172,13 +172,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>input</code>.
 ```sql
 SELECT
-region,
-input_definition,
-input_description,
-input_name,
-tags
+  region,
+  input_definition,
+  input_description,
+  input_name,
+  tags
 FROM awscc.iotevents.inputs
-WHERE region = 'us-east-1' AND Identifier = '{{ input_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ input_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -186,10 +188,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ input_name }}';
 Lists all <code>inputs</code> in a region.
 ```sql
 SELECT
-region,
-input_name
+  region,
+  input_name
 FROM awscc.iotevents.inputs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -211,12 +214,12 @@ Use the following StackQL query and manifest file to create a new <code>input</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.inputs (
- InputDefinition,
- region
+  InputDefinition,
+  region
 )
 SELECT
-'{{ input_definition }}',
-'{{ region }}';
+  '{{ input_definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.inputs (
- InputDefinition,
- InputDescription,
- InputName,
- Tags,
- region
+  InputDefinition,
+  InputDescription,
+  InputName,
+  Tags,
+  region
 )
 SELECT
- '{{ input_definition }}',
- '{{ input_description }}',
- '{{ input_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ input_definition }}',
+  '{{ input_description }}',
+  '{{ input_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +283,9 @@ SET PatchDocument = string('{{ {
     "InputDescription": input_description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ input_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ input_name }}';
 ```
 
 
@@ -290,8 +294,9 @@ AND Identifier = '{{ input_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.inputs
-WHERE Identifier = '{{ input_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ input_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

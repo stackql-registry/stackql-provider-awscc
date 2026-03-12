@@ -205,21 +205,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>variant_store</code>.
 ```sql
 SELECT
-region,
-creation_time,
-description,
-id,
-name,
-reference,
-sse_config,
-status,
-status_message,
-store_arn,
-store_size_bytes,
-tags,
-update_time
+  region,
+  creation_time,
+  description,
+  id,
+  name,
+  reference,
+  sse_config,
+  status,
+  status_message,
+  store_arn,
+  store_size_bytes,
+  tags,
+  update_time
 FROM awscc.omics.variant_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>variant_stores</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.omics.variant_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,14 +255,14 @@ Use the following StackQL query and manifest file to create a new <code>variant_
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.variant_stores (
- Name,
- Reference,
- region
+  Name,
+  Reference,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ reference }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ reference }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -267,20 +270,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.variant_stores (
- Description,
- Name,
- Reference,
- SseConfig,
- Tags,
- region
+  Description,
+  Name,
+  Reference,
+  SseConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ reference }}',
- '{{ sse_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ reference }}',
+  '{{ sse_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -324,8 +327,9 @@ UPDATE awscc.omics.variant_stores
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -334,8 +338,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.variant_stores
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

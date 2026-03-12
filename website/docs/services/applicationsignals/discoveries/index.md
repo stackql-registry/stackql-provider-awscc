@@ -131,10 +131,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>discovery</code>.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.applicationsignals.discoveries
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>discoveries</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.applicationsignals.discoveries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>discover
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationsignals.discoveries (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -180,12 +183,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationsignals.discoveries (
- ,
- region
+  ,
+  region
 )
 SELECT
- '{{  }}',
- '{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -212,8 +215,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationsignals.discoveries
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

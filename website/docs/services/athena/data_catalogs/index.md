@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_catalog</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-parameters,
-tags,
-type,
-status,
-connection_type,
-error
+  region,
+  name,
+  description,
+  parameters,
+  tags,
+  type,
+  status,
+  connection_type,
+  error
 FROM awscc.athena.data_catalogs
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>data_catalogs</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.athena.data_catalogs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>data_cat
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.data_catalogs (
- Name,
- Type,
- region
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,26 +239,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.data_catalogs (
- Name,
- Description,
- Parameters,
- Tags,
- Type,
- Status,
- ConnectionType,
- Error,
- region
+  Name,
+  Description,
+  Parameters,
+  Tags,
+  Type,
+  Status,
+  ConnectionType,
+  Error,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ status }}',
- '{{ connection_type }}',
- '{{ error }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ status }}',
+  '{{ connection_type }}',
+  '{{ error }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -310,8 +313,9 @@ SET PatchDocument = string('{{ {
     "ConnectionType": connection_type,
     "Error": error
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -320,8 +324,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.data_catalogs
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

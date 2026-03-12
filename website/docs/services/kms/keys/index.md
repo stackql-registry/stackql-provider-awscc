@@ -208,23 +208,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key</code>.
 ```sql
 SELECT
-region,
-description,
-enabled,
-enable_key_rotation,
-key_policy,
-key_usage,
-origin,
-key_spec,
-multi_region,
-pending_window_in_days,
-tags,
-arn,
-key_id,
-bypass_policy_lockout_safety_check,
-rotation_period_in_days
+  region,
+  description,
+  enabled,
+  enable_key_rotation,
+  key_policy,
+  key_usage,
+  origin,
+  key_spec,
+  multi_region,
+  pending_window_in_days,
+  tags,
+  arn,
+  key_id,
+  bypass_policy_lockout_safety_check,
+  rotation_period_in_days
 FROM awscc.kms.keys
-WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
 Lists all <code>keys</code> in a region.
 ```sql
 SELECT
-region,
-key_id
+  region,
+  key_id
 FROM awscc.kms.keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,34 +260,34 @@ Use the following StackQL query and manifest file to create a new <code>key</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.keys (
- Description,
- Enabled,
- EnableKeyRotation,
- KeyPolicy,
- KeyUsage,
- Origin,
- KeySpec,
- MultiRegion,
- PendingWindowInDays,
- Tags,
- BypassPolicyLockoutSafetyCheck,
- RotationPeriodInDays,
- region
+  Description,
+  Enabled,
+  EnableKeyRotation,
+  KeyPolicy,
+  KeyUsage,
+  Origin,
+  KeySpec,
+  MultiRegion,
+  PendingWindowInDays,
+  Tags,
+  BypassPolicyLockoutSafetyCheck,
+  RotationPeriodInDays,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ enabled }}',
- '{{ enable_key_rotation }}',
- '{{ key_policy }}',
- '{{ key_usage }}',
- '{{ origin }}',
- '{{ key_spec }}',
- '{{ multi_region }}',
- '{{ pending_window_in_days }}',
- '{{ tags }}',
- '{{ bypass_policy_lockout_safety_check }}',
- '{{ rotation_period_in_days }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ enabled }}',
+  '{{ enable_key_rotation }}',
+  '{{ key_policy }}',
+  '{{ key_usage }}',
+  '{{ origin }}',
+  '{{ key_spec }}',
+  '{{ multi_region }}',
+  '{{ pending_window_in_days }}',
+  '{{ tags }}',
+  '{{ bypass_policy_lockout_safety_check }}',
+  '{{ rotation_period_in_days }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -292,34 +295,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.keys (
- Description,
- Enabled,
- EnableKeyRotation,
- KeyPolicy,
- KeyUsage,
- Origin,
- KeySpec,
- MultiRegion,
- PendingWindowInDays,
- Tags,
- BypassPolicyLockoutSafetyCheck,
- RotationPeriodInDays,
- region
+  Description,
+  Enabled,
+  EnableKeyRotation,
+  KeyPolicy,
+  KeyUsage,
+  Origin,
+  KeySpec,
+  MultiRegion,
+  PendingWindowInDays,
+  Tags,
+  BypassPolicyLockoutSafetyCheck,
+  RotationPeriodInDays,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ enabled }}',
- '{{ enable_key_rotation }}',
- '{{ key_policy }}',
- '{{ key_usage }}',
- '{{ origin }}',
- '{{ key_spec }}',
- '{{ multi_region }}',
- '{{ pending_window_in_days }}',
- '{{ tags }}',
- '{{ bypass_policy_lockout_safety_check }}',
- '{{ rotation_period_in_days }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ enabled }}',
+  '{{ enable_key_rotation }}',
+  '{{ key_policy }}',
+  '{{ key_usage }}',
+  '{{ origin }}',
+  '{{ key_spec }}',
+  '{{ multi_region }}',
+  '{{ pending_window_in_days }}',
+  '{{ tags }}',
+  '{{ bypass_policy_lockout_safety_check }}',
+  '{{ rotation_period_in_days }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -387,8 +390,9 @@ SET PatchDocument = string('{{ {
     "BypassPolicyLockoutSafetyCheck": bypass_policy_lockout_safety_check,
     "RotationPeriodInDays": rotation_period_in_days
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ key_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ key_id }}';
 ```
 
 
@@ -397,8 +401,9 @@ AND Identifier = '{{ key_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.keys
-WHERE Identifier = '{{ key_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ key_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

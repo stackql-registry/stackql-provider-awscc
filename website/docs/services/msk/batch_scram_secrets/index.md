@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>batch_scram_secret</code>.
 ```sql
 SELECT
-region,
-cluster_arn,
-secret_arn_list
+  region,
+  cluster_arn,
+  secret_arn_list
 FROM awscc.msk.batch_scram_secrets
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 Lists all <code>batch_scram_secrets</code> in a region.
 ```sql
 SELECT
-region,
-cluster_arn
+  region,
+  cluster_arn
 FROM awscc.msk.batch_scram_secrets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>batch_sc
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.batch_scram_secrets (
- ClusterArn,
- region
+  ClusterArn,
+  region
 )
 SELECT
-'{{ cluster_arn }}',
-'{{ region }}';
+  '{{ cluster_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,14 +189,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.batch_scram_secrets (
- ClusterArn,
- SecretArnList,
- region
+  ClusterArn,
+  SecretArnList,
+  region
 )
 SELECT
- '{{ cluster_arn }}',
- '{{ secret_arn_list }}',
- '{{ region }}';
+  '{{ cluster_arn }}',
+  '{{ secret_arn_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -229,8 +232,9 @@ UPDATE awscc.msk.batch_scram_secrets
 SET PatchDocument = string('{{ {
     "SecretArnList": secret_arn_list
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -239,8 +243,9 @@ AND Identifier = '{{ cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.batch_scram_secrets
-WHERE Identifier = '{{ cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

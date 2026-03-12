@@ -166,19 +166,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app_block</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-description,
-display_name,
-source_s3_location,
-setup_script_details,
-tags,
-created_time,
-packaging_type,
-post_setup_script_details
+  region,
+  name,
+  arn,
+  description,
+  display_name,
+  source_s3_location,
+  setup_script_details,
+  tags,
+  created_time,
+  packaging_type,
+  post_setup_script_details
 FROM awscc.appstream.app_blocks
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -198,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>app_bloc
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.app_blocks (
- Name,
- SourceS3Location,
- region
+  Name,
+  SourceS3Location,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ source_s3_location }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ source_s3_location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,26 +215,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.app_blocks (
- Name,
- Description,
- DisplayName,
- SourceS3Location,
- SetupScriptDetails,
- Tags,
- PackagingType,
- PostSetupScriptDetails,
- region
+  Name,
+  Description,
+  DisplayName,
+  SourceS3Location,
+  SetupScriptDetails,
+  Tags,
+  PackagingType,
+  PostSetupScriptDetails,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ source_s3_location }}',
- '{{ setup_script_details }}',
- '{{ tags }}',
- '{{ packaging_type }}',
- '{{ post_setup_script_details }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ source_s3_location }}',
+  '{{ setup_script_details }}',
+  '{{ tags }}',
+  '{{ packaging_type }}',
+  '{{ post_setup_script_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -287,8 +289,9 @@ UPDATE awscc.appstream.app_blocks
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -297,8 +300,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.app_blocks
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-deleted_at,
-deployment_id,
-deployment_pattern_name,
-name,
-resource_group,
-specifications,
-status,
-tags,
-workload_name
+  region,
+  arn,
+  created_at,
+  deleted_at,
+  deployment_id,
+  deployment_pattern_name,
+  name,
+  resource_group,
+  specifications,
+  status,
+  tags,
+  workload_name
 FROM awscc.launchwizard.deployments
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>deployments</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.launchwizard.deployments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,16 +242,16 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.launchwizard.deployments (
- DeploymentPatternName,
- Name,
- WorkloadName,
- region
+  DeploymentPatternName,
+  Name,
+  WorkloadName,
+  region
 )
 SELECT
-'{{ deployment_pattern_name }}',
- '{{ name }}',
- '{{ workload_name }}',
-'{{ region }}';
+  '{{ deployment_pattern_name }}',
+  '{{ name }}',
+  '{{ workload_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,20 +259,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.launchwizard.deployments (
- DeploymentPatternName,
- Name,
- Specifications,
- Tags,
- WorkloadName,
- region
+  DeploymentPatternName,
+  Name,
+  Specifications,
+  Tags,
+  WorkloadName,
+  region
 )
 SELECT
- '{{ deployment_pattern_name }}',
- '{{ name }}',
- '{{ specifications }}',
- '{{ tags }}',
- '{{ workload_name }}',
- '{{ region }}';
+  '{{ deployment_pattern_name }}',
+  '{{ name }}',
+  '{{ specifications }}',
+  '{{ tags }}',
+  '{{ workload_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "Specifications": specifications,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.launchwizard.deployments
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

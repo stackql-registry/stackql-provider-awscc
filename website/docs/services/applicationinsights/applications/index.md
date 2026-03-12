@@ -347,22 +347,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-resource_group_name,
-application_arn,
-cwe_monitor_enabled,
-ops_center_enabled,
-ops_item_sns_topic_arn,
-sns_notification_arn,
-tags,
-custom_components,
-log_pattern_sets,
-auto_configuration_enabled,
-component_monitoring_settings,
-grouping_type,
-attach_missing_permission
+  region,
+  resource_group_name,
+  application_arn,
+  cwe_monitor_enabled,
+  ops_center_enabled,
+  ops_item_sns_topic_arn,
+  sns_notification_arn,
+  tags,
+  custom_components,
+  log_pattern_sets,
+  auto_configuration_enabled,
+  component_monitoring_settings,
+  grouping_type,
+  attach_missing_permission
 FROM awscc.applicationinsights.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -370,10 +372,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_arn
+  region,
+  application_arn
 FROM awscc.applicationinsights.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -395,12 +398,12 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationinsights.applications (
- ResourceGroupName,
- region
+  ResourceGroupName,
+  region
 )
 SELECT
-'{{ resource_group_name }}',
-'{{ region }}';
+  '{{ resource_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -408,34 +411,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationinsights.applications (
- ResourceGroupName,
- CWEMonitorEnabled,
- OpsCenterEnabled,
- OpsItemSNSTopicArn,
- SNSNotificationArn,
- Tags,
- CustomComponents,
- LogPatternSets,
- AutoConfigurationEnabled,
- ComponentMonitoringSettings,
- GroupingType,
- AttachMissingPermission,
- region
+  ResourceGroupName,
+  CWEMonitorEnabled,
+  OpsCenterEnabled,
+  OpsItemSNSTopicArn,
+  SNSNotificationArn,
+  Tags,
+  CustomComponents,
+  LogPatternSets,
+  AutoConfigurationEnabled,
+  ComponentMonitoringSettings,
+  GroupingType,
+  AttachMissingPermission,
+  region
 )
 SELECT
- '{{ resource_group_name }}',
- '{{ cwe_monitor_enabled }}',
- '{{ ops_center_enabled }}',
- '{{ ops_item_sns_topic_arn }}',
- '{{ sns_notification_arn }}',
- '{{ tags }}',
- '{{ custom_components }}',
- '{{ log_pattern_sets }}',
- '{{ auto_configuration_enabled }}',
- '{{ component_monitoring_settings }}',
- '{{ grouping_type }}',
- '{{ attach_missing_permission }}',
- '{{ region }}';
+  '{{ resource_group_name }}',
+  '{{ cwe_monitor_enabled }}',
+  '{{ ops_center_enabled }}',
+  '{{ ops_item_sns_topic_arn }}',
+  '{{ sns_notification_arn }}',
+  '{{ tags }}',
+  '{{ custom_components }}',
+  '{{ log_pattern_sets }}',
+  '{{ auto_configuration_enabled }}',
+  '{{ component_monitoring_settings }}',
+  '{{ grouping_type }}',
+  '{{ attach_missing_permission }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -568,8 +571,9 @@ SET PatchDocument = string('{{ {
     "ComponentMonitoringSettings": component_monitoring_settings,
     "AttachMissingPermission": attach_missing_permission
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_arn }}';
 ```
 
 
@@ -578,8 +582,9 @@ AND Identifier = '{{ application_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationinsights.applications
-WHERE Identifier = '{{ application_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

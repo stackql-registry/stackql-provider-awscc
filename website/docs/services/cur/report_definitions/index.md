@@ -186,21 +186,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>report_definition</code>.
 ```sql
 SELECT
-region,
-report_name,
-time_unit,
-format,
-compression,
-additional_schema_elements,
-s3_bucket,
-s3_prefix,
-s3_region,
-additional_artifacts,
-refresh_closed_reports,
-report_versioning,
-billing_view_arn
+  region,
+  report_name,
+  time_unit,
+  format,
+  compression,
+  additional_schema_elements,
+  s3_bucket,
+  s3_prefix,
+  s3_region,
+  additional_artifacts,
+  refresh_closed_reports,
+  report_versioning,
+  billing_view_arn
 FROM awscc.cur.report_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ report_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ report_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ report_name }}';
 Lists all <code>report_definitions</code> in a region.
 ```sql
 SELECT
-region,
-report_name
+  region,
+  report_name
 FROM awscc.cur.report_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,28 +236,28 @@ Use the following StackQL query and manifest file to create a new <code>report_d
 ```sql
 /*+ create */
 INSERT INTO awscc.cur.report_definitions (
- ReportName,
- TimeUnit,
- Format,
- Compression,
- S3Bucket,
- S3Prefix,
- S3Region,
- RefreshClosedReports,
- ReportVersioning,
- region
+  ReportName,
+  TimeUnit,
+  Format,
+  Compression,
+  S3Bucket,
+  S3Prefix,
+  S3Region,
+  RefreshClosedReports,
+  ReportVersioning,
+  region
 )
 SELECT
-'{{ report_name }}',
- '{{ time_unit }}',
- '{{ format }}',
- '{{ compression }}',
- '{{ s3_bucket }}',
- '{{ s3_prefix }}',
- '{{ s3_region }}',
- '{{ refresh_closed_reports }}',
- '{{ report_versioning }}',
-'{{ region }}';
+  '{{ report_name }}',
+  '{{ time_unit }}',
+  '{{ format }}',
+  '{{ compression }}',
+  '{{ s3_bucket }}',
+  '{{ s3_prefix }}',
+  '{{ s3_region }}',
+  '{{ refresh_closed_reports }}',
+  '{{ report_versioning }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,34 +265,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cur.report_definitions (
- ReportName,
- TimeUnit,
- Format,
- Compression,
- AdditionalSchemaElements,
- S3Bucket,
- S3Prefix,
- S3Region,
- AdditionalArtifacts,
- RefreshClosedReports,
- ReportVersioning,
- BillingViewArn,
- region
+  ReportName,
+  TimeUnit,
+  Format,
+  Compression,
+  AdditionalSchemaElements,
+  S3Bucket,
+  S3Prefix,
+  S3Region,
+  AdditionalArtifacts,
+  RefreshClosedReports,
+  ReportVersioning,
+  BillingViewArn,
+  region
 )
 SELECT
- '{{ report_name }}',
- '{{ time_unit }}',
- '{{ format }}',
- '{{ compression }}',
- '{{ additional_schema_elements }}',
- '{{ s3_bucket }}',
- '{{ s3_prefix }}',
- '{{ s3_region }}',
- '{{ additional_artifacts }}',
- '{{ refresh_closed_reports }}',
- '{{ report_versioning }}',
- '{{ billing_view_arn }}',
- '{{ region }}';
+  '{{ report_name }}',
+  '{{ time_unit }}',
+  '{{ format }}',
+  '{{ compression }}',
+  '{{ additional_schema_elements }}',
+  '{{ s3_bucket }}',
+  '{{ s3_prefix }}',
+  '{{ s3_region }}',
+  '{{ additional_artifacts }}',
+  '{{ refresh_closed_reports }}',
+  '{{ report_versioning }}',
+  '{{ billing_view_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -352,8 +355,9 @@ SET PatchDocument = string('{{ {
     "AdditionalArtifacts": additional_artifacts,
     "RefreshClosedReports": refresh_closed_reports
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ report_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ report_name }}';
 ```
 
 
@@ -362,8 +366,9 @@ AND Identifier = '{{ report_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cur.report_definitions
-WHERE Identifier = '{{ report_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ report_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

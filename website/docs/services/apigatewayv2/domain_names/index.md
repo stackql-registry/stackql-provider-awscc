@@ -210,17 +210,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name</code>.
 ```sql
 SELECT
-region,
-mutual_tls_authentication,
-regional_hosted_zone_id,
-regional_domain_name,
-domain_name_arn,
-domain_name,
-domain_name_configurations,
-routing_mode,
-tags
+  region,
+  mutual_tls_authentication,
+  regional_hosted_zone_id,
+  regional_domain_name,
+  domain_name_arn,
+  domain_name,
+  domain_name_configurations,
+  routing_mode,
+  tags
 FROM awscc.apigatewayv2.domain_names
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,10 +230,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 Lists all <code>domain_names</code> in a region.
 ```sql
 SELECT
-region,
-domain_name
+  region,
+  domain_name
 FROM awscc.apigatewayv2.domain_names_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -253,12 +256,12 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.domain_names (
- DomainName,
- region
+  DomainName,
+  region
 )
 SELECT
-'{{ domain_name }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,20 +269,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.domain_names (
- MutualTlsAuthentication,
- DomainName,
- DomainNameConfigurations,
- RoutingMode,
- Tags,
- region
+  MutualTlsAuthentication,
+  DomainName,
+  DomainNameConfigurations,
+  RoutingMode,
+  Tags,
+  region
 )
 SELECT
- '{{ mutual_tls_authentication }}',
- '{{ domain_name }}',
- '{{ domain_name_configurations }}',
- '{{ routing_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ mutual_tls_authentication }}',
+  '{{ domain_name }}',
+  '{{ domain_name_configurations }}',
+  '{{ routing_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ SET PatchDocument = string('{{ {
     "RoutingMode": routing_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.domain_names
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

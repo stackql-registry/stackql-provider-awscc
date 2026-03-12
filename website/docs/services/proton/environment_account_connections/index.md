@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment_account_connection</code>.
 ```sql
 SELECT
-region,
-arn,
-codebuild_role_arn,
-component_role_arn,
-environment_account_id,
-environment_name,
-id,
-management_account_id,
-role_arn,
-status,
-tags
+  region,
+  arn,
+  codebuild_role_arn,
+  component_role_arn,
+  environment_account_id,
+  environment_name,
+  id,
+  management_account_id,
+  role_arn,
+  status,
+  tags
 FROM awscc.proton.environment_account_connections
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>environment_account_connections</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.proton.environment_account_connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,24 +236,24 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.proton.environment_account_connections (
- CodebuildRoleArn,
- ComponentRoleArn,
- EnvironmentAccountId,
- EnvironmentName,
- ManagementAccountId,
- RoleArn,
- Tags,
- region
+  CodebuildRoleArn,
+  ComponentRoleArn,
+  EnvironmentAccountId,
+  EnvironmentName,
+  ManagementAccountId,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
-'{{ codebuild_role_arn }}',
- '{{ component_role_arn }}',
- '{{ environment_account_id }}',
- '{{ environment_name }}',
- '{{ management_account_id }}',
- '{{ role_arn }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ codebuild_role_arn }}',
+  '{{ component_role_arn }}',
+  '{{ environment_account_id }}',
+  '{{ environment_name }}',
+  '{{ management_account_id }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,24 +261,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.proton.environment_account_connections (
- CodebuildRoleArn,
- ComponentRoleArn,
- EnvironmentAccountId,
- EnvironmentName,
- ManagementAccountId,
- RoleArn,
- Tags,
- region
+  CodebuildRoleArn,
+  ComponentRoleArn,
+  EnvironmentAccountId,
+  EnvironmentName,
+  ManagementAccountId,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ codebuild_role_arn }}',
- '{{ component_role_arn }}',
- '{{ environment_account_id }}',
- '{{ environment_name }}',
- '{{ management_account_id }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ codebuild_role_arn }}',
+  '{{ component_role_arn }}',
+  '{{ environment_account_id }}',
+  '{{ environment_name }}',
+  '{{ management_account_id }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -328,8 +331,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -338,8 +342,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.proton.environment_account_connections
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

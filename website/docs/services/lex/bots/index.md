@@ -802,24 +802,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bot</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-name,
-description,
-role_arn,
-data_privacy,
-error_log_settings,
-idle_session_ttl_in_seconds,
-bot_locales,
-bot_file_s3_location,
-bot_tags,
-test_bot_alias_tags,
-auto_build_bot_locales,
-test_bot_alias_settings,
-replication
+  region,
+  id,
+  arn,
+  name,
+  description,
+  role_arn,
+  data_privacy,
+  error_log_settings,
+  idle_session_ttl_in_seconds,
+  bot_locales,
+  bot_file_s3_location,
+  bot_tags,
+  test_bot_alias_tags,
+  auto_build_bot_locales,
+  test_bot_alias_settings,
+  replication
 FROM awscc.lex.bots
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -827,10 +829,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>bots</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.lex.bots_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -852,18 +855,18 @@ Use the following StackQL query and manifest file to create a new <code>bot</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bots (
- Name,
- RoleArn,
- DataPrivacy,
- IdleSessionTTLInSeconds,
- region
+  Name,
+  RoleArn,
+  DataPrivacy,
+  IdleSessionTTLInSeconds,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ role_arn }}',
- '{{ data_privacy }}',
- '{{ idle_session_ttl_in_seconds }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ data_privacy }}',
+  '{{ idle_session_ttl_in_seconds }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -871,36 +874,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bots (
- Name,
- Description,
- RoleArn,
- DataPrivacy,
- ErrorLogSettings,
- IdleSessionTTLInSeconds,
- BotLocales,
- BotFileS3Location,
- BotTags,
- TestBotAliasTags,
- AutoBuildBotLocales,
- TestBotAliasSettings,
- Replication,
- region
+  Name,
+  Description,
+  RoleArn,
+  DataPrivacy,
+  ErrorLogSettings,
+  IdleSessionTTLInSeconds,
+  BotLocales,
+  BotFileS3Location,
+  BotTags,
+  TestBotAliasTags,
+  AutoBuildBotLocales,
+  TestBotAliasSettings,
+  Replication,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ role_arn }}',
- '{{ data_privacy }}',
- '{{ error_log_settings }}',
- '{{ idle_session_ttl_in_seconds }}',
- '{{ bot_locales }}',
- '{{ bot_file_s3_location }}',
- '{{ bot_tags }}',
- '{{ test_bot_alias_tags }}',
- '{{ auto_build_bot_locales }}',
- '{{ test_bot_alias_settings }}',
- '{{ replication }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ role_arn }}',
+  '{{ data_privacy }}',
+  '{{ error_log_settings }}',
+  '{{ idle_session_ttl_in_seconds }}',
+  '{{ bot_locales }}',
+  '{{ bot_file_s3_location }}',
+  '{{ bot_tags }}',
+  '{{ test_bot_alias_tags }}',
+  '{{ auto_build_bot_locales }}',
+  '{{ test_bot_alias_settings }}',
+  '{{ replication }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1262,8 +1265,9 @@ SET PatchDocument = string('{{ {
     "TestBotAliasSettings": test_bot_alias_settings,
     "Replication": replication
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -1272,8 +1276,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bots
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

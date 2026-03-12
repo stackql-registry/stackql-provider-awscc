@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT
-region,
-description,
-display_name,
-group_id,
-identity_store_id
+  region,
+  description,
+  display_name,
+  group_id,
+  identity_store_id
 FROM awscc.identitystore.groups
-WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ identity_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ identity_store_id
 Lists all <code>groups</code> in a region.
 ```sql
 SELECT
-region,
-group_id,
-identity_store_id
+  region,
+  group_id,
+  identity_store_id
 FROM awscc.identitystore.groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>group</c
 ```sql
 /*+ create */
 INSERT INTO awscc.identitystore.groups (
- DisplayName,
- IdentityStoreId,
- region
+  DisplayName,
+  IdentityStoreId,
+  region
 )
 SELECT
-'{{ display_name }}',
- '{{ identity_store_id }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ identity_store_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,16 +209,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.identitystore.groups (
- Description,
- DisplayName,
- IdentityStoreId,
- region
+  Description,
+  DisplayName,
+  IdentityStoreId,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ display_name }}',
- '{{ identity_store_id }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ identity_store_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -253,8 +256,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "DisplayName": display_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ group_id }}|{{ identity_store_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```
 
 
@@ -263,8 +267,9 @@ AND Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.identitystore.groups
-WHERE Identifier = '{{ group_id }}|{{ identity_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_id }}|{{ identity_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

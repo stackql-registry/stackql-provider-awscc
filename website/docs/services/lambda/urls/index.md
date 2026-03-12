@@ -193,16 +193,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>url</code>.
 ```sql
 SELECT
-region,
-target_function_arn,
-qualifier,
-auth_type,
-invoke_mode,
-function_arn,
-function_url,
-cors
+  region,
+  target_function_arn,
+  qualifier,
+  auth_type,
+  invoke_mode,
+  function_arn,
+  function_url,
+  cors
 FROM awscc.lambda.urls
-WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -210,10 +212,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 Lists all <code>urls</code> in a region.
 ```sql
 SELECT
-region,
-function_arn
+  region,
+  function_arn
 FROM awscc.lambda.urls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -235,14 +238,14 @@ Use the following StackQL query and manifest file to create a new <code>url</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.urls (
- TargetFunctionArn,
- AuthType,
- region
+  TargetFunctionArn,
+  AuthType,
+  region
 )
 SELECT
-'{{ target_function_arn }}',
- '{{ auth_type }}',
-'{{ region }}';
+  '{{ target_function_arn }}',
+  '{{ auth_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,20 +253,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.urls (
- TargetFunctionArn,
- Qualifier,
- AuthType,
- InvokeMode,
- Cors,
- region
+  TargetFunctionArn,
+  Qualifier,
+  AuthType,
+  InvokeMode,
+  Cors,
+  region
 )
 SELECT
- '{{ target_function_arn }}',
- '{{ qualifier }}',
- '{{ auth_type }}',
- '{{ invoke_mode }}',
- '{{ cors }}',
- '{{ region }}';
+  '{{ target_function_arn }}',
+  '{{ qualifier }}',
+  '{{ auth_type }}',
+  '{{ invoke_mode }}',
+  '{{ cors }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -316,8 +319,9 @@ SET PatchDocument = string('{{ {
     "InvokeMode": invoke_mode,
     "Cors": cors
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ function_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ function_arn }}';
 ```
 
 
@@ -326,8 +330,9 @@ AND Identifier = '{{ function_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.urls
-WHERE Identifier = '{{ function_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -201,24 +201,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>managed_policy</code>.
 ```sql
 SELECT
-region,
-description,
-groups,
-managed_policy_name,
-path,
-policy_document,
-roles,
-users,
-policy_arn,
-attachment_count,
-create_date,
-update_date,
-default_version_id,
-is_attachable,
-permissions_boundary_usage_count,
-policy_id
+  region,
+  description,
+  groups,
+  managed_policy_name,
+  path,
+  policy_document,
+  roles,
+  users,
+  policy_arn,
+  attachment_count,
+  create_date,
+  update_date,
+  default_version_id,
+  is_attachable,
+  permissions_boundary_usage_count,
+  policy_id
 FROM awscc.iam.managed_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 Lists all <code>managed_policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_arn
+  region,
+  policy_arn
 FROM awscc.iam.managed_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,12 +254,12 @@ Use the following StackQL query and manifest file to create a new <code>managed_
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.managed_policies (
- PolicyDocument,
- region
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ policy_document }}',
-'{{ region }}';
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,24 +267,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.managed_policies (
- Description,
- Groups,
- ManagedPolicyName,
- Path,
- PolicyDocument,
- Roles,
- Users,
- region
+  Description,
+  Groups,
+  ManagedPolicyName,
+  Path,
+  PolicyDocument,
+  Roles,
+  Users,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ groups }}',
- '{{ managed_policy_name }}',
- '{{ path }}',
- '{{ policy_document }}',
- '{{ roles }}',
- '{{ users }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ groups }}',
+  '{{ managed_policy_name }}',
+  '{{ path }}',
+  '{{ policy_document }}',
+  '{{ roles }}',
+  '{{ users }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -332,8 +335,9 @@ SET PatchDocument = string('{{ {
     "Roles": roles,
     "Users": users
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -342,8 +346,9 @@ AND Identifier = '{{ policy_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.managed_policies
-WHERE Identifier = '{{ policy_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

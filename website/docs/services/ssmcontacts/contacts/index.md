@@ -216,15 +216,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>contact</code>.
 ```sql
 SELECT
-region,
-alias,
-display_name,
-type,
-plan,
-tags,
-arn
+  region,
+  alias,
+  display_name,
+  type,
+  plan,
+  tags,
+  arn
 FROM awscc.ssmcontacts.contacts
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>contacts</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ssmcontacts.contacts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,16 +260,16 @@ Use the following StackQL query and manifest file to create a new <code>contact<
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.contacts (
- Alias,
- DisplayName,
- Type,
- region
+  Alias,
+  DisplayName,
+  Type,
+  region
 )
 SELECT
-'{{ alias }}',
- '{{ display_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ alias }}',
+  '{{ display_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,20 +277,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.contacts (
- Alias,
- DisplayName,
- Type,
- Plan,
- Tags,
- region
+  Alias,
+  DisplayName,
+  Type,
+  Plan,
+  Tags,
+  region
 )
 SELECT
- '{{ alias }}',
- '{{ display_name }}',
- '{{ type }}',
- '{{ plan }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ alias }}',
+  '{{ display_name }}',
+  '{{ type }}',
+  '{{ plan }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "Plan": plan,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.contacts
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

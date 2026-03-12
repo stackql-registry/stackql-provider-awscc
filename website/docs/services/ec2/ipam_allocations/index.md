@@ -155,14 +155,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam_allocation</code>.
 ```sql
 SELECT
-region,
-ipam_pool_allocation_id,
-ipam_pool_id,
-cidr,
-netmask_length,
-description
+  region,
+  ipam_pool_allocation_id,
+  ipam_pool_id,
+  cidr,
+  netmask_length,
+  description
 FROM awscc.ec2.ipam_allocations
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,12 +172,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_all
 Lists all <code>ipam_allocations</code> in a region.
 ```sql
 SELECT
-region,
-ipam_pool_id,
-ipam_pool_allocation_id,
-cidr
+  region,
+  ipam_pool_id,
+  ipam_pool_allocation_id,
+  cidr
 FROM awscc.ec2.ipam_allocations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>ipam_all
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_allocations (
- IpamPoolId,
- region
+  IpamPoolId,
+  region
 )
 SELECT
-'{{ ipam_pool_id }}',
-'{{ region }}';
+  '{{ ipam_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,18 +213,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_allocations (
- IpamPoolId,
- Cidr,
- NetmaskLength,
- Description,
- region
+  IpamPoolId,
+  Cidr,
+  NetmaskLength,
+  Description,
+  region
 )
 SELECT
- '{{ ipam_pool_id }}',
- '{{ cidr }}',
- '{{ netmask_length }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ ipam_pool_id }}',
+  '{{ cidr }}',
+  '{{ netmask_length }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -256,8 +259,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_allocations
-WHERE Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

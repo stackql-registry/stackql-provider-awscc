@@ -226,16 +226,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>quick_connect</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-name,
-description,
-quick_connect_config,
-quick_connect_arn,
-tags,
-quick_connect_type
+  region,
+  instance_arn,
+  name,
+  description,
+  quick_connect_config,
+  quick_connect_arn,
+  tags,
+  quick_connect_type
 FROM awscc.connect.quick_connects
-WHERE region = 'us-east-1' AND Identifier = '{{ quick_connect_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ quick_connect_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ quick_connect_arn }}';
 Lists all <code>quick_connects</code> in a region.
 ```sql
 SELECT
-region,
-quick_connect_arn
+  region,
+  quick_connect_arn
 FROM awscc.connect.quick_connects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,16 +271,16 @@ Use the following StackQL query and manifest file to create a new <code>quick_co
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.quick_connects (
- InstanceArn,
- Name,
- QuickConnectConfig,
- region
+  InstanceArn,
+  Name,
+  QuickConnectConfig,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ quick_connect_config }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ quick_connect_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,20 +288,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.quick_connects (
- InstanceArn,
- Name,
- Description,
- QuickConnectConfig,
- Tags,
- region
+  InstanceArn,
+  Name,
+  Description,
+  QuickConnectConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ quick_connect_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ quick_connect_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -354,8 +357,9 @@ SET PatchDocument = string('{{ {
     "QuickConnectConfig": quick_connect_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ quick_connect_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ quick_connect_arn }}';
 ```
 
 
@@ -364,8 +368,9 @@ AND Identifier = '{{ quick_connect_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.quick_connects
-WHERE Identifier = '{{ quick_connect_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ quick_connect_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

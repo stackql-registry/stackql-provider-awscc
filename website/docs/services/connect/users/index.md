@@ -269,21 +269,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-directory_user_id,
-hierarchy_group_arn,
-username,
-password,
-routing_profile_arn,
-identity_info,
-phone_config,
-security_profile_arns,
-user_arn,
-tags,
-user_proficiencies
+  region,
+  instance_arn,
+  directory_user_id,
+  hierarchy_group_arn,
+  username,
+  password,
+  routing_profile_arn,
+  identity_info,
+  phone_config,
+  security_profile_arns,
+  user_arn,
+  tags,
+  user_proficiencies
 FROM awscc.connect.users
-WHERE region = 'us-east-1' AND Identifier = '{{ user_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -291,10 +293,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_arn }}';
 Lists all <code>users</code> in a region.
 ```sql
 SELECT
-region,
-user_arn
+  region,
+  user_arn
 FROM awscc.connect.users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -316,20 +319,20 @@ Use the following StackQL query and manifest file to create a new <code>user</co
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.users (
- InstanceArn,
- Username,
- RoutingProfileArn,
- PhoneConfig,
- SecurityProfileArns,
- region
+  InstanceArn,
+  Username,
+  RoutingProfileArn,
+  PhoneConfig,
+  SecurityProfileArns,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ username }}',
- '{{ routing_profile_arn }}',
- '{{ phone_config }}',
- '{{ security_profile_arns }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ username }}',
+  '{{ routing_profile_arn }}',
+  '{{ phone_config }}',
+  '{{ security_profile_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -337,32 +340,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.users (
- InstanceArn,
- DirectoryUserId,
- HierarchyGroupArn,
- Username,
- Password,
- RoutingProfileArn,
- IdentityInfo,
- PhoneConfig,
- SecurityProfileArns,
- Tags,
- UserProficiencies,
- region
+  InstanceArn,
+  DirectoryUserId,
+  HierarchyGroupArn,
+  Username,
+  Password,
+  RoutingProfileArn,
+  IdentityInfo,
+  PhoneConfig,
+  SecurityProfileArns,
+  Tags,
+  UserProficiencies,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ directory_user_id }}',
- '{{ hierarchy_group_arn }}',
- '{{ username }}',
- '{{ password }}',
- '{{ routing_profile_arn }}',
- '{{ identity_info }}',
- '{{ phone_config }}',
- '{{ security_profile_arns }}',
- '{{ tags }}',
- '{{ user_proficiencies }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ directory_user_id }}',
+  '{{ hierarchy_group_arn }}',
+  '{{ username }}',
+  '{{ password }}',
+  '{{ routing_profile_arn }}',
+  '{{ identity_info }}',
+  '{{ phone_config }}',
+  '{{ security_profile_arns }}',
+  '{{ tags }}',
+  '{{ user_proficiencies }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -441,8 +444,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "UserProficiencies": user_proficiencies
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_arn }}';
 ```
 
 
@@ -451,8 +455,9 @@ AND Identifier = '{{ user_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.users
-WHERE Identifier = '{{ user_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

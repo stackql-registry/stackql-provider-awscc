@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-resource_arn,
-resource_policy
+  region,
+  resource_arn,
+  resource_policy
 FROM awscc.kinesis.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_arn }}';
 ```
 
 ## `INSERT` example
@@ -114,14 +116,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.resource_policies (
- ResourceArn,
- ResourcePolicy,
- region
+  ResourceArn,
+  ResourcePolicy,
+  region
 )
 SELECT
-'{{ resource_arn }}',
- '{{ resource_policy }}',
-'{{ region }}';
+  '{{ resource_arn }}',
+  '{{ resource_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.resource_policies (
- ResourceArn,
- ResourcePolicy,
- region
+  ResourceArn,
+  ResourcePolicy,
+  region
 )
 SELECT
- '{{ resource_arn }}',
- '{{ resource_policy }}',
- '{{ region }}';
+  '{{ resource_arn }}',
+  '{{ resource_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.kinesis.resource_policies
 SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_arn }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ resource_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.resource_policies
-WHERE Identifier = '{{ resource_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

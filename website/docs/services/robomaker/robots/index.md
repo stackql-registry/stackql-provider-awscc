@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>robot</code>.
 ```sql
 SELECT
-region,
-arn,
-fleet,
-architecture,
-greengrass_group_id,
-tags,
-name
+  region,
+  arn,
+  fleet,
+  architecture,
+  greengrass_group_id,
+  tags,
+  name
 FROM awscc.robomaker.robots
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>robots</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.robomaker.robots_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>robot</c
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robots (
- Architecture,
- GreengrassGroupId,
- region
+  Architecture,
+  GreengrassGroupId,
+  region
 )
 SELECT
-'{{ architecture }}',
- '{{ greengrass_group_id }}',
-'{{ region }}';
+  '{{ architecture }}',
+  '{{ greengrass_group_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,20 +215,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robots (
- Fleet,
- Architecture,
- GreengrassGroupId,
- Tags,
- Name,
- region
+  Fleet,
+  Architecture,
+  GreengrassGroupId,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ fleet }}',
- '{{ architecture }}',
- '{{ greengrass_group_id }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ fleet }}',
+  '{{ architecture }}',
+  '{{ greengrass_group_id }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.robomaker.robots
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.robots
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -260,14 +260,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>device_profile</code>.
 ```sql
 SELECT
-region,
-name,
-lo_ra_wan,
-tags,
-arn,
-id
+  region,
+  name,
+  lo_ra_wan,
+  tags,
+  arn,
+  id
 FROM awscc.iotwireless.device_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,10 +277,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>device_profiles</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.device_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -300,12 +303,12 @@ Use the following StackQL query and manifest file to create a new <code>device_p
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.device_profiles (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -313,16 +316,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.device_profiles (
- Name,
- LoRaWAN,
- Tags,
- region
+  Name,
+  LoRaWAN,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ lo_ra_wan }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ lo_ra_wan }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -381,8 +384,9 @@ UPDATE awscc.iotwireless.device_profiles
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -391,8 +395,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.device_profiles
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

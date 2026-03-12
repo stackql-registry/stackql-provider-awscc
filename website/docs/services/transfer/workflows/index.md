@@ -331,15 +331,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workflow</code>.
 ```sql
 SELECT
-region,
-on_exception_steps,
-steps,
-tags,
-description,
-workflow_id,
-arn
+  region,
+  on_exception_steps,
+  steps,
+  tags,
+  description,
+  workflow_id,
+  arn
 FROM awscc.transfer.workflows
-WHERE region = 'us-east-1' AND Identifier = '{{ workflow_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workflow_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -347,10 +349,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workflow_id }}';
 Lists all <code>workflows</code> in a region.
 ```sql
 SELECT
-region,
-workflow_id
+  region,
+  workflow_id
 FROM awscc.transfer.workflows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -372,12 +375,12 @@ Use the following StackQL query and manifest file to create a new <code>workflow
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.workflows (
- Steps,
- region
+  Steps,
+  region
 )
 SELECT
-'{{ steps }}',
-'{{ region }}';
+  '{{ steps }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -385,18 +388,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.workflows (
- OnExceptionSteps,
- Steps,
- Tags,
- Description,
- region
+  OnExceptionSteps,
+  Steps,
+  Tags,
+  Description,
+  region
 )
 SELECT
- '{{ on_exception_steps }}',
- '{{ steps }}',
- '{{ tags }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ on_exception_steps }}',
+  '{{ steps }}',
+  '{{ tags }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -471,8 +474,9 @@ UPDATE awscc.transfer.workflows
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workflow_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workflow_id }}';
 ```
 
 
@@ -481,8 +485,9 @@ AND Identifier = '{{ workflow_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.workflows
-WHERE Identifier = '{{ workflow_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workflow_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

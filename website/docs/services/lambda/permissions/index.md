@@ -170,18 +170,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>permission</code>.
 ```sql
 SELECT
-region,
-function_name,
-action,
-event_source_token,
-function_url_auth_type,
-source_arn,
-source_account,
-principal_org_id,
-id,
-principal
+  region,
+  function_name,
+  action,
+  event_source_token,
+  function_url_auth_type,
+  source_arn,
+  source_account,
+  principal_org_id,
+  id,
+  principal
 FROM awscc.lambda.permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ id }}';
 Lists all <code>permissions</code> in a region.
 ```sql
 SELECT
-region,
-function_name,
-id
+  region,
+  function_name,
+  id
 FROM awscc.lambda.permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>permissi
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.permissions (
- FunctionName,
- Action,
- Principal,
- region
+  FunctionName,
+  Action,
+  Principal,
+  region
 )
 SELECT
-'{{ function_name }}',
- '{{ action }}',
- '{{ principal }}',
-'{{ region }}';
+  '{{ function_name }}',
+  '{{ action }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,26 +235,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.permissions (
- FunctionName,
- Action,
- EventSourceToken,
- FunctionUrlAuthType,
- SourceArn,
- SourceAccount,
- PrincipalOrgID,
- Principal,
- region
+  FunctionName,
+  Action,
+  EventSourceToken,
+  FunctionUrlAuthType,
+  SourceArn,
+  SourceAccount,
+  PrincipalOrgID,
+  Principal,
+  region
 )
 SELECT
- '{{ function_name }}',
- '{{ action }}',
- '{{ event_source_token }}',
- '{{ function_url_auth_type }}',
- '{{ source_arn }}',
- '{{ source_account }}',
- '{{ principal_org_id }}',
- '{{ principal }}',
- '{{ region }}';
+  '{{ function_name }}',
+  '{{ action }}',
+  '{{ event_source_token }}',
+  '{{ function_url_auth_type }}',
+  '{{ source_arn }}',
+  '{{ source_account }}',
+  '{{ principal_org_id }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -294,8 +297,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.permissions
-WHERE Identifier = '{{ function_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

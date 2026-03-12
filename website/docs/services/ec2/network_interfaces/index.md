@@ -298,31 +298,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_interface</code>.
 ```sql
 SELECT
-region,
-description,
-private_ip_address,
-primary_ipv6_address,
-private_ip_addresses,
-secondary_private_ip_address_count,
-ipv6_prefix_count,
-primary_private_ip_address,
-ipv4_prefixes,
-ipv4_prefix_count,
-enable_primary_ipv6,
-group_set,
-ipv6_addresses,
-ipv6_prefixes,
-subnet_id,
-source_dest_check,
-interface_type,
-secondary_private_ip_addresses,
-vpc_id,
-ipv6_address_count,
-id,
-tags,
-connection_tracking_specification
+  region,
+  description,
+  private_ip_address,
+  primary_ipv6_address,
+  private_ip_addresses,
+  secondary_private_ip_address_count,
+  ipv6_prefix_count,
+  primary_private_ip_address,
+  ipv4_prefixes,
+  ipv4_prefix_count,
+  enable_primary_ipv6,
+  group_set,
+  ipv6_addresses,
+  ipv6_prefixes,
+  subnet_id,
+  source_dest_check,
+  interface_type,
+  secondary_private_ip_addresses,
+  vpc_id,
+  ipv6_address_count,
+  id,
+  tags,
+  connection_tracking_specification
 FROM awscc.ec2.network_interfaces
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,10 +332,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>network_interfaces</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.network_interfaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -355,12 +358,12 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_interfaces (
- SubnetId,
- region
+  SubnetId,
+  region
 )
 SELECT
-'{{ subnet_id }}',
-'{{ region }}';
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -368,44 +371,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_interfaces (
- Description,
- PrivateIpAddress,
- PrivateIpAddresses,
- SecondaryPrivateIpAddressCount,
- Ipv6PrefixCount,
- Ipv4Prefixes,
- Ipv4PrefixCount,
- EnablePrimaryIpv6,
- GroupSet,
- Ipv6Addresses,
- Ipv6Prefixes,
- SubnetId,
- SourceDestCheck,
- InterfaceType,
- Ipv6AddressCount,
- Tags,
- ConnectionTrackingSpecification,
- region
+  Description,
+  PrivateIpAddress,
+  PrivateIpAddresses,
+  SecondaryPrivateIpAddressCount,
+  Ipv6PrefixCount,
+  Ipv4Prefixes,
+  Ipv4PrefixCount,
+  EnablePrimaryIpv6,
+  GroupSet,
+  Ipv6Addresses,
+  Ipv6Prefixes,
+  SubnetId,
+  SourceDestCheck,
+  InterfaceType,
+  Ipv6AddressCount,
+  Tags,
+  ConnectionTrackingSpecification,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ private_ip_address }}',
- '{{ private_ip_addresses }}',
- '{{ secondary_private_ip_address_count }}',
- '{{ ipv6_prefix_count }}',
- '{{ ipv4_prefixes }}',
- '{{ ipv4_prefix_count }}',
- '{{ enable_primary_ipv6 }}',
- '{{ group_set }}',
- '{{ ipv6_addresses }}',
- '{{ ipv6_prefixes }}',
- '{{ subnet_id }}',
- '{{ source_dest_check }}',
- '{{ interface_type }}',
- '{{ ipv6_address_count }}',
- '{{ tags }}',
- '{{ connection_tracking_specification }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ private_ip_address }}',
+  '{{ private_ip_addresses }}',
+  '{{ secondary_private_ip_address_count }}',
+  '{{ ipv6_prefix_count }}',
+  '{{ ipv4_prefixes }}',
+  '{{ ipv4_prefix_count }}',
+  '{{ enable_primary_ipv6 }}',
+  '{{ group_set }}',
+  '{{ ipv6_addresses }}',
+  '{{ ipv6_prefixes }}',
+  '{{ subnet_id }}',
+  '{{ source_dest_check }}',
+  '{{ interface_type }}',
+  '{{ ipv6_address_count }}',
+  '{{ tags }}',
+  '{{ connection_tracking_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -494,8 +497,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ConnectionTrackingSpecification": connection_tracking_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -504,8 +508,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_interfaces
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

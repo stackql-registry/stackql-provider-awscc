@@ -203,22 +203,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multi_region_cluster</code>.
 ```sql
 SELECT
-region,
-multi_region_cluster_name_suffix,
-description,
-multi_region_cluster_name,
-status,
-node_type,
-num_shards,
-multi_region_parameter_group_name,
-tls_enabled,
-arn,
-engine,
-engine_version,
-tags,
-update_strategy
+  region,
+  multi_region_cluster_name_suffix,
+  description,
+  multi_region_cluster_name,
+  status,
+  node_type,
+  num_shards,
+  multi_region_parameter_group_name,
+  tls_enabled,
+  arn,
+  engine,
+  engine_version,
+  tags,
+  update_strategy
 FROM awscc.memorydb.multi_region_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ multi_region_cluster_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ multi_region_cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ multi_region_cluster_name }}';
 Lists all <code>multi_region_clusters</code> in a region.
 ```sql
 SELECT
-region,
-multi_region_cluster_name
+  region,
+  multi_region_cluster_name
 FROM awscc.memorydb.multi_region_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,12 +254,12 @@ Use the following StackQL query and manifest file to create a new <code>multi_re
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.multi_region_clusters (
- NodeType,
- region
+  NodeType,
+  region
 )
 SELECT
-'{{ node_type }}',
-'{{ region }}';
+  '{{ node_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,30 +267,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.multi_region_clusters (
- MultiRegionClusterNameSuffix,
- Description,
- NodeType,
- NumShards,
- MultiRegionParameterGroupName,
- TLSEnabled,
- Engine,
- EngineVersion,
- Tags,
- UpdateStrategy,
- region
+  MultiRegionClusterNameSuffix,
+  Description,
+  NodeType,
+  NumShards,
+  MultiRegionParameterGroupName,
+  TLSEnabled,
+  Engine,
+  EngineVersion,
+  Tags,
+  UpdateStrategy,
+  region
 )
 SELECT
- '{{ multi_region_cluster_name_suffix }}',
- '{{ description }}',
- '{{ node_type }}',
- '{{ num_shards }}',
- '{{ multi_region_parameter_group_name }}',
- '{{ tls_enabled }}',
- '{{ engine }}',
- '{{ engine_version }}',
- '{{ tags }}',
- '{{ update_strategy }}',
- '{{ region }}';
+  '{{ multi_region_cluster_name_suffix }}',
+  '{{ description }}',
+  '{{ node_type }}',
+  '{{ num_shards }}',
+  '{{ multi_region_parameter_group_name }}',
+  '{{ tls_enabled }}',
+  '{{ engine }}',
+  '{{ engine_version }}',
+  '{{ tags }}',
+  '{{ update_strategy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -345,8 +348,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "UpdateStrategy": update_strategy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ multi_region_cluster_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ multi_region_cluster_name }}';
 ```
 
 
@@ -355,8 +359,9 @@ AND Identifier = '{{ multi_region_cluster_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.multi_region_clusters
-WHERE Identifier = '{{ multi_region_cluster_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ multi_region_cluster_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

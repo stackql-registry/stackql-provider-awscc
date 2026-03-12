@@ -574,31 +574,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>processing_job</code>.
 ```sql
 SELECT
-region,
-app_specification,
-environment,
-experiment_config,
-network_config,
-processing_inputs,
-processing_job_name,
-processing_output_config,
-processing_resources,
-role_arn,
-stopping_condition,
-tags,
-processing_job_arn,
-auto_ml_job_arn,
-exit_message,
-failure_reason,
-monitoring_schedule_arn,
-training_job_arn,
-processing_job_status,
-creation_time,
-last_modified_time,
-processing_start_time,
-processing_end_time
+  region,
+  app_specification,
+  environment,
+  experiment_config,
+  network_config,
+  processing_inputs,
+  processing_job_name,
+  processing_output_config,
+  processing_resources,
+  role_arn,
+  stopping_condition,
+  tags,
+  processing_job_arn,
+  auto_ml_job_arn,
+  exit_message,
+  failure_reason,
+  monitoring_schedule_arn,
+  training_job_arn,
+  processing_job_status,
+  creation_time,
+  last_modified_time,
+  processing_start_time,
+  processing_end_time
 FROM awscc.sagemaker.processing_jobs
-WHERE region = 'us-east-1' AND Identifier = '{{ processing_job_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ processing_job_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -606,10 +608,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ processing_job_arn }}';
 Lists all <code>processing_jobs</code> in a region.
 ```sql
 SELECT
-region,
-processing_job_arn
+  region,
+  processing_job_arn
 FROM awscc.sagemaker.processing_jobs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -631,16 +634,16 @@ Use the following StackQL query and manifest file to create a new <code>processi
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.processing_jobs (
- AppSpecification,
- ProcessingResources,
- RoleArn,
- region
+  AppSpecification,
+  ProcessingResources,
+  RoleArn,
+  region
 )
 SELECT
-'{{ app_specification }}',
- '{{ processing_resources }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ app_specification }}',
+  '{{ processing_resources }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -648,32 +651,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.processing_jobs (
- AppSpecification,
- Environment,
- ExperimentConfig,
- NetworkConfig,
- ProcessingInputs,
- ProcessingJobName,
- ProcessingOutputConfig,
- ProcessingResources,
- RoleArn,
- StoppingCondition,
- Tags,
- region
+  AppSpecification,
+  Environment,
+  ExperimentConfig,
+  NetworkConfig,
+  ProcessingInputs,
+  ProcessingJobName,
+  ProcessingOutputConfig,
+  ProcessingResources,
+  RoleArn,
+  StoppingCondition,
+  Tags,
+  region
 )
 SELECT
- '{{ app_specification }}',
- '{{ environment }}',
- '{{ experiment_config }}',
- '{{ network_config }}',
- '{{ processing_inputs }}',
- '{{ processing_job_name }}',
- '{{ processing_output_config }}',
- '{{ processing_resources }}',
- '{{ role_arn }}',
- '{{ stopping_condition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ app_specification }}',
+  '{{ environment }}',
+  '{{ experiment_config }}',
+  '{{ network_config }}',
+  '{{ processing_inputs }}',
+  '{{ processing_job_name }}',
+  '{{ processing_output_config }}',
+  '{{ processing_resources }}',
+  '{{ role_arn }}',
+  '{{ stopping_condition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -788,8 +791,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.processing_jobs
-WHERE Identifier = '{{ processing_job_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ processing_job_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

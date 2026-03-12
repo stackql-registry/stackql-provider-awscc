@@ -265,17 +265,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-database_name,
-table_name,
-retention_properties,
-schema,
-magnetic_store_write_properties,
-tags
+  region,
+  arn,
+  name,
+  database_name,
+  table_name,
+  retention_properties,
+  schema,
+  magnetic_store_write_properties,
+  tags
 FROM awscc.timestream.tables
-WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}|{{ table_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ database_name }}|{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -283,11 +285,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}|{{ table_name }
 Lists all <code>tables</code> in a region.
 ```sql
 SELECT
-region,
-database_name,
-table_name
+  region,
+  database_name,
+  table_name
 FROM awscc.timestream.tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -309,12 +312,12 @@ Use the following StackQL query and manifest file to create a new <code>table</c
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.tables (
- DatabaseName,
- region
+  DatabaseName,
+  region
 )
 SELECT
-'{{ database_name }}',
-'{{ region }}';
+  '{{ database_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -322,22 +325,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.tables (
- DatabaseName,
- TableName,
- RetentionProperties,
- Schema,
- MagneticStoreWriteProperties,
- Tags,
- region
+  DatabaseName,
+  TableName,
+  RetentionProperties,
+  Schema,
+  MagneticStoreWriteProperties,
+  Tags,
+  region
 )
 SELECT
- '{{ database_name }}',
- '{{ table_name }}',
- '{{ retention_properties }}',
- '{{ schema }}',
- '{{ magnetic_store_write_properties }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ database_name }}',
+  '{{ table_name }}',
+  '{{ retention_properties }}',
+  '{{ schema }}',
+  '{{ magnetic_store_write_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -398,8 +401,9 @@ SET PatchDocument = string('{{ {
     "MagneticStoreWriteProperties": magnetic_store_write_properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ database_name }}|{{ table_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ database_name }}|{{ table_name }}';
 ```
 
 
@@ -408,8 +412,9 @@ AND Identifier = '{{ database_name }}|{{ table_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.tables
-WHERE Identifier = '{{ database_name }}|{{ table_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ database_name }}|{{ table_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

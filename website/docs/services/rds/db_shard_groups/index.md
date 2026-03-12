@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_shard_group</code>.
 ```sql
 SELECT
-region,
-db_shard_group_resource_id,
-db_shard_group_identifier,
-db_cluster_identifier,
-compute_redundancy,
-max_ac_u,
-min_ac_u,
-publicly_accessible,
-endpoint,
-tags
+  region,
+  db_shard_group_resource_id,
+  db_shard_group_identifier,
+  db_cluster_identifier,
+  compute_redundancy,
+  max_ac_u,
+  min_ac_u,
+  publicly_accessible,
+  endpoint,
+  tags
 FROM awscc.rds.db_shard_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ db_shard_group_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_shard_group_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_shard_group_identifier }}';
 Lists all <code>db_shard_groups</code> in a region.
 ```sql
 SELECT
-region,
-db_shard_group_identifier
+  region,
+  db_shard_group_identifier
 FROM awscc.rds.db_shard_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>db_shard
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_shard_groups (
- DBClusterIdentifier,
- MaxACU,
- region
+  DBClusterIdentifier,
+  MaxACU,
+  region
 )
 SELECT
-'{{ db_cluster_identifier }}',
- '{{ max_ac_u }}',
-'{{ region }}';
+  '{{ db_cluster_identifier }}',
+  '{{ max_ac_u }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,24 +245,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_shard_groups (
- DBShardGroupIdentifier,
- DBClusterIdentifier,
- ComputeRedundancy,
- MaxACU,
- MinACU,
- PubliclyAccessible,
- Tags,
- region
+  DBShardGroupIdentifier,
+  DBClusterIdentifier,
+  ComputeRedundancy,
+  MaxACU,
+  MinACU,
+  PubliclyAccessible,
+  Tags,
+  region
 )
 SELECT
- '{{ db_shard_group_identifier }}',
- '{{ db_cluster_identifier }}',
- '{{ compute_redundancy }}',
- '{{ max_ac_u }}',
- '{{ min_ac_u }}',
- '{{ publicly_accessible }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ db_shard_group_identifier }}',
+  '{{ db_cluster_identifier }}',
+  '{{ compute_redundancy }}',
+  '{{ max_ac_u }}',
+  '{{ min_ac_u }}',
+  '{{ publicly_accessible }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "MinACU": min_ac_u,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_shard_group_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_shard_group_identifier }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ db_shard_group_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_shard_groups
-WHERE Identifier = '{{ db_shard_group_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_shard_group_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

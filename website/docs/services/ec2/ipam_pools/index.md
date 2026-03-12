@@ -287,33 +287,35 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam_pool</code>.
 ```sql
 SELECT
-region,
-ipam_pool_id,
-address_family,
-allocation_min_netmask_length,
-allocation_default_netmask_length,
-allocation_max_netmask_length,
-allocation_resource_tags,
-arn,
-auto_import,
-aws_service,
-description,
-ipam_scope_id,
-ipam_scope_arn,
-ipam_scope_type,
-ipam_arn,
-locale,
-pool_depth,
-provisioned_cidrs,
-public_ip_source,
-publicly_advertisable,
-source_ipam_pool_id,
-source_resource,
-state,
-state_message,
-tags
+  region,
+  ipam_pool_id,
+  address_family,
+  allocation_min_netmask_length,
+  allocation_default_netmask_length,
+  allocation_max_netmask_length,
+  allocation_resource_tags,
+  arn,
+  auto_import,
+  aws_service,
+  description,
+  ipam_scope_id,
+  ipam_scope_arn,
+  ipam_scope_type,
+  ipam_arn,
+  locale,
+  pool_depth,
+  provisioned_cidrs,
+  public_ip_source,
+  publicly_advertisable,
+  source_ipam_pool_id,
+  source_resource,
+  state,
+  state_message,
+  tags
 FROM awscc.ec2.ipam_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_pool_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,10 +323,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}';
 Lists all <code>ipam_pools</code> in a region.
 ```sql
 SELECT
-region,
-ipam_pool_id
+  region,
+  ipam_pool_id
 FROM awscc.ec2.ipam_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -346,14 +349,14 @@ Use the following StackQL query and manifest file to create a new <code>ipam_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_pools (
- AddressFamily,
- IpamScopeId,
- region
+  AddressFamily,
+  IpamScopeId,
+  region
 )
 SELECT
-'{{ address_family }}',
- '{{ ipam_scope_id }}',
-'{{ region }}';
+  '{{ address_family }}',
+  '{{ ipam_scope_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -361,42 +364,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_pools (
- AddressFamily,
- AllocationMinNetmaskLength,
- AllocationDefaultNetmaskLength,
- AllocationMaxNetmaskLength,
- AllocationResourceTags,
- AutoImport,
- AwsService,
- Description,
- IpamScopeId,
- Locale,
- ProvisionedCidrs,
- PublicIpSource,
- PubliclyAdvertisable,
- SourceIpamPoolId,
- SourceResource,
- Tags,
- region
+  AddressFamily,
+  AllocationMinNetmaskLength,
+  AllocationDefaultNetmaskLength,
+  AllocationMaxNetmaskLength,
+  AllocationResourceTags,
+  AutoImport,
+  AwsService,
+  Description,
+  IpamScopeId,
+  Locale,
+  ProvisionedCidrs,
+  PublicIpSource,
+  PubliclyAdvertisable,
+  SourceIpamPoolId,
+  SourceResource,
+  Tags,
+  region
 )
 SELECT
- '{{ address_family }}',
- '{{ allocation_min_netmask_length }}',
- '{{ allocation_default_netmask_length }}',
- '{{ allocation_max_netmask_length }}',
- '{{ allocation_resource_tags }}',
- '{{ auto_import }}',
- '{{ aws_service }}',
- '{{ description }}',
- '{{ ipam_scope_id }}',
- '{{ locale }}',
- '{{ provisioned_cidrs }}',
- '{{ public_ip_source }}',
- '{{ publicly_advertisable }}',
- '{{ source_ipam_pool_id }}',
- '{{ source_resource }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ address_family }}',
+  '{{ allocation_min_netmask_length }}',
+  '{{ allocation_default_netmask_length }}',
+  '{{ allocation_max_netmask_length }}',
+  '{{ allocation_resource_tags }}',
+  '{{ auto_import }}',
+  '{{ aws_service }}',
+  '{{ description }}',
+  '{{ ipam_scope_id }}',
+  '{{ locale }}',
+  '{{ provisioned_cidrs }}',
+  '{{ public_ip_source }}',
+  '{{ publicly_advertisable }}',
+  '{{ source_ipam_pool_id }}',
+  '{{ source_resource }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -474,8 +477,9 @@ SET PatchDocument = string('{{ {
     "ProvisionedCidrs": provisioned_cidrs,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ipam_pool_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ipam_pool_id }}';
 ```
 
 
@@ -484,8 +488,9 @@ AND Identifier = '{{ ipam_pool_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_pools
-WHERE Identifier = '{{ ipam_pool_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_pool_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

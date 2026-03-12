@@ -171,16 +171,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ai_guardrail_version</code>.
 ```sql
 SELECT
-region,
-a_iguardrail_arn,
-assistant_arn,
-a_iguardrail_id,
-assistant_id,
-a_iguardrail_version_id,
-version_number,
-modified_time_seconds
+  region,
+  a_iguardrail_arn,
+  assistant_arn,
+  a_iguardrail_id,
+  assistant_id,
+  a_iguardrail_version_id,
+  version_number,
+  modified_time_seconds
 FROM awscc.wisdom.ai_guardrail_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,12 +190,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iguardrail_
 Lists all <code>ai_guardrail_versions</code> in a region.
 ```sql
 SELECT
-region,
-assistant_id,
-a_iguardrail_id,
-version_number
+  region,
+  assistant_id,
+  a_iguardrail_id,
+  version_number
 FROM awscc.wisdom.ai_guardrail_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>ai_guard
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_guardrail_versions (
- AIGuardrailId,
- AssistantId,
- region
+  AIGuardrailId,
+  AssistantId,
+  region
 )
 SELECT
-'{{ a_iguardrail_id }}',
- '{{ assistant_id }}',
-'{{ region }}';
+  '{{ a_iguardrail_id }}',
+  '{{ assistant_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,16 +233,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_guardrail_versions (
- AIGuardrailId,
- AssistantId,
- ModifiedTimeSeconds,
- region
+  AIGuardrailId,
+  AssistantId,
+  ModifiedTimeSeconds,
+  region
 )
 SELECT
- '{{ a_iguardrail_id }}',
- '{{ assistant_id }}',
- '{{ modified_time_seconds }}',
- '{{ region }}';
+  '{{ a_iguardrail_id }}',
+  '{{ assistant_id }}',
+  '{{ modified_time_seconds }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_guardrail_versions
-WHERE Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

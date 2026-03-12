@@ -178,14 +178,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_source</code>.
 ```sql
 SELECT
-region,
-configuration,
-details,
-identity_source_id,
-policy_store_id,
-principal_entity_type
+  region,
+  configuration,
+  details,
+  identity_source_id,
+  policy_store_id,
+  principal_entity_type
 FROM awscc.verifiedpermissions.identity_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,11 +195,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_id }}|{{ policy_
 Lists all <code>identity_sources</code> in a region.
 ```sql
 SELECT
-region,
-identity_source_id,
-policy_store_id
+  region,
+  identity_source_id,
+  policy_store_id
 FROM awscc.verifiedpermissions.identity_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -219,14 +222,14 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.identity_sources (
- Configuration,
- PolicyStoreId,
- region
+  Configuration,
+  PolicyStoreId,
+  region
 )
 SELECT
-'{{ configuration }}',
- '{{ policy_store_id }}',
-'{{ region }}';
+  '{{ configuration }}',
+  '{{ policy_store_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,16 +237,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.identity_sources (
- Configuration,
- PolicyStoreId,
- PrincipalEntityType,
- region
+  Configuration,
+  PolicyStoreId,
+  PrincipalEntityType,
+  region
 )
 SELECT
- '{{ configuration }}',
- '{{ policy_store_id }}',
- '{{ principal_entity_type }}',
- '{{ region }}';
+  '{{ configuration }}',
+  '{{ policy_store_id }}',
+  '{{ principal_entity_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "Configuration": configuration,
     "PrincipalEntityType": principal_entity_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.identity_sources
-WHERE Identifier = '{{ identity_source_id }}|{{ policy_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identity_source_id }}|{{ policy_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

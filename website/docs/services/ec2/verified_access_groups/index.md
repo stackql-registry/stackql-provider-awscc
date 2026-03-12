@@ -205,20 +205,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>verified_access_group</code>.
 ```sql
 SELECT
-region,
-verified_access_group_id,
-verified_access_instance_id,
-verified_access_group_arn,
-owner,
-creation_time,
-last_updated_time,
-description,
-policy_document,
-policy_enabled,
-tags,
-sse_specification
+  region,
+  verified_access_group_id,
+  verified_access_instance_id,
+  verified_access_group_arn,
+  owner,
+  creation_time,
+  last_updated_time,
+  description,
+  policy_document,
+  policy_enabled,
+  tags,
+  sse_specification
 FROM awscc.ec2.verified_access_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_group_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ verified_access_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_group_id }}';
 Lists all <code>verified_access_groups</code> in a region.
 ```sql
 SELECT
-region,
-verified_access_group_id
+  region,
+  verified_access_group_id
 FROM awscc.ec2.verified_access_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,12 +254,12 @@ Use the following StackQL query and manifest file to create a new <code>verified
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_groups (
- VerifiedAccessInstanceId,
- region
+  VerifiedAccessInstanceId,
+  region
 )
 SELECT
-'{{ verified_access_instance_id }}',
-'{{ region }}';
+  '{{ verified_access_instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,22 +267,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_groups (
- VerifiedAccessInstanceId,
- Description,
- PolicyDocument,
- PolicyEnabled,
- Tags,
- SseSpecification,
- region
+  VerifiedAccessInstanceId,
+  Description,
+  PolicyDocument,
+  PolicyEnabled,
+  Tags,
+  SseSpecification,
+  region
 )
 SELECT
- '{{ verified_access_instance_id }}',
- '{{ description }}',
- '{{ policy_document }}',
- '{{ policy_enabled }}',
- '{{ tags }}',
- '{{ sse_specification }}',
- '{{ region }}';
+  '{{ verified_access_instance_id }}',
+  '{{ description }}',
+  '{{ policy_document }}',
+  '{{ policy_enabled }}',
+  '{{ tags }}',
+  '{{ sse_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "SseSpecification": sse_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ verified_access_group_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ verified_access_group_id }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ verified_access_group_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_groups
-WHERE Identifier = '{{ verified_access_group_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ verified_access_group_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

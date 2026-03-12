@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>approved_origin</code>.
 ```sql
 SELECT
-region,
-origin,
-instance_id
+  region,
+  origin,
+  instance_id
 FROM awscc.connect.approved_origins
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ origin }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_id }}|{{ origin }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ origin }}';
 Lists all <code>approved_origins</code> in a region.
 ```sql
 SELECT
-region,
-instance_id,
-origin
+  region,
+  instance_id,
+  origin
 FROM awscc.connect.approved_origins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>approved
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.approved_origins (
- Origin,
- InstanceId,
- region
+  Origin,
+  InstanceId,
+  region
 )
 SELECT
-'{{ origin }}',
- '{{ instance_id }}',
-'{{ region }}';
+  '{{ origin }}',
+  '{{ instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.approved_origins (
- Origin,
- InstanceId,
- region
+  Origin,
+  InstanceId,
+  region
 )
 SELECT
- '{{ origin }}',
- '{{ instance_id }}',
- '{{ region }}';
+  '{{ origin }}',
+  '{{ instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.approved_origins
-WHERE Identifier = '{{ instance_id }}|{{ origin }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_id }}|{{ origin }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

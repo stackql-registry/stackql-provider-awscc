@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Creates, updates, deletes or gets a <code>vw_failed_request</code> resource or lists <code>vw_failed_requests</code> in a region
+View of <code>resource_requests</code> filtered by the SQL WHERE clause; see <a href="/services/cloud_control/resource_requests/"><code>resource_requests</code></a> for the full resource.
 
 ## Overview
 <table>
@@ -34,6 +34,51 @@ Creates, updates, deletes or gets a <code>vw_failed_request</code> resource or l
 
 ## Fields
 <SchemaTable fields={[
+  {
+    "name": "error_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "operation",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "operation_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "request_token",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_model",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": ""
+  },
   {
     "name": "region",
     "type": "string",
@@ -50,9 +95,15 @@ Creates, updates, deletes or gets a <code>vw_failed_request</code> resource or l
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
+  <tr>
+    <td><CopyableCode code="view" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
 </tbody>
 </table>
 
+## `SELECT` examples
 
 
 

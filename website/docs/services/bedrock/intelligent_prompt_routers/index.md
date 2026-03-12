@@ -207,20 +207,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>intelligent_prompt_router</code>.
 ```sql
 SELECT
-region,
-created_at,
-description,
-fallback_model,
-models,
-prompt_router_arn,
-prompt_router_name,
-routing_criteria,
-status,
-tags,
-type,
-updated_at
+  region,
+  created_at,
+  description,
+  fallback_model,
+  models,
+  prompt_router_arn,
+  prompt_router_name,
+  routing_criteria,
+  status,
+  tags,
+  type,
+  updated_at
 FROM awscc.bedrock.intelligent_prompt_routers
-WHERE region = 'us-east-1' AND Identifier = '{{ prompt_router_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ prompt_router_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,10 +230,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ prompt_router_arn }}';
 Lists all <code>intelligent_prompt_routers</code> in a region.
 ```sql
 SELECT
-region,
-prompt_router_arn
+  region,
+  prompt_router_arn
 FROM awscc.bedrock.intelligent_prompt_routers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -253,18 +256,18 @@ Use the following StackQL query and manifest file to create a new <code>intellig
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.intelligent_prompt_routers (
- FallbackModel,
- Models,
- PromptRouterName,
- RoutingCriteria,
- region
+  FallbackModel,
+  Models,
+  PromptRouterName,
+  RoutingCriteria,
+  region
 )
 SELECT
-'{{ fallback_model }}',
- '{{ models }}',
- '{{ prompt_router_name }}',
- '{{ routing_criteria }}',
-'{{ region }}';
+  '{{ fallback_model }}',
+  '{{ models }}',
+  '{{ prompt_router_name }}',
+  '{{ routing_criteria }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,22 +275,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.intelligent_prompt_routers (
- Description,
- FallbackModel,
- Models,
- PromptRouterName,
- RoutingCriteria,
- Tags,
- region
+  Description,
+  FallbackModel,
+  Models,
+  PromptRouterName,
+  RoutingCriteria,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ fallback_model }}',
- '{{ models }}',
- '{{ prompt_router_name }}',
- '{{ routing_criteria }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ fallback_model }}',
+  '{{ models }}',
+  '{{ prompt_router_name }}',
+  '{{ routing_criteria }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -335,8 +338,9 @@ UPDATE awscc.bedrock.intelligent_prompt_routers
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ prompt_router_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ prompt_router_arn }}';
 ```
 
 
@@ -345,8 +349,9 @@ AND Identifier = '{{ prompt_router_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.intelligent_prompt_routers
-WHERE Identifier = '{{ prompt_router_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ prompt_router_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

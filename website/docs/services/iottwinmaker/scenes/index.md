@@ -181,20 +181,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scene</code>.
 ```sql
 SELECT
-region,
-scene_id,
-arn,
-description,
-content_location,
-creation_date_time,
-update_date_time,
-tags,
-workspace_id,
-capabilities,
-scene_metadata,
-generated_scene_metadata
+  region,
+  scene_id,
+  arn,
+  description,
+  content_location,
+  creation_date_time,
+  update_date_time,
+  tags,
+  workspace_id,
+  capabilities,
+  scene_metadata,
+  generated_scene_metadata
 FROM awscc.iottwinmaker.scenes
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +204,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
 Lists all <code>scenes</code> in a region.
 ```sql
 SELECT
-region,
-workspace_id,
-scene_id
+  region,
+  workspace_id,
+  scene_id
 FROM awscc.iottwinmaker.scenes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,16 +231,16 @@ Use the following StackQL query and manifest file to create a new <code>scene</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.scenes (
- SceneId,
- ContentLocation,
- WorkspaceId,
- region
+  SceneId,
+  ContentLocation,
+  WorkspaceId,
+  region
 )
 SELECT
-'{{ scene_id }}',
- '{{ content_location }}',
- '{{ workspace_id }}',
-'{{ region }}';
+  '{{ scene_id }}',
+  '{{ content_location }}',
+  '{{ workspace_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,24 +248,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.scenes (
- SceneId,
- Description,
- ContentLocation,
- Tags,
- WorkspaceId,
- Capabilities,
- SceneMetadata,
- region
+  SceneId,
+  Description,
+  ContentLocation,
+  Tags,
+  WorkspaceId,
+  Capabilities,
+  SceneMetadata,
+  region
 )
 SELECT
- '{{ scene_id }}',
- '{{ description }}',
- '{{ content_location }}',
- '{{ tags }}',
- '{{ workspace_id }}',
- '{{ capabilities }}',
- '{{ scene_metadata }}',
- '{{ region }}';
+  '{{ scene_id }}',
+  '{{ description }}',
+  '{{ content_location }}',
+  '{{ tags }}',
+  '{{ workspace_id }}',
+  '{{ capabilities }}',
+  '{{ scene_metadata }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "Capabilities": capabilities,
     "SceneMetadata": scene_metadata
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.scenes
-WHERE Identifier = '{{ workspace_id }}|{{ scene_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_id }}|{{ scene_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

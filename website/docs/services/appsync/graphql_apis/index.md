@@ -436,34 +436,36 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>graphql_api</code>.
 ```sql
 SELECT
-region,
-additional_authentication_providers,
-api_id,
-api_type,
-arn,
-authentication_type,
-enhanced_metrics_config,
-environment_variables,
-graph_ql_dns,
-graph_ql_endpoint_arn,
-graph_ql_url,
-introspection_config,
-lambda_authorizer_config,
-log_config,
-merged_api_execution_role_arn,
-name,
-open_id_connect_config,
-owner_contact,
-query_depth_limit,
-realtime_dns,
-realtime_url,
-resolver_count_limit,
-tags,
-user_pool_config,
-visibility,
-xray_enabled
+  region,
+  additional_authentication_providers,
+  api_id,
+  api_type,
+  arn,
+  authentication_type,
+  enhanced_metrics_config,
+  environment_variables,
+  graph_ql_dns,
+  graph_ql_endpoint_arn,
+  graph_ql_url,
+  introspection_config,
+  lambda_authorizer_config,
+  log_config,
+  merged_api_execution_role_arn,
+  name,
+  open_id_connect_config,
+  owner_contact,
+  query_depth_limit,
+  realtime_dns,
+  realtime_url,
+  resolver_count_limit,
+  tags,
+  user_pool_config,
+  visibility,
+  xray_enabled
 FROM awscc.appsync.graphql_apis
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -471,10 +473,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
 Lists all <code>graphql_apis</code> in a region.
 ```sql
 SELECT
-region,
-api_id
+  region,
+  api_id
 FROM awscc.appsync.graphql_apis_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -496,14 +499,14 @@ Use the following StackQL query and manifest file to create a new <code>graphql_
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.graphql_apis (
- AuthenticationType,
- Name,
- region
+  AuthenticationType,
+  Name,
+  region
 )
 SELECT
-'{{ authentication_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ authentication_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -511,46 +514,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.graphql_apis (
- AdditionalAuthenticationProviders,
- ApiType,
- AuthenticationType,
- EnhancedMetricsConfig,
- EnvironmentVariables,
- IntrospectionConfig,
- LambdaAuthorizerConfig,
- LogConfig,
- MergedApiExecutionRoleArn,
- Name,
- OpenIDConnectConfig,
- OwnerContact,
- QueryDepthLimit,
- ResolverCountLimit,
- Tags,
- UserPoolConfig,
- Visibility,
- XrayEnabled,
- region
+  AdditionalAuthenticationProviders,
+  ApiType,
+  AuthenticationType,
+  EnhancedMetricsConfig,
+  EnvironmentVariables,
+  IntrospectionConfig,
+  LambdaAuthorizerConfig,
+  LogConfig,
+  MergedApiExecutionRoleArn,
+  Name,
+  OpenIDConnectConfig,
+  OwnerContact,
+  QueryDepthLimit,
+  ResolverCountLimit,
+  Tags,
+  UserPoolConfig,
+  Visibility,
+  XrayEnabled,
+  region
 )
 SELECT
- '{{ additional_authentication_providers }}',
- '{{ api_type }}',
- '{{ authentication_type }}',
- '{{ enhanced_metrics_config }}',
- '{{ environment_variables }}',
- '{{ introspection_config }}',
- '{{ lambda_authorizer_config }}',
- '{{ log_config }}',
- '{{ merged_api_execution_role_arn }}',
- '{{ name }}',
- '{{ open_id_connect_config }}',
- '{{ owner_contact }}',
- '{{ query_depth_limit }}',
- '{{ resolver_count_limit }}',
- '{{ tags }}',
- '{{ user_pool_config }}',
- '{{ visibility }}',
- '{{ xray_enabled }}',
- '{{ region }}';
+  '{{ additional_authentication_providers }}',
+  '{{ api_type }}',
+  '{{ authentication_type }}',
+  '{{ enhanced_metrics_config }}',
+  '{{ environment_variables }}',
+  '{{ introspection_config }}',
+  '{{ lambda_authorizer_config }}',
+  '{{ log_config }}',
+  '{{ merged_api_execution_role_arn }}',
+  '{{ name }}',
+  '{{ open_id_connect_config }}',
+  '{{ owner_contact }}',
+  '{{ query_depth_limit }}',
+  '{{ resolver_count_limit }}',
+  '{{ tags }}',
+  '{{ user_pool_config }}',
+  '{{ visibility }}',
+  '{{ xray_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -660,8 +663,9 @@ SET PatchDocument = string('{{ {
     "Visibility": visibility,
     "XrayEnabled": xray_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}';
 ```
 
 
@@ -670,8 +674,9 @@ AND Identifier = '{{ api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.graphql_apis
-WHERE Identifier = '{{ api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

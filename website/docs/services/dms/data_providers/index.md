@@ -525,18 +525,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_provider</code>.
 ```sql
 SELECT
-region,
-data_provider_name,
-data_provider_identifier,
-data_provider_arn,
-data_provider_creation_time,
-description,
-engine,
-exact_settings,
-settings,
-tags
+  region,
+  data_provider_name,
+  data_provider_identifier,
+  data_provider_arn,
+  data_provider_creation_time,
+  description,
+  engine,
+  exact_settings,
+  settings,
+  tags
 FROM awscc.dms.data_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ data_provider_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ data_provider_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -544,10 +546,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ data_provider_arn }}';
 Lists all <code>data_providers</code> in a region.
 ```sql
 SELECT
-region,
-data_provider_arn
+  region,
+  data_provider_arn
 FROM awscc.dms.data_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -569,12 +572,12 @@ Use the following StackQL query and manifest file to create a new <code>data_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.data_providers (
- Engine,
- region
+  Engine,
+  region
 )
 SELECT
-'{{ engine }}',
-'{{ region }}';
+  '{{ engine }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -582,24 +585,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.data_providers (
- DataProviderName,
- DataProviderIdentifier,
- Description,
- Engine,
- ExactSettings,
- Settings,
- Tags,
- region
+  DataProviderName,
+  DataProviderIdentifier,
+  Description,
+  Engine,
+  ExactSettings,
+  Settings,
+  Tags,
+  region
 )
 SELECT
- '{{ data_provider_name }}',
- '{{ data_provider_identifier }}',
- '{{ description }}',
- '{{ engine }}',
- '{{ exact_settings }}',
- '{{ settings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ data_provider_name }}',
+  '{{ data_provider_identifier }}',
+  '{{ description }}',
+  '{{ engine }}',
+  '{{ exact_settings }}',
+  '{{ settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -716,8 +719,9 @@ SET PatchDocument = string('{{ {
     "Settings": settings,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ data_provider_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ data_provider_arn }}';
 ```
 
 
@@ -726,8 +730,9 @@ AND Identifier = '{{ data_provider_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.data_providers
-WHERE Identifier = '{{ data_provider_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ data_provider_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -237,18 +237,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>asset</code>.
 ```sql
 SELECT
-region,
-asset_id,
-asset_external_id,
-asset_model_id,
-asset_arn,
-asset_name,
-asset_description,
-asset_properties,
-asset_hierarchies,
-tags
+  region,
+  asset_id,
+  asset_external_id,
+  asset_model_id,
+  asset_arn,
+  asset_name,
+  asset_description,
+  asset_properties,
+  asset_hierarchies,
+  tags
 FROM awscc.iotsitewise.assets
-WHERE region = 'us-east-1' AND Identifier = '{{ asset_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ asset_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +258,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ asset_id }}';
 Lists all <code>assets</code> in a region.
 ```sql
 SELECT
-region,
-asset_id
+  region,
+  asset_id
 FROM awscc.iotsitewise.assets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -281,14 +284,14 @@ Use the following StackQL query and manifest file to create a new <code>asset</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.assets (
- AssetModelId,
- AssetName,
- region
+  AssetModelId,
+  AssetName,
+  region
 )
 SELECT
-'{{ asset_model_id }}',
- '{{ asset_name }}',
-'{{ region }}';
+  '{{ asset_model_id }}',
+  '{{ asset_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -296,24 +299,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.assets (
- AssetExternalId,
- AssetModelId,
- AssetName,
- AssetDescription,
- AssetProperties,
- AssetHierarchies,
- Tags,
- region
+  AssetExternalId,
+  AssetModelId,
+  AssetName,
+  AssetDescription,
+  AssetProperties,
+  AssetHierarchies,
+  Tags,
+  region
 )
 SELECT
- '{{ asset_external_id }}',
- '{{ asset_model_id }}',
- '{{ asset_name }}',
- '{{ asset_description }}',
- '{{ asset_properties }}',
- '{{ asset_hierarchies }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ asset_external_id }}',
+  '{{ asset_model_id }}',
+  '{{ asset_name }}',
+  '{{ asset_description }}',
+  '{{ asset_properties }}',
+  '{{ asset_hierarchies }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -374,8 +377,9 @@ SET PatchDocument = string('{{ {
     "AssetDescription": asset_description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ asset_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ asset_id }}';
 ```
 
 
@@ -384,8 +388,9 @@ AND Identifier = '{{ asset_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.assets
-WHERE Identifier = '{{ asset_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ asset_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

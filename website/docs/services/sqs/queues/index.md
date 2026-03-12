@@ -228,27 +228,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>queue</code>.
 ```sql
 SELECT
-region,
-queue_url,
-arn,
-content_based_deduplication,
-deduplication_scope,
-delay_seconds,
-fifo_queue,
-fifo_throughput_limit,
-kms_data_key_reuse_period_seconds,
-kms_master_key_id,
-sqs_managed_sse_enabled,
-maximum_message_size,
-message_retention_period,
-queue_name,
-receive_message_wait_time_seconds,
-redrive_allow_policy,
-redrive_policy,
-tags,
-visibility_timeout
+  region,
+  queue_url,
+  arn,
+  content_based_deduplication,
+  deduplication_scope,
+  delay_seconds,
+  fifo_queue,
+  fifo_throughput_limit,
+  kms_data_key_reuse_period_seconds,
+  kms_master_key_id,
+  sqs_managed_sse_enabled,
+  maximum_message_size,
+  message_retention_period,
+  queue_name,
+  receive_message_wait_time_seconds,
+  redrive_allow_policy,
+  redrive_policy,
+  tags,
+  visibility_timeout
 FROM awscc.sqs.queues
-WHERE region = 'us-east-1' AND Identifier = '{{ queue_url }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ queue_url }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +258,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ queue_url }}';
 Lists all <code>queues</code> in a region.
 ```sql
 SELECT
-region,
-queue_url
+  region,
+  queue_url
 FROM awscc.sqs.queues_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -281,42 +284,42 @@ Use the following StackQL query and manifest file to create a new <code>queue</c
 ```sql
 /*+ create */
 INSERT INTO awscc.sqs.queues (
- ContentBasedDeduplication,
- DeduplicationScope,
- DelaySeconds,
- FifoQueue,
- FifoThroughputLimit,
- KmsDataKeyReusePeriodSeconds,
- KmsMasterKeyId,
- SqsManagedSseEnabled,
- MaximumMessageSize,
- MessageRetentionPeriod,
- QueueName,
- ReceiveMessageWaitTimeSeconds,
- RedriveAllowPolicy,
- RedrivePolicy,
- Tags,
- VisibilityTimeout,
- region
+  ContentBasedDeduplication,
+  DeduplicationScope,
+  DelaySeconds,
+  FifoQueue,
+  FifoThroughputLimit,
+  KmsDataKeyReusePeriodSeconds,
+  KmsMasterKeyId,
+  SqsManagedSseEnabled,
+  MaximumMessageSize,
+  MessageRetentionPeriod,
+  QueueName,
+  ReceiveMessageWaitTimeSeconds,
+  RedriveAllowPolicy,
+  RedrivePolicy,
+  Tags,
+  VisibilityTimeout,
+  region
 )
 SELECT
-'{{ content_based_deduplication }}',
- '{{ deduplication_scope }}',
- '{{ delay_seconds }}',
- '{{ fifo_queue }}',
- '{{ fifo_throughput_limit }}',
- '{{ kms_data_key_reuse_period_seconds }}',
- '{{ kms_master_key_id }}',
- '{{ sqs_managed_sse_enabled }}',
- '{{ maximum_message_size }}',
- '{{ message_retention_period }}',
- '{{ queue_name }}',
- '{{ receive_message_wait_time_seconds }}',
- '{{ redrive_allow_policy }}',
- '{{ redrive_policy }}',
- '{{ tags }}',
- '{{ visibility_timeout }}',
-'{{ region }}';
+  '{{ content_based_deduplication }}',
+  '{{ deduplication_scope }}',
+  '{{ delay_seconds }}',
+  '{{ fifo_queue }}',
+  '{{ fifo_throughput_limit }}',
+  '{{ kms_data_key_reuse_period_seconds }}',
+  '{{ kms_master_key_id }}',
+  '{{ sqs_managed_sse_enabled }}',
+  '{{ maximum_message_size }}',
+  '{{ message_retention_period }}',
+  '{{ queue_name }}',
+  '{{ receive_message_wait_time_seconds }}',
+  '{{ redrive_allow_policy }}',
+  '{{ redrive_policy }}',
+  '{{ tags }}',
+  '{{ visibility_timeout }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -324,42 +327,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sqs.queues (
- ContentBasedDeduplication,
- DeduplicationScope,
- DelaySeconds,
- FifoQueue,
- FifoThroughputLimit,
- KmsDataKeyReusePeriodSeconds,
- KmsMasterKeyId,
- SqsManagedSseEnabled,
- MaximumMessageSize,
- MessageRetentionPeriod,
- QueueName,
- ReceiveMessageWaitTimeSeconds,
- RedriveAllowPolicy,
- RedrivePolicy,
- Tags,
- VisibilityTimeout,
- region
+  ContentBasedDeduplication,
+  DeduplicationScope,
+  DelaySeconds,
+  FifoQueue,
+  FifoThroughputLimit,
+  KmsDataKeyReusePeriodSeconds,
+  KmsMasterKeyId,
+  SqsManagedSseEnabled,
+  MaximumMessageSize,
+  MessageRetentionPeriod,
+  QueueName,
+  ReceiveMessageWaitTimeSeconds,
+  RedriveAllowPolicy,
+  RedrivePolicy,
+  Tags,
+  VisibilityTimeout,
+  region
 )
 SELECT
- '{{ content_based_deduplication }}',
- '{{ deduplication_scope }}',
- '{{ delay_seconds }}',
- '{{ fifo_queue }}',
- '{{ fifo_throughput_limit }}',
- '{{ kms_data_key_reuse_period_seconds }}',
- '{{ kms_master_key_id }}',
- '{{ sqs_managed_sse_enabled }}',
- '{{ maximum_message_size }}',
- '{{ message_retention_period }}',
- '{{ queue_name }}',
- '{{ receive_message_wait_time_seconds }}',
- '{{ redrive_allow_policy }}',
- '{{ redrive_policy }}',
- '{{ tags }}',
- '{{ visibility_timeout }}',
- '{{ region }}';
+  '{{ content_based_deduplication }}',
+  '{{ deduplication_scope }}',
+  '{{ delay_seconds }}',
+  '{{ fifo_queue }}',
+  '{{ fifo_throughput_limit }}',
+  '{{ kms_data_key_reuse_period_seconds }}',
+  '{{ kms_master_key_id }}',
+  '{{ sqs_managed_sse_enabled }}',
+  '{{ maximum_message_size }}',
+  '{{ message_retention_period }}',
+  '{{ queue_name }}',
+  '{{ receive_message_wait_time_seconds }}',
+  '{{ redrive_allow_policy }}',
+  '{{ redrive_policy }}',
+  '{{ tags }}',
+  '{{ visibility_timeout }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -437,8 +440,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VisibilityTimeout": visibility_timeout
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ queue_url }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ queue_url }}';
 ```
 
 
@@ -447,8 +451,9 @@ AND Identifier = '{{ queue_url }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sqs.queues
-WHERE Identifier = '{{ queue_url }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ queue_url }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

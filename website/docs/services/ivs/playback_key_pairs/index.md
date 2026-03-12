@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>playback_key_pair</code>.
 ```sql
 SELECT
-region,
-name,
-public_key_material,
-fingerprint,
-arn,
-tags
+  region,
+  name,
+  public_key_material,
+  fingerprint,
+  arn,
+  tags
 FROM awscc.ivs.playback_key_pairs
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>playback_key_pairs</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.playback_key_pairs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>playback
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.playback_key_pairs (
- Name,
- PublicKeyMaterial,
- Tags,
- region
+  Name,
+  PublicKeyMaterial,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ public_key_material }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ public_key_material }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,16 +223,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.playback_key_pairs (
- Name,
- PublicKeyMaterial,
- Tags,
- region
+  Name,
+  PublicKeyMaterial,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ public_key_material }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ public_key_material }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -268,8 +271,9 @@ UPDATE awscc.ivs.playback_key_pairs
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -278,8 +282,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.playback_key_pairs
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

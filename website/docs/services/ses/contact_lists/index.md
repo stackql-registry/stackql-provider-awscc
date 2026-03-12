@@ -180,13 +180,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>contact_list</code>.
 ```sql
 SELECT
-region,
-contact_list_name,
-description,
-topics,
-tags
+  region,
+  contact_list_name,
+  description,
+  topics,
+  tags
 FROM awscc.ses.contact_lists
-WHERE region = 'us-east-1' AND Identifier = '{{ contact_list_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ contact_list_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,10 +196,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ contact_list_name }}';
 Lists all <code>contact_lists</code> in a region.
 ```sql
 SELECT
-region,
-contact_list_name
+  region,
+  contact_list_name
 FROM awscc.ses.contact_lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -219,18 +222,18 @@ Use the following StackQL query and manifest file to create a new <code>contact_
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.contact_lists (
- ContactListName,
- Description,
- Topics,
- Tags,
- region
+  ContactListName,
+  Description,
+  Topics,
+  Tags,
+  region
 )
 SELECT
-'{{ contact_list_name }}',
- '{{ description }}',
- '{{ topics }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ contact_list_name }}',
+  '{{ description }}',
+  '{{ topics }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,18 +241,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.contact_lists (
- ContactListName,
- Description,
- Topics,
- Tags,
- region
+  ContactListName,
+  Description,
+  Topics,
+  Tags,
+  region
 )
 SELECT
- '{{ contact_list_name }}',
- '{{ description }}',
- '{{ topics }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ contact_list_name }}',
+  '{{ description }}',
+  '{{ topics }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -296,8 +299,9 @@ SET PatchDocument = string('{{ {
     "Topics": topics,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ contact_list_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ contact_list_name }}';
 ```
 
 
@@ -306,8 +310,9 @@ AND Identifier = '{{ contact_list_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.contact_lists
-WHERE Identifier = '{{ contact_list_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ contact_list_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

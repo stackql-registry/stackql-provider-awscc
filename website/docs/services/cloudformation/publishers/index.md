@@ -144,15 +144,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>publisher</code>.
 ```sql
 SELECT
-region,
-accept_terms_and_conditions,
-publisher_id,
-connection_arn,
-publisher_status,
-publisher_profile,
-identity_provider
+  region,
+  accept_terms_and_conditions,
+  publisher_id,
+  connection_arn,
+  publisher_status,
+  publisher_profile,
+  identity_provider
 FROM awscc.cloudformation.publishers
-WHERE region = 'us-east-1' AND Identifier = '{{ publisher_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ publisher_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ publisher_id }}';
 Lists all <code>publishers</code> in a region.
 ```sql
 SELECT
-region,
-publisher_id
+  region,
+  publisher_id
 FROM awscc.cloudformation.publishers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>publishe
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.publishers (
- AcceptTermsAndConditions,
- region
+  AcceptTermsAndConditions,
+  region
 )
 SELECT
-'{{ accept_terms_and_conditions }}',
-'{{ region }}';
+  '{{ accept_terms_and_conditions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,14 +201,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.publishers (
- AcceptTermsAndConditions,
- ConnectionArn,
- region
+  AcceptTermsAndConditions,
+  ConnectionArn,
+  region
 )
 SELECT
- '{{ accept_terms_and_conditions }}',
- '{{ connection_arn }}',
- '{{ region }}';
+  '{{ accept_terms_and_conditions }}',
+  '{{ connection_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">

@@ -265,26 +265,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>component</code>.
 ```sql
 SELECT
-region,
-app_id,
-binding_properties,
-children,
-collection_properties,
-component_type,
-created_at,
-environment_name,
-events,
-id,
-modified_at,
-name,
-overrides,
-properties,
-schema_version,
-source_id,
-tags,
-variants
+  region,
+  app_id,
+  binding_properties,
+  children,
+  collection_properties,
+  component_type,
+  created_at,
+  environment_name,
+  events,
+  id,
+  modified_at,
+  name,
+  overrides,
+  properties,
+  schema_version,
+  source_id,
+  tags,
+  variants
 FROM awscc.amplifyuibuilder.components
-WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,12 +294,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}
 Lists all <code>components</code> in a region.
 ```sql
 SELECT
-region,
-app_id,
-environment_name,
-id
+  region,
+  app_id,
+  environment_name,
+  id
 FROM awscc.amplifyuibuilder.components_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -319,38 +322,38 @@ Use the following StackQL query and manifest file to create a new <code>componen
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.components (
- AppId,
- BindingProperties,
- Children,
- CollectionProperties,
- ComponentType,
- EnvironmentName,
- Events,
- Name,
- Overrides,
- Properties,
- SchemaVersion,
- SourceId,
- Tags,
- Variants,
- region
+  AppId,
+  BindingProperties,
+  Children,
+  CollectionProperties,
+  ComponentType,
+  EnvironmentName,
+  Events,
+  Name,
+  Overrides,
+  Properties,
+  SchemaVersion,
+  SourceId,
+  Tags,
+  Variants,
+  region
 )
 SELECT
-'{{ app_id }}',
- '{{ binding_properties }}',
- '{{ children }}',
- '{{ collection_properties }}',
- '{{ component_type }}',
- '{{ environment_name }}',
- '{{ events }}',
- '{{ name }}',
- '{{ overrides }}',
- '{{ properties }}',
- '{{ schema_version }}',
- '{{ source_id }}',
- '{{ tags }}',
- '{{ variants }}',
-'{{ region }}';
+  '{{ app_id }}',
+  '{{ binding_properties }}',
+  '{{ children }}',
+  '{{ collection_properties }}',
+  '{{ component_type }}',
+  '{{ environment_name }}',
+  '{{ events }}',
+  '{{ name }}',
+  '{{ overrides }}',
+  '{{ properties }}',
+  '{{ schema_version }}',
+  '{{ source_id }}',
+  '{{ tags }}',
+  '{{ variants }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -358,38 +361,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.components (
- AppId,
- BindingProperties,
- Children,
- CollectionProperties,
- ComponentType,
- EnvironmentName,
- Events,
- Name,
- Overrides,
- Properties,
- SchemaVersion,
- SourceId,
- Tags,
- Variants,
- region
+  AppId,
+  BindingProperties,
+  Children,
+  CollectionProperties,
+  ComponentType,
+  EnvironmentName,
+  Events,
+  Name,
+  Overrides,
+  Properties,
+  SchemaVersion,
+  SourceId,
+  Tags,
+  Variants,
+  region
 )
 SELECT
- '{{ app_id }}',
- '{{ binding_properties }}',
- '{{ children }}',
- '{{ collection_properties }}',
- '{{ component_type }}',
- '{{ environment_name }}',
- '{{ events }}',
- '{{ name }}',
- '{{ overrides }}',
- '{{ properties }}',
- '{{ schema_version }}',
- '{{ source_id }}',
- '{{ tags }}',
- '{{ variants }}',
- '{{ region }}';
+  '{{ app_id }}',
+  '{{ binding_properties }}',
+  '{{ children }}',
+  '{{ collection_properties }}',
+  '{{ component_type }}',
+  '{{ environment_name }}',
+  '{{ events }}',
+  '{{ name }}',
+  '{{ overrides }}',
+  '{{ properties }}',
+  '{{ schema_version }}',
+  '{{ source_id }}',
+  '{{ tags }}',
+  '{{ variants }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -468,8 +471,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Variants": variants
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -478,8 +482,9 @@ AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.components
-WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

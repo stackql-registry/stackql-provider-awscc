@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>template_group_access_control_entry</code>.
 ```sql
 SELECT
-region,
-access_rights,
-group_display_name,
-group_security_identifier,
-template_arn
+  region,
+  access_rights,
+  group_display_name,
+  group_security_identifier,
+  template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries
-WHERE region = 'us-east-1' AND Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,11 +174,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_security_identifier }}|{{ 
 Lists all <code>template_group_access_control_entries</code> in a region.
 ```sql
 SELECT
-region,
-group_security_identifier,
-template_arn
+  region,
+  group_security_identifier,
+  template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,14 +201,14 @@ Use the following StackQL query and manifest file to create a new <code>template
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.template_group_access_control_entries (
- AccessRights,
- GroupDisplayName,
- region
+  AccessRights,
+  GroupDisplayName,
+  region
 )
 SELECT
-'{{ access_rights }}',
- '{{ group_display_name }}',
-'{{ region }}';
+  '{{ access_rights }}',
+  '{{ group_display_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,18 +216,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.template_group_access_control_entries (
- AccessRights,
- GroupDisplayName,
- GroupSecurityIdentifier,
- TemplateArn,
- region
+  AccessRights,
+  GroupDisplayName,
+  GroupSecurityIdentifier,
+  TemplateArn,
+  region
 )
 SELECT
- '{{ access_rights }}',
- '{{ group_display_name }}',
- '{{ group_security_identifier }}',
- '{{ template_arn }}',
- '{{ region }}';
+  '{{ access_rights }}',
+  '{{ group_display_name }}',
+  '{{ group_security_identifier }}',
+  '{{ template_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ SET PatchDocument = string('{{ {
     "AccessRights": access_rights,
     "GroupDisplayName": group_display_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.template_group_access_control_entries
-WHERE Identifier = '{{ group_security_identifier }}|{{ template_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_security_identifier }}|{{ template_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

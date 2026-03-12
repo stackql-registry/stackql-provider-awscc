@@ -204,12 +204,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>origin_request_policy</code>.
 ```sql
 SELECT
-region,
-id,
-last_modified_time,
-origin_request_policy_config
+  region,
+  id,
+  last_modified_time,
+  origin_request_policy_config
 FROM awscc.cloudfront.origin_request_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,10 +219,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>origin_request_policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.origin_request_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -242,12 +245,12 @@ Use the following StackQL query and manifest file to create a new <code>origin_r
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.origin_request_policies (
- OriginRequestPolicyConfig,
- region
+  OriginRequestPolicyConfig,
+  region
 )
 SELECT
-'{{ origin_request_policy_config }}',
-'{{ region }}';
+  '{{ origin_request_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,12 +258,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.origin_request_policies (
- OriginRequestPolicyConfig,
- region
+  OriginRequestPolicyConfig,
+  region
 )
 SELECT
- '{{ origin_request_policy_config }}',
- '{{ region }}';
+  '{{ origin_request_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ UPDATE awscc.cloudfront.origin_request_policies
 SET PatchDocument = string('{{ {
     "OriginRequestPolicyConfig": origin_request_policy_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.origin_request_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

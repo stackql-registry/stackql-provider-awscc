@@ -175,12 +175,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>zonal_autoshift_configuration</code>.
 ```sql
 SELECT
-region,
-zonal_autoshift_status,
-practice_run_configuration,
-resource_identifier
+  region,
+  zonal_autoshift_status,
+  practice_run_configuration,
+  resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,10 +190,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}';
 Lists all <code>zonal_autoshift_configurations</code> in a region.
 ```sql
 SELECT
-region,
-resource_identifier
+  region,
+  resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -213,16 +216,16 @@ Use the following StackQL query and manifest file to create a new <code>zonal_au
 ```sql
 /*+ create */
 INSERT INTO awscc.arczonalshift.zonal_autoshift_configurations (
- ZonalAutoshiftStatus,
- PracticeRunConfiguration,
- ResourceIdentifier,
- region
+  ZonalAutoshiftStatus,
+  PracticeRunConfiguration,
+  ResourceIdentifier,
+  region
 )
 SELECT
-'{{ zonal_autoshift_status }}',
- '{{ practice_run_configuration }}',
- '{{ resource_identifier }}',
-'{{ region }}';
+  '{{ zonal_autoshift_status }}',
+  '{{ practice_run_configuration }}',
+  '{{ resource_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,16 +233,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.arczonalshift.zonal_autoshift_configurations (
- ZonalAutoshiftStatus,
- PracticeRunConfiguration,
- ResourceIdentifier,
- region
+  ZonalAutoshiftStatus,
+  PracticeRunConfiguration,
+  ResourceIdentifier,
+  region
 )
 SELECT
- '{{ zonal_autoshift_status }}',
- '{{ practice_run_configuration }}',
- '{{ resource_identifier }}',
- '{{ region }}';
+  '{{ zonal_autoshift_status }}',
+  '{{ practice_run_configuration }}',
+  '{{ resource_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ SET PatchDocument = string('{{ {
     "ZonalAutoshiftStatus": zonal_autoshift_status,
     "PracticeRunConfiguration": practice_run_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_identifier }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ resource_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.arczonalshift.zonal_autoshift_configurations
-WHERE Identifier = '{{ resource_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

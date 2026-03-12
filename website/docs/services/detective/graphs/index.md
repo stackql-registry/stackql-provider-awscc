@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>graph</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-auto_enable_members
+  region,
+  arn,
+  tags,
+  auto_enable_members
 FROM awscc.detective.graphs
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>graphs</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.detective.graphs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>graph</c
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.graphs (
- Tags,
- AutoEnableMembers,
- region
+  Tags,
+  AutoEnableMembers,
+  region
 )
 SELECT
-'{{ tags }}',
- '{{ auto_enable_members }}',
-'{{ region }}';
+  '{{ tags }}',
+  '{{ auto_enable_members }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.graphs (
- Tags,
- AutoEnableMembers,
- region
+  Tags,
+  AutoEnableMembers,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ auto_enable_members }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ auto_enable_members }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "AutoEnableMembers": auto_enable_members
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -261,8 +265,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.graphs
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

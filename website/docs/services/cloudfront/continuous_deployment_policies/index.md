@@ -250,12 +250,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>continuous_deployment_policy</code>.
 ```sql
 SELECT
-region,
-continuous_deployment_policy_config,
-id,
-last_modified_time
+  region,
+  continuous_deployment_policy_config,
+  id,
+  last_modified_time
 FROM awscc.cloudfront.continuous_deployment_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,10 +265,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>continuous_deployment_policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.continuous_deployment_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -288,12 +291,12 @@ Use the following StackQL query and manifest file to create a new <code>continuo
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.continuous_deployment_policies (
- ContinuousDeploymentPolicyConfig,
- region
+  ContinuousDeploymentPolicyConfig,
+  region
 )
 SELECT
-'{{ continuous_deployment_policy_config }}',
-'{{ region }}';
+  '{{ continuous_deployment_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,12 +304,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.continuous_deployment_policies (
- ContinuousDeploymentPolicyConfig,
- region
+  ContinuousDeploymentPolicyConfig,
+  region
 )
 SELECT
- '{{ continuous_deployment_policy_config }}',
- '{{ region }}';
+  '{{ continuous_deployment_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -359,8 +362,9 @@ UPDATE awscc.cloudfront.continuous_deployment_policies
 SET PatchDocument = string('{{ {
     "ContinuousDeploymentPolicyConfig": continuous_deployment_policy_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -369,8 +373,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.continuous_deployment_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

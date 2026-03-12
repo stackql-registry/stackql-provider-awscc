@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>traffic_distribution_group</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-traffic_distribution_group_arn,
-description,
-name,
-status,
-tags,
-is_default
+  region,
+  instance_arn,
+  traffic_distribution_group_arn,
+  description,
+  name,
+  status,
+  tags,
+  is_default
 FROM awscc.connect.traffic_distribution_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ traffic_distribution_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ traffic_distribution_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ traffic_distribution_group_arn }
 Lists all <code>traffic_distribution_groups</code> in a region.
 ```sql
 SELECT
-region,
-traffic_distribution_group_arn
+  region,
+  traffic_distribution_group_arn
 FROM awscc.connect.traffic_distribution_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>traffic_
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.traffic_distribution_groups (
- InstanceArn,
- Name,
- region
+  InstanceArn,
+  Name,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.traffic_distribution_groups (
- InstanceArn,
- Description,
- Name,
- Tags,
- region
+  InstanceArn,
+  Description,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "InstanceArn": instance_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ traffic_distribution_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ traffic_distribution_group_arn }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ traffic_distribution_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.traffic_distribution_groups
-WHERE Identifier = '{{ traffic_distribution_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ traffic_distribution_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

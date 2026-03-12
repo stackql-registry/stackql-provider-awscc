@@ -424,18 +424,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT
-region,
-actions,
-late_data_rules,
-dataset_name,
-content_delivery_rules,
-triggers,
-versioning_configuration,
-id,
-retention_period,
-tags
+  region,
+  actions,
+  late_data_rules,
+  dataset_name,
+  content_delivery_rules,
+  triggers,
+  versioning_configuration,
+  id,
+  retention_period,
+  tags
 FROM awscc.iotanalytics.datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ dataset_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dataset_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -443,10 +445,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dataset_name }}';
 Lists all <code>datasets</code> in a region.
 ```sql
 SELECT
-region,
-dataset_name
+  region,
+  dataset_name
 FROM awscc.iotanalytics.datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -468,12 +471,12 @@ Use the following StackQL query and manifest file to create a new <code>dataset<
 ```sql
 /*+ create */
 INSERT INTO awscc.iotanalytics.datasets (
- Actions,
- region
+  Actions,
+  region
 )
 SELECT
-'{{ actions }}',
-'{{ region }}';
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -481,26 +484,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotanalytics.datasets (
- Actions,
- LateDataRules,
- DatasetName,
- ContentDeliveryRules,
- Triggers,
- VersioningConfiguration,
- RetentionPeriod,
- Tags,
- region
+  Actions,
+  LateDataRules,
+  DatasetName,
+  ContentDeliveryRules,
+  Triggers,
+  VersioningConfiguration,
+  RetentionPeriod,
+  Tags,
+  region
 )
 SELECT
- '{{ actions }}',
- '{{ late_data_rules }}',
- '{{ dataset_name }}',
- '{{ content_delivery_rules }}',
- '{{ triggers }}',
- '{{ versioning_configuration }}',
- '{{ retention_period }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ actions }}',
+  '{{ late_data_rules }}',
+  '{{ dataset_name }}',
+  '{{ content_delivery_rules }}',
+  '{{ triggers }}',
+  '{{ versioning_configuration }}',
+  '{{ retention_period }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -600,8 +603,9 @@ SET PatchDocument = string('{{ {
     "RetentionPeriod": retention_period,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dataset_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dataset_name }}';
 ```
 
 
@@ -610,8 +614,9 @@ AND Identifier = '{{ dataset_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotanalytics.datasets
-WHERE Identifier = '{{ dataset_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dataset_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

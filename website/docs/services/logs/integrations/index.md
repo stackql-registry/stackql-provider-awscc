@@ -164,13 +164,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT
-region,
-integration_name,
-integration_type,
-resource_config,
-integration_status
+  region,
+  integration_name,
+  integration_type,
+  resource_config,
+  integration_status
 FROM awscc.logs.integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ integration_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ integration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ integration_name }}';
 Lists all <code>integrations</code> in a region.
 ```sql
 SELECT
-region,
-integration_name
+  region,
+  integration_name
 FROM awscc.logs.integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.integrations (
- IntegrationName,
- IntegrationType,
- ResourceConfig,
- region
+  IntegrationName,
+  IntegrationType,
+  ResourceConfig,
+  region
 )
 SELECT
-'{{ integration_name }}',
- '{{ integration_type }}',
- '{{ resource_config }}',
-'{{ region }}';
+  '{{ integration_name }}',
+  '{{ integration_type }}',
+  '{{ resource_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,16 +223,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.integrations (
- IntegrationName,
- IntegrationType,
- ResourceConfig,
- region
+  IntegrationName,
+  IntegrationType,
+  ResourceConfig,
+  region
 )
 SELECT
- '{{ integration_name }}',
- '{{ integration_type }}',
- '{{ resource_config }}',
- '{{ region }}';
+  '{{ integration_name }}',
+  '{{ integration_type }}',
+  '{{ resource_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.integrations
-WHERE Identifier = '{{ integration_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ integration_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

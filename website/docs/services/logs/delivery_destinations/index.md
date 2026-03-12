@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>delivery_destination</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-destination_resource_arn,
-tags,
-delivery_destination_type,
-delivery_destination_policy,
-output_format
+  region,
+  name,
+  arn,
+  destination_resource_arn,
+  tags,
+  delivery_destination_type,
+  delivery_destination_policy,
+  output_format
 FROM awscc.logs.delivery_destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>delivery_destinations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.logs.delivery_destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,12 +225,12 @@ Use the following StackQL query and manifest file to create a new <code>delivery
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.delivery_destinations (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -235,20 +238,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.delivery_destinations (
- Name,
- DestinationResourceArn,
- Tags,
- DeliveryDestinationPolicy,
- OutputFormat,
- region
+  Name,
+  DestinationResourceArn,
+  Tags,
+  DeliveryDestinationPolicy,
+  OutputFormat,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ destination_resource_arn }}',
- '{{ tags }}',
- '{{ delivery_destination_policy }}',
- '{{ output_format }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ destination_resource_arn }}',
+  '{{ tags }}',
+  '{{ delivery_destination_policy }}',
+  '{{ output_format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -294,8 +297,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "DeliveryDestinationPolicy": delivery_destination_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -304,8 +308,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.delivery_destinations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

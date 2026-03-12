@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_ingress_point</code>.
 ```sql
 SELECT
-region,
-a_record,
-traffic_policy_id,
-ingress_point_configuration,
-ingress_point_arn,
-ingress_point_id,
-ingress_point_name,
-network_configuration,
-rule_set_id,
-status,
-status_to_update,
-tags,
-type
+  region,
+  a_record,
+  traffic_policy_id,
+  ingress_point_configuration,
+  ingress_point_arn,
+  ingress_point_id,
+  ingress_point_name,
+  network_configuration,
+  rule_set_id,
+  status,
+  status_to_update,
+  tags,
+  type
 FROM awscc.ses.mail_manager_ingress_points
-WHERE region = 'us-east-1' AND Identifier = '{{ ingress_point_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ingress_point_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ingress_point_id }}';
 Lists all <code>mail_manager_ingress_points</code> in a region.
 ```sql
 SELECT
-region,
-ingress_point_id
+  region,
+  ingress_point_id
 FROM awscc.ses.mail_manager_ingress_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_ingress_points (
- TrafficPolicyId,
- RuleSetId,
- Type,
- region
+  TrafficPolicyId,
+  RuleSetId,
+  Type,
+  region
 )
 SELECT
-'{{ traffic_policy_id }}',
- '{{ rule_set_id }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ traffic_policy_id }}',
+  '{{ rule_set_id }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,26 +265,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_ingress_points (
- TrafficPolicyId,
- IngressPointConfiguration,
- IngressPointName,
- NetworkConfiguration,
- RuleSetId,
- StatusToUpdate,
- Tags,
- Type,
- region
+  TrafficPolicyId,
+  IngressPointConfiguration,
+  IngressPointName,
+  NetworkConfiguration,
+  RuleSetId,
+  StatusToUpdate,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ traffic_policy_id }}',
- '{{ ingress_point_configuration }}',
- '{{ ingress_point_name }}',
- '{{ network_configuration }}',
- '{{ rule_set_id }}',
- '{{ status_to_update }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ traffic_policy_id }}',
+  '{{ ingress_point_configuration }}',
+  '{{ ingress_point_name }}',
+  '{{ network_configuration }}',
+  '{{ rule_set_id }}',
+  '{{ status_to_update }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -335,8 +338,9 @@ SET PatchDocument = string('{{ {
     "StatusToUpdate": status_to_update,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ingress_point_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ingress_point_id }}';
 ```
 
 
@@ -345,8 +349,9 @@ AND Identifier = '{{ ingress_point_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_ingress_points
-WHERE Identifier = '{{ ingress_point_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ingress_point_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT
-region,
-arn,
-group_name,
-managed_policy_arns,
-path,
-policies
+  region,
+  arn,
+  group_name,
+  managed_policy_arns,
+  path,
+  policies
 FROM awscc.iam.groups
-WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
 Lists all <code>groups</code> in a region.
 ```sql
 SELECT
-region,
-group_name
+  region,
+  group_name
 FROM awscc.iam.groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,18 +206,18 @@ Use the following StackQL query and manifest file to create a new <code>group</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.groups (
- GroupName,
- ManagedPolicyArns,
- Path,
- Policies,
- region
+  GroupName,
+  ManagedPolicyArns,
+  Path,
+  Policies,
+  region
 )
 SELECT
-'{{ group_name }}',
- '{{ managed_policy_arns }}',
- '{{ path }}',
- '{{ policies }}',
-'{{ region }}';
+  '{{ group_name }}',
+  '{{ managed_policy_arns }}',
+  '{{ path }}',
+  '{{ policies }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.groups (
- GroupName,
- ManagedPolicyArns,
- Path,
- Policies,
- region
+  GroupName,
+  ManagedPolicyArns,
+  Path,
+  Policies,
+  region
 )
 SELECT
- '{{ group_name }}',
- '{{ managed_policy_arns }}',
- '{{ path }}',
- '{{ policies }}',
- '{{ region }}';
+  '{{ group_name }}',
+  '{{ managed_policy_arns }}',
+  '{{ path }}',
+  '{{ policies }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Path": path,
     "Policies": policies
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ group_name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.groups
-WHERE Identifier = '{{ group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -157,14 +157,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name_access_association</code>.
 ```sql
 SELECT
-region,
-domain_name_access_association_arn,
-domain_name_arn,
-access_association_source,
-access_association_source_type,
-tags
+  region,
+  domain_name_access_association_arn,
+  domain_name_arn,
+  access_association_source,
+  access_association_source_type,
+  tags
 FROM awscc.apigateway.domain_name_access_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_access_association_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name_access_association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_access_association_a
 Lists all <code>domain_name_access_associations</code> in a region.
 ```sql
 SELECT
-region,
-domain_name_access_association_arn
+  region,
+  domain_name_access_association_arn
 FROM awscc.apigateway.domain_name_access_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_name_access_associations (
- DomainNameArn,
- AccessAssociationSource,
- AccessAssociationSourceType,
- region
+  DomainNameArn,
+  AccessAssociationSource,
+  AccessAssociationSourceType,
+  region
 )
 SELECT
-'{{ domain_name_arn }}',
- '{{ access_association_source }}',
- '{{ access_association_source_type }}',
-'{{ region }}';
+  '{{ domain_name_arn }}',
+  '{{ access_association_source }}',
+  '{{ access_association_source_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,18 +217,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_name_access_associations (
- DomainNameArn,
- AccessAssociationSource,
- AccessAssociationSourceType,
- Tags,
- region
+  DomainNameArn,
+  AccessAssociationSource,
+  AccessAssociationSourceType,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name_arn }}',
- '{{ access_association_source }}',
- '{{ access_association_source_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name_arn }}',
+  '{{ access_association_source }}',
+  '{{ access_association_source_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_name_access_associations
-WHERE Identifier = '{{ domain_name_access_association_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name_access_association_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

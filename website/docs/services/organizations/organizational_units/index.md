@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>organizational_unit</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-name,
-parent_id,
-tags
+  region,
+  arn,
+  id,
+  name,
+  parent_id,
+  tags
 FROM awscc.organizations.organizational_units
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>organizational_units</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.organizations.organizational_units_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>organiza
 ```sql
 /*+ create */
 INSERT INTO awscc.organizations.organizational_units (
- Name,
- ParentId,
- region
+  Name,
+  ParentId,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ parent_id }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ parent_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.organizations.organizational_units (
- Name,
- ParentId,
- Tags,
- region
+  Name,
+  ParentId,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ parent_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ parent_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.organizational_units
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

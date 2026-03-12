@@ -20,20 +20,70 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Returns all the tagged or previously tagged resources that are located in the specified AWS Region for the account
+Creates, updates, deletes or gets a <code>tagged_resource</code> resource or lists <code>tagged_resources</code> in a region
 
 ## Overview
 <table>
 <tbody>
 <tr><td><b>Name</b></td><td><code>tagged_resources</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>tagged_resources</td></tr>
+<tr><td><b>Description</b></td><td>A list of resource ARNs and the tags (keys and values) that are associated with each.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.tagging.tagged_resources" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<code>SELECT</code> operation not supported for this resource.
+<SchemaTable fields={[
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The ARN of the resource."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags that have been applied to one or more Amazon Web Services resources.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for more specific tag values."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key). The value can be empty or null."
+      }
+    ]
+  },
+  {
+    "name": "compliance_details",
+    "type": "object",
+    "description": "Information that shows whether a resource is compliant with the effective tag policy, including details on any noncompliant tag keys.",
+    "children": [
+      {
+        "name": "noncompliant_keys",
+        "type": "array",
+        "description": "These tag keys on the resource are noncompliant with the effective tag policy."
+      },
+      {
+        "name": "keys_with_noncompliant_values",
+        "type": "object",
+        "description": "These are keys defined in the effective policy that are on the resource with either incorrect case treatment or noncompliant values."
+      },
+      {
+        "name": "compliance_status",
+        "type": "boolean",
+        "description": "Whether a resource is compliant with the effective tag policy."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 
@@ -52,7 +102,15 @@ Returns all the tagged or previously tagged resources that are located in the sp
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.tagging.tagged_resources
+WHERE
+  region = 'us-east-1';
+```
 
 
 

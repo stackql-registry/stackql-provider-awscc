@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate_provider</code>.
 ```sql
 SELECT
-region,
-certificate_provider_name,
-lambda_function_arn,
-account_default_for_operations,
-tags,
-arn
+  region,
+  certificate_provider_name,
+  lambda_function_arn,
+  account_default_for_operations,
+  tags,
+  arn
 FROM awscc.iot.certificate_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_provider_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_provider_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ certificate_provider_name }}';
 Lists all <code>certificate_providers</code> in a region.
 ```sql
 SELECT
-region,
-certificate_provider_name
+  region,
+  certificate_provider_name
 FROM awscc.iot.certificate_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.certificate_providers (
- LambdaFunctionArn,
- AccountDefaultForOperations,
- region
+  LambdaFunctionArn,
+  AccountDefaultForOperations,
+  region
 )
 SELECT
-'{{ lambda_function_arn }}',
- '{{ account_default_for_operations }}',
-'{{ region }}';
+  '{{ lambda_function_arn }}',
+  '{{ account_default_for_operations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,18 +221,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.certificate_providers (
- CertificateProviderName,
- LambdaFunctionArn,
- AccountDefaultForOperations,
- Tags,
- region
+  CertificateProviderName,
+  LambdaFunctionArn,
+  AccountDefaultForOperations,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_provider_name }}',
- '{{ lambda_function_arn }}',
- '{{ account_default_for_operations }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_provider_name }}',
+  '{{ lambda_function_arn }}',
+  '{{ account_default_for_operations }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "AccountDefaultForOperations": account_default_for_operations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ certificate_provider_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ certificate_provider_name }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ certificate_provider_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.certificate_providers
-WHERE Identifier = '{{ certificate_provider_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_provider_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

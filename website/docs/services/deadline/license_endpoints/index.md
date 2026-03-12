@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>license_endpoint</code>.
 ```sql
 SELECT
-region,
-dns_name,
-license_endpoint_id,
-security_group_ids,
-status,
-status_message,
-subnet_ids,
-vpc_id,
-arn,
-tags
+  region,
+  dns_name,
+  license_endpoint_id,
+  security_group_ids,
+  status,
+  status_message,
+  subnet_ids,
+  vpc_id,
+  arn,
+  tags
 FROM awscc.deadline.license_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>license_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.deadline.license_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>license_
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.license_endpoints (
- SecurityGroupIds,
- SubnetIds,
- VpcId,
- region
+  SecurityGroupIds,
+  SubnetIds,
+  VpcId,
+  region
 )
 SELECT
-'{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,18 +247,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.license_endpoints (
- SecurityGroupIds,
- SubnetIds,
- VpcId,
- Tags,
- region
+  SecurityGroupIds,
+  SubnetIds,
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -298,8 +301,9 @@ UPDATE awscc.deadline.license_endpoints
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -308,8 +312,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.license_endpoints
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>carrier_gateway</code>.
 ```sql
 SELECT
-region,
-carrier_gateway_id,
-state,
-vpc_id,
-owner_id,
-tags
+  region,
+  carrier_gateway_id,
+  state,
+  vpc_id,
+  owner_id,
+  tags
 FROM awscc.ec2.carrier_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ carrier_gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ carrier_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ carrier_gateway_id }}';
 Lists all <code>carrier_gateways</code> in a region.
 ```sql
 SELECT
-region,
-carrier_gateway_id
+  region,
+  carrier_gateway_id
 FROM awscc.ec2.carrier_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>carrier_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.carrier_gateways (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,14 +219,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.carrier_gateways (
- VpcId,
- Tags,
- region
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ UPDATE awscc.ec2.carrier_gateways
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ carrier_gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ carrier_gateway_id }}';
 ```
 
 
@@ -270,8 +274,9 @@ AND Identifier = '{{ carrier_gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.carrier_gateways
-WHERE Identifier = '{{ carrier_gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ carrier_gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

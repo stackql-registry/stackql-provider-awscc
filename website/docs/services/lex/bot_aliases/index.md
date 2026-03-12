@@ -300,20 +300,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bot_alias</code>.
 ```sql
 SELECT
-region,
-bot_alias_id,
-bot_id,
-arn,
-bot_alias_status,
-bot_alias_locale_settings,
-bot_alias_name,
-bot_version,
-conversation_log_settings,
-description,
-sentiment_analysis_settings,
-bot_alias_tags
+  region,
+  bot_alias_id,
+  bot_id,
+  arn,
+  bot_alias_status,
+  bot_alias_locale_settings,
+  bot_alias_name,
+  bot_version,
+  conversation_log_settings,
+  description,
+  sentiment_analysis_settings,
+  bot_alias_tags
 FROM awscc.lex.bot_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,11 +323,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 Lists all <code>bot_aliases</code> in a region.
 ```sql
 SELECT
-region,
-bot_alias_id,
-bot_id
+  region,
+  bot_alias_id,
+  bot_id
 FROM awscc.lex.bot_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -347,14 +350,14 @@ Use the following StackQL query and manifest file to create a new <code>bot_alia
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bot_aliases (
- BotId,
- BotAliasName,
- region
+  BotId,
+  BotAliasName,
+  region
 )
 SELECT
-'{{ bot_id }}',
- '{{ bot_alias_name }}',
-'{{ region }}';
+  '{{ bot_id }}',
+  '{{ bot_alias_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -362,26 +365,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bot_aliases (
- BotId,
- BotAliasLocaleSettings,
- BotAliasName,
- BotVersion,
- ConversationLogSettings,
- Description,
- SentimentAnalysisSettings,
- BotAliasTags,
- region
+  BotId,
+  BotAliasLocaleSettings,
+  BotAliasName,
+  BotVersion,
+  ConversationLogSettings,
+  Description,
+  SentimentAnalysisSettings,
+  BotAliasTags,
+  region
 )
 SELECT
- '{{ bot_id }}',
- '{{ bot_alias_locale_settings }}',
- '{{ bot_alias_name }}',
- '{{ bot_version }}',
- '{{ conversation_log_settings }}',
- '{{ description }}',
- '{{ sentiment_analysis_settings }}',
- '{{ bot_alias_tags }}',
- '{{ region }}';
+  '{{ bot_id }}',
+  '{{ bot_alias_locale_settings }}',
+  '{{ bot_alias_name }}',
+  '{{ bot_version }}',
+  '{{ conversation_log_settings }}',
+  '{{ description }}',
+  '{{ sentiment_analysis_settings }}',
+  '{{ bot_alias_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -463,8 +466,9 @@ SET PatchDocument = string('{{ {
     "SentimentAnalysisSettings": sentiment_analysis_settings,
     "BotAliasTags": bot_alias_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```
 
 
@@ -473,8 +477,9 @@ AND Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_aliases
-WHERE Identifier = '{{ bot_alias_id }}|{{ bot_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bot_alias_id }}|{{ bot_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

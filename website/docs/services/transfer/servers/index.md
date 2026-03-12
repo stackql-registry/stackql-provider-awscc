@@ -340,30 +340,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>server</code>.
 ```sql
 SELECT
-region,
-arn,
-as2_service_managed_egress_ip_addresses,
-certificate,
-domain,
-endpoint_details,
-endpoint_type,
-identity_provider_details,
-identity_provider_type,
-ip_address_type,
-logging_role,
-post_authentication_login_banner,
-pre_authentication_login_banner,
-protocol_details,
-protocols,
-s3_storage_options,
-security_policy_name,
-server_id,
-state,
-structured_log_destinations,
-tags,
-workflow_details
+  region,
+  arn,
+  as2_service_managed_egress_ip_addresses,
+  certificate,
+  domain,
+  endpoint_details,
+  endpoint_type,
+  identity_provider_details,
+  identity_provider_type,
+  ip_address_type,
+  logging_role,
+  post_authentication_login_banner,
+  pre_authentication_login_banner,
+  protocol_details,
+  protocols,
+  s3_storage_options,
+  security_policy_name,
+  server_id,
+  state,
+  structured_log_destinations,
+  tags,
+  workflow_details
 FROM awscc.transfer.servers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,10 +373,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>servers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.transfer.servers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -396,44 +399,44 @@ Use the following StackQL query and manifest file to create a new <code>server</
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.servers (
- Certificate,
- Domain,
- EndpointDetails,
- EndpointType,
- IdentityProviderDetails,
- IdentityProviderType,
- IpAddressType,
- LoggingRole,
- PostAuthenticationLoginBanner,
- PreAuthenticationLoginBanner,
- ProtocolDetails,
- Protocols,
- S3StorageOptions,
- SecurityPolicyName,
- StructuredLogDestinations,
- Tags,
- WorkflowDetails,
- region
+  Certificate,
+  Domain,
+  EndpointDetails,
+  EndpointType,
+  IdentityProviderDetails,
+  IdentityProviderType,
+  IpAddressType,
+  LoggingRole,
+  PostAuthenticationLoginBanner,
+  PreAuthenticationLoginBanner,
+  ProtocolDetails,
+  Protocols,
+  S3StorageOptions,
+  SecurityPolicyName,
+  StructuredLogDestinations,
+  Tags,
+  WorkflowDetails,
+  region
 )
 SELECT
-'{{ certificate }}',
- '{{ domain }}',
- '{{ endpoint_details }}',
- '{{ endpoint_type }}',
- '{{ identity_provider_details }}',
- '{{ identity_provider_type }}',
- '{{ ip_address_type }}',
- '{{ logging_role }}',
- '{{ post_authentication_login_banner }}',
- '{{ pre_authentication_login_banner }}',
- '{{ protocol_details }}',
- '{{ protocols }}',
- '{{ s3_storage_options }}',
- '{{ security_policy_name }}',
- '{{ structured_log_destinations }}',
- '{{ tags }}',
- '{{ workflow_details }}',
-'{{ region }}';
+  '{{ certificate }}',
+  '{{ domain }}',
+  '{{ endpoint_details }}',
+  '{{ endpoint_type }}',
+  '{{ identity_provider_details }}',
+  '{{ identity_provider_type }}',
+  '{{ ip_address_type }}',
+  '{{ logging_role }}',
+  '{{ post_authentication_login_banner }}',
+  '{{ pre_authentication_login_banner }}',
+  '{{ protocol_details }}',
+  '{{ protocols }}',
+  '{{ s3_storage_options }}',
+  '{{ security_policy_name }}',
+  '{{ structured_log_destinations }}',
+  '{{ tags }}',
+  '{{ workflow_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -441,44 +444,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.servers (
- Certificate,
- Domain,
- EndpointDetails,
- EndpointType,
- IdentityProviderDetails,
- IdentityProviderType,
- IpAddressType,
- LoggingRole,
- PostAuthenticationLoginBanner,
- PreAuthenticationLoginBanner,
- ProtocolDetails,
- Protocols,
- S3StorageOptions,
- SecurityPolicyName,
- StructuredLogDestinations,
- Tags,
- WorkflowDetails,
- region
+  Certificate,
+  Domain,
+  EndpointDetails,
+  EndpointType,
+  IdentityProviderDetails,
+  IdentityProviderType,
+  IpAddressType,
+  LoggingRole,
+  PostAuthenticationLoginBanner,
+  PreAuthenticationLoginBanner,
+  ProtocolDetails,
+  Protocols,
+  S3StorageOptions,
+  SecurityPolicyName,
+  StructuredLogDestinations,
+  Tags,
+  WorkflowDetails,
+  region
 )
 SELECT
- '{{ certificate }}',
- '{{ domain }}',
- '{{ endpoint_details }}',
- '{{ endpoint_type }}',
- '{{ identity_provider_details }}',
- '{{ identity_provider_type }}',
- '{{ ip_address_type }}',
- '{{ logging_role }}',
- '{{ post_authentication_login_banner }}',
- '{{ pre_authentication_login_banner }}',
- '{{ protocol_details }}',
- '{{ protocols }}',
- '{{ s3_storage_options }}',
- '{{ security_policy_name }}',
- '{{ structured_log_destinations }}',
- '{{ tags }}',
- '{{ workflow_details }}',
- '{{ region }}';
+  '{{ certificate }}',
+  '{{ domain }}',
+  '{{ endpoint_details }}',
+  '{{ endpoint_type }}',
+  '{{ identity_provider_details }}',
+  '{{ identity_provider_type }}',
+  '{{ ip_address_type }}',
+  '{{ logging_role }}',
+  '{{ post_authentication_login_banner }}',
+  '{{ pre_authentication_login_banner }}',
+  '{{ protocol_details }}',
+  '{{ protocols }}',
+  '{{ s3_storage_options }}',
+  '{{ security_policy_name }}',
+  '{{ structured_log_destinations }}',
+  '{{ tags }}',
+  '{{ workflow_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -583,8 +586,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "WorkflowDetails": workflow_details
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -593,8 +597,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.servers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

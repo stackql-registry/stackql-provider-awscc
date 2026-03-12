@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>slack_workspace_configuration</code>.
 ```sql
 SELECT
-region,
-team_id,
-version_id
+  region,
+  team_id,
+  version_id
 FROM awscc.supportapp.slack_workspace_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ team_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}';
 Lists all <code>slack_workspace_configurations</code> in a region.
 ```sql
 SELECT
-region,
-team_id
+  region,
+  team_id
 FROM awscc.supportapp.slack_workspace_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>slack_wo
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.slack_workspace_configurations (
- TeamId,
- region
+  TeamId,
+  region
 )
 SELECT
-'{{ team_id }}',
-'{{ region }}';
+  '{{ team_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,14 +189,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.slack_workspace_configurations (
- TeamId,
- VersionId,
- region
+  TeamId,
+  VersionId,
+  region
 )
 SELECT
- '{{ team_id }}',
- '{{ version_id }}',
- '{{ region }}';
+  '{{ team_id }}',
+  '{{ version_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -228,8 +231,9 @@ UPDATE awscc.supportapp.slack_workspace_configurations
 SET PatchDocument = string('{{ {
     "VersionId": version_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ team_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ team_id }}';
 ```
 
 
@@ -238,8 +242,9 @@ AND Identifier = '{{ team_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.slack_workspace_configurations
-WHERE Identifier = '{{ team_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ team_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

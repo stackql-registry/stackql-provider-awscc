@@ -351,21 +351,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-description,
-server_side_encryption_configuration,
-tags,
-name,
-role_arn,
-edition,
-document_metadata_configurations,
-capacity_units,
-user_context_policy,
-user_token_configurations
+  region,
+  id,
+  arn,
+  description,
+  server_side_encryption_configuration,
+  tags,
+  name,
+  role_arn,
+  edition,
+  document_metadata_configurations,
+  capacity_units,
+  user_context_policy,
+  user_token_configurations
 FROM awscc.kendra.indices
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -373,10 +375,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>indices</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.kendra.indices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -398,16 +401,16 @@ Use the following StackQL query and manifest file to create a new <code>index</c
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.indices (
- Name,
- RoleArn,
- Edition,
- region
+  Name,
+  RoleArn,
+  Edition,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ role_arn }}',
- '{{ edition }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ edition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -415,30 +418,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.indices (
- Description,
- ServerSideEncryptionConfiguration,
- Tags,
- Name,
- RoleArn,
- Edition,
- DocumentMetadataConfigurations,
- CapacityUnits,
- UserContextPolicy,
- UserTokenConfigurations,
- region
+  Description,
+  ServerSideEncryptionConfiguration,
+  Tags,
+  Name,
+  RoleArn,
+  Edition,
+  DocumentMetadataConfigurations,
+  CapacityUnits,
+  UserContextPolicy,
+  UserTokenConfigurations,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ server_side_encryption_configuration }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ edition }}',
- '{{ document_metadata_configurations }}',
- '{{ capacity_units }}',
- '{{ user_context_policy }}',
- '{{ user_token_configurations }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ edition }}',
+  '{{ document_metadata_configurations }}',
+  '{{ capacity_units }}',
+  '{{ user_context_policy }}',
+  '{{ user_token_configurations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -527,8 +530,9 @@ SET PatchDocument = string('{{ {
     "UserContextPolicy": user_context_policy,
     "UserTokenConfigurations": user_token_configurations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -537,8 +541,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendra.indices
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

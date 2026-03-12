@@ -217,21 +217,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT
-region,
-duration_seconds,
-enabled,
-managed_policy_arns,
-name,
-profile_arn,
-profile_id,
-require_instance_properties,
-role_arns,
-session_policy,
-tags,
-attribute_mappings,
-accept_role_session_name
+  region,
+  duration_seconds,
+  enabled,
+  managed_policy_arns,
+  name,
+  profile_arn,
+  profile_id,
+  require_instance_properties,
+  role_arns,
+  session_policy,
+  tags,
+  attribute_mappings,
+  accept_role_session_name
 FROM awscc.rolesanywhere.profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 Lists all <code>profiles</code> in a region.
 ```sql
 SELECT
-region,
-profile_id
+  region,
+  profile_id
 FROM awscc.rolesanywhere.profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,14 +267,14 @@ Use the following StackQL query and manifest file to create a new <code>profile<
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.profiles (
- Name,
- RoleArns,
- region
+  Name,
+  RoleArns,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ role_arns }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ role_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,30 +282,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.profiles (
- DurationSeconds,
- Enabled,
- ManagedPolicyArns,
- Name,
- RequireInstanceProperties,
- RoleArns,
- SessionPolicy,
- Tags,
- AttributeMappings,
- AcceptRoleSessionName,
- region
+  DurationSeconds,
+  Enabled,
+  ManagedPolicyArns,
+  Name,
+  RequireInstanceProperties,
+  RoleArns,
+  SessionPolicy,
+  Tags,
+  AttributeMappings,
+  AcceptRoleSessionName,
+  region
 )
 SELECT
- '{{ duration_seconds }}',
- '{{ enabled }}',
- '{{ managed_policy_arns }}',
- '{{ name }}',
- '{{ require_instance_properties }}',
- '{{ role_arns }}',
- '{{ session_policy }}',
- '{{ tags }}',
- '{{ attribute_mappings }}',
- '{{ accept_role_session_name }}',
- '{{ region }}';
+  '{{ duration_seconds }}',
+  '{{ enabled }}',
+  '{{ managed_policy_arns }}',
+  '{{ name }}',
+  '{{ require_instance_properties }}',
+  '{{ role_arns }}',
+  '{{ session_policy }}',
+  '{{ tags }}',
+  '{{ attribute_mappings }}',
+  '{{ accept_role_session_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -368,8 +371,9 @@ SET PatchDocument = string('{{ {
     "AttributeMappings": attribute_mappings,
     "AcceptRoleSessionName": accept_role_session_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ profile_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ profile_id }}';
 ```
 
 
@@ -378,8 +382,9 @@ AND Identifier = '{{ profile_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.profiles
-WHERE Identifier = '{{ profile_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ profile_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

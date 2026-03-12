@@ -233,26 +233,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subscription_target</code>.
 ```sql
 SELECT
-region,
-applicable_asset_types,
-authorized_principals,
-created_at,
-created_by,
-domain_id,
-domain_identifier,
-environment_id,
-environment_identifier,
-id,
-manage_access_role,
-name,
-project_id,
-provider,
-subscription_target_config,
-type,
-updated_at,
-updated_by
+  region,
+  applicable_asset_types,
+  authorized_principals,
+  created_at,
+  created_by,
+  domain_id,
+  domain_identifier,
+  environment_id,
+  environment_identifier,
+  id,
+  manage_access_role,
+  name,
+  project_id,
+  provider,
+  subscription_target_config,
+  type,
+  updated_at,
+  updated_by
 FROM awscc.datazone.subscription_targets
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,12 +262,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }
 Lists all <code>subscription_targets</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-environment_id,
-id
+  region,
+  domain_id,
+  environment_id,
+  id
 FROM awscc.datazone.subscription_targets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,24 +290,24 @@ Use the following StackQL query and manifest file to create a new <code>subscrip
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.subscription_targets (
- ApplicableAssetTypes,
- AuthorizedPrincipals,
- DomainIdentifier,
- EnvironmentIdentifier,
- Name,
- SubscriptionTargetConfig,
- Type,
- region
+  ApplicableAssetTypes,
+  AuthorizedPrincipals,
+  DomainIdentifier,
+  EnvironmentIdentifier,
+  Name,
+  SubscriptionTargetConfig,
+  Type,
+  region
 )
 SELECT
-'{{ applicable_asset_types }}',
- '{{ authorized_principals }}',
- '{{ domain_identifier }}',
- '{{ environment_identifier }}',
- '{{ name }}',
- '{{ subscription_target_config }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ applicable_asset_types }}',
+  '{{ authorized_principals }}',
+  '{{ domain_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ subscription_target_config }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -312,28 +315,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.subscription_targets (
- ApplicableAssetTypes,
- AuthorizedPrincipals,
- DomainIdentifier,
- EnvironmentIdentifier,
- ManageAccessRole,
- Name,
- Provider,
- SubscriptionTargetConfig,
- Type,
- region
+  ApplicableAssetTypes,
+  AuthorizedPrincipals,
+  DomainIdentifier,
+  EnvironmentIdentifier,
+  ManageAccessRole,
+  Name,
+  Provider,
+  SubscriptionTargetConfig,
+  Type,
+  region
 )
 SELECT
- '{{ applicable_asset_types }}',
- '{{ authorized_principals }}',
- '{{ domain_identifier }}',
- '{{ environment_identifier }}',
- '{{ manage_access_role }}',
- '{{ name }}',
- '{{ provider }}',
- '{{ subscription_target_config }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ applicable_asset_types }}',
+  '{{ authorized_principals }}',
+  '{{ domain_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ manage_access_role }}',
+  '{{ name }}',
+  '{{ provider }}',
+  '{{ subscription_target_config }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -391,8 +394,9 @@ SET PatchDocument = string('{{ {
     "Provider": provider,
     "SubscriptionTargetConfig": subscription_target_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 
 
@@ -401,8 +405,9 @@ AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.subscription_targets
-WHERE Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

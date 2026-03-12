@@ -130,11 +130,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>organization_admin</code>.
 ```sql
 SELECT
-region,
-account_id,
-graph_arn
+  region,
+  account_id,
+  graph_arn
 FROM awscc.detective.organization_admins
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>organization_admins</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.detective.organization_admins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>organiza
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.organization_admins (
- AccountId,
- region
+  AccountId,
+  region
 )
 SELECT
-'{{ account_id }}',
-'{{ region }}';
+  '{{ account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -180,12 +183,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.organization_admins (
- AccountId,
- region
+  AccountId,
+  region
 )
 SELECT
- '{{ account_id }}',
- '{{ region }}';
+  '{{ account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -214,8 +217,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.organization_admins
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

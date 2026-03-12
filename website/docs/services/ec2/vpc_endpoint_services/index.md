@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_endpoint_service</code>.
 ```sql
 SELECT
-region,
-network_load_balancer_arns,
-contributor_insights_enabled,
-payer_responsibility,
-service_id,
-acceptance_required,
-gateway_load_balancer_arns,
-tags,
-supported_ip_address_types,
-supported_regions
+  region,
+  network_load_balancer_arns,
+  contributor_insights_enabled,
+  payer_responsibility,
+  service_id,
+  acceptance_required,
+  gateway_load_balancer_arns,
+  tags,
+  supported_ip_address_types,
+  supported_regions
 FROM awscc.ec2.vpc_endpoint_services
-WHERE region = 'us-east-1' AND Identifier = '{{ service_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ service_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ service_id }}';
 Lists all <code>vpc_endpoint_services</code> in a region.
 ```sql
 SELECT
-region,
-service_id
+  region,
+  service_id
 FROM awscc.ec2.vpc_endpoint_services_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,26 +230,26 @@ Use the following StackQL query and manifest file to create a new <code>vpc_endp
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_endpoint_services (
- NetworkLoadBalancerArns,
- ContributorInsightsEnabled,
- PayerResponsibility,
- AcceptanceRequired,
- GatewayLoadBalancerArns,
- Tags,
- SupportedIpAddressTypes,
- SupportedRegions,
- region
+  NetworkLoadBalancerArns,
+  ContributorInsightsEnabled,
+  PayerResponsibility,
+  AcceptanceRequired,
+  GatewayLoadBalancerArns,
+  Tags,
+  SupportedIpAddressTypes,
+  SupportedRegions,
+  region
 )
 SELECT
-'{{ network_load_balancer_arns }}',
- '{{ contributor_insights_enabled }}',
- '{{ payer_responsibility }}',
- '{{ acceptance_required }}',
- '{{ gateway_load_balancer_arns }}',
- '{{ tags }}',
- '{{ supported_ip_address_types }}',
- '{{ supported_regions }}',
-'{{ region }}';
+  '{{ network_load_balancer_arns }}',
+  '{{ contributor_insights_enabled }}',
+  '{{ payer_responsibility }}',
+  '{{ acceptance_required }}',
+  '{{ gateway_load_balancer_arns }}',
+  '{{ tags }}',
+  '{{ supported_ip_address_types }}',
+  '{{ supported_regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,26 +257,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_endpoint_services (
- NetworkLoadBalancerArns,
- ContributorInsightsEnabled,
- PayerResponsibility,
- AcceptanceRequired,
- GatewayLoadBalancerArns,
- Tags,
- SupportedIpAddressTypes,
- SupportedRegions,
- region
+  NetworkLoadBalancerArns,
+  ContributorInsightsEnabled,
+  PayerResponsibility,
+  AcceptanceRequired,
+  GatewayLoadBalancerArns,
+  Tags,
+  SupportedIpAddressTypes,
+  SupportedRegions,
+  region
 )
 SELECT
- '{{ network_load_balancer_arns }}',
- '{{ contributor_insights_enabled }}',
- '{{ payer_responsibility }}',
- '{{ acceptance_required }}',
- '{{ gateway_load_balancer_arns }}',
- '{{ tags }}',
- '{{ supported_ip_address_types }}',
- '{{ supported_regions }}',
- '{{ region }}';
+  '{{ network_load_balancer_arns }}',
+  '{{ contributor_insights_enabled }}',
+  '{{ payer_responsibility }}',
+  '{{ acceptance_required }}',
+  '{{ gateway_load_balancer_arns }}',
+  '{{ tags }}',
+  '{{ supported_ip_address_types }}',
+  '{{ supported_regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "SupportedIpAddressTypes": supported_ip_address_types,
     "SupportedRegions": supported_regions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ service_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ service_id }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ service_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_services
-WHERE Identifier = '{{ service_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ service_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

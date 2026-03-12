@@ -171,17 +171,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>load_balancer_tls_certificate</code>.
 ```sql
 SELECT
-region,
-load_balancer_name,
-certificate_name,
-certificate_domain_name,
-certificate_alternative_names,
-load_balancer_tls_certificate_arn,
-is_attached,
-https_redirection_enabled,
-status
+  region,
+  load_balancer_name,
+  certificate_name,
+  certificate_domain_name,
+  certificate_alternative_names,
+  load_balancer_tls_certificate_arn,
+  is_attached,
+  https_redirection_enabled,
+  status
 FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}|{{ load_bala
 Lists all <code>load_balancer_tls_certificates</code> in a region.
 ```sql
 SELECT
-region,
-certificate_name,
-load_balancer_name
+  region,
+  certificate_name,
+  load_balancer_name
 FROM awscc.lightsail.load_balancer_tls_certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>load_bal
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.load_balancer_tls_certificates (
- LoadBalancerName,
- CertificateName,
- CertificateDomainName,
- region
+  LoadBalancerName,
+  CertificateName,
+  CertificateDomainName,
+  region
 )
 SELECT
-'{{ load_balancer_name }}',
- '{{ certificate_name }}',
- '{{ certificate_domain_name }}',
-'{{ region }}';
+  '{{ load_balancer_name }}',
+  '{{ certificate_name }}',
+  '{{ certificate_domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,22 +235,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.load_balancer_tls_certificates (
- LoadBalancerName,
- CertificateName,
- CertificateDomainName,
- CertificateAlternativeNames,
- IsAttached,
- HttpsRedirectionEnabled,
- region
+  LoadBalancerName,
+  CertificateName,
+  CertificateDomainName,
+  CertificateAlternativeNames,
+  IsAttached,
+  HttpsRedirectionEnabled,
+  region
 )
 SELECT
- '{{ load_balancer_name }}',
- '{{ certificate_name }}',
- '{{ certificate_domain_name }}',
- '{{ certificate_alternative_names }}',
- '{{ is_attached }}',
- '{{ https_redirection_enabled }}',
- '{{ region }}';
+  '{{ load_balancer_name }}',
+  '{{ certificate_name }}',
+  '{{ certificate_domain_name }}',
+  '{{ certificate_alternative_names }}',
+  '{{ is_attached }}',
+  '{{ https_redirection_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "IsAttached": is_attached,
     "HttpsRedirectionEnabled": https_redirection_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE Identifier = '{{ certificate_name }}|{{ load_balancer_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_name }}|{{ load_balancer_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

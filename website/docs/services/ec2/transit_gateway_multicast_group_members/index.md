@@ -180,19 +180,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_multicast_group_member</code>.
 ```sql
 SELECT
-region,
-group_ip_address,
-transit_gateway_attachment_id,
-transit_gateway_multicast_domain_id,
-subnet_id,
-resource_id,
-resource_type,
-network_interface_id,
-group_member,
-group_source,
-member_type
+  region,
+  group_ip_address,
+  transit_gateway_attachment_id,
+  transit_gateway_multicast_domain_id,
+  subnet_id,
+  resource_id,
+  resource_type,
+  network_interface_id,
+  group_member,
+  group_source,
+  member_type
 FROM awscc.ec2.transit_gateway_multicast_group_members
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,12 +202,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain
 Lists all <code>transit_gateway_multicast_group_members</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_multicast_domain_id,
-group_ip_address,
-network_interface_id
+  region,
+  transit_gateway_multicast_domain_id,
+  group_ip_address,
+  network_interface_id
 FROM awscc.ec2.transit_gateway_multicast_group_members_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_group_members (
- GroupIpAddress,
- TransitGatewayMulticastDomainId,
- NetworkInterfaceId,
- region
+  GroupIpAddress,
+  TransitGatewayMulticastDomainId,
+  NetworkInterfaceId,
+  region
 )
 SELECT
-'{{ group_ip_address }}',
- '{{ transit_gateway_multicast_domain_id }}',
- '{{ network_interface_id }}',
-'{{ region }}';
+  '{{ group_ip_address }}',
+  '{{ transit_gateway_multicast_domain_id }}',
+  '{{ network_interface_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,16 +247,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_group_members (
- GroupIpAddress,
- TransitGatewayMulticastDomainId,
- NetworkInterfaceId,
- region
+  GroupIpAddress,
+  TransitGatewayMulticastDomainId,
+  NetworkInterfaceId,
+  region
 )
 SELECT
- '{{ group_ip_address }}',
- '{{ transit_gateway_multicast_domain_id }}',
- '{{ network_interface_id }}',
- '{{ region }}';
+  '{{ group_ip_address }}',
+  '{{ transit_gateway_multicast_domain_id }}',
+  '{{ network_interface_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_group_members
-WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

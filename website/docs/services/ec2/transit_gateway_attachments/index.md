@@ -190,15 +190,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_attachment</code>.
 ```sql
 SELECT
-region,
-options,
-transit_gateway_id,
-vpc_id,
-id,
-subnet_ids,
-tags
+  region,
+  options,
+  transit_gateway_id,
+  vpc_id,
+  id,
+  subnet_ids,
+  tags
 FROM awscc.ec2.transit_gateway_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,10 +208,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>transit_gateway_attachments</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.transit_gateway_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -231,16 +234,16 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_attachments (
- TransitGatewayId,
- VpcId,
- SubnetIds,
- region
+  TransitGatewayId,
+  VpcId,
+  SubnetIds,
+  region
 )
 SELECT
-'{{ transit_gateway_id }}',
- '{{ vpc_id }}',
- '{{ subnet_ids }}',
-'{{ region }}';
+  '{{ transit_gateway_id }}',
+  '{{ vpc_id }}',
+  '{{ subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,20 +251,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_attachments (
- Options,
- TransitGatewayId,
- VpcId,
- SubnetIds,
- Tags,
- region
+  Options,
+  TransitGatewayId,
+  VpcId,
+  SubnetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ options }}',
- '{{ transit_gateway_id }}',
- '{{ vpc_id }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ options }}',
+  '{{ transit_gateway_id }}',
+  '{{ vpc_id }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -311,8 +314,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -321,8 +325,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_attachments
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

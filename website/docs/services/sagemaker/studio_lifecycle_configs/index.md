@@ -157,14 +157,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>studio_lifecycle_config</code>.
 ```sql
 SELECT
-region,
-studio_lifecycle_config_arn,
-studio_lifecycle_config_app_type,
-studio_lifecycle_config_content,
-studio_lifecycle_config_name,
-tags
+  region,
+  studio_lifecycle_config_arn,
+  studio_lifecycle_config_app_type,
+  studio_lifecycle_config_content,
+  studio_lifecycle_config_name,
+  tags
 FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ studio_lifecycle_config_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ studio_lifecycle_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ studio_lifecycle_config_name }}'
 Lists all <code>studio_lifecycle_configs</code> in a region.
 ```sql
 SELECT
-region,
-studio_lifecycle_config_name
+  region,
+  studio_lifecycle_config_name
 FROM awscc.sagemaker.studio_lifecycle_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>studio_l
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.studio_lifecycle_configs (
- StudioLifecycleConfigAppType,
- StudioLifecycleConfigContent,
- StudioLifecycleConfigName,
- region
+  StudioLifecycleConfigAppType,
+  StudioLifecycleConfigContent,
+  StudioLifecycleConfigName,
+  region
 )
 SELECT
-'{{ studio_lifecycle_config_app_type }}',
- '{{ studio_lifecycle_config_content }}',
- '{{ studio_lifecycle_config_name }}',
-'{{ region }}';
+  '{{ studio_lifecycle_config_app_type }}',
+  '{{ studio_lifecycle_config_content }}',
+  '{{ studio_lifecycle_config_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,18 +217,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.studio_lifecycle_configs (
- StudioLifecycleConfigAppType,
- StudioLifecycleConfigContent,
- StudioLifecycleConfigName,
- Tags,
- region
+  StudioLifecycleConfigAppType,
+  StudioLifecycleConfigContent,
+  StudioLifecycleConfigName,
+  Tags,
+  region
 )
 SELECT
- '{{ studio_lifecycle_config_app_type }}',
- '{{ studio_lifecycle_config_content }}',
- '{{ studio_lifecycle_config_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ studio_lifecycle_config_app_type }}',
+  '{{ studio_lifecycle_config_content }}',
+  '{{ studio_lifecycle_config_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE Identifier = '{{ studio_lifecycle_config_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ studio_lifecycle_config_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

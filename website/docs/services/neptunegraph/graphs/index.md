@@ -195,19 +195,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>graph</code>.
 ```sql
 SELECT
-region,
-deletion_protection,
-graph_name,
-provisioned_memory,
-public_connectivity,
-replica_count,
-tags,
-vector_search_configuration,
-endpoint,
-graph_arn,
-graph_id
+  region,
+  deletion_protection,
+  graph_name,
+  provisioned_memory,
+  public_connectivity,
+  replica_count,
+  tags,
+  vector_search_configuration,
+  endpoint,
+  graph_arn,
+  graph_id
 FROM awscc.neptunegraph.graphs
-WHERE region = 'us-east-1' AND Identifier = '{{ graph_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ graph_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +217,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ graph_id }}';
 Lists all <code>graphs</code> in a region.
 ```sql
 SELECT
-region,
-graph_id
+  region,
+  graph_id
 FROM awscc.neptunegraph.graphs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,12 +243,12 @@ Use the following StackQL query and manifest file to create a new <code>graph</c
 ```sql
 /*+ create */
 INSERT INTO awscc.neptunegraph.graphs (
- ProvisionedMemory,
- region
+  ProvisionedMemory,
+  region
 )
 SELECT
-'{{ provisioned_memory }}',
-'{{ region }}';
+  '{{ provisioned_memory }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -253,24 +256,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.neptunegraph.graphs (
- DeletionProtection,
- GraphName,
- ProvisionedMemory,
- PublicConnectivity,
- ReplicaCount,
- Tags,
- VectorSearchConfiguration,
- region
+  DeletionProtection,
+  GraphName,
+  ProvisionedMemory,
+  PublicConnectivity,
+  ReplicaCount,
+  Tags,
+  VectorSearchConfiguration,
+  region
 )
 SELECT
- '{{ deletion_protection }}',
- '{{ graph_name }}',
- '{{ provisioned_memory }}',
- '{{ public_connectivity }}',
- '{{ replica_count }}',
- '{{ tags }}',
- '{{ vector_search_configuration }}',
- '{{ region }}';
+  '{{ deletion_protection }}',
+  '{{ graph_name }}',
+  '{{ provisioned_memory }}',
+  '{{ public_connectivity }}',
+  '{{ replica_count }}',
+  '{{ tags }}',
+  '{{ vector_search_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -321,8 +324,9 @@ SET PatchDocument = string('{{ {
     "PublicConnectivity": public_connectivity,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ graph_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ graph_id }}';
 ```
 
 
@@ -331,8 +335,9 @@ AND Identifier = '{{ graph_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptunegraph.graphs
-WHERE Identifier = '{{ graph_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ graph_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

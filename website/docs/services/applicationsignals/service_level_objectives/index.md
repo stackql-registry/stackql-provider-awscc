@@ -485,21 +485,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_level_objective</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-created_time,
-last_updated_time,
-sli,
-request_based_sli,
-evaluation_type,
-goal,
-tags,
-burn_rate_configurations,
-exclusion_windows
+  region,
+  arn,
+  name,
+  description,
+  created_time,
+  last_updated_time,
+  sli,
+  request_based_sli,
+  evaluation_type,
+  goal,
+  tags,
+  burn_rate_configurations,
+  exclusion_windows
 FROM awscc.applicationsignals.service_level_objectives
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -507,10 +509,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>service_level_objectives</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.applicationsignals.service_level_objectives_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -532,12 +535,12 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationsignals.service_level_objectives (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -545,26 +548,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationsignals.service_level_objectives (
- Name,
- Description,
- Sli,
- RequestBasedSli,
- Goal,
- Tags,
- BurnRateConfigurations,
- ExclusionWindows,
- region
+  Name,
+  Description,
+  Sli,
+  RequestBasedSli,
+  Goal,
+  Tags,
+  BurnRateConfigurations,
+  ExclusionWindows,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ sli }}',
- '{{ request_based_sli }}',
- '{{ goal }}',
- '{{ tags }}',
- '{{ burn_rate_configurations }}',
- '{{ exclusion_windows }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ sli }}',
+  '{{ request_based_sli }}',
+  '{{ goal }}',
+  '{{ tags }}',
+  '{{ burn_rate_configurations }}',
+  '{{ exclusion_windows }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -674,8 +677,9 @@ SET PatchDocument = string('{{ {
     "BurnRateConfigurations": burn_rate_configurations,
     "ExclusionWindows": exclusion_windows
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -684,8 +688,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationsignals.service_level_objectives
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

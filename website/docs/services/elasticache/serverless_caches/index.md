@@ -286,29 +286,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>serverless_cach</code>.
 ```sql
 SELECT
-region,
-serverless_cache_name,
-description,
-engine,
-major_engine_version,
-full_engine_version,
-cache_usage_limits,
-kms_key_id,
-security_group_ids,
-snapshot_arns_to_restore,
-tags,
-user_group_id,
-subnet_ids,
-snapshot_retention_limit,
-daily_snapshot_time,
-create_time,
-status,
-endpoint,
-reader_endpoint,
-arn,
-final_snapshot_name
+  region,
+  serverless_cache_name,
+  description,
+  engine,
+  major_engine_version,
+  full_engine_version,
+  cache_usage_limits,
+  kms_key_id,
+  security_group_ids,
+  snapshot_arns_to_restore,
+  tags,
+  user_group_id,
+  subnet_ids,
+  snapshot_retention_limit,
+  daily_snapshot_time,
+  create_time,
+  status,
+  endpoint,
+  reader_endpoint,
+  arn,
+  final_snapshot_name
 FROM awscc.elasticache.serverless_caches
-WHERE region = 'us-east-1' AND Identifier = '{{ serverless_cache_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ serverless_cache_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -316,10 +318,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ serverless_cache_name }}';
 Lists all <code>serverless_caches</code> in a region.
 ```sql
 SELECT
-region,
-serverless_cache_name
+  region,
+  serverless_cache_name
 FROM awscc.elasticache.serverless_caches_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -341,14 +344,14 @@ Use the following StackQL query and manifest file to create a new <code>serverle
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.serverless_caches (
- ServerlessCacheName,
- Engine,
- region
+  ServerlessCacheName,
+  Engine,
+  region
 )
 SELECT
-'{{ serverless_cache_name }}',
- '{{ engine }}',
-'{{ region }}';
+  '{{ serverless_cache_name }}',
+  '{{ engine }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -356,42 +359,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.serverless_caches (
- ServerlessCacheName,
- Description,
- Engine,
- MajorEngineVersion,
- CacheUsageLimits,
- KmsKeyId,
- SecurityGroupIds,
- SnapshotArnsToRestore,
- Tags,
- UserGroupId,
- SubnetIds,
- SnapshotRetentionLimit,
- DailySnapshotTime,
- Endpoint,
- ReaderEndpoint,
- FinalSnapshotName,
- region
+  ServerlessCacheName,
+  Description,
+  Engine,
+  MajorEngineVersion,
+  CacheUsageLimits,
+  KmsKeyId,
+  SecurityGroupIds,
+  SnapshotArnsToRestore,
+  Tags,
+  UserGroupId,
+  SubnetIds,
+  SnapshotRetentionLimit,
+  DailySnapshotTime,
+  Endpoint,
+  ReaderEndpoint,
+  FinalSnapshotName,
+  region
 )
 SELECT
- '{{ serverless_cache_name }}',
- '{{ description }}',
- '{{ engine }}',
- '{{ major_engine_version }}',
- '{{ cache_usage_limits }}',
- '{{ kms_key_id }}',
- '{{ security_group_ids }}',
- '{{ snapshot_arns_to_restore }}',
- '{{ tags }}',
- '{{ user_group_id }}',
- '{{ subnet_ids }}',
- '{{ snapshot_retention_limit }}',
- '{{ daily_snapshot_time }}',
- '{{ endpoint }}',
- '{{ reader_endpoint }}',
- '{{ final_snapshot_name }}',
- '{{ region }}';
+  '{{ serverless_cache_name }}',
+  '{{ description }}',
+  '{{ engine }}',
+  '{{ major_engine_version }}',
+  '{{ cache_usage_limits }}',
+  '{{ kms_key_id }}',
+  '{{ security_group_ids }}',
+  '{{ snapshot_arns_to_restore }}',
+  '{{ tags }}',
+  '{{ user_group_id }}',
+  '{{ subnet_ids }}',
+  '{{ snapshot_retention_limit }}',
+  '{{ daily_snapshot_time }}',
+  '{{ endpoint }}',
+  '{{ reader_endpoint }}',
+  '{{ final_snapshot_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -477,8 +480,9 @@ SET PatchDocument = string('{{ {
     "DailySnapshotTime": daily_snapshot_time,
     "FinalSnapshotName": final_snapshot_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ serverless_cache_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ serverless_cache_name }}';
 ```
 
 
@@ -487,8 +491,9 @@ AND Identifier = '{{ serverless_cache_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.serverless_caches
-WHERE Identifier = '{{ serverless_cache_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ serverless_cache_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

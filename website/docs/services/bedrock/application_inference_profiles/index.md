@@ -210,21 +210,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_inference_profile</code>.
 ```sql
 SELECT
-region,
-created_at,
-description,
-inference_profile_arn,
-inference_profile_id,
-inference_profile_identifier,
-inference_profile_name,
-model_source,
-models,
-status,
-tags,
-type,
-updated_at
+  region,
+  created_at,
+  description,
+  inference_profile_arn,
+  inference_profile_id,
+  inference_profile_identifier,
+  inference_profile_name,
+  model_source,
+  models,
+  status,
+  tags,
+  type,
+  updated_at
 FROM awscc.bedrock.application_inference_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ inference_profile_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ inference_profile_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ inference_profile_identifier }}'
 Lists all <code>application_inference_profiles</code> in a region.
 ```sql
 SELECT
-region,
-inference_profile_identifier
+  region,
+  inference_profile_identifier
 FROM awscc.bedrock.application_inference_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,12 +260,12 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.application_inference_profiles (
- InferenceProfileName,
- region
+  InferenceProfileName,
+  region
 )
 SELECT
-'{{ inference_profile_name }}',
-'{{ region }}';
+  '{{ inference_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,18 +273,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.application_inference_profiles (
- Description,
- InferenceProfileName,
- ModelSource,
- Tags,
- region
+  Description,
+  InferenceProfileName,
+  ModelSource,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ inference_profile_name }}',
- '{{ model_source }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ inference_profile_name }}',
+  '{{ model_source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ UPDATE awscc.bedrock.application_inference_profiles
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ inference_profile_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ inference_profile_identifier }}';
 ```
 
 
@@ -332,8 +336,9 @@ AND Identifier = '{{ inference_profile_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.application_inference_profiles
-WHERE Identifier = '{{ inference_profile_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ inference_profile_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

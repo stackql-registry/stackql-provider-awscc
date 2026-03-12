@@ -437,37 +437,39 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>function</code>.
 ```sql
 SELECT
-region,
-description,
-tracing_config,
-vpc_config,
-runtime_management_config,
-reserved_concurrent_executions,
-snap_start,
-file_system_configs,
-function_name,
-runtime,
-kms_key_arn,
-package_type,
-code_signing_config_arn,
-layers,
-tags,
-image_config,
-memory_size,
-dead_letter_config,
-timeout,
-handler,
-snap_start_response,
-code,
-role,
-logging_config,
-recursive_loop,
-environment,
-arn,
-ephemeral_storage,
-architectures
+  region,
+  description,
+  tracing_config,
+  vpc_config,
+  runtime_management_config,
+  reserved_concurrent_executions,
+  snap_start,
+  file_system_configs,
+  function_name,
+  runtime,
+  kms_key_arn,
+  package_type,
+  code_signing_config_arn,
+  layers,
+  tags,
+  image_config,
+  memory_size,
+  dead_letter_config,
+  timeout,
+  handler,
+  snap_start_response,
+  code,
+  role,
+  logging_config,
+  recursive_loop,
+  environment,
+  arn,
+  ephemeral_storage,
+  architectures
 FROM awscc.lambda.functions
-WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -475,10 +477,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}';
 Lists all <code>functions</code> in a region.
 ```sql
 SELECT
-region,
-function_name
+  region,
+  function_name
 FROM awscc.lambda.functions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -500,14 +503,14 @@ Use the following StackQL query and manifest file to create a new <code>function
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.functions (
- Code,
- Role,
- region
+  Code,
+  Role,
+  region
 )
 SELECT
-'{{ code }}',
- '{{ role }}',
-'{{ region }}';
+  '{{ code }}',
+  '{{ role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -515,62 +518,62 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.functions (
- Description,
- TracingConfig,
- VpcConfig,
- RuntimeManagementConfig,
- ReservedConcurrentExecutions,
- SnapStart,
- FileSystemConfigs,
- FunctionName,
- Runtime,
- KmsKeyArn,
- PackageType,
- CodeSigningConfigArn,
- Layers,
- Tags,
- ImageConfig,
- MemorySize,
- DeadLetterConfig,
- Timeout,
- Handler,
- Code,
- Role,
- LoggingConfig,
- RecursiveLoop,
- Environment,
- EphemeralStorage,
- Architectures,
- region
+  Description,
+  TracingConfig,
+  VpcConfig,
+  RuntimeManagementConfig,
+  ReservedConcurrentExecutions,
+  SnapStart,
+  FileSystemConfigs,
+  FunctionName,
+  Runtime,
+  KmsKeyArn,
+  PackageType,
+  CodeSigningConfigArn,
+  Layers,
+  Tags,
+  ImageConfig,
+  MemorySize,
+  DeadLetterConfig,
+  Timeout,
+  Handler,
+  Code,
+  Role,
+  LoggingConfig,
+  RecursiveLoop,
+  Environment,
+  EphemeralStorage,
+  Architectures,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ tracing_config }}',
- '{{ vpc_config }}',
- '{{ runtime_management_config }}',
- '{{ reserved_concurrent_executions }}',
- '{{ snap_start }}',
- '{{ file_system_configs }}',
- '{{ function_name }}',
- '{{ runtime }}',
- '{{ kms_key_arn }}',
- '{{ package_type }}',
- '{{ code_signing_config_arn }}',
- '{{ layers }}',
- '{{ tags }}',
- '{{ image_config }}',
- '{{ memory_size }}',
- '{{ dead_letter_config }}',
- '{{ timeout }}',
- '{{ handler }}',
- '{{ code }}',
- '{{ role }}',
- '{{ logging_config }}',
- '{{ recursive_loop }}',
- '{{ environment }}',
- '{{ ephemeral_storage }}',
- '{{ architectures }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ tracing_config }}',
+  '{{ vpc_config }}',
+  '{{ runtime_management_config }}',
+  '{{ reserved_concurrent_executions }}',
+  '{{ snap_start }}',
+  '{{ file_system_configs }}',
+  '{{ function_name }}',
+  '{{ runtime }}',
+  '{{ kms_key_arn }}',
+  '{{ package_type }}',
+  '{{ code_signing_config_arn }}',
+  '{{ layers }}',
+  '{{ tags }}',
+  '{{ image_config }}',
+  '{{ memory_size }}',
+  '{{ dead_letter_config }}',
+  '{{ timeout }}',
+  '{{ handler }}',
+  '{{ code }}',
+  '{{ role }}',
+  '{{ logging_config }}',
+  '{{ recursive_loop }}',
+  '{{ environment }}',
+  '{{ ephemeral_storage }}',
+  '{{ architectures }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -709,8 +712,9 @@ SET PatchDocument = string('{{ {
     "EphemeralStorage": ephemeral_storage,
     "Architectures": architectures
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ function_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ function_name }}';
 ```
 
 
@@ -719,8 +723,9 @@ AND Identifier = '{{ function_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.functions
-WHERE Identifier = '{{ function_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -187,14 +187,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT
-region,
-collection_endpoint,
-index_name,
-settings,
-mappings,
-uuid
+  region,
+  collection_endpoint,
+  index_name,
+  settings,
+  mappings,
+  uuid
 FROM awscc.opensearchserverless.indices
-WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}|{{ collection_endpoint }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +204,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}|{{ collection_endp
 Lists all <code>indices</code> in a region.
 ```sql
 SELECT
-region,
-index_name,
-collection_endpoint
+  region,
+  index_name,
+  collection_endpoint
 FROM awscc.opensearchserverless.indices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,14 +231,14 @@ Use the following StackQL query and manifest file to create a new <code>index</c
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.indices (
- CollectionEndpoint,
- IndexName,
- region
+  CollectionEndpoint,
+  IndexName,
+  region
 )
 SELECT
-'{{ collection_endpoint }}',
- '{{ index_name }}',
-'{{ region }}';
+  '{{ collection_endpoint }}',
+  '{{ index_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,18 +246,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.indices (
- CollectionEndpoint,
- IndexName,
- Settings,
- Mappings,
- region
+  CollectionEndpoint,
+  IndexName,
+  Settings,
+  Mappings,
+  region
 )
 SELECT
- '{{ collection_endpoint }}',
- '{{ index_name }}',
- '{{ settings }}',
- '{{ mappings }}',
- '{{ region }}';
+  '{{ collection_endpoint }}',
+  '{{ index_name }}',
+  '{{ settings }}',
+  '{{ mappings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -299,8 +302,9 @@ SET PatchDocument = string('{{ {
     "Settings": settings,
     "Mappings": mappings
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ index_name }}|{{ collection_endpoint }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```
 
 
@@ -309,8 +313,9 @@ AND Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.indices
-WHERE Identifier = '{{ index_name }}|{{ collection_endpoint }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ index_name }}|{{ collection_endpoint }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

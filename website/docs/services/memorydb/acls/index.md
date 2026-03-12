@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>acl</code>.
 ```sql
 SELECT
-region,
-status,
-acl_name,
-user_names,
-arn,
-tags
+  region,
+  status,
+  acl_name,
+  user_names,
+  arn,
+  tags
 FROM awscc.memorydb.acls
-WHERE region = 'us-east-1' AND Identifier = '{{ acl_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ acl_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ acl_name }}';
 Lists all <code>acls</code> in a region.
 ```sql
 SELECT
-region,
-acl_name
+  region,
+  acl_name
 FROM awscc.memorydb.acls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>acl</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.acls (
- ACLName,
- region
+  ACLName,
+  region
 )
 SELECT
-'{{ acl_name }}',
-'{{ region }}';
+  '{{ acl_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,16 +219,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.acls (
- ACLName,
- UserNames,
- Tags,
- region
+  ACLName,
+  UserNames,
+  Tags,
+  region
 )
 SELECT
- '{{ acl_name }}',
- '{{ user_names }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ acl_name }}',
+  '{{ user_names }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ SET PatchDocument = string('{{ {
     "UserNames": user_names,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ acl_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ acl_name }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ acl_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.acls
-WHERE Identifier = '{{ acl_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ acl_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

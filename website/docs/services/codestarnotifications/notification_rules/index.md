@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>notification_rule</code>.
 ```sql
 SELECT
-region,
-event_type_id,
-created_by,
-target_address,
-event_type_ids,
-status,
-detail_type,
-resource,
-targets,
-tags,
-name,
-arn
+  region,
+  event_type_id,
+  created_by,
+  target_address,
+  event_type_ids,
+  status,
+  detail_type,
+  resource,
+  targets,
+  tags,
+  name,
+  arn
 FROM awscc.codestarnotifications.notification_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>notification_rules</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.codestarnotifications.notification_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,20 +242,20 @@ Use the following StackQL query and manifest file to create a new <code>notifica
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarnotifications.notification_rules (
- EventTypeIds,
- DetailType,
- Resource,
- Targets,
- Name,
- region
+  EventTypeIds,
+  DetailType,
+  Resource,
+  Targets,
+  Name,
+  region
 )
 SELECT
-'{{ event_type_ids }}',
- '{{ detail_type }}',
- '{{ resource }}',
- '{{ targets }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ event_type_ids }}',
+  '{{ detail_type }}',
+  '{{ resource }}',
+  '{{ targets }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,30 +263,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarnotifications.notification_rules (
- EventTypeId,
- CreatedBy,
- TargetAddress,
- EventTypeIds,
- Status,
- DetailType,
- Resource,
- Targets,
- Tags,
- Name,
- region
+  EventTypeId,
+  CreatedBy,
+  TargetAddress,
+  EventTypeIds,
+  Status,
+  DetailType,
+  Resource,
+  Targets,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ event_type_id }}',
- '{{ created_by }}',
- '{{ target_address }}',
- '{{ event_type_ids }}',
- '{{ status }}',
- '{{ detail_type }}',
- '{{ resource }}',
- '{{ targets }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ event_type_id }}',
+  '{{ created_by }}',
+  '{{ target_address }}',
+  '{{ event_type_ids }}',
+  '{{ status }}',
+  '{{ detail_type }}',
+  '{{ resource }}',
+  '{{ targets }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -345,8 +348,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -355,8 +359,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarnotifications.notification_rules
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

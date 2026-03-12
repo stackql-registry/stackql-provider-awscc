@@ -122,12 +122,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bridge_output</code>.
 ```sql
 SELECT
-region,
-bridge_arn,
-network_output,
-name
+  region,
+  bridge_arn,
+  network_output,
+  name
 FROM awscc.mediaconnect.bridge_outputs
-WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -147,16 +149,16 @@ Use the following StackQL query and manifest file to create a new <code>bridge_o
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridge_outputs (
- BridgeArn,
- NetworkOutput,
- Name,
- region
+  BridgeArn,
+  NetworkOutput,
+  Name,
+  region
 )
 SELECT
-'{{ bridge_arn }}',
- '{{ network_output }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ bridge_arn }}',
+  '{{ network_output }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -164,16 +166,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridge_outputs (
- BridgeArn,
- NetworkOutput,
- Name,
- region
+  BridgeArn,
+  NetworkOutput,
+  Name,
+  region
 )
 SELECT
- '{{ bridge_arn }}',
- '{{ network_output }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ bridge_arn }}',
+  '{{ network_output }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -215,8 +217,9 @@ UPDATE awscc.mediaconnect.bridge_outputs
 SET PatchDocument = string('{{ {
     "NetworkOutput": network_output
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bridge_arn }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 
@@ -225,8 +228,9 @@ AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridge_outputs
-WHERE Identifier = '{{ bridge_arn }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bridge_arn }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>wireless_gateway</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-tags,
-lo_ra_wan,
-arn,
-id,
-thing_arn,
-thing_name,
-last_uplink_received_at
+  region,
+  name,
+  description,
+  tags,
+  lo_ra_wan,
+  arn,
+  id,
+  thing_arn,
+  thing_name,
+  last_uplink_received_at
 FROM awscc.iotwireless.wireless_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>wireless_gateways</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.wireless_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>wireless
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_gateways (
- LoRaWAN,
- region
+  LoRaWAN,
+  region
 )
 SELECT
-'{{ lo_ra_wan }}',
-'{{ region }}';
+  '{{ lo_ra_wan }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,24 +255,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_gateways (
- Name,
- Description,
- Tags,
- LoRaWAN,
- ThingArn,
- ThingName,
- LastUplinkReceivedAt,
- region
+  Name,
+  Description,
+  Tags,
+  LoRaWAN,
+  ThingArn,
+  ThingName,
+  LastUplinkReceivedAt,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ lo_ra_wan }}',
- '{{ thing_arn }}',
- '{{ thing_name }}',
- '{{ last_uplink_received_at }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ lo_ra_wan }}',
+  '{{ thing_arn }}',
+  '{{ thing_name }}',
+  '{{ last_uplink_received_at }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -324,8 +327,9 @@ SET PatchDocument = string('{{ {
     "ThingName": thing_name,
     "LastUplinkReceivedAt": last_uplink_received_at
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -334,8 +338,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_gateways
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

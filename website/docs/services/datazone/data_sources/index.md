@@ -292,33 +292,35 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-asset_forms_input,
-connection_id,
-connection_identifier,
-created_at,
-description,
-domain_id,
-domain_identifier,
-enable_setting,
-environment_id,
-environment_identifier,
-id,
-configuration,
-last_run_asset_count,
-last_run_at,
-last_run_status,
-name,
-project_id,
-project_identifier,
-publish_on_import,
-recommendation,
-schedule,
-status,
-type,
-updated_at
+  region,
+  asset_forms_input,
+  connection_id,
+  connection_identifier,
+  created_at,
+  description,
+  domain_id,
+  domain_identifier,
+  enable_setting,
+  environment_id,
+  environment_identifier,
+  id,
+  configuration,
+  last_run_asset_count,
+  last_run_at,
+  last_run_status,
+  name,
+  project_id,
+  project_identifier,
+  publish_on_import,
+  recommendation,
+  schedule,
+  status,
+  type,
+  updated_at
 FROM awscc.datazone.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,11 +328,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -352,18 +355,18 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.data_sources (
- DomainIdentifier,
- Name,
- ProjectIdentifier,
- Type,
- region
+  DomainIdentifier,
+  Name,
+  ProjectIdentifier,
+  Type,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ name }}',
- '{{ project_identifier }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -371,36 +374,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.data_sources (
- AssetFormsInput,
- ConnectionIdentifier,
- Description,
- DomainIdentifier,
- EnableSetting,
- EnvironmentIdentifier,
- Configuration,
- Name,
- ProjectIdentifier,
- PublishOnImport,
- Recommendation,
- Schedule,
- Type,
- region
+  AssetFormsInput,
+  ConnectionIdentifier,
+  Description,
+  DomainIdentifier,
+  EnableSetting,
+  EnvironmentIdentifier,
+  Configuration,
+  Name,
+  ProjectIdentifier,
+  PublishOnImport,
+  Recommendation,
+  Schedule,
+  Type,
+  region
 )
 SELECT
- '{{ asset_forms_input }}',
- '{{ connection_identifier }}',
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ enable_setting }}',
- '{{ environment_identifier }}',
- '{{ configuration }}',
- '{{ name }}',
- '{{ project_identifier }}',
- '{{ publish_on_import }}',
- '{{ recommendation }}',
- '{{ schedule }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ asset_forms_input }}',
+  '{{ connection_identifier }}',
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ enable_setting }}',
+  '{{ environment_identifier }}',
+  '{{ configuration }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ publish_on_import }}',
+  '{{ recommendation }}',
+  '{{ schedule }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -471,8 +474,9 @@ SET PatchDocument = string('{{ {
     "Recommendation": recommendation,
     "Schedule": schedule
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -481,8 +485,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.data_sources
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

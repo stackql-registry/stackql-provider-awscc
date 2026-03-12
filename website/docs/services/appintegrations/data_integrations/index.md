@@ -217,19 +217,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_integration</code>.
 ```sql
 SELECT
-region,
-description,
-id,
-data_integration_arn,
-name,
-kms_key,
-schedule_config,
-source_uri,
-tags,
-file_configuration,
-object_configuration
+  region,
+  description,
+  id,
+  data_integration_arn,
+  name,
+  kms_key,
+  schedule_config,
+  source_uri,
+  tags,
+  file_configuration,
+  object_configuration
 FROM awscc.appintegrations.data_integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>data_integrations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.appintegrations.data_integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,16 +265,16 @@ Use the following StackQL query and manifest file to create a new <code>data_int
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.data_integrations (
- Name,
- KmsKey,
- SourceURI,
- region
+  Name,
+  KmsKey,
+  SourceURI,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ kms_key }}',
- '{{ source_uri }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ kms_key }}',
+  '{{ source_uri }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,26 +282,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.data_integrations (
- Description,
- Name,
- KmsKey,
- ScheduleConfig,
- SourceURI,
- Tags,
- FileConfiguration,
- ObjectConfiguration,
- region
+  Description,
+  Name,
+  KmsKey,
+  ScheduleConfig,
+  SourceURI,
+  Tags,
+  FileConfiguration,
+  ObjectConfiguration,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ kms_key }}',
- '{{ schedule_config }}',
- '{{ source_uri }}',
- '{{ tags }}',
- '{{ file_configuration }}',
- '{{ object_configuration }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ kms_key }}',
+  '{{ schedule_config }}',
+  '{{ source_uri }}',
+  '{{ tags }}',
+  '{{ file_configuration }}',
+  '{{ object_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -357,8 +360,9 @@ SET PatchDocument = string('{{ {
     "FileConfiguration": file_configuration,
     "ObjectConfiguration": object_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -367,8 +371,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.data_integrations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

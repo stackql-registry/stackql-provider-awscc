@@ -242,22 +242,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-platform_arn,
-application_name,
-description,
-environment_name,
-operations_role,
-tier,
-version_label,
-endpoint_url,
-option_settings,
-template_name,
-solution_stack_name,
-cname_prefix,
-tags
+  region,
+  platform_arn,
+  application_name,
+  description,
+  environment_name,
+  operations_role,
+  tier,
+  version_label,
+  endpoint_url,
+  option_settings,
+  template_name,
+  solution_stack_name,
+  cname_prefix,
+  tags
 FROM awscc.elasticbeanstalk.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,10 +267,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_name }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-environment_name
+  region,
+  environment_name
 FROM awscc.elasticbeanstalk.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -290,12 +293,12 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.environments (
- ApplicationName,
- region
+  ApplicationName,
+  region
 )
 SELECT
-'{{ application_name }}',
-'{{ region }}';
+  '{{ application_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,34 +306,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.environments (
- PlatformArn,
- ApplicationName,
- Description,
- EnvironmentName,
- OperationsRole,
- Tier,
- VersionLabel,
- OptionSettings,
- TemplateName,
- SolutionStackName,
- CNAMEPrefix,
- Tags,
- region
+  PlatformArn,
+  ApplicationName,
+  Description,
+  EnvironmentName,
+  OperationsRole,
+  Tier,
+  VersionLabel,
+  OptionSettings,
+  TemplateName,
+  SolutionStackName,
+  CNAMEPrefix,
+  Tags,
+  region
 )
 SELECT
- '{{ platform_arn }}',
- '{{ application_name }}',
- '{{ description }}',
- '{{ environment_name }}',
- '{{ operations_role }}',
- '{{ tier }}',
- '{{ version_label }}',
- '{{ option_settings }}',
- '{{ template_name }}',
- '{{ solution_stack_name }}',
- '{{ cname_prefix }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ platform_arn }}',
+  '{{ application_name }}',
+  '{{ description }}',
+  '{{ environment_name }}',
+  '{{ operations_role }}',
+  '{{ tier }}',
+  '{{ version_label }}',
+  '{{ option_settings }}',
+  '{{ template_name }}',
+  '{{ solution_stack_name }}',
+  '{{ cname_prefix }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -400,8 +403,9 @@ SET PatchDocument = string('{{ {
     "TemplateName": template_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_name }}';
 ```
 
 
@@ -410,8 +414,9 @@ AND Identifier = '{{ environment_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.environments
-WHERE Identifier = '{{ environment_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

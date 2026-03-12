@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_profile</code>.
 ```sql
 SELECT
-region,
-instance_profile_arn,
-instance_profile_identifier,
-availability_zone,
-description,
-kms_key_arn,
-publicly_accessible,
-network_type,
-instance_profile_name,
-instance_profile_creation_time,
-subnet_group_identifier,
-vpc_security_groups,
-tags
+  region,
+  instance_profile_arn,
+  instance_profile_identifier,
+  availability_zone,
+  description,
+  kms_key_arn,
+  publicly_accessible,
+  network_type,
+  instance_profile_name,
+  instance_profile_creation_time,
+  subnet_group_identifier,
+  vpc_security_groups,
+  tags
 FROM awscc.dms.instance_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_arn }}';
 Lists all <code>instance_profiles</code> in a region.
 ```sql
 SELECT
-region,
-instance_profile_arn
+  region,
+  instance_profile_arn
 FROM awscc.dms.instance_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,30 +248,30 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.instance_profiles (
- InstanceProfileIdentifier,
- AvailabilityZone,
- Description,
- KmsKeyArn,
- PubliclyAccessible,
- NetworkType,
- InstanceProfileName,
- SubnetGroupIdentifier,
- VpcSecurityGroups,
- Tags,
- region
+  InstanceProfileIdentifier,
+  AvailabilityZone,
+  Description,
+  KmsKeyArn,
+  PubliclyAccessible,
+  NetworkType,
+  InstanceProfileName,
+  SubnetGroupIdentifier,
+  VpcSecurityGroups,
+  Tags,
+  region
 )
 SELECT
-'{{ instance_profile_identifier }}',
- '{{ availability_zone }}',
- '{{ description }}',
- '{{ kms_key_arn }}',
- '{{ publicly_accessible }}',
- '{{ network_type }}',
- '{{ instance_profile_name }}',
- '{{ subnet_group_identifier }}',
- '{{ vpc_security_groups }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ instance_profile_identifier }}',
+  '{{ availability_zone }}',
+  '{{ description }}',
+  '{{ kms_key_arn }}',
+  '{{ publicly_accessible }}',
+  '{{ network_type }}',
+  '{{ instance_profile_name }}',
+  '{{ subnet_group_identifier }}',
+  '{{ vpc_security_groups }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -276,30 +279,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.instance_profiles (
- InstanceProfileIdentifier,
- AvailabilityZone,
- Description,
- KmsKeyArn,
- PubliclyAccessible,
- NetworkType,
- InstanceProfileName,
- SubnetGroupIdentifier,
- VpcSecurityGroups,
- Tags,
- region
+  InstanceProfileIdentifier,
+  AvailabilityZone,
+  Description,
+  KmsKeyArn,
+  PubliclyAccessible,
+  NetworkType,
+  InstanceProfileName,
+  SubnetGroupIdentifier,
+  VpcSecurityGroups,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_profile_identifier }}',
- '{{ availability_zone }}',
- '{{ description }}',
- '{{ kms_key_arn }}',
- '{{ publicly_accessible }}',
- '{{ network_type }}',
- '{{ instance_profile_name }}',
- '{{ subnet_group_identifier }}',
- '{{ vpc_security_groups }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_profile_identifier }}',
+  '{{ availability_zone }}',
+  '{{ description }}',
+  '{{ kms_key_arn }}',
+  '{{ publicly_accessible }}',
+  '{{ network_type }}',
+  '{{ instance_profile_name }}',
+  '{{ subnet_group_identifier }}',
+  '{{ vpc_security_groups }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -362,8 +365,9 @@ SET PatchDocument = string('{{ {
     "VpcSecurityGroups": vpc_security_groups,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_profile_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_profile_arn }}';
 ```
 
 
@@ -372,8 +376,9 @@ AND Identifier = '{{ instance_profile_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.instance_profiles
-WHERE Identifier = '{{ instance_profile_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_profile_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

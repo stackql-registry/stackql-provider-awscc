@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_endpoint_connection_notification</code>.
 ```sql
 SELECT
-region,
-connection_events,
-vpc_endpoint_id,
-vpc_endpoint_connection_notification_id,
-connection_notification_arn,
-service_id
+  region,
+  connection_events,
+  vpc_endpoint_id,
+  vpc_endpoint_connection_notification_id,
+  connection_notification_arn,
+  service_id
 FROM awscc.ec2.vpc_endpoint_connection_notifications
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_connection_notification_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_connection_notifica
 Lists all <code>vpc_endpoint_connection_notifications</code> in a region.
 ```sql
 SELECT
-region,
-vpc_endpoint_connection_notification_id
+  region,
+  vpc_endpoint_connection_notification_id
 FROM awscc.ec2.vpc_endpoint_connection_notifications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>vpc_endp
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_endpoint_connection_notifications (
- ConnectionEvents,
- ConnectionNotificationArn,
- region
+  ConnectionEvents,
+  ConnectionNotificationArn,
+  region
 )
 SELECT
-'{{ connection_events }}',
- '{{ connection_notification_arn }}',
-'{{ region }}';
+  '{{ connection_events }}',
+  '{{ connection_notification_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,18 +209,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_endpoint_connection_notifications (
- ConnectionEvents,
- VPCEndpointId,
- ConnectionNotificationArn,
- ServiceId,
- region
+  ConnectionEvents,
+  VPCEndpointId,
+  ConnectionNotificationArn,
+  ServiceId,
+  region
 )
 SELECT
- '{{ connection_events }}',
- '{{ vpc_endpoint_id }}',
- '{{ connection_notification_arn }}',
- '{{ service_id }}',
- '{{ region }}';
+  '{{ connection_events }}',
+  '{{ vpc_endpoint_id }}',
+  '{{ connection_notification_arn }}',
+  '{{ service_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -258,8 +261,9 @@ SET PatchDocument = string('{{ {
     "ConnectionEvents": connection_events,
     "ConnectionNotificationArn": connection_notification_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpc_endpoint_connection_notification_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```
 
 
@@ -268,8 +272,9 @@ AND Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_connection_notifications
-WHERE Identifier = '{{ vpc_endpoint_connection_notification_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_endpoint_connection_notification_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

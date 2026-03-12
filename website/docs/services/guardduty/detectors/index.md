@@ -249,15 +249,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>detector</code>.
 ```sql
 SELECT
-region,
-finding_publishing_frequency,
-enable,
-data_sources,
-features,
-id,
-tags
+  region,
+  finding_publishing_frequency,
+  enable,
+  data_sources,
+  features,
+  id,
+  tags
 FROM awscc.guardduty.detectors
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,10 +267,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>detectors</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.guardduty.detectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -290,12 +293,12 @@ Use the following StackQL query and manifest file to create a new <code>detector
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.detectors (
- Enable,
- region
+  Enable,
+  region
 )
 SELECT
-'{{ enable }}',
-'{{ region }}';
+  '{{ enable }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,20 +306,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.detectors (
- FindingPublishingFrequency,
- Enable,
- DataSources,
- Features,
- Tags,
- region
+  FindingPublishingFrequency,
+  Enable,
+  DataSources,
+  Features,
+  Tags,
+  region
 )
 SELECT
- '{{ finding_publishing_frequency }}',
- '{{ enable }}',
- '{{ data_sources }}',
- '{{ features }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ finding_publishing_frequency }}',
+  '{{ enable }}',
+  '{{ data_sources }}',
+  '{{ features }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -376,8 +379,9 @@ SET PatchDocument = string('{{ {
     "Features": features,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -386,8 +390,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.detectors
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

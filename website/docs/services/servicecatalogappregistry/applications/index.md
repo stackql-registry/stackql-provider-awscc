@@ -166,17 +166,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-name,
-description,
-tags,
-application_tag_key,
-application_tag_value,
-application_name
+  region,
+  id,
+  arn,
+  name,
+  description,
+  tags,
+  application_tag_key,
+  application_tag_value,
+  application_name
 FROM awscc.servicecatalogappregistry.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.servicecatalogappregistry.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.applications (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,16 +225,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.applications (
- Name,
- Description,
- Tags,
- region
+  Name,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.applications
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

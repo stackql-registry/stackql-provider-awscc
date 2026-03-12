@@ -214,18 +214,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>partner_account</code>.
 ```sql
 SELECT
-region,
-sidewalk,
-partner_account_id,
-partner_type,
-sidewalk_response,
-account_linked,
-sidewalk_update,
-fingerprint,
-arn,
-tags
+  region,
+  sidewalk,
+  partner_account_id,
+  partner_type,
+  sidewalk_response,
+  account_linked,
+  sidewalk_update,
+  fingerprint,
+  arn,
+  tags
 FROM awscc.iotwireless.partner_accounts
-WHERE region = 'us-east-1' AND Identifier = '{{ partner_account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ partner_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,10 +235,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ partner_account_id }}';
 Lists all <code>partner_accounts</code> in a region.
 ```sql
 SELECT
-region,
-partner_account_id
+  region,
+  partner_account_id
 FROM awscc.iotwireless.partner_accounts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -258,24 +261,24 @@ Use the following StackQL query and manifest file to create a new <code>partner_
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.partner_accounts (
- Sidewalk,
- PartnerAccountId,
- PartnerType,
- SidewalkResponse,
- AccountLinked,
- SidewalkUpdate,
- Tags,
- region
+  Sidewalk,
+  PartnerAccountId,
+  PartnerType,
+  SidewalkResponse,
+  AccountLinked,
+  SidewalkUpdate,
+  Tags,
+  region
 )
 SELECT
-'{{ sidewalk }}',
- '{{ partner_account_id }}',
- '{{ partner_type }}',
- '{{ sidewalk_response }}',
- '{{ account_linked }}',
- '{{ sidewalk_update }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ sidewalk }}',
+  '{{ partner_account_id }}',
+  '{{ partner_type }}',
+  '{{ sidewalk_response }}',
+  '{{ account_linked }}',
+  '{{ sidewalk_update }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,24 +286,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.partner_accounts (
- Sidewalk,
- PartnerAccountId,
- PartnerType,
- SidewalkResponse,
- AccountLinked,
- SidewalkUpdate,
- Tags,
- region
+  Sidewalk,
+  PartnerAccountId,
+  PartnerType,
+  SidewalkResponse,
+  AccountLinked,
+  SidewalkUpdate,
+  Tags,
+  region
 )
 SELECT
- '{{ sidewalk }}',
- '{{ partner_account_id }}',
- '{{ partner_type }}',
- '{{ sidewalk_response }}',
- '{{ account_linked }}',
- '{{ sidewalk_update }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ sidewalk }}',
+  '{{ partner_account_id }}',
+  '{{ partner_type }}',
+  '{{ sidewalk_response }}',
+  '{{ account_linked }}',
+  '{{ sidewalk_update }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -357,8 +360,9 @@ SET PatchDocument = string('{{ {
     "SidewalkUpdate": sidewalk_update,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ partner_account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ partner_account_id }}';
 ```
 
 
@@ -367,8 +371,9 @@ AND Identifier = '{{ partner_account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.partner_accounts
-WHERE Identifier = '{{ partner_account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ partner_account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

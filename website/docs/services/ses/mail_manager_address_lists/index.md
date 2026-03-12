@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_address_list</code>.
 ```sql
 SELECT
-region,
-address_list_arn,
-address_list_id,
-address_list_name,
-tags
+  region,
+  address_list_arn,
+  address_list_id,
+  address_list_name,
+  tags
 FROM awscc.ses.mail_manager_address_lists
-WHERE region = 'us-east-1' AND Identifier = '{{ address_list_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ address_list_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ address_list_id }}';
 Lists all <code>mail_manager_address_lists</code> in a region.
 ```sql
 SELECT
-region,
-address_list_id
+  region,
+  address_list_id
 FROM awscc.ses.mail_manager_address_lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_address_lists (
- AddressListName,
- Tags,
- region
+  AddressListName,
+  Tags,
+  region
 )
 SELECT
-'{{ address_list_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ address_list_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,14 +215,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_address_lists (
- AddressListName,
- Tags,
- region
+  AddressListName,
+  Tags,
+  region
 )
 SELECT
- '{{ address_list_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ address_list_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -256,8 +259,9 @@ UPDATE awscc.ses.mail_manager_address_lists
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ address_list_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ address_list_id }}';
 ```
 
 
@@ -266,8 +270,9 @@ AND Identifier = '{{ address_list_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_address_lists
-WHERE Identifier = '{{ address_list_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ address_list_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

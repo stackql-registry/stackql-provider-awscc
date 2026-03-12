@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_vpc_interface</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-name,
-role_arn,
-security_group_ids,
-subnet_id,
-network_interface_ids
+  region,
+  flow_arn,
+  name,
+  role_arn,
+  security_group_ids,
+  subnet_id,
+  network_interface_ids
 FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ flow_arn }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ name }}';
 Lists all <code>flow_vpc_interfaces</code> in a region.
 ```sql
 SELECT
-region,
-flow_arn,
-name
+  region,
+  flow_arn,
+  name
 FROM awscc.mediaconnect.flow_vpc_interfaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,20 +206,20 @@ Use the following StackQL query and manifest file to create a new <code>flow_vpc
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_vpc_interfaces (
- FlowArn,
- Name,
- RoleArn,
- SecurityGroupIds,
- SubnetId,
- region
+  FlowArn,
+  Name,
+  RoleArn,
+  SecurityGroupIds,
+  SubnetId,
+  region
 )
 SELECT
-'{{ flow_arn }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ security_group_ids }}',
- '{{ subnet_id }}',
-'{{ region }}';
+  '{{ flow_arn }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_vpc_interfaces (
- FlowArn,
- Name,
- RoleArn,
- SecurityGroupIds,
- SubnetId,
- region
+  FlowArn,
+  Name,
+  RoleArn,
+  SecurityGroupIds,
+  SubnetId,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ security_group_ids }}',
- '{{ subnet_id }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "SecurityGroupIds": security_group_ids,
     "SubnetId": subnet_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ flow_arn }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ flow_arn }}|{{ name }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ flow_arn }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE Identifier = '{{ flow_arn }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ flow_arn }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

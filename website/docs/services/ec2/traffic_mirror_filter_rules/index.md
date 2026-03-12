@@ -205,21 +205,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>traffic_mirror_filter_rule</code>.
 ```sql
 SELECT
-region,
-destination_port_range,
-description,
-source_port_range,
-rule_action,
-source_cidr_block,
-rule_number,
-destination_cidr_block,
-traffic_mirror_filter_rule_id,
-traffic_mirror_filter_id,
-traffic_direction,
-protocol,
-tags
+  region,
+  destination_port_range,
+  description,
+  source_port_range,
+  rule_action,
+  source_cidr_block,
+  rule_number,
+  destination_cidr_block,
+  traffic_mirror_filter_rule_id,
+  traffic_mirror_filter_id,
+  traffic_direction,
+  protocol,
+  tags
 FROM awscc.ec2.traffic_mirror_filter_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ traffic_mirror_filter_rule_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ traffic_mirror_filter_rule_id }}
 Lists all <code>traffic_mirror_filter_rules</code> in a region.
 ```sql
 SELECT
-region,
-traffic_mirror_filter_rule_id
+  region,
+  traffic_mirror_filter_rule_id
 FROM awscc.ec2.traffic_mirror_filter_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,22 +255,22 @@ Use the following StackQL query and manifest file to create a new <code>traffic_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_filter_rules (
- RuleAction,
- SourceCidrBlock,
- RuleNumber,
- DestinationCidrBlock,
- TrafficMirrorFilterId,
- TrafficDirection,
- region
+  RuleAction,
+  SourceCidrBlock,
+  RuleNumber,
+  DestinationCidrBlock,
+  TrafficMirrorFilterId,
+  TrafficDirection,
+  region
 )
 SELECT
-'{{ rule_action }}',
- '{{ source_cidr_block }}',
- '{{ rule_number }}',
- '{{ destination_cidr_block }}',
- '{{ traffic_mirror_filter_id }}',
- '{{ traffic_direction }}',
-'{{ region }}';
+  '{{ rule_action }}',
+  '{{ source_cidr_block }}',
+  '{{ rule_number }}',
+  '{{ destination_cidr_block }}',
+  '{{ traffic_mirror_filter_id }}',
+  '{{ traffic_direction }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,32 +278,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_filter_rules (
- DestinationPortRange,
- Description,
- SourcePortRange,
- RuleAction,
- SourceCidrBlock,
- RuleNumber,
- DestinationCidrBlock,
- TrafficMirrorFilterId,
- TrafficDirection,
- Protocol,
- Tags,
- region
+  DestinationPortRange,
+  Description,
+  SourcePortRange,
+  RuleAction,
+  SourceCidrBlock,
+  RuleNumber,
+  DestinationCidrBlock,
+  TrafficMirrorFilterId,
+  TrafficDirection,
+  Protocol,
+  Tags,
+  region
 )
 SELECT
- '{{ destination_port_range }}',
- '{{ description }}',
- '{{ source_port_range }}',
- '{{ rule_action }}',
- '{{ source_cidr_block }}',
- '{{ rule_number }}',
- '{{ destination_cidr_block }}',
- '{{ traffic_mirror_filter_id }}',
- '{{ traffic_direction }}',
- '{{ protocol }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ destination_port_range }}',
+  '{{ description }}',
+  '{{ source_port_range }}',
+  '{{ rule_action }}',
+  '{{ source_cidr_block }}',
+  '{{ rule_number }}',
+  '{{ destination_cidr_block }}',
+  '{{ traffic_mirror_filter_id }}',
+  '{{ traffic_direction }}',
+  '{{ protocol }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -366,8 +369,9 @@ SET PatchDocument = string('{{ {
     "Protocol": protocol,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ traffic_mirror_filter_rule_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```
 
 
@@ -376,8 +380,9 @@ AND Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_filter_rules
-WHERE Identifier = '{{ traffic_mirror_filter_rule_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ traffic_mirror_filter_rule_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

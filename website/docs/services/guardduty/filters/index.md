@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>filter</code>.
 ```sql
 SELECT
-region,
-action,
-description,
-detector_id,
-finding_criteria,
-rank,
-name,
-tags
+  region,
+  action,
+  description,
+  detector_id,
+  finding_criteria,
+  rank,
+  name,
+  tags
 FROM awscc.guardduty.filters
-WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ detector_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +204,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ name }}';
 Lists all <code>filters</code> in a region.
 ```sql
 SELECT
-region,
-detector_id,
-name
+  region,
+  detector_id,
+  name
 FROM awscc.guardduty.filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,16 +231,16 @@ Use the following StackQL query and manifest file to create a new <code>filter</
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.filters (
- DetectorId,
- FindingCriteria,
- Name,
- region
+  DetectorId,
+  FindingCriteria,
+  Name,
+  region
 )
 SELECT
-'{{ detector_id }}',
- '{{ finding_criteria }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ detector_id }}',
+  '{{ finding_criteria }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,24 +248,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.filters (
- Action,
- Description,
- DetectorId,
- FindingCriteria,
- Rank,
- Name,
- Tags,
- region
+  Action,
+  Description,
+  DetectorId,
+  FindingCriteria,
+  Rank,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ action }}',
- '{{ description }}',
- '{{ detector_id }}',
- '{{ finding_criteria }}',
- '{{ rank }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ action }}',
+  '{{ description }}',
+  '{{ detector_id }}',
+  '{{ finding_criteria }}',
+  '{{ rank }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Rank": rank,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ detector_id }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ detector_id }}|{{ name }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ detector_id }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.filters
-WHERE Identifier = '{{ detector_id }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ detector_id }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

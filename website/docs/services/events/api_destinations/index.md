@@ -166,17 +166,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api_destination</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-connection_arn,
-arn,
-arn_for_policy,
-invocation_rate_limit_per_second,
-invocation_endpoint,
-http_method
+  region,
+  name,
+  description,
+  connection_arn,
+  arn,
+  arn_for_policy,
+  invocation_rate_limit_per_second,
+  invocation_endpoint,
+  http_method
 FROM awscc.events.api_destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>api_destinations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.events.api_destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>api_dest
 ```sql
 /*+ create */
 INSERT INTO awscc.events.api_destinations (
- ConnectionArn,
- InvocationEndpoint,
- HttpMethod,
- region
+  ConnectionArn,
+  InvocationEndpoint,
+  HttpMethod,
+  region
 )
 SELECT
-'{{ connection_arn }}',
- '{{ invocation_endpoint }}',
- '{{ http_method }}',
-'{{ region }}';
+  '{{ connection_arn }}',
+  '{{ invocation_endpoint }}',
+  '{{ http_method }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,22 +229,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.api_destinations (
- Name,
- Description,
- ConnectionArn,
- InvocationRateLimitPerSecond,
- InvocationEndpoint,
- HttpMethod,
- region
+  Name,
+  Description,
+  ConnectionArn,
+  InvocationRateLimitPerSecond,
+  InvocationEndpoint,
+  HttpMethod,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ connection_arn }}',
- '{{ invocation_rate_limit_per_second }}',
- '{{ invocation_endpoint }}',
- '{{ http_method }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ connection_arn }}',
+  '{{ invocation_rate_limit_per_second }}',
+  '{{ invocation_endpoint }}',
+  '{{ http_method }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ SET PatchDocument = string('{{ {
     "InvocationEndpoint": invocation_endpoint,
     "HttpMethod": http_method
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -298,8 +302,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.api_destinations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

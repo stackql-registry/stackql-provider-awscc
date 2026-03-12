@@ -206,24 +206,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image_version</code>.
 ```sql
 SELECT
-region,
-image_name,
-image_arn,
-image_version_arn,
-base_image,
-container_image,
-version,
-alias,
-aliases,
-vendor_guidance,
-job_type,
-ml_framework,
-programming_lang,
-processor,
-horovod,
-release_notes
+  region,
+  image_name,
+  image_arn,
+  image_version_arn,
+  base_image,
+  container_image,
+  version,
+  alias,
+  aliases,
+  vendor_guidance,
+  job_type,
+  ml_framework,
+  programming_lang,
+  processor,
+  horovod,
+  release_notes
 FROM awscc.sagemaker.image_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ image_version_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ image_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ image_version_arn }}';
 Lists all <code>image_versions</code> in a region.
 ```sql
 SELECT
-region,
-image_version_arn
+  region,
+  image_version_arn
 FROM awscc.sagemaker.image_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,14 +259,14 @@ Use the following StackQL query and manifest file to create a new <code>image_ve
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.image_versions (
- ImageName,
- BaseImage,
- region
+  ImageName,
+  BaseImage,
+  region
 )
 SELECT
-'{{ image_name }}',
- '{{ base_image }}',
-'{{ region }}';
+  '{{ image_name }}',
+  '{{ base_image }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,32 +274,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.image_versions (
- ImageName,
- BaseImage,
- Alias,
- Aliases,
- VendorGuidance,
- JobType,
- MLFramework,
- ProgrammingLang,
- Processor,
- Horovod,
- ReleaseNotes,
- region
+  ImageName,
+  BaseImage,
+  Alias,
+  Aliases,
+  VendorGuidance,
+  JobType,
+  MLFramework,
+  ProgrammingLang,
+  Processor,
+  Horovod,
+  ReleaseNotes,
+  region
 )
 SELECT
- '{{ image_name }}',
- '{{ base_image }}',
- '{{ alias }}',
- '{{ aliases }}',
- '{{ vendor_guidance }}',
- '{{ job_type }}',
- '{{ ml_framework }}',
- '{{ programming_lang }}',
- '{{ processor }}',
- '{{ horovod }}',
- '{{ release_notes }}',
- '{{ region }}';
+  '{{ image_name }}',
+  '{{ base_image }}',
+  '{{ alias }}',
+  '{{ aliases }}',
+  '{{ vendor_guidance }}',
+  '{{ job_type }}',
+  '{{ ml_framework }}',
+  '{{ programming_lang }}',
+  '{{ processor }}',
+  '{{ horovod }}',
+  '{{ release_notes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "Horovod": horovod,
     "ReleaseNotes": release_notes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ image_version_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ image_version_arn }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ image_version_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.image_versions
-WHERE Identifier = '{{ image_version_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ image_version_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

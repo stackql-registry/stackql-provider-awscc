@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pull_through_cache_rule</code>.
 ```sql
 SELECT
-region,
-ecr_repository_prefix,
-upstream_registry_url,
-credential_arn,
-upstream_registry,
-custom_role_arn,
-upstream_repository_prefix
+  region,
+  ecr_repository_prefix,
+  upstream_registry_url,
+  credential_arn,
+  upstream_registry,
+  custom_role_arn,
+  upstream_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ ecr_repository_prefix }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ecr_repository_prefix }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ecr_repository_prefix }}';
 Lists all <code>pull_through_cache_rules</code> in a region.
 ```sql
 SELECT
-region,
-ecr_repository_prefix
+  region,
+  ecr_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,22 +200,22 @@ Use the following StackQL query and manifest file to create a new <code>pull_thr
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.pull_through_cache_rules (
- EcrRepositoryPrefix,
- UpstreamRegistryUrl,
- CredentialArn,
- UpstreamRegistry,
- CustomRoleArn,
- UpstreamRepositoryPrefix,
- region
+  EcrRepositoryPrefix,
+  UpstreamRegistryUrl,
+  CredentialArn,
+  UpstreamRegistry,
+  CustomRoleArn,
+  UpstreamRepositoryPrefix,
+  region
 )
 SELECT
-'{{ ecr_repository_prefix }}',
- '{{ upstream_registry_url }}',
- '{{ credential_arn }}',
- '{{ upstream_registry }}',
- '{{ custom_role_arn }}',
- '{{ upstream_repository_prefix }}',
-'{{ region }}';
+  '{{ ecr_repository_prefix }}',
+  '{{ upstream_registry_url }}',
+  '{{ credential_arn }}',
+  '{{ upstream_registry }}',
+  '{{ custom_role_arn }}',
+  '{{ upstream_repository_prefix }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,22 +223,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.pull_through_cache_rules (
- EcrRepositoryPrefix,
- UpstreamRegistryUrl,
- CredentialArn,
- UpstreamRegistry,
- CustomRoleArn,
- UpstreamRepositoryPrefix,
- region
+  EcrRepositoryPrefix,
+  UpstreamRegistryUrl,
+  CredentialArn,
+  UpstreamRegistry,
+  CustomRoleArn,
+  UpstreamRepositoryPrefix,
+  region
 )
 SELECT
- '{{ ecr_repository_prefix }}',
- '{{ upstream_registry_url }}',
- '{{ credential_arn }}',
- '{{ upstream_registry }}',
- '{{ custom_role_arn }}',
- '{{ upstream_repository_prefix }}',
- '{{ region }}';
+  '{{ ecr_repository_prefix }}',
+  '{{ upstream_registry_url }}',
+  '{{ credential_arn }}',
+  '{{ upstream_registry }}',
+  '{{ custom_role_arn }}',
+  '{{ upstream_repository_prefix }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -274,8 +277,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.pull_through_cache_rules
-WHERE Identifier = '{{ ecr_repository_prefix }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ecr_repository_prefix }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

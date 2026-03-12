@@ -162,15 +162,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_connector</code>.
 ```sql
 SELECT
-region,
-vpc_connector_name,
-vpc_connector_arn,
-vpc_connector_revision,
-subnets,
-security_groups,
-tags
+  region,
+  vpc_connector_name,
+  vpc_connector_arn,
+  vpc_connector_revision,
+  subnets,
+  security_groups,
+  tags
 FROM awscc.apprunner.vpc_connectors
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_connector_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_connector_arn }}';
 Lists all <code>vpc_connectors</code> in a region.
 ```sql
 SELECT
-region,
-vpc_connector_arn
+  region,
+  vpc_connector_arn
 FROM awscc.apprunner.vpc_connectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_conn
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.vpc_connectors (
- Subnets,
- region
+  Subnets,
+  region
 )
 SELECT
-'{{ subnets }}',
-'{{ region }}';
+  '{{ subnets }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.vpc_connectors (
- VpcConnectorName,
- Subnets,
- SecurityGroups,
- Tags,
- region
+  VpcConnectorName,
+  Subnets,
+  SecurityGroups,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_connector_name }}',
- '{{ subnets }}',
- '{{ security_groups }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_connector_name }}',
+  '{{ subnets }}',
+  '{{ security_groups }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.vpc_connectors
-WHERE Identifier = '{{ vpc_connector_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_connector_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

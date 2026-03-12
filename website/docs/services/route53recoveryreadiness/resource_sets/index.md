@@ -224,14 +224,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_set</code>.
 ```sql
 SELECT
-region,
-resource_set_name,
-resources,
-resource_set_arn,
-resource_set_type,
-tags
+  region,
+  resource_set_name,
+  resources,
+  resource_set_arn,
+  resource_set_type,
+  tags
 FROM awscc.route53recoveryreadiness.resource_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_set_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_set_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_set_name }}';
 Lists all <code>resource_sets</code> in a region.
 ```sql
 SELECT
-region,
-resource_set_name
+  region,
+  resource_set_name
 FROM awscc.route53recoveryreadiness.resource_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,14 +267,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.resource_sets (
- Resources,
- ResourceSetType,
- region
+  Resources,
+  ResourceSetType,
+  region
 )
 SELECT
-'{{ resources }}',
- '{{ resource_set_type }}',
-'{{ region }}';
+  '{{ resources }}',
+  '{{ resource_set_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,18 +282,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.resource_sets (
- ResourceSetName,
- Resources,
- ResourceSetType,
- Tags,
- region
+  ResourceSetName,
+  Resources,
+  ResourceSetType,
+  Tags,
+  region
 )
 SELECT
- '{{ resource_set_name }}',
- '{{ resources }}',
- '{{ resource_set_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ resource_set_name }}',
+  '{{ resources }}',
+  '{{ resource_set_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -347,8 +350,9 @@ SET PatchDocument = string('{{ {
     "Resources": resources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_set_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_set_name }}';
 ```
 
 
@@ -357,8 +361,9 @@ AND Identifier = '{{ resource_set_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.resource_sets
-WHERE Identifier = '{{ resource_set_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_set_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

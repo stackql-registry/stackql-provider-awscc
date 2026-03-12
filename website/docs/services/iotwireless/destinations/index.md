@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>destination</code>.
 ```sql
 SELECT
-region,
-name,
-expression,
-expression_type,
-description,
-tags,
-role_arn,
-arn
+  region,
+  name,
+  expression,
+  expression_type,
+  description,
+  tags,
+  role_arn,
+  arn
 FROM awscc.iotwireless.destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>destinations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotwireless.destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>destinat
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.destinations (
- Name,
- Expression,
- ExpressionType,
- region
+  Name,
+  Expression,
+  ExpressionType,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ expression }}',
- '{{ expression_type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ expression }}',
+  '{{ expression_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,22 +235,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.destinations (
- Name,
- Expression,
- ExpressionType,
- Description,
- Tags,
- RoleArn,
- region
+  Name,
+  Expression,
+  ExpressionType,
+  Description,
+  Tags,
+  RoleArn,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ expression }}',
- '{{ expression_type }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ expression }}',
+  '{{ expression_type }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -296,8 +299,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "RoleArn": role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -306,8 +310,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.destinations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

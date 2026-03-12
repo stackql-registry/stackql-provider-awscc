@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>global_network</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-description,
-tags,
-created_at,
-state
+  region,
+  arn,
+  id,
+  description,
+  tags,
+  created_at,
+  state
 FROM awscc.networkmanager.global_networks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>global_networks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.networkmanager.global_networks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,18 +212,18 @@ Use the following StackQL query and manifest file to create a new <code>global_n
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.global_networks (
- Description,
- Tags,
- CreatedAt,
- State,
- region
+  Description,
+  Tags,
+  CreatedAt,
+  State,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ tags }}',
- '{{ created_at }}',
- '{{ state }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ created_at }}',
+  '{{ state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.global_networks (
- Description,
- Tags,
- CreatedAt,
- State,
- region
+  Description,
+  Tags,
+  CreatedAt,
+  State,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ tags }}',
- '{{ created_at }}',
- '{{ state }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ created_at }}',
+  '{{ state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "CreatedAt": created_at,
     "State": state
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.global_networks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

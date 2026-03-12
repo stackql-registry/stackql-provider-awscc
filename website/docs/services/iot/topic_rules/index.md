@@ -791,13 +791,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>topic_rule</code>.
 ```sql
 SELECT
-region,
-arn,
-rule_name,
-topic_rule_payload,
-tags
+  region,
+  arn,
+  rule_name,
+  topic_rule_payload,
+  tags
 FROM awscc.iot.topic_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -805,10 +807,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_name }}';
 Lists all <code>topic_rules</code> in a region.
 ```sql
 SELECT
-region,
-rule_name
+  region,
+  rule_name
 FROM awscc.iot.topic_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -830,12 +833,12 @@ Use the following StackQL query and manifest file to create a new <code>topic_ru
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.topic_rules (
- TopicRulePayload,
- region
+  TopicRulePayload,
+  region
 )
 SELECT
-'{{ topic_rule_payload }}',
-'{{ region }}';
+  '{{ topic_rule_payload }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -843,16 +846,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.topic_rules (
- RuleName,
- TopicRulePayload,
- Tags,
- region
+  RuleName,
+  TopicRulePayload,
+  Tags,
+  region
 )
 SELECT
- '{{ rule_name }}',
- '{{ topic_rule_payload }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ rule_name }}',
+  '{{ topic_rule_payload }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1047,8 +1050,9 @@ SET PatchDocument = string('{{ {
     "TopicRulePayload": topic_rule_payload,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_name }}';
 ```
 
 
@@ -1057,8 +1061,9 @@ AND Identifier = '{{ rule_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.topic_rules
-WHERE Identifier = '{{ rule_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT
-region,
-portal_id,
-project_id,
-project_name,
-project_description,
-project_arn,
-asset_ids,
-tags
+  region,
+  portal_id,
+  project_id,
+  project_name,
+  project_description,
+  project_arn,
+  asset_ids,
+  tags
 FROM awscc.iotsitewise.projects
-WHERE region = 'us-east-1' AND Identifier = '{{ project_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ project_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ project_id }}';
 Lists all <code>projects</code> in a region.
 ```sql
 SELECT
-region,
-project_id
+  region,
+  project_id
 FROM awscc.iotsitewise.projects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>project<
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.projects (
- PortalId,
- ProjectName,
- region
+  PortalId,
+  ProjectName,
+  region
 )
 SELECT
-'{{ portal_id }}',
- '{{ project_name }}',
-'{{ region }}';
+  '{{ portal_id }}',
+  '{{ project_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,20 +233,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.projects (
- PortalId,
- ProjectName,
- ProjectDescription,
- AssetIds,
- Tags,
- region
+  PortalId,
+  ProjectName,
+  ProjectDescription,
+  AssetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ portal_id }}',
- '{{ project_name }}',
- '{{ project_description }}',
- '{{ asset_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ portal_id }}',
+  '{{ project_name }}',
+  '{{ project_description }}',
+  '{{ asset_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ SET PatchDocument = string('{{ {
     "AssetIds": asset_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ project_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ project_id }}';
 ```
 
 
@@ -300,8 +304,9 @@ AND Identifier = '{{ project_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.projects
-WHERE Identifier = '{{ project_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ project_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

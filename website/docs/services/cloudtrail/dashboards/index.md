@@ -229,19 +229,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT
-region,
-widgets,
-created_timestamp,
-dashboard_arn,
-refresh_schedule,
-name,
-status,
-termination_protection_enabled,
-type,
-updated_timestamp,
-tags
+  region,
+  widgets,
+  created_timestamp,
+  dashboard_arn,
+  refresh_schedule,
+  name,
+  status,
+  termination_protection_enabled,
+  type,
+  updated_timestamp,
+  tags
 FROM awscc.cloudtrail.dashboards
-WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dashboard_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,10 +251,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_arn }}';
 Lists all <code>dashboards</code> in a region.
 ```sql
 SELECT
-region,
-dashboard_arn
+  region,
+  dashboard_arn
 FROM awscc.cloudtrail.dashboards_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -274,12 +277,12 @@ Use the following StackQL query and manifest file to create a new <code>dashboar
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.dashboards (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -287,20 +290,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.dashboards (
- Widgets,
- RefreshSchedule,
- Name,
- TerminationProtectionEnabled,
- Tags,
- region
+  Widgets,
+  RefreshSchedule,
+  Name,
+  TerminationProtectionEnabled,
+  Tags,
+  region
 )
 SELECT
- '{{ widgets }}',
- '{{ refresh_schedule }}',
- '{{ name }}',
- '{{ termination_protection_enabled }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ widgets }}',
+  '{{ refresh_schedule }}',
+  '{{ name }}',
+  '{{ termination_protection_enabled }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -356,8 +359,9 @@ SET PatchDocument = string('{{ {
     "TerminationProtectionEnabled": termination_protection_enabled,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dashboard_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dashboard_arn }}';
 ```
 
 
@@ -366,8 +370,9 @@ AND Identifier = '{{ dashboard_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.dashboards
-WHERE Identifier = '{{ dashboard_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dashboard_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

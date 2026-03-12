@@ -259,22 +259,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connect_peer</code>.
 ```sql
 SELECT
-region,
-peer_address,
-core_network_address,
-bgp_options,
-inside_cidr_blocks,
-core_network_id,
-connect_attachment_id,
-connect_peer_id,
-edge_location,
-state,
-created_at,
-configuration,
-subnet_arn,
-tags
+  region,
+  peer_address,
+  core_network_address,
+  bgp_options,
+  inside_cidr_blocks,
+  core_network_id,
+  connect_attachment_id,
+  connect_peer_id,
+  edge_location,
+  state,
+  created_at,
+  configuration,
+  subnet_arn,
+  tags
 FROM awscc.networkmanager.connect_peers
-WHERE region = 'us-east-1' AND Identifier = '{{ connect_peer_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connect_peer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,10 +284,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connect_peer_id }}';
 Lists all <code>connect_peers</code> in a region.
 ```sql
 SELECT
-region,
-connect_peer_id
+  region,
+  connect_peer_id
 FROM awscc.networkmanager.connect_peers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -307,14 +310,14 @@ Use the following StackQL query and manifest file to create a new <code>connect_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.connect_peers (
- PeerAddress,
- ConnectAttachmentId,
- region
+  PeerAddress,
+  ConnectAttachmentId,
+  region
 )
 SELECT
-'{{ peer_address }}',
- '{{ connect_attachment_id }}',
-'{{ region }}';
+  '{{ peer_address }}',
+  '{{ connect_attachment_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -322,24 +325,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.connect_peers (
- PeerAddress,
- CoreNetworkAddress,
- BgpOptions,
- InsideCidrBlocks,
- ConnectAttachmentId,
- SubnetArn,
- Tags,
- region
+  PeerAddress,
+  CoreNetworkAddress,
+  BgpOptions,
+  InsideCidrBlocks,
+  ConnectAttachmentId,
+  SubnetArn,
+  Tags,
+  region
 )
 SELECT
- '{{ peer_address }}',
- '{{ core_network_address }}',
- '{{ bgp_options }}',
- '{{ inside_cidr_blocks }}',
- '{{ connect_attachment_id }}',
- '{{ subnet_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ peer_address }}',
+  '{{ core_network_address }}',
+  '{{ bgp_options }}',
+  '{{ inside_cidr_blocks }}',
+  '{{ connect_attachment_id }}',
+  '{{ subnet_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -388,8 +391,9 @@ UPDATE awscc.networkmanager.connect_peers
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connect_peer_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connect_peer_id }}';
 ```
 
 
@@ -398,8 +402,9 @@ AND Identifier = '{{ connect_peer_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.connect_peers
-WHERE Identifier = '{{ connect_peer_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connect_peer_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

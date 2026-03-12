@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>data_set</code> resource or lists <cod
   {
     "name": "row_level_permission_data_set",
     "type": "object",
-    "description": "<p>Information about a dataset that contains permissions for row-level security (RLS).<br />The permissions dataset maps fields to users or groups. For more information, see<br /><a href=\"https://docs.aws.amazon.com/quicksight/latest/user/restrict-access-to-a-data-set-using-row-level-security.html\">Using Row-Level Security (RLS) to Restrict Access to a Dataset</a> in the <i>Amazon QuickSight User<br />Guide</i>.</p><br /><p>The option to deny permissions by setting &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; to &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; is<br />not supported for new RLS datasets.</p>",
+    "description": "<p>Information about a dataset that contains permissions for row-level security (RLS).<br />The permissions dataset maps fields to users or groups. For more information, see<br /><a href=\"https://docs.aws.amazon.com/quicksight/latest/user/restrict-access-to-a-data-set-using-row-level-security.html\">Using Row-Level Security (RLS) to Restrict Access to a Dataset</a> in the <i>Amazon QuickSight User<br />Guide</i>.</p><br /><p>The option to deny permissions by setting <code>PermissionPolicy</code> to <code>DENY_ACCESS</code> is<br />not supported for new RLS datasets.</p>",
     "children": [
       {
         "name": "status",
@@ -625,34 +625,36 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_set</code>.
 ```sql
 SELECT
-region,
-created_time,
-folder_arns,
-consumed_spice_capacity_in_bytes,
-row_level_permission_data_set,
-ingestion_wait_policy,
-column_level_permission_rules,
-name,
-permissions,
-use_as,
-tags,
-physical_table_map,
-field_folders,
-last_updated_time,
-data_set_id,
-performance_configuration,
-data_set_refresh_properties,
-row_level_permission_tag_configuration,
-column_groups,
-import_mode,
-dataset_parameters,
-logical_table_map,
-aws_account_id,
-data_set_usage_configuration,
-output_columns,
-arn
+  region,
+  created_time,
+  folder_arns,
+  consumed_spice_capacity_in_bytes,
+  row_level_permission_data_set,
+  ingestion_wait_policy,
+  column_level_permission_rules,
+  name,
+  permissions,
+  use_as,
+  tags,
+  physical_table_map,
+  field_folders,
+  last_updated_time,
+  data_set_id,
+  performance_configuration,
+  data_set_refresh_properties,
+  row_level_permission_tag_configuration,
+  column_groups,
+  import_mode,
+  dataset_parameters,
+  logical_table_map,
+  aws_account_id,
+  data_set_usage_configuration,
+  output_columns,
+  arn
 FROM awscc.quicksight.data_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -660,11 +662,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id
 Lists all <code>data_sets</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-data_set_id
+  region,
+  aws_account_id,
+  data_set_id
 FROM awscc.quicksight.data_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -686,50 +689,50 @@ Use the following StackQL query and manifest file to create a new <code>data_set
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.data_sets (
- FolderArns,
- RowLevelPermissionDataSet,
- IngestionWaitPolicy,
- ColumnLevelPermissionRules,
- Name,
- Permissions,
- UseAs,
- Tags,
- PhysicalTableMap,
- FieldFolders,
- DataSetId,
- PerformanceConfiguration,
- DataSetRefreshProperties,
- RowLevelPermissionTagConfiguration,
- ColumnGroups,
- ImportMode,
- DatasetParameters,
- LogicalTableMap,
- AwsAccountId,
- DataSetUsageConfiguration,
- region
+  FolderArns,
+  RowLevelPermissionDataSet,
+  IngestionWaitPolicy,
+  ColumnLevelPermissionRules,
+  Name,
+  Permissions,
+  UseAs,
+  Tags,
+  PhysicalTableMap,
+  FieldFolders,
+  DataSetId,
+  PerformanceConfiguration,
+  DataSetRefreshProperties,
+  RowLevelPermissionTagConfiguration,
+  ColumnGroups,
+  ImportMode,
+  DatasetParameters,
+  LogicalTableMap,
+  AwsAccountId,
+  DataSetUsageConfiguration,
+  region
 )
 SELECT
-'{{ folder_arns }}',
- '{{ row_level_permission_data_set }}',
- '{{ ingestion_wait_policy }}',
- '{{ column_level_permission_rules }}',
- '{{ name }}',
- '{{ permissions }}',
- '{{ use_as }}',
- '{{ tags }}',
- '{{ physical_table_map }}',
- '{{ field_folders }}',
- '{{ data_set_id }}',
- '{{ performance_configuration }}',
- '{{ data_set_refresh_properties }}',
- '{{ row_level_permission_tag_configuration }}',
- '{{ column_groups }}',
- '{{ import_mode }}',
- '{{ dataset_parameters }}',
- '{{ logical_table_map }}',
- '{{ aws_account_id }}',
- '{{ data_set_usage_configuration }}',
-'{{ region }}';
+  '{{ folder_arns }}',
+  '{{ row_level_permission_data_set }}',
+  '{{ ingestion_wait_policy }}',
+  '{{ column_level_permission_rules }}',
+  '{{ name }}',
+  '{{ permissions }}',
+  '{{ use_as }}',
+  '{{ tags }}',
+  '{{ physical_table_map }}',
+  '{{ field_folders }}',
+  '{{ data_set_id }}',
+  '{{ performance_configuration }}',
+  '{{ data_set_refresh_properties }}',
+  '{{ row_level_permission_tag_configuration }}',
+  '{{ column_groups }}',
+  '{{ import_mode }}',
+  '{{ dataset_parameters }}',
+  '{{ logical_table_map }}',
+  '{{ aws_account_id }}',
+  '{{ data_set_usage_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -737,50 +740,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.data_sets (
- FolderArns,
- RowLevelPermissionDataSet,
- IngestionWaitPolicy,
- ColumnLevelPermissionRules,
- Name,
- Permissions,
- UseAs,
- Tags,
- PhysicalTableMap,
- FieldFolders,
- DataSetId,
- PerformanceConfiguration,
- DataSetRefreshProperties,
- RowLevelPermissionTagConfiguration,
- ColumnGroups,
- ImportMode,
- DatasetParameters,
- LogicalTableMap,
- AwsAccountId,
- DataSetUsageConfiguration,
- region
+  FolderArns,
+  RowLevelPermissionDataSet,
+  IngestionWaitPolicy,
+  ColumnLevelPermissionRules,
+  Name,
+  Permissions,
+  UseAs,
+  Tags,
+  PhysicalTableMap,
+  FieldFolders,
+  DataSetId,
+  PerformanceConfiguration,
+  DataSetRefreshProperties,
+  RowLevelPermissionTagConfiguration,
+  ColumnGroups,
+  ImportMode,
+  DatasetParameters,
+  LogicalTableMap,
+  AwsAccountId,
+  DataSetUsageConfiguration,
+  region
 )
 SELECT
- '{{ folder_arns }}',
- '{{ row_level_permission_data_set }}',
- '{{ ingestion_wait_policy }}',
- '{{ column_level_permission_rules }}',
- '{{ name }}',
- '{{ permissions }}',
- '{{ use_as }}',
- '{{ tags }}',
- '{{ physical_table_map }}',
- '{{ field_folders }}',
- '{{ data_set_id }}',
- '{{ performance_configuration }}',
- '{{ data_set_refresh_properties }}',
- '{{ row_level_permission_tag_configuration }}',
- '{{ column_groups }}',
- '{{ import_mode }}',
- '{{ dataset_parameters }}',
- '{{ logical_table_map }}',
- '{{ aws_account_id }}',
- '{{ data_set_usage_configuration }}',
- '{{ region }}';
+  '{{ folder_arns }}',
+  '{{ row_level_permission_data_set }}',
+  '{{ ingestion_wait_policy }}',
+  '{{ column_level_permission_rules }}',
+  '{{ name }}',
+  '{{ permissions }}',
+  '{{ use_as }}',
+  '{{ tags }}',
+  '{{ physical_table_map }}',
+  '{{ field_folders }}',
+  '{{ data_set_id }}',
+  '{{ performance_configuration }}',
+  '{{ data_set_refresh_properties }}',
+  '{{ row_level_permission_tag_configuration }}',
+  '{{ column_groups }}',
+  '{{ import_mode }}',
+  '{{ dataset_parameters }}',
+  '{{ logical_table_map }}',
+  '{{ aws_account_id }}',
+  '{{ data_set_usage_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -941,8 +944,9 @@ SET PatchDocument = string('{{ {
     "LogicalTableMap": logical_table_map,
     "DataSetUsageConfiguration": data_set_usage_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```
 
 
@@ -951,8 +955,9 @@ AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.data_sets
-WHERE Identifier = '{{ aws_account_id }}|{{ data_set_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ data_set_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

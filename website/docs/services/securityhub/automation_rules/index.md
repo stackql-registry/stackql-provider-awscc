@@ -520,21 +520,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>automation_rule</code>.
 ```sql
 SELECT
-region,
-rule_arn,
-rule_status,
-rule_order,
-description,
-rule_name,
-created_at,
-updated_at,
-created_by,
-is_terminal,
-actions,
-criteria,
-tags
+  region,
+  rule_arn,
+  rule_status,
+  rule_order,
+  description,
+  rule_name,
+  created_at,
+  updated_at,
+  created_by,
+  is_terminal,
+  actions,
+  criteria,
+  tags
 FROM awscc.securityhub.automation_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -542,10 +544,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 Lists all <code>automation_rules</code> in a region.
 ```sql
 SELECT
-region,
-rule_arn
+  region,
+  rule_arn
 FROM awscc.securityhub.automation_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -567,20 +570,20 @@ Use the following StackQL query and manifest file to create a new <code>automati
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.automation_rules (
- RuleOrder,
- Description,
- RuleName,
- Actions,
- Criteria,
- region
+  RuleOrder,
+  Description,
+  RuleName,
+  Actions,
+  Criteria,
+  region
 )
 SELECT
-'{{ rule_order }}',
- '{{ description }}',
- '{{ rule_name }}',
- '{{ actions }}',
- '{{ criteria }}',
-'{{ region }}';
+  '{{ rule_order }}',
+  '{{ description }}',
+  '{{ rule_name }}',
+  '{{ actions }}',
+  '{{ criteria }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -588,26 +591,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.automation_rules (
- RuleStatus,
- RuleOrder,
- Description,
- RuleName,
- IsTerminal,
- Actions,
- Criteria,
- Tags,
- region
+  RuleStatus,
+  RuleOrder,
+  Description,
+  RuleName,
+  IsTerminal,
+  Actions,
+  Criteria,
+  Tags,
+  region
 )
 SELECT
- '{{ rule_status }}',
- '{{ rule_order }}',
- '{{ description }}',
- '{{ rule_name }}',
- '{{ is_terminal }}',
- '{{ actions }}',
- '{{ criteria }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ rule_status }}',
+  '{{ rule_order }}',
+  '{{ description }}',
+  '{{ rule_name }}',
+  '{{ is_terminal }}',
+  '{{ actions }}',
+  '{{ criteria }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -760,8 +763,9 @@ SET PatchDocument = string('{{ {
     "Criteria": criteria,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -770,8 +774,9 @@ AND Identifier = '{{ rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.automation_rules
-WHERE Identifier = '{{ rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

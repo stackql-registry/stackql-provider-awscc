@@ -204,17 +204,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>package_group</code>.
 ```sql
 SELECT
-region,
-domain_name,
-domain_owner,
-pattern,
-contact_info,
-description,
-origin_configuration,
-tags,
-arn
+  region,
+  domain_name,
+  domain_owner,
+  pattern,
+  contact_info,
+  description,
+  origin_configuration,
+  tags,
+  arn
 FROM awscc.codeartifact.package_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,10 +224,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>package_groups</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.codeartifact.package_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -247,14 +250,14 @@ Use the following StackQL query and manifest file to create a new <code>package_
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.package_groups (
- DomainName,
- Pattern,
- region
+  DomainName,
+  Pattern,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ pattern }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ pattern }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,24 +265,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.package_groups (
- DomainName,
- DomainOwner,
- Pattern,
- ContactInfo,
- Description,
- OriginConfiguration,
- Tags,
- region
+  DomainName,
+  DomainOwner,
+  Pattern,
+  ContactInfo,
+  Description,
+  OriginConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ domain_owner }}',
- '{{ pattern }}',
- '{{ contact_info }}',
- '{{ description }}',
- '{{ origin_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ domain_owner }}',
+  '{{ pattern }}',
+  '{{ contact_info }}',
+  '{{ description }}',
+  '{{ origin_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "OriginConfiguration": origin_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.package_groups
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

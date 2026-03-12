@@ -190,17 +190,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_stream</code>.
 ```sql
 SELECT
-region,
-domain_name,
-event_stream_name,
-uri,
-event_stream_arn,
-tags,
-created_at,
-state,
-destination_details
+  region,
+  domain_name,
+  event_stream_name,
+  uri,
+  event_stream_arn,
+  tags,
+  created_at,
+  state,
+  destination_details
 FROM awscc.customerprofiles.event_streams
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_stream_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ event_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,11 +210,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_stream_n
 Lists all <code>event_streams</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-event_stream_name
+  region,
+  domain_name,
+  event_stream_name
 FROM awscc.customerprofiles.event_streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,16 +237,16 @@ Use the following StackQL query and manifest file to create a new <code>event_st
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.event_streams (
- DomainName,
- EventStreamName,
- Uri,
- region
+  DomainName,
+  EventStreamName,
+  Uri,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ event_stream_name }}',
- '{{ uri }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ event_stream_name }}',
+  '{{ uri }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -251,18 +254,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.event_streams (
- DomainName,
- EventStreamName,
- Uri,
- Tags,
- region
+  DomainName,
+  EventStreamName,
+  Uri,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ event_stream_name }}',
- '{{ uri }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ event_stream_name }}',
+  '{{ uri }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ UPDATE awscc.customerprofiles.event_streams
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ event_stream_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ event_stream_name }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ domain_name }}|{{ event_stream_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.event_streams
-WHERE Identifier = '{{ domain_name }}|{{ event_stream_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ event_stream_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

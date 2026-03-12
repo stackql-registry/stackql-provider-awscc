@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT
-region,
-name,
-client_token,
-tags,
-arn,
-id
+  region,
+  name,
+  client_token,
+  tags,
+  arn,
+  id
 FROM awscc.route53profiles.profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>profiles</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53profiles.profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>profile<
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profiles (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,14 +219,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profiles (
- Name,
- Tags,
- region
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ UPDATE awscc.route53profiles.profiles
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -270,8 +274,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53profiles.profiles
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

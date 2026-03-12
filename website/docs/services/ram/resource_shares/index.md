@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_share</code>.
 ```sql
 SELECT
-region,
-allow_external_principals,
-arn,
-name,
-permission_arns,
-principals,
-resource_arns,
-sources,
-tags
+  region,
+  allow_external_principals,
+  arn,
+  name,
+  permission_arns,
+  principals,
+  resource_arns,
+  sources,
+  tags
 FROM awscc.ram.resource_shares
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>resource_shares</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ram.resource_shares_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.ram.resource_shares (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,24 +237,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ram.resource_shares (
- AllowExternalPrincipals,
- Name,
- PermissionArns,
- Principals,
- ResourceArns,
- Sources,
- Tags,
- region
+  AllowExternalPrincipals,
+  Name,
+  PermissionArns,
+  Principals,
+  ResourceArns,
+  Sources,
+  Tags,
+  region
 )
 SELECT
- '{{ allow_external_principals }}',
- '{{ name }}',
- '{{ permission_arns }}',
- '{{ principals }}',
- '{{ resource_arns }}',
- '{{ sources }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ allow_external_principals }}',
+  '{{ name }}',
+  '{{ permission_arns }}',
+  '{{ principals }}',
+  '{{ resource_arns }}',
+  '{{ sources }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ SET PatchDocument = string('{{ {
     "Sources": sources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -318,8 +322,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ram.resource_shares
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

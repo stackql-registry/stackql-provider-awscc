@@ -147,12 +147,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>notification_hub</code>.
 ```sql
 SELECT
-region,
-region,
-notification_hub_status_summary,
-creation_time
+  region,
+  region,
+  notification_hub_status_summary,
+  creation_time
 FROM awscc.notifications.notification_hubs
-WHERE region = 'us-east-1' AND Identifier = '{{ region }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ region }}';
 Lists all <code>notification_hubs</code> in a region.
 ```sql
 SELECT
-region,
-region
+  region,
+  region
 FROM awscc.notifications.notification_hubs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>notifica
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.notification_hubs (
- Region,
- region
+  Region,
+  region
 )
 SELECT
-'{{ region }}',
-'{{ region }}';
+  '{{ region }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,12 +201,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.notification_hubs (
- Region,
- region
+  Region,
+  region
 )
 SELECT
- '{{ region }}',
- '{{ region }}';
+  '{{ region }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -232,8 +235,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.notification_hubs
-WHERE Identifier = '{{ region }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ region }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

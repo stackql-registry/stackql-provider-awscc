@@ -434,21 +434,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schedule</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-end_date,
-flexible_time_window,
-group_name,
-kms_key_arn,
-name,
-schedule_expression,
-schedule_expression_timezone,
-start_date,
-state,
-target
+  region,
+  arn,
+  description,
+  end_date,
+  flexible_time_window,
+  group_name,
+  kms_key_arn,
+  name,
+  schedule_expression,
+  schedule_expression_timezone,
+  start_date,
+  state,
+  target
 FROM awscc.scheduler.schedules
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -456,10 +458,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>schedules</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.scheduler.schedules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -481,16 +484,16 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.scheduler.schedules (
- FlexibleTimeWindow,
- ScheduleExpression,
- Target,
- region
+  FlexibleTimeWindow,
+  ScheduleExpression,
+  Target,
+  region
 )
 SELECT
-'{{ flexible_time_window }}',
- '{{ schedule_expression }}',
- '{{ target }}',
-'{{ region }}';
+  '{{ flexible_time_window }}',
+  '{{ schedule_expression }}',
+  '{{ target }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -498,32 +501,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.scheduler.schedules (
- Description,
- EndDate,
- FlexibleTimeWindow,
- GroupName,
- KmsKeyArn,
- Name,
- ScheduleExpression,
- ScheduleExpressionTimezone,
- StartDate,
- State,
- Target,
- region
+  Description,
+  EndDate,
+  FlexibleTimeWindow,
+  GroupName,
+  KmsKeyArn,
+  Name,
+  ScheduleExpression,
+  ScheduleExpressionTimezone,
+  StartDate,
+  State,
+  Target,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ end_date }}',
- '{{ flexible_time_window }}',
- '{{ group_name }}',
- '{{ kms_key_arn }}',
- '{{ name }}',
- '{{ schedule_expression }}',
- '{{ schedule_expression_timezone }}',
- '{{ start_date }}',
- '{{ state }}',
- '{{ target }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ end_date }}',
+  '{{ flexible_time_window }}',
+  '{{ group_name }}',
+  '{{ kms_key_arn }}',
+  '{{ name }}',
+  '{{ schedule_expression }}',
+  '{{ schedule_expression_timezone }}',
+  '{{ start_date }}',
+  '{{ state }}',
+  '{{ target }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -635,8 +638,9 @@ SET PatchDocument = string('{{ {
     "State": state,
     "Target": target
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -645,8 +649,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.scheduler.schedules
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

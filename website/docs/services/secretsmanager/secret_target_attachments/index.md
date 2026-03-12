@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>secret_target_attachment</code>.
 ```sql
 SELECT
-region,
-id,
-secret_id,
-target_type,
-target_id
+  region,
+  id,
+  secret_id,
+  target_type,
+  target_id
 FROM awscc.secretsmanager.secret_target_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>secret_target_attachments</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.secretsmanager.secret_target_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>secret_t
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.secret_target_attachments (
- SecretId,
- TargetType,
- TargetId,
- region
+  SecretId,
+  TargetType,
+  TargetId,
+  region
 )
 SELECT
-'{{ secret_id }}',
- '{{ target_type }}',
- '{{ target_id }}',
-'{{ region }}';
+  '{{ secret_id }}',
+  '{{ target_type }}',
+  '{{ target_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.secret_target_attachments (
- SecretId,
- TargetType,
- TargetId,
- region
+  SecretId,
+  TargetType,
+  TargetId,
+  region
 )
 SELECT
- '{{ secret_id }}',
- '{{ target_type }}',
- '{{ target_id }}',
- '{{ region }}';
+  '{{ secret_id }}',
+  '{{ target_type }}',
+  '{{ target_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -249,8 +252,9 @@ SET PatchDocument = string('{{ {
     "TargetType": target_type,
     "TargetId": target_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -259,8 +263,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.secret_target_attachments
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

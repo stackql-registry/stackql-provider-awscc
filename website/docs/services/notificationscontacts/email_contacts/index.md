@@ -191,14 +191,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>email_contact</code>.
 ```sql
 SELECT
-region,
-arn,
-email_address,
-name,
-email_contact,
-tags
+  region,
+  arn,
+  email_address,
+  name,
+  email_contact,
+  tags
 FROM awscc.notificationscontacts.email_contacts
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,10 +208,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>email_contacts</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.notificationscontacts.email_contacts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -231,14 +234,14 @@ Use the following StackQL query and manifest file to create a new <code>email_co
 ```sql
 /*+ create */
 INSERT INTO awscc.notificationscontacts.email_contacts (
- EmailAddress,
- Name,
- region
+  EmailAddress,
+  Name,
+  region
 )
 SELECT
-'{{ email_address }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ email_address }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,16 +249,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notificationscontacts.email_contacts (
- EmailAddress,
- Name,
- Tags,
- region
+  EmailAddress,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ email_address }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ email_address }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notificationscontacts.email_contacts
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

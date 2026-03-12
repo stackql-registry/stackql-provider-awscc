@@ -273,19 +273,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>automated_reasoning_policy</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-policy_definition,
-policy_arn,
-version,
-definition_hash,
-created_at,
-updated_at,
-policy_id,
-tags
+  region,
+  name,
+  description,
+  policy_definition,
+  policy_arn,
+  version,
+  definition_hash,
+  created_at,
+  updated_at,
+  policy_id,
+  tags
 FROM awscc.bedrock.automated_reasoning_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,10 +295,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 Lists all <code>automated_reasoning_policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_arn
+  region,
+  policy_arn
 FROM awscc.bedrock.automated_reasoning_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -318,12 +321,12 @@ Use the following StackQL query and manifest file to create a new <code>automate
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.automated_reasoning_policies (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -331,18 +334,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.automated_reasoning_policies (
- Name,
- Description,
- PolicyDefinition,
- Tags,
- region
+  Name,
+  Description,
+  PolicyDefinition,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ policy_definition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ policy_definition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -401,8 +404,9 @@ SET PatchDocument = string('{{ {
     "PolicyDefinition": policy_definition,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -411,8 +415,9 @@ AND Identifier = '{{ policy_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.automated_reasoning_policies
-WHERE Identifier = '{{ policy_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -176,7 +176,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "role_arn",
             "type": "string",
-            "description": "<p>Use the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; structure to override an account-wide role for a specific Athena data source. For example, say an account administrator has turned off all Athena access with an account-wide role. The administrator can then use &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; to bypass the account-wide role and allow Athena access for the single Athena data source that is specified in the structure, even if the account-wide role forbidding Athena access is still active.</p>"
+            "description": "<p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific Athena data source. For example, say an account administrator has turned off all Athena access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow Athena access for the single Athena data source that is specified in the structure, even if the account-wide role forbidding Athena access is still active.</p>"
           }
         ]
       },
@@ -335,44 +335,44 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
       {
         "name": "redshift_parameters",
         "type": "object",
-        "description": "<p>The parameters for Amazon Redshift. The &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; field can be blank if<br />&#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; and &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; are both set. The &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; and &#95;&#95;CODE&#95;BLOCK&#95;4&#95;&#95; fields can be blank if the &#95;&#95;CODE&#95;BLOCK&#95;5&#95;&#95; field is set.</p>",
+        "description": "<p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if<br /><code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>",
         "children": [
           {
             "name": "iam_parameters",
             "type": "object",
-            "description": "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; API. For more information on the &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API&#95;GetClusterCredentials.html\"><br />&#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95;<br /></a>.</p>",
+            "description": "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API&#95;GetClusterCredentials.html\"><br /><code>GetClusterCredentials</code><br /></a>.</p>",
             "children": [
               {
                 "name": "auto_create_database_user",
                 "type": "boolean",
-                "description": "<p>Automatically creates a database user. If your database doesn't have a &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, set this parameter to &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;. If there is no &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95;, Amazon QuickSight can't connect to your cluster. The &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; that you use for this operation must grant access to &#95;&#95;CODE&#95;BLOCK&#95;4&#95;&#95; to successfully create the user.</p>"
+                "description": "<p>Automatically creates a database user. If your database doesn't have a <code>DatabaseUser</code>, set this parameter to <code>True</code>. If there is no <code>DatabaseUser</code>, Amazon QuickSight can't connect to your cluster. The <code>RoleArn</code> that you use for this operation must grant access to <code>redshift:CreateClusterUser</code> to successfully create the user.</p>"
               },
               {
                 "name": "database_user",
                 "type": "string",
-                "description": "<p>The user whose permissions and group memberships will be used by Amazon QuickSight to access the cluster. If this user already exists in your database, Amazon QuickSight is granted the same permissions that the user has. If the user doesn't exist, set the value of &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; to &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; to create a new user with PUBLIC permissions.</p>"
+                "description": "<p>The user whose permissions and group memberships will be used by Amazon QuickSight to access the cluster. If this user already exists in your database, Amazon QuickSight is granted the same permissions that the user has. If the user doesn't exist, set the value of <code>AutoCreateDatabaseUser</code> to <code>True</code> to create a new user with PUBLIC permissions.</p>"
               },
               {
                 "name": "role_arn",
                 "type": "string",
-                "description": "<p>Use the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; structure to allow Amazon QuickSight to call &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; on your cluster. The calling principal must have &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; access to pass the role to Amazon QuickSight. The role's trust policy must allow the Amazon QuickSight service principal to assume the role.</p>"
+                "description": "<p>Use the <code>RoleArn</code> structure to allow Amazon QuickSight to call <code>redshift:GetClusterCredentials</code> on your cluster. The calling principal must have <code>iam:PassRole</code> access to pass the role to Amazon QuickSight. The role's trust policy must allow the Amazon QuickSight service principal to assume the role.</p>"
               },
               {
                 "name": "database_groups",
                 "type": "array",
-                "description": "<p>A list of groups whose permissions will be granted to Amazon QuickSight to access the cluster. These permissions are combined with the permissions granted to Amazon QuickSight by the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;. If you choose to include this parameter, the &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; must grant access to &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95;.</p>"
+                "description": "<p>A list of groups whose permissions will be granted to Amazon QuickSight to access the cluster. These permissions are combined with the permissions granted to Amazon QuickSight by the <code>DatabaseUser</code>. If you choose to include this parameter, the <code>RoleArn</code> must grant access to <code>redshift:JoinGroup</code>.</p>"
               }
             ]
           },
           {
             "name": "cluster_id",
             "type": "string",
-            "description": "<p>Cluster ID. This field can be blank if the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; and &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; are<br />provided.</p>"
+            "description": "<p>Cluster ID. This field can be blank if the <code>Host</code> and <code>Port</code> are<br />provided.</p>"
           },
           {
             "name": "port",
             "type": "number",
-            "description": "<p>Port. This field can be blank if the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is provided.</p>"
+            "description": "<p>Port. This field can be blank if the <code>ClusterId</code> is provided.</p>"
           },
           {
             "name": "database",
@@ -382,7 +382,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "host",
             "type": "string",
-            "description": "<p>Host. This field can be blank if &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is provided.</p>"
+            "description": "<p>Host. This field can be blank if <code>ClusterId</code> is provided.</p>"
           },
           {
             "name": "identity_center_configuration",
@@ -594,7 +594,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "role_arn",
             "type": "string",
-            "description": "<p>Use the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; structure to override an account-wide role for a specific S3 data source. For example, say an account administrator has turned off all S3 access with an account-wide role. The administrator can then use &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; to bypass the account-wide role and allow S3 access for the single S3 data source that is specified in the structure, even if the account-wide role forbidding S3 access is still active.</p>"
+            "description": "<p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific S3 data source. For example, say an account administrator has turned off all S3 access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow S3 access for the single S3 data source that is specified in the structure, even if the account-wide role forbidding S3 access is still active.</p>"
           }
         ]
       },
@@ -664,7 +664,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "alternate_data_source_parameters",
     "type": "array",
-    "description": "<p>A set of alternate data source parameters that you want to share for the credentials<br />stored with this data source. The credentials are applied in tandem with the data source<br />parameters when you copy a data source by using a create or update request. The API<br />operation compares the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; structure that's in the request<br />with the structures in the &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; allow list. If the<br />structures are an exact match, the request is allowed to use the credentials from this<br />existing data source. If the &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; list is null,<br />the &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; originally used with this &#95;&#95;CODE&#95;BLOCK&#95;4&#95;&#95;<br />are automatically allowed.</p>"
+    "description": "<p>A set of alternate data source parameters that you want to share for the credentials<br />stored with this data source. The credentials are applied in tandem with the data source<br />parameters when you copy a data source by using a create or update request. The API<br />operation compares the <code>DataSourceParameters</code> structure that's in the request<br />with the structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the credentials from this<br />existing data source. If the <code>AlternateDataSourceParameters</code> list is null,<br />the <code>Credentials</code> originally used with this <code>DataSourceParameters</code><br />are automatically allowed.</p>"
   },
   {
     "name": "aws_account_id",
@@ -718,7 +718,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
       {
         "name": "copy_source_arn",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of a data source that has the credential pair that you<br />want to use. When &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is not null, the credential pair from the<br />data source in the ARN is used as the credentials for the<br />&#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; structure.</p>"
+        "description": "<p>The Amazon Resource Name (ARN) of a data source that has the credential pair that you<br />want to use. When <code>CopySourceArn</code> is not null, the credential pair from the<br />data source in the ARN is used as the credentials for the<br /><code>DataSourceCredentials</code> structure.</p>"
       },
       {
         "name": "credential_pair",
@@ -728,7 +728,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "alternate_data_source_parameters",
             "type": "array",
-            "description": "<p>A set of alternate data source parameters that you want to share for these<br />credentials. The credentials are applied in tandem with the data source parameters when<br />you copy a data source by using a create or update request. The API operation compares<br />the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; structure that's in the request with the<br />structures in the &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; allow list. If the<br />structures are an exact match, the request is allowed to use the new data source with<br />the existing credentials. If the &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; list is<br />null, the &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; originally used with these<br />&#95;&#95;CODE&#95;BLOCK&#95;4&#95;&#95; is automatically allowed.</p>"
+            "description": "<p>A set of alternate data source parameters that you want to share for these<br />credentials. The credentials are applied in tandem with the data source parameters when<br />you copy a data source by using a create or update request. The API operation compares<br />the <code>DataSourceParameters</code> structure that's in the request with the<br />structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the new data source with<br />the existing credentials. If the <code>AlternateDataSourceParameters</code> list is<br />null, the <code>DataSourceParameters</code> originally used with these<br /><code>Credentials</code> is automatically allowed.</p>"
           },
           {
             "name": "username",
@@ -854,26 +854,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-status,
-created_time,
-error_info,
-last_updated_time,
-folder_arns,
-name,
-data_source_parameters,
-type,
-vpc_connection_properties,
-alternate_data_source_parameters,
-aws_account_id,
-permissions,
-arn,
-ssl_properties,
-credentials,
-data_source_id,
-tags
+  region,
+  status,
+  created_time,
+  error_info,
+  last_updated_time,
+  folder_arns,
+  name,
+  data_source_parameters,
+  type,
+  vpc_connection_properties,
+  alternate_data_source_parameters,
+  aws_account_id,
+  permissions,
+  arn,
+  ssl_properties,
+  credentials,
+  data_source_id,
+  tags
 FROM awscc.quicksight.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -881,11 +883,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_source
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-data_source_id
+  region,
+  aws_account_id,
+  data_source_id
 FROM awscc.quicksight.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -907,14 +910,14 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.data_sources (
- Name,
- Type,
- region
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -922,36 +925,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.data_sources (
- ErrorInfo,
- FolderArns,
- Name,
- DataSourceParameters,
- Type,
- VpcConnectionProperties,
- AlternateDataSourceParameters,
- AwsAccountId,
- Permissions,
- SslProperties,
- Credentials,
- DataSourceId,
- Tags,
- region
+  ErrorInfo,
+  FolderArns,
+  Name,
+  DataSourceParameters,
+  Type,
+  VpcConnectionProperties,
+  AlternateDataSourceParameters,
+  AwsAccountId,
+  Permissions,
+  SslProperties,
+  Credentials,
+  DataSourceId,
+  Tags,
+  region
 )
 SELECT
- '{{ error_info }}',
- '{{ folder_arns }}',
- '{{ name }}',
- '{{ data_source_parameters }}',
- '{{ type }}',
- '{{ vpc_connection_properties }}',
- '{{ alternate_data_source_parameters }}',
- '{{ aws_account_id }}',
- '{{ permissions }}',
- '{{ ssl_properties }}',
- '{{ credentials }}',
- '{{ data_source_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ error_info }}',
+  '{{ folder_arns }}',
+  '{{ name }}',
+  '{{ data_source_parameters }}',
+  '{{ type }}',
+  '{{ vpc_connection_properties }}',
+  '{{ alternate_data_source_parameters }}',
+  '{{ aws_account_id }}',
+  '{{ permissions }}',
+  '{{ ssl_properties }}',
+  '{{ credentials }}',
+  '{{ data_source_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1131,8 +1134,9 @@ SET PatchDocument = string('{{ {
     "Credentials": credentials,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```
 
 
@@ -1141,8 +1145,9 @@ AND Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.data_sources
-WHERE Identifier = '{{ aws_account_id }}|{{ data_source_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ data_source_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

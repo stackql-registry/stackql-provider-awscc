@@ -129,14 +129,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>device_fleet</code>.
 ```sql
 SELECT
-region,
-description,
-device_fleet_name,
-output_config,
-role_arn,
-tags
+  region,
+  description,
+  device_fleet_name,
+  output_config,
+  role_arn,
+  tags
 FROM awscc.sagemaker.device_fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ device_fleet_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ device_fleet_name }}';
 ```
 
 ## `INSERT` example
@@ -156,16 +158,16 @@ Use the following StackQL query and manifest file to create a new <code>device_f
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.device_fleets (
- DeviceFleetName,
- OutputConfig,
- RoleArn,
- region
+  DeviceFleetName,
+  OutputConfig,
+  RoleArn,
+  region
 )
 SELECT
-'{{ device_fleet_name }}',
- '{{ output_config }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ device_fleet_name }}',
+  '{{ output_config }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -173,20 +175,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.device_fleets (
- Description,
- DeviceFleetName,
- OutputConfig,
- RoleArn,
- Tags,
- region
+  Description,
+  DeviceFleetName,
+  OutputConfig,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ device_fleet_name }}',
- '{{ output_config }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ device_fleet_name }}',
+  '{{ output_config }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -234,8 +236,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ device_fleet_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ device_fleet_name }}';
 ```
 
 
@@ -244,8 +247,9 @@ AND Identifier = '{{ device_fleet_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.device_fleets
-WHERE Identifier = '{{ device_fleet_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ device_fleet_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

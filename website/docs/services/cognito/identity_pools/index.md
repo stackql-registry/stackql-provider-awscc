@@ -254,23 +254,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_pool</code>.
 ```sql
 SELECT
-region,
-push_sync,
-cognito_identity_providers,
-developer_provider_name,
-cognito_streams,
-supported_login_providers,
-name,
-cognito_events,
-id,
-identity_pool_name,
-allow_unauthenticated_identities,
-saml_provider_arns,
-open_id_connect_provider_arns,
-allow_classic_flow,
-identity_pool_tags
+  region,
+  push_sync,
+  cognito_identity_providers,
+  developer_provider_name,
+  cognito_streams,
+  supported_login_providers,
+  name,
+  cognito_events,
+  id,
+  identity_pool_name,
+  allow_unauthenticated_identities,
+  saml_provider_arns,
+  open_id_connect_provider_arns,
+  allow_classic_flow,
+  identity_pool_tags
 FROM awscc.cognito.identity_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,10 +280,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>identity_pools</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cognito.identity_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -303,12 +306,12 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pools (
- AllowUnauthenticatedIdentities,
- region
+  AllowUnauthenticatedIdentities,
+  region
 )
 SELECT
-'{{ allow_unauthenticated_identities }}',
-'{{ region }}';
+  '{{ allow_unauthenticated_identities }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -316,34 +319,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pools (
- PushSync,
- CognitoIdentityProviders,
- DeveloperProviderName,
- CognitoStreams,
- SupportedLoginProviders,
- CognitoEvents,
- IdentityPoolName,
- AllowUnauthenticatedIdentities,
- SamlProviderARNs,
- OpenIdConnectProviderARNs,
- AllowClassicFlow,
- IdentityPoolTags,
- region
+  PushSync,
+  CognitoIdentityProviders,
+  DeveloperProviderName,
+  CognitoStreams,
+  SupportedLoginProviders,
+  CognitoEvents,
+  IdentityPoolName,
+  AllowUnauthenticatedIdentities,
+  SamlProviderARNs,
+  OpenIdConnectProviderARNs,
+  AllowClassicFlow,
+  IdentityPoolTags,
+  region
 )
 SELECT
- '{{ push_sync }}',
- '{{ cognito_identity_providers }}',
- '{{ developer_provider_name }}',
- '{{ cognito_streams }}',
- '{{ supported_login_providers }}',
- '{{ cognito_events }}',
- '{{ identity_pool_name }}',
- '{{ allow_unauthenticated_identities }}',
- '{{ saml_provider_arns }}',
- '{{ open_id_connect_provider_arns }}',
- '{{ allow_classic_flow }}',
- '{{ identity_pool_tags }}',
- '{{ region }}';
+  '{{ push_sync }}',
+  '{{ cognito_identity_providers }}',
+  '{{ developer_provider_name }}',
+  '{{ cognito_streams }}',
+  '{{ supported_login_providers }}',
+  '{{ cognito_events }}',
+  '{{ identity_pool_name }}',
+  '{{ allow_unauthenticated_identities }}',
+  '{{ saml_provider_arns }}',
+  '{{ open_id_connect_provider_arns }}',
+  '{{ allow_classic_flow }}',
+  '{{ identity_pool_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -422,8 +425,9 @@ SET PatchDocument = string('{{ {
     "AllowClassicFlow": allow_classic_flow,
     "IdentityPoolTags": identity_pool_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -432,8 +436,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pools
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

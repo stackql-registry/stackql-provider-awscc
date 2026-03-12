@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset_group</code>.
 ```sql
 SELECT
-region,
-dataset_arns,
-dataset_group_name,
-domain,
-tags,
-dataset_group_arn
+  region,
+  dataset_arns,
+  dataset_group_name,
+  domain,
+  tags,
+  dataset_group_arn
 FROM awscc.forecast.dataset_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dataset_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
 Lists all <code>dataset_groups</code> in a region.
 ```sql
 SELECT
-region,
-dataset_group_arn
+  region,
+  dataset_group_arn
 FROM awscc.forecast.dataset_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>dataset_
 ```sql
 /*+ create */
 INSERT INTO awscc.forecast.dataset_groups (
- DatasetGroupName,
- Domain,
- region
+  DatasetGroupName,
+  Domain,
+  region
 )
 SELECT
-'{{ dataset_group_name }}',
- '{{ domain }}',
-'{{ region }}';
+  '{{ dataset_group_name }}',
+  '{{ domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,18 +221,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.forecast.dataset_groups (
- DatasetArns,
- DatasetGroupName,
- Domain,
- Tags,
- region
+  DatasetArns,
+  DatasetGroupName,
+  Domain,
+  Tags,
+  region
 )
 SELECT
- '{{ dataset_arns }}',
- '{{ dataset_group_name }}',
- '{{ domain }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ dataset_arns }}',
+  '{{ dataset_group_name }}',
+  '{{ domain }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "Domain": domain,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dataset_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dataset_group_arn }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ dataset_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.forecast.dataset_groups
-WHERE Identifier = '{{ dataset_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dataset_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

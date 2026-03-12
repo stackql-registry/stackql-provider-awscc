@@ -275,32 +275,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stack</code>.
 ```sql
 SELECT
-region,
-capabilities,
-role_arn,
-outputs,
-description,
-disable_rollback,
-enable_termination_protection,
-notification_arns,
-parameters,
-parent_id,
-root_id,
-change_set_id,
-stack_name,
-stack_id,
-stack_policy_body,
-stack_policy_url,
-stack_status,
-stack_status_reason,
-tags,
-template_body,
-template_url,
-timeout_in_minutes,
-last_update_time,
-creation_time
+  region,
+  capabilities,
+  role_arn,
+  outputs,
+  description,
+  disable_rollback,
+  enable_termination_protection,
+  notification_arns,
+  parameters,
+  parent_id,
+  root_id,
+  change_set_id,
+  stack_name,
+  stack_id,
+  stack_policy_body,
+  stack_policy_url,
+  stack_status,
+  stack_status_reason,
+  tags,
+  template_body,
+  template_url,
+  timeout_in_minutes,
+  last_update_time,
+  creation_time
 FROM awscc.cloudformation.stacks
-WHERE region = 'us-east-1' AND Identifier = '{{ stack_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ stack_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,10 +310,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ stack_id }}';
 Lists all <code>stacks</code> in a region.
 ```sql
 SELECT
-region,
-stack_id
+  region,
+  stack_id
 FROM awscc.cloudformation.stacks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -333,12 +336,12 @@ Use the following StackQL query and manifest file to create a new <code>stack</c
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.stacks (
- StackName,
- region
+  StackName,
+  region
 )
 SELECT
-'{{ stack_name }}',
-'{{ region }}';
+  '{{ stack_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -346,40 +349,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.stacks (
- Capabilities,
- RoleARN,
- Description,
- DisableRollback,
- EnableTerminationProtection,
- NotificationARNs,
- Parameters,
- StackName,
- StackPolicyBody,
- StackPolicyURL,
- StackStatusReason,
- Tags,
- TemplateBody,
- TemplateURL,
- TimeoutInMinutes,
- region
+  Capabilities,
+  RoleARN,
+  Description,
+  DisableRollback,
+  EnableTerminationProtection,
+  NotificationARNs,
+  Parameters,
+  StackName,
+  StackPolicyBody,
+  StackPolicyURL,
+  StackStatusReason,
+  Tags,
+  TemplateBody,
+  TemplateURL,
+  TimeoutInMinutes,
+  region
 )
 SELECT
- '{{ capabilities }}',
- '{{ role_arn }}',
- '{{ description }}',
- '{{ disable_rollback }}',
- '{{ enable_termination_protection }}',
- '{{ notification_arns }}',
- '{{ parameters }}',
- '{{ stack_name }}',
- '{{ stack_policy_body }}',
- '{{ stack_policy_url }}',
- '{{ stack_status_reason }}',
- '{{ tags }}',
- '{{ template_body }}',
- '{{ template_url }}',
- '{{ timeout_in_minutes }}',
- '{{ region }}';
+  '{{ capabilities }}',
+  '{{ role_arn }}',
+  '{{ description }}',
+  '{{ disable_rollback }}',
+  '{{ enable_termination_protection }}',
+  '{{ notification_arns }}',
+  '{{ parameters }}',
+  '{{ stack_name }}',
+  '{{ stack_policy_body }}',
+  '{{ stack_policy_url }}',
+  '{{ stack_status_reason }}',
+  '{{ tags }}',
+  '{{ template_body }}',
+  '{{ template_url }}',
+  '{{ timeout_in_minutes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -457,8 +460,9 @@ SET PatchDocument = string('{{ {
     "TemplateURL": template_url,
     "TimeoutInMinutes": timeout_in_minutes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ stack_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ stack_id }}';
 ```
 
 
@@ -467,8 +471,9 @@ AND Identifier = '{{ stack_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.stacks
-WHERE Identifier = '{{ stack_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ stack_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

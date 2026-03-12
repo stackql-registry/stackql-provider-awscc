@@ -171,16 +171,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ai_prompt_version</code>.
 ```sql
 SELECT
-region,
-a_iprompt_arn,
-assistant_arn,
-a_iprompt_id,
-assistant_id,
-a_iprompt_version_id,
-version_number,
-modified_time_seconds
+  region,
+  a_iprompt_arn,
+  assistant_arn,
+  a_iprompt_id,
+  assistant_id,
+  a_iprompt_version_id,
+  version_number,
+  modified_time_seconds
 FROM awscc.wisdom.ai_prompt_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,12 +190,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iprompt_id 
 Lists all <code>ai_prompt_versions</code> in a region.
 ```sql
 SELECT
-region,
-assistant_id,
-a_iprompt_id,
-version_number
+  region,
+  assistant_id,
+  a_iprompt_id,
+  version_number
 FROM awscc.wisdom.ai_prompt_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>ai_promp
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_prompt_versions (
- AIPromptId,
- AssistantId,
- region
+  AIPromptId,
+  AssistantId,
+  region
 )
 SELECT
-'{{ a_iprompt_id }}',
- '{{ assistant_id }}',
-'{{ region }}';
+  '{{ a_iprompt_id }}',
+  '{{ assistant_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,16 +233,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_prompt_versions (
- AIPromptId,
- AssistantId,
- ModifiedTimeSeconds,
- region
+  AIPromptId,
+  AssistantId,
+  ModifiedTimeSeconds,
+  region
 )
 SELECT
- '{{ a_iprompt_id }}',
- '{{ assistant_id }}',
- '{{ modified_time_seconds }}',
- '{{ region }}';
+  '{{ a_iprompt_id }}',
+  '{{ assistant_id }}',
+  '{{ modified_time_seconds }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_prompt_versions
-WHERE Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

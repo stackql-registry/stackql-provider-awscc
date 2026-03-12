@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>role_alias</code>.
 ```sql
 SELECT
-region,
-role_alias,
-role_alias_arn,
-role_arn,
-credential_duration_seconds,
-tags
+  region,
+  role_alias,
+  role_alias_arn,
+  role_arn,
+  credential_duration_seconds,
+  tags
 FROM awscc.iot.role_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ role_alias }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ role_alias }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ role_alias }}';
 Lists all <code>role_aliases</code> in a region.
 ```sql
 SELECT
-region,
-role_alias
+  region,
+  role_alias
 FROM awscc.iot.role_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>role_ali
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.role_aliases (
- RoleArn,
- region
+  RoleArn,
+  region
 )
 SELECT
-'{{ role_arn }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.role_aliases (
- RoleAlias,
- RoleArn,
- CredentialDurationSeconds,
- Tags,
- region
+  RoleAlias,
+  RoleArn,
+  CredentialDurationSeconds,
+  Tags,
+  region
 )
 SELECT
- '{{ role_alias }}',
- '{{ role_arn }}',
- '{{ credential_duration_seconds }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ role_alias }}',
+  '{{ role_arn }}',
+  '{{ credential_duration_seconds }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "CredentialDurationSeconds": credential_duration_seconds,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ role_alias }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ role_alias }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ role_alias }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.role_aliases
-WHERE Identifier = '{{ role_alias }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ role_alias }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

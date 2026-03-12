@@ -214,15 +214,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_action</code>.
 ```sql
 SELECT
-region,
-action_name,
-alias_name,
-attachments,
-custom_action_arn,
-definition,
-tags
+  region,
+  action_name,
+  alias_name,
+  attachments,
+  custom_action_arn,
+  definition,
+  tags
 FROM awscc.chatbot.custom_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ custom_action_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ custom_action_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,10 +232,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ custom_action_arn }}';
 Lists all <code>custom_actions</code> in a region.
 ```sql
 SELECT
-region,
-custom_action_arn
+  region,
+  custom_action_arn
 FROM awscc.chatbot.custom_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -255,14 +258,14 @@ Use the following StackQL query and manifest file to create a new <code>custom_a
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.custom_actions (
- ActionName,
- Definition,
- region
+  ActionName,
+  Definition,
+  region
 )
 SELECT
-'{{ action_name }}',
- '{{ definition }}',
-'{{ region }}';
+  '{{ action_name }}',
+  '{{ definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,20 +273,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.custom_actions (
- ActionName,
- AliasName,
- Attachments,
- Definition,
- Tags,
- region
+  ActionName,
+  AliasName,
+  Attachments,
+  Definition,
+  Tags,
+  region
 )
 SELECT
- '{{ action_name }}',
- '{{ alias_name }}',
- '{{ attachments }}',
- '{{ definition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ action_name }}',
+  '{{ alias_name }}',
+  '{{ attachments }}',
+  '{{ definition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "Definition": definition,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ custom_action_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ custom_action_arn }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ custom_action_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.custom_actions
-WHERE Identifier = '{{ custom_action_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ custom_action_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

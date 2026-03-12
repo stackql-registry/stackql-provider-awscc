@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>predefined_attribute</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-name,
-values,
-purposes,
-attribute_configuration,
-last_modified_region,
-last_modified_time
+  region,
+  instance_arn,
+  name,
+  values,
+  purposes,
+  attribute_configuration,
+  last_modified_region,
+  last_modified_time
 FROM awscc.connect.predefined_attributes
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +204,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ name }}';
 Lists all <code>predefined_attributes</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn,
-name
+  region,
+  instance_arn,
+  name
 FROM awscc.connect.predefined_attributes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,14 +231,14 @@ Use the following StackQL query and manifest file to create a new <code>predefin
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.predefined_attributes (
- InstanceArn,
- Name,
- region
+  InstanceArn,
+  Name,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,20 +246,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.predefined_attributes (
- InstanceArn,
- Name,
- Values,
- Purposes,
- AttributeConfiguration,
- region
+  InstanceArn,
+  Name,
+  Values,
+  Purposes,
+  AttributeConfiguration,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ values }}',
- '{{ purposes }}',
- '{{ attribute_configuration }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ values }}',
+  '{{ purposes }}',
+  '{{ attribute_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ SET PatchDocument = string('{{ {
     "Purposes": purposes,
     "AttributeConfiguration": attribute_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_arn }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_arn }}|{{ name }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ instance_arn }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.predefined_attributes
-WHERE Identifier = '{{ instance_arn }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

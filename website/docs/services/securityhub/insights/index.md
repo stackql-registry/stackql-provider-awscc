@@ -754,13 +754,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>insight</code>.
 ```sql
 SELECT
-region,
-insight_arn,
-name,
-filters,
-group_by_attribute
+  region,
+  insight_arn,
+  name,
+  filters,
+  group_by_attribute
 FROM awscc.securityhub.insights
-WHERE region = 'us-east-1' AND Identifier = '{{ insight_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ insight_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -768,10 +770,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ insight_arn }}';
 Lists all <code>insights</code> in a region.
 ```sql
 SELECT
-region,
-insight_arn
+  region,
+  insight_arn
 FROM awscc.securityhub.insights_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -793,16 +796,16 @@ Use the following StackQL query and manifest file to create a new <code>insight<
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.insights (
- Name,
- Filters,
- GroupByAttribute,
- region
+  Name,
+  Filters,
+  GroupByAttribute,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ filters }}',
- '{{ group_by_attribute }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ filters }}',
+  '{{ group_by_attribute }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -810,16 +813,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.insights (
- Name,
- Filters,
- GroupByAttribute,
- region
+  Name,
+  Filters,
+  GroupByAttribute,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ filters }}',
- '{{ group_by_attribute }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ filters }}',
+  '{{ group_by_attribute }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1075,8 +1078,9 @@ SET PatchDocument = string('{{ {
     "Filters": filters,
     "GroupByAttribute": group_by_attribute
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ insight_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ insight_arn }}';
 ```
 
 
@@ -1085,8 +1089,9 @@ AND Identifier = '{{ insight_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.insights
-WHERE Identifier = '{{ insight_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ insight_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

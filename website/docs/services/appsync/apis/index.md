@@ -299,16 +299,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api</code>.
 ```sql
 SELECT
-region,
-api_id,
-api_arn,
-name,
-owner_contact,
-dns,
-event_config,
-tags
+  region,
+  api_id,
+  api_arn,
+  name,
+  owner_contact,
+  dns,
+  event_config,
+  tags
 FROM awscc.appsync.apis
-WHERE region = 'us-east-1' AND Identifier = '{{ api_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -316,10 +318,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_arn }}';
 Lists all <code>apis</code> in a region.
 ```sql
 SELECT
-region,
-api_arn
+  region,
+  api_arn
 FROM awscc.appsync.apis_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -341,12 +344,12 @@ Use the following StackQL query and manifest file to create a new <code>api</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.apis (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -354,18 +357,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.apis (
- Name,
- OwnerContact,
- EventConfig,
- Tags,
- region
+  Name,
+  OwnerContact,
+  EventConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ owner_contact }}',
- '{{ event_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ owner_contact }}',
+  '{{ event_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -431,8 +434,9 @@ SET PatchDocument = string('{{ {
     "EventConfig": event_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_arn }}';
 ```
 
 
@@ -441,8 +445,9 @@ AND Identifier = '{{ api_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.apis
-WHERE Identifier = '{{ api_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

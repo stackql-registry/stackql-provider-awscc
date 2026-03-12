@@ -171,16 +171,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_response</code>.
 ```sql
 SELECT
-region,
-route_response_key,
-response_parameters,
-route_id,
-model_selection_expression,
-api_id,
-response_models,
-route_response_id
+  region,
+  route_response_key,
+  response_parameters,
+  route_id,
+  model_selection_expression,
+  api_id,
+  response_models,
+  route_response_id
 FROM awscc.apigatewayv2.route_responses
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,12 +190,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}|{{ rout
 Lists all <code>route_responses</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-route_id,
-route_response_id
+  region,
+  api_id,
+  route_id,
+  route_response_id
 FROM awscc.apigatewayv2.route_responses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>route_re
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.route_responses (
- RouteResponseKey,
- RouteId,
- ApiId,
- region
+  RouteResponseKey,
+  RouteId,
+  ApiId,
+  region
 )
 SELECT
-'{{ route_response_key }}',
- '{{ route_id }}',
- '{{ api_id }}',
-'{{ region }}';
+  '{{ route_response_key }}',
+  '{{ route_id }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,22 +235,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.route_responses (
- RouteResponseKey,
- ResponseParameters,
- RouteId,
- ModelSelectionExpression,
- ApiId,
- ResponseModels,
- region
+  RouteResponseKey,
+  ResponseParameters,
+  RouteId,
+  ModelSelectionExpression,
+  ApiId,
+  ResponseModels,
+  region
 )
 SELECT
- '{{ route_response_key }}',
- '{{ response_parameters }}',
- '{{ route_id }}',
- '{{ model_selection_expression }}',
- '{{ api_id }}',
- '{{ response_models }}',
- '{{ region }}';
+  '{{ route_response_key }}',
+  '{{ response_parameters }}',
+  '{{ route_id }}',
+  '{{ model_selection_expression }}',
+  '{{ api_id }}',
+  '{{ response_models }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -293,8 +296,9 @@ SET PatchDocument = string('{{ {
     "ModelSelectionExpression": model_selection_expression,
     "ResponseModels": response_models
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```
 
 
@@ -303,8 +307,9 @@ AND Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.route_responses
-WHERE Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

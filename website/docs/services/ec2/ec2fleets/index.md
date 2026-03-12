@@ -614,22 +614,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ec2fleet</code>.
 ```sql
 SELECT
-region,
-target_capacity_specification,
-on_demand_options,
-type,
-excess_capacity_termination_policy,
-tag_specifications,
-spot_options,
-valid_from,
-replace_unhealthy_instances,
-launch_template_configs,
-fleet_id,
-terminate_instances_with_expiration,
-valid_until,
-context
+  region,
+  target_capacity_specification,
+  on_demand_options,
+  type,
+  excess_capacity_termination_policy,
+  tag_specifications,
+  spot_options,
+  valid_from,
+  replace_unhealthy_instances,
+  launch_template_configs,
+  fleet_id,
+  terminate_instances_with_expiration,
+  valid_until,
+  context
 FROM awscc.ec2.ec2fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -637,10 +639,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
 Lists all <code>ec2fleets</code> in a region.
 ```sql
 SELECT
-region,
-fleet_id
+  region,
+  fleet_id
 FROM awscc.ec2.ec2fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -662,14 +665,14 @@ Use the following StackQL query and manifest file to create a new <code>ec2fleet
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ec2fleets (
- TargetCapacitySpecification,
- LaunchTemplateConfigs,
- region
+  TargetCapacitySpecification,
+  LaunchTemplateConfigs,
+  region
 )
 SELECT
-'{{ target_capacity_specification }}',
- '{{ launch_template_configs }}',
-'{{ region }}';
+  '{{ target_capacity_specification }}',
+  '{{ launch_template_configs }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -677,34 +680,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ec2fleets (
- TargetCapacitySpecification,
- OnDemandOptions,
- Type,
- ExcessCapacityTerminationPolicy,
- TagSpecifications,
- SpotOptions,
- ValidFrom,
- ReplaceUnhealthyInstances,
- LaunchTemplateConfigs,
- TerminateInstancesWithExpiration,
- ValidUntil,
- Context,
- region
+  TargetCapacitySpecification,
+  OnDemandOptions,
+  Type,
+  ExcessCapacityTerminationPolicy,
+  TagSpecifications,
+  SpotOptions,
+  ValidFrom,
+  ReplaceUnhealthyInstances,
+  LaunchTemplateConfigs,
+  TerminateInstancesWithExpiration,
+  ValidUntil,
+  Context,
+  region
 )
 SELECT
- '{{ target_capacity_specification }}',
- '{{ on_demand_options }}',
- '{{ type }}',
- '{{ excess_capacity_termination_policy }}',
- '{{ tag_specifications }}',
- '{{ spot_options }}',
- '{{ valid_from }}',
- '{{ replace_unhealthy_instances }}',
- '{{ launch_template_configs }}',
- '{{ terminate_instances_with_expiration }}',
- '{{ valid_until }}',
- '{{ context }}',
- '{{ region }}';
+  '{{ target_capacity_specification }}',
+  '{{ on_demand_options }}',
+  '{{ type }}',
+  '{{ excess_capacity_termination_policy }}',
+  '{{ tag_specifications }}',
+  '{{ spot_options }}',
+  '{{ valid_from }}',
+  '{{ replace_unhealthy_instances }}',
+  '{{ launch_template_configs }}',
+  '{{ terminate_instances_with_expiration }}',
+  '{{ valid_until }}',
+  '{{ context }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -875,8 +878,9 @@ SET PatchDocument = string('{{ {
     "ExcessCapacityTerminationPolicy": excess_capacity_termination_policy,
     "Context": context
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ fleet_id }}';
 ```
 
 
@@ -885,8 +889,9 @@ AND Identifier = '{{ fleet_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ec2fleets
-WHERE Identifier = '{{ fleet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ fleet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

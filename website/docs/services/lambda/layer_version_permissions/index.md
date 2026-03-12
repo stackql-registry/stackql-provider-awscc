@@ -145,14 +145,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>layer_version_permission</code>.
 ```sql
 SELECT
-region,
-id,
-action,
-layer_version_arn,
-organization_id,
-principal
+  region,
+  id,
+  action,
+  layer_version_arn,
+  organization_id,
+  principal
 FROM awscc.lambda.layer_version_permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>layer_version_permissions</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.lambda.layer_version_permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>layer_ve
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.layer_version_permissions (
- Action,
- LayerVersionArn,
- Principal,
- region
+  Action,
+  LayerVersionArn,
+  Principal,
+  region
 )
 SELECT
-'{{ action }}',
- '{{ layer_version_arn }}',
- '{{ principal }}',
-'{{ region }}';
+  '{{ action }}',
+  '{{ layer_version_arn }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,18 +205,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.layer_version_permissions (
- Action,
- LayerVersionArn,
- OrganizationId,
- Principal,
- region
+  Action,
+  LayerVersionArn,
+  OrganizationId,
+  Principal,
+  region
 )
 SELECT
- '{{ action }}',
- '{{ layer_version_arn }}',
- '{{ organization_id }}',
- '{{ principal }}',
- '{{ region }}';
+  '{{ action }}',
+  '{{ layer_version_arn }}',
+  '{{ organization_id }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.layer_version_permissions
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

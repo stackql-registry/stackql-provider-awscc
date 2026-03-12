@@ -166,16 +166,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subscription_filter</code>.
 ```sql
 SELECT
-region,
-filter_name,
-destination_arn,
-filter_pattern,
-log_group_name,
-role_arn,
-distribution,
-apply_on_transformed_logs
+  region,
+  filter_name,
+  destination_arn,
+  filter_pattern,
+  log_group_name,
+  role_arn,
+  distribution,
+  apply_on_transformed_logs
 FROM awscc.logs.subscription_filters
-WHERE region = 'us-east-1' AND Identifier = '{{ filter_name }}|{{ log_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,11 +185,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ filter_name }}|{{ log_group_name
 Lists all <code>subscription_filters</code> in a region.
 ```sql
 SELECT
-region,
-filter_name,
-log_group_name
+  region,
+  filter_name,
+  log_group_name
 FROM awscc.logs.subscription_filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>subscrip
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.subscription_filters (
- DestinationArn,
- FilterPattern,
- LogGroupName,
- region
+  DestinationArn,
+  FilterPattern,
+  LogGroupName,
+  region
 )
 SELECT
-'{{ destination_arn }}',
- '{{ filter_pattern }}',
- '{{ log_group_name }}',
-'{{ region }}';
+  '{{ destination_arn }}',
+  '{{ filter_pattern }}',
+  '{{ log_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,24 +229,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.subscription_filters (
- FilterName,
- DestinationArn,
- FilterPattern,
- LogGroupName,
- RoleArn,
- Distribution,
- ApplyOnTransformedLogs,
- region
+  FilterName,
+  DestinationArn,
+  FilterPattern,
+  LogGroupName,
+  RoleArn,
+  Distribution,
+  ApplyOnTransformedLogs,
+  region
 )
 SELECT
- '{{ filter_name }}',
- '{{ destination_arn }}',
- '{{ filter_pattern }}',
- '{{ log_group_name }}',
- '{{ role_arn }}',
- '{{ distribution }}',
- '{{ apply_on_transformed_logs }}',
- '{{ region }}';
+  '{{ filter_name }}',
+  '{{ destination_arn }}',
+  '{{ filter_pattern }}',
+  '{{ log_group_name }}',
+  '{{ role_arn }}',
+  '{{ distribution }}',
+  '{{ apply_on_transformed_logs }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "Distribution": distribution,
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ filter_name }}|{{ log_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.subscription_filters
-WHERE Identifier = '{{ filter_name }}|{{ log_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ filter_name }}|{{ log_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

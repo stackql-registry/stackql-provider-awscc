@@ -157,14 +157,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>segment</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-pattern,
-tags
+  region,
+  arn,
+  name,
+  description,
+  pattern,
+  tags
 FROM awscc.evidently.segments
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>segments</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.evidently.segments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>segment<
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.segments (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,18 +213,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.segments (
- Name,
- Description,
- Pattern,
- Tags,
- region
+  Name,
+  Description,
+  Pattern,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ pattern }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ pattern }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -258,8 +261,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.segments
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

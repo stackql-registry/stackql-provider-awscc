@@ -130,11 +130,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>product_subscription</code>.
 ```sql
 SELECT
-region,
-product_arn,
-product_subscription_arn
+  region,
+  product_arn,
+  product_subscription_arn
 FROM awscc.securityhub.product_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ product_subscription_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ product_subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ product_subscription_arn }}';
 Lists all <code>product_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-product_subscription_arn
+  region,
+  product_subscription_arn
 FROM awscc.securityhub.product_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>product_
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.product_subscriptions (
- ProductArn,
- region
+  ProductArn,
+  region
 )
 SELECT
-'{{ product_arn }}',
-'{{ region }}';
+  '{{ product_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -180,12 +183,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.product_subscriptions (
- ProductArn,
- region
+  ProductArn,
+  region
 )
 SELECT
- '{{ product_arn }}',
- '{{ region }}';
+  '{{ product_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -214,8 +217,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.product_subscriptions
-WHERE Identifier = '{{ product_subscription_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ product_subscription_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

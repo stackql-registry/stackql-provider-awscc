@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>location_ef</code>.
 ```sql
 SELECT
-region,
-ec2_config,
-efs_filesystem_arn,
-access_point_arn,
-file_system_access_role_arn,
-in_transit_encryption,
-subdirectory,
-tags,
-location_arn,
-location_uri
+  region,
+  ec2_config,
+  efs_filesystem_arn,
+  access_point_arn,
+  file_system_access_role_arn,
+  in_transit_encryption,
+  subdirectory,
+  tags,
+  location_arn,
+  location_uri
 FROM awscc.datasync.location_efs
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>location_efs</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.location_efs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_efs (
- Ec2Config,
- region
+  Ec2Config,
+  region
 )
 SELECT
-'{{ ec2_config }}',
-'{{ region }}';
+  '{{ ec2_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,24 +255,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_efs (
- Ec2Config,
- EfsFilesystemArn,
- AccessPointArn,
- FileSystemAccessRoleArn,
- InTransitEncryption,
- Subdirectory,
- Tags,
- region
+  Ec2Config,
+  EfsFilesystemArn,
+  AccessPointArn,
+  FileSystemAccessRoleArn,
+  InTransitEncryption,
+  Subdirectory,
+  Tags,
+  region
 )
 SELECT
- '{{ ec2_config }}',
- '{{ efs_filesystem_arn }}',
- '{{ access_point_arn }}',
- '{{ file_system_access_role_arn }}',
- '{{ in_transit_encryption }}',
- '{{ subdirectory }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ec2_config }}',
+  '{{ efs_filesystem_arn }}',
+  '{{ access_point_arn }}',
+  '{{ file_system_access_role_arn }}',
+  '{{ in_transit_encryption }}',
+  '{{ subdirectory }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -323,8 +326,9 @@ SET PatchDocument = string('{{ {
     "Subdirectory": subdirectory,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -333,8 +337,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_efs
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

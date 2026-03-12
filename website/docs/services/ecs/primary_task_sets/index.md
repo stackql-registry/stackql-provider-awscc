@@ -90,12 +90,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>primary_task_set</code>.
 ```sql
 SELECT
-region,
-task_set_id,
-cluster,
-service
+  region,
+  task_set_id,
+  cluster,
+  service
 FROM awscc.ecs.primary_task_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}|{{ service }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster }}|{{ service }}';
 ```
 
 ## `INSERT` example
@@ -115,16 +117,16 @@ Use the following StackQL query and manifest file to create a new <code>primary_
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.primary_task_sets (
- TaskSetId,
- Cluster,
- Service,
- region
+  TaskSetId,
+  Cluster,
+  Service,
+  region
 )
 SELECT
-'{{ task_set_id }}',
- '{{ cluster }}',
- '{{ service }}',
-'{{ region }}';
+  '{{ task_set_id }}',
+  '{{ cluster }}',
+  '{{ service }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -132,16 +134,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.primary_task_sets (
- TaskSetId,
- Cluster,
- Service,
- region
+  TaskSetId,
+  Cluster,
+  Service,
+  region
 )
 SELECT
- '{{ task_set_id }}',
- '{{ cluster }}',
- '{{ service }}',
- '{{ region }}';
+  '{{ task_set_id }}',
+  '{{ cluster }}',
+  '{{ service }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -178,8 +180,9 @@ UPDATE awscc.ecs.primary_task_sets
 SET PatchDocument = string('{{ {
     "TaskSetId": task_set_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster }}|{{ service }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster }}|{{ service }}';
 ```
 
 

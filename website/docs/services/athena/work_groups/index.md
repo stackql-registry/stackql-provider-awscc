@@ -470,17 +470,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>work_group</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-tags,
-work_group_configuration,
-work_group_configuration_updates,
-creation_time,
-state,
-recursive_delete_option
+  region,
+  name,
+  description,
+  tags,
+  work_group_configuration,
+  work_group_configuration_updates,
+  creation_time,
+  state,
+  recursive_delete_option
 FROM awscc.athena.work_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -488,10 +490,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>work_groups</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.athena.work_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -513,12 +516,12 @@ Use the following StackQL query and manifest file to create a new <code>work_gro
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.work_groups (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -526,24 +529,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.work_groups (
- Name,
- Description,
- Tags,
- WorkGroupConfiguration,
- WorkGroupConfigurationUpdates,
- State,
- RecursiveDeleteOption,
- region
+  Name,
+  Description,
+  Tags,
+  WorkGroupConfiguration,
+  WorkGroupConfigurationUpdates,
+  State,
+  RecursiveDeleteOption,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ work_group_configuration }}',
- '{{ work_group_configuration_updates }}',
- '{{ state }}',
- '{{ recursive_delete_option }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ work_group_configuration }}',
+  '{{ work_group_configuration_updates }}',
+  '{{ state }}',
+  '{{ recursive_delete_option }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -636,8 +639,9 @@ SET PatchDocument = string('{{ {
     "State": state,
     "RecursiveDeleteOption": recursive_delete_option
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -646,8 +650,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.work_groups
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

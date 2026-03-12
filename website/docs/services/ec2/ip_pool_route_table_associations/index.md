@@ -135,12 +135,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ip_pool_route_table_association</code>.
 ```sql
 SELECT
-region,
-association_id,
-public_ipv4_pool,
-route_table_id
+  region,
+  association_id,
+  public_ipv4_pool,
+  route_table_id
 FROM awscc.ec2.ip_pool_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 Lists all <code>ip_pool_route_table_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_id
+  region,
+  association_id
 FROM awscc.ec2.ip_pool_route_table_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>ip_pool_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ip_pool_route_table_associations (
- PublicIpv4Pool,
- RouteTableId,
- region
+  PublicIpv4Pool,
+  RouteTableId,
+  region
 )
 SELECT
-'{{ public_ipv4_pool }}',
- '{{ route_table_id }}',
-'{{ region }}';
+  '{{ public_ipv4_pool }}',
+  '{{ route_table_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ip_pool_route_table_associations (
- PublicIpv4Pool,
- RouteTableId,
- region
+  PublicIpv4Pool,
+  RouteTableId,
+  region
 )
 SELECT
- '{{ public_ipv4_pool }}',
- '{{ route_table_id }}',
- '{{ region }}';
+  '{{ public_ipv4_pool }}',
+  '{{ route_table_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ip_pool_route_table_associations
-WHERE Identifier = '{{ association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

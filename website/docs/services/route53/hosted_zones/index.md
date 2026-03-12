@@ -199,16 +199,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hosted_zone</code>.
 ```sql
 SELECT
-region,
-hosted_zone_tags,
-vpcs,
-hosted_zone_config,
-id,
-name_servers,
-query_logging_config,
-name
+  region,
+  hosted_zone_tags,
+  vpcs,
+  hosted_zone_config,
+  id,
+  name_servers,
+  query_logging_config,
+  name
 FROM awscc.route53.hosted_zones
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -216,10 +218,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>hosted_zones</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53.hosted_zones_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -241,20 +244,20 @@ Use the following StackQL query and manifest file to create a new <code>hosted_z
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.hosted_zones (
- HostedZoneTags,
- VPCs,
- HostedZoneConfig,
- QueryLoggingConfig,
- Name,
- region
+  HostedZoneTags,
+  VPCs,
+  HostedZoneConfig,
+  QueryLoggingConfig,
+  Name,
+  region
 )
 SELECT
-'{{ hosted_zone_tags }}',
- '{{ vpcs }}',
- '{{ hosted_zone_config }}',
- '{{ query_logging_config }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ hosted_zone_tags }}',
+  '{{ vpcs }}',
+  '{{ hosted_zone_config }}',
+  '{{ query_logging_config }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,20 +265,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.hosted_zones (
- HostedZoneTags,
- VPCs,
- HostedZoneConfig,
- QueryLoggingConfig,
- Name,
- region
+  HostedZoneTags,
+  VPCs,
+  HostedZoneConfig,
+  QueryLoggingConfig,
+  Name,
+  region
 )
 SELECT
- '{{ hosted_zone_tags }}',
- '{{ vpcs }}',
- '{{ hosted_zone_config }}',
- '{{ query_logging_config }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ hosted_zone_tags }}',
+  '{{ vpcs }}',
+  '{{ hosted_zone_config }}',
+  '{{ query_logging_config }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -325,8 +328,9 @@ SET PatchDocument = string('{{ {
     "HostedZoneConfig": hosted_zone_config,
     "QueryLoggingConfig": query_logging_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -335,8 +339,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.hosted_zones
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

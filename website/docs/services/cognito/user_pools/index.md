@@ -690,42 +690,44 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool</code>.
 ```sql
 SELECT
-region,
-user_pool_name,
-policies,
-account_recovery_setting,
-admin_create_user_config,
-alias_attributes,
-username_attributes,
-auto_verified_attributes,
-device_configuration,
-email_configuration,
-email_verification_message,
-email_verification_subject,
-deletion_protection,
-lambda_config,
-mfa_configuration,
-enabled_mfas,
-sms_authentication_message,
-email_authentication_message,
-email_authentication_subject,
-sms_configuration,
-sms_verification_message,
-web_authn_relying_party_id,
-web_authn_user_verification,
-schema,
-username_configuration,
-user_attribute_update_settings,
-user_pool_tags,
-verification_message_template,
-user_pool_add_ons,
-provider_name,
-provider_url,
-arn,
-user_pool_id,
-user_pool_tier
+  region,
+  user_pool_name,
+  policies,
+  account_recovery_setting,
+  admin_create_user_config,
+  alias_attributes,
+  username_attributes,
+  auto_verified_attributes,
+  device_configuration,
+  email_configuration,
+  email_verification_message,
+  email_verification_subject,
+  deletion_protection,
+  lambda_config,
+  mfa_configuration,
+  enabled_mfas,
+  sms_authentication_message,
+  email_authentication_message,
+  email_authentication_subject,
+  sms_configuration,
+  sms_verification_message,
+  web_authn_relying_party_id,
+  web_authn_user_verification,
+  schema,
+  username_configuration,
+  user_attribute_update_settings,
+  user_pool_tags,
+  verification_message_template,
+  user_pool_add_ons,
+  provider_name,
+  provider_url,
+  arn,
+  user_pool_id,
+  user_pool_tier
 FROM awscc.cognito.user_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -733,10 +735,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}';
 Lists all <code>user_pools</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id
+  region,
+  user_pool_id
 FROM awscc.cognito.user_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -758,68 +761,68 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pools (
- UserPoolName,
- Policies,
- AccountRecoverySetting,
- AdminCreateUserConfig,
- AliasAttributes,
- UsernameAttributes,
- AutoVerifiedAttributes,
- DeviceConfiguration,
- EmailConfiguration,
- EmailVerificationMessage,
- EmailVerificationSubject,
- DeletionProtection,
- LambdaConfig,
- MfaConfiguration,
- EnabledMfas,
- SmsAuthenticationMessage,
- EmailAuthenticationMessage,
- EmailAuthenticationSubject,
- SmsConfiguration,
- SmsVerificationMessage,
- WebAuthnRelyingPartyID,
- WebAuthnUserVerification,
- Schema,
- UsernameConfiguration,
- UserAttributeUpdateSettings,
- UserPoolTags,
- VerificationMessageTemplate,
- UserPoolAddOns,
- UserPoolTier,
- region
+  UserPoolName,
+  Policies,
+  AccountRecoverySetting,
+  AdminCreateUserConfig,
+  AliasAttributes,
+  UsernameAttributes,
+  AutoVerifiedAttributes,
+  DeviceConfiguration,
+  EmailConfiguration,
+  EmailVerificationMessage,
+  EmailVerificationSubject,
+  DeletionProtection,
+  LambdaConfig,
+  MfaConfiguration,
+  EnabledMfas,
+  SmsAuthenticationMessage,
+  EmailAuthenticationMessage,
+  EmailAuthenticationSubject,
+  SmsConfiguration,
+  SmsVerificationMessage,
+  WebAuthnRelyingPartyID,
+  WebAuthnUserVerification,
+  Schema,
+  UsernameConfiguration,
+  UserAttributeUpdateSettings,
+  UserPoolTags,
+  VerificationMessageTemplate,
+  UserPoolAddOns,
+  UserPoolTier,
+  region
 )
 SELECT
-'{{ user_pool_name }}',
- '{{ policies }}',
- '{{ account_recovery_setting }}',
- '{{ admin_create_user_config }}',
- '{{ alias_attributes }}',
- '{{ username_attributes }}',
- '{{ auto_verified_attributes }}',
- '{{ device_configuration }}',
- '{{ email_configuration }}',
- '{{ email_verification_message }}',
- '{{ email_verification_subject }}',
- '{{ deletion_protection }}',
- '{{ lambda_config }}',
- '{{ mfa_configuration }}',
- '{{ enabled_mfas }}',
- '{{ sms_authentication_message }}',
- '{{ email_authentication_message }}',
- '{{ email_authentication_subject }}',
- '{{ sms_configuration }}',
- '{{ sms_verification_message }}',
- '{{ web_authn_relying_party_id }}',
- '{{ web_authn_user_verification }}',
- '{{ schema }}',
- '{{ username_configuration }}',
- '{{ user_attribute_update_settings }}',
- '{{ user_pool_tags }}',
- '{{ verification_message_template }}',
- '{{ user_pool_add_ons }}',
- '{{ user_pool_tier }}',
-'{{ region }}';
+  '{{ user_pool_name }}',
+  '{{ policies }}',
+  '{{ account_recovery_setting }}',
+  '{{ admin_create_user_config }}',
+  '{{ alias_attributes }}',
+  '{{ username_attributes }}',
+  '{{ auto_verified_attributes }}',
+  '{{ device_configuration }}',
+  '{{ email_configuration }}',
+  '{{ email_verification_message }}',
+  '{{ email_verification_subject }}',
+  '{{ deletion_protection }}',
+  '{{ lambda_config }}',
+  '{{ mfa_configuration }}',
+  '{{ enabled_mfas }}',
+  '{{ sms_authentication_message }}',
+  '{{ email_authentication_message }}',
+  '{{ email_authentication_subject }}',
+  '{{ sms_configuration }}',
+  '{{ sms_verification_message }}',
+  '{{ web_authn_relying_party_id }}',
+  '{{ web_authn_user_verification }}',
+  '{{ schema }}',
+  '{{ username_configuration }}',
+  '{{ user_attribute_update_settings }}',
+  '{{ user_pool_tags }}',
+  '{{ verification_message_template }}',
+  '{{ user_pool_add_ons }}',
+  '{{ user_pool_tier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -827,68 +830,68 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pools (
- UserPoolName,
- Policies,
- AccountRecoverySetting,
- AdminCreateUserConfig,
- AliasAttributes,
- UsernameAttributes,
- AutoVerifiedAttributes,
- DeviceConfiguration,
- EmailConfiguration,
- EmailVerificationMessage,
- EmailVerificationSubject,
- DeletionProtection,
- LambdaConfig,
- MfaConfiguration,
- EnabledMfas,
- SmsAuthenticationMessage,
- EmailAuthenticationMessage,
- EmailAuthenticationSubject,
- SmsConfiguration,
- SmsVerificationMessage,
- WebAuthnRelyingPartyID,
- WebAuthnUserVerification,
- Schema,
- UsernameConfiguration,
- UserAttributeUpdateSettings,
- UserPoolTags,
- VerificationMessageTemplate,
- UserPoolAddOns,
- UserPoolTier,
- region
+  UserPoolName,
+  Policies,
+  AccountRecoverySetting,
+  AdminCreateUserConfig,
+  AliasAttributes,
+  UsernameAttributes,
+  AutoVerifiedAttributes,
+  DeviceConfiguration,
+  EmailConfiguration,
+  EmailVerificationMessage,
+  EmailVerificationSubject,
+  DeletionProtection,
+  LambdaConfig,
+  MfaConfiguration,
+  EnabledMfas,
+  SmsAuthenticationMessage,
+  EmailAuthenticationMessage,
+  EmailAuthenticationSubject,
+  SmsConfiguration,
+  SmsVerificationMessage,
+  WebAuthnRelyingPartyID,
+  WebAuthnUserVerification,
+  Schema,
+  UsernameConfiguration,
+  UserAttributeUpdateSettings,
+  UserPoolTags,
+  VerificationMessageTemplate,
+  UserPoolAddOns,
+  UserPoolTier,
+  region
 )
 SELECT
- '{{ user_pool_name }}',
- '{{ policies }}',
- '{{ account_recovery_setting }}',
- '{{ admin_create_user_config }}',
- '{{ alias_attributes }}',
- '{{ username_attributes }}',
- '{{ auto_verified_attributes }}',
- '{{ device_configuration }}',
- '{{ email_configuration }}',
- '{{ email_verification_message }}',
- '{{ email_verification_subject }}',
- '{{ deletion_protection }}',
- '{{ lambda_config }}',
- '{{ mfa_configuration }}',
- '{{ enabled_mfas }}',
- '{{ sms_authentication_message }}',
- '{{ email_authentication_message }}',
- '{{ email_authentication_subject }}',
- '{{ sms_configuration }}',
- '{{ sms_verification_message }}',
- '{{ web_authn_relying_party_id }}',
- '{{ web_authn_user_verification }}',
- '{{ schema }}',
- '{{ username_configuration }}',
- '{{ user_attribute_update_settings }}',
- '{{ user_pool_tags }}',
- '{{ verification_message_template }}',
- '{{ user_pool_add_ons }}',
- '{{ user_pool_tier }}',
- '{{ region }}';
+  '{{ user_pool_name }}',
+  '{{ policies }}',
+  '{{ account_recovery_setting }}',
+  '{{ admin_create_user_config }}',
+  '{{ alias_attributes }}',
+  '{{ username_attributes }}',
+  '{{ auto_verified_attributes }}',
+  '{{ device_configuration }}',
+  '{{ email_configuration }}',
+  '{{ email_verification_message }}',
+  '{{ email_verification_subject }}',
+  '{{ deletion_protection }}',
+  '{{ lambda_config }}',
+  '{{ mfa_configuration }}',
+  '{{ enabled_mfas }}',
+  '{{ sms_authentication_message }}',
+  '{{ email_authentication_message }}',
+  '{{ email_authentication_subject }}',
+  '{{ sms_configuration }}',
+  '{{ sms_verification_message }}',
+  '{{ web_authn_relying_party_id }}',
+  '{{ web_authn_user_verification }}',
+  '{{ schema }}',
+  '{{ username_configuration }}',
+  '{{ user_attribute_update_settings }}',
+  '{{ user_pool_tags }}',
+  '{{ verification_message_template }}',
+  '{{ user_pool_add_ons }}',
+  '{{ user_pool_tier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1082,8 +1085,9 @@ SET PatchDocument = string('{{ {
     "UserPoolAddOns": user_pool_add_ons,
     "UserPoolTier": user_pool_tier
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}';
 ```
 
 
@@ -1092,8 +1096,9 @@ AND Identifier = '{{ user_pool_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pools
-WHERE Identifier = '{{ user_pool_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,13 +163,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_version</code>.
 ```sql
 SELECT
-region,
-id,
-application_name,
-description,
-source_bundle
+  region,
+  id,
+  application_name,
+  description,
+  source_bundle
 FROM awscc.elasticbeanstalk.application_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ id }}';
 Lists all <code>application_versions</code> in a region.
 ```sql
 SELECT
-region,
-application_name,
-id
+  region,
+  application_name,
+  id
 FROM awscc.elasticbeanstalk.application_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.application_versions (
- ApplicationName,
- SourceBundle,
- region
+  ApplicationName,
+  SourceBundle,
+  region
 )
 SELECT
-'{{ application_name }}',
- '{{ source_bundle }}',
-'{{ region }}';
+  '{{ application_name }}',
+  '{{ source_bundle }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.application_versions (
- ApplicationName,
- Description,
- SourceBundle,
- region
+  ApplicationName,
+  Description,
+  SourceBundle,
+  region
 )
 SELECT
- '{{ application_name }}',
- '{{ description }}',
- '{{ source_bundle }}',
- '{{ region }}';
+  '{{ application_name }}',
+  '{{ description }}',
+  '{{ source_bundle }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.elasticbeanstalk.application_versions
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_name }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_name }}|{{ id }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ application_name }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.application_versions
-WHERE Identifier = '{{ application_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

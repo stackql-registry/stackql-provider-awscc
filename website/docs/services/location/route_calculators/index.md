@@ -178,18 +178,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_calculator</code>.
 ```sql
 SELECT
-region,
-calculator_arn,
-calculator_name,
-create_time,
-data_source,
-description,
-pricing_plan,
-tags,
-update_time,
-arn
+  region,
+  calculator_arn,
+  calculator_name,
+  create_time,
+  data_source,
+  description,
+  pricing_plan,
+  tags,
+  update_time,
+  arn
 FROM awscc.location.route_calculators
-WHERE region = 'us-east-1' AND Identifier = '{{ calculator_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ calculator_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ calculator_name }}';
 Lists all <code>route_calculators</code> in a region.
 ```sql
 SELECT
-region,
-calculator_name
+  region,
+  calculator_name
 FROM awscc.location.route_calculators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,14 +225,14 @@ Use the following StackQL query and manifest file to create a new <code>route_ca
 ```sql
 /*+ create */
 INSERT INTO awscc.location.route_calculators (
- CalculatorName,
- DataSource,
- region
+  CalculatorName,
+  DataSource,
+  region
 )
 SELECT
-'{{ calculator_name }}',
- '{{ data_source }}',
-'{{ region }}';
+  '{{ calculator_name }}',
+  '{{ data_source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,20 +240,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.route_calculators (
- CalculatorName,
- DataSource,
- Description,
- PricingPlan,
- Tags,
- region
+  CalculatorName,
+  DataSource,
+  Description,
+  PricingPlan,
+  Tags,
+  region
 )
 SELECT
- '{{ calculator_name }}',
- '{{ data_source }}',
- '{{ description }}',
- '{{ pricing_plan }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ calculator_name }}',
+  '{{ data_source }}',
+  '{{ description }}',
+  '{{ pricing_plan }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -295,8 +298,9 @@ SET PatchDocument = string('{{ {
     "PricingPlan": pricing_plan,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ calculator_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ calculator_name }}';
 ```
 
 
@@ -305,8 +309,9 @@ AND Identifier = '{{ calculator_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.route_calculators
-WHERE Identifier = '{{ calculator_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ calculator_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

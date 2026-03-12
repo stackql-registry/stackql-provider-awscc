@@ -232,20 +232,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint_access</code>.
 ```sql
 SELECT
-region,
-endpoint_status,
-vpc_endpoint,
-address,
-endpoint_name,
-vpc_security_group_ids,
-resource_owner,
-subnet_group_name,
-port,
-endpoint_create_time,
-cluster_identifier,
-vpc_security_groups
+  region,
+  endpoint_status,
+  vpc_endpoint,
+  address,
+  endpoint_name,
+  vpc_security_group_ids,
+  resource_owner,
+  subnet_group_name,
+  port,
+  endpoint_create_time,
+  cluster_identifier,
+  vpc_security_groups
 FROM awscc.redshift.endpoint_accesses
-WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ endpoint_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,10 +255,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_name }}';
 Lists all <code>endpoint_accesses</code> in a region.
 ```sql
 SELECT
-region,
-endpoint_name
+  region,
+  endpoint_name
 FROM awscc.redshift.endpoint_accesses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -278,18 +281,18 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.endpoint_accesses (
- EndpointName,
- VpcSecurityGroupIds,
- SubnetGroupName,
- ClusterIdentifier,
- region
+  EndpointName,
+  VpcSecurityGroupIds,
+  SubnetGroupName,
+  ClusterIdentifier,
+  region
 )
 SELECT
-'{{ endpoint_name }}',
- '{{ vpc_security_group_ids }}',
- '{{ subnet_group_name }}',
- '{{ cluster_identifier }}',
-'{{ region }}';
+  '{{ endpoint_name }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ subnet_group_name }}',
+  '{{ cluster_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -297,20 +300,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.endpoint_accesses (
- EndpointName,
- VpcSecurityGroupIds,
- ResourceOwner,
- SubnetGroupName,
- ClusterIdentifier,
- region
+  EndpointName,
+  VpcSecurityGroupIds,
+  ResourceOwner,
+  SubnetGroupName,
+  ClusterIdentifier,
+  region
 )
 SELECT
- '{{ endpoint_name }}',
- '{{ vpc_security_group_ids }}',
- '{{ resource_owner }}',
- '{{ subnet_group_name }}',
- '{{ cluster_identifier }}',
- '{{ region }}';
+  '{{ endpoint_name }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ resource_owner }}',
+  '{{ subnet_group_name }}',
+  '{{ cluster_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -352,8 +355,9 @@ UPDATE awscc.redshift.endpoint_accesses
 SET PatchDocument = string('{{ {
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ endpoint_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ endpoint_name }}';
 ```
 
 
@@ -362,8 +366,9 @@ AND Identifier = '{{ endpoint_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.endpoint_accesses
-WHERE Identifier = '{{ endpoint_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ endpoint_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

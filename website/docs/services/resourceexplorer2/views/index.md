@@ -170,15 +170,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>view</code>.
 ```sql
 SELECT
-region,
-filters,
-included_properties,
-scope,
-tags,
-view_arn,
-view_name
+  region,
+  filters,
+  included_properties,
+  scope,
+  tags,
+  view_arn,
+  view_name
 FROM awscc.resourceexplorer2.views
-WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ view_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -186,10 +188,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
 Lists all <code>views</code> in a region.
 ```sql
 SELECT
-region,
-view_arn
+  region,
+  view_arn
 FROM awscc.resourceexplorer2.views_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -211,12 +214,12 @@ Use the following StackQL query and manifest file to create a new <code>view</co
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.views (
- ViewName,
- region
+  ViewName,
+  region
 )
 SELECT
-'{{ view_name }}',
-'{{ region }}';
+  '{{ view_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.views (
- Filters,
- IncludedProperties,
- Scope,
- Tags,
- ViewName,
- region
+  Filters,
+  IncludedProperties,
+  Scope,
+  Tags,
+  ViewName,
+  region
 )
 SELECT
- '{{ filters }}',
- '{{ included_properties }}',
- '{{ scope }}',
- '{{ tags }}',
- '{{ view_name }}',
- '{{ region }}';
+  '{{ filters }}',
+  '{{ included_properties }}',
+  '{{ scope }}',
+  '{{ tags }}',
+  '{{ view_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "IncludedProperties": included_properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ view_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ view_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ view_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.views
-WHERE Identifier = '{{ view_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ view_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

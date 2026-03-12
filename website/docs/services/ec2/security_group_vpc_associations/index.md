@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_group_vpc_association</code>.
 ```sql
 SELECT
-region,
-group_id,
-vpc_id,
-vpc_owner_id,
-state,
-state_reason
+  region,
+  group_id,
+  vpc_id,
+  vpc_owner_id,
+  state,
+  state_reason
 FROM awscc.ec2.security_group_vpc_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ vpc_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_id }}|{{ vpc_id }}';
 Lists all <code>security_group_vpc_associations</code> in a region.
 ```sql
 SELECT
-region,
-group_id,
-vpc_id
+  region,
+  group_id,
+  vpc_id
 FROM awscc.ec2.security_group_vpc_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_vpc_associations (
- GroupId,
- VpcId,
- region
+  GroupId,
+  VpcId,
+  region
 )
 SELECT
-'{{ group_id }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ group_id }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_vpc_associations (
- GroupId,
- VpcId,
- region
+  GroupId,
+  VpcId,
+  region
 )
 SELECT
- '{{ group_id }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ group_id }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_vpc_associations
-WHERE Identifier = '{{ group_id }}|{{ vpc_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_id }}|{{ vpc_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

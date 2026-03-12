@@ -155,13 +155,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>owner</code>.
 ```sql
 SELECT
-region,
-entity_type,
-owner,
-entity_identifier,
-domain_identifier
+  region,
+  entity_type,
+  owner,
+  entity_identifier,
+  domain_identifier
 FROM awscc.datazone.owners
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -169,14 +171,15 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ entity_t
 Lists all <code>owners</code> in a region.
 ```sql
 SELECT
-region,
-domain_identifier,
-entity_type,
-entity_identifier,
-owner_type,
-owner_identifier
+  region,
+  domain_identifier,
+  entity_type,
+  entity_identifier,
+  owner_type,
+  owner_identifier
 FROM awscc.datazone.owners_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,18 +201,18 @@ Use the following StackQL query and manifest file to create a new <code>owner</c
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.owners (
- EntityType,
- Owner,
- EntityIdentifier,
- DomainIdentifier,
- region
+  EntityType,
+  Owner,
+  EntityIdentifier,
+  DomainIdentifier,
+  region
 )
 SELECT
-'{{ entity_type }}',
- '{{ owner }}',
- '{{ entity_identifier }}',
- '{{ domain_identifier }}',
-'{{ region }}';
+  '{{ entity_type }}',
+  '{{ owner }}',
+  '{{ entity_identifier }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -217,18 +220,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.owners (
- EntityType,
- Owner,
- EntityIdentifier,
- DomainIdentifier,
- region
+  EntityType,
+  Owner,
+  EntityIdentifier,
+  DomainIdentifier,
+  region
 )
 SELECT
- '{{ entity_type }}',
- '{{ owner }}',
- '{{ entity_identifier }}',
- '{{ domain_identifier }}',
- '{{ region }}';
+  '{{ entity_type }}',
+  '{{ owner }}',
+  '{{ entity_identifier }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -263,8 +266,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.owners
-WHERE Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

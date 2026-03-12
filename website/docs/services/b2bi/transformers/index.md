@@ -321,24 +321,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transformer</code>.
 ```sql
 SELECT
-region,
-created_at,
-edi_type,
-file_format,
-input_conversion,
-mapping,
-mapping_template,
-modified_at,
-name,
-output_conversion,
-sample_document,
-sample_documents,
-status,
-tags,
-transformer_arn,
-transformer_id
+  region,
+  created_at,
+  edi_type,
+  file_format,
+  input_conversion,
+  mapping,
+  mapping_template,
+  modified_at,
+  name,
+  output_conversion,
+  sample_document,
+  sample_documents,
+  status,
+  tags,
+  transformer_arn,
+  transformer_id
 FROM awscc.b2bi.transformers
-WHERE region = 'us-east-1' AND Identifier = '{{ transformer_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transformer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,10 +348,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transformer_id }}';
 Lists all <code>transformers</code> in a region.
 ```sql
 SELECT
-region,
-transformer_id
+  region,
+  transformer_id
 FROM awscc.b2bi.transformers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -371,14 +374,14 @@ Use the following StackQL query and manifest file to create a new <code>transfor
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.transformers (
- Name,
- Status,
- region
+  Name,
+  Status,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ status }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -386,32 +389,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.transformers (
- EdiType,
- FileFormat,
- InputConversion,
- Mapping,
- MappingTemplate,
- Name,
- OutputConversion,
- SampleDocument,
- SampleDocuments,
- Status,
- Tags,
- region
+  EdiType,
+  FileFormat,
+  InputConversion,
+  Mapping,
+  MappingTemplate,
+  Name,
+  OutputConversion,
+  SampleDocument,
+  SampleDocuments,
+  Status,
+  Tags,
+  region
 )
 SELECT
- '{{ edi_type }}',
- '{{ file_format }}',
- '{{ input_conversion }}',
- '{{ mapping }}',
- '{{ mapping_template }}',
- '{{ name }}',
- '{{ output_conversion }}',
- '{{ sample_document }}',
- '{{ sample_documents }}',
- '{{ status }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ edi_type }}',
+  '{{ file_format }}',
+  '{{ input_conversion }}',
+  '{{ mapping }}',
+  '{{ mapping_template }}',
+  '{{ name }}',
+  '{{ output_conversion }}',
+  '{{ sample_document }}',
+  '{{ sample_documents }}',
+  '{{ status }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -494,8 +497,9 @@ SET PatchDocument = string('{{ {
     "Status": status,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ transformer_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ transformer_id }}';
 ```
 
 
@@ -504,8 +508,9 @@ AND Identifier = '{{ transformer_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.transformers
-WHERE Identifier = '{{ transformer_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transformer_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

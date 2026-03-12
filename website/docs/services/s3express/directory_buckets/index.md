@@ -260,17 +260,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>directory_bucket</code>.
 ```sql
 SELECT
-region,
-bucket_name,
-location_name,
-availability_zone_name,
-data_redundancy,
-arn,
-bucket_encryption,
-lifecycle_configuration,
-tags
+  region,
+  bucket_name,
+  location_name,
+  availability_zone_name,
+  data_redundancy,
+  arn,
+  bucket_encryption,
+  lifecycle_configuration,
+  tags
 FROM awscc.s3express.directory_buckets
-WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,10 +280,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bucket_name }}';
 Lists all <code>directory_buckets</code> in a region.
 ```sql
 SELECT
-region,
-bucket_name
+  region,
+  bucket_name
 FROM awscc.s3express.directory_buckets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -303,14 +306,14 @@ Use the following StackQL query and manifest file to create a new <code>director
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.directory_buckets (
- LocationName,
- DataRedundancy,
- region
+  LocationName,
+  DataRedundancy,
+  region
 )
 SELECT
-'{{ location_name }}',
- '{{ data_redundancy }}',
-'{{ region }}';
+  '{{ location_name }}',
+  '{{ data_redundancy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -318,22 +321,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.directory_buckets (
- BucketName,
- LocationName,
- DataRedundancy,
- BucketEncryption,
- LifecycleConfiguration,
- Tags,
- region
+  BucketName,
+  LocationName,
+  DataRedundancy,
+  BucketEncryption,
+  LifecycleConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ bucket_name }}',
- '{{ location_name }}',
- '{{ data_redundancy }}',
- '{{ bucket_encryption }}',
- '{{ lifecycle_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ bucket_name }}',
+  '{{ location_name }}',
+  '{{ data_redundancy }}',
+  '{{ bucket_encryption }}',
+  '{{ lifecycle_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -394,8 +397,9 @@ SET PatchDocument = string('{{ {
     "LifecycleConfiguration": lifecycle_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bucket_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bucket_name }}';
 ```
 
 
@@ -404,8 +408,9 @@ AND Identifier = '{{ bucket_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3express.directory_buckets
-WHERE Identifier = '{{ bucket_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bucket_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

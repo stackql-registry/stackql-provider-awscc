@@ -190,16 +190,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_multicast_domain</code>.
 ```sql
 SELECT
-region,
-transit_gateway_multicast_domain_id,
-transit_gateway_multicast_domain_arn,
-transit_gateway_id,
-state,
-creation_time,
-tags,
-options
+  region,
+  transit_gateway_multicast_domain_id,
+  transit_gateway_multicast_domain_arn,
+  transit_gateway_id,
+  state,
+  creation_time,
+  tags,
+  options
 FROM awscc.ec2.transit_gateway_multicast_domains
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,10 +209,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain
 Lists all <code>transit_gateway_multicast_domains</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_multicast_domain_id
+  region,
+  transit_gateway_multicast_domain_id
 FROM awscc.ec2.transit_gateway_multicast_domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -232,12 +235,12 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_domains (
- TransitGatewayId,
- region
+  TransitGatewayId,
+  region
 )
 SELECT
-'{{ transit_gateway_id }}',
-'{{ region }}';
+  '{{ transit_gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,16 +248,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_domains (
- TransitGatewayId,
- Tags,
- Options,
- region
+  TransitGatewayId,
+  Tags,
+  Options,
+  region
 )
 SELECT
- '{{ transit_gateway_id }}',
- '{{ tags }}',
- '{{ options }}',
- '{{ region }}';
+  '{{ transit_gateway_id }}',
+  '{{ tags }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -297,8 +300,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Options": options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ transit_gateway_multicast_domain_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```
 
 
@@ -307,8 +311,9 @@ AND Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_domains
-WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_multicast_domain_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

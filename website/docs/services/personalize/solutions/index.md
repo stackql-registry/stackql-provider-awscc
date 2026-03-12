@@ -262,17 +262,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>solution</code>.
 ```sql
 SELECT
-region,
-name,
-solution_arn,
-event_type,
-dataset_group_arn,
-perform_auto_ml,
-perform_hpo,
-recipe_arn,
-solution_config
+  region,
+  name,
+  solution_arn,
+  event_type,
+  dataset_group_arn,
+  perform_auto_ml,
+  perform_hpo,
+  recipe_arn,
+  solution_config
 FROM awscc.personalize.solutions
-WHERE region = 'us-east-1' AND Identifier = '{{ solution_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ solution_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,10 +282,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ solution_arn }}';
 Lists all <code>solutions</code> in a region.
 ```sql
 SELECT
-region,
-solution_arn
+  region,
+  solution_arn
 FROM awscc.personalize.solutions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -305,14 +308,14 @@ Use the following StackQL query and manifest file to create a new <code>solution
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.solutions (
- Name,
- DatasetGroupArn,
- region
+  Name,
+  DatasetGroupArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ dataset_group_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ dataset_group_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -320,24 +323,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.solutions (
- Name,
- EventType,
- DatasetGroupArn,
- PerformAutoML,
- PerformHPO,
- RecipeArn,
- SolutionConfig,
- region
+  Name,
+  EventType,
+  DatasetGroupArn,
+  PerformAutoML,
+  PerformHPO,
+  RecipeArn,
+  SolutionConfig,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ event_type }}',
- '{{ dataset_group_arn }}',
- '{{ perform_auto_ml }}',
- '{{ perform_hpo }}',
- '{{ recipe_arn }}',
- '{{ solution_config }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ event_type }}',
+  '{{ dataset_group_arn }}',
+  '{{ perform_auto_ml }}',
+  '{{ perform_hpo }}',
+  '{{ recipe_arn }}',
+  '{{ solution_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -406,8 +409,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.solutions
-WHERE Identifier = '{{ solution_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ solution_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

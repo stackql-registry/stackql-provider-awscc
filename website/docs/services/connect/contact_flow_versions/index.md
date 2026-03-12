@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>contact_flow_version</code>.
 ```sql
 SELECT
-region,
-contact_flow_version_arn,
-contact_flow_id,
-version,
-description,
-flow_content_sha256
+  region,
+  contact_flow_version_arn,
+  contact_flow_id,
+  version,
+  description,
+  flow_content_sha256
 FROM awscc.connect.contact_flow_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_version_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ contact_flow_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_version_arn }}';
 Lists all <code>contact_flow_versions</code> in a region.
 ```sql
 SELECT
-region,
-contact_flow_version_arn
+  region,
+  contact_flow_version_arn
 FROM awscc.connect.contact_flow_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,12 +199,12 @@ Use the following StackQL query and manifest file to create a new <code>contact_
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.contact_flow_versions (
- ContactFlowId,
- region
+  ContactFlowId,
+  region
 )
 SELECT
-'{{ contact_flow_id }}',
-'{{ region }}';
+  '{{ contact_flow_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -209,14 +212,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.contact_flow_versions (
- ContactFlowId,
- Description,
- region
+  ContactFlowId,
+  Description,
+  region
 )
 SELECT
- '{{ contact_flow_id }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ contact_flow_id }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -247,8 +250,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flow_versions
-WHERE Identifier = '{{ contact_flow_version_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ contact_flow_version_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

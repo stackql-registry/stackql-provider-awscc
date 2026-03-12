@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>base_path_mapping_v2</code>.
 ```sql
 SELECT
-region,
-base_path,
-domain_name_arn,
-rest_api_id,
-stage,
-base_path_mapping_arn
+  region,
+  base_path,
+  domain_name_arn,
+  rest_api_id,
+  stage,
+  base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s
-WHERE region = 'us-east-1' AND Identifier = '{{ base_path_mapping_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ base_path_mapping_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ base_path_mapping_arn }}';
 Lists all <code>base_path_mapping_v2s</code> in a region.
 ```sql
 SELECT
-region,
-base_path_mapping_arn
+  region,
+  base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,14 +199,14 @@ Use the following StackQL query and manifest file to create a new <code>base_pat
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.base_path_mapping_v2s (
- DomainNameArn,
- RestApiId,
- region
+  DomainNameArn,
+  RestApiId,
+  region
 )
 SELECT
-'{{ domain_name_arn }}',
- '{{ rest_api_id }}',
-'{{ region }}';
+  '{{ domain_name_arn }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,18 +214,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.base_path_mapping_v2s (
- BasePath,
- DomainNameArn,
- RestApiId,
- Stage,
- region
+  BasePath,
+  DomainNameArn,
+  RestApiId,
+  Stage,
+  region
 )
 SELECT
- '{{ base_path }}',
- '{{ domain_name_arn }}',
- '{{ rest_api_id }}',
- '{{ stage }}',
- '{{ region }}';
+  '{{ base_path }}',
+  '{{ domain_name_arn }}',
+  '{{ rest_api_id }}',
+  '{{ stage }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ SET PatchDocument = string('{{ {
     "RestApiId": rest_api_id,
     "Stage": stage
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ base_path_mapping_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ base_path_mapping_arn }}';
 ```
 
 
@@ -272,8 +276,9 @@ AND Identifier = '{{ base_path_mapping_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.base_path_mapping_v2s
-WHERE Identifier = '{{ base_path_mapping_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ base_path_mapping_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

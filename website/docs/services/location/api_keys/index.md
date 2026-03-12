@@ -205,21 +205,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api_key</code>.
 ```sql
 SELECT
-region,
-create_time,
-description,
-expire_time,
-force_update,
-key_arn,
-key_name,
-no_expiry,
-restrictions,
-tags,
-update_time,
-force_delete,
-arn
+  region,
+  create_time,
+  description,
+  expire_time,
+  force_update,
+  key_arn,
+  key_name,
+  no_expiry,
+  restrictions,
+  tags,
+  update_time,
+  force_delete,
+  arn
 FROM awscc.location.api_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ key_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
 Lists all <code>api_keys</code> in a region.
 ```sql
 SELECT
-region,
-key_name
+  region,
+  key_name
 FROM awscc.location.api_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,14 +255,14 @@ Use the following StackQL query and manifest file to create a new <code>api_key<
 ```sql
 /*+ create */
 INSERT INTO awscc.location.api_keys (
- KeyName,
- Restrictions,
- region
+  KeyName,
+  Restrictions,
+  region
 )
 SELECT
-'{{ key_name }}',
- '{{ restrictions }}',
-'{{ region }}';
+  '{{ key_name }}',
+  '{{ restrictions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -267,26 +270,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.api_keys (
- Description,
- ExpireTime,
- ForceUpdate,
- KeyName,
- NoExpiry,
- Restrictions,
- Tags,
- ForceDelete,
- region
+  Description,
+  ExpireTime,
+  ForceUpdate,
+  KeyName,
+  NoExpiry,
+  Restrictions,
+  Tags,
+  ForceDelete,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ expire_time }}',
- '{{ force_update }}',
- '{{ key_name }}',
- '{{ no_expiry }}',
- '{{ restrictions }}',
- '{{ tags }}',
- '{{ force_delete }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ expire_time }}',
+  '{{ force_update }}',
+  '{{ key_name }}',
+  '{{ no_expiry }}',
+  '{{ restrictions }}',
+  '{{ tags }}',
+  '{{ force_delete }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -347,8 +350,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ForceDelete": force_delete
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ key_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ key_name }}';
 ```
 
 
@@ -357,8 +361,9 @@ AND Identifier = '{{ key_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.api_keys
-WHERE Identifier = '{{ key_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ key_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

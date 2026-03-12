@@ -172,16 +172,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>layer_version</code>.
 ```sql
 SELECT
-region,
-compatible_runtimes,
-license_info,
-description,
-layer_name,
-content,
-layer_version_arn,
-compatible_architectures
+  region,
+  compatible_runtimes,
+  license_info,
+  description,
+  layer_name,
+  content,
+  layer_version_arn,
+  compatible_architectures
 FROM awscc.lambda.layer_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ layer_version_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ layer_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ layer_version_arn }}';
 Lists all <code>layer_versions</code> in a region.
 ```sql
 SELECT
-region,
-layer_version_arn
+  region,
+  layer_version_arn
 FROM awscc.lambda.layer_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,12 +217,12 @@ Use the following StackQL query and manifest file to create a new <code>layer_ve
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.layer_versions (
- Content,
- region
+  Content,
+  region
 )
 SELECT
-'{{ content }}',
-'{{ region }}';
+  '{{ content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,22 +230,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.layer_versions (
- CompatibleRuntimes,
- LicenseInfo,
- Description,
- LayerName,
- Content,
- CompatibleArchitectures,
- region
+  CompatibleRuntimes,
+  LicenseInfo,
+  Description,
+  LayerName,
+  Content,
+  CompatibleArchitectures,
+  region
 )
 SELECT
- '{{ compatible_runtimes }}',
- '{{ license_info }}',
- '{{ description }}',
- '{{ layer_name }}',
- '{{ content }}',
- '{{ compatible_architectures }}',
- '{{ region }}';
+  '{{ compatible_runtimes }}',
+  '{{ license_info }}',
+  '{{ description }}',
+  '{{ layer_name }}',
+  '{{ content }}',
+  '{{ compatible_architectures }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.layer_versions
-WHERE Identifier = '{{ layer_version_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ layer_version_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

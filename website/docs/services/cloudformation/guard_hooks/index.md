@@ -234,20 +234,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>guard_hook</code>.
 ```sql
 SELECT
-region,
-rule_location,
-log_bucket,
-hook_status,
-target_operations,
-failure_mode,
-target_filters,
-stack_filters,
-alias,
-hook_arn,
-execution_role,
-options
+  region,
+  rule_location,
+  log_bucket,
+  hook_status,
+  target_operations,
+  failure_mode,
+  target_filters,
+  stack_filters,
+  alias,
+  hook_arn,
+  execution_role,
+  options
 FROM awscc.cloudformation.guard_hooks
-WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hook_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,10 +257,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
 Lists all <code>guard_hooks</code> in a region.
 ```sql
 SELECT
-region,
-hook_arn
+  region,
+  hook_arn
 FROM awscc.cloudformation.guard_hooks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -280,22 +283,22 @@ Use the following StackQL query and manifest file to create a new <code>guard_ho
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.guard_hooks (
- RuleLocation,
- HookStatus,
- TargetOperations,
- FailureMode,
- Alias,
- ExecutionRole,
- region
+  RuleLocation,
+  HookStatus,
+  TargetOperations,
+  FailureMode,
+  Alias,
+  ExecutionRole,
+  region
 )
 SELECT
-'{{ rule_location }}',
- '{{ hook_status }}',
- '{{ target_operations }}',
- '{{ failure_mode }}',
- '{{ alias }}',
- '{{ execution_role }}',
-'{{ region }}';
+  '{{ rule_location }}',
+  '{{ hook_status }}',
+  '{{ target_operations }}',
+  '{{ failure_mode }}',
+  '{{ alias }}',
+  '{{ execution_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,30 +306,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.guard_hooks (
- RuleLocation,
- LogBucket,
- HookStatus,
- TargetOperations,
- FailureMode,
- TargetFilters,
- StackFilters,
- Alias,
- ExecutionRole,
- Options,
- region
+  RuleLocation,
+  LogBucket,
+  HookStatus,
+  TargetOperations,
+  FailureMode,
+  TargetFilters,
+  StackFilters,
+  Alias,
+  ExecutionRole,
+  Options,
+  region
 )
 SELECT
- '{{ rule_location }}',
- '{{ log_bucket }}',
- '{{ hook_status }}',
- '{{ target_operations }}',
- '{{ failure_mode }}',
- '{{ target_filters }}',
- '{{ stack_filters }}',
- '{{ alias }}',
- '{{ execution_role }}',
- '{{ options }}',
- '{{ region }}';
+  '{{ rule_location }}',
+  '{{ log_bucket }}',
+  '{{ hook_status }}',
+  '{{ target_operations }}',
+  '{{ failure_mode }}',
+  '{{ target_filters }}',
+  '{{ stack_filters }}',
+  '{{ alias }}',
+  '{{ execution_role }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -398,8 +401,9 @@ SET PatchDocument = string('{{ {
     "StackFilters": stack_filters,
     "Options": options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hook_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hook_arn }}';
 ```
 
 
@@ -408,8 +412,9 @@ AND Identifier = '{{ hook_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.guard_hooks
-WHERE Identifier = '{{ hook_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hook_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

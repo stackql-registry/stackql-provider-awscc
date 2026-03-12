@@ -152,12 +152,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schema_version</code>.
 ```sql
 SELECT
-region,
-schema,
-schema_definition,
-version_id
+  region,
+  schema,
+  schema_definition,
+  version_id
 FROM awscc.glue.schema_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ version_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ version_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,10 +167,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ version_id }}';
 Lists all <code>schema_versions</code> in a region.
 ```sql
 SELECT
-region,
-version_id
+  region,
+  version_id
 FROM awscc.glue.schema_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -190,14 +193,14 @@ Use the following StackQL query and manifest file to create a new <code>schema_v
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.schema_versions (
- Schema,
- SchemaDefinition,
- region
+  Schema,
+  SchemaDefinition,
+  region
 )
 SELECT
-'{{ schema }}',
- '{{ schema_definition }}',
-'{{ region }}';
+  '{{ schema }}',
+  '{{ schema_definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -205,14 +208,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.schema_versions (
- Schema,
- SchemaDefinition,
- region
+  Schema,
+  SchemaDefinition,
+  region
 )
 SELECT
- '{{ schema }}',
- '{{ schema_definition }}',
- '{{ region }}';
+  '{{ schema }}',
+  '{{ schema_definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -246,8 +249,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.schema_versions
-WHERE Identifier = '{{ version_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ version_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

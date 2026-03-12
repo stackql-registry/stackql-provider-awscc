@@ -199,21 +199,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint</code>.
 ```sql
 SELECT
-region,
-arn,
-cidr_block,
-creation_time,
-id,
-network_interfaces,
-outpost_id,
-security_group_id,
-status,
-subnet_id,
-access_type,
-customer_owned_ipv4_pool,
-failed_reason
+  region,
+  arn,
+  cidr_block,
+  creation_time,
+  id,
+  network_interfaces,
+  outpost_id,
+  security_group_id,
+  status,
+  subnet_id,
+  access_type,
+  customer_owned_ipv4_pool,
+  failed_reason
 FROM awscc.s3outposts.endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>endpoints</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.s3outposts.endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,16 +249,16 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.s3outposts.endpoints (
- OutpostId,
- SecurityGroupId,
- SubnetId,
- region
+  OutpostId,
+  SecurityGroupId,
+  SubnetId,
+  region
 )
 SELECT
-'{{ outpost_id }}',
- '{{ security_group_id }}',
- '{{ subnet_id }}',
-'{{ region }}';
+  '{{ outpost_id }}',
+  '{{ security_group_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -263,22 +266,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3outposts.endpoints (
- OutpostId,
- SecurityGroupId,
- SubnetId,
- AccessType,
- CustomerOwnedIpv4Pool,
- FailedReason,
- region
+  OutpostId,
+  SecurityGroupId,
+  SubnetId,
+  AccessType,
+  CustomerOwnedIpv4Pool,
+  FailedReason,
+  region
 )
 SELECT
- '{{ outpost_id }}',
- '{{ security_group_id }}',
- '{{ subnet_id }}',
- '{{ access_type }}',
- '{{ customer_owned_ipv4_pool }}',
- '{{ failed_reason }}',
- '{{ region }}';
+  '{{ outpost_id }}',
+  '{{ security_group_id }}',
+  '{{ subnet_id }}',
+  '{{ access_type }}',
+  '{{ customer_owned_ipv4_pool }}',
+  '{{ failed_reason }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -319,8 +322,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.endpoints
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

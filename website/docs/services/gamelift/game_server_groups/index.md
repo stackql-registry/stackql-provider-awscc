@@ -256,23 +256,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>game_server_group</code>.
 ```sql
 SELECT
-region,
-auto_scaling_group_arn,
-auto_scaling_policy,
-balancing_strategy,
-delete_option,
-game_server_group_arn,
-game_server_group_name,
-game_server_protection_policy,
-instance_definitions,
-launch_template,
-max_size,
-min_size,
-role_arn,
-tags,
-vpc_subnets
+  region,
+  auto_scaling_group_arn,
+  auto_scaling_policy,
+  balancing_strategy,
+  delete_option,
+  game_server_group_arn,
+  game_server_group_name,
+  game_server_protection_policy,
+  instance_definitions,
+  launch_template,
+  max_size,
+  min_size,
+  role_arn,
+  tags,
+  vpc_subnets
 FROM awscc.gamelift.game_server_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ game_server_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ game_server_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,10 +282,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ game_server_group_arn }}';
 Lists all <code>game_server_groups</code> in a region.
 ```sql
 SELECT
-region,
-game_server_group_arn
+  region,
+  game_server_group_arn
 FROM awscc.gamelift.game_server_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -305,16 +308,16 @@ Use the following StackQL query and manifest file to create a new <code>game_ser
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.game_server_groups (
- GameServerGroupName,
- InstanceDefinitions,
- RoleArn,
- region
+  GameServerGroupName,
+  InstanceDefinitions,
+  RoleArn,
+  region
 )
 SELECT
-'{{ game_server_group_name }}',
- '{{ instance_definitions }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ game_server_group_name }}',
+  '{{ instance_definitions }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -322,34 +325,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.game_server_groups (
- AutoScalingPolicy,
- BalancingStrategy,
- DeleteOption,
- GameServerGroupName,
- GameServerProtectionPolicy,
- InstanceDefinitions,
- LaunchTemplate,
- MaxSize,
- MinSize,
- RoleArn,
- Tags,
- VpcSubnets,
- region
+  AutoScalingPolicy,
+  BalancingStrategy,
+  DeleteOption,
+  GameServerGroupName,
+  GameServerProtectionPolicy,
+  InstanceDefinitions,
+  LaunchTemplate,
+  MaxSize,
+  MinSize,
+  RoleArn,
+  Tags,
+  VpcSubnets,
+  region
 )
 SELECT
- '{{ auto_scaling_policy }}',
- '{{ balancing_strategy }}',
- '{{ delete_option }}',
- '{{ game_server_group_name }}',
- '{{ game_server_protection_policy }}',
- '{{ instance_definitions }}',
- '{{ launch_template }}',
- '{{ max_size }}',
- '{{ min_size }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ vpc_subnets }}',
- '{{ region }}';
+  '{{ auto_scaling_policy }}',
+  '{{ balancing_strategy }}',
+  '{{ delete_option }}',
+  '{{ game_server_group_name }}',
+  '{{ game_server_protection_policy }}',
+  '{{ instance_definitions }}',
+  '{{ launch_template }}',
+  '{{ max_size }}',
+  '{{ min_size }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ vpc_subnets }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -426,8 +429,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcSubnets": vpc_subnets
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ game_server_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ game_server_group_arn }}';
 ```
 
 
@@ -436,8 +440,9 @@ AND Identifier = '{{ game_server_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.game_server_groups
-WHERE Identifier = '{{ game_server_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ game_server_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

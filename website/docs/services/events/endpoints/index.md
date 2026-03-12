@@ -228,20 +228,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-role_arn,
-description,
-routing_config,
-replication_config,
-event_buses,
-endpoint_id,
-endpoint_url,
-state,
-state_reason
+  region,
+  name,
+  arn,
+  role_arn,
+  description,
+  routing_config,
+  replication_config,
+  event_buses,
+  endpoint_id,
+  endpoint_url,
+  state,
+  state_reason
 FROM awscc.events.endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,10 +251,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>endpoints</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.events.endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -274,14 +277,14 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.events.endpoints (
- RoutingConfig,
- EventBuses,
- region
+  RoutingConfig,
+  EventBuses,
+  region
 )
 SELECT
-'{{ routing_config }}',
- '{{ event_buses }}',
-'{{ region }}';
+  '{{ routing_config }}',
+  '{{ event_buses }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -289,22 +292,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.endpoints (
- Name,
- RoleArn,
- Description,
- RoutingConfig,
- ReplicationConfig,
- EventBuses,
- region
+  Name,
+  RoleArn,
+  Description,
+  RoutingConfig,
+  ReplicationConfig,
+  EventBuses,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ role_arn }}',
- '{{ description }}',
- '{{ routing_config }}',
- '{{ replication_config }}',
- '{{ event_buses }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ description }}',
+  '{{ routing_config }}',
+  '{{ replication_config }}',
+  '{{ event_buses }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "ReplicationConfig": replication_config,
     "EventBuses": event_buses
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.endpoints
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

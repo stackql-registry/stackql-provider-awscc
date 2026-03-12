@@ -173,15 +173,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-server_properties,
-kafka_versions_list,
-arn,
-latest_revision
+  region,
+  name,
+  description,
+  server_properties,
+  kafka_versions_list,
+  arn,
+  latest_revision
 FROM awscc.msk.configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.msk.configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,14 +217,14 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.configurations (
- Name,
- ServerProperties,
- region
+  Name,
+  ServerProperties,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ server_properties }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ server_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -229,20 +232,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.configurations (
- Name,
- Description,
- ServerProperties,
- KafkaVersionsList,
- LatestRevision,
- region
+  Name,
+  Description,
+  ServerProperties,
+  KafkaVersionsList,
+  LatestRevision,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ server_properties }}',
- '{{ kafka_versions_list }}',
- '{{ latest_revision }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ server_properties }}',
+  '{{ kafka_versions_list }}',
+  '{{ latest_revision }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "ServerProperties": server_properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -298,8 +302,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

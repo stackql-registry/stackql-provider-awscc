@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>agent</code>.
 ```sql
 SELECT
-region,
-agent_name,
-activation_key,
-security_group_arns,
-subnet_arns,
-vpc_endpoint_id,
-endpoint_type,
-tags,
-agent_arn
+  region,
+  agent_name,
+  activation_key,
+  security_group_arns,
+  subnet_arns,
+  vpc_endpoint_id,
+  endpoint_type,
+  tags,
+  agent_arn
 FROM awscc.datasync.agents
-WHERE region = 'us-east-1' AND Identifier = '{{ agent_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ agent_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ agent_arn }}';
 Lists all <code>agents</code> in a region.
 ```sql
 SELECT
-region,
-agent_arn
+  region,
+  agent_arn
 FROM awscc.datasync.agents_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>agent</c
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.agents (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,22 +237,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.agents (
- AgentName,
- ActivationKey,
- SecurityGroupArns,
- SubnetArns,
- VpcEndpointId,
- Tags,
- region
+  AgentName,
+  ActivationKey,
+  SecurityGroupArns,
+  SubnetArns,
+  VpcEndpointId,
+  Tags,
+  region
 )
 SELECT
- '{{ agent_name }}',
- '{{ activation_key }}',
- '{{ security_group_arns }}',
- '{{ subnet_arns }}',
- '{{ vpc_endpoint_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ agent_name }}',
+  '{{ activation_key }}',
+  '{{ security_group_arns }}',
+  '{{ subnet_arns }}',
+  '{{ vpc_endpoint_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -297,8 +300,9 @@ SET PatchDocument = string('{{ {
     "AgentName": agent_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ agent_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ agent_arn }}';
 ```
 
 
@@ -307,8 +311,9 @@ AND Identifier = '{{ agent_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.agents
-WHERE Identifier = '{{ agent_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ agent_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

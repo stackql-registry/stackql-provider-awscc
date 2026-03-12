@@ -135,21 +135,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>package_version</code>.
 ```sql
 SELECT
-region,
-owner_account,
-package_id,
-package_arn,
-package_version,
-patch_version,
-mark_latest,
-is_latest_patch,
-package_name,
-status,
-status_description,
-registered_time,
-updated_latest_patch_version
+  region,
+  owner_account,
+  package_id,
+  package_arn,
+  package_version,
+  patch_version,
+  mark_latest,
+  is_latest_patch,
+  package_name,
+  status,
+  status_description,
+  registered_time,
+  updated_latest_patch_version
 FROM awscc.panorama.package_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```
 
 ## `INSERT` example
@@ -169,16 +171,16 @@ Use the following StackQL query and manifest file to create a new <code>package_
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.package_versions (
- PackageId,
- PackageVersion,
- PatchVersion,
- region
+  PackageId,
+  PackageVersion,
+  PatchVersion,
+  region
 )
 SELECT
-'{{ package_id }}',
- '{{ package_version }}',
- '{{ patch_version }}',
-'{{ region }}';
+  '{{ package_id }}',
+  '{{ package_version }}',
+  '{{ patch_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,22 +188,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.package_versions (
- OwnerAccount,
- PackageId,
- PackageVersion,
- PatchVersion,
- MarkLatest,
- UpdatedLatestPatchVersion,
- region
+  OwnerAccount,
+  PackageId,
+  PackageVersion,
+  PatchVersion,
+  MarkLatest,
+  UpdatedLatestPatchVersion,
+  region
 )
 SELECT
- '{{ owner_account }}',
- '{{ package_id }}',
- '{{ package_version }}',
- '{{ patch_version }}',
- '{{ mark_latest }}',
- '{{ updated_latest_patch_version }}',
- '{{ region }}';
+  '{{ owner_account }}',
+  '{{ package_id }}',
+  '{{ package_version }}',
+  '{{ patch_version }}',
+  '{{ mark_latest }}',
+  '{{ updated_latest_patch_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +247,9 @@ SET PatchDocument = string('{{ {
     "MarkLatest": mark_latest,
     "UpdatedLatestPatchVersion": updated_latest_patch_version
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```
 
 
@@ -255,8 +258,9 @@ AND Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.package_versions
-WHERE Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

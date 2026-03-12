@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>collection</code>.
 ```sql
 SELECT
-region,
-arn,
-collection_id,
-tags
+  region,
+  arn,
+  collection_id,
+  tags
 FROM awscc.rekognition.collections
-WHERE region = 'us-east-1' AND Identifier = '{{ collection_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ collection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ collection_id }}';
 Lists all <code>collections</code> in a region.
 ```sql
 SELECT
-region,
-collection_id
+  region,
+  collection_id
 FROM awscc.rekognition.collections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>collecti
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.collections (
- CollectionId,
- region
+  CollectionId,
+  region
 )
 SELECT
-'{{ collection_id }}',
-'{{ region }}';
+  '{{ collection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.collections (
- CollectionId,
- Tags,
- region
+  CollectionId,
+  Tags,
+  region
 )
 SELECT
- '{{ collection_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ collection_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.rekognition.collections
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ collection_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ collection_id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ collection_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.collections
-WHERE Identifier = '{{ collection_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ collection_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

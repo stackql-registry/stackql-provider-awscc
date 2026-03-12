@@ -233,16 +233,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>detector_model</code>.
 ```sql
 SELECT
-region,
-detector_model_definition,
-detector_model_description,
-detector_model_name,
-evaluation_method,
-key,
-role_arn,
-tags
+  region,
+  detector_model_definition,
+  detector_model_description,
+  detector_model_name,
+  evaluation_method,
+  key,
+  role_arn,
+  tags
 FROM awscc.iotevents.detector_models
-WHERE region = 'us-east-1' AND Identifier = '{{ detector_model_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ detector_model_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +252,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ detector_model_name }}';
 Lists all <code>detector_models</code> in a region.
 ```sql
 SELECT
-region,
-detector_model_name
+  region,
+  detector_model_name
 FROM awscc.iotevents.detector_models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -275,14 +278,14 @@ Use the following StackQL query and manifest file to create a new <code>detector
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.detector_models (
- DetectorModelDefinition,
- RoleArn,
- region
+  DetectorModelDefinition,
+  RoleArn,
+  region
 )
 SELECT
-'{{ detector_model_definition }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ detector_model_definition }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,24 +293,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.detector_models (
- DetectorModelDefinition,
- DetectorModelDescription,
- DetectorModelName,
- EvaluationMethod,
- Key,
- RoleArn,
- Tags,
- region
+  DetectorModelDefinition,
+  DetectorModelDescription,
+  DetectorModelName,
+  EvaluationMethod,
+  Key,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ detector_model_definition }}',
- '{{ detector_model_description }}',
- '{{ detector_model_name }}',
- '{{ evaluation_method }}',
- '{{ key }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ detector_model_definition }}',
+  '{{ detector_model_description }}',
+  '{{ detector_model_name }}',
+  '{{ evaluation_method }}',
+  '{{ key }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -440,8 +443,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ detector_model_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ detector_model_name }}';
 ```
 
 
@@ -450,8 +454,9 @@ AND Identifier = '{{ detector_model_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.detector_models
-WHERE Identifier = '{{ detector_model_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ detector_model_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

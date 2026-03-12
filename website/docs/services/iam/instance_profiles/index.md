@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_profile</code>.
 ```sql
 SELECT
-region,
-path,
-roles,
-instance_profile_name,
-arn
+  region,
+  path,
+  roles,
+  instance_profile_name,
+  arn
 FROM awscc.iam.instance_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_profile_name }}';
 Lists all <code>instance_profiles</code> in a region.
 ```sql
 SELECT
-region,
-instance_profile_name
+  region,
+  instance_profile_name
 FROM awscc.iam.instance_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.instance_profiles (
- Roles,
- region
+  Roles,
+  region
 )
 SELECT
-'{{ roles }}',
-'{{ region }}';
+  '{{ roles }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,16 +201,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.instance_profiles (
- Path,
- Roles,
- InstanceProfileName,
- region
+  Path,
+  Roles,
+  InstanceProfileName,
+  region
 )
 SELECT
- '{{ path }}',
- '{{ roles }}',
- '{{ instance_profile_name }}',
- '{{ region }}';
+  '{{ path }}',
+  '{{ roles }}',
+  '{{ instance_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +248,9 @@ UPDATE awscc.iam.instance_profiles
 SET PatchDocument = string('{{ {
     "Roles": roles
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_profile_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_profile_name }}';
 ```
 
 
@@ -255,8 +259,9 @@ AND Identifier = '{{ instance_profile_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.instance_profiles
-WHERE Identifier = '{{ instance_profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

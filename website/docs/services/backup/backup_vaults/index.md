@@ -190,16 +190,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>backup_vault</code>.
 ```sql
 SELECT
-region,
-access_policy,
-backup_vault_name,
-backup_vault_tags,
-encryption_key_arn,
-notifications,
-lock_configuration,
-backup_vault_arn
+  region,
+  access_policy,
+  backup_vault_name,
+  backup_vault_tags,
+  encryption_key_arn,
+  notifications,
+  lock_configuration,
+  backup_vault_arn
 FROM awscc.backup.backup_vaults
-WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ backup_vault_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,10 +209,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
 Lists all <code>backup_vaults</code> in a region.
 ```sql
 SELECT
-region,
-backup_vault_name
+  region,
+  backup_vault_name
 FROM awscc.backup.backup_vaults_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -232,12 +235,12 @@ Use the following StackQL query and manifest file to create a new <code>backup_v
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_vaults (
- BackupVaultName,
- region
+  BackupVaultName,
+  region
 )
 SELECT
-'{{ backup_vault_name }}',
-'{{ region }}';
+  '{{ backup_vault_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,22 +248,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_vaults (
- AccessPolicy,
- BackupVaultName,
- BackupVaultTags,
- EncryptionKeyArn,
- Notifications,
- LockConfiguration,
- region
+  AccessPolicy,
+  BackupVaultName,
+  BackupVaultTags,
+  EncryptionKeyArn,
+  Notifications,
+  LockConfiguration,
+  region
 )
 SELECT
- '{{ access_policy }}',
- '{{ backup_vault_name }}',
- '{{ backup_vault_tags }}',
- '{{ encryption_key_arn }}',
- '{{ notifications }}',
- '{{ lock_configuration }}',
- '{{ region }}';
+  '{{ access_policy }}',
+  '{{ backup_vault_name }}',
+  '{{ backup_vault_tags }}',
+  '{{ encryption_key_arn }}',
+  '{{ notifications }}',
+  '{{ lock_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "Notifications": notifications,
     "LockConfiguration": lock_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ backup_vault_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ backup_vault_name }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ backup_vault_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_vaults
-WHERE Identifier = '{{ backup_vault_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ backup_vault_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

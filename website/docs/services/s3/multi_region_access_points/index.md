@@ -179,14 +179,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multi_region_access_point</code>.
 ```sql
 SELECT
-region,
-public_access_block_configuration,
-alias,
-created_at,
-regions,
-name
+  region,
+  public_access_block_configuration,
+  alias,
+  created_at,
+  regions,
+  name
 FROM awscc.s3.multi_region_access_points
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,10 +196,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>multi_region_access_points</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.s3.multi_region_access_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -219,12 +222,12 @@ Use the following StackQL query and manifest file to create a new <code>multi_re
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.multi_region_access_points (
- Regions,
- region
+  Regions,
+  region
 )
 SELECT
-'{{ regions }}',
-'{{ region }}';
+  '{{ regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,16 +235,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.multi_region_access_points (
- PublicAccessBlockConfiguration,
- Regions,
- Name,
- region
+  PublicAccessBlockConfiguration,
+  Regions,
+  Name,
+  region
 )
 SELECT
- '{{ public_access_block_configuration }}',
- '{{ regions }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ public_access_block_configuration }}',
+  '{{ regions }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +283,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.multi_region_access_points
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,13 +163,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_resource_server</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-identifier,
-name,
-scopes
+  region,
+  user_pool_id,
+  identifier,
+  name,
+  scopes
 FROM awscc.cognito.user_pool_resource_servers
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ identifier }}
 Lists all <code>user_pool_resource_servers</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id,
-identifier
+  region,
+  user_pool_id,
+  identifier
 FROM awscc.cognito.user_pool_resource_servers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_resource_servers (
- UserPoolId,
- Identifier,
- Name,
- region
+  UserPoolId,
+  Identifier,
+  Name,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ identifier }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ identifier }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,18 +223,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_resource_servers (
- UserPoolId,
- Identifier,
- Name,
- Scopes,
- region
+  UserPoolId,
+  Identifier,
+  Name,
+  Scopes,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ identifier }}',
- '{{ name }}',
- '{{ scopes }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ identifier }}',
+  '{{ name }}',
+  '{{ scopes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Scopes": scopes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_resource_servers
-WHERE Identifier = '{{ user_pool_id }}|{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -264,16 +264,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>training_dataset</code>.
 ```sql
 SELECT
-region,
-description,
-name,
-role_arn,
-tags,
-training_data,
-training_dataset_arn,
-status
+  region,
+  description,
+  name,
+  role_arn,
+  tags,
+  training_data,
+  training_dataset_arn,
+  status
 FROM awscc.cleanroomsml.training_datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ training_dataset_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ training_dataset_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -281,10 +283,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ training_dataset_arn }}';
 Lists all <code>training_datasets</code> in a region.
 ```sql
 SELECT
-region,
-training_dataset_arn
+  region,
+  training_dataset_arn
 FROM awscc.cleanroomsml.training_datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -306,16 +309,16 @@ Use the following StackQL query and manifest file to create a new <code>training
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanroomsml.training_datasets (
- Name,
- RoleArn,
- TrainingData,
- region
+  Name,
+  RoleArn,
+  TrainingData,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ role_arn }}',
- '{{ training_data }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ training_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -323,20 +326,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanroomsml.training_datasets (
- Description,
- Name,
- RoleArn,
- Tags,
- TrainingData,
- region
+  Description,
+  Name,
+  RoleArn,
+  Tags,
+  TrainingData,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ training_data }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ training_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -390,8 +393,9 @@ UPDATE awscc.cleanroomsml.training_datasets
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ training_dataset_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ training_dataset_arn }}';
 ```
 
 
@@ -400,8 +404,9 @@ AND Identifier = '{{ training_dataset_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanroomsml.training_datasets
-WHERE Identifier = '{{ training_dataset_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ training_dataset_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

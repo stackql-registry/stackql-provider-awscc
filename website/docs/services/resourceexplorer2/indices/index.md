@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-type,
-index_state
+  region,
+  arn,
+  tags,
+  type,
+  index_state
 FROM awscc.resourceexplorer2.indices
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>indices</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.resourceexplorer2.indices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>index</c
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.indices (
- Type,
- region
+  Type,
+  region
 )
 SELECT
-'{{ type }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,14 +201,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.indices (
- Tags,
- Type,
- region
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -241,8 +244,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Type": type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -251,8 +255,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.indices
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

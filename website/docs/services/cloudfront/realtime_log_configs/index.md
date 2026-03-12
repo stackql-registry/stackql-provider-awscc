@@ -175,14 +175,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>realtime_log_config</code>.
 ```sql
 SELECT
-region,
-arn,
-end_points,
-fields,
-name,
-sampling_rate
+  region,
+  arn,
+  end_points,
+  fields,
+  name,
+  sampling_rate
 FROM awscc.cloudfront.realtime_log_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>realtime_log_configs</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudfront.realtime_log_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>realtime
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.realtime_log_configs (
- EndPoints,
- Fields,
- Name,
- SamplingRate,
- region
+  EndPoints,
+  Fields,
+  Name,
+  SamplingRate,
+  region
 )
 SELECT
-'{{ end_points }}',
- '{{ fields }}',
- '{{ name }}',
- '{{ sampling_rate }}',
-'{{ region }}';
+  '{{ end_points }}',
+  '{{ fields }}',
+  '{{ name }}',
+  '{{ sampling_rate }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,18 +237,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.realtime_log_configs (
- EndPoints,
- Fields,
- Name,
- SamplingRate,
- region
+  EndPoints,
+  Fields,
+  Name,
+  SamplingRate,
+  region
 )
 SELECT
- '{{ end_points }}',
- '{{ fields }}',
- '{{ name }}',
- '{{ sampling_rate }}',
- '{{ region }}';
+  '{{ end_points }}',
+  '{{ fields }}',
+  '{{ name }}',
+  '{{ sampling_rate }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "Fields": fields,
     "SamplingRate": sampling_rate
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.realtime_log_configs
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

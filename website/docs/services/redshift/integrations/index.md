@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT
-region,
-integration_arn,
-integration_name,
-source_arn,
-target_arn,
-tags,
-create_time,
-kms_key_id,
-additional_encryption_context
+  region,
+  integration_arn,
+  integration_name,
+  source_arn,
+  target_arn,
+  tags,
+  create_time,
+  kms_key_id,
+  additional_encryption_context
 FROM awscc.redshift.integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ integration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ integration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ integration_arn }}';
 Lists all <code>integrations</code> in a region.
 ```sql
 SELECT
-region,
-integration_arn
+  region,
+  integration_arn
 FROM awscc.redshift.integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.integrations (
- SourceArn,
- TargetArn,
- region
+  SourceArn,
+  TargetArn,
+  region
 )
 SELECT
-'{{ source_arn }}',
- '{{ target_arn }}',
-'{{ region }}';
+  '{{ source_arn }}',
+  '{{ target_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,22 +239,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.integrations (
- IntegrationName,
- SourceArn,
- TargetArn,
- Tags,
- KMSKeyId,
- AdditionalEncryptionContext,
- region
+  IntegrationName,
+  SourceArn,
+  TargetArn,
+  Tags,
+  KMSKeyId,
+  AdditionalEncryptionContext,
+  region
 )
 SELECT
- '{{ integration_name }}',
- '{{ source_arn }}',
- '{{ target_arn }}',
- '{{ tags }}',
- '{{ kms_key_id }}',
- '{{ additional_encryption_context }}',
- '{{ region }}';
+  '{{ integration_name }}',
+  '{{ source_arn }}',
+  '{{ target_arn }}',
+  '{{ tags }}',
+  '{{ kms_key_id }}',
+  '{{ additional_encryption_context }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -297,8 +300,9 @@ SET PatchDocument = string('{{ {
     "IntegrationName": integration_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ integration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ integration_arn }}';
 ```
 
 
@@ -307,8 +311,9 @@ AND Identifier = '{{ integration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.integrations
-WHERE Identifier = '{{ integration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ integration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

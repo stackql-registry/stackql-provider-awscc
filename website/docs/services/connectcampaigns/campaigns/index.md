@@ -250,15 +250,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT
-region,
-connect_instance_arn,
-dialer_config,
-arn,
-name,
-outbound_call_config,
-tags
+  region,
+  connect_instance_arn,
+  dialer_config,
+  arn,
+  name,
+  outbound_call_config,
+  tags
 FROM awscc.connectcampaigns.campaigns
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,10 +268,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>campaigns</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.connectcampaigns.campaigns_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -291,18 +294,18 @@ Use the following StackQL query and manifest file to create a new <code>campaign
 ```sql
 /*+ create */
 INSERT INTO awscc.connectcampaigns.campaigns (
- ConnectInstanceArn,
- DialerConfig,
- Name,
- OutboundCallConfig,
- region
+  ConnectInstanceArn,
+  DialerConfig,
+  Name,
+  OutboundCallConfig,
+  region
 )
 SELECT
-'{{ connect_instance_arn }}',
- '{{ dialer_config }}',
- '{{ name }}',
- '{{ outbound_call_config }}',
-'{{ region }}';
+  '{{ connect_instance_arn }}',
+  '{{ dialer_config }}',
+  '{{ name }}',
+  '{{ outbound_call_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -310,20 +313,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connectcampaigns.campaigns (
- ConnectInstanceArn,
- DialerConfig,
- Name,
- OutboundCallConfig,
- Tags,
- region
+  ConnectInstanceArn,
+  DialerConfig,
+  Name,
+  OutboundCallConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ connect_instance_arn }}',
- '{{ dialer_config }}',
- '{{ name }}',
- '{{ outbound_call_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connect_instance_arn }}',
+  '{{ dialer_config }}',
+  '{{ name }}',
+  '{{ outbound_call_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -383,8 +386,9 @@ SET PatchDocument = string('{{ {
     "OutboundCallConfig": outbound_call_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -393,8 +397,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connectcampaigns.campaigns
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

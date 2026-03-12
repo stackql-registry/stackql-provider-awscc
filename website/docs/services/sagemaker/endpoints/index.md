@@ -279,17 +279,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint</code>.
 ```sql
 SELECT
-region,
-deployment_config,
-endpoint_arn,
-endpoint_config_name,
-endpoint_name,
-exclude_retained_variant_properties,
-retain_all_variant_properties,
-retain_deployment_config,
-tags
+  region,
+  deployment_config,
+  endpoint_arn,
+  endpoint_config_name,
+  endpoint_name,
+  exclude_retained_variant_properties,
+  retain_all_variant_properties,
+  retain_deployment_config,
+  tags
 FROM awscc.sagemaker.endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ endpoint_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,10 +299,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_arn }}';
 Lists all <code>endpoints</code> in a region.
 ```sql
 SELECT
-region,
-endpoint_arn
+  region,
+  endpoint_arn
 FROM awscc.sagemaker.endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,12 +325,12 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.endpoints (
- EndpointConfigName,
- region
+  EndpointConfigName,
+  region
 )
 SELECT
-'{{ endpoint_config_name }}',
-'{{ region }}';
+  '{{ endpoint_config_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -335,22 +338,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.endpoints (
- DeploymentConfig,
- EndpointConfigName,
- ExcludeRetainedVariantProperties,
- RetainAllVariantProperties,
- RetainDeploymentConfig,
- Tags,
- region
+  DeploymentConfig,
+  EndpointConfigName,
+  ExcludeRetainedVariantProperties,
+  RetainAllVariantProperties,
+  RetainDeploymentConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ deployment_config }}',
- '{{ endpoint_config_name }}',
- '{{ exclude_retained_variant_properties }}',
- '{{ retain_all_variant_properties }}',
- '{{ retain_deployment_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ deployment_config }}',
+  '{{ endpoint_config_name }}',
+  '{{ exclude_retained_variant_properties }}',
+  '{{ retain_all_variant_properties }}',
+  '{{ retain_deployment_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -419,8 +422,9 @@ SET PatchDocument = string('{{ {
     "RetainDeploymentConfig": retain_deployment_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ endpoint_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ endpoint_arn }}';
 ```
 
 
@@ -429,8 +433,9 @@ AND Identifier = '{{ endpoint_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.endpoints
-WHERE Identifier = '{{ endpoint_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ endpoint_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

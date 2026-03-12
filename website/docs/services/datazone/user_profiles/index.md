@@ -171,17 +171,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_profile</code>.
 ```sql
 SELECT
-region,
-details,
-domain_id,
-domain_identifier,
-id,
-status,
-type,
-user_identifier,
-user_type
+  region,
+  details,
+  domain_id,
+  domain_identifier,
+  id,
+  status,
+  type,
+  user_identifier,
+  user_type
 FROM awscc.datazone.user_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>user_profiles</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.user_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>user_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.user_profiles (
- DomainIdentifier,
- UserIdentifier,
- region
+  DomainIdentifier,
+  UserIdentifier,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ user_identifier }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ user_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.user_profiles (
- DomainIdentifier,
- Status,
- UserIdentifier,
- UserType,
- region
+  DomainIdentifier,
+  Status,
+  UserIdentifier,
+  UserType,
+  region
 )
 SELECT
- '{{ domain_identifier }}',
- '{{ status }}',
- '{{ user_identifier }}',
- '{{ user_type }}',
- '{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ status }}',
+  '{{ user_identifier }}',
+  '{{ user_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +283,9 @@ UPDATE awscc.datazone.user_profiles
 SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -290,8 +294,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.user_profiles
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

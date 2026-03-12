@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>attribute_group</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-name,
-description,
-attributes,
-tags
+  region,
+  id,
+  arn,
+  name,
+  description,
+  attributes,
+  tags
 FROM awscc.servicecatalogappregistry.attribute_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>attribute_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.servicecatalogappregistry.attribute_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>attribut
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.attribute_groups (
- Name,
- Attributes,
- region
+  Name,
+  Attributes,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ attributes }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,18 +215,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.attribute_groups (
- Name,
- Description,
- Attributes,
- Tags,
- region
+  Name,
+  Description,
+  Attributes,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ attributes }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ attributes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -265,8 +268,9 @@ SET PatchDocument = string('{{ {
     "Attributes": attributes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -275,8 +279,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.attribute_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -170,14 +170,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-description,
-domain_id,
-name,
-server_side_encryption_configuration,
-tags
+  region,
+  description,
+  domain_id,
+  name,
+  server_side_encryption_configuration,
+  tags
 FROM awscc.voiceid.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -185,10 +187,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-domain_id
+  region,
+  domain_id
 FROM awscc.voiceid.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -210,14 +213,14 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.voiceid.domains (
- Name,
- ServerSideEncryptionConfiguration,
- region
+  Name,
+  ServerSideEncryptionConfiguration,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ server_side_encryption_configuration }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -225,18 +228,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.voiceid.domains (
- Description,
- Name,
- ServerSideEncryptionConfiguration,
- Tags,
- region
+  Description,
+  Name,
+  ServerSideEncryptionConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ server_side_encryption_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "ServerSideEncryptionConfiguration": server_side_encryption_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ domain_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.voiceid.domains
-WHERE Identifier = '{{ domain_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

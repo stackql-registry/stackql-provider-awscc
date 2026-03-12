@@ -232,25 +232,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>firewall</code>.
 ```sql
 SELECT
-region,
-firewall_name,
-firewall_arn,
-firewall_id,
-firewall_policy_arn,
-vpc_id,
-subnet_mappings,
-availability_zone_mappings,
-delete_protection,
-subnet_change_protection,
-availability_zone_change_protection,
-firewall_policy_change_protection,
-transit_gateway_id,
-description,
-endpoint_ids,
-enabled_analysis_types,
-tags
+  region,
+  firewall_name,
+  firewall_arn,
+  firewall_id,
+  firewall_policy_arn,
+  vpc_id,
+  subnet_mappings,
+  availability_zone_mappings,
+  delete_protection,
+  subnet_change_protection,
+  availability_zone_change_protection,
+  firewall_policy_change_protection,
+  transit_gateway_id,
+  description,
+  endpoint_ids,
+  enabled_analysis_types,
+  tags
 FROM awscc.networkfirewall.firewalls
-WHERE region = 'us-east-1' AND Identifier = '{{ firewall_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ firewall_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,10 +260,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ firewall_arn }}';
 Lists all <code>firewalls</code> in a region.
 ```sql
 SELECT
-region,
-firewall_arn
+  region,
+  firewall_arn
 FROM awscc.networkfirewall.firewalls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -283,14 +286,14 @@ Use the following StackQL query and manifest file to create a new <code>firewall
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.firewalls (
- FirewallName,
- FirewallPolicyArn,
- region
+  FirewallName,
+  FirewallPolicyArn,
+  region
 )
 SELECT
-'{{ firewall_name }}',
- '{{ firewall_policy_arn }}',
-'{{ region }}';
+  '{{ firewall_name }}',
+  '{{ firewall_policy_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -298,36 +301,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.firewalls (
- FirewallName,
- FirewallPolicyArn,
- VpcId,
- SubnetMappings,
- AvailabilityZoneMappings,
- DeleteProtection,
- SubnetChangeProtection,
- AvailabilityZoneChangeProtection,
- FirewallPolicyChangeProtection,
- TransitGatewayId,
- Description,
- EnabledAnalysisTypes,
- Tags,
- region
+  FirewallName,
+  FirewallPolicyArn,
+  VpcId,
+  SubnetMappings,
+  AvailabilityZoneMappings,
+  DeleteProtection,
+  SubnetChangeProtection,
+  AvailabilityZoneChangeProtection,
+  FirewallPolicyChangeProtection,
+  TransitGatewayId,
+  Description,
+  EnabledAnalysisTypes,
+  Tags,
+  region
 )
 SELECT
- '{{ firewall_name }}',
- '{{ firewall_policy_arn }}',
- '{{ vpc_id }}',
- '{{ subnet_mappings }}',
- '{{ availability_zone_mappings }}',
- '{{ delete_protection }}',
- '{{ subnet_change_protection }}',
- '{{ availability_zone_change_protection }}',
- '{{ firewall_policy_change_protection }}',
- '{{ transit_gateway_id }}',
- '{{ description }}',
- '{{ enabled_analysis_types }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ firewall_name }}',
+  '{{ firewall_policy_arn }}',
+  '{{ vpc_id }}',
+  '{{ subnet_mappings }}',
+  '{{ availability_zone_mappings }}',
+  '{{ delete_protection }}',
+  '{{ subnet_change_protection }}',
+  '{{ availability_zone_change_protection }}',
+  '{{ firewall_policy_change_protection }}',
+  '{{ transit_gateway_id }}',
+  '{{ description }}',
+  '{{ enabled_analysis_types }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -400,8 +403,9 @@ SET PatchDocument = string('{{ {
     "EnabledAnalysisTypes": enabled_analysis_types,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ firewall_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ firewall_arn }}';
 ```
 
 
@@ -410,8 +414,9 @@ AND Identifier = '{{ firewall_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.firewalls
-WHERE Identifier = '{{ firewall_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ firewall_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

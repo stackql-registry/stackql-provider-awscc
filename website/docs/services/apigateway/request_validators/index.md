@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>request_validator</code>.
 ```sql
 SELECT
-region,
-request_validator_id,
-name,
-rest_api_id,
-validate_request_body,
-validate_request_parameters
+  region,
+  request_validator_id,
+  name,
+  rest_api_id,
+  validate_request_body,
+  validate_request_parameters
 FROM awscc.apigateway.request_validators
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,11 +173,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ request_valida
 Lists all <code>request_validators</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id,
-request_validator_id
+  region,
+  rest_api_id,
+  request_validator_id
 FROM awscc.apigateway.request_validators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>request_
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.request_validators (
- RestApiId,
- region
+  RestApiId,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,18 +213,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.request_validators (
- Name,
- RestApiId,
- ValidateRequestBody,
- ValidateRequestParameters,
- region
+  Name,
+  RestApiId,
+  ValidateRequestBody,
+  ValidateRequestParameters,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ rest_api_id }}',
- '{{ validate_request_body }}',
- '{{ validate_request_parameters }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ rest_api_id }}',
+  '{{ validate_request_body }}',
+  '{{ validate_request_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -261,8 +264,9 @@ SET PatchDocument = string('{{ {
     "ValidateRequestBody": validate_request_body,
     "ValidateRequestParameters": validate_request_parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```
 
 
@@ -271,8 +275,9 @@ AND Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.request_validators
-WHERE Identifier = '{{ rest_api_id }}|{{ request_validator_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ request_validator_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

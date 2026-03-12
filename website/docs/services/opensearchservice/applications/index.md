@@ -219,17 +219,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-iam_identity_center_options,
-arn,
-id,
-name,
-endpoint,
-app_configs,
-data_sources,
-tags
+  region,
+  iam_identity_center_options,
+  arn,
+  id,
+  name,
+  endpoint,
+  app_configs,
+  data_sources,
+  tags
 FROM awscc.opensearchservice.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.opensearchservice.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,12 +265,12 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchservice.applications (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,22 +278,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchservice.applications (
- IamIdentityCenterOptions,
- Name,
- Endpoint,
- AppConfigs,
- DataSources,
- Tags,
- region
+  IamIdentityCenterOptions,
+  Name,
+  Endpoint,
+  AppConfigs,
+  DataSources,
+  Tags,
+  region
 )
 SELECT
- '{{ iam_identity_center_options }}',
- '{{ name }}',
- '{{ endpoint }}',
- '{{ app_configs }}',
- '{{ data_sources }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ iam_identity_center_options }}',
+  '{{ name }}',
+  '{{ endpoint }}',
+  '{{ app_configs }}',
+  '{{ data_sources }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -346,8 +349,9 @@ SET PatchDocument = string('{{ {
     "DataSources": data_sources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -356,8 +360,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchservice.applications
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>contact_channel</code>.
 ```sql
 SELECT
-region,
-contact_id,
-channel_name,
-channel_type,
-defer_activation,
-channel_address,
-arn
+  region,
+  contact_id,
+  channel_name,
+  channel_type,
+  defer_activation,
+  channel_address,
+  arn
 FROM awscc.ssmcontacts.contact_channels
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>contact_channels</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ssmcontacts.contact_channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,20 +200,20 @@ Use the following StackQL query and manifest file to create a new <code>contact_
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.contact_channels (
- ContactId,
- ChannelName,
- ChannelType,
- DeferActivation,
- ChannelAddress,
- region
+  ContactId,
+  ChannelName,
+  ChannelType,
+  DeferActivation,
+  ChannelAddress,
+  region
 )
 SELECT
-'{{ contact_id }}',
- '{{ channel_name }}',
- '{{ channel_type }}',
- '{{ defer_activation }}',
- '{{ channel_address }}',
-'{{ region }}';
+  '{{ contact_id }}',
+  '{{ channel_name }}',
+  '{{ channel_type }}',
+  '{{ defer_activation }}',
+  '{{ channel_address }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,20 +221,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.contact_channels (
- ContactId,
- ChannelName,
- ChannelType,
- DeferActivation,
- ChannelAddress,
- region
+  ContactId,
+  ChannelName,
+  ChannelType,
+  DeferActivation,
+  ChannelAddress,
+  region
 )
 SELECT
- '{{ contact_id }}',
- '{{ channel_name }}',
- '{{ channel_type }}',
- '{{ defer_activation }}',
- '{{ channel_address }}',
- '{{ region }}';
+  '{{ contact_id }}',
+  '{{ channel_name }}',
+  '{{ channel_type }}',
+  '{{ defer_activation }}',
+  '{{ channel_address }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -274,8 +277,9 @@ SET PatchDocument = string('{{ {
     "DeferActivation": defer_activation,
     "ChannelAddress": channel_address
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -284,8 +288,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.contact_channels
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

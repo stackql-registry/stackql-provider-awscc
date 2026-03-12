@@ -131,12 +131,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>device</code>.
 ```sql
 SELECT
-region,
-device_fleet_name,
-device,
-tags
+  region,
+  device_fleet_name,
+  device,
+  tags
 FROM awscc.sagemaker.devices
-WHERE region = 'us-east-1' AND Identifier = '{{ device/device_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ device/device_name }}';
 ```
 
 ## `INSERT` example
@@ -156,12 +158,12 @@ Use the following StackQL query and manifest file to create a new <code>device</
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.devices (
- DeviceFleetName,
- region
+  DeviceFleetName,
+  region
 )
 SELECT
-'{{ device_fleet_name }}',
-'{{ region }}';
+  '{{ device_fleet_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -169,16 +171,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.devices (
- DeviceFleetName,
- Device,
- Tags,
- region
+  DeviceFleetName,
+  Device,
+  Tags,
+  region
 )
 SELECT
- '{{ device_fleet_name }}',
- '{{ device }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ device_fleet_name }}',
+  '{{ device }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -222,8 +224,9 @@ SET PatchDocument = string('{{ {
     "DeviceFleetName": device_fleet_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ device/device_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ device/device_name }}';
 ```
 
 
@@ -232,8 +235,9 @@ AND Identifier = '{{ device/device_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.devices
-WHERE Identifier = '{{ device/device_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ device/device_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

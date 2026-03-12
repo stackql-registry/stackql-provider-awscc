@@ -253,31 +253,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-aws_account_id,
-aws_account_region,
-environment_account_identifier,
-environment_account_region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-environment_blueprint_id,
-environment_profile_id,
-environment_profile_identifier,
-glossary_terms,
-environment_role_arn,
-id,
-name,
-project_id,
-project_identifier,
-provider,
-status,
-updated_at,
-user_parameters
+  region,
+  aws_account_id,
+  aws_account_region,
+  environment_account_identifier,
+  environment_account_region,
+  created_at,
+  created_by,
+  description,
+  domain_id,
+  domain_identifier,
+  environment_blueprint_id,
+  environment_profile_id,
+  environment_profile_identifier,
+  glossary_terms,
+  environment_role_arn,
+  id,
+  name,
+  project_id,
+  project_identifier,
+  provider,
+  status,
+  updated_at,
+  user_parameters
 FROM awscc.datazone.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,11 +287,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -311,16 +314,16 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environments (
- DomainIdentifier,
- Name,
- ProjectIdentifier,
- region
+  DomainIdentifier,
+  Name,
+  ProjectIdentifier,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ name }}',
- '{{ project_identifier }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -328,30 +331,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environments (
- EnvironmentAccountIdentifier,
- EnvironmentAccountRegion,
- Description,
- DomainIdentifier,
- EnvironmentProfileIdentifier,
- GlossaryTerms,
- EnvironmentRoleArn,
- Name,
- ProjectIdentifier,
- UserParameters,
- region
+  EnvironmentAccountIdentifier,
+  EnvironmentAccountRegion,
+  Description,
+  DomainIdentifier,
+  EnvironmentProfileIdentifier,
+  GlossaryTerms,
+  EnvironmentRoleArn,
+  Name,
+  ProjectIdentifier,
+  UserParameters,
+  region
 )
 SELECT
- '{{ environment_account_identifier }}',
- '{{ environment_account_region }}',
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ environment_profile_identifier }}',
- '{{ glossary_terms }}',
- '{{ environment_role_arn }}',
- '{{ name }}',
- '{{ project_identifier }}',
- '{{ user_parameters }}',
- '{{ region }}';
+  '{{ environment_account_identifier }}',
+  '{{ environment_account_region }}',
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ environment_profile_identifier }}',
+  '{{ glossary_terms }}',
+  '{{ environment_role_arn }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ user_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -408,8 +411,9 @@ SET PatchDocument = string('{{ {
     "EnvironmentRoleArn": environment_role_arn,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -418,8 +422,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environments
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

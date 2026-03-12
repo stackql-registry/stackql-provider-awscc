@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>playback_restriction_policy</code>.
 ```sql
 SELECT
-region,
-arn,
-allowed_countries,
-allowed_origins,
-enable_strict_origin_enforcement,
-name,
-tags
+  region,
+  arn,
+  allowed_countries,
+  allowed_origins,
+  enable_strict_origin_enforcement,
+  name,
+  tags
 FROM awscc.ivs.playback_restriction_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>playback_restriction_policies</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.playback_restriction_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,20 +212,20 @@ Use the following StackQL query and manifest file to create a new <code>playback
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.playback_restriction_policies (
- AllowedCountries,
- AllowedOrigins,
- EnableStrictOriginEnforcement,
- Name,
- Tags,
- region
+  AllowedCountries,
+  AllowedOrigins,
+  EnableStrictOriginEnforcement,
+  Name,
+  Tags,
+  region
 )
 SELECT
-'{{ allowed_countries }}',
- '{{ allowed_origins }}',
- '{{ enable_strict_origin_enforcement }}',
- '{{ name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ allowed_countries }}',
+  '{{ allowed_origins }}',
+  '{{ enable_strict_origin_enforcement }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,20 +233,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.playback_restriction_policies (
- AllowedCountries,
- AllowedOrigins,
- EnableStrictOriginEnforcement,
- Name,
- Tags,
- region
+  AllowedCountries,
+  AllowedOrigins,
+  EnableStrictOriginEnforcement,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ allowed_countries }}',
- '{{ allowed_origins }}',
- '{{ enable_strict_origin_enforcement }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ allowed_countries }}',
+  '{{ allowed_origins }}',
+  '{{ enable_strict_origin_enforcement }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.playback_restriction_policies
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

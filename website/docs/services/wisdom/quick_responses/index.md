@@ -232,24 +232,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>quick_response</code>.
 ```sql
 SELECT
-region,
-content_type,
-knowledge_base_arn,
-name,
-quick_response_arn,
-quick_response_id,
-channels,
-content,
-contents,
-description,
-grouping_configuration,
-is_active,
-language,
-shortcut_key,
-status,
-tags
+  region,
+  content_type,
+  knowledge_base_arn,
+  name,
+  quick_response_arn,
+  quick_response_id,
+  channels,
+  content,
+  contents,
+  description,
+  grouping_configuration,
+  is_active,
+  language,
+  shortcut_key,
+  status,
+  tags
 FROM awscc.wisdom.quick_responses
-WHERE region = 'us-east-1' AND Identifier = '{{ quick_response_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ quick_response_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +259,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ quick_response_arn }}';
 Lists all <code>quick_responses</code> in a region.
 ```sql
 SELECT
-region,
-quick_response_arn
+  region,
+  quick_response_arn
 FROM awscc.wisdom.quick_responses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -282,16 +285,16 @@ Use the following StackQL query and manifest file to create a new <code>quick_re
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.quick_responses (
- KnowledgeBaseArn,
- Name,
- Content,
- region
+  KnowledgeBaseArn,
+  Name,
+  Content,
+  region
 )
 SELECT
-'{{ knowledge_base_arn }}',
- '{{ name }}',
- '{{ content }}',
-'{{ region }}';
+  '{{ knowledge_base_arn }}',
+  '{{ name }}',
+  '{{ content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -299,32 +302,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.quick_responses (
- ContentType,
- KnowledgeBaseArn,
- Name,
- Channels,
- Content,
- Description,
- GroupingConfiguration,
- IsActive,
- Language,
- ShortcutKey,
- Tags,
- region
+  ContentType,
+  KnowledgeBaseArn,
+  Name,
+  Channels,
+  Content,
+  Description,
+  GroupingConfiguration,
+  IsActive,
+  Language,
+  ShortcutKey,
+  Tags,
+  region
 )
 SELECT
- '{{ content_type }}',
- '{{ knowledge_base_arn }}',
- '{{ name }}',
- '{{ channels }}',
- '{{ content }}',
- '{{ description }}',
- '{{ grouping_configuration }}',
- '{{ is_active }}',
- '{{ language }}',
- '{{ shortcut_key }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ content_type }}',
+  '{{ knowledge_base_arn }}',
+  '{{ name }}',
+  '{{ channels }}',
+  '{{ content }}',
+  '{{ description }}',
+  '{{ grouping_configuration }}',
+  '{{ is_active }}',
+  '{{ language }}',
+  '{{ shortcut_key }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -393,8 +396,9 @@ SET PatchDocument = string('{{ {
     "ShortcutKey": shortcut_key,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ quick_response_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ quick_response_arn }}';
 ```
 
 
@@ -403,8 +407,9 @@ AND Identifier = '{{ quick_response_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.quick_responses
-WHERE Identifier = '{{ quick_response_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ quick_response_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

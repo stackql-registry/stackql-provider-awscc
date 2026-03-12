@@ -158,14 +158,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT
-region,
-arn,
-bucket,
-name,
-vpc_configuration,
-policy
+  region,
+  arn,
+  bucket,
+  name,
+  vpc_configuration,
+  policy
 FROM awscc.s3outposts.access_points
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -173,10 +175,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>access_points</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.s3outposts.access_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,16 +201,16 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.s3outposts.access_points (
- Bucket,
- Name,
- VpcConfiguration,
- region
+  Bucket,
+  Name,
+  VpcConfiguration,
+  region
 )
 SELECT
-'{{ bucket }}',
- '{{ name }}',
- '{{ vpc_configuration }}',
-'{{ region }}';
+  '{{ bucket }}',
+  '{{ name }}',
+  '{{ vpc_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -215,18 +218,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3outposts.access_points (
- Bucket,
- Name,
- VpcConfiguration,
- Policy,
- region
+  Bucket,
+  Name,
+  VpcConfiguration,
+  Policy,
+  region
 )
 SELECT
- '{{ bucket }}',
- '{{ name }}',
- '{{ vpc_configuration }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ bucket }}',
+  '{{ name }}',
+  '{{ vpc_configuration }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.s3outposts.access_points
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.access_points
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

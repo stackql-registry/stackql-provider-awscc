@@ -176,19 +176,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workflow</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-version,
-description,
-change_description,
-type,
-data,
-uri,
-kms_key_id,
-tags
+  region,
+  arn,
+  name,
+  version,
+  description,
+  change_description,
+  type,
+  data,
+  uri,
+  kms_key_id,
+  tags
 FROM awscc.imagebuilder.workflows
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>workflows</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.workflows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>workflow
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.workflows (
- Name,
- Version,
- Type,
- region
+  Name,
+  Version,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ version }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ version }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,28 +241,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.workflows (
- Name,
- Version,
- Description,
- ChangeDescription,
- Type,
- Data,
- Uri,
- KmsKeyId,
- Tags,
- region
+  Name,
+  Version,
+  Description,
+  ChangeDescription,
+  Type,
+  Data,
+  Uri,
+  KmsKeyId,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ version }}',
- '{{ description }}',
- '{{ change_description }}',
- '{{ type }}',
- '{{ data }}',
- '{{ uri }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ version }}',
+  '{{ description }}',
+  '{{ change_description }}',
+  '{{ type }}',
+  '{{ data }}',
+  '{{ uri }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ UPDATE awscc.imagebuilder.workflows
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -318,8 +322,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.workflows
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

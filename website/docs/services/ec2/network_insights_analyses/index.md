@@ -1091,25 +1091,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_insights_analysis</code>.
 ```sql
 SELECT
-region,
-status,
-return_path_components,
-network_insights_analysis_id,
-filter_out_arns,
-network_insights_path_id,
-network_path_found,
-suggested_accounts,
-filter_in_arns,
-network_insights_analysis_arn,
-status_message,
-start_date,
-alternate_path_hints,
-explanations,
-forward_path_components,
-additional_accounts,
-tags
+  region,
+  status,
+  return_path_components,
+  network_insights_analysis_id,
+  filter_out_arns,
+  network_insights_path_id,
+  network_path_found,
+  suggested_accounts,
+  filter_in_arns,
+  network_insights_analysis_arn,
+  status_message,
+  start_date,
+  alternate_path_hints,
+  explanations,
+  forward_path_components,
+  additional_accounts,
+  tags
 FROM awscc.ec2.network_insights_analyses
-WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_analysis_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ network_insights_analysis_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1117,10 +1119,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_analysis_id }}'
 Lists all <code>network_insights_analyses</code> in a region.
 ```sql
 SELECT
-region,
-network_insights_analysis_id
+  region,
+  network_insights_analysis_id
 FROM awscc.ec2.network_insights_analyses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1142,12 +1145,12 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_analyses (
- NetworkInsightsPathId,
- region
+  NetworkInsightsPathId,
+  region
 )
 SELECT
-'{{ network_insights_path_id }}',
-'{{ region }}';
+  '{{ network_insights_path_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1155,20 +1158,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_analyses (
- FilterOutArns,
- NetworkInsightsPathId,
- FilterInArns,
- AdditionalAccounts,
- Tags,
- region
+  FilterOutArns,
+  NetworkInsightsPathId,
+  FilterInArns,
+  AdditionalAccounts,
+  Tags,
+  region
 )
 SELECT
- '{{ filter_out_arns }}',
- '{{ network_insights_path_id }}',
- '{{ filter_in_arns }}',
- '{{ additional_accounts }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ filter_out_arns }}',
+  '{{ network_insights_path_id }}',
+  '{{ filter_in_arns }}',
+  '{{ additional_accounts }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1215,8 +1218,9 @@ SET PatchDocument = string('{{ {
     "AdditionalAccounts": additional_accounts,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ network_insights_analysis_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ network_insights_analysis_id }}';
 ```
 
 
@@ -1225,8 +1229,9 @@ AND Identifier = '{{ network_insights_analysis_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_analyses
-WHERE Identifier = '{{ network_insights_analysis_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ network_insights_analysis_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

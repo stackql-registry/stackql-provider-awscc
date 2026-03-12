@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_parameter_group</code>.
 ```sql
 SELECT
-region,
-db_parameter_group_name,
-description,
-family,
-parameters,
-tags
+  region,
+  db_parameter_group_name,
+  description,
+  family,
+  parameters,
+  tags
 FROM awscc.rds.db_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ db_parameter_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_parameter_group_name }}';
 Lists all <code>db_parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-db_parameter_group_name
+  region,
+  db_parameter_group_name
 FROM awscc.rds.db_parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>db_param
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_parameter_groups (
- Description,
- Family,
- region
+  Description,
+  Family,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ family }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,20 +221,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_parameter_groups (
- DBParameterGroupName,
- Description,
- Family,
- Parameters,
- Tags,
- region
+  DBParameterGroupName,
+  Description,
+  Family,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ db_parameter_group_name }}',
- '{{ description }}',
- '{{ family }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ db_parameter_group_name }}',
+  '{{ description }}',
+  '{{ family }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -275,8 +278,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_parameter_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_parameter_group_name }}';
 ```
 
 
@@ -285,8 +289,9 @@ AND Identifier = '{{ db_parameter_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_parameter_groups
-WHERE Identifier = '{{ db_parameter_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_parameter_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

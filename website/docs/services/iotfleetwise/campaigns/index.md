@@ -367,32 +367,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT
-region,
-status,
-action,
-creation_time,
-compression,
-description,
-priority,
-signals_to_collect,
-signals_to_fetch,
-data_destination_configs,
-start_time,
-name,
-expiry_time,
-last_modification_time,
-spooling_mode,
-signal_catalog_arn,
-post_trigger_collection_duration,
-data_extra_dimensions,
-diagnostics_mode,
-target_arn,
-arn,
-collection_scheme,
-data_partitions,
-tags
+  region,
+  status,
+  action,
+  creation_time,
+  compression,
+  description,
+  priority,
+  signals_to_collect,
+  signals_to_fetch,
+  data_destination_configs,
+  start_time,
+  name,
+  expiry_time,
+  last_modification_time,
+  spooling_mode,
+  signal_catalog_arn,
+  post_trigger_collection_duration,
+  data_extra_dimensions,
+  diagnostics_mode,
+  target_arn,
+  arn,
+  collection_scheme,
+  data_partitions,
+  tags
 FROM awscc.iotfleetwise.campaigns
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -400,10 +402,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>campaigns</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.campaigns_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -425,18 +428,18 @@ Use the following StackQL query and manifest file to create a new <code>campaign
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.campaigns (
- Name,
- SignalCatalogArn,
- TargetArn,
- CollectionScheme,
- region
+  Name,
+  SignalCatalogArn,
+  TargetArn,
+  CollectionScheme,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ signal_catalog_arn }}',
- '{{ target_arn }}',
- '{{ collection_scheme }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ signal_catalog_arn }}',
+  '{{ target_arn }}',
+  '{{ collection_scheme }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -444,48 +447,48 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.campaigns (
- Action,
- Compression,
- Description,
- Priority,
- SignalsToCollect,
- SignalsToFetch,
- DataDestinationConfigs,
- StartTime,
- Name,
- ExpiryTime,
- SpoolingMode,
- SignalCatalogArn,
- PostTriggerCollectionDuration,
- DataExtraDimensions,
- DiagnosticsMode,
- TargetArn,
- CollectionScheme,
- DataPartitions,
- Tags,
- region
+  Action,
+  Compression,
+  Description,
+  Priority,
+  SignalsToCollect,
+  SignalsToFetch,
+  DataDestinationConfigs,
+  StartTime,
+  Name,
+  ExpiryTime,
+  SpoolingMode,
+  SignalCatalogArn,
+  PostTriggerCollectionDuration,
+  DataExtraDimensions,
+  DiagnosticsMode,
+  TargetArn,
+  CollectionScheme,
+  DataPartitions,
+  Tags,
+  region
 )
 SELECT
- '{{ action }}',
- '{{ compression }}',
- '{{ description }}',
- '{{ priority }}',
- '{{ signals_to_collect }}',
- '{{ signals_to_fetch }}',
- '{{ data_destination_configs }}',
- '{{ start_time }}',
- '{{ name }}',
- '{{ expiry_time }}',
- '{{ spooling_mode }}',
- '{{ signal_catalog_arn }}',
- '{{ post_trigger_collection_duration }}',
- '{{ data_extra_dimensions }}',
- '{{ diagnostics_mode }}',
- '{{ target_arn }}',
- '{{ collection_scheme }}',
- '{{ data_partitions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ action }}',
+  '{{ compression }}',
+  '{{ description }}',
+  '{{ priority }}',
+  '{{ signals_to_collect }}',
+  '{{ signals_to_fetch }}',
+  '{{ data_destination_configs }}',
+  '{{ start_time }}',
+  '{{ name }}',
+  '{{ expiry_time }}',
+  '{{ spooling_mode }}',
+  '{{ signal_catalog_arn }}',
+  '{{ post_trigger_collection_duration }}',
+  '{{ data_extra_dimensions }}',
+  '{{ diagnostics_mode }}',
+  '{{ target_arn }}',
+  '{{ collection_scheme }}',
+  '{{ data_partitions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -582,8 +585,9 @@ SET PatchDocument = string('{{ {
     "DataExtraDimensions": data_extra_dimensions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -592,8 +596,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.campaigns
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

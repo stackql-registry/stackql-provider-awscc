@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_archive</code>.
 ```sql
 SELECT
-region,
-archive_arn,
-archive_id,
-archive_name,
-archive_state,
-kms_key_arn,
-retention,
-tags
+  region,
+  archive_arn,
+  archive_id,
+  archive_name,
+  archive_state,
+  kms_key_arn,
+  retention,
+  tags
 FROM awscc.ses.mail_manager_archives
-WHERE region = 'us-east-1' AND Identifier = '{{ archive_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ archive_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ archive_id }}';
 Lists all <code>mail_manager_archives</code> in a region.
 ```sql
 SELECT
-region,
-archive_id
+  region,
+  archive_id
 FROM awscc.ses.mail_manager_archives_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_archives (
- ArchiveName,
- KmsKeyArn,
- Retention,
- Tags,
- region
+  ArchiveName,
+  KmsKeyArn,
+  Retention,
+  Tags,
+  region
 )
 SELECT
-'{{ archive_name }}',
- '{{ kms_key_arn }}',
- '{{ retention }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ archive_name }}',
+  '{{ kms_key_arn }}',
+  '{{ retention }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,18 +237,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_archives (
- ArchiveName,
- KmsKeyArn,
- Retention,
- Tags,
- region
+  ArchiveName,
+  KmsKeyArn,
+  Retention,
+  Tags,
+  region
 )
 SELECT
- '{{ archive_name }}',
- '{{ kms_key_arn }}',
- '{{ retention }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ archive_name }}',
+  '{{ kms_key_arn }}',
+  '{{ retention }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ SET PatchDocument = string('{{ {
     "Retention": retention,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ archive_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ archive_id }}';
 ```
 
 
@@ -298,8 +302,9 @@ AND Identifier = '{{ archive_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_archives
-WHERE Identifier = '{{ archive_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ archive_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -193,19 +193,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>eip</code>.
 ```sql
 SELECT
-region,
-public_ip,
-allocation_id,
-domain,
-network_border_group,
-transfer_address,
-instance_id,
-public_ipv4_pool,
-ipam_pool_id,
-address,
-tags
+  region,
+  public_ip,
+  allocation_id,
+  domain,
+  network_border_group,
+  transfer_address,
+  instance_id,
+  public_ipv4_pool,
+  ipam_pool_id,
+  address,
+  tags
 FROM awscc.ec2.eips
-WHERE region = 'us-east-1' AND Identifier = '{{ public_ip }}|{{ allocation_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,11 +215,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ public_ip }}|{{ allocation_id }}
 Lists all <code>eips</code> in a region.
 ```sql
 SELECT
-region,
-public_ip,
-allocation_id
+  region,
+  public_ip,
+  allocation_id
 FROM awscc.ec2.eips_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,26 +242,26 @@ Use the following StackQL query and manifest file to create a new <code>eip</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.eips (
- Domain,
- NetworkBorderGroup,
- TransferAddress,
- InstanceId,
- PublicIpv4Pool,
- IpamPoolId,
- Address,
- Tags,
- region
+  Domain,
+  NetworkBorderGroup,
+  TransferAddress,
+  InstanceId,
+  PublicIpv4Pool,
+  IpamPoolId,
+  Address,
+  Tags,
+  region
 )
 SELECT
-'{{ domain }}',
- '{{ network_border_group }}',
- '{{ transfer_address }}',
- '{{ instance_id }}',
- '{{ public_ipv4_pool }}',
- '{{ ipam_pool_id }}',
- '{{ address }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ domain }}',
+  '{{ network_border_group }}',
+  '{{ transfer_address }}',
+  '{{ instance_id }}',
+  '{{ public_ipv4_pool }}',
+  '{{ ipam_pool_id }}',
+  '{{ address }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,26 +269,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.eips (
- Domain,
- NetworkBorderGroup,
- TransferAddress,
- InstanceId,
- PublicIpv4Pool,
- IpamPoolId,
- Address,
- Tags,
- region
+  Domain,
+  NetworkBorderGroup,
+  TransferAddress,
+  InstanceId,
+  PublicIpv4Pool,
+  IpamPoolId,
+  Address,
+  Tags,
+  region
 )
 SELECT
- '{{ domain }}',
- '{{ network_border_group }}',
- '{{ transfer_address }}',
- '{{ instance_id }}',
- '{{ public_ipv4_pool }}',
- '{{ ipam_pool_id }}',
- '{{ address }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain }}',
+  '{{ network_border_group }}',
+  '{{ transfer_address }}',
+  '{{ instance_id }}',
+  '{{ public_ipv4_pool }}',
+  '{{ ipam_pool_id }}',
+  '{{ address }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "PublicIpv4Pool": public_ipv4_pool,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ public_ip }}|{{ allocation_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.eips
-WHERE Identifier = '{{ public_ip }}|{{ allocation_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ public_ip }}|{{ allocation_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

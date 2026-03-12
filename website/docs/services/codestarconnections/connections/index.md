@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT
-region,
-connection_arn,
-connection_name,
-connection_status,
-owner_account_id,
-provider_type,
-host_arn,
-tags
+  region,
+  connection_arn,
+  connection_name,
+  connection_status,
+  owner_account_id,
+  provider_type,
+  host_arn,
+  tags
 FROM awscc.codestarconnections.connections
-WHERE region = 'us-east-1' AND Identifier = '{{ connection_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connection_arn }}';
 Lists all <code>connections</code> in a region.
 ```sql
 SELECT
-region,
-connection_arn
+  region,
+  connection_arn
 FROM awscc.codestarconnections.connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>connecti
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.connections (
- ConnectionName,
- region
+  ConnectionName,
+  region
 )
 SELECT
-'{{ connection_name }}',
-'{{ region }}';
+  '{{ connection_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.connections (
- ConnectionName,
- ProviderType,
- HostArn,
- Tags,
- region
+  ConnectionName,
+  ProviderType,
+  HostArn,
+  Tags,
+  region
 )
 SELECT
- '{{ connection_name }}',
- '{{ provider_type }}',
- '{{ host_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connection_name }}',
+  '{{ provider_type }}',
+  '{{ host_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +283,9 @@ UPDATE awscc.codestarconnections.connections
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connection_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connection_arn }}';
 ```
 
 
@@ -290,8 +294,9 @@ AND Identifier = '{{ connection_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.connections
-WHERE Identifier = '{{ connection_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connection_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

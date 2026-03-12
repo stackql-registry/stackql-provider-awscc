@@ -190,15 +190,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT
-region,
-name,
-dataset_arn,
-dataset_type,
-dataset_group_arn,
-schema_arn,
-dataset_import_job
+  region,
+  name,
+  dataset_arn,
+  dataset_type,
+  dataset_group_arn,
+  schema_arn,
+  dataset_import_job
 FROM awscc.personalize.datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ dataset_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dataset_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,10 +208,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dataset_arn }}';
 Lists all <code>datasets</code> in a region.
 ```sql
 SELECT
-region,
-dataset_arn
+  region,
+  dataset_arn
 FROM awscc.personalize.datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -231,18 +234,18 @@ Use the following StackQL query and manifest file to create a new <code>dataset<
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.datasets (
- Name,
- DatasetType,
- DatasetGroupArn,
- SchemaArn,
- region
+  Name,
+  DatasetType,
+  DatasetGroupArn,
+  SchemaArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ dataset_type }}',
- '{{ dataset_group_arn }}',
- '{{ schema_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ dataset_type }}',
+  '{{ dataset_group_arn }}',
+  '{{ schema_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,20 +253,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.datasets (
- Name,
- DatasetType,
- DatasetGroupArn,
- SchemaArn,
- DatasetImportJob,
- region
+  Name,
+  DatasetType,
+  DatasetGroupArn,
+  SchemaArn,
+  DatasetImportJob,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ dataset_type }}',
- '{{ dataset_group_arn }}',
- '{{ schema_arn }}',
- '{{ dataset_import_job }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ dataset_type }}',
+  '{{ dataset_group_arn }}',
+  '{{ schema_arn }}',
+  '{{ dataset_import_job }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -310,8 +313,9 @@ UPDATE awscc.personalize.datasets
 SET PatchDocument = string('{{ {
     "DatasetImportJob": dataset_import_job
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dataset_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dataset_arn }}';
 ```
 
 
@@ -320,8 +324,9 @@ AND Identifier = '{{ dataset_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.datasets
-WHERE Identifier = '{{ dataset_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dataset_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

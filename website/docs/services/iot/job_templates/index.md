@@ -434,23 +434,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>job_template</code>.
 ```sql
 SELECT
-region,
-arn,
-job_arn,
-job_template_id,
-description,
-document,
-document_source,
-timeout_config,
-job_executions_rollout_config,
-abort_config,
-presigned_url_config,
-job_executions_retry_config,
-maintenance_windows,
-destination_package_versions,
-tags
+  region,
+  arn,
+  job_arn,
+  job_template_id,
+  description,
+  document,
+  document_source,
+  timeout_config,
+  job_executions_rollout_config,
+  abort_config,
+  presigned_url_config,
+  job_executions_retry_config,
+  maintenance_windows,
+  destination_package_versions,
+  tags
 FROM awscc.iot.job_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ job_template_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ job_template_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -458,10 +460,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ job_template_id }}';
 Lists all <code>job_templates</code> in a region.
 ```sql
 SELECT
-region,
-job_template_id
+  region,
+  job_template_id
 FROM awscc.iot.job_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -483,14 +486,14 @@ Use the following StackQL query and manifest file to create a new <code>job_temp
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.job_templates (
- JobTemplateId,
- Description,
- region
+  JobTemplateId,
+  Description,
+  region
 )
 SELECT
-'{{ job_template_id }}',
- '{{ description }}',
-'{{ region }}';
+  '{{ job_template_id }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -498,36 +501,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.job_templates (
- JobArn,
- JobTemplateId,
- Description,
- Document,
- DocumentSource,
- TimeoutConfig,
- JobExecutionsRolloutConfig,
- AbortConfig,
- PresignedUrlConfig,
- JobExecutionsRetryConfig,
- MaintenanceWindows,
- DestinationPackageVersions,
- Tags,
- region
+  JobArn,
+  JobTemplateId,
+  Description,
+  Document,
+  DocumentSource,
+  TimeoutConfig,
+  JobExecutionsRolloutConfig,
+  AbortConfig,
+  PresignedUrlConfig,
+  JobExecutionsRetryConfig,
+  MaintenanceWindows,
+  DestinationPackageVersions,
+  Tags,
+  region
 )
 SELECT
- '{{ job_arn }}',
- '{{ job_template_id }}',
- '{{ description }}',
- '{{ document }}',
- '{{ document_source }}',
- '{{ timeout_config }}',
- '{{ job_executions_rollout_config }}',
- '{{ abort_config }}',
- '{{ presigned_url_config }}',
- '{{ job_executions_retry_config }}',
- '{{ maintenance_windows }}',
- '{{ destination_package_versions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ job_arn }}',
+  '{{ job_template_id }}',
+  '{{ description }}',
+  '{{ document }}',
+  '{{ document_source }}',
+  '{{ timeout_config }}',
+  '{{ job_executions_rollout_config }}',
+  '{{ abort_config }}',
+  '{{ presigned_url_config }}',
+  '{{ job_executions_retry_config }}',
+  '{{ maintenance_windows }}',
+  '{{ destination_package_versions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -751,8 +754,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.job_templates
-WHERE Identifier = '{{ job_template_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ job_template_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

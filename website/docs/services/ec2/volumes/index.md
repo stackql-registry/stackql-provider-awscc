@@ -208,23 +208,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>volume</code>.
 ```sql
 SELECT
-region,
-multi_attach_enabled,
-kms_key_id,
-encrypted,
-size,
-auto_enable_io,
-outpost_arn,
-availability_zone,
-throughput,
-iops,
-volume_initialization_rate,
-snapshot_id,
-volume_id,
-volume_type,
-tags
+  region,
+  multi_attach_enabled,
+  kms_key_id,
+  encrypted,
+  size,
+  auto_enable_io,
+  outpost_arn,
+  availability_zone,
+  throughput,
+  iops,
+  volume_initialization_rate,
+  snapshot_id,
+  volume_id,
+  volume_type,
+  tags
 FROM awscc.ec2.volumes
-WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ volume_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
 Lists all <code>volumes</code> in a region.
 ```sql
 SELECT
-region,
-volume_id
+  region,
+  volume_id
 FROM awscc.ec2.volumes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,12 +260,12 @@ Use the following StackQL query and manifest file to create a new <code>volume</
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.volumes (
- AvailabilityZone,
- region
+  AvailabilityZone,
+  region
 )
 SELECT
-'{{ availability_zone }}',
-'{{ region }}';
+  '{{ availability_zone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,36 +273,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.volumes (
- MultiAttachEnabled,
- KmsKeyId,
- Encrypted,
- Size,
- AutoEnableIO,
- OutpostArn,
- AvailabilityZone,
- Throughput,
- Iops,
- VolumeInitializationRate,
- SnapshotId,
- VolumeType,
- Tags,
- region
+  MultiAttachEnabled,
+  KmsKeyId,
+  Encrypted,
+  Size,
+  AutoEnableIO,
+  OutpostArn,
+  AvailabilityZone,
+  Throughput,
+  Iops,
+  VolumeInitializationRate,
+  SnapshotId,
+  VolumeType,
+  Tags,
+  region
 )
 SELECT
- '{{ multi_attach_enabled }}',
- '{{ kms_key_id }}',
- '{{ encrypted }}',
- '{{ size }}',
- '{{ auto_enable_io }}',
- '{{ outpost_arn }}',
- '{{ availability_zone }}',
- '{{ throughput }}',
- '{{ iops }}',
- '{{ volume_initialization_rate }}',
- '{{ snapshot_id }}',
- '{{ volume_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ multi_attach_enabled }}',
+  '{{ kms_key_id }}',
+  '{{ encrypted }}',
+  '{{ size }}',
+  '{{ auto_enable_io }}',
+  '{{ outpost_arn }}',
+  '{{ availability_zone }}',
+  '{{ throughput }}',
+  '{{ iops }}',
+  '{{ volume_initialization_rate }}',
+  '{{ snapshot_id }}',
+  '{{ volume_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -370,8 +373,9 @@ SET PatchDocument = string('{{ {
     "VolumeType": volume_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ volume_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ volume_id }}';
 ```
 
 
@@ -380,8 +384,9 @@ AND Identifier = '{{ volume_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.volumes
-WHERE Identifier = '{{ volume_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ volume_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

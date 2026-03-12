@@ -90,13 +90,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>robot_application_version</code>.
 ```sql
 SELECT
-region,
-application,
-current_revision_id,
-application_version,
-arn
+  region,
+  application,
+  current_revision_id,
+  application_version,
+  arn
 FROM awscc.robomaker.robot_application_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -116,12 +118,12 @@ Use the following StackQL query and manifest file to create a new <code>robot_ap
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robot_application_versions (
- Application,
- region
+  Application,
+  region
 )
 SELECT
-'{{ application }}',
-'{{ region }}';
+  '{{ application }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robot_application_versions (
- Application,
- CurrentRevisionId,
- region
+  Application,
+  CurrentRevisionId,
+  region
 )
 SELECT
- '{{ application }}',
- '{{ current_revision_id }}',
- '{{ region }}';
+  '{{ application }}',
+  '{{ current_revision_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -167,8 +169,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.robot_application_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

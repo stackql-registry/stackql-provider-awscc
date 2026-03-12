@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_default_version</code>.
 ```sql
 SELECT
-region,
-version_id,
-type_name,
-arn,
-type_version_arn
+  region,
+  version_id,
+  type_name,
+  arn,
+  type_version_arn
 FROM awscc.cloudformation.resource_default_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>resource_default_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudformation.resource_default_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.resource_default_versions (
- VersionId,
- TypeName,
- TypeVersionArn,
- region
+  VersionId,
+  TypeName,
+  TypeVersionArn,
+  region
 )
 SELECT
-'{{ version_id }}',
- '{{ type_name }}',
- '{{ type_version_arn }}',
-'{{ region }}';
+  '{{ version_id }}',
+  '{{ type_name }}',
+  '{{ type_version_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.resource_default_versions (
- VersionId,
- TypeName,
- TypeVersionArn,
- region
+  VersionId,
+  TypeName,
+  TypeVersionArn,
+  region
 )
 SELECT
- '{{ version_id }}',
- '{{ type_name }}',
- '{{ type_version_arn }}',
- '{{ region }}';
+  '{{ version_id }}',
+  '{{ type_name }}',
+  '{{ type_version_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ SET PatchDocument = string('{{ {
     "TypeName": type_name,
     "TypeVersionArn": type_version_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -260,8 +264,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.resource_default_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

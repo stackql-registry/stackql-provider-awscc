@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schedule_group</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_date,
-last_modification_date,
-name,
-state,
-tags
+  region,
+  arn,
+  creation_date,
+  last_modification_date,
+  name,
+  state,
+  tags
 FROM awscc.scheduler.schedule_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>schedule_groups</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.scheduler.schedule_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.scheduler.schedule_groups (
- Name,
- Tags,
- region
+  Name,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,14 +227,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.scheduler.schedule_groups (
- Name,
- Tags,
- region
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -268,8 +271,9 @@ UPDATE awscc.scheduler.schedule_groups
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -278,8 +282,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.scheduler.schedule_groups
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

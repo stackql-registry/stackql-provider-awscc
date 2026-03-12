@@ -351,18 +351,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_profile</code>.
 ```sql
 SELECT
-region,
-security_profile_name,
-security_profile_description,
-behaviors,
-alert_targets,
-additional_metrics_to_retain_v2,
-metrics_export_config,
-tags,
-target_arns,
-security_profile_arn
+  region,
+  security_profile_name,
+  security_profile_description,
+  behaviors,
+  alert_targets,
+  additional_metrics_to_retain_v2,
+  metrics_export_config,
+  tags,
+  target_arns,
+  security_profile_arn
 FROM awscc.iot.security_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ security_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -370,10 +372,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_name }}';
 Lists all <code>security_profiles</code> in a region.
 ```sql
 SELECT
-region,
-security_profile_name
+  region,
+  security_profile_name
 FROM awscc.iot.security_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -395,12 +398,12 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.security_profiles (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -408,26 +411,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.security_profiles (
- SecurityProfileName,
- SecurityProfileDescription,
- Behaviors,
- AlertTargets,
- AdditionalMetricsToRetainV2,
- MetricsExportConfig,
- Tags,
- TargetArns,
- region
+  SecurityProfileName,
+  SecurityProfileDescription,
+  Behaviors,
+  AlertTargets,
+  AdditionalMetricsToRetainV2,
+  MetricsExportConfig,
+  Tags,
+  TargetArns,
+  region
 )
 SELECT
- '{{ security_profile_name }}',
- '{{ security_profile_description }}',
- '{{ behaviors }}',
- '{{ alert_targets }}',
- '{{ additional_metrics_to_retain_v2 }}',
- '{{ metrics_export_config }}',
- '{{ tags }}',
- '{{ target_arns }}',
- '{{ region }}';
+  '{{ security_profile_name }}',
+  '{{ security_profile_description }}',
+  '{{ behaviors }}',
+  '{{ alert_targets }}',
+  '{{ additional_metrics_to_retain_v2 }}',
+  '{{ metrics_export_config }}',
+  '{{ tags }}',
+  '{{ target_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -515,8 +518,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TargetArns": target_arns
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ security_profile_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ security_profile_name }}';
 ```
 
 
@@ -525,8 +529,9 @@ AND Identifier = '{{ security_profile_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.security_profiles
-WHERE Identifier = '{{ security_profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ security_profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

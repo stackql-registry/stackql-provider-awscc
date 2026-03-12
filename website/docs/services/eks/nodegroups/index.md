@@ -318,30 +318,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>nodegroup</code>.
 ```sql
 SELECT
-region,
-ami_type,
-capacity_type,
-cluster_name,
-disk_size,
-force_update_enabled,
-instance_types,
-labels,
-launch_template,
-nodegroup_name,
-node_role,
-release_version,
-remote_access,
-scaling_config,
-subnets,
-tags,
-taints,
-update_config,
-node_repair_config,
-version,
-id,
-arn
+  region,
+  ami_type,
+  capacity_type,
+  cluster_name,
+  disk_size,
+  force_update_enabled,
+  instance_types,
+  labels,
+  launch_template,
+  nodegroup_name,
+  node_role,
+  release_version,
+  remote_access,
+  scaling_config,
+  subnets,
+  tags,
+  taints,
+  update_config,
+  node_repair_config,
+  version,
+  id,
+  arn
 FROM awscc.eks.nodegroups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -349,10 +351,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>nodegroups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.eks.nodegroups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -374,16 +377,16 @@ Use the following StackQL query and manifest file to create a new <code>nodegrou
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.nodegroups (
- ClusterName,
- NodeRole,
- Subnets,
- region
+  ClusterName,
+  NodeRole,
+  Subnets,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ node_role }}',
- '{{ subnets }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ node_role }}',
+  '{{ subnets }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -391,48 +394,48 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.nodegroups (
- AmiType,
- CapacityType,
- ClusterName,
- DiskSize,
- ForceUpdateEnabled,
- InstanceTypes,
- Labels,
- LaunchTemplate,
- NodegroupName,
- NodeRole,
- ReleaseVersion,
- RemoteAccess,
- ScalingConfig,
- Subnets,
- Tags,
- Taints,
- UpdateConfig,
- NodeRepairConfig,
- Version,
- region
+  AmiType,
+  CapacityType,
+  ClusterName,
+  DiskSize,
+  ForceUpdateEnabled,
+  InstanceTypes,
+  Labels,
+  LaunchTemplate,
+  NodegroupName,
+  NodeRole,
+  ReleaseVersion,
+  RemoteAccess,
+  ScalingConfig,
+  Subnets,
+  Tags,
+  Taints,
+  UpdateConfig,
+  NodeRepairConfig,
+  Version,
+  region
 )
 SELECT
- '{{ ami_type }}',
- '{{ capacity_type }}',
- '{{ cluster_name }}',
- '{{ disk_size }}',
- '{{ force_update_enabled }}',
- '{{ instance_types }}',
- '{{ labels }}',
- '{{ launch_template }}',
- '{{ nodegroup_name }}',
- '{{ node_role }}',
- '{{ release_version }}',
- '{{ remote_access }}',
- '{{ scaling_config }}',
- '{{ subnets }}',
- '{{ tags }}',
- '{{ taints }}',
- '{{ update_config }}',
- '{{ node_repair_config }}',
- '{{ version }}',
- '{{ region }}';
+  '{{ ami_type }}',
+  '{{ capacity_type }}',
+  '{{ cluster_name }}',
+  '{{ disk_size }}',
+  '{{ force_update_enabled }}',
+  '{{ instance_types }}',
+  '{{ labels }}',
+  '{{ launch_template }}',
+  '{{ nodegroup_name }}',
+  '{{ node_role }}',
+  '{{ release_version }}',
+  '{{ remote_access }}',
+  '{{ scaling_config }}',
+  '{{ subnets }}',
+  '{{ tags }}',
+  '{{ taints }}',
+  '{{ update_config }}',
+  '{{ node_repair_config }}',
+  '{{ version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -528,8 +531,9 @@ SET PatchDocument = string('{{ {
     "NodeRepairConfig": node_repair_config,
     "Version": version
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -538,8 +542,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.nodegroups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

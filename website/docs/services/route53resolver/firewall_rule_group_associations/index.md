@@ -208,23 +208,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>firewall_rule_group_association</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-firewall_rule_group_id,
-vpc_id,
-name,
-priority,
-mutation_protection,
-managed_owner_name,
-status,
-status_message,
-creator_request_id,
-creation_time,
-modification_time,
-tags
+  region,
+  id,
+  arn,
+  firewall_rule_group_id,
+  vpc_id,
+  name,
+  priority,
+  mutation_protection,
+  managed_owner_name,
+  status,
+  status_message,
+  creator_request_id,
+  creation_time,
+  modification_time,
+  tags
 FROM awscc.route53resolver.firewall_rule_group_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>firewall_rule_group_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53resolver.firewall_rule_group_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,16 +260,16 @@ Use the following StackQL query and manifest file to create a new <code>firewall
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.firewall_rule_group_associations (
- FirewallRuleGroupId,
- VpcId,
- Priority,
- region
+  FirewallRuleGroupId,
+  VpcId,
+  Priority,
+  region
 )
 SELECT
-'{{ firewall_rule_group_id }}',
- '{{ vpc_id }}',
- '{{ priority }}',
-'{{ region }}';
+  '{{ firewall_rule_group_id }}',
+  '{{ vpc_id }}',
+  '{{ priority }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,22 +277,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.firewall_rule_group_associations (
- FirewallRuleGroupId,
- VpcId,
- Name,
- Priority,
- MutationProtection,
- Tags,
- region
+  FirewallRuleGroupId,
+  VpcId,
+  Name,
+  Priority,
+  MutationProtection,
+  Tags,
+  region
 )
 SELECT
- '{{ firewall_rule_group_id }}',
- '{{ vpc_id }}',
- '{{ name }}',
- '{{ priority }}',
- '{{ mutation_protection }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ firewall_rule_group_id }}',
+  '{{ vpc_id }}',
+  '{{ name }}',
+  '{{ priority }}',
+  '{{ mutation_protection }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "MutationProtection": mutation_protection,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.firewall_rule_group_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

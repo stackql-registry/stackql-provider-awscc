@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>template</code>.
 ```sql
 SELECT
-region,
-connector_arn,
-definition,
-name,
-reenroll_all_certificate_holders,
-tags,
-template_arn
+  region,
+  connector_arn,
+  definition,
+  name,
+  reenroll_all_certificate_holders,
+  tags,
+  template_arn
 FROM awscc.pcaconnectorad.templates
-WHERE region = 'us-east-1' AND Identifier = '{{ template_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ template_arn }}';
 Lists all <code>templates</code> in a region.
 ```sql
 SELECT
-region,
-template_arn
+  region,
+  template_arn
 FROM awscc.pcaconnectorad.templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>template
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.templates (
- ConnectorArn,
- Definition,
- Name,
- region
+  ConnectorArn,
+  Definition,
+  Name,
+  region
 )
 SELECT
-'{{ connector_arn }}',
- '{{ definition }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ connector_arn }}',
+  '{{ definition }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,20 +217,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.templates (
- ConnectorArn,
- Definition,
- Name,
- ReenrollAllCertificateHolders,
- Tags,
- region
+  ConnectorArn,
+  Definition,
+  Name,
+  ReenrollAllCertificateHolders,
+  Tags,
+  region
 )
 SELECT
- '{{ connector_arn }}',
- '{{ definition }}',
- '{{ name }}',
- '{{ reenroll_all_certificate_holders }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connector_arn }}',
+  '{{ definition }}',
+  '{{ name }}',
+  '{{ reenroll_all_certificate_holders }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "ReenrollAllCertificateHolders": reenroll_all_certificate_holders,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ template_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ template_arn }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ template_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.templates
-WHERE Identifier = '{{ template_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ template_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

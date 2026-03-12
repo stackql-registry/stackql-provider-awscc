@@ -228,14 +228,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stage</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-auto_participant_recording_configuration,
-tags,
-active_session_id
+  region,
+  arn,
+  name,
+  auto_participant_recording_configuration,
+  tags,
+  active_session_id
 FROM awscc.ivs.stages
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>stages</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.stages_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,16 +271,16 @@ Use the following StackQL query and manifest file to create a new <code>stage</c
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.stages (
- Name,
- AutoParticipantRecordingConfiguration,
- Tags,
- region
+  Name,
+  AutoParticipantRecordingConfiguration,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ auto_participant_recording_configuration }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ auto_participant_recording_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,16 +288,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.stages (
- Name,
- AutoParticipantRecordingConfiguration,
- Tags,
- region
+  Name,
+  AutoParticipantRecordingConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ auto_participant_recording_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ auto_participant_recording_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -348,8 +351,9 @@ SET PatchDocument = string('{{ {
     "AutoParticipantRecordingConfiguration": auto_participant_recording_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -358,8 +362,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.stages
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

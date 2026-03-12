@@ -403,14 +403,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>logging_configuration</code>.
 ```sql
 SELECT
-region,
-resource_arn,
-log_destination_configs,
-redacted_fields,
-managed_by_firewall_manager,
-logging_filter
+  region,
+  resource_arn,
+  log_destination_configs,
+  redacted_fields,
+  managed_by_firewall_manager,
+  logging_filter
 FROM awscc.wafv2.logging_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -418,10 +420,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}';
 Lists all <code>logging_configurations</code> in a region.
 ```sql
 SELECT
-region,
-resource_arn
+  region,
+  resource_arn
 FROM awscc.wafv2.logging_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -443,14 +446,14 @@ Use the following StackQL query and manifest file to create a new <code>logging_
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.logging_configurations (
- ResourceArn,
- LogDestinationConfigs,
- region
+  ResourceArn,
+  LogDestinationConfigs,
+  region
 )
 SELECT
-'{{ resource_arn }}',
- '{{ log_destination_configs }}',
-'{{ region }}';
+  '{{ resource_arn }}',
+  '{{ log_destination_configs }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -458,18 +461,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.logging_configurations (
- ResourceArn,
- LogDestinationConfigs,
- RedactedFields,
- LoggingFilter,
- region
+  ResourceArn,
+  LogDestinationConfigs,
+  RedactedFields,
+  LoggingFilter,
+  region
 )
 SELECT
- '{{ resource_arn }}',
- '{{ log_destination_configs }}',
- '{{ redacted_fields }}',
- '{{ logging_filter }}',
- '{{ region }}';
+  '{{ resource_arn }}',
+  '{{ log_destination_configs }}',
+  '{{ redacted_fields }}',
+  '{{ logging_filter }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -562,8 +565,9 @@ SET PatchDocument = string('{{ {
     "RedactedFields": redacted_fields,
     "LoggingFilter": logging_filter
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_arn }}';
 ```
 
 
@@ -572,8 +576,9 @@ AND Identifier = '{{ resource_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.logging_configurations
-WHERE Identifier = '{{ resource_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

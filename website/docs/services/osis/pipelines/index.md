@@ -282,22 +282,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT
-region,
-buffer_options,
-encryption_at_rest_options,
-log_publishing_options,
-max_units,
-min_units,
-pipeline_configuration_body,
-pipeline_name,
-tags,
-vpc_options,
-vpc_endpoints,
-vpc_endpoint_service,
-pipeline_arn,
-ingest_endpoint_urls
+  region,
+  buffer_options,
+  encryption_at_rest_options,
+  log_publishing_options,
+  max_units,
+  min_units,
+  pipeline_configuration_body,
+  pipeline_name,
+  tags,
+  vpc_options,
+  vpc_endpoints,
+  vpc_endpoint_service,
+  pipeline_arn,
+  ingest_endpoint_urls
 FROM awscc.osis.pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pipeline_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -305,10 +307,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_arn }}';
 Lists all <code>pipelines</code> in a region.
 ```sql
 SELECT
-region,
-pipeline_arn
+  region,
+  pipeline_arn
 FROM awscc.osis.pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -330,18 +333,18 @@ Use the following StackQL query and manifest file to create a new <code>pipeline
 ```sql
 /*+ create */
 INSERT INTO awscc.osis.pipelines (
- MaxUnits,
- MinUnits,
- PipelineConfigurationBody,
- PipelineName,
- region
+  MaxUnits,
+  MinUnits,
+  PipelineConfigurationBody,
+  PipelineName,
+  region
 )
 SELECT
-'{{ max_units }}',
- '{{ min_units }}',
- '{{ pipeline_configuration_body }}',
- '{{ pipeline_name }}',
-'{{ region }}';
+  '{{ max_units }}',
+  '{{ min_units }}',
+  '{{ pipeline_configuration_body }}',
+  '{{ pipeline_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -349,28 +352,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.osis.pipelines (
- BufferOptions,
- EncryptionAtRestOptions,
- LogPublishingOptions,
- MaxUnits,
- MinUnits,
- PipelineConfigurationBody,
- PipelineName,
- Tags,
- VpcOptions,
- region
+  BufferOptions,
+  EncryptionAtRestOptions,
+  LogPublishingOptions,
+  MaxUnits,
+  MinUnits,
+  PipelineConfigurationBody,
+  PipelineName,
+  Tags,
+  VpcOptions,
+  region
 )
 SELECT
- '{{ buffer_options }}',
- '{{ encryption_at_rest_options }}',
- '{{ log_publishing_options }}',
- '{{ max_units }}',
- '{{ min_units }}',
- '{{ pipeline_configuration_body }}',
- '{{ pipeline_name }}',
- '{{ tags }}',
- '{{ vpc_options }}',
- '{{ region }}';
+  '{{ buffer_options }}',
+  '{{ encryption_at_rest_options }}',
+  '{{ log_publishing_options }}',
+  '{{ max_units }}',
+  '{{ min_units }}',
+  '{{ pipeline_configuration_body }}',
+  '{{ pipeline_name }}',
+  '{{ tags }}',
+  '{{ vpc_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -441,8 +444,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcOptions": vpc_options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pipeline_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pipeline_arn }}';
 ```
 
 
@@ -451,8 +455,9 @@ AND Identifier = '{{ pipeline_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.osis.pipelines
-WHERE Identifier = '{{ pipeline_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pipeline_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

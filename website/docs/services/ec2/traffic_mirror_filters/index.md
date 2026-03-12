@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>traffic_mirror_filter</code>.
 ```sql
 SELECT
-region,
-id,
-network_services,
-description,
-tags
+  region,
+  id,
+  network_services,
+  description,
+  tags
 FROM awscc.ec2.traffic_mirror_filters
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>traffic_mirror_filters</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.traffic_mirror_filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>traffic_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_filters (
- NetworkServices,
- Description,
- Tags,
- region
+  NetworkServices,
+  Description,
+  Tags,
+  region
 )
 SELECT
-'{{ network_services }}',
- '{{ description }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ network_services }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_filters (
- NetworkServices,
- Description,
- Tags,
- region
+  NetworkServices,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ network_services }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ network_services }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ SET PatchDocument = string('{{ {
     "NetworkServices": network_services,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_filters
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

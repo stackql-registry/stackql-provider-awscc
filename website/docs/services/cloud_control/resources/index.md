@@ -20,20 +20,30 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-For more information about Amazon Web Services Cloud Control API, see the <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/what-is-cloudcontrolapi.html">Amazon Web Services Cloud Control API User Guide</a>.
+Represents information about a provisioned resource.
 
 ## Overview
 <table>
 <tbody>
 <tr><td><b>Name</b></td><td><code>resources</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>resources</td></tr>
+<tr><td><b>Description</b></td><td>Represents information about a provisioned resource.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloud_control.resources" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
 <SchemaTable fields={[
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "properties",
+    "type": "string",
+    "description": ""
+  },
   {
     "name": "region",
     "type": "string",
@@ -73,7 +83,15 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.cloud_control.resources
+WHERE
+  region = 'us-east-1' AND TypeName = '<TypeName>';;
+```
 
 
 

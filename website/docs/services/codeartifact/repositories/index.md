@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>repository</code>.
 ```sql
 SELECT
-region,
-repository_name,
-name,
-domain_name,
-domain_owner,
-description,
-arn,
-external_connections,
-upstreams,
-permissions_policy_document,
-tags
+  region,
+  repository_name,
+  name,
+  domain_name,
+  domain_owner,
+  description,
+  arn,
+  external_connections,
+  upstreams,
+  permissions_policy_document,
+  tags
 FROM awscc.codeartifact.repositories
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>repositories</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.codeartifact.repositories_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>reposito
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.repositories (
- RepositoryName,
- DomainName,
- region
+  RepositoryName,
+  DomainName,
+  region
 )
 SELECT
-'{{ repository_name }}',
- '{{ domain_name }}',
-'{{ region }}';
+  '{{ repository_name }}',
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,24 +251,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.repositories (
- RepositoryName,
- DomainName,
- Description,
- ExternalConnections,
- Upstreams,
- PermissionsPolicyDocument,
- Tags,
- region
+  RepositoryName,
+  DomainName,
+  Description,
+  ExternalConnections,
+  Upstreams,
+  PermissionsPolicyDocument,
+  Tags,
+  region
 )
 SELECT
- '{{ repository_name }}',
- '{{ domain_name }}',
- '{{ description }}',
- '{{ external_connections }}',
- '{{ upstreams }}',
- '{{ permissions_policy_document }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ repository_name }}',
+  '{{ domain_name }}',
+  '{{ description }}',
+  '{{ external_connections }}',
+  '{{ upstreams }}',
+  '{{ permissions_policy_document }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -318,8 +321,9 @@ SET PatchDocument = string('{{ {
     "PermissionsPolicyDocument": permissions_policy_document,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -328,8 +332,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.repositories
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

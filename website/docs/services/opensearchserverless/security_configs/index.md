@@ -215,15 +215,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_config</code>.
 ```sql
 SELECT
-region,
-description,
-id,
-name,
-saml_options,
-iam_identity_center_options,
-type
+  region,
+  description,
+  id,
+  name,
+  saml_options,
+  iam_identity_center_options,
+  type
 FROM awscc.opensearchserverless.security_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>security_configs</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.opensearchserverless.security_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,20 +259,20 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.security_configs (
- Description,
- Name,
- SamlOptions,
- IamIdentityCenterOptions,
- Type,
- region
+  Description,
+  Name,
+  SamlOptions,
+  IamIdentityCenterOptions,
+  Type,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ name }}',
- '{{ saml_options }}',
- '{{ iam_identity_center_options }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ saml_options }}',
+  '{{ iam_identity_center_options }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -277,20 +280,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.security_configs (
- Description,
- Name,
- SamlOptions,
- IamIdentityCenterOptions,
- Type,
- region
+  Description,
+  Name,
+  SamlOptions,
+  IamIdentityCenterOptions,
+  Type,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ saml_options }}',
- '{{ iam_identity_center_options }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ saml_options }}',
+  '{{ iam_identity_center_options }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -343,8 +346,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "SamlOptions": saml_options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -353,8 +357,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.security_configs
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

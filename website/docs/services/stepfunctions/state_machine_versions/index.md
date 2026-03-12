@@ -140,13 +140,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>state_machine_version</code>.
 ```sql
 SELECT
-region,
-arn,
-state_machine_arn,
-state_machine_revision_id,
-description
+  region,
+  arn,
+  state_machine_arn,
+  state_machine_revision_id,
+  description
 FROM awscc.stepfunctions.state_machine_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>state_machine_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.stepfunctions.state_machine_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>state_ma
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machine_versions (
- StateMachineArn,
- region
+  StateMachineArn,
+  region
 )
 SELECT
-'{{ state_machine_arn }}',
-'{{ region }}';
+  '{{ state_machine_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,16 +195,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machine_versions (
- StateMachineArn,
- StateMachineRevisionId,
- Description,
- region
+  StateMachineArn,
+  StateMachineRevisionId,
+  Description,
+  region
 )
 SELECT
- '{{ state_machine_arn }}',
- '{{ state_machine_revision_id }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ state_machine_arn }}',
+  '{{ state_machine_revision_id }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -234,8 +237,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machine_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

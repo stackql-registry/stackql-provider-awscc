@@ -68,7 +68,15 @@ Represents information about a provisioned resource.
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.cloud_control.resource
+WHERE
+  region = 'us-east-1' AND TypeName = '<TypeName>' AND Identifier = '<Identifier>';;
+```
 
 
 

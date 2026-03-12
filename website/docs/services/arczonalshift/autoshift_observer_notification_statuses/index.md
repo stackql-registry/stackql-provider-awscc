@@ -152,12 +152,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>autoshift_observer_notification_status</code>.
 ```sql
 SELECT
-region,
-status,
-account_id,
-region
+  region,
+  status,
+  account_id,
+  region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ region }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}|{{ region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ region }}';
 Lists all <code>autoshift_observer_notification_statuses</code> in a region.
 ```sql
 SELECT
-region,
-account_id,
-region
+  region,
+  account_id,
+  region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>autoshif
 ```sql
 /*+ create */
 INSERT INTO awscc.arczonalshift.autoshift_observer_notification_statuses (
- Status,
- region
+  Status,
+  region
 )
 SELECT
-'{{ status }}',
-'{{ region }}';
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,12 +207,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.arczonalshift.autoshift_observer_notification_statuses (
- Status,
- region
+  Status,
+  region
 )
 SELECT
- '{{ status }}',
- '{{ region }}';
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -239,8 +242,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.arczonalshift.autoshift_observer_notification_statuses
-WHERE Identifier = '{{ account_id }}|{{ region }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}|{{ region }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

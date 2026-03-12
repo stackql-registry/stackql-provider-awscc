@@ -150,13 +150,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration_association</code>.
 ```sql
 SELECT
-region,
-integration_association_id,
-instance_id,
-integration_arn,
-integration_type
+  region,
+  integration_association_id,
+  instance_id,
+  integration_arn,
+  integration_type
 FROM awscc.connect.integration_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -164,12 +166,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ integration_ty
 Lists all <code>integration_associations</code> in a region.
 ```sql
 SELECT
-region,
-instance_id,
-integration_type,
-integration_arn
+  region,
+  instance_id,
+  integration_type,
+  integration_arn
 FROM awscc.connect.integration_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.integration_associations (
- InstanceId,
- IntegrationArn,
- IntegrationType,
- region
+  InstanceId,
+  IntegrationArn,
+  IntegrationType,
+  region
 )
 SELECT
-'{{ instance_id }}',
- '{{ integration_arn }}',
- '{{ integration_type }}',
-'{{ region }}';
+  '{{ instance_id }}',
+  '{{ integration_arn }}',
+  '{{ integration_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,16 +211,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.integration_associations (
- InstanceId,
- IntegrationArn,
- IntegrationType,
- region
+  InstanceId,
+  IntegrationArn,
+  IntegrationType,
+  region
 )
 SELECT
- '{{ instance_id }}',
- '{{ integration_arn }}',
- '{{ integration_type }}',
- '{{ region }}';
+  '{{ instance_id }}',
+  '{{ integration_arn }}',
+  '{{ integration_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.integration_associations
-WHERE Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -148,11 +148,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>internet_gateway</code>.
 ```sql
 SELECT
-region,
-internet_gateway_id,
-tags
+  region,
+  internet_gateway_id,
+  tags
 FROM awscc.ec2.internet_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ internet_gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ internet_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ internet_gateway_id }}';
 Lists all <code>internet_gateways</code> in a region.
 ```sql
 SELECT
-region,
-internet_gateway_id
+  region,
+  internet_gateway_id
 FROM awscc.ec2.internet_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>internet
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.internet_gateways (
- Tags,
- region
+  Tags,
+  region
 )
 SELECT
-'{{ tags }}',
-'{{ region }}';
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,12 +201,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.internet_gateways (
- Tags,
- region
+  Tags,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -238,8 +241,9 @@ UPDATE awscc.ec2.internet_gateways
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ internet_gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ internet_gateway_id }}';
 ```
 
 
@@ -248,8 +252,9 @@ AND Identifier = '{{ internet_gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.internet_gateways
-WHERE Identifier = '{{ internet_gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ internet_gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

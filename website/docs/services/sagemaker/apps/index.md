@@ -220,18 +220,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT
-region,
-app_arn,
-app_name,
-app_type,
-domain_id,
-resource_spec,
-tags,
-user_profile_name,
-built_in_lifecycle_config_arn,
-recovery_mode
+  region,
+  app_arn,
+  app_name,
+  app_type,
+  domain_id,
+  resource_spec,
+  tags,
+  user_profile_name,
+  built_in_lifecycle_config_arn,
+  recovery_mode
 FROM awscc.sagemaker.apps
-WHERE region = 'us-east-1' AND Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,13 +241,14 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_name }}|{{ app_type }}|{{ do
 Lists all <code>apps</code> in a region.
 ```sql
 SELECT
-region,
-app_name,
-app_type,
-domain_id,
-user_profile_name
+  region,
+  app_name,
+  app_type,
+  domain_id,
+  user_profile_name
 FROM awscc.sagemaker.apps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,18 +270,18 @@ Use the following StackQL query and manifest file to create a new <code>app</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.apps (
- AppName,
- AppType,
- DomainId,
- UserProfileName,
- region
+  AppName,
+  AppType,
+  DomainId,
+  UserProfileName,
+  region
 )
 SELECT
-'{{ app_name }}',
- '{{ app_type }}',
- '{{ domain_id }}',
- '{{ user_profile_name }}',
-'{{ region }}';
+  '{{ app_name }}',
+  '{{ app_type }}',
+  '{{ domain_id }}',
+  '{{ user_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -286,24 +289,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.apps (
- AppName,
- AppType,
- DomainId,
- ResourceSpec,
- Tags,
- UserProfileName,
- RecoveryMode,
- region
+  AppName,
+  AppType,
+  DomainId,
+  ResourceSpec,
+  Tags,
+  UserProfileName,
+  RecoveryMode,
+  region
 )
 SELECT
- '{{ app_name }}',
- '{{ app_type }}',
- '{{ domain_id }}',
- '{{ resource_spec }}',
- '{{ tags }}',
- '{{ user_profile_name }}',
- '{{ recovery_mode }}',
- '{{ region }}';
+  '{{ app_name }}',
+  '{{ app_type }}',
+  '{{ domain_id }}',
+  '{{ resource_spec }}',
+  '{{ tags }}',
+  '{{ user_profile_name }}',
+  '{{ recovery_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -355,8 +358,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "RecoveryMode": recovery_mode
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
 ```
 
 
@@ -365,8 +369,9 @@ AND Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.apps
-WHERE Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

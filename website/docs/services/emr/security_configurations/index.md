@@ -130,11 +130,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_configuration</code>.
 ```sql
 SELECT
-region,
-name,
-security_configuration
+  region,
+  name,
+  security_configuration
 FROM awscc.emr.security_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>security_configurations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.emr.security_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.security_configurations (
- SecurityConfiguration,
- region
+  SecurityConfiguration,
+  region
 )
 SELECT
-'{{ security_configuration }}',
-'{{ region }}';
+  '{{ security_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -180,14 +183,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.security_configurations (
- Name,
- SecurityConfiguration,
- region
+  Name,
+  SecurityConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ security_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ security_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -218,8 +221,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.security_configurations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

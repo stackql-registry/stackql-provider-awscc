@@ -284,32 +284,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>job</code>.
 ```sql
 SELECT
-region,
-connections,
-max_retries,
-description,
-timeout,
-allocated_capacity,
-name,
-role,
-default_arguments,
-notification_property,
-worker_type,
-execution_class,
-log_uri,
-command,
-glue_version,
-execution_property,
-security_configuration,
-number_of_workers,
-tags,
-max_capacity,
-non_overridable_arguments,
-maintenance_window,
-job_mode,
-job_run_queuing_enabled
+  region,
+  connections,
+  max_retries,
+  description,
+  timeout,
+  allocated_capacity,
+  name,
+  role,
+  default_arguments,
+  notification_property,
+  worker_type,
+  execution_class,
+  log_uri,
+  command,
+  glue_version,
+  execution_property,
+  security_configuration,
+  number_of_workers,
+  tags,
+  max_capacity,
+  non_overridable_arguments,
+  maintenance_window,
+  job_mode,
+  job_run_queuing_enabled
 FROM awscc.glue.jobs
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -317,10 +319,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>jobs</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.glue.jobs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -342,14 +345,14 @@ Use the following StackQL query and manifest file to create a new <code>job</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.jobs (
- Role,
- Command,
- region
+  Role,
+  Command,
+  region
 )
 SELECT
-'{{ role }}',
- '{{ command }}',
-'{{ region }}';
+  '{{ role }}',
+  '{{ command }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -357,56 +360,56 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.jobs (
- Connections,
- MaxRetries,
- Description,
- Timeout,
- AllocatedCapacity,
- Name,
- Role,
- DefaultArguments,
- NotificationProperty,
- WorkerType,
- ExecutionClass,
- LogUri,
- Command,
- GlueVersion,
- ExecutionProperty,
- SecurityConfiguration,
- NumberOfWorkers,
- Tags,
- MaxCapacity,
- NonOverridableArguments,
- MaintenanceWindow,
- JobMode,
- JobRunQueuingEnabled,
- region
+  Connections,
+  MaxRetries,
+  Description,
+  Timeout,
+  AllocatedCapacity,
+  Name,
+  Role,
+  DefaultArguments,
+  NotificationProperty,
+  WorkerType,
+  ExecutionClass,
+  LogUri,
+  Command,
+  GlueVersion,
+  ExecutionProperty,
+  SecurityConfiguration,
+  NumberOfWorkers,
+  Tags,
+  MaxCapacity,
+  NonOverridableArguments,
+  MaintenanceWindow,
+  JobMode,
+  JobRunQueuingEnabled,
+  region
 )
 SELECT
- '{{ connections }}',
- '{{ max_retries }}',
- '{{ description }}',
- '{{ timeout }}',
- '{{ allocated_capacity }}',
- '{{ name }}',
- '{{ role }}',
- '{{ default_arguments }}',
- '{{ notification_property }}',
- '{{ worker_type }}',
- '{{ execution_class }}',
- '{{ log_uri }}',
- '{{ command }}',
- '{{ glue_version }}',
- '{{ execution_property }}',
- '{{ security_configuration }}',
- '{{ number_of_workers }}',
- '{{ tags }}',
- '{{ max_capacity }}',
- '{{ non_overridable_arguments }}',
- '{{ maintenance_window }}',
- '{{ job_mode }}',
- '{{ job_run_queuing_enabled }}',
- '{{ region }}';
+  '{{ connections }}',
+  '{{ max_retries }}',
+  '{{ description }}',
+  '{{ timeout }}',
+  '{{ allocated_capacity }}',
+  '{{ name }}',
+  '{{ role }}',
+  '{{ default_arguments }}',
+  '{{ notification_property }}',
+  '{{ worker_type }}',
+  '{{ execution_class }}',
+  '{{ log_uri }}',
+  '{{ command }}',
+  '{{ glue_version }}',
+  '{{ execution_property }}',
+  '{{ security_configuration }}',
+  '{{ number_of_workers }}',
+  '{{ tags }}',
+  '{{ max_capacity }}',
+  '{{ non_overridable_arguments }}',
+  '{{ maintenance_window }}',
+  '{{ job_mode }}',
+  '{{ job_run_queuing_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -512,8 +515,9 @@ SET PatchDocument = string('{{ {
     "JobMode": job_mode,
     "JobRunQueuingEnabled": job_run_queuing_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -522,8 +526,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.jobs
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>routing_control</code>.
 ```sql
 SELECT
-region,
-routing_control_arn,
-control_panel_arn,
-name,
-status,
-cluster_arn
+  region,
+  routing_control_arn,
+  control_panel_arn,
+  name,
+  status,
+  cluster_arn
 FROM awscc.route53recoverycontrol.routing_controls
-WHERE region = 'us-east-1' AND Identifier = '{{ routing_control_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ routing_control_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ routing_control_arn }}';
 Lists all <code>routing_controls</code> in a region.
 ```sql
 SELECT
-region,
-routing_control_arn
+  region,
+  routing_control_arn
 FROM awscc.route53recoverycontrol.routing_controls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>routing_
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.routing_controls (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,16 +207,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.routing_controls (
- ControlPanelArn,
- Name,
- ClusterArn,
- region
+  ControlPanelArn,
+  Name,
+  ClusterArn,
+  region
 )
 SELECT
- '{{ control_panel_arn }}',
- '{{ name }}',
- '{{ cluster_arn }}',
- '{{ region }}';
+  '{{ control_panel_arn }}',
+  '{{ name }}',
+  '{{ cluster_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ UPDATE awscc.route53recoverycontrol.routing_controls
 SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ routing_control_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ routing_control_arn }}';
 ```
 
 
@@ -260,8 +264,9 @@ AND Identifier = '{{ routing_control_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.routing_controls
-WHERE Identifier = '{{ routing_control_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ routing_control_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>conformance_pack</code>.
 ```sql
 SELECT
-region,
-conformance_pack_name,
-delivery_s3_bucket,
-delivery_s3_key_prefix,
-template_body,
-template_s3_uri,
-template_ssm_document_details,
-conformance_pack_input_parameters
+  region,
+  conformance_pack_name,
+  delivery_s3_bucket,
+  delivery_s3_key_prefix,
+  template_body,
+  template_s3_uri,
+  template_ssm_document_details,
+  conformance_pack_input_parameters
 FROM awscc.config.conformance_packs
-WHERE region = 'us-east-1' AND Identifier = '{{ conformance_pack_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ conformance_pack_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ conformance_pack_name }}';
 Lists all <code>conformance_packs</code> in a region.
 ```sql
 SELECT
-region,
-conformance_pack_name
+  region,
+  conformance_pack_name
 FROM awscc.config.conformance_packs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,12 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>conforma
 ```sql
 /*+ create */
 INSERT INTO awscc.config.conformance_packs (
- ConformancePackName,
- region
+  ConformancePackName,
+  region
 )
 SELECT
-'{{ conformance_pack_name }}',
-'{{ region }}';
+  '{{ conformance_pack_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -240,24 +243,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.conformance_packs (
- ConformancePackName,
- DeliveryS3Bucket,
- DeliveryS3KeyPrefix,
- TemplateBody,
- TemplateS3Uri,
- TemplateSSMDocumentDetails,
- ConformancePackInputParameters,
- region
+  ConformancePackName,
+  DeliveryS3Bucket,
+  DeliveryS3KeyPrefix,
+  TemplateBody,
+  TemplateS3Uri,
+  TemplateSSMDocumentDetails,
+  ConformancePackInputParameters,
+  region
 )
 SELECT
- '{{ conformance_pack_name }}',
- '{{ delivery_s3_bucket }}',
- '{{ delivery_s3_key_prefix }}',
- '{{ template_body }}',
- '{{ template_s3_uri }}',
- '{{ template_ssm_document_details }}',
- '{{ conformance_pack_input_parameters }}',
- '{{ region }}';
+  '{{ conformance_pack_name }}',
+  '{{ delivery_s3_bucket }}',
+  '{{ delivery_s3_key_prefix }}',
+  '{{ template_body }}',
+  '{{ template_s3_uri }}',
+  '{{ template_ssm_document_details }}',
+  '{{ conformance_pack_input_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -311,8 +314,9 @@ SET PatchDocument = string('{{ {
     "TemplateSSMDocumentDetails": template_ssm_document_details,
     "ConformancePackInputParameters": conformance_pack_input_parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ conformance_pack_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ conformance_pack_name }}';
 ```
 
 
@@ -321,8 +325,9 @@ AND Identifier = '{{ conformance_pack_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.conformance_packs
-WHERE Identifier = '{{ conformance_pack_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ conformance_pack_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -210,20 +210,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>permission_set</code>.
 ```sql
 SELECT
-region,
-name,
-permission_set_arn,
-description,
-instance_arn,
-session_duration,
-relay_state_type,
-managed_policies,
-inline_policy,
-tags,
-customer_managed_policy_references,
-permissions_boundary
+  region,
+  name,
+  permission_set_arn,
+  description,
+  instance_arn,
+  session_duration,
+  relay_state_type,
+  managed_policies,
+  inline_policy,
+  tags,
+  customer_managed_policy_references,
+  permissions_boundary
 FROM awscc.sso.permission_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,11 +233,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ permission_se
 Lists all <code>permission_sets</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn,
-permission_set_arn
+  region,
+  instance_arn,
+  permission_set_arn
 FROM awscc.sso.permission_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,14 +260,14 @@ Use the following StackQL query and manifest file to create a new <code>permissi
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.permission_sets (
- Name,
- InstanceArn,
- region
+  Name,
+  InstanceArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ instance_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ instance_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,30 +275,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.permission_sets (
- Name,
- Description,
- InstanceArn,
- SessionDuration,
- RelayStateType,
- ManagedPolicies,
- InlinePolicy,
- Tags,
- CustomerManagedPolicyReferences,
- PermissionsBoundary,
- region
+  Name,
+  Description,
+  InstanceArn,
+  SessionDuration,
+  RelayStateType,
+  ManagedPolicies,
+  InlinePolicy,
+  Tags,
+  CustomerManagedPolicyReferences,
+  PermissionsBoundary,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ instance_arn }}',
- '{{ session_duration }}',
- '{{ relay_state_type }}',
- '{{ managed_policies }}',
- '{{ inline_policy }}',
- '{{ tags }}',
- '{{ customer_managed_policy_references }}',
- '{{ permissions_boundary }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ instance_arn }}',
+  '{{ session_duration }}',
+  '{{ relay_state_type }}',
+  '{{ managed_policies }}',
+  '{{ inline_policy }}',
+  '{{ tags }}',
+  '{{ customer_managed_policy_references }}',
+  '{{ permissions_boundary }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -360,8 +363,9 @@ SET PatchDocument = string('{{ {
     "CustomerManagedPolicyReferences": customer_managed_policy_references,
     "PermissionsBoundary": permissions_boundary
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```
 
 
@@ -370,8 +374,9 @@ AND Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.permission_sets
-WHERE Identifier = '{{ instance_arn }}|{{ permission_set_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}|{{ permission_set_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

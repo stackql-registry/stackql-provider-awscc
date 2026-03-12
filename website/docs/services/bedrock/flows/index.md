@@ -315,26 +315,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-definition,
-definition_string,
-definition_s3_location,
-definition_substitutions,
-description,
-execution_role_arn,
-id,
-name,
-status,
-updated_at,
-customer_encryption_key_arn,
-validations,
-version,
-tags,
-test_alias_tags
+  region,
+  arn,
+  created_at,
+  definition,
+  definition_string,
+  definition_s3_location,
+  definition_substitutions,
+  description,
+  execution_role_arn,
+  id,
+  name,
+  status,
+  updated_at,
+  customer_encryption_key_arn,
+  validations,
+  version,
+  tags,
+  test_alias_tags
 FROM awscc.bedrock.flows
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,10 +344,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>flows</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.bedrock.flows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -367,14 +370,14 @@ Use the following StackQL query and manifest file to create a new <code>flow</co
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flows (
- ExecutionRoleArn,
- Name,
- region
+  ExecutionRoleArn,
+  Name,
+  region
 )
 SELECT
-'{{ execution_role_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ execution_role_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -382,30 +385,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flows (
- Definition,
- DefinitionString,
- DefinitionS3Location,
- DefinitionSubstitutions,
- Description,
- ExecutionRoleArn,
- Name,
- CustomerEncryptionKeyArn,
- Tags,
- TestAliasTags,
- region
+  Definition,
+  DefinitionString,
+  DefinitionS3Location,
+  DefinitionSubstitutions,
+  Description,
+  ExecutionRoleArn,
+  Name,
+  CustomerEncryptionKeyArn,
+  Tags,
+  TestAliasTags,
+  region
 )
 SELECT
- '{{ definition }}',
- '{{ definition_string }}',
- '{{ definition_s3_location }}',
- '{{ definition_substitutions }}',
- '{{ description }}',
- '{{ execution_role_arn }}',
- '{{ name }}',
- '{{ customer_encryption_key_arn }}',
- '{{ tags }}',
- '{{ test_alias_tags }}',
- '{{ region }}';
+  '{{ definition }}',
+  '{{ definition_string }}',
+  '{{ definition_s3_location }}',
+  '{{ definition_substitutions }}',
+  '{{ description }}',
+  '{{ execution_role_arn }}',
+  '{{ name }}',
+  '{{ customer_encryption_key_arn }}',
+  '{{ tags }}',
+  '{{ test_alias_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -483,8 +486,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TestAliasTags": test_alias_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -493,8 +497,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flows
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -228,17 +228,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>recording_configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-state,
-recording_reconnect_window_seconds,
-destination_configuration,
-tags,
-thumbnail_configuration,
-rendition_configuration
+  region,
+  arn,
+  name,
+  state,
+  recording_reconnect_window_seconds,
+  destination_configuration,
+  tags,
+  thumbnail_configuration,
+  rendition_configuration
 FROM awscc.ivs.recording_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>recording_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.recording_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,12 +274,12 @@ Use the following StackQL query and manifest file to create a new <code>recordin
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.recording_configurations (
- DestinationConfiguration,
- region
+  DestinationConfiguration,
+  region
 )
 SELECT
-'{{ destination_configuration }}',
-'{{ region }}';
+  '{{ destination_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,22 +287,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.recording_configurations (
- Name,
- RecordingReconnectWindowSeconds,
- DestinationConfiguration,
- Tags,
- ThumbnailConfiguration,
- RenditionConfiguration,
- region
+  Name,
+  RecordingReconnectWindowSeconds,
+  DestinationConfiguration,
+  Tags,
+  ThumbnailConfiguration,
+  RenditionConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ recording_reconnect_window_seconds }}',
- '{{ destination_configuration }}',
- '{{ tags }}',
- '{{ thumbnail_configuration }}',
- '{{ rendition_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ recording_reconnect_window_seconds }}',
+  '{{ destination_configuration }}',
+  '{{ tags }}',
+  '{{ thumbnail_configuration }}',
+  '{{ rendition_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -354,8 +357,9 @@ UPDATE awscc.ivs.recording_configurations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -364,8 +368,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.recording_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

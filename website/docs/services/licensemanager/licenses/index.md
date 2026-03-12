@@ -295,22 +295,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>license</code>.
 ```sql
 SELECT
-region,
-product_sku,
-issuer,
-license_name,
-product_name,
-home_region,
-validity,
-entitlements,
-beneficiary,
-consumption_configuration,
-license_metadata,
-license_arn,
-status,
-version
+  region,
+  product_sku,
+  issuer,
+  license_name,
+  product_name,
+  home_region,
+  validity,
+  entitlements,
+  beneficiary,
+  consumption_configuration,
+  license_metadata,
+  license_arn,
+  status,
+  version
 FROM awscc.licensemanager.licenses
-WHERE region = 'us-east-1' AND Identifier = '{{ license_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ license_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,10 +320,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ license_arn }}';
 Lists all <code>licenses</code> in a region.
 ```sql
 SELECT
-region,
-license_arn
+  region,
+  license_arn
 FROM awscc.licensemanager.licenses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -343,24 +346,24 @@ Use the following StackQL query and manifest file to create a new <code>license<
 ```sql
 /*+ create */
 INSERT INTO awscc.licensemanager.licenses (
- Issuer,
- LicenseName,
- ProductName,
- HomeRegion,
- Validity,
- Entitlements,
- ConsumptionConfiguration,
- region
+  Issuer,
+  LicenseName,
+  ProductName,
+  HomeRegion,
+  Validity,
+  Entitlements,
+  ConsumptionConfiguration,
+  region
 )
 SELECT
-'{{ issuer }}',
- '{{ license_name }}',
- '{{ product_name }}',
- '{{ home_region }}',
- '{{ validity }}',
- '{{ entitlements }}',
- '{{ consumption_configuration }}',
-'{{ region }}';
+  '{{ issuer }}',
+  '{{ license_name }}',
+  '{{ product_name }}',
+  '{{ home_region }}',
+  '{{ validity }}',
+  '{{ entitlements }}',
+  '{{ consumption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -368,32 +371,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.licensemanager.licenses (
- ProductSKU,
- Issuer,
- LicenseName,
- ProductName,
- HomeRegion,
- Validity,
- Entitlements,
- Beneficiary,
- ConsumptionConfiguration,
- LicenseMetadata,
- Status,
- region
+  ProductSKU,
+  Issuer,
+  LicenseName,
+  ProductName,
+  HomeRegion,
+  Validity,
+  Entitlements,
+  Beneficiary,
+  ConsumptionConfiguration,
+  LicenseMetadata,
+  Status,
+  region
 )
 SELECT
- '{{ product_sku }}',
- '{{ issuer }}',
- '{{ license_name }}',
- '{{ product_name }}',
- '{{ home_region }}',
- '{{ validity }}',
- '{{ entitlements }}',
- '{{ beneficiary }}',
- '{{ consumption_configuration }}',
- '{{ license_metadata }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ product_sku }}',
+  '{{ issuer }}',
+  '{{ license_name }}',
+  '{{ product_name }}',
+  '{{ home_region }}',
+  '{{ validity }}',
+  '{{ entitlements }}',
+  '{{ beneficiary }}',
+  '{{ consumption_configuration }}',
+  '{{ license_metadata }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -474,8 +477,9 @@ SET PatchDocument = string('{{ {
     "LicenseMetadata": license_metadata,
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ license_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ license_arn }}';
 ```
 
 
@@ -484,8 +488,9 @@ AND Identifier = '{{ license_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.licensemanager.licenses
-WHERE Identifier = '{{ license_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ license_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

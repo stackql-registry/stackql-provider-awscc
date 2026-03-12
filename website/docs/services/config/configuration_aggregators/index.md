@@ -197,14 +197,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_aggregator</code>.
 ```sql
 SELECT
-region,
-account_aggregation_sources,
-configuration_aggregator_name,
-configuration_aggregator_arn,
-organization_aggregation_source,
-tags
+  region,
+  account_aggregation_sources,
+  configuration_aggregator_name,
+  configuration_aggregator_arn,
+  organization_aggregation_source,
+  tags
 FROM awscc.config.configuration_aggregators
-WHERE region = 'us-east-1' AND Identifier = '{{ configuration_aggregator_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ configuration_aggregator_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,10 +214,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ configuration_aggregator_name }}
 Lists all <code>configuration_aggregators</code> in a region.
 ```sql
 SELECT
-region,
-configuration_aggregator_name
+  region,
+  configuration_aggregator_name
 FROM awscc.config.configuration_aggregators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -237,18 +240,18 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.config.configuration_aggregators (
- AccountAggregationSources,
- ConfigurationAggregatorName,
- OrganizationAggregationSource,
- Tags,
- region
+  AccountAggregationSources,
+  ConfigurationAggregatorName,
+  OrganizationAggregationSource,
+  Tags,
+  region
 )
 SELECT
-'{{ account_aggregation_sources }}',
- '{{ configuration_aggregator_name }}',
- '{{ organization_aggregation_source }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ account_aggregation_sources }}',
+  '{{ configuration_aggregator_name }}',
+  '{{ organization_aggregation_source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,18 +259,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.configuration_aggregators (
- AccountAggregationSources,
- ConfigurationAggregatorName,
- OrganizationAggregationSource,
- Tags,
- region
+  AccountAggregationSources,
+  ConfigurationAggregatorName,
+  OrganizationAggregationSource,
+  Tags,
+  region
 )
 SELECT
- '{{ account_aggregation_sources }}',
- '{{ configuration_aggregator_name }}',
- '{{ organization_aggregation_source }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ account_aggregation_sources }}',
+  '{{ configuration_aggregator_name }}',
+  '{{ organization_aggregation_source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -319,8 +322,9 @@ SET PatchDocument = string('{{ {
     "OrganizationAggregationSource": organization_aggregation_source,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ configuration_aggregator_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ configuration_aggregator_name }}';
 ```
 
 
@@ -329,8 +333,9 @@ AND Identifier = '{{ configuration_aggregator_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.configuration_aggregators
-WHERE Identifier = '{{ configuration_aggregator_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ configuration_aggregator_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

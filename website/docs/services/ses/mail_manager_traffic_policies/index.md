@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_traffic_policy</code>.
 ```sql
 SELECT
-region,
-default_action,
-max_message_size_bytes,
-policy_statements,
-tags,
-traffic_policy_arn,
-traffic_policy_id,
-traffic_policy_name
+  region,
+  default_action,
+  max_message_size_bytes,
+  policy_statements,
+  tags,
+  traffic_policy_arn,
+  traffic_policy_id,
+  traffic_policy_name
 FROM awscc.ses.mail_manager_traffic_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ traffic_policy_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ traffic_policy_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ traffic_policy_id }}';
 Lists all <code>mail_manager_traffic_policies</code> in a region.
 ```sql
 SELECT
-region,
-traffic_policy_id
+  region,
+  traffic_policy_id
 FROM awscc.ses.mail_manager_traffic_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,14 +225,14 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_traffic_policies (
- DefaultAction,
- PolicyStatements,
- region
+  DefaultAction,
+  PolicyStatements,
+  region
 )
 SELECT
-'{{ default_action }}',
- '{{ policy_statements }}',
-'{{ region }}';
+  '{{ default_action }}',
+  '{{ policy_statements }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,20 +240,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_traffic_policies (
- DefaultAction,
- MaxMessageSizeBytes,
- PolicyStatements,
- Tags,
- TrafficPolicyName,
- region
+  DefaultAction,
+  MaxMessageSizeBytes,
+  PolicyStatements,
+  Tags,
+  TrafficPolicyName,
+  region
 )
 SELECT
- '{{ default_action }}',
- '{{ max_message_size_bytes }}',
- '{{ policy_statements }}',
- '{{ tags }}',
- '{{ traffic_policy_name }}',
- '{{ region }}';
+  '{{ default_action }}',
+  '{{ max_message_size_bytes }}',
+  '{{ policy_statements }}',
+  '{{ tags }}',
+  '{{ traffic_policy_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -300,8 +303,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TrafficPolicyName": traffic_policy_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ traffic_policy_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ traffic_policy_id }}';
 ```
 
 
@@ -310,8 +314,9 @@ AND Identifier = '{{ traffic_policy_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_traffic_policies
-WHERE Identifier = '{{ traffic_policy_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ traffic_policy_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -197,18 +197,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>capacity_reservation</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-status,
-target_dpus,
-allocated_dpus,
-capacity_assignment_configuration,
-creation_time,
-last_successful_allocation_time,
-tags
+  region,
+  arn,
+  name,
+  status,
+  target_dpus,
+  allocated_dpus,
+  capacity_assignment_configuration,
+  creation_time,
+  last_successful_allocation_time,
+  tags
 FROM awscc.athena.capacity_reservations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -216,10 +218,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>capacity_reservations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.athena.capacity_reservations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -241,14 +244,14 @@ Use the following StackQL query and manifest file to create a new <code>capacity
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.capacity_reservations (
- Name,
- TargetDpus,
- region
+  Name,
+  TargetDpus,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ target_dpus }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ target_dpus }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,18 +259,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.capacity_reservations (
- Name,
- TargetDpus,
- CapacityAssignmentConfiguration,
- Tags,
- region
+  Name,
+  TargetDpus,
+  CapacityAssignmentConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ target_dpus }}',
- '{{ capacity_assignment_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ target_dpus }}',
+  '{{ capacity_assignment_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "CapacityAssignmentConfiguration": capacity_assignment_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.capacity_reservations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

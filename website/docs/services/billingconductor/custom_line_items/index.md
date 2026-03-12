@@ -273,22 +273,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_line_item</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-custom_line_item_charge_details,
-billing_group_arn,
-billing_period_range,
-arn,
-creation_time,
-last_modified_time,
-association_size,
-product_code,
-currency_code,
-account_id,
-tags
+  region,
+  name,
+  description,
+  custom_line_item_charge_details,
+  billing_group_arn,
+  billing_period_range,
+  arn,
+  creation_time,
+  last_modified_time,
+  association_size,
+  product_code,
+  currency_code,
+  account_id,
+  tags
 FROM awscc.billingconductor.custom_line_items
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,10 +298,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>custom_line_items</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.billingconductor.custom_line_items_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -321,14 +324,14 @@ Use the following StackQL query and manifest file to create a new <code>custom_l
 ```sql
 /*+ create */
 INSERT INTO awscc.billingconductor.custom_line_items (
- Name,
- BillingGroupArn,
- region
+  Name,
+  BillingGroupArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ billing_group_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ billing_group_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -336,24 +339,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.billingconductor.custom_line_items (
- Name,
- Description,
- CustomLineItemChargeDetails,
- BillingGroupArn,
- BillingPeriodRange,
- AccountId,
- Tags,
- region
+  Name,
+  Description,
+  CustomLineItemChargeDetails,
+  BillingGroupArn,
+  BillingPeriodRange,
+  AccountId,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ custom_line_item_charge_details }}',
- '{{ billing_group_arn }}',
- '{{ billing_period_range }}',
- '{{ account_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ custom_line_item_charge_details }}',
+  '{{ billing_group_arn }}',
+  '{{ billing_period_range }}',
+  '{{ account_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -416,8 +419,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -426,8 +430,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billingconductor.custom_line_items
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

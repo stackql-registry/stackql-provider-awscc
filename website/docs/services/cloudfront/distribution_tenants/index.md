@@ -307,25 +307,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>distribution_tenant</code>.
 ```sql
 SELECT
-region,
-id,
-distribution_id,
-name,
-arn,
-domain_results,
-tags,
-customizations,
-parameters,
-connection_group_id,
-created_time,
-last_modified_time,
-enabled,
-status,
-e_tag,
-domains,
-managed_certificate_request
+  region,
+  id,
+  distribution_id,
+  name,
+  arn,
+  domain_results,
+  tags,
+  customizations,
+  parameters,
+  connection_group_id,
+  created_time,
+  last_modified_time,
+  enabled,
+  status,
+  e_tag,
+  domains,
+  managed_certificate_request
 FROM awscc.cloudfront.distribution_tenants
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -333,10 +335,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>distribution_tenants</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.distribution_tenants_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -358,16 +361,16 @@ Use the following StackQL query and manifest file to create a new <code>distribu
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.distribution_tenants (
- DistributionId,
- Name,
- Domains,
- region
+  DistributionId,
+  Name,
+  Domains,
+  region
 )
 SELECT
-'{{ distribution_id }}',
- '{{ name }}',
- '{{ domains }}',
-'{{ region }}';
+  '{{ distribution_id }}',
+  '{{ name }}',
+  '{{ domains }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -375,28 +378,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.distribution_tenants (
- DistributionId,
- Name,
- Tags,
- Customizations,
- Parameters,
- ConnectionGroupId,
- Enabled,
- Domains,
- ManagedCertificateRequest,
- region
+  DistributionId,
+  Name,
+  Tags,
+  Customizations,
+  Parameters,
+  ConnectionGroupId,
+  Enabled,
+  Domains,
+  ManagedCertificateRequest,
+  region
 )
 SELECT
- '{{ distribution_id }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ customizations }}',
- '{{ parameters }}',
- '{{ connection_group_id }}',
- '{{ enabled }}',
- '{{ domains }}',
- '{{ managed_certificate_request }}',
- '{{ region }}';
+  '{{ distribution_id }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ customizations }}',
+  '{{ parameters }}',
+  '{{ connection_group_id }}',
+  '{{ enabled }}',
+  '{{ domains }}',
+  '{{ managed_certificate_request }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -469,8 +472,9 @@ SET PatchDocument = string('{{ {
     "Domains": domains,
     "ManagedCertificateRequest": managed_certificate_request
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -479,8 +483,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.distribution_tenants
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

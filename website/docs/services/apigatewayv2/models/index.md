@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>model</code>.
 ```sql
 SELECT
-region,
-model_id,
-description,
-content_type,
-schema,
-api_id,
-name
+  region,
+  model_id,
+  description,
+  content_type,
+  schema,
+  api_id,
+  name
 FROM awscc.apigatewayv2.models
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ model_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ model_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ model_id }}';
 Lists all <code>models</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-model_id
+  region,
+  api_id,
+  model_id
 FROM awscc.apigatewayv2.models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>model</c
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.models (
- Schema,
- ApiId,
- Name,
- region
+  Schema,
+  ApiId,
+  Name,
+  region
 )
 SELECT
-'{{ schema }}',
- '{{ api_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ schema }}',
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,20 +223,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.models (
- Description,
- ContentType,
- Schema,
- ApiId,
- Name,
- region
+  Description,
+  ContentType,
+  Schema,
+  ApiId,
+  Name,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ content_type }}',
- '{{ schema }}',
- '{{ api_id }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ content_type }}',
+  '{{ schema }}',
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Schema": schema,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ model_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ model_id }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ api_id }}|{{ model_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.models
-WHERE Identifier = '{{ api_id }}|{{ model_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ model_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

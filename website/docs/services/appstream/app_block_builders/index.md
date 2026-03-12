@@ -227,22 +227,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app_block_builder</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-description,
-display_name,
-platform,
-access_endpoints,
-tags,
-vpc_config,
-enable_default_internet_access,
-iam_role_arn,
-created_time,
-instance_type,
-app_block_arns
+  region,
+  name,
+  arn,
+  description,
+  display_name,
+  platform,
+  access_endpoints,
+  tags,
+  vpc_config,
+  enable_default_internet_access,
+  iam_role_arn,
+  created_time,
+  instance_type,
+  app_block_arns
 FROM awscc.appstream.app_block_builders
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +252,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>app_block_builders</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.appstream.app_block_builders_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -275,18 +278,18 @@ Use the following StackQL query and manifest file to create a new <code>app_bloc
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.app_block_builders (
- Name,
- Platform,
- VpcConfig,
- InstanceType,
- region
+  Name,
+  Platform,
+  VpcConfig,
+  InstanceType,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ platform }}',
- '{{ vpc_config }}',
- '{{ instance_type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ platform }}',
+  '{{ vpc_config }}',
+  '{{ instance_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -294,32 +297,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.app_block_builders (
- Name,
- Description,
- DisplayName,
- Platform,
- AccessEndpoints,
- Tags,
- VpcConfig,
- EnableDefaultInternetAccess,
- IamRoleArn,
- InstanceType,
- AppBlockArns,
- region
+  Name,
+  Description,
+  DisplayName,
+  Platform,
+  AccessEndpoints,
+  Tags,
+  VpcConfig,
+  EnableDefaultInternetAccess,
+  IamRoleArn,
+  InstanceType,
+  AppBlockArns,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ platform }}',
- '{{ access_endpoints }}',
- '{{ tags }}',
- '{{ vpc_config }}',
- '{{ enable_default_internet_access }}',
- '{{ iam_role_arn }}',
- '{{ instance_type }}',
- '{{ app_block_arns }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ platform }}',
+  '{{ access_endpoints }}',
+  '{{ tags }}',
+  '{{ vpc_config }}',
+  '{{ enable_default_internet_access }}',
+  '{{ iam_role_arn }}',
+  '{{ instance_type }}',
+  '{{ app_block_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -390,8 +393,9 @@ SET PatchDocument = string('{{ {
     "InstanceType": instance_type,
     "AppBlockArns": app_block_arns
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -400,8 +404,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.app_block_builders
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

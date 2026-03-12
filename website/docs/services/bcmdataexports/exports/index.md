@@ -206,12 +206,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>export</code>.
 ```sql
 SELECT
-region,
-export,
-export_arn,
-tags
+  region,
+  export,
+  export_arn,
+  tags
 FROM awscc.bcmdataexports.exports
-WHERE region = 'us-east-1' AND Identifier = '{{ export_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ export_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,10 +221,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ export_arn }}';
 Lists all <code>exports</code> in a region.
 ```sql
 SELECT
-region,
-export_arn
+  region,
+  export_arn
 FROM awscc.bcmdataexports.exports_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -244,12 +247,12 @@ Use the following StackQL query and manifest file to create a new <code>export</
 ```sql
 /*+ create */
 INSERT INTO awscc.bcmdataexports.exports (
- Export,
- region
+  Export,
+  region
 )
 SELECT
-'{{ export }}',
-'{{ region }}';
+  '{{ export }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -257,14 +260,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bcmdataexports.exports (
- Export,
- Tags,
- region
+  Export,
+  Tags,
+  region
 )
 SELECT
- '{{ export }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ export }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ UPDATE awscc.bcmdataexports.exports
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ export_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ export_arn }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ export_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bcmdataexports.exports
-WHERE Identifier = '{{ export_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ export_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

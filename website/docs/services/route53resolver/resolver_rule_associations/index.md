@@ -140,13 +140,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver_rule_association</code>.
 ```sql
 SELECT
-region,
-vpc_id,
-resolver_rule_id,
-resolver_rule_association_id,
-name
+  region,
+  vpc_id,
+  resolver_rule_id,
+  resolver_rule_association_id,
+  name
 FROM awscc.route53resolver.resolver_rule_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resolver_rule_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resolver_rule_association_id }}'
 Lists all <code>resolver_rule_associations</code> in a region.
 ```sql
 SELECT
-region,
-resolver_rule_association_id
+  region,
+  resolver_rule_association_id
 FROM awscc.route53resolver.resolver_rule_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_rule_associations (
- VPCId,
- ResolverRuleId,
- region
+  VPCId,
+  ResolverRuleId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
- '{{ resolver_rule_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ resolver_rule_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,16 +197,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_rule_associations (
- VPCId,
- ResolverRuleId,
- Name,
- region
+  VPCId,
+  ResolverRuleId,
+  Name,
+  region
 )
 SELECT
- '{{ vpc_id }}',
- '{{ resolver_rule_id }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ vpc_id }}',
+  '{{ resolver_rule_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_rule_associations
-WHERE Identifier = '{{ resolver_rule_association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resolver_rule_association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

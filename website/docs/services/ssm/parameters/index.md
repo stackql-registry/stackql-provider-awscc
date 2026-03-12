@@ -171,18 +171,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>parameter</code>.
 ```sql
 SELECT
-region,
-type,
-value,
-description,
-policies,
-allowed_pattern,
-tier,
-tags,
-data_type,
-name
+  region,
+  type,
+  value,
+  description,
+  policies,
+  allowed_pattern,
+  tier,
+  tags,
+  data_type,
+  name
 FROM awscc.ssm.parameters
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>parameters</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.ssm.parameters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>paramete
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.parameters (
- Type,
- Value,
- region
+  Type,
+  Value,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ value }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,28 +233,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.parameters (
- Type,
- Value,
- Description,
- Policies,
- AllowedPattern,
- Tier,
- Tags,
- DataType,
- Name,
- region
+  Type,
+  Value,
+  Description,
+  Policies,
+  AllowedPattern,
+  Tier,
+  Tags,
+  DataType,
+  Name,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ value }}',
- '{{ description }}',
- '{{ policies }}',
- '{{ allowed_pattern }}',
- '{{ tier }}',
- '{{ tags }}',
- '{{ data_type }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ value }}',
+  '{{ description }}',
+  '{{ policies }}',
+  '{{ allowed_pattern }}',
+  '{{ tier }}',
+  '{{ tags }}',
+  '{{ data_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "DataType": data_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.parameters
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

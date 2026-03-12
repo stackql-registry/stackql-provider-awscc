@@ -215,23 +215,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>annotation_store</code>.
 ```sql
 SELECT
-region,
-creation_time,
-description,
-id,
-name,
-reference,
-sse_config,
-status,
-status_message,
-store_arn,
-store_format,
-store_options,
-store_size_bytes,
-tags,
-update_time
+  region,
+  creation_time,
+  description,
+  id,
+  name,
+  reference,
+  sse_config,
+  status,
+  status_message,
+  store_arn,
+  store_format,
+  store_options,
+  store_size_bytes,
+  tags,
+  update_time
 FROM awscc.omics.annotation_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>annotation_stores</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.omics.annotation_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,14 +267,14 @@ Use the following StackQL query and manifest file to create a new <code>annotati
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.annotation_stores (
- Name,
- StoreFormat,
- region
+  Name,
+  StoreFormat,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ store_format }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ store_format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,24 +282,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.annotation_stores (
- Description,
- Name,
- Reference,
- SseConfig,
- StoreFormat,
- StoreOptions,
- Tags,
- region
+  Description,
+  Name,
+  Reference,
+  SseConfig,
+  StoreFormat,
+  StoreOptions,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ reference }}',
- '{{ sse_config }}',
- '{{ store_format }}',
- '{{ store_options }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ reference }}',
+  '{{ sse_config }}',
+  '{{ store_format }}',
+  '{{ store_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -344,8 +347,9 @@ UPDATE awscc.omics.annotation_stores
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -354,8 +358,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.annotation_stores
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

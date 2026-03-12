@@ -107,12 +107,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multi_region_access_point_policy</code>.
 ```sql
 SELECT
-region,
-mrap_name,
-policy,
-policy_status
+  region,
+  mrap_name,
+  policy,
+  policy_status
 FROM awscc.s3.multi_region_access_point_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ mrap_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ mrap_name }}';
 ```
 
 ## `INSERT` example
@@ -132,14 +134,14 @@ Use the following StackQL query and manifest file to create a new <code>multi_re
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.multi_region_access_point_policies (
- MrapName,
- Policy,
- region
+  MrapName,
+  Policy,
+  region
 )
 SELECT
-'{{ mrap_name }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ mrap_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -147,14 +149,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.multi_region_access_point_policies (
- MrapName,
- Policy,
- region
+  MrapName,
+  Policy,
+  region
 )
 SELECT
- '{{ mrap_name }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ mrap_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -189,8 +191,9 @@ UPDATE awscc.s3.multi_region_access_point_policies
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ mrap_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ mrap_name }}';
 ```
 
 
@@ -199,8 +202,9 @@ AND Identifier = '{{ mrap_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.multi_region_access_point_policies
-WHERE Identifier = '{{ mrap_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ mrap_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

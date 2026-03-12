@@ -156,14 +156,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>model</code>.
 ```sql
 SELECT
-region,
-content_type,
-description,
-name,
-rest_api_id,
-schema
+  region,
+  content_type,
+  description,
+  name,
+  rest_api_id,
+  schema
 FROM awscc.apigateway.models
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,11 +173,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ name }}';
 Lists all <code>models</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id,
-name
+  region,
+  rest_api_id,
+  name
 FROM awscc.apigateway.models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>model</c
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.models (
- RestApiId,
- region
+  RestApiId,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,20 +213,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.models (
- ContentType,
- Description,
- Name,
- RestApiId,
- Schema,
- region
+  ContentType,
+  Description,
+  Name,
+  RestApiId,
+  Schema,
+  region
 )
 SELECT
- '{{ content_type }}',
- '{{ description }}',
- '{{ name }}',
- '{{ rest_api_id }}',
- '{{ schema }}',
- '{{ region }}';
+  '{{ content_type }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ rest_api_id }}',
+  '{{ schema }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -265,8 +268,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Schema": schema
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}|{{ name }}';
 ```
 
 
@@ -275,8 +279,9 @@ AND Identifier = '{{ rest_api_id }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.models
-WHERE Identifier = '{{ rest_api_id }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

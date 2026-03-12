@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment_strategy</code>.
 ```sql
 SELECT
-region,
-deployment_duration_in_minutes,
-description,
-final_bake_time_in_minutes,
-growth_factor,
-growth_type,
-name,
-replicate_to,
-tags,
-id
+  region,
+  deployment_duration_in_minutes,
+  description,
+  final_bake_time_in_minutes,
+  growth_factor,
+  growth_type,
+  name,
+  replicate_to,
+  tags,
+  id
 FROM awscc.appconfig.deployment_strategies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>deployment_strategies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.appconfig.deployment_strategies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,18 +230,18 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.deployment_strategies (
- DeploymentDurationInMinutes,
- GrowthFactor,
- Name,
- ReplicateTo,
- region
+  DeploymentDurationInMinutes,
+  GrowthFactor,
+  Name,
+  ReplicateTo,
+  region
 )
 SELECT
-'{{ deployment_duration_in_minutes }}',
- '{{ growth_factor }}',
- '{{ name }}',
- '{{ replicate_to }}',
-'{{ region }}';
+  '{{ deployment_duration_in_minutes }}',
+  '{{ growth_factor }}',
+  '{{ name }}',
+  '{{ replicate_to }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,26 +249,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.deployment_strategies (
- DeploymentDurationInMinutes,
- Description,
- FinalBakeTimeInMinutes,
- GrowthFactor,
- GrowthType,
- Name,
- ReplicateTo,
- Tags,
- region
+  DeploymentDurationInMinutes,
+  Description,
+  FinalBakeTimeInMinutes,
+  GrowthFactor,
+  GrowthType,
+  Name,
+  ReplicateTo,
+  Tags,
+  region
 )
 SELECT
- '{{ deployment_duration_in_minutes }}',
- '{{ description }}',
- '{{ final_bake_time_in_minutes }}',
- '{{ growth_factor }}',
- '{{ growth_type }}',
- '{{ name }}',
- '{{ replicate_to }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ deployment_duration_in_minutes }}',
+  '{{ description }}',
+  '{{ final_bake_time_in_minutes }}',
+  '{{ growth_factor }}',
+  '{{ growth_type }}',
+  '{{ name }}',
+  '{{ replicate_to }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -319,8 +322,9 @@ SET PatchDocument = string('{{ {
     "GrowthType": growth_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -329,8 +333,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.deployment_strategies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

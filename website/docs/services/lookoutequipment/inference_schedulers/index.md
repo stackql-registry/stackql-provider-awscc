@@ -253,19 +253,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>inference_scheduler</code>.
 ```sql
 SELECT
-region,
-data_delay_offset_in_minutes,
-data_input_configuration,
-data_output_configuration,
-data_upload_frequency,
-inference_scheduler_name,
-model_name,
-role_arn,
-server_side_kms_key_id,
-tags,
-inference_scheduler_arn
+  region,
+  data_delay_offset_in_minutes,
+  data_input_configuration,
+  data_output_configuration,
+  data_upload_frequency,
+  inference_scheduler_name,
+  model_name,
+  role_arn,
+  server_side_kms_key_id,
+  tags,
+  inference_scheduler_arn
 FROM awscc.lookoutequipment.inference_schedulers
-WHERE region = 'us-east-1' AND Identifier = '{{ inference_scheduler_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ inference_scheduler_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,10 +275,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ inference_scheduler_name }}';
 Lists all <code>inference_schedulers</code> in a region.
 ```sql
 SELECT
-region,
-inference_scheduler_name
+  region,
+  inference_scheduler_name
 FROM awscc.lookoutequipment.inference_schedulers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -298,20 +301,20 @@ Use the following StackQL query and manifest file to create a new <code>inferenc
 ```sql
 /*+ create */
 INSERT INTO awscc.lookoutequipment.inference_schedulers (
- DataInputConfiguration,
- DataOutputConfiguration,
- DataUploadFrequency,
- ModelName,
- RoleArn,
- region
+  DataInputConfiguration,
+  DataOutputConfiguration,
+  DataUploadFrequency,
+  ModelName,
+  RoleArn,
+  region
 )
 SELECT
-'{{ data_input_configuration }}',
- '{{ data_output_configuration }}',
- '{{ data_upload_frequency }}',
- '{{ model_name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ data_input_configuration }}',
+  '{{ data_output_configuration }}',
+  '{{ data_upload_frequency }}',
+  '{{ model_name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -319,28 +322,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lookoutequipment.inference_schedulers (
- DataDelayOffsetInMinutes,
- DataInputConfiguration,
- DataOutputConfiguration,
- DataUploadFrequency,
- InferenceSchedulerName,
- ModelName,
- RoleArn,
- ServerSideKmsKeyId,
- Tags,
- region
+  DataDelayOffsetInMinutes,
+  DataInputConfiguration,
+  DataOutputConfiguration,
+  DataUploadFrequency,
+  InferenceSchedulerName,
+  ModelName,
+  RoleArn,
+  ServerSideKmsKeyId,
+  Tags,
+  region
 )
 SELECT
- '{{ data_delay_offset_in_minutes }}',
- '{{ data_input_configuration }}',
- '{{ data_output_configuration }}',
- '{{ data_upload_frequency }}',
- '{{ inference_scheduler_name }}',
- '{{ model_name }}',
- '{{ role_arn }}',
- '{{ server_side_kms_key_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ data_delay_offset_in_minutes }}',
+  '{{ data_input_configuration }}',
+  '{{ data_output_configuration }}',
+  '{{ data_upload_frequency }}',
+  '{{ inference_scheduler_name }}',
+  '{{ model_name }}',
+  '{{ role_arn }}',
+  '{{ server_side_kms_key_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -407,8 +410,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ inference_scheduler_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ inference_scheduler_name }}';
 ```
 
 
@@ -417,8 +421,9 @@ AND Identifier = '{{ inference_scheduler_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lookoutequipment.inference_schedulers
-WHERE Identifier = '{{ inference_scheduler_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ inference_scheduler_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -203,22 +203,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>entity</code>.
 ```sql
 SELECT
-region,
-entity_id,
-entity_name,
-status,
-has_child_entities,
-parent_entity_id,
-arn,
-description,
-creation_date_time,
-update_date_time,
-tags,
-workspace_id,
-components,
-composite_components
+  region,
+  entity_id,
+  entity_name,
+  status,
+  has_child_entities,
+  parent_entity_id,
+  arn,
+  description,
+  creation_date_time,
+  update_date_time,
+  tags,
+  workspace_id,
+  components,
+  composite_components
 FROM awscc.iottwinmaker.entities
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ entity_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,11 +228,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ entity_id }}'
 Lists all <code>entities</code> in a region.
 ```sql
 SELECT
-region,
-workspace_id,
-entity_id
+  region,
+  workspace_id,
+  entity_id
 FROM awscc.iottwinmaker.entities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,14 +255,14 @@ Use the following StackQL query and manifest file to create a new <code>entity</
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.entities (
- EntityName,
- WorkspaceId,
- region
+  EntityName,
+  WorkspaceId,
+  region
 )
 SELECT
-'{{ entity_name }}',
- '{{ workspace_id }}',
-'{{ region }}';
+  '{{ entity_name }}',
+  '{{ workspace_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -267,26 +270,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.entities (
- EntityId,
- EntityName,
- ParentEntityId,
- Description,
- Tags,
- WorkspaceId,
- Components,
- CompositeComponents,
- region
+  EntityId,
+  EntityName,
+  ParentEntityId,
+  Description,
+  Tags,
+  WorkspaceId,
+  Components,
+  CompositeComponents,
+  region
 )
 SELECT
- '{{ entity_id }}',
- '{{ entity_name }}',
- '{{ parent_entity_id }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ workspace_id }}',
- '{{ components }}',
- '{{ composite_components }}',
- '{{ region }}';
+  '{{ entity_id }}',
+  '{{ entity_name }}',
+  '{{ parent_entity_id }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ workspace_id }}',
+  '{{ components }}',
+  '{{ composite_components }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -338,8 +341,9 @@ SET PatchDocument = string('{{ {
     "Components": components,
     "CompositeComponents": composite_components
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_id }}|{{ entity_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```
 
 
@@ -348,8 +352,9 @@ AND Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.entities
-WHERE Identifier = '{{ workspace_id }}|{{ entity_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_id }}|{{ entity_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

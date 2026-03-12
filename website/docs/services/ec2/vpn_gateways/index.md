@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpn_gateway</code>.
 ```sql
 SELECT
-region,
-v_pn_gateway_id,
-amazon_side_asn,
-tags,
-type
+  region,
+  v_pn_gateway_id,
+  amazon_side_asn,
+  tags,
+  type
 FROM awscc.ec2.vpn_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ v_pn_gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ v_pn_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ v_pn_gateway_id }}';
 Lists all <code>vpn_gateways</code> in a region.
 ```sql
 SELECT
-region,
-v_pn_gateway_id
+  region,
+  v_pn_gateway_id
 FROM awscc.ec2.vpn_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>vpn_gate
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_gateways (
- Type,
- region
+  Type,
+  region
 )
 SELECT
-'{{ type }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,16 +213,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_gateways (
- AmazonSideAsn,
- Tags,
- Type,
- region
+  AmazonSideAsn,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ amazon_side_asn }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ amazon_side_asn }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -258,8 +261,9 @@ UPDATE awscc.ec2.vpn_gateways
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ v_pn_gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ v_pn_gateway_id }}';
 ```
 
 
@@ -268,8 +272,9 @@ AND Identifier = '{{ v_pn_gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_gateways
-WHERE Identifier = '{{ v_pn_gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ v_pn_gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

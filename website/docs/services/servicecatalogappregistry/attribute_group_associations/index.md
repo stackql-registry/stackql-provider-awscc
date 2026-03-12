@@ -155,13 +155,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>attribute_group_association</code>.
 ```sql
 SELECT
-region,
-application,
-attribute_group,
-application_arn,
-attribute_group_arn
+  region,
+  application,
+  attribute_group,
+  application_arn,
+  attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ attribute_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}|{{ attribute_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -169,11 +171,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ attribute_
 Lists all <code>attribute_group_associations</code> in a region.
 ```sql
 SELECT
-region,
-application_arn,
-attribute_group_arn
+  region,
+  application_arn,
+  attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -195,14 +198,14 @@ Use the following StackQL query and manifest file to create a new <code>attribut
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.attribute_group_associations (
- Application,
- AttributeGroup,
- region
+  Application,
+  AttributeGroup,
+  region
 )
 SELECT
-'{{ application }}',
- '{{ attribute_group }}',
-'{{ region }}';
+  '{{ application }}',
+  '{{ attribute_group }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.attribute_group_associations (
- Application,
- AttributeGroup,
- region
+  Application,
+  AttributeGroup,
+  region
 )
 SELECT
- '{{ application }}',
- '{{ attribute_group }}',
- '{{ region }}';
+  '{{ application }}',
+  '{{ attribute_group }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE Identifier = '{{ application_arn }}|{{ attribute_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}|{{ attribute_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

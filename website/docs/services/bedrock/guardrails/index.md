@@ -508,29 +508,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>guardrail</code>.
 ```sql
 SELECT
-region,
-blocked_input_messaging,
-blocked_outputs_messaging,
-content_policy_config,
-contextual_grounding_policy_config,
-created_at,
-cross_region_config,
-description,
-failure_recommendations,
-guardrail_arn,
-guardrail_id,
-kms_key_arn,
-name,
-sensitive_information_policy_config,
-status,
-status_reasons,
-tags,
-topic_policy_config,
-updated_at,
-version,
-word_policy_config
+  region,
+  blocked_input_messaging,
+  blocked_outputs_messaging,
+  content_policy_config,
+  contextual_grounding_policy_config,
+  created_at,
+  cross_region_config,
+  description,
+  failure_recommendations,
+  guardrail_arn,
+  guardrail_id,
+  kms_key_arn,
+  name,
+  sensitive_information_policy_config,
+  status,
+  status_reasons,
+  tags,
+  topic_policy_config,
+  updated_at,
+  version,
+  word_policy_config
 FROM awscc.bedrock.guardrails
-WHERE region = 'us-east-1' AND Identifier = '{{ guardrail_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ guardrail_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -538,10 +540,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ guardrail_arn }}';
 Lists all <code>guardrails</code> in a region.
 ```sql
 SELECT
-region,
-guardrail_arn
+  region,
+  guardrail_arn
 FROM awscc.bedrock.guardrails_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -563,16 +566,16 @@ Use the following StackQL query and manifest file to create a new <code>guardrai
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.guardrails (
- BlockedInputMessaging,
- BlockedOutputsMessaging,
- Name,
- region
+  BlockedInputMessaging,
+  BlockedOutputsMessaging,
+  Name,
+  region
 )
 SELECT
-'{{ blocked_input_messaging }}',
- '{{ blocked_outputs_messaging }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ blocked_input_messaging }}',
+  '{{ blocked_outputs_messaging }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -580,34 +583,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.guardrails (
- BlockedInputMessaging,
- BlockedOutputsMessaging,
- ContentPolicyConfig,
- ContextualGroundingPolicyConfig,
- CrossRegionConfig,
- Description,
- KmsKeyArn,
- Name,
- SensitiveInformationPolicyConfig,
- Tags,
- TopicPolicyConfig,
- WordPolicyConfig,
- region
+  BlockedInputMessaging,
+  BlockedOutputsMessaging,
+  ContentPolicyConfig,
+  ContextualGroundingPolicyConfig,
+  CrossRegionConfig,
+  Description,
+  KmsKeyArn,
+  Name,
+  SensitiveInformationPolicyConfig,
+  Tags,
+  TopicPolicyConfig,
+  WordPolicyConfig,
+  region
 )
 SELECT
- '{{ blocked_input_messaging }}',
- '{{ blocked_outputs_messaging }}',
- '{{ content_policy_config }}',
- '{{ contextual_grounding_policy_config }}',
- '{{ cross_region_config }}',
- '{{ description }}',
- '{{ kms_key_arn }}',
- '{{ name }}',
- '{{ sensitive_information_policy_config }}',
- '{{ tags }}',
- '{{ topic_policy_config }}',
- '{{ word_policy_config }}',
- '{{ region }}';
+  '{{ blocked_input_messaging }}',
+  '{{ blocked_outputs_messaging }}',
+  '{{ content_policy_config }}',
+  '{{ contextual_grounding_policy_config }}',
+  '{{ cross_region_config }}',
+  '{{ description }}',
+  '{{ kms_key_arn }}',
+  '{{ name }}',
+  '{{ sensitive_information_policy_config }}',
+  '{{ tags }}',
+  '{{ topic_policy_config }}',
+  '{{ word_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -735,8 +738,9 @@ SET PatchDocument = string('{{ {
     "TopicPolicyConfig": topic_policy_config,
     "WordPolicyConfig": word_policy_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ guardrail_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ guardrail_arn }}';
 ```
 
 
@@ -745,8 +749,9 @@ AND Identifier = '{{ guardrail_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.guardrails
-WHERE Identifier = '{{ guardrail_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ guardrail_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

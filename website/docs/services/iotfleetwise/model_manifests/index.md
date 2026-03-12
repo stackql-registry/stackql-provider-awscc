@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>model_manifest</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-name,
-nodes,
-signal_catalog_arn,
-status,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  last_modification_time,
+  name,
+  nodes,
+  signal_catalog_arn,
+  status,
+  tags
 FROM awscc.iotfleetwise.model_manifests
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>model_manifests</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.model_manifests_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>model_ma
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.model_manifests (
- Name,
- SignalCatalogArn,
- region
+  Name,
+  SignalCatalogArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ signal_catalog_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ signal_catalog_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,22 +245,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.model_manifests (
- Description,
- Name,
- Nodes,
- SignalCatalogArn,
- Status,
- Tags,
- region
+  Description,
+  Name,
+  Nodes,
+  SignalCatalogArn,
+  Status,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ nodes }}',
- '{{ signal_catalog_arn }}',
- '{{ status }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ nodes }}',
+  '{{ signal_catalog_arn }}',
+  '{{ status }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "Status": status,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.model_manifests
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

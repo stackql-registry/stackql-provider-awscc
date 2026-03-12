@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>accessor</code>.
 ```sql
 SELECT
-region,
-arn,
-billing_token,
-creation_date,
-id,
-status,
-accessor_type,
-network_type,
-tags
+  region,
+  arn,
+  billing_token,
+  creation_date,
+  id,
+  status,
+  accessor_type,
+  network_type,
+  tags
 FROM awscc.managedblockchain.accessors
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>accessors</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.managedblockchain.accessors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>accessor
 ```sql
 /*+ create */
 INSERT INTO awscc.managedblockchain.accessors (
- AccessorType,
- region
+  AccessorType,
+  region
 )
 SELECT
-'{{ accessor_type }}',
-'{{ region }}';
+  '{{ accessor_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,16 +237,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.managedblockchain.accessors (
- AccessorType,
- NetworkType,
- Tags,
- region
+  AccessorType,
+  NetworkType,
+  Tags,
+  region
 )
 SELECT
- '{{ accessor_type }}',
- '{{ network_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ accessor_type }}',
+  '{{ network_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ UPDATE awscc.managedblockchain.accessors
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.managedblockchain.accessors
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

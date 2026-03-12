@@ -252,15 +252,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>analyzer</code>.
 ```sql
 SELECT
-region,
-analyzer_name,
-archive_rules,
-arn,
-tags,
-type,
-analyzer_configuration
+  region,
+  analyzer_name,
+  archive_rules,
+  arn,
+  tags,
+  type,
+  analyzer_configuration
 FROM awscc.accessanalyzer.analyzers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +270,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>analyzers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.accessanalyzer.analyzers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,12 +296,12 @@ Use the following StackQL query and manifest file to create a new <code>analyzer
 ```sql
 /*+ create */
 INSERT INTO awscc.accessanalyzer.analyzers (
- Type,
- region
+  Type,
+  region
 )
 SELECT
-'{{ type }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -306,20 +309,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.accessanalyzer.analyzers (
- AnalyzerName,
- ArchiveRules,
- Tags,
- Type,
- AnalyzerConfiguration,
- region
+  AnalyzerName,
+  ArchiveRules,
+  Tags,
+  Type,
+  AnalyzerConfiguration,
+  region
 )
 SELECT
- '{{ analyzer_name }}',
- '{{ archive_rules }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ analyzer_configuration }}',
- '{{ region }}';
+  '{{ analyzer_name }}',
+  '{{ archive_rules }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ analyzer_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -391,8 +394,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "AnalyzerConfiguration": analyzer_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -401,8 +405,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.accessanalyzer.analyzers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

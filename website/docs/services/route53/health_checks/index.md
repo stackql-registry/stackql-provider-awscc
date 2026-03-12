@@ -252,12 +252,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>health_check</code>.
 ```sql
 SELECT
-region,
-health_check_id,
-health_check_config,
-health_check_tags
+  region,
+  health_check_id,
+  health_check_config,
+  health_check_tags
 FROM awscc.route53.health_checks
-WHERE region = 'us-east-1' AND Identifier = '{{ health_check_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ health_check_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,10 +267,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ health_check_id }}';
 Lists all <code>health_checks</code> in a region.
 ```sql
 SELECT
-region,
-health_check_id
+  region,
+  health_check_id
 FROM awscc.route53.health_checks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -290,12 +293,12 @@ Use the following StackQL query and manifest file to create a new <code>health_c
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.health_checks (
- HealthCheckConfig,
- region
+  HealthCheckConfig,
+  region
 )
 SELECT
-'{{ health_check_config }}',
-'{{ region }}';
+  '{{ health_check_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,14 +306,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.health_checks (
- HealthCheckConfig,
- HealthCheckTags,
- region
+  HealthCheckConfig,
+  HealthCheckTags,
+  region
 )
 SELECT
- '{{ health_check_config }}',
- '{{ health_check_tags }}',
- '{{ region }}';
+  '{{ health_check_config }}',
+  '{{ health_check_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -368,8 +371,9 @@ UPDATE awscc.route53.health_checks
 SET PatchDocument = string('{{ {
     "HealthCheckTags": health_check_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ health_check_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ health_check_id }}';
 ```
 
 
@@ -378,8 +382,9 @@ AND Identifier = '{{ health_check_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.health_checks
-WHERE Identifier = '{{ health_check_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ health_check_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

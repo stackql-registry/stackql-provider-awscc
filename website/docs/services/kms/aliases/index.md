@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alias</code>.
 ```sql
 SELECT
-region,
-target_key_id,
-alias_name
+  region,
+  target_key_id,
+  alias_name
 FROM awscc.kms.aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ alias_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alias_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alias_name }}';
 Lists all <code>aliases</code> in a region.
 ```sql
 SELECT
-region,
-alias_name
+  region,
+  alias_name
 FROM awscc.kms.aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>alias</c
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.aliases (
- TargetKeyId,
- AliasName,
- region
+  TargetKeyId,
+  AliasName,
+  region
 )
 SELECT
-'{{ target_key_id }}',
- '{{ alias_name }}',
-'{{ region }}';
+  '{{ target_key_id }}',
+  '{{ alias_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.aliases (
- TargetKeyId,
- AliasName,
- region
+  TargetKeyId,
+  AliasName,
+  region
 )
 SELECT
- '{{ target_key_id }}',
- '{{ alias_name }}',
- '{{ region }}';
+  '{{ target_key_id }}',
+  '{{ alias_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -230,8 +233,9 @@ UPDATE awscc.kms.aliases
 SET PatchDocument = string('{{ {
     "TargetKeyId": target_key_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alias_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alias_name }}';
 ```
 
 
@@ -240,8 +244,9 @@ AND Identifier = '{{ alias_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.aliases
-WHERE Identifier = '{{ alias_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alias_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

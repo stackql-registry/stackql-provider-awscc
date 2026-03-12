@@ -225,17 +225,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_manager</code>.
 ```sql
 SELECT
-region,
-configuration_definitions,
-created_at,
-description,
-last_modified_at,
-manager_arn,
-name,
-status_summaries,
-tags
+  region,
+  configuration_definitions,
+  created_at,
+  description,
+  last_modified_at,
+  manager_arn,
+  name,
+  status_summaries,
+  tags
 FROM awscc.ssmquicksetup.configuration_managers
-WHERE region = 'us-east-1' AND Identifier = '{{ manager_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ manager_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ manager_arn }}';
 Lists all <code>configuration_managers</code> in a region.
 ```sql
 SELECT
-region,
-manager_arn
+  region,
+  manager_arn
 FROM awscc.ssmquicksetup.configuration_managers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,12 +271,12 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmquicksetup.configuration_managers (
- ConfigurationDefinitions,
- region
+  ConfigurationDefinitions,
+  region
 )
 SELECT
-'{{ configuration_definitions }}',
-'{{ region }}';
+  '{{ configuration_definitions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -281,18 +284,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmquicksetup.configuration_managers (
- ConfigurationDefinitions,
- Description,
- Name,
- Tags,
- region
+  ConfigurationDefinitions,
+  Description,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ configuration_definitions }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ configuration_definitions }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -339,8 +342,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ manager_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ manager_arn }}';
 ```
 
 
@@ -349,8 +353,9 @@ AND Identifier = '{{ manager_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmquicksetup.configuration_managers
-WHERE Identifier = '{{ manager_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ manager_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

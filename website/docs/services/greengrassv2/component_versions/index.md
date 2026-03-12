@@ -281,15 +281,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>component_version</code>.
 ```sql
 SELECT
-region,
-arn,
-component_name,
-component_version,
-inline_recipe,
-lambda_function,
-tags
+  region,
+  arn,
+  component_name,
+  component_version,
+  inline_recipe,
+  lambda_function,
+  tags
 FROM awscc.greengrassv2.component_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,10 +299,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>component_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.greengrassv2.component_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,16 +325,16 @@ Use the following StackQL query and manifest file to create a new <code>componen
 ```sql
 /*+ create */
 INSERT INTO awscc.greengrassv2.component_versions (
- InlineRecipe,
- LambdaFunction,
- Tags,
- region
+  InlineRecipe,
+  LambdaFunction,
+  Tags,
+  region
 )
 SELECT
-'{{ inline_recipe }}',
- '{{ lambda_function }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ inline_recipe }}',
+  '{{ lambda_function }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -339,16 +342,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.greengrassv2.component_versions (
- InlineRecipe,
- LambdaFunction,
- Tags,
- region
+  InlineRecipe,
+  LambdaFunction,
+  Tags,
+  region
 )
 SELECT
- '{{ inline_recipe }}',
- '{{ lambda_function }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ inline_recipe }}',
+  '{{ lambda_function }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -420,8 +423,9 @@ UPDATE awscc.greengrassv2.component_versions
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -430,8 +434,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.greengrassv2.component_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -181,19 +181,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ai_agent</code>.
 ```sql
 SELECT
-region,
-a_iagent_id,
-a_iagent_arn,
-assistant_id,
-assistant_arn,
-configuration,
-description,
-name,
-tags,
-type,
-modified_time_seconds
+  region,
+  a_iagent_id,
+  a_iagent_arn,
+  assistant_id,
+  assistant_arn,
+  configuration,
+  description,
+  name,
+  tags,
+  type,
+  modified_time_seconds
 FROM awscc.wisdom.ai_agents
-WHERE region = 'us-east-1' AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,11 +203,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }
 Lists all <code>ai_agents</code> in a region.
 ```sql
 SELECT
-region,
-a_iagent_id,
-assistant_id
+  region,
+  a_iagent_id,
+  assistant_id
 FROM awscc.wisdom.ai_agents_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>ai_agent
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_agents (
- AssistantId,
- Configuration,
- Type,
- region
+  AssistantId,
+  Configuration,
+  Type,
+  region
 )
 SELECT
-'{{ assistant_id }}',
- '{{ configuration }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ assistant_id }}',
+  '{{ configuration }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,22 +247,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_agents (
- AssistantId,
- Configuration,
- Description,
- Name,
- Tags,
- Type,
- region
+  AssistantId,
+  Configuration,
+  Description,
+  Name,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ assistant_id }}',
- '{{ configuration }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ assistant_id }}',
+  '{{ configuration }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "Configuration": configuration,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_agents
-WHERE Identifier = '{{ a_iagent_id }}|{{ assistant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ a_iagent_id }}|{{ assistant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

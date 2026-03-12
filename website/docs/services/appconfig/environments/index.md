@@ -190,16 +190,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-environment_id,
-description,
-monitors,
-deletion_protection_check,
-application_id,
-tags,
-name
+  region,
+  environment_id,
+  description,
+  monitors,
+  deletion_protection_check,
+  application_id,
+  tags,
+  name
 FROM awscc.appconfig.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,11 +209,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-environment_id
+  region,
+  application_id,
+  environment_id
 FROM awscc.appconfig.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.environments (
- ApplicationId,
- Name,
- region
+  ApplicationId,
+  Name,
+  region
 )
 SELECT
-'{{ application_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,22 +251,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.environments (
- Description,
- Monitors,
- DeletionProtectionCheck,
- ApplicationId,
- Tags,
- Name,
- region
+  Description,
+  Monitors,
+  DeletionProtectionCheck,
+  ApplicationId,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ monitors }}',
- '{{ deletion_protection_check }}',
- '{{ application_id }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ monitors }}',
+  '{{ deletion_protection_check }}',
+  '{{ application_id }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ environment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ environment_id }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ application_id }}|{{ environment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.environments
-WHERE Identifier = '{{ application_id }}|{{ environment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ environment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

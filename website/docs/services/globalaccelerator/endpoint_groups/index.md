@@ -210,20 +210,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint_group</code>.
 ```sql
 SELECT
-region,
-listener_arn,
-endpoint_group_region,
-endpoint_configurations,
-traffic_dial_percentage,
-health_check_port,
-health_check_protocol,
-health_check_path,
-health_check_interval_seconds,
-threshold_count,
-endpoint_group_arn,
-port_overrides
+  region,
+  listener_arn,
+  endpoint_group_region,
+  endpoint_configurations,
+  traffic_dial_percentage,
+  health_check_port,
+  health_check_protocol,
+  health_check_path,
+  health_check_interval_seconds,
+  threshold_count,
+  endpoint_group_arn,
+  port_overrides
 FROM awscc.globalaccelerator.endpoint_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ endpoint_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_group_arn }}';
 Lists all <code>endpoint_groups</code> in a region.
 ```sql
 SELECT
-region,
-endpoint_group_arn
+  region,
+  endpoint_group_arn
 FROM awscc.globalaccelerator.endpoint_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,14 +259,14 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.endpoint_groups (
- ListenerArn,
- EndpointGroupRegion,
- region
+  ListenerArn,
+  EndpointGroupRegion,
+  region
 )
 SELECT
-'{{ listener_arn }}',
- '{{ endpoint_group_region }}',
-'{{ region }}';
+  '{{ listener_arn }}',
+  '{{ endpoint_group_region }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,30 +274,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.endpoint_groups (
- ListenerArn,
- EndpointGroupRegion,
- EndpointConfigurations,
- TrafficDialPercentage,
- HealthCheckPort,
- HealthCheckProtocol,
- HealthCheckPath,
- HealthCheckIntervalSeconds,
- ThresholdCount,
- PortOverrides,
- region
+  ListenerArn,
+  EndpointGroupRegion,
+  EndpointConfigurations,
+  TrafficDialPercentage,
+  HealthCheckPort,
+  HealthCheckProtocol,
+  HealthCheckPath,
+  HealthCheckIntervalSeconds,
+  ThresholdCount,
+  PortOverrides,
+  region
 )
 SELECT
- '{{ listener_arn }}',
- '{{ endpoint_group_region }}',
- '{{ endpoint_configurations }}',
- '{{ traffic_dial_percentage }}',
- '{{ health_check_port }}',
- '{{ health_check_protocol }}',
- '{{ health_check_path }}',
- '{{ health_check_interval_seconds }}',
- '{{ threshold_count }}',
- '{{ port_overrides }}',
- '{{ region }}';
+  '{{ listener_arn }}',
+  '{{ endpoint_group_region }}',
+  '{{ endpoint_configurations }}',
+  '{{ traffic_dial_percentage }}',
+  '{{ health_check_port }}',
+  '{{ health_check_protocol }}',
+  '{{ health_check_path }}',
+  '{{ health_check_interval_seconds }}',
+  '{{ threshold_count }}',
+  '{{ port_overrides }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "ThresholdCount": threshold_count,
     "PortOverrides": port_overrides
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ endpoint_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ endpoint_group_arn }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ endpoint_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.endpoint_groups
-WHERE Identifier = '{{ endpoint_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ endpoint_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

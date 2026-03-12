@@ -223,16 +223,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_lake</code>.
 ```sql
 SELECT
-region,
-encryption_configuration,
-lifecycle_configuration,
-replication_configuration,
-meta_store_manager_role_arn,
-tags,
-arn,
-s3_bucket_arn
+  region,
+  encryption_configuration,
+  lifecycle_configuration,
+  replication_configuration,
+  meta_store_manager_role_arn,
+  tags,
+  arn,
+  s3_bucket_arn
 FROM awscc.securitylake.data_lakes
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -240,10 +242,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>data_lakes</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.securitylake.data_lakes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -265,20 +268,20 @@ Use the following StackQL query and manifest file to create a new <code>data_lak
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.data_lakes (
- EncryptionConfiguration,
- LifecycleConfiguration,
- ReplicationConfiguration,
- MetaStoreManagerRoleArn,
- Tags,
- region
+  EncryptionConfiguration,
+  LifecycleConfiguration,
+  ReplicationConfiguration,
+  MetaStoreManagerRoleArn,
+  Tags,
+  region
 )
 SELECT
-'{{ encryption_configuration }}',
- '{{ lifecycle_configuration }}',
- '{{ replication_configuration }}',
- '{{ meta_store_manager_role_arn }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ encryption_configuration }}',
+  '{{ lifecycle_configuration }}',
+  '{{ replication_configuration }}',
+  '{{ meta_store_manager_role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -286,20 +289,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.data_lakes (
- EncryptionConfiguration,
- LifecycleConfiguration,
- ReplicationConfiguration,
- MetaStoreManagerRoleArn,
- Tags,
- region
+  EncryptionConfiguration,
+  LifecycleConfiguration,
+  ReplicationConfiguration,
+  MetaStoreManagerRoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ encryption_configuration }}',
- '{{ lifecycle_configuration }}',
- '{{ replication_configuration }}',
- '{{ meta_store_manager_role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ encryption_configuration }}',
+  '{{ lifecycle_configuration }}',
+  '{{ replication_configuration }}',
+  '{{ meta_store_manager_role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -355,8 +358,9 @@ SET PatchDocument = string('{{ {
     "MetaStoreManagerRoleArn": meta_store_manager_role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -365,8 +369,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.data_lakes
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

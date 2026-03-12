@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scheduled_audit</code>.
 ```sql
 SELECT
-region,
-scheduled_audit_name,
-frequency,
-day_of_month,
-day_of_week,
-target_check_names,
-scheduled_audit_arn,
-tags
+  region,
+  scheduled_audit_name,
+  frequency,
+  day_of_month,
+  day_of_week,
+  target_check_names,
+  scheduled_audit_arn,
+  tags
 FROM awscc.iot.scheduled_audits
-WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_audit_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ scheduled_audit_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_audit_name }}';
 Lists all <code>scheduled_audits</code> in a region.
 ```sql
 SELECT
-region,
-scheduled_audit_name
+  region,
+  scheduled_audit_name
 FROM awscc.iot.scheduled_audits_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.scheduled_audits (
- Frequency,
- TargetCheckNames,
- region
+  Frequency,
+  TargetCheckNames,
+  region
 )
 SELECT
-'{{ frequency }}',
- '{{ target_check_names }}',
-'{{ region }}';
+  '{{ frequency }}',
+  '{{ target_check_names }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,22 +233,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.scheduled_audits (
- ScheduledAuditName,
- Frequency,
- DayOfMonth,
- DayOfWeek,
- TargetCheckNames,
- Tags,
- region
+  ScheduledAuditName,
+  Frequency,
+  DayOfMonth,
+  DayOfWeek,
+  TargetCheckNames,
+  Tags,
+  region
 )
 SELECT
- '{{ scheduled_audit_name }}',
- '{{ frequency }}',
- '{{ day_of_month }}',
- '{{ day_of_week }}',
- '{{ target_check_names }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ scheduled_audit_name }}',
+  '{{ frequency }}',
+  '{{ day_of_month }}',
+  '{{ day_of_week }}',
+  '{{ target_check_names }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -295,8 +298,9 @@ SET PatchDocument = string('{{ {
     "TargetCheckNames": target_check_names,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ scheduled_audit_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ scheduled_audit_name }}';
 ```
 
 
@@ -305,8 +309,9 @@ AND Identifier = '{{ scheduled_audit_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.scheduled_audits
-WHERE Identifier = '{{ scheduled_audit_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ scheduled_audit_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

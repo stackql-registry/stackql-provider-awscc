@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sdi_source</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-mode,
-name,
-state,
-type,
-inputs,
-tags
+  region,
+  arn,
+  id,
+  mode,
+  name,
+  state,
+  type,
+  inputs,
+  tags
 FROM awscc.medialive.sdi_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>sdi_sources</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.medialive.sdi_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>sdi_sour
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.sdi_sources (
- Name,
- Type,
- region
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,18 +239,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.sdi_sources (
- Mode,
- Name,
- Type,
- Tags,
- region
+  Mode,
+  Name,
+  Type,
+  Tags,
+  region
 )
 SELECT
- '{{ mode }}',
- '{{ name }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ mode }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "Type": type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.sdi_sources
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

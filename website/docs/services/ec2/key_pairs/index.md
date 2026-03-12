@@ -167,16 +167,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key_pair</code>.
 ```sql
 SELECT
-region,
-key_name,
-key_type,
-key_format,
-public_key_material,
-key_fingerprint,
-key_pair_id,
-tags
+  region,
+  key_name,
+  key_type,
+  key_format,
+  public_key_material,
+  key_fingerprint,
+  key_pair_id,
+  tags
 FROM awscc.ec2.key_pairs
-WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ key_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
 Lists all <code>key_pairs</code> in a region.
 ```sql
 SELECT
-region,
-key_name
+  region,
+  key_name
 FROM awscc.ec2.key_pairs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>key_pair
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.key_pairs (
- KeyName,
- region
+  KeyName,
+  region
 )
 SELECT
-'{{ key_name }}',
-'{{ region }}';
+  '{{ key_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,20 +225,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.key_pairs (
- KeyName,
- KeyType,
- KeyFormat,
- PublicKeyMaterial,
- Tags,
- region
+  KeyName,
+  KeyType,
+  KeyFormat,
+  PublicKeyMaterial,
+  Tags,
+  region
 )
 SELECT
- '{{ key_name }}',
- '{{ key_type }}',
- '{{ key_format }}',
- '{{ public_key_material }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ key_name }}',
+  '{{ key_type }}',
+  '{{ key_format }}',
+  '{{ public_key_material }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -274,8 +277,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.key_pairs
-WHERE Identifier = '{{ key_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ key_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

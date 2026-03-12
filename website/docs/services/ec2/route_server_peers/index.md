@@ -205,20 +205,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_server_peer</code>.
 ```sql
 SELECT
-region,
-route_server_id,
-route_server_endpoint_id,
-arn,
-id,
-subnet_id,
-vpc_id,
-endpoint_eni_id,
-endpoint_eni_address,
-peer_address,
-bgp_options,
-tags
+  region,
+  route_server_id,
+  route_server_endpoint_id,
+  arn,
+  id,
+  subnet_id,
+  vpc_id,
+  endpoint_eni_id,
+  endpoint_eni_address,
+  peer_address,
+  bgp_options,
+  tags
 FROM awscc.ec2.route_server_peers
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>route_server_peers</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.route_server_peers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,16 +254,16 @@ Use the following StackQL query and manifest file to create a new <code>route_se
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_peers (
- RouteServerEndpointId,
- PeerAddress,
- BgpOptions,
- region
+  RouteServerEndpointId,
+  PeerAddress,
+  BgpOptions,
+  region
 )
 SELECT
-'{{ route_server_endpoint_id }}',
- '{{ peer_address }}',
- '{{ bgp_options }}',
-'{{ region }}';
+  '{{ route_server_endpoint_id }}',
+  '{{ peer_address }}',
+  '{{ bgp_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -268,18 +271,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_peers (
- RouteServerEndpointId,
- PeerAddress,
- BgpOptions,
- Tags,
- region
+  RouteServerEndpointId,
+  PeerAddress,
+  BgpOptions,
+  Tags,
+  region
 )
 SELECT
- '{{ route_server_endpoint_id }}',
- '{{ peer_address }}',
- '{{ bgp_options }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ route_server_endpoint_id }}',
+  '{{ peer_address }}',
+  '{{ bgp_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ UPDATE awscc.ec2.route_server_peers
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -332,8 +336,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_peers
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

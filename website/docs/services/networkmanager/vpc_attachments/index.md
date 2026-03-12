@@ -313,28 +313,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_attachment</code>.
 ```sql
 SELECT
-region,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_location,
-vpc_arn,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-tags,
-created_at,
-updated_at,
-subnet_arns,
-options
+  region,
+  core_network_id,
+  core_network_arn,
+  attachment_id,
+  owner_account_id,
+  attachment_type,
+  state,
+  edge_location,
+  vpc_arn,
+  resource_arn,
+  attachment_policy_rule_number,
+  segment_name,
+  proposed_segment_change,
+  network_function_group_name,
+  proposed_network_function_group_change,
+  tags,
+  created_at,
+  updated_at,
+  subnet_arns,
+  options
 FROM awscc.networkmanager.vpc_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,10 +344,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 Lists all <code>vpc_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_id
+  region,
+  attachment_id
 FROM awscc.networkmanager.vpc_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -367,16 +370,16 @@ Use the following StackQL query and manifest file to create a new <code>vpc_atta
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.vpc_attachments (
- CoreNetworkId,
- VpcArn,
- SubnetArns,
- region
+  CoreNetworkId,
+  VpcArn,
+  SubnetArns,
+  region
 )
 SELECT
-'{{ core_network_id }}',
- '{{ vpc_arn }}',
- '{{ subnet_arns }}',
-'{{ region }}';
+  '{{ core_network_id }}',
+  '{{ vpc_arn }}',
+  '{{ subnet_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -384,24 +387,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.vpc_attachments (
- CoreNetworkId,
- VpcArn,
- ProposedSegmentChange,
- ProposedNetworkFunctionGroupChange,
- Tags,
- SubnetArns,
- Options,
- region
+  CoreNetworkId,
+  VpcArn,
+  ProposedSegmentChange,
+  ProposedNetworkFunctionGroupChange,
+  Tags,
+  SubnetArns,
+  Options,
+  region
 )
 SELECT
- '{{ core_network_id }}',
- '{{ vpc_arn }}',
- '{{ proposed_segment_change }}',
- '{{ proposed_network_function_group_change }}',
- '{{ tags }}',
- '{{ subnet_arns }}',
- '{{ options }}',
- '{{ region }}';
+  '{{ core_network_id }}',
+  '{{ vpc_arn }}',
+  '{{ proposed_segment_change }}',
+  '{{ proposed_network_function_group_change }}',
+  '{{ tags }}',
+  '{{ subnet_arns }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -465,8 +468,9 @@ SET PatchDocument = string('{{ {
     "SubnetArns": subnet_arns,
     "Options": options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -475,8 +479,9 @@ AND Identifier = '{{ attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.vpc_attachments
-WHERE Identifier = '{{ attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

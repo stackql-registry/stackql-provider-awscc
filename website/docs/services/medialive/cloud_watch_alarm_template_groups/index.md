@@ -171,17 +171,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_watch_alarm_template_group</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-description,
-id,
-identifier,
-modified_at,
-name,
-tags
+  region,
+  arn,
+  created_at,
+  description,
+  id,
+  identifier,
+  modified_at,
+  name,
+  tags
 FROM awscc.medialive.cloud_watch_alarm_template_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 Lists all <code>cloud_watch_alarm_template_groups</code> in a region.
 ```sql
 SELECT
-region,
-identifier
+  region,
+  identifier
 FROM awscc.medialive.cloud_watch_alarm_template_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,12 +217,12 @@ Use the following StackQL query and manifest file to create a new <code>cloud_wa
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.cloud_watch_alarm_template_groups (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,16 +230,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.cloud_watch_alarm_template_groups (
- Description,
- Name,
- Tags,
- region
+  Description,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ UPDATE awscc.medialive.cloud_watch_alarm_template_groups
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identifier }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.cloud_watch_alarm_template_groups
-WHERE Identifier = '{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

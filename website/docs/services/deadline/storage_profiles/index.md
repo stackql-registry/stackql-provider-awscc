@@ -173,14 +173,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>storage_profile</code>.
 ```sql
 SELECT
-region,
-display_name,
-farm_id,
-file_system_locations,
-os_family,
-storage_profile_id
+  region,
+  display_name,
+  farm_id,
+  file_system_locations,
+  os_family,
+  storage_profile_id
 FROM awscc.deadline.storage_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,11 +190,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ storage_profile_id
 Lists all <code>storage_profiles</code> in a region.
 ```sql
 SELECT
-region,
-farm_id,
-storage_profile_id
+  region,
+  farm_id,
+  storage_profile_id
 FROM awscc.deadline.storage_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,16 +217,16 @@ Use the following StackQL query and manifest file to create a new <code>storage_
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.storage_profiles (
- DisplayName,
- FarmId,
- OsFamily,
- region
+  DisplayName,
+  FarmId,
+  OsFamily,
+  region
 )
 SELECT
-'{{ display_name }}',
- '{{ farm_id }}',
- '{{ os_family }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ os_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -231,18 +234,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.storage_profiles (
- DisplayName,
- FarmId,
- FileSystemLocations,
- OsFamily,
- region
+  DisplayName,
+  FarmId,
+  FileSystemLocations,
+  OsFamily,
+  region
 )
 SELECT
- '{{ display_name }}',
- '{{ farm_id }}',
- '{{ file_system_locations }}',
- '{{ os_family }}',
- '{{ region }}';
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ file_system_locations }}',
+  '{{ os_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ SET PatchDocument = string('{{ {
     "FileSystemLocations": file_system_locations,
     "OsFamily": os_family
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.storage_profiles
-WHERE Identifier = '{{ farm_id }}|{{ storage_profile_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ farm_id }}|{{ storage_profile_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

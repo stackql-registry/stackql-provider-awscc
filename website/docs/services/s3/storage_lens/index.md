@@ -530,11 +530,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>storage_len</code>.
 ```sql
 SELECT
-region,
-storage_lens_configuration,
-tags
+  region,
+  storage_lens_configuration,
+  tags
 FROM awscc.s3.storage_lens
-WHERE region = 'us-east-1' AND Identifier = '{{ storage_lens_configuration/id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ storage_lens_configuration/id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -542,10 +544,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ storage_lens_configuration/id }}
 Lists all <code>storage_lens</code> in a region.
 ```sql
 SELECT
-region,
-storage_lens_configuration/id
+  region,
+  storage_lens_configuration/id
 FROM awscc.s3.storage_lens_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -567,12 +570,12 @@ Use the following StackQL query and manifest file to create a new <code>storage_
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.storage_lens (
- StorageLensConfiguration,
- region
+  StorageLensConfiguration,
+  region
 )
 SELECT
-'{{ storage_lens_configuration }}',
-'{{ region }}';
+  '{{ storage_lens_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -580,14 +583,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.storage_lens (
- StorageLensConfiguration,
- Tags,
- region
+  StorageLensConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ storage_lens_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ storage_lens_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -672,8 +675,9 @@ UPDATE awscc.s3.storage_lens
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ storage_lens_configuration/id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ storage_lens_configuration/id }}';
 ```
 
 
@@ -682,8 +686,9 @@ AND Identifier = '{{ storage_lens_configuration/id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.storage_lens
-WHERE Identifier = '{{ storage_lens_configuration/id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ storage_lens_configuration/id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -645,16 +645,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_profile</code>.
 ```sql
 SELECT
-region,
-user_profile_arn,
-domain_id,
-single_sign_on_user_identifier,
-single_sign_on_user_value,
-user_profile_name,
-user_settings,
-tags
+  region,
+  user_profile_arn,
+  domain_id,
+  single_sign_on_user_identifier,
+  single_sign_on_user_value,
+  user_profile_name,
+  user_settings,
+  tags
 FROM awscc.sagemaker.user_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ user_profile_name }}|{{ domain_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_profile_name }}|{{ domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -662,11 +664,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_profile_name }}|{{ domain_i
 Lists all <code>user_profiles</code> in a region.
 ```sql
 SELECT
-region,
-user_profile_name,
-domain_id
+  region,
+  user_profile_name,
+  domain_id
 FROM awscc.sagemaker.user_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -688,14 +691,14 @@ Use the following StackQL query and manifest file to create a new <code>user_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.user_profiles (
- DomainId,
- UserProfileName,
- region
+  DomainId,
+  UserProfileName,
+  region
 )
 SELECT
-'{{ domain_id }}',
- '{{ user_profile_name }}',
-'{{ region }}';
+  '{{ domain_id }}',
+  '{{ user_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -703,22 +706,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.user_profiles (
- DomainId,
- SingleSignOnUserIdentifier,
- SingleSignOnUserValue,
- UserProfileName,
- UserSettings,
- Tags,
- region
+  DomainId,
+  SingleSignOnUserIdentifier,
+  SingleSignOnUserValue,
+  UserProfileName,
+  UserSettings,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_id }}',
- '{{ single_sign_on_user_identifier }}',
- '{{ single_sign_on_user_value }}',
- '{{ user_profile_name }}',
- '{{ user_settings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_id }}',
+  '{{ single_sign_on_user_identifier }}',
+  '{{ single_sign_on_user_value }}',
+  '{{ user_profile_name }}',
+  '{{ user_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -839,8 +842,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.user_profiles
-WHERE Identifier = '{{ user_profile_name }}|{{ domain_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_profile_name }}|{{ domain_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

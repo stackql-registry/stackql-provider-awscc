@@ -242,23 +242,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>device</code>.
 ```sql
 SELECT
-region,
-device_arn,
-device_id,
-description,
-tags,
-global_network_id,
-aws_location,
-location,
-model,
-serial_number,
-site_id,
-type,
-vendor,
-created_at,
-state
+  region,
+  device_arn,
+  device_id,
+  description,
+  tags,
+  global_network_id,
+  aws_location,
+  location,
+  model,
+  serial_number,
+  site_id,
+  type,
+  vendor,
+  created_at,
+  state
 FROM awscc.networkmanager.devices
-WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_network_id }}|{{ device_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,11 +268,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_i
 Lists all <code>devices</code> in a region.
 ```sql
 SELECT
-region,
-global_network_id,
-device_id
+  region,
+  global_network_id,
+  device_id
 FROM awscc.networkmanager.devices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -292,12 +295,12 @@ Use the following StackQL query and manifest file to create a new <code>device</
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.devices (
- GlobalNetworkId,
- region
+  GlobalNetworkId,
+  region
 )
 SELECT
-'{{ global_network_id }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -305,30 +308,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.devices (
- Description,
- Tags,
- GlobalNetworkId,
- AWSLocation,
- Location,
- Model,
- SerialNumber,
- SiteId,
- Type,
- Vendor,
- region
+  Description,
+  Tags,
+  GlobalNetworkId,
+  AWSLocation,
+  Location,
+  Model,
+  SerialNumber,
+  SiteId,
+  Type,
+  Vendor,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ tags }}',
- '{{ global_network_id }}',
- '{{ aws_location }}',
- '{{ location }}',
- '{{ model }}',
- '{{ serial_number }}',
- '{{ site_id }}',
- '{{ type }}',
- '{{ vendor }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ global_network_id }}',
+  '{{ aws_location }}',
+  '{{ location }}',
+  '{{ model }}',
+  '{{ serial_number }}',
+  '{{ site_id }}',
+  '{{ type }}',
+  '{{ vendor }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -394,8 +397,9 @@ SET PatchDocument = string('{{ {
     "Type": type,
     "Vendor": vendor
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ global_network_id }}|{{ device_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ global_network_id }}|{{ device_id }}';
 ```
 
 
@@ -404,8 +408,9 @@ AND Identifier = '{{ global_network_id }}|{{ device_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.devices
-WHERE Identifier = '{{ global_network_id }}|{{ device_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_network_id }}|{{ device_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

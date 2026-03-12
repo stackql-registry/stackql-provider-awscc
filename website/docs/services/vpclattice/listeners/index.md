@@ -226,19 +226,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>listener</code>.
 ```sql
 SELECT
-region,
-arn,
-default_action,
-id,
-name,
-port,
-protocol,
-service_arn,
-service_id,
-service_identifier,
-tags
+  region,
+  arn,
+  default_action,
+  id,
+  name,
+  port,
+  protocol,
+  service_arn,
+  service_id,
+  service_identifier,
+  tags
 FROM awscc.vpclattice.listeners
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>listeners</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.listeners_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,14 +274,14 @@ Use the following StackQL query and manifest file to create a new <code>listener
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.listeners (
- DefaultAction,
- Protocol,
- region
+  DefaultAction,
+  Protocol,
+  region
 )
 SELECT
-'{{ default_action }}',
- '{{ protocol }}',
-'{{ region }}';
+  '{{ default_action }}',
+  '{{ protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -286,22 +289,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.listeners (
- DefaultAction,
- Name,
- Port,
- Protocol,
- ServiceIdentifier,
- Tags,
- region
+  DefaultAction,
+  Name,
+  Port,
+  Protocol,
+  ServiceIdentifier,
+  Tags,
+  region
 )
 SELECT
- '{{ default_action }}',
- '{{ name }}',
- '{{ port }}',
- '{{ protocol }}',
- '{{ service_identifier }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ default_action }}',
+  '{{ name }}',
+  '{{ port }}',
+  '{{ protocol }}',
+  '{{ service_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -353,8 +356,9 @@ SET PatchDocument = string('{{ {
     "DefaultAction": default_action,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -363,8 +367,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.listeners
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

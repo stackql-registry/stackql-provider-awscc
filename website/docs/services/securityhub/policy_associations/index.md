@@ -166,17 +166,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy_association</code>.
 ```sql
 SELECT
-region,
-configuration_policy_id,
-association_status,
-association_type,
-association_status_message,
-target_id,
-target_type,
-updated_at,
-association_identifier
+  region,
+  configuration_policy_id,
+  association_status,
+  association_type,
+  association_status_message,
+  target_id,
+  target_type,
+  updated_at,
+  association_identifier
 FROM awscc.securityhub.policy_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_identifier }}';
 Lists all <code>policy_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_identifier
+  region,
+  association_identifier
 FROM awscc.securityhub.policy_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>policy_a
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.policy_associations (
- ConfigurationPolicyId,
- TargetId,
- TargetType,
- region
+  ConfigurationPolicyId,
+  TargetId,
+  TargetType,
+  region
 )
 SELECT
-'{{ configuration_policy_id }}',
- '{{ target_id }}',
- '{{ target_type }}',
-'{{ region }}';
+  '{{ configuration_policy_id }}',
+  '{{ target_id }}',
+  '{{ target_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,16 +229,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.policy_associations (
- ConfigurationPolicyId,
- TargetId,
- TargetType,
- region
+  ConfigurationPolicyId,
+  TargetId,
+  TargetType,
+  region
 )
 SELECT
- '{{ configuration_policy_id }}',
- '{{ target_id }}',
- '{{ target_type }}',
- '{{ region }}';
+  '{{ configuration_policy_id }}',
+  '{{ target_id }}',
+  '{{ target_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ UPDATE awscc.securityhub.policy_associations
 SET PatchDocument = string('{{ {
     "ConfigurationPolicyId": configuration_policy_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ association_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ association_identifier }}';
 ```
 
 
@@ -282,8 +286,9 @@ AND Identifier = '{{ association_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.policy_associations
-WHERE Identifier = '{{ association_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

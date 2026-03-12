@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_specific_logging</code>.
 ```sql
 SELECT
-region,
-target_type,
-target_name,
-log_level,
-target_id
+  region,
+  target_type,
+  target_name,
+  log_level,
+  target_id
 FROM awscc.iot.resource_specific_loggings
-WHERE region = 'us-east-1' AND Identifier = '{{ target_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ target_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ target_id }}';
 Lists all <code>resource_specific_loggings</code> in a region.
 ```sql
 SELECT
-region,
-target_id
+  region,
+  target_id
 FROM awscc.iot.resource_specific_loggings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.resource_specific_loggings (
- TargetType,
- TargetName,
- LogLevel,
- region
+  TargetType,
+  TargetName,
+  LogLevel,
+  region
 )
 SELECT
-'{{ target_type }}',
- '{{ target_name }}',
- '{{ log_level }}',
-'{{ region }}';
+  '{{ target_type }}',
+  '{{ target_name }}',
+  '{{ log_level }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.resource_specific_loggings (
- TargetType,
- TargetName,
- LogLevel,
- region
+  TargetType,
+  TargetName,
+  LogLevel,
+  region
 )
 SELECT
- '{{ target_type }}',
- '{{ target_name }}',
- '{{ log_level }}',
- '{{ region }}';
+  '{{ target_type }}',
+  '{{ target_name }}',
+  '{{ log_level }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.iot.resource_specific_loggings
 SET PatchDocument = string('{{ {
     "LogLevel": log_level
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ target_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ target_id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ target_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.resource_specific_loggings
-WHERE Identifier = '{{ target_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ target_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -165,14 +165,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT
-region,
-connector_label,
-connector_arn,
-connector_provisioning_type,
-connector_provisioning_config,
-description
+  region,
+  connector_label,
+  connector_arn,
+  connector_provisioning_type,
+  connector_provisioning_config,
+  description
 FROM awscc.appflow.connectors
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_label }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_label }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -180,10 +182,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_label }}';
 Lists all <code>connectors</code> in a region.
 ```sql
 SELECT
-region,
-connector_label
+  region,
+  connector_label
 FROM awscc.appflow.connectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -205,14 +208,14 @@ Use the following StackQL query and manifest file to create a new <code>connecto
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.connectors (
- ConnectorProvisioningType,
- ConnectorProvisioningConfig,
- region
+  ConnectorProvisioningType,
+  ConnectorProvisioningConfig,
+  region
 )
 SELECT
-'{{ connector_provisioning_type }}',
- '{{ connector_provisioning_config }}',
-'{{ region }}';
+  '{{ connector_provisioning_type }}',
+  '{{ connector_provisioning_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,18 +223,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.connectors (
- ConnectorLabel,
- ConnectorProvisioningType,
- ConnectorProvisioningConfig,
- Description,
- region
+  ConnectorLabel,
+  ConnectorProvisioningType,
+  ConnectorProvisioningConfig,
+  Description,
+  region
 )
 SELECT
- '{{ connector_label }}',
- '{{ connector_provisioning_type }}',
- '{{ connector_provisioning_config }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ connector_label }}',
+  '{{ connector_provisioning_type }}',
+  '{{ connector_provisioning_config }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -274,8 +277,9 @@ SET PatchDocument = string('{{ {
     "ConnectorProvisioningConfig": connector_provisioning_config,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connector_label }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connector_label }}';
 ```
 
 
@@ -284,8 +288,9 @@ AND Identifier = '{{ connector_label }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connectors
-WHERE Identifier = '{{ connector_label }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_label }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

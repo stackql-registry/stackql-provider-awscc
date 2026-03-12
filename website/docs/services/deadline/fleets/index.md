@@ -266,24 +266,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT
-region,
-capabilities,
-configuration,
-description,
-display_name,
-farm_id,
-fleet_id,
-host_configuration,
-max_worker_count,
-min_worker_count,
-role_arn,
-status,
-status_message,
-worker_count,
-arn,
-tags
+  region,
+  capabilities,
+  configuration,
+  description,
+  display_name,
+  farm_id,
+  fleet_id,
+  host_configuration,
+  max_worker_count,
+  min_worker_count,
+  role_arn,
+  status,
+  status_message,
+  worker_count,
+  arn,
+  tags
 FROM awscc.deadline.fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -291,10 +293,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>fleets</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.deadline.fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -316,20 +319,20 @@ Use the following StackQL query and manifest file to create a new <code>fleet</c
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.fleets (
- Configuration,
- DisplayName,
- FarmId,
- MaxWorkerCount,
- RoleArn,
- region
+  Configuration,
+  DisplayName,
+  FarmId,
+  MaxWorkerCount,
+  RoleArn,
+  region
 )
 SELECT
-'{{ configuration }}',
- '{{ display_name }}',
- '{{ farm_id }}',
- '{{ max_worker_count }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ configuration }}',
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ max_worker_count }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -337,28 +340,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.fleets (
- Configuration,
- Description,
- DisplayName,
- FarmId,
- HostConfiguration,
- MaxWorkerCount,
- MinWorkerCount,
- RoleArn,
- Tags,
- region
+  Configuration,
+  Description,
+  DisplayName,
+  FarmId,
+  HostConfiguration,
+  MaxWorkerCount,
+  MinWorkerCount,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ configuration }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ farm_id }}',
- '{{ host_configuration }}',
- '{{ max_worker_count }}',
- '{{ min_worker_count }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ configuration }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ host_configuration }}',
+  '{{ max_worker_count }}',
+  '{{ min_worker_count }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -418,8 +421,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -428,8 +432,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.fleets
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

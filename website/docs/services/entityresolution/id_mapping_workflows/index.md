@@ -304,20 +304,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>id_mapping_workflow</code>.
 ```sql
 SELECT
-region,
-description,
-input_source_config,
-id_mapping_techniques,
-workflow_name,
-created_at,
-output_source_config,
-id_mapping_incremental_run_config,
-workflow_arn,
-updated_at,
-role_arn,
-tags
+  region,
+  description,
+  input_source_config,
+  id_mapping_techniques,
+  workflow_name,
+  created_at,
+  output_source_config,
+  id_mapping_incremental_run_config,
+  workflow_arn,
+  updated_at,
+  role_arn,
+  tags
 FROM awscc.entityresolution.id_mapping_workflows
-WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workflow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,10 +327,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
 Lists all <code>id_mapping_workflows</code> in a region.
 ```sql
 SELECT
-region,
-workflow_name
+  region,
+  workflow_name
 FROM awscc.entityresolution.id_mapping_workflows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -350,18 +353,18 @@ Use the following StackQL query and manifest file to create a new <code>id_mappi
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.id_mapping_workflows (
- InputSourceConfig,
- IdMappingTechniques,
- WorkflowName,
- RoleArn,
- region
+  InputSourceConfig,
+  IdMappingTechniques,
+  WorkflowName,
+  RoleArn,
+  region
 )
 SELECT
-'{{ input_source_config }}',
- '{{ id_mapping_techniques }}',
- '{{ workflow_name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ input_source_config }}',
+  '{{ id_mapping_techniques }}',
+  '{{ workflow_name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -369,26 +372,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.id_mapping_workflows (
- Description,
- InputSourceConfig,
- IdMappingTechniques,
- WorkflowName,
- OutputSourceConfig,
- IdMappingIncrementalRunConfig,
- RoleArn,
- Tags,
- region
+  Description,
+  InputSourceConfig,
+  IdMappingTechniques,
+  WorkflowName,
+  OutputSourceConfig,
+  IdMappingIncrementalRunConfig,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ input_source_config }}',
- '{{ id_mapping_techniques }}',
- '{{ workflow_name }}',
- '{{ output_source_config }}',
- '{{ id_mapping_incremental_run_config }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ input_source_config }}',
+  '{{ id_mapping_techniques }}',
+  '{{ workflow_name }}',
+  '{{ output_source_config }}',
+  '{{ id_mapping_incremental_run_config }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -463,8 +466,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workflow_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workflow_name }}';
 ```
 
 
@@ -473,8 +477,9 @@ AND Identifier = '{{ workflow_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.id_mapping_workflows
-WHERE Identifier = '{{ workflow_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workflow_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

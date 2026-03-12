@@ -252,27 +252,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>association</code>.
 ```sql
 SELECT
-region,
-association_name,
-calendar_names,
-schedule_expression,
-max_errors,
-parameters,
-instance_id,
-wait_for_success_timeout_seconds,
-max_concurrency,
-compliance_severity,
-targets,
-sync_compliance,
-output_location,
-schedule_offset,
-name,
-apply_only_at_cron_interval,
-document_version,
-association_id,
-automation_target_parameter_name
+  region,
+  association_name,
+  calendar_names,
+  schedule_expression,
+  max_errors,
+  parameters,
+  instance_id,
+  wait_for_success_timeout_seconds,
+  max_concurrency,
+  compliance_severity,
+  targets,
+  sync_compliance,
+  output_location,
+  schedule_offset,
+  name,
+  apply_only_at_cron_interval,
+  document_version,
+  association_id,
+  automation_target_parameter_name
 FROM awscc.ssm.associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,10 +282,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 Lists all <code>associations</code> in a region.
 ```sql
 SELECT
-region,
-association_id
+  region,
+  association_id
 FROM awscc.ssm.associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -305,12 +308,12 @@ Use the following StackQL query and manifest file to create a new <code>associat
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.associations (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -318,44 +321,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.associations (
- AssociationName,
- CalendarNames,
- ScheduleExpression,
- MaxErrors,
- Parameters,
- InstanceId,
- WaitForSuccessTimeoutSeconds,
- MaxConcurrency,
- ComplianceSeverity,
- Targets,
- SyncCompliance,
- OutputLocation,
- ScheduleOffset,
- Name,
- ApplyOnlyAtCronInterval,
- DocumentVersion,
- AutomationTargetParameterName,
- region
+  AssociationName,
+  CalendarNames,
+  ScheduleExpression,
+  MaxErrors,
+  Parameters,
+  InstanceId,
+  WaitForSuccessTimeoutSeconds,
+  MaxConcurrency,
+  ComplianceSeverity,
+  Targets,
+  SyncCompliance,
+  OutputLocation,
+  ScheduleOffset,
+  Name,
+  ApplyOnlyAtCronInterval,
+  DocumentVersion,
+  AutomationTargetParameterName,
+  region
 )
 SELECT
- '{{ association_name }}',
- '{{ calendar_names }}',
- '{{ schedule_expression }}',
- '{{ max_errors }}',
- '{{ parameters }}',
- '{{ instance_id }}',
- '{{ wait_for_success_timeout_seconds }}',
- '{{ max_concurrency }}',
- '{{ compliance_severity }}',
- '{{ targets }}',
- '{{ sync_compliance }}',
- '{{ output_location }}',
- '{{ schedule_offset }}',
- '{{ name }}',
- '{{ apply_only_at_cron_interval }}',
- '{{ document_version }}',
- '{{ automation_target_parameter_name }}',
- '{{ region }}';
+  '{{ association_name }}',
+  '{{ calendar_names }}',
+  '{{ schedule_expression }}',
+  '{{ max_errors }}',
+  '{{ parameters }}',
+  '{{ instance_id }}',
+  '{{ wait_for_success_timeout_seconds }}',
+  '{{ max_concurrency }}',
+  '{{ compliance_severity }}',
+  '{{ targets }}',
+  '{{ sync_compliance }}',
+  '{{ output_location }}',
+  '{{ schedule_offset }}',
+  '{{ name }}',
+  '{{ apply_only_at_cron_interval }}',
+  '{{ document_version }}',
+  '{{ automation_target_parameter_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -444,8 +447,9 @@ SET PatchDocument = string('{{ {
     "DocumentVersion": document_version,
     "AutomationTargetParameterName": automation_target_parameter_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ association_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ association_id }}';
 ```
 
 
@@ -454,8 +458,9 @@ AND Identifier = '{{ association_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.associations
-WHERE Identifier = '{{ association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

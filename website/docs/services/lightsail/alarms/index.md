@@ -191,22 +191,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alarm</code>.
 ```sql
 SELECT
-region,
-alarm_name,
-monitored_resource_name,
-metric_name,
-comparison_operator,
-contact_protocols,
-alarm_arn,
-datapoints_to_alarm,
-evaluation_periods,
-notification_enabled,
-notification_triggers,
-threshold,
-treat_missing_data,
-state
+  region,
+  alarm_name,
+  monitored_resource_name,
+  metric_name,
+  comparison_operator,
+  contact_protocols,
+  alarm_arn,
+  datapoints_to_alarm,
+  evaluation_periods,
+  notification_enabled,
+  notification_triggers,
+  threshold,
+  treat_missing_data,
+  state
 FROM awscc.lightsail.alarms
-WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 Lists all <code>alarms</code> in a region.
 ```sql
 SELECT
-region,
-alarm_name
+  region,
+  alarm_name
 FROM awscc.lightsail.alarms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,22 +242,22 @@ Use the following StackQL query and manifest file to create a new <code>alarm</c
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.alarms (
- AlarmName,
- MonitoredResourceName,
- MetricName,
- ComparisonOperator,
- EvaluationPeriods,
- Threshold,
- region
+  AlarmName,
+  MonitoredResourceName,
+  MetricName,
+  ComparisonOperator,
+  EvaluationPeriods,
+  Threshold,
+  region
 )
 SELECT
-'{{ alarm_name }}',
- '{{ monitored_resource_name }}',
- '{{ metric_name }}',
- '{{ comparison_operator }}',
- '{{ evaluation_periods }}',
- '{{ threshold }}',
-'{{ region }}';
+  '{{ alarm_name }}',
+  '{{ monitored_resource_name }}',
+  '{{ metric_name }}',
+  '{{ comparison_operator }}',
+  '{{ evaluation_periods }}',
+  '{{ threshold }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,32 +265,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.alarms (
- AlarmName,
- MonitoredResourceName,
- MetricName,
- ComparisonOperator,
- ContactProtocols,
- DatapointsToAlarm,
- EvaluationPeriods,
- NotificationEnabled,
- NotificationTriggers,
- Threshold,
- TreatMissingData,
- region
+  AlarmName,
+  MonitoredResourceName,
+  MetricName,
+  ComparisonOperator,
+  ContactProtocols,
+  DatapointsToAlarm,
+  EvaluationPeriods,
+  NotificationEnabled,
+  NotificationTriggers,
+  Threshold,
+  TreatMissingData,
+  region
 )
 SELECT
- '{{ alarm_name }}',
- '{{ monitored_resource_name }}',
- '{{ metric_name }}',
- '{{ comparison_operator }}',
- '{{ contact_protocols }}',
- '{{ datapoints_to_alarm }}',
- '{{ evaluation_periods }}',
- '{{ notification_enabled }}',
- '{{ notification_triggers }}',
- '{{ threshold }}',
- '{{ treat_missing_data }}',
- '{{ region }}';
+  '{{ alarm_name }}',
+  '{{ monitored_resource_name }}',
+  '{{ metric_name }}',
+  '{{ comparison_operator }}',
+  '{{ contact_protocols }}',
+  '{{ datapoints_to_alarm }}',
+  '{{ evaluation_periods }}',
+  '{{ notification_enabled }}',
+  '{{ notification_triggers }}',
+  '{{ threshold }}',
+  '{{ treat_missing_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -349,8 +352,9 @@ SET PatchDocument = string('{{ {
     "Threshold": threshold,
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -359,8 +363,9 @@ AND Identifier = '{{ alarm_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.alarms
-WHERE Identifier = '{{ alarm_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alarm_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

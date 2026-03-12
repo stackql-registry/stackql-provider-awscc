@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_setting</code>.
 ```sql
 SELECT
-region,
-associated_portal_arns,
-network_settings_arn,
-security_group_ids,
-subnet_ids,
-tags,
-vpc_id
+  region,
+  associated_portal_arns,
+  network_settings_arn,
+  security_group_ids,
+  subnet_ids,
+  tags,
+  vpc_id
 FROM awscc.workspacesweb.network_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ network_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ network_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ network_settings_arn }}';
 Lists all <code>network_settings</code> in a region.
 ```sql
 SELECT
-region,
-network_settings_arn
+  region,
+  network_settings_arn
 FROM awscc.workspacesweb.network_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.network_settings (
- SecurityGroupIds,
- SubnetIds,
- VpcId,
- region
+  SecurityGroupIds,
+  SubnetIds,
+  VpcId,
+  region
 )
 SELECT
-'{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,18 +229,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.network_settings (
- SecurityGroupIds,
- SubnetIds,
- Tags,
- VpcId,
- region
+  SecurityGroupIds,
+  SubnetIds,
+  Tags,
+  VpcId,
+  region
 )
 SELECT
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcId": vpc_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ network_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ network_settings_arn }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ network_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.network_settings
-WHERE Identifier = '{{ network_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ network_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

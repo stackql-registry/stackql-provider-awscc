@@ -161,11 +161,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>notification_channel</code>.
 ```sql
 SELECT
-region,
-config,
-id
+  region,
+  config,
+  id
 FROM awscc.devopsguru.notification_channels
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -173,10 +175,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>notification_channels</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.devopsguru.notification_channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,12 +201,12 @@ Use the following StackQL query and manifest file to create a new <code>notifica
 ```sql
 /*+ create */
 INSERT INTO awscc.devopsguru.notification_channels (
- Config,
- region
+  Config,
+  region
 )
 SELECT
-'{{ config }}',
-'{{ region }}';
+  '{{ config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,12 +214,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.devopsguru.notification_channels (
- Config,
- region
+  Config,
+  region
 )
 SELECT
- '{{ config }}',
- '{{ region }}';
+  '{{ config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -252,8 +255,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.devopsguru.notification_channels
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -502,22 +502,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_automation_project</code>.
 ```sql
 SELECT
-region,
-creation_time,
-custom_output_configuration,
-last_modified_time,
-override_configuration,
-project_arn,
-project_description,
-project_name,
-project_stage,
-standard_output_configuration,
-status,
-kms_key_id,
-kms_encryption_context,
-tags
+  region,
+  creation_time,
+  custom_output_configuration,
+  last_modified_time,
+  override_configuration,
+  project_arn,
+  project_description,
+  project_name,
+  project_stage,
+  standard_output_configuration,
+  status,
+  kms_key_id,
+  kms_encryption_context,
+  tags
 FROM awscc.bedrock.data_automation_projects
-WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -525,10 +527,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
 Lists all <code>data_automation_projects</code> in a region.
 ```sql
 SELECT
-region,
-project_arn
+  region,
+  project_arn
 FROM awscc.bedrock.data_automation_projects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -550,12 +553,12 @@ Use the following StackQL query and manifest file to create a new <code>data_aut
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.data_automation_projects (
- ProjectName,
- region
+  ProjectName,
+  region
 )
 SELECT
-'{{ project_name }}',
-'{{ region }}';
+  '{{ project_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -563,26 +566,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.data_automation_projects (
- CustomOutputConfiguration,
- OverrideConfiguration,
- ProjectDescription,
- ProjectName,
- StandardOutputConfiguration,
- KmsKeyId,
- KmsEncryptionContext,
- Tags,
- region
+  CustomOutputConfiguration,
+  OverrideConfiguration,
+  ProjectDescription,
+  ProjectName,
+  StandardOutputConfiguration,
+  KmsKeyId,
+  KmsEncryptionContext,
+  Tags,
+  region
 )
 SELECT
- '{{ custom_output_configuration }}',
- '{{ override_configuration }}',
- '{{ project_description }}',
- '{{ project_name }}',
- '{{ standard_output_configuration }}',
- '{{ kms_key_id }}',
- '{{ kms_encryption_context }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ custom_output_configuration }}',
+  '{{ override_configuration }}',
+  '{{ project_description }}',
+  '{{ project_name }}',
+  '{{ standard_output_configuration }}',
+  '{{ kms_key_id }}',
+  '{{ kms_encryption_context }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -706,8 +709,9 @@ SET PatchDocument = string('{{ {
     "KmsEncryptionContext": kms_encryption_context,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ project_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ project_arn }}';
 ```
 
 
@@ -716,8 +720,9 @@ AND Identifier = '{{ project_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.data_automation_projects
-WHERE Identifier = '{{ project_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ project_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

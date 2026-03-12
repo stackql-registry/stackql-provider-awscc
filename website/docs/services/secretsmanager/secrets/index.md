@@ -242,17 +242,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>secret</code>.
 ```sql
 SELECT
-region,
-description,
-kms_key_id,
-secret_string,
-generate_secret_string,
-replica_regions,
-id,
-tags,
-name
+  region,
+  description,
+  kms_key_id,
+  secret_string,
+  generate_secret_string,
+  replica_regions,
+  id,
+  tags,
+  name
 FROM awscc.secretsmanager.secrets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,10 +262,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>secrets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.secretsmanager.secrets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -285,24 +288,24 @@ Use the following StackQL query and manifest file to create a new <code>secret</
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.secrets (
- Description,
- KmsKeyId,
- SecretString,
- GenerateSecretString,
- ReplicaRegions,
- Tags,
- Name,
- region
+  Description,
+  KmsKeyId,
+  SecretString,
+  GenerateSecretString,
+  ReplicaRegions,
+  Tags,
+  Name,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ kms_key_id }}',
- '{{ secret_string }}',
- '{{ generate_secret_string }}',
- '{{ replica_regions }}',
- '{{ tags }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ kms_key_id }}',
+  '{{ secret_string }}',
+  '{{ generate_secret_string }}',
+  '{{ replica_regions }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -310,24 +313,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.secrets (
- Description,
- KmsKeyId,
- SecretString,
- GenerateSecretString,
- ReplicaRegions,
- Tags,
- Name,
- region
+  Description,
+  KmsKeyId,
+  SecretString,
+  GenerateSecretString,
+  ReplicaRegions,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ kms_key_id }}',
- '{{ secret_string }}',
- '{{ generate_secret_string }}',
- '{{ replica_regions }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ kms_key_id }}',
+  '{{ secret_string }}',
+  '{{ generate_secret_string }}',
+  '{{ replica_regions }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -391,8 +394,9 @@ SET PatchDocument = string('{{ {
     "ReplicaRegions": replica_regions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -401,8 +405,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.secrets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

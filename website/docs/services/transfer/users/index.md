@@ -227,20 +227,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT
-region,
-arn,
-home_directory,
-home_directory_mappings,
-home_directory_type,
-policy,
-posix_profile,
-role,
-server_id,
-ssh_public_keys,
-tags,
-user_name
+  region,
+  arn,
+  home_directory,
+  home_directory_mappings,
+  home_directory_type,
+  policy,
+  posix_profile,
+  role,
+  server_id,
+  ssh_public_keys,
+  tags,
+  user_name
 FROM awscc.transfer.users
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,10 +250,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>users</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.transfer.users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -273,16 +276,16 @@ Use the following StackQL query and manifest file to create a new <code>user</co
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.users (
- Role,
- ServerId,
- UserName,
- region
+  Role,
+  ServerId,
+  UserName,
+  region
 )
 SELECT
-'{{ role }}',
- '{{ server_id }}',
- '{{ user_name }}',
-'{{ region }}';
+  '{{ role }}',
+  '{{ server_id }}',
+  '{{ user_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,30 +293,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.users (
- HomeDirectory,
- HomeDirectoryMappings,
- HomeDirectoryType,
- Policy,
- PosixProfile,
- Role,
- ServerId,
- SshPublicKeys,
- Tags,
- UserName,
- region
+  HomeDirectory,
+  HomeDirectoryMappings,
+  HomeDirectoryType,
+  Policy,
+  PosixProfile,
+  Role,
+  ServerId,
+  SshPublicKeys,
+  Tags,
+  UserName,
+  region
 )
 SELECT
- '{{ home_directory }}',
- '{{ home_directory_mappings }}',
- '{{ home_directory_type }}',
- '{{ policy }}',
- '{{ posix_profile }}',
- '{{ role }}',
- '{{ server_id }}',
- '{{ ssh_public_keys }}',
- '{{ tags }}',
- '{{ user_name }}',
- '{{ region }}';
+  '{{ home_directory }}',
+  '{{ home_directory_mappings }}',
+  '{{ home_directory_type }}',
+  '{{ policy }}',
+  '{{ posix_profile }}',
+  '{{ role }}',
+  '{{ server_id }}',
+  '{{ ssh_public_keys }}',
+  '{{ tags }}',
+  '{{ user_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -381,8 +384,9 @@ SET PatchDocument = string('{{ {
     "SshPublicKeys": ssh_public_keys,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -391,8 +395,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.users
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

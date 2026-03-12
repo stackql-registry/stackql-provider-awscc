@@ -112,14 +112,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_domain</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-domain,
-custom_domain_config,
-cloud_front_distribution,
-managed_login_version
+  region,
+  user_pool_id,
+  domain,
+  custom_domain_config,
+  cloud_front_distribution,
+  managed_login_version
 FROM awscc.cognito.user_pool_domains
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ domain }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```
 
 ## `INSERT` example
@@ -139,14 +141,14 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_domains (
- UserPoolId,
- Domain,
- region
+  UserPoolId,
+  Domain,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ domain }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -154,18 +156,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_domains (
- UserPoolId,
- Domain,
- CustomDomainConfig,
- ManagedLoginVersion,
- region
+  UserPoolId,
+  Domain,
+  CustomDomainConfig,
+  ManagedLoginVersion,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ domain }}',
- '{{ custom_domain_config }}',
- '{{ managed_login_version }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ domain }}',
+  '{{ custom_domain_config }}',
+  '{{ managed_login_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -206,8 +208,9 @@ SET PatchDocument = string('{{ {
     "CustomDomainConfig": custom_domain_config,
     "ManagedLoginVersion": managed_login_version
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ domain }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```
 
 
@@ -216,8 +219,9 @@ AND Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_domains
-WHERE Identifier = '{{ user_pool_id }}|{{ domain }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ domain }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

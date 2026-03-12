@@ -204,15 +204,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT
-region,
-dataset_id,
-dataset_arn,
-dataset_name,
-dataset_description,
-dataset_source,
-tags
+  region,
+  dataset_id,
+  dataset_arn,
+  dataset_name,
+  dataset_description,
+  dataset_source,
+  tags
 FROM awscc.iotsitewise.datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ dataset_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dataset_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dataset_id }}';
 Lists all <code>datasets</code> in a region.
 ```sql
 SELECT
-region,
-dataset_id
+  region,
+  dataset_id
 FROM awscc.iotsitewise.datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>dataset<
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.datasets (
- DatasetName,
- DatasetSource,
- region
+  DatasetName,
+  DatasetSource,
+  region
 )
 SELECT
-'{{ dataset_name }}',
- '{{ dataset_source }}',
-'{{ region }}';
+  '{{ dataset_name }}',
+  '{{ dataset_source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,18 +263,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.datasets (
- DatasetName,
- DatasetDescription,
- DatasetSource,
- Tags,
- region
+  DatasetName,
+  DatasetDescription,
+  DatasetSource,
+  Tags,
+  region
 )
 SELECT
- '{{ dataset_name }}',
- '{{ dataset_description }}',
- '{{ dataset_source }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ dataset_name }}',
+  '{{ dataset_description }}',
+  '{{ dataset_source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -321,8 +324,9 @@ SET PatchDocument = string('{{ {
     "DatasetSource": dataset_source,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dataset_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dataset_id }}';
 ```
 
 
@@ -331,8 +335,9 @@ AND Identifier = '{{ dataset_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.datasets
-WHERE Identifier = '{{ dataset_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dataset_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

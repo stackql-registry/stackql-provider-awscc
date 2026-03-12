@@ -257,26 +257,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>web_experience</code>.
 ```sql
 SELECT
-region,
-application_id,
-created_at,
-default_endpoint,
-identity_provider_configuration,
-role_arn,
-sample_prompts_control_mode,
-status,
-subtitle,
-tags,
-title,
-updated_at,
-web_experience_arn,
-web_experience_id,
-welcome_message,
-origins,
-customization_configuration,
-browser_extension_configuration
+  region,
+  application_id,
+  created_at,
+  default_endpoint,
+  identity_provider_configuration,
+  role_arn,
+  sample_prompts_control_mode,
+  status,
+  subtitle,
+  tags,
+  title,
+  updated_at,
+  web_experience_arn,
+  web_experience_id,
+  welcome_message,
+  origins,
+  customization_configuration,
+  browser_extension_configuration
 FROM awscc.qbusiness.web_experiences
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ web_experience_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,11 +286,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ web_experie
 Lists all <code>web_experiences</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-web_experience_id
+  region,
+  application_id,
+  web_experience_id
 FROM awscc.qbusiness.web_experiences_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -310,12 +313,12 @@ Use the following StackQL query and manifest file to create a new <code>web_expe
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.web_experiences (
- ApplicationId,
- region
+  ApplicationId,
+  region
 )
 SELECT
-'{{ application_id }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -323,32 +326,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.web_experiences (
- ApplicationId,
- IdentityProviderConfiguration,
- RoleArn,
- SamplePromptsControlMode,
- Subtitle,
- Tags,
- Title,
- WelcomeMessage,
- Origins,
- CustomizationConfiguration,
- BrowserExtensionConfiguration,
- region
+  ApplicationId,
+  IdentityProviderConfiguration,
+  RoleArn,
+  SamplePromptsControlMode,
+  Subtitle,
+  Tags,
+  Title,
+  WelcomeMessage,
+  Origins,
+  CustomizationConfiguration,
+  BrowserExtensionConfiguration,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ identity_provider_configuration }}',
- '{{ role_arn }}',
- '{{ sample_prompts_control_mode }}',
- '{{ subtitle }}',
- '{{ tags }}',
- '{{ title }}',
- '{{ welcome_message }}',
- '{{ origins }}',
- '{{ customization_configuration }}',
- '{{ browser_extension_configuration }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ identity_provider_configuration }}',
+  '{{ role_arn }}',
+  '{{ sample_prompts_control_mode }}',
+  '{{ subtitle }}',
+  '{{ tags }}',
+  '{{ title }}',
+  '{{ welcome_message }}',
+  '{{ origins }}',
+  '{{ customization_configuration }}',
+  '{{ browser_extension_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -419,8 +422,9 @@ SET PatchDocument = string('{{ {
     "CustomizationConfiguration": customization_configuration,
     "BrowserExtensionConfiguration": browser_extension_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ web_experience_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```
 
 
@@ -429,8 +433,9 @@ AND Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.web_experiences
-WHERE Identifier = '{{ application_id }}|{{ web_experience_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ web_experience_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

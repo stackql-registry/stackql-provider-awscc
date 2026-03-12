@@ -460,18 +460,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alarm_model</code>.
 ```sql
 SELECT
-region,
-alarm_model_name,
-alarm_model_description,
-role_arn,
-key,
-severity,
-alarm_rule,
-alarm_event_actions,
-alarm_capabilities,
-tags
+  region,
+  alarm_model_name,
+  alarm_model_description,
+  role_arn,
+  key,
+  severity,
+  alarm_rule,
+  alarm_event_actions,
+  alarm_capabilities,
+  tags
 FROM awscc.iotevents.alarm_models
-WHERE region = 'us-east-1' AND Identifier = '{{ alarm_model_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alarm_model_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -479,10 +481,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alarm_model_name }}';
 Lists all <code>alarm_models</code> in a region.
 ```sql
 SELECT
-region,
-alarm_model_name
+  region,
+  alarm_model_name
 FROM awscc.iotevents.alarm_models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -504,14 +507,14 @@ Use the following StackQL query and manifest file to create a new <code>alarm_mo
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.alarm_models (
- RoleArn,
- AlarmRule,
- region
+  RoleArn,
+  AlarmRule,
+  region
 )
 SELECT
-'{{ role_arn }}',
- '{{ alarm_rule }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ alarm_rule }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -519,28 +522,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotevents.alarm_models (
- AlarmModelName,
- AlarmModelDescription,
- RoleArn,
- Key,
- Severity,
- AlarmRule,
- AlarmEventActions,
- AlarmCapabilities,
- Tags,
- region
+  AlarmModelName,
+  AlarmModelDescription,
+  RoleArn,
+  Key,
+  Severity,
+  AlarmRule,
+  AlarmEventActions,
+  AlarmCapabilities,
+  Tags,
+  region
 )
 SELECT
- '{{ alarm_model_name }}',
- '{{ alarm_model_description }}',
- '{{ role_arn }}',
- '{{ key }}',
- '{{ severity }}',
- '{{ alarm_rule }}',
- '{{ alarm_event_actions }}',
- '{{ alarm_capabilities }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ alarm_model_name }}',
+  '{{ alarm_model_description }}',
+  '{{ role_arn }}',
+  '{{ key }}',
+  '{{ severity }}',
+  '{{ alarm_rule }}',
+  '{{ alarm_event_actions }}',
+  '{{ alarm_capabilities }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -657,8 +660,9 @@ SET PatchDocument = string('{{ {
     "AlarmCapabilities": alarm_capabilities,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alarm_model_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alarm_model_name }}';
 ```
 
 
@@ -667,8 +671,9 @@ AND Identifier = '{{ alarm_model_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.alarm_models
-WHERE Identifier = '{{ alarm_model_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alarm_model_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

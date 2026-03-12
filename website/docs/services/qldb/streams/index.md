@@ -190,18 +190,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stream</code>.
 ```sql
 SELECT
-region,
-ledger_name,
-stream_name,
-role_arn,
-inclusive_start_time,
-exclusive_end_time,
-kinesis_configuration,
-tags,
-arn,
-id
+  region,
+  ledger_name,
+  stream_name,
+  role_arn,
+  inclusive_start_time,
+  exclusive_end_time,
+  kinesis_configuration,
+  tags,
+  arn,
+  id
 FROM awscc.qldb.streams
-WHERE region = 'us-east-1' AND Identifier = '{{ ledger_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ledger_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,11 +211,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ledger_name }}|{{ id }}';
 Lists all <code>streams</code> in a region.
 ```sql
 SELECT
-region,
-ledger_name,
-id
+  region,
+  ledger_name,
+  id
 FROM awscc.qldb.streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -235,20 +238,20 @@ Use the following StackQL query and manifest file to create a new <code>stream</
 ```sql
 /*+ create */
 INSERT INTO awscc.qldb.streams (
- LedgerName,
- StreamName,
- RoleArn,
- InclusiveStartTime,
- KinesisConfiguration,
- region
+  LedgerName,
+  StreamName,
+  RoleArn,
+  InclusiveStartTime,
+  KinesisConfiguration,
+  region
 )
 SELECT
-'{{ ledger_name }}',
- '{{ stream_name }}',
- '{{ role_arn }}',
- '{{ inclusive_start_time }}',
- '{{ kinesis_configuration }}',
-'{{ region }}';
+  '{{ ledger_name }}',
+  '{{ stream_name }}',
+  '{{ role_arn }}',
+  '{{ inclusive_start_time }}',
+  '{{ kinesis_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,24 +259,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qldb.streams (
- LedgerName,
- StreamName,
- RoleArn,
- InclusiveStartTime,
- ExclusiveEndTime,
- KinesisConfiguration,
- Tags,
- region
+  LedgerName,
+  StreamName,
+  RoleArn,
+  InclusiveStartTime,
+  ExclusiveEndTime,
+  KinesisConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ ledger_name }}',
- '{{ stream_name }}',
- '{{ role_arn }}',
- '{{ inclusive_start_time }}',
- '{{ exclusive_end_time }}',
- '{{ kinesis_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ledger_name }}',
+  '{{ stream_name }}',
+  '{{ role_arn }}',
+  '{{ inclusive_start_time }}',
+  '{{ exclusive_end_time }}',
+  '{{ kinesis_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ UPDATE awscc.qldb.streams
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ledger_name }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ledger_name }}|{{ id }}';
 ```
 
 
@@ -332,8 +336,9 @@ AND Identifier = '{{ ledger_name }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qldb.streams
-WHERE Identifier = '{{ ledger_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ledger_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

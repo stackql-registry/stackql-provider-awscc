@@ -527,31 +527,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT
-region,
-on_demand_throughput,
-sse_specification,
-kinesis_stream_specification,
-stream_specification,
-contributor_insights_specification,
-import_source_specification,
-point_in_time_recovery_specification,
-provisioned_throughput,
-warm_throughput,
-table_name,
-attribute_definitions,
-billing_mode,
-global_secondary_indexes,
-resource_policy,
-key_schema,
-local_secondary_indexes,
-arn,
-stream_arn,
-deletion_protection_enabled,
-table_class,
-tags,
-time_to_live_specification
+  region,
+  on_demand_throughput,
+  sse_specification,
+  kinesis_stream_specification,
+  stream_specification,
+  contributor_insights_specification,
+  import_source_specification,
+  point_in_time_recovery_specification,
+  provisioned_throughput,
+  warm_throughput,
+  table_name,
+  attribute_definitions,
+  billing_mode,
+  global_secondary_indexes,
+  resource_policy,
+  key_schema,
+  local_secondary_indexes,
+  arn,
+  stream_arn,
+  deletion_protection_enabled,
+  table_class,
+  tags,
+  time_to_live_specification
 FROM awscc.dynamodb.tables
-WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -559,10 +561,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_name }}';
 Lists all <code>tables</code> in a region.
 ```sql
 SELECT
-region,
-table_name
+  region,
+  table_name
 FROM awscc.dynamodb.tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -584,12 +587,12 @@ Use the following StackQL query and manifest file to create a new <code>table</c
 ```sql
 /*+ create */
 INSERT INTO awscc.dynamodb.tables (
- KeySchema,
- region
+  KeySchema,
+  region
 )
 SELECT
-'{{ key_schema }}',
-'{{ region }}';
+  '{{ key_schema }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -597,50 +600,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dynamodb.tables (
- OnDemandThroughput,
- SSESpecification,
- KinesisStreamSpecification,
- StreamSpecification,
- ContributorInsightsSpecification,
- ImportSourceSpecification,
- PointInTimeRecoverySpecification,
- ProvisionedThroughput,
- WarmThroughput,
- TableName,
- AttributeDefinitions,
- BillingMode,
- GlobalSecondaryIndexes,
- ResourcePolicy,
- KeySchema,
- LocalSecondaryIndexes,
- DeletionProtectionEnabled,
- TableClass,
- Tags,
- TimeToLiveSpecification,
- region
+  OnDemandThroughput,
+  SSESpecification,
+  KinesisStreamSpecification,
+  StreamSpecification,
+  ContributorInsightsSpecification,
+  ImportSourceSpecification,
+  PointInTimeRecoverySpecification,
+  ProvisionedThroughput,
+  WarmThroughput,
+  TableName,
+  AttributeDefinitions,
+  BillingMode,
+  GlobalSecondaryIndexes,
+  ResourcePolicy,
+  KeySchema,
+  LocalSecondaryIndexes,
+  DeletionProtectionEnabled,
+  TableClass,
+  Tags,
+  TimeToLiveSpecification,
+  region
 )
 SELECT
- '{{ on_demand_throughput }}',
- '{{ sse_specification }}',
- '{{ kinesis_stream_specification }}',
- '{{ stream_specification }}',
- '{{ contributor_insights_specification }}',
- '{{ import_source_specification }}',
- '{{ point_in_time_recovery_specification }}',
- '{{ provisioned_throughput }}',
- '{{ warm_throughput }}',
- '{{ table_name }}',
- '{{ attribute_definitions }}',
- '{{ billing_mode }}',
- '{{ global_secondary_indexes }}',
- '{{ resource_policy }}',
- '{{ key_schema }}',
- '{{ local_secondary_indexes }}',
- '{{ deletion_protection_enabled }}',
- '{{ table_class }}',
- '{{ tags }}',
- '{{ time_to_live_specification }}',
- '{{ region }}';
+  '{{ on_demand_throughput }}',
+  '{{ sse_specification }}',
+  '{{ kinesis_stream_specification }}',
+  '{{ stream_specification }}',
+  '{{ contributor_insights_specification }}',
+  '{{ import_source_specification }}',
+  '{{ point_in_time_recovery_specification }}',
+  '{{ provisioned_throughput }}',
+  '{{ warm_throughput }}',
+  '{{ table_name }}',
+  '{{ attribute_definitions }}',
+  '{{ billing_mode }}',
+  '{{ global_secondary_indexes }}',
+  '{{ resource_policy }}',
+  '{{ key_schema }}',
+  '{{ local_secondary_indexes }}',
+  '{{ deletion_protection_enabled }}',
+  '{{ table_class }}',
+  '{{ tags }}',
+  '{{ time_to_live_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -779,8 +782,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ table_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ table_name }}';
 ```
 
 
@@ -789,8 +793,9 @@ AND Identifier = '{{ table_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.tables
-WHERE Identifier = '{{ table_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

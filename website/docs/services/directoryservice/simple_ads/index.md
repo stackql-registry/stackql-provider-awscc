@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>simple_ad</code>.
 ```sql
 SELECT
-region,
-directory_id,
-alias,
-dns_ip_addresses,
-create_alias,
-description,
-enable_sso,
-name,
-password,
-short_name,
-size,
-vpc_settings
+  region,
+  directory_id,
+  alias,
+  dns_ip_addresses,
+  create_alias,
+  description,
+  enable_sso,
+  name,
+  password,
+  short_name,
+  size,
+  vpc_settings
 FROM awscc.directoryservice.simple_ads
-WHERE region = 'us-east-1' AND Identifier = '{{ directory_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ directory_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ directory_id }}';
 Lists all <code>simple_ads</code> in a region.
 ```sql
 SELECT
-region,
-directory_id
+  region,
+  directory_id
 FROM awscc.directoryservice.simple_ads_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,16 +242,16 @@ Use the following StackQL query and manifest file to create a new <code>simple_a
 ```sql
 /*+ create */
 INSERT INTO awscc.directoryservice.simple_ads (
- Name,
- Size,
- VpcSettings,
- region
+  Name,
+  Size,
+  VpcSettings,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ size }}',
- '{{ vpc_settings }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ size }}',
+  '{{ vpc_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,26 +259,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.directoryservice.simple_ads (
- CreateAlias,
- Description,
- EnableSso,
- Name,
- Password,
- ShortName,
- Size,
- VpcSettings,
- region
+  CreateAlias,
+  Description,
+  EnableSso,
+  Name,
+  Password,
+  ShortName,
+  Size,
+  VpcSettings,
+  region
 )
 SELECT
- '{{ create_alias }}',
- '{{ description }}',
- '{{ enable_sso }}',
- '{{ name }}',
- '{{ password }}',
- '{{ short_name }}',
- '{{ size }}',
- '{{ vpc_settings }}',
- '{{ region }}';
+  '{{ create_alias }}',
+  '{{ description }}',
+  '{{ enable_sso }}',
+  '{{ name }}',
+  '{{ password }}',
+  '{{ short_name }}',
+  '{{ size }}',
+  '{{ vpc_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -325,8 +328,9 @@ UPDATE awscc.directoryservice.simple_ads
 SET PatchDocument = string('{{ {
     "EnableSso": enable_sso
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ directory_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ directory_id }}';
 ```
 
 
@@ -335,8 +339,9 @@ AND Identifier = '{{ directory_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.directoryservice.simple_ads
-WHERE Identifier = '{{ directory_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ directory_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bucket_policy</code>.
 ```sql
 SELECT
-region,
-bucket,
-policy_document
+  region,
+  bucket,
+  policy_document
 FROM awscc.s3express.bucket_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ bucket }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bucket }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bucket }}';
 Lists all <code>bucket_policies</code> in a region.
 ```sql
 SELECT
-region,
-bucket
+  region,
+  bucket
 FROM awscc.s3express.bucket_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>bucket_p
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.bucket_policies (
- Bucket,
- PolicyDocument,
- region
+  Bucket,
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ bucket }}',
- '{{ policy_document }}',
-'{{ region }}';
+  '{{ bucket }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.bucket_policies (
- Bucket,
- PolicyDocument,
- region
+  Bucket,
+  PolicyDocument,
+  region
 )
 SELECT
- '{{ bucket }}',
- '{{ policy_document }}',
- '{{ region }}';
+  '{{ bucket }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -230,8 +233,9 @@ UPDATE awscc.s3express.bucket_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bucket }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bucket }}';
 ```
 
 
@@ -240,8 +244,9 @@ AND Identifier = '{{ bucket }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3express.bucket_policies
-WHERE Identifier = '{{ bucket }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bucket }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

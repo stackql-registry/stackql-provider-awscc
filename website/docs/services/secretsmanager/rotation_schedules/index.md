@@ -230,15 +230,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rotation_schedule</code>.
 ```sql
 SELECT
-region,
-hosted_rotation_lambda,
-secret_id,
-id,
-rotate_immediately_on_update,
-rotation_lambda_arn,
-rotation_rules
+  region,
+  hosted_rotation_lambda,
+  secret_id,
+  id,
+  rotate_immediately_on_update,
+  rotation_lambda_arn,
+  rotation_rules
 FROM awscc.secretsmanager.rotation_schedules
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>rotation_schedules</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.secretsmanager.rotation_schedules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,12 +274,12 @@ Use the following StackQL query and manifest file to create a new <code>rotation
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.rotation_schedules (
- SecretId,
- region
+  SecretId,
+  region
 )
 SELECT
-'{{ secret_id }}',
-'{{ region }}';
+  '{{ secret_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,20 +287,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.rotation_schedules (
- HostedRotationLambda,
- SecretId,
- RotateImmediatelyOnUpdate,
- RotationLambdaARN,
- RotationRules,
- region
+  HostedRotationLambda,
+  SecretId,
+  RotateImmediatelyOnUpdate,
+  RotationLambdaARN,
+  RotationRules,
+  region
 )
 SELECT
- '{{ hosted_rotation_lambda }}',
- '{{ secret_id }}',
- '{{ rotate_immediately_on_update }}',
- '{{ rotation_lambda_arn }}',
- '{{ rotation_rules }}',
- '{{ region }}';
+  '{{ hosted_rotation_lambda }}',
+  '{{ secret_id }}',
+  '{{ rotate_immediately_on_update }}',
+  '{{ rotation_lambda_arn }}',
+  '{{ rotation_rules }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -355,8 +358,9 @@ SET PatchDocument = string('{{ {
     "RotationLambdaARN": rotation_lambda_arn,
     "RotationRules": rotation_rules
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -365,8 +369,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.rotation_schedules
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

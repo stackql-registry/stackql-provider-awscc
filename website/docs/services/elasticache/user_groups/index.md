@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_group</code>.
 ```sql
 SELECT
-region,
-status,
-user_group_id,
-engine,
-user_ids,
-arn,
-tags
+  region,
+  status,
+  user_group_id,
+  engine,
+  user_ids,
+  arn,
+  tags
 FROM awscc.elasticache.user_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ user_group_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_group_id }}';
 Lists all <code>user_groups</code> in a region.
 ```sql
 SELECT
-region,
-user_group_id
+  region,
+  user_group_id
 FROM awscc.elasticache.user_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>user_gro
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.user_groups (
- UserGroupId,
- Engine,
- UserIds,
- region
+  UserGroupId,
+  Engine,
+  UserIds,
+  region
 )
 SELECT
-'{{ user_group_id }}',
- '{{ engine }}',
- '{{ user_ids }}',
-'{{ region }}';
+  '{{ user_group_id }}',
+  '{{ engine }}',
+  '{{ user_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,18 +229,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.user_groups (
- UserGroupId,
- Engine,
- UserIds,
- Tags,
- region
+  UserGroupId,
+  Engine,
+  UserIds,
+  Tags,
+  region
 )
 SELECT
- '{{ user_group_id }}',
- '{{ engine }}',
- '{{ user_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ user_group_id }}',
+  '{{ engine }}',
+  '{{ user_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "UserIds": user_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_group_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_group_id }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ user_group_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.user_groups
-WHERE Identifier = '{{ user_group_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_group_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

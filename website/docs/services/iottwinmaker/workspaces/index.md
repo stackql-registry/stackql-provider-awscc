@@ -161,17 +161,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workspace</code>.
 ```sql
 SELECT
-region,
-workspace_id,
-arn,
-description,
-role,
-s3_location,
-creation_date_time,
-update_date_time,
-tags
+  region,
+  workspace_id,
+  arn,
+  description,
+  role,
+  s3_location,
+  creation_date_time,
+  update_date_time,
+  tags
 FROM awscc.iottwinmaker.workspaces
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,10 +181,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}';
 Lists all <code>workspaces</code> in a region.
 ```sql
 SELECT
-region,
-workspace_id
+  region,
+  workspace_id
 FROM awscc.iottwinmaker.workspaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,16 +207,16 @@ Use the following StackQL query and manifest file to create a new <code>workspac
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.workspaces (
- WorkspaceId,
- Role,
- S3Location,
- region
+  WorkspaceId,
+  Role,
+  S3Location,
+  region
 )
 SELECT
-'{{ workspace_id }}',
- '{{ role }}',
- '{{ s3_location }}',
-'{{ region }}';
+  '{{ workspace_id }}',
+  '{{ role }}',
+  '{{ s3_location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -221,20 +224,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.workspaces (
- WorkspaceId,
- Description,
- Role,
- S3Location,
- Tags,
- region
+  WorkspaceId,
+  Description,
+  Role,
+  S3Location,
+  Tags,
+  region
 )
 SELECT
- '{{ workspace_id }}',
- '{{ description }}',
- '{{ role }}',
- '{{ s3_location }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ workspace_id }}',
+  '{{ description }}',
+  '{{ role }}',
+  '{{ s3_location }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -278,8 +281,9 @@ SET PatchDocument = string('{{ {
     "S3Location": s3_location,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_id }}';
 ```
 
 
@@ -288,8 +292,9 @@ AND Identifier = '{{ workspace_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.workspaces
-WHERE Identifier = '{{ workspace_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

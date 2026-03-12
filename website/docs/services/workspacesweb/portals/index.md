@@ -253,32 +253,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>portal</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-authentication_type,
-browser_settings_arn,
-browser_type,
-creation_date,
-customer_managed_key,
-data_protection_settings_arn,
-display_name,
-instance_type,
-ip_access_settings_arn,
-max_concurrent_sessions,
-network_settings_arn,
-portal_arn,
-portal_endpoint,
-portal_status,
-renderer_type,
-service_provider_saml_metadata,
-session_logger_arn,
-status_reason,
-tags,
-trust_store_arn,
-user_access_logging_settings_arn,
-user_settings_arn
+  region,
+  additional_encryption_context,
+  authentication_type,
+  browser_settings_arn,
+  browser_type,
+  creation_date,
+  customer_managed_key,
+  data_protection_settings_arn,
+  display_name,
+  instance_type,
+  ip_access_settings_arn,
+  max_concurrent_sessions,
+  network_settings_arn,
+  portal_arn,
+  portal_endpoint,
+  portal_status,
+  renderer_type,
+  service_provider_saml_metadata,
+  session_logger_arn,
+  status_reason,
+  tags,
+  trust_store_arn,
+  user_access_logging_settings_arn,
+  user_settings_arn
 FROM awscc.workspacesweb.portals
-WHERE region = 'us-east-1' AND Identifier = '{{ portal_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ portal_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,10 +288,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ portal_arn }}';
 Lists all <code>portals</code> in a region.
 ```sql
 SELECT
-region,
-portal_arn
+  region,
+  portal_arn
 FROM awscc.workspacesweb.portals_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -311,40 +314,40 @@ Use the following StackQL query and manifest file to create a new <code>portal</
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.portals (
- AdditionalEncryptionContext,
- AuthenticationType,
- BrowserSettingsArn,
- CustomerManagedKey,
- DataProtectionSettingsArn,
- DisplayName,
- InstanceType,
- IpAccessSettingsArn,
- MaxConcurrentSessions,
- NetworkSettingsArn,
- SessionLoggerArn,
- Tags,
- TrustStoreArn,
- UserAccessLoggingSettingsArn,
- UserSettingsArn,
- region
+  AdditionalEncryptionContext,
+  AuthenticationType,
+  BrowserSettingsArn,
+  CustomerManagedKey,
+  DataProtectionSettingsArn,
+  DisplayName,
+  InstanceType,
+  IpAccessSettingsArn,
+  MaxConcurrentSessions,
+  NetworkSettingsArn,
+  SessionLoggerArn,
+  Tags,
+  TrustStoreArn,
+  UserAccessLoggingSettingsArn,
+  UserSettingsArn,
+  region
 )
 SELECT
-'{{ additional_encryption_context }}',
- '{{ authentication_type }}',
- '{{ browser_settings_arn }}',
- '{{ customer_managed_key }}',
- '{{ data_protection_settings_arn }}',
- '{{ display_name }}',
- '{{ instance_type }}',
- '{{ ip_access_settings_arn }}',
- '{{ max_concurrent_sessions }}',
- '{{ network_settings_arn }}',
- '{{ session_logger_arn }}',
- '{{ tags }}',
- '{{ trust_store_arn }}',
- '{{ user_access_logging_settings_arn }}',
- '{{ user_settings_arn }}',
-'{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ authentication_type }}',
+  '{{ browser_settings_arn }}',
+  '{{ customer_managed_key }}',
+  '{{ data_protection_settings_arn }}',
+  '{{ display_name }}',
+  '{{ instance_type }}',
+  '{{ ip_access_settings_arn }}',
+  '{{ max_concurrent_sessions }}',
+  '{{ network_settings_arn }}',
+  '{{ session_logger_arn }}',
+  '{{ tags }}',
+  '{{ trust_store_arn }}',
+  '{{ user_access_logging_settings_arn }}',
+  '{{ user_settings_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -352,40 +355,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.portals (
- AdditionalEncryptionContext,
- AuthenticationType,
- BrowserSettingsArn,
- CustomerManagedKey,
- DataProtectionSettingsArn,
- DisplayName,
- InstanceType,
- IpAccessSettingsArn,
- MaxConcurrentSessions,
- NetworkSettingsArn,
- SessionLoggerArn,
- Tags,
- TrustStoreArn,
- UserAccessLoggingSettingsArn,
- UserSettingsArn,
- region
+  AdditionalEncryptionContext,
+  AuthenticationType,
+  BrowserSettingsArn,
+  CustomerManagedKey,
+  DataProtectionSettingsArn,
+  DisplayName,
+  InstanceType,
+  IpAccessSettingsArn,
+  MaxConcurrentSessions,
+  NetworkSettingsArn,
+  SessionLoggerArn,
+  Tags,
+  TrustStoreArn,
+  UserAccessLoggingSettingsArn,
+  UserSettingsArn,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ authentication_type }}',
- '{{ browser_settings_arn }}',
- '{{ customer_managed_key }}',
- '{{ data_protection_settings_arn }}',
- '{{ display_name }}',
- '{{ instance_type }}',
- '{{ ip_access_settings_arn }}',
- '{{ max_concurrent_sessions }}',
- '{{ network_settings_arn }}',
- '{{ session_logger_arn }}',
- '{{ tags }}',
- '{{ trust_store_arn }}',
- '{{ user_access_logging_settings_arn }}',
- '{{ user_settings_arn }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ authentication_type }}',
+  '{{ browser_settings_arn }}',
+  '{{ customer_managed_key }}',
+  '{{ data_protection_settings_arn }}',
+  '{{ display_name }}',
+  '{{ instance_type }}',
+  '{{ ip_access_settings_arn }}',
+  '{{ max_concurrent_sessions }}',
+  '{{ network_settings_arn }}',
+  '{{ session_logger_arn }}',
+  '{{ tags }}',
+  '{{ trust_store_arn }}',
+  '{{ user_access_logging_settings_arn }}',
+  '{{ user_settings_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -460,8 +463,9 @@ SET PatchDocument = string('{{ {
     "UserAccessLoggingSettingsArn": user_access_logging_settings_arn,
     "UserSettingsArn": user_settings_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ portal_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ portal_arn }}';
 ```
 
 
@@ -470,8 +474,9 @@ AND Identifier = '{{ portal_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.portals
-WHERE Identifier = '{{ portal_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ portal_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

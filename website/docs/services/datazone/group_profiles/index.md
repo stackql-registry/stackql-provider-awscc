@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group_profile</code>.
 ```sql
 SELECT
-region,
-domain_id,
-domain_identifier,
-group_identifier,
-group_name,
-id,
-status
+  region,
+  domain_id,
+  domain_identifier,
+  group_identifier,
+  group_name,
+  id,
+  status
 FROM awscc.datazone.group_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>group_profiles</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.group_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>group_pr
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.group_profiles (
- DomainIdentifier,
- GroupIdentifier,
- region
+  DomainIdentifier,
+  GroupIdentifier,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ group_identifier }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ group_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.group_profiles (
- DomainIdentifier,
- GroupIdentifier,
- Status,
- region
+  DomainIdentifier,
+  GroupIdentifier,
+  Status,
+  region
 )
 SELECT
- '{{ domain_identifier }}',
- '{{ group_identifier }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ group_identifier }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ UPDATE awscc.datazone.group_profiles
 SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.group_profiles
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

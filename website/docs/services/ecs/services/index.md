@@ -721,37 +721,39 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT
-region,
-platform_version,
-propagate_tags,
-service_arn,
-placement_strategies,
-service_registries,
-volume_configurations,
-capacity_provider_strategy,
-launch_type,
-name,
-availability_zone_rebalancing,
-scheduling_strategy,
-network_configuration,
-tags,
-force_new_deployment,
-health_check_grace_period_seconds,
-enable_ecs_managed_tags,
-enable_execute_command,
-placement_constraints,
-cluster,
-load_balancers,
-service_connect_configuration,
-desired_count,
-vpc_lattice_configurations,
-deployment_controller,
-role,
-task_definition,
-service_name,
-deployment_configuration
+  region,
+  platform_version,
+  propagate_tags,
+  service_arn,
+  placement_strategies,
+  service_registries,
+  volume_configurations,
+  capacity_provider_strategy,
+  launch_type,
+  name,
+  availability_zone_rebalancing,
+  scheduling_strategy,
+  network_configuration,
+  tags,
+  force_new_deployment,
+  health_check_grace_period_seconds,
+  enable_ecs_managed_tags,
+  enable_execute_command,
+  placement_constraints,
+  cluster,
+  load_balancers,
+  service_connect_configuration,
+  desired_count,
+  vpc_lattice_configurations,
+  deployment_controller,
+  role,
+  task_definition,
+  service_name,
+  deployment_configuration
 FROM awscc.ecs.services
-WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}|{{ cluster }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ service_arn }}|{{ cluster }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -759,11 +761,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}|{{ cluster }}';
 Lists all <code>services</code> in a region.
 ```sql
 SELECT
-region,
-service_arn,
-cluster
+  region,
+  service_arn,
+  cluster
 FROM awscc.ecs.services_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -785,62 +788,62 @@ Use the following StackQL query and manifest file to create a new <code>service<
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.services (
- PlatformVersion,
- PropagateTags,
- PlacementStrategies,
- ServiceRegistries,
- VolumeConfigurations,
- CapacityProviderStrategy,
- LaunchType,
- AvailabilityZoneRebalancing,
- SchedulingStrategy,
- NetworkConfiguration,
- Tags,
- ForceNewDeployment,
- HealthCheckGracePeriodSeconds,
- EnableECSManagedTags,
- EnableExecuteCommand,
- PlacementConstraints,
- Cluster,
- LoadBalancers,
- ServiceConnectConfiguration,
- DesiredCount,
- VpcLatticeConfigurations,
- DeploymentController,
- Role,
- TaskDefinition,
- ServiceName,
- DeploymentConfiguration,
- region
+  PlatformVersion,
+  PropagateTags,
+  PlacementStrategies,
+  ServiceRegistries,
+  VolumeConfigurations,
+  CapacityProviderStrategy,
+  LaunchType,
+  AvailabilityZoneRebalancing,
+  SchedulingStrategy,
+  NetworkConfiguration,
+  Tags,
+  ForceNewDeployment,
+  HealthCheckGracePeriodSeconds,
+  EnableECSManagedTags,
+  EnableExecuteCommand,
+  PlacementConstraints,
+  Cluster,
+  LoadBalancers,
+  ServiceConnectConfiguration,
+  DesiredCount,
+  VpcLatticeConfigurations,
+  DeploymentController,
+  Role,
+  TaskDefinition,
+  ServiceName,
+  DeploymentConfiguration,
+  region
 )
 SELECT
-'{{ platform_version }}',
- '{{ propagate_tags }}',
- '{{ placement_strategies }}',
- '{{ service_registries }}',
- '{{ volume_configurations }}',
- '{{ capacity_provider_strategy }}',
- '{{ launch_type }}',
- '{{ availability_zone_rebalancing }}',
- '{{ scheduling_strategy }}',
- '{{ network_configuration }}',
- '{{ tags }}',
- '{{ force_new_deployment }}',
- '{{ health_check_grace_period_seconds }}',
- '{{ enable_ecs_managed_tags }}',
- '{{ enable_execute_command }}',
- '{{ placement_constraints }}',
- '{{ cluster }}',
- '{{ load_balancers }}',
- '{{ service_connect_configuration }}',
- '{{ desired_count }}',
- '{{ vpc_lattice_configurations }}',
- '{{ deployment_controller }}',
- '{{ role }}',
- '{{ task_definition }}',
- '{{ service_name }}',
- '{{ deployment_configuration }}',
-'{{ region }}';
+  '{{ platform_version }}',
+  '{{ propagate_tags }}',
+  '{{ placement_strategies }}',
+  '{{ service_registries }}',
+  '{{ volume_configurations }}',
+  '{{ capacity_provider_strategy }}',
+  '{{ launch_type }}',
+  '{{ availability_zone_rebalancing }}',
+  '{{ scheduling_strategy }}',
+  '{{ network_configuration }}',
+  '{{ tags }}',
+  '{{ force_new_deployment }}',
+  '{{ health_check_grace_period_seconds }}',
+  '{{ enable_ecs_managed_tags }}',
+  '{{ enable_execute_command }}',
+  '{{ placement_constraints }}',
+  '{{ cluster }}',
+  '{{ load_balancers }}',
+  '{{ service_connect_configuration }}',
+  '{{ desired_count }}',
+  '{{ vpc_lattice_configurations }}',
+  '{{ deployment_controller }}',
+  '{{ role }}',
+  '{{ task_definition }}',
+  '{{ service_name }}',
+  '{{ deployment_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -848,62 +851,62 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.services (
- PlatformVersion,
- PropagateTags,
- PlacementStrategies,
- ServiceRegistries,
- VolumeConfigurations,
- CapacityProviderStrategy,
- LaunchType,
- AvailabilityZoneRebalancing,
- SchedulingStrategy,
- NetworkConfiguration,
- Tags,
- ForceNewDeployment,
- HealthCheckGracePeriodSeconds,
- EnableECSManagedTags,
- EnableExecuteCommand,
- PlacementConstraints,
- Cluster,
- LoadBalancers,
- ServiceConnectConfiguration,
- DesiredCount,
- VpcLatticeConfigurations,
- DeploymentController,
- Role,
- TaskDefinition,
- ServiceName,
- DeploymentConfiguration,
- region
+  PlatformVersion,
+  PropagateTags,
+  PlacementStrategies,
+  ServiceRegistries,
+  VolumeConfigurations,
+  CapacityProviderStrategy,
+  LaunchType,
+  AvailabilityZoneRebalancing,
+  SchedulingStrategy,
+  NetworkConfiguration,
+  Tags,
+  ForceNewDeployment,
+  HealthCheckGracePeriodSeconds,
+  EnableECSManagedTags,
+  EnableExecuteCommand,
+  PlacementConstraints,
+  Cluster,
+  LoadBalancers,
+  ServiceConnectConfiguration,
+  DesiredCount,
+  VpcLatticeConfigurations,
+  DeploymentController,
+  Role,
+  TaskDefinition,
+  ServiceName,
+  DeploymentConfiguration,
+  region
 )
 SELECT
- '{{ platform_version }}',
- '{{ propagate_tags }}',
- '{{ placement_strategies }}',
- '{{ service_registries }}',
- '{{ volume_configurations }}',
- '{{ capacity_provider_strategy }}',
- '{{ launch_type }}',
- '{{ availability_zone_rebalancing }}',
- '{{ scheduling_strategy }}',
- '{{ network_configuration }}',
- '{{ tags }}',
- '{{ force_new_deployment }}',
- '{{ health_check_grace_period_seconds }}',
- '{{ enable_ecs_managed_tags }}',
- '{{ enable_execute_command }}',
- '{{ placement_constraints }}',
- '{{ cluster }}',
- '{{ load_balancers }}',
- '{{ service_connect_configuration }}',
- '{{ desired_count }}',
- '{{ vpc_lattice_configurations }}',
- '{{ deployment_controller }}',
- '{{ role }}',
- '{{ task_definition }}',
- '{{ service_name }}',
- '{{ deployment_configuration }}',
- '{{ region }}';
+  '{{ platform_version }}',
+  '{{ propagate_tags }}',
+  '{{ placement_strategies }}',
+  '{{ service_registries }}',
+  '{{ volume_configurations }}',
+  '{{ capacity_provider_strategy }}',
+  '{{ launch_type }}',
+  '{{ availability_zone_rebalancing }}',
+  '{{ scheduling_strategy }}',
+  '{{ network_configuration }}',
+  '{{ tags }}',
+  '{{ force_new_deployment }}',
+  '{{ health_check_grace_period_seconds }}',
+  '{{ enable_ecs_managed_tags }}',
+  '{{ enable_execute_command }}',
+  '{{ placement_constraints }}',
+  '{{ cluster }}',
+  '{{ load_balancers }}',
+  '{{ service_connect_configuration }}',
+  '{{ desired_count }}',
+  '{{ vpc_lattice_configurations }}',
+  '{{ deployment_controller }}',
+  '{{ role }}',
+  '{{ task_definition }}',
+  '{{ service_name }}',
+  '{{ deployment_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1096,8 +1099,9 @@ SET PatchDocument = string('{{ {
     "TaskDefinition": task_definition,
     "DeploymentConfiguration": deployment_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ service_arn }}|{{ cluster }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ service_arn }}|{{ cluster }}';
 ```
 
 
@@ -1106,8 +1110,9 @@ AND Identifier = '{{ service_arn }}|{{ cluster }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.services
-WHERE Identifier = '{{ service_arn }}|{{ cluster }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ service_arn }}|{{ cluster }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -205,13 +205,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bot_version</code>.
 ```sql
 SELECT
-region,
-bot_id,
-bot_version,
-description,
-bot_version_locale_specification
+  region,
+  bot_id,
+  bot_version,
+  description,
+  bot_version_locale_specification
 FROM awscc.lex.bot_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ bot_id }}|{{ bot_version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bot_id }}|{{ bot_version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,11 +221,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ bot_id }}|{{ bot_version }}';
 Lists all <code>bot_versions</code> in a region.
 ```sql
 SELECT
-region,
-bot_id,
-bot_version
+  region,
+  bot_id,
+  bot_version
 FROM awscc.lex.bot_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>bot_vers
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bot_versions (
- BotId,
- BotVersionLocaleSpecification,
- region
+  BotId,
+  BotVersionLocaleSpecification,
+  region
 )
 SELECT
-'{{ bot_id }}',
- '{{ bot_version_locale_specification }}',
-'{{ region }}';
+  '{{ bot_id }}',
+  '{{ bot_version_locale_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,16 +263,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lex.bot_versions (
- BotId,
- Description,
- BotVersionLocaleSpecification,
- region
+  BotId,
+  Description,
+  BotVersionLocaleSpecification,
+  region
 )
 SELECT
- '{{ bot_id }}',
- '{{ description }}',
- '{{ bot_version_locale_specification }}',
- '{{ region }}';
+  '{{ bot_id }}',
+  '{{ description }}',
+  '{{ bot_version_locale_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_versions
-WHERE Identifier = '{{ bot_id }}|{{ bot_version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bot_id }}|{{ bot_version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

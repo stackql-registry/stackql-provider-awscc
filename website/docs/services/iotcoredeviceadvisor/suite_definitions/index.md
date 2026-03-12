@@ -202,14 +202,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>suite_definition</code>.
 ```sql
 SELECT
-region,
-suite_definition_configuration,
-suite_definition_id,
-suite_definition_arn,
-suite_definition_version,
-tags
+  region,
+  suite_definition_configuration,
+  suite_definition_id,
+  suite_definition_arn,
+  suite_definition_version,
+  tags
 FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ suite_definition_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ suite_definition_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,10 +219,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ suite_definition_id }}';
 Lists all <code>suite_definitions</code> in a region.
 ```sql
 SELECT
-region,
-suite_definition_id
+  region,
+  suite_definition_id
 FROM awscc.iotcoredeviceadvisor.suite_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -242,12 +245,12 @@ Use the following StackQL query and manifest file to create a new <code>suite_de
 ```sql
 /*+ create */
 INSERT INTO awscc.iotcoredeviceadvisor.suite_definitions (
- SuiteDefinitionConfiguration,
- region
+  SuiteDefinitionConfiguration,
+  region
 )
 SELECT
-'{{ suite_definition_configuration }}',
-'{{ region }}';
+  '{{ suite_definition_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,14 +258,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotcoredeviceadvisor.suite_definitions (
- SuiteDefinitionConfiguration,
- Tags,
- region
+  SuiteDefinitionConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ suite_definition_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ suite_definition_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "SuiteDefinitionConfiguration": suite_definition_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ suite_definition_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ suite_definition_id }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ suite_definition_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE Identifier = '{{ suite_definition_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ suite_definition_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

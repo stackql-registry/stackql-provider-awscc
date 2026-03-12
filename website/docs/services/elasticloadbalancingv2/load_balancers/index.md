@@ -274,27 +274,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>load_balancer</code>.
 ```sql
 SELECT
-region,
-ip_address_type,
-enable_prefix_for_ipv6_source_nat,
-security_groups,
-load_balancer_attributes,
-minimum_load_balancer_capacity,
-scheme,
-dns_name,
-name,
-load_balancer_name,
-load_balancer_full_name,
-subnets,
-type,
-canonical_hosted_zone_id,
-tags,
-load_balancer_arn,
-subnet_mappings,
-enforce_security_group_inbound_rules_on_private_link_traffic,
-ipv4_ipam_pool_id
+  region,
+  ip_address_type,
+  enable_prefix_for_ipv6_source_nat,
+  security_groups,
+  load_balancer_attributes,
+  minimum_load_balancer_capacity,
+  scheme,
+  dns_name,
+  name,
+  load_balancer_name,
+  load_balancer_full_name,
+  subnets,
+  type,
+  canonical_hosted_zone_id,
+  tags,
+  load_balancer_arn,
+  subnet_mappings,
+  enforce_security_group_inbound_rules_on_private_link_traffic,
+  ipv4_ipam_pool_id
 FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ load_balancer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,10 +304,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_arn }}';
 Lists all <code>load_balancers</code> in a region.
 ```sql
 SELECT
-region,
-load_balancer_arn
+  region,
+  load_balancer_arn
 FROM awscc.elasticloadbalancingv2.load_balancers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -327,36 +330,36 @@ Use the following StackQL query and manifest file to create a new <code>load_bal
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.load_balancers (
- IpAddressType,
- EnablePrefixForIpv6SourceNat,
- SecurityGroups,
- LoadBalancerAttributes,
- MinimumLoadBalancerCapacity,
- Scheme,
- Name,
- Subnets,
- Type,
- Tags,
- SubnetMappings,
- EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic,
- Ipv4IpamPoolId,
- region
+  IpAddressType,
+  EnablePrefixForIpv6SourceNat,
+  SecurityGroups,
+  LoadBalancerAttributes,
+  MinimumLoadBalancerCapacity,
+  Scheme,
+  Name,
+  Subnets,
+  Type,
+  Tags,
+  SubnetMappings,
+  EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic,
+  Ipv4IpamPoolId,
+  region
 )
 SELECT
-'{{ ip_address_type }}',
- '{{ enable_prefix_for_ipv6_source_nat }}',
- '{{ security_groups }}',
- '{{ load_balancer_attributes }}',
- '{{ minimum_load_balancer_capacity }}',
- '{{ scheme }}',
- '{{ name }}',
- '{{ subnets }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ subnet_mappings }}',
- '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
- '{{ ipv4_ipam_pool_id }}',
-'{{ region }}';
+  '{{ ip_address_type }}',
+  '{{ enable_prefix_for_ipv6_source_nat }}',
+  '{{ security_groups }}',
+  '{{ load_balancer_attributes }}',
+  '{{ minimum_load_balancer_capacity }}',
+  '{{ scheme }}',
+  '{{ name }}',
+  '{{ subnets }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ subnet_mappings }}',
+  '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -364,36 +367,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.load_balancers (
- IpAddressType,
- EnablePrefixForIpv6SourceNat,
- SecurityGroups,
- LoadBalancerAttributes,
- MinimumLoadBalancerCapacity,
- Scheme,
- Name,
- Subnets,
- Type,
- Tags,
- SubnetMappings,
- EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic,
- Ipv4IpamPoolId,
- region
+  IpAddressType,
+  EnablePrefixForIpv6SourceNat,
+  SecurityGroups,
+  LoadBalancerAttributes,
+  MinimumLoadBalancerCapacity,
+  Scheme,
+  Name,
+  Subnets,
+  Type,
+  Tags,
+  SubnetMappings,
+  EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic,
+  Ipv4IpamPoolId,
+  region
 )
 SELECT
- '{{ ip_address_type }}',
- '{{ enable_prefix_for_ipv6_source_nat }}',
- '{{ security_groups }}',
- '{{ load_balancer_attributes }}',
- '{{ minimum_load_balancer_capacity }}',
- '{{ scheme }}',
- '{{ name }}',
- '{{ subnets }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ subnet_mappings }}',
- '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
- '{{ ipv4_ipam_pool_id }}',
- '{{ region }}';
+  '{{ ip_address_type }}',
+  '{{ enable_prefix_for_ipv6_source_nat }}',
+  '{{ security_groups }}',
+  '{{ load_balancer_attributes }}',
+  '{{ minimum_load_balancer_capacity }}',
+  '{{ scheme }}',
+  '{{ name }}',
+  '{{ subnets }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ subnet_mappings }}',
+  '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -471,8 +474,9 @@ SET PatchDocument = string('{{ {
     "EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic": enforce_security_group_inbound_rules_on_private_link_traffic,
     "Ipv4IpamPoolId": ipv4_ipam_pool_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ load_balancer_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ load_balancer_arn }}';
 ```
 
 
@@ -481,8 +485,9 @@ AND Identifier = '{{ load_balancer_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE Identifier = '{{ load_balancer_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ load_balancer_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -306,22 +306,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>verified_access_trust_provider</code>.
 ```sql
 SELECT
-region,
-trust_provider_type,
-device_trust_provider_type,
-user_trust_provider_type,
-oidc_options,
-device_options,
-policy_reference_name,
-creation_time,
-last_updated_time,
-verified_access_trust_provider_id,
-description,
-tags,
-sse_specification,
-native_application_oidc_options
+  region,
+  trust_provider_type,
+  device_trust_provider_type,
+  user_trust_provider_type,
+  oidc_options,
+  device_options,
+  policy_reference_name,
+  creation_time,
+  last_updated_time,
+  verified_access_trust_provider_id,
+  description,
+  tags,
+  sse_specification,
+  native_application_oidc_options
 FROM awscc.ec2.verified_access_trust_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_trust_provider_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ verified_access_trust_provider_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -329,10 +331,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_trust_provider_i
 Lists all <code>verified_access_trust_providers</code> in a region.
 ```sql
 SELECT
-region,
-verified_access_trust_provider_id
+  region,
+  verified_access_trust_provider_id
 FROM awscc.ec2.verified_access_trust_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -354,14 +357,14 @@ Use the following StackQL query and manifest file to create a new <code>verified
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_trust_providers (
- TrustProviderType,
- PolicyReferenceName,
- region
+  TrustProviderType,
+  PolicyReferenceName,
+  region
 )
 SELECT
-'{{ trust_provider_type }}',
- '{{ policy_reference_name }}',
-'{{ region }}';
+  '{{ trust_provider_type }}',
+  '{{ policy_reference_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -369,30 +372,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_trust_providers (
- TrustProviderType,
- DeviceTrustProviderType,
- UserTrustProviderType,
- OidcOptions,
- DeviceOptions,
- PolicyReferenceName,
- Description,
- Tags,
- SseSpecification,
- NativeApplicationOidcOptions,
- region
+  TrustProviderType,
+  DeviceTrustProviderType,
+  UserTrustProviderType,
+  OidcOptions,
+  DeviceOptions,
+  PolicyReferenceName,
+  Description,
+  Tags,
+  SseSpecification,
+  NativeApplicationOidcOptions,
+  region
 )
 SELECT
- '{{ trust_provider_type }}',
- '{{ device_trust_provider_type }}',
- '{{ user_trust_provider_type }}',
- '{{ oidc_options }}',
- '{{ device_options }}',
- '{{ policy_reference_name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ sse_specification }}',
- '{{ native_application_oidc_options }}',
- '{{ region }}';
+  '{{ trust_provider_type }}',
+  '{{ device_trust_provider_type }}',
+  '{{ user_trust_provider_type }}',
+  '{{ oidc_options }}',
+  '{{ device_options }}',
+  '{{ policy_reference_name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ sse_specification }}',
+  '{{ native_application_oidc_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -468,8 +471,9 @@ SET PatchDocument = string('{{ {
     "SseSpecification": sse_specification,
     "NativeApplicationOidcOptions": native_application_oidc_options
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ verified_access_trust_provider_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ verified_access_trust_provider_id }}';
 ```
 
 
@@ -478,8 +482,9 @@ AND Identifier = '{{ verified_access_trust_provider_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_trust_providers
-WHERE Identifier = '{{ verified_access_trust_provider_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ verified_access_trust_provider_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

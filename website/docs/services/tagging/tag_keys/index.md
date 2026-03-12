@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Returns all tag keys currently in use in the specified AWS Region for the calling account
+Creates, updates, deletes or gets a <code>tag_key</code> resource or lists <code>tag_keys</code> in a region
 
 ## Overview
 <table>
@@ -33,7 +33,23 @@ Returns all tag keys currently in use in the specified AWS Region for the callin
 </table>
 
 ## Fields
-<code>SELECT</code> operation not supported for this resource.
+<SchemaTable fields={[
+  {
+    "name": "pagination_token",
+    "type": "string",
+    "description": "A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the <code>PaginationToken</code> value in the request for the next page."
+  },
+  {
+    "name": "tag_keys",
+    "type": "array",
+    "description": "A list of all tag keys in the Amazon Web Services account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 
@@ -52,7 +68,15 @@ Returns all tag keys currently in use in the specified AWS Region for the callin
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.tagging.tag_keys
+WHERE
+  region = 'us-east-1';
+```
 
 
 

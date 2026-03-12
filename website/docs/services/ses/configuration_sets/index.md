@@ -254,17 +254,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_set</code>.
 ```sql
 SELECT
-region,
-name,
-tracking_options,
-delivery_options,
-reputation_options,
-sending_options,
-suppression_options,
-vdm_options,
-tags
+  region,
+  name,
+  tracking_options,
+  delivery_options,
+  reputation_options,
+  sending_options,
+  suppression_options,
+  vdm_options,
+  tags
 FROM awscc.ses.configuration_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,10 +274,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>configuration_sets</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.ses.configuration_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -297,26 +300,26 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.configuration_sets (
- Name,
- TrackingOptions,
- DeliveryOptions,
- ReputationOptions,
- SendingOptions,
- SuppressionOptions,
- VdmOptions,
- Tags,
- region
+  Name,
+  TrackingOptions,
+  DeliveryOptions,
+  ReputationOptions,
+  SendingOptions,
+  SuppressionOptions,
+  VdmOptions,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ tracking_options }}',
- '{{ delivery_options }}',
- '{{ reputation_options }}',
- '{{ sending_options }}',
- '{{ suppression_options }}',
- '{{ vdm_options }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ tracking_options }}',
+  '{{ delivery_options }}',
+  '{{ reputation_options }}',
+  '{{ sending_options }}',
+  '{{ suppression_options }}',
+  '{{ vdm_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -324,26 +327,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.configuration_sets (
- Name,
- TrackingOptions,
- DeliveryOptions,
- ReputationOptions,
- SendingOptions,
- SuppressionOptions,
- VdmOptions,
- Tags,
- region
+  Name,
+  TrackingOptions,
+  DeliveryOptions,
+  ReputationOptions,
+  SendingOptions,
+  SuppressionOptions,
+  VdmOptions,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tracking_options }}',
- '{{ delivery_options }}',
- '{{ reputation_options }}',
- '{{ sending_options }}',
- '{{ suppression_options }}',
- '{{ vdm_options }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tracking_options }}',
+  '{{ delivery_options }}',
+  '{{ reputation_options }}',
+  '{{ sending_options }}',
+  '{{ suppression_options }}',
+  '{{ vdm_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -411,8 +414,9 @@ SET PatchDocument = string('{{ {
     "VdmOptions": vdm_options,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -421,8 +425,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.configuration_sets
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

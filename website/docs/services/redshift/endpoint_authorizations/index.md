@@ -176,21 +176,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>endpoint_authorization</code>.
 ```sql
 SELECT
-region,
-status,
-grantee,
-account,
-grantor,
-endpoint_count,
-authorize_time,
-allowed_vpcs,
-force,
-allowed_all_vpcs,
-vpc_ids,
-cluster_identifier,
-cluster_status
+  region,
+  status,
+  grantee,
+  account,
+  grantor,
+  endpoint_count,
+  authorize_time,
+  allowed_vpcs,
+  force,
+  allowed_all_vpcs,
+  vpc_ids,
+  cluster_identifier,
+  cluster_status
 FROM awscc.redshift.endpoint_authorizations
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_identifier }}|{{ account }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -198,11 +200,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_identifier }}|{{ account
 Lists all <code>endpoint_authorizations</code> in a region.
 ```sql
 SELECT
-region,
-cluster_identifier,
-account
+  region,
+  cluster_identifier,
+  account
 FROM awscc.redshift.endpoint_authorizations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -224,14 +227,14 @@ Use the following StackQL query and manifest file to create a new <code>endpoint
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.endpoint_authorizations (
- Account,
- ClusterIdentifier,
- region
+  Account,
+  ClusterIdentifier,
+  region
 )
 SELECT
-'{{ account }}',
- '{{ cluster_identifier }}',
-'{{ region }}';
+  '{{ account }}',
+  '{{ cluster_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -239,18 +242,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.endpoint_authorizations (
- Account,
- Force,
- VpcIds,
- ClusterIdentifier,
- region
+  Account,
+  Force,
+  VpcIds,
+  ClusterIdentifier,
+  region
 )
 SELECT
- '{{ account }}',
- '{{ force }}',
- '{{ vpc_ids }}',
- '{{ cluster_identifier }}',
- '{{ region }}';
+  '{{ account }}',
+  '{{ force }}',
+  '{{ vpc_ids }}',
+  '{{ cluster_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "Force": force,
     "VpcIds": vpc_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_identifier }}|{{ account }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.endpoint_authorizations
-WHERE Identifier = '{{ cluster_identifier }}|{{ account }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_identifier }}|{{ account }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

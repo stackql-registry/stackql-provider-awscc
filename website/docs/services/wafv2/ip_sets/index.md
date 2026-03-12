@@ -188,17 +188,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ip_set</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-name,
-id,
-scope,
-ip_address_version,
-addresses,
-tags
+  region,
+  arn,
+  description,
+  name,
+  id,
+  scope,
+  ip_address_version,
+  addresses,
+  tags
 FROM awscc.wafv2.ip_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,12 +208,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 Lists all <code>ip_sets</code> in a region.
 ```sql
 SELECT
-region,
-name,
-id,
-scope
+  region,
+  name,
+  id,
+  scope
 FROM awscc.wafv2.ip_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>ip_set</
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.ip_sets (
- Scope,
- IPAddressVersion,
- Addresses,
- region
+  Scope,
+  IPAddressVersion,
+  Addresses,
+  region
 )
 SELECT
-'{{ scope }}',
- '{{ ip_address_version }}',
- '{{ addresses }}',
-'{{ region }}';
+  '{{ scope }}',
+  '{{ ip_address_version }}',
+  '{{ addresses }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,22 +253,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.ip_sets (
- Description,
- Name,
- Scope,
- IPAddressVersion,
- Addresses,
- Tags,
- region
+  Description,
+  Name,
+  Scope,
+  IPAddressVersion,
+  Addresses,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ scope }}',
- '{{ ip_address_version }}',
- '{{ addresses }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ scope }}',
+  '{{ ip_address_version }}',
+  '{{ addresses }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Addresses": addresses,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.ip_sets
-WHERE Identifier = '{{ name }}|{{ id }}|{{ scope }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

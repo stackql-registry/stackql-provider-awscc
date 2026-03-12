@@ -242,22 +242,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>migration_project</code>.
 ```sql
 SELECT
-region,
-migration_project_name,
-migration_project_identifier,
-migration_project_arn,
-migration_project_creation_time,
-instance_profile_identifier,
-instance_profile_name,
-instance_profile_arn,
-transformation_rules,
-description,
-schema_conversion_application_attributes,
-source_data_provider_descriptors,
-target_data_provider_descriptors,
-tags
+  region,
+  migration_project_name,
+  migration_project_identifier,
+  migration_project_arn,
+  migration_project_creation_time,
+  instance_profile_identifier,
+  instance_profile_name,
+  instance_profile_arn,
+  transformation_rules,
+  description,
+  schema_conversion_application_attributes,
+  source_data_provider_descriptors,
+  target_data_provider_descriptors,
+  tags
 FROM awscc.dms.migration_projects
-WHERE region = 'us-east-1' AND Identifier = '{{ migration_project_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ migration_project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,10 +267,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ migration_project_arn }}';
 Lists all <code>migration_projects</code> in a region.
 ```sql
 SELECT
-region,
-migration_project_arn
+  region,
+  migration_project_arn
 FROM awscc.dms.migration_projects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -290,34 +293,34 @@ Use the following StackQL query and manifest file to create a new <code>migratio
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.migration_projects (
- MigrationProjectName,
- MigrationProjectIdentifier,
- MigrationProjectCreationTime,
- InstanceProfileIdentifier,
- InstanceProfileName,
- InstanceProfileArn,
- TransformationRules,
- Description,
- SchemaConversionApplicationAttributes,
- SourceDataProviderDescriptors,
- TargetDataProviderDescriptors,
- Tags,
- region
+  MigrationProjectName,
+  MigrationProjectIdentifier,
+  MigrationProjectCreationTime,
+  InstanceProfileIdentifier,
+  InstanceProfileName,
+  InstanceProfileArn,
+  TransformationRules,
+  Description,
+  SchemaConversionApplicationAttributes,
+  SourceDataProviderDescriptors,
+  TargetDataProviderDescriptors,
+  Tags,
+  region
 )
 SELECT
-'{{ migration_project_name }}',
- '{{ migration_project_identifier }}',
- '{{ migration_project_creation_time }}',
- '{{ instance_profile_identifier }}',
- '{{ instance_profile_name }}',
- '{{ instance_profile_arn }}',
- '{{ transformation_rules }}',
- '{{ description }}',
- '{{ schema_conversion_application_attributes }}',
- '{{ source_data_provider_descriptors }}',
- '{{ target_data_provider_descriptors }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ migration_project_name }}',
+  '{{ migration_project_identifier }}',
+  '{{ migration_project_creation_time }}',
+  '{{ instance_profile_identifier }}',
+  '{{ instance_profile_name }}',
+  '{{ instance_profile_arn }}',
+  '{{ transformation_rules }}',
+  '{{ description }}',
+  '{{ schema_conversion_application_attributes }}',
+  '{{ source_data_provider_descriptors }}',
+  '{{ target_data_provider_descriptors }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -325,34 +328,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.migration_projects (
- MigrationProjectName,
- MigrationProjectIdentifier,
- MigrationProjectCreationTime,
- InstanceProfileIdentifier,
- InstanceProfileName,
- InstanceProfileArn,
- TransformationRules,
- Description,
- SchemaConversionApplicationAttributes,
- SourceDataProviderDescriptors,
- TargetDataProviderDescriptors,
- Tags,
- region
+  MigrationProjectName,
+  MigrationProjectIdentifier,
+  MigrationProjectCreationTime,
+  InstanceProfileIdentifier,
+  InstanceProfileName,
+  InstanceProfileArn,
+  TransformationRules,
+  Description,
+  SchemaConversionApplicationAttributes,
+  SourceDataProviderDescriptors,
+  TargetDataProviderDescriptors,
+  Tags,
+  region
 )
 SELECT
- '{{ migration_project_name }}',
- '{{ migration_project_identifier }}',
- '{{ migration_project_creation_time }}',
- '{{ instance_profile_identifier }}',
- '{{ instance_profile_name }}',
- '{{ instance_profile_arn }}',
- '{{ transformation_rules }}',
- '{{ description }}',
- '{{ schema_conversion_application_attributes }}',
- '{{ source_data_provider_descriptors }}',
- '{{ target_data_provider_descriptors }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ migration_project_name }}',
+  '{{ migration_project_identifier }}',
+  '{{ migration_project_creation_time }}',
+  '{{ instance_profile_identifier }}',
+  '{{ instance_profile_name }}',
+  '{{ instance_profile_arn }}',
+  '{{ transformation_rules }}',
+  '{{ description }}',
+  '{{ schema_conversion_application_attributes }}',
+  '{{ source_data_provider_descriptors }}',
+  '{{ target_data_provider_descriptors }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -428,8 +431,9 @@ SET PatchDocument = string('{{ {
     "TargetDataProviderDescriptors": target_data_provider_descriptors,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ migration_project_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ migration_project_arn }}';
 ```
 
 
@@ -438,8 +442,9 @@ AND Identifier = '{{ migration_project_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.migration_projects
-WHERE Identifier = '{{ migration_project_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ migration_project_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

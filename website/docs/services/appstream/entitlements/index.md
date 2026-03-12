@@ -127,16 +127,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>entitlement</code>.
 ```sql
 SELECT
-region,
-name,
-stack_name,
-description,
-app_visibility,
-attributes,
-created_time,
-last_modified_time
+  region,
+  name,
+  stack_name,
+  description,
+  app_visibility,
+  attributes,
+  created_time,
+  last_modified_time
 FROM awscc.appstream.entitlements
-WHERE region = 'us-east-1' AND Identifier = '{{ stack_name }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ stack_name }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -156,18 +158,18 @@ Use the following StackQL query and manifest file to create a new <code>entitlem
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.entitlements (
- Name,
- StackName,
- AppVisibility,
- Attributes,
- region
+  Name,
+  StackName,
+  AppVisibility,
+  Attributes,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ stack_name }}',
- '{{ app_visibility }}',
- '{{ attributes }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ stack_name }}',
+  '{{ app_visibility }}',
+  '{{ attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -175,20 +177,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.entitlements (
- Name,
- StackName,
- Description,
- AppVisibility,
- Attributes,
- region
+  Name,
+  StackName,
+  Description,
+  AppVisibility,
+  Attributes,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ stack_name }}',
- '{{ description }}',
- '{{ app_visibility }}',
- '{{ attributes }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ stack_name }}',
+  '{{ description }}',
+  '{{ app_visibility }}',
+  '{{ attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -233,8 +235,9 @@ SET PatchDocument = string('{{ {
     "AppVisibility": app_visibility,
     "Attributes": attributes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ stack_name }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ stack_name }}|{{ name }}';
 ```
 
 
@@ -243,8 +246,9 @@ AND Identifier = '{{ stack_name }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.entitlements
-WHERE Identifier = '{{ stack_name }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ stack_name }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

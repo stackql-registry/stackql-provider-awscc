@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_point_policy</code>.
 ```sql
 SELECT
-region,
-object_lambda_access_point,
-policy_document
+  region,
+  object_lambda_access_point,
+  policy_document
 FROM awscc.s3objectlambda.access_point_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ object_lambda_access_point }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ object_lambda_access_point }}';
 ```
 
 ## `INSERT` example
@@ -114,14 +116,14 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.s3objectlambda.access_point_policies (
- ObjectLambdaAccessPoint,
- PolicyDocument,
- region
+  ObjectLambdaAccessPoint,
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ object_lambda_access_point }}',
- '{{ policy_document }}',
-'{{ region }}';
+  '{{ object_lambda_access_point }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3objectlambda.access_point_policies (
- ObjectLambdaAccessPoint,
- PolicyDocument,
- region
+  ObjectLambdaAccessPoint,
+  PolicyDocument,
+  region
 )
 SELECT
- '{{ object_lambda_access_point }}',
- '{{ policy_document }}',
- '{{ region }}';
+  '{{ object_lambda_access_point }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.s3objectlambda.access_point_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ object_lambda_access_point }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ object_lambda_access_point }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ object_lambda_access_point }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3objectlambda.access_point_policies
-WHERE Identifier = '{{ object_lambda_access_point }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ object_lambda_access_point }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>blueprint</code>.
 ```sql
 SELECT
-region,
-blueprint_arn,
-blueprint_name,
-creation_time,
-last_modified_time,
-schema,
-type,
-blueprint_stage,
-kms_key_id,
-kms_encryption_context,
-tags
+  region,
+  blueprint_arn,
+  blueprint_name,
+  creation_time,
+  last_modified_time,
+  schema,
+  type,
+  blueprint_stage,
+  kms_key_id,
+  kms_encryption_context,
+  tags
 FROM awscc.bedrock.blueprints
-WHERE region = 'us-east-1' AND Identifier = '{{ blueprint_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ blueprint_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ blueprint_arn }}';
 Lists all <code>blueprints</code> in a region.
 ```sql
 SELECT
-region,
-blueprint_arn
+  region,
+  blueprint_arn
 FROM awscc.bedrock.blueprints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>blueprin
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.blueprints (
- BlueprintName,
- Schema,
- Type,
- region
+  BlueprintName,
+  Schema,
+  Type,
+  region
 )
 SELECT
-'{{ blueprint_name }}',
- '{{ schema }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ blueprint_name }}',
+  '{{ schema }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,22 +253,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.blueprints (
- BlueprintName,
- Schema,
- Type,
- KmsKeyId,
- KmsEncryptionContext,
- Tags,
- region
+  BlueprintName,
+  Schema,
+  Type,
+  KmsKeyId,
+  KmsEncryptionContext,
+  Tags,
+  region
 )
 SELECT
- '{{ blueprint_name }}',
- '{{ schema }}',
- '{{ type }}',
- '{{ kms_key_id }}',
- '{{ kms_encryption_context }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ blueprint_name }}',
+  '{{ schema }}',
+  '{{ type }}',
+  '{{ kms_key_id }}',
+  '{{ kms_encryption_context }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "KmsEncryptionContext": kms_encryption_context,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ blueprint_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ blueprint_arn }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ blueprint_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.blueprints
-WHERE Identifier = '{{ blueprint_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ blueprint_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

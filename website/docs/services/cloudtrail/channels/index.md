@@ -175,14 +175,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT
-region,
-name,
-source,
-destinations,
-channel_arn,
-tags
+  region,
+  name,
+  source,
+  destinations,
+  channel_arn,
+  tags
 FROM awscc.cloudtrail.channels
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ channel_arn }}';
 Lists all <code>channels</code> in a region.
 ```sql
 SELECT
-region,
-channel_arn
+  region,
+  channel_arn
 FROM awscc.cloudtrail.channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>channel<
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.channels (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.channels (
- Name,
- Source,
- Destinations,
- Tags,
- region
+  Name,
+  Source,
+  Destinations,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ source }}',
- '{{ destinations }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ source }}',
+  '{{ destinations }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "Destinations": destinations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ channel_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ channel_arn }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ channel_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.channels
-WHERE Identifier = '{{ channel_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

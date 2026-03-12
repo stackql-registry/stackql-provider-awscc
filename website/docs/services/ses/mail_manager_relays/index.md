@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_relay</code>.
 ```sql
 SELECT
-region,
-authentication,
-relay_arn,
-relay_id,
-relay_name,
-server_name,
-server_port,
-tags
+  region,
+  authentication,
+  relay_arn,
+  relay_id,
+  relay_name,
+  server_name,
+  server_port,
+  tags
 FROM awscc.ses.mail_manager_relays
-WHERE region = 'us-east-1' AND Identifier = '{{ relay_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ relay_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ relay_id }}';
 Lists all <code>mail_manager_relays</code> in a region.
 ```sql
 SELECT
-region,
-relay_id
+  region,
+  relay_id
 FROM awscc.ses.mail_manager_relays_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_relays (
- Authentication,
- ServerName,
- ServerPort,
- region
+  Authentication,
+  ServerName,
+  ServerPort,
+  region
 )
 SELECT
-'{{ authentication }}',
- '{{ server_name }}',
- '{{ server_port }}',
-'{{ region }}';
+  '{{ authentication }}',
+  '{{ server_name }}',
+  '{{ server_port }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,20 +235,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_relays (
- Authentication,
- RelayName,
- ServerName,
- ServerPort,
- Tags,
- region
+  Authentication,
+  RelayName,
+  ServerName,
+  ServerPort,
+  Tags,
+  region
 )
 SELECT
- '{{ authentication }}',
- '{{ relay_name }}',
- '{{ server_name }}',
- '{{ server_port }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ authentication }}',
+  '{{ relay_name }}',
+  '{{ server_name }}',
+  '{{ server_port }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "ServerPort": server_port,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ relay_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ relay_id }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ relay_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_relays
-WHERE Identifier = '{{ relay_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ relay_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

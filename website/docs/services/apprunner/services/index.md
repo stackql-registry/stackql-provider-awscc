@@ -426,22 +426,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT
-region,
-service_name,
-service_id,
-service_arn,
-service_url,
-status,
-source_configuration,
-instance_configuration,
-tags,
-encryption_configuration,
-health_check_configuration,
-observability_configuration,
-auto_scaling_configuration_arn,
-network_configuration
+  region,
+  service_name,
+  service_id,
+  service_arn,
+  service_url,
+  status,
+  source_configuration,
+  instance_configuration,
+  tags,
+  encryption_configuration,
+  health_check_configuration,
+  observability_configuration,
+  auto_scaling_configuration_arn,
+  network_configuration
 FROM awscc.apprunner.services
-WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ service_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -449,10 +451,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}';
 Lists all <code>services</code> in a region.
 ```sql
 SELECT
-region,
-service_arn
+  region,
+  service_arn
 FROM awscc.apprunner.services_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -474,12 +477,12 @@ Use the following StackQL query and manifest file to create a new <code>service<
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.services (
- SourceConfiguration,
- region
+  SourceConfiguration,
+  region
 )
 SELECT
-'{{ source_configuration }}',
-'{{ region }}';
+  '{{ source_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -487,28 +490,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.services (
- ServiceName,
- SourceConfiguration,
- InstanceConfiguration,
- Tags,
- EncryptionConfiguration,
- HealthCheckConfiguration,
- ObservabilityConfiguration,
- AutoScalingConfigurationArn,
- NetworkConfiguration,
- region
+  ServiceName,
+  SourceConfiguration,
+  InstanceConfiguration,
+  Tags,
+  EncryptionConfiguration,
+  HealthCheckConfiguration,
+  ObservabilityConfiguration,
+  AutoScalingConfigurationArn,
+  NetworkConfiguration,
+  region
 )
 SELECT
- '{{ service_name }}',
- '{{ source_configuration }}',
- '{{ instance_configuration }}',
- '{{ tags }}',
- '{{ encryption_configuration }}',
- '{{ health_check_configuration }}',
- '{{ observability_configuration }}',
- '{{ auto_scaling_configuration_arn }}',
- '{{ network_configuration }}',
- '{{ region }}';
+  '{{ service_name }}',
+  '{{ source_configuration }}',
+  '{{ instance_configuration }}',
+  '{{ tags }}',
+  '{{ encryption_configuration }}',
+  '{{ health_check_configuration }}',
+  '{{ observability_configuration }}',
+  '{{ auto_scaling_configuration_arn }}',
+  '{{ network_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -615,8 +618,9 @@ SET PatchDocument = string('{{ {
     "AutoScalingConfigurationArn": auto_scaling_configuration_arn,
     "NetworkConfiguration": network_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ service_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ service_arn }}';
 ```
 
 
@@ -625,8 +629,9 @@ AND Identifier = '{{ service_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.services
-WHERE Identifier = '{{ service_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ service_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

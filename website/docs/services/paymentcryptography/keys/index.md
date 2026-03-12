@@ -252,18 +252,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key</code>.
 ```sql
 SELECT
-region,
-derive_key_usage,
-enabled,
-exportable,
-key_attributes,
-key_check_value_algorithm,
-key_identifier,
-key_origin,
-key_state,
-tags
+  region,
+  derive_key_usage,
+  enabled,
+  exportable,
+  key_attributes,
+  key_check_value_algorithm,
+  key_identifier,
+  key_origin,
+  key_state,
+  tags
 FROM awscc.paymentcryptography.keys
-WHERE region = 'us-east-1' AND Identifier = '{{ key_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ key_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,10 +273,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ key_identifier }}';
 Lists all <code>keys</code> in a region.
 ```sql
 SELECT
-region,
-key_identifier
+  region,
+  key_identifier
 FROM awscc.paymentcryptography.keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -296,14 +299,14 @@ Use the following StackQL query and manifest file to create a new <code>key</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.paymentcryptography.keys (
- Exportable,
- KeyAttributes,
- region
+  Exportable,
+  KeyAttributes,
+  region
 )
 SELECT
-'{{ exportable }}',
- '{{ key_attributes }}',
-'{{ region }}';
+  '{{ exportable }}',
+  '{{ key_attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -311,22 +314,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.paymentcryptography.keys (
- DeriveKeyUsage,
- Enabled,
- Exportable,
- KeyAttributes,
- KeyCheckValueAlgorithm,
- Tags,
- region
+  DeriveKeyUsage,
+  Enabled,
+  Exportable,
+  KeyAttributes,
+  KeyCheckValueAlgorithm,
+  Tags,
+  region
 )
 SELECT
- '{{ derive_key_usage }}',
- '{{ enabled }}',
- '{{ exportable }}',
- '{{ key_attributes }}',
- '{{ key_check_value_algorithm }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ derive_key_usage }}',
+  '{{ enabled }}',
+  '{{ exportable }}',
+  '{{ key_attributes }}',
+  '{{ key_check_value_algorithm }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -389,8 +392,9 @@ SET PatchDocument = string('{{ {
     "KeyCheckValueAlgorithm": key_check_value_algorithm,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ key_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ key_identifier }}';
 ```
 
 
@@ -399,8 +403,9 @@ AND Identifier = '{{ key_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.paymentcryptography.keys
-WHERE Identifier = '{{ key_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ key_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

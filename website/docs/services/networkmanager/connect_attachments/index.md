@@ -293,27 +293,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connect_attachment</code>.
 ```sql
 SELECT
-region,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_location,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-tags,
-created_at,
-updated_at,
-transport_attachment_id,
-options
+  region,
+  core_network_id,
+  core_network_arn,
+  attachment_id,
+  owner_account_id,
+  attachment_type,
+  state,
+  edge_location,
+  resource_arn,
+  attachment_policy_rule_number,
+  segment_name,
+  proposed_segment_change,
+  network_function_group_name,
+  proposed_network_function_group_change,
+  tags,
+  created_at,
+  updated_at,
+  transport_attachment_id,
+  options
 FROM awscc.networkmanager.connect_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,10 +323,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 Lists all <code>connect_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_id
+  region,
+  attachment_id
 FROM awscc.networkmanager.connect_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -346,18 +349,18 @@ Use the following StackQL query and manifest file to create a new <code>connect_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.connect_attachments (
- CoreNetworkId,
- EdgeLocation,
- TransportAttachmentId,
- Options,
- region
+  CoreNetworkId,
+  EdgeLocation,
+  TransportAttachmentId,
+  Options,
+  region
 )
 SELECT
-'{{ core_network_id }}',
- '{{ edge_location }}',
- '{{ transport_attachment_id }}',
- '{{ options }}',
-'{{ region }}';
+  '{{ core_network_id }}',
+  '{{ edge_location }}',
+  '{{ transport_attachment_id }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -365,26 +368,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.connect_attachments (
- CoreNetworkId,
- EdgeLocation,
- ProposedSegmentChange,
- NetworkFunctionGroupName,
- ProposedNetworkFunctionGroupChange,
- Tags,
- TransportAttachmentId,
- Options,
- region
+  CoreNetworkId,
+  EdgeLocation,
+  ProposedSegmentChange,
+  NetworkFunctionGroupName,
+  ProposedNetworkFunctionGroupChange,
+  Tags,
+  TransportAttachmentId,
+  Options,
+  region
 )
 SELECT
- '{{ core_network_id }}',
- '{{ edge_location }}',
- '{{ proposed_segment_change }}',
- '{{ network_function_group_name }}',
- '{{ proposed_network_function_group_change }}',
- '{{ tags }}',
- '{{ transport_attachment_id }}',
- '{{ options }}',
- '{{ region }}';
+  '{{ core_network_id }}',
+  '{{ edge_location }}',
+  '{{ proposed_segment_change }}',
+  '{{ network_function_group_name }}',
+  '{{ proposed_network_function_group_change }}',
+  '{{ tags }}',
+  '{{ transport_attachment_id }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -445,8 +448,9 @@ SET PatchDocument = string('{{ {
     "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -455,8 +459,9 @@ AND Identifier = '{{ attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.connect_attachments
-WHERE Identifier = '{{ attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

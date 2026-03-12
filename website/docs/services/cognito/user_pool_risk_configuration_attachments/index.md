@@ -206,14 +206,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_risk_configuration_attachment</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-client_id,
-risk_exception_configuration,
-compromised_credentials_risk_configuration,
-account_takeover_risk_configuration
+  region,
+  user_pool_id,
+  client_id,
+  risk_exception_configuration,
+  compromised_credentials_risk_configuration,
+  account_takeover_risk_configuration
 FROM awscc.cognito.user_pool_risk_configuration_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 ## `INSERT` example
@@ -233,14 +235,14 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_risk_configuration_attachments (
- UserPoolId,
- ClientId,
- region
+  UserPoolId,
+  ClientId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ client_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ client_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,20 +250,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_risk_configuration_attachments (
- UserPoolId,
- ClientId,
- RiskExceptionConfiguration,
- CompromisedCredentialsRiskConfiguration,
- AccountTakeoverRiskConfiguration,
- region
+  UserPoolId,
+  ClientId,
+  RiskExceptionConfiguration,
+  CompromisedCredentialsRiskConfiguration,
+  AccountTakeoverRiskConfiguration,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ client_id }}',
- '{{ risk_exception_configuration }}',
- '{{ compromised_credentials_risk_configuration }}',
- '{{ account_takeover_risk_configuration }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ client_id }}',
+  '{{ risk_exception_configuration }}',
+  '{{ compromised_credentials_risk_configuration }}',
+  '{{ account_takeover_risk_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -328,8 +330,9 @@ SET PatchDocument = string('{{ {
     "CompromisedCredentialsRiskConfiguration": compromised_credentials_risk_configuration,
     "AccountTakeoverRiskConfiguration": account_takeover_risk_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -338,8 +341,9 @@ AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_risk_configuration_attachments
-WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ client_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

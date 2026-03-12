@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_server</code>.
 ```sql
 SELECT
-region,
-amazon_side_asn,
-arn,
-id,
-persist_routes,
-persist_routes_duration,
-sns_notifications_enabled,
-tags
+  region,
+  amazon_side_asn,
+  arn,
+  id,
+  persist_routes,
+  persist_routes_duration,
+  sns_notifications_enabled,
+  tags
 FROM awscc.ec2.route_servers
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>route_servers</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.route_servers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>route_se
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_servers (
- AmazonSideAsn,
- region
+  AmazonSideAsn,
+  region
 )
 SELECT
-'{{ amazon_side_asn }}',
-'{{ region }}';
+  '{{ amazon_side_asn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,20 +231,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_servers (
- AmazonSideAsn,
- PersistRoutes,
- PersistRoutesDuration,
- SnsNotificationsEnabled,
- Tags,
- region
+  AmazonSideAsn,
+  PersistRoutes,
+  PersistRoutesDuration,
+  SnsNotificationsEnabled,
+  Tags,
+  region
 )
 SELECT
- '{{ amazon_side_asn }}',
- '{{ persist_routes }}',
- '{{ persist_routes_duration }}',
- '{{ sns_notifications_enabled }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ amazon_side_asn }}',
+  '{{ persist_routes }}',
+  '{{ persist_routes_duration }}',
+  '{{ sns_notifications_enabled }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -287,8 +290,9 @@ SET PatchDocument = string('{{ {
     "SnsNotificationsEnabled": sns_notifications_enabled,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -297,8 +301,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_servers
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

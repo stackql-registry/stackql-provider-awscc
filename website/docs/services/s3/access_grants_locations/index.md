@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_grants_location</code>.
 ```sql
 SELECT
-region,
-access_grants_location_arn,
-access_grants_location_id,
-iam_role_arn,
-location_scope,
-tags
+  region,
+  access_grants_location_arn,
+  access_grants_location_id,
+  iam_role_arn,
+  location_scope,
+  tags
 FROM awscc.s3.access_grants_locations
-WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_location_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ access_grants_location_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_location_id }}';
 Lists all <code>access_grants_locations</code> in a region.
 ```sql
 SELECT
-region,
-access_grants_location_id
+  region,
+  access_grants_location_id
 FROM awscc.s3.access_grants_locations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>access_g
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants_locations (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,16 +219,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants_locations (
- IamRoleArn,
- LocationScope,
- Tags,
- region
+  IamRoleArn,
+  LocationScope,
+  Tags,
+  region
 )
 SELECT
- '{{ iam_role_arn }}',
- '{{ location_scope }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ iam_role_arn }}',
+  '{{ location_scope }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -265,8 +268,9 @@ SET PatchDocument = string('{{ {
     "IamRoleArn": iam_role_arn,
     "LocationScope": location_scope
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ access_grants_location_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ access_grants_location_id }}';
 ```
 
 
@@ -275,8 +279,9 @@ AND Identifier = '{{ access_grants_location_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants_locations
-WHERE Identifier = '{{ access_grants_location_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ access_grants_location_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

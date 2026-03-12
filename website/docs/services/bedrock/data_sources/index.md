@@ -602,21 +602,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-data_source_configuration,
-data_source_id,
-description,
-knowledge_base_id,
-data_source_status,
-name,
-server_side_encryption_configuration,
-vector_ingestion_configuration,
-data_deletion_policy,
-created_at,
-updated_at,
-failure_reasons
+  region,
+  data_source_configuration,
+  data_source_id,
+  description,
+  knowledge_base_id,
+  data_source_status,
+  name,
+  server_side_encryption_configuration,
+  vector_ingestion_configuration,
+  data_deletion_policy,
+  created_at,
+  updated_at,
+  failure_reasons
 FROM awscc.bedrock.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -624,11 +626,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}|{{ data_sou
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-knowledge_base_id,
-data_source_id
+  region,
+  knowledge_base_id,
+  data_source_id
 FROM awscc.bedrock.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -650,16 +653,16 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.data_sources (
- DataSourceConfiguration,
- KnowledgeBaseId,
- Name,
- region
+  DataSourceConfiguration,
+  KnowledgeBaseId,
+  Name,
+  region
 )
 SELECT
-'{{ data_source_configuration }}',
- '{{ knowledge_base_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ data_source_configuration }}',
+  '{{ knowledge_base_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -667,24 +670,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.data_sources (
- DataSourceConfiguration,
- Description,
- KnowledgeBaseId,
- Name,
- ServerSideEncryptionConfiguration,
- VectorIngestionConfiguration,
- DataDeletionPolicy,
- region
+  DataSourceConfiguration,
+  Description,
+  KnowledgeBaseId,
+  Name,
+  ServerSideEncryptionConfiguration,
+  VectorIngestionConfiguration,
+  DataDeletionPolicy,
+  region
 )
 SELECT
- '{{ data_source_configuration }}',
- '{{ description }}',
- '{{ knowledge_base_id }}',
- '{{ name }}',
- '{{ server_side_encryption_configuration }}',
- '{{ vector_ingestion_configuration }}',
- '{{ data_deletion_policy }}',
- '{{ region }}';
+  '{{ data_source_configuration }}',
+  '{{ description }}',
+  '{{ knowledge_base_id }}',
+  '{{ name }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ vector_ingestion_configuration }}',
+  '{{ data_deletion_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -823,8 +826,9 @@ SET PatchDocument = string('{{ {
     "ServerSideEncryptionConfiguration": server_side_encryption_configuration,
     "DataDeletionPolicy": data_deletion_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```
 
 
@@ -833,8 +837,9 @@ AND Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.data_sources
-WHERE Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

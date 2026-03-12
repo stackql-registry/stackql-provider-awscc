@@ -148,12 +148,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_front_origin_access_identity</code>.
 ```sql
 SELECT
-region,
-cloud_front_origin_access_identity_config,
-id,
-s3_canonical_user_id
+  region,
+  cloud_front_origin_access_identity_config,
+  id,
+  s3_canonical_user_id
 FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -161,10 +163,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>cloud_front_origin_access_identities</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.cloud_front_origin_access_identities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -186,12 +189,12 @@ Use the following StackQL query and manifest file to create a new <code>cloud_fr
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.cloud_front_origin_access_identities (
- CloudFrontOriginAccessIdentityConfig,
- region
+  CloudFrontOriginAccessIdentityConfig,
+  region
 )
 SELECT
-'{{ cloud_front_origin_access_identity_config }}',
-'{{ region }}';
+  '{{ cloud_front_origin_access_identity_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -199,12 +202,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.cloud_front_origin_access_identities (
- CloudFrontOriginAccessIdentityConfig,
- region
+  CloudFrontOriginAccessIdentityConfig,
+  region
 )
 SELECT
- '{{ cloud_front_origin_access_identity_config }}',
- '{{ region }}';
+  '{{ cloud_front_origin_access_identity_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -238,8 +241,9 @@ UPDATE awscc.cloudfront.cloud_front_origin_access_identities
 SET PatchDocument = string('{{ {
     "CloudFrontOriginAccessIdentityConfig": cloud_front_origin_access_identity_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -248,8 +252,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

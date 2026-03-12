@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>monitor</code>.
 ```sql
 SELECT
-region,
-display_name,
-identity_center_application_arn,
-identity_center_instance_arn,
-monitor_id,
-role_arn,
-subdomain,
-tags,
-url,
-arn
+  region,
+  display_name,
+  identity_center_application_arn,
+  identity_center_instance_arn,
+  monitor_id,
+  role_arn,
+  subdomain,
+  tags,
+  url,
+  arn
 FROM awscc.deadline.monitors
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>monitors</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.deadline.monitors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,18 +230,18 @@ Use the following StackQL query and manifest file to create a new <code>monitor<
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.monitors (
- DisplayName,
- IdentityCenterInstanceArn,
- RoleArn,
- Subdomain,
- region
+  DisplayName,
+  IdentityCenterInstanceArn,
+  RoleArn,
+  Subdomain,
+  region
 )
 SELECT
-'{{ display_name }}',
- '{{ identity_center_instance_arn }}',
- '{{ role_arn }}',
- '{{ subdomain }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ identity_center_instance_arn }}',
+  '{{ role_arn }}',
+  '{{ subdomain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,20 +249,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.monitors (
- DisplayName,
- IdentityCenterInstanceArn,
- RoleArn,
- Subdomain,
- Tags,
- region
+  DisplayName,
+  IdentityCenterInstanceArn,
+  RoleArn,
+  Subdomain,
+  Tags,
+  region
 )
 SELECT
- '{{ display_name }}',
- '{{ identity_center_instance_arn }}',
- '{{ role_arn }}',
- '{{ subdomain }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ display_name }}',
+  '{{ identity_center_instance_arn }}',
+  '{{ role_arn }}',
+  '{{ subdomain }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -305,8 +308,9 @@ SET PatchDocument = string('{{ {
     "Subdomain": subdomain,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -315,8 +319,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.monitors
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -224,21 +224,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>partnership</code>.
 ```sql
 SELECT
-region,
-capabilities,
-capability_options,
-created_at,
-email,
-modified_at,
-name,
-partnership_arn,
-partnership_id,
-phone,
-profile_id,
-tags,
-trading_partner_id
+  region,
+  capabilities,
+  capability_options,
+  created_at,
+  email,
+  modified_at,
+  name,
+  partnership_arn,
+  partnership_id,
+  phone,
+  profile_id,
+  tags,
+  trading_partner_id
 FROM awscc.b2bi.partnerships
-WHERE region = 'us-east-1' AND Identifier = '{{ partnership_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ partnership_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ partnership_id }}';
 Lists all <code>partnerships</code> in a region.
 ```sql
 SELECT
-region,
-partnership_id
+  region,
+  partnership_id
 FROM awscc.b2bi.partnerships_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,18 +274,18 @@ Use the following StackQL query and manifest file to create a new <code>partners
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.partnerships (
- Capabilities,
- Email,
- Name,
- ProfileId,
- region
+  Capabilities,
+  Email,
+  Name,
+  ProfileId,
+  region
 )
 SELECT
-'{{ capabilities }}',
- '{{ email }}',
- '{{ name }}',
- '{{ profile_id }}',
-'{{ region }}';
+  '{{ capabilities }}',
+  '{{ email }}',
+  '{{ name }}',
+  '{{ profile_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,24 +293,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.partnerships (
- Capabilities,
- CapabilityOptions,
- Email,
- Name,
- Phone,
- ProfileId,
- Tags,
- region
+  Capabilities,
+  CapabilityOptions,
+  Email,
+  Name,
+  Phone,
+  ProfileId,
+  Tags,
+  region
 )
 SELECT
- '{{ capabilities }}',
- '{{ capability_options }}',
- '{{ email }}',
- '{{ name }}',
- '{{ phone }}',
- '{{ profile_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ capabilities }}',
+  '{{ capability_options }}',
+  '{{ email }}',
+  '{{ name }}',
+  '{{ phone }}',
+  '{{ profile_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ partnership_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ partnership_id }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ partnership_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.partnerships
-WHERE Identifier = '{{ partnership_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ partnership_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

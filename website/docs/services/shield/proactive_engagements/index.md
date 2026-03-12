@@ -158,12 +158,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>proactive_engagement</code>.
 ```sql
 SELECT
-region,
-account_id,
-proactive_engagement_status,
-emergency_contact_list
+  region,
+  account_id,
+  proactive_engagement_status,
+  emergency_contact_list
 FROM awscc.shield.proactive_engagements
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>proactive_engagements</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.shield.proactive_engagements_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,14 +199,14 @@ Use the following StackQL query and manifest file to create a new <code>proactiv
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.proactive_engagements (
- ProactiveEngagementStatus,
- EmergencyContactList,
- region
+  ProactiveEngagementStatus,
+  EmergencyContactList,
+  region
 )
 SELECT
-'{{ proactive_engagement_status }}',
- '{{ emergency_contact_list }}',
-'{{ region }}';
+  '{{ proactive_engagement_status }}',
+  '{{ emergency_contact_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,14 +214,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.proactive_engagements (
- ProactiveEngagementStatus,
- EmergencyContactList,
- region
+  ProactiveEngagementStatus,
+  EmergencyContactList,
+  region
 )
 SELECT
- '{{ proactive_engagement_status }}',
- '{{ emergency_contact_list }}',
- '{{ region }}';
+  '{{ proactive_engagement_status }}',
+  '{{ emergency_contact_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -257,8 +260,9 @@ SET PatchDocument = string('{{ {
     "ProactiveEngagementStatus": proactive_engagement_status,
     "EmergencyContactList": emergency_contact_list
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -267,8 +271,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.proactive_engagements
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

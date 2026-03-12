@@ -448,20 +448,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>verified_access_instance</code>.
 ```sql
 SELECT
-region,
-verified_access_instance_id,
-verified_access_trust_providers,
-verified_access_trust_provider_ids,
-creation_time,
-last_updated_time,
-description,
-logging_configurations,
-tags,
-fips_enabled,
-cidr_endpoints_custom_sub_domain,
-cidr_endpoints_custom_sub_domain_name_servers
+  region,
+  verified_access_instance_id,
+  verified_access_trust_providers,
+  verified_access_trust_provider_ids,
+  creation_time,
+  last_updated_time,
+  description,
+  logging_configurations,
+  tags,
+  fips_enabled,
+  cidr_endpoints_custom_sub_domain,
+  cidr_endpoints_custom_sub_domain_name_servers
 FROM awscc.ec2.verified_access_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_instance_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ verified_access_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -469,10 +471,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_instance_id }}';
 Lists all <code>verified_access_instances</code> in a region.
 ```sql
 SELECT
-region,
-verified_access_instance_id
+  region,
+  verified_access_instance_id
 FROM awscc.ec2.verified_access_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -494,24 +497,24 @@ Use the following StackQL query and manifest file to create a new <code>verified
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_instances (
- VerifiedAccessTrustProviders,
- VerifiedAccessTrustProviderIds,
- Description,
- LoggingConfigurations,
- Tags,
- FipsEnabled,
- CidrEndpointsCustomSubDomain,
- region
+  VerifiedAccessTrustProviders,
+  VerifiedAccessTrustProviderIds,
+  Description,
+  LoggingConfigurations,
+  Tags,
+  FipsEnabled,
+  CidrEndpointsCustomSubDomain,
+  region
 )
 SELECT
-'{{ verified_access_trust_providers }}',
- '{{ verified_access_trust_provider_ids }}',
- '{{ description }}',
- '{{ logging_configurations }}',
- '{{ tags }}',
- '{{ fips_enabled }}',
- '{{ cidr_endpoints_custom_sub_domain }}',
-'{{ region }}';
+  '{{ verified_access_trust_providers }}',
+  '{{ verified_access_trust_provider_ids }}',
+  '{{ description }}',
+  '{{ logging_configurations }}',
+  '{{ tags }}',
+  '{{ fips_enabled }}',
+  '{{ cidr_endpoints_custom_sub_domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -519,24 +522,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_instances (
- VerifiedAccessTrustProviders,
- VerifiedAccessTrustProviderIds,
- Description,
- LoggingConfigurations,
- Tags,
- FipsEnabled,
- CidrEndpointsCustomSubDomain,
- region
+  VerifiedAccessTrustProviders,
+  VerifiedAccessTrustProviderIds,
+  Description,
+  LoggingConfigurations,
+  Tags,
+  FipsEnabled,
+  CidrEndpointsCustomSubDomain,
+  region
 )
 SELECT
- '{{ verified_access_trust_providers }}',
- '{{ verified_access_trust_provider_ids }}',
- '{{ description }}',
- '{{ logging_configurations }}',
- '{{ tags }}',
- '{{ fips_enabled }}',
- '{{ cidr_endpoints_custom_sub_domain }}',
- '{{ region }}';
+  '{{ verified_access_trust_providers }}',
+  '{{ verified_access_trust_provider_ids }}',
+  '{{ description }}',
+  '{{ logging_configurations }}',
+  '{{ tags }}',
+  '{{ fips_enabled }}',
+  '{{ cidr_endpoints_custom_sub_domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -633,8 +636,9 @@ SET PatchDocument = string('{{ {
     "FipsEnabled": fips_enabled,
     "CidrEndpointsCustomSubDomain": cidr_endpoints_custom_sub_domain
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ verified_access_instance_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ verified_access_instance_id }}';
 ```
 
 
@@ -643,8 +647,9 @@ AND Identifier = '{{ verified_access_instance_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_instances
-WHERE Identifier = '{{ verified_access_instance_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ verified_access_instance_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

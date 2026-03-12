@@ -185,17 +185,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_endpoint_association</code>.
 ```sql
 SELECT
-region,
-vpc_endpoint_association_arn,
-vpc_endpoint_association_id,
-description,
-firewall_arn,
-vpc_id,
-endpoint_id,
-subnet_mapping,
-tags
+  region,
+  vpc_endpoint_association_arn,
+  vpc_endpoint_association_id,
+  description,
+  firewall_arn,
+  vpc_id,
+  endpoint_id,
+  subnet_mapping,
+  tags
 FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_association_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_endpoint_association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_association_arn }}'
 Lists all <code>vpc_endpoint_associations</code> in a region.
 ```sql
 SELECT
-region,
-vpc_endpoint_association_arn
+  region,
+  vpc_endpoint_association_arn
 FROM awscc.networkfirewall.vpc_endpoint_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,16 +231,16 @@ Use the following StackQL query and manifest file to create a new <code>vpc_endp
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.vpc_endpoint_associations (
- FirewallArn,
- VpcId,
- SubnetMapping,
- region
+  FirewallArn,
+  VpcId,
+  SubnetMapping,
+  region
 )
 SELECT
-'{{ firewall_arn }}',
- '{{ vpc_id }}',
- '{{ subnet_mapping }}',
-'{{ region }}';
+  '{{ firewall_arn }}',
+  '{{ vpc_id }}',
+  '{{ subnet_mapping }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,20 +248,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.vpc_endpoint_associations (
- Description,
- FirewallArn,
- VpcId,
- SubnetMapping,
- Tags,
- region
+  Description,
+  FirewallArn,
+  VpcId,
+  SubnetMapping,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ firewall_arn }}',
- '{{ vpc_id }}',
- '{{ subnet_mapping }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ firewall_arn }}',
+  '{{ vpc_id }}',
+  '{{ subnet_mapping }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ UPDATE awscc.networkfirewall.vpc_endpoint_associations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpc_endpoint_association_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpc_endpoint_association_arn }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ vpc_endpoint_association_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE Identifier = '{{ vpc_endpoint_association_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_endpoint_association_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

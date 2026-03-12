@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hub</code>.
 ```sql
 SELECT
-region,
-arn,
-enable_default_standards,
-control_finding_generator,
-auto_enable_controls,
-tags,
-subscribed_at
+  region,
+  arn,
+  enable_default_standards,
+  control_finding_generator,
+  auto_enable_controls,
+  tags,
+  subscribed_at
 FROM awscc.securityhub.hubs
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>hubs</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.securityhub.hubs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,18 +200,18 @@ Use the following StackQL query and manifest file to create a new <code>hub</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.hubs (
- EnableDefaultStandards,
- ControlFindingGenerator,
- AutoEnableControls,
- Tags,
- region
+  EnableDefaultStandards,
+  ControlFindingGenerator,
+  AutoEnableControls,
+  Tags,
+  region
 )
 SELECT
-'{{ enable_default_standards }}',
- '{{ control_finding_generator }}',
- '{{ auto_enable_controls }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ enable_default_standards }}',
+  '{{ control_finding_generator }}',
+  '{{ auto_enable_controls }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.hubs (
- EnableDefaultStandards,
- ControlFindingGenerator,
- AutoEnableControls,
- Tags,
- region
+  EnableDefaultStandards,
+  ControlFindingGenerator,
+  AutoEnableControls,
+  Tags,
+  region
 )
 SELECT
- '{{ enable_default_standards }}',
- '{{ control_finding_generator }}',
- '{{ auto_enable_controls }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ enable_default_standards }}',
+  '{{ control_finding_generator }}',
+  '{{ auto_enable_controls }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "AutoEnableControls": auto_enable_controls,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.hubs
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>prefix_list</code>.
 ```sql
 SELECT
-region,
-prefix_list_name,
-prefix_list_id,
-owner_id,
-address_family,
-max_entries,
-version,
-tags,
-entries,
-arn
+  region,
+  prefix_list_name,
+  prefix_list_id,
+  owner_id,
+  address_family,
+  max_entries,
+  version,
+  tags,
+  entries,
+  arn
 FROM awscc.ec2.prefix_lists
-WHERE region = 'us-east-1' AND Identifier = '{{ prefix_list_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ prefix_list_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ prefix_list_id }}';
 Lists all <code>prefix_lists</code> in a region.
 ```sql
 SELECT
-region,
-prefix_list_id
+  region,
+  prefix_list_id
 FROM awscc.ec2.prefix_lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,14 +242,14 @@ Use the following StackQL query and manifest file to create a new <code>prefix_l
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.prefix_lists (
- PrefixListName,
- AddressFamily,
- region
+  PrefixListName,
+  AddressFamily,
+  region
 )
 SELECT
-'{{ prefix_list_name }}',
- '{{ address_family }}',
-'{{ region }}';
+  '{{ prefix_list_name }}',
+  '{{ address_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,20 +257,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.prefix_lists (
- PrefixListName,
- AddressFamily,
- MaxEntries,
- Tags,
- Entries,
- region
+  PrefixListName,
+  AddressFamily,
+  MaxEntries,
+  Tags,
+  Entries,
+  region
 )
 SELECT
- '{{ prefix_list_name }}',
- '{{ address_family }}',
- '{{ max_entries }}',
- '{{ tags }}',
- '{{ entries }}',
- '{{ region }}';
+  '{{ prefix_list_name }}',
+  '{{ address_family }}',
+  '{{ max_entries }}',
+  '{{ tags }}',
+  '{{ entries }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -316,8 +319,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Entries": entries
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ prefix_list_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ prefix_list_id }}';
 ```
 
 
@@ -326,8 +330,9 @@ AND Identifier = '{{ prefix_list_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.prefix_lists
-WHERE Identifier = '{{ prefix_list_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ prefix_list_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

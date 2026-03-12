@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_connect_endpoint</code>.
 ```sql
 SELECT
-region,
-id,
-subnet_id,
-client_token,
-preserve_client_ip,
-tags,
-security_group_ids
+  region,
+  id,
+  subnet_id,
+  client_token,
+  preserve_client_ip,
+  tags,
+  security_group_ids
 FROM awscc.ec2.instance_connect_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>instance_connect_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.instance_connect_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.instance_connect_endpoints (
- SubnetId,
- region
+  SubnetId,
+  region
 )
 SELECT
-'{{ subnet_id }}',
-'{{ region }}';
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,20 +225,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.instance_connect_endpoints (
- SubnetId,
- ClientToken,
- PreserveClientIp,
- Tags,
- SecurityGroupIds,
- region
+  SubnetId,
+  ClientToken,
+  PreserveClientIp,
+  Tags,
+  SecurityGroupIds,
+  region
 )
 SELECT
- '{{ subnet_id }}',
- '{{ client_token }}',
- '{{ preserve_client_ip }}',
- '{{ tags }}',
- '{{ security_group_ids }}',
- '{{ region }}';
+  '{{ subnet_id }}',
+  '{{ client_token }}',
+  '{{ preserve_client_ip }}',
+  '{{ tags }}',
+  '{{ security_group_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ UPDATE awscc.ec2.instance_connect_endpoints
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.instance_connect_endpoints
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

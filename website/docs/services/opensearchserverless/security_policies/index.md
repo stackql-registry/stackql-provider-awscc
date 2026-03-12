@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_policy</code>.
 ```sql
 SELECT
-region,
-description,
-policy,
-name,
-type
+  region,
+  description,
+  policy,
+  name,
+  type
 FROM awscc.opensearchserverless.security_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ type }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ type }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ type }}|{{ name }}';
 Lists all <code>security_policies</code> in a region.
 ```sql
 SELECT
-region,
-type,
-name
+  region,
+  type,
+  name
 FROM awscc.opensearchserverless.security_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.security_policies (
- Policy,
- Name,
- Type,
- region
+  Policy,
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ policy }}',
- '{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ policy }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.security_policies (
- Description,
- Policy,
- Name,
- Type,
- region
+  Description,
+  Policy,
+  Name,
+  Type,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ policy }}',
- '{{ name }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ policy }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -259,8 +262,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ type }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ type }}|{{ name }}';
 ```
 
 
@@ -269,8 +273,9 @@ AND Identifier = '{{ type }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.security_policies
-WHERE Identifier = '{{ type }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ type }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

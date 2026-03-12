@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>vod_source</code> resource or lists <c
       {
         "name": "path",
         "type": "string",
-        "description": "<p>The relative path to the URL for this VOD source. This is combined with &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; to form a valid URL.</p>"
+        "description": "<p>The relative path to the URL for this VOD source. This is combined with <code>SourceLocation::HttpConfiguration::BaseUrl</code> to form a valid URL.</p>"
       },
       {
         "name": "source_group",
         "type": "string",
-        "description": "<p>The name of the source group. This has to match one of the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;.</p>"
+        "description": "<p>The name of the source group. This has to match one of the <code>Channel::Outputs::SourceGroup</code>.</p>"
       },
       {
         "name": "type",
@@ -185,14 +185,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vod_source</code>.
 ```sql
 SELECT
-region,
-arn,
-http_package_configurations,
-source_location_name,
-tags,
-vod_source_name
+  region,
+  arn,
+  http_package_configurations,
+  source_location_name,
+  tags,
+  vod_source_name
 FROM awscc.mediatailor.vod_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,11 +202,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}|{{ vod_s
 Lists all <code>vod_sources</code> in a region.
 ```sql
 SELECT
-region,
-source_location_name,
-vod_source_name
+  region,
+  source_location_name,
+  vod_source_name
 FROM awscc.mediatailor.vod_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -226,16 +229,16 @@ Use the following StackQL query and manifest file to create a new <code>vod_sour
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.vod_sources (
- HttpPackageConfigurations,
- SourceLocationName,
- VodSourceName,
- region
+  HttpPackageConfigurations,
+  SourceLocationName,
+  VodSourceName,
+  region
 )
 SELECT
-'{{ http_package_configurations }}',
- '{{ source_location_name }}',
- '{{ vod_source_name }}',
-'{{ region }}';
+  '{{ http_package_configurations }}',
+  '{{ source_location_name }}',
+  '{{ vod_source_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,18 +246,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.vod_sources (
- HttpPackageConfigurations,
- SourceLocationName,
- Tags,
- VodSourceName,
- region
+  HttpPackageConfigurations,
+  SourceLocationName,
+  Tags,
+  VodSourceName,
+  region
 )
 SELECT
- '{{ http_package_configurations }}',
- '{{ source_location_name }}',
- '{{ tags }}',
- '{{ vod_source_name }}',
- '{{ region }}';
+  '{{ http_package_configurations }}',
+  '{{ source_location_name }}',
+  '{{ tags }}',
+  '{{ vod_source_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -299,8 +302,9 @@ SET PatchDocument = string('{{ {
     "HttpPackageConfigurations": http_package_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```
 
 
@@ -309,8 +313,9 @@ AND Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.vod_sources
-WHERE Identifier = '{{ source_location_name }}|{{ vod_source_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ source_location_name }}|{{ vod_source_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>type_activation</code>.
 ```sql
 SELECT
-region,
-arn,
-execution_role_arn,
-publisher_id,
-logging_config,
-public_type_arn,
-auto_update,
-type_name_alias,
-version_bump,
-major_version,
-type_name,
-type
+  region,
+  arn,
+  execution_role_arn,
+  publisher_id,
+  logging_config,
+  public_type_arn,
+  auto_update,
+  type_name_alias,
+  version_bump,
+  major_version,
+  type_name,
+  type
 FROM awscc.cloudformation.type_activations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>type_activations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudformation.type_activations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,30 +242,30 @@ Use the following StackQL query and manifest file to create a new <code>type_act
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.type_activations (
- ExecutionRoleArn,
- PublisherId,
- LoggingConfig,
- PublicTypeArn,
- AutoUpdate,
- TypeNameAlias,
- VersionBump,
- MajorVersion,
- TypeName,
- Type,
- region
+  ExecutionRoleArn,
+  PublisherId,
+  LoggingConfig,
+  PublicTypeArn,
+  AutoUpdate,
+  TypeNameAlias,
+  VersionBump,
+  MajorVersion,
+  TypeName,
+  Type,
+  region
 )
 SELECT
-'{{ execution_role_arn }}',
- '{{ publisher_id }}',
- '{{ logging_config }}',
- '{{ public_type_arn }}',
- '{{ auto_update }}',
- '{{ type_name_alias }}',
- '{{ version_bump }}',
- '{{ major_version }}',
- '{{ type_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ execution_role_arn }}',
+  '{{ publisher_id }}',
+  '{{ logging_config }}',
+  '{{ public_type_arn }}',
+  '{{ auto_update }}',
+  '{{ type_name_alias }}',
+  '{{ version_bump }}',
+  '{{ major_version }}',
+  '{{ type_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,30 +273,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.type_activations (
- ExecutionRoleArn,
- PublisherId,
- LoggingConfig,
- PublicTypeArn,
- AutoUpdate,
- TypeNameAlias,
- VersionBump,
- MajorVersion,
- TypeName,
- Type,
- region
+  ExecutionRoleArn,
+  PublisherId,
+  LoggingConfig,
+  PublicTypeArn,
+  AutoUpdate,
+  TypeNameAlias,
+  VersionBump,
+  MajorVersion,
+  TypeName,
+  Type,
+  region
 )
 SELECT
- '{{ execution_role_arn }}',
- '{{ publisher_id }}',
- '{{ logging_config }}',
- '{{ public_type_arn }}',
- '{{ auto_update }}',
- '{{ type_name_alias }}',
- '{{ version_bump }}',
- '{{ major_version }}',
- '{{ type_name }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ execution_role_arn }}',
+  '{{ publisher_id }}',
+  '{{ logging_config }}',
+  '{{ public_type_arn }}',
+  '{{ auto_update }}',
+  '{{ type_name_alias }}',
+  '{{ version_bump }}',
+  '{{ major_version }}',
+  '{{ type_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -354,8 +357,9 @@ SET PatchDocument = string('{{ {
     "TypeName": type_name,
     "Type": type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -364,8 +368,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.type_activations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

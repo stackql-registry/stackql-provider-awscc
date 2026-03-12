@@ -203,22 +203,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_instance</code>.
 ```sql
 SELECT
-region,
-allow_major_version_upgrade,
-auto_minor_version_upgrade,
-availability_zone,
-db_cluster_identifier,
-db_instance_class,
-db_instance_identifier,
-db_parameter_group_name,
-db_snapshot_identifier,
-db_subnet_group_name,
-endpoint,
-preferred_maintenance_window,
-port,
-tags
+  region,
+  allow_major_version_upgrade,
+  auto_minor_version_upgrade,
+  availability_zone,
+  db_cluster_identifier,
+  db_instance_class,
+  db_instance_identifier,
+  db_parameter_group_name,
+  db_snapshot_identifier,
+  db_subnet_group_name,
+  endpoint,
+  preferred_maintenance_window,
+  port,
+  tags
 FROM awscc.neptune.db_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ db_instance_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_instance_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_instance_identifier }}';
 Lists all <code>db_instances</code> in a region.
 ```sql
 SELECT
-region,
-db_instance_identifier
+  region,
+  db_instance_identifier
 FROM awscc.neptune.db_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,12 +254,12 @@ Use the following StackQL query and manifest file to create a new <code>db_insta
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_instances (
- DBInstanceClass,
- region
+  DBInstanceClass,
+  region
 )
 SELECT
-'{{ db_instance_class }}',
-'{{ region }}';
+  '{{ db_instance_class }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,32 +267,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_instances (
- AllowMajorVersionUpgrade,
- AutoMinorVersionUpgrade,
- AvailabilityZone,
- DBClusterIdentifier,
- DBInstanceClass,
- DBInstanceIdentifier,
- DBParameterGroupName,
- DBSnapshotIdentifier,
- DBSubnetGroupName,
- PreferredMaintenanceWindow,
- Tags,
- region
+  AllowMajorVersionUpgrade,
+  AutoMinorVersionUpgrade,
+  AvailabilityZone,
+  DBClusterIdentifier,
+  DBInstanceClass,
+  DBInstanceIdentifier,
+  DBParameterGroupName,
+  DBSnapshotIdentifier,
+  DBSubnetGroupName,
+  PreferredMaintenanceWindow,
+  Tags,
+  region
 )
 SELECT
- '{{ allow_major_version_upgrade }}',
- '{{ auto_minor_version_upgrade }}',
- '{{ availability_zone }}',
- '{{ db_cluster_identifier }}',
- '{{ db_instance_class }}',
- '{{ db_instance_identifier }}',
- '{{ db_parameter_group_name }}',
- '{{ db_snapshot_identifier }}',
- '{{ db_subnet_group_name }}',
- '{{ preferred_maintenance_window }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ allow_major_version_upgrade }}',
+  '{{ auto_minor_version_upgrade }}',
+  '{{ availability_zone }}',
+  '{{ db_cluster_identifier }}',
+  '{{ db_instance_class }}',
+  '{{ db_instance_identifier }}',
+  '{{ db_parameter_group_name }}',
+  '{{ db_snapshot_identifier }}',
+  '{{ db_subnet_group_name }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -349,8 +352,9 @@ SET PatchDocument = string('{{ {
     "PreferredMaintenanceWindow": preferred_maintenance_window,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_instance_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_instance_identifier }}';
 ```
 
 
@@ -359,8 +363,9 @@ AND Identifier = '{{ db_instance_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_instances
-WHERE Identifier = '{{ db_instance_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_instance_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

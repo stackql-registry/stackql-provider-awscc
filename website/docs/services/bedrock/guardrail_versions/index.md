@@ -100,14 +100,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>guardrail_version</code>.
 ```sql
 SELECT
-region,
-description,
-guardrail_arn,
-guardrail_id,
-guardrail_identifier,
-version
+  region,
+  description,
+  guardrail_arn,
+  guardrail_id,
+  guardrail_identifier,
+  version
 FROM awscc.bedrock.guardrail_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ guardrail_id }}|{{ version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ guardrail_id }}|{{ version }}';
 ```
 
 ## `INSERT` example
@@ -127,12 +129,12 @@ Use the following StackQL query and manifest file to create a new <code>guardrai
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.guardrail_versions (
- GuardrailIdentifier,
- region
+  GuardrailIdentifier,
+  region
 )
 SELECT
-'{{ guardrail_identifier }}',
-'{{ region }}';
+  '{{ guardrail_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -140,14 +142,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.guardrail_versions (
- Description,
- GuardrailIdentifier,
- region
+  Description,
+  GuardrailIdentifier,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ guardrail_identifier }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ guardrail_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -178,8 +180,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.guardrail_versions
-WHERE Identifier = '{{ guardrail_id }}|{{ version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ guardrail_id }}|{{ version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

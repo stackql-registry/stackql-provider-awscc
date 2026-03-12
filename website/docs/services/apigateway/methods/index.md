@@ -261,22 +261,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>method</code>.
 ```sql
 SELECT
-region,
-integration,
-operation_name,
-request_models,
-rest_api_id,
-authorization_scopes,
-request_validator_id,
-request_parameters,
-method_responses,
-authorizer_id,
-resource_id,
-api_key_required,
-authorization_type,
-http_method
+  region,
+  integration,
+  operation_name,
+  request_models,
+  rest_api_id,
+  authorization_scopes,
+  request_validator_id,
+  request_parameters,
+  method_responses,
+  authorizer_id,
+  resource_id,
+  api_key_required,
+  authorization_type,
+  http_method
 FROM awscc.apigateway.methods
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```
 
 ## `INSERT` example
@@ -296,16 +298,16 @@ Use the following StackQL query and manifest file to create a new <code>method</
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.methods (
- RestApiId,
- ResourceId,
- HttpMethod,
- region
+  RestApiId,
+  ResourceId,
+  HttpMethod,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
- '{{ resource_id }}',
- '{{ http_method }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ resource_id }}',
+  '{{ http_method }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -313,36 +315,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.methods (
- Integration,
- OperationName,
- RequestModels,
- RestApiId,
- AuthorizationScopes,
- RequestValidatorId,
- RequestParameters,
- MethodResponses,
- AuthorizerId,
- ResourceId,
- ApiKeyRequired,
- AuthorizationType,
- HttpMethod,
- region
+  Integration,
+  OperationName,
+  RequestModels,
+  RestApiId,
+  AuthorizationScopes,
+  RequestValidatorId,
+  RequestParameters,
+  MethodResponses,
+  AuthorizerId,
+  ResourceId,
+  ApiKeyRequired,
+  AuthorizationType,
+  HttpMethod,
+  region
 )
 SELECT
- '{{ integration }}',
- '{{ operation_name }}',
- '{{ request_models }}',
- '{{ rest_api_id }}',
- '{{ authorization_scopes }}',
- '{{ request_validator_id }}',
- '{{ request_parameters }}',
- '{{ method_responses }}',
- '{{ authorizer_id }}',
- '{{ resource_id }}',
- '{{ api_key_required }}',
- '{{ authorization_type }}',
- '{{ http_method }}',
- '{{ region }}';
+  '{{ integration }}',
+  '{{ operation_name }}',
+  '{{ request_models }}',
+  '{{ rest_api_id }}',
+  '{{ authorization_scopes }}',
+  '{{ request_validator_id }}',
+  '{{ request_parameters }}',
+  '{{ method_responses }}',
+  '{{ authorizer_id }}',
+  '{{ resource_id }}',
+  '{{ api_key_required }}',
+  '{{ authorization_type }}',
+  '{{ http_method }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -432,8 +434,9 @@ SET PatchDocument = string('{{ {
     "ApiKeyRequired": api_key_required,
     "AuthorizationType": authorization_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```
 
 
@@ -442,8 +445,9 @@ AND Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.methods
-WHERE Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

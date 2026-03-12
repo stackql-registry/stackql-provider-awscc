@@ -871,17 +871,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connector_profile</code>.
 ```sql
 SELECT
-region,
-connector_profile_arn,
-connector_label,
-connector_profile_name,
-kms_arn,
-connector_type,
-connection_mode,
-connector_profile_config,
-credentials_arn
+  region,
+  connector_profile_arn,
+  connector_label,
+  connector_profile_name,
+  kms_arn,
+  connector_type,
+  connection_mode,
+  connector_profile_config,
+  credentials_arn
 FROM awscc.appflow.connector_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -889,10 +891,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_profile_name }}';
 Lists all <code>connector_profiles</code> in a region.
 ```sql
 SELECT
-region,
-connector_profile_name
+  region,
+  connector_profile_name
 FROM awscc.appflow.connector_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -914,16 +917,16 @@ Use the following StackQL query and manifest file to create a new <code>connecto
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.connector_profiles (
- ConnectorProfileName,
- ConnectorType,
- ConnectionMode,
- region
+  ConnectorProfileName,
+  ConnectorType,
+  ConnectionMode,
+  region
 )
 SELECT
-'{{ connector_profile_name }}',
- '{{ connector_type }}',
- '{{ connection_mode }}',
-'{{ region }}';
+  '{{ connector_profile_name }}',
+  '{{ connector_type }}',
+  '{{ connection_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -931,22 +934,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.connector_profiles (
- ConnectorLabel,
- ConnectorProfileName,
- KMSArn,
- ConnectorType,
- ConnectionMode,
- ConnectorProfileConfig,
- region
+  ConnectorLabel,
+  ConnectorProfileName,
+  KMSArn,
+  ConnectorType,
+  ConnectionMode,
+  ConnectorProfileConfig,
+  region
 )
 SELECT
- '{{ connector_label }}',
- '{{ connector_profile_name }}',
- '{{ kms_arn }}',
- '{{ connector_type }}',
- '{{ connection_mode }}',
- '{{ connector_profile_config }}',
- '{{ region }}';
+  '{{ connector_label }}',
+  '{{ connector_profile_name }}',
+  '{{ kms_arn }}',
+  '{{ connector_type }}',
+  '{{ connection_mode }}',
+  '{{ connector_profile_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1144,8 +1147,9 @@ SET PatchDocument = string('{{ {
     "ConnectionMode": connection_mode,
     "ConnectorProfileConfig": connector_profile_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connector_profile_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connector_profile_name }}';
 ```
 
 
@@ -1154,8 +1158,9 @@ AND Identifier = '{{ connector_profile_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connector_profiles
-WHERE Identifier = '{{ connector_profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

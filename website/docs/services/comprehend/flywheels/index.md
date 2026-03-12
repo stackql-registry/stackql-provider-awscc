@@ -250,18 +250,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flywheel</code>.
 ```sql
 SELECT
-region,
-active_model_arn,
-data_access_role_arn,
-data_lake_s3_uri,
-data_security_config,
-flywheel_name,
-model_type,
-tags,
-task_config,
-arn
+  region,
+  active_model_arn,
+  data_access_role_arn,
+  data_lake_s3_uri,
+  data_security_config,
+  flywheel_name,
+  model_type,
+  tags,
+  task_config,
+  arn
 FROM awscc.comprehend.flywheels
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,10 +271,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>flywheels</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.comprehend.flywheels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -294,16 +297,16 @@ Use the following StackQL query and manifest file to create a new <code>flywheel
 ```sql
 /*+ create */
 INSERT INTO awscc.comprehend.flywheels (
- DataAccessRoleArn,
- DataLakeS3Uri,
- FlywheelName,
- region
+  DataAccessRoleArn,
+  DataLakeS3Uri,
+  FlywheelName,
+  region
 )
 SELECT
-'{{ data_access_role_arn }}',
- '{{ data_lake_s3_uri }}',
- '{{ flywheel_name }}',
-'{{ region }}';
+  '{{ data_access_role_arn }}',
+  '{{ data_lake_s3_uri }}',
+  '{{ flywheel_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -311,26 +314,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.comprehend.flywheels (
- ActiveModelArn,
- DataAccessRoleArn,
- DataLakeS3Uri,
- DataSecurityConfig,
- FlywheelName,
- ModelType,
- Tags,
- TaskConfig,
- region
+  ActiveModelArn,
+  DataAccessRoleArn,
+  DataLakeS3Uri,
+  DataSecurityConfig,
+  FlywheelName,
+  ModelType,
+  Tags,
+  TaskConfig,
+  region
 )
 SELECT
- '{{ active_model_arn }}',
- '{{ data_access_role_arn }}',
- '{{ data_lake_s3_uri }}',
- '{{ data_security_config }}',
- '{{ flywheel_name }}',
- '{{ model_type }}',
- '{{ tags }}',
- '{{ task_config }}',
- '{{ region }}';
+  '{{ active_model_arn }}',
+  '{{ data_access_role_arn }}',
+  '{{ data_lake_s3_uri }}',
+  '{{ data_security_config }}',
+  '{{ flywheel_name }}',
+  '{{ model_type }}',
+  '{{ tags }}',
+  '{{ task_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -398,8 +401,9 @@ SET PatchDocument = string('{{ {
     "DataSecurityConfig": data_security_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -408,8 +412,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.comprehend.flywheels
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

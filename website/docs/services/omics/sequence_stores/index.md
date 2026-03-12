@@ -223,26 +223,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sequence_store</code>.
 ```sql
 SELECT
-region,
-access_log_location,
-arn,
-creation_time,
-description,
-e_tag_algorithm_family,
-fallback_location,
-name,
-propagated_set_level_tags,
-s3_access_point_arn,
-s3_access_policy,
-s3_uri,
-sequence_store_id,
-sse_config,
-status,
-status_message,
-tags,
-update_time
+  region,
+  access_log_location,
+  arn,
+  creation_time,
+  description,
+  e_tag_algorithm_family,
+  fallback_location,
+  name,
+  propagated_set_level_tags,
+  s3_access_point_arn,
+  s3_access_policy,
+  s3_uri,
+  sequence_store_id,
+  sse_config,
+  status,
+  status_message,
+  tags,
+  update_time
 FROM awscc.omics.sequence_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ sequence_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ sequence_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +252,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ sequence_store_id }}';
 Lists all <code>sequence_stores</code> in a region.
 ```sql
 SELECT
-region,
-sequence_store_id
+  region,
+  sequence_store_id
 FROM awscc.omics.sequence_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -275,12 +278,12 @@ Use the following StackQL query and manifest file to create a new <code>sequence
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.sequence_stores (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -288,28 +291,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.sequence_stores (
- AccessLogLocation,
- Description,
- ETagAlgorithmFamily,
- FallbackLocation,
- Name,
- PropagatedSetLevelTags,
- S3AccessPolicy,
- SseConfig,
- Tags,
- region
+  AccessLogLocation,
+  Description,
+  ETagAlgorithmFamily,
+  FallbackLocation,
+  Name,
+  PropagatedSetLevelTags,
+  S3AccessPolicy,
+  SseConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ access_log_location }}',
- '{{ description }}',
- '{{ e_tag_algorithm_family }}',
- '{{ fallback_location }}',
- '{{ name }}',
- '{{ propagated_set_level_tags }}',
- '{{ s3_access_policy }}',
- '{{ sse_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ access_log_location }}',
+  '{{ description }}',
+  '{{ e_tag_algorithm_family }}',
+  '{{ fallback_location }}',
+  '{{ name }}',
+  '{{ propagated_set_level_tags }}',
+  '{{ s3_access_policy }}',
+  '{{ sse_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "S3AccessPolicy": s3_access_policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ sequence_store_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ sequence_store_id }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ sequence_store_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.sequence_stores
-WHERE Identifier = '{{ sequence_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ sequence_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

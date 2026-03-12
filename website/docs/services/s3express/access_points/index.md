@@ -229,19 +229,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT
-region,
-name,
-bucket,
-bucket_account_id,
-vpc_configuration,
-public_access_block_configuration,
-scope,
-policy,
-network_origin,
-arn,
-tags
+  region,
+  name,
+  bucket,
+  bucket_account_id,
+  vpc_configuration,
+  public_access_block_configuration,
+  scope,
+  policy,
+  network_origin,
+  arn,
+  tags
 FROM awscc.s3express.access_points
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,10 +251,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>access_points</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.s3express.access_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -274,12 +277,12 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.access_points (
- Bucket,
- region
+  Bucket,
+  region
 )
 SELECT
-'{{ bucket }}',
-'{{ region }}';
+  '{{ bucket }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -287,26 +290,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3express.access_points (
- Name,
- Bucket,
- BucketAccountId,
- VpcConfiguration,
- PublicAccessBlockConfiguration,
- Scope,
- Policy,
- Tags,
- region
+  Name,
+  Bucket,
+  BucketAccountId,
+  VpcConfiguration,
+  PublicAccessBlockConfiguration,
+  Scope,
+  Policy,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ bucket }}',
- '{{ bucket_account_id }}',
- '{{ vpc_configuration }}',
- '{{ public_access_block_configuration }}',
- '{{ scope }}',
- '{{ policy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ bucket }}',
+  '{{ bucket_account_id }}',
+  '{{ vpc_configuration }}',
+  '{{ public_access_block_configuration }}',
+  '{{ scope }}',
+  '{{ policy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "Policy": policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3express.access_points
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

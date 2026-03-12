@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-authentication_strategy,
-engine_type,
-engine_version,
-data,
-description,
-id,
-name,
-revision,
-tags
+  region,
+  arn,
+  authentication_strategy,
+  engine_type,
+  engine_version,
+  data,
+  description,
+  id,
+  name,
+  revision,
+  tags
 FROM awscc.amazonmq.configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>configurations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.amazonmq.configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.amazonmq.configurations (
- EngineType,
- Name,
- region
+  EngineType,
+  Name,
+  region
 )
 SELECT
-'{{ engine_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ engine_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,24 +251,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amazonmq.configurations (
- AuthenticationStrategy,
- EngineType,
- EngineVersion,
- Data,
- Description,
- Name,
- Tags,
- region
+  AuthenticationStrategy,
+  EngineType,
+  EngineVersion,
+  Data,
+  Description,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ authentication_strategy }}',
- '{{ engine_type }}',
- '{{ engine_version }}',
- '{{ data }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ authentication_strategy }}',
+  '{{ engine_type }}',
+  '{{ engine_version }}',
+  '{{ data }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amazonmq.configurations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

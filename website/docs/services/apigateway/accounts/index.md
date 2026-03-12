@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account</code>.
 ```sql
 SELECT
-region,
-id,
-cloud_watch_role_arn
+  region,
+  id,
+  cloud_watch_role_arn
 FROM awscc.apigateway.accounts
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -114,12 +116,12 @@ Use the following StackQL query and manifest file to create a new <code>account<
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.accounts (
- CloudWatchRoleArn,
- region
+  CloudWatchRoleArn,
+  region
 )
 SELECT
-'{{ cloud_watch_role_arn }}',
-'{{ region }}';
+  '{{ cloud_watch_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -127,12 +129,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.accounts (
- CloudWatchRoleArn,
- region
+  CloudWatchRoleArn,
+  region
 )
 SELECT
- '{{ cloud_watch_role_arn }}',
- '{{ region }}';
+  '{{ cloud_watch_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -165,8 +167,9 @@ UPDATE awscc.apigateway.accounts
 SET PatchDocument = string('{{ {
     "CloudWatchRoleArn": cloud_watch_role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -175,8 +178,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.accounts
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

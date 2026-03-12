@@ -211,25 +211,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route</code>.
 ```sql
 SELECT
-region,
-carrier_gateway_id,
-cidr_block,
-core_network_arn,
-destination_cidr_block,
-destination_ipv6_cidr_block,
-destination_prefix_list_id,
-egress_only_internet_gateway_id,
-gateway_id,
-instance_id,
-local_gateway_id,
-nat_gateway_id,
-network_interface_id,
-route_table_id,
-transit_gateway_id,
-vpc_endpoint_id,
-vpc_peering_connection_id
+  region,
+  carrier_gateway_id,
+  cidr_block,
+  core_network_arn,
+  destination_cidr_block,
+  destination_ipv6_cidr_block,
+  destination_prefix_list_id,
+  egress_only_internet_gateway_id,
+  gateway_id,
+  instance_id,
+  local_gateway_id,
+  nat_gateway_id,
+  network_interface_id,
+  route_table_id,
+  transit_gateway_id,
+  vpc_endpoint_id,
+  vpc_peering_connection_id
 FROM awscc.ec2.routes
-WHERE region = 'us-east-1' AND Identifier = '{{ route_table_id }}|{{ cidr_block }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ route_table_id }}|{{ cidr_block }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,11 +239,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ route_table_id }}|{{ cidr_block 
 Lists all <code>routes</code> in a region.
 ```sql
 SELECT
-region,
-route_table_id,
-cidr_block
+  region,
+  route_table_id,
+  cidr_block
 FROM awscc.ec2.routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,12 +266,12 @@ Use the following StackQL query and manifest file to create a new <code>route</c
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.routes (
- RouteTableId,
- region
+  RouteTableId,
+  region
 )
 SELECT
-'{{ route_table_id }}',
-'{{ region }}';
+  '{{ route_table_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -276,40 +279,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.routes (
- CarrierGatewayId,
- CoreNetworkArn,
- DestinationCidrBlock,
- DestinationIpv6CidrBlock,
- DestinationPrefixListId,
- EgressOnlyInternetGatewayId,
- GatewayId,
- InstanceId,
- LocalGatewayId,
- NatGatewayId,
- NetworkInterfaceId,
- RouteTableId,
- TransitGatewayId,
- VpcEndpointId,
- VpcPeeringConnectionId,
- region
+  CarrierGatewayId,
+  CoreNetworkArn,
+  DestinationCidrBlock,
+  DestinationIpv6CidrBlock,
+  DestinationPrefixListId,
+  EgressOnlyInternetGatewayId,
+  GatewayId,
+  InstanceId,
+  LocalGatewayId,
+  NatGatewayId,
+  NetworkInterfaceId,
+  RouteTableId,
+  TransitGatewayId,
+  VpcEndpointId,
+  VpcPeeringConnectionId,
+  region
 )
 SELECT
- '{{ carrier_gateway_id }}',
- '{{ core_network_arn }}',
- '{{ destination_cidr_block }}',
- '{{ destination_ipv6_cidr_block }}',
- '{{ destination_prefix_list_id }}',
- '{{ egress_only_internet_gateway_id }}',
- '{{ gateway_id }}',
- '{{ instance_id }}',
- '{{ local_gateway_id }}',
- '{{ nat_gateway_id }}',
- '{{ network_interface_id }}',
- '{{ route_table_id }}',
- '{{ transit_gateway_id }}',
- '{{ vpc_endpoint_id }}',
- '{{ vpc_peering_connection_id }}',
- '{{ region }}';
+  '{{ carrier_gateway_id }}',
+  '{{ core_network_arn }}',
+  '{{ destination_cidr_block }}',
+  '{{ destination_ipv6_cidr_block }}',
+  '{{ destination_prefix_list_id }}',
+  '{{ egress_only_internet_gateway_id }}',
+  '{{ gateway_id }}',
+  '{{ instance_id }}',
+  '{{ local_gateway_id }}',
+  '{{ nat_gateway_id }}',
+  '{{ network_interface_id }}',
+  '{{ route_table_id }}',
+  '{{ transit_gateway_id }}',
+  '{{ vpc_endpoint_id }}',
+  '{{ vpc_peering_connection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -380,8 +383,9 @@ SET PatchDocument = string('{{ {
     "VpcEndpointId": vpc_endpoint_id,
     "VpcPeeringConnectionId": vpc_peering_connection_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ route_table_id }}|{{ cidr_block }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ route_table_id }}|{{ cidr_block }}';
 ```
 
 
@@ -390,8 +394,9 @@ AND Identifier = '{{ route_table_id }}|{{ cidr_block }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.routes
-WHERE Identifier = '{{ route_table_id }}|{{ cidr_block }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ route_table_id }}|{{ cidr_block }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

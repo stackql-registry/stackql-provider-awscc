@@ -220,23 +220,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_network_service_association</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-dns_entry,
-id,
-service_network_arn,
-service_network_id,
-service_network_identifier,
-service_network_name,
-service_arn,
-service_id,
-service_identifier,
-service_name,
-status,
-tags
+  region,
+  arn,
+  created_at,
+  dns_entry,
+  id,
+  service_network_arn,
+  service_network_id,
+  service_network_identifier,
+  service_network_name,
+  service_arn,
+  service_id,
+  service_identifier,
+  service_name,
+  status,
+  tags
 FROM awscc.vpclattice.service_network_service_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +246,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>service_network_service_associations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.service_network_service_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,18 +272,18 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_network_service_associations (
- DnsEntry,
- ServiceNetworkIdentifier,
- ServiceIdentifier,
- Tags,
- region
+  DnsEntry,
+  ServiceNetworkIdentifier,
+  ServiceIdentifier,
+  Tags,
+  region
 )
 SELECT
-'{{ dns_entry }}',
- '{{ service_network_identifier }}',
- '{{ service_identifier }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ dns_entry }}',
+  '{{ service_network_identifier }}',
+  '{{ service_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -288,18 +291,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_network_service_associations (
- DnsEntry,
- ServiceNetworkIdentifier,
- ServiceIdentifier,
- Tags,
- region
+  DnsEntry,
+  ServiceNetworkIdentifier,
+  ServiceIdentifier,
+  Tags,
+  region
 )
 SELECT
- '{{ dns_entry }}',
- '{{ service_network_identifier }}',
- '{{ service_identifier }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ dns_entry }}',
+  '{{ service_network_identifier }}',
+  '{{ service_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -342,8 +345,9 @@ UPDATE awscc.vpclattice.service_network_service_associations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -352,8 +356,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_network_service_associations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

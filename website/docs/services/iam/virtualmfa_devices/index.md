@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>virtualmfa_device</code>.
 ```sql
 SELECT
-region,
-virtual_mfa_device_name,
-path,
-serial_number,
-users,
-tags
+  region,
+  virtual_mfa_device_name,
+  path,
+  serial_number,
+  users,
+  tags
 FROM awscc.iam.virtualmfa_devices
-WHERE region = 'us-east-1' AND Identifier = '{{ serial_number }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ serial_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ serial_number }}';
 Lists all <code>virtualmfa_devices</code> in a region.
 ```sql
 SELECT
-region,
-serial_number
+  region,
+  serial_number
 FROM awscc.iam.virtualmfa_devices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>virtualm
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.virtualmfa_devices (
- Users,
- region
+  Users,
+  region
 )
 SELECT
-'{{ users }}',
-'{{ region }}';
+  '{{ users }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.virtualmfa_devices (
- VirtualMfaDeviceName,
- Path,
- Users,
- Tags,
- region
+  VirtualMfaDeviceName,
+  Path,
+  Users,
+  Tags,
+  region
 )
 SELECT
- '{{ virtual_mfa_device_name }}',
- '{{ path }}',
- '{{ users }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ virtual_mfa_device_name }}',
+  '{{ path }}',
+  '{{ users }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "Users": users,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ serial_number }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ serial_number }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ serial_number }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.virtualmfa_devices
-WHERE Identifier = '{{ serial_number }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ serial_number }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

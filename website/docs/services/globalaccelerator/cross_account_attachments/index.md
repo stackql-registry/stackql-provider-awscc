@@ -180,14 +180,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cross_account_attachment</code>.
 ```sql
 SELECT
-region,
-name,
-attachment_arn,
-principals,
-resources,
-tags
+  region,
+  name,
+  attachment_arn,
+  principals,
+  resources,
+  tags
 FROM awscc.globalaccelerator.cross_account_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,10 +197,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_arn }}';
 Lists all <code>cross_account_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_arn
+  region,
+  attachment_arn
 FROM awscc.globalaccelerator.cross_account_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -220,12 +223,12 @@ Use the following StackQL query and manifest file to create a new <code>cross_ac
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.cross_account_attachments (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -233,18 +236,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.cross_account_attachments (
- Name,
- Principals,
- Resources,
- Tags,
- region
+  Name,
+  Principals,
+  Resources,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ principals }}',
- '{{ resources }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ principals }}',
+  '{{ resources }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "Resources": resources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_arn }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ attachment_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.cross_account_attachments
-WHERE Identifier = '{{ attachment_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

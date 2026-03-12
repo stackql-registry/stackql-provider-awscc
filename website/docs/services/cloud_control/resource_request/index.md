@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-For more information about Amazon Web Services Cloud Control API, see the <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/what-is-cloudcontrolapi.html">Amazon Web Services Cloud Control API User Guide</a>.
+For more information about Amazon Web Services Cloud Control API, see the <a href="https://docs.awscc.amazon.com/cloudcontrolapi/latest/userguide/what-is-cloudcontrolapi.html">Amazon Web Services Cloud Control API User Guide</a>.
 
 ## Overview
 <table>
@@ -103,7 +103,15 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.cloud_control.resource_request
+WHERE
+  region = 'us-east-1' AND RequestToken = '<RequestToken>';;
+```
 
 
 

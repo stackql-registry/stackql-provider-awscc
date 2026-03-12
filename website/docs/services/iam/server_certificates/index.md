@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>server_certificate</code>.
 ```sql
 SELECT
-region,
-certificate_body,
-certificate_chain,
-server_certificate_name,
-path,
-private_key,
-arn,
-tags
+  region,
+  certificate_body,
+  certificate_chain,
+  server_certificate_name,
+  path,
+  private_key,
+  arn,
+  tags
 FROM awscc.iam.server_certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ server_certificate_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ server_certificate_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ server_certificate_name }}';
 Lists all <code>server_certificates</code> in a region.
 ```sql
 SELECT
-region,
-server_certificate_name
+  region,
+  server_certificate_name
 FROM awscc.iam.server_certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,22 +218,22 @@ Use the following StackQL query and manifest file to create a new <code>server_c
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.server_certificates (
- CertificateBody,
- CertificateChain,
- ServerCertificateName,
- Path,
- PrivateKey,
- Tags,
- region
+  CertificateBody,
+  CertificateChain,
+  ServerCertificateName,
+  Path,
+  PrivateKey,
+  Tags,
+  region
 )
 SELECT
-'{{ certificate_body }}',
- '{{ certificate_chain }}',
- '{{ server_certificate_name }}',
- '{{ path }}',
- '{{ private_key }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ certificate_body }}',
+  '{{ certificate_chain }}',
+  '{{ server_certificate_name }}',
+  '{{ path }}',
+  '{{ private_key }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,22 +241,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.server_certificates (
- CertificateBody,
- CertificateChain,
- ServerCertificateName,
- Path,
- PrivateKey,
- Tags,
- region
+  CertificateBody,
+  CertificateChain,
+  ServerCertificateName,
+  Path,
+  PrivateKey,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_body }}',
- '{{ certificate_chain }}',
- '{{ server_certificate_name }}',
- '{{ path }}',
- '{{ private_key }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_body }}',
+  '{{ certificate_chain }}',
+  '{{ server_certificate_name }}',
+  '{{ path }}',
+  '{{ private_key }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -299,8 +302,9 @@ SET PatchDocument = string('{{ {
     "Path": path,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ server_certificate_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ server_certificate_name }}';
 ```
 
 
@@ -309,8 +313,9 @@ AND Identifier = '{{ server_certificate_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.server_certificates
-WHERE Identifier = '{{ server_certificate_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ server_certificate_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

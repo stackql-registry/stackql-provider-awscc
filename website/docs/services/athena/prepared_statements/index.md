@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>prepared_statement</code>.
 ```sql
 SELECT
-region,
-statement_name,
-work_group,
-description,
-query_statement
+  region,
+  statement_name,
+  work_group,
+  description,
+  query_statement
 FROM awscc.athena.prepared_statements
-WHERE region = 'us-east-1' AND Identifier = '{{ statement_name }}|{{ work_group }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ statement_name }}|{{ work_group }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ statement_name }}|{{ work_group 
 Lists all <code>prepared_statements</code> in a region.
 ```sql
 SELECT
-region,
-statement_name,
-work_group
+  region,
+  statement_name,
+  work_group
 FROM awscc.athena.prepared_statements_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>prepared
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.prepared_statements (
- StatementName,
- WorkGroup,
- QueryStatement,
- region
+  StatementName,
+  WorkGroup,
+  QueryStatement,
+  region
 )
 SELECT
-'{{ statement_name }}',
- '{{ work_group }}',
- '{{ query_statement }}',
-'{{ region }}';
+  '{{ statement_name }}',
+  '{{ work_group }}',
+  '{{ query_statement }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.athena.prepared_statements (
- StatementName,
- WorkGroup,
- Description,
- QueryStatement,
- region
+  StatementName,
+  WorkGroup,
+  Description,
+  QueryStatement,
+  region
 )
 SELECT
- '{{ statement_name }}',
- '{{ work_group }}',
- '{{ description }}',
- '{{ query_statement }}',
- '{{ region }}';
+  '{{ statement_name }}',
+  '{{ work_group }}',
+  '{{ description }}',
+  '{{ query_statement }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -259,8 +262,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "QueryStatement": query_statement
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ statement_name }}|{{ work_group }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ statement_name }}|{{ work_group }}';
 ```
 
 
@@ -269,8 +273,9 @@ AND Identifier = '{{ statement_name }}|{{ work_group }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.prepared_statements
-WHERE Identifier = '{{ statement_name }}|{{ work_group }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ statement_name }}|{{ work_group }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

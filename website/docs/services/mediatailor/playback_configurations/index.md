@@ -382,30 +382,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>playback_configuration</code>.
 ```sql
 SELECT
-region,
-ad_conditioning_configuration,
-ad_decision_server_url,
-avail_suppression,
-bumper,
-cdn_configuration,
-configuration_aliases,
-dash_configuration,
-insertion_mode,
-live_pre_roll_configuration,
-manifest_processing_rules,
-name,
-personalization_threshold_seconds,
-session_initialization_endpoint_prefix,
-hls_configuration,
-log_configuration,
-playback_configuration_arn,
-playback_endpoint_prefix,
-slate_ad_url,
-tags,
-transcode_profile_name,
-video_content_source_url
+  region,
+  ad_conditioning_configuration,
+  ad_decision_server_url,
+  avail_suppression,
+  bumper,
+  cdn_configuration,
+  configuration_aliases,
+  dash_configuration,
+  insertion_mode,
+  live_pre_roll_configuration,
+  manifest_processing_rules,
+  name,
+  personalization_threshold_seconds,
+  session_initialization_endpoint_prefix,
+  hls_configuration,
+  log_configuration,
+  playback_configuration_arn,
+  playback_endpoint_prefix,
+  slate_ad_url,
+  tags,
+  transcode_profile_name,
+  video_content_source_url
 FROM awscc.mediatailor.playback_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -413,10 +415,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>playback_configurations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.mediatailor.playback_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -438,16 +441,16 @@ Use the following StackQL query and manifest file to create a new <code>playback
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.playback_configurations (
- AdDecisionServerUrl,
- Name,
- VideoContentSourceUrl,
- region
+  AdDecisionServerUrl,
+  Name,
+  VideoContentSourceUrl,
+  region
 )
 SELECT
-'{{ ad_decision_server_url }}',
- '{{ name }}',
- '{{ video_content_source_url }}',
-'{{ region }}';
+  '{{ ad_decision_server_url }}',
+  '{{ name }}',
+  '{{ video_content_source_url }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -455,46 +458,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.playback_configurations (
- AdConditioningConfiguration,
- AdDecisionServerUrl,
- AvailSuppression,
- Bumper,
- CdnConfiguration,
- ConfigurationAliases,
- DashConfiguration,
- InsertionMode,
- LivePreRollConfiguration,
- ManifestProcessingRules,
- Name,
- PersonalizationThresholdSeconds,
- HlsConfiguration,
- LogConfiguration,
- SlateAdUrl,
- Tags,
- TranscodeProfileName,
- VideoContentSourceUrl,
- region
+  AdConditioningConfiguration,
+  AdDecisionServerUrl,
+  AvailSuppression,
+  Bumper,
+  CdnConfiguration,
+  ConfigurationAliases,
+  DashConfiguration,
+  InsertionMode,
+  LivePreRollConfiguration,
+  ManifestProcessingRules,
+  Name,
+  PersonalizationThresholdSeconds,
+  HlsConfiguration,
+  LogConfiguration,
+  SlateAdUrl,
+  Tags,
+  TranscodeProfileName,
+  VideoContentSourceUrl,
+  region
 )
 SELECT
- '{{ ad_conditioning_configuration }}',
- '{{ ad_decision_server_url }}',
- '{{ avail_suppression }}',
- '{{ bumper }}',
- '{{ cdn_configuration }}',
- '{{ configuration_aliases }}',
- '{{ dash_configuration }}',
- '{{ insertion_mode }}',
- '{{ live_pre_roll_configuration }}',
- '{{ manifest_processing_rules }}',
- '{{ name }}',
- '{{ personalization_threshold_seconds }}',
- '{{ hls_configuration }}',
- '{{ log_configuration }}',
- '{{ slate_ad_url }}',
- '{{ tags }}',
- '{{ transcode_profile_name }}',
- '{{ video_content_source_url }}',
- '{{ region }}';
+  '{{ ad_conditioning_configuration }}',
+  '{{ ad_decision_server_url }}',
+  '{{ avail_suppression }}',
+  '{{ bumper }}',
+  '{{ cdn_configuration }}',
+  '{{ configuration_aliases }}',
+  '{{ dash_configuration }}',
+  '{{ insertion_mode }}',
+  '{{ live_pre_roll_configuration }}',
+  '{{ manifest_processing_rules }}',
+  '{{ name }}',
+  '{{ personalization_threshold_seconds }}',
+  '{{ hls_configuration }}',
+  '{{ log_configuration }}',
+  '{{ slate_ad_url }}',
+  '{{ tags }}',
+  '{{ transcode_profile_name }}',
+  '{{ video_content_source_url }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -604,8 +607,9 @@ SET PatchDocument = string('{{ {
     "TranscodeProfileName": transcode_profile_name,
     "VideoContentSourceUrl": video_content_source_url
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -614,8 +618,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.playback_configurations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

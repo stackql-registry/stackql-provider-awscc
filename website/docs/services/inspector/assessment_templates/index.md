@@ -162,15 +162,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assessment_template</code>.
 ```sql
 SELECT
-region,
-arn,
-assessment_target_arn,
-duration_in_seconds,
-assessment_template_name,
-rules_package_arns,
-user_attributes_for_findings
+  region,
+  arn,
+  assessment_target_arn,
+  duration_in_seconds,
+  assessment_template_name,
+  rules_package_arns,
+  user_attributes_for_findings
 FROM awscc.inspector.assessment_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>assessment_templates</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.inspector.assessment_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>assessme
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.assessment_templates (
- AssessmentTargetArn,
- DurationInSeconds,
- RulesPackageArns,
- region
+  AssessmentTargetArn,
+  DurationInSeconds,
+  RulesPackageArns,
+  region
 )
 SELECT
-'{{ assessment_target_arn }}',
- '{{ duration_in_seconds }}',
- '{{ rules_package_arns }}',
-'{{ region }}';
+  '{{ assessment_target_arn }}',
+  '{{ duration_in_seconds }}',
+  '{{ rules_package_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,20 +223,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.assessment_templates (
- AssessmentTargetArn,
- DurationInSeconds,
- AssessmentTemplateName,
- RulesPackageArns,
- UserAttributesForFindings,
- region
+  AssessmentTargetArn,
+  DurationInSeconds,
+  AssessmentTemplateName,
+  RulesPackageArns,
+  UserAttributesForFindings,
+  region
 )
 SELECT
- '{{ assessment_target_arn }}',
- '{{ duration_in_seconds }}',
- '{{ assessment_template_name }}',
- '{{ rules_package_arns }}',
- '{{ user_attributes_for_findings }}',
- '{{ region }}';
+  '{{ assessment_target_arn }}',
+  '{{ duration_in_seconds }}',
+  '{{ assessment_template_name }}',
+  '{{ rules_package_arns }}',
+  '{{ user_attributes_for_findings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.assessment_templates
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -311,25 +311,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>plan</code>.
 ```sql
 SELECT
-region,
-arn,
-associated_alarms,
-description,
-execution_role,
-name,
-owner,
-primary_region,
-recovery_approach,
-recovery_time_objective_minutes,
-regions,
-tags,
-triggers,
-version,
-workflows,
-health_checks_for_plan,
-route53_health_checks
+  region,
+  arn,
+  associated_alarms,
+  description,
+  execution_role,
+  name,
+  owner,
+  primary_region,
+  recovery_approach,
+  recovery_time_objective_minutes,
+  regions,
+  tags,
+  triggers,
+  version,
+  workflows,
+  health_checks_for_plan,
+  route53_health_checks
 FROM awscc.arcregionswitch.plans
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -337,10 +339,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>plans</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.arcregionswitch.plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -362,20 +365,20 @@ Use the following StackQL query and manifest file to create a new <code>plan</co
 ```sql
 /*+ create */
 INSERT INTO awscc.arcregionswitch.plans (
- ExecutionRole,
- Name,
- RecoveryApproach,
- Regions,
- Workflows,
- region
+  ExecutionRole,
+  Name,
+  RecoveryApproach,
+  Regions,
+  Workflows,
+  region
 )
 SELECT
-'{{ execution_role }}',
- '{{ name }}',
- '{{ recovery_approach }}',
- '{{ regions }}',
- '{{ workflows }}',
-'{{ region }}';
+  '{{ execution_role }}',
+  '{{ name }}',
+  '{{ recovery_approach }}',
+  '{{ regions }}',
+  '{{ workflows }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -383,32 +386,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.arcregionswitch.plans (
- AssociatedAlarms,
- Description,
- ExecutionRole,
- Name,
- PrimaryRegion,
- RecoveryApproach,
- RecoveryTimeObjectiveMinutes,
- Regions,
- Tags,
- Triggers,
- Workflows,
- region
+  AssociatedAlarms,
+  Description,
+  ExecutionRole,
+  Name,
+  PrimaryRegion,
+  RecoveryApproach,
+  RecoveryTimeObjectiveMinutes,
+  Regions,
+  Tags,
+  Triggers,
+  Workflows,
+  region
 )
 SELECT
- '{{ associated_alarms }}',
- '{{ description }}',
- '{{ execution_role }}',
- '{{ name }}',
- '{{ primary_region }}',
- '{{ recovery_approach }}',
- '{{ recovery_time_objective_minutes }}',
- '{{ regions }}',
- '{{ tags }}',
- '{{ triggers }}',
- '{{ workflows }}',
- '{{ region }}';
+  '{{ associated_alarms }}',
+  '{{ description }}',
+  '{{ execution_role }}',
+  '{{ name }}',
+  '{{ primary_region }}',
+  '{{ recovery_approach }}',
+  '{{ recovery_time_objective_minutes }}',
+  '{{ regions }}',
+  '{{ tags }}',
+  '{{ triggers }}',
+  '{{ workflows }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -483,8 +486,9 @@ SET PatchDocument = string('{{ {
     "Triggers": triggers,
     "Workflows": workflows
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -493,8 +497,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.arcregionswitch.plans
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

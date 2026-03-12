@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>private_graph_endpoint</code>.
 ```sql
 SELECT
-region,
-graph_identifier,
-security_group_ids,
-subnet_ids,
-vpc_id,
-private_graph_endpoint_identifier,
-vpc_endpoint_id
+  region,
+  graph_identifier,
+  security_group_ids,
+  subnet_ids,
+  vpc_id,
+  private_graph_endpoint_identifier,
+  vpc_endpoint_id
 FROM awscc.neptunegraph.private_graph_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ private_graph_endpoint_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ private_graph_endpoint_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ private_graph_endpoint_identifie
 Lists all <code>private_graph_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-private_graph_endpoint_identifier
+  region,
+  private_graph_endpoint_identifier
 FROM awscc.neptunegraph.private_graph_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>private_
 ```sql
 /*+ create */
 INSERT INTO awscc.neptunegraph.private_graph_endpoints (
- GraphIdentifier,
- VpcId,
- region
+  GraphIdentifier,
+  VpcId,
+  region
 )
 SELECT
-'{{ graph_identifier }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ graph_identifier }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,18 +215,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.neptunegraph.private_graph_endpoints (
- GraphIdentifier,
- SecurityGroupIds,
- SubnetIds,
- VpcId,
- region
+  GraphIdentifier,
+  SecurityGroupIds,
+  SubnetIds,
+  VpcId,
+  region
 )
 SELECT
- '{{ graph_identifier }}',
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ graph_identifier }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptunegraph.private_graph_endpoints
-WHERE Identifier = '{{ private_graph_endpoint_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ private_graph_endpoint_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

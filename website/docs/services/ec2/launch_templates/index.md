@@ -1063,16 +1063,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>launch_template</code>.
 ```sql
 SELECT
-region,
-launch_template_name,
-launch_template_data,
-version_description,
-tag_specifications,
-latest_version_number,
-launch_template_id,
-default_version_number
+  region,
+  launch_template_name,
+  launch_template_data,
+  version_description,
+  tag_specifications,
+  latest_version_number,
+  launch_template_id,
+  default_version_number
 FROM awscc.ec2.launch_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ launch_template_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ launch_template_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1080,10 +1082,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ launch_template_id }}';
 Lists all <code>launch_templates</code> in a region.
 ```sql
 SELECT
-region,
-launch_template_id
+  region,
+  launch_template_id
 FROM awscc.ec2.launch_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1105,12 +1108,12 @@ Use the following StackQL query and manifest file to create a new <code>launch_t
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.launch_templates (
- LaunchTemplateData,
- region
+  LaunchTemplateData,
+  region
 )
 SELECT
-'{{ launch_template_data }}',
-'{{ region }}';
+  '{{ launch_template_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1118,18 +1121,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.launch_templates (
- LaunchTemplateName,
- LaunchTemplateData,
- VersionDescription,
- TagSpecifications,
- region
+  LaunchTemplateName,
+  LaunchTemplateData,
+  VersionDescription,
+  TagSpecifications,
+  region
 )
 SELECT
- '{{ launch_template_name }}',
- '{{ launch_template_data }}',
- '{{ version_description }}',
- '{{ tag_specifications }}',
- '{{ region }}';
+  '{{ launch_template_name }}',
+  '{{ launch_template_data }}',
+  '{{ version_description }}',
+  '{{ tag_specifications }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1340,8 +1343,9 @@ SET PatchDocument = string('{{ {
     "VersionDescription": version_description,
     "TagSpecifications": tag_specifications
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ launch_template_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ launch_template_id }}';
 ```
 
 
@@ -1350,8 +1354,9 @@ AND Identifier = '{{ launch_template_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.launch_templates
-WHERE Identifier = '{{ launch_template_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ launch_template_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

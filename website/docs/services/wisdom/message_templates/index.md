@@ -639,22 +639,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>message_template</code>.
 ```sql
 SELECT
-region,
-knowledge_base_arn,
-message_template_id,
-message_template_arn,
-name,
-channel_subtype,
-content,
-description,
-language,
-grouping_configuration,
-default_attributes,
-message_template_content_sha256,
-message_template_attachments,
-tags
+  region,
+  knowledge_base_arn,
+  message_template_id,
+  message_template_arn,
+  name,
+  channel_subtype,
+  content,
+  description,
+  language,
+  grouping_configuration,
+  default_attributes,
+  message_template_content_sha256,
+  message_template_attachments,
+  tags
 FROM awscc.wisdom.message_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ message_template_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ message_template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -662,10 +664,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ message_template_arn }}';
 Lists all <code>message_templates</code> in a region.
 ```sql
 SELECT
-region,
-message_template_arn
+  region,
+  message_template_arn
 FROM awscc.wisdom.message_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -687,18 +690,18 @@ Use the following StackQL query and manifest file to create a new <code>message_
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.message_templates (
- KnowledgeBaseArn,
- Name,
- ChannelSubtype,
- Content,
- region
+  KnowledgeBaseArn,
+  Name,
+  ChannelSubtype,
+  Content,
+  region
 )
 SELECT
-'{{ knowledge_base_arn }}',
- '{{ name }}',
- '{{ channel_subtype }}',
- '{{ content }}',
-'{{ region }}';
+  '{{ knowledge_base_arn }}',
+  '{{ name }}',
+  '{{ channel_subtype }}',
+  '{{ content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -706,30 +709,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.message_templates (
- KnowledgeBaseArn,
- Name,
- ChannelSubtype,
- Content,
- Description,
- Language,
- GroupingConfiguration,
- DefaultAttributes,
- MessageTemplateAttachments,
- Tags,
- region
+  KnowledgeBaseArn,
+  Name,
+  ChannelSubtype,
+  Content,
+  Description,
+  Language,
+  GroupingConfiguration,
+  DefaultAttributes,
+  MessageTemplateAttachments,
+  Tags,
+  region
 )
 SELECT
- '{{ knowledge_base_arn }}',
- '{{ name }}',
- '{{ channel_subtype }}',
- '{{ content }}',
- '{{ description }}',
- '{{ language }}',
- '{{ grouping_configuration }}',
- '{{ default_attributes }}',
- '{{ message_template_attachments }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ knowledge_base_arn }}',
+  '{{ name }}',
+  '{{ channel_subtype }}',
+  '{{ content }}',
+  '{{ description }}',
+  '{{ language }}',
+  '{{ grouping_configuration }}',
+  '{{ default_attributes }}',
+  '{{ message_template_attachments }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -874,8 +877,9 @@ SET PatchDocument = string('{{ {
     "DefaultAttributes": default_attributes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ message_template_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ message_template_arn }}';
 ```
 
 
@@ -884,8 +888,9 @@ AND Identifier = '{{ message_template_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.message_templates
-WHERE Identifier = '{{ message_template_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ message_template_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

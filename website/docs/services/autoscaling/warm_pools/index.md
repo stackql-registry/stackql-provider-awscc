@@ -158,14 +158,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>warm_pool</code>.
 ```sql
 SELECT
-region,
-auto_scaling_group_name,
-max_group_prepared_capacity,
-min_size,
-pool_state,
-instance_reuse_policy
+  region,
+  auto_scaling_group_name,
+  max_group_prepared_capacity,
+  min_size,
+  pool_state,
+  instance_reuse_policy
 FROM awscc.autoscaling.warm_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -173,10 +175,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
 Lists all <code>warm_pools</code> in a region.
 ```sql
 SELECT
-region,
-auto_scaling_group_name
+  region,
+  auto_scaling_group_name
 FROM awscc.autoscaling.warm_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,12 +201,12 @@ Use the following StackQL query and manifest file to create a new <code>warm_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.warm_pools (
- AutoScalingGroupName,
- region
+  AutoScalingGroupName,
+  region
 )
 SELECT
-'{{ auto_scaling_group_name }}',
-'{{ region }}';
+  '{{ auto_scaling_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -211,20 +214,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.warm_pools (
- AutoScalingGroupName,
- MaxGroupPreparedCapacity,
- MinSize,
- PoolState,
- InstanceReusePolicy,
- region
+  AutoScalingGroupName,
+  MaxGroupPreparedCapacity,
+  MinSize,
+  PoolState,
+  InstanceReusePolicy,
+  region
 )
 SELECT
- '{{ auto_scaling_group_name }}',
- '{{ max_group_prepared_capacity }}',
- '{{ min_size }}',
- '{{ pool_state }}',
- '{{ instance_reuse_policy }}',
- '{{ region }}';
+  '{{ auto_scaling_group_name }}',
+  '{{ max_group_prepared_capacity }}',
+  '{{ min_size }}',
+  '{{ pool_state }}',
+  '{{ instance_reuse_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "PoolState": pool_state,
     "InstanceReusePolicy": instance_reuse_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ auto_scaling_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ auto_scaling_group_name }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ auto_scaling_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.warm_pools
-WHERE Identifier = '{{ auto_scaling_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ auto_scaling_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

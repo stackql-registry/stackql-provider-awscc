@@ -249,22 +249,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>task_set</code>.
 ```sql
 SELECT
-region,
-platform_version,
-external_id,
-cluster,
-load_balancers,
-service,
-scale,
-service_registries,
-capacity_provider_strategy,
-launch_type,
-task_definition,
-network_configuration,
-id,
-tags
+  region,
+  platform_version,
+  external_id,
+  cluster,
+  load_balancers,
+  service,
+  scale,
+  service_registries,
+  capacity_provider_strategy,
+  launch_type,
+  task_definition,
+  network_configuration,
+  id,
+  tags
 FROM awscc.ecs.task_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```
 
 ## `INSERT` example
@@ -284,16 +286,16 @@ Use the following StackQL query and manifest file to create a new <code>task_set
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.task_sets (
- Cluster,
- Service,
- TaskDefinition,
- region
+  Cluster,
+  Service,
+  TaskDefinition,
+  region
 )
 SELECT
-'{{ cluster }}',
- '{{ service }}',
- '{{ task_definition }}',
-'{{ region }}';
+  '{{ cluster }}',
+  '{{ service }}',
+  '{{ task_definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,34 +303,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.task_sets (
- PlatformVersion,
- ExternalId,
- Cluster,
- LoadBalancers,
- Service,
- Scale,
- ServiceRegistries,
- CapacityProviderStrategy,
- LaunchType,
- TaskDefinition,
- NetworkConfiguration,
- Tags,
- region
+  PlatformVersion,
+  ExternalId,
+  Cluster,
+  LoadBalancers,
+  Service,
+  Scale,
+  ServiceRegistries,
+  CapacityProviderStrategy,
+  LaunchType,
+  TaskDefinition,
+  NetworkConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ platform_version }}',
- '{{ external_id }}',
- '{{ cluster }}',
- '{{ load_balancers }}',
- '{{ service }}',
- '{{ scale }}',
- '{{ service_registries }}',
- '{{ capacity_provider_strategy }}',
- '{{ launch_type }}',
- '{{ task_definition }}',
- '{{ network_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ platform_version }}',
+  '{{ external_id }}',
+  '{{ cluster }}',
+  '{{ load_balancers }}',
+  '{{ service }}',
+  '{{ scale }}',
+  '{{ service_registries }}',
+  '{{ capacity_provider_strategy }}',
+  '{{ launch_type }}',
+  '{{ task_definition }}',
+  '{{ network_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -404,8 +406,9 @@ SET PatchDocument = string('{{ {
     "Scale": scale,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```
 
 
@@ -414,8 +417,9 @@ AND Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.task_sets
-WHERE Identifier = '{{ cluster }}|{{ service }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster }}|{{ service }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

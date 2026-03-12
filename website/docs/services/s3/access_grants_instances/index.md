@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_grants_instance</code>.
 ```sql
 SELECT
-region,
-access_grants_instance_arn,
-identity_center_arn,
-access_grants_instance_id,
-tags
+  region,
+  access_grants_instance_arn,
+  identity_center_arn,
+  access_grants_instance_id,
+  tags
 FROM awscc.s3.access_grants_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_instance_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ access_grants_instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ access_grants_instance_arn }}';
 Lists all <code>access_grants_instances</code> in a region.
 ```sql
 SELECT
-region,
-access_grants_instance_arn
+  region,
+  access_grants_instance_arn
 FROM awscc.s3.access_grants_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>access_g
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants_instances (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants_instances (
- IdentityCenterArn,
- Tags,
- region
+  IdentityCenterArn,
+  Tags,
+  region
 )
 SELECT
- '{{ identity_center_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ identity_center_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -254,8 +257,9 @@ UPDATE awscc.s3.access_grants_instances
 SET PatchDocument = string('{{ {
     "IdentityCenterArn": identity_center_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ access_grants_instance_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ access_grants_instance_arn }}';
 ```
 
 
@@ -264,8 +268,9 @@ AND Identifier = '{{ access_grants_instance_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants_instances
-WHERE Identifier = '{{ access_grants_instance_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ access_grants_instance_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

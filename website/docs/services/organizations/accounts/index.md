@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account</code>.
 ```sql
 SELECT
-region,
-account_name,
-email,
-role_name,
-parent_ids,
-tags,
-account_id,
-arn,
-joined_method,
-joined_timestamp,
-status
+  region,
+  account_name,
+  email,
+  role_name,
+  parent_ids,
+  tags,
+  account_id,
+  arn,
+  joined_method,
+  joined_timestamp,
+  status
 FROM awscc.organizations.accounts
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>accounts</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.organizations.accounts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>account<
 ```sql
 /*+ create */
 INSERT INTO awscc.organizations.accounts (
- AccountName,
- Email,
- region
+  AccountName,
+  Email,
+  region
 )
 SELECT
-'{{ account_name }}',
- '{{ email }}',
-'{{ region }}';
+  '{{ account_name }}',
+  '{{ email }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,20 +251,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.organizations.accounts (
- AccountName,
- Email,
- RoleName,
- ParentIds,
- Tags,
- region
+  AccountName,
+  Email,
+  RoleName,
+  ParentIds,
+  Tags,
+  region
 )
 SELECT
- '{{ account_name }}',
- '{{ email }}',
- '{{ role_name }}',
- '{{ parent_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ account_name }}',
+  '{{ email }}',
+  '{{ role_name }}',
+  '{{ parent_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "ParentIds": parent_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.accounts
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

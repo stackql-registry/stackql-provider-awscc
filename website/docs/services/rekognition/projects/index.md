@@ -130,11 +130,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT
-region,
-arn,
-project_name
+  region,
+  arn,
+  project_name
 FROM awscc.rekognition.projects
-WHERE region = 'us-east-1' AND Identifier = '{{ project_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ project_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ project_name }}';
 Lists all <code>projects</code> in a region.
 ```sql
 SELECT
-region,
-project_name
+  region,
+  project_name
 FROM awscc.rekognition.projects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>project<
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.projects (
- ProjectName,
- region
+  ProjectName,
+  region
 )
 SELECT
-'{{ project_name }}',
-'{{ region }}';
+  '{{ project_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -180,12 +183,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.projects (
- ProjectName,
- region
+  ProjectName,
+  region
 )
 SELECT
- '{{ project_name }}',
- '{{ region }}';
+  '{{ project_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -214,8 +217,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.projects
-WHERE Identifier = '{{ project_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ project_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

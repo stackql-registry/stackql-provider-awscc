@@ -180,14 +180,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>topic_rule_destination</code>.
 ```sql
 SELECT
-region,
-arn,
-status,
-http_url_properties,
-status_reason,
-vpc_properties
+  region,
+  arn,
+  status,
+  http_url_properties,
+  status_reason,
+  vpc_properties
 FROM awscc.iot.topic_rule_destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,10 +197,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>topic_rule_destinations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.iot.topic_rule_destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -220,16 +223,16 @@ Use the following StackQL query and manifest file to create a new <code>topic_ru
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.topic_rule_destinations (
- Status,
- HttpUrlProperties,
- VpcProperties,
- region
+  Status,
+  HttpUrlProperties,
+  VpcProperties,
+  region
 )
 SELECT
-'{{ status }}',
- '{{ http_url_properties }}',
- '{{ vpc_properties }}',
-'{{ region }}';
+  '{{ status }}',
+  '{{ http_url_properties }}',
+  '{{ vpc_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,16 +240,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.topic_rule_destinations (
- Status,
- HttpUrlProperties,
- VpcProperties,
- region
+  Status,
+  HttpUrlProperties,
+  VpcProperties,
+  region
 )
 SELECT
- '{{ status }}',
- '{{ http_url_properties }}',
- '{{ vpc_properties }}',
- '{{ region }}';
+  '{{ status }}',
+  '{{ http_url_properties }}',
+  '{{ vpc_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ UPDATE awscc.iot.topic_rule_destinations
 SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -300,8 +304,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.topic_rule_destinations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -202,18 +202,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_bus</code>.
 ```sql
 SELECT
-region,
-event_source_name,
-name,
-tags,
-description,
-kms_key_identifier,
-policy,
-arn,
-dead_letter_config,
-log_config
+  region,
+  event_source_name,
+  name,
+  tags,
+  description,
+  kms_key_identifier,
+  policy,
+  arn,
+  dead_letter_config,
+  log_config
 FROM awscc.events.event_buses
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>event_buses</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.events.event_buses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,12 +249,12 @@ Use the following StackQL query and manifest file to create a new <code>event_bu
 ```sql
 /*+ create */
 INSERT INTO awscc.events.event_buses (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -259,26 +262,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.event_buses (
- EventSourceName,
- Name,
- Tags,
- Description,
- KmsKeyIdentifier,
- Policy,
- DeadLetterConfig,
- LogConfig,
- region
+  EventSourceName,
+  Name,
+  Tags,
+  Description,
+  KmsKeyIdentifier,
+  Policy,
+  DeadLetterConfig,
+  LogConfig,
+  region
 )
 SELECT
- '{{ event_source_name }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ description }}',
- '{{ kms_key_identifier }}',
- '{{ policy }}',
- '{{ dead_letter_config }}',
- '{{ log_config }}',
- '{{ region }}';
+  '{{ event_source_name }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ description }}',
+  '{{ kms_key_identifier }}',
+  '{{ policy }}',
+  '{{ dead_letter_config }}',
+  '{{ log_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -336,8 +339,9 @@ SET PatchDocument = string('{{ {
     "DeadLetterConfig": dead_letter_config,
     "LogConfig": log_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -346,8 +350,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.event_buses
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -284,17 +284,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT
-region,
-target_arn,
-parent_target_arn,
-deployment_id,
-deployment_name,
-components,
-iot_job_configuration,
-deployment_policies,
-tags
+  region,
+  target_arn,
+  parent_target_arn,
+  deployment_id,
+  deployment_name,
+  components,
+  iot_job_configuration,
+  deployment_policies,
+  tags
 FROM awscc.greengrassv2.deployments
-WHERE region = 'us-east-1' AND Identifier = '{{ deployment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ deployment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,10 +304,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ deployment_id }}';
 Lists all <code>deployments</code> in a region.
 ```sql
 SELECT
-region,
-deployment_id
+  region,
+  deployment_id
 FROM awscc.greengrassv2.deployments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -327,12 +330,12 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.greengrassv2.deployments (
- TargetArn,
- region
+  TargetArn,
+  region
 )
 SELECT
-'{{ target_arn }}',
-'{{ region }}';
+  '{{ target_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -340,24 +343,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.greengrassv2.deployments (
- TargetArn,
- ParentTargetArn,
- DeploymentName,
- Components,
- IotJobConfiguration,
- DeploymentPolicies,
- Tags,
- region
+  TargetArn,
+  ParentTargetArn,
+  DeploymentName,
+  Components,
+  IotJobConfiguration,
+  DeploymentPolicies,
+  Tags,
+  region
 )
 SELECT
- '{{ target_arn }}',
- '{{ parent_target_arn }}',
- '{{ deployment_name }}',
- '{{ components }}',
- '{{ iot_job_configuration }}',
- '{{ deployment_policies }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ target_arn }}',
+  '{{ parent_target_arn }}',
+  '{{ deployment_name }}',
+  '{{ components }}',
+  '{{ iot_job_configuration }}',
+  '{{ deployment_policies }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -422,8 +425,9 @@ UPDATE awscc.greengrassv2.deployments
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ deployment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ deployment_id }}';
 ```
 
 
@@ -432,8 +436,9 @@ AND Identifier = '{{ deployment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.greengrassv2.deployments
-WHERE Identifier = '{{ deployment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ deployment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

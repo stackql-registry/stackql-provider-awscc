@@ -210,20 +210,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>link</code>.
 ```sql
 SELECT
-region,
-link_arn,
-link_id,
-global_network_id,
-site_id,
-bandwidth,
-provider,
-description,
-tags,
-type,
-created_at,
-state
+  region,
+  link_arn,
+  link_id,
+  global_network_id,
+  site_id,
+  bandwidth,
+  provider,
+  description,
+  tags,
+  type,
+  created_at,
+  state
 FROM awscc.networkmanager.links
-WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ link_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_network_id }}|{{ link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,11 +233,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ link_id 
 Lists all <code>links</code> in a region.
 ```sql
 SELECT
-region,
-global_network_id,
-link_id
+  region,
+  global_network_id,
+  link_id
 FROM awscc.networkmanager.links_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,16 +260,16 @@ Use the following StackQL query and manifest file to create a new <code>link</co
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.links (
- GlobalNetworkId,
- SiteId,
- Bandwidth,
- region
+  GlobalNetworkId,
+  SiteId,
+  Bandwidth,
+  region
 )
 SELECT
-'{{ global_network_id }}',
- '{{ site_id }}',
- '{{ bandwidth }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ site_id }}',
+  '{{ bandwidth }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,24 +277,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.links (
- GlobalNetworkId,
- SiteId,
- Bandwidth,
- Provider,
- Description,
- Tags,
- Type,
- region
+  GlobalNetworkId,
+  SiteId,
+  Bandwidth,
+  Provider,
+  Description,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ global_network_id }}',
- '{{ site_id }}',
- '{{ bandwidth }}',
- '{{ provider }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ global_network_id }}',
+  '{{ site_id }}',
+  '{{ bandwidth }}',
+  '{{ provider }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -344,8 +347,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Type": type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ global_network_id }}|{{ link_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ global_network_id }}|{{ link_id }}';
 ```
 
 
@@ -354,8 +358,9 @@ AND Identifier = '{{ global_network_id }}|{{ link_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.links
-WHERE Identifier = '{{ global_network_id }}|{{ link_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_network_id }}|{{ link_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

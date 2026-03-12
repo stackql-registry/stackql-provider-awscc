@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>anomaly_monitor</code>.
 ```sql
 SELECT
-region,
-monitor_arn,
-monitor_type,
-monitor_name,
-creation_date,
-last_evaluated_date,
-last_updated_date,
-monitor_dimension,
-monitor_specification,
-dimensional_value_count,
-resource_tags
+  region,
+  monitor_arn,
+  monitor_type,
+  monitor_name,
+  creation_date,
+  last_evaluated_date,
+  last_updated_date,
+  monitor_dimension,
+  monitor_specification,
+  dimensional_value_count,
+  resource_tags
 FROM awscc.ce.anomaly_monitors
-WHERE region = 'us-east-1' AND Identifier = '{{ monitor_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ monitor_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ monitor_arn }}';
 Lists all <code>anomaly_monitors</code> in a region.
 ```sql
 SELECT
-region,
-monitor_arn
+  region,
+  monitor_arn
 FROM awscc.ce.anomaly_monitors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>anomaly_
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.anomaly_monitors (
- MonitorType,
- MonitorName,
- region
+  MonitorType,
+  MonitorName,
+  region
 )
 SELECT
-'{{ monitor_type }}',
- '{{ monitor_name }}',
-'{{ region }}';
+  '{{ monitor_type }}',
+  '{{ monitor_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,20 +251,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.anomaly_monitors (
- MonitorType,
- MonitorName,
- MonitorDimension,
- MonitorSpecification,
- ResourceTags,
- region
+  MonitorType,
+  MonitorName,
+  MonitorDimension,
+  MonitorSpecification,
+  ResourceTags,
+  region
 )
 SELECT
- '{{ monitor_type }}',
- '{{ monitor_name }}',
- '{{ monitor_dimension }}',
- '{{ monitor_specification }}',
- '{{ resource_tags }}',
- '{{ region }}';
+  '{{ monitor_type }}',
+  '{{ monitor_name }}',
+  '{{ monitor_dimension }}',
+  '{{ monitor_specification }}',
+  '{{ resource_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ UPDATE awscc.ce.anomaly_monitors
 SET PatchDocument = string('{{ {
     "MonitorName": monitor_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ monitor_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ monitor_arn }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ monitor_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_monitors
-WHERE Identifier = '{{ monitor_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ monitor_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

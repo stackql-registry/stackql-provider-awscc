@@ -608,22 +608,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT
-region,
-artifact_stores,
-disable_inbound_stage_transitions,
-stages,
-execution_mode,
-restart_execution_on_update,
-triggers,
-role_arn,
-name,
-variables,
-version,
-artifact_store,
-pipeline_type,
-tags
+  region,
+  artifact_stores,
+  disable_inbound_stage_transitions,
+  stages,
+  execution_mode,
+  restart_execution_on_update,
+  triggers,
+  role_arn,
+  name,
+  variables,
+  version,
+  artifact_store,
+  pipeline_type,
+  tags
 FROM awscc.codepipeline.pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -631,10 +633,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>pipelines</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.codepipeline.pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -656,14 +659,14 @@ Use the following StackQL query and manifest file to create a new <code>pipeline
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.pipelines (
- Stages,
- RoleArn,
- region
+  Stages,
+  RoleArn,
+  region
 )
 SELECT
-'{{ stages }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ stages }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -671,34 +674,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.pipelines (
- ArtifactStores,
- DisableInboundStageTransitions,
- Stages,
- ExecutionMode,
- RestartExecutionOnUpdate,
- Triggers,
- RoleArn,
- Name,
- Variables,
- ArtifactStore,
- PipelineType,
- Tags,
- region
+  ArtifactStores,
+  DisableInboundStageTransitions,
+  Stages,
+  ExecutionMode,
+  RestartExecutionOnUpdate,
+  Triggers,
+  RoleArn,
+  Name,
+  Variables,
+  ArtifactStore,
+  PipelineType,
+  Tags,
+  region
 )
 SELECT
- '{{ artifact_stores }}',
- '{{ disable_inbound_stage_transitions }}',
- '{{ stages }}',
- '{{ execution_mode }}',
- '{{ restart_execution_on_update }}',
- '{{ triggers }}',
- '{{ role_arn }}',
- '{{ name }}',
- '{{ variables }}',
- '{{ artifact_store }}',
- '{{ pipeline_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ artifact_stores }}',
+  '{{ disable_inbound_stage_transitions }}',
+  '{{ stages }}',
+  '{{ execution_mode }}',
+  '{{ restart_execution_on_update }}',
+  '{{ triggers }}',
+  '{{ role_arn }}',
+  '{{ name }}',
+  '{{ variables }}',
+  '{{ artifact_store }}',
+  '{{ pipeline_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -858,8 +861,9 @@ SET PatchDocument = string('{{ {
     "PipelineType": pipeline_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -868,8 +872,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.pipelines
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

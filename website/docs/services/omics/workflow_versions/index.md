@@ -270,31 +270,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workflow_version</code>.
 ```sql
 SELECT
-region,
-arn,
-workflow_id,
-version_name,
-creation_time,
-definition_uri,
-description,
-engine,
-main,
-parameter_template,
-status,
-accelerators,
-storage_type,
-storage_capacity,
-tags,
-type,
-uuid,
-workflow_bucket_owner_id,
-parameter_template_path,
-definition_repository,
-readme_path,
-readme_uri,
-readme_markdown
+  region,
+  arn,
+  workflow_id,
+  version_name,
+  creation_time,
+  definition_uri,
+  description,
+  engine,
+  main,
+  parameter_template,
+  status,
+  accelerators,
+  storage_type,
+  storage_capacity,
+  tags,
+  type,
+  uuid,
+  workflow_bucket_owner_id,
+  parameter_template_path,
+  definition_repository,
+  readme_path,
+  readme_uri,
+  readme_markdown
 FROM awscc.omics.workflow_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,10 +304,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>workflow_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.omics.workflow_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -327,14 +330,14 @@ Use the following StackQL query and manifest file to create a new <code>workflow
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.workflow_versions (
- WorkflowId,
- VersionName,
- region
+  WorkflowId,
+  VersionName,
+  region
 )
 SELECT
-'{{ workflow_id }}',
- '{{ version_name }}',
-'{{ region }}';
+  '{{ workflow_id }}',
+  '{{ version_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -342,44 +345,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.workflow_versions (
- WorkflowId,
- VersionName,
- DefinitionUri,
- Description,
- Engine,
- Main,
- ParameterTemplate,
- Accelerators,
- StorageType,
- StorageCapacity,
- Tags,
- WorkflowBucketOwnerId,
- ParameterTemplatePath,
- DefinitionRepository,
- readmePath,
- readmeUri,
- readmeMarkdown,
- region
+  WorkflowId,
+  VersionName,
+  DefinitionUri,
+  Description,
+  Engine,
+  Main,
+  ParameterTemplate,
+  Accelerators,
+  StorageType,
+  StorageCapacity,
+  Tags,
+  WorkflowBucketOwnerId,
+  ParameterTemplatePath,
+  DefinitionRepository,
+  readmePath,
+  readmeUri,
+  readmeMarkdown,
+  region
 )
 SELECT
- '{{ workflow_id }}',
- '{{ version_name }}',
- '{{ definition_uri }}',
- '{{ description }}',
- '{{ engine }}',
- '{{ main }}',
- '{{ parameter_template }}',
- '{{ accelerators }}',
- '{{ storage_type }}',
- '{{ storage_capacity }}',
- '{{ tags }}',
- '{{ workflow_bucket_owner_id }}',
- '{{ parameter_template_path }}',
- '{{ definition_repository }}',
- '{{ readme_path }}',
- '{{ readme_uri }}',
- '{{ readme_markdown }}',
- '{{ region }}';
+  '{{ workflow_id }}',
+  '{{ version_name }}',
+  '{{ definition_uri }}',
+  '{{ description }}',
+  '{{ engine }}',
+  '{{ main }}',
+  '{{ parameter_template }}',
+  '{{ accelerators }}',
+  '{{ storage_type }}',
+  '{{ storage_capacity }}',
+  '{{ tags }}',
+  '{{ workflow_bucket_owner_id }}',
+  '{{ parameter_template_path }}',
+  '{{ definition_repository }}',
+  '{{ readme_path }}',
+  '{{ readme_uri }}',
+  '{{ readme_markdown }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -455,8 +458,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "readmeMarkdown": readme_markdown
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -465,8 +469,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.workflow_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

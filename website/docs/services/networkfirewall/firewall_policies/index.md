@@ -241,15 +241,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>firewall_policy</code>.
 ```sql
 SELECT
-region,
-firewall_policy_name,
-firewall_policy_arn,
-firewall_policy,
-firewall_policy_id,
-description,
-tags
+  region,
+  firewall_policy_name,
+  firewall_policy_arn,
+  firewall_policy,
+  firewall_policy_id,
+  description,
+  tags
 FROM awscc.networkfirewall.firewall_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ firewall_policy_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ firewall_policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +259,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ firewall_policy_arn }}';
 Lists all <code>firewall_policies</code> in a region.
 ```sql
 SELECT
-region,
-firewall_policy_arn
+  region,
+  firewall_policy_arn
 FROM awscc.networkfirewall.firewall_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -282,14 +285,14 @@ Use the following StackQL query and manifest file to create a new <code>firewall
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.firewall_policies (
- FirewallPolicyName,
- FirewallPolicy,
- region
+  FirewallPolicyName,
+  FirewallPolicy,
+  region
 )
 SELECT
-'{{ firewall_policy_name }}',
- '{{ firewall_policy }}',
-'{{ region }}';
+  '{{ firewall_policy_name }}',
+  '{{ firewall_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -297,18 +300,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.firewall_policies (
- FirewallPolicyName,
- FirewallPolicy,
- Description,
- Tags,
- region
+  FirewallPolicyName,
+  FirewallPolicy,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ firewall_policy_name }}',
- '{{ firewall_policy }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ firewall_policy_name }}',
+  '{{ firewall_policy }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -356,8 +359,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ firewall_policy_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ firewall_policy_arn }}';
 ```
 
 
@@ -366,8 +370,9 @@ AND Identifier = '{{ firewall_policy_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.firewall_policies
-WHERE Identifier = '{{ firewall_policy_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ firewall_policy_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

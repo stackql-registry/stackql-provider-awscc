@@ -235,25 +235,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-root_domain_unit_id,
-arn,
-created_at,
-description,
-domain_execution_role,
-service_role,
-domain_version,
-id,
-kms_key_identifier,
-last_updated_at,
-managed_account_id,
-name,
-portal_url,
-single_sign_on,
-status,
-tags
+  region,
+  root_domain_unit_id,
+  arn,
+  created_at,
+  description,
+  domain_execution_role,
+  service_role,
+  domain_version,
+  id,
+  kms_key_identifier,
+  last_updated_at,
+  managed_account_id,
+  name,
+  portal_url,
+  single_sign_on,
+  status,
+  tags
 FROM awscc.datazone.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,10 +263,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.datazone.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -286,14 +289,14 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.domains (
- DomainExecutionRole,
- Name,
- region
+  DomainExecutionRole,
+  Name,
+  region
 )
 SELECT
-'{{ domain_execution_role }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ domain_execution_role }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,26 +304,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.domains (
- Description,
- DomainExecutionRole,
- ServiceRole,
- DomainVersion,
- KmsKeyIdentifier,
- Name,
- SingleSignOn,
- Tags,
- region
+  Description,
+  DomainExecutionRole,
+  ServiceRole,
+  DomainVersion,
+  KmsKeyIdentifier,
+  Name,
+  SingleSignOn,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ domain_execution_role }}',
- '{{ service_role }}',
- '{{ domain_version }}',
- '{{ kms_key_identifier }}',
- '{{ name }}',
- '{{ single_sign_on }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ domain_execution_role }}',
+  '{{ service_role }}',
+  '{{ domain_version }}',
+  '{{ kms_key_identifier }}',
+  '{{ name }}',
+  '{{ single_sign_on }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -377,8 +380,9 @@ SET PatchDocument = string('{{ {
     "SingleSignOn": single_sign_on,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -387,8 +391,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.domains
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

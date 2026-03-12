@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT
-region,
-pipeline_name,
-pipeline_display_name,
-pipeline_description,
-pipeline_definition,
-role_arn,
-tags,
-parallelism_configuration
+  region,
+  pipeline_name,
+  pipeline_display_name,
+  pipeline_description,
+  pipeline_definition,
+  role_arn,
+  tags,
+  parallelism_configuration
 FROM awscc.sagemaker.pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pipeline_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
 Lists all <code>pipelines</code> in a region.
 ```sql
 SELECT
-region,
-pipeline_name
+  region,
+  pipeline_name
 FROM awscc.sagemaker.pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,16 +225,16 @@ Use the following StackQL query and manifest file to create a new <code>pipeline
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.pipelines (
- PipelineName,
- PipelineDefinition,
- RoleArn,
- region
+  PipelineName,
+  PipelineDefinition,
+  RoleArn,
+  region
 )
 SELECT
-'{{ pipeline_name }}',
- '{{ pipeline_definition }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ pipeline_name }}',
+  '{{ pipeline_definition }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -239,24 +242,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.pipelines (
- PipelineName,
- PipelineDisplayName,
- PipelineDescription,
- PipelineDefinition,
- RoleArn,
- Tags,
- ParallelismConfiguration,
- region
+  PipelineName,
+  PipelineDisplayName,
+  PipelineDescription,
+  PipelineDefinition,
+  RoleArn,
+  Tags,
+  ParallelismConfiguration,
+  region
 )
 SELECT
- '{{ pipeline_name }}',
- '{{ pipeline_display_name }}',
- '{{ pipeline_description }}',
- '{{ pipeline_definition }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ parallelism_configuration }}',
- '{{ region }}';
+  '{{ pipeline_name }}',
+  '{{ pipeline_display_name }}',
+  '{{ pipeline_description }}',
+  '{{ pipeline_definition }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ parallelism_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ParallelismConfiguration": parallelism_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pipeline_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pipeline_name }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ pipeline_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.pipelines
-WHERE Identifier = '{{ pipeline_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pipeline_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

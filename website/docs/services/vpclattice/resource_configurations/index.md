@@ -193,21 +193,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_configuration</code>.
 ```sql
 SELECT
-region,
-allow_association_to_sharable_service_network,
-protocol_type,
-resource_configuration_type,
-port_ranges,
-resource_configuration_definition,
-id,
-resource_gateway_id,
-arn,
-resource_configuration_auth_type,
-resource_configuration_group_id,
-tags,
-name
+  region,
+  allow_association_to_sharable_service_network,
+  protocol_type,
+  resource_configuration_type,
+  port_ranges,
+  resource_configuration_definition,
+  id,
+  resource_gateway_id,
+  arn,
+  resource_configuration_auth_type,
+  resource_configuration_group_id,
+  tags,
+  name
 FROM awscc.vpclattice.resource_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +217,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>resource_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.resource_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,14 +243,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.resource_configurations (
- ResourceConfigurationType,
- Name,
- region
+  ResourceConfigurationType,
+  Name,
+  region
 )
 SELECT
-'{{ resource_configuration_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ resource_configuration_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,30 +258,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.resource_configurations (
- AllowAssociationToSharableServiceNetwork,
- ProtocolType,
- ResourceConfigurationType,
- PortRanges,
- ResourceConfigurationDefinition,
- ResourceGatewayId,
- ResourceConfigurationAuthType,
- ResourceConfigurationGroupId,
- Tags,
- Name,
- region
+  AllowAssociationToSharableServiceNetwork,
+  ProtocolType,
+  ResourceConfigurationType,
+  PortRanges,
+  ResourceConfigurationDefinition,
+  ResourceGatewayId,
+  ResourceConfigurationAuthType,
+  ResourceConfigurationGroupId,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ allow_association_to_sharable_service_network }}',
- '{{ protocol_type }}',
- '{{ resource_configuration_type }}',
- '{{ port_ranges }}',
- '{{ resource_configuration_definition }}',
- '{{ resource_gateway_id }}',
- '{{ resource_configuration_auth_type }}',
- '{{ resource_configuration_group_id }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ allow_association_to_sharable_service_network }}',
+  '{{ protocol_type }}',
+  '{{ resource_configuration_type }}',
+  '{{ port_ranges }}',
+  '{{ resource_configuration_definition }}',
+  '{{ resource_gateway_id }}',
+  '{{ resource_configuration_auth_type }}',
+  '{{ resource_configuration_group_id }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.resource_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

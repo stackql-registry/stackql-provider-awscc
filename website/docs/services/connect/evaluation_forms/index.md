@@ -243,18 +243,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>evaluation_form</code>.
 ```sql
 SELECT
-region,
-scoring_strategy,
-status,
-auto_evaluation_configuration,
-description,
-instance_arn,
-title,
-items,
-evaluation_form_arn,
-tags
+  region,
+  scoring_strategy,
+  status,
+  auto_evaluation_configuration,
+  description,
+  instance_arn,
+  title,
+  items,
+  evaluation_form_arn,
+  tags
 FROM awscc.connect.evaluation_forms
-WHERE region = 'us-east-1' AND Identifier = '{{ evaluation_form_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ evaluation_form_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +264,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ evaluation_form_arn }}';
 Lists all <code>evaluation_forms</code> in a region.
 ```sql
 SELECT
-region,
-evaluation_form_arn
+  region,
+  evaluation_form_arn
 FROM awscc.connect.evaluation_forms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,18 +290,18 @@ Use the following StackQL query and manifest file to create a new <code>evaluati
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.evaluation_forms (
- Status,
- InstanceArn,
- Title,
- Items,
- region
+  Status,
+  InstanceArn,
+  Title,
+  Items,
+  region
 )
 SELECT
-'{{ status }}',
- '{{ instance_arn }}',
- '{{ title }}',
- '{{ items }}',
-'{{ region }}';
+  '{{ status }}',
+  '{{ instance_arn }}',
+  '{{ title }}',
+  '{{ items }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -306,26 +309,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.evaluation_forms (
- ScoringStrategy,
- Status,
- AutoEvaluationConfiguration,
- Description,
- InstanceArn,
- Title,
- Items,
- Tags,
- region
+  ScoringStrategy,
+  Status,
+  AutoEvaluationConfiguration,
+  Description,
+  InstanceArn,
+  Title,
+  Items,
+  Tags,
+  region
 )
 SELECT
- '{{ scoring_strategy }}',
- '{{ status }}',
- '{{ auto_evaluation_configuration }}',
- '{{ description }}',
- '{{ instance_arn }}',
- '{{ title }}',
- '{{ items }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ scoring_strategy }}',
+  '{{ status }}',
+  '{{ auto_evaluation_configuration }}',
+  '{{ description }}',
+  '{{ instance_arn }}',
+  '{{ title }}',
+  '{{ items }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -425,8 +428,9 @@ SET PatchDocument = string('{{ {
     "Items": items,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ evaluation_form_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ evaluation_form_arn }}';
 ```
 
 
@@ -435,8 +439,9 @@ AND Identifier = '{{ evaluation_form_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.evaluation_forms
-WHERE Identifier = '{{ evaluation_form_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ evaluation_form_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

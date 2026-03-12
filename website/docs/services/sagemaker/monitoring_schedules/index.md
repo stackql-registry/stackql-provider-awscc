@@ -390,19 +390,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>monitoring_schedule</code>.
 ```sql
 SELECT
-region,
-monitoring_schedule_arn,
-monitoring_schedule_name,
-monitoring_schedule_config,
-tags,
-creation_time,
-endpoint_name,
-failure_reason,
-last_modified_time,
-last_monitoring_execution_summary,
-monitoring_schedule_status
+  region,
+  monitoring_schedule_arn,
+  monitoring_schedule_name,
+  monitoring_schedule_config,
+  tags,
+  creation_time,
+  endpoint_name,
+  failure_reason,
+  last_modified_time,
+  last_monitoring_execution_summary,
+  monitoring_schedule_status
 FROM awscc.sagemaker.monitoring_schedules
-WHERE region = 'us-east-1' AND Identifier = '{{ monitoring_schedule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ monitoring_schedule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -410,10 +412,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ monitoring_schedule_arn }}';
 Lists all <code>monitoring_schedules</code> in a region.
 ```sql
 SELECT
-region,
-monitoring_schedule_arn
+  region,
+  monitoring_schedule_arn
 FROM awscc.sagemaker.monitoring_schedules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -435,14 +438,14 @@ Use the following StackQL query and manifest file to create a new <code>monitori
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.monitoring_schedules (
- MonitoringScheduleName,
- MonitoringScheduleConfig,
- region
+  MonitoringScheduleName,
+  MonitoringScheduleConfig,
+  region
 )
 SELECT
-'{{ monitoring_schedule_name }}',
- '{{ monitoring_schedule_config }}',
-'{{ region }}';
+  '{{ monitoring_schedule_name }}',
+  '{{ monitoring_schedule_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -450,24 +453,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.monitoring_schedules (
- MonitoringScheduleName,
- MonitoringScheduleConfig,
- Tags,
- EndpointName,
- FailureReason,
- LastMonitoringExecutionSummary,
- MonitoringScheduleStatus,
- region
+  MonitoringScheduleName,
+  MonitoringScheduleConfig,
+  Tags,
+  EndpointName,
+  FailureReason,
+  LastMonitoringExecutionSummary,
+  MonitoringScheduleStatus,
+  region
 )
 SELECT
- '{{ monitoring_schedule_name }}',
- '{{ monitoring_schedule_config }}',
- '{{ tags }}',
- '{{ endpoint_name }}',
- '{{ failure_reason }}',
- '{{ last_monitoring_execution_summary }}',
- '{{ monitoring_schedule_status }}',
- '{{ region }}';
+  '{{ monitoring_schedule_name }}',
+  '{{ monitoring_schedule_config }}',
+  '{{ tags }}',
+  '{{ endpoint_name }}',
+  '{{ failure_reason }}',
+  '{{ last_monitoring_execution_summary }}',
+  '{{ monitoring_schedule_status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -591,8 +594,9 @@ SET PatchDocument = string('{{ {
     "LastMonitoringExecutionSummary": last_monitoring_execution_summary,
     "MonitoringScheduleStatus": monitoring_schedule_status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ monitoring_schedule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ monitoring_schedule_arn }}';
 ```
 
 
@@ -601,8 +605,9 @@ AND Identifier = '{{ monitoring_schedule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.monitoring_schedules
-WHERE Identifier = '{{ monitoring_schedule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ monitoring_schedule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

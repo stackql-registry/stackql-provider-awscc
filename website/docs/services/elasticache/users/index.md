@@ -200,19 +200,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT
-region,
-status,
-user_id,
-user_name,
-engine,
-access_string,
-no_password_required,
-passwords,
-arn,
-authentication_mode,
-tags
+  region,
+  status,
+  user_id,
+  user_name,
+  engine,
+  access_string,
+  no_password_required,
+  passwords,
+  arn,
+  authentication_mode,
+  tags
 FROM awscc.elasticache.users
-WHERE region = 'us-east-1' AND Identifier = '{{ user_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_id }}';
 Lists all <code>users</code> in a region.
 ```sql
 SELECT
-region,
-user_id
+  region,
+  user_id
 FROM awscc.elasticache.users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>user</co
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.users (
- UserId,
- UserName,
- Engine,
- region
+  UserId,
+  UserName,
+  Engine,
+  region
 )
 SELECT
-'{{ user_id }}',
- '{{ user_name }}',
- '{{ engine }}',
-'{{ region }}';
+  '{{ user_id }}',
+  '{{ user_name }}',
+  '{{ engine }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,26 +265,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.users (
- UserId,
- UserName,
- Engine,
- AccessString,
- NoPasswordRequired,
- Passwords,
- AuthenticationMode,
- Tags,
- region
+  UserId,
+  UserName,
+  Engine,
+  AccessString,
+  NoPasswordRequired,
+  Passwords,
+  AuthenticationMode,
+  Tags,
+  region
 )
 SELECT
- '{{ user_id }}',
- '{{ user_name }}',
- '{{ engine }}',
- '{{ access_string }}',
- '{{ no_password_required }}',
- '{{ passwords }}',
- '{{ authentication_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ user_id }}',
+  '{{ user_name }}',
+  '{{ engine }}',
+  '{{ access_string }}',
+  '{{ no_password_required }}',
+  '{{ passwords }}',
+  '{{ authentication_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -339,8 +342,9 @@ SET PatchDocument = string('{{ {
     "AuthenticationMode": authentication_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_id }}';
 ```
 
 
@@ -349,8 +353,9 @@ AND Identifier = '{{ user_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.users
-WHERE Identifier = '{{ user_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

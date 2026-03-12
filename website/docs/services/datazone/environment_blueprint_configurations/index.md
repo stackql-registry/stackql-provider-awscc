@@ -203,21 +203,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment_blueprint_configuration</code>.
 ```sql
 SELECT
-region,
-created_at,
-enabled_regions,
-environment_blueprint_identifier,
-environment_blueprint_id,
-updated_at,
-regional_parameters,
-provisioning_role_arn,
-domain_id,
-provisioning_configurations,
-domain_identifier,
-environment_role_permission_boundary,
-manage_access_role_arn
+  region,
+  created_at,
+  enabled_regions,
+  environment_blueprint_identifier,
+  environment_blueprint_id,
+  updated_at,
+  regional_parameters,
+  provisioning_role_arn,
+  domain_id,
+  provisioning_configurations,
+  domain_identifier,
+  environment_role_permission_boundary,
+  manage_access_role_arn
 FROM awscc.datazone.environment_blueprint_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_blue
 Lists all <code>environment_blueprint_configurations</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-environment_blueprint_id
+  region,
+  domain_id,
+  environment_blueprint_id
 FROM awscc.datazone.environment_blueprint_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,16 +254,16 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_blueprint_configurations (
- EnabledRegions,
- EnvironmentBlueprintIdentifier,
- DomainIdentifier,
- region
+  EnabledRegions,
+  EnvironmentBlueprintIdentifier,
+  DomainIdentifier,
+  region
 )
 SELECT
-'{{ enabled_regions }}',
- '{{ environment_blueprint_identifier }}',
- '{{ domain_identifier }}',
-'{{ region }}';
+  '{{ enabled_regions }}',
+  '{{ environment_blueprint_identifier }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -268,26 +271,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_blueprint_configurations (
- EnabledRegions,
- EnvironmentBlueprintIdentifier,
- RegionalParameters,
- ProvisioningRoleArn,
- ProvisioningConfigurations,
- DomainIdentifier,
- EnvironmentRolePermissionBoundary,
- ManageAccessRoleArn,
- region
+  EnabledRegions,
+  EnvironmentBlueprintIdentifier,
+  RegionalParameters,
+  ProvisioningRoleArn,
+  ProvisioningConfigurations,
+  DomainIdentifier,
+  EnvironmentRolePermissionBoundary,
+  ManageAccessRoleArn,
+  region
 )
 SELECT
- '{{ enabled_regions }}',
- '{{ environment_blueprint_identifier }}',
- '{{ regional_parameters }}',
- '{{ provisioning_role_arn }}',
- '{{ provisioning_configurations }}',
- '{{ domain_identifier }}',
- '{{ environment_role_permission_boundary }}',
- '{{ manage_access_role_arn }}',
- '{{ region }}';
+  '{{ enabled_regions }}',
+  '{{ environment_blueprint_identifier }}',
+  '{{ regional_parameters }}',
+  '{{ provisioning_role_arn }}',
+  '{{ provisioning_configurations }}',
+  '{{ domain_identifier }}',
+  '{{ environment_role_permission_boundary }}',
+  '{{ manage_access_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -343,8 +346,9 @@ SET PatchDocument = string('{{ {
     "EnvironmentRolePermissionBoundary": environment_role_permission_boundary,
     "ManageAccessRoleArn": manage_access_role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```
 
 
@@ -353,8 +357,9 @@ AND Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_blueprint_configurations
-WHERE Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

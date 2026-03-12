@@ -140,12 +140,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>master</code>.
 ```sql
 SELECT
-region,
-master_id,
-invitation_id,
-detector_id
+  region,
+  master_id,
+  invitation_id,
+  detector_id
 FROM awscc.guardduty.masters
-WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ master_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ detector_id }}|{{ master_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -153,11 +155,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ master_id }}';
 Lists all <code>masters</code> in a region.
 ```sql
 SELECT
-region,
-detector_id,
-master_id
+  region,
+  detector_id,
+  master_id
 FROM awscc.guardduty.masters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>master</
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.masters (
- MasterId,
- DetectorId,
- region
+  MasterId,
+  DetectorId,
+  region
 )
 SELECT
-'{{ master_id }}',
- '{{ detector_id }}',
-'{{ region }}';
+  '{{ master_id }}',
+  '{{ detector_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,16 +197,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.masters (
- MasterId,
- InvitationId,
- DetectorId,
- region
+  MasterId,
+  InvitationId,
+  DetectorId,
+  region
 )
 SELECT
- '{{ master_id }}',
- '{{ invitation_id }}',
- '{{ detector_id }}',
- '{{ region }}';
+  '{{ master_id }}',
+  '{{ invitation_id }}',
+  '{{ detector_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.masters
-WHERE Identifier = '{{ detector_id }}|{{ master_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ detector_id }}|{{ master_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

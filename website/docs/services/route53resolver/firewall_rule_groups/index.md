@@ -265,22 +265,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>firewall_rule_group</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-name,
-rule_count,
-status,
-status_message,
-owner_id,
-share_status,
-creator_request_id,
-creation_time,
-modification_time,
-firewall_rules,
-tags
+  region,
+  id,
+  arn,
+  name,
+  rule_count,
+  status,
+  status_message,
+  owner_id,
+  share_status,
+  creator_request_id,
+  creation_time,
+  modification_time,
+  firewall_rules,
+  tags
 FROM awscc.route53resolver.firewall_rule_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -288,10 +290,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>firewall_rule_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53resolver.firewall_rule_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -313,16 +316,16 @@ Use the following StackQL query and manifest file to create a new <code>firewall
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.firewall_rule_groups (
- Name,
- FirewallRules,
- Tags,
- region
+  Name,
+  FirewallRules,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ firewall_rules }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ firewall_rules }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -330,16 +333,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.firewall_rule_groups (
- Name,
- FirewallRules,
- Tags,
- region
+  Name,
+  FirewallRules,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ firewall_rules }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ firewall_rules }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -390,8 +393,9 @@ UPDATE awscc.route53resolver.firewall_rule_groups
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -400,8 +404,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.firewall_rule_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

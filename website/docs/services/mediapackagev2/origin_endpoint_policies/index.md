@@ -117,14 +117,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>origin_endpoint_policy</code>.
 ```sql
 SELECT
-region,
-cdn_auth_configuration,
-channel_group_name,
-channel_name,
-origin_endpoint_name,
-policy
+  region,
+  cdn_auth_configuration,
+  channel_group_name,
+  channel_name,
+  origin_endpoint_name,
+  policy
 FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
 ```
 
 ## `INSERT` example
@@ -144,18 +146,18 @@ Use the following StackQL query and manifest file to create a new <code>origin_e
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.origin_endpoint_policies (
- ChannelGroupName,
- ChannelName,
- OriginEndpointName,
- Policy,
- region
+  ChannelGroupName,
+  ChannelName,
+  OriginEndpointName,
+  Policy,
+  region
 )
 SELECT
-'{{ channel_group_name }}',
- '{{ channel_name }}',
- '{{ origin_endpoint_name }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ origin_endpoint_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -163,20 +165,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.origin_endpoint_policies (
- CdnAuthConfiguration,
- ChannelGroupName,
- ChannelName,
- OriginEndpointName,
- Policy,
- region
+  CdnAuthConfiguration,
+  ChannelGroupName,
+  ChannelName,
+  OriginEndpointName,
+  Policy,
+  region
 )
 SELECT
- '{{ cdn_auth_configuration }}',
- '{{ channel_group_name }}',
- '{{ channel_name }}',
- '{{ origin_endpoint_name }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ cdn_auth_configuration }}',
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ origin_endpoint_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -221,8 +223,9 @@ SET PatchDocument = string('{{ {
     "CdnAuthConfiguration": cdn_auth_configuration,
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
 ```
 
 
@@ -231,8 +234,9 @@ AND Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

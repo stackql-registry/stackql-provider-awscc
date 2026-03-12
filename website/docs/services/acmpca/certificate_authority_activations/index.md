@@ -105,14 +105,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate_authority_activation</code>.
 ```sql
 SELECT
-region,
-certificate_authority_arn,
-certificate,
-certificate_chain,
-status,
-complete_certificate_chain
+  region,
+  certificate_authority_arn,
+  certificate,
+  certificate_chain,
+  status,
+  complete_certificate_chain
 FROM awscc.acmpca.certificate_authority_activations
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_authority_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_authority_arn }}';
 ```
 
 ## `INSERT` example
@@ -132,14 +134,14 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificate_authority_activations (
- CertificateAuthorityArn,
- Certificate,
- region
+  CertificateAuthorityArn,
+  Certificate,
+  region
 )
 SELECT
-'{{ certificate_authority_arn }}',
- '{{ certificate }}',
-'{{ region }}';
+  '{{ certificate_authority_arn }}',
+  '{{ certificate }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -147,18 +149,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.certificate_authority_activations (
- CertificateAuthorityArn,
- Certificate,
- CertificateChain,
- Status,
- region
+  CertificateAuthorityArn,
+  Certificate,
+  CertificateChain,
+  Status,
+  region
 )
 SELECT
- '{{ certificate_authority_arn }}',
- '{{ certificate }}',
- '{{ certificate_chain }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ certificate_authority_arn }}',
+  '{{ certificate }}',
+  '{{ certificate_chain }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -199,8 +201,9 @@ SET PatchDocument = string('{{ {
     "CertificateChain": certificate_chain,
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ certificate_authority_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ certificate_authority_arn }}';
 ```
 
 
@@ -209,8 +212,9 @@ AND Identifier = '{{ certificate_authority_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificate_authority_activations
-WHERE Identifier = '{{ certificate_authority_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_authority_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -199,15 +199,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>virtual_cluster</code>.
 ```sql
 SELECT
-region,
-arn,
-container_provider,
-id,
-name,
-tags,
-security_configuration_id
+  region,
+  arn,
+  container_provider,
+  id,
+  name,
+  tags,
+  security_configuration_id
 FROM awscc.emrcontainers.virtual_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +217,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>virtual_clusters</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.emrcontainers.virtual_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,14 +243,14 @@ Use the following StackQL query and manifest file to create a new <code>virtual_
 ```sql
 /*+ create */
 INSERT INTO awscc.emrcontainers.virtual_clusters (
- ContainerProvider,
- Name,
- region
+  ContainerProvider,
+  Name,
+  region
 )
 SELECT
-'{{ container_provider }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ container_provider }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,18 +258,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emrcontainers.virtual_clusters (
- ContainerProvider,
- Name,
- Tags,
- SecurityConfigurationId,
- region
+  ContainerProvider,
+  Name,
+  Tags,
+  SecurityConfigurationId,
+  region
 )
 SELECT
- '{{ container_provider }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ security_configuration_id }}',
- '{{ region }}';
+  '{{ container_provider }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ security_configuration_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "SecurityConfigurationId": security_configuration_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emrcontainers.virtual_clusters
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

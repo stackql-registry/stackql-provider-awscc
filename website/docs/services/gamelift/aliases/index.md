@@ -185,15 +185,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alias</code>.
 ```sql
 SELECT
-region,
-description,
-name,
-routing_strategy,
-alias_id,
-alias_arn,
-tags
+  region,
+  description,
+  name,
+  routing_strategy,
+  alias_id,
+  alias_arn,
+  tags
 FROM awscc.gamelift.aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ alias_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alias_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,10 +203,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alias_id }}';
 Lists all <code>aliases</code> in a region.
 ```sql
 SELECT
-region,
-alias_id
+  region,
+  alias_id
 FROM awscc.gamelift.aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -226,14 +229,14 @@ Use the following StackQL query and manifest file to create a new <code>alias</c
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.aliases (
- Name,
- RoutingStrategy,
- region
+  Name,
+  RoutingStrategy,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ routing_strategy }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ routing_strategy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -241,18 +244,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.aliases (
- Description,
- Name,
- RoutingStrategy,
- Tags,
- region
+  Description,
+  Name,
+  RoutingStrategy,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ routing_strategy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ routing_strategy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -299,8 +302,9 @@ SET PatchDocument = string('{{ {
     "RoutingStrategy": routing_strategy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alias_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alias_id }}';
 ```
 
 
@@ -309,8 +313,9 @@ AND Identifier = '{{ alias_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.aliases
-WHERE Identifier = '{{ alias_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alias_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

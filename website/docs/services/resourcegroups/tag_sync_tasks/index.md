@@ -160,17 +160,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tag_sync_task</code>.
 ```sql
 SELECT
-region,
-group,
-group_arn,
-group_name,
-task_arn,
-tag_key,
-tag_value,
-role_arn,
-status
+  region,
+  group,
+  group_arn,
+  group_name,
+  task_arn,
+  tag_key,
+  tag_value,
+  role_arn,
+  status
 FROM awscc.resourcegroups.tag_sync_tasks
-WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ task_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
 Lists all <code>tag_sync_tasks</code> in a region.
 ```sql
 SELECT
-region,
-task_arn
+  region,
+  task_arn
 FROM awscc.resourcegroups.tag_sync_tasks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,18 +206,18 @@ Use the following StackQL query and manifest file to create a new <code>tag_sync
 ```sql
 /*+ create */
 INSERT INTO awscc.resourcegroups.tag_sync_tasks (
- Group,
- TagKey,
- TagValue,
- RoleArn,
- region
+  Group,
+  TagKey,
+  TagValue,
+  RoleArn,
+  region
 )
 SELECT
-'{{ group }}',
- '{{ tag_key }}',
- '{{ tag_value }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ group }}',
+  '{{ tag_key }}',
+  '{{ tag_value }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resourcegroups.tag_sync_tasks (
- Group,
- TagKey,
- TagValue,
- RoleArn,
- region
+  Group,
+  TagKey,
+  TagValue,
+  RoleArn,
+  region
 )
 SELECT
- '{{ group }}',
- '{{ tag_key }}',
- '{{ tag_value }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ group }}',
+  '{{ tag_key }}',
+  '{{ tag_value }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -268,8 +271,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourcegroups.tag_sync_tasks
-WHERE Identifier = '{{ task_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ task_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

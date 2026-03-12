@@ -278,16 +278,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>in_app_template</code>.
 ```sql
 SELECT
-region,
-arn,
-content,
-custom_config,
-layout,
-tags,
-template_description,
-template_name
+  region,
+  arn,
+  content,
+  custom_config,
+  layout,
+  tags,
+  template_description,
+  template_name
 FROM awscc.pinpoint.in_app_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,10 +297,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
 Lists all <code>in_app_templates</code> in a region.
 ```sql
 SELECT
-region,
-template_name
+  region,
+  template_name
 FROM awscc.pinpoint.in_app_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -320,12 +323,12 @@ Use the following StackQL query and manifest file to create a new <code>in_app_t
 ```sql
 /*+ create */
 INSERT INTO awscc.pinpoint.in_app_templates (
- TemplateName,
- region
+  TemplateName,
+  region
 )
 SELECT
-'{{ template_name }}',
-'{{ region }}';
+  '{{ template_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -333,22 +336,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pinpoint.in_app_templates (
- Content,
- CustomConfig,
- Layout,
- Tags,
- TemplateDescription,
- TemplateName,
- region
+  Content,
+  CustomConfig,
+  Layout,
+  Tags,
+  TemplateDescription,
+  TemplateName,
+  region
 )
 SELECT
- '{{ content }}',
- '{{ custom_config }}',
- '{{ layout }}',
- '{{ tags }}',
- '{{ template_description }}',
- '{{ template_name }}',
- '{{ region }}';
+  '{{ content }}',
+  '{{ custom_config }}',
+  '{{ layout }}',
+  '{{ tags }}',
+  '{{ template_description }}',
+  '{{ template_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -419,8 +422,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TemplateDescription": template_description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ template_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ template_name }}';
 ```
 
 
@@ -429,8 +433,9 @@ AND Identifier = '{{ template_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pinpoint.in_app_templates
-WHERE Identifier = '{{ template_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ template_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

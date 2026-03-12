@@ -804,20 +804,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>topic</code>.
 ```sql
 SELECT
-region,
-arn,
-aws_account_id,
-config_options,
-custom_instructions,
-data_sets,
-description,
-folder_arns,
-name,
-tags,
-topic_id,
-user_experience_version
+  region,
+  arn,
+  aws_account_id,
+  config_options,
+  custom_instructions,
+  data_sets,
+  description,
+  folder_arns,
+  name,
+  tags,
+  topic_id,
+  user_experience_version
 FROM awscc.quicksight.topics
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ topic_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -825,11 +827,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ topic_id }}
 Lists all <code>topics</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-topic_id
+  region,
+  aws_account_id,
+  topic_id
 FROM awscc.quicksight.topics_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -851,30 +854,30 @@ Use the following StackQL query and manifest file to create a new <code>topic</c
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.topics (
- AwsAccountId,
- ConfigOptions,
- CustomInstructions,
- DataSets,
- Description,
- FolderArns,
- Name,
- Tags,
- TopicId,
- UserExperienceVersion,
- region
+  AwsAccountId,
+  ConfigOptions,
+  CustomInstructions,
+  DataSets,
+  Description,
+  FolderArns,
+  Name,
+  Tags,
+  TopicId,
+  UserExperienceVersion,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ config_options }}',
- '{{ custom_instructions }}',
- '{{ data_sets }}',
- '{{ description }}',
- '{{ folder_arns }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ topic_id }}',
- '{{ user_experience_version }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ config_options }}',
+  '{{ custom_instructions }}',
+  '{{ data_sets }}',
+  '{{ description }}',
+  '{{ folder_arns }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ topic_id }}',
+  '{{ user_experience_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -882,30 +885,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.topics (
- AwsAccountId,
- ConfigOptions,
- CustomInstructions,
- DataSets,
- Description,
- FolderArns,
- Name,
- Tags,
- TopicId,
- UserExperienceVersion,
- region
+  AwsAccountId,
+  ConfigOptions,
+  CustomInstructions,
+  DataSets,
+  Description,
+  FolderArns,
+  Name,
+  Tags,
+  TopicId,
+  UserExperienceVersion,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ config_options }}',
- '{{ custom_instructions }}',
- '{{ data_sets }}',
- '{{ description }}',
- '{{ folder_arns }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ topic_id }}',
- '{{ user_experience_version }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ config_options }}',
+  '{{ custom_instructions }}',
+  '{{ data_sets }}',
+  '{{ description }}',
+  '{{ folder_arns }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ topic_id }}',
+  '{{ user_experience_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1102,8 +1105,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "UserExperienceVersion": user_experience_version
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ topic_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```
 
 
@@ -1112,8 +1116,9 @@ AND Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.topics
-WHERE Identifier = '{{ aws_account_id }}|{{ topic_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ topic_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

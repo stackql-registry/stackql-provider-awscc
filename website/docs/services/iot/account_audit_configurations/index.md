@@ -232,13 +232,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account_audit_configuration</code>.
 ```sql
 SELECT
-region,
-account_id,
-audit_check_configurations,
-audit_notification_target_configurations,
-role_arn
+  region,
+  account_id,
+  audit_check_configurations,
+  audit_notification_target_configurations,
+  role_arn
 FROM awscc.iot.account_audit_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>account_audit_configurations</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.iot.account_audit_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,16 +274,16 @@ Use the following StackQL query and manifest file to create a new <code>account_
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.account_audit_configurations (
- AccountId,
- AuditCheckConfigurations,
- RoleArn,
- region
+  AccountId,
+  AuditCheckConfigurations,
+  RoleArn,
+  region
 )
 SELECT
-'{{ account_id }}',
- '{{ audit_check_configurations }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ account_id }}',
+  '{{ audit_check_configurations }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -288,18 +291,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.account_audit_configurations (
- AccountId,
- AuditCheckConfigurations,
- AuditNotificationTargetConfigurations,
- RoleArn,
- region
+  AccountId,
+  AuditCheckConfigurations,
+  AuditNotificationTargetConfigurations,
+  RoleArn,
+  region
 )
 SELECT
- '{{ account_id }}',
- '{{ audit_check_configurations }}',
- '{{ audit_notification_target_configurations }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ account_id }}',
+  '{{ audit_check_configurations }}',
+  '{{ audit_notification_target_configurations }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -368,8 +371,9 @@ SET PatchDocument = string('{{ {
     "AuditNotificationTargetConfigurations": audit_notification_target_configurations,
     "RoleArn": role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -378,8 +382,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.account_audit_configurations
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

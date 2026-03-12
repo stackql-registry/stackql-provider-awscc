@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy_template</code>.
 ```sql
 SELECT
-region,
-description,
-policy_store_id,
-policy_template_id,
-statement
+  region,
+  description,
+  policy_store_id,
+  policy_template_id,
+  statement
 FROM awscc.verifiedpermissions.policy_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_store_id }}|{{ policy_tem
 Lists all <code>policy_templates</code> in a region.
 ```sql
 SELECT
-region,
-policy_store_id,
-policy_template_id
+  region,
+  policy_store_id,
+  policy_template_id
 FROM awscc.verifiedpermissions.policy_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>policy_t
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policy_templates (
- PolicyStoreId,
- Statement,
- region
+  PolicyStoreId,
+  Statement,
+  region
 )
 SELECT
-'{{ policy_store_id }}',
- '{{ statement }}',
-'{{ region }}';
+  '{{ policy_store_id }}',
+  '{{ statement }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,16 +209,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policy_templates (
- Description,
- PolicyStoreId,
- Statement,
- region
+  Description,
+  PolicyStoreId,
+  Statement,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ policy_store_id }}',
- '{{ statement }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ policy_store_id }}',
+  '{{ statement }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -253,8 +256,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Statement": statement
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
 ```
 
 
@@ -263,8 +267,9 @@ AND Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policy_templates
-WHERE Identifier = '{{ policy_store_id }}|{{ policy_template_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_store_id }}|{{ policy_template_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

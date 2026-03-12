@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>locationf_sx_window</code>.
 ```sql
 SELECT
-region,
-domain,
-fsx_filesystem_arn,
-password,
-security_group_arns,
-subdirectory,
-user,
-tags,
-location_arn,
-location_uri
+  region,
+  domain,
+  fsx_filesystem_arn,
+  password,
+  security_group_arns,
+  subdirectory,
+  user,
+  tags,
+  location_arn,
+  location_uri
 FROM awscc.datasync.locationf_sx_windows
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>locationf_sx_windows</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.locationf_sx_windows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.locationf_sx_windows (
- SecurityGroupArns,
- User,
- region
+  SecurityGroupArns,
+  User,
+  region
 )
 SELECT
-'{{ security_group_arns }}',
- '{{ user }}',
-'{{ region }}';
+  '{{ security_group_arns }}',
+  '{{ user }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,24 +245,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.locationf_sx_windows (
- Domain,
- FsxFilesystemArn,
- Password,
- SecurityGroupArns,
- Subdirectory,
- User,
- Tags,
- region
+  Domain,
+  FsxFilesystemArn,
+  Password,
+  SecurityGroupArns,
+  Subdirectory,
+  User,
+  Tags,
+  region
 )
 SELECT
- '{{ domain }}',
- '{{ fsx_filesystem_arn }}',
- '{{ password }}',
- '{{ security_group_arns }}',
- '{{ subdirectory }}',
- '{{ user }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain }}',
+  '{{ fsx_filesystem_arn }}',
+  '{{ password }}',
+  '{{ security_group_arns }}',
+  '{{ subdirectory }}',
+  '{{ user }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -311,8 +314,9 @@ SET PatchDocument = string('{{ {
     "User": user,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -321,8 +325,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.locationf_sx_windows
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -294,32 +294,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>target_group</code>.
 ```sql
 SELECT
-region,
-ip_address_type,
-target_group_arn,
-health_check_interval_seconds,
-load_balancer_arns,
-matcher,
-health_check_path,
-port,
-targets,
-health_check_enabled,
-protocol_version,
-unhealthy_threshold_count,
-health_check_timeout_seconds,
-name,
-vpc_id,
-target_group_full_name,
-healthy_threshold_count,
-health_check_protocol,
-target_group_attributes,
-target_type,
-health_check_port,
-protocol,
-target_group_name,
-tags
+  region,
+  ip_address_type,
+  target_group_arn,
+  health_check_interval_seconds,
+  load_balancer_arns,
+  matcher,
+  health_check_path,
+  port,
+  targets,
+  health_check_enabled,
+  protocol_version,
+  unhealthy_threshold_count,
+  health_check_timeout_seconds,
+  name,
+  vpc_id,
+  target_group_full_name,
+  healthy_threshold_count,
+  health_check_protocol,
+  target_group_attributes,
+  target_type,
+  health_check_port,
+  protocol,
+  target_group_name,
+  tags
 FROM awscc.elasticloadbalancingv2.target_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ target_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ target_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,10 +329,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ target_group_arn }}';
 Lists all <code>target_groups</code> in a region.
 ```sql
 SELECT
-region,
-target_group_arn
+  region,
+  target_group_arn
 FROM awscc.elasticloadbalancingv2.target_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -352,48 +355,48 @@ Use the following StackQL query and manifest file to create a new <code>target_g
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.target_groups (
- IpAddressType,
- HealthCheckIntervalSeconds,
- Matcher,
- HealthCheckPath,
- Port,
- Targets,
- HealthCheckEnabled,
- ProtocolVersion,
- UnhealthyThresholdCount,
- HealthCheckTimeoutSeconds,
- Name,
- VpcId,
- HealthyThresholdCount,
- HealthCheckProtocol,
- TargetGroupAttributes,
- TargetType,
- HealthCheckPort,
- Protocol,
- Tags,
- region
+  IpAddressType,
+  HealthCheckIntervalSeconds,
+  Matcher,
+  HealthCheckPath,
+  Port,
+  Targets,
+  HealthCheckEnabled,
+  ProtocolVersion,
+  UnhealthyThresholdCount,
+  HealthCheckTimeoutSeconds,
+  Name,
+  VpcId,
+  HealthyThresholdCount,
+  HealthCheckProtocol,
+  TargetGroupAttributes,
+  TargetType,
+  HealthCheckPort,
+  Protocol,
+  Tags,
+  region
 )
 SELECT
-'{{ ip_address_type }}',
- '{{ health_check_interval_seconds }}',
- '{{ matcher }}',
- '{{ health_check_path }}',
- '{{ port }}',
- '{{ targets }}',
- '{{ health_check_enabled }}',
- '{{ protocol_version }}',
- '{{ unhealthy_threshold_count }}',
- '{{ health_check_timeout_seconds }}',
- '{{ name }}',
- '{{ vpc_id }}',
- '{{ healthy_threshold_count }}',
- '{{ health_check_protocol }}',
- '{{ target_group_attributes }}',
- '{{ target_type }}',
- '{{ health_check_port }}',
- '{{ protocol }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ ip_address_type }}',
+  '{{ health_check_interval_seconds }}',
+  '{{ matcher }}',
+  '{{ health_check_path }}',
+  '{{ port }}',
+  '{{ targets }}',
+  '{{ health_check_enabled }}',
+  '{{ protocol_version }}',
+  '{{ unhealthy_threshold_count }}',
+  '{{ health_check_timeout_seconds }}',
+  '{{ name }}',
+  '{{ vpc_id }}',
+  '{{ healthy_threshold_count }}',
+  '{{ health_check_protocol }}',
+  '{{ target_group_attributes }}',
+  '{{ target_type }}',
+  '{{ health_check_port }}',
+  '{{ protocol }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -401,48 +404,48 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.target_groups (
- IpAddressType,
- HealthCheckIntervalSeconds,
- Matcher,
- HealthCheckPath,
- Port,
- Targets,
- HealthCheckEnabled,
- ProtocolVersion,
- UnhealthyThresholdCount,
- HealthCheckTimeoutSeconds,
- Name,
- VpcId,
- HealthyThresholdCount,
- HealthCheckProtocol,
- TargetGroupAttributes,
- TargetType,
- HealthCheckPort,
- Protocol,
- Tags,
- region
+  IpAddressType,
+  HealthCheckIntervalSeconds,
+  Matcher,
+  HealthCheckPath,
+  Port,
+  Targets,
+  HealthCheckEnabled,
+  ProtocolVersion,
+  UnhealthyThresholdCount,
+  HealthCheckTimeoutSeconds,
+  Name,
+  VpcId,
+  HealthyThresholdCount,
+  HealthCheckProtocol,
+  TargetGroupAttributes,
+  TargetType,
+  HealthCheckPort,
+  Protocol,
+  Tags,
+  region
 )
 SELECT
- '{{ ip_address_type }}',
- '{{ health_check_interval_seconds }}',
- '{{ matcher }}',
- '{{ health_check_path }}',
- '{{ port }}',
- '{{ targets }}',
- '{{ health_check_enabled }}',
- '{{ protocol_version }}',
- '{{ unhealthy_threshold_count }}',
- '{{ health_check_timeout_seconds }}',
- '{{ name }}',
- '{{ vpc_id }}',
- '{{ healthy_threshold_count }}',
- '{{ health_check_protocol }}',
- '{{ target_group_attributes }}',
- '{{ target_type }}',
- '{{ health_check_port }}',
- '{{ protocol }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ip_address_type }}',
+  '{{ health_check_interval_seconds }}',
+  '{{ matcher }}',
+  '{{ health_check_path }}',
+  '{{ port }}',
+  '{{ targets }}',
+  '{{ health_check_enabled }}',
+  '{{ protocol_version }}',
+  '{{ unhealthy_threshold_count }}',
+  '{{ health_check_timeout_seconds }}',
+  '{{ name }}',
+  '{{ vpc_id }}',
+  '{{ healthy_threshold_count }}',
+  '{{ health_check_protocol }}',
+  '{{ target_group_attributes }}',
+  '{{ target_type }}',
+  '{{ health_check_port }}',
+  '{{ protocol }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -531,8 +534,9 @@ SET PatchDocument = string('{{ {
     "HealthCheckPort": health_check_port,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ target_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ target_group_arn }}';
 ```
 
 
@@ -541,8 +545,9 @@ AND Identifier = '{{ target_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.target_groups
-WHERE Identifier = '{{ target_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ target_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

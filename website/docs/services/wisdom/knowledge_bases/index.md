@@ -301,19 +301,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>knowledge_base</code>.
 ```sql
 SELECT
-region,
-description,
-knowledge_base_arn,
-knowledge_base_id,
-knowledge_base_type,
-name,
-rendering_configuration,
-server_side_encryption_configuration,
-source_configuration,
-vector_ingestion_configuration,
-tags
+  region,
+  description,
+  knowledge_base_arn,
+  knowledge_base_id,
+  knowledge_base_type,
+  name,
+  rendering_configuration,
+  server_side_encryption_configuration,
+  source_configuration,
+  vector_ingestion_configuration,
+  tags
 FROM awscc.wisdom.knowledge_bases
-WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ knowledge_base_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,10 +323,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
 Lists all <code>knowledge_bases</code> in a region.
 ```sql
 SELECT
-region,
-knowledge_base_id
+  region,
+  knowledge_base_id
 FROM awscc.wisdom.knowledge_bases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -346,14 +349,14 @@ Use the following StackQL query and manifest file to create a new <code>knowledg
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.knowledge_bases (
- KnowledgeBaseType,
- Name,
- region
+  KnowledgeBaseType,
+  Name,
+  region
 )
 SELECT
-'{{ knowledge_base_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ knowledge_base_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -361,26 +364,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.knowledge_bases (
- Description,
- KnowledgeBaseType,
- Name,
- RenderingConfiguration,
- ServerSideEncryptionConfiguration,
- SourceConfiguration,
- VectorIngestionConfiguration,
- Tags,
- region
+  Description,
+  KnowledgeBaseType,
+  Name,
+  RenderingConfiguration,
+  ServerSideEncryptionConfiguration,
+  SourceConfiguration,
+  VectorIngestionConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ knowledge_base_type }}',
- '{{ name }}',
- '{{ rendering_configuration }}',
- '{{ server_side_encryption_configuration }}',
- '{{ source_configuration }}',
- '{{ vector_ingestion_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ knowledge_base_type }}',
+  '{{ name }}',
+  '{{ rendering_configuration }}',
+  '{{ server_side_encryption_configuration }}',
+  '{{ source_configuration }}',
+  '{{ vector_ingestion_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -451,8 +454,9 @@ SET PatchDocument = string('{{ {
     "RenderingConfiguration": rendering_configuration,
     "VectorIngestionConfiguration": vector_ingestion_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ knowledge_base_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ knowledge_base_id }}';
 ```
 
 
@@ -461,8 +465,9 @@ AND Identifier = '{{ knowledge_base_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.knowledge_bases
-WHERE Identifier = '{{ knowledge_base_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ knowledge_base_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

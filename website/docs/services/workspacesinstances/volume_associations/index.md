@@ -150,13 +150,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>volume_association</code>.
 ```sql
 SELECT
-region,
-workspace_instance_id,
-volume_id,
-device,
-disassociate_mode
+  region,
+  workspace_instance_id,
+  volume_id,
+  device,
+  disassociate_mode
 FROM awscc.workspacesinstances.volume_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -164,12 +166,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}|{{ volu
 Lists all <code>volume_associations</code> in a region.
 ```sql
 SELECT
-region,
-workspace_instance_id,
-volume_id,
-device
+  region,
+  workspace_instance_id,
+  volume_id,
+  device
 FROM awscc.workspacesinstances.volume_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>volume_a
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.volume_associations (
- WorkspaceInstanceId,
- VolumeId,
- Device,
- region
+  WorkspaceInstanceId,
+  VolumeId,
+  Device,
+  region
 )
 SELECT
-'{{ workspace_instance_id }}',
- '{{ volume_id }}',
- '{{ device }}',
-'{{ region }}';
+  '{{ workspace_instance_id }}',
+  '{{ volume_id }}',
+  '{{ device }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesinstances.volume_associations (
- WorkspaceInstanceId,
- VolumeId,
- Device,
- DisassociateMode,
- region
+  WorkspaceInstanceId,
+  VolumeId,
+  Device,
+  DisassociateMode,
+  region
 )
 SELECT
- '{{ workspace_instance_id }}',
- '{{ volume_id }}',
- '{{ device }}',
- '{{ disassociate_mode }}',
- '{{ region }}';
+  '{{ workspace_instance_id }}',
+  '{{ volume_id }}',
+  '{{ device }}',
+  '{{ disassociate_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -254,8 +257,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volume_associations
-WHERE Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

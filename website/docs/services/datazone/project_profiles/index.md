@@ -301,22 +301,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project_profile</code>.
 ```sql
 SELECT
-region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-domain_unit_id,
-domain_unit_identifier,
-environment_configurations,
-id,
-identifier,
-last_updated_at,
-name,
-status
+  region,
+  created_at,
+  created_by,
+  description,
+  domain_id,
+  domain_identifier,
+  domain_unit_id,
+  domain_unit_identifier,
+  environment_configurations,
+  id,
+  identifier,
+  last_updated_at,
+  name,
+  status
 FROM awscc.datazone.project_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -324,11 +326,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ identifi
 Lists all <code>project_profiles</code> in a region.
 ```sql
 SELECT
-region,
-domain_identifier,
-identifier
+  region,
+  domain_identifier,
+  identifier
 FROM awscc.datazone.project_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -350,12 +353,12 @@ Use the following StackQL query and manifest file to create a new <code>project_
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.project_profiles (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -363,22 +366,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.project_profiles (
- Description,
- DomainIdentifier,
- DomainUnitIdentifier,
- EnvironmentConfigurations,
- Name,
- Status,
- region
+  Description,
+  DomainIdentifier,
+  DomainUnitIdentifier,
+  EnvironmentConfigurations,
+  Name,
+  Status,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ domain_unit_identifier }}',
- '{{ environment_configurations }}',
- '{{ name }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ domain_unit_identifier }}',
+  '{{ environment_configurations }}',
+  '{{ name }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -442,8 +445,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_identifier }}|{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```
 
 
@@ -452,8 +456,9 @@ AND Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.project_profiles
-WHERE Identifier = '{{ domain_identifier }}|{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_identifier }}|{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

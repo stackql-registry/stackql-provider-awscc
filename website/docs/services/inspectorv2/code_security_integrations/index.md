@@ -231,20 +231,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>code_security_integration</code>.
 ```sql
 SELECT
-region,
-name,
-type,
-create_integration_details,
-update_integration_details,
-status,
-status_reason,
-arn,
-authorization_url,
-created_at,
-last_updated_at,
-tags
+  region,
+  name,
+  type,
+  create_integration_details,
+  update_integration_details,
+  status,
+  status_reason,
+  arn,
+  authorization_url,
+  created_at,
+  last_updated_at,
+  tags
 FROM awscc.inspectorv2.code_security_integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,10 +254,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>code_security_integrations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.inspectorv2.code_security_integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -277,20 +280,20 @@ Use the following StackQL query and manifest file to create a new <code>code_sec
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.code_security_integrations (
- Name,
- Type,
- CreateIntegrationDetails,
- UpdateIntegrationDetails,
- Tags,
- region
+  Name,
+  Type,
+  CreateIntegrationDetails,
+  UpdateIntegrationDetails,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ create_integration_details }}',
- '{{ update_integration_details }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ create_integration_details }}',
+  '{{ update_integration_details }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -298,20 +301,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.code_security_integrations (
- Name,
- Type,
- CreateIntegrationDetails,
- UpdateIntegrationDetails,
- Tags,
- region
+  Name,
+  Type,
+  CreateIntegrationDetails,
+  UpdateIntegrationDetails,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ create_integration_details }}',
- '{{ update_integration_details }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ create_integration_details }}',
+  '{{ update_integration_details }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -362,8 +365,9 @@ SET PatchDocument = string('{{ {
     "Type": type,
     "UpdateIntegrationDetails": update_integration_details
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -372,8 +376,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.code_security_integrations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

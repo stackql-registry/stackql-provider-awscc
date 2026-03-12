@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>decoder_manifest</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-model_manifest_arn,
-name,
-network_interfaces,
-signal_decoders,
-status,
-default_for_unmapped_signals,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  last_modification_time,
+  model_manifest_arn,
+  name,
+  network_interfaces,
+  signal_decoders,
+  status,
+  default_for_unmapped_signals,
+  tags
 FROM awscc.iotfleetwise.decoder_manifests
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>decoder_manifests</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.decoder_manifests_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,14 +242,14 @@ Use the following StackQL query and manifest file to create a new <code>decoder_
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.decoder_manifests (
- ModelManifestArn,
- Name,
- region
+  ModelManifestArn,
+  Name,
+  region
 )
 SELECT
-'{{ model_manifest_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ model_manifest_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,26 +257,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.decoder_manifests (
- Description,
- ModelManifestArn,
- Name,
- NetworkInterfaces,
- SignalDecoders,
- Status,
- DefaultForUnmappedSignals,
- Tags,
- region
+  Description,
+  ModelManifestArn,
+  Name,
+  NetworkInterfaces,
+  SignalDecoders,
+  Status,
+  DefaultForUnmappedSignals,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ model_manifest_arn }}',
- '{{ name }}',
- '{{ network_interfaces }}',
- '{{ signal_decoders }}',
- '{{ status }}',
- '{{ default_for_unmapped_signals }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ model_manifest_arn }}',
+  '{{ name }}',
+  '{{ network_interfaces }}',
+  '{{ signal_decoders }}',
+  '{{ status }}',
+  '{{ default_for_unmapped_signals }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -329,8 +332,9 @@ SET PatchDocument = string('{{ {
     "DefaultForUnmappedSignals": default_for_unmapped_signals,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -339,8 +343,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.decoder_manifests
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

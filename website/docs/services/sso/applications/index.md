@@ -202,17 +202,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-instance_arn,
-application_arn,
-application_provider_arn,
-status,
-portal_options,
-tags
+  region,
+  name,
+  description,
+  instance_arn,
+  application_arn,
+  application_provider_arn,
+  status,
+  portal_options,
+  tags
 FROM awscc.sso.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_arn
+  region,
+  application_arn
 FROM awscc.sso.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.applications (
- Name,
- InstanceArn,
- ApplicationProviderArn,
- region
+  Name,
+  InstanceArn,
+  ApplicationProviderArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ instance_arn }}',
- '{{ application_provider_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ instance_arn }}',
+  '{{ application_provider_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,24 +265,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.applications (
- Name,
- Description,
- InstanceArn,
- ApplicationProviderArn,
- Status,
- PortalOptions,
- Tags,
- region
+  Name,
+  Description,
+  InstanceArn,
+  ApplicationProviderArn,
+  Status,
+  PortalOptions,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ instance_arn }}',
- '{{ application_provider_arn }}',
- '{{ status }}',
- '{{ portal_options }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ instance_arn }}',
+  '{{ application_provider_arn }}',
+  '{{ status }}',
+  '{{ portal_options }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ SET PatchDocument = string('{{ {
     "PortalOptions": portal_options,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_arn }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ application_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.applications
-WHERE Identifier = '{{ application_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

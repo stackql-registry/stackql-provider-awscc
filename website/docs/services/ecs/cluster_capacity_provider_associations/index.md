@@ -158,12 +158,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster_capacity_provider_association</code>.
 ```sql
 SELECT
-region,
-default_capacity_provider_strategy,
-capacity_providers,
-cluster
+  region,
+  default_capacity_provider_strategy,
+  capacity_providers,
+  cluster
 FROM awscc.ecs.cluster_capacity_provider_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster }}';
 Lists all <code>cluster_capacity_provider_associations</code> in a region.
 ```sql
 SELECT
-region,
-cluster
+  region,
+  cluster
 FROM awscc.ecs.cluster_capacity_provider_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,16 +199,16 @@ Use the following StackQL query and manifest file to create a new <code>cluster_
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.cluster_capacity_provider_associations (
- DefaultCapacityProviderStrategy,
- CapacityProviders,
- Cluster,
- region
+  DefaultCapacityProviderStrategy,
+  CapacityProviders,
+  Cluster,
+  region
 )
 SELECT
-'{{ default_capacity_provider_strategy }}',
- '{{ capacity_providers }}',
- '{{ cluster }}',
-'{{ region }}';
+  '{{ default_capacity_provider_strategy }}',
+  '{{ capacity_providers }}',
+  '{{ cluster }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,16 +216,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.cluster_capacity_provider_associations (
- DefaultCapacityProviderStrategy,
- CapacityProviders,
- Cluster,
- region
+  DefaultCapacityProviderStrategy,
+  CapacityProviders,
+  Cluster,
+  region
 )
 SELECT
- '{{ default_capacity_provider_strategy }}',
- '{{ capacity_providers }}',
- '{{ cluster }}',
- '{{ region }}';
+  '{{ default_capacity_provider_strategy }}',
+  '{{ capacity_providers }}',
+  '{{ cluster }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ SET PatchDocument = string('{{ {
     "DefaultCapacityProviderStrategy": default_capacity_provider_strategy,
     "CapacityProviders": capacity_providers
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ cluster }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.cluster_capacity_provider_associations
-WHERE Identifier = '{{ cluster }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -160,17 +160,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sync_job</code>.
 ```sql
 SELECT
-region,
-workspace_id,
-sync_source,
-sync_role,
-creation_date_time,
-update_date_time,
-arn,
-state,
-tags
+  region,
+  workspace_id,
+  sync_source,
+  sync_role,
+  creation_date_time,
+  update_date_time,
+  arn,
+  state,
+  tags
 FROM awscc.iottwinmaker.sync_jobs
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ sync_source }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_id }}|{{ sync_source }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,11 +180,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ sync_source }
 Lists all <code>sync_jobs</code> in a region.
 ```sql
 SELECT
-region,
-workspace_id,
-sync_source
+  region,
+  workspace_id,
+  sync_source
 FROM awscc.iottwinmaker.sync_jobs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,16 +207,16 @@ Use the following StackQL query and manifest file to create a new <code>sync_job
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.sync_jobs (
- WorkspaceId,
- SyncSource,
- SyncRole,
- region
+  WorkspaceId,
+  SyncSource,
+  SyncRole,
+  region
 )
 SELECT
-'{{ workspace_id }}',
- '{{ sync_source }}',
- '{{ sync_role }}',
-'{{ region }}';
+  '{{ workspace_id }}',
+  '{{ sync_source }}',
+  '{{ sync_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -221,18 +224,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.sync_jobs (
- WorkspaceId,
- SyncSource,
- SyncRole,
- Tags,
- region
+  WorkspaceId,
+  SyncSource,
+  SyncRole,
+  Tags,
+  region
 )
 SELECT
- '{{ workspace_id }}',
- '{{ sync_source }}',
- '{{ sync_role }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ workspace_id }}',
+  '{{ sync_source }}',
+  '{{ sync_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.sync_jobs
-WHERE Identifier = '{{ workspace_id }}|{{ sync_source }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_id }}|{{ sync_source }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

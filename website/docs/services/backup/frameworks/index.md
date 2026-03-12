@@ -236,17 +236,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>framework</code>.
 ```sql
 SELECT
-region,
-framework_name,
-framework_description,
-framework_arn,
-deployment_status,
-creation_time,
-framework_controls,
-framework_status,
-framework_tags
+  region,
+  framework_name,
+  framework_description,
+  framework_arn,
+  deployment_status,
+  creation_time,
+  framework_controls,
+  framework_status,
+  framework_tags
 FROM awscc.backup.frameworks
-WHERE region = 'us-east-1' AND Identifier = '{{ framework_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ framework_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,10 +256,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ framework_arn }}';
 Lists all <code>frameworks</code> in a region.
 ```sql
 SELECT
-region,
-framework_arn
+  region,
+  framework_arn
 FROM awscc.backup.frameworks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -279,12 +282,12 @@ Use the following StackQL query and manifest file to create a new <code>framewor
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.frameworks (
- FrameworkControls,
- region
+  FrameworkControls,
+  region
 )
 SELECT
-'{{ framework_controls }}',
-'{{ region }}';
+  '{{ framework_controls }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -292,18 +295,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.frameworks (
- FrameworkName,
- FrameworkDescription,
- FrameworkControls,
- FrameworkTags,
- region
+  FrameworkName,
+  FrameworkDescription,
+  FrameworkControls,
+  FrameworkTags,
+  region
 )
 SELECT
- '{{ framework_name }}',
- '{{ framework_description }}',
- '{{ framework_controls }}',
- '{{ framework_tags }}',
- '{{ region }}';
+  '{{ framework_name }}',
+  '{{ framework_description }}',
+  '{{ framework_controls }}',
+  '{{ framework_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -357,8 +360,9 @@ SET PatchDocument = string('{{ {
     "FrameworkControls": framework_controls,
     "FrameworkTags": framework_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ framework_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ framework_arn }}';
 ```
 
 
@@ -367,8 +371,9 @@ AND Identifier = '{{ framework_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.frameworks
-WHERE Identifier = '{{ framework_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ framework_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

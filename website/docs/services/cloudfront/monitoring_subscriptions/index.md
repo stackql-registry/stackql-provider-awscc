@@ -92,11 +92,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>monitoring_subscription</code>.
 ```sql
 SELECT
-region,
-distribution_id,
-monitoring_subscription
+  region,
+  distribution_id,
+  monitoring_subscription
 FROM awscc.cloudfront.monitoring_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ distribution_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ distribution_id }}';
 ```
 
 ## `INSERT` example
@@ -116,14 +118,14 @@ Use the following StackQL query and manifest file to create a new <code>monitori
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.monitoring_subscriptions (
- DistributionId,
- MonitoringSubscription,
- region
+  DistributionId,
+  MonitoringSubscription,
+  region
 )
 SELECT
-'{{ distribution_id }}',
- '{{ monitoring_subscription }}',
-'{{ region }}';
+  '{{ distribution_id }}',
+  '{{ monitoring_subscription }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -131,14 +133,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.monitoring_subscriptions (
- DistributionId,
- MonitoringSubscription,
- region
+  DistributionId,
+  MonitoringSubscription,
+  region
 )
 SELECT
- '{{ distribution_id }}',
- '{{ monitoring_subscription }}',
- '{{ region }}';
+  '{{ distribution_id }}',
+  '{{ monitoring_subscription }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.monitoring_subscriptions
-WHERE Identifier = '{{ distribution_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ distribution_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

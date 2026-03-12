@@ -207,19 +207,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_grant</code>.
 ```sql
 SELECT
-region,
-access_grant_id,
-access_grants_location_id,
-tags,
-permission,
-application_arn,
-s3_prefix_type,
-grant_scope,
-access_grant_arn,
-grantee,
-access_grants_location_configuration
+  region,
+  access_grant_id,
+  access_grants_location_id,
+  tags,
+  permission,
+  application_arn,
+  s3_prefix_type,
+  grant_scope,
+  access_grant_arn,
+  grantee,
+  access_grants_location_configuration
 FROM awscc.s3.access_grants
-WHERE region = 'us-east-1' AND Identifier = '{{ access_grant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ access_grant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ access_grant_id }}';
 Lists all <code>access_grants</code> in a region.
 ```sql
 SELECT
-region,
-access_grant_id
+  region,
+  access_grant_id
 FROM awscc.s3.access_grants_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,16 +255,16 @@ Use the following StackQL query and manifest file to create a new <code>access_g
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants (
- AccessGrantsLocationId,
- Permission,
- Grantee,
- region
+  AccessGrantsLocationId,
+  Permission,
+  Grantee,
+  region
 )
 SELECT
-'{{ access_grants_location_id }}',
- '{{ permission }}',
- '{{ grantee }}',
-'{{ region }}';
+  '{{ access_grants_location_id }}',
+  '{{ permission }}',
+  '{{ grantee }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -269,24 +272,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.access_grants (
- AccessGrantsLocationId,
- Tags,
- Permission,
- ApplicationArn,
- S3PrefixType,
- Grantee,
- AccessGrantsLocationConfiguration,
- region
+  AccessGrantsLocationId,
+  Tags,
+  Permission,
+  ApplicationArn,
+  S3PrefixType,
+  Grantee,
+  AccessGrantsLocationConfiguration,
+  region
 )
 SELECT
- '{{ access_grants_location_id }}',
- '{{ tags }}',
- '{{ permission }}',
- '{{ application_arn }}',
- '{{ s3_prefix_type }}',
- '{{ grantee }}',
- '{{ access_grants_location_configuration }}',
- '{{ region }}';
+  '{{ access_grants_location_id }}',
+  '{{ tags }}',
+  '{{ permission }}',
+  '{{ application_arn }}',
+  '{{ s3_prefix_type }}',
+  '{{ grantee }}',
+  '{{ access_grants_location_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "Grantee": grantee,
     "AccessGrantsLocationConfiguration": access_grants_location_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ access_grant_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ access_grant_id }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ access_grant_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants
-WHERE Identifier = '{{ access_grant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ access_grant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

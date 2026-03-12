@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>replica_key</code>.
 ```sql
 SELECT
-region,
-description,
-pending_window_in_days,
-key_policy,
-primary_key_arn,
-enabled,
-key_id,
-arn,
-tags
+  region,
+  description,
+  pending_window_in_days,
+  key_policy,
+  primary_key_arn,
+  enabled,
+  key_id,
+  arn,
+  tags
 FROM awscc.kms.replica_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
 Lists all <code>replica_keys</code> in a region.
 ```sql
 SELECT
-region,
-key_id
+  region,
+  key_id
 FROM awscc.kms.replica_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>replica_
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.replica_keys (
- KeyPolicy,
- PrimaryKeyArn,
- region
+  KeyPolicy,
+  PrimaryKeyArn,
+  region
 )
 SELECT
-'{{ key_policy }}',
- '{{ primary_key_arn }}',
-'{{ region }}';
+  '{{ key_policy }}',
+  '{{ primary_key_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,22 +239,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kms.replica_keys (
- Description,
- PendingWindowInDays,
- KeyPolicy,
- PrimaryKeyArn,
- Enabled,
- Tags,
- region
+  Description,
+  PendingWindowInDays,
+  KeyPolicy,
+  PrimaryKeyArn,
+  Enabled,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ pending_window_in_days }}',
- '{{ key_policy }}',
- '{{ primary_key_arn }}',
- '{{ enabled }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ pending_window_in_days }}',
+  '{{ key_policy }}',
+  '{{ primary_key_arn }}',
+  '{{ enabled }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -300,8 +303,9 @@ SET PatchDocument = string('{{ {
     "Enabled": enabled,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ key_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ key_id }}';
 ```
 
 
@@ -310,8 +314,9 @@ AND Identifier = '{{ key_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.replica_keys
-WHERE Identifier = '{{ key_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ key_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

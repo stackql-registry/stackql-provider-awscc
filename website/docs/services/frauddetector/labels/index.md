@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>label</code>.
 ```sql
 SELECT
-region,
-name,
-tags,
-description,
-arn,
-created_time,
-last_updated_time
+  region,
+  name,
+  tags,
+  description,
+  arn,
+  created_time,
+  last_updated_time
 FROM awscc.frauddetector.labels
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>labels</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.frauddetector.labels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>label</c
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.labels (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,16 +225,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.labels (
- Name,
- Tags,
- Description,
- region
+  Name,
+  Tags,
+  Description,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -271,8 +274,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -281,8 +285,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.labels
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

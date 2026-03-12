@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>traffic_mirror_session</code>.
 ```sql
 SELECT
-region,
-id,
-network_interface_id,
-traffic_mirror_target_id,
-traffic_mirror_filter_id,
-packet_length,
-session_number,
-virtual_network_id,
-description,
-owner_id,
-tags
+  region,
+  id,
+  network_interface_id,
+  traffic_mirror_target_id,
+  traffic_mirror_filter_id,
+  packet_length,
+  session_number,
+  virtual_network_id,
+  description,
+  owner_id,
+  tags
 FROM awscc.ec2.traffic_mirror_sessions
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>traffic_mirror_sessions</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.traffic_mirror_sessions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,18 +236,18 @@ Use the following StackQL query and manifest file to create a new <code>traffic_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_sessions (
- NetworkInterfaceId,
- TrafficMirrorTargetId,
- TrafficMirrorFilterId,
- SessionNumber,
- region
+  NetworkInterfaceId,
+  TrafficMirrorTargetId,
+  TrafficMirrorFilterId,
+  SessionNumber,
+  region
 )
 SELECT
-'{{ network_interface_id }}',
- '{{ traffic_mirror_target_id }}',
- '{{ traffic_mirror_filter_id }}',
- '{{ session_number }}',
-'{{ region }}';
+  '{{ network_interface_id }}',
+  '{{ traffic_mirror_target_id }}',
+  '{{ traffic_mirror_filter_id }}',
+  '{{ session_number }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,28 +255,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_sessions (
- NetworkInterfaceId,
- TrafficMirrorTargetId,
- TrafficMirrorFilterId,
- PacketLength,
- SessionNumber,
- VirtualNetworkId,
- Description,
- OwnerId,
- Tags,
- region
+  NetworkInterfaceId,
+  TrafficMirrorTargetId,
+  TrafficMirrorFilterId,
+  PacketLength,
+  SessionNumber,
+  VirtualNetworkId,
+  Description,
+  OwnerId,
+  Tags,
+  region
 )
 SELECT
- '{{ network_interface_id }}',
- '{{ traffic_mirror_target_id }}',
- '{{ traffic_mirror_filter_id }}',
- '{{ packet_length }}',
- '{{ session_number }}',
- '{{ virtual_network_id }}',
- '{{ description }}',
- '{{ owner_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ network_interface_id }}',
+  '{{ traffic_mirror_target_id }}',
+  '{{ traffic_mirror_filter_id }}',
+  '{{ packet_length }}',
+  '{{ session_number }}',
+  '{{ virtual_network_id }}',
+  '{{ description }}',
+  '{{ owner_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -332,8 +335,9 @@ SET PatchDocument = string('{{ {
     "OwnerId": owner_id,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -342,8 +346,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_sessions
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

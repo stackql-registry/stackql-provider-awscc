@@ -281,26 +281,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>site_to_site_vpn_attachment</code>.
 ```sql
 SELECT
-region,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_location,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-tags,
-created_at,
-updated_at,
-vpn_connection_arn
+  region,
+  core_network_id,
+  core_network_arn,
+  attachment_id,
+  owner_account_id,
+  attachment_type,
+  state,
+  edge_location,
+  resource_arn,
+  attachment_policy_rule_number,
+  segment_name,
+  proposed_segment_change,
+  network_function_group_name,
+  proposed_network_function_group_change,
+  tags,
+  created_at,
+  updated_at,
+  vpn_connection_arn
 FROM awscc.networkmanager.site_to_site_vpn_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,10 +310,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 Lists all <code>site_to_site_vpn_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_id
+  region,
+  attachment_id
 FROM awscc.networkmanager.site_to_site_vpn_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -333,14 +336,14 @@ Use the following StackQL query and manifest file to create a new <code>site_to_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.site_to_site_vpn_attachments (
- CoreNetworkId,
- VpnConnectionArn,
- region
+  CoreNetworkId,
+  VpnConnectionArn,
+  region
 )
 SELECT
-'{{ core_network_id }}',
- '{{ vpn_connection_arn }}',
-'{{ region }}';
+  '{{ core_network_id }}',
+  '{{ vpn_connection_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -348,22 +351,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.site_to_site_vpn_attachments (
- CoreNetworkId,
- ProposedSegmentChange,
- NetworkFunctionGroupName,
- ProposedNetworkFunctionGroupChange,
- Tags,
- VpnConnectionArn,
- region
+  CoreNetworkId,
+  ProposedSegmentChange,
+  NetworkFunctionGroupName,
+  ProposedNetworkFunctionGroupChange,
+  Tags,
+  VpnConnectionArn,
+  region
 )
 SELECT
- '{{ core_network_id }}',
- '{{ proposed_segment_change }}',
- '{{ network_function_group_name }}',
- '{{ proposed_network_function_group_change }}',
- '{{ tags }}',
- '{{ vpn_connection_arn }}',
- '{{ region }}';
+  '{{ core_network_id }}',
+  '{{ proposed_segment_change }}',
+  '{{ network_function_group_name }}',
+  '{{ proposed_network_function_group_change }}',
+  '{{ tags }}',
+  '{{ vpn_connection_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -419,8 +422,9 @@ SET PatchDocument = string('{{ {
     "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -429,8 +433,9 @@ AND Identifier = '{{ attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.site_to_site_vpn_attachments
-WHERE Identifier = '{{ attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -176,19 +176,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scheduled_action</code>.
 ```sql
 SELECT
-region,
-scheduled_action_description,
-scheduled_action_name,
-end_time,
-state,
-schedule,
-iam_role,
-start_time,
-enable,
-target_action,
-next_invocations
+  region,
+  scheduled_action_description,
+  scheduled_action_name,
+  end_time,
+  state,
+  schedule,
+  iam_role,
+  start_time,
+  enable,
+  target_action,
+  next_invocations
 FROM awscc.redshift.scheduled_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ scheduled_action_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}';
 Lists all <code>scheduled_actions</code> in a region.
 ```sql
 SELECT
-region,
-scheduled_action_name
+  region,
+  scheduled_action_name
 FROM awscc.redshift.scheduled_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.scheduled_actions (
- ScheduledActionName,
- region
+  ScheduledActionName,
+  region
 )
 SELECT
-'{{ scheduled_action_name }}',
-'{{ region }}';
+  '{{ scheduled_action_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,26 +237,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.scheduled_actions (
- ScheduledActionDescription,
- ScheduledActionName,
- EndTime,
- Schedule,
- IamRole,
- StartTime,
- Enable,
- TargetAction,
- region
+  ScheduledActionDescription,
+  ScheduledActionName,
+  EndTime,
+  Schedule,
+  IamRole,
+  StartTime,
+  Enable,
+  TargetAction,
+  region
 )
 SELECT
- '{{ scheduled_action_description }}',
- '{{ scheduled_action_name }}',
- '{{ end_time }}',
- '{{ schedule }}',
- '{{ iam_role }}',
- '{{ start_time }}',
- '{{ enable }}',
- '{{ target_action }}',
- '{{ region }}';
+  '{{ scheduled_action_description }}',
+  '{{ scheduled_action_name }}',
+  '{{ end_time }}',
+  '{{ schedule }}',
+  '{{ iam_role }}',
+  '{{ start_time }}',
+  '{{ enable }}',
+  '{{ target_action }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ SET PatchDocument = string('{{ {
     "Enable": enable,
     "TargetAction": target_action
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ scheduled_action_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ scheduled_action_name }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ scheduled_action_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.scheduled_actions
-WHERE Identifier = '{{ scheduled_action_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ scheduled_action_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

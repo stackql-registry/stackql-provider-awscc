@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule_groups_namespace</code>.
 ```sql
 SELECT
-region,
-workspace,
-name,
-data,
-arn,
-tags
+  region,
+  workspace,
+  name,
+  data,
+  arn,
+  tags
 FROM awscc.aps.rule_groups_namespaces
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rule_groups_namespaces</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.aps.rule_groups_namespaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>rule_gro
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.rule_groups_namespaces (
- Workspace,
- Name,
- Data,
- region
+  Workspace,
+  Name,
+  Data,
+  region
 )
 SELECT
-'{{ workspace }}',
- '{{ name }}',
- '{{ data }}',
-'{{ region }}';
+  '{{ workspace }}',
+  '{{ name }}',
+  '{{ data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,18 +223,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.rule_groups_namespaces (
- Workspace,
- Name,
- Data,
- Tags,
- region
+  Workspace,
+  Name,
+  Data,
+  Tags,
+  region
 )
 SELECT
- '{{ workspace }}',
- '{{ name }}',
- '{{ data }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ workspace }}',
+  '{{ name }}',
+  '{{ data }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "Data": data,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.rule_groups_namespaces
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

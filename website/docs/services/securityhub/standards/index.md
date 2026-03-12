@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>standard</code>.
 ```sql
 SELECT
-region,
-standards_subscription_arn,
-standards_arn,
-disabled_standards_controls
+  region,
+  standards_subscription_arn,
+  standards_arn,
+  disabled_standards_controls
 FROM awscc.securityhub.standards
-WHERE region = 'us-east-1' AND Identifier = '{{ standards_subscription_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ standards_subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ standards_subscription_arn }}';
 Lists all <code>standards</code> in a region.
 ```sql
 SELECT
-region,
-standards_subscription_arn
+  region,
+  standards_subscription_arn
 FROM awscc.securityhub.standards_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>standard
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.standards (
- StandardsArn,
- region
+  StandardsArn,
+  region
 )
 SELECT
-'{{ standards_arn }}',
-'{{ region }}';
+  '{{ standards_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.standards (
- StandardsArn,
- DisabledStandardsControls,
- region
+  StandardsArn,
+  DisabledStandardsControls,
+  region
 )
 SELECT
- '{{ standards_arn }}',
- '{{ disabled_standards_controls }}',
- '{{ region }}';
+  '{{ standards_arn }}',
+  '{{ disabled_standards_controls }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.securityhub.standards
 SET PatchDocument = string('{{ {
     "DisabledStandardsControls": disabled_standards_controls
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ standards_subscription_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ standards_subscription_arn }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ standards_subscription_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.standards
-WHERE Identifier = '{{ standards_subscription_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ standards_subscription_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -185,18 +185,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy_grant</code>.
 ```sql
 SELECT
-region,
-entity_type,
-policy_type,
-created_by,
-created_at,
-grant_id,
-entity_identifier,
-detail,
-principal,
-domain_identifier
+  region,
+  entity_type,
+  policy_type,
+  created_by,
+  created_at,
+  grant_id,
+  entity_identifier,
+  detail,
+  principal,
+  domain_identifier
 FROM awscc.datazone.policy_grants
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,14 +206,15 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ grant_id
 Lists all <code>policy_grants</code> in a region.
 ```sql
 SELECT
-region,
-domain_identifier,
-grant_id,
-entity_identifier,
-entity_type,
-policy_type
+  region,
+  domain_identifier,
+  grant_id,
+  entity_identifier,
+  entity_type,
+  policy_type
 FROM awscc.datazone.policy_grants_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,18 +236,18 @@ Use the following StackQL query and manifest file to create a new <code>policy_g
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.policy_grants (
- EntityType,
- PolicyType,
- EntityIdentifier,
- DomainIdentifier,
- region
+  EntityType,
+  PolicyType,
+  EntityIdentifier,
+  DomainIdentifier,
+  region
 )
 SELECT
-'{{ entity_type }}',
- '{{ policy_type }}',
- '{{ entity_identifier }}',
- '{{ domain_identifier }}',
-'{{ region }}';
+  '{{ entity_type }}',
+  '{{ policy_type }}',
+  '{{ entity_identifier }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,22 +255,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.policy_grants (
- EntityType,
- PolicyType,
- EntityIdentifier,
- Detail,
- Principal,
- DomainIdentifier,
- region
+  EntityType,
+  PolicyType,
+  EntityIdentifier,
+  Detail,
+  Principal,
+  DomainIdentifier,
+  region
 )
 SELECT
- '{{ entity_type }}',
- '{{ policy_type }}',
- '{{ entity_identifier }}',
- '{{ detail }}',
- '{{ principal }}',
- '{{ domain_identifier }}',
- '{{ region }}';
+  '{{ entity_type }}',
+  '{{ policy_type }}',
+  '{{ entity_identifier }}',
+  '{{ detail }}',
+  '{{ principal }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.policy_grants
-WHERE Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

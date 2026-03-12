@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>local_gateway_route</code>.
 ```sql
 SELECT
-region,
-destination_cidr_block,
-local_gateway_route_table_id,
-local_gateway_virtual_interface_group_id,
-network_interface_id,
-state,
-type
+  region,
+  destination_cidr_block,
+  local_gateway_route_table_id,
+  local_gateway_virtual_interface_group_id,
+  network_interface_id,
+  state,
+  type
 FROM awscc.ec2.local_gateway_routes
-WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ loc
 Lists all <code>local_gateway_routes</code> in a region.
 ```sql
 SELECT
-region,
-destination_cidr_block,
-local_gateway_route_table_id
+  region,
+  destination_cidr_block,
+  local_gateway_route_table_id
 FROM awscc.ec2.local_gateway_routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,18 +206,18 @@ Use the following StackQL query and manifest file to create a new <code>local_ga
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_routes (
- DestinationCidrBlock,
- LocalGatewayRouteTableId,
- LocalGatewayVirtualInterfaceGroupId,
- NetworkInterfaceId,
- region
+  DestinationCidrBlock,
+  LocalGatewayRouteTableId,
+  LocalGatewayVirtualInterfaceGroupId,
+  NetworkInterfaceId,
+  region
 )
 SELECT
-'{{ destination_cidr_block }}',
- '{{ local_gateway_route_table_id }}',
- '{{ local_gateway_virtual_interface_group_id }}',
- '{{ network_interface_id }}',
-'{{ region }}';
+  '{{ destination_cidr_block }}',
+  '{{ local_gateway_route_table_id }}',
+  '{{ local_gateway_virtual_interface_group_id }}',
+  '{{ network_interface_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_routes (
- DestinationCidrBlock,
- LocalGatewayRouteTableId,
- LocalGatewayVirtualInterfaceGroupId,
- NetworkInterfaceId,
- region
+  DestinationCidrBlock,
+  LocalGatewayRouteTableId,
+  LocalGatewayVirtualInterfaceGroupId,
+  NetworkInterfaceId,
+  region
 )
 SELECT
- '{{ destination_cidr_block }}',
- '{{ local_gateway_route_table_id }}',
- '{{ local_gateway_virtual_interface_group_id }}',
- '{{ network_interface_id }}',
- '{{ region }}';
+  '{{ destination_cidr_block }}',
+  '{{ local_gateway_route_table_id }}',
+  '{{ local_gateway_virtual_interface_group_id }}',
+  '{{ network_interface_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "LocalGatewayVirtualInterfaceGroupId": local_gateway_virtual_interface_group_id,
     "NetworkInterfaceId": network_interface_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_routes
-WHERE Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

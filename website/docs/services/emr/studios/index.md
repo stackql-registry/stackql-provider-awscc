@@ -223,29 +223,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>studio</code>.
 ```sql
 SELECT
-region,
-arn,
-auth_mode,
-default_s3_location,
-description,
-engine_security_group_id,
-name,
-service_role,
-studio_id,
-subnet_ids,
-tags,
-url,
-user_role,
-vpc_id,
-workspace_security_group_id,
-idp_auth_url,
-idp_relay_state_parameter_name,
-trusted_identity_propagation_enabled,
-idc_user_assignment,
-idc_instance_arn,
-encryption_key_arn
+  region,
+  arn,
+  auth_mode,
+  default_s3_location,
+  description,
+  engine_security_group_id,
+  name,
+  service_role,
+  studio_id,
+  subnet_ids,
+  tags,
+  url,
+  user_role,
+  vpc_id,
+  workspace_security_group_id,
+  idp_auth_url,
+  idp_relay_state_parameter_name,
+  trusted_identity_propagation_enabled,
+  idc_user_assignment,
+  idc_instance_arn,
+  encryption_key_arn
 FROM awscc.emr.studios
-WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ studio_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,10 +255,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}';
 Lists all <code>studios</code> in a region.
 ```sql
 SELECT
-region,
-studio_id
+  region,
+  studio_id
 FROM awscc.emr.studios_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -278,26 +281,26 @@ Use the following StackQL query and manifest file to create a new <code>studio</
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.studios (
- AuthMode,
- DefaultS3Location,
- EngineSecurityGroupId,
- Name,
- ServiceRole,
- SubnetIds,
- VpcId,
- WorkspaceSecurityGroupId,
- region
+  AuthMode,
+  DefaultS3Location,
+  EngineSecurityGroupId,
+  Name,
+  ServiceRole,
+  SubnetIds,
+  VpcId,
+  WorkspaceSecurityGroupId,
+  region
 )
 SELECT
-'{{ auth_mode }}',
- '{{ default_s3_location }}',
- '{{ engine_security_group_id }}',
- '{{ name }}',
- '{{ service_role }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
- '{{ workspace_security_group_id }}',
-'{{ region }}';
+  '{{ auth_mode }}',
+  '{{ default_s3_location }}',
+  '{{ engine_security_group_id }}',
+  '{{ name }}',
+  '{{ service_role }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ workspace_security_group_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -305,44 +308,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.studios (
- AuthMode,
- DefaultS3Location,
- Description,
- EngineSecurityGroupId,
- Name,
- ServiceRole,
- SubnetIds,
- Tags,
- UserRole,
- VpcId,
- WorkspaceSecurityGroupId,
- IdpAuthUrl,
- IdpRelayStateParameterName,
- TrustedIdentityPropagationEnabled,
- IdcUserAssignment,
- IdcInstanceArn,
- EncryptionKeyArn,
- region
+  AuthMode,
+  DefaultS3Location,
+  Description,
+  EngineSecurityGroupId,
+  Name,
+  ServiceRole,
+  SubnetIds,
+  Tags,
+  UserRole,
+  VpcId,
+  WorkspaceSecurityGroupId,
+  IdpAuthUrl,
+  IdpRelayStateParameterName,
+  TrustedIdentityPropagationEnabled,
+  IdcUserAssignment,
+  IdcInstanceArn,
+  EncryptionKeyArn,
+  region
 )
 SELECT
- '{{ auth_mode }}',
- '{{ default_s3_location }}',
- '{{ description }}',
- '{{ engine_security_group_id }}',
- '{{ name }}',
- '{{ service_role }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ user_role }}',
- '{{ vpc_id }}',
- '{{ workspace_security_group_id }}',
- '{{ idp_auth_url }}',
- '{{ idp_relay_state_parameter_name }}',
- '{{ trusted_identity_propagation_enabled }}',
- '{{ idc_user_assignment }}',
- '{{ idc_instance_arn }}',
- '{{ encryption_key_arn }}',
- '{{ region }}';
+  '{{ auth_mode }}',
+  '{{ default_s3_location }}',
+  '{{ description }}',
+  '{{ engine_security_group_id }}',
+  '{{ name }}',
+  '{{ service_role }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ user_role }}',
+  '{{ vpc_id }}',
+  '{{ workspace_security_group_id }}',
+  '{{ idp_auth_url }}',
+  '{{ idp_relay_state_parameter_name }}',
+  '{{ trusted_identity_propagation_enabled }}',
+  '{{ idc_user_assignment }}',
+  '{{ idc_instance_arn }}',
+  '{{ encryption_key_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -416,8 +419,9 @@ SET PatchDocument = string('{{ {
     "IdpAuthUrl": idp_auth_url,
     "IdpRelayStateParameterName": idp_relay_state_parameter_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ studio_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ studio_id }}';
 ```
 
 
@@ -426,8 +430,9 @@ AND Identifier = '{{ studio_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.studios
-WHERE Identifier = '{{ studio_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ studio_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

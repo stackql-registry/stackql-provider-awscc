@@ -218,22 +218,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT
-region,
-aws_location,
-connection_id,
-description,
-domain_id,
-domain_identifier,
-domain_unit_id,
-environment_id,
-environment_identifier,
-environment_user_role,
-name,
-project_id,
-props,
-type
+  region,
+  aws_location,
+  connection_id,
+  description,
+  domain_id,
+  domain_identifier,
+  domain_unit_id,
+  environment_id,
+  environment_identifier,
+  environment_user_role,
+  name,
+  project_id,
+  props,
+  type
 FROM awscc.datazone.connections
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ connection_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -241,11 +243,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ connection_id }}
 Lists all <code>connections</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-connection_id
+  region,
+  domain_id,
+  connection_id
 FROM awscc.datazone.connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,16 +270,16 @@ Use the following StackQL query and manifest file to create a new <code>connecti
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.connections (
- DomainIdentifier,
- EnvironmentIdentifier,
- Name,
- region
+  DomainIdentifier,
+  EnvironmentIdentifier,
+  Name,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ environment_identifier }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,22 +287,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.connections (
- AwsLocation,
- Description,
- DomainIdentifier,
- EnvironmentIdentifier,
- Name,
- Props,
- region
+  AwsLocation,
+  Description,
+  DomainIdentifier,
+  EnvironmentIdentifier,
+  Name,
+  Props,
+  region
 )
 SELECT
- '{{ aws_location }}',
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ environment_identifier }}',
- '{{ name }}',
- '{{ props }}',
- '{{ region }}';
+  '{{ aws_location }}',
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ props }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -348,8 +351,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Props": props
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ connection_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```
 
 
@@ -358,8 +362,9 @@ AND Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.connections
-WHERE Identifier = '{{ domain_id }}|{{ connection_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ connection_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -266,19 +266,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trigger</code>.
 ```sql
 SELECT
-region,
-type,
-start_on_creation,
-description,
-actions,
-event_batching_condition,
-workflow_name,
-schedule,
-tags,
-name,
-predicate
+  region,
+  type,
+  start_on_creation,
+  description,
+  actions,
+  event_batching_condition,
+  workflow_name,
+  schedule,
+  tags,
+  name,
+  predicate
 FROM awscc.glue.triggers
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,10 +288,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>triggers</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.glue.triggers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -311,14 +314,14 @@ Use the following StackQL query and manifest file to create a new <code>trigger<
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.triggers (
- Type,
- Actions,
- region
+  Type,
+  Actions,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ actions }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -326,30 +329,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.triggers (
- Type,
- StartOnCreation,
- Description,
- Actions,
- EventBatchingCondition,
- WorkflowName,
- Schedule,
- Tags,
- Name,
- Predicate,
- region
+  Type,
+  StartOnCreation,
+  Description,
+  Actions,
+  EventBatchingCondition,
+  WorkflowName,
+  Schedule,
+  Tags,
+  Name,
+  Predicate,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ start_on_creation }}',
- '{{ description }}',
- '{{ actions }}',
- '{{ event_batching_condition }}',
- '{{ workflow_name }}',
- '{{ schedule }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ predicate }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ start_on_creation }}',
+  '{{ description }}',
+  '{{ actions }}',
+  '{{ event_batching_condition }}',
+  '{{ workflow_name }}',
+  '{{ schedule }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ predicate }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -422,8 +425,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Predicate": predicate
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -432,8 +436,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.triggers
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

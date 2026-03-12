@@ -253,17 +253,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>task_definition</code>.
 ```sql
 SELECT
-region,
-name,
-auto_create_tasks,
-update,
-lo_ra_wan_update_gateway_task_entry,
-id,
-task_definition_type,
-arn,
-tags
+  region,
+  name,
+  auto_create_tasks,
+  update,
+  lo_ra_wan_update_gateway_task_entry,
+  id,
+  task_definition_type,
+  arn,
+  tags
 FROM awscc.iotwireless.task_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,10 +273,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>task_definitions</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.task_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -296,12 +299,12 @@ Use the following StackQL query and manifest file to create a new <code>task_def
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.task_definitions (
- AutoCreateTasks,
- region
+  AutoCreateTasks,
+  region
 )
 SELECT
-'{{ auto_create_tasks }}',
-'{{ region }}';
+  '{{ auto_create_tasks }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -309,22 +312,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.task_definitions (
- Name,
- AutoCreateTasks,
- Update,
- LoRaWANUpdateGatewayTaskEntry,
- TaskDefinitionType,
- Tags,
- region
+  Name,
+  AutoCreateTasks,
+  Update,
+  LoRaWANUpdateGatewayTaskEntry,
+  TaskDefinitionType,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ auto_create_tasks }}',
- '{{ update }}',
- '{{ lo_ra_wan_update_gateway_task_entry }}',
- '{{ task_definition_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ auto_create_tasks }}',
+  '{{ update }}',
+  '{{ lo_ra_wan_update_gateway_task_entry }}',
+  '{{ task_definition_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -386,8 +389,9 @@ SET PatchDocument = string('{{ {
     "TaskDefinitionType": task_definition_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -396,8 +400,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.task_definitions
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

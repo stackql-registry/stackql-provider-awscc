@@ -240,18 +240,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scraper</code>.
 ```sql
 SELECT
-region,
-scraper_id,
-alias,
-arn,
-role_arn,
-scrape_configuration,
-role_configuration,
-source,
-destination,
-tags
+  region,
+  scraper_id,
+  alias,
+  arn,
+  role_arn,
+  scrape_configuration,
+  role_configuration,
+  source,
+  destination,
+  tags
 FROM awscc.aps.scrapers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,10 +261,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>scrapers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.aps.scrapers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -284,16 +287,16 @@ Use the following StackQL query and manifest file to create a new <code>scraper<
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.scrapers (
- ScrapeConfiguration,
- Source,
- Destination,
- region
+  ScrapeConfiguration,
+  Source,
+  Destination,
+  region
 )
 SELECT
-'{{ scrape_configuration }}',
- '{{ source }}',
- '{{ destination }}',
-'{{ region }}';
+  '{{ scrape_configuration }}',
+  '{{ source }}',
+  '{{ destination }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,22 +304,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.aps.scrapers (
- Alias,
- ScrapeConfiguration,
- RoleConfiguration,
- Source,
- Destination,
- Tags,
- region
+  Alias,
+  ScrapeConfiguration,
+  RoleConfiguration,
+  Source,
+  Destination,
+  Tags,
+  region
 )
 SELECT
- '{{ alias }}',
- '{{ scrape_configuration }}',
- '{{ role_configuration }}',
- '{{ source }}',
- '{{ destination }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ alias }}',
+  '{{ scrape_configuration }}',
+  '{{ role_configuration }}',
+  '{{ source }}',
+  '{{ destination }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -376,8 +379,9 @@ SET PatchDocument = string('{{ {
     "Destination": destination,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -386,8 +390,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.scrapers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions
