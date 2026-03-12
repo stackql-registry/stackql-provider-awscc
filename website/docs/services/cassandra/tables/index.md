@@ -367,23 +367,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT
-region,
-keyspace_name,
-table_name,
-regular_columns,
-partition_key_columns,
-clustering_key_columns,
-billing_mode,
-point_in_time_recovery_enabled,
-client_side_timestamps_enabled,
-tags,
-default_time_to_live,
-encryption_specification,
-auto_scaling_specifications,
-cdc_specification,
-replica_specifications
+  region,
+  keyspace_name,
+  table_name,
+  regular_columns,
+  partition_key_columns,
+  clustering_key_columns,
+  billing_mode,
+  point_in_time_recovery_enabled,
+  client_side_timestamps_enabled,
+  tags,
+  default_time_to_live,
+  encryption_specification,
+  auto_scaling_specifications,
+  cdc_specification,
+  replica_specifications
 FROM awscc.cassandra.tables
-WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ table_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,11 +393,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ table_name }
 Lists all <code>tables</code> in a region.
 ```sql
 SELECT
-region,
-keyspace_name,
-table_name
+  region,
+  keyspace_name,
+  table_name
 FROM awscc.cassandra.tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -417,14 +420,14 @@ Use the following StackQL query and manifest file to create a new <code>table</c
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.tables (
- KeyspaceName,
- PartitionKeyColumns,
- region
+  KeyspaceName,
+  PartitionKeyColumns,
+  region
 )
 SELECT
-'{{ keyspace_name }}',
- '{{ partition_key_columns }}',
-'{{ region }}';
+  '{{ keyspace_name }}',
+  '{{ partition_key_columns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -432,38 +435,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.tables (
- KeyspaceName,
- TableName,
- RegularColumns,
- PartitionKeyColumns,
- ClusteringKeyColumns,
- BillingMode,
- PointInTimeRecoveryEnabled,
- ClientSideTimestampsEnabled,
- Tags,
- DefaultTimeToLive,
- EncryptionSpecification,
- AutoScalingSpecifications,
- CdcSpecification,
- ReplicaSpecifications,
- region
+  KeyspaceName,
+  TableName,
+  RegularColumns,
+  PartitionKeyColumns,
+  ClusteringKeyColumns,
+  BillingMode,
+  PointInTimeRecoveryEnabled,
+  ClientSideTimestampsEnabled,
+  Tags,
+  DefaultTimeToLive,
+  EncryptionSpecification,
+  AutoScalingSpecifications,
+  CdcSpecification,
+  ReplicaSpecifications,
+  region
 )
 SELECT
- '{{ keyspace_name }}',
- '{{ table_name }}',
- '{{ regular_columns }}',
- '{{ partition_key_columns }}',
- '{{ clustering_key_columns }}',
- '{{ billing_mode }}',
- '{{ point_in_time_recovery_enabled }}',
- '{{ client_side_timestamps_enabled }}',
- '{{ tags }}',
- '{{ default_time_to_live }}',
- '{{ encryption_specification }}',
- '{{ auto_scaling_specifications }}',
- '{{ cdc_specification }}',
- '{{ replica_specifications }}',
- '{{ region }}';
+  '{{ keyspace_name }}',
+  '{{ table_name }}',
+  '{{ regular_columns }}',
+  '{{ partition_key_columns }}',
+  '{{ clustering_key_columns }}',
+  '{{ billing_mode }}',
+  '{{ point_in_time_recovery_enabled }}',
+  '{{ client_side_timestamps_enabled }}',
+  '{{ tags }}',
+  '{{ default_time_to_live }}',
+  '{{ encryption_specification }}',
+  '{{ auto_scaling_specifications }}',
+  '{{ cdc_specification }}',
+  '{{ replica_specifications }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -561,8 +564,9 @@ SET PatchDocument = string('{{ {
     "CdcSpecification": cdc_specification,
     "ReplicaSpecifications": replica_specifications
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ keyspace_name }}|{{ table_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```
 
 
@@ -571,8 +575,9 @@ AND Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.tables
-WHERE Identifier = '{{ keyspace_name }}|{{ table_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ keyspace_name }}|{{ table_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

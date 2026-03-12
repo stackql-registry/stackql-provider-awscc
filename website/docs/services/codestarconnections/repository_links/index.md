@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>repository_link</code>.
 ```sql
 SELECT
-region,
-connection_arn,
-provider_type,
-owner_id,
-repository_name,
-encryption_key_arn,
-repository_link_id,
-repository_link_arn,
-tags
+  region,
+  connection_arn,
+  provider_type,
+  owner_id,
+  repository_name,
+  encryption_key_arn,
+  repository_link_id,
+  repository_link_arn,
+  tags
 FROM awscc.codestarconnections.repository_links
-WHERE region = 'us-east-1' AND Identifier = '{{ repository_link_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ repository_link_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ repository_link_arn }}';
 Lists all <code>repository_links</code> in a region.
 ```sql
 SELECT
-region,
-repository_link_arn
+  region,
+  repository_link_arn
 FROM awscc.codestarconnections.repository_links_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>reposito
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.repository_links (
- ConnectionArn,
- OwnerId,
- RepositoryName,
- region
+  ConnectionArn,
+  OwnerId,
+  RepositoryName,
+  region
 )
 SELECT
-'{{ connection_arn }}',
- '{{ owner_id }}',
- '{{ repository_name }}',
-'{{ region }}';
+  '{{ connection_arn }}',
+  '{{ owner_id }}',
+  '{{ repository_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,20 +241,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.repository_links (
- ConnectionArn,
- OwnerId,
- RepositoryName,
- EncryptionKeyArn,
- Tags,
- region
+  ConnectionArn,
+  OwnerId,
+  RepositoryName,
+  EncryptionKeyArn,
+  Tags,
+  region
 )
 SELECT
- '{{ connection_arn }}',
- '{{ owner_id }}',
- '{{ repository_name }}',
- '{{ encryption_key_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connection_arn }}',
+  '{{ owner_id }}',
+  '{{ repository_name }}',
+  '{{ encryption_key_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -296,8 +299,9 @@ SET PatchDocument = string('{{ {
     "EncryptionKeyArn": encryption_key_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ repository_link_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ repository_link_arn }}';
 ```
 
 
@@ -306,8 +310,9 @@ AND Identifier = '{{ repository_link_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.repository_links
-WHERE Identifier = '{{ repository_link_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ repository_link_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

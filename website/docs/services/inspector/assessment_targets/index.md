@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assessment_target</code>.
 ```sql
 SELECT
-region,
-arn,
-assessment_target_name,
-resource_group_arn
+  region,
+  arn,
+  assessment_target_name,
+  resource_group_arn
 FROM awscc.inspector.assessment_targets
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>assessment_targets</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.inspector.assessment_targets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>assessme
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.assessment_targets (
- AssessmentTargetName,
- ResourceGroupArn,
- region
+  AssessmentTargetName,
+  ResourceGroupArn,
+  region
 )
 SELECT
-'{{ assessment_target_name }}',
- '{{ resource_group_arn }}',
-'{{ region }}';
+  '{{ assessment_target_name }}',
+  '{{ resource_group_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,14 +197,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.assessment_targets (
- AssessmentTargetName,
- ResourceGroupArn,
- region
+  AssessmentTargetName,
+  ResourceGroupArn,
+  region
 )
 SELECT
- '{{ assessment_target_name }}',
- '{{ resource_group_arn }}',
- '{{ region }}';
+  '{{ assessment_target_name }}',
+  '{{ resource_group_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ UPDATE awscc.inspector.assessment_targets
 SET PatchDocument = string('{{ {
     "ResourceGroupArn": resource_group_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -246,8 +250,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.assessment_targets
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel_association</code>.
 ```sql
 SELECT
-region,
-arn,
-notification_configuration_arn
+  region,
+  arn,
+  notification_configuration_arn
 FROM awscc.notifications.channel_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ notification_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}|{{ notification_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ notification_configura
 Lists all <code>channel_associations</code> in a region.
 ```sql
 SELECT
-region,
-arn,
-notification_configuration_arn
+  region,
+  arn,
+  notification_configuration_arn
 FROM awscc.notifications.channel_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>channel_
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.channel_associations (
- Arn,
- NotificationConfigurationArn,
- region
+  Arn,
+  NotificationConfigurationArn,
+  region
 )
 SELECT
-'{{ arn }}',
- '{{ notification_configuration_arn }}',
-'{{ region }}';
+  '{{ arn }}',
+  '{{ notification_configuration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.channel_associations (
- Arn,
- NotificationConfigurationArn,
- region
+  Arn,
+  NotificationConfigurationArn,
+  region
 )
 SELECT
- '{{ arn }}',
- '{{ notification_configuration_arn }}',
- '{{ region }}';
+  '{{ arn }}',
+  '{{ notification_configuration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.channel_associations
-WHERE Identifier = '{{ arn }}|{{ notification_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}|{{ notification_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

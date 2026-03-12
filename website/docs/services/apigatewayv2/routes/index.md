@@ -196,22 +196,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route</code>.
 ```sql
 SELECT
-region,
-route_id,
-route_response_selection_expression,
-request_models,
-operation_name,
-authorization_scopes,
-api_key_required,
-route_key,
-authorization_type,
-model_selection_expression,
-api_id,
-request_parameters,
-target,
-authorizer_id
+  region,
+  route_id,
+  route_response_selection_expression,
+  request_models,
+  operation_name,
+  authorization_scopes,
+  api_key_required,
+  route_key,
+  authorization_type,
+  model_selection_expression,
+  api_id,
+  request_parameters,
+  target,
+  authorizer_id
 FROM awscc.apigatewayv2.routes
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ route_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,11 +221,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}';
 Lists all <code>routes</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-route_id
+  region,
+  api_id,
+  route_id
 FROM awscc.apigatewayv2.routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>route</c
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.routes (
- RouteKey,
- ApiId,
- region
+  RouteKey,
+  ApiId,
+  region
 )
 SELECT
-'{{ route_key }}',
- '{{ api_id }}',
-'{{ region }}';
+  '{{ route_key }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,34 +263,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.routes (
- RouteResponseSelectionExpression,
- RequestModels,
- OperationName,
- AuthorizationScopes,
- ApiKeyRequired,
- RouteKey,
- AuthorizationType,
- ModelSelectionExpression,
- ApiId,
- RequestParameters,
- Target,
- AuthorizerId,
- region
+  RouteResponseSelectionExpression,
+  RequestModels,
+  OperationName,
+  AuthorizationScopes,
+  ApiKeyRequired,
+  RouteKey,
+  AuthorizationType,
+  ModelSelectionExpression,
+  ApiId,
+  RequestParameters,
+  Target,
+  AuthorizerId,
+  region
 )
 SELECT
- '{{ route_response_selection_expression }}',
- '{{ request_models }}',
- '{{ operation_name }}',
- '{{ authorization_scopes }}',
- '{{ api_key_required }}',
- '{{ route_key }}',
- '{{ authorization_type }}',
- '{{ model_selection_expression }}',
- '{{ api_id }}',
- '{{ request_parameters }}',
- '{{ target }}',
- '{{ authorizer_id }}',
- '{{ region }}';
+  '{{ route_response_selection_expression }}',
+  '{{ request_models }}',
+  '{{ operation_name }}',
+  '{{ authorization_scopes }}',
+  '{{ api_key_required }}',
+  '{{ route_key }}',
+  '{{ authorization_type }}',
+  '{{ model_selection_expression }}',
+  '{{ api_id }}',
+  '{{ request_parameters }}',
+  '{{ target }}',
+  '{{ authorizer_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -353,8 +356,9 @@ SET PatchDocument = string('{{ {
     "Target": target,
     "AuthorizerId": authorizer_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ route_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ route_id }}';
 ```
 
 
@@ -363,8 +367,9 @@ AND Identifier = '{{ api_id }}|{{ route_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.routes
-WHERE Identifier = '{{ api_id }}|{{ route_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ route_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

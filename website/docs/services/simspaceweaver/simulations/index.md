@@ -163,15 +163,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>simulation</code>.
 ```sql
 SELECT
-region,
-name,
-role_arn,
-schema_s3_location,
-describe_payload,
-maximum_duration,
-snapshot_s3_location
+  region,
+  name,
+  role_arn,
+  schema_s3_location,
+  describe_payload,
+  maximum_duration,
+  snapshot_s3_location
 FROM awscc.simspaceweaver.simulations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,10 +181,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>simulations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.simspaceweaver.simulations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,14 +207,14 @@ Use the following StackQL query and manifest file to create a new <code>simulati
 ```sql
 /*+ create */
 INSERT INTO awscc.simspaceweaver.simulations (
- Name,
- RoleArn,
- region
+  Name,
+  RoleArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -219,20 +222,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.simspaceweaver.simulations (
- Name,
- RoleArn,
- SchemaS3Location,
- MaximumDuration,
- SnapshotS3Location,
- region
+  Name,
+  RoleArn,
+  SchemaS3Location,
+  MaximumDuration,
+  SnapshotS3Location,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ role_arn }}',
- '{{ schema_s3_location }}',
- '{{ maximum_duration }}',
- '{{ snapshot_s3_location }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ schema_s3_location }}',
+  '{{ maximum_duration }}',
+  '{{ snapshot_s3_location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -271,8 +274,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.simspaceweaver.simulations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

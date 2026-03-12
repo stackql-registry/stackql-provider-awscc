@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>notification_configuration</code>.
 ```sql
 SELECT
-region,
-aggregation_duration,
-arn,
-creation_time,
-description,
-name,
-status,
-tags
+  region,
+  aggregation_duration,
+  arn,
+  creation_time,
+  description,
+  name,
+  status,
+  tags
 FROM awscc.notifications.notification_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>notification_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.notifications.notification_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>notifica
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.notification_configurations (
- Description,
- Name,
- region
+  Description,
+  Name,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.notification_configurations (
- AggregationDuration,
- Description,
- Name,
- Tags,
- region
+  AggregationDuration,
+  Description,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ aggregation_duration }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ aggregation_duration }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.notification_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

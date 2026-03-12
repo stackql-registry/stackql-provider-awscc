@@ -221,13 +221,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>telemetry_rule</code>.
 ```sql
 SELECT
-region,
-rule_name,
-rule,
-rule_arn,
-tags
+  region,
+  rule_name,
+  rule,
+  rule_arn,
+  tags
 FROM awscc.observabilityadmin.telemetry_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,10 +237,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 Lists all <code>telemetry_rules</code> in a region.
 ```sql
 SELECT
-region,
-rule_arn
+  region,
+  rule_arn
 FROM awscc.observabilityadmin.telemetry_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -260,14 +263,14 @@ Use the following StackQL query and manifest file to create a new <code>telemetr
 ```sql
 /*+ create */
 INSERT INTO awscc.observabilityadmin.telemetry_rules (
- RuleName,
- Rule,
- region
+  RuleName,
+  Rule,
+  region
 )
 SELECT
-'{{ rule_name }}',
- '{{ rule }}',
-'{{ region }}';
+  '{{ rule_name }}',
+  '{{ rule }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,16 +278,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.observabilityadmin.telemetry_rules (
- RuleName,
- Rule,
- Tags,
- region
+  RuleName,
+  Rule,
+  Tags,
+  region
 )
 SELECT
- '{{ rule_name }}',
- '{{ rule }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ rule_name }}',
+  '{{ rule }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -328,8 +331,9 @@ SET PatchDocument = string('{{ {
     "Rule": rule,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -338,8 +342,9 @@ AND Identifier = '{{ rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.observabilityadmin.telemetry_rules
-WHERE Identifier = '{{ rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

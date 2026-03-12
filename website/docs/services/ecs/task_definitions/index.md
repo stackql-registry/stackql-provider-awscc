@@ -976,28 +976,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>task_definition</code>.
 ```sql
 SELECT
-region,
-task_role_arn,
-ipc_mode,
-inference_accelerators,
-memory,
-placement_constraints,
-cpu,
-requires_compatibilities,
-network_mode,
-pid_mode,
-enable_fault_injection,
-execution_role_arn,
-runtime_platform,
-proxy_configuration,
-volumes,
-container_definitions,
-family,
-ephemeral_storage,
-tags,
-task_definition_arn
+  region,
+  task_role_arn,
+  ipc_mode,
+  inference_accelerators,
+  memory,
+  placement_constraints,
+  cpu,
+  requires_compatibilities,
+  network_mode,
+  pid_mode,
+  enable_fault_injection,
+  execution_role_arn,
+  runtime_platform,
+  proxy_configuration,
+  volumes,
+  container_definitions,
+  family,
+  ephemeral_storage,
+  tags,
+  task_definition_arn
 FROM awscc.ecs.task_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ task_definition_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ task_definition_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1005,10 +1007,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ task_definition_arn }}';
 Lists all <code>task_definitions</code> in a region.
 ```sql
 SELECT
-region,
-task_definition_arn
+  region,
+  task_definition_arn
 FROM awscc.ecs.task_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1030,46 +1033,46 @@ Use the following StackQL query and manifest file to create a new <code>task_def
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.task_definitions (
- TaskRoleArn,
- IpcMode,
- InferenceAccelerators,
- Memory,
- PlacementConstraints,
- Cpu,
- RequiresCompatibilities,
- NetworkMode,
- PidMode,
- EnableFaultInjection,
- ExecutionRoleArn,
- RuntimePlatform,
- ProxyConfiguration,
- Volumes,
- ContainerDefinitions,
- Family,
- EphemeralStorage,
- Tags,
- region
+  TaskRoleArn,
+  IpcMode,
+  InferenceAccelerators,
+  Memory,
+  PlacementConstraints,
+  Cpu,
+  RequiresCompatibilities,
+  NetworkMode,
+  PidMode,
+  EnableFaultInjection,
+  ExecutionRoleArn,
+  RuntimePlatform,
+  ProxyConfiguration,
+  Volumes,
+  ContainerDefinitions,
+  Family,
+  EphemeralStorage,
+  Tags,
+  region
 )
 SELECT
-'{{ task_role_arn }}',
- '{{ ipc_mode }}',
- '{{ inference_accelerators }}',
- '{{ memory }}',
- '{{ placement_constraints }}',
- '{{ cpu }}',
- '{{ requires_compatibilities }}',
- '{{ network_mode }}',
- '{{ pid_mode }}',
- '{{ enable_fault_injection }}',
- '{{ execution_role_arn }}',
- '{{ runtime_platform }}',
- '{{ proxy_configuration }}',
- '{{ volumes }}',
- '{{ container_definitions }}',
- '{{ family }}',
- '{{ ephemeral_storage }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ task_role_arn }}',
+  '{{ ipc_mode }}',
+  '{{ inference_accelerators }}',
+  '{{ memory }}',
+  '{{ placement_constraints }}',
+  '{{ cpu }}',
+  '{{ requires_compatibilities }}',
+  '{{ network_mode }}',
+  '{{ pid_mode }}',
+  '{{ enable_fault_injection }}',
+  '{{ execution_role_arn }}',
+  '{{ runtime_platform }}',
+  '{{ proxy_configuration }}',
+  '{{ volumes }}',
+  '{{ container_definitions }}',
+  '{{ family }}',
+  '{{ ephemeral_storage }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1077,46 +1080,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecs.task_definitions (
- TaskRoleArn,
- IpcMode,
- InferenceAccelerators,
- Memory,
- PlacementConstraints,
- Cpu,
- RequiresCompatibilities,
- NetworkMode,
- PidMode,
- EnableFaultInjection,
- ExecutionRoleArn,
- RuntimePlatform,
- ProxyConfiguration,
- Volumes,
- ContainerDefinitions,
- Family,
- EphemeralStorage,
- Tags,
- region
+  TaskRoleArn,
+  IpcMode,
+  InferenceAccelerators,
+  Memory,
+  PlacementConstraints,
+  Cpu,
+  RequiresCompatibilities,
+  NetworkMode,
+  PidMode,
+  EnableFaultInjection,
+  ExecutionRoleArn,
+  RuntimePlatform,
+  ProxyConfiguration,
+  Volumes,
+  ContainerDefinitions,
+  Family,
+  EphemeralStorage,
+  Tags,
+  region
 )
 SELECT
- '{{ task_role_arn }}',
- '{{ ipc_mode }}',
- '{{ inference_accelerators }}',
- '{{ memory }}',
- '{{ placement_constraints }}',
- '{{ cpu }}',
- '{{ requires_compatibilities }}',
- '{{ network_mode }}',
- '{{ pid_mode }}',
- '{{ enable_fault_injection }}',
- '{{ execution_role_arn }}',
- '{{ runtime_platform }}',
- '{{ proxy_configuration }}',
- '{{ volumes }}',
- '{{ container_definitions }}',
- '{{ family }}',
- '{{ ephemeral_storage }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ task_role_arn }}',
+  '{{ ipc_mode }}',
+  '{{ inference_accelerators }}',
+  '{{ memory }}',
+  '{{ placement_constraints }}',
+  '{{ cpu }}',
+  '{{ requires_compatibilities }}',
+  '{{ network_mode }}',
+  '{{ pid_mode }}',
+  '{{ enable_fault_injection }}',
+  '{{ execution_role_arn }}',
+  '{{ runtime_platform }}',
+  '{{ proxy_configuration }}',
+  '{{ volumes }}',
+  '{{ container_definitions }}',
+  '{{ family }}',
+  '{{ ephemeral_storage }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1334,8 +1337,9 @@ UPDATE awscc.ecs.task_definitions
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ task_definition_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ task_definition_arn }}';
 ```
 
 
@@ -1344,8 +1348,9 @@ AND Identifier = '{{ task_definition_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.task_definitions
-WHERE Identifier = '{{ task_definition_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ task_definition_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -187,15 +187,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profiling_group</code>.
 ```sql
 SELECT
-region,
-profiling_group_name,
-compute_platform,
-agent_permissions,
-anomaly_detection_notification_configuration,
-arn,
-tags
+  region,
+  profiling_group_name,
+  compute_platform,
+  agent_permissions,
+  anomaly_detection_notification_configuration,
+  arn,
+  tags
 FROM awscc.codeguruprofiler.profiling_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ profiling_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ profiling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ profiling_group_name }}';
 Lists all <code>profiling_groups</code> in a region.
 ```sql
 SELECT
-region,
-profiling_group_name
+  region,
+  profiling_group_name
 FROM awscc.codeguruprofiler.profiling_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,12 +231,12 @@ Use the following StackQL query and manifest file to create a new <code>profilin
 ```sql
 /*+ create */
 INSERT INTO awscc.codeguruprofiler.profiling_groups (
- ProfilingGroupName,
- region
+  ProfilingGroupName,
+  region
 )
 SELECT
-'{{ profiling_group_name }}',
-'{{ region }}';
+  '{{ profiling_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -241,20 +244,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codeguruprofiler.profiling_groups (
- ProfilingGroupName,
- ComputePlatform,
- AgentPermissions,
- AnomalyDetectionNotificationConfiguration,
- Tags,
- region
+  ProfilingGroupName,
+  ComputePlatform,
+  AgentPermissions,
+  AnomalyDetectionNotificationConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ profiling_group_name }}',
- '{{ compute_platform }}',
- '{{ agent_permissions }}',
- '{{ anomaly_detection_notification_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ profiling_group_name }}',
+  '{{ compute_platform }}',
+  '{{ agent_permissions }}',
+  '{{ anomaly_detection_notification_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "AnomalyDetectionNotificationConfiguration": anomaly_detection_notification_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ profiling_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ profiling_group_name }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ profiling_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeguruprofiler.profiling_groups
-WHERE Identifier = '{{ profiling_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ profiling_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

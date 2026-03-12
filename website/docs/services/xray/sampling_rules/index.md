@@ -355,15 +355,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sampling_rule</code>.
 ```sql
 SELECT
-region,
-sampling_rule,
-sampling_rule_record,
-sampling_rule_update,
-rule_arn,
-rule_name,
-tags
+  region,
+  sampling_rule,
+  sampling_rule_record,
+  sampling_rule_update,
+  rule_arn,
+  rule_name,
+  tags
 FROM awscc.xray.sampling_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,10 +373,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 Lists all <code>sampling_rules</code> in a region.
 ```sql
 SELECT
-region,
-rule_arn
+  region,
+  rule_arn
 FROM awscc.xray.sampling_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -396,20 +399,20 @@ Use the following StackQL query and manifest file to create a new <code>sampling
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.sampling_rules (
- SamplingRule,
- SamplingRuleRecord,
- SamplingRuleUpdate,
- RuleName,
- Tags,
- region
+  SamplingRule,
+  SamplingRuleRecord,
+  SamplingRuleUpdate,
+  RuleName,
+  Tags,
+  region
 )
 SELECT
-'{{ sampling_rule }}',
- '{{ sampling_rule_record }}',
- '{{ sampling_rule_update }}',
- '{{ rule_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ sampling_rule }}',
+  '{{ sampling_rule_record }}',
+  '{{ sampling_rule_update }}',
+  '{{ rule_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -417,20 +420,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.sampling_rules (
- SamplingRule,
- SamplingRuleRecord,
- SamplingRuleUpdate,
- RuleName,
- Tags,
- region
+  SamplingRule,
+  SamplingRuleRecord,
+  SamplingRuleUpdate,
+  RuleName,
+  Tags,
+  region
 )
 SELECT
- '{{ sampling_rule }}',
- '{{ sampling_rule_record }}',
- '{{ sampling_rule_update }}',
- '{{ rule_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ sampling_rule }}',
+  '{{ sampling_rule_record }}',
+  '{{ sampling_rule_update }}',
+  '{{ rule_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -496,8 +499,9 @@ SET PatchDocument = string('{{ {
     "RuleName": rule_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -506,8 +510,9 @@ AND Identifier = '{{ rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.sampling_rules
-WHERE Identifier = '{{ rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

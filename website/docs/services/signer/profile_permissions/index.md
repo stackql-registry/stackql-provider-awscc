@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile_permission</code>.
 ```sql
 SELECT
-region,
-profile_name,
-profile_version,
-action,
-principal,
-statement_id
+  region,
+  profile_name,
+  profile_version,
+  action,
+  principal,
+  statement_id
 FROM awscc.signer.profile_permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ statement_id }}|{{ profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ statement_id }}|{{ profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ statement_id }}|{{ profile_name 
 Lists all <code>profile_permissions</code> in a region.
 ```sql
 SELECT
-region,
-statement_id,
-profile_name
+  region,
+  statement_id,
+  profile_name
 FROM awscc.signer.profile_permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,18 +194,18 @@ Use the following StackQL query and manifest file to create a new <code>profile_
 ```sql
 /*+ create */
 INSERT INTO awscc.signer.profile_permissions (
- ProfileName,
- Action,
- Principal,
- StatementId,
- region
+  ProfileName,
+  Action,
+  Principal,
+  StatementId,
+  region
 )
 SELECT
-'{{ profile_name }}',
- '{{ action }}',
- '{{ principal }}',
- '{{ statement_id }}',
-'{{ region }}';
+  '{{ profile_name }}',
+  '{{ action }}',
+  '{{ principal }}',
+  '{{ statement_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,20 +213,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.signer.profile_permissions (
- ProfileName,
- ProfileVersion,
- Action,
- Principal,
- StatementId,
- region
+  ProfileName,
+  ProfileVersion,
+  Action,
+  Principal,
+  StatementId,
+  region
 )
 SELECT
- '{{ profile_name }}',
- '{{ profile_version }}',
- '{{ action }}',
- '{{ principal }}',
- '{{ statement_id }}',
- '{{ region }}';
+  '{{ profile_name }}',
+  '{{ profile_version }}',
+  '{{ action }}',
+  '{{ principal }}',
+  '{{ statement_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.signer.profile_permissions
-WHERE Identifier = '{{ statement_id }}|{{ profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ statement_id }}|{{ profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

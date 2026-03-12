@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>load_balancer</code>.
 ```sql
 SELECT
-region,
-load_balancer_name,
-load_balancer_arn,
-instance_port,
-ip_address_type,
-attached_instances,
-health_check_path,
-session_stickiness_enabled,
-session_stickiness_lb_cookie_duration_seconds,
-tls_policy_name,
-tags
+  region,
+  load_balancer_name,
+  load_balancer_arn,
+  instance_port,
+  ip_address_type,
+  attached_instances,
+  health_check_path,
+  session_stickiness_enabled,
+  session_stickiness_lb_cookie_duration_seconds,
+  tls_policy_name,
+  tags
 FROM awscc.lightsail.load_balancers
-WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ load_balancer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ load_balancer_name }}';
 Lists all <code>load_balancers</code> in a region.
 ```sql
 SELECT
-region,
-load_balancer_name
+  region,
+  load_balancer_name
 FROM awscc.lightsail.load_balancers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,14 +236,14 @@ Use the following StackQL query and manifest file to create a new <code>load_bal
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.load_balancers (
- LoadBalancerName,
- InstancePort,
- region
+  LoadBalancerName,
+  InstancePort,
+  region
 )
 SELECT
-'{{ load_balancer_name }}',
- '{{ instance_port }}',
-'{{ region }}';
+  '{{ load_balancer_name }}',
+  '{{ instance_port }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,28 +251,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.load_balancers (
- LoadBalancerName,
- InstancePort,
- IpAddressType,
- AttachedInstances,
- HealthCheckPath,
- SessionStickinessEnabled,
- SessionStickinessLBCookieDurationSeconds,
- TlsPolicyName,
- Tags,
- region
+  LoadBalancerName,
+  InstancePort,
+  IpAddressType,
+  AttachedInstances,
+  HealthCheckPath,
+  SessionStickinessEnabled,
+  SessionStickinessLBCookieDurationSeconds,
+  TlsPolicyName,
+  Tags,
+  region
 )
 SELECT
- '{{ load_balancer_name }}',
- '{{ instance_port }}',
- '{{ ip_address_type }}',
- '{{ attached_instances }}',
- '{{ health_check_path }}',
- '{{ session_stickiness_enabled }}',
- '{{ session_stickiness_lb_cookie_duration_seconds }}',
- '{{ tls_policy_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ load_balancer_name }}',
+  '{{ instance_port }}',
+  '{{ ip_address_type }}',
+  '{{ attached_instances }}',
+  '{{ health_check_path }}',
+  '{{ session_stickiness_enabled }}',
+  '{{ session_stickiness_lb_cookie_duration_seconds }}',
+  '{{ tls_policy_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -326,8 +329,9 @@ SET PatchDocument = string('{{ {
     "TlsPolicyName": tls_policy_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ load_balancer_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ load_balancer_name }}';
 ```
 
 
@@ -336,8 +340,9 @@ AND Identifier = '{{ load_balancer_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.load_balancers
-WHERE Identifier = '{{ load_balancer_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ load_balancer_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

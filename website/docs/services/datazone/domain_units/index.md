@@ -181,19 +181,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_unit</code>.
 ```sql
 SELECT
-region,
-domain_identifier,
-description,
-name,
-parent_domain_unit_identifier,
-created_at,
-domain_id,
-id,
-parent_domain_unit_id,
-identifier,
-last_updated_at
+  region,
+  domain_identifier,
+  description,
+  name,
+  parent_domain_unit_identifier,
+  created_at,
+  domain_id,
+  id,
+  parent_domain_unit_id,
+  identifier,
+  last_updated_at
 FROM awscc.datazone.domain_units
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,11 +203,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>domain_units</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.domain_units_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>domain_u
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.domain_units (
- DomainIdentifier,
- Name,
- ParentDomainUnitIdentifier,
- region
+  DomainIdentifier,
+  Name,
+  ParentDomainUnitIdentifier,
+  region
 )
 SELECT
-'{{ domain_identifier }}',
- '{{ name }}',
- '{{ parent_domain_unit_identifier }}',
-'{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ name }}',
+  '{{ parent_domain_unit_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,18 +247,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.domain_units (
- DomainIdentifier,
- Description,
- Name,
- ParentDomainUnitIdentifier,
- region
+  DomainIdentifier,
+  Description,
+  Name,
+  ParentDomainUnitIdentifier,
+  region
 )
 SELECT
- '{{ domain_identifier }}',
- '{{ description }}',
- '{{ name }}',
- '{{ parent_domain_unit_identifier }}',
- '{{ region }}';
+  '{{ domain_identifier }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ parent_domain_unit_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -295,8 +298,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -305,8 +309,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.domain_units
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

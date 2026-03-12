@@ -469,24 +469,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>container_group_definition</code>.
 ```sql
 SELECT
-region,
-container_group_definition_arn,
-creation_time,
-operating_system,
-name,
-container_group_type,
-total_memory_limit_mebibytes,
-total_vcpu_limit,
-game_server_container_definition,
-support_container_definitions,
-version_number,
-source_version_number,
-version_description,
-status,
-status_reason,
-tags
+  region,
+  container_group_definition_arn,
+  creation_time,
+  operating_system,
+  name,
+  container_group_type,
+  total_memory_limit_mebibytes,
+  total_vcpu_limit,
+  game_server_container_definition,
+  support_container_definitions,
+  version_number,
+  source_version_number,
+  version_description,
+  status,
+  status_reason,
+  tags
 FROM awscc.gamelift.container_group_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -494,10 +496,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>container_group_definitions</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.gamelift.container_group_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -519,18 +522,18 @@ Use the following StackQL query and manifest file to create a new <code>containe
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.container_group_definitions (
- OperatingSystem,
- Name,
- TotalMemoryLimitMebibytes,
- TotalVcpuLimit,
- region
+  OperatingSystem,
+  Name,
+  TotalMemoryLimitMebibytes,
+  TotalVcpuLimit,
+  region
 )
 SELECT
-'{{ operating_system }}',
- '{{ name }}',
- '{{ total_memory_limit_mebibytes }}',
- '{{ total_vcpu_limit }}',
-'{{ region }}';
+  '{{ operating_system }}',
+  '{{ name }}',
+  '{{ total_memory_limit_mebibytes }}',
+  '{{ total_vcpu_limit }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -538,30 +541,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.container_group_definitions (
- OperatingSystem,
- Name,
- ContainerGroupType,
- TotalMemoryLimitMebibytes,
- TotalVcpuLimit,
- GameServerContainerDefinition,
- SupportContainerDefinitions,
- SourceVersionNumber,
- VersionDescription,
- Tags,
- region
+  OperatingSystem,
+  Name,
+  ContainerGroupType,
+  TotalMemoryLimitMebibytes,
+  TotalVcpuLimit,
+  GameServerContainerDefinition,
+  SupportContainerDefinitions,
+  SourceVersionNumber,
+  VersionDescription,
+  Tags,
+  region
 )
 SELECT
- '{{ operating_system }}',
- '{{ name }}',
- '{{ container_group_type }}',
- '{{ total_memory_limit_mebibytes }}',
- '{{ total_vcpu_limit }}',
- '{{ game_server_container_definition }}',
- '{{ support_container_definitions }}',
- '{{ source_version_number }}',
- '{{ version_description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ operating_system }}',
+  '{{ name }}',
+  '{{ container_group_type }}',
+  '{{ total_memory_limit_mebibytes }}',
+  '{{ total_vcpu_limit }}',
+  '{{ game_server_container_definition }}',
+  '{{ support_container_definitions }}',
+  '{{ source_version_number }}',
+  '{{ version_description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -660,8 +663,9 @@ SET PatchDocument = string('{{ {
     "VersionDescription": version_description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -670,8 +674,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.container_group_definitions
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

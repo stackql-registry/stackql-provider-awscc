@@ -100,13 +100,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_linked_role</code>.
 ```sql
 SELECT
-region,
-role_name,
-custom_suffix,
-description,
-aws_service_name
+  region,
+  role_name,
+  custom_suffix,
+  description,
+  aws_service_name
 FROM awscc.iam.service_linked_roles
-WHERE region = 'us-east-1' AND Identifier = '{{ role_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ role_name }}';
 ```
 
 ## `INSERT` example
@@ -126,12 +128,12 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.service_linked_roles (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -139,16 +141,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.service_linked_roles (
- CustomSuffix,
- Description,
- AWSServiceName,
- region
+  CustomSuffix,
+  Description,
+  AWSServiceName,
+  region
 )
 SELECT
- '{{ custom_suffix }}',
- '{{ description }}',
- '{{ aws_service_name }}',
- '{{ region }}';
+  '{{ custom_suffix }}',
+  '{{ description }}',
+  '{{ aws_service_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -185,8 +187,9 @@ UPDATE awscc.iam.service_linked_roles
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ role_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ role_name }}';
 ```
 
 
@@ -195,8 +198,9 @@ AND Identifier = '{{ role_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.service_linked_roles
-WHERE Identifier = '{{ role_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ role_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

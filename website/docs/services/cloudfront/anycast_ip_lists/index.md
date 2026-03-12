@@ -215,15 +215,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>anycast_ip_list</code>.
 ```sql
 SELECT
-region,
-anycast_ip_list,
-e_tag,
-id,
-ip_count,
-name,
-tags
+  region,
+  anycast_ip_list,
+  e_tag,
+  id,
+  ip_count,
+  name,
+  tags
 FROM awscc.cloudfront.anycast_ip_lists
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>anycast_ip_lists</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.anycast_ip_lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,14 +259,14 @@ Use the following StackQL query and manifest file to create a new <code>anycast_
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.anycast_ip_lists (
- IpCount,
- Name,
- region
+  IpCount,
+  Name,
+  region
 )
 SELECT
-'{{ ip_count }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ ip_count }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,16 +274,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.anycast_ip_lists (
- IpCount,
- Name,
- Tags,
- region
+  IpCount,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ ip_count }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ip_count }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -316,8 +319,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.anycast_ip_lists
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

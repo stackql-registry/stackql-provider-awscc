@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>customer_gateway</code>.
 ```sql
 SELECT
-region,
-type,
-customer_gateway_id,
-ip_address,
-bgp_asn_extended,
-bgp_asn,
-tags,
-certificate_arn,
-device_name
+  region,
+  type,
+  customer_gateway_id,
+  ip_address,
+  bgp_asn_extended,
+  bgp_asn,
+  tags,
+  certificate_arn,
+  device_name
 FROM awscc.ec2.customer_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ customer_gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ customer_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ customer_gateway_id }}';
 Lists all <code>customer_gateways</code> in a region.
 ```sql
 SELECT
-region,
-customer_gateway_id
+  region,
+  customer_gateway_id
 FROM awscc.ec2.customer_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>customer
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.customer_gateways (
- Type,
- IpAddress,
- region
+  Type,
+  IpAddress,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ ip_address }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ ip_address }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,24 +239,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.customer_gateways (
- Type,
- IpAddress,
- BgpAsnExtended,
- BgpAsn,
- Tags,
- CertificateArn,
- DeviceName,
- region
+  Type,
+  IpAddress,
+  BgpAsnExtended,
+  BgpAsn,
+  Tags,
+  CertificateArn,
+  DeviceName,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ ip_address }}',
- '{{ bgp_asn_extended }}',
- '{{ bgp_asn }}',
- '{{ tags }}',
- '{{ certificate_arn }}',
- '{{ device_name }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ ip_address }}',
+  '{{ bgp_asn_extended }}',
+  '{{ bgp_asn }}',
+  '{{ tags }}',
+  '{{ certificate_arn }}',
+  '{{ device_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -300,8 +303,9 @@ UPDATE awscc.ec2.customer_gateways
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ customer_gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ customer_gateway_id }}';
 ```
 
 
@@ -310,8 +314,9 @@ AND Identifier = '{{ customer_gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.customer_gateways
-WHERE Identifier = '{{ customer_gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ customer_gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

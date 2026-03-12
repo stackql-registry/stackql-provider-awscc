@@ -212,15 +212,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>report_plan</code>.
 ```sql
 SELECT
-region,
-report_plan_name,
-report_plan_arn,
-report_plan_description,
-report_plan_tags,
-report_delivery_channel,
-report_setting
+  region,
+  report_plan_name,
+  report_plan_arn,
+  report_plan_description,
+  report_plan_tags,
+  report_delivery_channel,
+  report_setting
 FROM awscc.backup.report_plans
-WHERE region = 'us-east-1' AND Identifier = '{{ report_plan_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ report_plan_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,10 +230,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ report_plan_arn }}';
 Lists all <code>report_plans</code> in a region.
 ```sql
 SELECT
-region,
-report_plan_arn
+  region,
+  report_plan_arn
 FROM awscc.backup.report_plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -253,14 +256,14 @@ Use the following StackQL query and manifest file to create a new <code>report_p
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.report_plans (
- ReportDeliveryChannel,
- ReportSetting,
- region
+  ReportDeliveryChannel,
+  ReportSetting,
+  region
 )
 SELECT
-'{{ report_delivery_channel }}',
- '{{ report_setting }}',
-'{{ region }}';
+  '{{ report_delivery_channel }}',
+  '{{ report_setting }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -268,20 +271,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.report_plans (
- ReportPlanName,
- ReportPlanDescription,
- ReportPlanTags,
- ReportDeliveryChannel,
- ReportSetting,
- region
+  ReportPlanName,
+  ReportPlanDescription,
+  ReportPlanTags,
+  ReportDeliveryChannel,
+  ReportSetting,
+  region
 )
 SELECT
- '{{ report_plan_name }}',
- '{{ report_plan_description }}',
- '{{ report_plan_tags }}',
- '{{ report_delivery_channel }}',
- '{{ report_setting }}',
- '{{ region }}';
+  '{{ report_plan_name }}',
+  '{{ report_plan_description }}',
+  '{{ report_plan_tags }}',
+  '{{ report_delivery_channel }}',
+  '{{ report_setting }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "ReportDeliveryChannel": report_delivery_channel,
     "ReportSetting": report_setting
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ report_plan_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ report_plan_arn }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ report_plan_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.report_plans
-WHERE Identifier = '{{ report_plan_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ report_plan_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

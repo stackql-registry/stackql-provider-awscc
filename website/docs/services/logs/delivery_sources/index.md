@@ -168,16 +168,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>delivery_source</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-resource_arns,
-resource_arn,
-service,
-log_type,
-tags
+  region,
+  name,
+  arn,
+  resource_arns,
+  resource_arn,
+  service,
+  log_type,
+  tags
 FROM awscc.logs.delivery_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -185,10 +187,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>delivery_sources</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.logs.delivery_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -210,12 +213,12 @@ Use the following StackQL query and manifest file to create a new <code>delivery
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.delivery_sources (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -223,18 +226,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.delivery_sources (
- Name,
- ResourceArn,
- LogType,
- Tags,
- region
+  Name,
+  ResourceArn,
+  LogType,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ resource_arn }}',
- '{{ log_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ resource_arn }}',
+  '{{ log_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "LogType": log_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.delivery_sources
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -253,20 +253,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fhir_datastore</code>.
 ```sql
 SELECT
-region,
-created_at,
-datastore_arn,
-datastore_endpoint,
-datastore_id,
-datastore_name,
-datastore_status,
-datastore_type_version,
-preload_data_config,
-sse_configuration,
-identity_provider_configuration,
-tags
+  region,
+  created_at,
+  datastore_arn,
+  datastore_endpoint,
+  datastore_id,
+  datastore_name,
+  datastore_status,
+  datastore_type_version,
+  preload_data_config,
+  sse_configuration,
+  identity_provider_configuration,
+  tags
 FROM awscc.healthlake.fhir_datastores
-WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,10 +276,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
 Lists all <code>fhir_datastores</code> in a region.
 ```sql
 SELECT
-region,
-datastore_id
+  region,
+  datastore_id
 FROM awscc.healthlake.fhir_datastores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -299,12 +302,12 @@ Use the following StackQL query and manifest file to create a new <code>fhir_dat
 ```sql
 /*+ create */
 INSERT INTO awscc.healthlake.fhir_datastores (
- DatastoreTypeVersion,
- region
+  DatastoreTypeVersion,
+  region
 )
 SELECT
-'{{ datastore_type_version }}',
-'{{ region }}';
+  '{{ datastore_type_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -312,22 +315,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.healthlake.fhir_datastores (
- DatastoreName,
- DatastoreTypeVersion,
- PreloadDataConfig,
- SseConfiguration,
- IdentityProviderConfiguration,
- Tags,
- region
+  DatastoreName,
+  DatastoreTypeVersion,
+  PreloadDataConfig,
+  SseConfiguration,
+  IdentityProviderConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ datastore_name }}',
- '{{ datastore_type_version }}',
- '{{ preload_data_config }}',
- '{{ sse_configuration }}',
- '{{ identity_provider_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ datastore_name }}',
+  '{{ datastore_type_version }}',
+  '{{ preload_data_config }}',
+  '{{ sse_configuration }}',
+  '{{ identity_provider_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -380,8 +383,9 @@ UPDATE awscc.healthlake.fhir_datastores
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ datastore_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ datastore_id }}';
 ```
 
 
@@ -390,8 +394,9 @@ AND Identifier = '{{ datastore_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.healthlake.fhir_datastores
-WHERE Identifier = '{{ datastore_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ datastore_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -305,21 +305,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>task_template</code>.
 ```sql
 SELECT
-region,
-arn,
-instance_arn,
-name,
-description,
-contact_flow_arn,
-self_assign_contact_flow_arn,
-constraints,
-defaults,
-fields,
-status,
-client_token,
-tags
+  region,
+  arn,
+  instance_arn,
+  name,
+  description,
+  contact_flow_arn,
+  self_assign_contact_flow_arn,
+  constraints,
+  defaults,
+  fields,
+  status,
+  client_token,
+  tags
 FROM awscc.connect.task_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,10 +329,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>task_templates</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.connect.task_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -352,12 +355,12 @@ Use the following StackQL query and manifest file to create a new <code>task_tem
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.task_templates (
- InstanceArn,
- region
+  InstanceArn,
+  region
 )
 SELECT
-'{{ instance_arn }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -365,32 +368,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.task_templates (
- InstanceArn,
- Name,
- Description,
- ContactFlowArn,
- SelfAssignContactFlowArn,
- Constraints,
- Defaults,
- Fields,
- Status,
- ClientToken,
- Tags,
- region
+  InstanceArn,
+  Name,
+  Description,
+  ContactFlowArn,
+  SelfAssignContactFlowArn,
+  Constraints,
+  Defaults,
+  Fields,
+  Status,
+  ClientToken,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ contact_flow_arn }}',
- '{{ self_assign_contact_flow_arn }}',
- '{{ constraints }}',
- '{{ defaults }}',
- '{{ fields }}',
- '{{ status }}',
- '{{ client_token }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ contact_flow_arn }}',
+  '{{ self_assign_contact_flow_arn }}',
+  '{{ constraints }}',
+  '{{ defaults }}',
+  '{{ fields }}',
+  '{{ status }}',
+  '{{ client_token }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -469,8 +472,9 @@ SET PatchDocument = string('{{ {
     "ClientToken": client_token,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -479,8 +483,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.task_templates
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

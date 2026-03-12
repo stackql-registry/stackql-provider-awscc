@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile_resource_association</code>.
 ```sql
 SELECT
-region,
-profile_id,
-id,
-name,
-resource_arn,
-resource_properties,
-resource_type
+  region,
+  profile_id,
+  id,
+  name,
+  resource_arn,
+  resource_properties,
+  resource_type
 FROM awscc.route53profiles.profile_resource_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>profile_resource_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53profiles.profile_resource_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>profile_
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profile_resource_associations (
- ProfileId,
- Name,
- ResourceArn,
- region
+  ProfileId,
+  Name,
+  ResourceArn,
+  region
 )
 SELECT
-'{{ profile_id }}',
- '{{ name }}',
- '{{ resource_arn }}',
-'{{ region }}';
+  '{{ profile_id }}',
+  '{{ name }}',
+  '{{ resource_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,18 +217,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profile_resource_associations (
- ProfileId,
- Name,
- ResourceArn,
- ResourceProperties,
- region
+  ProfileId,
+  Name,
+  ResourceArn,
+  ResourceProperties,
+  region
 )
 SELECT
- '{{ profile_id }}',
- '{{ name }}',
- '{{ resource_arn }}',
- '{{ resource_properties }}',
- '{{ region }}';
+  '{{ profile_id }}',
+  '{{ name }}',
+  '{{ resource_arn }}',
+  '{{ resource_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ UPDATE awscc.route53profiles.profile_resource_associations
 SET PatchDocument = string('{{ {
     "ResourceProperties": resource_properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53profiles.profile_resource_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

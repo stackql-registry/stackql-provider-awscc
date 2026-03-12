@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image</code>.
 ```sql
 SELECT
-region,
-image_name,
-image_arn,
-image_role_arn,
-image_display_name,
-image_description,
-tags
+  region,
+  image_name,
+  image_arn,
+  image_role_arn,
+  image_display_name,
+  image_description,
+  tags
 FROM awscc.sagemaker.images
-WHERE region = 'us-east-1' AND Identifier = '{{ image_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ image_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ image_arn }}';
 Lists all <code>images</code> in a region.
 ```sql
 SELECT
-region,
-image_arn
+  region,
+  image_arn
 FROM awscc.sagemaker.images_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>image</c
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.images (
- ImageName,
- ImageRoleArn,
- region
+  ImageName,
+  ImageRoleArn,
+  region
 )
 SELECT
-'{{ image_name }}',
- '{{ image_role_arn }}',
-'{{ region }}';
+  '{{ image_name }}',
+  '{{ image_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.images (
- ImageName,
- ImageRoleArn,
- ImageDisplayName,
- ImageDescription,
- Tags,
- region
+  ImageName,
+  ImageRoleArn,
+  ImageDisplayName,
+  ImageDescription,
+  Tags,
+  region
 )
 SELECT
- '{{ image_name }}',
- '{{ image_role_arn }}',
- '{{ image_display_name }}',
- '{{ image_description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ image_name }}',
+  '{{ image_role_arn }}',
+  '{{ image_display_name }}',
+  '{{ image_description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "ImageDescription": image_description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ image_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ image_arn }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ image_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.images
-WHERE Identifier = '{{ image_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ image_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

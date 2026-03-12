@@ -202,16 +202,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fargate_profile</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-fargate_profile_name,
-pod_execution_role_arn,
-arn,
-subnets,
-selectors,
-tags
+  region,
+  cluster_name,
+  fargate_profile_name,
+  pod_execution_role_arn,
+  arn,
+  subnets,
+  selectors,
+  tags
 FROM awscc.eks.fargate_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,11 +221,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ fargate_profi
 Lists all <code>fargate_profiles</code> in a region.
 ```sql
 SELECT
-region,
-cluster_name,
-fargate_profile_name
+  region,
+  cluster_name,
+  fargate_profile_name
 FROM awscc.eks.fargate_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>fargate_
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.fargate_profiles (
- ClusterName,
- PodExecutionRoleArn,
- Selectors,
- region
+  ClusterName,
+  PodExecutionRoleArn,
+  Selectors,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ pod_execution_role_arn }}',
- '{{ selectors }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ pod_execution_role_arn }}',
+  '{{ selectors }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,22 +265,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.fargate_profiles (
- ClusterName,
- FargateProfileName,
- PodExecutionRoleArn,
- Subnets,
- Selectors,
- Tags,
- region
+  ClusterName,
+  FargateProfileName,
+  PodExecutionRoleArn,
+  Subnets,
+  Selectors,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ fargate_profile_name }}',
- '{{ pod_execution_role_arn }}',
- '{{ subnets }}',
- '{{ selectors }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ fargate_profile_name }}',
+  '{{ pod_execution_role_arn }}',
+  '{{ subnets }}',
+  '{{ selectors }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -327,8 +330,9 @@ UPDATE awscc.eks.fargate_profiles
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
 ```
 
 
@@ -337,8 +341,9 @@ AND Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.fargate_profiles
-WHERE Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_name }}|{{ fargate_profile_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

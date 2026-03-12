@@ -217,23 +217,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_insights_path</code>.
 ```sql
 SELECT
-region,
-network_insights_path_id,
-network_insights_path_arn,
-created_date,
-source_ip,
-filter_at_source,
-filter_at_destination,
-destination_ip,
-source,
-destination,
-source_arn,
-destination_arn,
-protocol,
-destination_port,
-tags
+  region,
+  network_insights_path_id,
+  network_insights_path_arn,
+  created_date,
+  source_ip,
+  filter_at_source,
+  filter_at_destination,
+  destination_ip,
+  source,
+  destination,
+  source_arn,
+  destination_arn,
+  protocol,
+  destination_port,
+  tags
 FROM awscc.ec2.network_insights_paths
-WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_path_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ network_insights_path_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -241,10 +243,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_path_id }}';
 Lists all <code>network_insights_paths</code> in a region.
 ```sql
 SELECT
-region,
-network_insights_path_id
+  region,
+  network_insights_path_id
 FROM awscc.ec2.network_insights_paths_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -266,14 +269,14 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_paths (
- Source,
- Protocol,
- region
+  Source,
+  Protocol,
+  region
 )
 SELECT
-'{{ source }}',
- '{{ protocol }}',
-'{{ region }}';
+  '{{ source }}',
+  '{{ protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -281,28 +284,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_paths (
- SourceIp,
- FilterAtSource,
- FilterAtDestination,
- DestinationIp,
- Source,
- Destination,
- Protocol,
- DestinationPort,
- Tags,
- region
+  SourceIp,
+  FilterAtSource,
+  FilterAtDestination,
+  DestinationIp,
+  Source,
+  Destination,
+  Protocol,
+  DestinationPort,
+  Tags,
+  region
 )
 SELECT
- '{{ source_ip }}',
- '{{ filter_at_source }}',
- '{{ filter_at_destination }}',
- '{{ destination_ip }}',
- '{{ source }}',
- '{{ destination }}',
- '{{ protocol }}',
- '{{ destination_port }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ source_ip }}',
+  '{{ filter_at_source }}',
+  '{{ filter_at_destination }}',
+  '{{ destination_ip }}',
+  '{{ source }}',
+  '{{ destination }}',
+  '{{ protocol }}',
+  '{{ destination_port }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -359,8 +362,9 @@ UPDATE awscc.ec2.network_insights_paths
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ network_insights_path_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ network_insights_path_id }}';
 ```
 
 
@@ -369,8 +373,9 @@ AND Identifier = '{{ network_insights_path_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_paths
-WHERE Identifier = '{{ network_insights_path_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ network_insights_path_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

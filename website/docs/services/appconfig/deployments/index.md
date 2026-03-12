@@ -214,20 +214,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT
-region,
-deployment_strategy_id,
-configuration_profile_id,
-environment_id,
-kms_key_identifier,
-description,
-configuration_version,
-state,
-deployment_number,
-application_id,
-dynamic_extension_parameters,
-tags
+  region,
+  deployment_strategy_id,
+  configuration_profile_id,
+  environment_id,
+  kms_key_identifier,
+  description,
+  configuration_version,
+  state,
+  deployment_number,
+  application_id,
+  dynamic_extension_parameters,
+  tags
 FROM awscc.appconfig.deployments
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,12 +237,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ environment
 Lists all <code>deployments</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-environment_id,
-deployment_number
+  region,
+  application_id,
+  environment_id,
+  deployment_number
 FROM awscc.appconfig.deployments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,20 +265,20 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.deployments (
- DeploymentStrategyId,
- ConfigurationProfileId,
- EnvironmentId,
- ConfigurationVersion,
- ApplicationId,
- region
+  DeploymentStrategyId,
+  ConfigurationProfileId,
+  EnvironmentId,
+  ConfigurationVersion,
+  ApplicationId,
+  region
 )
 SELECT
-'{{ deployment_strategy_id }}',
- '{{ configuration_profile_id }}',
- '{{ environment_id }}',
- '{{ configuration_version }}',
- '{{ application_id }}',
-'{{ region }}';
+  '{{ deployment_strategy_id }}',
+  '{{ configuration_profile_id }}',
+  '{{ environment_id }}',
+  '{{ configuration_version }}',
+  '{{ application_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,28 +286,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.deployments (
- DeploymentStrategyId,
- ConfigurationProfileId,
- EnvironmentId,
- KmsKeyIdentifier,
- Description,
- ConfigurationVersion,
- ApplicationId,
- DynamicExtensionParameters,
- Tags,
- region
+  DeploymentStrategyId,
+  ConfigurationProfileId,
+  EnvironmentId,
+  KmsKeyIdentifier,
+  Description,
+  ConfigurationVersion,
+  ApplicationId,
+  DynamicExtensionParameters,
+  Tags,
+  region
 )
 SELECT
- '{{ deployment_strategy_id }}',
- '{{ configuration_profile_id }}',
- '{{ environment_id }}',
- '{{ kms_key_identifier }}',
- '{{ description }}',
- '{{ configuration_version }}',
- '{{ application_id }}',
- '{{ dynamic_extension_parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ deployment_strategy_id }}',
+  '{{ configuration_profile_id }}',
+  '{{ environment_id }}',
+  '{{ kms_key_identifier }}',
+  '{{ description }}',
+  '{{ configuration_version }}',
+  '{{ application_id }}',
+  '{{ dynamic_extension_parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -354,8 +357,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.deployments
-WHERE Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ environment_id }}|{{ deployment_number }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

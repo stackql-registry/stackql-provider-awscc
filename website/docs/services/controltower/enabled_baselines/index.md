@@ -185,15 +185,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>enabled_baseline</code>.
 ```sql
 SELECT
-region,
-baseline_identifier,
-baseline_version,
-enabled_baseline_identifier,
-target_identifier,
-parameters,
-tags
+  region,
+  baseline_identifier,
+  baseline_version,
+  enabled_baseline_identifier,
+  target_identifier,
+  parameters,
+  tags
 FROM awscc.controltower.enabled_baselines
-WHERE region = 'us-east-1' AND Identifier = '{{ enabled_baseline_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ enabled_baseline_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,10 +203,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ enabled_baseline_identifier }}';
 Lists all <code>enabled_baselines</code> in a region.
 ```sql
 SELECT
-region,
-enabled_baseline_identifier
+  region,
+  enabled_baseline_identifier
 FROM awscc.controltower.enabled_baselines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -226,16 +229,16 @@ Use the following StackQL query and manifest file to create a new <code>enabled_
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.enabled_baselines (
- BaselineIdentifier,
- BaselineVersion,
- TargetIdentifier,
- region
+  BaselineIdentifier,
+  BaselineVersion,
+  TargetIdentifier,
+  region
 )
 SELECT
-'{{ baseline_identifier }}',
- '{{ baseline_version }}',
- '{{ target_identifier }}',
-'{{ region }}';
+  '{{ baseline_identifier }}',
+  '{{ baseline_version }}',
+  '{{ target_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,20 +246,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.enabled_baselines (
- BaselineIdentifier,
- BaselineVersion,
- TargetIdentifier,
- Parameters,
- Tags,
- region
+  BaselineIdentifier,
+  BaselineVersion,
+  TargetIdentifier,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ baseline_identifier }}',
- '{{ baseline_version }}',
- '{{ target_identifier }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ baseline_identifier }}',
+  '{{ baseline_version }}',
+  '{{ target_identifier }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ enabled_baseline_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ enabled_baseline_identifier }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ enabled_baseline_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.enabled_baselines
-WHERE Identifier = '{{ enabled_baseline_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ enabled_baseline_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

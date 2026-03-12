@@ -95,13 +95,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>permission</code>.
 ```sql
 SELECT
-region,
-actions,
-certificate_authority_arn,
-principal,
-source_account
+  region,
+  actions,
+  certificate_authority_arn,
+  principal,
+  source_account
 FROM awscc.acmpca.permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_authority_arn }}|{{ principal }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_authority_arn }}|{{ principal }}';
 ```
 
 ## `INSERT` example
@@ -121,16 +123,16 @@ Use the following StackQL query and manifest file to create a new <code>permissi
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.permissions (
- Actions,
- CertificateAuthorityArn,
- Principal,
- region
+  Actions,
+  CertificateAuthorityArn,
+  Principal,
+  region
 )
 SELECT
-'{{ actions }}',
- '{{ certificate_authority_arn }}',
- '{{ principal }}',
-'{{ region }}';
+  '{{ actions }}',
+  '{{ certificate_authority_arn }}',
+  '{{ principal }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -138,18 +140,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.acmpca.permissions (
- Actions,
- CertificateAuthorityArn,
- Principal,
- SourceAccount,
- region
+  Actions,
+  CertificateAuthorityArn,
+  Principal,
+  SourceAccount,
+  region
 )
 SELECT
- '{{ actions }}',
- '{{ certificate_authority_arn }}',
- '{{ principal }}',
- '{{ source_account }}',
- '{{ region }}';
+  '{{ actions }}',
+  '{{ certificate_authority_arn }}',
+  '{{ principal }}',
+  '{{ source_account }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -185,8 +187,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.permissions
-WHERE Identifier = '{{ certificate_authority_arn }}|{{ principal }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_authority_arn }}|{{ principal }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

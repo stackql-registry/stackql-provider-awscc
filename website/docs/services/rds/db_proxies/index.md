@@ -230,22 +230,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_proxy</code>.
 ```sql
 SELECT
-region,
-auth,
-db_proxy_arn,
-db_proxy_name,
-debug_logging,
-endpoint,
-engine_family,
-idle_client_timeout,
-require_tls,
-role_arn,
-tags,
-vpc_id,
-vpc_security_group_ids,
-vpc_subnet_ids
+  region,
+  auth,
+  db_proxy_arn,
+  db_proxy_name,
+  debug_logging,
+  endpoint,
+  engine_family,
+  idle_client_timeout,
+  require_tls,
+  role_arn,
+  tags,
+  vpc_id,
+  vpc_security_group_ids,
+  vpc_subnet_ids
 FROM awscc.rds.db_proxies
-WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_proxy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,10 +255,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_name }}';
 Lists all <code>db_proxies</code> in a region.
 ```sql
 SELECT
-region,
-db_proxy_name
+  region,
+  db_proxy_name
 FROM awscc.rds.db_proxies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -278,20 +281,20 @@ Use the following StackQL query and manifest file to create a new <code>db_proxy
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxies (
- Auth,
- DBProxyName,
- EngineFamily,
- RoleArn,
- VpcSubnetIds,
- region
+  Auth,
+  DBProxyName,
+  EngineFamily,
+  RoleArn,
+  VpcSubnetIds,
+  region
 )
 SELECT
-'{{ auth }}',
- '{{ db_proxy_name }}',
- '{{ engine_family }}',
- '{{ role_arn }}',
- '{{ vpc_subnet_ids }}',
-'{{ region }}';
+  '{{ auth }}',
+  '{{ db_proxy_name }}',
+  '{{ engine_family }}',
+  '{{ role_arn }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -299,30 +302,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxies (
- Auth,
- DBProxyName,
- DebugLogging,
- EngineFamily,
- IdleClientTimeout,
- RequireTLS,
- RoleArn,
- Tags,
- VpcSecurityGroupIds,
- VpcSubnetIds,
- region
+  Auth,
+  DBProxyName,
+  DebugLogging,
+  EngineFamily,
+  IdleClientTimeout,
+  RequireTLS,
+  RoleArn,
+  Tags,
+  VpcSecurityGroupIds,
+  VpcSubnetIds,
+  region
 )
 SELECT
- '{{ auth }}',
- '{{ db_proxy_name }}',
- '{{ debug_logging }}',
- '{{ engine_family }}',
- '{{ idle_client_timeout }}',
- '{{ require_tls }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ vpc_security_group_ids }}',
- '{{ vpc_subnet_ids }}',
- '{{ region }}';
+  '{{ auth }}',
+  '{{ db_proxy_name }}',
+  '{{ debug_logging }}',
+  '{{ engine_family }}',
+  '{{ idle_client_timeout }}',
+  '{{ require_tls }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -388,8 +391,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_proxy_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_proxy_name }}';
 ```
 
 
@@ -398,8 +402,9 @@ AND Identifier = '{{ db_proxy_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxies
-WHERE Identifier = '{{ db_proxy_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_proxy_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

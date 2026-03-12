@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>static_ip</code>.
 ```sql
 SELECT
-region,
-static_ip_name,
-attached_to,
-is_attached,
-ip_address,
-static_ip_arn
+  region,
+  static_ip_name,
+  attached_to,
+  is_attached,
+  ip_address,
+  static_ip_arn
 FROM awscc.lightsail.static_ips
-WHERE region = 'us-east-1' AND Identifier = '{{ static_ip_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ static_ip_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ static_ip_name }}';
 Lists all <code>static_ips</code> in a region.
 ```sql
 SELECT
-region,
-static_ip_name
+  region,
+  static_ip_name
 FROM awscc.lightsail.static_ips_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>static_i
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.static_ips (
- StaticIpName,
- region
+  StaticIpName,
+  region
 )
 SELECT
-'{{ static_ip_name }}',
-'{{ region }}';
+  '{{ static_ip_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.static_ips (
- StaticIpName,
- AttachedTo,
- region
+  StaticIpName,
+  AttachedTo,
+  region
 )
 SELECT
- '{{ static_ip_name }}',
- '{{ attached_to }}',
- '{{ region }}';
+  '{{ static_ip_name }}',
+  '{{ attached_to }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -246,8 +249,9 @@ UPDATE awscc.lightsail.static_ips
 SET PatchDocument = string('{{ {
     "AttachedTo": attached_to
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ static_ip_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ static_ip_name }}';
 ```
 
 
@@ -256,8 +260,9 @@ AND Identifier = '{{ static_ip_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.static_ips
-WHERE Identifier = '{{ static_ip_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ static_ip_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

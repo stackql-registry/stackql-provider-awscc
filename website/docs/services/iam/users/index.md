@@ -207,18 +207,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT
-region,
-path,
-managed_policy_arns,
-policies,
-user_name,
-groups,
-arn,
-login_profile,
-tags,
-permissions_boundary
+  region,
+  path,
+  managed_policy_arns,
+  policies,
+  user_name,
+  groups,
+  arn,
+  login_profile,
+  tags,
+  permissions_boundary
 FROM awscc.iam.users
-WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
 Lists all <code>users</code> in a region.
 ```sql
 SELECT
-region,
-user_name
+  region,
+  user_name
 FROM awscc.iam.users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,26 +254,26 @@ Use the following StackQL query and manifest file to create a new <code>user</co
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.users (
- Path,
- ManagedPolicyArns,
- Policies,
- UserName,
- Groups,
- LoginProfile,
- Tags,
- PermissionsBoundary,
- region
+  Path,
+  ManagedPolicyArns,
+  Policies,
+  UserName,
+  Groups,
+  LoginProfile,
+  Tags,
+  PermissionsBoundary,
+  region
 )
 SELECT
-'{{ path }}',
- '{{ managed_policy_arns }}',
- '{{ policies }}',
- '{{ user_name }}',
- '{{ groups }}',
- '{{ login_profile }}',
- '{{ tags }}',
- '{{ permissions_boundary }}',
-'{{ region }}';
+  '{{ path }}',
+  '{{ managed_policy_arns }}',
+  '{{ policies }}',
+  '{{ user_name }}',
+  '{{ groups }}',
+  '{{ login_profile }}',
+  '{{ tags }}',
+  '{{ permissions_boundary }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -278,26 +281,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.users (
- Path,
- ManagedPolicyArns,
- Policies,
- UserName,
- Groups,
- LoginProfile,
- Tags,
- PermissionsBoundary,
- region
+  Path,
+  ManagedPolicyArns,
+  Policies,
+  UserName,
+  Groups,
+  LoginProfile,
+  Tags,
+  PermissionsBoundary,
+  region
 )
 SELECT
- '{{ path }}',
- '{{ managed_policy_arns }}',
- '{{ policies }}',
- '{{ user_name }}',
- '{{ groups }}',
- '{{ login_profile }}',
- '{{ tags }}',
- '{{ permissions_boundary }}',
- '{{ region }}';
+  '{{ path }}',
+  '{{ managed_policy_arns }}',
+  '{{ policies }}',
+  '{{ user_name }}',
+  '{{ groups }}',
+  '{{ login_profile }}',
+  '{{ tags }}',
+  '{{ permissions_boundary }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "PermissionsBoundary": permissions_boundary
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_name }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ user_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.users
-WHERE Identifier = '{{ user_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

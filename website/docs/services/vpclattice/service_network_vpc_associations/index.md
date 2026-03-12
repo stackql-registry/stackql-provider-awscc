@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_network_vpc_association</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-security_group_ids,
-id,
-service_network_arn,
-service_network_id,
-service_network_identifier,
-service_network_name,
-status,
-vpc_id,
-vpc_identifier,
-tags
+  region,
+  arn,
+  created_at,
+  security_group_ids,
+  id,
+  service_network_arn,
+  service_network_id,
+  service_network_identifier,
+  service_network_name,
+  status,
+  vpc_id,
+  vpc_identifier,
+  tags
 FROM awscc.vpclattice.service_network_vpc_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>service_network_vpc_associations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.service_network_vpc_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,18 +248,18 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_network_vpc_associations (
- SecurityGroupIds,
- ServiceNetworkIdentifier,
- VpcIdentifier,
- Tags,
- region
+  SecurityGroupIds,
+  ServiceNetworkIdentifier,
+  VpcIdentifier,
+  Tags,
+  region
 )
 SELECT
-'{{ security_group_ids }}',
- '{{ service_network_identifier }}',
- '{{ vpc_identifier }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ service_network_identifier }}',
+  '{{ vpc_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,18 +267,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_network_vpc_associations (
- SecurityGroupIds,
- ServiceNetworkIdentifier,
- VpcIdentifier,
- Tags,
- region
+  SecurityGroupIds,
+  ServiceNetworkIdentifier,
+  VpcIdentifier,
+  Tags,
+  region
 )
 SELECT
- '{{ security_group_ids }}',
- '{{ service_network_identifier }}',
- '{{ vpc_identifier }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ security_group_ids }}',
+  '{{ service_network_identifier }}',
+  '{{ vpc_identifier }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -318,8 +321,9 @@ SET PatchDocument = string('{{ {
     "SecurityGroupIds": security_group_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -328,8 +332,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_network_vpc_associations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

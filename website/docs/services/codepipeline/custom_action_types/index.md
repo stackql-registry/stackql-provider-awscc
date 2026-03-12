@@ -264,18 +264,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_action_type</code>.
 ```sql
 SELECT
-region,
-category,
-configuration_properties,
-input_artifact_details,
-output_artifact_details,
-provider,
-settings,
-tags,
-version,
-id
+  region,
+  category,
+  configuration_properties,
+  input_artifact_details,
+  output_artifact_details,
+  provider,
+  settings,
+  tags,
+  version,
+  id
 FROM awscc.codepipeline.custom_action_types
-WHERE region = 'us-east-1' AND Identifier = '{{ category }}|{{ provider }}|{{ version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -283,12 +285,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ category }}|{{ provider }}|{{ ve
 Lists all <code>custom_action_types</code> in a region.
 ```sql
 SELECT
-region,
-category,
-provider,
-version
+  region,
+  category,
+  provider,
+  version
 FROM awscc.codepipeline.custom_action_types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -310,20 +313,20 @@ Use the following StackQL query and manifest file to create a new <code>custom_a
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.custom_action_types (
- Category,
- InputArtifactDetails,
- OutputArtifactDetails,
- Provider,
- Version,
- region
+  Category,
+  InputArtifactDetails,
+  OutputArtifactDetails,
+  Provider,
+  Version,
+  region
 )
 SELECT
-'{{ category }}',
- '{{ input_artifact_details }}',
- '{{ output_artifact_details }}',
- '{{ provider }}',
- '{{ version }}',
-'{{ region }}';
+  '{{ category }}',
+  '{{ input_artifact_details }}',
+  '{{ output_artifact_details }}',
+  '{{ provider }}',
+  '{{ version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -331,26 +334,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.custom_action_types (
- Category,
- ConfigurationProperties,
- InputArtifactDetails,
- OutputArtifactDetails,
- Provider,
- Settings,
- Tags,
- Version,
- region
+  Category,
+  ConfigurationProperties,
+  InputArtifactDetails,
+  OutputArtifactDetails,
+  Provider,
+  Settings,
+  Tags,
+  Version,
+  region
 )
 SELECT
- '{{ category }}',
- '{{ configuration_properties }}',
- '{{ input_artifact_details }}',
- '{{ output_artifact_details }}',
- '{{ provider }}',
- '{{ settings }}',
- '{{ tags }}',
- '{{ version }}',
- '{{ region }}';
+  '{{ category }}',
+  '{{ configuration_properties }}',
+  '{{ input_artifact_details }}',
+  '{{ output_artifact_details }}',
+  '{{ provider }}',
+  '{{ settings }}',
+  '{{ tags }}',
+  '{{ version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -412,8 +415,9 @@ UPDATE awscc.codepipeline.custom_action_types
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ category }}|{{ provider }}|{{ version }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```
 
 
@@ -422,8 +426,9 @@ AND Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.custom_action_types
-WHERE Identifier = '{{ category }}|{{ provider }}|{{ version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ category }}|{{ provider }}|{{ version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

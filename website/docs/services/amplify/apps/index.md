@@ -399,31 +399,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT
-region,
-access_token,
-app_id,
-app_name,
-arn,
-auto_branch_creation_config,
-basic_auth_config,
-build_spec,
-cache_config,
-compute_role_arn,
-custom_headers,
-custom_rules,
-default_domain,
-description,
-enable_branch_auto_deletion,
-environment_variables,
-iam_service_role,
-name,
-oauth_token,
-platform,
-repository,
-tags,
-job_config
+  region,
+  access_token,
+  app_id,
+  app_name,
+  arn,
+  auto_branch_creation_config,
+  basic_auth_config,
+  build_spec,
+  cache_config,
+  compute_role_arn,
+  custom_headers,
+  custom_rules,
+  default_domain,
+  description,
+  enable_branch_auto_deletion,
+  environment_variables,
+  iam_service_role,
+  name,
+  oauth_token,
+  platform,
+  repository,
+  tags,
+  job_config
 FROM awscc.amplify.apps
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -431,10 +433,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>apps</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.amplify.apps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -456,12 +459,12 @@ Use the following StackQL query and manifest file to create a new <code>app</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.apps (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -469,46 +472,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.apps (
- AccessToken,
- AutoBranchCreationConfig,
- BasicAuthConfig,
- BuildSpec,
- CacheConfig,
- ComputeRoleArn,
- CustomHeaders,
- CustomRules,
- Description,
- EnableBranchAutoDeletion,
- EnvironmentVariables,
- IAMServiceRole,
- Name,
- OauthToken,
- Platform,
- Repository,
- Tags,
- JobConfig,
- region
+  AccessToken,
+  AutoBranchCreationConfig,
+  BasicAuthConfig,
+  BuildSpec,
+  CacheConfig,
+  ComputeRoleArn,
+  CustomHeaders,
+  CustomRules,
+  Description,
+  EnableBranchAutoDeletion,
+  EnvironmentVariables,
+  IAMServiceRole,
+  Name,
+  OauthToken,
+  Platform,
+  Repository,
+  Tags,
+  JobConfig,
+  region
 )
 SELECT
- '{{ access_token }}',
- '{{ auto_branch_creation_config }}',
- '{{ basic_auth_config }}',
- '{{ build_spec }}',
- '{{ cache_config }}',
- '{{ compute_role_arn }}',
- '{{ custom_headers }}',
- '{{ custom_rules }}',
- '{{ description }}',
- '{{ enable_branch_auto_deletion }}',
- '{{ environment_variables }}',
- '{{ iam_service_role }}',
- '{{ name }}',
- '{{ oauth_token }}',
- '{{ platform }}',
- '{{ repository }}',
- '{{ tags }}',
- '{{ job_config }}',
- '{{ region }}';
+  '{{ access_token }}',
+  '{{ auto_branch_creation_config }}',
+  '{{ basic_auth_config }}',
+  '{{ build_spec }}',
+  '{{ cache_config }}',
+  '{{ compute_role_arn }}',
+  '{{ custom_headers }}',
+  '{{ custom_rules }}',
+  '{{ description }}',
+  '{{ enable_branch_auto_deletion }}',
+  '{{ environment_variables }}',
+  '{{ iam_service_role }}',
+  '{{ name }}',
+  '{{ oauth_token }}',
+  '{{ platform }}',
+  '{{ repository }}',
+  '{{ tags }}',
+  '{{ job_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -618,8 +621,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "JobConfig": job_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -628,8 +632,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.apps
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -239,24 +239,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_setting</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-cookie_synchronization_configuration,
-copy_allowed,
-customer_managed_key,
-disconnect_timeout_in_minutes,
-download_allowed,
-idle_disconnect_timeout_in_minutes,
-paste_allowed,
-print_allowed,
-tags,
-toolbar_configuration,
-upload_allowed,
-user_settings_arn,
-deep_link_allowed
+  region,
+  additional_encryption_context,
+  associated_portal_arns,
+  cookie_synchronization_configuration,
+  copy_allowed,
+  customer_managed_key,
+  disconnect_timeout_in_minutes,
+  download_allowed,
+  idle_disconnect_timeout_in_minutes,
+  paste_allowed,
+  print_allowed,
+  tags,
+  toolbar_configuration,
+  upload_allowed,
+  user_settings_arn,
+  deep_link_allowed
 FROM awscc.workspacesweb.user_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ user_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,10 +266,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_settings_arn }}';
 Lists all <code>user_settings</code> in a region.
 ```sql
 SELECT
-region,
-user_settings_arn
+  region,
+  user_settings_arn
 FROM awscc.workspacesweb.user_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -289,20 +292,20 @@ Use the following StackQL query and manifest file to create a new <code>user_set
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.user_settings (
- CopyAllowed,
- DownloadAllowed,
- PasteAllowed,
- PrintAllowed,
- UploadAllowed,
- region
+  CopyAllowed,
+  DownloadAllowed,
+  PasteAllowed,
+  PrintAllowed,
+  UploadAllowed,
+  region
 )
 SELECT
-'{{ copy_allowed }}',
- '{{ download_allowed }}',
- '{{ paste_allowed }}',
- '{{ print_allowed }}',
- '{{ upload_allowed }}',
-'{{ region }}';
+  '{{ copy_allowed }}',
+  '{{ download_allowed }}',
+  '{{ paste_allowed }}',
+  '{{ print_allowed }}',
+  '{{ upload_allowed }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -310,36 +313,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.user_settings (
- AdditionalEncryptionContext,
- CookieSynchronizationConfiguration,
- CopyAllowed,
- CustomerManagedKey,
- DisconnectTimeoutInMinutes,
- DownloadAllowed,
- IdleDisconnectTimeoutInMinutes,
- PasteAllowed,
- PrintAllowed,
- Tags,
- ToolbarConfiguration,
- UploadAllowed,
- DeepLinkAllowed,
- region
+  AdditionalEncryptionContext,
+  CookieSynchronizationConfiguration,
+  CopyAllowed,
+  CustomerManagedKey,
+  DisconnectTimeoutInMinutes,
+  DownloadAllowed,
+  IdleDisconnectTimeoutInMinutes,
+  PasteAllowed,
+  PrintAllowed,
+  Tags,
+  ToolbarConfiguration,
+  UploadAllowed,
+  DeepLinkAllowed,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ cookie_synchronization_configuration }}',
- '{{ copy_allowed }}',
- '{{ customer_managed_key }}',
- '{{ disconnect_timeout_in_minutes }}',
- '{{ download_allowed }}',
- '{{ idle_disconnect_timeout_in_minutes }}',
- '{{ paste_allowed }}',
- '{{ print_allowed }}',
- '{{ tags }}',
- '{{ toolbar_configuration }}',
- '{{ upload_allowed }}',
- '{{ deep_link_allowed }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ cookie_synchronization_configuration }}',
+  '{{ copy_allowed }}',
+  '{{ customer_managed_key }}',
+  '{{ disconnect_timeout_in_minutes }}',
+  '{{ download_allowed }}',
+  '{{ idle_disconnect_timeout_in_minutes }}',
+  '{{ paste_allowed }}',
+  '{{ print_allowed }}',
+  '{{ tags }}',
+  '{{ toolbar_configuration }}',
+  '{{ upload_allowed }}',
+  '{{ deep_link_allowed }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -421,8 +424,9 @@ SET PatchDocument = string('{{ {
     "UploadAllowed": upload_allowed,
     "DeepLinkAllowed": deep_link_allowed
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_settings_arn }}';
 ```
 
 
@@ -431,8 +435,9 @@ AND Identifier = '{{ user_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.user_settings
-WHERE Identifier = '{{ user_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

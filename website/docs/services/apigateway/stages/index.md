@@ -299,23 +299,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stage</code>.
 ```sql
 SELECT
-region,
-access_log_setting,
-cache_cluster_enabled,
-cache_cluster_size,
-canary_setting,
-client_certificate_id,
-deployment_id,
-description,
-documentation_version,
-method_settings,
-rest_api_id,
-stage_name,
-tags,
-tracing_enabled,
-variables
+  region,
+  access_log_setting,
+  cache_cluster_enabled,
+  cache_cluster_size,
+  canary_setting,
+  client_certificate_id,
+  deployment_id,
+  description,
+  documentation_version,
+  method_settings,
+  rest_api_id,
+  stage_name,
+  tags,
+  tracing_enabled,
+  variables
 FROM awscc.apigateway.stages
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ stage_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,11 +325,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ stage_name }}'
 Lists all <code>stages</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id,
-stage_name
+  region,
+  rest_api_id,
+  stage_name
 FROM awscc.apigateway.stages_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -349,12 +352,12 @@ Use the following StackQL query and manifest file to create a new <code>stage</c
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.stages (
- RestApiId,
- region
+  RestApiId,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -362,38 +365,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.stages (
- AccessLogSetting,
- CacheClusterEnabled,
- CacheClusterSize,
- CanarySetting,
- ClientCertificateId,
- DeploymentId,
- Description,
- DocumentationVersion,
- MethodSettings,
- RestApiId,
- StageName,
- Tags,
- TracingEnabled,
- Variables,
- region
+  AccessLogSetting,
+  CacheClusterEnabled,
+  CacheClusterSize,
+  CanarySetting,
+  ClientCertificateId,
+  DeploymentId,
+  Description,
+  DocumentationVersion,
+  MethodSettings,
+  RestApiId,
+  StageName,
+  Tags,
+  TracingEnabled,
+  Variables,
+  region
 )
 SELECT
- '{{ access_log_setting }}',
- '{{ cache_cluster_enabled }}',
- '{{ cache_cluster_size }}',
- '{{ canary_setting }}',
- '{{ client_certificate_id }}',
- '{{ deployment_id }}',
- '{{ description }}',
- '{{ documentation_version }}',
- '{{ method_settings }}',
- '{{ rest_api_id }}',
- '{{ stage_name }}',
- '{{ tags }}',
- '{{ tracing_enabled }}',
- '{{ variables }}',
- '{{ region }}';
+  '{{ access_log_setting }}',
+  '{{ cache_cluster_enabled }}',
+  '{{ cache_cluster_size }}',
+  '{{ canary_setting }}',
+  '{{ client_certificate_id }}',
+  '{{ deployment_id }}',
+  '{{ description }}',
+  '{{ documentation_version }}',
+  '{{ method_settings }}',
+  '{{ rest_api_id }}',
+  '{{ stage_name }}',
+  '{{ tags }}',
+  '{{ tracing_enabled }}',
+  '{{ variables }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -481,8 +484,9 @@ SET PatchDocument = string('{{ {
     "TracingEnabled": tracing_enabled,
     "Variables": variables
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}|{{ stage_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```
 
 
@@ -491,8 +495,9 @@ AND Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.stages
-WHERE Identifier = '{{ rest_api_id }}|{{ stage_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ stage_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

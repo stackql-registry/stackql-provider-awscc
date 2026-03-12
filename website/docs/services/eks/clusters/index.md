@@ -466,34 +466,36 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-encryption_config,
-kubernetes_network_config,
-logging,
-name,
-id,
-resources_vpc_config,
-outpost_config,
-access_config,
-upgrade_policy,
-remote_network_config,
-compute_config,
-storage_config,
-role_arn,
-version,
-force,
-tags,
-arn,
-endpoint,
-certificate_authority_data,
-cluster_security_group_id,
-encryption_config_key_arn,
-open_id_connect_issuer_url,
-bootstrap_self_managed_addons,
-deletion_protection,
-zonal_shift_config
+  region,
+  encryption_config,
+  kubernetes_network_config,
+  logging,
+  name,
+  id,
+  resources_vpc_config,
+  outpost_config,
+  access_config,
+  upgrade_policy,
+  remote_network_config,
+  compute_config,
+  storage_config,
+  role_arn,
+  version,
+  force,
+  tags,
+  arn,
+  endpoint,
+  certificate_authority_data,
+  cluster_security_group_id,
+  encryption_config_key_arn,
+  open_id_connect_issuer_url,
+  bootstrap_self_managed_addons,
+  deletion_protection,
+  zonal_shift_config
 FROM awscc.eks.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -501,10 +503,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.eks.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -526,14 +529,14 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.clusters (
- ResourcesVpcConfig,
- RoleArn,
- region
+  ResourcesVpcConfig,
+  RoleArn,
+  region
 )
 SELECT
-'{{ resources_vpc_config }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ resources_vpc_config }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -541,46 +544,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.clusters (
- EncryptionConfig,
- KubernetesNetworkConfig,
- Logging,
- Name,
- ResourcesVpcConfig,
- OutpostConfig,
- AccessConfig,
- UpgradePolicy,
- RemoteNetworkConfig,
- ComputeConfig,
- StorageConfig,
- RoleArn,
- Version,
- Force,
- Tags,
- BootstrapSelfManagedAddons,
- DeletionProtection,
- ZonalShiftConfig,
- region
+  EncryptionConfig,
+  KubernetesNetworkConfig,
+  Logging,
+  Name,
+  ResourcesVpcConfig,
+  OutpostConfig,
+  AccessConfig,
+  UpgradePolicy,
+  RemoteNetworkConfig,
+  ComputeConfig,
+  StorageConfig,
+  RoleArn,
+  Version,
+  Force,
+  Tags,
+  BootstrapSelfManagedAddons,
+  DeletionProtection,
+  ZonalShiftConfig,
+  region
 )
 SELECT
- '{{ encryption_config }}',
- '{{ kubernetes_network_config }}',
- '{{ logging }}',
- '{{ name }}',
- '{{ resources_vpc_config }}',
- '{{ outpost_config }}',
- '{{ access_config }}',
- '{{ upgrade_policy }}',
- '{{ remote_network_config }}',
- '{{ compute_config }}',
- '{{ storage_config }}',
- '{{ role_arn }}',
- '{{ version }}',
- '{{ force }}',
- '{{ tags }}',
- '{{ bootstrap_self_managed_addons }}',
- '{{ deletion_protection }}',
- '{{ zonal_shift_config }}',
- '{{ region }}';
+  '{{ encryption_config }}',
+  '{{ kubernetes_network_config }}',
+  '{{ logging }}',
+  '{{ name }}',
+  '{{ resources_vpc_config }}',
+  '{{ outpost_config }}',
+  '{{ access_config }}',
+  '{{ upgrade_policy }}',
+  '{{ remote_network_config }}',
+  '{{ compute_config }}',
+  '{{ storage_config }}',
+  '{{ role_arn }}',
+  '{{ version }}',
+  '{{ force }}',
+  '{{ tags }}',
+  '{{ bootstrap_self_managed_addons }}',
+  '{{ deletion_protection }}',
+  '{{ zonal_shift_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -700,8 +703,9 @@ SET PatchDocument = string('{{ {
     "DeletionProtection": deletion_protection,
     "ZonalShiftConfig": zonal_shift_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -710,8 +714,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.clusters
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

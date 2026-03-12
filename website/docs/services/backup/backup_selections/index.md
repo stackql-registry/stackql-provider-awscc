@@ -223,13 +223,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>backup_selection</code>.
 ```sql
 SELECT
-region,
-id,
-backup_plan_id,
-backup_selection,
-selection_id
+  region,
+  id,
+  backup_plan_id,
+  backup_selection,
+  selection_id
 FROM awscc.backup.backup_selections
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>backup_selections</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.backup.backup_selections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,14 +265,14 @@ Use the following StackQL query and manifest file to create a new <code>backup_s
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_selections (
- BackupPlanId,
- BackupSelection,
- region
+  BackupPlanId,
+  BackupSelection,
+  region
 )
 SELECT
-'{{ backup_plan_id }}',
- '{{ backup_selection }}',
-'{{ region }}';
+  '{{ backup_plan_id }}',
+  '{{ backup_selection }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -277,14 +280,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_selections (
- BackupPlanId,
- BackupSelection,
- region
+  BackupPlanId,
+  BackupSelection,
+  region
 )
 SELECT
- '{{ backup_plan_id }}',
- '{{ backup_selection }}',
- '{{ region }}';
+  '{{ backup_plan_id }}',
+  '{{ backup_selection }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -335,8 +338,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_selections
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -236,12 +236,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cache_policy</code>.
 ```sql
 SELECT
-region,
-cache_policy_config,
-id,
-last_modified_time
+  region,
+  cache_policy_config,
+  id,
+  last_modified_time
 FROM awscc.cloudfront.cache_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,10 +251,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>cache_policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.cache_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -274,12 +277,12 @@ Use the following StackQL query and manifest file to create a new <code>cache_po
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.cache_policies (
- CachePolicyConfig,
- region
+  CachePolicyConfig,
+  region
 )
 SELECT
-'{{ cache_policy_config }}',
-'{{ region }}';
+  '{{ cache_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -287,12 +290,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.cache_policies (
- CachePolicyConfig,
- region
+  CachePolicyConfig,
+  region
 )
 SELECT
- '{{ cache_policy_config }}',
- '{{ region }}';
+  '{{ cache_policy_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -345,8 +348,9 @@ UPDATE awscc.cloudfront.cache_policies
 SET PatchDocument = string('{{ {
     "CachePolicyConfig": cache_policy_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -355,8 +359,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.cache_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

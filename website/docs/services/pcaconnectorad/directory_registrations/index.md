@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>directory_registration</code>.
 ```sql
 SELECT
-region,
-directory_id,
-directory_registration_arn,
-tags
+  region,
+  directory_id,
+  directory_registration_arn,
+  tags
 FROM awscc.pcaconnectorad.directory_registrations
-WHERE region = 'us-east-1' AND Identifier = '{{ directory_registration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ directory_registration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ directory_registration_arn }}';
 Lists all <code>directory_registrations</code> in a region.
 ```sql
 SELECT
-region,
-directory_registration_arn
+  region,
+  directory_registration_arn
 FROM awscc.pcaconnectorad.directory_registrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>director
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.directory_registrations (
- DirectoryId,
- region
+  DirectoryId,
+  region
 )
 SELECT
-'{{ directory_id }}',
-'{{ region }}';
+  '{{ directory_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,14 +195,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.directory_registrations (
- DirectoryId,
- Tags,
- region
+  DirectoryId,
+  Tags,
+  region
 )
 SELECT
- '{{ directory_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ directory_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -234,8 +237,9 @@ UPDATE awscc.pcaconnectorad.directory_registrations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ directory_registration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ directory_registration_arn }}';
 ```
 
 
@@ -244,8 +248,9 @@ AND Identifier = '{{ directory_registration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.directory_registrations
-WHERE Identifier = '{{ directory_registration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ directory_registration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

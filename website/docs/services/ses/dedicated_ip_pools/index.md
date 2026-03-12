@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dedicated_ip_pool</code>.
 ```sql
 SELECT
-region,
-pool_name,
-scaling_mode,
-tags
+  region,
+  pool_name,
+  scaling_mode,
+  tags
 FROM awscc.ses.dedicated_ip_pools
-WHERE region = 'us-east-1' AND Identifier = '{{ pool_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pool_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pool_name }}';
 Lists all <code>dedicated_ip_pools</code> in a region.
 ```sql
 SELECT
-region,
-pool_name
+  region,
+  pool_name
 FROM awscc.ses.dedicated_ip_pools_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>dedicate
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.dedicated_ip_pools (
- PoolName,
- ScalingMode,
- Tags,
- region
+  PoolName,
+  ScalingMode,
+  Tags,
+  region
 )
 SELECT
-'{{ pool_name }}',
- '{{ scaling_mode }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ pool_name }}',
+  '{{ scaling_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,16 +211,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.dedicated_ip_pools (
- PoolName,
- ScalingMode,
- Tags,
- region
+  PoolName,
+  ScalingMode,
+  Tags,
+  region
 )
 SELECT
- '{{ pool_name }}',
- '{{ scaling_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ pool_name }}',
+  '{{ scaling_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -257,8 +260,9 @@ SET PatchDocument = string('{{ {
     "ScalingMode": scaling_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pool_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pool_name }}';
 ```
 
 
@@ -267,8 +271,9 @@ AND Identifier = '{{ pool_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.dedicated_ip_pools
-WHERE Identifier = '{{ pool_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pool_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

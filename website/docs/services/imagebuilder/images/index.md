@@ -266,23 +266,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image</code>.
 ```sql
 SELECT
-region,
-image_scanning_configuration,
-container_recipe_arn,
-workflows,
-image_uri,
-name,
-infrastructure_configuration_arn,
-image_recipe_arn,
-distribution_configuration_arn,
-image_id,
-image_tests_configuration,
-arn,
-enhanced_image_metadata_enabled,
-execution_role,
-tags
+  region,
+  image_scanning_configuration,
+  container_recipe_arn,
+  workflows,
+  image_uri,
+  name,
+  infrastructure_configuration_arn,
+  image_recipe_arn,
+  distribution_configuration_arn,
+  image_id,
+  image_tests_configuration,
+  arn,
+  enhanced_image_metadata_enabled,
+  execution_role,
+  tags
 FROM awscc.imagebuilder.images
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,10 +292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>images</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.images_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -315,30 +318,30 @@ Use the following StackQL query and manifest file to create a new <code>image</c
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.images (
- ImageScanningConfiguration,
- ContainerRecipeArn,
- Workflows,
- InfrastructureConfigurationArn,
- ImageRecipeArn,
- DistributionConfigurationArn,
- ImageTestsConfiguration,
- EnhancedImageMetadataEnabled,
- ExecutionRole,
- Tags,
- region
+  ImageScanningConfiguration,
+  ContainerRecipeArn,
+  Workflows,
+  InfrastructureConfigurationArn,
+  ImageRecipeArn,
+  DistributionConfigurationArn,
+  ImageTestsConfiguration,
+  EnhancedImageMetadataEnabled,
+  ExecutionRole,
+  Tags,
+  region
 )
 SELECT
-'{{ image_scanning_configuration }}',
- '{{ container_recipe_arn }}',
- '{{ workflows }}',
- '{{ infrastructure_configuration_arn }}',
- '{{ image_recipe_arn }}',
- '{{ distribution_configuration_arn }}',
- '{{ image_tests_configuration }}',
- '{{ enhanced_image_metadata_enabled }}',
- '{{ execution_role }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ image_scanning_configuration }}',
+  '{{ container_recipe_arn }}',
+  '{{ workflows }}',
+  '{{ infrastructure_configuration_arn }}',
+  '{{ image_recipe_arn }}',
+  '{{ distribution_configuration_arn }}',
+  '{{ image_tests_configuration }}',
+  '{{ enhanced_image_metadata_enabled }}',
+  '{{ execution_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -346,30 +349,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.images (
- ImageScanningConfiguration,
- ContainerRecipeArn,
- Workflows,
- InfrastructureConfigurationArn,
- ImageRecipeArn,
- DistributionConfigurationArn,
- ImageTestsConfiguration,
- EnhancedImageMetadataEnabled,
- ExecutionRole,
- Tags,
- region
+  ImageScanningConfiguration,
+  ContainerRecipeArn,
+  Workflows,
+  InfrastructureConfigurationArn,
+  ImageRecipeArn,
+  DistributionConfigurationArn,
+  ImageTestsConfiguration,
+  EnhancedImageMetadataEnabled,
+  ExecutionRole,
+  Tags,
+  region
 )
 SELECT
- '{{ image_scanning_configuration }}',
- '{{ container_recipe_arn }}',
- '{{ workflows }}',
- '{{ infrastructure_configuration_arn }}',
- '{{ image_recipe_arn }}',
- '{{ distribution_configuration_arn }}',
- '{{ image_tests_configuration }}',
- '{{ enhanced_image_metadata_enabled }}',
- '{{ execution_role }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ image_scanning_configuration }}',
+  '{{ container_recipe_arn }}',
+  '{{ workflows }}',
+  '{{ infrastructure_configuration_arn }}',
+  '{{ image_recipe_arn }}',
+  '{{ distribution_configuration_arn }}',
+  '{{ image_tests_configuration }}',
+  '{{ enhanced_image_metadata_enabled }}',
+  '{{ execution_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -435,8 +438,9 @@ SET PatchDocument = string('{{ {
     "ExecutionRole": execution_role,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -445,8 +449,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.images
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

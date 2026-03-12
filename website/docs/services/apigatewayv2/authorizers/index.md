@@ -203,21 +203,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>authorizer</code>.
 ```sql
 SELECT
-region,
-identity_validation_expression,
-authorizer_uri,
-authorizer_credentials_arn,
-authorizer_type,
-identity_source,
-jwt_configuration,
-authorizer_result_ttl_in_seconds,
-authorizer_payload_format_version,
-enable_simple_responses,
-api_id,
-authorizer_id,
-name
+  region,
+  identity_validation_expression,
+  authorizer_uri,
+  authorizer_credentials_arn,
+  authorizer_type,
+  identity_source,
+  jwt_configuration,
+  authorizer_result_ttl_in_seconds,
+  authorizer_payload_format_version,
+  enable_simple_responses,
+  api_id,
+  authorizer_id,
+  name
 FROM awscc.apigatewayv2.authorizers
-WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ authorizer_id }}|{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
 Lists all <code>authorizers</code> in a region.
 ```sql
 SELECT
-region,
-authorizer_id,
-api_id
+  region,
+  authorizer_id,
+  api_id
 FROM awscc.apigatewayv2.authorizers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,16 +254,16 @@ Use the following StackQL query and manifest file to create a new <code>authoriz
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.authorizers (
- AuthorizerType,
- ApiId,
- Name,
- region
+  AuthorizerType,
+  ApiId,
+  Name,
+  region
 )
 SELECT
-'{{ authorizer_type }}',
- '{{ api_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ authorizer_type }}',
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -268,32 +271,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.authorizers (
- IdentityValidationExpression,
- AuthorizerUri,
- AuthorizerCredentialsArn,
- AuthorizerType,
- IdentitySource,
- JwtConfiguration,
- AuthorizerResultTtlInSeconds,
- AuthorizerPayloadFormatVersion,
- EnableSimpleResponses,
- ApiId,
- Name,
- region
+  IdentityValidationExpression,
+  AuthorizerUri,
+  AuthorizerCredentialsArn,
+  AuthorizerType,
+  IdentitySource,
+  JwtConfiguration,
+  AuthorizerResultTtlInSeconds,
+  AuthorizerPayloadFormatVersion,
+  EnableSimpleResponses,
+  ApiId,
+  Name,
+  region
 )
 SELECT
- '{{ identity_validation_expression }}',
- '{{ authorizer_uri }}',
- '{{ authorizer_credentials_arn }}',
- '{{ authorizer_type }}',
- '{{ identity_source }}',
- '{{ jwt_configuration }}',
- '{{ authorizer_result_ttl_in_seconds }}',
- '{{ authorizer_payload_format_version }}',
- '{{ enable_simple_responses }}',
- '{{ api_id }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ identity_validation_expression }}',
+  '{{ authorizer_uri }}',
+  '{{ authorizer_credentials_arn }}',
+  '{{ authorizer_type }}',
+  '{{ identity_source }}',
+  '{{ jwt_configuration }}',
+  '{{ authorizer_result_ttl_in_seconds }}',
+  '{{ authorizer_payload_format_version }}',
+  '{{ enable_simple_responses }}',
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -359,8 +362,9 @@ SET PatchDocument = string('{{ {
     "EnableSimpleResponses": enable_simple_responses,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ authorizer_id }}|{{ api_id }}';
 ```
 
 
@@ -369,8 +373,9 @@ AND Identifier = '{{ authorizer_id }}|{{ api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.authorizers
-WHERE Identifier = '{{ authorizer_id }}|{{ api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ authorizer_id }}|{{ api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -340,23 +340,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ai_guardrail</code>.
 ```sql
 SELECT
-region,
-assistant_id,
-assistant_arn,
-a_iguardrail_arn,
-a_iguardrail_id,
-name,
-blocked_input_messaging,
-blocked_outputs_messaging,
-description,
-topic_policy_config,
-content_policy_config,
-word_policy_config,
-sensitive_information_policy_config,
-contextual_grounding_policy_config,
-tags
+  region,
+  assistant_id,
+  assistant_arn,
+  a_iguardrail_arn,
+  a_iguardrail_id,
+  name,
+  blocked_input_messaging,
+  blocked_outputs_messaging,
+  description,
+  topic_policy_config,
+  content_policy_config,
+  word_policy_config,
+  sensitive_information_policy_config,
+  contextual_grounding_policy_config,
+  tags
 FROM awscc.wisdom.ai_guardrails
-WHERE region = 'us-east-1' AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -364,11 +366,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_
 Lists all <code>ai_guardrails</code> in a region.
 ```sql
 SELECT
-region,
-a_iguardrail_id,
-assistant_id
+  region,
+  a_iguardrail_id,
+  assistant_id
 FROM awscc.wisdom.ai_guardrails_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -390,16 +393,16 @@ Use the following StackQL query and manifest file to create a new <code>ai_guard
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_guardrails (
- AssistantId,
- BlockedInputMessaging,
- BlockedOutputsMessaging,
- region
+  AssistantId,
+  BlockedInputMessaging,
+  BlockedOutputsMessaging,
+  region
 )
 SELECT
-'{{ assistant_id }}',
- '{{ blocked_input_messaging }}',
- '{{ blocked_outputs_messaging }}',
-'{{ region }}';
+  '{{ assistant_id }}',
+  '{{ blocked_input_messaging }}',
+  '{{ blocked_outputs_messaging }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -407,32 +410,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_guardrails (
- AssistantId,
- Name,
- BlockedInputMessaging,
- BlockedOutputsMessaging,
- Description,
- TopicPolicyConfig,
- ContentPolicyConfig,
- WordPolicyConfig,
- SensitiveInformationPolicyConfig,
- ContextualGroundingPolicyConfig,
- Tags,
- region
+  AssistantId,
+  Name,
+  BlockedInputMessaging,
+  BlockedOutputsMessaging,
+  Description,
+  TopicPolicyConfig,
+  ContentPolicyConfig,
+  WordPolicyConfig,
+  SensitiveInformationPolicyConfig,
+  ContextualGroundingPolicyConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ assistant_id }}',
- '{{ name }}',
- '{{ blocked_input_messaging }}',
- '{{ blocked_outputs_messaging }}',
- '{{ description }}',
- '{{ topic_policy_config }}',
- '{{ content_policy_config }}',
- '{{ word_policy_config }}',
- '{{ sensitive_information_policy_config }}',
- '{{ contextual_grounding_policy_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ assistant_id }}',
+  '{{ name }}',
+  '{{ blocked_input_messaging }}',
+  '{{ blocked_outputs_messaging }}',
+  '{{ description }}',
+  '{{ topic_policy_config }}',
+  '{{ content_policy_config }}',
+  '{{ word_policy_config }}',
+  '{{ sensitive_information_policy_config }}',
+  '{{ contextual_grounding_policy_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -517,8 +520,9 @@ SET PatchDocument = string('{{ {
     "SensitiveInformationPolicyConfig": sensitive_information_policy_config,
     "ContextualGroundingPolicyConfig": contextual_grounding_policy_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```
 
 
@@ -527,8 +531,9 @@ AND Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_guardrails
-WHERE Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -301,29 +301,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_data_store</code>.
 ```sql
 SELECT
-region,
-advanced_event_selectors,
-created_timestamp,
-event_data_store_arn,
-federation_enabled,
-federation_role_arn,
-multi_region_enabled,
-name,
-organization_enabled,
-billing_mode,
-retention_period,
-status,
-termination_protection_enabled,
-updated_timestamp,
-kms_key_id,
-tags,
-insight_selectors,
-insights_destination,
-max_event_size,
-context_key_selectors,
-ingestion_enabled
+  region,
+  advanced_event_selectors,
+  created_timestamp,
+  event_data_store_arn,
+  federation_enabled,
+  federation_role_arn,
+  multi_region_enabled,
+  name,
+  organization_enabled,
+  billing_mode,
+  retention_period,
+  status,
+  termination_protection_enabled,
+  updated_timestamp,
+  kms_key_id,
+  tags,
+  insight_selectors,
+  insights_destination,
+  max_event_size,
+  context_key_selectors,
+  ingestion_enabled
 FROM awscc.cloudtrail.event_data_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ event_data_store_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ event_data_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -331,10 +333,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ event_data_store_arn }}';
 Lists all <code>event_data_stores</code> in a region.
 ```sql
 SELECT
-region,
-event_data_store_arn
+  region,
+  event_data_store_arn
 FROM awscc.cloudtrail.event_data_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -356,12 +359,12 @@ Use the following StackQL query and manifest file to create a new <code>event_da
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.event_data_stores (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -369,42 +372,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.event_data_stores (
- AdvancedEventSelectors,
- FederationEnabled,
- FederationRoleArn,
- MultiRegionEnabled,
- Name,
- OrganizationEnabled,
- BillingMode,
- RetentionPeriod,
- TerminationProtectionEnabled,
- KmsKeyId,
- Tags,
- InsightSelectors,
- InsightsDestination,
- MaxEventSize,
- ContextKeySelectors,
- IngestionEnabled,
- region
+  AdvancedEventSelectors,
+  FederationEnabled,
+  FederationRoleArn,
+  MultiRegionEnabled,
+  Name,
+  OrganizationEnabled,
+  BillingMode,
+  RetentionPeriod,
+  TerminationProtectionEnabled,
+  KmsKeyId,
+  Tags,
+  InsightSelectors,
+  InsightsDestination,
+  MaxEventSize,
+  ContextKeySelectors,
+  IngestionEnabled,
+  region
 )
 SELECT
- '{{ advanced_event_selectors }}',
- '{{ federation_enabled }}',
- '{{ federation_role_arn }}',
- '{{ multi_region_enabled }}',
- '{{ name }}',
- '{{ organization_enabled }}',
- '{{ billing_mode }}',
- '{{ retention_period }}',
- '{{ termination_protection_enabled }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ insight_selectors }}',
- '{{ insights_destination }}',
- '{{ max_event_size }}',
- '{{ context_key_selectors }}',
- '{{ ingestion_enabled }}',
- '{{ region }}';
+  '{{ advanced_event_selectors }}',
+  '{{ federation_enabled }}',
+  '{{ federation_role_arn }}',
+  '{{ multi_region_enabled }}',
+  '{{ name }}',
+  '{{ organization_enabled }}',
+  '{{ billing_mode }}',
+  '{{ retention_period }}',
+  '{{ termination_protection_enabled }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ insight_selectors }}',
+  '{{ insights_destination }}',
+  '{{ max_event_size }}',
+  '{{ context_key_selectors }}',
+  '{{ ingestion_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -503,8 +506,9 @@ SET PatchDocument = string('{{ {
     "ContextKeySelectors": context_key_selectors,
     "IngestionEnabled": ingestion_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ event_data_store_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ event_data_store_arn }}';
 ```
 
 
@@ -513,8 +517,9 @@ AND Identifier = '{{ event_data_store_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.event_data_stores
-WHERE Identifier = '{{ event_data_store_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ event_data_store_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

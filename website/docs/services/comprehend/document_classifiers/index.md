@@ -300,22 +300,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>document_classifier</code>.
 ```sql
 SELECT
-region,
-data_access_role_arn,
-input_data_config,
-output_data_config,
-language_code,
-model_kms_key_id,
-model_policy,
-document_classifier_name,
-mode,
-tags,
-version_name,
-volume_kms_key_id,
-vpc_config,
-arn
+  region,
+  data_access_role_arn,
+  input_data_config,
+  output_data_config,
+  language_code,
+  model_kms_key_id,
+  model_policy,
+  document_classifier_name,
+  mode,
+  tags,
+  version_name,
+  volume_kms_key_id,
+  vpc_config,
+  arn
 FROM awscc.comprehend.document_classifiers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,10 +325,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>document_classifiers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.comprehend.document_classifiers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -348,18 +351,18 @@ Use the following StackQL query and manifest file to create a new <code>document
 ```sql
 /*+ create */
 INSERT INTO awscc.comprehend.document_classifiers (
- DataAccessRoleArn,
- InputDataConfig,
- LanguageCode,
- DocumentClassifierName,
- region
+  DataAccessRoleArn,
+  InputDataConfig,
+  LanguageCode,
+  DocumentClassifierName,
+  region
 )
 SELECT
-'{{ data_access_role_arn }}',
- '{{ input_data_config }}',
- '{{ language_code }}',
- '{{ document_classifier_name }}',
-'{{ region }}';
+  '{{ data_access_role_arn }}',
+  '{{ input_data_config }}',
+  '{{ language_code }}',
+  '{{ document_classifier_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -367,34 +370,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.comprehend.document_classifiers (
- DataAccessRoleArn,
- InputDataConfig,
- OutputDataConfig,
- LanguageCode,
- ModelKmsKeyId,
- ModelPolicy,
- DocumentClassifierName,
- Mode,
- Tags,
- VersionName,
- VolumeKmsKeyId,
- VpcConfig,
- region
+  DataAccessRoleArn,
+  InputDataConfig,
+  OutputDataConfig,
+  LanguageCode,
+  ModelKmsKeyId,
+  ModelPolicy,
+  DocumentClassifierName,
+  Mode,
+  Tags,
+  VersionName,
+  VolumeKmsKeyId,
+  VpcConfig,
+  region
 )
 SELECT
- '{{ data_access_role_arn }}',
- '{{ input_data_config }}',
- '{{ output_data_config }}',
- '{{ language_code }}',
- '{{ model_kms_key_id }}',
- '{{ model_policy }}',
- '{{ document_classifier_name }}',
- '{{ mode }}',
- '{{ tags }}',
- '{{ version_name }}',
- '{{ volume_kms_key_id }}',
- '{{ vpc_config }}',
- '{{ region }}';
+  '{{ data_access_role_arn }}',
+  '{{ input_data_config }}',
+  '{{ output_data_config }}',
+  '{{ language_code }}',
+  '{{ model_kms_key_id }}',
+  '{{ model_policy }}',
+  '{{ document_classifier_name }}',
+  '{{ mode }}',
+  '{{ tags }}',
+  '{{ version_name }}',
+  '{{ volume_kms_key_id }}',
+  '{{ vpc_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -476,8 +479,9 @@ SET PatchDocument = string('{{ {
     "ModelPolicy": model_policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -486,8 +490,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.comprehend.document_classifiers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

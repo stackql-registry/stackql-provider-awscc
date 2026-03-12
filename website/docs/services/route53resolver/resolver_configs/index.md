@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver_config</code>.
 ```sql
 SELECT
-region,
-id,
-owner_id,
-resource_id,
-autodefined_reverse,
-autodefined_reverse_flag
+  region,
+  id,
+  owner_id,
+  resource_id,
+  autodefined_reverse,
+  autodefined_reverse_flag
 FROM awscc.route53resolver.resolver_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,10 +167,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}';
 Lists all <code>resolver_configs</code> in a region.
 ```sql
 SELECT
-region,
-resource_id
+  region,
+  resource_id
 FROM awscc.route53resolver.resolver_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -190,14 +193,14 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_configs (
- ResourceId,
- AutodefinedReverseFlag,
- region
+  ResourceId,
+  AutodefinedReverseFlag,
+  region
 )
 SELECT
-'{{ resource_id }}',
- '{{ autodefined_reverse_flag }}',
-'{{ region }}';
+  '{{ resource_id }}',
+  '{{ autodefined_reverse_flag }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -205,14 +208,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_configs (
- ResourceId,
- AutodefinedReverseFlag,
- region
+  ResourceId,
+  AutodefinedReverseFlag,
+  region
 )
 SELECT
- '{{ resource_id }}',
- '{{ autodefined_reverse_flag }}',
- '{{ region }}';
+  '{{ resource_id }}',
+  '{{ autodefined_reverse_flag }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -243,8 +246,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_configs
-WHERE Identifier = '{{ resource_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

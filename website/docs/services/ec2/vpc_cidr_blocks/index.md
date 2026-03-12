@@ -190,22 +190,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_cidr_block</code>.
 ```sql
 SELECT
-region,
-cidr_block,
-ipv6_pool,
-id,
-vpc_id,
-ipv6_cidr_block,
-ipv4_ipam_pool_id,
-ipv4_netmask_length,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-amazon_provided_ipv6_cidr_block,
-ipv6_address_attribute,
-ip_source,
-ipv6_cidr_block_network_border_group
+  region,
+  cidr_block,
+  ipv6_pool,
+  id,
+  vpc_id,
+  ipv6_cidr_block,
+  ipv4_ipam_pool_id,
+  ipv4_netmask_length,
+  ipv6_ipam_pool_id,
+  ipv6_netmask_length,
+  amazon_provided_ipv6_cidr_block,
+  ipv6_address_attribute,
+  ip_source,
+  ipv6_cidr_block_network_border_group
 FROM awscc.ec2.vpc_cidr_blocks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ vpc_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,11 +215,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ vpc_id }}';
 Lists all <code>vpc_cidr_blocks</code> in a region.
 ```sql
 SELECT
-region,
-id,
-vpc_id
+  region,
+  id,
+  vpc_id
 FROM awscc.ec2.vpc_cidr_blocks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_cidr
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_cidr_blocks (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,30 +255,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_cidr_blocks (
- CidrBlock,
- Ipv6Pool,
- VpcId,
- Ipv6CidrBlock,
- Ipv4IpamPoolId,
- Ipv4NetmaskLength,
- Ipv6IpamPoolId,
- Ipv6NetmaskLength,
- AmazonProvidedIpv6CidrBlock,
- Ipv6CidrBlockNetworkBorderGroup,
- region
+  CidrBlock,
+  Ipv6Pool,
+  VpcId,
+  Ipv6CidrBlock,
+  Ipv4IpamPoolId,
+  Ipv4NetmaskLength,
+  Ipv6IpamPoolId,
+  Ipv6NetmaskLength,
+  AmazonProvidedIpv6CidrBlock,
+  Ipv6CidrBlockNetworkBorderGroup,
+  region
 )
 SELECT
- '{{ cidr_block }}',
- '{{ ipv6_pool }}',
- '{{ vpc_id }}',
- '{{ ipv6_cidr_block }}',
- '{{ ipv4_ipam_pool_id }}',
- '{{ ipv4_netmask_length }}',
- '{{ ipv6_ipam_pool_id }}',
- '{{ ipv6_netmask_length }}',
- '{{ amazon_provided_ipv6_cidr_block }}',
- '{{ ipv6_cidr_block_network_border_group }}',
- '{{ region }}';
+  '{{ cidr_block }}',
+  '{{ ipv6_pool }}',
+  '{{ vpc_id }}',
+  '{{ ipv6_cidr_block }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ ipv4_netmask_length }}',
+  '{{ ipv6_ipam_pool_id }}',
+  '{{ ipv6_netmask_length }}',
+  '{{ amazon_provided_ipv6_cidr_block }}',
+  '{{ ipv6_cidr_block_network_border_group }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_cidr_blocks
-WHERE Identifier = '{{ id }}|{{ vpc_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ vpc_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

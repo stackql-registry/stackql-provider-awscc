@@ -467,21 +467,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>detector</code>.
 ```sql
 SELECT
-region,
-detector_id,
-detector_version_status,
-detector_version_id,
-rule_execution_mode,
-tags,
-description,
-rules,
-event_type,
-arn,
-created_time,
-last_updated_time,
-associated_models
+  region,
+  detector_id,
+  detector_version_status,
+  detector_version_id,
+  rule_execution_mode,
+  tags,
+  description,
+  rules,
+  event_type,
+  arn,
+  created_time,
+  last_updated_time,
+  associated_models
 FROM awscc.frauddetector.detectors
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -489,10 +491,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>detectors</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.frauddetector.detectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -514,16 +517,16 @@ Use the following StackQL query and manifest file to create a new <code>detector
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.detectors (
- DetectorId,
- Rules,
- EventType,
- region
+  DetectorId,
+  Rules,
+  EventType,
+  region
 )
 SELECT
-'{{ detector_id }}',
- '{{ rules }}',
- '{{ event_type }}',
-'{{ region }}';
+  '{{ detector_id }}',
+  '{{ rules }}',
+  '{{ event_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -531,26 +534,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.detectors (
- DetectorId,
- DetectorVersionStatus,
- RuleExecutionMode,
- Tags,
- Description,
- Rules,
- EventType,
- AssociatedModels,
- region
+  DetectorId,
+  DetectorVersionStatus,
+  RuleExecutionMode,
+  Tags,
+  Description,
+  Rules,
+  EventType,
+  AssociatedModels,
+  region
 )
 SELECT
- '{{ detector_id }}',
- '{{ detector_version_status }}',
- '{{ rule_execution_mode }}',
- '{{ tags }}',
- '{{ description }}',
- '{{ rules }}',
- '{{ event_type }}',
- '{{ associated_models }}',
- '{{ region }}';
+  '{{ detector_id }}',
+  '{{ detector_version_status }}',
+  '{{ rule_execution_mode }}',
+  '{{ tags }}',
+  '{{ description }}',
+  '{{ rules }}',
+  '{{ event_type }}',
+  '{{ associated_models }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -650,8 +653,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -660,8 +664,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.detectors
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

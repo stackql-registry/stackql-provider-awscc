@@ -314,37 +314,39 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>capacity_reservation</code>.
 ```sql
 SELECT
-region,
-tenancy,
-end_date_type,
-tag_specifications,
-availability_zone,
-total_instance_count,
-end_date,
-ebs_optimized,
-out_post_arn,
-instance_count,
-placement_group_arn,
-available_instance_count,
-instance_platform,
-id,
-instance_type,
-ephemeral_storage,
-instance_match_criteria,
-unused_reservation_billing_owner_id,
-availability_zone_id,
-start_date,
-capacity_reservation_arn,
-create_date,
-state,
-owner_id,
-delivery_preference,
-capacity_reservation_fleet_id,
-reservation_type,
-capacity_allocation_set,
-commitment_info
+  region,
+  tenancy,
+  end_date_type,
+  tag_specifications,
+  availability_zone,
+  total_instance_count,
+  end_date,
+  ebs_optimized,
+  out_post_arn,
+  instance_count,
+  placement_group_arn,
+  available_instance_count,
+  instance_platform,
+  id,
+  instance_type,
+  ephemeral_storage,
+  instance_match_criteria,
+  unused_reservation_billing_owner_id,
+  availability_zone_id,
+  start_date,
+  capacity_reservation_arn,
+  create_date,
+  state,
+  owner_id,
+  delivery_preference,
+  capacity_reservation_fleet_id,
+  reservation_type,
+  capacity_allocation_set,
+  commitment_info
 FROM awscc.ec2.capacity_reservations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,10 +354,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>capacity_reservations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.capacity_reservations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -377,16 +380,16 @@ Use the following StackQL query and manifest file to create a new <code>capacity
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.capacity_reservations (
- InstanceCount,
- InstancePlatform,
- InstanceType,
- region
+  InstanceCount,
+  InstancePlatform,
+  InstanceType,
+  region
 )
 SELECT
-'{{ instance_count }}',
- '{{ instance_platform }}',
- '{{ instance_type }}',
-'{{ region }}';
+  '{{ instance_count }}',
+  '{{ instance_platform }}',
+  '{{ instance_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -394,40 +397,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.capacity_reservations (
- Tenancy,
- EndDateType,
- TagSpecifications,
- AvailabilityZone,
- EndDate,
- EbsOptimized,
- OutPostArn,
- InstanceCount,
- PlacementGroupArn,
- InstancePlatform,
- InstanceType,
- EphemeralStorage,
- InstanceMatchCriteria,
- UnusedReservationBillingOwnerId,
- AvailabilityZoneId,
- region
+  Tenancy,
+  EndDateType,
+  TagSpecifications,
+  AvailabilityZone,
+  EndDate,
+  EbsOptimized,
+  OutPostArn,
+  InstanceCount,
+  PlacementGroupArn,
+  InstancePlatform,
+  InstanceType,
+  EphemeralStorage,
+  InstanceMatchCriteria,
+  UnusedReservationBillingOwnerId,
+  AvailabilityZoneId,
+  region
 )
 SELECT
- '{{ tenancy }}',
- '{{ end_date_type }}',
- '{{ tag_specifications }}',
- '{{ availability_zone }}',
- '{{ end_date }}',
- '{{ ebs_optimized }}',
- '{{ out_post_arn }}',
- '{{ instance_count }}',
- '{{ placement_group_arn }}',
- '{{ instance_platform }}',
- '{{ instance_type }}',
- '{{ ephemeral_storage }}',
- '{{ instance_match_criteria }}',
- '{{ unused_reservation_billing_owner_id }}',
- '{{ availability_zone_id }}',
- '{{ region }}';
+  '{{ tenancy }}',
+  '{{ end_date_type }}',
+  '{{ tag_specifications }}',
+  '{{ availability_zone }}',
+  '{{ end_date }}',
+  '{{ ebs_optimized }}',
+  '{{ out_post_arn }}',
+  '{{ instance_count }}',
+  '{{ placement_group_arn }}',
+  '{{ instance_platform }}',
+  '{{ instance_type }}',
+  '{{ ephemeral_storage }}',
+  '{{ instance_match_criteria }}',
+  '{{ unused_reservation_billing_owner_id }}',
+  '{{ availability_zone_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -496,8 +499,9 @@ SET PatchDocument = string('{{ {
     "InstanceMatchCriteria": instance_match_criteria,
     "UnusedReservationBillingOwnerId": unused_reservation_billing_owner_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -506,8 +510,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.capacity_reservations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

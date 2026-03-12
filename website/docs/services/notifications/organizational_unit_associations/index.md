@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>organizational_unit_association</code>.
 ```sql
 SELECT
-region,
-notification_configuration_arn,
-organizational_unit_id
+  region,
+  notification_configuration_arn,
+  organizational_unit_id
 FROM awscc.notifications.organizational_unit_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ notification_configuration_arn }
 Lists all <code>organizational_unit_associations</code> in a region.
 ```sql
 SELECT
-region,
-notification_configuration_arn,
-organizational_unit_id
+  region,
+  notification_configuration_arn,
+  organizational_unit_id
 FROM awscc.notifications.organizational_unit_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>organiza
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.organizational_unit_associations (
- NotificationConfigurationArn,
- OrganizationalUnitId,
- region
+  NotificationConfigurationArn,
+  OrganizationalUnitId,
+  region
 )
 SELECT
-'{{ notification_configuration_arn }}',
- '{{ organizational_unit_id }}',
-'{{ region }}';
+  '{{ notification_configuration_arn }}',
+  '{{ organizational_unit_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.organizational_unit_associations (
- NotificationConfigurationArn,
- OrganizationalUnitId,
- region
+  NotificationConfigurationArn,
+  OrganizationalUnitId,
+  region
 )
 SELECT
- '{{ notification_configuration_arn }}',
- '{{ organizational_unit_id }}',
- '{{ region }}';
+  '{{ notification_configuration_arn }}',
+  '{{ organizational_unit_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.organizational_unit_associations
-WHERE Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

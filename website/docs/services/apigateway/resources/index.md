@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource</code>.
 ```sql
 SELECT
-region,
-parent_id,
-path_part,
-resource_id,
-rest_api_id
+  region,
+  parent_id,
+  path_part,
+  resource_id,
+  rest_api_id
 FROM awscc.apigateway.resources
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ resource_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ resource_id }}
 Lists all <code>resources</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id,
-resource_id
+  region,
+  rest_api_id,
+  resource_id
 FROM awscc.apigateway.resources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.resources (
- ParentId,
- PathPart,
- RestApiId,
- region
+  ParentId,
+  PathPart,
+  RestApiId,
+  region
 )
 SELECT
-'{{ parent_id }}',
- '{{ path_part }}',
- '{{ rest_api_id }}',
-'{{ region }}';
+  '{{ parent_id }}',
+  '{{ path_part }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,16 +211,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.resources (
- ParentId,
- PathPart,
- RestApiId,
- region
+  ParentId,
+  PathPart,
+  RestApiId,
+  region
 )
 SELECT
- '{{ parent_id }}',
- '{{ path_part }}',
- '{{ rest_api_id }}',
- '{{ region }}';
+  '{{ parent_id }}',
+  '{{ path_part }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.resources
-WHERE Identifier = '{{ rest_api_id }}|{{ resource_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ resource_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

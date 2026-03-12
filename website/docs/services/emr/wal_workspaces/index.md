@@ -148,11 +148,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>wal_workspace</code>.
 ```sql
 SELECT
-region,
-wal_workspace_name,
-tags
+  region,
+  wal_workspace_name,
+  tags
 FROM awscc.emr.wal_workspaces
-WHERE region = 'us-east-1' AND Identifier = '{{ wal_workspace_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ wal_workspace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ wal_workspace_name }}';
 Lists all <code>wal_workspaces</code> in a region.
 ```sql
 SELECT
-region,
-wal_workspace_name
+  region,
+  wal_workspace_name
 FROM awscc.emr.wal_workspaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,14 +188,14 @@ Use the following StackQL query and manifest file to create a new <code>wal_work
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.wal_workspaces (
- WALWorkspaceName,
- Tags,
- region
+  WALWorkspaceName,
+  Tags,
+  region
 )
 SELECT
-'{{ wal_workspace_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ wal_workspace_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -200,14 +203,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.wal_workspaces (
- WALWorkspaceName,
- Tags,
- region
+  WALWorkspaceName,
+  Tags,
+  region
 )
 SELECT
- '{{ wal_workspace_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ wal_workspace_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ UPDATE awscc.emr.wal_workspaces
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ wal_workspace_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ wal_workspace_name }}';
 ```
 
 
@@ -254,8 +258,9 @@ AND Identifier = '{{ wal_workspace_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.wal_workspaces
-WHERE Identifier = '{{ wal_workspace_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ wal_workspace_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

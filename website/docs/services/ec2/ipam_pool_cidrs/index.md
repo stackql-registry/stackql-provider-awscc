@@ -155,14 +155,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam_pool_cidr</code>.
 ```sql
 SELECT
-region,
-ipam_pool_cidr_id,
-ipam_pool_id,
-cidr,
-netmask_length,
-state
+  region,
+  ipam_pool_cidr_id,
+  ipam_pool_id,
+  cidr,
+  netmask_length,
+  state
 FROM awscc.ec2.ipam_pool_cidrs
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,11 +172,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cid
 Lists all <code>ipam_pool_cidrs</code> in a region.
 ```sql
 SELECT
-region,
-ipam_pool_id,
-ipam_pool_cidr_id
+  region,
+  ipam_pool_id,
+  ipam_pool_cidr_id
 FROM awscc.ec2.ipam_pool_cidrs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,12 +199,12 @@ Use the following StackQL query and manifest file to create a new <code>ipam_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_pool_cidrs (
- IpamPoolId,
- region
+  IpamPoolId,
+  region
 )
 SELECT
-'{{ ipam_pool_id }}',
-'{{ region }}';
+  '{{ ipam_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -209,16 +212,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_pool_cidrs (
- IpamPoolId,
- Cidr,
- NetmaskLength,
- region
+  IpamPoolId,
+  Cidr,
+  NetmaskLength,
+  region
 )
 SELECT
- '{{ ipam_pool_id }}',
- '{{ cidr }}',
- '{{ netmask_length }}',
- '{{ region }}';
+  '{{ ipam_pool_id }}',
+  '{{ cidr }}',
+  '{{ netmask_length }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_pool_cidrs
-WHERE Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

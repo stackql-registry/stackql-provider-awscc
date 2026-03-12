@@ -635,25 +635,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>origin_endpoint</code>.
 ```sql
 SELECT
-region,
-arn,
-url,
-id,
-channel_id,
-description,
-whitelist,
-startover_window_seconds,
-time_delay_seconds,
-manifest_name,
-origination,
-authorization,
-hls_package,
-dash_package,
-mss_package,
-cmaf_package,
-tags
+  region,
+  arn,
+  url,
+  id,
+  channel_id,
+  description,
+  whitelist,
+  startover_window_seconds,
+  time_delay_seconds,
+  manifest_name,
+  origination,
+  authorization,
+  hls_package,
+  dash_package,
+  mss_package,
+  cmaf_package,
+  tags
 FROM awscc.mediapackage.origin_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -661,10 +663,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>origin_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.mediapackage.origin_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -686,14 +689,14 @@ Use the following StackQL query and manifest file to create a new <code>origin_e
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.origin_endpoints (
- Id,
- ChannelId,
- region
+  Id,
+  ChannelId,
+  region
 )
 SELECT
-'{{ id }}',
- '{{ channel_id }}',
-'{{ region }}';
+  '{{ id }}',
+  '{{ channel_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -701,38 +704,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.origin_endpoints (
- Id,
- ChannelId,
- Description,
- Whitelist,
- StartoverWindowSeconds,
- TimeDelaySeconds,
- ManifestName,
- Origination,
- Authorization,
- HlsPackage,
- DashPackage,
- MssPackage,
- CmafPackage,
- Tags,
- region
+  Id,
+  ChannelId,
+  Description,
+  Whitelist,
+  StartoverWindowSeconds,
+  TimeDelaySeconds,
+  ManifestName,
+  Origination,
+  Authorization,
+  HlsPackage,
+  DashPackage,
+  MssPackage,
+  CmafPackage,
+  Tags,
+  region
 )
 SELECT
- '{{ id }}',
- '{{ channel_id }}',
- '{{ description }}',
- '{{ whitelist }}',
- '{{ startover_window_seconds }}',
- '{{ time_delay_seconds }}',
- '{{ manifest_name }}',
- '{{ origination }}',
- '{{ authorization }}',
- '{{ hls_package }}',
- '{{ dash_package }}',
- '{{ mss_package }}',
- '{{ cmaf_package }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ id }}',
+  '{{ channel_id }}',
+  '{{ description }}',
+  '{{ whitelist }}',
+  '{{ startover_window_seconds }}',
+  '{{ time_delay_seconds }}',
+  '{{ manifest_name }}',
+  '{{ origination }}',
+  '{{ authorization }}',
+  '{{ hls_package }}',
+  '{{ dash_package }}',
+  '{{ mss_package }}',
+  '{{ cmaf_package }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -859,8 +862,9 @@ SET PatchDocument = string('{{ {
     "CmafPackage": cmaf_package,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -869,8 +873,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.origin_endpoints
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

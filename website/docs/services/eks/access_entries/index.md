@@ -207,17 +207,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_entry</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-principal_arn,
-username,
-tags,
-access_entry_arn,
-kubernetes_groups,
-access_policies,
-type
+  region,
+  cluster_name,
+  principal_arn,
+  username,
+  tags,
+  access_entry_arn,
+  kubernetes_groups,
+  access_policies,
+  type
 FROM awscc.eks.access_entries
-WHERE region = 'us-east-1' AND Identifier = '{{ principal_arn }}|{{ cluster_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ principal_arn }}|{{ cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ principal_arn }}|{{ cluster_name
 Lists all <code>access_entries</code> in a region.
 ```sql
 SELECT
-region,
-principal_arn,
-cluster_name
+  region,
+  principal_arn,
+  cluster_name
 FROM awscc.eks.access_entries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,14 +254,14 @@ Use the following StackQL query and manifest file to create a new <code>access_e
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.access_entries (
- ClusterName,
- PrincipalArn,
- region
+  ClusterName,
+  PrincipalArn,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ principal_arn }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ principal_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,24 +269,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.access_entries (
- ClusterName,
- PrincipalArn,
- Username,
- Tags,
- KubernetesGroups,
- AccessPolicies,
- Type,
- region
+  ClusterName,
+  PrincipalArn,
+  Username,
+  Tags,
+  KubernetesGroups,
+  AccessPolicies,
+  Type,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ principal_arn }}',
- '{{ username }}',
- '{{ tags }}',
- '{{ kubernetes_groups }}',
- '{{ access_policies }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ principal_arn }}',
+  '{{ username }}',
+  '{{ tags }}',
+  '{{ kubernetes_groups }}',
+  '{{ access_policies }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -339,8 +342,9 @@ SET PatchDocument = string('{{ {
     "KubernetesGroups": kubernetes_groups,
     "AccessPolicies": access_policies
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ principal_arn }}|{{ cluster_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ principal_arn }}|{{ cluster_name }}';
 ```
 
 
@@ -349,8 +353,9 @@ AND Identifier = '{{ principal_arn }}|{{ cluster_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.access_entries
-WHERE Identifier = '{{ principal_arn }}|{{ cluster_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ principal_arn }}|{{ cluster_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

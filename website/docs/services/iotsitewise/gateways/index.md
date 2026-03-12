@@ -211,15 +211,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>gateway</code>.
 ```sql
 SELECT
-region,
-gateway_name,
-gateway_platform,
-gateway_version,
-tags,
-gateway_id,
-gateway_capability_summaries
+  region,
+  gateway_name,
+  gateway_platform,
+  gateway_version,
+  tags,
+  gateway_id,
+  gateway_capability_summaries
 FROM awscc.iotsitewise.gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ gateway_id }}';
 Lists all <code>gateways</code> in a region.
 ```sql
 SELECT
-region,
-gateway_id
+  region,
+  gateway_id
 FROM awscc.iotsitewise.gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,14 +255,14 @@ Use the following StackQL query and manifest file to create a new <code>gateway<
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.gateways (
- GatewayName,
- GatewayPlatform,
- region
+  GatewayName,
+  GatewayPlatform,
+  region
 )
 SELECT
-'{{ gateway_name }}',
- '{{ gateway_platform }}',
-'{{ region }}';
+  '{{ gateway_name }}',
+  '{{ gateway_platform }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -267,20 +270,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.gateways (
- GatewayName,
- GatewayPlatform,
- GatewayVersion,
- Tags,
- GatewayCapabilitySummaries,
- region
+  GatewayName,
+  GatewayPlatform,
+  GatewayVersion,
+  Tags,
+  GatewayCapabilitySummaries,
+  region
 )
 SELECT
- '{{ gateway_name }}',
- '{{ gateway_platform }}',
- '{{ gateway_version }}',
- '{{ tags }}',
- '{{ gateway_capability_summaries }}',
- '{{ region }}';
+  '{{ gateway_name }}',
+  '{{ gateway_platform }}',
+  '{{ gateway_version }}',
+  '{{ tags }}',
+  '{{ gateway_capability_summaries }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -332,8 +335,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "GatewayCapabilitySummaries": gateway_capability_summaries
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ gateway_id }}';
 ```
 
 
@@ -342,8 +346,9 @@ AND Identifier = '{{ gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.gateways
-WHERE Identifier = '{{ gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

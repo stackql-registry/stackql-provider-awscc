@@ -993,20 +993,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-flow_name,
-description,
-kms_arn,
-trigger_config,
-flow_status,
-source_flow_config,
-destination_flow_config_list,
-tasks,
-tags,
-metadata_catalog_config
+  region,
+  flow_arn,
+  flow_name,
+  description,
+  kms_arn,
+  trigger_config,
+  flow_status,
+  source_flow_config,
+  destination_flow_config_list,
+  tasks,
+  tags,
+  metadata_catalog_config
 FROM awscc.appflow.flows
-WHERE region = 'us-east-1' AND Identifier = '{{ flow_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ flow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1014,10 +1016,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ flow_name }}';
 Lists all <code>flows</code> in a region.
 ```sql
 SELECT
-region,
-flow_name
+  region,
+  flow_name
 FROM awscc.appflow.flows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1039,20 +1042,20 @@ Use the following StackQL query and manifest file to create a new <code>flow</co
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.flows (
- FlowName,
- TriggerConfig,
- SourceFlowConfig,
- DestinationFlowConfigList,
- Tasks,
- region
+  FlowName,
+  TriggerConfig,
+  SourceFlowConfig,
+  DestinationFlowConfigList,
+  Tasks,
+  region
 )
 SELECT
-'{{ flow_name }}',
- '{{ trigger_config }}',
- '{{ source_flow_config }}',
- '{{ destination_flow_config_list }}',
- '{{ tasks }}',
-'{{ region }}';
+  '{{ flow_name }}',
+  '{{ trigger_config }}',
+  '{{ source_flow_config }}',
+  '{{ destination_flow_config_list }}',
+  '{{ tasks }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1060,30 +1063,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appflow.flows (
- FlowName,
- Description,
- KMSArn,
- TriggerConfig,
- FlowStatus,
- SourceFlowConfig,
- DestinationFlowConfigList,
- Tasks,
- Tags,
- MetadataCatalogConfig,
- region
+  FlowName,
+  Description,
+  KMSArn,
+  TriggerConfig,
+  FlowStatus,
+  SourceFlowConfig,
+  DestinationFlowConfigList,
+  Tasks,
+  Tags,
+  MetadataCatalogConfig,
+  region
 )
 SELECT
- '{{ flow_name }}',
- '{{ description }}',
- '{{ kms_arn }}',
- '{{ trigger_config }}',
- '{{ flow_status }}',
- '{{ source_flow_config }}',
- '{{ destination_flow_config_list }}',
- '{{ tasks }}',
- '{{ tags }}',
- '{{ metadata_catalog_config }}',
- '{{ region }}';
+  '{{ flow_name }}',
+  '{{ description }}',
+  '{{ kms_arn }}',
+  '{{ trigger_config }}',
+  '{{ flow_status }}',
+  '{{ source_flow_config }}',
+  '{{ destination_flow_config_list }}',
+  '{{ tasks }}',
+  '{{ tags }}',
+  '{{ metadata_catalog_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1315,8 +1318,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "MetadataCatalogConfig": metadata_catalog_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ flow_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ flow_name }}';
 ```
 
 
@@ -1325,8 +1329,9 @@ AND Identifier = '{{ flow_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.flows
-WHERE Identifier = '{{ flow_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ flow_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

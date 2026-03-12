@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_gateway</code>.
 ```sql
 SELECT
-region,
-ip_address_type,
-vpc_identifier,
-ipv4_addresses_per_eni,
-id,
-arn,
-subnet_ids,
-security_group_ids,
-tags,
-name
+  region,
+  ip_address_type,
+  vpc_identifier,
+  ipv4_addresses_per_eni,
+  id,
+  arn,
+  subnet_ids,
+  security_group_ids,
+  tags,
+  name
 FROM awscc.vpclattice.resource_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>resource_gateways</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.resource_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.resource_gateways (
- VpcIdentifier,
- SubnetIds,
- Name,
- region
+  VpcIdentifier,
+  SubnetIds,
+  Name,
+  region
 )
 SELECT
-'{{ vpc_identifier }}',
- '{{ subnet_ids }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ vpc_identifier }}',
+  '{{ subnet_ids }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,24 +247,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.resource_gateways (
- IpAddressType,
- VpcIdentifier,
- Ipv4AddressesPerEni,
- SubnetIds,
- SecurityGroupIds,
- Tags,
- Name,
- region
+  IpAddressType,
+  VpcIdentifier,
+  Ipv4AddressesPerEni,
+  SubnetIds,
+  SecurityGroupIds,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ ip_address_type }}',
- '{{ vpc_identifier }}',
- '{{ ipv4_addresses_per_eni }}',
- '{{ subnet_ids }}',
- '{{ security_group_ids }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ ip_address_type }}',
+  '{{ vpc_identifier }}',
+  '{{ ipv4_addresses_per_eni }}',
+  '{{ subnet_ids }}',
+  '{{ security_group_ids }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "SecurityGroupIds": security_group_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.resource_gateways
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

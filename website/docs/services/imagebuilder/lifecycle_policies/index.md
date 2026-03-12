@@ -302,18 +302,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>lifecycle_policy</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-status,
-execution_role,
-resource_type,
-policy_details,
-resource_selection,
-tags
+  region,
+  arn,
+  name,
+  description,
+  status,
+  execution_role,
+  resource_type,
+  policy_details,
+  resource_selection,
+  tags
 FROM awscc.imagebuilder.lifecycle_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,10 +323,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>lifecycle_policies</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.lifecycle_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -346,20 +349,20 @@ Use the following StackQL query and manifest file to create a new <code>lifecycl
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.lifecycle_policies (
- Name,
- ExecutionRole,
- ResourceType,
- PolicyDetails,
- ResourceSelection,
- region
+  Name,
+  ExecutionRole,
+  ResourceType,
+  PolicyDetails,
+  ResourceSelection,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ execution_role }}',
- '{{ resource_type }}',
- '{{ policy_details }}',
- '{{ resource_selection }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ execution_role }}',
+  '{{ resource_type }}',
+  '{{ policy_details }}',
+  '{{ resource_selection }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -367,26 +370,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.lifecycle_policies (
- Name,
- Description,
- Status,
- ExecutionRole,
- ResourceType,
- PolicyDetails,
- ResourceSelection,
- Tags,
- region
+  Name,
+  Description,
+  Status,
+  ExecutionRole,
+  ResourceType,
+  PolicyDetails,
+  ResourceSelection,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ status }}',
- '{{ execution_role }}',
- '{{ resource_type }}',
- '{{ policy_details }}',
- '{{ resource_selection }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ status }}',
+  '{{ execution_role }}',
+  '{{ resource_type }}',
+  '{{ policy_details }}',
+  '{{ resource_selection }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -466,8 +469,9 @@ SET PatchDocument = string('{{ {
     "ResourceSelection": resource_selection,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -476,8 +480,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.lifecycle_policies
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

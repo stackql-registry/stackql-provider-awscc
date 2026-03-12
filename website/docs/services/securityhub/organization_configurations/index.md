@@ -161,16 +161,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>organization_configuration</code>.
 ```sql
 SELECT
-region,
-auto_enable,
-auto_enable_standards,
-configuration_type,
-status,
-status_message,
-member_account_limit_reached,
-organization_configuration_identifier
+  region,
+  auto_enable,
+  auto_enable_standards,
+  configuration_type,
+  status,
+  status_message,
+  member_account_limit_reached,
+  organization_configuration_identifier
 FROM awscc.securityhub.organization_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ organization_configuration_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ organization_configuration_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ organization_configuration_ident
 Lists all <code>organization_configurations</code> in a region.
 ```sql
 SELECT
-region,
-organization_configuration_identifier
+  region,
+  organization_configuration_identifier
 FROM awscc.securityhub.organization_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>organiza
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.organization_configurations (
- AutoEnable,
- region
+  AutoEnable,
+  region
 )
 SELECT
-'{{ auto_enable }}',
-'{{ region }}';
+  '{{ auto_enable }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,16 +219,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.organization_configurations (
- AutoEnable,
- AutoEnableStandards,
- ConfigurationType,
- region
+  AutoEnable,
+  AutoEnableStandards,
+  ConfigurationType,
+  region
 )
 SELECT
- '{{ auto_enable }}',
- '{{ auto_enable_standards }}',
- '{{ configuration_type }}',
- '{{ region }}';
+  '{{ auto_enable }}',
+  '{{ auto_enable_standards }}',
+  '{{ configuration_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ SET PatchDocument = string('{{ {
     "AutoEnableStandards": auto_enable_standards,
     "ConfigurationType": configuration_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ organization_configuration_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ organization_configuration_identifier }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ organization_configuration_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.organization_configurations
-WHERE Identifier = '{{ organization_configuration_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ organization_configuration_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

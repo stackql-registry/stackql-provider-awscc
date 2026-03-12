@@ -232,22 +232,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-app_id,
-arn,
-auto_sub_domain_creation_patterns,
-auto_sub_domain_iam_role,
-certificate_record,
-certificate,
-certificate_settings,
-domain_name,
-domain_status,
-update_status,
-enable_auto_sub_domain,
-status_reason,
-sub_domain_settings
+  region,
+  app_id,
+  arn,
+  auto_sub_domain_creation_patterns,
+  auto_sub_domain_iam_role,
+  certificate_record,
+  certificate,
+  certificate_settings,
+  domain_name,
+  domain_status,
+  update_status,
+  enable_auto_sub_domain,
+  status_reason,
+  sub_domain_settings
 FROM awscc.amplify.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,10 +257,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.amplify.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -280,16 +283,16 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.domains (
- AppId,
- DomainName,
- SubDomainSettings,
- region
+  AppId,
+  DomainName,
+  SubDomainSettings,
+  region
 )
 SELECT
-'{{ app_id }}',
- '{{ domain_name }}',
- '{{ sub_domain_settings }}',
-'{{ region }}';
+  '{{ app_id }}',
+  '{{ domain_name }}',
+  '{{ sub_domain_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -297,24 +300,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.domains (
- AppId,
- AutoSubDomainCreationPatterns,
- AutoSubDomainIAMRole,
- CertificateSettings,
- DomainName,
- EnableAutoSubDomain,
- SubDomainSettings,
- region
+  AppId,
+  AutoSubDomainCreationPatterns,
+  AutoSubDomainIAMRole,
+  CertificateSettings,
+  DomainName,
+  EnableAutoSubDomain,
+  SubDomainSettings,
+  region
 )
 SELECT
- '{{ app_id }}',
- '{{ auto_sub_domain_creation_patterns }}',
- '{{ auto_sub_domain_iam_role }}',
- '{{ certificate_settings }}',
- '{{ domain_name }}',
- '{{ enable_auto_sub_domain }}',
- '{{ sub_domain_settings }}',
- '{{ region }}';
+  '{{ app_id }}',
+  '{{ auto_sub_domain_creation_patterns }}',
+  '{{ auto_sub_domain_iam_role }}',
+  '{{ certificate_settings }}',
+  '{{ domain_name }}',
+  '{{ enable_auto_sub_domain }}',
+  '{{ sub_domain_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -368,8 +371,9 @@ SET PatchDocument = string('{{ {
     "EnableAutoSubDomain": enable_auto_sub_domain,
     "SubDomainSettings": sub_domain_settings
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -378,8 +382,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.domains
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

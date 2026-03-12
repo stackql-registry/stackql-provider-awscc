@@ -390,53 +390,55 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_autonomous_vm_cluster</code>.
 ```sql
 SELECT
-region,
-cloud_autonomous_vm_cluster_id,
-cloud_autonomous_vm_cluster_arn,
-odb_network_id,
-oci_resource_anchor_name,
-display_name,
-cloud_exadata_infrastructure_id,
-autonomous_data_storage_percentage,
-autonomous_data_storage_size_in_tbs,
-available_autonomous_data_storage_size_in_tbs,
-available_container_databases,
-available_cpus,
-compute_model,
-cpu_core_count,
-cpu_core_count_per_node,
-cpu_percentage,
-data_storage_size_in_gbs,
-data_storage_size_in_tbs,
-db_node_storage_size_in_gbs,
-db_servers,
-description,
-domain,
-exadata_storage_in_tbs_lowest_scaled_value,
-hostname,
-ocid,
-oci_url,
-is_mtls_enabled_vm_cluster,
-license_model,
-maintenance_window,
-max_acds_lowest_scaled_value,
-memory_per_oracle_compute_unit_in_gbs,
-memory_size_in_gbs,
-node_count,
-non_provisionable_autonomous_container_databases,
-provisionable_autonomous_container_databases,
-provisioned_autonomous_container_databases,
-provisioned_cpus,
-reclaimable_cpus,
-reserved_cpus,
-scan_listener_port_non_tls,
-scan_listener_port_tls,
-shape,
-tags,
-time_zone,
-total_container_databases
+  region,
+  cloud_autonomous_vm_cluster_id,
+  cloud_autonomous_vm_cluster_arn,
+  odb_network_id,
+  oci_resource_anchor_name,
+  display_name,
+  cloud_exadata_infrastructure_id,
+  autonomous_data_storage_percentage,
+  autonomous_data_storage_size_in_tbs,
+  available_autonomous_data_storage_size_in_tbs,
+  available_container_databases,
+  available_cpus,
+  compute_model,
+  cpu_core_count,
+  cpu_core_count_per_node,
+  cpu_percentage,
+  data_storage_size_in_gbs,
+  data_storage_size_in_tbs,
+  db_node_storage_size_in_gbs,
+  db_servers,
+  description,
+  domain,
+  exadata_storage_in_tbs_lowest_scaled_value,
+  hostname,
+  ocid,
+  oci_url,
+  is_mtls_enabled_vm_cluster,
+  license_model,
+  maintenance_window,
+  max_acds_lowest_scaled_value,
+  memory_per_oracle_compute_unit_in_gbs,
+  memory_size_in_gbs,
+  node_count,
+  non_provisionable_autonomous_container_databases,
+  provisionable_autonomous_container_databases,
+  provisioned_autonomous_container_databases,
+  provisioned_cpus,
+  reclaimable_cpus,
+  reserved_cpus,
+  scan_listener_port_non_tls,
+  scan_listener_port_tls,
+  shape,
+  tags,
+  time_zone,
+  total_container_databases
 FROM awscc.odb.cloud_autonomous_vm_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -444,10 +446,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cloud_autonomous_vm_cluster_arn 
 Lists all <code>cloud_autonomous_vm_clusters</code> in a region.
 ```sql
 SELECT
-region,
-cloud_autonomous_vm_cluster_arn
+  region,
+  cloud_autonomous_vm_cluster_arn
 FROM awscc.odb.cloud_autonomous_vm_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -469,42 +472,42 @@ Use the following StackQL query and manifest file to create a new <code>cloud_au
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_autonomous_vm_clusters (
- OdbNetworkId,
- DisplayName,
- CloudExadataInfrastructureId,
- AutonomousDataStorageSizeInTBs,
- CpuCoreCountPerNode,
- DbServers,
- Description,
- IsMtlsEnabledVmCluster,
- LicenseModel,
- MaintenanceWindow,
- MemoryPerOracleComputeUnitInGBs,
- ScanListenerPortNonTls,
- ScanListenerPortTls,
- Tags,
- TimeZone,
- TotalContainerDatabases,
- region
+  OdbNetworkId,
+  DisplayName,
+  CloudExadataInfrastructureId,
+  AutonomousDataStorageSizeInTBs,
+  CpuCoreCountPerNode,
+  DbServers,
+  Description,
+  IsMtlsEnabledVmCluster,
+  LicenseModel,
+  MaintenanceWindow,
+  MemoryPerOracleComputeUnitInGBs,
+  ScanListenerPortNonTls,
+  ScanListenerPortTls,
+  Tags,
+  TimeZone,
+  TotalContainerDatabases,
+  region
 )
 SELECT
-'{{ odb_network_id }}',
- '{{ display_name }}',
- '{{ cloud_exadata_infrastructure_id }}',
- '{{ autonomous_data_storage_size_in_tbs }}',
- '{{ cpu_core_count_per_node }}',
- '{{ db_servers }}',
- '{{ description }}',
- '{{ is_mtls_enabled_vm_cluster }}',
- '{{ license_model }}',
- '{{ maintenance_window }}',
- '{{ memory_per_oracle_compute_unit_in_gbs }}',
- '{{ scan_listener_port_non_tls }}',
- '{{ scan_listener_port_tls }}',
- '{{ tags }}',
- '{{ time_zone }}',
- '{{ total_container_databases }}',
-'{{ region }}';
+  '{{ odb_network_id }}',
+  '{{ display_name }}',
+  '{{ cloud_exadata_infrastructure_id }}',
+  '{{ autonomous_data_storage_size_in_tbs }}',
+  '{{ cpu_core_count_per_node }}',
+  '{{ db_servers }}',
+  '{{ description }}',
+  '{{ is_mtls_enabled_vm_cluster }}',
+  '{{ license_model }}',
+  '{{ maintenance_window }}',
+  '{{ memory_per_oracle_compute_unit_in_gbs }}',
+  '{{ scan_listener_port_non_tls }}',
+  '{{ scan_listener_port_tls }}',
+  '{{ tags }}',
+  '{{ time_zone }}',
+  '{{ total_container_databases }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -512,42 +515,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_autonomous_vm_clusters (
- OdbNetworkId,
- DisplayName,
- CloudExadataInfrastructureId,
- AutonomousDataStorageSizeInTBs,
- CpuCoreCountPerNode,
- DbServers,
- Description,
- IsMtlsEnabledVmCluster,
- LicenseModel,
- MaintenanceWindow,
- MemoryPerOracleComputeUnitInGBs,
- ScanListenerPortNonTls,
- ScanListenerPortTls,
- Tags,
- TimeZone,
- TotalContainerDatabases,
- region
+  OdbNetworkId,
+  DisplayName,
+  CloudExadataInfrastructureId,
+  AutonomousDataStorageSizeInTBs,
+  CpuCoreCountPerNode,
+  DbServers,
+  Description,
+  IsMtlsEnabledVmCluster,
+  LicenseModel,
+  MaintenanceWindow,
+  MemoryPerOracleComputeUnitInGBs,
+  ScanListenerPortNonTls,
+  ScanListenerPortTls,
+  Tags,
+  TimeZone,
+  TotalContainerDatabases,
+  region
 )
 SELECT
- '{{ odb_network_id }}',
- '{{ display_name }}',
- '{{ cloud_exadata_infrastructure_id }}',
- '{{ autonomous_data_storage_size_in_tbs }}',
- '{{ cpu_core_count_per_node }}',
- '{{ db_servers }}',
- '{{ description }}',
- '{{ is_mtls_enabled_vm_cluster }}',
- '{{ license_model }}',
- '{{ maintenance_window }}',
- '{{ memory_per_oracle_compute_unit_in_gbs }}',
- '{{ scan_listener_port_non_tls }}',
- '{{ scan_listener_port_tls }}',
- '{{ tags }}',
- '{{ time_zone }}',
- '{{ total_container_databases }}',
- '{{ region }}';
+  '{{ odb_network_id }}',
+  '{{ display_name }}',
+  '{{ cloud_exadata_infrastructure_id }}',
+  '{{ autonomous_data_storage_size_in_tbs }}',
+  '{{ cpu_core_count_per_node }}',
+  '{{ db_servers }}',
+  '{{ description }}',
+  '{{ is_mtls_enabled_vm_cluster }}',
+  '{{ license_model }}',
+  '{{ maintenance_window }}',
+  '{{ memory_per_oracle_compute_unit_in_gbs }}',
+  '{{ scan_listener_port_non_tls }}',
+  '{{ scan_listener_port_tls }}',
+  '{{ tags }}',
+  '{{ time_zone }}',
+  '{{ total_container_databases }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -623,8 +626,9 @@ UPDATE awscc.odb.cloud_autonomous_vm_clusters
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
 ```
 
 
@@ -633,8 +637,9 @@ AND Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_autonomous_vm_clusters
-WHERE Identifier = '{{ cloud_autonomous_vm_cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cloud_autonomous_vm_cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

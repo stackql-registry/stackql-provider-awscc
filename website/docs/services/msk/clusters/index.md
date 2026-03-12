@@ -435,23 +435,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-broker_node_group_info,
-enhanced_monitoring,
-kafka_version,
-number_of_broker_nodes,
-encryption_info,
-open_monitoring,
-cluster_name,
-arn,
-current_version,
-client_authentication,
-logging_info,
-tags,
-configuration_info,
-storage_mode
+  region,
+  broker_node_group_info,
+  enhanced_monitoring,
+  kafka_version,
+  number_of_broker_nodes,
+  encryption_info,
+  open_monitoring,
+  cluster_name,
+  arn,
+  current_version,
+  client_authentication,
+  logging_info,
+  tags,
+  configuration_info,
+  storage_mode
 FROM awscc.msk.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -459,10 +461,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.msk.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -484,18 +487,18 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.clusters (
- BrokerNodeGroupInfo,
- KafkaVersion,
- NumberOfBrokerNodes,
- ClusterName,
- region
+  BrokerNodeGroupInfo,
+  KafkaVersion,
+  NumberOfBrokerNodes,
+  ClusterName,
+  region
 )
 SELECT
-'{{ broker_node_group_info }}',
- '{{ kafka_version }}',
- '{{ number_of_broker_nodes }}',
- '{{ cluster_name }}',
-'{{ region }}';
+  '{{ broker_node_group_info }}',
+  '{{ kafka_version }}',
+  '{{ number_of_broker_nodes }}',
+  '{{ cluster_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -503,36 +506,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.clusters (
- BrokerNodeGroupInfo,
- EnhancedMonitoring,
- KafkaVersion,
- NumberOfBrokerNodes,
- EncryptionInfo,
- OpenMonitoring,
- ClusterName,
- CurrentVersion,
- ClientAuthentication,
- LoggingInfo,
- Tags,
- ConfigurationInfo,
- StorageMode,
- region
+  BrokerNodeGroupInfo,
+  EnhancedMonitoring,
+  KafkaVersion,
+  NumberOfBrokerNodes,
+  EncryptionInfo,
+  OpenMonitoring,
+  ClusterName,
+  CurrentVersion,
+  ClientAuthentication,
+  LoggingInfo,
+  Tags,
+  ConfigurationInfo,
+  StorageMode,
+  region
 )
 SELECT
- '{{ broker_node_group_info }}',
- '{{ enhanced_monitoring }}',
- '{{ kafka_version }}',
- '{{ number_of_broker_nodes }}',
- '{{ encryption_info }}',
- '{{ open_monitoring }}',
- '{{ cluster_name }}',
- '{{ current_version }}',
- '{{ client_authentication }}',
- '{{ logging_info }}',
- '{{ tags }}',
- '{{ configuration_info }}',
- '{{ storage_mode }}',
- '{{ region }}';
+  '{{ broker_node_group_info }}',
+  '{{ enhanced_monitoring }}',
+  '{{ kafka_version }}',
+  '{{ number_of_broker_nodes }}',
+  '{{ encryption_info }}',
+  '{{ open_monitoring }}',
+  '{{ cluster_name }}',
+  '{{ current_version }}',
+  '{{ client_authentication }}',
+  '{{ logging_info }}',
+  '{{ tags }}',
+  '{{ configuration_info }}',
+  '{{ storage_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -648,8 +651,9 @@ SET PatchDocument = string('{{ {
     "ConfigurationInfo": configuration_info,
     "StorageMode": storage_mode
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -658,8 +662,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.clusters
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_route_table</code>.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id,
-transit_gateway_id,
-tags
+  region,
+  transit_gateway_route_table_id,
+  transit_gateway_id,
+  tags
 FROM awscc.ec2.transit_gateway_route_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }
 Lists all <code>transit_gateway_route_tables</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id
+  region,
+  transit_gateway_route_table_id
 FROM awscc.ec2.transit_gateway_route_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_route_tables (
- TransitGatewayId,
- region
+  TransitGatewayId,
+  region
 )
 SELECT
-'{{ transit_gateway_id }}',
-'{{ region }}';
+  '{{ transit_gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_route_tables (
- TransitGatewayId,
- Tags,
- region
+  TransitGatewayId,
+  Tags,
+  region
 )
 SELECT
- '{{ transit_gateway_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ transit_gateway_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.ec2.transit_gateway_route_tables
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ transit_gateway_route_table_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ transit_gateway_route_table_id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ transit_gateway_route_table_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_route_tables
-WHERE Identifier = '{{ transit_gateway_route_table_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_route_table_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -220,23 +220,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>portal</code>.
 ```sql
 SELECT
-region,
-portal_auth_mode,
-portal_arn,
-portal_client_id,
-portal_contact_email,
-portal_description,
-portal_id,
-portal_name,
-portal_start_url,
-portal_type,
-portal_type_configuration,
-role_arn,
-notification_sender_email,
-alarms,
-tags
+  region,
+  portal_auth_mode,
+  portal_arn,
+  portal_client_id,
+  portal_contact_email,
+  portal_description,
+  portal_id,
+  portal_name,
+  portal_start_url,
+  portal_type,
+  portal_type_configuration,
+  role_arn,
+  notification_sender_email,
+  alarms,
+  tags
 FROM awscc.iotsitewise.portals
-WHERE region = 'us-east-1' AND Identifier = '{{ portal_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ portal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +246,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ portal_id }}';
 Lists all <code>portals</code> in a region.
 ```sql
 SELECT
-region,
-portal_id
+  region,
+  portal_id
 FROM awscc.iotsitewise.portals_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,16 +272,16 @@ Use the following StackQL query and manifest file to create a new <code>portal</
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.portals (
- PortalContactEmail,
- PortalName,
- RoleArn,
- region
+  PortalContactEmail,
+  PortalName,
+  RoleArn,
+  region
 )
 SELECT
-'{{ portal_contact_email }}',
- '{{ portal_name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ portal_contact_email }}',
+  '{{ portal_name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -286,30 +289,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.portals (
- PortalAuthMode,
- PortalContactEmail,
- PortalDescription,
- PortalName,
- PortalType,
- PortalTypeConfiguration,
- RoleArn,
- NotificationSenderEmail,
- Alarms,
- Tags,
- region
+  PortalAuthMode,
+  PortalContactEmail,
+  PortalDescription,
+  PortalName,
+  PortalType,
+  PortalTypeConfiguration,
+  RoleArn,
+  NotificationSenderEmail,
+  Alarms,
+  Tags,
+  region
 )
 SELECT
- '{{ portal_auth_mode }}',
- '{{ portal_contact_email }}',
- '{{ portal_description }}',
- '{{ portal_name }}',
- '{{ portal_type }}',
- '{{ portal_type_configuration }}',
- '{{ role_arn }}',
- '{{ notification_sender_email }}',
- '{{ alarms }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ portal_auth_mode }}',
+  '{{ portal_contact_email }}',
+  '{{ portal_description }}',
+  '{{ portal_name }}',
+  '{{ portal_type }}',
+  '{{ portal_type_configuration }}',
+  '{{ role_arn }}',
+  '{{ notification_sender_email }}',
+  '{{ alarms }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -371,8 +374,9 @@ SET PatchDocument = string('{{ {
     "Alarms": alarms,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ portal_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ portal_id }}';
 ```
 
 
@@ -381,8 +385,9 @@ AND Identifier = '{{ portal_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.portals
-WHERE Identifier = '{{ portal_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ portal_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

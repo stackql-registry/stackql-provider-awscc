@@ -248,17 +248,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_storage_config</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-resource_type,
-association_id,
-storage_type,
-s3_config,
-kinesis_video_stream_config,
-kinesis_stream_config,
-kinesis_firehose_config
+  region,
+  instance_arn,
+  resource_type,
+  association_id,
+  storage_type,
+  s3_config,
+  kinesis_video_stream_config,
+  kinesis_stream_config,
+  kinesis_firehose_config
 FROM awscc.connect.instance_storage_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,12 +268,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ association_i
 Lists all <code>instance_storage_configs</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn,
-association_id,
-resource_type
+  region,
+  instance_arn,
+  association_id,
+  resource_type
 FROM awscc.connect.instance_storage_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,16 +296,16 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.instance_storage_configs (
- InstanceArn,
- ResourceType,
- StorageType,
- region
+  InstanceArn,
+  ResourceType,
+  StorageType,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ resource_type }}',
- '{{ storage_type }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ resource_type }}',
+  '{{ storage_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -310,24 +313,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.instance_storage_configs (
- InstanceArn,
- ResourceType,
- StorageType,
- S3Config,
- KinesisVideoStreamConfig,
- KinesisStreamConfig,
- KinesisFirehoseConfig,
- region
+  InstanceArn,
+  ResourceType,
+  StorageType,
+  S3Config,
+  KinesisVideoStreamConfig,
+  KinesisStreamConfig,
+  KinesisFirehoseConfig,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ resource_type }}',
- '{{ storage_type }}',
- '{{ s3_config }}',
- '{{ kinesis_video_stream_config }}',
- '{{ kinesis_stream_config }}',
- '{{ kinesis_firehose_config }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ resource_type }}',
+  '{{ storage_type }}',
+  '{{ s3_config }}',
+  '{{ kinesis_video_stream_config }}',
+  '{{ kinesis_stream_config }}',
+  '{{ kinesis_firehose_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -386,8 +389,9 @@ SET PatchDocument = string('{{ {
     "KinesisStreamConfig": kinesis_stream_config,
     "KinesisFirehoseConfig": kinesis_firehose_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```
 
 
@@ -396,8 +400,9 @@ AND Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.instance_storage_configs
-WHERE Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

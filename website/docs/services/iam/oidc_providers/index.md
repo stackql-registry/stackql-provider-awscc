@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>oidc_provider</code>.
 ```sql
 SELECT
-region,
-client_id_list,
-url,
-thumbprint_list,
-arn,
-tags
+  region,
+  client_id_list,
+  url,
+  thumbprint_list,
+  arn,
+  tags
 FROM awscc.iam.oidc_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>oidc_providers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.iam.oidc_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,18 +206,18 @@ Use the following StackQL query and manifest file to create a new <code>oidc_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.oidc_providers (
- ClientIdList,
- Url,
- ThumbprintList,
- Tags,
- region
+  ClientIdList,
+  Url,
+  ThumbprintList,
+  Tags,
+  region
 )
 SELECT
-'{{ client_id_list }}',
- '{{ url }}',
- '{{ thumbprint_list }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ client_id_list }}',
+  '{{ url }}',
+  '{{ thumbprint_list }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.oidc_providers (
- ClientIdList,
- Url,
- ThumbprintList,
- Tags,
- region
+  ClientIdList,
+  Url,
+  ThumbprintList,
+  Tags,
+  region
 )
 SELECT
- '{{ client_id_list }}',
- '{{ url }}',
- '{{ thumbprint_list }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ client_id_list }}',
+  '{{ url }}',
+  '{{ thumbprint_list }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -278,8 +281,9 @@ SET PatchDocument = string('{{ {
     "ThumbprintList": thumbprint_list,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -288,8 +292,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.oidc_providers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

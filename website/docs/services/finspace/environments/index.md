@@ -274,24 +274,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-environment_id,
-name,
-aws_account_id,
-description,
-status,
-environment_url,
-environment_arn,
-sage_maker_studio_domain_url,
-kms_key_id,
-dedicated_service_account_id,
-federation_mode,
-federation_parameters,
-superuser_parameters,
-data_bundles,
-tags
+  region,
+  environment_id,
+  name,
+  aws_account_id,
+  description,
+  status,
+  environment_url,
+  environment_arn,
+  sage_maker_studio_domain_url,
+  kms_key_id,
+  dedicated_service_account_id,
+  federation_mode,
+  federation_parameters,
+  superuser_parameters,
+  data_bundles,
+  tags
 FROM awscc.finspace.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,10 +301,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-environment_id
+  region,
+  environment_id
 FROM awscc.finspace.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -324,12 +327,12 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.finspace.environments (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -337,26 +340,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.finspace.environments (
- Name,
- Description,
- KmsKeyId,
- FederationMode,
- FederationParameters,
- SuperuserParameters,
- DataBundles,
- Tags,
- region
+  Name,
+  Description,
+  KmsKeyId,
+  FederationMode,
+  FederationParameters,
+  SuperuserParameters,
+  DataBundles,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ kms_key_id }}',
- '{{ federation_mode }}',
- '{{ federation_parameters }}',
- '{{ superuser_parameters }}',
- '{{ data_bundles }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ kms_key_id }}',
+  '{{ federation_mode }}',
+  '{{ federation_parameters }}',
+  '{{ superuser_parameters }}',
+  '{{ data_bundles }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -419,8 +422,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "FederationMode": federation_mode
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_id }}';
 ```
 
 
@@ -429,8 +433,9 @@ AND Identifier = '{{ environment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.finspace.environments
-WHERE Identifier = '{{ environment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

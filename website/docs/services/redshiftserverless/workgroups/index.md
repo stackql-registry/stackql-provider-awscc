@@ -421,27 +421,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workgroup</code>.
 ```sql
 SELECT
-region,
-workgroup_name,
-namespace_name,
-base_capacity,
-max_capacity,
-enhanced_vpc_routing,
-config_parameters,
-security_group_ids,
-subnet_ids,
-publicly_accessible,
-port,
-price_performance_target,
-snapshot_arn,
-snapshot_name,
-snapshot_owner_account,
-recovery_point_id,
-tags,
-track_name,
-workgroup
+  region,
+  workgroup_name,
+  namespace_name,
+  base_capacity,
+  max_capacity,
+  enhanced_vpc_routing,
+  config_parameters,
+  security_group_ids,
+  subnet_ids,
+  publicly_accessible,
+  port,
+  price_performance_target,
+  snapshot_arn,
+  snapshot_name,
+  snapshot_owner_account,
+  recovery_point_id,
+  tags,
+  track_name,
+  workgroup
 FROM awscc.redshiftserverless.workgroups
-WHERE region = 'us-east-1' AND Identifier = '{{ workgroup_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workgroup_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -449,10 +451,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workgroup_name }}';
 Lists all <code>workgroups</code> in a region.
 ```sql
 SELECT
-region,
-workgroup_name
+  region,
+  workgroup_name
 FROM awscc.redshiftserverless.workgroups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -474,12 +477,12 @@ Use the following StackQL query and manifest file to create a new <code>workgrou
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.workgroups (
- WorkgroupName,
- region
+  WorkgroupName,
+  region
 )
 SELECT
-'{{ workgroup_name }}',
-'{{ region }}';
+  '{{ workgroup_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -487,46 +490,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.workgroups (
- WorkgroupName,
- NamespaceName,
- BaseCapacity,
- MaxCapacity,
- EnhancedVpcRouting,
- ConfigParameters,
- SecurityGroupIds,
- SubnetIds,
- PubliclyAccessible,
- Port,
- PricePerformanceTarget,
- SnapshotArn,
- SnapshotName,
- SnapshotOwnerAccount,
- RecoveryPointId,
- Tags,
- TrackName,
- Workgroup,
- region
+  WorkgroupName,
+  NamespaceName,
+  BaseCapacity,
+  MaxCapacity,
+  EnhancedVpcRouting,
+  ConfigParameters,
+  SecurityGroupIds,
+  SubnetIds,
+  PubliclyAccessible,
+  Port,
+  PricePerformanceTarget,
+  SnapshotArn,
+  SnapshotName,
+  SnapshotOwnerAccount,
+  RecoveryPointId,
+  Tags,
+  TrackName,
+  Workgroup,
+  region
 )
 SELECT
- '{{ workgroup_name }}',
- '{{ namespace_name }}',
- '{{ base_capacity }}',
- '{{ max_capacity }}',
- '{{ enhanced_vpc_routing }}',
- '{{ config_parameters }}',
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ publicly_accessible }}',
- '{{ port }}',
- '{{ price_performance_target }}',
- '{{ snapshot_arn }}',
- '{{ snapshot_name }}',
- '{{ snapshot_owner_account }}',
- '{{ recovery_point_id }}',
- '{{ tags }}',
- '{{ track_name }}',
- '{{ workgroup }}',
- '{{ region }}';
+  '{{ workgroup_name }}',
+  '{{ namespace_name }}',
+  '{{ base_capacity }}',
+  '{{ max_capacity }}',
+  '{{ enhanced_vpc_routing }}',
+  '{{ config_parameters }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ publicly_accessible }}',
+  '{{ port }}',
+  '{{ price_performance_target }}',
+  '{{ snapshot_arn }}',
+  '{{ snapshot_name }}',
+  '{{ snapshot_owner_account }}',
+  '{{ recovery_point_id }}',
+  '{{ tags }}',
+  '{{ track_name }}',
+  '{{ workgroup }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -637,8 +640,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TrackName": track_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workgroup_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workgroup_name }}';
 ```
 
 
@@ -647,8 +651,9 @@ AND Identifier = '{{ workgroup_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.workgroups
-WHERE Identifier = '{{ workgroup_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workgroup_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

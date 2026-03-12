@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>authorizer</code>.
 ```sql
 SELECT
-region,
-authorizer_function_arn,
-arn,
-authorizer_name,
-signing_disabled,
-status,
-token_key_name,
-token_signing_public_keys,
-enable_caching_for_http,
-tags
+  region,
+  authorizer_function_arn,
+  arn,
+  authorizer_name,
+  signing_disabled,
+  status,
+  token_key_name,
+  token_signing_public_keys,
+  enable_caching_for_http,
+  tags
 FROM awscc.iot.authorizers
-WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ authorizer_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ authorizer_name }}';
 Lists all <code>authorizers</code> in a region.
 ```sql
 SELECT
-region,
-authorizer_name
+  region,
+  authorizer_name
 FROM awscc.iot.authorizers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,12 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>authoriz
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.authorizers (
- AuthorizerFunctionArn,
- region
+  AuthorizerFunctionArn,
+  region
 )
 SELECT
-'{{ authorizer_function_arn }}',
-'{{ region }}';
+  '{{ authorizer_function_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -240,26 +243,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.authorizers (
- AuthorizerFunctionArn,
- AuthorizerName,
- SigningDisabled,
- Status,
- TokenKeyName,
- TokenSigningPublicKeys,
- EnableCachingForHttp,
- Tags,
- region
+  AuthorizerFunctionArn,
+  AuthorizerName,
+  SigningDisabled,
+  Status,
+  TokenKeyName,
+  TokenSigningPublicKeys,
+  EnableCachingForHttp,
+  Tags,
+  region
 )
 SELECT
- '{{ authorizer_function_arn }}',
- '{{ authorizer_name }}',
- '{{ signing_disabled }}',
- '{{ status }}',
- '{{ token_key_name }}',
- '{{ token_signing_public_keys }}',
- '{{ enable_caching_for_http }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ authorizer_function_arn }}',
+  '{{ authorizer_name }}',
+  '{{ signing_disabled }}',
+  '{{ status }}',
+  '{{ token_key_name }}',
+  '{{ token_signing_public_keys }}',
+  '{{ enable_caching_for_http }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "EnableCachingForHttp": enable_caching_for_http,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ authorizer_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ authorizer_name }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ authorizer_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.authorizers
-WHERE Identifier = '{{ authorizer_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ authorizer_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

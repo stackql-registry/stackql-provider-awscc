@@ -183,17 +183,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel_placement_group</code>.
 ```sql
 SELECT
-region,
-arn,
-channels,
-cluster_id,
-id,
-name,
-nodes,
-state,
-tags
+  region,
+  arn,
+  channels,
+  cluster_id,
+  id,
+  name,
+  nodes,
+  state,
+  tags
 FROM awscc.medialive.channel_placement_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ cluster_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ cluster_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,11 +203,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ cluster_id }}';
 Lists all <code>channel_placement_groups</code> in a region.
 ```sql
 SELECT
-region,
-id,
-cluster_id
+  region,
+  id,
+  cluster_id
 FROM awscc.medialive.channel_placement_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,18 +230,18 @@ Use the following StackQL query and manifest file to create a new <code>channel_
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.channel_placement_groups (
- ClusterId,
- Name,
- Nodes,
- Tags,
- region
+  ClusterId,
+  Name,
+  Nodes,
+  Tags,
+  region
 )
 SELECT
-'{{ cluster_id }}',
- '{{ name }}',
- '{{ nodes }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ cluster_id }}',
+  '{{ name }}',
+  '{{ nodes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,18 +249,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.channel_placement_groups (
- ClusterId,
- Name,
- Nodes,
- Tags,
- region
+  ClusterId,
+  Name,
+  Nodes,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_id }}',
- '{{ name }}',
- '{{ nodes }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_id }}',
+  '{{ name }}',
+  '{{ nodes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -301,8 +304,9 @@ SET PatchDocument = string('{{ {
     "Nodes": nodes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}|{{ cluster_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}|{{ cluster_id }}';
 ```
 
 
@@ -311,8 +315,9 @@ AND Identifier = '{{ id }}|{{ cluster_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.channel_placement_groups
-WHERE Identifier = '{{ id }}|{{ cluster_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ cluster_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

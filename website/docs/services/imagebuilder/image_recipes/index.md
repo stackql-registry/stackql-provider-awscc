@@ -283,19 +283,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image_recipe</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-version,
-components,
-block_device_mappings,
-parent_image,
-working_directory,
-additional_instance_configuration,
-tags
+  region,
+  arn,
+  name,
+  description,
+  version,
+  components,
+  block_device_mappings,
+  parent_image,
+  working_directory,
+  additional_instance_configuration,
+  tags
 FROM awscc.imagebuilder.image_recipes
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -303,10 +305,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>image_recipes</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.image_recipes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -328,18 +331,18 @@ Use the following StackQL query and manifest file to create a new <code>image_re
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.image_recipes (
- Name,
- Version,
- Components,
- ParentImage,
- region
+  Name,
+  Version,
+  Components,
+  ParentImage,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ version }}',
- '{{ components }}',
- '{{ parent_image }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ version }}',
+  '{{ components }}',
+  '{{ parent_image }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -347,28 +350,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.image_recipes (
- Name,
- Description,
- Version,
- Components,
- BlockDeviceMappings,
- ParentImage,
- WorkingDirectory,
- AdditionalInstanceConfiguration,
- Tags,
- region
+  Name,
+  Description,
+  Version,
+  Components,
+  BlockDeviceMappings,
+  ParentImage,
+  WorkingDirectory,
+  AdditionalInstanceConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ version }}',
- '{{ components }}',
- '{{ block_device_mappings }}',
- '{{ parent_image }}',
- '{{ working_directory }}',
- '{{ additional_instance_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ version }}',
+  '{{ components }}',
+  '{{ block_device_mappings }}',
+  '{{ parent_image }}',
+  '{{ working_directory }}',
+  '{{ additional_instance_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -438,8 +441,9 @@ SET PatchDocument = string('{{ {
     "AdditionalInstanceConfiguration": additional_instance_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -448,8 +452,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.image_recipes
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

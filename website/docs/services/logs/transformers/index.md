@@ -603,11 +603,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transformer</code>.
 ```sql
 SELECT
-region,
-log_group_identifier,
-transformer_config
+  region,
+  log_group_identifier,
+  transformer_config
 FROM awscc.logs.transformers
-WHERE region = 'us-east-1' AND Identifier = '{{ log_group_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ log_group_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -615,10 +617,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ log_group_identifier }}';
 Lists all <code>transformers</code> in a region.
 ```sql
 SELECT
-region,
-log_group_identifier
+  region,
+  log_group_identifier
 FROM awscc.logs.transformers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -640,14 +643,14 @@ Use the following StackQL query and manifest file to create a new <code>transfor
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.transformers (
- LogGroupIdentifier,
- TransformerConfig,
- region
+  LogGroupIdentifier,
+  TransformerConfig,
+  region
 )
 SELECT
-'{{ log_group_identifier }}',
- '{{ transformer_config }}',
-'{{ region }}';
+  '{{ log_group_identifier }}',
+  '{{ transformer_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -655,14 +658,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.transformers (
- LogGroupIdentifier,
- TransformerConfig,
- region
+  LogGroupIdentifier,
+  TransformerConfig,
+  region
 )
 SELECT
- '{{ log_group_identifier }}',
- '{{ transformer_config }}',
- '{{ region }}';
+  '{{ log_group_identifier }}',
+  '{{ transformer_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -792,8 +795,9 @@ UPDATE awscc.logs.transformers
 SET PatchDocument = string('{{ {
     "TransformerConfig": transformer_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ log_group_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ log_group_identifier }}';
 ```
 
 
@@ -802,8 +806,9 @@ AND Identifier = '{{ log_group_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.transformers
-WHERE Identifier = '{{ log_group_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ log_group_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

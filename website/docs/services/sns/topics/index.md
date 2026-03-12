@@ -242,23 +242,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>topic</code>.
 ```sql
 SELECT
-region,
-display_name,
-kms_master_key_id,
-data_protection_policy,
-subscription,
-fifo_topic,
-content_based_deduplication,
-archive_policy,
-fifo_throughput_scope,
-tags,
-topic_name,
-topic_arn,
-signature_version,
-tracing_config,
-delivery_status_logging
+  region,
+  display_name,
+  kms_master_key_id,
+  data_protection_policy,
+  subscription,
+  fifo_topic,
+  content_based_deduplication,
+  archive_policy,
+  fifo_throughput_scope,
+  tags,
+  topic_name,
+  topic_arn,
+  signature_version,
+  tracing_config,
+  delivery_status_logging
 FROM awscc.sns.topics
-WHERE region = 'us-east-1' AND Identifier = '{{ topic_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ topic_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,10 +268,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ topic_arn }}';
 Lists all <code>topics</code> in a region.
 ```sql
 SELECT
-region,
-topic_arn
+  region,
+  topic_arn
 FROM awscc.sns.topics_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -291,36 +294,36 @@ Use the following StackQL query and manifest file to create a new <code>topic</c
 ```sql
 /*+ create */
 INSERT INTO awscc.sns.topics (
- DisplayName,
- KmsMasterKeyId,
- DataProtectionPolicy,
- Subscription,
- FifoTopic,
- ContentBasedDeduplication,
- ArchivePolicy,
- FifoThroughputScope,
- Tags,
- TopicName,
- SignatureVersion,
- TracingConfig,
- DeliveryStatusLogging,
- region
+  DisplayName,
+  KmsMasterKeyId,
+  DataProtectionPolicy,
+  Subscription,
+  FifoTopic,
+  ContentBasedDeduplication,
+  ArchivePolicy,
+  FifoThroughputScope,
+  Tags,
+  TopicName,
+  SignatureVersion,
+  TracingConfig,
+  DeliveryStatusLogging,
+  region
 )
 SELECT
-'{{ display_name }}',
- '{{ kms_master_key_id }}',
- '{{ data_protection_policy }}',
- '{{ subscription }}',
- '{{ fifo_topic }}',
- '{{ content_based_deduplication }}',
- '{{ archive_policy }}',
- '{{ fifo_throughput_scope }}',
- '{{ tags }}',
- '{{ topic_name }}',
- '{{ signature_version }}',
- '{{ tracing_config }}',
- '{{ delivery_status_logging }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ kms_master_key_id }}',
+  '{{ data_protection_policy }}',
+  '{{ subscription }}',
+  '{{ fifo_topic }}',
+  '{{ content_based_deduplication }}',
+  '{{ archive_policy }}',
+  '{{ fifo_throughput_scope }}',
+  '{{ tags }}',
+  '{{ topic_name }}',
+  '{{ signature_version }}',
+  '{{ tracing_config }}',
+  '{{ delivery_status_logging }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -328,36 +331,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sns.topics (
- DisplayName,
- KmsMasterKeyId,
- DataProtectionPolicy,
- Subscription,
- FifoTopic,
- ContentBasedDeduplication,
- ArchivePolicy,
- FifoThroughputScope,
- Tags,
- TopicName,
- SignatureVersion,
- TracingConfig,
- DeliveryStatusLogging,
- region
+  DisplayName,
+  KmsMasterKeyId,
+  DataProtectionPolicy,
+  Subscription,
+  FifoTopic,
+  ContentBasedDeduplication,
+  ArchivePolicy,
+  FifoThroughputScope,
+  Tags,
+  TopicName,
+  SignatureVersion,
+  TracingConfig,
+  DeliveryStatusLogging,
+  region
 )
 SELECT
- '{{ display_name }}',
- '{{ kms_master_key_id }}',
- '{{ data_protection_policy }}',
- '{{ subscription }}',
- '{{ fifo_topic }}',
- '{{ content_based_deduplication }}',
- '{{ archive_policy }}',
- '{{ fifo_throughput_scope }}',
- '{{ tags }}',
- '{{ topic_name }}',
- '{{ signature_version }}',
- '{{ tracing_config }}',
- '{{ delivery_status_logging }}',
- '{{ region }}';
+  '{{ display_name }}',
+  '{{ kms_master_key_id }}',
+  '{{ data_protection_policy }}',
+  '{{ subscription }}',
+  '{{ fifo_topic }}',
+  '{{ content_based_deduplication }}',
+  '{{ archive_policy }}',
+  '{{ fifo_throughput_scope }}',
+  '{{ tags }}',
+  '{{ topic_name }}',
+  '{{ signature_version }}',
+  '{{ tracing_config }}',
+  '{{ delivery_status_logging }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -432,8 +435,9 @@ SET PatchDocument = string('{{ {
     "TracingConfig": tracing_config,
     "DeliveryStatusLogging": delivery_status_logging
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ topic_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ topic_arn }}';
 ```
 
 
@@ -442,8 +446,9 @@ AND Identifier = '{{ topic_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sns.topics
-WHERE Identifier = '{{ topic_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ topic_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

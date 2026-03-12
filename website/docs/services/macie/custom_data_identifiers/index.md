@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_data_identifier</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-regex,
-maximum_match_distance,
-keywords,
-ignore_words,
-id,
-arn,
-tags
+  region,
+  name,
+  description,
+  regex,
+  maximum_match_distance,
+  keywords,
+  ignore_words,
+  id,
+  arn,
+  tags
 FROM awscc.macie.custom_data_identifiers
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>custom_data_identifiers</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.macie.custom_data_identifiers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>custom_d
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.custom_data_identifiers (
- Name,
- Regex,
- region
+  Name,
+  Regex,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ regex }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ regex }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,24 +245,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.custom_data_identifiers (
- Name,
- Description,
- Regex,
- MaximumMatchDistance,
- Keywords,
- IgnoreWords,
- Tags,
- region
+  Name,
+  Description,
+  Regex,
+  MaximumMatchDistance,
+  Keywords,
+  IgnoreWords,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ regex }}',
- '{{ maximum_match_distance }}',
- '{{ keywords }}',
- '{{ ignore_words }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ regex }}',
+  '{{ maximum_match_distance }}',
+  '{{ keywords }}',
+  '{{ ignore_words }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ UPDATE awscc.macie.custom_data_identifiers
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -318,8 +322,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.custom_data_identifiers
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

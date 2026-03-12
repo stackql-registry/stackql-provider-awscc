@@ -236,20 +236,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>repository</code>.
 ```sql
 SELECT
-region,
-empty_on_delete,
-lifecycle_policy,
-repository_name,
-repository_policy_text,
-tags,
-arn,
-repository_uri,
-image_tag_mutability,
-image_tag_mutability_exclusion_filters,
-image_scanning_configuration,
-encryption_configuration
+  region,
+  empty_on_delete,
+  lifecycle_policy,
+  repository_name,
+  repository_policy_text,
+  tags,
+  arn,
+  repository_uri,
+  image_tag_mutability,
+  image_tag_mutability_exclusion_filters,
+  image_scanning_configuration,
+  encryption_configuration
 FROM awscc.ecr.repositories
-WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ repository_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +259,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
 Lists all <code>repositories</code> in a region.
 ```sql
 SELECT
-region,
-repository_name
+  region,
+  repository_name
 FROM awscc.ecr.repositories_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -282,28 +285,28 @@ Use the following StackQL query and manifest file to create a new <code>reposito
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.repositories (
- EmptyOnDelete,
- LifecyclePolicy,
- RepositoryName,
- RepositoryPolicyText,
- Tags,
- ImageTagMutability,
- ImageTagMutabilityExclusionFilters,
- ImageScanningConfiguration,
- EncryptionConfiguration,
- region
+  EmptyOnDelete,
+  LifecyclePolicy,
+  RepositoryName,
+  RepositoryPolicyText,
+  Tags,
+  ImageTagMutability,
+  ImageTagMutabilityExclusionFilters,
+  ImageScanningConfiguration,
+  EncryptionConfiguration,
+  region
 )
 SELECT
-'{{ empty_on_delete }}',
- '{{ lifecycle_policy }}',
- '{{ repository_name }}',
- '{{ repository_policy_text }}',
- '{{ tags }}',
- '{{ image_tag_mutability }}',
- '{{ image_tag_mutability_exclusion_filters }}',
- '{{ image_scanning_configuration }}',
- '{{ encryption_configuration }}',
-'{{ region }}';
+  '{{ empty_on_delete }}',
+  '{{ lifecycle_policy }}',
+  '{{ repository_name }}',
+  '{{ repository_policy_text }}',
+  '{{ tags }}',
+  '{{ image_tag_mutability }}',
+  '{{ image_tag_mutability_exclusion_filters }}',
+  '{{ image_scanning_configuration }}',
+  '{{ encryption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -311,28 +314,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.repositories (
- EmptyOnDelete,
- LifecyclePolicy,
- RepositoryName,
- RepositoryPolicyText,
- Tags,
- ImageTagMutability,
- ImageTagMutabilityExclusionFilters,
- ImageScanningConfiguration,
- EncryptionConfiguration,
- region
+  EmptyOnDelete,
+  LifecyclePolicy,
+  RepositoryName,
+  RepositoryPolicyText,
+  Tags,
+  ImageTagMutability,
+  ImageTagMutabilityExclusionFilters,
+  ImageScanningConfiguration,
+  EncryptionConfiguration,
+  region
 )
 SELECT
- '{{ empty_on_delete }}',
- '{{ lifecycle_policy }}',
- '{{ repository_name }}',
- '{{ repository_policy_text }}',
- '{{ tags }}',
- '{{ image_tag_mutability }}',
- '{{ image_tag_mutability_exclusion_filters }}',
- '{{ image_scanning_configuration }}',
- '{{ encryption_configuration }}',
- '{{ region }}';
+  '{{ empty_on_delete }}',
+  '{{ lifecycle_policy }}',
+  '{{ repository_name }}',
+  '{{ repository_policy_text }}',
+  '{{ tags }}',
+  '{{ image_tag_mutability }}',
+  '{{ image_tag_mutability_exclusion_filters }}',
+  '{{ image_scanning_configuration }}',
+  '{{ encryption_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -396,8 +399,9 @@ SET PatchDocument = string('{{ {
     "ImageTagMutabilityExclusionFilters": image_tag_mutability_exclusion_filters,
     "ImageScanningConfiguration": image_scanning_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ repository_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ repository_name }}';
 ```
 
 
@@ -406,8 +410,9 @@ AND Identifier = '{{ repository_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repositories
-WHERE Identifier = '{{ repository_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ repository_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

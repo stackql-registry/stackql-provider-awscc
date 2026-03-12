@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>view</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-view_arn,
-view_id,
-name,
-description,
-template,
-actions,
-view_content_sha256,
-tags
+  region,
+  instance_arn,
+  view_arn,
+  view_id,
+  name,
+  description,
+  template,
+  actions,
+  view_content_sha256,
+  tags
 FROM awscc.connect.views
-WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ view_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
 Lists all <code>views</code> in a region.
 ```sql
 SELECT
-region,
-view_arn
+  region,
+  view_arn
 FROM awscc.connect.views_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,18 +230,18 @@ Use the following StackQL query and manifest file to create a new <code>view</co
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.views (
- InstanceArn,
- Name,
- Template,
- Actions,
- region
+  InstanceArn,
+  Name,
+  Template,
+  Actions,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ template }}',
- '{{ actions }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ template }}',
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,22 +249,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.views (
- InstanceArn,
- Name,
- Description,
- Template,
- Actions,
- Tags,
- region
+  InstanceArn,
+  Name,
+  Description,
+  Template,
+  Actions,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ template }}',
- '{{ actions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ template }}',
+  '{{ actions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "Actions": actions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ view_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ view_arn }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ view_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.views
-WHERE Identifier = '{{ view_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ view_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

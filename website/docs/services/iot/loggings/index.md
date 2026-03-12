@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>logging</code>.
 ```sql
 SELECT
-region,
-account_id,
-role_arn,
-default_log_level
+  region,
+  account_id,
+  role_arn,
+  default_log_level
 FROM awscc.iot.loggings
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>loggings</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.iot.loggings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,16 +182,16 @@ Use the following StackQL query and manifest file to create a new <code>logging<
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.loggings (
- AccountId,
- RoleArn,
- DefaultLogLevel,
- region
+  AccountId,
+  RoleArn,
+  DefaultLogLevel,
+  region
 )
 SELECT
-'{{ account_id }}',
- '{{ role_arn }}',
- '{{ default_log_level }}',
-'{{ region }}';
+  '{{ account_id }}',
+  '{{ role_arn }}',
+  '{{ default_log_level }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -196,16 +199,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.loggings (
- AccountId,
- RoleArn,
- DefaultLogLevel,
- region
+  AccountId,
+  RoleArn,
+  DefaultLogLevel,
+  region
 )
 SELECT
- '{{ account_id }}',
- '{{ role_arn }}',
- '{{ default_log_level }}',
- '{{ region }}';
+  '{{ account_id }}',
+  '{{ role_arn }}',
+  '{{ default_log_level }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -243,8 +246,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "DefaultLogLevel": default_log_level
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -253,8 +257,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.loggings
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

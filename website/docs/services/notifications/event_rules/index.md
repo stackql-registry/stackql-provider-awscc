@@ -171,18 +171,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_rule</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-event_pattern,
-event_type,
-managed_rules,
-notification_configuration_arn,
-regions,
-source,
-status_summary_by_region
+  region,
+  arn,
+  creation_time,
+  event_pattern,
+  event_type,
+  managed_rules,
+  notification_configuration_arn,
+  regions,
+  source,
+  status_summary_by_region
 FROM awscc.notifications.event_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>event_rules</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.notifications.event_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>event_ru
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.event_rules (
- EventType,
- NotificationConfigurationArn,
- Regions,
- Source,
- region
+  EventType,
+  NotificationConfigurationArn,
+  Regions,
+  Source,
+  region
 )
 SELECT
-'{{ event_type }}',
- '{{ notification_configuration_arn }}',
- '{{ regions }}',
- '{{ source }}',
-'{{ region }}';
+  '{{ event_type }}',
+  '{{ notification_configuration_arn }}',
+  '{{ regions }}',
+  '{{ source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,20 +237,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.notifications.event_rules (
- EventPattern,
- EventType,
- NotificationConfigurationArn,
- Regions,
- Source,
- region
+  EventPattern,
+  EventType,
+  NotificationConfigurationArn,
+  Regions,
+  Source,
+  region
 )
 SELECT
- '{{ event_pattern }}',
- '{{ event_type }}',
- '{{ notification_configuration_arn }}',
- '{{ regions }}',
- '{{ source }}',
- '{{ region }}';
+  '{{ event_pattern }}',
+  '{{ event_type }}',
+  '{{ notification_configuration_arn }}',
+  '{{ regions }}',
+  '{{ source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ SET PatchDocument = string('{{ {
     "EventPattern": event_pattern,
     "Regions": regions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -300,8 +304,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.event_rules
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

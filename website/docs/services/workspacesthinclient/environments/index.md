@@ -265,29 +265,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-id,
-name,
-desktop_arn,
-desktop_endpoint,
-desktop_type,
-activation_code,
-registered_devices_count,
-software_set_update_schedule,
-maintenance_window,
-software_set_update_mode,
-desired_software_set_id,
-pending_software_set_id,
-pending_software_set_version,
-software_set_compliance_status,
-created_at,
-updated_at,
-arn,
-kms_key_arn,
-tags,
-device_creation_tags
+  region,
+  id,
+  name,
+  desktop_arn,
+  desktop_endpoint,
+  desktop_type,
+  activation_code,
+  registered_devices_count,
+  software_set_update_schedule,
+  maintenance_window,
+  software_set_update_mode,
+  desired_software_set_id,
+  pending_software_set_id,
+  pending_software_set_version,
+  software_set_compliance_status,
+  created_at,
+  updated_at,
+  arn,
+  kms_key_arn,
+  tags,
+  device_creation_tags
 FROM awscc.workspacesthinclient.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,10 +297,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.workspacesthinclient.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -320,12 +323,12 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesthinclient.environments (
- DesktopArn,
- region
+  DesktopArn,
+  region
 )
 SELECT
-'{{ desktop_arn }}',
-'{{ region }}';
+  '{{ desktop_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -333,30 +336,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesthinclient.environments (
- Name,
- DesktopArn,
- DesktopEndpoint,
- SoftwareSetUpdateSchedule,
- MaintenanceWindow,
- SoftwareSetUpdateMode,
- DesiredSoftwareSetId,
- KmsKeyArn,
- Tags,
- DeviceCreationTags,
- region
+  Name,
+  DesktopArn,
+  DesktopEndpoint,
+  SoftwareSetUpdateSchedule,
+  MaintenanceWindow,
+  SoftwareSetUpdateMode,
+  DesiredSoftwareSetId,
+  KmsKeyArn,
+  Tags,
+  DeviceCreationTags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ desktop_arn }}',
- '{{ desktop_endpoint }}',
- '{{ software_set_update_schedule }}',
- '{{ maintenance_window }}',
- '{{ software_set_update_mode }}',
- '{{ desired_software_set_id }}',
- '{{ kms_key_arn }}',
- '{{ tags }}',
- '{{ device_creation_tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ desktop_arn }}',
+  '{{ desktop_endpoint }}',
+  '{{ software_set_update_schedule }}',
+  '{{ maintenance_window }}',
+  '{{ software_set_update_mode }}',
+  '{{ desired_software_set_id }}',
+  '{{ kms_key_arn }}',
+  '{{ tags }}',
+  '{{ device_creation_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -425,8 +428,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "DeviceCreationTags": device_creation_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -435,8 +439,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesthinclient.environments
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

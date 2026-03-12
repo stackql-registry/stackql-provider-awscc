@@ -300,40 +300,42 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_exadata_infrastructure</code>.
 ```sql
 SELECT
-region,
-activated_storage_count,
-additional_storage_count,
-availability_zone,
-availability_zone_id,
-available_storage_size_in_gbs,
-cloud_exadata_infrastructure_arn,
-cloud_exadata_infrastructure_id,
-compute_count,
-compute_model,
-cpu_count,
-customer_contacts_to_send_to_oc_i,
-data_storage_size_in_tbs,
-database_server_type,
-db_node_storage_size_in_gbs,
-db_server_version,
-display_name,
-max_cpu_count,
-max_data_storage_in_tbs,
-max_db_node_storage_size_in_gbs,
-max_memory_in_gbs,
-memory_size_in_gbs,
-oci_resource_anchor_name,
-oci_url,
-ocid,
-shape,
-storage_count,
-storage_server_type,
-storage_server_version,
-tags,
-total_storage_size_in_gbs,
-db_server_ids
+  region,
+  activated_storage_count,
+  additional_storage_count,
+  availability_zone,
+  availability_zone_id,
+  available_storage_size_in_gbs,
+  cloud_exadata_infrastructure_arn,
+  cloud_exadata_infrastructure_id,
+  compute_count,
+  compute_model,
+  cpu_count,
+  customer_contacts_to_send_to_oc_i,
+  data_storage_size_in_tbs,
+  database_server_type,
+  db_node_storage_size_in_gbs,
+  db_server_version,
+  display_name,
+  max_cpu_count,
+  max_data_storage_in_tbs,
+  max_db_node_storage_size_in_gbs,
+  max_memory_in_gbs,
+  memory_size_in_gbs,
+  oci_resource_anchor_name,
+  oci_url,
+  ocid,
+  shape,
+  storage_count,
+  storage_server_type,
+  storage_server_version,
+  tags,
+  total_storage_size_in_gbs,
+  db_server_ids
 FROM awscc.odb.cloud_exadata_infrastructures
-WHERE region = 'us-east-1' AND Identifier = '{{ cloud_exadata_infrastructure_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cloud_exadata_infrastructure_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -341,10 +343,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cloud_exadata_infrastructure_arn
 Lists all <code>cloud_exadata_infrastructures</code> in a region.
 ```sql
 SELECT
-region,
-cloud_exadata_infrastructure_arn
+  region,
+  cloud_exadata_infrastructure_arn
 FROM awscc.odb.cloud_exadata_infrastructures_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -366,30 +369,30 @@ Use the following StackQL query and manifest file to create a new <code>cloud_ex
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_exadata_infrastructures (
- AvailabilityZone,
- AvailabilityZoneId,
- ComputeCount,
- CustomerContactsToSendToOCI,
- DatabaseServerType,
- DisplayName,
- Shape,
- StorageCount,
- StorageServerType,
- Tags,
- region
+  AvailabilityZone,
+  AvailabilityZoneId,
+  ComputeCount,
+  CustomerContactsToSendToOCI,
+  DatabaseServerType,
+  DisplayName,
+  Shape,
+  StorageCount,
+  StorageServerType,
+  Tags,
+  region
 )
 SELECT
-'{{ availability_zone }}',
- '{{ availability_zone_id }}',
- '{{ compute_count }}',
- '{{ customer_contacts_to_send_to_oc_i }}',
- '{{ database_server_type }}',
- '{{ display_name }}',
- '{{ shape }}',
- '{{ storage_count }}',
- '{{ storage_server_type }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ availability_zone }}',
+  '{{ availability_zone_id }}',
+  '{{ compute_count }}',
+  '{{ customer_contacts_to_send_to_oc_i }}',
+  '{{ database_server_type }}',
+  '{{ display_name }}',
+  '{{ shape }}',
+  '{{ storage_count }}',
+  '{{ storage_server_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -397,30 +400,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.odb.cloud_exadata_infrastructures (
- AvailabilityZone,
- AvailabilityZoneId,
- ComputeCount,
- CustomerContactsToSendToOCI,
- DatabaseServerType,
- DisplayName,
- Shape,
- StorageCount,
- StorageServerType,
- Tags,
- region
+  AvailabilityZone,
+  AvailabilityZoneId,
+  ComputeCount,
+  CustomerContactsToSendToOCI,
+  DatabaseServerType,
+  DisplayName,
+  Shape,
+  StorageCount,
+  StorageServerType,
+  Tags,
+  region
 )
 SELECT
- '{{ availability_zone }}',
- '{{ availability_zone_id }}',
- '{{ compute_count }}',
- '{{ customer_contacts_to_send_to_oc_i }}',
- '{{ database_server_type }}',
- '{{ display_name }}',
- '{{ shape }}',
- '{{ storage_count }}',
- '{{ storage_server_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ availability_zone }}',
+  '{{ availability_zone_id }}',
+  '{{ compute_count }}',
+  '{{ customer_contacts_to_send_to_oc_i }}',
+  '{{ database_server_type }}',
+  '{{ display_name }}',
+  '{{ shape }}',
+  '{{ storage_count }}',
+  '{{ storage_server_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -474,8 +477,9 @@ UPDATE awscc.odb.cloud_exadata_infrastructures
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cloud_exadata_infrastructure_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cloud_exadata_infrastructure_arn }}';
 ```
 
 
@@ -484,8 +488,9 @@ AND Identifier = '{{ cloud_exadata_infrastructure_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_exadata_infrastructures
-WHERE Identifier = '{{ cloud_exadata_infrastructure_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cloud_exadata_infrastructure_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

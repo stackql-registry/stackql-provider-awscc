@@ -292,40 +292,42 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-webserver_url,
-execution_role_arn,
-kms_key,
-airflow_version,
-source_bucket_arn,
-dag_s3_path,
-plugins_s3_path,
-plugins_s3_object_version,
-requirements_s3_path,
-requirements_s3_object_version,
-startup_script_s3_path,
-startup_script_s3_object_version,
-airflow_configuration_options,
-environment_class,
-max_workers,
-min_workers,
-max_webservers,
-min_webservers,
-schedulers,
-network_configuration,
-logging_configuration,
-weekly_maintenance_window_start,
-tags,
-webserver_access_mode,
-endpoint_management,
-celery_executor_queue,
-database_vpc_endpoint_service,
-webserver_vpc_endpoint_service,
-worker_replacement_strategy
+  region,
+  name,
+  arn,
+  webserver_url,
+  execution_role_arn,
+  kms_key,
+  airflow_version,
+  source_bucket_arn,
+  dag_s3_path,
+  plugins_s3_path,
+  plugins_s3_object_version,
+  requirements_s3_path,
+  requirements_s3_object_version,
+  startup_script_s3_path,
+  startup_script_s3_object_version,
+  airflow_configuration_options,
+  environment_class,
+  max_workers,
+  min_workers,
+  max_webservers,
+  min_webservers,
+  schedulers,
+  network_configuration,
+  logging_configuration,
+  weekly_maintenance_window_start,
+  tags,
+  webserver_access_mode,
+  endpoint_management,
+  celery_executor_queue,
+  database_vpc_endpoint_service,
+  webserver_vpc_endpoint_service,
+  worker_replacement_strategy
 FROM awscc.mwaa.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -333,10 +335,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.mwaa.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -358,12 +361,12 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.mwaa.environments (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -371,62 +374,62 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mwaa.environments (
- Name,
- ExecutionRoleArn,
- KmsKey,
- AirflowVersion,
- SourceBucketArn,
- DagS3Path,
- PluginsS3Path,
- PluginsS3ObjectVersion,
- RequirementsS3Path,
- RequirementsS3ObjectVersion,
- StartupScriptS3Path,
- StartupScriptS3ObjectVersion,
- AirflowConfigurationOptions,
- EnvironmentClass,
- MaxWorkers,
- MinWorkers,
- MaxWebservers,
- MinWebservers,
- Schedulers,
- NetworkConfiguration,
- LoggingConfiguration,
- WeeklyMaintenanceWindowStart,
- Tags,
- WebserverAccessMode,
- EndpointManagement,
- WorkerReplacementStrategy,
- region
+  Name,
+  ExecutionRoleArn,
+  KmsKey,
+  AirflowVersion,
+  SourceBucketArn,
+  DagS3Path,
+  PluginsS3Path,
+  PluginsS3ObjectVersion,
+  RequirementsS3Path,
+  RequirementsS3ObjectVersion,
+  StartupScriptS3Path,
+  StartupScriptS3ObjectVersion,
+  AirflowConfigurationOptions,
+  EnvironmentClass,
+  MaxWorkers,
+  MinWorkers,
+  MaxWebservers,
+  MinWebservers,
+  Schedulers,
+  NetworkConfiguration,
+  LoggingConfiguration,
+  WeeklyMaintenanceWindowStart,
+  Tags,
+  WebserverAccessMode,
+  EndpointManagement,
+  WorkerReplacementStrategy,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ execution_role_arn }}',
- '{{ kms_key }}',
- '{{ airflow_version }}',
- '{{ source_bucket_arn }}',
- '{{ dag_s3_path }}',
- '{{ plugins_s3_path }}',
- '{{ plugins_s3_object_version }}',
- '{{ requirements_s3_path }}',
- '{{ requirements_s3_object_version }}',
- '{{ startup_script_s3_path }}',
- '{{ startup_script_s3_object_version }}',
- '{{ airflow_configuration_options }}',
- '{{ environment_class }}',
- '{{ max_workers }}',
- '{{ min_workers }}',
- '{{ max_webservers }}',
- '{{ min_webservers }}',
- '{{ schedulers }}',
- '{{ network_configuration }}',
- '{{ logging_configuration }}',
- '{{ weekly_maintenance_window_start }}',
- '{{ tags }}',
- '{{ webserver_access_mode }}',
- '{{ endpoint_management }}',
- '{{ worker_replacement_strategy }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ execution_role_arn }}',
+  '{{ kms_key }}',
+  '{{ airflow_version }}',
+  '{{ source_bucket_arn }}',
+  '{{ dag_s3_path }}',
+  '{{ plugins_s3_path }}',
+  '{{ plugins_s3_object_version }}',
+  '{{ requirements_s3_path }}',
+  '{{ requirements_s3_object_version }}',
+  '{{ startup_script_s3_path }}',
+  '{{ startup_script_s3_object_version }}',
+  '{{ airflow_configuration_options }}',
+  '{{ environment_class }}',
+  '{{ max_workers }}',
+  '{{ min_workers }}',
+  '{{ max_webservers }}',
+  '{{ min_webservers }}',
+  '{{ schedulers }}',
+  '{{ network_configuration }}',
+  '{{ logging_configuration }}',
+  '{{ weekly_maintenance_window_start }}',
+  '{{ tags }}',
+  '{{ webserver_access_mode }}',
+  '{{ endpoint_management }}',
+  '{{ worker_replacement_strategy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -541,8 +544,9 @@ SET PatchDocument = string('{{ {
     "WebserverAccessMode": webserver_access_mode,
     "WorkerReplacementStrategy": worker_replacement_strategy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -551,8 +555,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mwaa.environments
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

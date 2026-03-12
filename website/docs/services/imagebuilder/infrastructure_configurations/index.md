@@ -254,24 +254,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>infrastructure_configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-instance_types,
-security_group_ids,
-logging,
-subnet_id,
-key_pair,
-terminate_instance_on_failure,
-instance_profile_name,
-instance_metadata_options,
-sns_topic_arn,
-resource_tags,
-tags,
-placement
+  region,
+  arn,
+  name,
+  description,
+  instance_types,
+  security_group_ids,
+  logging,
+  subnet_id,
+  key_pair,
+  terminate_instance_on_failure,
+  instance_profile_name,
+  instance_metadata_options,
+  sns_topic_arn,
+  resource_tags,
+  tags,
+  placement
 FROM awscc.imagebuilder.infrastructure_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -279,10 +281,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>infrastructure_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.infrastructure_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -304,14 +307,14 @@ Use the following StackQL query and manifest file to create a new <code>infrastr
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.infrastructure_configurations (
- Name,
- InstanceProfileName,
- region
+  Name,
+  InstanceProfileName,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ instance_profile_name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ instance_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -319,38 +322,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.infrastructure_configurations (
- Name,
- Description,
- InstanceTypes,
- SecurityGroupIds,
- Logging,
- SubnetId,
- KeyPair,
- TerminateInstanceOnFailure,
- InstanceProfileName,
- InstanceMetadataOptions,
- SnsTopicArn,
- ResourceTags,
- Tags,
- Placement,
- region
+  Name,
+  Description,
+  InstanceTypes,
+  SecurityGroupIds,
+  Logging,
+  SubnetId,
+  KeyPair,
+  TerminateInstanceOnFailure,
+  InstanceProfileName,
+  InstanceMetadataOptions,
+  SnsTopicArn,
+  ResourceTags,
+  Tags,
+  Placement,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ instance_types }}',
- '{{ security_group_ids }}',
- '{{ logging }}',
- '{{ subnet_id }}',
- '{{ key_pair }}',
- '{{ terminate_instance_on_failure }}',
- '{{ instance_profile_name }}',
- '{{ instance_metadata_options }}',
- '{{ sns_topic_arn }}',
- '{{ resource_tags }}',
- '{{ tags }}',
- '{{ placement }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ instance_types }}',
+  '{{ security_group_ids }}',
+  '{{ logging }}',
+  '{{ subnet_id }}',
+  '{{ key_pair }}',
+  '{{ terminate_instance_on_failure }}',
+  '{{ instance_profile_name }}',
+  '{{ instance_metadata_options }}',
+  '{{ sns_topic_arn }}',
+  '{{ resource_tags }}',
+  '{{ tags }}',
+  '{{ placement }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -432,8 +435,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Placement": placement
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -442,8 +446,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.infrastructure_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

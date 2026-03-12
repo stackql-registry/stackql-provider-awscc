@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT
-region,
-as2_id,
-profile_type,
-tags,
-certificate_ids,
-arn,
-profile_id
+  region,
+  as2_id,
+  profile_type,
+  tags,
+  certificate_ids,
+  arn,
+  profile_id
 FROM awscc.transfer.profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 Lists all <code>profiles</code> in a region.
 ```sql
 SELECT
-region,
-profile_id
+  region,
+  profile_id
 FROM awscc.transfer.profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>profile<
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.profiles (
- As2Id,
- ProfileType,
- region
+  As2Id,
+  ProfileType,
+  region
 )
 SELECT
-'{{ as2_id }}',
- '{{ profile_type }}',
-'{{ region }}';
+  '{{ as2_id }}',
+  '{{ profile_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.profiles (
- As2Id,
- ProfileType,
- Tags,
- CertificateIds,
- region
+  As2Id,
+  ProfileType,
+  Tags,
+  CertificateIds,
+  region
 )
 SELECT
- '{{ as2_id }}',
- '{{ profile_type }}',
- '{{ tags }}',
- '{{ certificate_ids }}',
- '{{ region }}';
+  '{{ as2_id }}',
+  '{{ profile_type }}',
+  '{{ tags }}',
+  '{{ certificate_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "CertificateIds": certificate_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ profile_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ profile_id }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ profile_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.profiles
-WHERE Identifier = '{{ profile_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ profile_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

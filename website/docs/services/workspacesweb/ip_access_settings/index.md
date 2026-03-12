@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ip_access_setting</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-description,
-display_name,
-ip_access_settings_arn,
-ip_rules,
-tags
+  region,
+  additional_encryption_context,
+  associated_portal_arns,
+  creation_date,
+  customer_managed_key,
+  description,
+  display_name,
+  ip_access_settings_arn,
+  ip_rules,
+  tags
 FROM awscc.workspacesweb.ip_access_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ ip_access_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ip_access_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ip_access_settings_arn }}';
 Lists all <code>ip_access_settings</code> in a region.
 ```sql
 SELECT
-region,
-ip_access_settings_arn
+  region,
+  ip_access_settings_arn
 FROM awscc.workspacesweb.ip_access_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>ip_acces
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.ip_access_settings (
- IpRules,
- region
+  IpRules,
+  region
 )
 SELECT
-'{{ ip_rules }}',
-'{{ region }}';
+  '{{ ip_rules }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,22 +255,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.ip_access_settings (
- AdditionalEncryptionContext,
- CustomerManagedKey,
- Description,
- DisplayName,
- IpRules,
- Tags,
- region
+  AdditionalEncryptionContext,
+  CustomerManagedKey,
+  Description,
+  DisplayName,
+  IpRules,
+  Tags,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ customer_managed_key }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ ip_rules }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ customer_managed_key }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ ip_rules }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -317,8 +320,9 @@ SET PatchDocument = string('{{ {
     "IpRules": ip_rules,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ip_access_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ip_access_settings_arn }}';
 ```
 
 
@@ -327,8 +331,9 @@ AND Identifier = '{{ ip_access_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.ip_access_settings
-WHERE Identifier = '{{ ip_access_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ip_access_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

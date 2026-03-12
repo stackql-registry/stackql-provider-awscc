@@ -324,17 +324,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT
-region,
-name,
-rule_arn,
-instance_arn,
-trigger_event_source,
-function,
-actions,
-publish_status,
-tags
+  region,
+  name,
+  rule_arn,
+  instance_arn,
+  trigger_event_source,
+  function,
+  actions,
+  publish_status,
+  tags
 FROM awscc.connect.rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 ## `INSERT` example
@@ -354,22 +356,22 @@ Use the following StackQL query and manifest file to create a new <code>rule</co
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.rules (
- Name,
- InstanceArn,
- TriggerEventSource,
- Function,
- Actions,
- PublishStatus,
- region
+  Name,
+  InstanceArn,
+  TriggerEventSource,
+  Function,
+  Actions,
+  PublishStatus,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ instance_arn }}',
- '{{ trigger_event_source }}',
- '{{ function }}',
- '{{ actions }}',
- '{{ publish_status }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ instance_arn }}',
+  '{{ trigger_event_source }}',
+  '{{ function }}',
+  '{{ actions }}',
+  '{{ publish_status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -377,24 +379,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.rules (
- Name,
- InstanceArn,
- TriggerEventSource,
- Function,
- Actions,
- PublishStatus,
- Tags,
- region
+  Name,
+  InstanceArn,
+  TriggerEventSource,
+  Function,
+  Actions,
+  PublishStatus,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ instance_arn }}',
- '{{ trigger_event_source }}',
- '{{ function }}',
- '{{ actions }}',
- '{{ publish_status }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ instance_arn }}',
+  '{{ trigger_event_source }}',
+  '{{ function }}',
+  '{{ actions }}',
+  '{{ publish_status }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -480,8 +482,9 @@ SET PatchDocument = string('{{ {
     "PublishStatus": publish_status,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -490,8 +493,9 @@ AND Identifier = '{{ rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.rules
-WHERE Identifier = '{{ rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

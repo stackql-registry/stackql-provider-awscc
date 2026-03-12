@@ -373,28 +373,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scheduled_query</code>.
 ```sql
 SELECT
-region,
-arn,
-scheduled_query_name,
-query_string,
-schedule_configuration,
-notification_configuration,
-client_token,
-scheduled_query_execution_role_arn,
-target_configuration,
-error_report_configuration,
-kms_key_id,
-sq_name,
-sq_query_string,
-sq_schedule_configuration,
-sq_notification_configuration,
-sq_scheduled_query_execution_role_arn,
-sq_target_configuration,
-sq_error_report_configuration,
-sq_kms_key_id,
-tags
+  region,
+  arn,
+  scheduled_query_name,
+  query_string,
+  schedule_configuration,
+  notification_configuration,
+  client_token,
+  scheduled_query_execution_role_arn,
+  target_configuration,
+  error_report_configuration,
+  kms_key_id,
+  sq_name,
+  sq_query_string,
+  sq_schedule_configuration,
+  sq_notification_configuration,
+  sq_scheduled_query_execution_role_arn,
+  sq_target_configuration,
+  sq_error_report_configuration,
+  sq_kms_key_id,
+  tags
 FROM awscc.timestream.scheduled_queries
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -402,10 +404,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>scheduled_queries</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.timestream.scheduled_queries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -427,20 +430,20 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.scheduled_queries (
- QueryString,
- ScheduleConfiguration,
- NotificationConfiguration,
- ScheduledQueryExecutionRoleArn,
- ErrorReportConfiguration,
- region
+  QueryString,
+  ScheduleConfiguration,
+  NotificationConfiguration,
+  ScheduledQueryExecutionRoleArn,
+  ErrorReportConfiguration,
+  region
 )
 SELECT
-'{{ query_string }}',
- '{{ schedule_configuration }}',
- '{{ notification_configuration }}',
- '{{ scheduled_query_execution_role_arn }}',
- '{{ error_report_configuration }}',
-'{{ region }}';
+  '{{ query_string }}',
+  '{{ schedule_configuration }}',
+  '{{ notification_configuration }}',
+  '{{ scheduled_query_execution_role_arn }}',
+  '{{ error_report_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -448,30 +451,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.scheduled_queries (
- ScheduledQueryName,
- QueryString,
- ScheduleConfiguration,
- NotificationConfiguration,
- ClientToken,
- ScheduledQueryExecutionRoleArn,
- TargetConfiguration,
- ErrorReportConfiguration,
- KmsKeyId,
- Tags,
- region
+  ScheduledQueryName,
+  QueryString,
+  ScheduleConfiguration,
+  NotificationConfiguration,
+  ClientToken,
+  ScheduledQueryExecutionRoleArn,
+  TargetConfiguration,
+  ErrorReportConfiguration,
+  KmsKeyId,
+  Tags,
+  region
 )
 SELECT
- '{{ scheduled_query_name }}',
- '{{ query_string }}',
- '{{ schedule_configuration }}',
- '{{ notification_configuration }}',
- '{{ client_token }}',
- '{{ scheduled_query_execution_role_arn }}',
- '{{ target_configuration }}',
- '{{ error_report_configuration }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ scheduled_query_name }}',
+  '{{ query_string }}',
+  '{{ schedule_configuration }}',
+  '{{ notification_configuration }}',
+  '{{ client_token }}',
+  '{{ scheduled_query_execution_role_arn }}',
+  '{{ target_configuration }}',
+  '{{ error_report_configuration }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -552,8 +555,9 @@ SET PatchDocument = string('{{ {
     "ClientToken": client_token,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -562,8 +566,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.scheduled_queries
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

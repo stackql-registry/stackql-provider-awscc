@@ -238,23 +238,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image_builder</code>.
 ```sql
 SELECT
-region,
-description,
-vpc_config,
-enable_default_internet_access,
-domain_join_info,
-appstream_agent_version,
-name,
-image_name,
-display_name,
-iam_role_arn,
-instance_type,
-tags,
-streaming_url,
-image_arn,
-access_endpoints
+  region,
+  description,
+  vpc_config,
+  enable_default_internet_access,
+  domain_join_info,
+  appstream_agent_version,
+  name,
+  image_name,
+  display_name,
+  iam_role_arn,
+  instance_type,
+  tags,
+  streaming_url,
+  image_arn,
+  access_endpoints
 FROM awscc.appstream.image_builders
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +264,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>image_builders</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.appstream.image_builders_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,14 +290,14 @@ Use the following StackQL query and manifest file to create a new <code>image_bu
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.image_builders (
- Name,
- InstanceType,
- region
+  Name,
+  InstanceType,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ instance_type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ instance_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -302,36 +305,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.image_builders (
- Description,
- VpcConfig,
- EnableDefaultInternetAccess,
- DomainJoinInfo,
- AppstreamAgentVersion,
- Name,
- ImageName,
- DisplayName,
- IamRoleArn,
- InstanceType,
- Tags,
- ImageArn,
- AccessEndpoints,
- region
+  Description,
+  VpcConfig,
+  EnableDefaultInternetAccess,
+  DomainJoinInfo,
+  AppstreamAgentVersion,
+  Name,
+  ImageName,
+  DisplayName,
+  IamRoleArn,
+  InstanceType,
+  Tags,
+  ImageArn,
+  AccessEndpoints,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ vpc_config }}',
- '{{ enable_default_internet_access }}',
- '{{ domain_join_info }}',
- '{{ appstream_agent_version }}',
- '{{ name }}',
- '{{ image_name }}',
- '{{ display_name }}',
- '{{ iam_role_arn }}',
- '{{ instance_type }}',
- '{{ tags }}',
- '{{ image_arn }}',
- '{{ access_endpoints }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ vpc_config }}',
+  '{{ enable_default_internet_access }}',
+  '{{ domain_join_info }}',
+  '{{ appstream_agent_version }}',
+  '{{ name }}',
+  '{{ image_name }}',
+  '{{ display_name }}',
+  '{{ iam_role_arn }}',
+  '{{ instance_type }}',
+  '{{ tags }}',
+  '{{ image_arn }}',
+  '{{ access_endpoints }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -394,8 +397,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.image_builders
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

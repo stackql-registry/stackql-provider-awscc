@@ -189,13 +189,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trust_store_revocation</code>.
 ```sql
 SELECT
-region,
-revocation_contents,
-trust_store_arn,
-revocation_id,
-trust_store_revocations
+  region,
+  revocation_contents,
+  trust_store_arn,
+  revocation_id,
+  trust_store_revocations
 FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE region = 'us-east-1' AND Identifier = '{{ revocation_id }}|{{ trust_store_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ revocation_id }}|{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,11 +205,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ revocation_id }}|{{ trust_store_
 Lists all <code>trust_store_revocations</code> in a region.
 ```sql
 SELECT
-region,
-revocation_id,
-trust_store_arn
+  region,
+  revocation_id,
+  trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_store_revocations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -229,14 +232,14 @@ Use the following StackQL query and manifest file to create a new <code>trust_st
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.trust_store_revocations (
- RevocationContents,
- TrustStoreArn,
- region
+  RevocationContents,
+  TrustStoreArn,
+  region
 )
 SELECT
-'{{ revocation_contents }}',
- '{{ trust_store_arn }}',
-'{{ region }}';
+  '{{ revocation_contents }}',
+  '{{ trust_store_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,14 +247,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.trust_store_revocations (
- RevocationContents,
- TrustStoreArn,
- region
+  RevocationContents,
+  TrustStoreArn,
+  region
 )
 SELECT
- '{{ revocation_contents }}',
- '{{ trust_store_arn }}',
- '{{ region }}';
+  '{{ revocation_contents }}',
+  '{{ trust_store_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE Identifier = '{{ revocation_id }}|{{ trust_store_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ revocation_id }}|{{ trust_store_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

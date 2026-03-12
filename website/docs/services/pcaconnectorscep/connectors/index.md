@@ -178,16 +178,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT
-region,
-certificate_authority_arn,
-connector_arn,
-type,
-endpoint,
-mobile_device_management,
-open_id_configuration,
-tags
+  region,
+  certificate_authority_arn,
+  connector_arn,
+  type,
+  endpoint,
+  mobile_device_management,
+  open_id_configuration,
+  tags
 FROM awscc.pcaconnectorscep.connectors
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,10 +197,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
 Lists all <code>connectors</code> in a region.
 ```sql
 SELECT
-region,
-connector_arn
+  region,
+  connector_arn
 FROM awscc.pcaconnectorscep.connectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -220,12 +223,12 @@ Use the following StackQL query and manifest file to create a new <code>connecto
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorscep.connectors (
- CertificateAuthorityArn,
- region
+  CertificateAuthorityArn,
+  region
 )
 SELECT
-'{{ certificate_authority_arn }}',
-'{{ region }}';
+  '{{ certificate_authority_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -233,16 +236,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorscep.connectors (
- CertificateAuthorityArn,
- MobileDeviceManagement,
- Tags,
- region
+  CertificateAuthorityArn,
+  MobileDeviceManagement,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_authority_arn }}',
- '{{ mobile_device_management }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_authority_arn }}',
+  '{{ mobile_device_management }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ UPDATE awscc.pcaconnectorscep.connectors
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connector_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connector_arn }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ connector_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorscep.connectors
-WHERE Identifier = '{{ connector_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

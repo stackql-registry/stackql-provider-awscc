@@ -280,23 +280,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>state_machine</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-definition_string,
-role_arn,
-state_machine_name,
-state_machine_type,
-state_machine_revision_id,
-logging_configuration,
-tracing_configuration,
-encryption_configuration,
-definition_s3_location,
-definition_substitutions,
-definition,
-tags
+  region,
+  arn,
+  name,
+  definition_string,
+  role_arn,
+  state_machine_name,
+  state_machine_type,
+  state_machine_revision_id,
+  logging_configuration,
+  tracing_configuration,
+  encryption_configuration,
+  definition_s3_location,
+  definition_substitutions,
+  definition,
+  tags
 FROM awscc.stepfunctions.state_machines
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,10 +306,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>state_machines</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.stepfunctions.state_machines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -329,12 +332,12 @@ Use the following StackQL query and manifest file to create a new <code>state_ma
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machines (
- RoleArn,
- region
+  RoleArn,
+  region
 )
 SELECT
-'{{ role_arn }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -342,32 +345,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machines (
- DefinitionString,
- RoleArn,
- StateMachineName,
- StateMachineType,
- LoggingConfiguration,
- TracingConfiguration,
- EncryptionConfiguration,
- DefinitionS3Location,
- DefinitionSubstitutions,
- Definition,
- Tags,
- region
+  DefinitionString,
+  RoleArn,
+  StateMachineName,
+  StateMachineType,
+  LoggingConfiguration,
+  TracingConfiguration,
+  EncryptionConfiguration,
+  DefinitionS3Location,
+  DefinitionSubstitutions,
+  Definition,
+  Tags,
+  region
 )
 SELECT
- '{{ definition_string }}',
- '{{ role_arn }}',
- '{{ state_machine_name }}',
- '{{ state_machine_type }}',
- '{{ logging_configuration }}',
- '{{ tracing_configuration }}',
- '{{ encryption_configuration }}',
- '{{ definition_s3_location }}',
- '{{ definition_substitutions }}',
- '{{ definition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ definition_string }}',
+  '{{ role_arn }}',
+  '{{ state_machine_name }}',
+  '{{ state_machine_type }}',
+  '{{ logging_configuration }}',
+  '{{ tracing_configuration }}',
+  '{{ encryption_configuration }}',
+  '{{ definition_s3_location }}',
+  '{{ definition_substitutions }}',
+  '{{ definition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -442,8 +445,9 @@ SET PatchDocument = string('{{ {
     "Definition": definition,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -452,8 +456,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machines
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

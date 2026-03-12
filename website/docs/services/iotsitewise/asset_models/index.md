@@ -396,20 +396,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>asset_model</code>.
 ```sql
 SELECT
-region,
-asset_model_id,
-asset_model_type,
-asset_model_external_id,
-asset_model_arn,
-asset_model_name,
-asset_model_description,
-asset_model_properties,
-asset_model_composite_models,
-asset_model_hierarchies,
-enforced_asset_model_interface_relationships,
-tags
+  region,
+  asset_model_id,
+  asset_model_type,
+  asset_model_external_id,
+  asset_model_arn,
+  asset_model_name,
+  asset_model_description,
+  asset_model_properties,
+  asset_model_composite_models,
+  asset_model_hierarchies,
+  enforced_asset_model_interface_relationships,
+  tags
 FROM awscc.iotsitewise.asset_models
-WHERE region = 'us-east-1' AND Identifier = '{{ asset_model_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ asset_model_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -417,10 +419,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ asset_model_id }}';
 Lists all <code>asset_models</code> in a region.
 ```sql
 SELECT
-region,
-asset_model_id
+  region,
+  asset_model_id
 FROM awscc.iotsitewise.asset_models_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -442,12 +445,12 @@ Use the following StackQL query and manifest file to create a new <code>asset_mo
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.asset_models (
- AssetModelName,
- region
+  AssetModelName,
+  region
 )
 SELECT
-'{{ asset_model_name }}',
-'{{ region }}';
+  '{{ asset_model_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -455,28 +458,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.asset_models (
- AssetModelType,
- AssetModelExternalId,
- AssetModelName,
- AssetModelDescription,
- AssetModelProperties,
- AssetModelCompositeModels,
- AssetModelHierarchies,
- EnforcedAssetModelInterfaceRelationships,
- Tags,
- region
+  AssetModelType,
+  AssetModelExternalId,
+  AssetModelName,
+  AssetModelDescription,
+  AssetModelProperties,
+  AssetModelCompositeModels,
+  AssetModelHierarchies,
+  EnforcedAssetModelInterfaceRelationships,
+  Tags,
+  region
 )
 SELECT
- '{{ asset_model_type }}',
- '{{ asset_model_external_id }}',
- '{{ asset_model_name }}',
- '{{ asset_model_description }}',
- '{{ asset_model_properties }}',
- '{{ asset_model_composite_models }}',
- '{{ asset_model_hierarchies }}',
- '{{ enforced_asset_model_interface_relationships }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ asset_model_type }}',
+  '{{ asset_model_external_id }}',
+  '{{ asset_model_name }}',
+  '{{ asset_model_description }}',
+  '{{ asset_model_properties }}',
+  '{{ asset_model_composite_models }}',
+  '{{ asset_model_hierarchies }}',
+  '{{ enforced_asset_model_interface_relationships }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -584,8 +587,9 @@ SET PatchDocument = string('{{ {
     "EnforcedAssetModelInterfaceRelationships": enforced_asset_model_interface_relationships,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ asset_model_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ asset_model_id }}';
 ```
 
 
@@ -594,8 +598,9 @@ AND Identifier = '{{ asset_model_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.asset_models
-WHERE Identifier = '{{ asset_model_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ asset_model_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

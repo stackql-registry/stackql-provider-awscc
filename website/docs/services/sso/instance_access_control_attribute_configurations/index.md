@@ -186,12 +186,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance_access_control_attribute_configuration</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-instance_access_control_attribute_configuration,
-access_control_attributes
+  region,
+  instance_arn,
+  instance_access_control_attribute_configuration,
+  access_control_attributes
 FROM awscc.sso.instance_access_control_attribute_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -199,10 +201,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
 Lists all <code>instance_access_control_attribute_configurations</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn
+  region,
+  instance_arn
 FROM awscc.sso.instance_access_control_attribute_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -224,12 +227,12 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.instance_access_control_attribute_configurations (
- InstanceArn,
- region
+  InstanceArn,
+  region
 )
 SELECT
-'{{ instance_arn }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,16 +240,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.instance_access_control_attribute_configurations (
- InstanceArn,
- InstanceAccessControlAttributeConfiguration,
- AccessControlAttributes,
- region
+  InstanceArn,
+  InstanceAccessControlAttributeConfiguration,
+  AccessControlAttributes,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ instance_access_control_attribute_configuration }}',
- '{{ access_control_attributes }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ instance_access_control_attribute_configuration }}',
+  '{{ access_control_attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -289,8 +292,9 @@ SET PatchDocument = string('{{ {
     "InstanceAccessControlAttributeConfiguration": instance_access_control_attribute_configuration,
     "AccessControlAttributes": access_control_attributes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_arn }}';
 ```
 
 
@@ -299,8 +303,9 @@ AND Identifier = '{{ instance_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.instance_access_control_attribute_configurations
-WHERE Identifier = '{{ instance_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

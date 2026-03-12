@@ -210,13 +210,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>s3access_point_attachment</code>.
 ```sql
 SELECT
-region,
-name,
-type,
-open_zf_sconfiguration,
-s3_access_point
+  region,
+  name,
+  type,
+  open_zf_sconfiguration,
+  s3_access_point
 FROM awscc.fsx.s3access_point_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,10 +226,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>s3access_point_attachments</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.fsx.s3access_point_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -249,16 +252,16 @@ Use the following StackQL query and manifest file to create a new <code>s3access
 ```sql
 /*+ create */
 INSERT INTO awscc.fsx.s3access_point_attachments (
- Name,
- Type,
- OpenZFSConfiguration,
- region
+  Name,
+  Type,
+  OpenZFSConfiguration,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ open_zf_sconfiguration }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ open_zf_sconfiguration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,18 +269,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.fsx.s3access_point_attachments (
- Name,
- Type,
- OpenZFSConfiguration,
- S3AccessPoint,
- region
+  Name,
+  Type,
+  OpenZFSConfiguration,
+  S3AccessPoint,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ open_zf_sconfiguration }}',
- '{{ s3_access_point }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ open_zf_sconfiguration }}',
+  '{{ s3_access_point }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -325,8 +328,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.fsx.s3access_point_attachments
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

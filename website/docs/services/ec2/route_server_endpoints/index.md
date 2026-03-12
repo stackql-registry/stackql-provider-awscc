@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_server_endpoint</code>.
 ```sql
 SELECT
-region,
-route_server_id,
-arn,
-id,
-subnet_id,
-vpc_id,
-eni_id,
-eni_address,
-tags
+  region,
+  route_server_id,
+  arn,
+  id,
+  subnet_id,
+  vpc_id,
+  eni_id,
+  eni_address,
+  tags
 FROM awscc.ec2.route_server_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>route_server_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.route_server_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>route_se
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_endpoints (
- RouteServerId,
- SubnetId,
- region
+  RouteServerId,
+  SubnetId,
+  region
 )
 SELECT
-'{{ route_server_id }}',
- '{{ subnet_id }}',
-'{{ region }}';
+  '{{ route_server_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,16 +239,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_endpoints (
- RouteServerId,
- SubnetId,
- Tags,
- region
+  RouteServerId,
+  SubnetId,
+  Tags,
+  region
 )
 SELECT
- '{{ route_server_id }}',
- '{{ subnet_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ route_server_id }}',
+  '{{ subnet_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ UPDATE awscc.ec2.route_server_endpoints
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_endpoints
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

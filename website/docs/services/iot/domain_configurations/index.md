@@ -278,25 +278,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_configuration</code>.
 ```sql
 SELECT
-region,
-domain_configuration_name,
-authorizer_config,
-domain_name,
-server_certificate_arns,
-service_type,
-validation_certificate_arn,
-arn,
-domain_configuration_status,
-domain_type,
-server_certificate_config,
-server_certificates,
-tls_config,
-authentication_type,
-application_protocol,
-client_certificate_config,
-tags
+  region,
+  domain_configuration_name,
+  authorizer_config,
+  domain_name,
+  server_certificate_arns,
+  service_type,
+  validation_certificate_arn,
+  arn,
+  domain_configuration_status,
+  domain_type,
+  server_certificate_config,
+  server_certificates,
+  tls_config,
+  authentication_type,
+  application_protocol,
+  client_certificate_config,
+  tags
 FROM awscc.iot.domain_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_configuration_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_configuration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,10 +306,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_configuration_name }}';
 Lists all <code>domain_configurations</code> in a region.
 ```sql
 SELECT
-region,
-domain_configuration_name
+  region,
+  domain_configuration_name
 FROM awscc.iot.domain_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -329,12 +332,12 @@ Use the following StackQL query and manifest file to create a new <code>domain_c
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.domain_configurations (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -342,36 +345,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.domain_configurations (
- DomainConfigurationName,
- AuthorizerConfig,
- DomainName,
- ServerCertificateArns,
- ServiceType,
- ValidationCertificateArn,
- DomainConfigurationStatus,
- ServerCertificateConfig,
- TlsConfig,
- AuthenticationType,
- ApplicationProtocol,
- ClientCertificateConfig,
- Tags,
- region
+  DomainConfigurationName,
+  AuthorizerConfig,
+  DomainName,
+  ServerCertificateArns,
+  ServiceType,
+  ValidationCertificateArn,
+  DomainConfigurationStatus,
+  ServerCertificateConfig,
+  TlsConfig,
+  AuthenticationType,
+  ApplicationProtocol,
+  ClientCertificateConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_configuration_name }}',
- '{{ authorizer_config }}',
- '{{ domain_name }}',
- '{{ server_certificate_arns }}',
- '{{ service_type }}',
- '{{ validation_certificate_arn }}',
- '{{ domain_configuration_status }}',
- '{{ server_certificate_config }}',
- '{{ tls_config }}',
- '{{ authentication_type }}',
- '{{ application_protocol }}',
- '{{ client_certificate_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_configuration_name }}',
+  '{{ authorizer_config }}',
+  '{{ domain_name }}',
+  '{{ server_certificate_arns }}',
+  '{{ service_type }}',
+  '{{ validation_certificate_arn }}',
+  '{{ domain_configuration_status }}',
+  '{{ server_certificate_config }}',
+  '{{ tls_config }}',
+  '{{ authentication_type }}',
+  '{{ application_protocol }}',
+  '{{ client_certificate_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -445,8 +448,9 @@ SET PatchDocument = string('{{ {
     "ClientCertificateConfig": client_certificate_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_configuration_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_configuration_name }}';
 ```
 
 
@@ -455,8 +459,9 @@ AND Identifier = '{{ domain_configuration_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.domain_configurations
-WHERE Identifier = '{{ domain_configuration_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_configuration_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

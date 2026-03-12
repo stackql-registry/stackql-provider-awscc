@@ -191,22 +191,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_group_ingress</code>.
 ```sql
 SELECT
-region,
-id,
-cidr_ip,
-cidr_ipv6,
-description,
-from_port,
-group_id,
-group_name,
-ip_protocol,
-source_prefix_list_id,
-source_security_group_id,
-source_security_group_name,
-source_security_group_owner_id,
-to_port
+  region,
+  id,
+  cidr_ip,
+  cidr_ipv6,
+  description,
+  from_port,
+  group_id,
+  group_name,
+  ip_protocol,
+  source_prefix_list_id,
+  source_security_group_id,
+  source_security_group_name,
+  source_security_group_owner_id,
+  to_port
 FROM awscc.ec2.security_group_ingresses
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>security_group_ingresses</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.security_group_ingresses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,12 +242,12 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_ingresses (
- IpProtocol,
- region
+  IpProtocol,
+  region
 )
 SELECT
-'{{ ip_protocol }}',
-'{{ region }}';
+  '{{ ip_protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,34 +255,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_group_ingresses (
- CidrIp,
- CidrIpv6,
- Description,
- FromPort,
- GroupId,
- GroupName,
- IpProtocol,
- SourcePrefixListId,
- SourceSecurityGroupId,
- SourceSecurityGroupName,
- SourceSecurityGroupOwnerId,
- ToPort,
- region
+  CidrIp,
+  CidrIpv6,
+  Description,
+  FromPort,
+  GroupId,
+  GroupName,
+  IpProtocol,
+  SourcePrefixListId,
+  SourceSecurityGroupId,
+  SourceSecurityGroupName,
+  SourceSecurityGroupOwnerId,
+  ToPort,
+  region
 )
 SELECT
- '{{ cidr_ip }}',
- '{{ cidr_ipv6 }}',
- '{{ description }}',
- '{{ from_port }}',
- '{{ group_id }}',
- '{{ group_name }}',
- '{{ ip_protocol }}',
- '{{ source_prefix_list_id }}',
- '{{ source_security_group_id }}',
- '{{ source_security_group_name }}',
- '{{ source_security_group_owner_id }}',
- '{{ to_port }}',
- '{{ region }}';
+  '{{ cidr_ip }}',
+  '{{ cidr_ipv6 }}',
+  '{{ description }}',
+  '{{ from_port }}',
+  '{{ group_id }}',
+  '{{ group_name }}',
+  '{{ ip_protocol }}',
+  '{{ source_prefix_list_id }}',
+  '{{ source_security_group_id }}',
+  '{{ source_security_group_name }}',
+  '{{ source_security_group_owner_id }}',
+  '{{ to_port }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ UPDATE awscc.ec2.security_group_ingresses
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_ingresses
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

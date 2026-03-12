@@ -251,21 +251,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>software_package_version</code>.
 ```sql
 SELECT
-region,
-attributes,
-artifact,
-description,
-error_reason,
-package_name,
-package_version_arn,
-recipe,
-sbom,
-sbom_validation_status,
-status,
-tags,
-version_name
+  region,
+  attributes,
+  artifact,
+  description,
+  error_reason,
+  package_name,
+  package_version_arn,
+  recipe,
+  sbom,
+  sbom_validation_status,
+  status,
+  tags,
+  version_name
 FROM awscc.iot.software_package_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}|{{ version_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ package_name }}|{{ version_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,11 +275,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}|{{ version_name 
 Lists all <code>software_package_versions</code> in a region.
 ```sql
 SELECT
-region,
-package_name,
-version_name
+  region,
+  package_name,
+  version_name
 FROM awscc.iot.software_package_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -299,12 +302,12 @@ Use the following StackQL query and manifest file to create a new <code>software
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.software_package_versions (
- PackageName,
- region
+  PackageName,
+  region
 )
 SELECT
-'{{ package_name }}',
-'{{ region }}';
+  '{{ package_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -312,26 +315,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.software_package_versions (
- Attributes,
- Artifact,
- Description,
- PackageName,
- Recipe,
- Sbom,
- Tags,
- VersionName,
- region
+  Attributes,
+  Artifact,
+  Description,
+  PackageName,
+  Recipe,
+  Sbom,
+  Tags,
+  VersionName,
+  region
 )
 SELECT
- '{{ attributes }}',
- '{{ artifact }}',
- '{{ description }}',
- '{{ package_name }}',
- '{{ recipe }}',
- '{{ sbom }}',
- '{{ tags }}',
- '{{ version_name }}',
- '{{ region }}';
+  '{{ attributes }}',
+  '{{ artifact }}',
+  '{{ description }}',
+  '{{ package_name }}',
+  '{{ recipe }}',
+  '{{ sbom }}',
+  '{{ tags }}',
+  '{{ version_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -390,8 +393,9 @@ SET PatchDocument = string('{{ {
     "Sbom": sbom,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ package_name }}|{{ version_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ package_name }}|{{ version_name }}';
 ```
 
 
@@ -400,8 +404,9 @@ AND Identifier = '{{ package_name }}|{{ version_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.software_package_versions
-WHERE Identifier = '{{ package_name }}|{{ version_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ package_name }}|{{ version_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

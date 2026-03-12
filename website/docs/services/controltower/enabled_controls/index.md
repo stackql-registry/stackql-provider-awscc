@@ -175,13 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>enabled_control</code>.
 ```sql
 SELECT
-region,
-control_identifier,
-target_identifier,
-parameters,
-tags
+  region,
+  control_identifier,
+  target_identifier,
+  parameters,
+  tags
 FROM awscc.controltower.enabled_controls
-WHERE region = 'us-east-1' AND Identifier = '{{ target_identifier }}|{{ control_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,11 +191,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ target_identifier }}|{{ control_
 Lists all <code>enabled_controls</code> in a region.
 ```sql
 SELECT
-region,
-target_identifier,
-control_identifier
+  region,
+  target_identifier,
+  control_identifier
 FROM awscc.controltower.enabled_controls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>enabled_
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.enabled_controls (
- ControlIdentifier,
- TargetIdentifier,
- region
+  ControlIdentifier,
+  TargetIdentifier,
+  region
 )
 SELECT
-'{{ control_identifier }}',
- '{{ target_identifier }}',
-'{{ region }}';
+  '{{ control_identifier }}',
+  '{{ target_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.enabled_controls (
- ControlIdentifier,
- TargetIdentifier,
- Parameters,
- Tags,
- region
+  ControlIdentifier,
+  TargetIdentifier,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ control_identifier }}',
- '{{ target_identifier }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ control_identifier }}',
+  '{{ target_identifier }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ target_identifier }}|{{ control_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.enabled_controls
-WHERE Identifier = '{{ target_identifier }}|{{ control_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ target_identifier }}|{{ control_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

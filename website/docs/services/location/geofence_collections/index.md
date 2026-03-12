@@ -183,19 +183,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>geofence_collection</code>.
 ```sql
 SELECT
-region,
-collection_arn,
-collection_name,
-create_time,
-description,
-kms_key_id,
-pricing_plan,
-pricing_plan_data_source,
-tags,
-update_time,
-arn
+  region,
+  collection_arn,
+  collection_name,
+  create_time,
+  description,
+  kms_key_id,
+  pricing_plan,
+  pricing_plan_data_source,
+  tags,
+  update_time,
+  arn
 FROM awscc.location.geofence_collections
-WHERE region = 'us-east-1' AND Identifier = '{{ collection_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ collection_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ collection_name }}';
 Lists all <code>geofence_collections</code> in a region.
 ```sql
 SELECT
-region,
-collection_name
+  region,
+  collection_name
 FROM awscc.location.geofence_collections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,12 +231,12 @@ Use the following StackQL query and manifest file to create a new <code>geofence
 ```sql
 /*+ create */
 INSERT INTO awscc.location.geofence_collections (
- CollectionName,
- region
+  CollectionName,
+  region
 )
 SELECT
-'{{ collection_name }}',
-'{{ region }}';
+  '{{ collection_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -241,22 +244,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.geofence_collections (
- CollectionName,
- Description,
- KmsKeyId,
- PricingPlan,
- PricingPlanDataSource,
- Tags,
- region
+  CollectionName,
+  Description,
+  KmsKeyId,
+  PricingPlan,
+  PricingPlanDataSource,
+  Tags,
+  region
 )
 SELECT
- '{{ collection_name }}',
- '{{ description }}',
- '{{ kms_key_id }}',
- '{{ pricing_plan }}',
- '{{ pricing_plan_data_source }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ collection_name }}',
+  '{{ description }}',
+  '{{ kms_key_id }}',
+  '{{ pricing_plan }}',
+  '{{ pricing_plan_data_source }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ SET PatchDocument = string('{{ {
     "PricingPlanDataSource": pricing_plan_data_source,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ collection_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ collection_name }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ collection_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.geofence_collections
-WHERE Identifier = '{{ collection_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ collection_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

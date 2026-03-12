@@ -208,23 +208,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_subscription</code>.
 ```sql
 SELECT
-region,
-status,
-cust_subscription_id,
-event_categories_list,
-source_type,
-event_categories,
-enabled,
-severity,
-subscription_name,
-source_ids,
-customer_aws_id,
-source_ids_list,
-sns_topic_arn,
-subscription_creation_time,
-tags
+  region,
+  status,
+  cust_subscription_id,
+  event_categories_list,
+  source_type,
+  event_categories,
+  enabled,
+  severity,
+  subscription_name,
+  source_ids,
+  customer_aws_id,
+  source_ids_list,
+  sns_topic_arn,
+  subscription_creation_time,
+  tags
 FROM awscc.redshift.event_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subscription_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
 Lists all <code>event_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-subscription_name
+  region,
+  subscription_name
 FROM awscc.redshift.event_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,12 +260,12 @@ Use the following StackQL query and manifest file to create a new <code>event_su
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.event_subscriptions (
- SubscriptionName,
- region
+  SubscriptionName,
+  region
 )
 SELECT
-'{{ subscription_name }}',
-'{{ region }}';
+  '{{ subscription_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,26 +273,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.event_subscriptions (
- SourceType,
- EventCategories,
- Enabled,
- Severity,
- SubscriptionName,
- SourceIds,
- SnsTopicArn,
- Tags,
- region
+  SourceType,
+  EventCategories,
+  Enabled,
+  Severity,
+  SubscriptionName,
+  SourceIds,
+  SnsTopicArn,
+  Tags,
+  region
 )
 SELECT
- '{{ source_type }}',
- '{{ event_categories }}',
- '{{ enabled }}',
- '{{ severity }}',
- '{{ subscription_name }}',
- '{{ source_ids }}',
- '{{ sns_topic_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ source_type }}',
+  '{{ event_categories }}',
+  '{{ enabled }}',
+  '{{ severity }}',
+  '{{ subscription_name }}',
+  '{{ source_ids }}',
+  '{{ sns_topic_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -346,8 +349,9 @@ SET PatchDocument = string('{{ {
     "SnsTopicArn": sns_topic_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subscription_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subscription_name }}';
 ```
 
 
@@ -356,8 +360,9 @@ AND Identifier = '{{ subscription_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.event_subscriptions
-WHERE Identifier = '{{ subscription_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subscription_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

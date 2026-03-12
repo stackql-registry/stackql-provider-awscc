@@ -531,45 +531,47 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>auto_scaling_group</code>.
 ```sql
 SELECT
-region,
-lifecycle_hook_specification_list,
-load_balancer_names,
-launch_configuration_name,
-service_linked_role_arn,
-availability_zone_impairment_policy,
-target_group_arns,
-cooldown,
-notification_configurations,
-desired_capacity,
-health_check_grace_period,
-default_instance_warmup,
-skip_zonal_shift_validation,
-new_instances_protected_from_scale_in,
-launch_template,
-mixed_instances_policy,
-vpc_zone_identifier,
-tags,
-context,
-capacity_rebalance,
-instance_id,
-auto_scaling_group_arn,
-availability_zones,
-notification_configuration,
-availability_zone_distribution,
-metrics_collection,
-instance_maintenance_policy,
-max_size,
-min_size,
-termination_policies,
-auto_scaling_group_name,
-traffic_sources,
-desired_capacity_type,
-placement_group,
-capacity_reservation_specification,
-health_check_type,
-max_instance_lifetime
+  region,
+  lifecycle_hook_specification_list,
+  load_balancer_names,
+  launch_configuration_name,
+  service_linked_role_arn,
+  availability_zone_impairment_policy,
+  target_group_arns,
+  cooldown,
+  notification_configurations,
+  desired_capacity,
+  health_check_grace_period,
+  default_instance_warmup,
+  skip_zonal_shift_validation,
+  new_instances_protected_from_scale_in,
+  launch_template,
+  mixed_instances_policy,
+  vpc_zone_identifier,
+  tags,
+  context,
+  capacity_rebalance,
+  instance_id,
+  auto_scaling_group_arn,
+  availability_zones,
+  notification_configuration,
+  availability_zone_distribution,
+  metrics_collection,
+  instance_maintenance_policy,
+  max_size,
+  min_size,
+  termination_policies,
+  auto_scaling_group_name,
+  traffic_sources,
+  desired_capacity_type,
+  placement_group,
+  capacity_reservation_specification,
+  health_check_type,
+  max_instance_lifetime
 FROM awscc.autoscaling.auto_scaling_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -577,10 +579,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_group_name }}';
 Lists all <code>auto_scaling_groups</code> in a region.
 ```sql
 SELECT
-region,
-auto_scaling_group_name
+  region,
+  auto_scaling_group_name
 FROM awscc.autoscaling.auto_scaling_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -602,14 +605,14 @@ Use the following StackQL query and manifest file to create a new <code>auto_sca
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.auto_scaling_groups (
- MaxSize,
- MinSize,
- region
+  MaxSize,
+  MinSize,
+  region
 )
 SELECT
-'{{ max_size }}',
- '{{ min_size }}',
-'{{ region }}';
+  '{{ max_size }}',
+  '{{ min_size }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -617,80 +620,80 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.auto_scaling_groups (
- LifecycleHookSpecificationList,
- LoadBalancerNames,
- LaunchConfigurationName,
- ServiceLinkedRoleARN,
- AvailabilityZoneImpairmentPolicy,
- TargetGroupARNs,
- Cooldown,
- NotificationConfigurations,
- DesiredCapacity,
- HealthCheckGracePeriod,
- DefaultInstanceWarmup,
- SkipZonalShiftValidation,
- NewInstancesProtectedFromScaleIn,
- LaunchTemplate,
- MixedInstancesPolicy,
- VPCZoneIdentifier,
- Tags,
- Context,
- CapacityRebalance,
- InstanceId,
- AvailabilityZones,
- NotificationConfiguration,
- AvailabilityZoneDistribution,
- MetricsCollection,
- InstanceMaintenancePolicy,
- MaxSize,
- MinSize,
- TerminationPolicies,
- AutoScalingGroupName,
- TrafficSources,
- DesiredCapacityType,
- PlacementGroup,
- CapacityReservationSpecification,
- HealthCheckType,
- MaxInstanceLifetime,
- region
+  LifecycleHookSpecificationList,
+  LoadBalancerNames,
+  LaunchConfigurationName,
+  ServiceLinkedRoleARN,
+  AvailabilityZoneImpairmentPolicy,
+  TargetGroupARNs,
+  Cooldown,
+  NotificationConfigurations,
+  DesiredCapacity,
+  HealthCheckGracePeriod,
+  DefaultInstanceWarmup,
+  SkipZonalShiftValidation,
+  NewInstancesProtectedFromScaleIn,
+  LaunchTemplate,
+  MixedInstancesPolicy,
+  VPCZoneIdentifier,
+  Tags,
+  Context,
+  CapacityRebalance,
+  InstanceId,
+  AvailabilityZones,
+  NotificationConfiguration,
+  AvailabilityZoneDistribution,
+  MetricsCollection,
+  InstanceMaintenancePolicy,
+  MaxSize,
+  MinSize,
+  TerminationPolicies,
+  AutoScalingGroupName,
+  TrafficSources,
+  DesiredCapacityType,
+  PlacementGroup,
+  CapacityReservationSpecification,
+  HealthCheckType,
+  MaxInstanceLifetime,
+  region
 )
 SELECT
- '{{ lifecycle_hook_specification_list }}',
- '{{ load_balancer_names }}',
- '{{ launch_configuration_name }}',
- '{{ service_linked_role_arn }}',
- '{{ availability_zone_impairment_policy }}',
- '{{ target_group_arns }}',
- '{{ cooldown }}',
- '{{ notification_configurations }}',
- '{{ desired_capacity }}',
- '{{ health_check_grace_period }}',
- '{{ default_instance_warmup }}',
- '{{ skip_zonal_shift_validation }}',
- '{{ new_instances_protected_from_scale_in }}',
- '{{ launch_template }}',
- '{{ mixed_instances_policy }}',
- '{{ vpc_zone_identifier }}',
- '{{ tags }}',
- '{{ context }}',
- '{{ capacity_rebalance }}',
- '{{ instance_id }}',
- '{{ availability_zones }}',
- '{{ notification_configuration }}',
- '{{ availability_zone_distribution }}',
- '{{ metrics_collection }}',
- '{{ instance_maintenance_policy }}',
- '{{ max_size }}',
- '{{ min_size }}',
- '{{ termination_policies }}',
- '{{ auto_scaling_group_name }}',
- '{{ traffic_sources }}',
- '{{ desired_capacity_type }}',
- '{{ placement_group }}',
- '{{ capacity_reservation_specification }}',
- '{{ health_check_type }}',
- '{{ max_instance_lifetime }}',
- '{{ region }}';
+  '{{ lifecycle_hook_specification_list }}',
+  '{{ load_balancer_names }}',
+  '{{ launch_configuration_name }}',
+  '{{ service_linked_role_arn }}',
+  '{{ availability_zone_impairment_policy }}',
+  '{{ target_group_arns }}',
+  '{{ cooldown }}',
+  '{{ notification_configurations }}',
+  '{{ desired_capacity }}',
+  '{{ health_check_grace_period }}',
+  '{{ default_instance_warmup }}',
+  '{{ skip_zonal_shift_validation }}',
+  '{{ new_instances_protected_from_scale_in }}',
+  '{{ launch_template }}',
+  '{{ mixed_instances_policy }}',
+  '{{ vpc_zone_identifier }}',
+  '{{ tags }}',
+  '{{ context }}',
+  '{{ capacity_rebalance }}',
+  '{{ instance_id }}',
+  '{{ availability_zones }}',
+  '{{ notification_configuration }}',
+  '{{ availability_zone_distribution }}',
+  '{{ metrics_collection }}',
+  '{{ instance_maintenance_policy }}',
+  '{{ max_size }}',
+  '{{ min_size }}',
+  '{{ termination_policies }}',
+  '{{ auto_scaling_group_name }}',
+  '{{ traffic_sources }}',
+  '{{ desired_capacity_type }}',
+  '{{ placement_group }}',
+  '{{ capacity_reservation_specification }}',
+  '{{ health_check_type }}',
+  '{{ max_instance_lifetime }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -929,8 +932,9 @@ SET PatchDocument = string('{{ {
     "HealthCheckType": health_check_type,
     "MaxInstanceLifetime": max_instance_lifetime
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ auto_scaling_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ auto_scaling_group_name }}';
 ```
 
 
@@ -939,8 +943,9 @@ AND Identifier = '{{ auto_scaling_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.auto_scaling_groups
-WHERE Identifier = '{{ auto_scaling_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ auto_scaling_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

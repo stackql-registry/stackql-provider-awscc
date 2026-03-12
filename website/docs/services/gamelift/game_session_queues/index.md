@@ -226,19 +226,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>game_session_queue</code>.
 ```sql
 SELECT
-region,
-name,
-timeout_in_seconds,
-destinations,
-player_latency_policies,
-custom_event_data,
-notification_target,
-filter_configuration,
-priority_configuration,
-arn,
-tags
+  region,
+  name,
+  timeout_in_seconds,
+  destinations,
+  player_latency_policies,
+  custom_event_data,
+  notification_target,
+  filter_configuration,
+  priority_configuration,
+  arn,
+  tags
 FROM awscc.gamelift.game_session_queues
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,10 +248,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>game_session_queues</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.gamelift.game_session_queues_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -271,12 +274,12 @@ Use the following StackQL query and manifest file to create a new <code>game_ses
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.game_session_queues (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,28 +287,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.game_session_queues (
- Name,
- TimeoutInSeconds,
- Destinations,
- PlayerLatencyPolicies,
- CustomEventData,
- NotificationTarget,
- FilterConfiguration,
- PriorityConfiguration,
- Tags,
- region
+  Name,
+  TimeoutInSeconds,
+  Destinations,
+  PlayerLatencyPolicies,
+  CustomEventData,
+  NotificationTarget,
+  FilterConfiguration,
+  PriorityConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ timeout_in_seconds }}',
- '{{ destinations }}',
- '{{ player_latency_policies }}',
- '{{ custom_event_data }}',
- '{{ notification_target }}',
- '{{ filter_configuration }}',
- '{{ priority_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ timeout_in_seconds }}',
+  '{{ destinations }}',
+  '{{ player_latency_policies }}',
+  '{{ custom_event_data }}',
+  '{{ notification_target }}',
+  '{{ filter_configuration }}',
+  '{{ priority_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -372,8 +375,9 @@ SET PatchDocument = string('{{ {
     "PriorityConfiguration": priority_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -382,8 +386,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.game_session_queues
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

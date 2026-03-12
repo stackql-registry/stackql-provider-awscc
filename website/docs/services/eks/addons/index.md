@@ -269,20 +269,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>addon</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-addon_name,
-addon_version,
-preserve_on_delete,
-resolve_conflicts,
-service_account_role_arn,
-pod_identity_associations,
-configuration_values,
-arn,
-namespace_config,
-tags
+  region,
+  cluster_name,
+  addon_name,
+  addon_version,
+  preserve_on_delete,
+  resolve_conflicts,
+  service_account_role_arn,
+  pod_identity_associations,
+  configuration_values,
+  arn,
+  namespace_config,
+  tags
 FROM awscc.eks.addons
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ addon_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_name }}|{{ addon_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,11 +292,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}|{{ addon_name }}
 Lists all <code>addons</code> in a region.
 ```sql
 SELECT
-region,
-cluster_name,
-addon_name
+  region,
+  cluster_name,
+  addon_name
 FROM awscc.eks.addons_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -316,14 +319,14 @@ Use the following StackQL query and manifest file to create a new <code>addon</c
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.addons (
- ClusterName,
- AddonName,
- region
+  ClusterName,
+  AddonName,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ addon_name }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ addon_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -331,30 +334,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.addons (
- ClusterName,
- AddonName,
- AddonVersion,
- PreserveOnDelete,
- ResolveConflicts,
- ServiceAccountRoleArn,
- PodIdentityAssociations,
- ConfigurationValues,
- NamespaceConfig,
- Tags,
- region
+  ClusterName,
+  AddonName,
+  AddonVersion,
+  PreserveOnDelete,
+  ResolveConflicts,
+  ServiceAccountRoleArn,
+  PodIdentityAssociations,
+  ConfigurationValues,
+  NamespaceConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ addon_name }}',
- '{{ addon_version }}',
- '{{ preserve_on_delete }}',
- '{{ resolve_conflicts }}',
- '{{ service_account_role_arn }}',
- '{{ pod_identity_associations }}',
- '{{ configuration_values }}',
- '{{ namespace_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ addon_name }}',
+  '{{ addon_version }}',
+  '{{ preserve_on_delete }}',
+  '{{ resolve_conflicts }}',
+  '{{ service_account_role_arn }}',
+  '{{ pod_identity_associations }}',
+  '{{ configuration_values }}',
+  '{{ namespace_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -422,8 +425,9 @@ SET PatchDocument = string('{{ {
     "ConfigurationValues": configuration_values,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_name }}|{{ addon_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_name }}|{{ addon_name }}';
 ```
 
 
@@ -432,8 +436,9 @@ AND Identifier = '{{ cluster_name }}|{{ addon_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.addons
-WHERE Identifier = '{{ cluster_name }}|{{ addon_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_name }}|{{ addon_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

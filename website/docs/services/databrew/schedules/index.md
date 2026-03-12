@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schedule</code>.
 ```sql
 SELECT
-region,
-job_names,
-cron_expression,
-name,
-tags
+  region,
+  job_names,
+  cron_expression,
+  name,
+  tags
 FROM awscc.databrew.schedules
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>schedules</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.databrew.schedules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.schedules (
- CronExpression,
- Name,
- region
+  CronExpression,
+  Name,
+  region
 )
 SELECT
-'{{ cron_expression }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ cron_expression }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,18 +215,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.schedules (
- JobNames,
- CronExpression,
- Name,
- Tags,
- region
+  JobNames,
+  CronExpression,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ job_names }}',
- '{{ cron_expression }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ job_names }}',
+  '{{ cron_expression }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "CronExpression": cron_expression,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.schedules
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -416,30 +416,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance</code>.
 ```sql
 SELECT
-region,
-support_code,
-resource_type,
-is_static_ip,
-private_ip_address,
-public_ip_address,
-ipv6_addresses,
-location,
-hardware,
-state,
-networking,
-user_name,
-ssh_key_name,
-instance_name,
-availability_zone,
-bundle_id,
-blueprint_id,
-add_ons,
-user_data,
-key_pair_name,
-tags,
-instance_arn
+  region,
+  support_code,
+  resource_type,
+  is_static_ip,
+  private_ip_address,
+  public_ip_address,
+  ipv6_addresses,
+  location,
+  hardware,
+  state,
+  networking,
+  user_name,
+  ssh_key_name,
+  instance_name,
+  availability_zone,
+  bundle_id,
+  blueprint_id,
+  add_ons,
+  user_data,
+  key_pair_name,
+  tags,
+  instance_arn
 FROM awscc.lightsail.instances
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -447,10 +449,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_name }}';
 Lists all <code>instances</code> in a region.
 ```sql
 SELECT
-region,
-instance_name
+  region,
+  instance_name
 FROM awscc.lightsail.instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -472,16 +475,16 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.instances (
- InstanceName,
- BundleId,
- BlueprintId,
- region
+  InstanceName,
+  BundleId,
+  BlueprintId,
+  region
 )
 SELECT
-'{{ instance_name }}',
- '{{ bundle_id }}',
- '{{ blueprint_id }}',
-'{{ region }}';
+  '{{ instance_name }}',
+  '{{ bundle_id }}',
+  '{{ blueprint_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -489,34 +492,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.instances (
- Location,
- Hardware,
- State,
- Networking,
- InstanceName,
- AvailabilityZone,
- BundleId,
- BlueprintId,
- AddOns,
- UserData,
- KeyPairName,
- Tags,
- region
+  Location,
+  Hardware,
+  State,
+  Networking,
+  InstanceName,
+  AvailabilityZone,
+  BundleId,
+  BlueprintId,
+  AddOns,
+  UserData,
+  KeyPairName,
+  Tags,
+  region
 )
 SELECT
- '{{ location }}',
- '{{ hardware }}',
- '{{ state }}',
- '{{ networking }}',
- '{{ instance_name }}',
- '{{ availability_zone }}',
- '{{ bundle_id }}',
- '{{ blueprint_id }}',
- '{{ add_ons }}',
- '{{ user_data }}',
- '{{ key_pair_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ location }}',
+  '{{ hardware }}',
+  '{{ state }}',
+  '{{ networking }}',
+  '{{ instance_name }}',
+  '{{ availability_zone }}',
+  '{{ bundle_id }}',
+  '{{ blueprint_id }}',
+  '{{ add_ons }}',
+  '{{ user_data }}',
+  '{{ key_pair_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -610,8 +613,9 @@ SET PatchDocument = string('{{ {
     "KeyPairName": key_pair_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_name }}';
 ```
 
 
@@ -620,8 +624,9 @@ AND Identifier = '{{ instance_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.instances
-WHERE Identifier = '{{ instance_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

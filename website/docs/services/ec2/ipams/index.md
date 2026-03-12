@@ -227,24 +227,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam</code>.
 ```sql
 SELECT
-region,
-ipam_id,
-arn,
-default_resource_discovery_id,
-default_resource_discovery_association_id,
-resource_discovery_association_count,
-description,
-public_default_scope_id,
-private_default_scope_id,
-scope_count,
-operating_regions,
-tier,
-enable_private_gua,
-metered_account,
-default_resource_discovery_organizational_unit_exclusions,
-tags
+  region,
+  ipam_id,
+  arn,
+  default_resource_discovery_id,
+  default_resource_discovery_association_id,
+  resource_discovery_association_count,
+  description,
+  public_default_scope_id,
+  private_default_scope_id,
+  scope_count,
+  operating_regions,
+  tier,
+  enable_private_gua,
+  metered_account,
+  default_resource_discovery_organizational_unit_exclusions,
+  tags
 FROM awscc.ec2.ipams
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,10 +254,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_id }}';
 Lists all <code>ipams</code> in a region.
 ```sql
 SELECT
-region,
-ipam_id
+  region,
+  ipam_id
 FROM awscc.ec2.ipams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -277,12 +280,12 @@ Use the following StackQL query and manifest file to create a new <code>ipam</co
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipams (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,24 +293,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipams (
- Description,
- OperatingRegions,
- Tier,
- EnablePrivateGua,
- MeteredAccount,
- DefaultResourceDiscoveryOrganizationalUnitExclusions,
- Tags,
- region
+  Description,
+  OperatingRegions,
+  Tier,
+  EnablePrivateGua,
+  MeteredAccount,
+  DefaultResourceDiscoveryOrganizationalUnitExclusions,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ operating_regions }}',
- '{{ tier }}',
- '{{ enable_private_gua }}',
- '{{ metered_account }}',
- '{{ default_resource_discovery_organizational_unit_exclusions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ operating_regions }}',
+  '{{ tier }}',
+  '{{ enable_private_gua }}',
+  '{{ metered_account }}',
+  '{{ default_resource_discovery_organizational_unit_exclusions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -362,8 +365,9 @@ SET PatchDocument = string('{{ {
     "DefaultResourceDiscoveryOrganizationalUnitExclusions": default_resource_discovery_organizational_unit_exclusions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ipam_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ipam_id }}';
 ```
 
 
@@ -372,8 +376,9 @@ AND Identifier = '{{ ipam_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipams
-WHERE Identifier = '{{ ipam_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

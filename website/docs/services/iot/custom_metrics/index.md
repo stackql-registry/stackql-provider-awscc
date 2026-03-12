@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_metric</code>.
 ```sql
 SELECT
-region,
-metric_name,
-display_name,
-metric_type,
-metric_arn,
-tags
+  region,
+  metric_name,
+  display_name,
+  metric_type,
+  metric_arn,
+  tags
 FROM awscc.iot.custom_metrics
-WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ metric_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
 Lists all <code>custom_metrics</code> in a region.
 ```sql
 SELECT
-region,
-metric_name
+  region,
+  metric_name
 FROM awscc.iot.custom_metrics_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>custom_m
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.custom_metrics (
- MetricType,
- region
+  MetricType,
+  region
 )
 SELECT
-'{{ metric_type }}',
-'{{ region }}';
+  '{{ metric_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.custom_metrics (
- MetricName,
- DisplayName,
- MetricType,
- Tags,
- region
+  MetricName,
+  DisplayName,
+  MetricType,
+  Tags,
+  region
 )
 SELECT
- '{{ metric_name }}',
- '{{ display_name }}',
- '{{ metric_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ metric_name }}',
+  '{{ display_name }}',
+  '{{ metric_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ metric_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ metric_name }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ metric_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.custom_metrics
-WHERE Identifier = '{{ metric_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ metric_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

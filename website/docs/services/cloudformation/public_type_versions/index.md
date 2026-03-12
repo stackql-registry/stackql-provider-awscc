@@ -164,17 +164,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>public_type_version</code>.
 ```sql
 SELECT
-region,
-arn,
-type_version_arn,
-public_version_number,
-publisher_id,
-public_type_arn,
-type_name,
-log_delivery_bucket,
-type
+  region,
+  arn,
+  type_version_arn,
+  public_version_number,
+  publisher_id,
+  public_type_arn,
+  type_name,
+  log_delivery_bucket,
+  type
 FROM awscc.cloudformation.public_type_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ public_type_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ public_type_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,10 +184,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ public_type_arn }}';
 Lists all <code>public_type_versions</code> in a region.
 ```sql
 SELECT
-region,
-public_type_arn
+  region,
+  public_type_arn
 FROM awscc.cloudformation.public_type_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -207,20 +210,20 @@ Use the following StackQL query and manifest file to create a new <code>public_t
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.public_type_versions (
- Arn,
- PublicVersionNumber,
- TypeName,
- LogDeliveryBucket,
- Type,
- region
+  Arn,
+  PublicVersionNumber,
+  TypeName,
+  LogDeliveryBucket,
+  Type,
+  region
 )
 SELECT
-'{{ arn }}',
- '{{ public_version_number }}',
- '{{ type_name }}',
- '{{ log_delivery_bucket }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ arn }}',
+  '{{ public_version_number }}',
+  '{{ type_name }}',
+  '{{ log_delivery_bucket }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,20 +231,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.public_type_versions (
- Arn,
- PublicVersionNumber,
- TypeName,
- LogDeliveryBucket,
- Type,
- region
+  Arn,
+  PublicVersionNumber,
+  TypeName,
+  LogDeliveryBucket,
+  Type,
+  region
 )
 SELECT
- '{{ arn }}',
- '{{ public_version_number }}',
- '{{ type_name }}',
- '{{ log_delivery_bucket }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ arn }}',
+  '{{ public_version_number }}',
+  '{{ type_name }}',
+  '{{ log_delivery_bucket }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">

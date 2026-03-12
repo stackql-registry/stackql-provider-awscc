@@ -170,14 +170,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_invoke_config</code>.
 ```sql
 SELECT
-region,
-destination_config,
-function_name,
-maximum_event_age_in_seconds,
-maximum_retry_attempts,
-qualifier
+  region,
+  destination_config,
+  function_name,
+  maximum_event_age_in_seconds,
+  maximum_retry_attempts,
+  qualifier
 FROM awscc.lambda.event_invoke_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ qualifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_name }}|{{ qualifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -185,11 +187,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ qualifier }}
 Lists all <code>event_invoke_configs</code> in a region.
 ```sql
 SELECT
-region,
-function_name,
-qualifier
+  region,
+  function_name,
+  qualifier
 FROM awscc.lambda.event_invoke_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -211,14 +214,14 @@ Use the following StackQL query and manifest file to create a new <code>event_in
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.event_invoke_configs (
- FunctionName,
- Qualifier,
- region
+  FunctionName,
+  Qualifier,
+  region
 )
 SELECT
-'{{ function_name }}',
- '{{ qualifier }}',
-'{{ region }}';
+  '{{ function_name }}',
+  '{{ qualifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.event_invoke_configs (
- DestinationConfig,
- FunctionName,
- MaximumEventAgeInSeconds,
- MaximumRetryAttempts,
- Qualifier,
- region
+  DestinationConfig,
+  FunctionName,
+  MaximumEventAgeInSeconds,
+  MaximumRetryAttempts,
+  Qualifier,
+  region
 )
 SELECT
- '{{ destination_config }}',
- '{{ function_name }}',
- '{{ maximum_event_age_in_seconds }}',
- '{{ maximum_retry_attempts }}',
- '{{ qualifier }}',
- '{{ region }}';
+  '{{ destination_config }}',
+  '{{ function_name }}',
+  '{{ maximum_event_age_in_seconds }}',
+  '{{ maximum_retry_attempts }}',
+  '{{ qualifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "MaximumEventAgeInSeconds": maximum_event_age_in_seconds,
     "MaximumRetryAttempts": maximum_retry_attempts
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ function_name }}|{{ qualifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ function_name }}|{{ qualifier }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ function_name }}|{{ qualifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_invoke_configs
-WHERE Identifier = '{{ function_name }}|{{ qualifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_name }}|{{ qualifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

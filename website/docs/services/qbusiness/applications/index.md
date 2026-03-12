@@ -285,29 +285,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-application_arn,
-application_id,
-attachments_configuration,
-auto_subscription_configuration,
-client_ids_for_oid_c,
-created_at,
-description,
-display_name,
-encryption_configuration,
-iam_identity_provider_arn,
-identity_center_application_arn,
-identity_center_instance_arn,
-identity_type,
-personalization_configuration,
-q_apps_configuration,
-quick_sight_configuration,
-role_arn,
-status,
-tags,
-updated_at
+  region,
+  application_arn,
+  application_id,
+  attachments_configuration,
+  auto_subscription_configuration,
+  client_ids_for_oid_c,
+  created_at,
+  description,
+  display_name,
+  encryption_configuration,
+  iam_identity_provider_arn,
+  identity_center_application_arn,
+  identity_center_instance_arn,
+  identity_type,
+  personalization_configuration,
+  q_apps_configuration,
+  quick_sight_configuration,
+  role_arn,
+  status,
+  tags,
+  updated_at
 FROM awscc.qbusiness.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -315,10 +317,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_id
+  region,
+  application_id
 FROM awscc.qbusiness.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -340,12 +343,12 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.applications (
- DisplayName,
- region
+  DisplayName,
+  region
 )
 SELECT
-'{{ display_name }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -353,38 +356,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.applications (
- AttachmentsConfiguration,
- AutoSubscriptionConfiguration,
- ClientIdsForOIDC,
- Description,
- DisplayName,
- EncryptionConfiguration,
- IamIdentityProviderArn,
- IdentityCenterInstanceArn,
- IdentityType,
- PersonalizationConfiguration,
- QAppsConfiguration,
- QuickSightConfiguration,
- RoleArn,
- Tags,
- region
+  AttachmentsConfiguration,
+  AutoSubscriptionConfiguration,
+  ClientIdsForOIDC,
+  Description,
+  DisplayName,
+  EncryptionConfiguration,
+  IamIdentityProviderArn,
+  IdentityCenterInstanceArn,
+  IdentityType,
+  PersonalizationConfiguration,
+  QAppsConfiguration,
+  QuickSightConfiguration,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ attachments_configuration }}',
- '{{ auto_subscription_configuration }}',
- '{{ client_ids_for_oid_c }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ encryption_configuration }}',
- '{{ iam_identity_provider_arn }}',
- '{{ identity_center_instance_arn }}',
- '{{ identity_type }}',
- '{{ personalization_configuration }}',
- '{{ q_apps_configuration }}',
- '{{ quick_sight_configuration }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ attachments_configuration }}',
+  '{{ auto_subscription_configuration }}',
+  '{{ client_ids_for_oid_c }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ encryption_configuration }}',
+  '{{ iam_identity_provider_arn }}',
+  '{{ identity_center_instance_arn }}',
+  '{{ identity_type }}',
+  '{{ personalization_configuration }}',
+  '{{ q_apps_configuration }}',
+  '{{ quick_sight_configuration }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -461,8 +464,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}';
 ```
 
 
@@ -471,8 +475,9 @@ AND Identifier = '{{ application_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.applications
-WHERE Identifier = '{{ application_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

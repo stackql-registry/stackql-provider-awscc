@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Describes the status of the StartReportCreation operation for generating a report of all tagged resources in accounts across your organization
+Creates, updates, deletes or gets a <code>report_creation</code> resource or lists <code>report_creation</code> in a region
 
 ## Overview
 <table>
@@ -33,7 +33,28 @@ Describes the status of the StartReportCreation operation for generating a repor
 </table>
 
 ## Fields
-<code>SELECT</code> operation not supported for this resource.
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": "<p>Reports the status of the operation.</p> <p>The operation status can be one of the following:</p> <ul> <li> <p> <code>RUNNING</code> - Report creation is in progress.</p> </li> <li> <p> <code>SUCCEEDED</code> - Report creation is complete. You can open the report from the Amazon S3 bucket that you specified when you ran <code>StartReportCreation</code>.</p> </li> <li> <p> <code>FAILED</code> - Report creation timed out or the Amazon S3 bucket is not accessible. </p> </li> <li> <p> <code>NO REPORT</code> - No report was generated in the last 90 days.</p> </li> </ul>"
+  },
+  {
+    "name": "s3_location",
+    "type": "string",
+    "description": "The path to the Amazon S3 bucket where the report was stored on creation."
+  },
+  {
+    "name": "error_message",
+    "type": "string",
+    "description": "Details of the common errors that all operations return."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 
@@ -52,7 +73,15 @@ Describes the status of the StartReportCreation operation for generating a repor
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.tagging.report_creation
+WHERE
+  region = 'us-east-1';
+```
 
 
 

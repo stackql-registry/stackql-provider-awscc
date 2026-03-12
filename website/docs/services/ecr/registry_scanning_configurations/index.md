@@ -165,12 +165,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>registry_scanning_configuration</code>.
 ```sql
 SELECT
-region,
-rules,
-scan_type,
-registry_id
+  region,
+  rules,
+  scan_type,
+  registry_id
 FROM awscc.ecr.registry_scanning_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ registry_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
 Lists all <code>registry_scanning_configurations</code> in a region.
 ```sql
 SELECT
-region,
-registry_id
+  region,
+  registry_id
 FROM awscc.ecr.registry_scanning_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>registry
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.registry_scanning_configurations (
- Rules,
- ScanType,
- region
+  Rules,
+  ScanType,
+  region
 )
 SELECT
-'{{ rules }}',
- '{{ scan_type }}',
-'{{ region }}';
+  '{{ rules }}',
+  '{{ scan_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,14 +221,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.registry_scanning_configurations (
- Rules,
- ScanType,
- region
+  Rules,
+  ScanType,
+  region
 )
 SELECT
- '{{ rules }}',
- '{{ scan_type }}',
- '{{ region }}';
+  '{{ rules }}',
+  '{{ scan_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -265,8 +268,9 @@ SET PatchDocument = string('{{ {
     "Rules": rules,
     "ScanType": scan_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ registry_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ registry_id }}';
 ```
 
 
@@ -275,8 +279,9 @@ AND Identifier = '{{ registry_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.registry_scanning_configurations
-WHERE Identifier = '{{ registry_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ registry_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

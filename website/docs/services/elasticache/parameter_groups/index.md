@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>parameter_group</code>.
 ```sql
 SELECT
-region,
-description,
-properties,
-tags,
-cache_parameter_group_name,
-cache_parameter_group_family
+  region,
+  description,
+  properties,
+  tags,
+  cache_parameter_group_name,
+  cache_parameter_group_family
 FROM awscc.elasticache.parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ cache_parameter_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cache_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cache_parameter_group_name }}';
 Lists all <code>parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-cache_parameter_group_name
+  region,
+  cache_parameter_group_name
 FROM awscc.elasticache.parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>paramete
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.parameter_groups (
- Description,
- CacheParameterGroupFamily,
- region
+  Description,
+  CacheParameterGroupFamily,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ cache_parameter_group_family }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ cache_parameter_group_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,18 +221,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.parameter_groups (
- Description,
- Properties,
- Tags,
- CacheParameterGroupFamily,
- region
+  Description,
+  Properties,
+  Tags,
+  CacheParameterGroupFamily,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ properties }}',
- '{{ tags }}',
- '{{ cache_parameter_group_family }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ properties }}',
+  '{{ tags }}',
+  '{{ cache_parameter_group_family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ SET PatchDocument = string('{{ {
     "Properties": properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cache_parameter_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cache_parameter_group_name }}';
 ```
 
 
@@ -282,8 +286,9 @@ AND Identifier = '{{ cache_parameter_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.parameter_groups
-WHERE Identifier = '{{ cache_parameter_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cache_parameter_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

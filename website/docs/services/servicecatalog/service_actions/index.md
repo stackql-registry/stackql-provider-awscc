@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_action</code>.
 ```sql
 SELECT
-region,
-accept_language,
-name,
-definition_type,
-definition,
-description,
-id
+  region,
+  accept_language,
+  name,
+  definition_type,
+  definition,
+  description,
+  id
 FROM awscc.servicecatalog.service_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>service_actions</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.servicecatalog.service_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.service_actions (
- Name,
- DefinitionType,
- Definition,
- region
+  Name,
+  DefinitionType,
+  Definition,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ definition_type }}',
- '{{ definition }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ definition_type }}',
+  '{{ definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.service_actions (
- AcceptLanguage,
- Name,
- DefinitionType,
- Definition,
- Description,
- region
+  AcceptLanguage,
+  Name,
+  DefinitionType,
+  Definition,
+  Description,
+  region
 )
 SELECT
- '{{ accept_language }}',
- '{{ name }}',
- '{{ definition_type }}',
- '{{ definition }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ accept_language }}',
+  '{{ name }}',
+  '{{ definition_type }}',
+  '{{ definition }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ SET PatchDocument = string('{{ {
     "Definition": definition,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.service_actions
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

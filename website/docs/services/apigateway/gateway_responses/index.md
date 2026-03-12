@@ -156,15 +156,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>gateway_response</code>.
 ```sql
 SELECT
-region,
-id,
-rest_api_id,
-response_type,
-status_code,
-response_parameters,
-response_templates
+  region,
+  id,
+  rest_api_id,
+  response_type,
+  status_code,
+  response_parameters,
+  response_templates
 FROM awscc.apigateway.gateway_responses
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>gateway_responses</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.apigateway.gateway_responses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>gateway_
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.gateway_responses (
- RestApiId,
- ResponseType,
- region
+  RestApiId,
+  ResponseType,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
- '{{ response_type }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ response_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,20 +215,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.gateway_responses (
- RestApiId,
- ResponseType,
- StatusCode,
- ResponseParameters,
- ResponseTemplates,
- region
+  RestApiId,
+  ResponseType,
+  StatusCode,
+  ResponseParameters,
+  ResponseTemplates,
+  region
 )
 SELECT
- '{{ rest_api_id }}',
- '{{ response_type }}',
- '{{ status_code }}',
- '{{ response_parameters }}',
- '{{ response_templates }}',
- '{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ response_type }}',
+  '{{ status_code }}',
+  '{{ response_parameters }}',
+  '{{ response_templates }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -268,8 +271,9 @@ SET PatchDocument = string('{{ {
     "ResponseParameters": response_parameters,
     "ResponseTemplates": response_templates
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -278,8 +282,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.gateway_responses
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT
-region,
-definition,
-policy_id,
-policy_store_id,
-policy_type
+  region,
+  definition,
+  policy_id,
+  policy_store_id,
+  policy_type
 FROM awscc.verifiedpermissions.policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ policy_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_id }}|{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_id }}|{{ policy_store_id 
 Lists all <code>policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_id,
-policy_store_id
+  region,
+  policy_id,
+  policy_store_id
 FROM awscc.verifiedpermissions.policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>policy</
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policies (
- Definition,
- PolicyStoreId,
- region
+  Definition,
+  PolicyStoreId,
+  region
 )
 SELECT
-'{{ definition }}',
- '{{ policy_store_id }}',
-'{{ region }}';
+  '{{ definition }}',
+  '{{ policy_store_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policies (
- Definition,
- PolicyStoreId,
- region
+  Definition,
+  PolicyStoreId,
+  region
 )
 SELECT
- '{{ definition }}',
- '{{ policy_store_id }}',
- '{{ region }}';
+  '{{ definition }}',
+  '{{ policy_store_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.verifiedpermissions.policies
 SET PatchDocument = string('{{ {
     "Definition": definition
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_id }}|{{ policy_store_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_id }}|{{ policy_store_id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ policy_id }}|{{ policy_store_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policies
-WHERE Identifier = '{{ policy_id }}|{{ policy_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_id }}|{{ policy_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

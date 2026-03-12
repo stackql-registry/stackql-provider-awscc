@@ -200,16 +200,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>restore_testing_plan</code>.
 ```sql
 SELECT
-region,
-schedule_expression,
-start_window_hours,
-recovery_point_selection,
-restore_testing_plan_arn,
-restore_testing_plan_name,
-schedule_expression_timezone,
-tags
+  region,
+  schedule_expression,
+  start_window_hours,
+  recovery_point_selection,
+  restore_testing_plan_arn,
+  restore_testing_plan_name,
+  schedule_expression_timezone,
+  tags
 FROM awscc.backup.restore_testing_plans
-WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ restore_testing_plan_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,10 +219,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}';
 Lists all <code>restore_testing_plans</code> in a region.
 ```sql
 SELECT
-region,
-restore_testing_plan_name
+  region,
+  restore_testing_plan_name
 FROM awscc.backup.restore_testing_plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -242,16 +245,16 @@ Use the following StackQL query and manifest file to create a new <code>restore_
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.restore_testing_plans (
- ScheduleExpression,
- RecoveryPointSelection,
- RestoreTestingPlanName,
- region
+  ScheduleExpression,
+  RecoveryPointSelection,
+  RestoreTestingPlanName,
+  region
 )
 SELECT
-'{{ schedule_expression }}',
- '{{ recovery_point_selection }}',
- '{{ restore_testing_plan_name }}',
-'{{ region }}';
+  '{{ schedule_expression }}',
+  '{{ recovery_point_selection }}',
+  '{{ restore_testing_plan_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -259,22 +262,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.restore_testing_plans (
- ScheduleExpression,
- StartWindowHours,
- RecoveryPointSelection,
- RestoreTestingPlanName,
- ScheduleExpressionTimezone,
- Tags,
- region
+  ScheduleExpression,
+  StartWindowHours,
+  RecoveryPointSelection,
+  RestoreTestingPlanName,
+  ScheduleExpressionTimezone,
+  Tags,
+  region
 )
 SELECT
- '{{ schedule_expression }}',
- '{{ start_window_hours }}',
- '{{ recovery_point_selection }}',
- '{{ restore_testing_plan_name }}',
- '{{ schedule_expression_timezone }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ schedule_expression }}',
+  '{{ start_window_hours }}',
+  '{{ recovery_point_selection }}',
+  '{{ restore_testing_plan_name }}',
+  '{{ schedule_expression_timezone }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ SET PatchDocument = string('{{ {
     "ScheduleExpressionTimezone": schedule_expression_timezone,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ restore_testing_plan_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ restore_testing_plan_name }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ restore_testing_plan_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_plans
-WHERE Identifier = '{{ restore_testing_plan_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ restore_testing_plan_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

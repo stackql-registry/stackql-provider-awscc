@@ -467,26 +467,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>namespace</code>.
 ```sql
 SELECT
-region,
-admin_password_secret_kms_key_id,
-admin_user_password,
-admin_username,
-db_name,
-default_iam_role_arn,
-iam_roles,
-kms_key_id,
-log_exports,
-manage_admin_password,
-namespace,
-namespace_name,
-tags,
-final_snapshot_name,
-final_snapshot_retention_period,
-namespace_resource_policy,
-redshift_idc_application_arn,
-snapshot_copy_configurations
+  region,
+  admin_password_secret_kms_key_id,
+  admin_user_password,
+  admin_username,
+  db_name,
+  default_iam_role_arn,
+  iam_roles,
+  kms_key_id,
+  log_exports,
+  manage_admin_password,
+  namespace,
+  namespace_name,
+  tags,
+  final_snapshot_name,
+  final_snapshot_retention_period,
+  namespace_resource_policy,
+  redshift_idc_application_arn,
+  snapshot_copy_configurations
 FROM awscc.redshiftserverless.namespaces
-WHERE region = 'us-east-1' AND Identifier = '{{ namespace_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ namespace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -494,10 +496,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ namespace_name }}';
 Lists all <code>namespaces</code> in a region.
 ```sql
 SELECT
-region,
-namespace_name
+  region,
+  namespace_name
 FROM awscc.redshiftserverless.namespaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -519,12 +522,12 @@ Use the following StackQL query and manifest file to create a new <code>namespac
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.namespaces (
- NamespaceName,
- region
+  NamespaceName,
+  region
 )
 SELECT
-'{{ namespace_name }}',
-'{{ region }}';
+  '{{ namespace_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -532,42 +535,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.namespaces (
- AdminPasswordSecretKmsKeyId,
- AdminUserPassword,
- AdminUsername,
- DbName,
- DefaultIamRoleArn,
- IamRoles,
- KmsKeyId,
- LogExports,
- ManageAdminPassword,
- NamespaceName,
- Tags,
- FinalSnapshotName,
- FinalSnapshotRetentionPeriod,
- NamespaceResourcePolicy,
- RedshiftIdcApplicationArn,
- SnapshotCopyConfigurations,
- region
+  AdminPasswordSecretKmsKeyId,
+  AdminUserPassword,
+  AdminUsername,
+  DbName,
+  DefaultIamRoleArn,
+  IamRoles,
+  KmsKeyId,
+  LogExports,
+  ManageAdminPassword,
+  NamespaceName,
+  Tags,
+  FinalSnapshotName,
+  FinalSnapshotRetentionPeriod,
+  NamespaceResourcePolicy,
+  RedshiftIdcApplicationArn,
+  SnapshotCopyConfigurations,
+  region
 )
 SELECT
- '{{ admin_password_secret_kms_key_id }}',
- '{{ admin_user_password }}',
- '{{ admin_username }}',
- '{{ db_name }}',
- '{{ default_iam_role_arn }}',
- '{{ iam_roles }}',
- '{{ kms_key_id }}',
- '{{ log_exports }}',
- '{{ manage_admin_password }}',
- '{{ namespace_name }}',
- '{{ tags }}',
- '{{ final_snapshot_name }}',
- '{{ final_snapshot_retention_period }}',
- '{{ namespace_resource_policy }}',
- '{{ redshift_idc_application_arn }}',
- '{{ snapshot_copy_configurations }}',
- '{{ region }}';
+  '{{ admin_password_secret_kms_key_id }}',
+  '{{ admin_user_password }}',
+  '{{ admin_username }}',
+  '{{ db_name }}',
+  '{{ default_iam_role_arn }}',
+  '{{ iam_roles }}',
+  '{{ kms_key_id }}',
+  '{{ log_exports }}',
+  '{{ manage_admin_password }}',
+  '{{ namespace_name }}',
+  '{{ tags }}',
+  '{{ final_snapshot_name }}',
+  '{{ final_snapshot_retention_period }}',
+  '{{ namespace_resource_policy }}',
+  '{{ redshift_idc_application_arn }}',
+  '{{ snapshot_copy_configurations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -651,8 +654,9 @@ SET PatchDocument = string('{{ {
     "RedshiftIdcApplicationArn": redshift_idc_application_arn,
     "SnapshotCopyConfigurations": snapshot_copy_configurations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ namespace_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ namespace_name }}';
 ```
 
 
@@ -661,8 +665,9 @@ AND Identifier = '{{ namespace_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.namespaces
-WHERE Identifier = '{{ namespace_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ namespace_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

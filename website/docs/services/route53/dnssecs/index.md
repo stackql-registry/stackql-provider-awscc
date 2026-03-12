@@ -125,10 +125,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dnssec</code>.
 ```sql
 SELECT
-region,
-hosted_zone_id
+  region,
+  hosted_zone_id
 FROM awscc.route53.dnssecs
-WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hosted_zone_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -136,10 +138,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}';
 Lists all <code>dnssecs</code> in a region.
 ```sql
 SELECT
-region,
-hosted_zone_id
+  region,
+  hosted_zone_id
 FROM awscc.route53.dnssecs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -161,12 +164,12 @@ Use the following StackQL query and manifest file to create a new <code>dnssec</
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.dnssecs (
- HostedZoneId,
- region
+  HostedZoneId,
+  region
 )
 SELECT
-'{{ hosted_zone_id }}',
-'{{ region }}';
+  '{{ hosted_zone_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -174,12 +177,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.dnssecs (
- HostedZoneId,
- region
+  HostedZoneId,
+  region
 )
 SELECT
- '{{ hosted_zone_id }}',
- '{{ region }}';
+  '{{ hosted_zone_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -208,8 +211,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.dnssecs
-WHERE Identifier = '{{ hosted_zone_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hosted_zone_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

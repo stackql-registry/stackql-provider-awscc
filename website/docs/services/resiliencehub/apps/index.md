@@ -269,20 +269,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-app_arn,
-resiliency_policy_arn,
-tags,
-app_template_body,
-resource_mappings,
-app_assessment_schedule,
-permission_model,
-event_subscriptions,
-drift_status
+  region,
+  name,
+  description,
+  app_arn,
+  resiliency_policy_arn,
+  tags,
+  app_template_body,
+  resource_mappings,
+  app_assessment_schedule,
+  permission_model,
+  event_subscriptions,
+  drift_status
 FROM awscc.resiliencehub.apps
-WHERE region = 'us-east-1' AND Identifier = '{{ app_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,10 +292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_arn }}';
 Lists all <code>apps</code> in a region.
 ```sql
 SELECT
-region,
-app_arn
+  region,
+  app_arn
 FROM awscc.resiliencehub.apps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -315,16 +318,16 @@ Use the following StackQL query and manifest file to create a new <code>app</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.resiliencehub.apps (
- Name,
- AppTemplateBody,
- ResourceMappings,
- region
+  Name,
+  AppTemplateBody,
+  ResourceMappings,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ app_template_body }}',
- '{{ resource_mappings }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ app_template_body }}',
+  '{{ resource_mappings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -332,28 +335,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resiliencehub.apps (
- Name,
- Description,
- ResiliencyPolicyArn,
- Tags,
- AppTemplateBody,
- ResourceMappings,
- AppAssessmentSchedule,
- PermissionModel,
- EventSubscriptions,
- region
+  Name,
+  Description,
+  ResiliencyPolicyArn,
+  Tags,
+  AppTemplateBody,
+  ResourceMappings,
+  AppAssessmentSchedule,
+  PermissionModel,
+  EventSubscriptions,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ resiliency_policy_arn }}',
- '{{ tags }}',
- '{{ app_template_body }}',
- '{{ resource_mappings }}',
- '{{ app_assessment_schedule }}',
- '{{ permission_model }}',
- '{{ event_subscriptions }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ resiliency_policy_arn }}',
+  '{{ tags }}',
+  '{{ app_template_body }}',
+  '{{ resource_mappings }}',
+  '{{ app_assessment_schedule }}',
+  '{{ permission_model }}',
+  '{{ event_subscriptions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -426,8 +429,9 @@ SET PatchDocument = string('{{ {
     "PermissionModel": permission_model,
     "EventSubscriptions": event_subscriptions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_arn }}';
 ```
 
 
@@ -436,8 +440,9 @@ AND Identifier = '{{ app_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resiliencehub.apps
-WHERE Identifier = '{{ app_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

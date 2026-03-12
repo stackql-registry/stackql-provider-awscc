@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>member_invitation</code>.
 ```sql
 SELECT
-region,
-graph_arn,
-member_id,
-member_email_address,
-disable_email_notification,
-message
+  region,
+  graph_arn,
+  member_id,
+  member_email_address,
+  disable_email_notification,
+  message
 FROM awscc.detective.member_invitations
-WHERE region = 'us-east-1' AND Identifier = '{{ graph_arn }}|{{ member_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ graph_arn }}|{{ member_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ graph_arn }}|{{ member_id }}';
 Lists all <code>member_invitations</code> in a region.
 ```sql
 SELECT
-region,
-graph_arn,
-member_id
+  region,
+  graph_arn,
+  member_id
 FROM awscc.detective.member_invitations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>member_i
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.member_invitations (
- GraphArn,
- MemberId,
- MemberEmailAddress,
- region
+  GraphArn,
+  MemberId,
+  MemberEmailAddress,
+  region
 )
 SELECT
-'{{ graph_arn }}',
- '{{ member_id }}',
- '{{ member_email_address }}',
-'{{ region }}';
+  '{{ graph_arn }}',
+  '{{ member_id }}',
+  '{{ member_email_address }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,20 +211,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.detective.member_invitations (
- GraphArn,
- MemberId,
- MemberEmailAddress,
- DisableEmailNotification,
- Message,
- region
+  GraphArn,
+  MemberId,
+  MemberEmailAddress,
+  DisableEmailNotification,
+  Message,
+  region
 )
 SELECT
- '{{ graph_arn }}',
- '{{ member_id }}',
- '{{ member_email_address }}',
- '{{ disable_email_notification }}',
- '{{ message }}',
- '{{ region }}';
+  '{{ graph_arn }}',
+  '{{ member_id }}',
+  '{{ member_email_address }}',
+  '{{ disable_email_notification }}',
+  '{{ message }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -258,8 +261,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.member_invitations
-WHERE Identifier = '{{ graph_arn }}|{{ member_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ graph_arn }}|{{ member_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

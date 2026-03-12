@@ -506,34 +506,36 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>container_fleet</code>.
 ```sql
 SELECT
-region,
-fleet_id,
-fleet_role_arn,
-description,
-game_server_container_group_definition_name,
-game_server_container_group_definition_arn,
-per_instance_container_group_definition_name,
-per_instance_container_group_definition_arn,
-instance_connection_port_range,
-instance_inbound_permissions,
-game_server_container_groups_per_instance,
-maximum_game_server_container_groups_per_instance,
-creation_time,
-status,
-deployment_details,
-deployment_configuration,
-instance_type,
-billing_type,
-locations,
-scaling_policies,
-metric_groups,
-new_game_session_protection_policy,
-game_session_creation_limit_policy,
-log_configuration,
-tags,
-fleet_arn
+  region,
+  fleet_id,
+  fleet_role_arn,
+  description,
+  game_server_container_group_definition_name,
+  game_server_container_group_definition_arn,
+  per_instance_container_group_definition_name,
+  per_instance_container_group_definition_arn,
+  instance_connection_port_range,
+  instance_inbound_permissions,
+  game_server_container_groups_per_instance,
+  maximum_game_server_container_groups_per_instance,
+  creation_time,
+  status,
+  deployment_details,
+  deployment_configuration,
+  instance_type,
+  billing_type,
+  locations,
+  scaling_policies,
+  metric_groups,
+  new_game_session_protection_policy,
+  game_session_creation_limit_policy,
+  log_configuration,
+  tags,
+  fleet_arn
 FROM awscc.gamelift.container_fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -541,10 +543,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
 Lists all <code>container_fleets</code> in a region.
 ```sql
 SELECT
-region,
-fleet_id
+  region,
+  fleet_id
 FROM awscc.gamelift.container_fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -566,12 +569,12 @@ Use the following StackQL query and manifest file to create a new <code>containe
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.container_fleets (
- FleetRoleArn,
- region
+  FleetRoleArn,
+  region
 )
 SELECT
-'{{ fleet_role_arn }}',
-'{{ region }}';
+  '{{ fleet_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -579,44 +582,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.container_fleets (
- FleetRoleArn,
- Description,
- GameServerContainerGroupDefinitionName,
- PerInstanceContainerGroupDefinitionName,
- InstanceConnectionPortRange,
- InstanceInboundPermissions,
- GameServerContainerGroupsPerInstance,
- DeploymentConfiguration,
- InstanceType,
- BillingType,
- Locations,
- ScalingPolicies,
- MetricGroups,
- NewGameSessionProtectionPolicy,
- GameSessionCreationLimitPolicy,
- LogConfiguration,
- Tags,
- region
+  FleetRoleArn,
+  Description,
+  GameServerContainerGroupDefinitionName,
+  PerInstanceContainerGroupDefinitionName,
+  InstanceConnectionPortRange,
+  InstanceInboundPermissions,
+  GameServerContainerGroupsPerInstance,
+  DeploymentConfiguration,
+  InstanceType,
+  BillingType,
+  Locations,
+  ScalingPolicies,
+  MetricGroups,
+  NewGameSessionProtectionPolicy,
+  GameSessionCreationLimitPolicy,
+  LogConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ fleet_role_arn }}',
- '{{ description }}',
- '{{ game_server_container_group_definition_name }}',
- '{{ per_instance_container_group_definition_name }}',
- '{{ instance_connection_port_range }}',
- '{{ instance_inbound_permissions }}',
- '{{ game_server_container_groups_per_instance }}',
- '{{ deployment_configuration }}',
- '{{ instance_type }}',
- '{{ billing_type }}',
- '{{ locations }}',
- '{{ scaling_policies }}',
- '{{ metric_groups }}',
- '{{ new_game_session_protection_policy }}',
- '{{ game_session_creation_limit_policy }}',
- '{{ log_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ fleet_role_arn }}',
+  '{{ description }}',
+  '{{ game_server_container_group_definition_name }}',
+  '{{ per_instance_container_group_definition_name }}',
+  '{{ instance_connection_port_range }}',
+  '{{ instance_inbound_permissions }}',
+  '{{ game_server_container_groups_per_instance }}',
+  '{{ deployment_configuration }}',
+  '{{ instance_type }}',
+  '{{ billing_type }}',
+  '{{ locations }}',
+  '{{ scaling_policies }}',
+  '{{ metric_groups }}',
+  '{{ new_game_session_protection_policy }}',
+  '{{ game_session_creation_limit_policy }}',
+  '{{ log_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -733,8 +736,9 @@ SET PatchDocument = string('{{ {
     "LogConfiguration": log_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ fleet_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ fleet_id }}';
 ```
 
 
@@ -743,8 +747,9 @@ AND Identifier = '{{ fleet_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.container_fleets
-WHERE Identifier = '{{ fleet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ fleet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -213,25 +213,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-description,
-engine_type,
-engine_version,
-environment_arn,
-environment_id,
-high_availability_config,
-instance_type,
-kms_key_id,
-name,
-network_type,
-preferred_maintenance_window,
-publicly_accessible,
-security_group_ids,
-storage_configurations,
-subnet_ids,
-tags
+  region,
+  description,
+  engine_type,
+  engine_version,
+  environment_arn,
+  environment_id,
+  high_availability_config,
+  instance_type,
+  kms_key_id,
+  name,
+  network_type,
+  preferred_maintenance_window,
+  publicly_accessible,
+  security_group_ids,
+  storage_configurations,
+  subnet_ids,
+  tags
 FROM awscc.m2.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_arn }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-environment_arn
+  region,
+  environment_arn
 FROM awscc.m2.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,16 +267,16 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.m2.environments (
- EngineType,
- InstanceType,
- Name,
- region
+  EngineType,
+  InstanceType,
+  Name,
+  region
 )
 SELECT
-'{{ engine_type }}',
- '{{ instance_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ engine_type }}',
+  '{{ instance_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -281,38 +284,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.m2.environments (
- Description,
- EngineType,
- EngineVersion,
- HighAvailabilityConfig,
- InstanceType,
- KmsKeyId,
- Name,
- NetworkType,
- PreferredMaintenanceWindow,
- PubliclyAccessible,
- SecurityGroupIds,
- StorageConfigurations,
- SubnetIds,
- Tags,
- region
+  Description,
+  EngineType,
+  EngineVersion,
+  HighAvailabilityConfig,
+  InstanceType,
+  KmsKeyId,
+  Name,
+  NetworkType,
+  PreferredMaintenanceWindow,
+  PubliclyAccessible,
+  SecurityGroupIds,
+  StorageConfigurations,
+  SubnetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ engine_type }}',
- '{{ engine_version }}',
- '{{ high_availability_config }}',
- '{{ instance_type }}',
- '{{ kms_key_id }}',
- '{{ name }}',
- '{{ network_type }}',
- '{{ preferred_maintenance_window }}',
- '{{ publicly_accessible }}',
- '{{ security_group_ids }}',
- '{{ storage_configurations }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ engine_type }}',
+  '{{ engine_version }}',
+  '{{ high_availability_config }}',
+  '{{ instance_type }}',
+  '{{ kms_key_id }}',
+  '{{ name }}',
+  '{{ network_type }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ publicly_accessible }}',
+  '{{ security_group_ids }}',
+  '{{ storage_configurations }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -379,8 +382,9 @@ SET PatchDocument = string('{{ {
     "PreferredMaintenanceWindow": preferred_maintenance_window,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_arn }}';
 ```
 
 
@@ -389,8 +393,9 @@ AND Identifier = '{{ environment_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.environments
-WHERE Identifier = '{{ environment_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

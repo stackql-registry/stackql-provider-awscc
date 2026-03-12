@@ -178,13 +178,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>documentation_part</code>.
 ```sql
 SELECT
-region,
-documentation_part_id,
-location,
-properties,
-rest_api_id
+  region,
+  documentation_part_id,
+  location,
+  properties,
+  rest_api_id
 FROM awscc.apigateway.documentation_parts
-WHERE region = 'us-east-1' AND Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -192,11 +194,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ documentation_part_id }}|{{ rest
 Lists all <code>documentation_parts</code> in a region.
 ```sql
 SELECT
-region,
-documentation_part_id,
-rest_api_id
+  region,
+  documentation_part_id,
+  rest_api_id
 FROM awscc.apigateway.documentation_parts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -218,16 +221,16 @@ Use the following StackQL query and manifest file to create a new <code>document
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.documentation_parts (
- Location,
- Properties,
- RestApiId,
- region
+  Location,
+  Properties,
+  RestApiId,
+  region
 )
 SELECT
-'{{ location }}',
- '{{ properties }}',
- '{{ rest_api_id }}',
-'{{ region }}';
+  '{{ location }}',
+  '{{ properties }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -235,16 +238,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.documentation_parts (
- Location,
- Properties,
- RestApiId,
- region
+  Location,
+  Properties,
+  RestApiId,
+  region
 )
 SELECT
- '{{ location }}',
- '{{ properties }}',
- '{{ rest_api_id }}',
- '{{ region }}';
+  '{{ location }}',
+  '{{ properties }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ UPDATE awscc.apigateway.documentation_parts
 SET PatchDocument = string('{{ {
     "Properties": properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.documentation_parts
-WHERE Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

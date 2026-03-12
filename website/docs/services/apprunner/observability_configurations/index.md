@@ -169,15 +169,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>observability_configuration</code>.
 ```sql
 SELECT
-region,
-observability_configuration_arn,
-observability_configuration_name,
-observability_configuration_revision,
-latest,
-trace_configuration,
-tags
+  region,
+  observability_configuration_arn,
+  observability_configuration_name,
+  observability_configuration_revision,
+  latest,
+  trace_configuration,
+  tags
 FROM awscc.apprunner.observability_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ observability_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ observability_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -185,10 +187,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ observability_configuration_arn 
 Lists all <code>observability_configurations</code> in a region.
 ```sql
 SELECT
-region,
-observability_configuration_arn
+  region,
+  observability_configuration_arn
 FROM awscc.apprunner.observability_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -210,12 +213,12 @@ Use the following StackQL query and manifest file to create a new <code>observab
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.observability_configurations (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -223,16 +226,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.observability_configurations (
- ObservabilityConfigurationName,
- TraceConfiguration,
- Tags,
- region
+  ObservabilityConfigurationName,
+  TraceConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ observability_configuration_name }}',
- '{{ trace_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ observability_configuration_name }}',
+  '{{ trace_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -268,8 +271,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.observability_configurations
-WHERE Identifier = '{{ observability_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ observability_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

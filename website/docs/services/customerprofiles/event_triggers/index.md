@@ -268,19 +268,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_trigger</code>.
 ```sql
 SELECT
-region,
-domain_name,
-event_trigger_name,
-object_type_name,
-description,
-event_trigger_conditions,
-event_trigger_limits,
-segment_filter,
-created_at,
-last_updated_at,
-tags
+  region,
+  domain_name,
+  event_trigger_name,
+  object_type_name,
+  description,
+  event_trigger_conditions,
+  event_trigger_limits,
+  segment_filter,
+  created_at,
+  last_updated_at,
+  tags
 FROM awscc.customerprofiles.event_triggers
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -288,11 +290,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ event_trigger_
 Lists all <code>event_triggers</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-event_trigger_name
+  region,
+  domain_name,
+  event_trigger_name
 FROM awscc.customerprofiles.event_triggers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -314,18 +317,18 @@ Use the following StackQL query and manifest file to create a new <code>event_tr
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.event_triggers (
- DomainName,
- EventTriggerName,
- ObjectTypeName,
- EventTriggerConditions,
- region
+  DomainName,
+  EventTriggerName,
+  ObjectTypeName,
+  EventTriggerConditions,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ event_trigger_name }}',
- '{{ object_type_name }}',
- '{{ event_trigger_conditions }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ event_trigger_name }}',
+  '{{ object_type_name }}',
+  '{{ event_trigger_conditions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -333,26 +336,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.event_triggers (
- DomainName,
- EventTriggerName,
- ObjectTypeName,
- Description,
- EventTriggerConditions,
- EventTriggerLimits,
- SegmentFilter,
- Tags,
- region
+  DomainName,
+  EventTriggerName,
+  ObjectTypeName,
+  Description,
+  EventTriggerConditions,
+  EventTriggerLimits,
+  SegmentFilter,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ event_trigger_name }}',
- '{{ object_type_name }}',
- '{{ description }}',
- '{{ event_trigger_conditions }}',
- '{{ event_trigger_limits }}',
- '{{ segment_filter }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ event_trigger_name }}',
+  '{{ object_type_name }}',
+  '{{ description }}',
+  '{{ event_trigger_conditions }}',
+  '{{ event_trigger_limits }}',
+  '{{ segment_filter }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -420,8 +423,9 @@ SET PatchDocument = string('{{ {
     "SegmentFilter": segment_filter,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
 ```
 
 
@@ -430,8 +434,9 @@ AND Identifier = '{{ domain_name }}|{{ event_trigger_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.event_triggers
-WHERE Identifier = '{{ domain_name }}|{{ event_trigger_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ event_trigger_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

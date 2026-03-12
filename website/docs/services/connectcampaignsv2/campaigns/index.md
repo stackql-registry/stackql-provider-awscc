@@ -443,19 +443,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-connect_instance_id,
-channel_subtype_config,
-source,
-connect_campaign_flow_arn,
-schedule,
-communication_time_config,
-communication_limits_override,
-tags
+  region,
+  arn,
+  name,
+  connect_instance_id,
+  channel_subtype_config,
+  source,
+  connect_campaign_flow_arn,
+  schedule,
+  communication_time_config,
+  communication_limits_override,
+  tags
 FROM awscc.connectcampaignsv2.campaigns
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -463,10 +465,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>campaigns</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.connectcampaignsv2.campaigns_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -488,16 +491,16 @@ Use the following StackQL query and manifest file to create a new <code>campaign
 ```sql
 /*+ create */
 INSERT INTO awscc.connectcampaignsv2.campaigns (
- Name,
- ConnectInstanceId,
- ChannelSubtypeConfig,
- region
+  Name,
+  ConnectInstanceId,
+  ChannelSubtypeConfig,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ connect_instance_id }}',
- '{{ channel_subtype_config }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ connect_instance_id }}',
+  '{{ channel_subtype_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -505,28 +508,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connectcampaignsv2.campaigns (
- Name,
- ConnectInstanceId,
- ChannelSubtypeConfig,
- Source,
- ConnectCampaignFlowArn,
- Schedule,
- CommunicationTimeConfig,
- CommunicationLimitsOverride,
- Tags,
- region
+  Name,
+  ConnectInstanceId,
+  ChannelSubtypeConfig,
+  Source,
+  ConnectCampaignFlowArn,
+  Schedule,
+  CommunicationTimeConfig,
+  CommunicationLimitsOverride,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ connect_instance_id }}',
- '{{ channel_subtype_config }}',
- '{{ source }}',
- '{{ connect_campaign_flow_arn }}',
- '{{ schedule }}',
- '{{ communication_time_config }}',
- '{{ communication_limits_override }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ connect_instance_id }}',
+  '{{ channel_subtype_config }}',
+  '{{ source }}',
+  '{{ connect_campaign_flow_arn }}',
+  '{{ schedule }}',
+  '{{ communication_time_config }}',
+  '{{ communication_limits_override }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -644,8 +647,9 @@ SET PatchDocument = string('{{ {
     "CommunicationLimitsOverride": communication_limits_override,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -654,8 +658,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connectcampaignsv2.campaigns
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

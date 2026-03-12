@@ -106,24 +106,24 @@ Under __Pages__ in the repository, in the __Build and deployment__ section selec
 To troubleshoot AWS Cloud Control API requests (mutation requests), use the following queries:
 
 ```sql
-select * from aws.cloud_control.resource_requests
-where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["CREATE"]}'
+select * from awscc.cloud_control.resource_requests
+where ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["CREATE"]}'
 and region = 'ap-southeast-2';
 --or
-select * from aws.cloud_control.resource_requests
-where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["DELETE"]}'
+select * from awscc.cloud_control.resource_requests
+where ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["DELETE"]}'
 and region = 'us-east-1';
 --or
-select * from aws.cloud_control.resource_requests
-where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["SUCCESS"], "Operations": ["UPDATE"]}'
+select * from awscc.cloud_control.resource_requests
+where ResourceRequestStatusFilter = '{"OperationStatuses": ["SUCCESS"], "Operations": ["UPDATE"]}'
 and region = 'ap-southeast-2';
 ```
 
 (replace `region` accordingly)
 
 ```sql
-select * from aws.cloud_control.resource_request
-where data__RequestToken = '54061545-e0a0-4ef0-b213-41fda81d8c24'
+select * from awscc.cloud_control.resource_request
+where RequestToken = '54061545-e0a0-4ef0-b213-41fda81d8c24'
 and region = 'ap-southeast-2';
 ```
 
@@ -139,11 +139,11 @@ json_extract(value, '$.ResourceARN') as arn
 FROM awscc.tagging.tagged_resources, json_each(ResourceTagMappingList) 
 WHERE 
 region = 'us-east-1' 
-AND data__TagFilters = '[
+AND TagFilters = '[
   {"Key": "StackName","Values": ["stackql-serverless"]}, 
   {"Key": "StackEnv","Values": ["prd"]}
 ]' 
-AND data__TagsPerPage = 100;
+AND TagsPerPage = 100;
 ```
 
 ### Checking for AWS CC updates

@@ -297,26 +297,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT
-region,
-exclude_map,
-exclude_resource_tags,
-include_map,
-id,
-policy_name,
-policy_description,
-remediation_enabled,
-resource_tags,
-resource_tag_logical_operator,
-resource_type,
-resource_type_list,
-resource_set_ids,
-security_service_policy_data,
-arn,
-delete_all_policy_resources,
-resources_clean_up,
-tags
+  region,
+  exclude_map,
+  exclude_resource_tags,
+  include_map,
+  id,
+  policy_name,
+  policy_description,
+  remediation_enabled,
+  resource_tags,
+  resource_tag_logical_operator,
+  resource_type,
+  resource_type_list,
+  resource_set_ids,
+  security_service_policy_data,
+  arn,
+  delete_all_policy_resources,
+  resources_clean_up,
+  tags
 FROM awscc.fms.policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -324,10 +326,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.fms.policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -349,18 +352,18 @@ Use the following StackQL query and manifest file to create a new <code>policy</
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.policies (
- ExcludeResourceTags,
- PolicyName,
- RemediationEnabled,
- SecurityServicePolicyData,
- region
+  ExcludeResourceTags,
+  PolicyName,
+  RemediationEnabled,
+  SecurityServicePolicyData,
+  region
 )
 SELECT
-'{{ exclude_resource_tags }}',
- '{{ policy_name }}',
- '{{ remediation_enabled }}',
- '{{ security_service_policy_data }}',
-'{{ region }}';
+  '{{ exclude_resource_tags }}',
+  '{{ policy_name }}',
+  '{{ remediation_enabled }}',
+  '{{ security_service_policy_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -368,40 +371,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.policies (
- ExcludeMap,
- ExcludeResourceTags,
- IncludeMap,
- PolicyName,
- PolicyDescription,
- RemediationEnabled,
- ResourceTags,
- ResourceTagLogicalOperator,
- ResourceType,
- ResourceTypeList,
- ResourceSetIds,
- SecurityServicePolicyData,
- DeleteAllPolicyResources,
- ResourcesCleanUp,
- Tags,
- region
+  ExcludeMap,
+  ExcludeResourceTags,
+  IncludeMap,
+  PolicyName,
+  PolicyDescription,
+  RemediationEnabled,
+  ResourceTags,
+  ResourceTagLogicalOperator,
+  ResourceType,
+  ResourceTypeList,
+  ResourceSetIds,
+  SecurityServicePolicyData,
+  DeleteAllPolicyResources,
+  ResourcesCleanUp,
+  Tags,
+  region
 )
 SELECT
- '{{ exclude_map }}',
- '{{ exclude_resource_tags }}',
- '{{ include_map }}',
- '{{ policy_name }}',
- '{{ policy_description }}',
- '{{ remediation_enabled }}',
- '{{ resource_tags }}',
- '{{ resource_tag_logical_operator }}',
- '{{ resource_type }}',
- '{{ resource_type_list }}',
- '{{ resource_set_ids }}',
- '{{ security_service_policy_data }}',
- '{{ delete_all_policy_resources }}',
- '{{ resources_clean_up }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ exclude_map }}',
+  '{{ exclude_resource_tags }}',
+  '{{ include_map }}',
+  '{{ policy_name }}',
+  '{{ policy_description }}',
+  '{{ remediation_enabled }}',
+  '{{ resource_tags }}',
+  '{{ resource_tag_logical_operator }}',
+  '{{ resource_type }}',
+  '{{ resource_type_list }}',
+  '{{ resource_set_ids }}',
+  '{{ security_service_policy_data }}',
+  '{{ delete_all_policy_resources }}',
+  '{{ resources_clean_up }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -510,8 +513,9 @@ SET PatchDocument = string('{{ {
     "ResourcesCleanUp": resources_clean_up,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -520,8 +524,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

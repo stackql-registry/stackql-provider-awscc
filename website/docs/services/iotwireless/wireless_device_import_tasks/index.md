@@ -220,21 +220,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>wireless_device_import_task</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-destination_name,
-creation_date,
-sidewalk,
-status,
-status_reason,
-initialized_imported_devices_count,
-pending_imported_devices_count,
-onboarded_imported_devices_count,
-failed_imported_devices_count,
-tags
+  region,
+  id,
+  arn,
+  destination_name,
+  creation_date,
+  sidewalk,
+  status,
+  status_reason,
+  initialized_imported_devices_count,
+  pending_imported_devices_count,
+  onboarded_imported_devices_count,
+  failed_imported_devices_count,
+  tags
 FROM awscc.iotwireless.wireless_device_import_tasks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,10 +244,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>wireless_device_import_tasks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.wireless_device_import_tasks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,14 +270,14 @@ Use the following StackQL query and manifest file to create a new <code>wireless
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_device_import_tasks (
- DestinationName,
- Sidewalk,
- region
+  DestinationName,
+  Sidewalk,
+  region
 )
 SELECT
-'{{ destination_name }}',
- '{{ sidewalk }}',
-'{{ region }}';
+  '{{ destination_name }}',
+  '{{ sidewalk }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -282,16 +285,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.wireless_device_import_tasks (
- DestinationName,
- Sidewalk,
- Tags,
- region
+  DestinationName,
+  Sidewalk,
+  Tags,
+  region
 )
 SELECT
- '{{ destination_name }}',
- '{{ sidewalk }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ destination_name }}',
+  '{{ sidewalk }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -336,8 +339,9 @@ SET PatchDocument = string('{{ {
     "DestinationName": destination_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -346,8 +350,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_device_import_tasks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

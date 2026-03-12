@@ -398,26 +398,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpn_connection</code>.
 ```sql
 SELECT
-region,
-remote_ipv6_network_cidr,
-remote_ipv4_network_cidr,
-vpn_tunnel_options_specifications,
-customer_gateway_id,
-outside_ip_address_type,
-static_routes_only,
-enable_acceleration,
-transit_gateway_id,
-type,
-local_ipv4_network_cidr,
-vpn_gateway_id,
-pre_shared_key_storage,
-transport_transit_gateway_attachment_id,
-local_ipv6_network_cidr,
-vpn_connection_id,
-tunnel_inside_ip_version,
-tags
+  region,
+  remote_ipv6_network_cidr,
+  remote_ipv4_network_cidr,
+  vpn_tunnel_options_specifications,
+  customer_gateway_id,
+  outside_ip_address_type,
+  static_routes_only,
+  enable_acceleration,
+  transit_gateway_id,
+  type,
+  local_ipv4_network_cidr,
+  vpn_gateway_id,
+  pre_shared_key_storage,
+  transport_transit_gateway_attachment_id,
+  local_ipv6_network_cidr,
+  vpn_connection_id,
+  tunnel_inside_ip_version,
+  tags
 FROM awscc.ec2.vpn_connections
-WHERE region = 'us-east-1' AND Identifier = '{{ vpn_connection_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpn_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -425,10 +427,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpn_connection_id }}';
 Lists all <code>vpn_connections</code> in a region.
 ```sql
 SELECT
-region,
-vpn_connection_id
+  region,
+  vpn_connection_id
 FROM awscc.ec2.vpn_connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -450,14 +453,14 @@ Use the following StackQL query and manifest file to create a new <code>vpn_conn
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_connections (
- CustomerGatewayId,
- Type,
- region
+  CustomerGatewayId,
+  Type,
+  region
 )
 SELECT
-'{{ customer_gateway_id }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ customer_gateway_id }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -465,42 +468,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_connections (
- RemoteIpv6NetworkCidr,
- RemoteIpv4NetworkCidr,
- VpnTunnelOptionsSpecifications,
- CustomerGatewayId,
- OutsideIpAddressType,
- StaticRoutesOnly,
- EnableAcceleration,
- TransitGatewayId,
- Type,
- LocalIpv4NetworkCidr,
- VpnGatewayId,
- PreSharedKeyStorage,
- TransportTransitGatewayAttachmentId,
- LocalIpv6NetworkCidr,
- TunnelInsideIpVersion,
- Tags,
- region
+  RemoteIpv6NetworkCidr,
+  RemoteIpv4NetworkCidr,
+  VpnTunnelOptionsSpecifications,
+  CustomerGatewayId,
+  OutsideIpAddressType,
+  StaticRoutesOnly,
+  EnableAcceleration,
+  TransitGatewayId,
+  Type,
+  LocalIpv4NetworkCidr,
+  VpnGatewayId,
+  PreSharedKeyStorage,
+  TransportTransitGatewayAttachmentId,
+  LocalIpv6NetworkCidr,
+  TunnelInsideIpVersion,
+  Tags,
+  region
 )
 SELECT
- '{{ remote_ipv6_network_cidr }}',
- '{{ remote_ipv4_network_cidr }}',
- '{{ vpn_tunnel_options_specifications }}',
- '{{ customer_gateway_id }}',
- '{{ outside_ip_address_type }}',
- '{{ static_routes_only }}',
- '{{ enable_acceleration }}',
- '{{ transit_gateway_id }}',
- '{{ type }}',
- '{{ local_ipv4_network_cidr }}',
- '{{ vpn_gateway_id }}',
- '{{ pre_shared_key_storage }}',
- '{{ transport_transit_gateway_attachment_id }}',
- '{{ local_ipv6_network_cidr }}',
- '{{ tunnel_inside_ip_version }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ remote_ipv6_network_cidr }}',
+  '{{ remote_ipv4_network_cidr }}',
+  '{{ vpn_tunnel_options_specifications }}',
+  '{{ customer_gateway_id }}',
+  '{{ outside_ip_address_type }}',
+  '{{ static_routes_only }}',
+  '{{ enable_acceleration }}',
+  '{{ transit_gateway_id }}',
+  '{{ type }}',
+  '{{ local_ipv4_network_cidr }}',
+  '{{ vpn_gateway_id }}',
+  '{{ pre_shared_key_storage }}',
+  '{{ transport_transit_gateway_attachment_id }}',
+  '{{ local_ipv6_network_cidr }}',
+  '{{ tunnel_inside_ip_version }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -596,8 +599,9 @@ UPDATE awscc.ec2.vpn_connections
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpn_connection_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpn_connection_id }}';
 ```
 
 
@@ -606,8 +610,9 @@ AND Identifier = '{{ vpn_connection_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_connections
-WHERE Identifier = '{{ vpn_connection_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpn_connection_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

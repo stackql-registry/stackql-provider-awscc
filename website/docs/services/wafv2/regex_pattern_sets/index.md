@@ -183,16 +183,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>regex_pattern_set</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-name,
-id,
-regular_expression_list,
-scope,
-tags
+  region,
+  arn,
+  description,
+  name,
+  id,
+  regular_expression_list,
+  scope,
+  tags
 FROM awscc.wafv2.regex_pattern_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,12 +202,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 Lists all <code>regex_pattern_sets</code> in a region.
 ```sql
 SELECT
-region,
-name,
-id,
-scope
+  region,
+  name,
+  id,
+  scope
 FROM awscc.wafv2.regex_pattern_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>regex_pa
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.regex_pattern_sets (
- RegularExpressionList,
- Scope,
- region
+  RegularExpressionList,
+  Scope,
+  region
 )
 SELECT
-'{{ regular_expression_list }}',
- '{{ scope }}',
-'{{ region }}';
+  '{{ regular_expression_list }}',
+  '{{ scope }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,20 +245,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.regex_pattern_sets (
- Description,
- Name,
- RegularExpressionList,
- Scope,
- Tags,
- region
+  Description,
+  Name,
+  RegularExpressionList,
+  Scope,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ regular_expression_list }}',
- '{{ scope }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ regular_expression_list }}',
+  '{{ scope }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -301,8 +304,9 @@ SET PatchDocument = string('{{ {
     "RegularExpressionList": regular_expression_list,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 
 
@@ -311,8 +315,9 @@ AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.regex_pattern_sets
-WHERE Identifier = '{{ name }}|{{ id }}|{{ scope }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

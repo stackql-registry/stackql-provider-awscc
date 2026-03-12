@@ -193,19 +193,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_proxy_endpoint</code>.
 ```sql
 SELECT
-region,
-db_proxy_endpoint_name,
-db_proxy_endpoint_arn,
-db_proxy_name,
-vpc_id,
-vpc_security_group_ids,
-vpc_subnet_ids,
-endpoint,
-target_role,
-is_default,
-tags
+  region,
+  db_proxy_endpoint_name,
+  db_proxy_endpoint_arn,
+  db_proxy_name,
+  vpc_id,
+  vpc_security_group_ids,
+  vpc_subnet_ids,
+  endpoint,
+  target_role,
+  is_default,
+  tags
 FROM awscc.rds.db_proxy_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_endpoint_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_proxy_endpoint_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,10 +215,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_endpoint_name }}';
 Lists all <code>db_proxy_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-db_proxy_endpoint_name
+  region,
+  db_proxy_endpoint_name
 FROM awscc.rds.db_proxy_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -238,16 +241,16 @@ Use the following StackQL query and manifest file to create a new <code>db_proxy
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxy_endpoints (
- DBProxyEndpointName,
- DBProxyName,
- VpcSubnetIds,
- region
+  DBProxyEndpointName,
+  DBProxyName,
+  VpcSubnetIds,
+  region
 )
 SELECT
-'{{ db_proxy_endpoint_name }}',
- '{{ db_proxy_name }}',
- '{{ vpc_subnet_ids }}',
-'{{ region }}';
+  '{{ db_proxy_endpoint_name }}',
+  '{{ db_proxy_name }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,22 +258,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_proxy_endpoints (
- DBProxyEndpointName,
- DBProxyName,
- VpcSecurityGroupIds,
- VpcSubnetIds,
- TargetRole,
- Tags,
- region
+  DBProxyEndpointName,
+  DBProxyName,
+  VpcSecurityGroupIds,
+  VpcSubnetIds,
+  TargetRole,
+  Tags,
+  region
 )
 SELECT
- '{{ db_proxy_endpoint_name }}',
- '{{ db_proxy_name }}',
- '{{ vpc_security_group_ids }}',
- '{{ vpc_subnet_ids }}',
- '{{ target_role }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ db_proxy_endpoint_name }}',
+  '{{ db_proxy_name }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ target_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -319,8 +322,9 @@ SET PatchDocument = string('{{ {
     "TargetRole": target_role,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_proxy_endpoint_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_proxy_endpoint_name }}';
 ```
 
 
@@ -329,8 +333,9 @@ AND Identifier = '{{ db_proxy_endpoint_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxy_endpoints
-WHERE Identifier = '{{ db_proxy_endpoint_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_proxy_endpoint_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

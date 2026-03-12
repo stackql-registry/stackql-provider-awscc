@@ -285,19 +285,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>budgets_action</code>.
 ```sql
 SELECT
-region,
-action_id,
-budget_name,
-notification_type,
-action_type,
-action_threshold,
-execution_role_arn,
-approval_model,
-subscribers,
-definition,
-resource_tags
+  region,
+  action_id,
+  budget_name,
+  notification_type,
+  action_type,
+  action_threshold,
+  execution_role_arn,
+  approval_model,
+  subscribers,
+  definition,
+  resource_tags
 FROM awscc.budgets.budgets_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ action_id }}|{{ budget_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ action_id }}|{{ budget_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -305,11 +307,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ action_id }}|{{ budget_name }}';
 Lists all <code>budgets_actions</code> in a region.
 ```sql
 SELECT
-region,
-action_id,
-budget_name
+  region,
+  action_id,
+  budget_name
 FROM awscc.budgets.budgets_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -331,24 +334,24 @@ Use the following StackQL query and manifest file to create a new <code>budgets_
 ```sql
 /*+ create */
 INSERT INTO awscc.budgets.budgets_actions (
- BudgetName,
- NotificationType,
- ActionType,
- ActionThreshold,
- ExecutionRoleArn,
- Subscribers,
- Definition,
- region
+  BudgetName,
+  NotificationType,
+  ActionType,
+  ActionThreshold,
+  ExecutionRoleArn,
+  Subscribers,
+  Definition,
+  region
 )
 SELECT
-'{{ budget_name }}',
- '{{ notification_type }}',
- '{{ action_type }}',
- '{{ action_threshold }}',
- '{{ execution_role_arn }}',
- '{{ subscribers }}',
- '{{ definition }}',
-'{{ region }}';
+  '{{ budget_name }}',
+  '{{ notification_type }}',
+  '{{ action_type }}',
+  '{{ action_threshold }}',
+  '{{ execution_role_arn }}',
+  '{{ subscribers }}',
+  '{{ definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -356,28 +359,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.budgets.budgets_actions (
- BudgetName,
- NotificationType,
- ActionType,
- ActionThreshold,
- ExecutionRoleArn,
- ApprovalModel,
- Subscribers,
- Definition,
- ResourceTags,
- region
+  BudgetName,
+  NotificationType,
+  ActionType,
+  ActionThreshold,
+  ExecutionRoleArn,
+  ApprovalModel,
+  Subscribers,
+  Definition,
+  ResourceTags,
+  region
 )
 SELECT
- '{{ budget_name }}',
- '{{ notification_type }}',
- '{{ action_type }}',
- '{{ action_threshold }}',
- '{{ execution_role_arn }}',
- '{{ approval_model }}',
- '{{ subscribers }}',
- '{{ definition }}',
- '{{ resource_tags }}',
- '{{ region }}';
+  '{{ budget_name }}',
+  '{{ notification_type }}',
+  '{{ action_type }}',
+  '{{ action_threshold }}',
+  '{{ execution_role_arn }}',
+  '{{ approval_model }}',
+  '{{ subscribers }}',
+  '{{ definition }}',
+  '{{ resource_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -455,8 +458,9 @@ SET PatchDocument = string('{{ {
     "Definition": definition,
     "ResourceTags": resource_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ action_id }}|{{ budget_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ action_id }}|{{ budget_name }}';
 ```
 
 
@@ -465,8 +469,9 @@ AND Identifier = '{{ action_id }}|{{ budget_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.budgets.budgets_actions
-WHERE Identifier = '{{ action_id }}|{{ budget_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ action_id }}|{{ budget_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

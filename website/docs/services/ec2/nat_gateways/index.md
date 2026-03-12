@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>nat_gateway</code>.
 ```sql
 SELECT
-region,
-secondary_allocation_ids,
-private_ip_address,
-secondary_private_ip_address_count,
-allocation_id,
-subnet_id,
-connectivity_type,
-secondary_private_ip_addresses,
-nat_gateway_id,
-tags,
-max_drain_duration_seconds
+  region,
+  secondary_allocation_ids,
+  private_ip_address,
+  secondary_private_ip_address_count,
+  allocation_id,
+  subnet_id,
+  connectivity_type,
+  secondary_private_ip_addresses,
+  nat_gateway_id,
+  tags,
+  max_drain_duration_seconds
 FROM awscc.ec2.nat_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ nat_gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ nat_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ nat_gateway_id }}';
 Lists all <code>nat_gateways</code> in a region.
 ```sql
 SELECT
-region,
-nat_gateway_id
+  region,
+  nat_gateway_id
 FROM awscc.ec2.nat_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,28 +236,28 @@ Use the following StackQL query and manifest file to create a new <code>nat_gate
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.nat_gateways (
- SecondaryAllocationIds,
- PrivateIpAddress,
- SecondaryPrivateIpAddressCount,
- AllocationId,
- SubnetId,
- ConnectivityType,
- SecondaryPrivateIpAddresses,
- Tags,
- MaxDrainDurationSeconds,
- region
+  SecondaryAllocationIds,
+  PrivateIpAddress,
+  SecondaryPrivateIpAddressCount,
+  AllocationId,
+  SubnetId,
+  ConnectivityType,
+  SecondaryPrivateIpAddresses,
+  Tags,
+  MaxDrainDurationSeconds,
+  region
 )
 SELECT
-'{{ secondary_allocation_ids }}',
- '{{ private_ip_address }}',
- '{{ secondary_private_ip_address_count }}',
- '{{ allocation_id }}',
- '{{ subnet_id }}',
- '{{ connectivity_type }}',
- '{{ secondary_private_ip_addresses }}',
- '{{ tags }}',
- '{{ max_drain_duration_seconds }}',
-'{{ region }}';
+  '{{ secondary_allocation_ids }}',
+  '{{ private_ip_address }}',
+  '{{ secondary_private_ip_address_count }}',
+  '{{ allocation_id }}',
+  '{{ subnet_id }}',
+  '{{ connectivity_type }}',
+  '{{ secondary_private_ip_addresses }}',
+  '{{ tags }}',
+  '{{ max_drain_duration_seconds }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,28 +265,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.nat_gateways (
- SecondaryAllocationIds,
- PrivateIpAddress,
- SecondaryPrivateIpAddressCount,
- AllocationId,
- SubnetId,
- ConnectivityType,
- SecondaryPrivateIpAddresses,
- Tags,
- MaxDrainDurationSeconds,
- region
+  SecondaryAllocationIds,
+  PrivateIpAddress,
+  SecondaryPrivateIpAddressCount,
+  AllocationId,
+  SubnetId,
+  ConnectivityType,
+  SecondaryPrivateIpAddresses,
+  Tags,
+  MaxDrainDurationSeconds,
+  region
 )
 SELECT
- '{{ secondary_allocation_ids }}',
- '{{ private_ip_address }}',
- '{{ secondary_private_ip_address_count }}',
- '{{ allocation_id }}',
- '{{ subnet_id }}',
- '{{ connectivity_type }}',
- '{{ secondary_private_ip_addresses }}',
- '{{ tags }}',
- '{{ max_drain_duration_seconds }}',
- '{{ region }}';
+  '{{ secondary_allocation_ids }}',
+  '{{ private_ip_address }}',
+  '{{ secondary_private_ip_address_count }}',
+  '{{ allocation_id }}',
+  '{{ subnet_id }}',
+  '{{ connectivity_type }}',
+  '{{ secondary_private_ip_addresses }}',
+  '{{ tags }}',
+  '{{ max_drain_duration_seconds }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "MaxDrainDurationSeconds": max_drain_duration_seconds
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ nat_gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ nat_gateway_id }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ nat_gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.nat_gateways
-WHERE Identifier = '{{ nat_gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ nat_gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -200,19 +200,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>webhook</code>.
 ```sql
 SELECT
-region,
-authentication_configuration,
-filters,
-authentication,
-target_pipeline,
-target_action,
-id,
-url,
-name,
-target_pipeline_version,
-register_with_third_party
+  region,
+  authentication_configuration,
+  filters,
+  authentication,
+  target_pipeline,
+  target_action,
+  id,
+  url,
+  name,
+  target_pipeline_version,
+  register_with_third_party
 FROM awscc.codepipeline.webhooks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>webhooks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.codepipeline.webhooks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,20 +248,20 @@ Use the following StackQL query and manifest file to create a new <code>webhook<
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.webhooks (
- AuthenticationConfiguration,
- Filters,
- Authentication,
- TargetPipeline,
- TargetAction,
- region
+  AuthenticationConfiguration,
+  Filters,
+  Authentication,
+  TargetPipeline,
+  TargetAction,
+  region
 )
 SELECT
-'{{ authentication_configuration }}',
- '{{ filters }}',
- '{{ authentication }}',
- '{{ target_pipeline }}',
- '{{ target_action }}',
-'{{ region }}';
+  '{{ authentication_configuration }}',
+  '{{ filters }}',
+  '{{ authentication }}',
+  '{{ target_pipeline }}',
+  '{{ target_action }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,26 +269,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codepipeline.webhooks (
- AuthenticationConfiguration,
- Filters,
- Authentication,
- TargetPipeline,
- TargetAction,
- Name,
- TargetPipelineVersion,
- RegisterWithThirdParty,
- region
+  AuthenticationConfiguration,
+  Filters,
+  Authentication,
+  TargetPipeline,
+  TargetAction,
+  Name,
+  TargetPipelineVersion,
+  RegisterWithThirdParty,
+  region
 )
 SELECT
- '{{ authentication_configuration }}',
- '{{ filters }}',
- '{{ authentication }}',
- '{{ target_pipeline }}',
- '{{ target_action }}',
- '{{ name }}',
- '{{ target_pipeline_version }}',
- '{{ register_with_third_party }}',
- '{{ region }}';
+  '{{ authentication_configuration }}',
+  '{{ filters }}',
+  '{{ authentication }}',
+  '{{ target_pipeline }}',
+  '{{ target_action }}',
+  '{{ name }}',
+  '{{ target_pipeline_version }}',
+  '{{ register_with_third_party }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -342,8 +345,9 @@ SET PatchDocument = string('{{ {
     "TargetPipelineVersion": target_pipeline_version,
     "RegisterWithThirdParty": register_with_third_party
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -352,8 +356,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.webhooks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

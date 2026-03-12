@@ -275,19 +275,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT
-region,
-tags,
-project_arn,
-project_id,
-project_name,
-project_description,
-creation_time,
-service_catalog_provisioning_details,
-service_catalog_provisioned_product_details,
-template_provider_details,
-project_status
+  region,
+  tags,
+  project_arn,
+  project_id,
+  project_name,
+  project_description,
+  creation_time,
+  service_catalog_provisioning_details,
+  service_catalog_provisioned_product_details,
+  template_provider_details,
+  project_status
 FROM awscc.sagemaker.projects
-WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,10 +297,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
 Lists all <code>projects</code> in a region.
 ```sql
 SELECT
-region,
-project_arn
+  region,
+  project_arn
 FROM awscc.sagemaker.projects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -320,12 +323,12 @@ Use the following StackQL query and manifest file to create a new <code>project<
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.projects (
- ProjectName,
- region
+  ProjectName,
+  region
 )
 SELECT
-'{{ project_name }}',
-'{{ region }}';
+  '{{ project_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -333,22 +336,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.projects (
- Tags,
- ProjectName,
- ProjectDescription,
- ServiceCatalogProvisioningDetails,
- ServiceCatalogProvisionedProductDetails,
- TemplateProviderDetails,
- region
+  Tags,
+  ProjectName,
+  ProjectDescription,
+  ServiceCatalogProvisioningDetails,
+  ServiceCatalogProvisionedProductDetails,
+  TemplateProviderDetails,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ project_name }}',
- '{{ project_description }}',
- '{{ service_catalog_provisioning_details }}',
- '{{ service_catalog_provisioned_product_details }}',
- '{{ template_provider_details }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ project_name }}',
+  '{{ project_description }}',
+  '{{ service_catalog_provisioning_details }}',
+  '{{ service_catalog_provisioned_product_details }}',
+  '{{ template_provider_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -408,8 +411,9 @@ UPDATE awscc.sagemaker.projects
 SET PatchDocument = string('{{ {
     "ServiceCatalogProvisionedProductDetails": service_catalog_provisioned_product_details
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ project_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ project_arn }}';
 ```
 
 
@@ -418,8 +422,9 @@ AND Identifier = '{{ project_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.projects
-WHERE Identifier = '{{ project_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ project_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

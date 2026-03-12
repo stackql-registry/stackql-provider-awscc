@@ -307,38 +307,40 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_cluster</code>.
 ```sql
 SELECT
-region,
-endpoint,
-read_endpoint,
-cluster_resource_id,
-associated_roles,
-availability_zones,
-backup_retention_period,
-copy_tags_to_snapshot,
-db_cluster_identifier,
-db_cluster_parameter_group_name,
-db_instance_parameter_group_name,
-db_port,
-db_subnet_group_name,
-deletion_protection,
-enable_cloudwatch_logs_exports,
-engine_version,
-iam_auth_enabled,
-kms_key_id,
-port,
-preferred_backup_window,
-preferred_maintenance_window,
-restore_to_time,
-restore_type,
-serverless_scaling_configuration,
-snapshot_identifier,
-source_db_cluster_identifier,
-storage_encrypted,
-tags,
-use_latest_restorable_time,
-vpc_security_group_ids
+  region,
+  endpoint,
+  read_endpoint,
+  cluster_resource_id,
+  associated_roles,
+  availability_zones,
+  backup_retention_period,
+  copy_tags_to_snapshot,
+  db_cluster_identifier,
+  db_cluster_parameter_group_name,
+  db_instance_parameter_group_name,
+  db_port,
+  db_subnet_group_name,
+  deletion_protection,
+  enable_cloudwatch_logs_exports,
+  engine_version,
+  iam_auth_enabled,
+  kms_key_id,
+  port,
+  preferred_backup_window,
+  preferred_maintenance_window,
+  restore_to_time,
+  restore_type,
+  serverless_scaling_configuration,
+  snapshot_identifier,
+  source_db_cluster_identifier,
+  storage_encrypted,
+  tags,
+  use_latest_restorable_time,
+  vpc_security_group_ids
 FROM awscc.neptune.db_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ db_cluster_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_cluster_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,10 +348,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_cluster_identifier }}';
 Lists all <code>db_clusters</code> in a region.
 ```sql
 SELECT
-region,
-db_cluster_identifier
+  region,
+  db_cluster_identifier
 FROM awscc.neptune.db_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -371,60 +374,60 @@ Use the following StackQL query and manifest file to create a new <code>db_clust
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_clusters (
- AssociatedRoles,
- AvailabilityZones,
- BackupRetentionPeriod,
- CopyTagsToSnapshot,
- DBClusterIdentifier,
- DBClusterParameterGroupName,
- DBInstanceParameterGroupName,
- DBPort,
- DBSubnetGroupName,
- DeletionProtection,
- EnableCloudwatchLogsExports,
- EngineVersion,
- IamAuthEnabled,
- KmsKeyId,
- PreferredBackupWindow,
- PreferredMaintenanceWindow,
- RestoreToTime,
- RestoreType,
- ServerlessScalingConfiguration,
- SnapshotIdentifier,
- SourceDBClusterIdentifier,
- StorageEncrypted,
- Tags,
- UseLatestRestorableTime,
- VpcSecurityGroupIds,
- region
+  AssociatedRoles,
+  AvailabilityZones,
+  BackupRetentionPeriod,
+  CopyTagsToSnapshot,
+  DBClusterIdentifier,
+  DBClusterParameterGroupName,
+  DBInstanceParameterGroupName,
+  DBPort,
+  DBSubnetGroupName,
+  DeletionProtection,
+  EnableCloudwatchLogsExports,
+  EngineVersion,
+  IamAuthEnabled,
+  KmsKeyId,
+  PreferredBackupWindow,
+  PreferredMaintenanceWindow,
+  RestoreToTime,
+  RestoreType,
+  ServerlessScalingConfiguration,
+  SnapshotIdentifier,
+  SourceDBClusterIdentifier,
+  StorageEncrypted,
+  Tags,
+  UseLatestRestorableTime,
+  VpcSecurityGroupIds,
+  region
 )
 SELECT
-'{{ associated_roles }}',
- '{{ availability_zones }}',
- '{{ backup_retention_period }}',
- '{{ copy_tags_to_snapshot }}',
- '{{ db_cluster_identifier }}',
- '{{ db_cluster_parameter_group_name }}',
- '{{ db_instance_parameter_group_name }}',
- '{{ db_port }}',
- '{{ db_subnet_group_name }}',
- '{{ deletion_protection }}',
- '{{ enable_cloudwatch_logs_exports }}',
- '{{ engine_version }}',
- '{{ iam_auth_enabled }}',
- '{{ kms_key_id }}',
- '{{ preferred_backup_window }}',
- '{{ preferred_maintenance_window }}',
- '{{ restore_to_time }}',
- '{{ restore_type }}',
- '{{ serverless_scaling_configuration }}',
- '{{ snapshot_identifier }}',
- '{{ source_db_cluster_identifier }}',
- '{{ storage_encrypted }}',
- '{{ tags }}',
- '{{ use_latest_restorable_time }}',
- '{{ vpc_security_group_ids }}',
-'{{ region }}';
+  '{{ associated_roles }}',
+  '{{ availability_zones }}',
+  '{{ backup_retention_period }}',
+  '{{ copy_tags_to_snapshot }}',
+  '{{ db_cluster_identifier }}',
+  '{{ db_cluster_parameter_group_name }}',
+  '{{ db_instance_parameter_group_name }}',
+  '{{ db_port }}',
+  '{{ db_subnet_group_name }}',
+  '{{ deletion_protection }}',
+  '{{ enable_cloudwatch_logs_exports }}',
+  '{{ engine_version }}',
+  '{{ iam_auth_enabled }}',
+  '{{ kms_key_id }}',
+  '{{ preferred_backup_window }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ restore_to_time }}',
+  '{{ restore_type }}',
+  '{{ serverless_scaling_configuration }}',
+  '{{ snapshot_identifier }}',
+  '{{ source_db_cluster_identifier }}',
+  '{{ storage_encrypted }}',
+  '{{ tags }}',
+  '{{ use_latest_restorable_time }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -432,60 +435,60 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_clusters (
- AssociatedRoles,
- AvailabilityZones,
- BackupRetentionPeriod,
- CopyTagsToSnapshot,
- DBClusterIdentifier,
- DBClusterParameterGroupName,
- DBInstanceParameterGroupName,
- DBPort,
- DBSubnetGroupName,
- DeletionProtection,
- EnableCloudwatchLogsExports,
- EngineVersion,
- IamAuthEnabled,
- KmsKeyId,
- PreferredBackupWindow,
- PreferredMaintenanceWindow,
- RestoreToTime,
- RestoreType,
- ServerlessScalingConfiguration,
- SnapshotIdentifier,
- SourceDBClusterIdentifier,
- StorageEncrypted,
- Tags,
- UseLatestRestorableTime,
- VpcSecurityGroupIds,
- region
+  AssociatedRoles,
+  AvailabilityZones,
+  BackupRetentionPeriod,
+  CopyTagsToSnapshot,
+  DBClusterIdentifier,
+  DBClusterParameterGroupName,
+  DBInstanceParameterGroupName,
+  DBPort,
+  DBSubnetGroupName,
+  DeletionProtection,
+  EnableCloudwatchLogsExports,
+  EngineVersion,
+  IamAuthEnabled,
+  KmsKeyId,
+  PreferredBackupWindow,
+  PreferredMaintenanceWindow,
+  RestoreToTime,
+  RestoreType,
+  ServerlessScalingConfiguration,
+  SnapshotIdentifier,
+  SourceDBClusterIdentifier,
+  StorageEncrypted,
+  Tags,
+  UseLatestRestorableTime,
+  VpcSecurityGroupIds,
+  region
 )
 SELECT
- '{{ associated_roles }}',
- '{{ availability_zones }}',
- '{{ backup_retention_period }}',
- '{{ copy_tags_to_snapshot }}',
- '{{ db_cluster_identifier }}',
- '{{ db_cluster_parameter_group_name }}',
- '{{ db_instance_parameter_group_name }}',
- '{{ db_port }}',
- '{{ db_subnet_group_name }}',
- '{{ deletion_protection }}',
- '{{ enable_cloudwatch_logs_exports }}',
- '{{ engine_version }}',
- '{{ iam_auth_enabled }}',
- '{{ kms_key_id }}',
- '{{ preferred_backup_window }}',
- '{{ preferred_maintenance_window }}',
- '{{ restore_to_time }}',
- '{{ restore_type }}',
- '{{ serverless_scaling_configuration }}',
- '{{ snapshot_identifier }}',
- '{{ source_db_cluster_identifier }}',
- '{{ storage_encrypted }}',
- '{{ tags }}',
- '{{ use_latest_restorable_time }}',
- '{{ vpc_security_group_ids }}',
- '{{ region }}';
+  '{{ associated_roles }}',
+  '{{ availability_zones }}',
+  '{{ backup_retention_period }}',
+  '{{ copy_tags_to_snapshot }}',
+  '{{ db_cluster_identifier }}',
+  '{{ db_cluster_parameter_group_name }}',
+  '{{ db_instance_parameter_group_name }}',
+  '{{ db_port }}',
+  '{{ db_subnet_group_name }}',
+  '{{ deletion_protection }}',
+  '{{ enable_cloudwatch_logs_exports }}',
+  '{{ engine_version }}',
+  '{{ iam_auth_enabled }}',
+  '{{ kms_key_id }}',
+  '{{ preferred_backup_window }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ restore_to_time }}',
+  '{{ restore_type }}',
+  '{{ serverless_scaling_configuration }}',
+  '{{ snapshot_identifier }}',
+  '{{ source_db_cluster_identifier }}',
+  '{{ storage_encrypted }}',
+  '{{ tags }}',
+  '{{ use_latest_restorable_time }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -589,8 +592,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_cluster_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_cluster_identifier }}';
 ```
 
 
@@ -599,8 +603,9 @@ AND Identifier = '{{ db_cluster_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_clusters
-WHERE Identifier = '{{ db_cluster_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_cluster_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

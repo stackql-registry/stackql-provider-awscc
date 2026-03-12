@@ -406,19 +406,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-domain_name,
-dead_letter_queue_url,
-default_encryption_key,
-default_expiration_days,
-matching,
-rule_based_matching,
-stats,
-tags,
-created_at,
-last_updated_at
+  region,
+  domain_name,
+  dead_letter_queue_url,
+  default_encryption_key,
+  default_expiration_days,
+  matching,
+  rule_based_matching,
+  stats,
+  tags,
+  created_at,
+  last_updated_at
 FROM awscc.customerprofiles.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -426,10 +428,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-domain_name
+  region,
+  domain_name
 FROM awscc.customerprofiles.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -451,14 +454,14 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.domains (
- DomainName,
- DefaultExpirationDays,
- region
+  DomainName,
+  DefaultExpirationDays,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ default_expiration_days }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ default_expiration_days }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -466,24 +469,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.domains (
- DomainName,
- DeadLetterQueueUrl,
- DefaultEncryptionKey,
- DefaultExpirationDays,
- Matching,
- RuleBasedMatching,
- Tags,
- region
+  DomainName,
+  DeadLetterQueueUrl,
+  DefaultEncryptionKey,
+  DefaultExpirationDays,
+  Matching,
+  RuleBasedMatching,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ dead_letter_queue_url }}',
- '{{ default_encryption_key }}',
- '{{ default_expiration_days }}',
- '{{ matching }}',
- '{{ rule_based_matching }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ dead_letter_queue_url }}',
+  '{{ default_encryption_key }}',
+  '{{ default_expiration_days }}',
+  '{{ matching }}',
+  '{{ rule_based_matching }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -568,8 +571,9 @@ SET PatchDocument = string('{{ {
     "Matching": matching,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -578,8 +582,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.domains
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

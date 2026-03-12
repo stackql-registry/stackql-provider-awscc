@@ -317,22 +317,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>distribution</code>.
 ```sql
 SELECT
-region,
-distribution_name,
-distribution_arn,
-bundle_id,
-ip_address_type,
-cache_behaviors,
-cache_behavior_settings,
-default_cache_behavior,
-origin,
-status,
-able_to_update_bundle,
-is_enabled,
-certificate_name,
-tags
+  region,
+  distribution_name,
+  distribution_arn,
+  bundle_id,
+  ip_address_type,
+  cache_behaviors,
+  cache_behavior_settings,
+  default_cache_behavior,
+  origin,
+  status,
+  able_to_update_bundle,
+  is_enabled,
+  certificate_name,
+  tags
 FROM awscc.lightsail.distributions
-WHERE region = 'us-east-1' AND Identifier = '{{ distribution_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ distribution_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -340,10 +342,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ distribution_name }}';
 Lists all <code>distributions</code> in a region.
 ```sql
 SELECT
-region,
-distribution_name
+  region,
+  distribution_name
 FROM awscc.lightsail.distributions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -365,18 +368,18 @@ Use the following StackQL query and manifest file to create a new <code>distribu
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.distributions (
- DistributionName,
- BundleId,
- DefaultCacheBehavior,
- Origin,
- region
+  DistributionName,
+  BundleId,
+  DefaultCacheBehavior,
+  Origin,
+  region
 )
 SELECT
-'{{ distribution_name }}',
- '{{ bundle_id }}',
- '{{ default_cache_behavior }}',
- '{{ origin }}',
-'{{ region }}';
+  '{{ distribution_name }}',
+  '{{ bundle_id }}',
+  '{{ default_cache_behavior }}',
+  '{{ origin }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -384,30 +387,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.distributions (
- DistributionName,
- BundleId,
- IpAddressType,
- CacheBehaviors,
- CacheBehaviorSettings,
- DefaultCacheBehavior,
- Origin,
- IsEnabled,
- CertificateName,
- Tags,
- region
+  DistributionName,
+  BundleId,
+  IpAddressType,
+  CacheBehaviors,
+  CacheBehaviorSettings,
+  DefaultCacheBehavior,
+  Origin,
+  IsEnabled,
+  CertificateName,
+  Tags,
+  region
 )
 SELECT
- '{{ distribution_name }}',
- '{{ bundle_id }}',
- '{{ ip_address_type }}',
- '{{ cache_behaviors }}',
- '{{ cache_behavior_settings }}',
- '{{ default_cache_behavior }}',
- '{{ origin }}',
- '{{ is_enabled }}',
- '{{ certificate_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ distribution_name }}',
+  '{{ bundle_id }}',
+  '{{ ip_address_type }}',
+  '{{ cache_behaviors }}',
+  '{{ cache_behavior_settings }}',
+  '{{ default_cache_behavior }}',
+  '{{ origin }}',
+  '{{ is_enabled }}',
+  '{{ certificate_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -490,8 +493,9 @@ SET PatchDocument = string('{{ {
     "CertificateName": certificate_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ distribution_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ distribution_name }}';
 ```
 
 
@@ -500,8 +504,9 @@ AND Identifier = '{{ distribution_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.distributions
-WHERE Identifier = '{{ distribution_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ distribution_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

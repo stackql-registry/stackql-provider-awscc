@@ -272,17 +272,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_group</code>.
 ```sql
 SELECT
-region,
-group_description,
-group_name,
-vpc_id,
-id,
-security_group_ingress,
-security_group_egress,
-tags,
-group_id
+  region,
+  group_description,
+  group_name,
+  vpc_id,
+  id,
+  security_group_ingress,
+  security_group_egress,
+  tags,
+  group_id
 FROM awscc.ec2.security_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,10 +292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>security_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.security_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -315,12 +318,12 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_groups (
- GroupDescription,
- region
+  GroupDescription,
+  region
 )
 SELECT
-'{{ group_description }}',
-'{{ region }}';
+  '{{ group_description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -328,22 +331,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.security_groups (
- GroupDescription,
- GroupName,
- VpcId,
- SecurityGroupIngress,
- SecurityGroupEgress,
- Tags,
- region
+  GroupDescription,
+  GroupName,
+  VpcId,
+  SecurityGroupIngress,
+  SecurityGroupEgress,
+  Tags,
+  region
 )
 SELECT
- '{{ group_description }}',
- '{{ group_name }}',
- '{{ vpc_id }}',
- '{{ security_group_ingress }}',
- '{{ security_group_egress }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ group_description }}',
+  '{{ group_name }}',
+  '{{ vpc_id }}',
+  '{{ security_group_ingress }}',
+  '{{ security_group_egress }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -408,8 +411,9 @@ SET PatchDocument = string('{{ {
     "SecurityGroupEgress": security_group_egress,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -418,8 +422,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

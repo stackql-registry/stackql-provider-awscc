@@ -309,17 +309,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>replicator</code>.
 ```sql
 SELECT
-region,
-replicator_arn,
-replicator_name,
-current_version,
-description,
-kafka_clusters,
-replication_info_list,
-service_execution_role_arn,
-tags
+  region,
+  replicator_arn,
+  replicator_name,
+  current_version,
+  description,
+  kafka_clusters,
+  replication_info_list,
+  service_execution_role_arn,
+  tags
 FROM awscc.msk.replicators
-WHERE region = 'us-east-1' AND Identifier = '{{ replicator_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ replicator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,10 +329,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ replicator_arn }}';
 Lists all <code>replicators</code> in a region.
 ```sql
 SELECT
-region,
-replicator_arn
+  region,
+  replicator_arn
 FROM awscc.msk.replicators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -352,18 +355,18 @@ Use the following StackQL query and manifest file to create a new <code>replicat
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.replicators (
- ReplicatorName,
- KafkaClusters,
- ReplicationInfoList,
- ServiceExecutionRoleArn,
- region
+  ReplicatorName,
+  KafkaClusters,
+  ReplicationInfoList,
+  ServiceExecutionRoleArn,
+  region
 )
 SELECT
-'{{ replicator_name }}',
- '{{ kafka_clusters }}',
- '{{ replication_info_list }}',
- '{{ service_execution_role_arn }}',
-'{{ region }}';
+  '{{ replicator_name }}',
+  '{{ kafka_clusters }}',
+  '{{ replication_info_list }}',
+  '{{ service_execution_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -371,22 +374,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.replicators (
- ReplicatorName,
- Description,
- KafkaClusters,
- ReplicationInfoList,
- ServiceExecutionRoleArn,
- Tags,
- region
+  ReplicatorName,
+  Description,
+  KafkaClusters,
+  ReplicationInfoList,
+  ServiceExecutionRoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ replicator_name }}',
- '{{ description }}',
- '{{ kafka_clusters }}',
- '{{ replication_info_list }}',
- '{{ service_execution_role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ replicator_name }}',
+  '{{ description }}',
+  '{{ kafka_clusters }}',
+  '{{ replication_info_list }}',
+  '{{ service_execution_role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -460,8 +463,9 @@ UPDATE awscc.msk.replicators
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ replicator_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ replicator_arn }}';
 ```
 
 
@@ -470,8 +474,9 @@ AND Identifier = '{{ replicator_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.replicators
-WHERE Identifier = '{{ replicator_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ replicator_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

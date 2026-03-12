@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>worker_configuration</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-worker_configuration_arn,
-properties_file_content,
-revision,
-tags
+  region,
+  name,
+  description,
+  worker_configuration_arn,
+  properties_file_content,
+  revision,
+  tags
 FROM awscc.kafkaconnect.worker_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ worker_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ worker_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ worker_configuration_arn }}';
 Lists all <code>worker_configurations</code> in a region.
 ```sql
 SELECT
-region,
-worker_configuration_arn
+  region,
+  worker_configuration_arn
 FROM awscc.kafkaconnect.worker_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>worker_c
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.worker_configurations (
- Name,
- PropertiesFileContent,
- region
+  Name,
+  PropertiesFileContent,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ properties_file_content }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ properties_file_content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.worker_configurations (
- Name,
- Description,
- PropertiesFileContent,
- Tags,
- region
+  Name,
+  Description,
+  PropertiesFileContent,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ properties_file_content }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ properties_file_content }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -276,8 +279,9 @@ UPDATE awscc.kafkaconnect.worker_configurations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ worker_configuration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ worker_configuration_arn }}';
 ```
 
 
@@ -286,8 +290,9 @@ AND Identifier = '{{ worker_configuration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kafkaconnect.worker_configurations
-WHERE Identifier = '{{ worker_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ worker_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -217,19 +217,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>job_queue</code>.
 ```sql
 SELECT
-region,
-job_queue_name,
-job_queue_arn,
-job_queue_type,
-compute_environment_order,
-service_environment_order,
-job_state_time_limit_actions,
-priority,
-state,
-scheduling_policy_arn,
-tags
+  region,
+  job_queue_name,
+  job_queue_arn,
+  job_queue_type,
+  compute_environment_order,
+  service_environment_order,
+  job_state_time_limit_actions,
+  priority,
+  state,
+  scheduling_policy_arn,
+  tags
 FROM awscc.batch.job_queues
-WHERE region = 'us-east-1' AND Identifier = '{{ job_queue_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ job_queue_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ job_queue_arn }}';
 Lists all <code>job_queues</code> in a region.
 ```sql
 SELECT
-region,
-job_queue_arn
+  region,
+  job_queue_arn
 FROM awscc.batch.job_queues_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,12 +265,12 @@ Use the following StackQL query and manifest file to create a new <code>job_queu
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.job_queues (
- Priority,
- region
+  Priority,
+  region
 )
 SELECT
-'{{ priority }}',
-'{{ region }}';
+  '{{ priority }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -275,28 +278,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.job_queues (
- JobQueueName,
- JobQueueType,
- ComputeEnvironmentOrder,
- ServiceEnvironmentOrder,
- JobStateTimeLimitActions,
- Priority,
- State,
- SchedulingPolicyArn,
- Tags,
- region
+  JobQueueName,
+  JobQueueType,
+  ComputeEnvironmentOrder,
+  ServiceEnvironmentOrder,
+  JobStateTimeLimitActions,
+  Priority,
+  State,
+  SchedulingPolicyArn,
+  Tags,
+  region
 )
 SELECT
- '{{ job_queue_name }}',
- '{{ job_queue_type }}',
- '{{ compute_environment_order }}',
- '{{ service_environment_order }}',
- '{{ job_state_time_limit_actions }}',
- '{{ priority }}',
- '{{ state }}',
- '{{ scheduling_policy_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ job_queue_name }}',
+  '{{ job_queue_type }}',
+  '{{ compute_environment_order }}',
+  '{{ service_environment_order }}',
+  '{{ job_state_time_limit_actions }}',
+  '{{ priority }}',
+  '{{ state }}',
+  '{{ scheduling_policy_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "State": state,
     "SchedulingPolicyArn": scheduling_policy_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ job_queue_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ job_queue_arn }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ job_queue_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.job_queues
-WHERE Identifier = '{{ job_queue_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ job_queue_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

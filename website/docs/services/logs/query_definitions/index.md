@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>query_definition</code>.
 ```sql
 SELECT
-region,
-name,
-query_string,
-log_group_names,
-query_definition_id,
-query_language
+  region,
+  name,
+  query_string,
+  log_group_names,
+  query_definition_id,
+  query_language
 FROM awscc.logs.query_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ query_definition_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ query_definition_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ query_definition_id }}';
 Lists all <code>query_definitions</code> in a region.
 ```sql
 SELECT
-region,
-query_definition_id
+  region,
+  query_definition_id
 FROM awscc.logs.query_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>query_de
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.query_definitions (
- Name,
- QueryString,
- region
+  Name,
+  QueryString,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ query_string }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ query_string }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,18 +209,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.query_definitions (
- Name,
- QueryString,
- LogGroupNames,
- QueryLanguage,
- region
+  Name,
+  QueryString,
+  LogGroupNames,
+  QueryLanguage,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ query_string }}',
- '{{ log_group_names }}',
- '{{ query_language }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ query_string }}',
+  '{{ log_group_names }}',
+  '{{ query_language }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ SET PatchDocument = string('{{ {
     "LogGroupNames": log_group_names,
     "QueryLanguage": query_language
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ query_definition_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ query_definition_id }}';
 ```
 
 
@@ -270,8 +274,9 @@ AND Identifier = '{{ query_definition_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.query_definitions
-WHERE Identifier = '{{ query_definition_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ query_definition_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_cluster_parameter_group</code>.
 ```sql
 SELECT
-region,
-description,
-family,
-parameters,
-db_cluster_parameter_group_name,
-tags
+  region,
+  description,
+  family,
+  parameters,
+  db_cluster_parameter_group_name,
+  tags
 FROM awscc.rds.db_cluster_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ db_cluster_parameter_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_cluster_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_cluster_parameter_group_name 
 Lists all <code>db_cluster_parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-db_cluster_parameter_group_name
+  region,
+  db_cluster_parameter_group_name
 FROM awscc.rds.db_cluster_parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>db_clust
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_cluster_parameter_groups (
- Description,
- Family,
- Parameters,
- region
+  Description,
+  Family,
+  Parameters,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ family }}',
- '{{ parameters }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ family }}',
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,20 +223,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_cluster_parameter_groups (
- Description,
- Family,
- Parameters,
- DBClusterParameterGroupName,
- Tags,
- region
+  Description,
+  Family,
+  Parameters,
+  DBClusterParameterGroupName,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ family }}',
- '{{ parameters }}',
- '{{ db_cluster_parameter_group_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ family }}',
+  '{{ parameters }}',
+  '{{ db_cluster_parameter_group_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_cluster_parameter_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_cluster_parameter_group_name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ db_cluster_parameter_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_cluster_parameter_groups
-WHERE Identifier = '{{ db_cluster_parameter_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_cluster_parameter_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

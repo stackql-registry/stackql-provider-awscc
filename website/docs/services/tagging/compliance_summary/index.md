@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Returns a table that shows counts of resources that are noncompliant with their tag policies
+Creates, updates, deletes or gets a <code>compliance_summary</code> resource or lists <code>compliance_summary</code> in a region
 
 ## Overview
 <table>
@@ -33,7 +33,55 @@ Returns a table that shows counts of resources that are noncompliant with their 
 </table>
 
 ## Fields
-<code>SELECT</code> operation not supported for this resource.
+<SchemaTable fields={[
+  {
+    "name": "summary_list",
+    "type": "array",
+    "description": "A table that shows counts of noncompliant resources.",
+    "children": [
+      {
+        "name": "last_updated",
+        "type": "string",
+        "description": "The timestamp that shows when this summary was generated in this Region."
+      },
+      {
+        "name": "target_id",
+        "type": "string",
+        "description": "The account identifier or the root identifier of the organization. If you don't know the root ID, you can call the Organizations &lt;a href=\"https://docs.aws.amazon.com/organizations/latest/APIReference/API&#95;ListRoots.html\"&gt;ListRoots&lt;/a&gt; API."
+      },
+      {
+        "name": "target_id_type",
+        "type": "string",
+        "description": "Whether the target is an account, an OU, or the organization root."
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": "The Amazon Web Services Region that the summary applies to."
+      },
+      {
+        "name": "resource_type",
+        "type": "string",
+        "description": "The Amazon Web Services resource type."
+      },
+      {
+        "name": "non_compliant_resources",
+        "type": "integer",
+        "description": "The count of noncompliant resources."
+      }
+    ]
+  },
+  {
+    "name": "pagination_token",
+    "type": "string",
+    "description": "A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the <code>PaginationToken</code> value in the request for the next page."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 
@@ -52,7 +100,15 @@ Returns a table that shows counts of resources that are noncompliant with their 
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.tagging.compliance_summary
+WHERE
+  region = 'us-east-1';
+```
 
 
 

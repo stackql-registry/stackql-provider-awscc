@@ -165,16 +165,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>principal_permission</code>.
 ```sql
 SELECT
-region,
-catalog,
-principal,
-resource,
-permissions,
-permissions_with_grant_option,
-principal_identifier,
-resource_identifier
+  region,
+  catalog,
+  principal,
+  resource,
+  permissions,
+  permissions_with_grant_option,
+  principal_identifier,
+  resource_identifier
 FROM awscc.lakeformation.principal_permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ principal_identifier }}|{{ resource_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ principal_identifier }}|{{ resource_identifier }}';
 ```
 
 ## `INSERT` example
@@ -194,18 +196,18 @@ Use the following StackQL query and manifest file to create a new <code>principa
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.principal_permissions (
- Principal,
- Resource,
- Permissions,
- PermissionsWithGrantOption,
- region
+  Principal,
+  Resource,
+  Permissions,
+  PermissionsWithGrantOption,
+  region
 )
 SELECT
-'{{ principal }}',
- '{{ resource }}',
- '{{ permissions }}',
- '{{ permissions_with_grant_option }}',
-'{{ region }}';
+  '{{ principal }}',
+  '{{ resource }}',
+  '{{ permissions }}',
+  '{{ permissions_with_grant_option }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,20 +215,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.principal_permissions (
- Catalog,
- Principal,
- Resource,
- Permissions,
- PermissionsWithGrantOption,
- region
+  Catalog,
+  Principal,
+  Resource,
+  Permissions,
+  PermissionsWithGrantOption,
+  region
 )
 SELECT
- '{{ catalog }}',
- '{{ principal }}',
- '{{ resource }}',
- '{{ permissions }}',
- '{{ permissions_with_grant_option }}',
- '{{ region }}';
+  '{{ catalog }}',
+  '{{ principal }}',
+  '{{ resource }}',
+  '{{ permissions }}',
+  '{{ permissions_with_grant_option }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +282,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.principal_permissions
-WHERE Identifier = '{{ principal_identifier }}|{{ resource_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ principal_identifier }}|{{ resource_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

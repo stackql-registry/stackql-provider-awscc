@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>role_policy</code>.
 ```sql
 SELECT
-region,
-policy_document,
-policy_name,
-role_name
+  region,
+  policy_document,
+  policy_name,
+  role_name
 FROM awscc.iam.role_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}|{{ role_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_name }}|{{ role_name }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>role_pol
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.role_policies (
- PolicyName,
- RoleName,
- region
+  PolicyName,
+  RoleName,
+  region
 )
 SELECT
-'{{ policy_name }}',
- '{{ role_name }}',
-'{{ region }}';
+  '{{ policy_name }}',
+  '{{ role_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,16 +137,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.role_policies (
- PolicyDocument,
- PolicyName,
- RoleName,
- region
+  PolicyDocument,
+  PolicyName,
+  RoleName,
+  region
 )
 SELECT
- '{{ policy_document }}',
- '{{ policy_name }}',
- '{{ role_name }}',
- '{{ region }}';
+  '{{ policy_document }}',
+  '{{ policy_name }}',
+  '{{ role_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -181,8 +183,9 @@ UPDATE awscc.iam.role_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_name }}|{{ role_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_name }}|{{ role_name }}';
 ```
 
 
@@ -191,8 +194,9 @@ AND Identifier = '{{ policy_name }}|{{ role_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.role_policies
-WHERE Identifier = '{{ policy_name }}|{{ role_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_name }}|{{ role_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

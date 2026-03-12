@@ -185,17 +185,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>invoice_unit</code>.
 ```sql
 SELECT
-region,
-invoice_unit_arn,
-invoice_receiver,
-name,
-description,
-tax_inheritance_disabled,
-rule,
-last_modified,
-resource_tags
+  region,
+  invoice_unit_arn,
+  invoice_receiver,
+  name,
+  description,
+  tax_inheritance_disabled,
+  rule,
+  last_modified,
+  resource_tags
 FROM awscc.invoicing.invoice_units
-WHERE region = 'us-east-1' AND Identifier = '{{ invoice_unit_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ invoice_unit_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ invoice_unit_arn }}';
 Lists all <code>invoice_units</code> in a region.
 ```sql
 SELECT
-region,
-invoice_unit_arn
+  region,
+  invoice_unit_arn
 FROM awscc.invoicing.invoice_units_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,16 +231,16 @@ Use the following StackQL query and manifest file to create a new <code>invoice_
 ```sql
 /*+ create */
 INSERT INTO awscc.invoicing.invoice_units (
- InvoiceReceiver,
- Name,
- Rule,
- region
+  InvoiceReceiver,
+  Name,
+  Rule,
+  region
 )
 SELECT
-'{{ invoice_receiver }}',
- '{{ name }}',
- '{{ rule }}',
-'{{ region }}';
+  '{{ invoice_receiver }}',
+  '{{ name }}',
+  '{{ rule }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,22 +248,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.invoicing.invoice_units (
- InvoiceReceiver,
- Name,
- Description,
- TaxInheritanceDisabled,
- Rule,
- ResourceTags,
- region
+  InvoiceReceiver,
+  Name,
+  Description,
+  TaxInheritanceDisabled,
+  Rule,
+  ResourceTags,
+  region
 )
 SELECT
- '{{ invoice_receiver }}',
- '{{ name }}',
- '{{ description }}',
- '{{ tax_inheritance_disabled }}',
- '{{ rule }}',
- '{{ resource_tags }}',
- '{{ region }}';
+  '{{ invoice_receiver }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ tax_inheritance_disabled }}',
+  '{{ rule }}',
+  '{{ resource_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -310,8 +313,9 @@ SET PatchDocument = string('{{ {
     "Rule": rule,
     "ResourceTags": resource_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ invoice_unit_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ invoice_unit_arn }}';
 ```
 
 
@@ -320,8 +324,9 @@ AND Identifier = '{{ invoice_unit_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.invoicing.invoice_units
-WHERE Identifier = '{{ invoice_unit_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ invoice_unit_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

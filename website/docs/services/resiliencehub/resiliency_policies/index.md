@@ -204,16 +204,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resiliency_policy</code>.
 ```sql
 SELECT
-region,
-policy_name,
-policy_description,
-data_location_constraint,
-tier,
-policy,
-policy_arn,
-tags
+  region,
+  policy_name,
+  policy_description,
+  data_location_constraint,
+  tier,
+  policy,
+  policy_arn,
+  tags
 FROM awscc.resiliencehub.resiliency_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 Lists all <code>resiliency_policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_arn
+  region,
+  policy_arn
 FROM awscc.resiliencehub.resiliency_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,16 +249,16 @@ Use the following StackQL query and manifest file to create a new <code>resilien
 ```sql
 /*+ create */
 INSERT INTO awscc.resiliencehub.resiliency_policies (
- PolicyName,
- Tier,
- Policy,
- region
+  PolicyName,
+  Tier,
+  Policy,
+  region
 )
 SELECT
-'{{ policy_name }}',
- '{{ tier }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ policy_name }}',
+  '{{ tier }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -263,22 +266,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resiliencehub.resiliency_policies (
- PolicyName,
- PolicyDescription,
- DataLocationConstraint,
- Tier,
- Policy,
- Tags,
- region
+  PolicyName,
+  PolicyDescription,
+  DataLocationConstraint,
+  Tier,
+  Policy,
+  Tags,
+  region
 )
 SELECT
- '{{ policy_name }}',
- '{{ policy_description }}',
- '{{ data_location_constraint }}',
- '{{ tier }}',
- '{{ policy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ policy_name }}',
+  '{{ policy_description }}',
+  '{{ data_location_constraint }}',
+  '{{ tier }}',
+  '{{ policy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -332,8 +335,9 @@ SET PatchDocument = string('{{ {
     "Policy": policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -342,8 +346,9 @@ AND Identifier = '{{ policy_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resiliencehub.resiliency_policies
-WHERE Identifier = '{{ policy_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -240,27 +240,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>matchmaking_configuration</code>.
 ```sql
 SELECT
-region,
-acceptance_required,
-acceptance_timeout_seconds,
-additional_player_count,
-backfill_mode,
-arn,
-creation_time,
-custom_event_data,
-description,
-flex_match_mode,
-game_properties,
-game_session_data,
-game_session_queue_arns,
-name,
-notification_target,
-request_timeout_seconds,
-rule_set_arn,
-rule_set_name,
-tags
+  region,
+  acceptance_required,
+  acceptance_timeout_seconds,
+  additional_player_count,
+  backfill_mode,
+  arn,
+  creation_time,
+  custom_event_data,
+  description,
+  flex_match_mode,
+  game_properties,
+  game_session_data,
+  game_session_queue_arns,
+  name,
+  notification_target,
+  request_timeout_seconds,
+  rule_set_arn,
+  rule_set_name,
+  tags
 FROM awscc.gamelift.matchmaking_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +270,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>matchmaking_configurations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.gamelift.matchmaking_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,18 +296,18 @@ Use the following StackQL query and manifest file to create a new <code>matchmak
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.matchmaking_configurations (
- AcceptanceRequired,
- Name,
- RequestTimeoutSeconds,
- RuleSetName,
- region
+  AcceptanceRequired,
+  Name,
+  RequestTimeoutSeconds,
+  RuleSetName,
+  region
 )
 SELECT
-'{{ acceptance_required }}',
- '{{ name }}',
- '{{ request_timeout_seconds }}',
- '{{ rule_set_name }}',
-'{{ region }}';
+  '{{ acceptance_required }}',
+  '{{ name }}',
+  '{{ request_timeout_seconds }}',
+  '{{ rule_set_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -312,44 +315,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.matchmaking_configurations (
- AcceptanceRequired,
- AcceptanceTimeoutSeconds,
- AdditionalPlayerCount,
- BackfillMode,
- CreationTime,
- CustomEventData,
- Description,
- FlexMatchMode,
- GameProperties,
- GameSessionData,
- GameSessionQueueArns,
- Name,
- NotificationTarget,
- RequestTimeoutSeconds,
- RuleSetArn,
- RuleSetName,
- Tags,
- region
+  AcceptanceRequired,
+  AcceptanceTimeoutSeconds,
+  AdditionalPlayerCount,
+  BackfillMode,
+  CreationTime,
+  CustomEventData,
+  Description,
+  FlexMatchMode,
+  GameProperties,
+  GameSessionData,
+  GameSessionQueueArns,
+  Name,
+  NotificationTarget,
+  RequestTimeoutSeconds,
+  RuleSetArn,
+  RuleSetName,
+  Tags,
+  region
 )
 SELECT
- '{{ acceptance_required }}',
- '{{ acceptance_timeout_seconds }}',
- '{{ additional_player_count }}',
- '{{ backfill_mode }}',
- '{{ creation_time }}',
- '{{ custom_event_data }}',
- '{{ description }}',
- '{{ flex_match_mode }}',
- '{{ game_properties }}',
- '{{ game_session_data }}',
- '{{ game_session_queue_arns }}',
- '{{ name }}',
- '{{ notification_target }}',
- '{{ request_timeout_seconds }}',
- '{{ rule_set_arn }}',
- '{{ rule_set_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ acceptance_required }}',
+  '{{ acceptance_timeout_seconds }}',
+  '{{ additional_player_count }}',
+  '{{ backfill_mode }}',
+  '{{ creation_time }}',
+  '{{ custom_event_data }}',
+  '{{ description }}',
+  '{{ flex_match_mode }}',
+  '{{ game_properties }}',
+  '{{ game_session_data }}',
+  '{{ game_session_queue_arns }}',
+  '{{ name }}',
+  '{{ notification_target }}',
+  '{{ request_timeout_seconds }}',
+  '{{ rule_set_arn }}',
+  '{{ rule_set_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -434,8 +437,9 @@ SET PatchDocument = string('{{ {
     "RuleSetName": rule_set_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -444,8 +448,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.matchmaking_configurations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

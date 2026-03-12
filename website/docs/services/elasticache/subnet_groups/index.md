@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet_group</code>.
 ```sql
 SELECT
-region,
-description,
-subnet_ids,
-cache_subnet_group_name,
-tags
+  region,
+  description,
+  subnet_ids,
+  cache_subnet_group_name,
+  tags
 FROM awscc.elasticache.subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ cache_subnet_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cache_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cache_subnet_group_name }}';
 Lists all <code>subnet_groups</code> in a region.
 ```sql
 SELECT
-region,
-cache_subnet_group_name
+  region,
+  cache_subnet_group_name
 FROM awscc.elasticache.subnet_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>subnet_g
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.subnet_groups (
- Description,
- SubnetIds,
- region
+  Description,
+  SubnetIds,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ subnet_ids }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,18 +215,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.subnet_groups (
- Description,
- SubnetIds,
- CacheSubnetGroupName,
- Tags,
- region
+  Description,
+  SubnetIds,
+  CacheSubnetGroupName,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ subnet_ids }}',
- '{{ cache_subnet_group_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ subnet_ids }}',
+  '{{ cache_subnet_group_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cache_subnet_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cache_subnet_group_name }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ cache_subnet_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.subnet_groups
-WHERE Identifier = '{{ cache_subnet_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cache_subnet_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -216,20 +216,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT
-region,
-arn,
-application_identifier,
-description,
-endpoint_type,
-environment_identifier,
-lambda_endpoint,
-name,
-service_identifier,
-url_endpoint,
-vpc_id,
-tags
+  region,
+  arn,
+  application_identifier,
+  description,
+  endpoint_type,
+  environment_identifier,
+  lambda_endpoint,
+  name,
+  service_identifier,
+  url_endpoint,
+  vpc_id,
+  tags
 FROM awscc.refactorspaces.services
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,12 +239,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ app
 Lists all <code>services</code> in a region.
 ```sql
 SELECT
-region,
-environment_identifier,
-application_identifier,
-service_identifier
+  region,
+  environment_identifier,
+  application_identifier,
+  service_identifier
 FROM awscc.refactorspaces.services_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,18 +267,18 @@ Use the following StackQL query and manifest file to create a new <code>service<
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.services (
- ApplicationIdentifier,
- EndpointType,
- EnvironmentIdentifier,
- Name,
- region
+  ApplicationIdentifier,
+  EndpointType,
+  EnvironmentIdentifier,
+  Name,
+  region
 )
 SELECT
-'{{ application_identifier }}',
- '{{ endpoint_type }}',
- '{{ environment_identifier }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ application_identifier }}',
+  '{{ endpoint_type }}',
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,28 +286,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.services (
- ApplicationIdentifier,
- Description,
- EndpointType,
- EnvironmentIdentifier,
- LambdaEndpoint,
- Name,
- UrlEndpoint,
- VpcId,
- Tags,
- region
+  ApplicationIdentifier,
+  Description,
+  EndpointType,
+  EnvironmentIdentifier,
+  LambdaEndpoint,
+  Name,
+  UrlEndpoint,
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ application_identifier }}',
- '{{ description }}',
- '{{ endpoint_type }}',
- '{{ environment_identifier }}',
- '{{ lambda_endpoint }}',
- '{{ name }}',
- '{{ url_endpoint }}',
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ application_identifier }}',
+  '{{ description }}',
+  '{{ endpoint_type }}',
+  '{{ environment_identifier }}',
+  '{{ lambda_endpoint }}',
+  '{{ name }}',
+  '{{ url_endpoint }}',
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -354,8 +357,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.services
-WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

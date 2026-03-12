@@ -143,12 +143,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>log_delivery_configuration</code>.
 ```sql
 SELECT
-region,
-id,
-user_pool_id,
-log_configurations
+  region,
+  id,
+  user_pool_id,
+  log_configurations
 FROM awscc.cognito.log_delivery_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -168,12 +170,12 @@ Use the following StackQL query and manifest file to create a new <code>log_deli
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.log_delivery_configurations (
- UserPoolId,
- region
+  UserPoolId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -181,14 +183,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.log_delivery_configurations (
- UserPoolId,
- LogConfigurations,
- region
+  UserPoolId,
+  LogConfigurations,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ log_configurations }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ log_configurations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -231,8 +233,9 @@ UPDATE awscc.cognito.log_delivery_configurations
 SET PatchDocument = string('{{ {
     "LogConfigurations": log_configurations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -241,8 +244,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.log_delivery_configurations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

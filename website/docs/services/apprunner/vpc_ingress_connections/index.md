@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_ingress_connection</code>.
 ```sql
 SELECT
-region,
-vpc_ingress_connection_arn,
-vpc_ingress_connection_name,
-service_arn,
-status,
-domain_name,
-ingress_vpc_configuration,
-tags
+  region,
+  vpc_ingress_connection_arn,
+  vpc_ingress_connection_name,
+  service_arn,
+  status,
+  domain_name,
+  ingress_vpc_configuration,
+  tags
 FROM awscc.apprunner.vpc_ingress_connections
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_ingress_connection_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_ingress_connection_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_ingress_connection_arn }}';
 Lists all <code>vpc_ingress_connections</code> in a region.
 ```sql
 SELECT
-region,
-vpc_ingress_connection_arn
+  region,
+  vpc_ingress_connection_arn
 FROM awscc.apprunner.vpc_ingress_connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>vpc_ingr
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.vpc_ingress_connections (
- ServiceArn,
- IngressVpcConfiguration,
- region
+  ServiceArn,
+  IngressVpcConfiguration,
+  region
 )
 SELECT
-'{{ service_arn }}',
- '{{ ingress_vpc_configuration }}',
-'{{ region }}';
+  '{{ service_arn }}',
+  '{{ ingress_vpc_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,18 +245,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.vpc_ingress_connections (
- VpcIngressConnectionName,
- ServiceArn,
- IngressVpcConfiguration,
- Tags,
- region
+  VpcIngressConnectionName,
+  ServiceArn,
+  IngressVpcConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_ingress_connection_name }}',
- '{{ service_arn }}',
- '{{ ingress_vpc_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_ingress_connection_name }}',
+  '{{ service_arn }}',
+  '{{ ingress_vpc_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -296,8 +299,9 @@ UPDATE awscc.apprunner.vpc_ingress_connections
 SET PatchDocument = string('{{ {
     "IngressVpcConfiguration": ingress_vpc_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpc_ingress_connection_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpc_ingress_connection_arn }}';
 ```
 
 
@@ -306,8 +310,9 @@ AND Identifier = '{{ vpc_ingress_connection_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.vpc_ingress_connections
-WHERE Identifier = '{{ vpc_ingress_connection_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_ingress_connection_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

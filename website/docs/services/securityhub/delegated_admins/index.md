@@ -135,12 +135,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>delegated_admin</code>.
 ```sql
 SELECT
-region,
-delegated_admin_identifier,
-admin_account_id,
-status
+  region,
+  delegated_admin_identifier,
+  admin_account_id,
+  status
 FROM awscc.securityhub.delegated_admins
-WHERE region = 'us-east-1' AND Identifier = '{{ delegated_admin_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ delegated_admin_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ delegated_admin_identifier }}';
 Lists all <code>delegated_admins</code> in a region.
 ```sql
 SELECT
-region,
-delegated_admin_identifier
+  region,
+  delegated_admin_identifier
 FROM awscc.securityhub.delegated_admins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>delegate
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.delegated_admins (
- AdminAccountId,
- region
+  AdminAccountId,
+  region
 )
 SELECT
-'{{ admin_account_id }}',
-'{{ region }}';
+  '{{ admin_account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,12 +189,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.delegated_admins (
- AdminAccountId,
- region
+  AdminAccountId,
+  region
 )
 SELECT
- '{{ admin_account_id }}',
- '{{ region }}';
+  '{{ admin_account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -220,8 +223,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.delegated_admins
-WHERE Identifier = '{{ delegated_admin_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ delegated_admin_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

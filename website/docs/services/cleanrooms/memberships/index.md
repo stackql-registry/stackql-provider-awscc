@@ -322,20 +322,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>membership</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-collaboration_arn,
-collaboration_creator_account_id,
-collaboration_identifier,
-membership_identifier,
-query_log_status,
-job_log_status,
-default_result_configuration,
-default_job_result_configuration,
-payment_configuration
+  region,
+  arn,
+  tags,
+  collaboration_arn,
+  collaboration_creator_account_id,
+  collaboration_identifier,
+  membership_identifier,
+  query_log_status,
+  job_log_status,
+  default_result_configuration,
+  default_job_result_configuration,
+  payment_configuration
 FROM awscc.cleanrooms.memberships
-WHERE region = 'us-east-1' AND Identifier = '{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -343,10 +345,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ membership_identifier }}';
 Lists all <code>memberships</code> in a region.
 ```sql
 SELECT
-region,
-membership_identifier
+  region,
+  membership_identifier
 FROM awscc.cleanrooms.memberships_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -368,14 +371,14 @@ Use the following StackQL query and manifest file to create a new <code>membersh
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.memberships (
- CollaborationIdentifier,
- QueryLogStatus,
- region
+  CollaborationIdentifier,
+  QueryLogStatus,
+  region
 )
 SELECT
-'{{ collaboration_identifier }}',
- '{{ query_log_status }}',
-'{{ region }}';
+  '{{ collaboration_identifier }}',
+  '{{ query_log_status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -383,24 +386,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.memberships (
- Tags,
- CollaborationIdentifier,
- QueryLogStatus,
- JobLogStatus,
- DefaultResultConfiguration,
- DefaultJobResultConfiguration,
- PaymentConfiguration,
- region
+  Tags,
+  CollaborationIdentifier,
+  QueryLogStatus,
+  JobLogStatus,
+  DefaultResultConfiguration,
+  DefaultJobResultConfiguration,
+  PaymentConfiguration,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ collaboration_identifier }}',
- '{{ query_log_status }}',
- '{{ job_log_status }}',
- '{{ default_result_configuration }}',
- '{{ default_job_result_configuration }}',
- '{{ payment_configuration }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ collaboration_identifier }}',
+  '{{ query_log_status }}',
+  '{{ job_log_status }}',
+  '{{ default_result_configuration }}',
+  '{{ default_job_result_configuration }}',
+  '{{ payment_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -473,8 +476,9 @@ SET PatchDocument = string('{{ {
     "DefaultJobResultConfiguration": default_job_result_configuration,
     "PaymentConfiguration": payment_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ membership_identifier }}';
 ```
 
 
@@ -483,8 +487,9 @@ AND Identifier = '{{ membership_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.memberships
-WHERE Identifier = '{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

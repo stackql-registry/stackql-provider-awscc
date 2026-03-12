@@ -275,25 +275,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>compute_node_group</code>.
 ```sql
 SELECT
-region,
-status,
-cluster_id,
-error_info,
-spot_options,
-slurm_configuration,
-subnet_ids,
-name,
-scaling_configuration,
-instance_configs,
-id,
-purchase_option,
-arn,
-custom_launch_template,
-tags,
-ami_id,
-iam_instance_profile_arn
+  region,
+  status,
+  cluster_id,
+  error_info,
+  spot_options,
+  slurm_configuration,
+  subnet_ids,
+  name,
+  scaling_configuration,
+  instance_configs,
+  id,
+  purchase_option,
+  arn,
+  custom_launch_template,
+  tags,
+  ami_id,
+  iam_instance_profile_arn
 FROM awscc.pcs.compute_node_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -301,10 +303,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>compute_node_groups</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.pcs.compute_node_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -326,22 +329,22 @@ Use the following StackQL query and manifest file to create a new <code>compute_
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.compute_node_groups (
- ClusterId,
- SubnetIds,
- ScalingConfiguration,
- InstanceConfigs,
- CustomLaunchTemplate,
- IamInstanceProfileArn,
- region
+  ClusterId,
+  SubnetIds,
+  ScalingConfiguration,
+  InstanceConfigs,
+  CustomLaunchTemplate,
+  IamInstanceProfileArn,
+  region
 )
 SELECT
-'{{ cluster_id }}',
- '{{ subnet_ids }}',
- '{{ scaling_configuration }}',
- '{{ instance_configs }}',
- '{{ custom_launch_template }}',
- '{{ iam_instance_profile_arn }}',
-'{{ region }}';
+  '{{ cluster_id }}',
+  '{{ subnet_ids }}',
+  '{{ scaling_configuration }}',
+  '{{ instance_configs }}',
+  '{{ custom_launch_template }}',
+  '{{ iam_instance_profile_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -349,34 +352,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.compute_node_groups (
- ClusterId,
- SpotOptions,
- SlurmConfiguration,
- SubnetIds,
- Name,
- ScalingConfiguration,
- InstanceConfigs,
- PurchaseOption,
- CustomLaunchTemplate,
- Tags,
- AmiId,
- IamInstanceProfileArn,
- region
+  ClusterId,
+  SpotOptions,
+  SlurmConfiguration,
+  SubnetIds,
+  Name,
+  ScalingConfiguration,
+  InstanceConfigs,
+  PurchaseOption,
+  CustomLaunchTemplate,
+  Tags,
+  AmiId,
+  IamInstanceProfileArn,
+  region
 )
 SELECT
- '{{ cluster_id }}',
- '{{ spot_options }}',
- '{{ slurm_configuration }}',
- '{{ subnet_ids }}',
- '{{ name }}',
- '{{ scaling_configuration }}',
- '{{ instance_configs }}',
- '{{ purchase_option }}',
- '{{ custom_launch_template }}',
- '{{ tags }}',
- '{{ ami_id }}',
- '{{ iam_instance_profile_arn }}',
- '{{ region }}';
+  '{{ cluster_id }}',
+  '{{ spot_options }}',
+  '{{ slurm_configuration }}',
+  '{{ subnet_ids }}',
+  '{{ name }}',
+  '{{ scaling_configuration }}',
+  '{{ instance_configs }}',
+  '{{ purchase_option }}',
+  '{{ custom_launch_template }}',
+  '{{ tags }}',
+  '{{ ami_id }}',
+  '{{ iam_instance_profile_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -449,8 +452,9 @@ SET PatchDocument = string('{{ {
     "AmiId": ami_id,
     "IamInstanceProfileArn": iam_instance_profile_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -459,8 +463,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.compute_node_groups
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

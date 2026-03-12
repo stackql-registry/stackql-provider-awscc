@@ -161,16 +161,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>archive</code>.
 ```sql
 SELECT
-region,
-archive_name,
-source_arn,
-description,
-event_pattern,
-arn,
-retention_days,
-kms_key_identifier
+  region,
+  archive_name,
+  source_arn,
+  description,
+  event_pattern,
+  arn,
+  retention_days,
+  kms_key_identifier
 FROM awscc.events.archives
-WHERE region = 'us-east-1' AND Identifier = '{{ archive_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ archive_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ archive_name }}';
 Lists all <code>archives</code> in a region.
 ```sql
 SELECT
-region,
-archive_name
+  region,
+  archive_name
 FROM awscc.events.archives_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>archive<
 ```sql
 /*+ create */
 INSERT INTO awscc.events.archives (
- SourceArn,
- region
+  SourceArn,
+  region
 )
 SELECT
-'{{ source_arn }}',
-'{{ region }}';
+  '{{ source_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,22 +219,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.archives (
- ArchiveName,
- SourceArn,
- Description,
- EventPattern,
- RetentionDays,
- KmsKeyIdentifier,
- region
+  ArchiveName,
+  SourceArn,
+  Description,
+  EventPattern,
+  RetentionDays,
+  KmsKeyIdentifier,
+  region
 )
 SELECT
- '{{ archive_name }}',
- '{{ source_arn }}',
- '{{ description }}',
- '{{ event_pattern }}',
- '{{ retention_days }}',
- '{{ kms_key_identifier }}',
- '{{ region }}';
+  '{{ archive_name }}',
+  '{{ source_arn }}',
+  '{{ description }}',
+  '{{ event_pattern }}',
+  '{{ retention_days }}',
+  '{{ kms_key_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "RetentionDays": retention_days,
     "KmsKeyIdentifier": kms_key_identifier
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ archive_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ archive_name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ archive_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.archives
-WHERE Identifier = '{{ archive_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ archive_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

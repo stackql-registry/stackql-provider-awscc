@@ -220,22 +220,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_log</code>.
 ```sql
 SELECT
-region,
-id,
-deliver_cross_account_role,
-deliver_logs_permission_arn,
-log_destination,
-log_destination_type,
-log_format,
-log_group_name,
-max_aggregation_interval,
-resource_id,
-resource_type,
-tags,
-traffic_type,
-destination_options
+  region,
+  id,
+  deliver_cross_account_role,
+  deliver_logs_permission_arn,
+  log_destination,
+  log_destination_type,
+  log_format,
+  log_group_name,
+  max_aggregation_interval,
+  resource_id,
+  resource_type,
+  tags,
+  traffic_type,
+  destination_options
 FROM awscc.ec2.flow_logs
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>flow_logs</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.flow_logs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,14 +271,14 @@ Use the following StackQL query and manifest file to create a new <code>flow_log
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.flow_logs (
- ResourceId,
- ResourceType,
- region
+  ResourceId,
+  ResourceType,
+  region
 )
 SELECT
-'{{ resource_id }}',
- '{{ resource_type }}',
-'{{ region }}';
+  '{{ resource_id }}',
+  '{{ resource_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,34 +286,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.flow_logs (
- DeliverCrossAccountRole,
- DeliverLogsPermissionArn,
- LogDestination,
- LogDestinationType,
- LogFormat,
- LogGroupName,
- MaxAggregationInterval,
- ResourceId,
- ResourceType,
- Tags,
- TrafficType,
- DestinationOptions,
- region
+  DeliverCrossAccountRole,
+  DeliverLogsPermissionArn,
+  LogDestination,
+  LogDestinationType,
+  LogFormat,
+  LogGroupName,
+  MaxAggregationInterval,
+  ResourceId,
+  ResourceType,
+  Tags,
+  TrafficType,
+  DestinationOptions,
+  region
 )
 SELECT
- '{{ deliver_cross_account_role }}',
- '{{ deliver_logs_permission_arn }}',
- '{{ log_destination }}',
- '{{ log_destination_type }}',
- '{{ log_format }}',
- '{{ log_group_name }}',
- '{{ max_aggregation_interval }}',
- '{{ resource_id }}',
- '{{ resource_type }}',
- '{{ tags }}',
- '{{ traffic_type }}',
- '{{ destination_options }}',
- '{{ region }}';
+  '{{ deliver_cross_account_role }}',
+  '{{ deliver_logs_permission_arn }}',
+  '{{ log_destination }}',
+  '{{ log_destination_type }}',
+  '{{ log_format }}',
+  '{{ log_group_name }}',
+  '{{ max_aggregation_interval }}',
+  '{{ resource_id }}',
+  '{{ resource_type }}',
+  '{{ tags }}',
+  '{{ traffic_type }}',
+  '{{ destination_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -370,8 +373,9 @@ UPDATE awscc.ec2.flow_logs
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -380,8 +384,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.flow_logs
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

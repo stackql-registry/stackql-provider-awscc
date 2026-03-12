@@ -158,12 +158,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key_group</code>.
 ```sql
 SELECT
-region,
-id,
-key_group_config,
-last_modified_time
+  region,
+  id,
+  key_group_config,
+  last_modified_time
 FROM awscc.cloudfront.key_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -171,10 +173,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>key_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.key_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -196,12 +199,12 @@ Use the following StackQL query and manifest file to create a new <code>key_grou
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.key_groups (
- KeyGroupConfig,
- region
+  KeyGroupConfig,
+  region
 )
 SELECT
-'{{ key_group_config }}',
-'{{ region }}';
+  '{{ key_group_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -209,12 +212,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.key_groups (
- KeyGroupConfig,
- region
+  KeyGroupConfig,
+  region
 )
 SELECT
- '{{ key_group_config }}',
- '{{ region }}';
+  '{{ key_group_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ UPDATE awscc.cloudfront.key_groups
 SET PatchDocument = string('{{ {
     "KeyGroupConfig": key_group_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -261,8 +265,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.key_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT
-region,
-project_id,
-dashboard_id,
-dashboard_name,
-dashboard_description,
-dashboard_definition,
-dashboard_arn,
-tags
+  region,
+  project_id,
+  dashboard_id,
+  dashboard_name,
+  dashboard_description,
+  dashboard_definition,
+  dashboard_arn,
+  tags
 FROM awscc.iotsitewise.dashboards
-WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dashboard_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_id }}';
 Lists all <code>dashboards</code> in a region.
 ```sql
 SELECT
-region,
-dashboard_id
+  region,
+  dashboard_id
 FROM awscc.iotsitewise.dashboards_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>dashboar
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.dashboards (
- DashboardName,
- DashboardDescription,
- DashboardDefinition,
- region
+  DashboardName,
+  DashboardDescription,
+  DashboardDefinition,
+  region
 )
 SELECT
-'{{ dashboard_name }}',
- '{{ dashboard_description }}',
- '{{ dashboard_definition }}',
-'{{ region }}';
+  '{{ dashboard_name }}',
+  '{{ dashboard_description }}',
+  '{{ dashboard_definition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,20 +235,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.dashboards (
- ProjectId,
- DashboardName,
- DashboardDescription,
- DashboardDefinition,
- Tags,
- region
+  ProjectId,
+  DashboardName,
+  DashboardDescription,
+  DashboardDefinition,
+  Tags,
+  region
 )
 SELECT
- '{{ project_id }}',
- '{{ dashboard_name }}',
- '{{ dashboard_description }}',
- '{{ dashboard_definition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ project_id }}',
+  '{{ dashboard_name }}',
+  '{{ dashboard_description }}',
+  '{{ dashboard_definition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "DashboardDefinition": dashboard_definition,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dashboard_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dashboard_id }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ dashboard_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.dashboards
-WHERE Identifier = '{{ dashboard_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dashboard_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

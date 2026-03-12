@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>challenge</code>.
 ```sql
 SELECT
-region,
-challenge_arn,
-connector_arn,
-tags
+  region,
+  challenge_arn,
+  connector_arn,
+  tags
 FROM awscc.pcaconnectorscep.challenges
-WHERE region = 'us-east-1' AND Identifier = '{{ challenge_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ challenge_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ challenge_arn }}';
 Lists all <code>challenges</code> in a region.
 ```sql
 SELECT
-region,
-challenge_arn
+  region,
+  challenge_arn
 FROM awscc.pcaconnectorscep.challenges_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>challeng
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorscep.challenges (
- ConnectorArn,
- region
+  ConnectorArn,
+  region
 )
 SELECT
-'{{ connector_arn }}',
-'{{ region }}';
+  '{{ connector_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,14 +195,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorscep.challenges (
- ConnectorArn,
- Tags,
- region
+  ConnectorArn,
+  Tags,
+  region
 )
 SELECT
- '{{ connector_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connector_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -234,8 +237,9 @@ UPDATE awscc.pcaconnectorscep.challenges
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ challenge_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ challenge_arn }}';
 ```
 
 
@@ -244,8 +248,9 @@ AND Identifier = '{{ challenge_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorscep.challenges
-WHERE Identifier = '{{ challenge_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ challenge_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

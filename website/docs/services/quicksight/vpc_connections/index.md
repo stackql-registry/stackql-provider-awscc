@@ -245,24 +245,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_connection</code>.
 ```sql
 SELECT
-region,
-arn,
-availability_status,
-aws_account_id,
-created_time,
-dns_resolvers,
-last_updated_time,
-name,
-network_interfaces,
-role_arn,
-security_group_ids,
-status,
-subnet_ids,
-tags,
-vpc_connection_id,
-vpc_id
+  region,
+  arn,
+  availability_status,
+  aws_account_id,
+  created_time,
+  dns_resolvers,
+  last_updated_time,
+  name,
+  network_interfaces,
+  role_arn,
+  security_group_ids,
+  status,
+  subnet_ids,
+  tags,
+  vpc_connection_id,
+  vpc_id
 FROM awscc.quicksight.vpc_connections
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,11 +272,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ vpc_connect
 Lists all <code>vpc_connections</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-vpc_connection_id
+  region,
+  aws_account_id,
+  vpc_connection_id
 FROM awscc.quicksight.vpc_connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -296,28 +299,28 @@ Use the following StackQL query and manifest file to create a new <code>vpc_conn
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.vpc_connections (
- AvailabilityStatus,
- AwsAccountId,
- DnsResolvers,
- Name,
- RoleArn,
- SecurityGroupIds,
- SubnetIds,
- Tags,
- VPCConnectionId,
- region
+  AvailabilityStatus,
+  AwsAccountId,
+  DnsResolvers,
+  Name,
+  RoleArn,
+  SecurityGroupIds,
+  SubnetIds,
+  Tags,
+  VPCConnectionId,
+  region
 )
 SELECT
-'{{ availability_status }}',
- '{{ aws_account_id }}',
- '{{ dns_resolvers }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ vpc_connection_id }}',
-'{{ region }}';
+  '{{ availability_status }}',
+  '{{ aws_account_id }}',
+  '{{ dns_resolvers }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ vpc_connection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -325,28 +328,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.vpc_connections (
- AvailabilityStatus,
- AwsAccountId,
- DnsResolvers,
- Name,
- RoleArn,
- SecurityGroupIds,
- SubnetIds,
- Tags,
- VPCConnectionId,
- region
+  AvailabilityStatus,
+  AwsAccountId,
+  DnsResolvers,
+  Name,
+  RoleArn,
+  SecurityGroupIds,
+  SubnetIds,
+  Tags,
+  VPCConnectionId,
+  region
 )
 SELECT
- '{{ availability_status }}',
- '{{ aws_account_id }}',
- '{{ dns_resolvers }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ vpc_connection_id }}',
- '{{ region }}';
+  '{{ availability_status }}',
+  '{{ aws_account_id }}',
+  '{{ dns_resolvers }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ vpc_connection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -406,8 +409,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```
 
 
@@ -416,8 +420,9 @@ AND Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.vpc_connections
-WHERE Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile_association</code>.
 ```sql
 SELECT
-region,
-resource_id,
-profile_id,
-id,
-name,
-tags,
-arn
+  region,
+  resource_id,
+  profile_id,
+  id,
+  name,
+  tags,
+  arn
 FROM awscc.route53profiles.profile_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>profile_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53profiles.profile_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>profile_
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profile_associations (
- ResourceId,
- ProfileId,
- Name,
- region
+  ResourceId,
+  ProfileId,
+  Name,
+  region
 )
 SELECT
-'{{ resource_id }}',
- '{{ profile_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ resource_id }}',
+  '{{ profile_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53profiles.profile_associations (
- ResourceId,
- ProfileId,
- Name,
- Tags,
- Arn,
- region
+  ResourceId,
+  ProfileId,
+  Name,
+  Tags,
+  Arn,
+  region
 )
 SELECT
- '{{ resource_id }}',
- '{{ profile_id }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ arn }}',
- '{{ region }}';
+  '{{ resource_id }}',
+  '{{ profile_id }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Arn": arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53profiles.profile_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -202,17 +202,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_source</code>.
 ```sql
 SELECT
-region,
-identity_source_arn,
-identity_source_parameters,
-tags,
-identity_source_type,
-creation_time,
-status,
-status_code,
-status_message
+  region,
+  identity_source_arn,
+  identity_source_parameters,
+  tags,
+  identity_source_type,
+  creation_time,
+  status,
+  status_code,
+  status_message
 FROM awscc.mpa.identity_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identity_source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identity_source_arn }}';
 Lists all <code>identity_sources</code> in a region.
 ```sql
 SELECT
-region,
-identity_source_arn
+  region,
+  identity_source_arn
 FROM awscc.mpa.identity_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,12 +248,12 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.mpa.identity_sources (
- IdentitySourceParameters,
- region
+  IdentitySourceParameters,
+  region
 )
 SELECT
-'{{ identity_source_parameters }}',
-'{{ region }}';
+  '{{ identity_source_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,14 +261,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mpa.identity_sources (
- IdentitySourceParameters,
- Tags,
- region
+  IdentitySourceParameters,
+  Tags,
+  region
 )
 SELECT
- '{{ identity_source_parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ identity_source_parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ UPDATE awscc.mpa.identity_sources
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identity_source_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identity_source_arn }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ identity_source_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mpa.identity_sources
-WHERE Identifier = '{{ identity_source_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identity_source_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

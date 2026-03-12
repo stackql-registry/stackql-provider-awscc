@@ -145,12 +145,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schema_version_metadatum</code>.
 ```sql
 SELECT
-region,
-schema_version_id,
-key,
-value
+  region,
+  schema_version_id,
+  key,
+  value
 FROM awscc.glue.schema_version_metadata
-WHERE region = 'us-east-1' AND Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -158,12 +160,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ schema_version_id }}|{{ key }}|{
 Lists all <code>schema_version_metadata</code> in a region.
 ```sql
 SELECT
-region,
-schema_version_id,
-key,
-value
+  region,
+  schema_version_id,
+  key,
+  value
 FROM awscc.glue.schema_version_metadata_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>schema_v
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.schema_version_metadata (
- SchemaVersionId,
- Key,
- Value,
- region
+  SchemaVersionId,
+  Key,
+  Value,
+  region
 )
 SELECT
-'{{ schema_version_id }}',
- '{{ key }}',
- '{{ value }}',
-'{{ region }}';
+  '{{ schema_version_id }}',
+  '{{ key }}',
+  '{{ value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.schema_version_metadata (
- SchemaVersionId,
- Key,
- Value,
- region
+  SchemaVersionId,
+  Key,
+  Value,
+  region
 )
 SELECT
- '{{ schema_version_id }}',
- '{{ key }}',
- '{{ value }}',
- '{{ region }}';
+  '{{ schema_version_id }}',
+  '{{ key }}',
+  '{{ value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.schema_version_metadata
-WHERE Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

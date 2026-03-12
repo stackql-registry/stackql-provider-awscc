@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>registry</code>.
 ```sql
 SELECT
-region,
-registry_name,
-description,
-registry_arn,
-tags
+  region,
+  registry_name,
+  description,
+  registry_arn,
+  tags
 FROM awscc.eventschemas.registries
-WHERE region = 'us-east-1' AND Identifier = '{{ registry_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ registry_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ registry_arn }}';
 Lists all <code>registries</code> in a region.
 ```sql
 SELECT
-region,
-registry_arn
+  region,
+  registry_arn
 FROM awscc.eventschemas.registries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>registry
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.registries (
- RegistryName,
- Description,
- Tags,
- region
+  RegistryName,
+  Description,
+  Tags,
+  region
 )
 SELECT
-'{{ registry_name }}',
- '{{ description }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ registry_name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.registries (
- RegistryName,
- Description,
- Tags,
- region
+  RegistryName,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ registry_name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ registry_name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -263,8 +266,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ registry_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ registry_arn }}';
 ```
 
 
@@ -273,8 +277,9 @@ AND Identifier = '{{ registry_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.registries
-WHERE Identifier = '{{ registry_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ registry_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

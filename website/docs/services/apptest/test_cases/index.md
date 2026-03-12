@@ -210,20 +210,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>test_case</code>.
 ```sql
 SELECT
-region,
-creation_time,
-description,
-last_update_time,
-latest_version,
-name,
-status,
-steps,
-tags,
-test_case_arn,
-test_case_id,
-test_case_version
+  region,
+  creation_time,
+  description,
+  last_update_time,
+  latest_version,
+  name,
+  status,
+  steps,
+  tags,
+  test_case_arn,
+  test_case_id,
+  test_case_version
 FROM awscc.apptest.test_cases
-WHERE region = 'us-east-1' AND Identifier = '{{ test_case_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ test_case_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ test_case_id }}';
 Lists all <code>test_cases</code> in a region.
 ```sql
 SELECT
-region,
-test_case_id
+  region,
+  test_case_id
 FROM awscc.apptest.test_cases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,14 +259,14 @@ Use the following StackQL query and manifest file to create a new <code>test_cas
 ```sql
 /*+ create */
 INSERT INTO awscc.apptest.test_cases (
- Name,
- Steps,
- region
+  Name,
+  Steps,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ steps }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ steps }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,18 +274,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apptest.test_cases (
- Description,
- Name,
- Steps,
- Tags,
- region
+  Description,
+  Name,
+  Steps,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ steps }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ steps }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -326,8 +329,9 @@ SET PatchDocument = string('{{ {
     "Steps": steps,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ test_case_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ test_case_id }}';
 ```
 
 
@@ -336,8 +340,9 @@ AND Identifier = '{{ test_case_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apptest.test_cases
-WHERE Identifier = '{{ test_case_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ test_case_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

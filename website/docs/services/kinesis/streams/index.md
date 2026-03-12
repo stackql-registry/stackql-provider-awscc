@@ -197,17 +197,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stream</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-desired_shard_level_metrics,
-retention_period_hours,
-shard_count,
-stream_mode_details,
-stream_encryption,
-tags
+  region,
+  arn,
+  name,
+  desired_shard_level_metrics,
+  retention_period_hours,
+  shard_count,
+  stream_mode_details,
+  stream_encryption,
+  tags
 FROM awscc.kinesis.streams
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +217,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>streams</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.kinesis.streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,24 +243,24 @@ Use the following StackQL query and manifest file to create a new <code>stream</
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.streams (
- Name,
- DesiredShardLevelMetrics,
- RetentionPeriodHours,
- ShardCount,
- StreamModeDetails,
- StreamEncryption,
- Tags,
- region
+  Name,
+  DesiredShardLevelMetrics,
+  RetentionPeriodHours,
+  ShardCount,
+  StreamModeDetails,
+  StreamEncryption,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ desired_shard_level_metrics }}',
- '{{ retention_period_hours }}',
- '{{ shard_count }}',
- '{{ stream_mode_details }}',
- '{{ stream_encryption }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ desired_shard_level_metrics }}',
+  '{{ retention_period_hours }}',
+  '{{ shard_count }}',
+  '{{ stream_mode_details }}',
+  '{{ stream_encryption }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -265,24 +268,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.streams (
- Name,
- DesiredShardLevelMetrics,
- RetentionPeriodHours,
- ShardCount,
- StreamModeDetails,
- StreamEncryption,
- Tags,
- region
+  Name,
+  DesiredShardLevelMetrics,
+  RetentionPeriodHours,
+  ShardCount,
+  StreamModeDetails,
+  StreamEncryption,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ desired_shard_level_metrics }}',
- '{{ retention_period_hours }}',
- '{{ shard_count }}',
- '{{ stream_mode_details }}',
- '{{ stream_encryption }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ desired_shard_level_metrics }}',
+  '{{ retention_period_hours }}',
+  '{{ shard_count }}',
+  '{{ stream_mode_details }}',
+  '{{ stream_encryption }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -338,8 +341,9 @@ SET PatchDocument = string('{{ {
     "StreamEncryption": stream_encryption,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -348,8 +352,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.streams
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -217,25 +217,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_instance</code>.
 ```sql
 SELECT
-region,
-default_runtime_context_device_name,
-status,
-default_runtime_context_device,
-description,
-application_instance_id_to_replace,
-created_time,
-health_status,
-manifest_overrides_payload,
-last_updated_time,
-runtime_role_arn,
-name,
-application_instance_id,
-status_description,
-manifest_payload,
-arn,
-tags
+  region,
+  default_runtime_context_device_name,
+  status,
+  default_runtime_context_device,
+  description,
+  application_instance_id_to_replace,
+  created_time,
+  health_status,
+  manifest_overrides_payload,
+  last_updated_time,
+  runtime_role_arn,
+  name,
+  application_instance_id,
+  status_description,
+  manifest_payload,
+  arn,
+  tags
 FROM awscc.panorama.application_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ application_instance_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_instance_id }}';
 Lists all <code>application_instances</code> in a region.
 ```sql
 SELECT
-region,
-application_instance_id
+  region,
+  application_instance_id
 FROM awscc.panorama.application_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,14 +271,14 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.application_instances (
- DefaultRuntimeContextDevice,
- ManifestPayload,
- region
+  DefaultRuntimeContextDevice,
+  ManifestPayload,
+  region
 )
 SELECT
-'{{ default_runtime_context_device }}',
- '{{ manifest_payload }}',
-'{{ region }}';
+  '{{ default_runtime_context_device }}',
+  '{{ manifest_payload }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,26 +286,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.application_instances (
- DefaultRuntimeContextDevice,
- Description,
- ApplicationInstanceIdToReplace,
- ManifestOverridesPayload,
- RuntimeRoleArn,
- Name,
- ManifestPayload,
- Tags,
- region
+  DefaultRuntimeContextDevice,
+  Description,
+  ApplicationInstanceIdToReplace,
+  ManifestOverridesPayload,
+  RuntimeRoleArn,
+  Name,
+  ManifestPayload,
+  Tags,
+  region
 )
 SELECT
- '{{ default_runtime_context_device }}',
- '{{ description }}',
- '{{ application_instance_id_to_replace }}',
- '{{ manifest_overrides_payload }}',
- '{{ runtime_role_arn }}',
- '{{ name }}',
- '{{ manifest_payload }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ default_runtime_context_device }}',
+  '{{ description }}',
+  '{{ application_instance_id_to_replace }}',
+  '{{ manifest_overrides_payload }}',
+  '{{ runtime_role_arn }}',
+  '{{ name }}',
+  '{{ manifest_payload }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -353,8 +356,9 @@ UPDATE awscc.panorama.application_instances
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_instance_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_instance_id }}';
 ```
 
 
@@ -363,8 +367,9 @@ AND Identifier = '{{ application_instance_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.application_instances
-WHERE Identifier = '{{ application_instance_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_instance_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

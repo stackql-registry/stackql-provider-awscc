@@ -277,33 +277,35 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>influxdb_instance</code>.
 ```sql
 SELECT
-region,
-username,
-password,
-organization,
-bucket,
-db_instance_type,
-vpc_subnet_ids,
-vpc_security_group_ids,
-publicly_accessible,
-db_storage_type,
-allocated_storage,
-db_parameter_group_identifier,
-port,
-network_type,
-log_delivery_configuration,
-status,
-arn,
-name,
-availability_zone,
-secondary_availability_zone,
-endpoint,
-influx_auth_parameters_secret_arn,
-id,
-deployment_type,
-tags
+  region,
+  username,
+  password,
+  organization,
+  bucket,
+  db_instance_type,
+  vpc_subnet_ids,
+  vpc_security_group_ids,
+  publicly_accessible,
+  db_storage_type,
+  allocated_storage,
+  db_parameter_group_identifier,
+  port,
+  network_type,
+  log_delivery_configuration,
+  status,
+  arn,
+  name,
+  availability_zone,
+  secondary_availability_zone,
+  endpoint,
+  influx_auth_parameters_secret_arn,
+  id,
+  deployment_type,
+  tags
 FROM awscc.timestream.influxdb_instances
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -311,10 +313,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>influxdb_instances</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.timestream.influxdb_instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -336,44 +339,44 @@ Use the following StackQL query and manifest file to create a new <code>influxdb
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.influxdb_instances (
- Username,
- Password,
- Organization,
- Bucket,
- DbInstanceType,
- VpcSubnetIds,
- VpcSecurityGroupIds,
- PubliclyAccessible,
- DbStorageType,
- AllocatedStorage,
- DbParameterGroupIdentifier,
- Port,
- NetworkType,
- LogDeliveryConfiguration,
- Name,
- DeploymentType,
- Tags,
- region
+  Username,
+  Password,
+  Organization,
+  Bucket,
+  DbInstanceType,
+  VpcSubnetIds,
+  VpcSecurityGroupIds,
+  PubliclyAccessible,
+  DbStorageType,
+  AllocatedStorage,
+  DbParameterGroupIdentifier,
+  Port,
+  NetworkType,
+  LogDeliveryConfiguration,
+  Name,
+  DeploymentType,
+  Tags,
+  region
 )
 SELECT
-'{{ username }}',
- '{{ password }}',
- '{{ organization }}',
- '{{ bucket }}',
- '{{ db_instance_type }}',
- '{{ vpc_subnet_ids }}',
- '{{ vpc_security_group_ids }}',
- '{{ publicly_accessible }}',
- '{{ db_storage_type }}',
- '{{ allocated_storage }}',
- '{{ db_parameter_group_identifier }}',
- '{{ port }}',
- '{{ network_type }}',
- '{{ log_delivery_configuration }}',
- '{{ name }}',
- '{{ deployment_type }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ username }}',
+  '{{ password }}',
+  '{{ organization }}',
+  '{{ bucket }}',
+  '{{ db_instance_type }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ publicly_accessible }}',
+  '{{ db_storage_type }}',
+  '{{ allocated_storage }}',
+  '{{ db_parameter_group_identifier }}',
+  '{{ port }}',
+  '{{ network_type }}',
+  '{{ log_delivery_configuration }}',
+  '{{ name }}',
+  '{{ deployment_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -381,44 +384,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.influxdb_instances (
- Username,
- Password,
- Organization,
- Bucket,
- DbInstanceType,
- VpcSubnetIds,
- VpcSecurityGroupIds,
- PubliclyAccessible,
- DbStorageType,
- AllocatedStorage,
- DbParameterGroupIdentifier,
- Port,
- NetworkType,
- LogDeliveryConfiguration,
- Name,
- DeploymentType,
- Tags,
- region
+  Username,
+  Password,
+  Organization,
+  Bucket,
+  DbInstanceType,
+  VpcSubnetIds,
+  VpcSecurityGroupIds,
+  PubliclyAccessible,
+  DbStorageType,
+  AllocatedStorage,
+  DbParameterGroupIdentifier,
+  Port,
+  NetworkType,
+  LogDeliveryConfiguration,
+  Name,
+  DeploymentType,
+  Tags,
+  region
 )
 SELECT
- '{{ username }}',
- '{{ password }}',
- '{{ organization }}',
- '{{ bucket }}',
- '{{ db_instance_type }}',
- '{{ vpc_subnet_ids }}',
- '{{ vpc_security_group_ids }}',
- '{{ publicly_accessible }}',
- '{{ db_storage_type }}',
- '{{ allocated_storage }}',
- '{{ db_parameter_group_identifier }}',
- '{{ port }}',
- '{{ network_type }}',
- '{{ log_delivery_configuration }}',
- '{{ name }}',
- '{{ deployment_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ username }}',
+  '{{ password }}',
+  '{{ organization }}',
+  '{{ bucket }}',
+  '{{ db_instance_type }}',
+  '{{ vpc_subnet_ids }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ publicly_accessible }}',
+  '{{ db_storage_type }}',
+  '{{ allocated_storage }}',
+  '{{ db_parameter_group_identifier }}',
+  '{{ port }}',
+  '{{ network_type }}',
+  '{{ log_delivery_configuration }}',
+  '{{ name }}',
+  '{{ deployment_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -497,8 +500,9 @@ SET PatchDocument = string('{{ {
     "DeploymentType": deployment_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -507,8 +511,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.influxdb_instances
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

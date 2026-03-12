@@ -207,19 +207,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configured_table</code>.
 ```sql
 SELECT
-region,
-arn,
-tags,
-allowed_columns,
-analysis_method,
-selected_analysis_methods,
-configured_table_identifier,
-description,
-name,
-analysis_rules,
-table_reference
+  region,
+  arn,
+  tags,
+  allowed_columns,
+  analysis_method,
+  selected_analysis_methods,
+  configured_table_identifier,
+  description,
+  name,
+  analysis_rules,
+  table_reference
 FROM awscc.cleanrooms.configured_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ configured_table_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +229,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_identifier }}';
 Lists all <code>configured_tables</code> in a region.
 ```sql
 SELECT
-region,
-configured_table_identifier
+  region,
+  configured_table_identifier
 FROM awscc.cleanrooms.configured_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,18 +255,18 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.configured_tables (
- AllowedColumns,
- AnalysisMethod,
- Name,
- TableReference,
- region
+  AllowedColumns,
+  AnalysisMethod,
+  Name,
+  TableReference,
+  region
 )
 SELECT
-'{{ allowed_columns }}',
- '{{ analysis_method }}',
- '{{ name }}',
- '{{ table_reference }}',
-'{{ region }}';
+  '{{ allowed_columns }}',
+  '{{ analysis_method }}',
+  '{{ name }}',
+  '{{ table_reference }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,26 +274,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.configured_tables (
- Tags,
- AllowedColumns,
- AnalysisMethod,
- SelectedAnalysisMethods,
- Description,
- Name,
- AnalysisRules,
- TableReference,
- region
+  Tags,
+  AllowedColumns,
+  AnalysisMethod,
+  SelectedAnalysisMethods,
+  Description,
+  Name,
+  AnalysisRules,
+  TableReference,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ allowed_columns }}',
- '{{ analysis_method }}',
- '{{ selected_analysis_methods }}',
- '{{ description }}',
- '{{ name }}',
- '{{ analysis_rules }}',
- '{{ table_reference }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ allowed_columns }}',
+  '{{ analysis_method }}',
+  '{{ selected_analysis_methods }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ analysis_rules }}',
+  '{{ table_reference }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -351,8 +354,9 @@ SET PatchDocument = string('{{ {
     "AnalysisRules": analysis_rules,
     "TableReference": table_reference
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ configured_table_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ configured_table_identifier }}';
 ```
 
 
@@ -361,8 +365,9 @@ AND Identifier = '{{ configured_table_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.configured_tables
-WHERE Identifier = '{{ configured_table_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ configured_table_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

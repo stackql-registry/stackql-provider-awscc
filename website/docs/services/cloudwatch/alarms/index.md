@@ -341,32 +341,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alarm</code>.
 ```sql
 SELECT
-region,
-threshold_metric_id,
-evaluate_low_sample_count_percentile,
-extended_statistic,
-comparison_operator,
-treat_missing_data,
-dimensions,
-period,
-evaluation_periods,
-unit,
-namespace,
-ok_actions,
-alarm_actions,
-metric_name,
-actions_enabled,
-metrics,
-alarm_description,
-alarm_name,
-statistic,
-insufficient_data_actions,
-arn,
-datapoints_to_alarm,
-threshold,
-tags
+  region,
+  threshold_metric_id,
+  evaluate_low_sample_count_percentile,
+  extended_statistic,
+  comparison_operator,
+  treat_missing_data,
+  dimensions,
+  period,
+  evaluation_periods,
+  unit,
+  namespace,
+  ok_actions,
+  alarm_actions,
+  metric_name,
+  actions_enabled,
+  metrics,
+  alarm_description,
+  alarm_name,
+  statistic,
+  insufficient_data_actions,
+  arn,
+  datapoints_to_alarm,
+  threshold,
+  tags
 FROM awscc.cloudwatch.alarms
-WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -374,10 +376,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 Lists all <code>alarms</code> in a region.
 ```sql
 SELECT
-region,
-alarm_name
+  region,
+  alarm_name
 FROM awscc.cloudwatch.alarms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -399,14 +402,14 @@ Use the following StackQL query and manifest file to create a new <code>alarm</c
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.alarms (
- ComparisonOperator,
- EvaluationPeriods,
- region
+  ComparisonOperator,
+  EvaluationPeriods,
+  region
 )
 SELECT
-'{{ comparison_operator }}',
- '{{ evaluation_periods }}',
-'{{ region }}';
+  '{{ comparison_operator }}',
+  '{{ evaluation_periods }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -414,54 +417,54 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.alarms (
- ThresholdMetricId,
- EvaluateLowSampleCountPercentile,
- ExtendedStatistic,
- ComparisonOperator,
- TreatMissingData,
- Dimensions,
- Period,
- EvaluationPeriods,
- Unit,
- Namespace,
- OKActions,
- AlarmActions,
- MetricName,
- ActionsEnabled,
- Metrics,
- AlarmDescription,
- AlarmName,
- Statistic,
- InsufficientDataActions,
- DatapointsToAlarm,
- Threshold,
- Tags,
- region
+  ThresholdMetricId,
+  EvaluateLowSampleCountPercentile,
+  ExtendedStatistic,
+  ComparisonOperator,
+  TreatMissingData,
+  Dimensions,
+  Period,
+  EvaluationPeriods,
+  Unit,
+  Namespace,
+  OKActions,
+  AlarmActions,
+  MetricName,
+  ActionsEnabled,
+  Metrics,
+  AlarmDescription,
+  AlarmName,
+  Statistic,
+  InsufficientDataActions,
+  DatapointsToAlarm,
+  Threshold,
+  Tags,
+  region
 )
 SELECT
- '{{ threshold_metric_id }}',
- '{{ evaluate_low_sample_count_percentile }}',
- '{{ extended_statistic }}',
- '{{ comparison_operator }}',
- '{{ treat_missing_data }}',
- '{{ dimensions }}',
- '{{ period }}',
- '{{ evaluation_periods }}',
- '{{ unit }}',
- '{{ namespace }}',
- '{{ ok_actions }}',
- '{{ alarm_actions }}',
- '{{ metric_name }}',
- '{{ actions_enabled }}',
- '{{ metrics }}',
- '{{ alarm_description }}',
- '{{ alarm_name }}',
- '{{ statistic }}',
- '{{ insufficient_data_actions }}',
- '{{ datapoints_to_alarm }}',
- '{{ threshold }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ threshold_metric_id }}',
+  '{{ evaluate_low_sample_count_percentile }}',
+  '{{ extended_statistic }}',
+  '{{ comparison_operator }}',
+  '{{ treat_missing_data }}',
+  '{{ dimensions }}',
+  '{{ period }}',
+  '{{ evaluation_periods }}',
+  '{{ unit }}',
+  '{{ namespace }}',
+  '{{ ok_actions }}',
+  '{{ alarm_actions }}',
+  '{{ metric_name }}',
+  '{{ actions_enabled }}',
+  '{{ metrics }}',
+  '{{ alarm_description }}',
+  '{{ alarm_name }}',
+  '{{ statistic }}',
+  '{{ insufficient_data_actions }}',
+  '{{ datapoints_to_alarm }}',
+  '{{ threshold }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -578,8 +581,9 @@ SET PatchDocument = string('{{ {
     "Threshold": threshold,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -588,8 +592,9 @@ AND Identifier = '{{ alarm_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.alarms
-WHERE Identifier = '{{ alarm_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alarm_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

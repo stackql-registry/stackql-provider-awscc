@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_endpoint</code>.
 ```sql
 SELECT
-region,
-id,
-name,
-security_group_ids,
-subnet_ids,
-vpc_id
+  region,
+  id,
+  name,
+  security_group_ids,
+  subnet_ids,
+  vpc_id
 FROM awscc.opensearchserverless.vpc_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>vpc_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.opensearchserverless.vpc_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>vpc_endp
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.vpc_endpoints (
- Name,
- SubnetIds,
- VpcId,
- region
+  Name,
+  SubnetIds,
+  VpcId,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.vpc_endpoints (
- Name,
- SecurityGroupIds,
- SubnetIds,
- VpcId,
- region
+  Name,
+  SecurityGroupIds,
+  SubnetIds,
+  VpcId,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -261,8 +264,9 @@ SET PatchDocument = string('{{ {
     "SecurityGroupIds": security_group_ids,
     "SubnetIds": subnet_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -271,8 +275,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.vpc_endpoints
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -237,24 +237,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>location_hdf</code>.
 ```sql
 SELECT
-region,
-name_nodes,
-block_size,
-replication_factor,
-kms_key_provider_uri,
-qop_configuration,
-authentication_type,
-simple_user,
-kerberos_principal,
-kerberos_keytab,
-kerberos_krb5_conf,
-tags,
-agent_arns,
-subdirectory,
-location_arn,
-location_uri
+  region,
+  name_nodes,
+  block_size,
+  replication_factor,
+  kms_key_provider_uri,
+  qop_configuration,
+  authentication_type,
+  simple_user,
+  kerberos_principal,
+  kerberos_keytab,
+  kerberos_krb5_conf,
+  tags,
+  agent_arns,
+  subdirectory,
+  location_arn,
+  location_uri
 FROM awscc.datasync.location_hdfs
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +264,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>location_hdfs</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.location_hdfs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,16 +290,16 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_hdfs (
- NameNodes,
- AuthenticationType,
- AgentArns,
- region
+  NameNodes,
+  AuthenticationType,
+  AgentArns,
+  region
 )
 SELECT
-'{{ name_nodes }}',
- '{{ authentication_type }}',
- '{{ agent_arns }}',
-'{{ region }}';
+  '{{ name_nodes }}',
+  '{{ authentication_type }}',
+  '{{ agent_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -304,36 +307,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_hdfs (
- NameNodes,
- BlockSize,
- ReplicationFactor,
- KmsKeyProviderUri,
- QopConfiguration,
- AuthenticationType,
- SimpleUser,
- KerberosPrincipal,
- KerberosKeytab,
- KerberosKrb5Conf,
- Tags,
- AgentArns,
- Subdirectory,
- region
+  NameNodes,
+  BlockSize,
+  ReplicationFactor,
+  KmsKeyProviderUri,
+  QopConfiguration,
+  AuthenticationType,
+  SimpleUser,
+  KerberosPrincipal,
+  KerberosKeytab,
+  KerberosKrb5Conf,
+  Tags,
+  AgentArns,
+  Subdirectory,
+  region
 )
 SELECT
- '{{ name_nodes }}',
- '{{ block_size }}',
- '{{ replication_factor }}',
- '{{ kms_key_provider_uri }}',
- '{{ qop_configuration }}',
- '{{ authentication_type }}',
- '{{ simple_user }}',
- '{{ kerberos_principal }}',
- '{{ kerberos_keytab }}',
- '{{ kerberos_krb5_conf }}',
- '{{ tags }}',
- '{{ agent_arns }}',
- '{{ subdirectory }}',
- '{{ region }}';
+  '{{ name_nodes }}',
+  '{{ block_size }}',
+  '{{ replication_factor }}',
+  '{{ kms_key_provider_uri }}',
+  '{{ qop_configuration }}',
+  '{{ authentication_type }}',
+  '{{ simple_user }}',
+  '{{ kerberos_principal }}',
+  '{{ kerberos_keytab }}',
+  '{{ kerberos_krb5_conf }}',
+  '{{ tags }}',
+  '{{ agent_arns }}',
+  '{{ subdirectory }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -409,8 +412,9 @@ SET PatchDocument = string('{{ {
     "AgentArns": agent_arns,
     "Subdirectory": subdirectory
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -419,8 +423,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_hdfs
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -93,7 +93,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
       {
         "name": "m_qc_sinput_switching",
         "type": "boolean",
-        "description": "<p>When true, AWS Elemental MediaPackage performs input switching based on the MQCS. Default is true. This setting is valid only when &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+        "description": "<p>When true, AWS Elemental MediaPackage performs input switching based on the MQCS. Default is true. This setting is valid only when <code>InputType</code> is <code>CMAF</code>.</p>"
       },
       {
         "name": "preferred_input",
@@ -120,7 +120,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
       {
         "name": "publish_mq_cs",
         "type": "boolean",
-        "description": "<p>When true, AWS Elemental MediaPackage includes the MQCS in responses to the CDN. This setting is valid only when &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+        "description": "<p>When true, AWS Elemental MediaPackage includes the MQCS in responses to the CDN. This setting is valid only when <code>InputType</code> is <code>CMAF</code>.</p>"
       }
     ]
   },
@@ -229,21 +229,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT
-region,
-arn,
-channel_group_name,
-channel_name,
-created_at,
-description,
-ingest_endpoints,
-input_switch_configuration,
-input_type,
-modified_at,
-output_header_configuration,
-ingest_endpoint_urls,
-tags
+  region,
+  arn,
+  channel_group_name,
+  channel_name,
+  created_at,
+  description,
+  ingest_endpoints,
+  input_switch_configuration,
+  input_type,
+  modified_at,
+  output_header_configuration,
+  ingest_endpoint_urls,
+  tags
 FROM awscc.mediapackagev2.channels
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,10 +253,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>channels</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.mediapackagev2.channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -276,14 +279,14 @@ Use the following StackQL query and manifest file to create a new <code>channel<
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.channels (
- ChannelGroupName,
- ChannelName,
- region
+  ChannelGroupName,
+  ChannelName,
+  region
 )
 SELECT
-'{{ channel_group_name }}',
- '{{ channel_name }}',
-'{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -291,24 +294,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.channels (
- ChannelGroupName,
- ChannelName,
- Description,
- InputSwitchConfiguration,
- InputType,
- OutputHeaderConfiguration,
- Tags,
- region
+  ChannelGroupName,
+  ChannelName,
+  Description,
+  InputSwitchConfiguration,
+  InputType,
+  OutputHeaderConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ channel_group_name }}',
- '{{ channel_name }}',
- '{{ description }}',
- '{{ input_switch_configuration }}',
- '{{ input_type }}',
- '{{ output_header_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ description }}',
+  '{{ input_switch_configuration }}',
+  '{{ input_type }}',
+  '{{ output_header_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -361,8 +364,9 @@ SET PatchDocument = string('{{ {
     "OutputHeaderConfiguration": output_header_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -371,8 +375,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.channels
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

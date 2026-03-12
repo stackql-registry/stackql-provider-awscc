@@ -222,21 +222,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>repository_creation_template</code>.
 ```sql
 SELECT
-region,
-prefix,
-description,
-image_tag_mutability,
-image_tag_mutability_exclusion_filters,
-repository_policy,
-lifecycle_policy,
-encryption_configuration,
-resource_tags,
-applied_for,
-custom_role_arn,
-created_at,
-updated_at
+  region,
+  prefix,
+  description,
+  image_tag_mutability,
+  image_tag_mutability_exclusion_filters,
+  repository_policy,
+  lifecycle_policy,
+  encryption_configuration,
+  resource_tags,
+  applied_for,
+  custom_role_arn,
+  created_at,
+  updated_at
 FROM awscc.ecr.repository_creation_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ prefix }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ prefix }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +246,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ prefix }}';
 Lists all <code>repository_creation_templates</code> in a region.
 ```sql
 SELECT
-region,
-prefix
+  region,
+  prefix
 FROM awscc.ecr.repository_creation_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,14 +272,14 @@ Use the following StackQL query and manifest file to create a new <code>reposito
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.repository_creation_templates (
- Prefix,
- AppliedFor,
- region
+  Prefix,
+  AppliedFor,
+  region
 )
 SELECT
-'{{ prefix }}',
- '{{ applied_for }}',
-'{{ region }}';
+  '{{ prefix }}',
+  '{{ applied_for }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,30 +287,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.repository_creation_templates (
- Prefix,
- Description,
- ImageTagMutability,
- ImageTagMutabilityExclusionFilters,
- RepositoryPolicy,
- LifecyclePolicy,
- EncryptionConfiguration,
- ResourceTags,
- AppliedFor,
- CustomRoleArn,
- region
+  Prefix,
+  Description,
+  ImageTagMutability,
+  ImageTagMutabilityExclusionFilters,
+  RepositoryPolicy,
+  LifecyclePolicy,
+  EncryptionConfiguration,
+  ResourceTags,
+  AppliedFor,
+  CustomRoleArn,
+  region
 )
 SELECT
- '{{ prefix }}',
- '{{ description }}',
- '{{ image_tag_mutability }}',
- '{{ image_tag_mutability_exclusion_filters }}',
- '{{ repository_policy }}',
- '{{ lifecycle_policy }}',
- '{{ encryption_configuration }}',
- '{{ resource_tags }}',
- '{{ applied_for }}',
- '{{ custom_role_arn }}',
- '{{ region }}';
+  '{{ prefix }}',
+  '{{ description }}',
+  '{{ image_tag_mutability }}',
+  '{{ image_tag_mutability_exclusion_filters }}',
+  '{{ repository_policy }}',
+  '{{ lifecycle_policy }}',
+  '{{ encryption_configuration }}',
+  '{{ resource_tags }}',
+  '{{ applied_for }}',
+  '{{ custom_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -373,8 +376,9 @@ SET PatchDocument = string('{{ {
     "AppliedFor": applied_for,
     "CustomRoleArn": custom_role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ prefix }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ prefix }}';
 ```
 
 
@@ -383,8 +387,9 @@ AND Identifier = '{{ prefix }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repository_creation_templates
-WHERE Identifier = '{{ prefix }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ prefix }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -158,14 +158,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>listener</code>.
 ```sql
 SELECT
-region,
-listener_arn,
-accelerator_arn,
-port_ranges,
-protocol,
-client_affinity
+  region,
+  listener_arn,
+  accelerator_arn,
+  port_ranges,
+  protocol,
+  client_affinity
 FROM awscc.globalaccelerator.listeners
-WHERE region = 'us-east-1' AND Identifier = '{{ listener_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ listener_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -173,10 +175,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ listener_arn }}';
 Lists all <code>listeners</code> in a region.
 ```sql
 SELECT
-region,
-listener_arn
+  region,
+  listener_arn
 FROM awscc.globalaccelerator.listeners_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,16 +201,16 @@ Use the following StackQL query and manifest file to create a new <code>listener
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.listeners (
- AcceleratorArn,
- PortRanges,
- Protocol,
- region
+  AcceleratorArn,
+  PortRanges,
+  Protocol,
+  region
 )
 SELECT
-'{{ accelerator_arn }}',
- '{{ port_ranges }}',
- '{{ protocol }}',
-'{{ region }}';
+  '{{ accelerator_arn }}',
+  '{{ port_ranges }}',
+  '{{ protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -215,18 +218,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.listeners (
- AcceleratorArn,
- PortRanges,
- Protocol,
- ClientAffinity,
- region
+  AcceleratorArn,
+  PortRanges,
+  Protocol,
+  ClientAffinity,
+  region
 )
 SELECT
- '{{ accelerator_arn }}',
- '{{ port_ranges }}',
- '{{ protocol }}',
- '{{ client_affinity }}',
- '{{ region }}';
+  '{{ accelerator_arn }}',
+  '{{ port_ranges }}',
+  '{{ protocol }}',
+  '{{ client_affinity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "Protocol": protocol,
     "ClientAffinity": client_affinity
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ listener_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ listener_arn }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ listener_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.listeners
-WHERE Identifier = '{{ listener_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ listener_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

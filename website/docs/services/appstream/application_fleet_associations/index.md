@@ -85,11 +85,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_fleet_association</code>.
 ```sql
 SELECT
-region,
-fleet_name,
-application_arn
+  region,
+  fleet_name,
+  application_arn
 FROM awscc.appstream.application_fleet_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ fleet_name }}|{{ application_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ fleet_name }}|{{ application_arn }}';
 ```
 
 ## `INSERT` example
@@ -109,14 +111,14 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.application_fleet_associations (
- FleetName,
- ApplicationArn,
- region
+  FleetName,
+  ApplicationArn,
+  region
 )
 SELECT
-'{{ fleet_name }}',
- '{{ application_arn }}',
-'{{ region }}';
+  '{{ fleet_name }}',
+  '{{ application_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -124,14 +126,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.application_fleet_associations (
- FleetName,
- ApplicationArn,
- region
+  FleetName,
+  ApplicationArn,
+  region
 )
 SELECT
- '{{ fleet_name }}',
- '{{ application_arn }}',
- '{{ region }}';
+  '{{ fleet_name }}',
+  '{{ application_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -162,8 +164,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_fleet_associations
-WHERE Identifier = '{{ fleet_name }}|{{ application_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ fleet_name }}|{{ application_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

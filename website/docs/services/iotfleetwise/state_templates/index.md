@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>state_template</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-name,
-id,
-signal_catalog_arn,
-state_template_properties,
-data_extra_dimensions,
-metadata_extra_dimensions,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  last_modification_time,
+  name,
+  id,
+  signal_catalog_arn,
+  state_template_properties,
+  data_extra_dimensions,
+  metadata_extra_dimensions,
+  tags
 FROM awscc.iotfleetwise.state_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>state_templates</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.state_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,16 +242,16 @@ Use the following StackQL query and manifest file to create a new <code>state_te
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.state_templates (
- Name,
- SignalCatalogArn,
- StateTemplateProperties,
- region
+  Name,
+  SignalCatalogArn,
+  StateTemplateProperties,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ signal_catalog_arn }}',
- '{{ state_template_properties }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ signal_catalog_arn }}',
+  '{{ state_template_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,24 +259,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.state_templates (
- Description,
- Name,
- SignalCatalogArn,
- StateTemplateProperties,
- DataExtraDimensions,
- MetadataExtraDimensions,
- Tags,
- region
+  Description,
+  Name,
+  SignalCatalogArn,
+  StateTemplateProperties,
+  DataExtraDimensions,
+  MetadataExtraDimensions,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ signal_catalog_arn }}',
- '{{ state_template_properties }}',
- '{{ data_extra_dimensions }}',
- '{{ metadata_extra_dimensions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ signal_catalog_arn }}',
+  '{{ state_template_properties }}',
+  '{{ data_extra_dimensions }}',
+  '{{ metadata_extra_dimensions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -327,8 +330,9 @@ SET PatchDocument = string('{{ {
     "MetadataExtraDimensions": metadata_extra_dimensions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -337,8 +341,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.state_templates
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -180,12 +180,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subscriber_notification</code>.
 ```sql
 SELECT
-region,
-notification_configuration,
-subscriber_arn,
-subscriber_endpoint
+  region,
+  notification_configuration,
+  subscriber_arn,
+  subscriber_endpoint
 FROM awscc.securitylake.subscriber_notifications
-WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,10 +195,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
 Lists all <code>subscriber_notifications</code> in a region.
 ```sql
 SELECT
-region,
-subscriber_arn
+  region,
+  subscriber_arn
 FROM awscc.securitylake.subscriber_notifications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -218,14 +221,14 @@ Use the following StackQL query and manifest file to create a new <code>subscrib
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.subscriber_notifications (
- NotificationConfiguration,
- SubscriberArn,
- region
+  NotificationConfiguration,
+  SubscriberArn,
+  region
 )
 SELECT
-'{{ notification_configuration }}',
- '{{ subscriber_arn }}',
-'{{ region }}';
+  '{{ notification_configuration }}',
+  '{{ subscriber_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -233,14 +236,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securitylake.subscriber_notifications (
- NotificationConfiguration,
- SubscriberArn,
- region
+  NotificationConfiguration,
+  SubscriberArn,
+  region
 )
 SELECT
- '{{ notification_configuration }}',
- '{{ subscriber_arn }}',
- '{{ region }}';
+  '{{ notification_configuration }}',
+  '{{ subscriber_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ UPDATE awscc.securitylake.subscriber_notifications
 SET PatchDocument = string('{{ {
     "NotificationConfiguration": notification_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subscriber_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subscriber_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ subscriber_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.subscriber_notifications
-WHERE Identifier = '{{ subscriber_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subscriber_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

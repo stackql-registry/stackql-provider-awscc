@@ -295,25 +295,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>patch_baseline</code>.
 ```sql
 SELECT
-region,
-id,
-default_baseline,
-operating_system,
-description,
-approval_rules,
-sources,
-name,
-rejected_patches,
-approved_patches,
-rejected_patches_action,
-patch_groups,
-approved_patches_compliance_level,
-approved_patches_enable_non_security,
-global_filters,
-available_security_updates_compliance_status,
-tags
+  region,
+  id,
+  default_baseline,
+  operating_system,
+  description,
+  approval_rules,
+  sources,
+  name,
+  rejected_patches,
+  approved_patches,
+  rejected_patches_action,
+  patch_groups,
+  approved_patches_compliance_level,
+  approved_patches_enable_non_security,
+  global_filters,
+  available_security_updates_compliance_status,
+  tags
 FROM awscc.ssm.patch_baselines
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -321,10 +323,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>patch_baselines</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ssm.patch_baselines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -346,12 +349,12 @@ Use the following StackQL query and manifest file to create a new <code>patch_ba
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.patch_baselines (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -359,40 +362,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.patch_baselines (
- DefaultBaseline,
- OperatingSystem,
- Description,
- ApprovalRules,
- Sources,
- Name,
- RejectedPatches,
- ApprovedPatches,
- RejectedPatchesAction,
- PatchGroups,
- ApprovedPatchesComplianceLevel,
- ApprovedPatchesEnableNonSecurity,
- GlobalFilters,
- AvailableSecurityUpdatesComplianceStatus,
- Tags,
- region
+  DefaultBaseline,
+  OperatingSystem,
+  Description,
+  ApprovalRules,
+  Sources,
+  Name,
+  RejectedPatches,
+  ApprovedPatches,
+  RejectedPatchesAction,
+  PatchGroups,
+  ApprovedPatchesComplianceLevel,
+  ApprovedPatchesEnableNonSecurity,
+  GlobalFilters,
+  AvailableSecurityUpdatesComplianceStatus,
+  Tags,
+  region
 )
 SELECT
- '{{ default_baseline }}',
- '{{ operating_system }}',
- '{{ description }}',
- '{{ approval_rules }}',
- '{{ sources }}',
- '{{ name }}',
- '{{ rejected_patches }}',
- '{{ approved_patches }}',
- '{{ rejected_patches_action }}',
- '{{ patch_groups }}',
- '{{ approved_patches_compliance_level }}',
- '{{ approved_patches_enable_non_security }}',
- '{{ global_filters }}',
- '{{ available_security_updates_compliance_status }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ default_baseline }}',
+  '{{ operating_system }}',
+  '{{ description }}',
+  '{{ approval_rules }}',
+  '{{ sources }}',
+  '{{ name }}',
+  '{{ rejected_patches }}',
+  '{{ approved_patches }}',
+  '{{ rejected_patches_action }}',
+  '{{ patch_groups }}',
+  '{{ approved_patches_compliance_level }}',
+  '{{ approved_patches_enable_non_security }}',
+  '{{ global_filters }}',
+  '{{ available_security_updates_compliance_status }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -485,8 +488,9 @@ SET PatchDocument = string('{{ {
     "AvailableSecurityUpdatesComplianceStatus": available_security_updates_compliance_status,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -495,8 +499,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.patch_baselines
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

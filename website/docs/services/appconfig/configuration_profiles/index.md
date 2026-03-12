@@ -215,21 +215,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_profile</code>.
 ```sql
 SELECT
-region,
-configuration_profile_id,
-location_uri,
-type,
-kms_key_identifier,
-description,
-kms_key_arn,
-validators,
-retrieval_role_arn,
-deletion_protection_check,
-application_id,
-tags,
-name
+  region,
+  configuration_profile_id,
+  location_uri,
+  type,
+  kms_key_identifier,
+  description,
+  kms_key_arn,
+  validators,
+  retrieval_role_arn,
+  deletion_protection_check,
+  application_id,
+  tags,
+  name
 FROM awscc.appconfig.configuration_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,11 +239,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configurati
 Lists all <code>configuration_profiles</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-configuration_profile_id
+  region,
+  application_id,
+  configuration_profile_id
 FROM awscc.appconfig.configuration_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,16 +266,16 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.configuration_profiles (
- LocationUri,
- ApplicationId,
- Name,
- region
+  LocationUri,
+  ApplicationId,
+  Name,
+  region
 )
 SELECT
-'{{ location_uri }}',
- '{{ application_id }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ location_uri }}',
+  '{{ application_id }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -280,30 +283,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.configuration_profiles (
- LocationUri,
- Type,
- KmsKeyIdentifier,
- Description,
- Validators,
- RetrievalRoleArn,
- DeletionProtectionCheck,
- ApplicationId,
- Tags,
- Name,
- region
+  LocationUri,
+  Type,
+  KmsKeyIdentifier,
+  Description,
+  Validators,
+  RetrievalRoleArn,
+  DeletionProtectionCheck,
+  ApplicationId,
+  Tags,
+  Name,
+  region
 )
 SELECT
- '{{ location_uri }}',
- '{{ type }}',
- '{{ kms_key_identifier }}',
- '{{ description }}',
- '{{ validators }}',
- '{{ retrieval_role_arn }}',
- '{{ deletion_protection_check }}',
- '{{ application_id }}',
- '{{ tags }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ location_uri }}',
+  '{{ type }}',
+  '{{ kms_key_identifier }}',
+  '{{ description }}',
+  '{{ validators }}',
+  '{{ retrieval_role_arn }}',
+  '{{ deletion_protection_check }}',
+  '{{ application_id }}',
+  '{{ tags }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.configuration_profiles
-WHERE Identifier = '{{ application_id }}|{{ configuration_profile_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ configuration_profile_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -185,17 +185,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>queue</code>.
 ```sql
 SELECT
-region,
-arn,
-cluster_id,
-compute_node_group_configurations,
-error_info,
-id,
-name,
-status,
-tags
+  region,
+  arn,
+  cluster_id,
+  compute_node_group_configurations,
+  error_info,
+  id,
+  name,
+  status,
+  tags
 FROM awscc.pcs.queues
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>queues</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.pcs.queues_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,12 +231,12 @@ Use the following StackQL query and manifest file to create a new <code>queue</c
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.queues (
- ClusterId,
- region
+  ClusterId,
+  region
 )
 SELECT
-'{{ cluster_id }}',
-'{{ region }}';
+  '{{ cluster_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -241,18 +244,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.queues (
- ClusterId,
- ComputeNodeGroupConfigurations,
- Name,
- Tags,
- region
+  ClusterId,
+  ComputeNodeGroupConfigurations,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_id }}',
- '{{ compute_node_group_configurations }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_id }}',
+  '{{ compute_node_group_configurations }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -293,8 +296,9 @@ SET PatchDocument = string('{{ {
     "ComputeNodeGroupConfigurations": compute_node_group_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -303,8 +307,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.queues
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

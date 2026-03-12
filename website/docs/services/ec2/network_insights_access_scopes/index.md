@@ -265,16 +265,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_insights_access_scope</code>.
 ```sql
 SELECT
-region,
-network_insights_access_scope_id,
-network_insights_access_scope_arn,
-created_date,
-updated_date,
-tags,
-match_paths,
-exclude_paths
+  region,
+  network_insights_access_scope_id,
+  network_insights_access_scope_arn,
+  created_date,
+  updated_date,
+  tags,
+  match_paths,
+  exclude_paths
 FROM awscc.ec2.network_insights_access_scopes
-WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_access_scope_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ network_insights_access_scope_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,10 +284,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_access_scope_id
 Lists all <code>network_insights_access_scopes</code> in a region.
 ```sql
 SELECT
-region,
-network_insights_access_scope_id
+  region,
+  network_insights_access_scope_id
 FROM awscc.ec2.network_insights_access_scopes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -307,16 +310,16 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_access_scopes (
- Tags,
- MatchPaths,
- ExcludePaths,
- region
+  Tags,
+  MatchPaths,
+  ExcludePaths,
+  region
 )
 SELECT
-'{{ tags }}',
- '{{ match_paths }}',
- '{{ exclude_paths }}',
-'{{ region }}';
+  '{{ tags }}',
+  '{{ match_paths }}',
+  '{{ exclude_paths }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -324,16 +327,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_insights_access_scopes (
- Tags,
- MatchPaths,
- ExcludePaths,
- region
+  Tags,
+  MatchPaths,
+  ExcludePaths,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ match_paths }}',
- '{{ exclude_paths }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ match_paths }}',
+  '{{ exclude_paths }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -397,8 +400,9 @@ UPDATE awscc.ec2.network_insights_access_scopes
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ network_insights_access_scope_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ network_insights_access_scope_id }}';
 ```
 
 
@@ -407,8 +411,9 @@ AND Identifier = '{{ network_insights_access_scope_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_access_scopes
-WHERE Identifier = '{{ network_insights_access_scope_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ network_insights_access_scope_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

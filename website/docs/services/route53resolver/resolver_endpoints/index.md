@@ -220,22 +220,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver_endpoint</code>.
 ```sql
 SELECT
-region,
-arn,
-direction,
-host_vpc_id,
-ip_address_count,
-ip_addresses,
-name,
-outpost_arn,
-preferred_instance_type,
-protocols,
-resolver_endpoint_id,
-resolver_endpoint_type,
-security_group_ids,
-tags
+  region,
+  arn,
+  direction,
+  host_vpc_id,
+  ip_address_count,
+  ip_addresses,
+  name,
+  outpost_arn,
+  preferred_instance_type,
+  protocols,
+  resolver_endpoint_id,
+  resolver_endpoint_type,
+  security_group_ids,
+  tags
 FROM awscc.route53resolver.resolver_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ resolver_endpoint_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resolver_endpoint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resolver_endpoint_id }}';
 Lists all <code>resolver_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-resolver_endpoint_id
+  region,
+  resolver_endpoint_id
 FROM awscc.route53resolver.resolver_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,16 +271,16 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_endpoints (
- Direction,
- IpAddresses,
- SecurityGroupIds,
- region
+  Direction,
+  IpAddresses,
+  SecurityGroupIds,
+  region
 )
 SELECT
-'{{ direction }}',
- '{{ ip_addresses }}',
- '{{ security_group_ids }}',
-'{{ region }}';
+  '{{ direction }}',
+  '{{ ip_addresses }}',
+  '{{ security_group_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,28 +288,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_endpoints (
- Direction,
- IpAddresses,
- Name,
- OutpostArn,
- PreferredInstanceType,
- Protocols,
- ResolverEndpointType,
- SecurityGroupIds,
- Tags,
- region
+  Direction,
+  IpAddresses,
+  Name,
+  OutpostArn,
+  PreferredInstanceType,
+  Protocols,
+  ResolverEndpointType,
+  SecurityGroupIds,
+  Tags,
+  region
 )
 SELECT
- '{{ direction }}',
- '{{ ip_addresses }}',
- '{{ name }}',
- '{{ outpost_arn }}',
- '{{ preferred_instance_type }}',
- '{{ protocols }}',
- '{{ resolver_endpoint_type }}',
- '{{ security_group_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ direction }}',
+  '{{ ip_addresses }}',
+  '{{ name }}',
+  '{{ outpost_arn }}',
+  '{{ preferred_instance_type }}',
+  '{{ protocols }}',
+  '{{ resolver_endpoint_type }}',
+  '{{ security_group_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -366,8 +369,9 @@ SET PatchDocument = string('{{ {
     "ResolverEndpointType": resolver_endpoint_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resolver_endpoint_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resolver_endpoint_id }}';
 ```
 
 
@@ -376,8 +380,9 @@ AND Identifier = '{{ resolver_endpoint_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_endpoints
-WHERE Identifier = '{{ resolver_endpoint_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resolver_endpoint_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

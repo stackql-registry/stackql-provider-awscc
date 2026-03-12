@@ -254,19 +254,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>launch</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-project,
-description,
-randomization_salt,
-scheduled_splits_config,
-groups,
-metric_monitors,
-tags,
-execution_status
+  region,
+  arn,
+  name,
+  project,
+  description,
+  randomization_salt,
+  scheduled_splits_config,
+  groups,
+  metric_monitors,
+  tags,
+  execution_status
 FROM awscc.evidently.launches
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -286,18 +288,18 @@ Use the following StackQL query and manifest file to create a new <code>launch</
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.launches (
- Name,
- Project,
- ScheduledSplitsConfig,
- Groups,
- region
+  Name,
+  Project,
+  ScheduledSplitsConfig,
+  Groups,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ project }}',
- '{{ scheduled_splits_config }}',
- '{{ groups }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ project }}',
+  '{{ scheduled_splits_config }}',
+  '{{ groups }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -305,28 +307,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.launches (
- Name,
- Project,
- Description,
- RandomizationSalt,
- ScheduledSplitsConfig,
- Groups,
- MetricMonitors,
- Tags,
- ExecutionStatus,
- region
+  Name,
+  Project,
+  Description,
+  RandomizationSalt,
+  ScheduledSplitsConfig,
+  Groups,
+  MetricMonitors,
+  Tags,
+  ExecutionStatus,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ project }}',
- '{{ description }}',
- '{{ randomization_salt }}',
- '{{ scheduled_splits_config }}',
- '{{ groups }}',
- '{{ metric_monitors }}',
- '{{ tags }}',
- '{{ execution_status }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ project }}',
+  '{{ description }}',
+  '{{ randomization_salt }}',
+  '{{ scheduled_splits_config }}',
+  '{{ groups }}',
+  '{{ metric_monitors }}',
+  '{{ tags }}',
+  '{{ execution_status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -404,8 +406,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ExecutionStatus": execution_status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -414,8 +417,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.launches
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

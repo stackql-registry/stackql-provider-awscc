@@ -220,24 +220,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>location_smb</code>.
 ```sql
 SELECT
-region,
-agent_arns,
-domain,
-mount_options,
-password,
-server_hostname,
-subdirectory,
-user,
-tags,
-location_arn,
-location_uri,
-authentication_type,
-dns_ip_addresses,
-kerberos_principal,
-kerberos_keytab,
-kerberos_krb5_conf
+  region,
+  agent_arns,
+  domain,
+  mount_options,
+  password,
+  server_hostname,
+  subdirectory,
+  user,
+  tags,
+  location_arn,
+  location_uri,
+  authentication_type,
+  dns_ip_addresses,
+  kerberos_principal,
+  kerberos_keytab,
+  kerberos_krb5_conf
 FROM awscc.datasync.location_smbs
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,10 +247,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>location_smbs</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.location_smbs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,12 +273,12 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_smbs (
- AgentArns,
- region
+  AgentArns,
+  region
 )
 SELECT
-'{{ agent_arns }}',
-'{{ region }}';
+  '{{ agent_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,36 +286,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_smbs (
- AgentArns,
- Domain,
- MountOptions,
- Password,
- ServerHostname,
- Subdirectory,
- User,
- Tags,
- AuthenticationType,
- DnsIpAddresses,
- KerberosPrincipal,
- KerberosKeytab,
- KerberosKrb5Conf,
- region
+  AgentArns,
+  Domain,
+  MountOptions,
+  Password,
+  ServerHostname,
+  Subdirectory,
+  User,
+  Tags,
+  AuthenticationType,
+  DnsIpAddresses,
+  KerberosPrincipal,
+  KerberosKeytab,
+  KerberosKrb5Conf,
+  region
 )
 SELECT
- '{{ agent_arns }}',
- '{{ domain }}',
- '{{ mount_options }}',
- '{{ password }}',
- '{{ server_hostname }}',
- '{{ subdirectory }}',
- '{{ user }}',
- '{{ tags }}',
- '{{ authentication_type }}',
- '{{ dns_ip_addresses }}',
- '{{ kerberos_principal }}',
- '{{ kerberos_keytab }}',
- '{{ kerberos_krb5_conf }}',
- '{{ region }}';
+  '{{ agent_arns }}',
+  '{{ domain }}',
+  '{{ mount_options }}',
+  '{{ password }}',
+  '{{ server_hostname }}',
+  '{{ subdirectory }}',
+  '{{ user }}',
+  '{{ tags }}',
+  '{{ authentication_type }}',
+  '{{ dns_ip_addresses }}',
+  '{{ kerberos_principal }}',
+  '{{ kerberos_keytab }}',
+  '{{ kerberos_krb5_conf }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -386,8 +389,9 @@ SET PatchDocument = string('{{ {
     "KerberosKeytab": kerberos_keytab,
     "KerberosKrb5Conf": kerberos_krb5_conf
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -396,8 +400,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_smbs
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

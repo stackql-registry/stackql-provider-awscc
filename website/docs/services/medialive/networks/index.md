@@ -197,17 +197,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network</code>.
 ```sql
 SELECT
-region,
-arn,
-associated_cluster_ids,
-id,
-ip_pools,
-name,
-routes,
-state,
-tags
+  region,
+  arn,
+  associated_cluster_ids,
+  id,
+  ip_pools,
+  name,
+  routes,
+  state,
+  tags
 FROM awscc.medialive.networks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,10 +217,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>networks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.medialive.networks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,14 +243,14 @@ Use the following StackQL query and manifest file to create a new <code>network<
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.networks (
- IpPools,
- Name,
- region
+  IpPools,
+  Name,
+  region
 )
 SELECT
-'{{ ip_pools }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ ip_pools }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,18 +258,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.networks (
- IpPools,
- Name,
- Routes,
- Tags,
- region
+  IpPools,
+  Name,
+  Routes,
+  Tags,
+  region
 )
 SELECT
- '{{ ip_pools }}',
- '{{ name }}',
- '{{ routes }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ip_pools }}',
+  '{{ name }}',
+  '{{ routes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "Routes": routes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.networks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

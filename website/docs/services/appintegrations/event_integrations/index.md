@@ -175,15 +175,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_integration</code>.
 ```sql
 SELECT
-region,
-description,
-event_integration_arn,
-name,
-event_bridge_bus,
-event_filter,
-tags
+  region,
+  description,
+  event_integration_arn,
+  name,
+  event_bridge_bus,
+  event_filter,
+  tags
 FROM awscc.appintegrations.event_integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -191,10 +193,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>event_integrations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.appintegrations.event_integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -216,16 +219,16 @@ Use the following StackQL query and manifest file to create a new <code>event_in
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.event_integrations (
- Name,
- EventBridgeBus,
- EventFilter,
- region
+  Name,
+  EventBridgeBus,
+  EventFilter,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ event_bridge_bus }}',
- '{{ event_filter }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ event_bridge_bus }}',
+  '{{ event_filter }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -233,20 +236,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appintegrations.event_integrations (
- Description,
- Name,
- EventBridgeBus,
- EventFilter,
- Tags,
- region
+  Description,
+  Name,
+  EventBridgeBus,
+  EventFilter,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ event_bridge_bus }}',
- '{{ event_filter }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ event_bridge_bus }}',
+  '{{ event_filter }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.event_integrations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

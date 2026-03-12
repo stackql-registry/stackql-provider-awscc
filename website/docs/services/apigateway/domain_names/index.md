@@ -237,23 +237,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name</code>.
 ```sql
 SELECT
-region,
-domain_name,
-domain_name_arn,
-distribution_domain_name,
-distribution_hosted_zone_id,
-endpoint_configuration,
-mutual_tls_authentication,
-regional_domain_name,
-regional_hosted_zone_id,
-certificate_arn,
-regional_certificate_arn,
-ownership_verification_certificate_arn,
-security_policy,
-routing_mode,
-tags
+  region,
+  domain_name,
+  domain_name_arn,
+  distribution_domain_name,
+  distribution_hosted_zone_id,
+  endpoint_configuration,
+  mutual_tls_authentication,
+  regional_domain_name,
+  regional_hosted_zone_id,
+  certificate_arn,
+  regional_certificate_arn,
+  ownership_verification_certificate_arn,
+  security_policy,
+  routing_mode,
+  tags
 FROM awscc.apigateway.domain_names
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,10 +263,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 Lists all <code>domain_names</code> in a region.
 ```sql
 SELECT
-region,
-domain_name
+  region,
+  domain_name
 FROM awscc.apigateway.domain_names_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -286,28 +289,28 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_names (
- DomainName,
- EndpointConfiguration,
- MutualTlsAuthentication,
- CertificateArn,
- RegionalCertificateArn,
- OwnershipVerificationCertificateArn,
- SecurityPolicy,
- RoutingMode,
- Tags,
- region
+  DomainName,
+  EndpointConfiguration,
+  MutualTlsAuthentication,
+  CertificateArn,
+  RegionalCertificateArn,
+  OwnershipVerificationCertificateArn,
+  SecurityPolicy,
+  RoutingMode,
+  Tags,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ endpoint_configuration }}',
- '{{ mutual_tls_authentication }}',
- '{{ certificate_arn }}',
- '{{ regional_certificate_arn }}',
- '{{ ownership_verification_certificate_arn }}',
- '{{ security_policy }}',
- '{{ routing_mode }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ endpoint_configuration }}',
+  '{{ mutual_tls_authentication }}',
+  '{{ certificate_arn }}',
+  '{{ regional_certificate_arn }}',
+  '{{ ownership_verification_certificate_arn }}',
+  '{{ security_policy }}',
+  '{{ routing_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -315,28 +318,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_names (
- DomainName,
- EndpointConfiguration,
- MutualTlsAuthentication,
- CertificateArn,
- RegionalCertificateArn,
- OwnershipVerificationCertificateArn,
- SecurityPolicy,
- RoutingMode,
- Tags,
- region
+  DomainName,
+  EndpointConfiguration,
+  MutualTlsAuthentication,
+  CertificateArn,
+  RegionalCertificateArn,
+  OwnershipVerificationCertificateArn,
+  SecurityPolicy,
+  RoutingMode,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ endpoint_configuration }}',
- '{{ mutual_tls_authentication }}',
- '{{ certificate_arn }}',
- '{{ regional_certificate_arn }}',
- '{{ ownership_verification_certificate_arn }}',
- '{{ security_policy }}',
- '{{ routing_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ endpoint_configuration }}',
+  '{{ mutual_tls_authentication }}',
+  '{{ certificate_arn }}',
+  '{{ regional_certificate_arn }}',
+  '{{ ownership_verification_certificate_arn }}',
+  '{{ security_policy }}',
+  '{{ routing_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -401,8 +404,9 @@ SET PatchDocument = string('{{ {
     "RoutingMode": routing_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -411,8 +415,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_names
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

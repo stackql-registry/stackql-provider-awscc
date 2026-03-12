@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>extension_association</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-extension_arn,
-resource_arn,
-extension_identifier,
-resource_identifier,
-extension_version_number,
-parameters,
-tags
+  region,
+  id,
+  arn,
+  extension_arn,
+  resource_arn,
+  extension_identifier,
+  resource_identifier,
+  extension_version_number,
+  parameters,
+  tags
 FROM awscc.appconfig.extension_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>extension_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.appconfig.extension_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,20 +230,20 @@ Use the following StackQL query and manifest file to create a new <code>extensio
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.extension_associations (
- ExtensionIdentifier,
- ResourceIdentifier,
- ExtensionVersionNumber,
- Parameters,
- Tags,
- region
+  ExtensionIdentifier,
+  ResourceIdentifier,
+  ExtensionVersionNumber,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
-'{{ extension_identifier }}',
- '{{ resource_identifier }}',
- '{{ extension_version_number }}',
- '{{ parameters }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ extension_identifier }}',
+  '{{ resource_identifier }}',
+  '{{ extension_version_number }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -248,20 +251,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.extension_associations (
- ExtensionIdentifier,
- ResourceIdentifier,
- ExtensionVersionNumber,
- Parameters,
- Tags,
- region
+  ExtensionIdentifier,
+  ResourceIdentifier,
+  ExtensionVersionNumber,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ extension_identifier }}',
- '{{ resource_identifier }}',
- '{{ extension_version_number }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ extension_identifier }}',
+  '{{ resource_identifier }}',
+  '{{ extension_version_number }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -305,8 +308,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -315,8 +319,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.extension_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

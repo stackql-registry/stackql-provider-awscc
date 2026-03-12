@@ -141,13 +141,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_control</code>.
 ```sql
 SELECT
-region,
-security_control_id,
-security_control_arn,
-last_update_reason,
-parameters
+  region,
+  security_control_id,
+  security_control_arn,
+  last_update_reason,
+  parameters
 FROM awscc.securityhub.security_controls
-WHERE region = 'us-east-1' AND Identifier = '{{ security_control_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ security_control_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -155,10 +157,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ security_control_id }}';
 Lists all <code>security_controls</code> in a region.
 ```sql
 SELECT
-region,
-security_control_id
+  region,
+  security_control_id
 FROM awscc.securityhub.security_controls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -180,12 +183,12 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.security_controls (
- Parameters,
- region
+  Parameters,
+  region
 )
 SELECT
-'{{ parameters }}',
-'{{ region }}';
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -193,18 +196,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.security_controls (
- SecurityControlId,
- SecurityControlArn,
- LastUpdateReason,
- Parameters,
- region
+  SecurityControlId,
+  SecurityControlArn,
+  LastUpdateReason,
+  Parameters,
+  region
 )
 SELECT
- '{{ security_control_id }}',
- '{{ security_control_arn }}',
- '{{ last_update_reason }}',
- '{{ parameters }}',
- '{{ region }}';
+  '{{ security_control_id }}',
+  '{{ security_control_arn }}',
+  '{{ last_update_reason }}',
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +248,9 @@ SET PatchDocument = string('{{ {
     "LastUpdateReason": last_update_reason,
     "Parameters": parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ security_control_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ security_control_id }}';
 ```
 
 
@@ -255,8 +259,9 @@ AND Identifier = '{{ security_control_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.security_controls
-WHERE Identifier = '{{ security_control_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ security_control_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -237,19 +237,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>capacity_reservation_fleet</code>.
 ```sql
 SELECT
-region,
-allocation_strategy,
-tag_specifications,
-instance_type_specifications,
-total_target_capacity,
-end_date,
-instance_match_criteria,
-capacity_reservation_fleet_id,
-tenancy,
-remove_end_date,
-no_remove_end_date
+  region,
+  allocation_strategy,
+  tag_specifications,
+  instance_type_specifications,
+  total_target_capacity,
+  end_date,
+  instance_match_criteria,
+  capacity_reservation_fleet_id,
+  tenancy,
+  remove_end_date,
+  no_remove_end_date
 FROM awscc.ec2.capacity_reservation_fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ capacity_reservation_fleet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ capacity_reservation_fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +259,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ capacity_reservation_fleet_id }}
 Lists all <code>capacity_reservation_fleets</code> in a region.
 ```sql
 SELECT
-region,
-capacity_reservation_fleet_id
+  region,
+  capacity_reservation_fleet_id
 FROM awscc.ec2.capacity_reservation_fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -282,28 +285,28 @@ Use the following StackQL query and manifest file to create a new <code>capacity
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.capacity_reservation_fleets (
- AllocationStrategy,
- TagSpecifications,
- InstanceTypeSpecifications,
- TotalTargetCapacity,
- EndDate,
- InstanceMatchCriteria,
- Tenancy,
- RemoveEndDate,
- NoRemoveEndDate,
- region
+  AllocationStrategy,
+  TagSpecifications,
+  InstanceTypeSpecifications,
+  TotalTargetCapacity,
+  EndDate,
+  InstanceMatchCriteria,
+  Tenancy,
+  RemoveEndDate,
+  NoRemoveEndDate,
+  region
 )
 SELECT
-'{{ allocation_strategy }}',
- '{{ tag_specifications }}',
- '{{ instance_type_specifications }}',
- '{{ total_target_capacity }}',
- '{{ end_date }}',
- '{{ instance_match_criteria }}',
- '{{ tenancy }}',
- '{{ remove_end_date }}',
- '{{ no_remove_end_date }}',
-'{{ region }}';
+  '{{ allocation_strategy }}',
+  '{{ tag_specifications }}',
+  '{{ instance_type_specifications }}',
+  '{{ total_target_capacity }}',
+  '{{ end_date }}',
+  '{{ instance_match_criteria }}',
+  '{{ tenancy }}',
+  '{{ remove_end_date }}',
+  '{{ no_remove_end_date }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -311,28 +314,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.capacity_reservation_fleets (
- AllocationStrategy,
- TagSpecifications,
- InstanceTypeSpecifications,
- TotalTargetCapacity,
- EndDate,
- InstanceMatchCriteria,
- Tenancy,
- RemoveEndDate,
- NoRemoveEndDate,
- region
+  AllocationStrategy,
+  TagSpecifications,
+  InstanceTypeSpecifications,
+  TotalTargetCapacity,
+  EndDate,
+  InstanceMatchCriteria,
+  Tenancy,
+  RemoveEndDate,
+  NoRemoveEndDate,
+  region
 )
 SELECT
- '{{ allocation_strategy }}',
- '{{ tag_specifications }}',
- '{{ instance_type_specifications }}',
- '{{ total_target_capacity }}',
- '{{ end_date }}',
- '{{ instance_match_criteria }}',
- '{{ tenancy }}',
- '{{ remove_end_date }}',
- '{{ no_remove_end_date }}',
- '{{ region }}';
+  '{{ allocation_strategy }}',
+  '{{ tag_specifications }}',
+  '{{ instance_type_specifications }}',
+  '{{ total_target_capacity }}',
+  '{{ end_date }}',
+  '{{ instance_match_criteria }}',
+  '{{ tenancy }}',
+  '{{ remove_end_date }}',
+  '{{ no_remove_end_date }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -394,8 +397,9 @@ SET PatchDocument = string('{{ {
     "RemoveEndDate": remove_end_date,
     "NoRemoveEndDate": no_remove_end_date
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ capacity_reservation_fleet_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ capacity_reservation_fleet_id }}';
 ```
 
 
@@ -404,8 +408,9 @@ AND Identifier = '{{ capacity_reservation_fleet_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.capacity_reservation_fleets
-WHERE Identifier = '{{ capacity_reservation_fleet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ capacity_reservation_fleet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

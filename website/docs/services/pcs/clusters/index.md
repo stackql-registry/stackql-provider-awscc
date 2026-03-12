@@ -307,20 +307,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-arn,
-endpoints,
-error_info,
-id,
-name,
-networking,
-scheduler,
-size,
-slurm_configuration,
-status,
-tags
+  region,
+  arn,
+  endpoints,
+  error_info,
+  id,
+  name,
+  networking,
+  scheduler,
+  size,
+  slurm_configuration,
+  status,
+  tags
 FROM awscc.pcs.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,10 +330,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.pcs.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -353,16 +356,16 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.clusters (
- Networking,
- Scheduler,
- Size,
- region
+  Networking,
+  Scheduler,
+  Size,
+  region
 )
 SELECT
-'{{ networking }}',
- '{{ scheduler }}',
- '{{ size }}',
-'{{ region }}';
+  '{{ networking }}',
+  '{{ scheduler }}',
+  '{{ size }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -370,22 +373,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcs.clusters (
- Name,
- Networking,
- Scheduler,
- Size,
- SlurmConfiguration,
- Tags,
- region
+  Name,
+  Networking,
+  Scheduler,
+  Size,
+  SlurmConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ networking }}',
- '{{ scheduler }}',
- '{{ size }}',
- '{{ slurm_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ networking }}',
+  '{{ scheduler }}',
+  '{{ size }}',
+  '{{ slurm_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -445,8 +448,9 @@ UPDATE awscc.pcs.clusters
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -455,8 +459,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.clusters
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

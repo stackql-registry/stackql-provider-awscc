@@ -232,19 +232,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route</code>.
 ```sql
 SELECT
-region,
-path_resource_to_id,
-arn,
-application_identifier,
-environment_identifier,
-route_identifier,
-route_type,
-service_identifier,
-default_route,
-uri_path_route,
-tags
+  region,
+  path_resource_to_id,
+  arn,
+  application_identifier,
+  environment_identifier,
+  route_identifier,
+  route_type,
+  service_identifier,
+  default_route,
+  uri_path_route,
+  tags
 FROM awscc.refactorspaces.routes
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,12 +254,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ app
 Lists all <code>routes</code> in a region.
 ```sql
 SELECT
-region,
-environment_identifier,
-application_identifier,
-route_identifier
+  region,
+  environment_identifier,
+  application_identifier,
+  route_identifier
 FROM awscc.refactorspaces.routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -279,18 +282,18 @@ Use the following StackQL query and manifest file to create a new <code>route</c
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.routes (
- ApplicationIdentifier,
- EnvironmentIdentifier,
- RouteType,
- ServiceIdentifier,
- region
+  ApplicationIdentifier,
+  EnvironmentIdentifier,
+  RouteType,
+  ServiceIdentifier,
+  region
 )
 SELECT
-'{{ application_identifier }}',
- '{{ environment_identifier }}',
- '{{ route_type }}',
- '{{ service_identifier }}',
-'{{ region }}';
+  '{{ application_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ route_type }}',
+  '{{ service_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -298,24 +301,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.routes (
- ApplicationIdentifier,
- EnvironmentIdentifier,
- RouteType,
- ServiceIdentifier,
- DefaultRoute,
- UriPathRoute,
- Tags,
- region
+  ApplicationIdentifier,
+  EnvironmentIdentifier,
+  RouteType,
+  ServiceIdentifier,
+  DefaultRoute,
+  UriPathRoute,
+  Tags,
+  region
 )
 SELECT
- '{{ application_identifier }}',
- '{{ environment_identifier }}',
- '{{ route_type }}',
- '{{ service_identifier }}',
- '{{ default_route }}',
- '{{ uri_path_route }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ application_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ route_type }}',
+  '{{ service_identifier }}',
+  '{{ default_route }}',
+  '{{ uri_path_route }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -370,8 +373,9 @@ SET PatchDocument = string('{{ {
     "DefaultRoute": default_route,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
 ```
 
 
@@ -380,8 +384,9 @@ AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ r
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.routes
-WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

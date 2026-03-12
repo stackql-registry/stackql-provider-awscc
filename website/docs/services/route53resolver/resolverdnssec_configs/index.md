@@ -140,13 +140,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolverdnssec_config</code>.
 ```sql
 SELECT
-region,
-id,
-owner_id,
-resource_id,
-validation_status
+  region,
+  id,
+  owner_id,
+  resource_id,
+  validation_status
 FROM awscc.route53resolver.resolverdnssec_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>resolverdnssec_configs</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53resolver.resolverdnssec_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolverdnssec_configs (
- ResourceId,
- region
+  ResourceId,
+  region
 )
 SELECT
-'{{ resource_id }}',
-'{{ region }}';
+  '{{ resource_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,12 +195,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolverdnssec_configs (
- ResourceId,
- region
+  ResourceId,
+  region
 )
 SELECT
- '{{ resource_id }}',
- '{{ region }}';
+  '{{ resource_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolverdnssec_configs
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

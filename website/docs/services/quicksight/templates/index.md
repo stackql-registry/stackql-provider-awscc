@@ -847,7 +847,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
   {
     "name": "validation_strategy",
     "type": "object",
-    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, validation is skipped for specific errors.</p>",
+    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p>",
     "children": [
       {
         "name": "mode",
@@ -1122,22 +1122,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>template</code>.
 ```sql
 SELECT
-region,
-created_time,
-version_description,
-source_entity,
-definition,
-last_updated_time,
-validation_strategy,
-name,
-version,
-aws_account_id,
-permissions,
-arn,
-tags,
-template_id
+  region,
+  created_time,
+  version_description,
+  source_entity,
+  definition,
+  last_updated_time,
+  validation_strategy,
+  name,
+  version,
+  aws_account_id,
+  permissions,
+  arn,
+  tags,
+  template_id
 FROM awscc.quicksight.templates
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ template_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ template_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1145,11 +1147,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ template_id
 Lists all <code>templates</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-template_id
+  region,
+  aws_account_id,
+  template_id
 FROM awscc.quicksight.templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1171,14 +1174,14 @@ Use the following StackQL query and manifest file to create a new <code>template
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.templates (
- AwsAccountId,
- TemplateId,
- region
+  AwsAccountId,
+  TemplateId,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ template_id }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ template_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1186,28 +1189,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.templates (
- VersionDescription,
- SourceEntity,
- Definition,
- ValidationStrategy,
- Name,
- AwsAccountId,
- Permissions,
- Tags,
- TemplateId,
- region
+  VersionDescription,
+  SourceEntity,
+  Definition,
+  ValidationStrategy,
+  Name,
+  AwsAccountId,
+  Permissions,
+  Tags,
+  TemplateId,
+  region
 )
 SELECT
- '{{ version_description }}',
- '{{ source_entity }}',
- '{{ definition }}',
- '{{ validation_strategy }}',
- '{{ name }}',
- '{{ aws_account_id }}',
- '{{ permissions }}',
- '{{ tags }}',
- '{{ template_id }}',
- '{{ region }}';
+  '{{ version_description }}',
+  '{{ source_entity }}',
+  '{{ definition }}',
+  '{{ validation_strategy }}',
+  '{{ name }}',
+  '{{ aws_account_id }}',
+  '{{ permissions }}',
+  '{{ tags }}',
+  '{{ template_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -3157,8 +3160,9 @@ SET PatchDocument = string('{{ {
     "Permissions": permissions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ template_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ template_id }}';
 ```
 
 
@@ -3167,8 +3171,9 @@ AND Identifier = '{{ aws_account_id }}|{{ template_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.templates
-WHERE Identifier = '{{ aws_account_id }}|{{ template_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ template_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

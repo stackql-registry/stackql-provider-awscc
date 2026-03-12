@@ -185,16 +185,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_analyzer_configuration</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-trace_content,
-wireless_devices,
-wireless_gateways,
-arn,
-tags
+  region,
+  name,
+  description,
+  trace_content,
+  wireless_devices,
+  wireless_gateways,
+  arn,
+  tags
 FROM awscc.iotwireless.network_analyzer_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>network_analyzer_configurations</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotwireless.network_analyzer_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,12 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.network_analyzer_configurations (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -240,22 +243,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.network_analyzer_configurations (
- Name,
- Description,
- TraceContent,
- WirelessDevices,
- WirelessGateways,
- Tags,
- region
+  Name,
+  Description,
+  TraceContent,
+  WirelessDevices,
+  WirelessGateways,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ trace_content }}',
- '{{ wireless_devices }}',
- '{{ wireless_gateways }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ trace_content }}',
+  '{{ wireless_devices }}',
+  '{{ wireless_gateways }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ SET PatchDocument = string('{{ {
     "WirelessGateways": wireless_gateways,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -318,8 +322,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.network_analyzer_configurations
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

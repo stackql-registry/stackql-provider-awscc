@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>route_server_association</code>.
 ```sql
 SELECT
-region,
-route_server_id,
-vpc_id
+  region,
+  route_server_id,
+  vpc_id
 FROM awscc.ec2.route_server_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ route_server_id }}|{{ vpc_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ route_server_id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ route_server_id }}|{{ vpc_id }}'
 Lists all <code>route_server_associations</code> in a region.
 ```sql
 SELECT
-region,
-route_server_id,
-vpc_id
+  region,
+  route_server_id,
+  vpc_id
 FROM awscc.ec2.route_server_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>route_se
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_associations (
- RouteServerId,
- VpcId,
- region
+  RouteServerId,
+  VpcId,
+  region
 )
 SELECT
-'{{ route_server_id }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ route_server_id }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.route_server_associations (
- RouteServerId,
- VpcId,
- region
+  RouteServerId,
+  VpcId,
+  region
 )
 SELECT
- '{{ route_server_id }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ route_server_id }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_associations
-WHERE Identifier = '{{ route_server_id }}|{{ vpc_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ route_server_id }}|{{ vpc_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

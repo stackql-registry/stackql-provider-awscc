@@ -140,13 +140,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>usage_plan_key</code>.
 ```sql
 SELECT
-region,
-key_id,
-key_type,
-usage_plan_id,
-id
+  region,
+  key_id,
+  key_type,
+  usage_plan_id,
+  id
 FROM awscc.apigateway.usage_plan_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>usage_plan_keys</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.apigateway.usage_plan_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,16 +182,16 @@ Use the following StackQL query and manifest file to create a new <code>usage_pl
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.usage_plan_keys (
- KeyId,
- KeyType,
- UsagePlanId,
- region
+  KeyId,
+  KeyType,
+  UsagePlanId,
+  region
 )
 SELECT
-'{{ key_id }}',
- '{{ key_type }}',
- '{{ usage_plan_id }}',
-'{{ region }}';
+  '{{ key_id }}',
+  '{{ key_type }}',
+  '{{ usage_plan_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -196,16 +199,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.usage_plan_keys (
- KeyId,
- KeyType,
- UsagePlanId,
- region
+  KeyId,
+  KeyType,
+  UsagePlanId,
+  region
 )
 SELECT
- '{{ key_id }}',
- '{{ key_type }}',
- '{{ usage_plan_id }}',
- '{{ region }}';
+  '{{ key_id }}',
+  '{{ key_type }}',
+  '{{ usage_plan_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -238,8 +241,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.usage_plan_keys
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

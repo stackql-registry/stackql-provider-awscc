@@ -577,17 +577,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>packaging_configuration</code>.
 ```sql
 SELECT
-region,
-id,
-packaging_group_id,
-arn,
-cmaf_package,
-dash_package,
-hls_package,
-mss_package,
-tags
+  region,
+  id,
+  packaging_group_id,
+  arn,
+  cmaf_package,
+  dash_package,
+  hls_package,
+  mss_package,
+  tags
 FROM awscc.mediapackage.packaging_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -595,10 +597,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>packaging_configurations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.mediapackage.packaging_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -620,14 +623,14 @@ Use the following StackQL query and manifest file to create a new <code>packagin
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.packaging_configurations (
- Id,
- PackagingGroupId,
- region
+  Id,
+  PackagingGroupId,
+  region
 )
 SELECT
-'{{ id }}',
- '{{ packaging_group_id }}',
-'{{ region }}';
+  '{{ id }}',
+  '{{ packaging_group_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -635,24 +638,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.packaging_configurations (
- Id,
- PackagingGroupId,
- CmafPackage,
- DashPackage,
- HlsPackage,
- MssPackage,
- Tags,
- region
+  Id,
+  PackagingGroupId,
+  CmafPackage,
+  DashPackage,
+  HlsPackage,
+  MssPackage,
+  Tags,
+  region
 )
 SELECT
- '{{ id }}',
- '{{ packaging_group_id }}',
- '{{ cmaf_package }}',
- '{{ dash_package }}',
- '{{ hls_package }}',
- '{{ mss_package }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ id }}',
+  '{{ packaging_group_id }}',
+  '{{ cmaf_package }}',
+  '{{ dash_package }}',
+  '{{ hls_package }}',
+  '{{ mss_package }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -746,8 +749,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.packaging_configurations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

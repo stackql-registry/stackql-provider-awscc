@@ -409,32 +409,34 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>verified_access_endpoint</code>.
 ```sql
 SELECT
-region,
-verified_access_endpoint_id,
-verified_access_group_id,
-verified_access_instance_id,
-status,
-security_group_ids,
-network_interface_options,
-load_balancer_options,
-rds_options,
-cidr_options,
-endpoint_type,
-endpoint_domain,
-endpoint_domain_prefix,
-device_validation_domain,
-domain_certificate_arn,
-attachment_type,
-application_domain,
-creation_time,
-last_updated_time,
-description,
-policy_document,
-policy_enabled,
-tags,
-sse_specification
+  region,
+  verified_access_endpoint_id,
+  verified_access_group_id,
+  verified_access_instance_id,
+  status,
+  security_group_ids,
+  network_interface_options,
+  load_balancer_options,
+  rds_options,
+  cidr_options,
+  endpoint_type,
+  endpoint_domain,
+  endpoint_domain_prefix,
+  device_validation_domain,
+  domain_certificate_arn,
+  attachment_type,
+  application_domain,
+  creation_time,
+  last_updated_time,
+  description,
+  policy_document,
+  policy_enabled,
+  tags,
+  sse_specification
 FROM awscc.ec2.verified_access_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_endpoint_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ verified_access_endpoint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -442,10 +444,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_endpoint_id }}';
 Lists all <code>verified_access_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-verified_access_endpoint_id
+  region,
+  verified_access_endpoint_id
 FROM awscc.ec2.verified_access_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -467,16 +470,16 @@ Use the following StackQL query and manifest file to create a new <code>verified
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_endpoints (
- VerifiedAccessGroupId,
- EndpointType,
- AttachmentType,
- region
+  VerifiedAccessGroupId,
+  EndpointType,
+  AttachmentType,
+  region
 )
 SELECT
-'{{ verified_access_group_id }}',
- '{{ endpoint_type }}',
- '{{ attachment_type }}',
-'{{ region }}';
+  '{{ verified_access_group_id }}',
+  '{{ endpoint_type }}',
+  '{{ attachment_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -484,42 +487,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.verified_access_endpoints (
- VerifiedAccessGroupId,
- SecurityGroupIds,
- NetworkInterfaceOptions,
- LoadBalancerOptions,
- RdsOptions,
- CidrOptions,
- EndpointType,
- EndpointDomainPrefix,
- DomainCertificateArn,
- AttachmentType,
- ApplicationDomain,
- Description,
- PolicyDocument,
- PolicyEnabled,
- Tags,
- SseSpecification,
- region
+  VerifiedAccessGroupId,
+  SecurityGroupIds,
+  NetworkInterfaceOptions,
+  LoadBalancerOptions,
+  RdsOptions,
+  CidrOptions,
+  EndpointType,
+  EndpointDomainPrefix,
+  DomainCertificateArn,
+  AttachmentType,
+  ApplicationDomain,
+  Description,
+  PolicyDocument,
+  PolicyEnabled,
+  Tags,
+  SseSpecification,
+  region
 )
 SELECT
- '{{ verified_access_group_id }}',
- '{{ security_group_ids }}',
- '{{ network_interface_options }}',
- '{{ load_balancer_options }}',
- '{{ rds_options }}',
- '{{ cidr_options }}',
- '{{ endpoint_type }}',
- '{{ endpoint_domain_prefix }}',
- '{{ domain_certificate_arn }}',
- '{{ attachment_type }}',
- '{{ application_domain }}',
- '{{ description }}',
- '{{ policy_document }}',
- '{{ policy_enabled }}',
- '{{ tags }}',
- '{{ sse_specification }}',
- '{{ region }}';
+  '{{ verified_access_group_id }}',
+  '{{ security_group_ids }}',
+  '{{ network_interface_options }}',
+  '{{ load_balancer_options }}',
+  '{{ rds_options }}',
+  '{{ cidr_options }}',
+  '{{ endpoint_type }}',
+  '{{ endpoint_domain_prefix }}',
+  '{{ domain_certificate_arn }}',
+  '{{ attachment_type }}',
+  '{{ application_domain }}',
+  '{{ description }}',
+  '{{ policy_document }}',
+  '{{ policy_enabled }}',
+  '{{ tags }}',
+  '{{ sse_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -619,8 +622,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "SseSpecification": sse_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ verified_access_endpoint_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ verified_access_endpoint_id }}';
 ```
 
 
@@ -629,8 +633,9 @@ AND Identifier = '{{ verified_access_endpoint_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_endpoints
-WHERE Identifier = '{{ verified_access_endpoint_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ verified_access_endpoint_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

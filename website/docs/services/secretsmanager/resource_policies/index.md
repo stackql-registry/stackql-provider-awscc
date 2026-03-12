@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-id,
-secret_id,
-resource_policy,
-block_public_policy
+  region,
+  id,
+  secret_id,
+  resource_policy,
+  block_public_policy
 FROM awscc.secretsmanager.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>resource_policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.secretsmanager.resource_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,14 +188,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.resource_policies (
- SecretId,
- ResourcePolicy,
- region
+  SecretId,
+  ResourcePolicy,
+  region
 )
 SELECT
-'{{ secret_id }}',
- '{{ resource_policy }}',
-'{{ region }}';
+  '{{ secret_id }}',
+  '{{ resource_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -200,16 +203,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.secretsmanager.resource_policies (
- SecretId,
- ResourcePolicy,
- BlockPublicPolicy,
- region
+  SecretId,
+  ResourcePolicy,
+  BlockPublicPolicy,
+  region
 )
 SELECT
- '{{ secret_id }}',
- '{{ resource_policy }}',
- '{{ block_public_policy }}',
- '{{ region }}';
+  '{{ secret_id }}',
+  '{{ resource_policy }}',
+  '{{ block_public_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -247,8 +250,9 @@ SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy,
     "BlockPublicPolicy": block_public_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -257,8 +261,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.resource_policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

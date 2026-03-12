@@ -185,17 +185,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_network</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-id,
-last_updated_at,
-name,
-auth_type,
-tags,
-sharing_config
+  region,
+  arn,
+  created_at,
+  id,
+  last_updated_at,
+  name,
+  auth_type,
+  tags,
+  sharing_config
 FROM awscc.vpclattice.service_networks
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>service_networks</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.vpclattice.service_networks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,18 +231,18 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_networks (
- Name,
- AuthType,
- Tags,
- SharingConfig,
- region
+  Name,
+  AuthType,
+  Tags,
+  SharingConfig,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ auth_type }}',
- '{{ tags }}',
- '{{ sharing_config }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ auth_type }}',
+  '{{ tags }}',
+  '{{ sharing_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -247,18 +250,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.service_networks (
- Name,
- AuthType,
- Tags,
- SharingConfig,
- region
+  Name,
+  AuthType,
+  Tags,
+  SharingConfig,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ auth_type }}',
- '{{ tags }}',
- '{{ sharing_config }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ auth_type }}',
+  '{{ tags }}',
+  '{{ sharing_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -302,8 +305,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "SharingConfig": sharing_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -312,8 +316,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_networks
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

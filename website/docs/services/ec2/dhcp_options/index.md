@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dhcp_option</code>.
 ```sql
 SELECT
-region,
-dhcp_options_id,
-domain_name,
-domain_name_servers,
-netbios_name_servers,
-netbios_node_type,
-ntp_servers,
-ipv6_address_preferred_lease_time,
-tags
+  region,
+  dhcp_options_id,
+  domain_name,
+  domain_name_servers,
+  netbios_name_servers,
+  netbios_node_type,
+  ntp_servers,
+  ipv6_address_preferred_lease_time,
+  tags
 FROM awscc.ec2.dhcp_options
-WHERE region = 'us-east-1' AND Identifier = '{{ dhcp_options_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dhcp_options_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dhcp_options_id }}';
 Lists all <code>dhcp_options</code> in a region.
 ```sql
 SELECT
-region,
-dhcp_options_id
+  region,
+  dhcp_options_id
 FROM awscc.ec2.dhcp_options_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,24 +224,24 @@ Use the following StackQL query and manifest file to create a new <code>dhcp_opt
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.dhcp_options (
- DomainName,
- DomainNameServers,
- NetbiosNameServers,
- NetbiosNodeType,
- NtpServers,
- Ipv6AddressPreferredLeaseTime,
- Tags,
- region
+  DomainName,
+  DomainNameServers,
+  NetbiosNameServers,
+  NetbiosNodeType,
+  NtpServers,
+  Ipv6AddressPreferredLeaseTime,
+  Tags,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ domain_name_servers }}',
- '{{ netbios_name_servers }}',
- '{{ netbios_node_type }}',
- '{{ ntp_servers }}',
- '{{ ipv6_address_preferred_lease_time }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ domain_name_servers }}',
+  '{{ netbios_name_servers }}',
+  '{{ netbios_node_type }}',
+  '{{ ntp_servers }}',
+  '{{ ipv6_address_preferred_lease_time }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,24 +249,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.dhcp_options (
- DomainName,
- DomainNameServers,
- NetbiosNameServers,
- NetbiosNodeType,
- NtpServers,
- Ipv6AddressPreferredLeaseTime,
- Tags,
- region
+  DomainName,
+  DomainNameServers,
+  NetbiosNameServers,
+  NetbiosNodeType,
+  NtpServers,
+  Ipv6AddressPreferredLeaseTime,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ domain_name_servers }}',
- '{{ netbios_name_servers }}',
- '{{ netbios_node_type }}',
- '{{ ntp_servers }}',
- '{{ ipv6_address_preferred_lease_time }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ domain_name_servers }}',
+  '{{ netbios_name_servers }}',
+  '{{ netbios_node_type }}',
+  '{{ ntp_servers }}',
+  '{{ ipv6_address_preferred_lease_time }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ UPDATE awscc.ec2.dhcp_options
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ dhcp_options_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ dhcp_options_id }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ dhcp_options_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.dhcp_options
-WHERE Identifier = '{{ dhcp_options_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dhcp_options_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

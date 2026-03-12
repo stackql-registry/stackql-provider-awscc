@@ -200,17 +200,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>site</code>.
 ```sql
 SELECT
-region,
-site_arn,
-site_id,
-description,
-tags,
-global_network_id,
-location,
-created_at,
-state
+  region,
+  site_arn,
+  site_id,
+  description,
+  tags,
+  global_network_id,
+  location,
+  created_at,
+  state
 FROM awscc.networkmanager.sites
-WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ site_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_network_id }}|{{ site_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,11 +220,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ site_id 
 Lists all <code>sites</code> in a region.
 ```sql
 SELECT
-region,
-global_network_id,
-site_id
+  region,
+  global_network_id,
+  site_id
 FROM awscc.networkmanager.sites_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -244,12 +247,12 @@ Use the following StackQL query and manifest file to create a new <code>site</co
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.sites (
- GlobalNetworkId,
- region
+  GlobalNetworkId,
+  region
 )
 SELECT
-'{{ global_network_id }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -257,18 +260,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.sites (
- Description,
- Tags,
- GlobalNetworkId,
- Location,
- region
+  Description,
+  Tags,
+  GlobalNetworkId,
+  Location,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ tags }}',
- '{{ global_network_id }}',
- '{{ location }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ global_network_id }}',
+  '{{ location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Location": location
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ global_network_id }}|{{ site_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ global_network_id }}|{{ site_id }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ global_network_id }}|{{ site_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.sites
-WHERE Identifier = '{{ global_network_id }}|{{ site_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_network_id }}|{{ site_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -218,25 +218,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>component_type</code>.
 ```sql
 SELECT
-region,
-workspace_id,
-component_type_id,
-description,
-extends_from,
-functions,
-is_singleton,
-property_definitions,
-property_groups,
-composite_component_types,
-arn,
-creation_date_time,
-update_date_time,
-status,
-is_abstract,
-is_schema_initialized,
-tags
+  region,
+  workspace_id,
+  component_type_id,
+  description,
+  extends_from,
+  functions,
+  is_singleton,
+  property_definitions,
+  property_groups,
+  composite_component_types,
+  arn,
+  creation_date_time,
+  update_date_time,
+  status,
+  is_abstract,
+  is_schema_initialized,
+  tags
 FROM awscc.iottwinmaker.component_types
-WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ component_type_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,11 +246,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ component_typ
 Lists all <code>component_types</code> in a region.
 ```sql
 SELECT
-region,
-workspace_id,
-component_type_id
+  region,
+  workspace_id,
+  component_type_id
 FROM awscc.iottwinmaker.component_types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,14 +273,14 @@ Use the following StackQL query and manifest file to create a new <code>componen
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.component_types (
- WorkspaceId,
- ComponentTypeId,
- region
+  WorkspaceId,
+  ComponentTypeId,
+  region
 )
 SELECT
-'{{ workspace_id }}',
- '{{ component_type_id }}',
-'{{ region }}';
+  '{{ workspace_id }}',
+  '{{ component_type_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,30 +288,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iottwinmaker.component_types (
- WorkspaceId,
- ComponentTypeId,
- Description,
- ExtendsFrom,
- Functions,
- IsSingleton,
- PropertyDefinitions,
- PropertyGroups,
- CompositeComponentTypes,
- Tags,
- region
+  WorkspaceId,
+  ComponentTypeId,
+  Description,
+  ExtendsFrom,
+  Functions,
+  IsSingleton,
+  PropertyDefinitions,
+  PropertyGroups,
+  CompositeComponentTypes,
+  Tags,
+  region
 )
 SELECT
- '{{ workspace_id }}',
- '{{ component_type_id }}',
- '{{ description }}',
- '{{ extends_from }}',
- '{{ functions }}',
- '{{ is_singleton }}',
- '{{ property_definitions }}',
- '{{ property_groups }}',
- '{{ composite_component_types }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ workspace_id }}',
+  '{{ component_type_id }}',
+  '{{ description }}',
+  '{{ extends_from }}',
+  '{{ functions }}',
+  '{{ is_singleton }}',
+  '{{ property_definitions }}',
+  '{{ property_groups }}',
+  '{{ composite_component_types }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "CompositeComponentTypes": composite_component_types,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workspace_id }}|{{ component_type_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.component_types
-WHERE Identifier = '{{ workspace_id }}|{{ component_type_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workspace_id }}|{{ component_type_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

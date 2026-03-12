@@ -373,21 +373,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>compute_environment</code>.
 ```sql
 SELECT
-region,
-compute_environment_arn,
-compute_environment_name,
-compute_resources,
-replace_compute_environment,
-service_role,
-state,
-tags,
-type,
-update_policy,
-unmanagedv_cpus,
-eks_configuration,
-context
+  region,
+  compute_environment_arn,
+  compute_environment_name,
+  compute_resources,
+  replace_compute_environment,
+  service_role,
+  state,
+  tags,
+  type,
+  update_policy,
+  unmanagedv_cpus,
+  eks_configuration,
+  context
 FROM awscc.batch.compute_environments
-WHERE region = 'us-east-1' AND Identifier = '{{ compute_environment_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ compute_environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -395,10 +397,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ compute_environment_arn }}';
 Lists all <code>compute_environments</code> in a region.
 ```sql
 SELECT
-region,
-compute_environment_arn
+  region,
+  compute_environment_arn
 FROM awscc.batch.compute_environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -420,12 +423,12 @@ Use the following StackQL query and manifest file to create a new <code>compute_
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.compute_environments (
- Type,
- region
+  Type,
+  region
 )
 SELECT
-'{{ type }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -433,32 +436,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.compute_environments (
- ComputeEnvironmentName,
- ComputeResources,
- ReplaceComputeEnvironment,
- ServiceRole,
- State,
- Tags,
- Type,
- UpdatePolicy,
- UnmanagedvCpus,
- EksConfiguration,
- Context,
- region
+  ComputeEnvironmentName,
+  ComputeResources,
+  ReplaceComputeEnvironment,
+  ServiceRole,
+  State,
+  Tags,
+  Type,
+  UpdatePolicy,
+  UnmanagedvCpus,
+  EksConfiguration,
+  Context,
+  region
 )
 SELECT
- '{{ compute_environment_name }}',
- '{{ compute_resources }}',
- '{{ replace_compute_environment }}',
- '{{ service_role }}',
- '{{ state }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ update_policy }}',
- '{{ unmanagedv_cpus }}',
- '{{ eks_configuration }}',
- '{{ context }}',
- '{{ region }}';
+  '{{ compute_environment_name }}',
+  '{{ compute_resources }}',
+  '{{ replace_compute_environment }}',
+  '{{ service_role }}',
+  '{{ state }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ update_policy }}',
+  '{{ unmanagedv_cpus }}',
+  '{{ eks_configuration }}',
+  '{{ context }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -555,8 +558,9 @@ SET PatchDocument = string('{{ {
     "UnmanagedvCpus": unmanagedv_cpus,
     "Context": context
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ compute_environment_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ compute_environment_arn }}';
 ```
 
 
@@ -565,8 +569,9 @@ AND Identifier = '{{ compute_environment_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.compute_environments
-WHERE Identifier = '{{ compute_environment_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ compute_environment_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

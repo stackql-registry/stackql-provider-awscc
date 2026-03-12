@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>traffic_mirror_target</code>.
 ```sql
 SELECT
-region,
-network_load_balancer_arn,
-description,
-id,
-network_interface_id,
-gateway_load_balancer_endpoint_id,
-tags
+  region,
+  network_load_balancer_arn,
+  description,
+  id,
+  network_interface_id,
+  gateway_load_balancer_endpoint_id,
+  tags
 FROM awscc.ec2.traffic_mirror_targets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>traffic_mirror_targets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.traffic_mirror_targets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,20 +212,20 @@ Use the following StackQL query and manifest file to create a new <code>traffic_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_targets (
- NetworkLoadBalancerArn,
- Description,
- NetworkInterfaceId,
- GatewayLoadBalancerEndpointId,
- Tags,
- region
+  NetworkLoadBalancerArn,
+  Description,
+  NetworkInterfaceId,
+  GatewayLoadBalancerEndpointId,
+  Tags,
+  region
 )
 SELECT
-'{{ network_load_balancer_arn }}',
- '{{ description }}',
- '{{ network_interface_id }}',
- '{{ gateway_load_balancer_endpoint_id }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ network_load_balancer_arn }}',
+  '{{ description }}',
+  '{{ network_interface_id }}',
+  '{{ gateway_load_balancer_endpoint_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,20 +233,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.traffic_mirror_targets (
- NetworkLoadBalancerArn,
- Description,
- NetworkInterfaceId,
- GatewayLoadBalancerEndpointId,
- Tags,
- region
+  NetworkLoadBalancerArn,
+  Description,
+  NetworkInterfaceId,
+  GatewayLoadBalancerEndpointId,
+  Tags,
+  region
 )
 SELECT
- '{{ network_load_balancer_arn }}',
- '{{ description }}',
- '{{ network_interface_id }}',
- '{{ gateway_load_balancer_endpoint_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ network_load_balancer_arn }}',
+  '{{ description }}',
+  '{{ network_interface_id }}',
+  '{{ gateway_load_balancer_endpoint_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ UPDATE awscc.ec2.traffic_mirror_targets
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_targets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

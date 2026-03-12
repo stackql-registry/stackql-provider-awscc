@@ -937,7 +937,7 @@ Creates, updates, deletes or gets an <code>analysis</code> resource or lists <co
   {
     "name": "validation_strategy",
     "type": "object",
-    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, validation is skipped for specific errors.</p>",
+    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p>",
     "children": [
       {
         "name": "mode",
@@ -1139,27 +1139,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>analysis</code>.
 ```sql
 SELECT
-region,
-status,
-created_time,
-parameters,
-data_set_arns,
-source_entity,
-theme_arn,
-definition,
-last_updated_time,
-validation_strategy,
-folder_arns,
-name,
-errors,
-analysis_id,
-aws_account_id,
-permissions,
-arn,
-tags,
-sheets
+  region,
+  status,
+  created_time,
+  parameters,
+  data_set_arns,
+  source_entity,
+  theme_arn,
+  definition,
+  last_updated_time,
+  validation_strategy,
+  folder_arns,
+  name,
+  errors,
+  analysis_id,
+  aws_account_id,
+  permissions,
+  arn,
+  tags,
+  sheets
 FROM awscc.quicksight.analyses
-WHERE region = 'us-east-1' AND Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1167,11 +1169,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ analysis_id }}|{{ aws_account_id
 Lists all <code>analyses</code> in a region.
 ```sql
 SELECT
-region,
-analysis_id,
-aws_account_id
+  region,
+  analysis_id,
+  aws_account_id
 FROM awscc.quicksight.analyses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1193,16 +1196,16 @@ Use the following StackQL query and manifest file to create a new <code>analysis
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.analyses (
- Name,
- AnalysisId,
- AwsAccountId,
- region
+  Name,
+  AnalysisId,
+  AwsAccountId,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ analysis_id }}',
- '{{ aws_account_id }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ analysis_id }}',
+  '{{ aws_account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1210,38 +1213,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.analyses (
- Status,
- Parameters,
- SourceEntity,
- ThemeArn,
- Definition,
- ValidationStrategy,
- FolderArns,
- Name,
- Errors,
- AnalysisId,
- AwsAccountId,
- Permissions,
- Tags,
- Sheets,
- region
+  Status,
+  Parameters,
+  SourceEntity,
+  ThemeArn,
+  Definition,
+  ValidationStrategy,
+  FolderArns,
+  Name,
+  Errors,
+  AnalysisId,
+  AwsAccountId,
+  Permissions,
+  Tags,
+  Sheets,
+  region
 )
 SELECT
- '{{ status }}',
- '{{ parameters }}',
- '{{ source_entity }}',
- '{{ theme_arn }}',
- '{{ definition }}',
- '{{ validation_strategy }}',
- '{{ folder_arns }}',
- '{{ name }}',
- '{{ errors }}',
- '{{ analysis_id }}',
- '{{ aws_account_id }}',
- '{{ permissions }}',
- '{{ tags }}',
- '{{ sheets }}',
- '{{ region }}';
+  '{{ status }}',
+  '{{ parameters }}',
+  '{{ source_entity }}',
+  '{{ theme_arn }}',
+  '{{ definition }}',
+  '{{ validation_strategy }}',
+  '{{ folder_arns }}',
+  '{{ name }}',
+  '{{ errors }}',
+  '{{ analysis_id }}',
+  '{{ aws_account_id }}',
+  '{{ permissions }}',
+  '{{ tags }}',
+  '{{ sheets }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -3232,8 +3235,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Sheets": sheets
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```
 
 
@@ -3242,8 +3246,9 @@ AND Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.analyses
-WHERE Identifier = '{{ analysis_id }}|{{ aws_account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ analysis_id }}|{{ aws_account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

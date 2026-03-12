@@ -161,16 +161,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_connection</code>.
 ```sql
 SELECT
-region,
-arn,
-authentication,
-client_subnets,
-target_cluster_arn,
-security_groups,
-tags,
-vpc_id
+  region,
+  arn,
+  authentication,
+  client_subnets,
+  target_cluster_arn,
+  security_groups,
+  tags,
+  vpc_id
 FROM awscc.msk.vpc_connections
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>vpc_connections</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.msk.vpc_connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,20 +206,20 @@ Use the following StackQL query and manifest file to create a new <code>vpc_conn
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.vpc_connections (
- Authentication,
- ClientSubnets,
- TargetClusterArn,
- SecurityGroups,
- VpcId,
- region
+  Authentication,
+  ClientSubnets,
+  TargetClusterArn,
+  SecurityGroups,
+  VpcId,
+  region
 )
 SELECT
-'{{ authentication }}',
- '{{ client_subnets }}',
- '{{ target_cluster_arn }}',
- '{{ security_groups }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ authentication }}',
+  '{{ client_subnets }}',
+  '{{ target_cluster_arn }}',
+  '{{ security_groups }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,22 +227,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.vpc_connections (
- Authentication,
- ClientSubnets,
- TargetClusterArn,
- SecurityGroups,
- Tags,
- VpcId,
- region
+  Authentication,
+  ClientSubnets,
+  TargetClusterArn,
+  SecurityGroups,
+  Tags,
+  VpcId,
+  region
 )
 SELECT
- '{{ authentication }}',
- '{{ client_subnets }}',
- '{{ target_cluster_arn }}',
- '{{ security_groups }}',
- '{{ tags }}',
- '{{ vpc_id }}',
- '{{ region }}';
+  '{{ authentication }}',
+  '{{ client_subnets }}',
+  '{{ target_cluster_arn }}',
+  '{{ security_groups }}',
+  '{{ tags }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ UPDATE awscc.msk.vpc_connections
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.vpc_connections
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

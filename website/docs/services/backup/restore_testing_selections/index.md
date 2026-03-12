@@ -195,17 +195,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>restore_testing_selection</code>.
 ```sql
 SELECT
-region,
-iam_role_arn,
-protected_resource_arns,
-protected_resource_conditions,
-protected_resource_type,
-restore_metadata_overrides,
-restore_testing_plan_name,
-restore_testing_selection_name,
-validation_window_hours
+  region,
+  iam_role_arn,
+  protected_resource_arns,
+  protected_resource_conditions,
+  protected_resource_type,
+  restore_metadata_overrides,
+  restore_testing_plan_name,
+  restore_testing_selection_name,
+  validation_window_hours
 FROM awscc.backup.restore_testing_selections
-WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,11 +215,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}|{{ 
 Lists all <code>restore_testing_selections</code> in a region.
 ```sql
 SELECT
-region,
-restore_testing_plan_name,
-restore_testing_selection_name
+  region,
+  restore_testing_plan_name,
+  restore_testing_selection_name
 FROM awscc.backup.restore_testing_selections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,18 +242,18 @@ Use the following StackQL query and manifest file to create a new <code>restore_
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.restore_testing_selections (
- IamRoleArn,
- ProtectedResourceType,
- RestoreTestingPlanName,
- RestoreTestingSelectionName,
- region
+  IamRoleArn,
+  ProtectedResourceType,
+  RestoreTestingPlanName,
+  RestoreTestingSelectionName,
+  region
 )
 SELECT
-'{{ iam_role_arn }}',
- '{{ protected_resource_type }}',
- '{{ restore_testing_plan_name }}',
- '{{ restore_testing_selection_name }}',
-'{{ region }}';
+  '{{ iam_role_arn }}',
+  '{{ protected_resource_type }}',
+  '{{ restore_testing_plan_name }}',
+  '{{ restore_testing_selection_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,26 +261,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.restore_testing_selections (
- IamRoleArn,
- ProtectedResourceArns,
- ProtectedResourceConditions,
- ProtectedResourceType,
- RestoreMetadataOverrides,
- RestoreTestingPlanName,
- RestoreTestingSelectionName,
- ValidationWindowHours,
- region
+  IamRoleArn,
+  ProtectedResourceArns,
+  ProtectedResourceConditions,
+  ProtectedResourceType,
+  RestoreMetadataOverrides,
+  RestoreTestingPlanName,
+  RestoreTestingSelectionName,
+  ValidationWindowHours,
+  region
 )
 SELECT
- '{{ iam_role_arn }}',
- '{{ protected_resource_arns }}',
- '{{ protected_resource_conditions }}',
- '{{ protected_resource_type }}',
- '{{ restore_metadata_overrides }}',
- '{{ restore_testing_plan_name }}',
- '{{ restore_testing_selection_name }}',
- '{{ validation_window_hours }}',
- '{{ region }}';
+  '{{ iam_role_arn }}',
+  '{{ protected_resource_arns }}',
+  '{{ protected_resource_conditions }}',
+  '{{ protected_resource_type }}',
+  '{{ restore_metadata_overrides }}',
+  '{{ restore_testing_plan_name }}',
+  '{{ restore_testing_selection_name }}',
+  '{{ validation_window_hours }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ SET PatchDocument = string('{{ {
     "RestoreMetadataOverrides": restore_metadata_overrides,
     "ValidationWindowHours": validation_window_hours
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_n
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_selections
-WHERE Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

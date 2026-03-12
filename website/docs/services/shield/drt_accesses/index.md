@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>drt_access</code>.
 ```sql
 SELECT
-region,
-account_id,
-log_bucket_list,
-role_arn
+  region,
+  account_id,
+  log_bucket_list,
+  role_arn
 FROM awscc.shield.drt_accesses
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>drt_accesses</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.shield.drt_accesses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>drt_acce
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.drt_accesses (
- RoleArn,
- region
+  RoleArn,
+  region
 )
 SELECT
-'{{ role_arn }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,14 +195,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.drt_accesses (
- LogBucketList,
- RoleArn,
- region
+  LogBucketList,
+  RoleArn,
+  region
 )
 SELECT
- '{{ log_bucket_list }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ log_bucket_list }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ SET PatchDocument = string('{{ {
     "LogBucketList": log_bucket_list,
     "RoleArn": role_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -246,8 +250,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.drt_accesses
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

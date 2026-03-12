@@ -135,12 +135,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet_network_acl_association</code>.
 ```sql
 SELECT
-region,
-subnet_id,
-network_acl_id,
-association_id
+  region,
+  subnet_id,
+  network_acl_id,
+  association_id
 FROM awscc.ec2.subnet_network_acl_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 Lists all <code>subnet_network_acl_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_id
+  region,
+  association_id
 FROM awscc.ec2.subnet_network_acl_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>subnet_n
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_network_acl_associations (
- SubnetId,
- NetworkAclId,
- region
+  SubnetId,
+  NetworkAclId,
+  region
 )
 SELECT
-'{{ subnet_id }}',
- '{{ network_acl_id }}',
-'{{ region }}';
+  '{{ subnet_id }}',
+  '{{ network_acl_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_network_acl_associations (
- SubnetId,
- NetworkAclId,
- region
+  SubnetId,
+  NetworkAclId,
+  region
 )
 SELECT
- '{{ subnet_id }}',
- '{{ network_acl_id }}',
- '{{ region }}';
+  '{{ subnet_id }}',
+  '{{ network_acl_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_network_acl_associations
-WHERE Identifier = '{{ association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

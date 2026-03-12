@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>composite_alarm</code>.
 ```sql
 SELECT
-region,
-arn,
-alarm_name,
-alarm_rule,
-alarm_description,
-actions_enabled,
-ok_actions,
-alarm_actions,
-insufficient_data_actions,
-actions_suppressor,
-actions_suppressor_wait_period,
-actions_suppressor_extension_period,
-tags
+  region,
+  arn,
+  alarm_name,
+  alarm_rule,
+  alarm_description,
+  actions_enabled,
+  ok_actions,
+  alarm_actions,
+  insufficient_data_actions,
+  actions_suppressor,
+  actions_suppressor_wait_period,
+  actions_suppressor_extension_period,
+  tags
 FROM awscc.cloudwatch.composite_alarms
-WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 Lists all <code>composite_alarms</code> in a region.
 ```sql
 SELECT
-region,
-alarm_name
+  region,
+  alarm_name
 FROM awscc.cloudwatch.composite_alarms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,12 +248,12 @@ Use the following StackQL query and manifest file to create a new <code>composit
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.composite_alarms (
- AlarmRule,
- region
+  AlarmRule,
+  region
 )
 SELECT
-'{{ alarm_rule }}',
-'{{ region }}';
+  '{{ alarm_rule }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,32 +261,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.composite_alarms (
- AlarmName,
- AlarmRule,
- AlarmDescription,
- ActionsEnabled,
- OKActions,
- AlarmActions,
- InsufficientDataActions,
- ActionsSuppressor,
- ActionsSuppressorWaitPeriod,
- ActionsSuppressorExtensionPeriod,
- Tags,
- region
+  AlarmName,
+  AlarmRule,
+  AlarmDescription,
+  ActionsEnabled,
+  OKActions,
+  AlarmActions,
+  InsufficientDataActions,
+  ActionsSuppressor,
+  ActionsSuppressorWaitPeriod,
+  ActionsSuppressorExtensionPeriod,
+  Tags,
+  region
 )
 SELECT
- '{{ alarm_name }}',
- '{{ alarm_rule }}',
- '{{ alarm_description }}',
- '{{ actions_enabled }}',
- '{{ ok_actions }}',
- '{{ alarm_actions }}',
- '{{ insufficient_data_actions }}',
- '{{ actions_suppressor }}',
- '{{ actions_suppressor_wait_period }}',
- '{{ actions_suppressor_extension_period }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ alarm_name }}',
+  '{{ alarm_rule }}',
+  '{{ alarm_description }}',
+  '{{ actions_enabled }}',
+  '{{ ok_actions }}',
+  '{{ alarm_actions }}',
+  '{{ insufficient_data_actions }}',
+  '{{ actions_suppressor }}',
+  '{{ actions_suppressor_wait_period }}',
+  '{{ actions_suppressor_extension_period }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -350,8 +353,9 @@ SET PatchDocument = string('{{ {
     "ActionsSuppressorExtensionPeriod": actions_suppressor_extension_period,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alarm_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -360,8 +364,9 @@ AND Identifier = '{{ alarm_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.composite_alarms
-WHERE Identifier = '{{ alarm_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alarm_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

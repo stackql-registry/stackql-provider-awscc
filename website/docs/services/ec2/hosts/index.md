@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>host</code>.
 ```sql
 SELECT
-region,
-host_id,
-auto_placement,
-availability_zone,
-host_recovery,
-instance_type,
-instance_family,
-outpost_arn,
-host_maintenance,
-asset_id,
-tags
+  region,
+  host_id,
+  auto_placement,
+  availability_zone,
+  host_recovery,
+  instance_type,
+  instance_family,
+  outpost_arn,
+  host_maintenance,
+  asset_id,
+  tags
 FROM awscc.ec2.hosts
-WHERE region = 'us-east-1' AND Identifier = '{{ host_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ host_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ host_id }}';
 Lists all <code>hosts</code> in a region.
 ```sql
 SELECT
-region,
-host_id
+  region,
+  host_id
 FROM awscc.ec2.hosts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,12 +236,12 @@ Use the following StackQL query and manifest file to create a new <code>host</co
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.hosts (
- AvailabilityZone,
- region
+  AvailabilityZone,
+  region
 )
 SELECT
-'{{ availability_zone }}',
-'{{ region }}';
+  '{{ availability_zone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,28 +249,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.hosts (
- AutoPlacement,
- AvailabilityZone,
- HostRecovery,
- InstanceType,
- InstanceFamily,
- OutpostArn,
- HostMaintenance,
- AssetId,
- Tags,
- region
+  AutoPlacement,
+  AvailabilityZone,
+  HostRecovery,
+  InstanceType,
+  InstanceFamily,
+  OutpostArn,
+  HostMaintenance,
+  AssetId,
+  Tags,
+  region
 )
 SELECT
- '{{ auto_placement }}',
- '{{ availability_zone }}',
- '{{ host_recovery }}',
- '{{ instance_type }}',
- '{{ instance_family }}',
- '{{ outpost_arn }}',
- '{{ host_maintenance }}',
- '{{ asset_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ auto_placement }}',
+  '{{ availability_zone }}',
+  '{{ host_recovery }}',
+  '{{ instance_type }}',
+  '{{ instance_family }}',
+  '{{ outpost_arn }}',
+  '{{ host_maintenance }}',
+  '{{ asset_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -321,8 +324,9 @@ SET PatchDocument = string('{{ {
     "HostMaintenance": host_maintenance,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ host_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ host_id }}';
 ```
 
 
@@ -331,8 +335,9 @@ AND Identifier = '{{ host_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.hosts
-WHERE Identifier = '{{ host_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ host_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

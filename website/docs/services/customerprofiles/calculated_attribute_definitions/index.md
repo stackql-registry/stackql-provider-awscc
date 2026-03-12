@@ -307,22 +307,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>calculated_attribute_definition</code>.
 ```sql
 SELECT
-region,
-domain_name,
-calculated_attribute_name,
-display_name,
-description,
-attribute_details,
-conditions,
-statistic,
-use_historical_data,
-created_at,
-last_updated_at,
-status,
-readiness,
-tags
+  region,
+  domain_name,
+  calculated_attribute_name,
+  display_name,
+  description,
+  attribute_details,
+  conditions,
+  statistic,
+  use_historical_data,
+  created_at,
+  last_updated_at,
+  status,
+  readiness,
+  tags
 FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,11 +332,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ calculated_att
 Lists all <code>calculated_attribute_definitions</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-calculated_attribute_name
+  region,
+  domain_name,
+  calculated_attribute_name
 FROM awscc.customerprofiles.calculated_attribute_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -356,18 +359,18 @@ Use the following StackQL query and manifest file to create a new <code>calculat
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.calculated_attribute_definitions (
- DomainName,
- CalculatedAttributeName,
- AttributeDetails,
- Statistic,
- region
+  DomainName,
+  CalculatedAttributeName,
+  AttributeDetails,
+  Statistic,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ calculated_attribute_name }}',
- '{{ attribute_details }}',
- '{{ statistic }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ calculated_attribute_name }}',
+  '{{ attribute_details }}',
+  '{{ statistic }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -375,28 +378,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.calculated_attribute_definitions (
- DomainName,
- CalculatedAttributeName,
- DisplayName,
- Description,
- AttributeDetails,
- Conditions,
- Statistic,
- UseHistoricalData,
- Tags,
- region
+  DomainName,
+  CalculatedAttributeName,
+  DisplayName,
+  Description,
+  AttributeDetails,
+  Conditions,
+  Statistic,
+  UseHistoricalData,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ calculated_attribute_name }}',
- '{{ display_name }}',
- '{{ description }}',
- '{{ attribute_details }}',
- '{{ conditions }}',
- '{{ statistic }}',
- '{{ use_historical_data }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ calculated_attribute_name }}',
+  '{{ display_name }}',
+  '{{ description }}',
+  '{{ attribute_details }}',
+  '{{ conditions }}',
+  '{{ statistic }}',
+  '{{ use_historical_data }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -466,8 +469,9 @@ SET PatchDocument = string('{{ {
     "Statistic": statistic,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```
 
 
@@ -476,8 +480,9 @@ AND Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

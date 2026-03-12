@@ -556,21 +556,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>knowledge_base</code>.
 ```sql
 SELECT
-region,
-description,
-knowledge_base_configuration,
-knowledge_base_id,
-knowledge_base_arn,
-name,
-status,
-role_arn,
-created_at,
-failure_reasons,
-updated_at,
-storage_configuration,
-tags
+  region,
+  description,
+  knowledge_base_configuration,
+  knowledge_base_id,
+  knowledge_base_arn,
+  name,
+  status,
+  role_arn,
+  created_at,
+  failure_reasons,
+  updated_at,
+  storage_configuration,
+  tags
 FROM awscc.bedrock.knowledge_bases
-WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ knowledge_base_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -578,10 +580,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
 Lists all <code>knowledge_bases</code> in a region.
 ```sql
 SELECT
-region,
-knowledge_base_id
+  region,
+  knowledge_base_id
 FROM awscc.bedrock.knowledge_bases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -603,16 +606,16 @@ Use the following StackQL query and manifest file to create a new <code>knowledg
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.knowledge_bases (
- KnowledgeBaseConfiguration,
- Name,
- RoleArn,
- region
+  KnowledgeBaseConfiguration,
+  Name,
+  RoleArn,
+  region
 )
 SELECT
-'{{ knowledge_base_configuration }}',
- '{{ name }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ knowledge_base_configuration }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -620,22 +623,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.knowledge_bases (
- Description,
- KnowledgeBaseConfiguration,
- Name,
- RoleArn,
- StorageConfiguration,
- Tags,
- region
+  Description,
+  KnowledgeBaseConfiguration,
+  Name,
+  RoleArn,
+  StorageConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ knowledge_base_configuration }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ storage_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ knowledge_base_configuration }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ storage_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -783,8 +786,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ knowledge_base_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ knowledge_base_id }}';
 ```
 
 
@@ -793,8 +797,9 @@ AND Identifier = '{{ knowledge_base_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.knowledge_bases
-WHERE Identifier = '{{ knowledge_base_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ knowledge_base_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

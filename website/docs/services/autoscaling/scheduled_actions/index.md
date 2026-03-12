@@ -176,18 +176,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scheduled_action</code>.
 ```sql
 SELECT
-region,
-scheduled_action_name,
-min_size,
-recurrence,
-time_zone,
-end_time,
-auto_scaling_group_name,
-start_time,
-desired_capacity,
-max_size
+  region,
+  scheduled_action_name,
+  min_size,
+  recurrence,
+  time_zone,
+  end_time,
+  auto_scaling_group_name,
+  start_time,
+  desired_capacity,
+  max_size
 FROM awscc.autoscaling.scheduled_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,11 +197,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}|{{ auto
 Lists all <code>scheduled_actions</code> in a region.
 ```sql
 SELECT
-region,
-scheduled_action_name,
-auto_scaling_group_name
+  region,
+  scheduled_action_name,
+  auto_scaling_group_name
 FROM awscc.autoscaling.scheduled_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>schedule
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.scheduled_actions (
- AutoScalingGroupName,
- region
+  AutoScalingGroupName,
+  region
 )
 SELECT
-'{{ auto_scaling_group_name }}',
-'{{ region }}';
+  '{{ auto_scaling_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,26 +237,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.scheduled_actions (
- MinSize,
- Recurrence,
- TimeZone,
- EndTime,
- AutoScalingGroupName,
- StartTime,
- DesiredCapacity,
- MaxSize,
- region
+  MinSize,
+  Recurrence,
+  TimeZone,
+  EndTime,
+  AutoScalingGroupName,
+  StartTime,
+  DesiredCapacity,
+  MaxSize,
+  region
 )
 SELECT
- '{{ min_size }}',
- '{{ recurrence }}',
- '{{ time_zone }}',
- '{{ end_time }}',
- '{{ auto_scaling_group_name }}',
- '{{ start_time }}',
- '{{ desired_capacity }}',
- '{{ max_size }}',
- '{{ region }}';
+  '{{ min_size }}',
+  '{{ recurrence }}',
+  '{{ time_zone }}',
+  '{{ end_time }}',
+  '{{ auto_scaling_group_name }}',
+  '{{ start_time }}',
+  '{{ desired_capacity }}',
+  '{{ max_size }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ SET PatchDocument = string('{{ {
     "DesiredCapacity": desired_capacity,
     "MaxSize": max_size
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.scheduled_actions
-WHERE Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

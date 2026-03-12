@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>auth_policy</code>.
 ```sql
 SELECT
-region,
-resource_identifier,
-policy,
-state
+  region,
+  resource_identifier,
+  policy,
+  state
 FROM awscc.vpclattice.auth_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_identifier }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>auth_pol
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.auth_policies (
- ResourceIdentifier,
- Policy,
- region
+  ResourceIdentifier,
+  Policy,
+  region
 )
 SELECT
-'{{ resource_identifier }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ resource_identifier }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,14 +137,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.vpclattice.auth_policies (
- ResourceIdentifier,
- Policy,
- region
+  ResourceIdentifier,
+  Policy,
+  region
 )
 SELECT
- '{{ resource_identifier }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ resource_identifier }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -177,8 +179,9 @@ UPDATE awscc.vpclattice.auth_policies
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_identifier }}';
 ```
 
 
@@ -187,8 +190,9 @@ AND Identifier = '{{ resource_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.auth_policies
-WHERE Identifier = '{{ resource_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

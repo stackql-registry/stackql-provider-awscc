@@ -208,22 +208,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>customdb_engine_version</code>.
 ```sql
 SELECT
-region,
-database_installation_files_s3_bucket_name,
-database_installation_files_s3_prefix,
-description,
-engine,
-engine_version,
-kms_key_id,
-manifest,
-db_engine_version_arn,
-source_custom_db_engine_version_identifier,
-use_aws_provided_latest_image,
-image_id,
-status,
-tags
+  region,
+  database_installation_files_s3_bucket_name,
+  database_installation_files_s3_prefix,
+  description,
+  engine,
+  engine_version,
+  kms_key_id,
+  manifest,
+  db_engine_version_arn,
+  source_custom_db_engine_version_identifier,
+  use_aws_provided_latest_image,
+  image_id,
+  status,
+  tags
 FROM awscc.rds.customdb_engine_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ engine }}|{{ engine_version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ engine }}|{{ engine_version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,11 +233,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ engine }}|{{ engine_version }}';
 Lists all <code>customdb_engine_versions</code> in a region.
 ```sql
 SELECT
-region,
-engine,
-engine_version
+  region,
+  engine,
+  engine_version
 FROM awscc.rds.customdb_engine_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,14 +260,14 @@ Use the following StackQL query and manifest file to create a new <code>customdb
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.customdb_engine_versions (
- Engine,
- EngineVersion,
- region
+  Engine,
+  EngineVersion,
+  region
 )
 SELECT
-'{{ engine }}',
- '{{ engine_version }}',
-'{{ region }}';
+  '{{ engine }}',
+  '{{ engine_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,34 +275,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.customdb_engine_versions (
- DatabaseInstallationFilesS3BucketName,
- DatabaseInstallationFilesS3Prefix,
- Description,
- Engine,
- EngineVersion,
- KMSKeyId,
- Manifest,
- SourceCustomDbEngineVersionIdentifier,
- UseAwsProvidedLatestImage,
- ImageId,
- Status,
- Tags,
- region
+  DatabaseInstallationFilesS3BucketName,
+  DatabaseInstallationFilesS3Prefix,
+  Description,
+  Engine,
+  EngineVersion,
+  KMSKeyId,
+  Manifest,
+  SourceCustomDbEngineVersionIdentifier,
+  UseAwsProvidedLatestImage,
+  ImageId,
+  Status,
+  Tags,
+  region
 )
 SELECT
- '{{ database_installation_files_s3_bucket_name }}',
- '{{ database_installation_files_s3_prefix }}',
- '{{ description }}',
- '{{ engine }}',
- '{{ engine_version }}',
- '{{ kms_key_id }}',
- '{{ manifest }}',
- '{{ source_custom_db_engine_version_identifier }}',
- '{{ use_aws_provided_latest_image }}',
- '{{ image_id }}',
- '{{ status }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ database_installation_files_s3_bucket_name }}',
+  '{{ database_installation_files_s3_prefix }}',
+  '{{ description }}',
+  '{{ engine }}',
+  '{{ engine_version }}',
+  '{{ kms_key_id }}',
+  '{{ manifest }}',
+  '{{ source_custom_db_engine_version_identifier }}',
+  '{{ use_aws_provided_latest_image }}',
+  '{{ image_id }}',
+  '{{ status }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "Status": status,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ engine }}|{{ engine_version }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ engine }}|{{ engine_version }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ engine }}|{{ engine_version }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.customdb_engine_versions
-WHERE Identifier = '{{ engine }}|{{ engine_version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ engine }}|{{ engine_version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

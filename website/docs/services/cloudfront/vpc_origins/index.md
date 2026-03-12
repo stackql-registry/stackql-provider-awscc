@@ -205,16 +205,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_origin</code>.
 ```sql
 SELECT
-region,
-arn,
-created_time,
-id,
-last_modified_time,
-status,
-tags,
-vpc_origin_endpoint_config
+  region,
+  arn,
+  created_time,
+  id,
+  last_modified_time,
+  status,
+  tags,
+  vpc_origin_endpoint_config
 FROM awscc.cloudfront.vpc_origins
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,10 +224,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>vpc_origins</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.vpc_origins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -247,12 +250,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_orig
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.vpc_origins (
- VpcOriginEndpointConfig,
- region
+  VpcOriginEndpointConfig,
+  region
 )
 SELECT
-'{{ vpc_origin_endpoint_config }}',
-'{{ region }}';
+  '{{ vpc_origin_endpoint_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,14 +263,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.vpc_origins (
- Tags,
- VpcOriginEndpointConfig,
- region
+  Tags,
+  VpcOriginEndpointConfig,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ vpc_origin_endpoint_config }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ vpc_origin_endpoint_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcOriginEndpointConfig": vpc_origin_endpoint_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.vpc_origins
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

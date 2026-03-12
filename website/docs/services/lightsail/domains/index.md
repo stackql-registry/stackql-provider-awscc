@@ -217,17 +217,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-domain_name,
-domain_entries,
-arn,
-support_code,
-created_at,
-location,
-resource_type,
-tags
+  region,
+  domain_name,
+  domain_entries,
+  arn,
+  support_code,
+  created_at,
+  location,
+  resource_type,
+  tags
 FROM awscc.lightsail.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,10 +237,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-domain_name
+  region,
+  domain_name
 FROM awscc.lightsail.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -260,12 +263,12 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.domains (
- DomainName,
- region
+  DomainName,
+  region
 )
 SELECT
-'{{ domain_name }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -273,16 +276,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.domains (
- DomainName,
- DomainEntries,
- Tags,
- region
+  DomainName,
+  DomainEntries,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ domain_entries }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ domain_entries }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -326,8 +329,9 @@ UPDATE awscc.lightsail.domains
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -336,8 +340,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.domains
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

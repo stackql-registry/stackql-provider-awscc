@@ -212,17 +212,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>web_app</code>.
 ```sql
 SELECT
-region,
-arn,
-web_app_id,
-identity_provider_details,
-access_endpoint,
-web_app_units,
-web_app_customization,
-web_app_endpoint_policy,
-tags
+  region,
+  arn,
+  web_app_id,
+  identity_provider_details,
+  access_endpoint,
+  web_app_units,
+  web_app_customization,
+  web_app_endpoint_policy,
+  tags
 FROM awscc.transfer.web_apps
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,10 +232,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>web_apps</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.transfer.web_apps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -255,12 +258,12 @@ Use the following StackQL query and manifest file to create a new <code>web_app<
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.web_apps (
- IdentityProviderDetails,
- region
+  IdentityProviderDetails,
+  region
 )
 SELECT
-'{{ identity_provider_details }}',
-'{{ region }}';
+  '{{ identity_provider_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -268,22 +271,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.web_apps (
- IdentityProviderDetails,
- AccessEndpoint,
- WebAppUnits,
- WebAppCustomization,
- WebAppEndpointPolicy,
- Tags,
- region
+  IdentityProviderDetails,
+  AccessEndpoint,
+  WebAppUnits,
+  WebAppCustomization,
+  WebAppEndpointPolicy,
+  Tags,
+  region
 )
 SELECT
- '{{ identity_provider_details }}',
- '{{ access_endpoint }}',
- '{{ web_app_units }}',
- '{{ web_app_customization }}',
- '{{ web_app_endpoint_policy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ identity_provider_details }}',
+  '{{ access_endpoint }}',
+  '{{ web_app_units }}',
+  '{{ web_app_customization }}',
+  '{{ web_app_endpoint_policy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "WebAppCustomization": web_app_customization,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.web_apps
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

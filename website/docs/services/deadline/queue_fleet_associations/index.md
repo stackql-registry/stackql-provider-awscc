@@ -145,12 +145,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>queue_fleet_association</code>.
 ```sql
 SELECT
-region,
-farm_id,
-fleet_id,
-queue_id
+  region,
+  farm_id,
+  fleet_id,
+  queue_id
 FROM awscc.deadline.queue_fleet_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -158,12 +160,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ que
 Lists all <code>queue_fleet_associations</code> in a region.
 ```sql
 SELECT
-region,
-farm_id,
-fleet_id,
-queue_id
+  region,
+  farm_id,
+  fleet_id,
+  queue_id
 FROM awscc.deadline.queue_fleet_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>queue_fl
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.queue_fleet_associations (
- FarmId,
- FleetId,
- QueueId,
- region
+  FarmId,
+  FleetId,
+  QueueId,
+  region
 )
 SELECT
-'{{ farm_id }}',
- '{{ fleet_id }}',
- '{{ queue_id }}',
-'{{ region }}';
+  '{{ farm_id }}',
+  '{{ fleet_id }}',
+  '{{ queue_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.queue_fleet_associations (
- FarmId,
- FleetId,
- QueueId,
- region
+  FarmId,
+  FleetId,
+  QueueId,
+  region
 )
 SELECT
- '{{ farm_id }}',
- '{{ fleet_id }}',
- '{{ queue_id }}',
- '{{ region }}';
+  '{{ farm_id }}',
+  '{{ fleet_id }}',
+  '{{ queue_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_fleet_associations
-WHERE Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

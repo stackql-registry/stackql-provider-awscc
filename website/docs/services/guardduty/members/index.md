@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>member</code>.
 ```sql
 SELECT
-region,
-status,
-member_id,
-email,
-message,
-disable_email_notification,
-detector_id
+  region,
+  status,
+  member_id,
+  email,
+  message,
+  disable_email_notification,
+  detector_id
 FROM awscc.guardduty.members
-WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ member_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ detector_id }}|{{ member_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ member_id }}';
 Lists all <code>members</code> in a region.
 ```sql
 SELECT
-region,
-detector_id,
-member_id
+  region,
+  detector_id,
+  member_id
 FROM awscc.guardduty.members_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>member</
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.members (
- Email,
- region
+  Email,
+  region
 )
 SELECT
-'{{ email }}',
-'{{ region }}';
+  '{{ email }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,22 +219,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.members (
- Status,
- MemberId,
- Email,
- Message,
- DisableEmailNotification,
- DetectorId,
- region
+  Status,
+  MemberId,
+  Email,
+  Message,
+  DisableEmailNotification,
+  DetectorId,
+  region
 )
 SELECT
- '{{ status }}',
- '{{ member_id }}',
- '{{ email }}',
- '{{ message }}',
- '{{ disable_email_notification }}',
- '{{ detector_id }}',
- '{{ region }}';
+  '{{ status }}',
+  '{{ member_id }}',
+  '{{ email }}',
+  '{{ message }}',
+  '{{ disable_email_notification }}',
+  '{{ detector_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Message": message,
     "DisableEmailNotification": disable_email_notification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ detector_id }}|{{ member_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ detector_id }}|{{ member_id }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ detector_id }}|{{ member_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.members
-WHERE Identifier = '{{ detector_id }}|{{ member_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ detector_id }}|{{ member_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

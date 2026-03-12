@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stored_query</code>.
 ```sql
 SELECT
-region,
-query_arn,
-query_id,
-query_name,
-query_description,
-query_expression,
-tags
+  region,
+  query_arn,
+  query_id,
+  query_name,
+  query_description,
+  query_expression,
+  tags
 FROM awscc.config.stored_queries
-WHERE region = 'us-east-1' AND Identifier = '{{ query_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ query_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ query_name }}';
 Lists all <code>stored_queries</code> in a region.
 ```sql
 SELECT
-region,
-query_name
+  region,
+  query_name
 FROM awscc.config.stored_queries_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>stored_q
 ```sql
 /*+ create */
 INSERT INTO awscc.config.stored_queries (
- QueryName,
- QueryExpression,
- region
+  QueryName,
+  QueryExpression,
+  region
 )
 SELECT
-'{{ query_name }}',
- '{{ query_expression }}',
-'{{ region }}';
+  '{{ query_name }}',
+  '{{ query_expression }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.stored_queries (
- QueryName,
- QueryDescription,
- QueryExpression,
- Tags,
- region
+  QueryName,
+  QueryDescription,
+  QueryExpression,
+  Tags,
+  region
 )
 SELECT
- '{{ query_name }}',
- '{{ query_description }}',
- '{{ query_expression }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ query_name }}',
+  '{{ query_description }}',
+  '{{ query_expression }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -278,8 +281,9 @@ SET PatchDocument = string('{{ {
     "QueryExpression": query_expression,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ query_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ query_name }}';
 ```
 
 
@@ -288,8 +292,9 @@ AND Identifier = '{{ query_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.stored_queries
-WHERE Identifier = '{{ query_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ query_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -200,18 +200,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>anomaly_subscription</code>.
 ```sql
 SELECT
-region,
-subscription_arn,
-subscription_name,
-account_id,
-monitor_arn_list,
-subscribers,
-threshold,
-threshold_expression,
-frequency,
-resource_tags
+  region,
+  subscription_arn,
+  subscription_name,
+  account_id,
+  monitor_arn_list,
+  subscribers,
+  threshold,
+  threshold_expression,
+  frequency,
+  resource_tags
 FROM awscc.ce.anomaly_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ subscription_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,10 +221,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subscription_arn }}';
 Lists all <code>anomaly_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-subscription_arn
+  region,
+  subscription_arn
 FROM awscc.ce.anomaly_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -244,18 +247,18 @@ Use the following StackQL query and manifest file to create a new <code>anomaly_
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.anomaly_subscriptions (
- SubscriptionName,
- MonitorArnList,
- Subscribers,
- Frequency,
- region
+  SubscriptionName,
+  MonitorArnList,
+  Subscribers,
+  Frequency,
+  region
 )
 SELECT
-'{{ subscription_name }}',
- '{{ monitor_arn_list }}',
- '{{ subscribers }}',
- '{{ frequency }}',
-'{{ region }}';
+  '{{ subscription_name }}',
+  '{{ monitor_arn_list }}',
+  '{{ subscribers }}',
+  '{{ frequency }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -263,24 +266,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ce.anomaly_subscriptions (
- SubscriptionName,
- MonitorArnList,
- Subscribers,
- Threshold,
- ThresholdExpression,
- Frequency,
- ResourceTags,
- region
+  SubscriptionName,
+  MonitorArnList,
+  Subscribers,
+  Threshold,
+  ThresholdExpression,
+  Frequency,
+  ResourceTags,
+  region
 )
 SELECT
- '{{ subscription_name }}',
- '{{ monitor_arn_list }}',
- '{{ subscribers }}',
- '{{ threshold }}',
- '{{ threshold_expression }}',
- '{{ frequency }}',
- '{{ resource_tags }}',
- '{{ region }}';
+  '{{ subscription_name }}',
+  '{{ monitor_arn_list }}',
+  '{{ subscribers }}',
+  '{{ threshold }}',
+  '{{ threshold_expression }}',
+  '{{ frequency }}',
+  '{{ resource_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -335,8 +338,9 @@ SET PatchDocument = string('{{ {
     "ThresholdExpression": threshold_expression,
     "Frequency": frequency
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subscription_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subscription_arn }}';
 ```
 
 
@@ -345,8 +349,9 @@ AND Identifier = '{{ subscription_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_subscriptions
-WHERE Identifier = '{{ subscription_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subscription_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

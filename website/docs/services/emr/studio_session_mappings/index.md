@@ -156,13 +156,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>studio_session_mapping</code>.
 ```sql
 SELECT
-region,
-identity_name,
-identity_type,
-session_policy_arn,
-studio_id
+  region,
+  identity_name,
+  identity_type,
+  session_policy_arn,
+  studio_id
 FROM awscc.emr.studio_session_mappings
-WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,12 +172,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ studio_id }}|{{ identity_type }}
 Lists all <code>studio_session_mappings</code> in a region.
 ```sql
 SELECT
-region,
-studio_id,
-identity_type,
-identity_name
+  region,
+  studio_id,
+  identity_type,
+  identity_name
 FROM awscc.emr.studio_session_mappings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,18 +200,18 @@ Use the following StackQL query and manifest file to create a new <code>studio_s
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.studio_session_mappings (
- IdentityName,
- IdentityType,
- SessionPolicyArn,
- StudioId,
- region
+  IdentityName,
+  IdentityType,
+  SessionPolicyArn,
+  StudioId,
+  region
 )
 SELECT
-'{{ identity_name }}',
- '{{ identity_type }}',
- '{{ session_policy_arn }}',
- '{{ studio_id }}',
-'{{ region }}';
+  '{{ identity_name }}',
+  '{{ identity_type }}',
+  '{{ session_policy_arn }}',
+  '{{ studio_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.emr.studio_session_mappings (
- IdentityName,
- IdentityType,
- SessionPolicyArn,
- StudioId,
- region
+  IdentityName,
+  IdentityType,
+  SessionPolicyArn,
+  StudioId,
+  region
 )
 SELECT
- '{{ identity_name }}',
- '{{ identity_type }}',
- '{{ session_policy_arn }}',
- '{{ studio_id }}',
- '{{ region }}';
+  '{{ identity_name }}',
+  '{{ identity_type }}',
+  '{{ session_policy_arn }}',
+  '{{ studio_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.emr.studio_session_mappings
 SET PatchDocument = string('{{ {
     "SessionPolicyArn": session_policy_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.studio_session_mappings
-WHERE Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

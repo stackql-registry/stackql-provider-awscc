@@ -152,13 +152,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group_membership</code>.
 ```sql
 SELECT
-region,
-group_id,
-identity_store_id,
-member_id,
-membership_id
+  region,
+  group_id,
+  identity_store_id,
+  member_id,
+  membership_id
 FROM awscc.identitystore.group_memberships
-WHERE region = 'us-east-1' AND Identifier = '{{ membership_id }}|{{ identity_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ membership_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,11 +168,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ membership_id }}|{{ identity_sto
 Lists all <code>group_memberships</code> in a region.
 ```sql
 SELECT
-region,
-membership_id,
-identity_store_id
+  region,
+  membership_id,
+  identity_store_id
 FROM awscc.identitystore.group_memberships_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -192,16 +195,16 @@ Use the following StackQL query and manifest file to create a new <code>group_me
 ```sql
 /*+ create */
 INSERT INTO awscc.identitystore.group_memberships (
- GroupId,
- IdentityStoreId,
- MemberId,
- region
+  GroupId,
+  IdentityStoreId,
+  MemberId,
+  region
 )
 SELECT
-'{{ group_id }}',
- '{{ identity_store_id }}',
- '{{ member_id }}',
-'{{ region }}';
+  '{{ group_id }}',
+  '{{ identity_store_id }}',
+  '{{ member_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -209,16 +212,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.identitystore.group_memberships (
- GroupId,
- IdentityStoreId,
- MemberId,
- region
+  GroupId,
+  IdentityStoreId,
+  MemberId,
+  region
 )
 SELECT
- '{{ group_id }}',
- '{{ identity_store_id }}',
- '{{ member_id }}',
- '{{ region }}';
+  '{{ group_id }}',
+  '{{ identity_store_id }}',
+  '{{ member_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -252,8 +255,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.identitystore.group_memberships
-WHERE Identifier = '{{ membership_id }}|{{ identity_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ membership_id }}|{{ identity_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

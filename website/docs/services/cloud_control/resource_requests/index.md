@@ -20,7 +20,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-For more information about Amazon Web Services Cloud Control API, see the <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/what-is-cloudcontrolapi.html">Amazon Web Services Cloud Control API User Guide</a>.
+For more information about Amazon Web Services Cloud Control API, see the <a href="https://docs.awscc.amazon.com/cloudcontrolapi/latest/userguide/what-is-cloudcontrolapi.html">Amazon Web Services Cloud Control API User Guide</a>.
 
 ## Overview
 <table>
@@ -34,6 +34,51 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
 
 ## Fields
 <SchemaTable fields={[
+  {
+    "name": "error_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "operation",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "operation_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "request_token",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_model",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": ""
+  },
   {
     "name": "region",
     "type": "string",
@@ -63,7 +108,15 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
 </tbody>
 </table>
 
+## `SELECT` examples
 
+```sql
+SELECT
+  region
+FROM awscc.cloud_control.resource_requests
+WHERE
+  region = 'us-east-1' AND ResourceRequestStatusFilter = '<ResourceRequestStatusFilter>';;
+```
 
 
 

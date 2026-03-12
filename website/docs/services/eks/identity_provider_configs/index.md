@@ -227,15 +227,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_provider_config</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-type,
-identity_provider_config_name,
-oidc,
-tags,
-identity_provider_config_arn
+  region,
+  cluster_name,
+  type,
+  identity_provider_config_name,
+  oidc,
+  tags,
+  identity_provider_config_arn
 FROM awscc.eks.identity_provider_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,12 +245,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_config_name }}
 Lists all <code>identity_provider_configs</code> in a region.
 ```sql
 SELECT
-region,
-identity_provider_config_name,
-cluster_name,
-type
+  region,
+  identity_provider_config_name,
+  cluster_name,
+  type
 FROM awscc.eks.identity_provider_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,14 +273,14 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.identity_provider_configs (
- ClusterName,
- Type,
- region
+  ClusterName,
+  Type,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,20 +288,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.identity_provider_configs (
- ClusterName,
- Type,
- IdentityProviderConfigName,
- Oidc,
- Tags,
- region
+  ClusterName,
+  Type,
+  IdentityProviderConfigName,
+  Oidc,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ type }}',
- '{{ identity_provider_config_name }}',
- '{{ oidc }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ type }}',
+  '{{ identity_provider_config_name }}',
+  '{{ oidc }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -350,8 +353,9 @@ UPDATE awscc.eks.identity_provider_configs
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}';
 ```
 
 
@@ -360,8 +364,9 @@ AND Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.identity_provider_configs
-WHERE Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identity_provider_config_name }}|{{ cluster_name }}|{{ type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

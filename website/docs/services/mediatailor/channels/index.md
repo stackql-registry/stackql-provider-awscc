@@ -100,22 +100,22 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
           {
             "name": "manifest_window_seconds",
             "type": "number",
-            "description": "<p>The total duration (in seconds) of each manifest. Minimum value: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; seconds. Maximum value: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; seconds.</p>"
+            "description": "<p>The total duration (in seconds) of each manifest. Minimum value: <code>30</code> seconds. Maximum value: <code>3600</code> seconds.</p>"
           },
           {
             "name": "min_buffer_time_seconds",
             "type": "number",
-            "description": "<p>Minimum amount of content (measured in seconds) that a player must keep available in the buffer. Minimum value: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; seconds. Maximum value: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; seconds.</p>"
+            "description": "<p>Minimum amount of content (measured in seconds) that a player must keep available in the buffer. Minimum value: <code>2</code> seconds. Maximum value: <code>60</code> seconds.</p>"
           },
           {
             "name": "min_update_period_seconds",
             "type": "number",
-            "description": "<p>Minimum amount of time (in seconds) that the player should wait before requesting updates to the manifest. Minimum value: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; seconds. Maximum value: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; seconds.</p>"
+            "description": "<p>Minimum amount of time (in seconds) that the player should wait before requesting updates to the manifest. Minimum value: <code>2</code> seconds. Maximum value: <code>60</code> seconds.</p>"
           },
           {
             "name": "suggested_presentation_delay_seconds",
             "type": "number",
-            "description": "<p>Amount of time (in seconds) that the player should be from the live point at the end of the manifest. Minimum value: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; seconds. Maximum value: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; seconds.</p>"
+            "description": "<p>Amount of time (in seconds) that the player should be from the live point at the end of the manifest. Minimum value: <code>2</code> seconds. Maximum value: <code>60</code> seconds.</p>"
           }
         ]
       },
@@ -127,24 +127,24 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
           {
             "name": "manifest_window_seconds",
             "type": "number",
-            "description": "<p>The total duration (in seconds) of each manifest. Minimum value: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; seconds. Maximum value: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; seconds.</p>"
+            "description": "<p>The total duration (in seconds) of each manifest. Minimum value: <code>30</code> seconds. Maximum value: <code>3600</code> seconds.</p>"
           },
           {
             "name": "ad_markup_type",
             "type": "array",
-            "description": "<p>Determines the type of SCTE 35 tags to use in ad markup. Specify &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; to use &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; tags (for live or VOD content). Specify &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; to use &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; and &#95;&#95;CODE&#95;BLOCK&#95;4&#95;&#95; tags (for VOD content only).</p>"
+            "description": "<p>Determines the type of SCTE 35 tags to use in ad markup. Specify <code>DATERANGE</code> to use <code>DATERANGE</code> tags (for live or VOD content). Specify <code>SCTE35_ENHANCED</code> to use <code>EXT-X-CUE-OUT</code> and <code>EXT-X-CUE-IN</code> tags (for VOD content only).</p>"
           }
         ]
       },
       {
         "name": "manifest_name",
         "type": "string",
-        "description": "<p>The name of the manifest for the channel. The name appears in the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;.</p>"
+        "description": "<p>The name of the manifest for the channel. The name appears in the <code>PlaybackUrl</code>.</p>"
       },
       {
         "name": "source_group",
         "type": "string",
-        "description": "<p>A string used to match which &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is used for each &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+        "description": "<p>A string used to match which <code>HttpPackageConfiguration</code> is used for each <code>VodSource</code>.</p>"
       }
     ]
   },
@@ -270,19 +270,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT
-region,
-arn,
-audiences,
-channel_name,
-filler_slate,
-log_configuration,
-outputs,
-playback_mode,
-tags,
-tier,
-time_shift_configuration
+  region,
+  arn,
+  audiences,
+  channel_name,
+  filler_slate,
+  log_configuration,
+  outputs,
+  playback_mode,
+  tags,
+  tier,
+  time_shift_configuration
 FROM awscc.mediatailor.channels
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,10 +292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ channel_name }}';
 Lists all <code>channels</code> in a region.
 ```sql
 SELECT
-region,
-channel_name
+  region,
+  channel_name
 FROM awscc.mediatailor.channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -315,16 +318,16 @@ Use the following StackQL query and manifest file to create a new <code>channel<
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.channels (
- ChannelName,
- Outputs,
- PlaybackMode,
- region
+  ChannelName,
+  Outputs,
+  PlaybackMode,
+  region
 )
 SELECT
-'{{ channel_name }}',
- '{{ outputs }}',
- '{{ playback_mode }}',
-'{{ region }}';
+  '{{ channel_name }}',
+  '{{ outputs }}',
+  '{{ playback_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -332,28 +335,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.channels (
- Audiences,
- ChannelName,
- FillerSlate,
- LogConfiguration,
- Outputs,
- PlaybackMode,
- Tags,
- Tier,
- TimeShiftConfiguration,
- region
+  Audiences,
+  ChannelName,
+  FillerSlate,
+  LogConfiguration,
+  Outputs,
+  PlaybackMode,
+  Tags,
+  Tier,
+  TimeShiftConfiguration,
+  region
 )
 SELECT
- '{{ audiences }}',
- '{{ channel_name }}',
- '{{ filler_slate }}',
- '{{ log_configuration }}',
- '{{ outputs }}',
- '{{ playback_mode }}',
- '{{ tags }}',
- '{{ tier }}',
- '{{ time_shift_configuration }}',
- '{{ region }}';
+  '{{ audiences }}',
+  '{{ channel_name }}',
+  '{{ filler_slate }}',
+  '{{ log_configuration }}',
+  '{{ outputs }}',
+  '{{ playback_mode }}',
+  '{{ tags }}',
+  '{{ tier }}',
+  '{{ time_shift_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -427,8 +430,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TimeShiftConfiguration": time_shift_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ channel_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ channel_name }}';
 ```
 
 
@@ -437,8 +441,9 @@ AND Identifier = '{{ channel_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.channels
-WHERE Identifier = '{{ channel_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

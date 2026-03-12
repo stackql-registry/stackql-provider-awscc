@@ -173,15 +173,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>encryption_configuration</code>.
 ```sql
 SELECT
-region,
-account_id,
-encryption_type,
-kms_access_role_arn,
-kms_key_arn,
-configuration_details,
-last_modified_date
+  region,
+  account_id,
+  encryption_type,
+  kms_access_role_arn,
+  kms_key_arn,
+  configuration_details,
+  last_modified_date
 FROM awscc.iot.encryption_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>encryption_configurations</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.iot.encryption_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,12 +217,12 @@ Use the following StackQL query and manifest file to create a new <code>encrypti
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.encryption_configurations (
- EncryptionType,
- region
+  EncryptionType,
+  region
 )
 SELECT
-'{{ encryption_type }}',
-'{{ region }}';
+  '{{ encryption_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -227,16 +230,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.encryption_configurations (
- EncryptionType,
- KmsAccessRoleArn,
- KmsKeyArn,
- region
+  EncryptionType,
+  KmsAccessRoleArn,
+  KmsKeyArn,
+  region
 )
 SELECT
- '{{ encryption_type }}',
- '{{ kms_access_role_arn }}',
- '{{ kms_key_arn }}',
- '{{ region }}';
+  '{{ encryption_type }}',
+  '{{ kms_access_role_arn }}',
+  '{{ kms_key_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -275,8 +278,9 @@ SET PatchDocument = string('{{ {
     "KmsAccessRoleArn": kms_access_role_arn,
     "KmsKeyArn": kms_key_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -285,8 +289,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.encryption_configurations
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

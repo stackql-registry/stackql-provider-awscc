@@ -190,14 +190,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>state_machine_alias</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-routing_configuration,
-deployment_preference
+  region,
+  arn,
+  name,
+  description,
+  routing_configuration,
+  deployment_preference
 FROM awscc.stepfunctions.state_machine_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -205,10 +207,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>state_machine_aliases</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.stepfunctions.state_machine_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -230,18 +233,18 @@ Use the following StackQL query and manifest file to create a new <code>state_ma
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machine_aliases (
- Name,
- Description,
- RoutingConfiguration,
- DeploymentPreference,
- region
+  Name,
+  Description,
+  RoutingConfiguration,
+  DeploymentPreference,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ description }}',
- '{{ routing_configuration }}',
- '{{ deployment_preference }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ routing_configuration }}',
+  '{{ deployment_preference }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -249,18 +252,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.stepfunctions.state_machine_aliases (
- Name,
- Description,
- RoutingConfiguration,
- DeploymentPreference,
- region
+  Name,
+  Description,
+  RoutingConfiguration,
+  DeploymentPreference,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ routing_configuration }}',
- '{{ deployment_preference }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ routing_configuration }}',
+  '{{ deployment_preference }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "RoutingConfiguration": routing_configuration,
     "DeploymentPreference": deployment_preference
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machine_aliases
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

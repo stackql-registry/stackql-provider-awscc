@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_parameter_group</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-family,
-parameters,
-tags
+  region,
+  name,
+  description,
+  family,
+  parameters,
+  tags
 FROM awscc.neptune.db_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>db_parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.neptune.db_parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>db_param
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_parameter_groups (
- Description,
- Family,
- Parameters,
- region
+  Description,
+  Family,
+  Parameters,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ family }}',
- '{{ parameters }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ family }}',
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,20 +223,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.neptune.db_parameter_groups (
- Name,
- Description,
- Family,
- Parameters,
- Tags,
- region
+  Name,
+  Description,
+  Family,
+  Parameters,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ family }}',
- '{{ parameters }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ family }}',
+  '{{ parameters }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_parameter_groups
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

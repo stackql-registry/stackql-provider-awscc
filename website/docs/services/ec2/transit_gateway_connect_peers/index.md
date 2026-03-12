@@ -222,15 +222,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_connect_peer</code>.
 ```sql
 SELECT
-region,
-transit_gateway_attachment_id,
-transit_gateway_connect_peer_id,
-state,
-creation_time,
-connect_peer_configuration,
-tags
+  region,
+  transit_gateway_attachment_id,
+  transit_gateway_connect_peer_id,
+  state,
+  creation_time,
+  connect_peer_configuration,
+  tags
 FROM awscc.ec2.transit_gateway_connect_peers
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_connect_peer_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +240,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_connect_peer_id 
 Lists all <code>transit_gateway_connect_peers</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_connect_peer_id
+  region,
+  transit_gateway_connect_peer_id
 FROM awscc.ec2.transit_gateway_connect_peers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,14 +266,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_connect_peers (
- TransitGatewayAttachmentId,
- ConnectPeerConfiguration,
- region
+  TransitGatewayAttachmentId,
+  ConnectPeerConfiguration,
+  region
 )
 SELECT
-'{{ transit_gateway_attachment_id }}',
- '{{ connect_peer_configuration }}',
-'{{ region }}';
+  '{{ transit_gateway_attachment_id }}',
+  '{{ connect_peer_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -278,16 +281,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_connect_peers (
- TransitGatewayAttachmentId,
- ConnectPeerConfiguration,
- Tags,
- region
+  TransitGatewayAttachmentId,
+  ConnectPeerConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ transit_gateway_attachment_id }}',
- '{{ connect_peer_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ transit_gateway_attachment_id }}',
+  '{{ connect_peer_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ UPDATE awscc.ec2.transit_gateway_connect_peers
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ transit_gateway_connect_peer_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_connect_peers
-WHERE Identifier = '{{ transit_gateway_connect_peer_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_connect_peer_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

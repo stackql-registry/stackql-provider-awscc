@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stream</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-data_retention_in_hours,
-device_name,
-kms_key_id,
-media_type,
-tags
+  region,
+  arn,
+  name,
+  data_retention_in_hours,
+  device_name,
+  kms_key_id,
+  media_type,
+  tags
 FROM awscc.kinesisvideo.streams
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>streams</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.kinesisvideo.streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>stream</
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisvideo.streams (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,22 +231,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisvideo.streams (
- Name,
- DataRetentionInHours,
- DeviceName,
- KmsKeyId,
- MediaType,
- Tags,
- region
+  Name,
+  DataRetentionInHours,
+  DeviceName,
+  KmsKeyId,
+  MediaType,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ data_retention_in_hours }}',
- '{{ device_name }}',
- '{{ kms_key_id }}',
- '{{ media_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ data_retention_in_hours }}',
+  '{{ device_name }}',
+  '{{ kms_key_id }}',
+  '{{ media_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "MediaType": media_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisvideo.streams
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

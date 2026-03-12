@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam_scope</code>.
 ```sql
 SELECT
-region,
-ipam_scope_id,
-arn,
-ipam_id,
-ipam_arn,
-ipam_scope_type,
-is_default,
-description,
-pool_count,
-tags
+  region,
+  ipam_scope_id,
+  arn,
+  ipam_id,
+  ipam_arn,
+  ipam_scope_type,
+  is_default,
+  description,
+  pool_count,
+  tags
 FROM awscc.ec2.ipam_scopes
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_scope_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_scope_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_scope_id }}';
 Lists all <code>ipam_scopes</code> in a region.
 ```sql
 SELECT
-region,
-ipam_scope_id
+  region,
+  ipam_scope_id
 FROM awscc.ec2.ipam_scopes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,12 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>ipam_sco
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_scopes (
- IpamId,
- region
+  IpamId,
+  region
 )
 SELECT
-'{{ ipam_id }}',
-'{{ region }}';
+  '{{ ipam_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -240,16 +243,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_scopes (
- IpamId,
- Description,
- Tags,
- region
+  IpamId,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ ipam_id }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ipam_id }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -289,8 +292,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ipam_scope_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ipam_scope_id }}';
 ```
 
 
@@ -299,8 +303,9 @@ AND Identifier = '{{ ipam_scope_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_scopes
-WHERE Identifier = '{{ ipam_scope_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_scope_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -222,22 +222,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>partner_app</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-type,
-execution_role_arn,
-kms_key_id,
-tier,
-enable_iam_session_based_identity,
-application_config,
-auth_type,
-base_url,
-maintenance_config,
-client_token,
-tags
+  region,
+  arn,
+  name,
+  type,
+  execution_role_arn,
+  kms_key_id,
+  tier,
+  enable_iam_session_based_identity,
+  application_config,
+  auth_type,
+  base_url,
+  maintenance_config,
+  client_token,
+  tags
 FROM awscc.sagemaker.partner_apps
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,10 +247,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>partner_apps</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.sagemaker.partner_apps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,20 +273,20 @@ Use the following StackQL query and manifest file to create a new <code>partner_
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.partner_apps (
- Name,
- Type,
- ExecutionRoleArn,
- Tier,
- AuthType,
- region
+  Name,
+  Type,
+  ExecutionRoleArn,
+  Tier,
+  AuthType,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ execution_role_arn }}',
- '{{ tier }}',
- '{{ auth_type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ execution_role_arn }}',
+  '{{ tier }}',
+  '{{ auth_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -291,32 +294,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.partner_apps (
- Name,
- Type,
- ExecutionRoleArn,
- KmsKeyId,
- Tier,
- EnableIamSessionBasedIdentity,
- ApplicationConfig,
- AuthType,
- MaintenanceConfig,
- ClientToken,
- Tags,
- region
+  Name,
+  Type,
+  ExecutionRoleArn,
+  KmsKeyId,
+  Tier,
+  EnableIamSessionBasedIdentity,
+  ApplicationConfig,
+  AuthType,
+  MaintenanceConfig,
+  ClientToken,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ execution_role_arn }}',
- '{{ kms_key_id }}',
- '{{ tier }}',
- '{{ enable_iam_session_based_identity }}',
- '{{ application_config }}',
- '{{ auth_type }}',
- '{{ maintenance_config }}',
- '{{ client_token }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ execution_role_arn }}',
+  '{{ kms_key_id }}',
+  '{{ tier }}',
+  '{{ enable_iam_session_based_identity }}',
+  '{{ application_config }}',
+  '{{ auth_type }}',
+  '{{ maintenance_config }}',
+  '{{ client_token }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -380,8 +383,9 @@ SET PatchDocument = string('{{ {
     "ClientToken": client_token,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -390,8 +394,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.partner_apps
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -219,16 +219,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>usage_plan</code>.
 ```sql
 SELECT
-region,
-id,
-api_stages,
-description,
-quota,
-tags,
-throttle,
-usage_plan_name
+  region,
+  id,
+  api_stages,
+  description,
+  quota,
+  tags,
+  throttle,
+  usage_plan_name
 FROM awscc.apigateway.usage_plans
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,10 +238,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>usage_plans</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.apigateway.usage_plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -261,22 +264,22 @@ Use the following StackQL query and manifest file to create a new <code>usage_pl
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.usage_plans (
- ApiStages,
- Description,
- Quota,
- Tags,
- Throttle,
- UsagePlanName,
- region
+  ApiStages,
+  Description,
+  Quota,
+  Tags,
+  Throttle,
+  UsagePlanName,
+  region
 )
 SELECT
-'{{ api_stages }}',
- '{{ description }}',
- '{{ quota }}',
- '{{ tags }}',
- '{{ throttle }}',
- '{{ usage_plan_name }}',
-'{{ region }}';
+  '{{ api_stages }}',
+  '{{ description }}',
+  '{{ quota }}',
+  '{{ tags }}',
+  '{{ throttle }}',
+  '{{ usage_plan_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,22 +287,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.usage_plans (
- ApiStages,
- Description,
- Quota,
- Tags,
- Throttle,
- UsagePlanName,
- region
+  ApiStages,
+  Description,
+  Quota,
+  Tags,
+  Throttle,
+  UsagePlanName,
+  region
 )
 SELECT
- '{{ api_stages }}',
- '{{ description }}',
- '{{ quota }}',
- '{{ tags }}',
- '{{ throttle }}',
- '{{ usage_plan_name }}',
- '{{ region }}';
+  '{{ api_stages }}',
+  '{{ description }}',
+  '{{ quota }}',
+  '{{ tags }}',
+  '{{ throttle }}',
+  '{{ usage_plan_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -357,8 +360,9 @@ SET PatchDocument = string('{{ {
     "Throttle": throttle,
     "UsagePlanName": usage_plan_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -367,8 +371,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.usage_plans
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

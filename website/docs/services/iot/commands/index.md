@@ -269,22 +269,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>command</code>.
 ```sql
 SELECT
-region,
-command_arn,
-command_id,
-created_at,
-deprecated,
-description,
-display_name,
-last_updated_at,
-mandatory_parameters,
-namespace,
-role_arn,
-payload,
-pending_deletion,
-tags
+  region,
+  command_arn,
+  command_id,
+  created_at,
+  deprecated,
+  description,
+  display_name,
+  last_updated_at,
+  mandatory_parameters,
+  namespace,
+  role_arn,
+  payload,
+  pending_deletion,
+  tags
 FROM awscc.iot.commands
-WHERE region = 'us-east-1' AND Identifier = '{{ command_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ command_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,10 +294,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ command_id }}';
 Lists all <code>commands</code> in a region.
 ```sql
 SELECT
-region,
-command_id
+  region,
+  command_id
 FROM awscc.iot.commands_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -317,12 +320,12 @@ Use the following StackQL query and manifest file to create a new <code>command<
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.commands (
- CommandId,
- region
+  CommandId,
+  region
 )
 SELECT
-'{{ command_id }}',
-'{{ region }}';
+  '{{ command_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -330,34 +333,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.commands (
- CommandId,
- CreatedAt,
- Deprecated,
- Description,
- DisplayName,
- LastUpdatedAt,
- MandatoryParameters,
- Namespace,
- RoleArn,
- Payload,
- PendingDeletion,
- Tags,
- region
+  CommandId,
+  CreatedAt,
+  Deprecated,
+  Description,
+  DisplayName,
+  LastUpdatedAt,
+  MandatoryParameters,
+  Namespace,
+  RoleArn,
+  Payload,
+  PendingDeletion,
+  Tags,
+  region
 )
 SELECT
- '{{ command_id }}',
- '{{ created_at }}',
- '{{ deprecated }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ last_updated_at }}',
- '{{ mandatory_parameters }}',
- '{{ namespace }}',
- '{{ role_arn }}',
- '{{ payload }}',
- '{{ pending_deletion }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ command_id }}',
+  '{{ created_at }}',
+  '{{ deprecated }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ last_updated_at }}',
+  '{{ mandatory_parameters }}',
+  '{{ namespace }}',
+  '{{ role_arn }}',
+  '{{ payload }}',
+  '{{ pending_deletion }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -437,8 +440,9 @@ SET PatchDocument = string('{{ {
     "PendingDeletion": pending_deletion,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ command_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ command_id }}';
 ```
 
 
@@ -447,8 +451,9 @@ AND Identifier = '{{ command_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.commands
-WHERE Identifier = '{{ command_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ command_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

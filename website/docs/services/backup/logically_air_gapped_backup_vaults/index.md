@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>logically_air_gapped_backup_vault</code>.
 ```sql
 SELECT
-region,
-vault_state,
-backup_vault_tags,
-vault_type,
-backup_vault_name,
-backup_vault_arn,
-encryption_key_arn,
-max_retention_days,
-min_retention_days,
-notifications,
-access_policy
+  region,
+  vault_state,
+  backup_vault_tags,
+  vault_type,
+  backup_vault_name,
+  backup_vault_arn,
+  encryption_key_arn,
+  max_retention_days,
+  min_retention_days,
+  notifications,
+  access_policy
 FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ backup_vault_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
 Lists all <code>logically_air_gapped_backup_vaults</code> in a region.
 ```sql
 SELECT
-region,
-backup_vault_name
+  region,
+  backup_vault_name
 FROM awscc.backup.logically_air_gapped_backup_vaults_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>logicall
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.logically_air_gapped_backup_vaults (
- BackupVaultName,
- MaxRetentionDays,
- MinRetentionDays,
- region
+  BackupVaultName,
+  MaxRetentionDays,
+  MinRetentionDays,
+  region
 )
 SELECT
-'{{ backup_vault_name }}',
- '{{ max_retention_days }}',
- '{{ min_retention_days }}',
-'{{ region }}';
+  '{{ backup_vault_name }}',
+  '{{ max_retention_days }}',
+  '{{ min_retention_days }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,22 +253,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.logically_air_gapped_backup_vaults (
- BackupVaultTags,
- BackupVaultName,
- MaxRetentionDays,
- MinRetentionDays,
- Notifications,
- AccessPolicy,
- region
+  BackupVaultTags,
+  BackupVaultName,
+  MaxRetentionDays,
+  MinRetentionDays,
+  Notifications,
+  AccessPolicy,
+  region
 )
 SELECT
- '{{ backup_vault_tags }}',
- '{{ backup_vault_name }}',
- '{{ max_retention_days }}',
- '{{ min_retention_days }}',
- '{{ notifications }}',
- '{{ access_policy }}',
- '{{ region }}';
+  '{{ backup_vault_tags }}',
+  '{{ backup_vault_name }}',
+  '{{ max_retention_days }}',
+  '{{ min_retention_days }}',
+  '{{ notifications }}',
+  '{{ access_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "Notifications": notifications,
     "AccessPolicy": access_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ backup_vault_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ backup_vault_name }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ backup_vault_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE Identifier = '{{ backup_vault_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ backup_vault_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

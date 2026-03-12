@@ -200,17 +200,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schema_mapping</code>.
 ```sql
 SELECT
-region,
-schema_name,
-description,
-mapped_input_fields,
-tags,
-schema_arn,
-created_at,
-updated_at,
-has_workflows
+  region,
+  schema_name,
+  description,
+  mapped_input_fields,
+  tags,
+  schema_arn,
+  created_at,
+  updated_at,
+  has_workflows
 FROM awscc.entityresolution.schema_mappings
-WHERE region = 'us-east-1' AND Identifier = '{{ schema_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ schema_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,10 +220,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ schema_name }}';
 Lists all <code>schema_mappings</code> in a region.
 ```sql
 SELECT
-region,
-schema_name
+  region,
+  schema_name
 FROM awscc.entityresolution.schema_mappings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -243,14 +246,14 @@ Use the following StackQL query and manifest file to create a new <code>schema_m
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.schema_mappings (
- SchemaName,
- MappedInputFields,
- region
+  SchemaName,
+  MappedInputFields,
+  region
 )
 SELECT
-'{{ schema_name }}',
- '{{ mapped_input_fields }}',
-'{{ region }}';
+  '{{ schema_name }}',
+  '{{ mapped_input_fields }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,18 +261,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.schema_mappings (
- SchemaName,
- Description,
- MappedInputFields,
- Tags,
- region
+  SchemaName,
+  Description,
+  MappedInputFields,
+  Tags,
+  region
 )
 SELECT
- '{{ schema_name }}',
- '{{ description }}',
- '{{ mapped_input_fields }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ schema_name }}',
+  '{{ description }}',
+  '{{ mapped_input_fields }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -318,8 +321,9 @@ SET PatchDocument = string('{{ {
     "MappedInputFields": mapped_input_fields,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ schema_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ schema_name }}';
 ```
 
 
@@ -328,8 +332,9 @@ AND Identifier = '{{ schema_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.schema_mappings
-WHERE Identifier = '{{ schema_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ schema_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

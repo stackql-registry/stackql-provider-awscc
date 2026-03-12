@@ -155,16 +155,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resolver_query_logging_config_association</code>.
 ```sql
 SELECT
-region,
-id,
-resolver_query_log_config_id,
-resource_id,
-status,
-error,
-error_message,
-creation_time
+  region,
+  id,
+  resolver_query_log_config_id,
+  resource_id,
+  status,
+  error,
+  error_message,
+  creation_time
 FROM awscc.route53resolver.resolver_query_logging_config_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>resolver_query_logging_config_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53resolver.resolver_query_logging_config_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>resolver
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_query_logging_config_associations (
- ResolverQueryLogConfigId,
- ResourceId,
- region
+  ResolverQueryLogConfigId,
+  ResourceId,
+  region
 )
 SELECT
-'{{ resolver_query_log_config_id }}',
- '{{ resource_id }}',
-'{{ region }}';
+  '{{ resolver_query_log_config_id }}',
+  '{{ resource_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,14 +215,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.resolver_query_logging_config_associations (
- ResolverQueryLogConfigId,
- ResourceId,
- region
+  ResolverQueryLogConfigId,
+  ResourceId,
+  region
 )
 SELECT
- '{{ resolver_query_log_config_id }}',
- '{{ resource_id }}',
- '{{ region }}';
+  '{{ resolver_query_log_config_id }}',
+  '{{ resource_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_query_logging_config_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

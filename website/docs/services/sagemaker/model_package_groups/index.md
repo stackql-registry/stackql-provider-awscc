@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>model_package_group</code>.
 ```sql
 SELECT
-region,
-tags,
-model_package_group_arn,
-model_package_group_name,
-model_package_group_description,
-model_package_group_policy,
-creation_time,
-model_package_group_status
+  region,
+  tags,
+  model_package_group_arn,
+  model_package_group_name,
+  model_package_group_description,
+  model_package_group_policy,
+  creation_time,
+  model_package_group_status
 FROM awscc.sagemaker.model_package_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ model_package_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ model_package_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ model_package_group_arn }}';
 Lists all <code>model_package_groups</code> in a region.
 ```sql
 SELECT
-region,
-model_package_group_arn
+  region,
+  model_package_group_arn
 FROM awscc.sagemaker.model_package_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>model_pa
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.model_package_groups (
- ModelPackageGroupName,
- region
+  ModelPackageGroupName,
+  region
 )
 SELECT
-'{{ model_package_group_name }}',
-'{{ region }}';
+  '{{ model_package_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.model_package_groups (
- Tags,
- ModelPackageGroupName,
- ModelPackageGroupDescription,
- ModelPackageGroupPolicy,
- region
+  Tags,
+  ModelPackageGroupName,
+  ModelPackageGroupDescription,
+  ModelPackageGroupPolicy,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ model_package_group_name }}',
- '{{ model_package_group_description }}',
- '{{ model_package_group_policy }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ model_package_group_name }}',
+  '{{ model_package_group_description }}',
+  '{{ model_package_group_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ModelPackageGroupPolicy": model_package_group_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ model_package_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ model_package_group_arn }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ model_package_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.model_package_groups
-WHERE Identifier = '{{ model_package_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ model_package_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

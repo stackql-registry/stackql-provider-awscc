@@ -226,12 +226,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>database</code>.
 ```sql
 SELECT
-region,
-catalog_id,
-database_input,
-database_name
+  region,
+  catalog_id,
+  database_input,
+  database_name
 FROM awscc.glue.databases
-WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
 Lists all <code>databases</code> in a region.
 ```sql
 SELECT
-region,
-database_name
+  region,
+  database_name
 FROM awscc.glue.databases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,14 +267,14 @@ Use the following StackQL query and manifest file to create a new <code>database
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.databases (
- CatalogId,
- DatabaseInput,
- region
+  CatalogId,
+  DatabaseInput,
+  region
 )
 SELECT
-'{{ catalog_id }}',
- '{{ database_input }}',
-'{{ region }}';
+  '{{ catalog_id }}',
+  '{{ database_input }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,16 +282,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.databases (
- CatalogId,
- DatabaseInput,
- DatabaseName,
- region
+  CatalogId,
+  DatabaseInput,
+  DatabaseName,
+  region
 )
 SELECT
- '{{ catalog_id }}',
- '{{ database_input }}',
- '{{ database_name }}',
- '{{ region }}';
+  '{{ catalog_id }}',
+  '{{ database_input }}',
+  '{{ database_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -342,8 +345,9 @@ SET PatchDocument = string('{{ {
     "CatalogId": catalog_id,
     "DatabaseInput": database_input
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ database_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ database_name }}';
 ```
 
 
@@ -352,8 +356,9 @@ AND Identifier = '{{ database_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.databases
-WHERE Identifier = '{{ database_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ database_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -333,28 +333,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_output</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-output_arn,
-cidr_allow_list,
-encryption,
-description,
-destination,
-max_latency,
-min_latency,
-name,
-port,
-protocol,
-remote_id,
-smoothing_latency,
-stream_id,
-vpc_interface_attachment,
-media_stream_output_configurations,
-output_status,
-ndi_program_name,
-ndi_speed_hq_quality
+  region,
+  flow_arn,
+  output_arn,
+  cidr_allow_list,
+  encryption,
+  description,
+  destination,
+  max_latency,
+  min_latency,
+  name,
+  port,
+  protocol,
+  remote_id,
+  smoothing_latency,
+  stream_id,
+  vpc_interface_attachment,
+  media_stream_output_configurations,
+  output_status,
+  ndi_program_name,
+  ndi_speed_hq_quality
 FROM awscc.mediaconnect.flow_outputs
-WHERE region = 'us-east-1' AND Identifier = '{{ output_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ output_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -362,10 +364,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ output_arn }}';
 Lists all <code>flow_outputs</code> in a region.
 ```sql
 SELECT
-region,
-output_arn
+  region,
+  output_arn
 FROM awscc.mediaconnect.flow_outputs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -387,14 +390,14 @@ Use the following StackQL query and manifest file to create a new <code>flow_out
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_outputs (
- FlowArn,
- Protocol,
- region
+  FlowArn,
+  Protocol,
+  region
 )
 SELECT
-'{{ flow_arn }}',
- '{{ protocol }}',
-'{{ region }}';
+  '{{ flow_arn }}',
+  '{{ protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -402,46 +405,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flow_outputs (
- FlowArn,
- CidrAllowList,
- Encryption,
- Description,
- Destination,
- MaxLatency,
- MinLatency,
- Name,
- Port,
- Protocol,
- RemoteId,
- SmoothingLatency,
- StreamId,
- VpcInterfaceAttachment,
- MediaStreamOutputConfigurations,
- OutputStatus,
- NdiProgramName,
- NdiSpeedHqQuality,
- region
+  FlowArn,
+  CidrAllowList,
+  Encryption,
+  Description,
+  Destination,
+  MaxLatency,
+  MinLatency,
+  Name,
+  Port,
+  Protocol,
+  RemoteId,
+  SmoothingLatency,
+  StreamId,
+  VpcInterfaceAttachment,
+  MediaStreamOutputConfigurations,
+  OutputStatus,
+  NdiProgramName,
+  NdiSpeedHqQuality,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ cidr_allow_list }}',
- '{{ encryption }}',
- '{{ description }}',
- '{{ destination }}',
- '{{ max_latency }}',
- '{{ min_latency }}',
- '{{ name }}',
- '{{ port }}',
- '{{ protocol }}',
- '{{ remote_id }}',
- '{{ smoothing_latency }}',
- '{{ stream_id }}',
- '{{ vpc_interface_attachment }}',
- '{{ media_stream_output_configurations }}',
- '{{ output_status }}',
- '{{ ndi_program_name }}',
- '{{ ndi_speed_hq_quality }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ cidr_allow_list }}',
+  '{{ encryption }}',
+  '{{ description }}',
+  '{{ destination }}',
+  '{{ max_latency }}',
+  '{{ min_latency }}',
+  '{{ name }}',
+  '{{ port }}',
+  '{{ protocol }}',
+  '{{ remote_id }}',
+  '{{ smoothing_latency }}',
+  '{{ stream_id }}',
+  '{{ vpc_interface_attachment }}',
+  '{{ media_stream_output_configurations }}',
+  '{{ output_status }}',
+  '{{ ndi_program_name }}',
+  '{{ ndi_speed_hq_quality }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -545,8 +548,9 @@ SET PatchDocument = string('{{ {
     "NdiProgramName": ndi_program_name,
     "NdiSpeedHqQuality": ndi_speed_hq_quality
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ output_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ output_arn }}';
 ```
 
 
@@ -555,8 +559,9 @@ AND Identifier = '{{ output_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_outputs
-WHERE Identifier = '{{ output_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ output_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

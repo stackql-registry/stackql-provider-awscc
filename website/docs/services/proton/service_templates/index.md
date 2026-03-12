@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_template</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-display_name,
-encryption_key,
-name,
-pipeline_provisioning,
-tags
+  region,
+  arn,
+  description,
+  display_name,
+  encryption_key,
+  name,
+  pipeline_provisioning,
+  tags
 FROM awscc.proton.service_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>service_templates</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.proton.service_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,22 +218,22 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.proton.service_templates (
- Description,
- DisplayName,
- EncryptionKey,
- Name,
- PipelineProvisioning,
- Tags,
- region
+  Description,
+  DisplayName,
+  EncryptionKey,
+  Name,
+  PipelineProvisioning,
+  Tags,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ display_name }}',
- '{{ encryption_key }}',
- '{{ name }}',
- '{{ pipeline_provisioning }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ encryption_key }}',
+  '{{ name }}',
+  '{{ pipeline_provisioning }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,22 +241,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.proton.service_templates (
- Description,
- DisplayName,
- EncryptionKey,
- Name,
- PipelineProvisioning,
- Tags,
- region
+  Description,
+  DisplayName,
+  EncryptionKey,
+  Name,
+  PipelineProvisioning,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ display_name }}',
- '{{ encryption_key }}',
- '{{ name }}',
- '{{ pipeline_provisioning }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ encryption_key }}',
+  '{{ name }}',
+  '{{ pipeline_provisioning }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -300,8 +303,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -310,8 +314,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.proton.service_templates
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

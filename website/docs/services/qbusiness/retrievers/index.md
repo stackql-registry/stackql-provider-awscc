@@ -198,20 +198,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>retriever</code>.
 ```sql
 SELECT
-region,
-application_id,
-configuration,
-created_at,
-display_name,
-retriever_arn,
-retriever_id,
-role_arn,
-status,
-tags,
-type,
-updated_at
+  region,
+  application_id,
+  configuration,
+  created_at,
+  display_name,
+  retriever_arn,
+  retriever_id,
+  role_arn,
+  status,
+  tags,
+  type,
+  updated_at
 FROM awscc.qbusiness.retrievers
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ retriever_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,11 +221,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ retriever_i
 Lists all <code>retrievers</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-retriever_id
+  region,
+  application_id,
+  retriever_id
 FROM awscc.qbusiness.retrievers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,18 +248,18 @@ Use the following StackQL query and manifest file to create a new <code>retrieve
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.retrievers (
- ApplicationId,
- Configuration,
- DisplayName,
- Type,
- region
+  ApplicationId,
+  Configuration,
+  DisplayName,
+  Type,
+  region
 )
 SELECT
-'{{ application_id }}',
- '{{ configuration }}',
- '{{ display_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ configuration }}',
+  '{{ display_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,22 +267,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.retrievers (
- ApplicationId,
- Configuration,
- DisplayName,
- RoleArn,
- Tags,
- Type,
- region
+  ApplicationId,
+  Configuration,
+  DisplayName,
+  RoleArn,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ configuration }}',
- '{{ display_name }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ configuration }}',
+  '{{ display_name }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -327,8 +330,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ retriever_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```
 
 
@@ -337,8 +341,9 @@ AND Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.retrievers
-WHERE Identifier = '{{ application_id }}|{{ retriever_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ retriever_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

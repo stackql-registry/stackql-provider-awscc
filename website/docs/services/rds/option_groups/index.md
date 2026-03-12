@@ -212,15 +212,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>option_group</code>.
 ```sql
 SELECT
-region,
-option_group_name,
-option_group_description,
-engine_name,
-major_engine_version,
-option_configurations,
-tags
+  region,
+  option_group_name,
+  option_group_description,
+  engine_name,
+  major_engine_version,
+  option_configurations,
+  tags
 FROM awscc.rds.option_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ option_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ option_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,10 +230,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ option_group_name }}';
 Lists all <code>option_groups</code> in a region.
 ```sql
 SELECT
-region,
-option_group_name
+  region,
+  option_group_name
 FROM awscc.rds.option_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -253,16 +256,16 @@ Use the following StackQL query and manifest file to create a new <code>option_g
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.option_groups (
- OptionGroupDescription,
- EngineName,
- MajorEngineVersion,
- region
+  OptionGroupDescription,
+  EngineName,
+  MajorEngineVersion,
+  region
 )
 SELECT
-'{{ option_group_description }}',
- '{{ engine_name }}',
- '{{ major_engine_version }}',
-'{{ region }}';
+  '{{ option_group_description }}',
+  '{{ engine_name }}',
+  '{{ major_engine_version }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,22 +273,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.option_groups (
- OptionGroupName,
- OptionGroupDescription,
- EngineName,
- MajorEngineVersion,
- OptionConfigurations,
- Tags,
- region
+  OptionGroupName,
+  OptionGroupDescription,
+  EngineName,
+  MajorEngineVersion,
+  OptionConfigurations,
+  Tags,
+  region
 )
 SELECT
- '{{ option_group_name }}',
- '{{ option_group_description }}',
- '{{ engine_name }}',
- '{{ major_engine_version }}',
- '{{ option_configurations }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ option_group_name }}',
+  '{{ option_group_description }}',
+  '{{ engine_name }}',
+  '{{ major_engine_version }}',
+  '{{ option_configurations }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ SET PatchDocument = string('{{ {
     "OptionConfigurations": option_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ option_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ option_group_name }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ option_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.option_groups
-WHERE Identifier = '{{ option_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ option_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

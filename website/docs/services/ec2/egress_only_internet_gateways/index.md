@@ -153,12 +153,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>egress_only_internet_gateway</code>.
 ```sql
 SELECT
-region,
-id,
-vpc_id,
-tags
+  region,
+  id,
+  vpc_id,
+  tags
 FROM awscc.ec2.egress_only_internet_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>egress_only_internet_gateways</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.egress_only_internet_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>egress_o
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.egress_only_internet_gateways (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,14 +207,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.egress_only_internet_gateways (
- VpcId,
- Tags,
- region
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.ec2.egress_only_internet_gateways
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.egress_only_internet_gateways
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

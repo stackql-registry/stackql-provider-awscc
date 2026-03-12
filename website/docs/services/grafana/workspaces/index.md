@@ -353,33 +353,35 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>workspace</code>.
 ```sql
 SELECT
-region,
-authentication_providers,
-sso_client_id,
-saml_configuration,
-network_access_control,
-vpc_configuration,
-saml_configuration_status,
-client_token,
-status,
-creation_timestamp,
-modification_timestamp,
-grafana_version,
-endpoint,
-account_access_type,
-organization_role_name,
-permission_type,
-stack_set_name,
-data_sources,
-description,
-id,
-name,
-notification_destinations,
-organizational_units,
-role_arn,
-plugin_admin_enabled
+  region,
+  authentication_providers,
+  sso_client_id,
+  saml_configuration,
+  network_access_control,
+  vpc_configuration,
+  saml_configuration_status,
+  client_token,
+  status,
+  creation_timestamp,
+  modification_timestamp,
+  grafana_version,
+  endpoint,
+  account_access_type,
+  organization_role_name,
+  permission_type,
+  stack_set_name,
+  data_sources,
+  description,
+  id,
+  name,
+  notification_destinations,
+  organizational_units,
+  role_arn,
+  plugin_admin_enabled
 FROM awscc.grafana.workspaces
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -387,10 +389,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>workspaces</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.grafana.workspaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -412,16 +415,16 @@ Use the following StackQL query and manifest file to create a new <code>workspac
 ```sql
 /*+ create */
 INSERT INTO awscc.grafana.workspaces (
- AuthenticationProviders,
- AccountAccessType,
- PermissionType,
- region
+  AuthenticationProviders,
+  AccountAccessType,
+  PermissionType,
+  region
 )
 SELECT
-'{{ authentication_providers }}',
- '{{ account_access_type }}',
- '{{ permission_type }}',
-'{{ region }}';
+  '{{ authentication_providers }}',
+  '{{ account_access_type }}',
+  '{{ permission_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -429,44 +432,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.grafana.workspaces (
- AuthenticationProviders,
- SamlConfiguration,
- NetworkAccessControl,
- VpcConfiguration,
- ClientToken,
- GrafanaVersion,
- AccountAccessType,
- OrganizationRoleName,
- PermissionType,
- StackSetName,
- DataSources,
- Description,
- Name,
- NotificationDestinations,
- OrganizationalUnits,
- RoleArn,
- PluginAdminEnabled,
- region
+  AuthenticationProviders,
+  SamlConfiguration,
+  NetworkAccessControl,
+  VpcConfiguration,
+  ClientToken,
+  GrafanaVersion,
+  AccountAccessType,
+  OrganizationRoleName,
+  PermissionType,
+  StackSetName,
+  DataSources,
+  Description,
+  Name,
+  NotificationDestinations,
+  OrganizationalUnits,
+  RoleArn,
+  PluginAdminEnabled,
+  region
 )
 SELECT
- '{{ authentication_providers }}',
- '{{ saml_configuration }}',
- '{{ network_access_control }}',
- '{{ vpc_configuration }}',
- '{{ client_token }}',
- '{{ grafana_version }}',
- '{{ account_access_type }}',
- '{{ organization_role_name }}',
- '{{ permission_type }}',
- '{{ stack_set_name }}',
- '{{ data_sources }}',
- '{{ description }}',
- '{{ name }}',
- '{{ notification_destinations }}',
- '{{ organizational_units }}',
- '{{ role_arn }}',
- '{{ plugin_admin_enabled }}',
- '{{ region }}';
+  '{{ authentication_providers }}',
+  '{{ saml_configuration }}',
+  '{{ network_access_control }}',
+  '{{ vpc_configuration }}',
+  '{{ client_token }}',
+  '{{ grafana_version }}',
+  '{{ account_access_type }}',
+  '{{ organization_role_name }}',
+  '{{ permission_type }}',
+  '{{ stack_set_name }}',
+  '{{ data_sources }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ notification_destinations }}',
+  '{{ organizational_units }}',
+  '{{ role_arn }}',
+  '{{ plugin_admin_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -576,8 +579,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "PluginAdminEnabled": plugin_admin_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -586,8 +590,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.grafana.workspaces
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

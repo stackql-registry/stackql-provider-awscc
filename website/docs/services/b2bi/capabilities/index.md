@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>capability</code>.
 ```sql
 SELECT
-region,
-capability_arn,
-capability_id,
-configuration,
-created_at,
-instructions_documents,
-modified_at,
-name,
-tags,
-type
+  region,
+  capability_arn,
+  capability_id,
+  configuration,
+  created_at,
+  instructions_documents,
+  modified_at,
+  name,
+  tags,
+  type
 FROM awscc.b2bi.capabilities
-WHERE region = 'us-east-1' AND Identifier = '{{ capability_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ capability_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ capability_id }}';
 Lists all <code>capabilities</code> in a region.
 ```sql
 SELECT
-region,
-capability_id
+  region,
+  capability_id
 FROM awscc.b2bi.capabilities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,16 +242,16 @@ Use the following StackQL query and manifest file to create a new <code>capabili
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.capabilities (
- Configuration,
- Name,
- Type,
- region
+  Configuration,
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ configuration }}',
- '{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ configuration }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,20 +259,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.capabilities (
- Configuration,
- InstructionsDocuments,
- Name,
- Tags,
- Type,
- region
+  Configuration,
+  InstructionsDocuments,
+  Name,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ configuration }}',
- '{{ instructions_documents }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ configuration }}',
+  '{{ instructions_documents }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -317,8 +320,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ capability_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ capability_id }}';
 ```
 
 
@@ -327,8 +331,9 @@ AND Identifier = '{{ capability_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.capabilities
-WHERE Identifier = '{{ capability_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ capability_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

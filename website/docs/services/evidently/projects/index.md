@@ -158,15 +158,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-data_delivery,
-app_config_resource,
-tags
+  region,
+  arn,
+  name,
+  description,
+  data_delivery,
+  app_config_resource,
+  tags
 FROM awscc.evidently.projects
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -186,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>project<
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.projects (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -199,20 +201,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.projects (
- Name,
- Description,
- DataDelivery,
- AppConfigResource,
- Tags,
- region
+  Name,
+  Description,
+  DataDelivery,
+  AppConfigResource,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ data_delivery }}',
- '{{ app_config_resource }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ data_delivery }}',
+  '{{ app_config_resource }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +266,9 @@ SET PatchDocument = string('{{ {
     "AppConfigResource": app_config_resource,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -274,8 +277,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.projects
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>organization_conformance_pack</code>.
 ```sql
 SELECT
-region,
-organization_conformance_pack_name,
-template_s3_uri,
-template_body,
-delivery_s3_bucket,
-delivery_s3_key_prefix,
-conformance_pack_input_parameters,
-excluded_accounts
+  region,
+  organization_conformance_pack_name,
+  template_s3_uri,
+  template_body,
+  delivery_s3_bucket,
+  delivery_s3_key_prefix,
+  conformance_pack_input_parameters,
+  excluded_accounts
 FROM awscc.config.organization_conformance_packs
-WHERE region = 'us-east-1' AND Identifier = '{{ organization_conformance_pack_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ organization_conformance_pack_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ organization_conformance_pack_na
 Lists all <code>organization_conformance_packs</code> in a region.
 ```sql
 SELECT
-region,
-organization_conformance_pack_name
+  region,
+  organization_conformance_pack_name
 FROM awscc.config.organization_conformance_packs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>organiza
 ```sql
 /*+ create */
 INSERT INTO awscc.config.organization_conformance_packs (
- OrganizationConformancePackName,
- region
+  OrganizationConformancePackName,
+  region
 )
 SELECT
-'{{ organization_conformance_pack_name }}',
-'{{ region }}';
+  '{{ organization_conformance_pack_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,24 +231,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.organization_conformance_packs (
- OrganizationConformancePackName,
- TemplateS3Uri,
- TemplateBody,
- DeliveryS3Bucket,
- DeliveryS3KeyPrefix,
- ConformancePackInputParameters,
- ExcludedAccounts,
- region
+  OrganizationConformancePackName,
+  TemplateS3Uri,
+  TemplateBody,
+  DeliveryS3Bucket,
+  DeliveryS3KeyPrefix,
+  ConformancePackInputParameters,
+  ExcludedAccounts,
+  region
 )
 SELECT
- '{{ organization_conformance_pack_name }}',
- '{{ template_s3_uri }}',
- '{{ template_body }}',
- '{{ delivery_s3_bucket }}',
- '{{ delivery_s3_key_prefix }}',
- '{{ conformance_pack_input_parameters }}',
- '{{ excluded_accounts }}',
- '{{ region }}';
+  '{{ organization_conformance_pack_name }}',
+  '{{ template_s3_uri }}',
+  '{{ template_body }}',
+  '{{ delivery_s3_bucket }}',
+  '{{ delivery_s3_key_prefix }}',
+  '{{ conformance_pack_input_parameters }}',
+  '{{ excluded_accounts }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -298,8 +301,9 @@ SET PatchDocument = string('{{ {
     "ConformancePackInputParameters": conformance_pack_input_parameters,
     "ExcludedAccounts": excluded_accounts
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ organization_conformance_pack_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ organization_conformance_pack_name }}';
 ```
 
 
@@ -308,8 +312,9 @@ AND Identifier = '{{ organization_conformance_pack_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.organization_conformance_packs
-WHERE Identifier = '{{ organization_conformance_pack_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ organization_conformance_pack_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

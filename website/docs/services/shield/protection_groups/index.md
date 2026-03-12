@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>protection_group</code>.
 ```sql
 SELECT
-region,
-protection_group_id,
-protection_group_arn,
-aggregation,
-pattern,
-members,
-resource_type,
-tags
+  region,
+  protection_group_id,
+  protection_group_arn,
+  aggregation,
+  pattern,
+  members,
+  resource_type,
+  tags
 FROM awscc.shield.protection_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ protection_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ protection_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ protection_group_arn }}';
 Lists all <code>protection_groups</code> in a region.
 ```sql
 SELECT
-region,
-protection_group_arn
+  region,
+  protection_group_arn
 FROM awscc.shield.protection_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,16 +218,16 @@ Use the following StackQL query and manifest file to create a new <code>protecti
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.protection_groups (
- ProtectionGroupId,
- Aggregation,
- Pattern,
- region
+  ProtectionGroupId,
+  Aggregation,
+  Pattern,
+  region
 )
 SELECT
-'{{ protection_group_id }}',
- '{{ aggregation }}',
- '{{ pattern }}',
-'{{ region }}';
+  '{{ protection_group_id }}',
+  '{{ aggregation }}',
+  '{{ pattern }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,22 +235,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.shield.protection_groups (
- ProtectionGroupId,
- Aggregation,
- Pattern,
- Members,
- ResourceType,
- Tags,
- region
+  ProtectionGroupId,
+  Aggregation,
+  Pattern,
+  Members,
+  ResourceType,
+  Tags,
+  region
 )
 SELECT
- '{{ protection_group_id }}',
- '{{ aggregation }}',
- '{{ pattern }}',
- '{{ members }}',
- '{{ resource_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ protection_group_id }}',
+  '{{ aggregation }}',
+  '{{ pattern }}',
+  '{{ members }}',
+  '{{ resource_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -297,8 +300,9 @@ SET PatchDocument = string('{{ {
     "ResourceType": resource_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ protection_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ protection_group_arn }}';
 ```
 
 
@@ -307,8 +311,9 @@ AND Identifier = '{{ protection_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.protection_groups
-WHERE Identifier = '{{ protection_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ protection_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

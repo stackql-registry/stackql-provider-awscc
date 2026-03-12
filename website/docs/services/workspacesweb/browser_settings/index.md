@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>browser_setting</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-browser_policy,
-browser_settings_arn,
-customer_managed_key,
-tags
+  region,
+  additional_encryption_context,
+  associated_portal_arns,
+  browser_policy,
+  browser_settings_arn,
+  customer_managed_key,
+  tags
 FROM awscc.workspacesweb.browser_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ browser_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ browser_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ browser_settings_arn }}';
 Lists all <code>browser_settings</code> in a region.
 ```sql
 SELECT
-region,
-browser_settings_arn
+  region,
+  browser_settings_arn
 FROM awscc.workspacesweb.browser_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,18 +212,18 @@ Use the following StackQL query and manifest file to create a new <code>browser_
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.browser_settings (
- AdditionalEncryptionContext,
- BrowserPolicy,
- CustomerManagedKey,
- Tags,
- region
+  AdditionalEncryptionContext,
+  BrowserPolicy,
+  CustomerManagedKey,
+  Tags,
+  region
 )
 SELECT
-'{{ additional_encryption_context }}',
- '{{ browser_policy }}',
- '{{ customer_managed_key }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ browser_policy }}',
+  '{{ customer_managed_key }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.browser_settings (
- AdditionalEncryptionContext,
- BrowserPolicy,
- CustomerManagedKey,
- Tags,
- region
+  AdditionalEncryptionContext,
+  BrowserPolicy,
+  CustomerManagedKey,
+  Tags,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ browser_policy }}',
- '{{ customer_managed_key }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ browser_policy }}',
+  '{{ customer_managed_key }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "BrowserPolicy": browser_policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ browser_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ browser_settings_arn }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ browser_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.browser_settings
-WHERE Identifier = '{{ browser_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ browser_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -341,31 +341,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT
-region,
-environment_name,
-kms_key_id,
-vpc_id,
-service_access_subnet_id,
-vcf_version,
-terms_accepted,
-license_info,
-initial_vlans,
-hosts,
-connectivity_info,
-vcf_hostnames,
-site_id,
-environment_id,
-environment_arn,
-environment_state,
-state_details,
-checks,
-credentials,
-service_access_security_groups,
-tags,
-created_at,
-modified_at
+  region,
+  environment_name,
+  kms_key_id,
+  vpc_id,
+  service_access_subnet_id,
+  vcf_version,
+  terms_accepted,
+  license_info,
+  initial_vlans,
+  hosts,
+  connectivity_info,
+  vcf_hostnames,
+  site_id,
+  environment_id,
+  environment_arn,
+  environment_state,
+  state_details,
+  checks,
+  credentials,
+  service_access_security_groups,
+  tags,
+  created_at,
+  modified_at
 FROM awscc.evs.environments
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -373,10 +375,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_id }}';
 Lists all <code>environments</code> in a region.
 ```sql
 SELECT
-region,
-environment_id
+  region,
+  environment_id
 FROM awscc.evs.environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -398,26 +401,26 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.evs.environments (
- VpcId,
- ServiceAccessSubnetId,
- VcfVersion,
- TermsAccepted,
- LicenseInfo,
- ConnectivityInfo,
- VcfHostnames,
- SiteId,
- region
+  VpcId,
+  ServiceAccessSubnetId,
+  VcfVersion,
+  TermsAccepted,
+  LicenseInfo,
+  ConnectivityInfo,
+  VcfHostnames,
+  SiteId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
- '{{ service_access_subnet_id }}',
- '{{ vcf_version }}',
- '{{ terms_accepted }}',
- '{{ license_info }}',
- '{{ connectivity_info }}',
- '{{ vcf_hostnames }}',
- '{{ site_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ service_access_subnet_id }}',
+  '{{ vcf_version }}',
+  '{{ terms_accepted }}',
+  '{{ license_info }}',
+  '{{ connectivity_info }}',
+  '{{ vcf_hostnames }}',
+  '{{ site_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -425,38 +428,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evs.environments (
- EnvironmentName,
- KmsKeyId,
- VpcId,
- ServiceAccessSubnetId,
- VcfVersion,
- TermsAccepted,
- LicenseInfo,
- InitialVlans,
- Hosts,
- ConnectivityInfo,
- VcfHostnames,
- SiteId,
- ServiceAccessSecurityGroups,
- Tags,
- region
+  EnvironmentName,
+  KmsKeyId,
+  VpcId,
+  ServiceAccessSubnetId,
+  VcfVersion,
+  TermsAccepted,
+  LicenseInfo,
+  InitialVlans,
+  Hosts,
+  ConnectivityInfo,
+  VcfHostnames,
+  SiteId,
+  ServiceAccessSecurityGroups,
+  Tags,
+  region
 )
 SELECT
- '{{ environment_name }}',
- '{{ kms_key_id }}',
- '{{ vpc_id }}',
- '{{ service_access_subnet_id }}',
- '{{ vcf_version }}',
- '{{ terms_accepted }}',
- '{{ license_info }}',
- '{{ initial_vlans }}',
- '{{ hosts }}',
- '{{ connectivity_info }}',
- '{{ vcf_hostnames }}',
- '{{ site_id }}',
- '{{ service_access_security_groups }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ environment_name }}',
+  '{{ kms_key_id }}',
+  '{{ vpc_id }}',
+  '{{ service_access_subnet_id }}',
+  '{{ vcf_version }}',
+  '{{ terms_accepted }}',
+  '{{ license_info }}',
+  '{{ initial_vlans }}',
+  '{{ hosts }}',
+  '{{ connectivity_info }}',
+  '{{ vcf_hostnames }}',
+  '{{ site_id }}',
+  '{{ service_access_security_groups }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -550,8 +553,9 @@ SET PatchDocument = string('{{ {
     "Hosts": hosts,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ environment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ environment_id }}';
 ```
 
 
@@ -560,8 +564,9 @@ AND Identifier = '{{ environment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evs.environments
-WHERE Identifier = '{{ environment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

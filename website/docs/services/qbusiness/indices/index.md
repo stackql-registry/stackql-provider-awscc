@@ -251,22 +251,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT
-region,
-application_id,
-capacity_configuration,
-created_at,
-description,
-display_name,
-document_attribute_configurations,
-index_arn,
-index_id,
-index_statistics,
-type,
-status,
-tags,
-updated_at
+  region,
+  application_id,
+  capacity_configuration,
+  created_at,
+  description,
+  display_name,
+  document_attribute_configurations,
+  index_arn,
+  index_id,
+  index_statistics,
+  type,
+  status,
+  tags,
+  updated_at
 FROM awscc.qbusiness.indices
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ index_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,11 +276,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ index_id }}
 Lists all <code>indices</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-index_id
+  region,
+  application_id,
+  index_id
 FROM awscc.qbusiness.indices_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -300,14 +303,14 @@ Use the following StackQL query and manifest file to create a new <code>index</c
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.indices (
- ApplicationId,
- DisplayName,
- region
+  ApplicationId,
+  DisplayName,
+  region
 )
 SELECT
-'{{ application_id }}',
- '{{ display_name }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ display_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -315,24 +318,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.indices (
- ApplicationId,
- CapacityConfiguration,
- Description,
- DisplayName,
- DocumentAttributeConfigurations,
- Type,
- Tags,
- region
+  ApplicationId,
+  CapacityConfiguration,
+  Description,
+  DisplayName,
+  DocumentAttributeConfigurations,
+  Type,
+  Tags,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ capacity_configuration }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ document_attribute_configurations }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ capacity_configuration }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ document_attribute_configurations }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -387,8 +390,9 @@ SET PatchDocument = string('{{ {
     "DocumentAttributeConfigurations": document_attribute_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ index_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ index_id }}';
 ```
 
 
@@ -397,8 +401,9 @@ AND Identifier = '{{ application_id }}|{{ index_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.indices
-WHERE Identifier = '{{ application_id }}|{{ index_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ index_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

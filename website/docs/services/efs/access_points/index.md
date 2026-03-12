@@ -219,16 +219,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT
-region,
-access_point_id,
-arn,
-client_token,
-access_point_tags,
-file_system_id,
-posix_user,
-root_directory
+  region,
+  access_point_id,
+  arn,
+  client_token,
+  access_point_tags,
+  file_system_id,
+  posix_user,
+  root_directory
 FROM awscc.efs.access_points
-WHERE region = 'us-east-1' AND Identifier = '{{ access_point_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ access_point_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,10 +238,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ access_point_id }}';
 Lists all <code>access_points</code> in a region.
 ```sql
 SELECT
-region,
-access_point_id
+  region,
+  access_point_id
 FROM awscc.efs.access_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -261,12 +264,12 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.efs.access_points (
- FileSystemId,
- region
+  FileSystemId,
+  region
 )
 SELECT
-'{{ file_system_id }}',
-'{{ region }}';
+  '{{ file_system_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,20 +277,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.efs.access_points (
- ClientToken,
- AccessPointTags,
- FileSystemId,
- PosixUser,
- RootDirectory,
- region
+  ClientToken,
+  AccessPointTags,
+  FileSystemId,
+  PosixUser,
+  RootDirectory,
+  region
 )
 SELECT
- '{{ client_token }}',
- '{{ access_point_tags }}',
- '{{ file_system_id }}',
- '{{ posix_user }}',
- '{{ root_directory }}',
- '{{ region }}';
+  '{{ client_token }}',
+  '{{ access_point_tags }}',
+  '{{ file_system_id }}',
+  '{{ posix_user }}',
+  '{{ root_directory }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -339,8 +342,9 @@ UPDATE awscc.efs.access_points
 SET PatchDocument = string('{{ {
     "AccessPointTags": access_point_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ access_point_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ access_point_id }}';
 ```
 
 
@@ -349,8 +353,9 @@ AND Identifier = '{{ access_point_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.access_points
-WHERE Identifier = '{{ access_point_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ access_point_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

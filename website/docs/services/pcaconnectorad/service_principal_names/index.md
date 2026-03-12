@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_principal_name</code>.
 ```sql
 SELECT
-region,
-connector_arn,
-directory_registration_arn
+  region,
+  connector_arn,
+  directory_registration_arn
 FROM awscc.pcaconnectorad.service_principal_names
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}|{{ directory_re
 Lists all <code>service_principal_names</code> in a region.
 ```sql
 SELECT
-region,
-connector_arn,
-directory_registration_arn
+  region,
+  connector_arn,
+  directory_registration_arn
 FROM awscc.pcaconnectorad.service_principal_names_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.service_principal_names (
- ConnectorArn,
- DirectoryRegistrationArn,
- region
+  ConnectorArn,
+  DirectoryRegistrationArn,
+  region
 )
 SELECT
-'{{ connector_arn }}',
- '{{ directory_registration_arn }}',
-'{{ region }}';
+  '{{ connector_arn }}',
+  '{{ directory_registration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pcaconnectorad.service_principal_names (
- ConnectorArn,
- DirectoryRegistrationArn,
- region
+  ConnectorArn,
+  DirectoryRegistrationArn,
+  region
 )
 SELECT
- '{{ connector_arn }}',
- '{{ directory_registration_arn }}',
- '{{ region }}';
+  '{{ connector_arn }}',
+  '{{ directory_registration_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.service_principal_names
-WHERE Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

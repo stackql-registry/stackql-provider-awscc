@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>session</code>.
 ```sql
 SELECT
-region,
-aws_account_id,
-status,
-finding_publishing_frequency,
-service_role,
-automated_discovery_status
+  region,
+  aws_account_id,
+  status,
+  finding_publishing_frequency,
+  service_role,
+  automated_discovery_status
 FROM awscc.macie.sessions
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}';
 Lists all <code>sessions</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id
+  region,
+  aws_account_id
 FROM awscc.macie.sessions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>session<
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.sessions (
- Status,
- FindingPublishingFrequency,
- region
+  Status,
+  FindingPublishingFrequency,
+  region
 )
 SELECT
-'{{ status }}',
- '{{ finding_publishing_frequency }}',
-'{{ region }}';
+  '{{ status }}',
+  '{{ finding_publishing_frequency }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.sessions (
- Status,
- FindingPublishingFrequency,
- region
+  Status,
+  FindingPublishingFrequency,
+  region
 )
 SELECT
- '{{ status }}',
- '{{ finding_publishing_frequency }}',
- '{{ region }}';
+  '{{ status }}',
+  '{{ finding_publishing_frequency }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -249,8 +252,9 @@ SET PatchDocument = string('{{ {
     "Status": status,
     "FindingPublishingFrequency": finding_publishing_frequency
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}';
 ```
 
 
@@ -259,8 +263,9 @@ AND Identifier = '{{ aws_account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.sessions
-WHERE Identifier = '{{ aws_account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

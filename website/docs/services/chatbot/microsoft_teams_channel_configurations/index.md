@@ -203,22 +203,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>microsoft_teams_channel_configuration</code>.
 ```sql
 SELECT
-region,
-team_id,
-teams_channel_id,
-teams_channel_name,
-teams_tenant_id,
-configuration_name,
-iam_role_arn,
-sns_topic_arns,
-logging_level,
-arn,
-guardrail_policies,
-user_role_required,
-tags,
-customization_resource_arns
+  region,
+  team_id,
+  teams_channel_id,
+  teams_channel_name,
+  teams_tenant_id,
+  configuration_name,
+  iam_role_arn,
+  sns_topic_arns,
+  logging_level,
+  arn,
+  guardrail_policies,
+  user_role_required,
+  tags,
+  customization_resource_arns
 FROM awscc.chatbot.microsoft_teams_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>microsoft_teams_channel_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.chatbot.microsoft_teams_channel_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,20 +254,20 @@ Use the following StackQL query and manifest file to create a new <code>microsof
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.microsoft_teams_channel_configurations (
- TeamId,
- TeamsChannelId,
- TeamsTenantId,
- ConfigurationName,
- IamRoleArn,
- region
+  TeamId,
+  TeamsChannelId,
+  TeamsTenantId,
+  ConfigurationName,
+  IamRoleArn,
+  region
 )
 SELECT
-'{{ team_id }}',
- '{{ teams_channel_id }}',
- '{{ teams_tenant_id }}',
- '{{ configuration_name }}',
- '{{ iam_role_arn }}',
-'{{ region }}';
+  '{{ team_id }}',
+  '{{ teams_channel_id }}',
+  '{{ teams_tenant_id }}',
+  '{{ configuration_name }}',
+  '{{ iam_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,34 +275,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.chatbot.microsoft_teams_channel_configurations (
- TeamId,
- TeamsChannelId,
- TeamsChannelName,
- TeamsTenantId,
- ConfigurationName,
- IamRoleArn,
- SnsTopicArns,
- LoggingLevel,
- GuardrailPolicies,
- UserRoleRequired,
- Tags,
- CustomizationResourceArns,
- region
+  TeamId,
+  TeamsChannelId,
+  TeamsChannelName,
+  TeamsTenantId,
+  ConfigurationName,
+  IamRoleArn,
+  SnsTopicArns,
+  LoggingLevel,
+  GuardrailPolicies,
+  UserRoleRequired,
+  Tags,
+  CustomizationResourceArns,
+  region
 )
 SELECT
- '{{ team_id }}',
- '{{ teams_channel_id }}',
- '{{ teams_channel_name }}',
- '{{ teams_tenant_id }}',
- '{{ configuration_name }}',
- '{{ iam_role_arn }}',
- '{{ sns_topic_arns }}',
- '{{ logging_level }}',
- '{{ guardrail_policies }}',
- '{{ user_role_required }}',
- '{{ tags }}',
- '{{ customization_resource_arns }}',
- '{{ region }}';
+  '{{ team_id }}',
+  '{{ teams_channel_id }}',
+  '{{ teams_channel_name }}',
+  '{{ teams_tenant_id }}',
+  '{{ configuration_name }}',
+  '{{ iam_role_arn }}',
+  '{{ sns_topic_arns }}',
+  '{{ logging_level }}',
+  '{{ guardrail_policies }}',
+  '{{ user_role_required }}',
+  '{{ tags }}',
+  '{{ customization_resource_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "CustomizationResourceArns": customization_resource_arns
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.microsoft_teams_channel_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

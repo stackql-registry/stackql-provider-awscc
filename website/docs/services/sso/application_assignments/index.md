@@ -145,12 +145,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application_assignment</code>.
 ```sql
 SELECT
-region,
-application_arn,
-principal_type,
-principal_id
+  region,
+  application_arn,
+  principal_type,
+  principal_id
 FROM awscc.sso.application_assignments
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -158,12 +160,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ principal_
 Lists all <code>application_assignments</code> in a region.
 ```sql
 SELECT
-region,
-application_arn,
-principal_type,
-principal_id
+  region,
+  application_arn,
+  principal_type,
+  principal_id
 FROM awscc.sso.application_assignments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.application_assignments (
- ApplicationArn,
- PrincipalType,
- PrincipalId,
- region
+  ApplicationArn,
+  PrincipalType,
+  PrincipalId,
+  region
 )
 SELECT
-'{{ application_arn }}',
- '{{ principal_type }}',
- '{{ principal_id }}',
-'{{ region }}';
+  '{{ application_arn }}',
+  '{{ principal_type }}',
+  '{{ principal_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.application_assignments (
- ApplicationArn,
- PrincipalType,
- PrincipalId,
- region
+  ApplicationArn,
+  PrincipalType,
+  PrincipalId,
+  region
 )
 SELECT
- '{{ application_arn }}',
- '{{ principal_type }}',
- '{{ principal_id }}',
- '{{ region }}';
+  '{{ application_arn }}',
+  '{{ principal_type }}',
+  '{{ principal_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.application_assignments
-WHERE Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -237,21 +237,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mission_profile</code>.
 ```sql
 SELECT
-region,
-name,
-contact_pre_pass_duration_seconds,
-contact_post_pass_duration_seconds,
-minimum_viable_contact_duration_seconds,
-streams_kms_key,
-streams_kms_role,
-dataflow_edges,
-tracking_config_arn,
-tags,
-id,
-arn,
-region
+  region,
+  name,
+  contact_pre_pass_duration_seconds,
+  contact_post_pass_duration_seconds,
+  minimum_viable_contact_duration_seconds,
+  streams_kms_key,
+  streams_kms_role,
+  dataflow_edges,
+  tracking_config_arn,
+  tags,
+  id,
+  arn,
+  region
 FROM awscc.groundstation.mission_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,11 +261,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ arn }}';
 Lists all <code>mission_profiles</code> in a region.
 ```sql
 SELECT
-region,
-id,
-arn
+  region,
+  id,
+  arn
 FROM awscc.groundstation.mission_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -285,18 +288,18 @@ Use the following StackQL query and manifest file to create a new <code>mission_
 ```sql
 /*+ create */
 INSERT INTO awscc.groundstation.mission_profiles (
- Name,
- MinimumViableContactDurationSeconds,
- DataflowEdges,
- TrackingConfigArn,
- region
+  Name,
+  MinimumViableContactDurationSeconds,
+  DataflowEdges,
+  TrackingConfigArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ minimum_viable_contact_duration_seconds }}',
- '{{ dataflow_edges }}',
- '{{ tracking_config_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ minimum_viable_contact_duration_seconds }}',
+  '{{ dataflow_edges }}',
+  '{{ tracking_config_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -304,28 +307,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.groundstation.mission_profiles (
- Name,
- ContactPrePassDurationSeconds,
- ContactPostPassDurationSeconds,
- MinimumViableContactDurationSeconds,
- StreamsKmsKey,
- StreamsKmsRole,
- DataflowEdges,
- TrackingConfigArn,
- Tags,
- region
+  Name,
+  ContactPrePassDurationSeconds,
+  ContactPostPassDurationSeconds,
+  MinimumViableContactDurationSeconds,
+  StreamsKmsKey,
+  StreamsKmsRole,
+  DataflowEdges,
+  TrackingConfigArn,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ contact_pre_pass_duration_seconds }}',
- '{{ contact_post_pass_duration_seconds }}',
- '{{ minimum_viable_contact_duration_seconds }}',
- '{{ streams_kms_key }}',
- '{{ streams_kms_role }}',
- '{{ dataflow_edges }}',
- '{{ tracking_config_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ contact_pre_pass_duration_seconds }}',
+  '{{ contact_post_pass_duration_seconds }}',
+  '{{ minimum_viable_contact_duration_seconds }}',
+  '{{ streams_kms_key }}',
+  '{{ streams_kms_role }}',
+  '{{ dataflow_edges }}',
+  '{{ tracking_config_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -389,8 +392,9 @@ SET PatchDocument = string('{{ {
     "TrackingConfigArn": tracking_config_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}|{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}|{{ arn }}';
 ```
 
 
@@ -399,8 +403,9 @@ AND Identifier = '{{ id }}|{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.mission_profiles
-WHERE Identifier = '{{ id }}|{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

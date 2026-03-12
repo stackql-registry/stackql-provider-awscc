@@ -262,26 +262,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rest_api</code>.
 ```sql
 SELECT
-region,
-policy,
-body_s3_location,
-description,
-minimum_compression_size,
-parameters,
-clone_from,
-mode,
-rest_api_id,
-disable_execute_api_endpoint,
-fail_on_warnings,
-binary_media_types,
-name,
-root_resource_id,
-api_key_source_type,
-endpoint_configuration,
-body,
-tags
+  region,
+  policy,
+  body_s3_location,
+  description,
+  minimum_compression_size,
+  parameters,
+  clone_from,
+  mode,
+  rest_api_id,
+  disable_execute_api_endpoint,
+  fail_on_warnings,
+  binary_media_types,
+  name,
+  root_resource_id,
+  api_key_source_type,
+  endpoint_configuration,
+  body,
+  tags
 FROM awscc.apigateway.rest_apis
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -289,10 +291,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}';
 Lists all <code>rest_apis</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id
+  region,
+  rest_api_id
 FROM awscc.apigateway.rest_apis_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -314,40 +317,40 @@ Use the following StackQL query and manifest file to create a new <code>rest_api
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.rest_apis (
- Policy,
- BodyS3Location,
- Description,
- MinimumCompressionSize,
- Parameters,
- CloneFrom,
- Mode,
- DisableExecuteApiEndpoint,
- FailOnWarnings,
- BinaryMediaTypes,
- Name,
- ApiKeySourceType,
- EndpointConfiguration,
- Body,
- Tags,
- region
+  Policy,
+  BodyS3Location,
+  Description,
+  MinimumCompressionSize,
+  Parameters,
+  CloneFrom,
+  Mode,
+  DisableExecuteApiEndpoint,
+  FailOnWarnings,
+  BinaryMediaTypes,
+  Name,
+  ApiKeySourceType,
+  EndpointConfiguration,
+  Body,
+  Tags,
+  region
 )
 SELECT
-'{{ policy }}',
- '{{ body_s3_location }}',
- '{{ description }}',
- '{{ minimum_compression_size }}',
- '{{ parameters }}',
- '{{ clone_from }}',
- '{{ mode }}',
- '{{ disable_execute_api_endpoint }}',
- '{{ fail_on_warnings }}',
- '{{ binary_media_types }}',
- '{{ name }}',
- '{{ api_key_source_type }}',
- '{{ endpoint_configuration }}',
- '{{ body }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ policy }}',
+  '{{ body_s3_location }}',
+  '{{ description }}',
+  '{{ minimum_compression_size }}',
+  '{{ parameters }}',
+  '{{ clone_from }}',
+  '{{ mode }}',
+  '{{ disable_execute_api_endpoint }}',
+  '{{ fail_on_warnings }}',
+  '{{ binary_media_types }}',
+  '{{ name }}',
+  '{{ api_key_source_type }}',
+  '{{ endpoint_configuration }}',
+  '{{ body }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -355,40 +358,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.rest_apis (
- Policy,
- BodyS3Location,
- Description,
- MinimumCompressionSize,
- Parameters,
- CloneFrom,
- Mode,
- DisableExecuteApiEndpoint,
- FailOnWarnings,
- BinaryMediaTypes,
- Name,
- ApiKeySourceType,
- EndpointConfiguration,
- Body,
- Tags,
- region
+  Policy,
+  BodyS3Location,
+  Description,
+  MinimumCompressionSize,
+  Parameters,
+  CloneFrom,
+  Mode,
+  DisableExecuteApiEndpoint,
+  FailOnWarnings,
+  BinaryMediaTypes,
+  Name,
+  ApiKeySourceType,
+  EndpointConfiguration,
+  Body,
+  Tags,
+  region
 )
 SELECT
- '{{ policy }}',
- '{{ body_s3_location }}',
- '{{ description }}',
- '{{ minimum_compression_size }}',
- '{{ parameters }}',
- '{{ clone_from }}',
- '{{ mode }}',
- '{{ disable_execute_api_endpoint }}',
- '{{ fail_on_warnings }}',
- '{{ binary_media_types }}',
- '{{ name }}',
- '{{ api_key_source_type }}',
- '{{ endpoint_configuration }}',
- '{{ body }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ policy }}',
+  '{{ body_s3_location }}',
+  '{{ description }}',
+  '{{ minimum_compression_size }}',
+  '{{ parameters }}',
+  '{{ clone_from }}',
+  '{{ mode }}',
+  '{{ disable_execute_api_endpoint }}',
+  '{{ fail_on_warnings }}',
+  '{{ binary_media_types }}',
+  '{{ name }}',
+  '{{ api_key_source_type }}',
+  '{{ endpoint_configuration }}',
+  '{{ body }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -475,8 +478,9 @@ SET PatchDocument = string('{{ {
     "Body": body,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}';
 ```
 
 
@@ -485,8 +489,9 @@ AND Identifier = '{{ rest_api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.rest_apis
-WHERE Identifier = '{{ rest_api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

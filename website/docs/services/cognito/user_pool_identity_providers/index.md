@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_identity_provider</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-provider_name,
-provider_type,
-provider_details,
-idp_identifiers,
-attribute_mapping
+  region,
+  user_pool_id,
+  provider_name,
+  provider_type,
+  provider_details,
+  idp_identifiers,
+  attribute_mapping
 FROM awscc.cognito.user_pool_identity_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ provider_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ provider_name
 Lists all <code>user_pool_identity_providers</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id,
-provider_name
+  region,
+  user_pool_id,
+  provider_name
 FROM awscc.cognito.user_pool_identity_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,18 +206,18 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_identity_providers (
- UserPoolId,
- ProviderName,
- ProviderType,
- ProviderDetails,
- region
+  UserPoolId,
+  ProviderName,
+  ProviderType,
+  ProviderDetails,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ provider_name }}',
- '{{ provider_type }}',
- '{{ provider_details }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ provider_name }}',
+  '{{ provider_type }}',
+  '{{ provider_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,22 +225,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_identity_providers (
- UserPoolId,
- ProviderName,
- ProviderType,
- ProviderDetails,
- IdpIdentifiers,
- AttributeMapping,
- region
+  UserPoolId,
+  ProviderName,
+  ProviderType,
+  ProviderDetails,
+  IdpIdentifiers,
+  AttributeMapping,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ provider_name }}',
- '{{ provider_type }}',
- '{{ provider_details }}',
- '{{ idp_identifiers }}',
- '{{ attribute_mapping }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ provider_name }}',
+  '{{ provider_type }}',
+  '{{ provider_details }}',
+  '{{ idp_identifiers }}',
+  '{{ attribute_mapping }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "IdpIdentifiers": idp_identifiers,
     "AttributeMapping": attribute_mapping
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ provider_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_identity_providers
-WHERE Identifier = '{{ user_pool_id }}|{{ provider_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ provider_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

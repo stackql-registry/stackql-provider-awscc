@@ -215,23 +215,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fleet_metric</code>.
 ```sql
 SELECT
-region,
-metric_name,
-description,
-query_string,
-period,
-aggregation_field,
-query_version,
-index_name,
-unit,
-aggregation_type,
-metric_arn,
-creation_date,
-last_modified_date,
-version,
-tags
+  region,
+  metric_name,
+  description,
+  query_string,
+  period,
+  aggregation_field,
+  query_version,
+  index_name,
+  unit,
+  aggregation_type,
+  metric_arn,
+  creation_date,
+  last_modified_date,
+  version,
+  tags
 FROM awscc.iot.fleet_metrics
-WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ metric_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,10 +241,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ metric_name }}';
 Lists all <code>fleet_metrics</code> in a region.
 ```sql
 SELECT
-region,
-metric_name
+  region,
+  metric_name
 FROM awscc.iot.fleet_metrics_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,12 +267,12 @@ Use the following StackQL query and manifest file to create a new <code>fleet_me
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.fleet_metrics (
- MetricName,
- region
+  MetricName,
+  region
 )
 SELECT
-'{{ metric_name }}',
-'{{ region }}';
+  '{{ metric_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -277,30 +280,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.fleet_metrics (
- MetricName,
- Description,
- QueryString,
- Period,
- AggregationField,
- QueryVersion,
- IndexName,
- Unit,
- AggregationType,
- Tags,
- region
+  MetricName,
+  Description,
+  QueryString,
+  Period,
+  AggregationField,
+  QueryVersion,
+  IndexName,
+  Unit,
+  AggregationType,
+  Tags,
+  region
 )
 SELECT
- '{{ metric_name }}',
- '{{ description }}',
- '{{ query_string }}',
- '{{ period }}',
- '{{ aggregation_field }}',
- '{{ query_version }}',
- '{{ index_name }}',
- '{{ unit }}',
- '{{ aggregation_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ metric_name }}',
+  '{{ description }}',
+  '{{ query_string }}',
+  '{{ period }}',
+  '{{ aggregation_field }}',
+  '{{ query_version }}',
+  '{{ index_name }}',
+  '{{ unit }}',
+  '{{ aggregation_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "AggregationType": aggregation_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ metric_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ metric_name }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ metric_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.fleet_metrics
-WHERE Identifier = '{{ metric_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ metric_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

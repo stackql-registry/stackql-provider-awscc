@@ -176,17 +176,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration_response</code>.
 ```sql
 SELECT
-region,
-integration_response_id,
-response_templates,
-template_selection_expression,
-response_parameters,
-content_handling_strategy,
-integration_id,
-integration_response_key,
-api_id
+  region,
+  integration_response_id,
+  response_templates,
+  template_selection_expression,
+  response_parameters,
+  content_handling_strategy,
+  integration_id,
+  integration_response_key,
+  api_id
 FROM awscc.apigatewayv2.integration_responses
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,12 +196,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}|{
 Lists all <code>integration_responses</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-integration_id,
-integration_response_id
+  region,
+  api_id,
+  integration_id,
+  integration_response_id
 FROM awscc.apigatewayv2.integration_responses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.integration_responses (
- IntegrationId,
- IntegrationResponseKey,
- ApiId,
- region
+  IntegrationId,
+  IntegrationResponseKey,
+  ApiId,
+  region
 )
 SELECT
-'{{ integration_id }}',
- '{{ integration_response_key }}',
- '{{ api_id }}',
-'{{ region }}';
+  '{{ integration_id }}',
+  '{{ integration_response_key }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,24 +241,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.integration_responses (
- ResponseTemplates,
- TemplateSelectionExpression,
- ResponseParameters,
- ContentHandlingStrategy,
- IntegrationId,
- IntegrationResponseKey,
- ApiId,
- region
+  ResponseTemplates,
+  TemplateSelectionExpression,
+  ResponseParameters,
+  ContentHandlingStrategy,
+  IntegrationId,
+  IntegrationResponseKey,
+  ApiId,
+  region
 )
 SELECT
- '{{ response_templates }}',
- '{{ template_selection_expression }}',
- '{{ response_parameters }}',
- '{{ content_handling_strategy }}',
- '{{ integration_id }}',
- '{{ integration_response_key }}',
- '{{ api_id }}',
- '{{ region }}';
+  '{{ response_templates }}',
+  '{{ template_selection_expression }}',
+  '{{ response_parameters }}',
+  '{{ content_handling_strategy }}',
+  '{{ integration_id }}',
+  '{{ integration_response_key }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ SET PatchDocument = string('{{ {
     "ContentHandlingStrategy": content_handling_strategy,
     "IntegrationResponseKey": integration_response_key
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.integration_responses
-WHERE Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

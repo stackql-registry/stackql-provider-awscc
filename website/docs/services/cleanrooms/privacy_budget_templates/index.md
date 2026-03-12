@@ -205,19 +205,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>privacy_budget_template</code>.
 ```sql
 SELECT
-region,
-arn,
-collaboration_arn,
-collaboration_identifier,
-privacy_budget_template_identifier,
-tags,
-auto_refresh,
-privacy_budget_type,
-parameters,
-membership_arn,
-membership_identifier
+  region,
+  arn,
+  collaboration_arn,
+  collaboration_identifier,
+  privacy_budget_template_identifier,
+  tags,
+  auto_refresh,
+  privacy_budget_type,
+  parameters,
+  membership_arn,
+  membership_identifier
 FROM awscc.cleanrooms.privacy_budget_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ privacy_budget_template_identifi
 Lists all <code>privacy_budget_templates</code> in a region.
 ```sql
 SELECT
-region,
-privacy_budget_template_identifier,
-membership_identifier
+  region,
+  privacy_budget_template_identifier,
+  membership_identifier
 FROM awscc.cleanrooms.privacy_budget_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,18 +254,18 @@ Use the following StackQL query and manifest file to create a new <code>privacy_
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.privacy_budget_templates (
- AutoRefresh,
- PrivacyBudgetType,
- Parameters,
- MembershipIdentifier,
- region
+  AutoRefresh,
+  PrivacyBudgetType,
+  Parameters,
+  MembershipIdentifier,
+  region
 )
 SELECT
-'{{ auto_refresh }}',
- '{{ privacy_budget_type }}',
- '{{ parameters }}',
- '{{ membership_identifier }}',
-'{{ region }}';
+  '{{ auto_refresh }}',
+  '{{ privacy_budget_type }}',
+  '{{ parameters }}',
+  '{{ membership_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,20 +273,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.privacy_budget_templates (
- Tags,
- AutoRefresh,
- PrivacyBudgetType,
- Parameters,
- MembershipIdentifier,
- region
+  Tags,
+  AutoRefresh,
+  PrivacyBudgetType,
+  Parameters,
+  MembershipIdentifier,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ auto_refresh }}',
- '{{ privacy_budget_type }}',
- '{{ parameters }}',
- '{{ membership_identifier }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ auto_refresh }}',
+  '{{ privacy_budget_type }}',
+  '{{ parameters }}',
+  '{{ membership_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -329,8 +332,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Parameters": parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -339,8 +343,9 @@ AND Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identif
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.privacy_budget_templates
-WHERE Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

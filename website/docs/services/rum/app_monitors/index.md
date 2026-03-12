@@ -327,19 +327,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app_monitor</code>.
 ```sql
 SELECT
-region,
-id,
-name,
-domain,
-domain_list,
-cw_log_enabled,
-tags,
-app_monitor_configuration,
-custom_events,
-resource_policy,
-deobfuscation_configuration
+  region,
+  id,
+  name,
+  domain,
+  domain_list,
+  cw_log_enabled,
+  tags,
+  app_monitor_configuration,
+  custom_events,
+  resource_policy,
+  deobfuscation_configuration
 FROM awscc.rum.app_monitors
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -347,10 +349,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>app_monitors</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.rum.app_monitors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -372,12 +375,12 @@ Use the following StackQL query and manifest file to create a new <code>app_moni
 ```sql
 /*+ create */
 INSERT INTO awscc.rum.app_monitors (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -385,28 +388,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rum.app_monitors (
- Name,
- Domain,
- DomainList,
- CwLogEnabled,
- Tags,
- AppMonitorConfiguration,
- CustomEvents,
- ResourcePolicy,
- DeobfuscationConfiguration,
- region
+  Name,
+  Domain,
+  DomainList,
+  CwLogEnabled,
+  Tags,
+  AppMonitorConfiguration,
+  CustomEvents,
+  ResourcePolicy,
+  DeobfuscationConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ domain }}',
- '{{ domain_list }}',
- '{{ cw_log_enabled }}',
- '{{ tags }}',
- '{{ app_monitor_configuration }}',
- '{{ custom_events }}',
- '{{ resource_policy }}',
- '{{ deobfuscation_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ domain }}',
+  '{{ domain_list }}',
+  '{{ cw_log_enabled }}',
+  '{{ tags }}',
+  '{{ app_monitor_configuration }}',
+  '{{ custom_events }}',
+  '{{ resource_policy }}',
+  '{{ deobfuscation_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -494,8 +497,9 @@ SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy,
     "DeobfuscationConfiguration": deobfuscation_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -504,8 +508,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rum.app_monitors
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

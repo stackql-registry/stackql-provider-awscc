@@ -213,24 +213,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway</code>.
 ```sql
 SELECT
-region,
-default_route_table_propagation,
-transit_gateway_arn,
-description,
-auto_accept_shared_attachments,
-default_route_table_association,
-id,
-vpn_ecmp_support,
-dns_support,
-security_group_referencing_support,
-multicast_support,
-amazon_side_asn,
-transit_gateway_cidr_blocks,
-tags,
-association_default_route_table_id,
-propagation_default_route_table_id
+  region,
+  default_route_table_propagation,
+  transit_gateway_arn,
+  description,
+  auto_accept_shared_attachments,
+  default_route_table_association,
+  id,
+  vpn_ecmp_support,
+  dns_support,
+  security_group_referencing_support,
+  multicast_support,
+  amazon_side_asn,
+  transit_gateway_cidr_blocks,
+  tags,
+  association_default_route_table_id,
+  propagation_default_route_table_id
 FROM awscc.ec2.transit_gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +240,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>transit_gateways</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.transit_gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,36 +266,36 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateways (
- DefaultRouteTablePropagation,
- Description,
- AutoAcceptSharedAttachments,
- DefaultRouteTableAssociation,
- VpnEcmpSupport,
- DnsSupport,
- SecurityGroupReferencingSupport,
- MulticastSupport,
- AmazonSideAsn,
- TransitGatewayCidrBlocks,
- Tags,
- AssociationDefaultRouteTableId,
- PropagationDefaultRouteTableId,
- region
+  DefaultRouteTablePropagation,
+  Description,
+  AutoAcceptSharedAttachments,
+  DefaultRouteTableAssociation,
+  VpnEcmpSupport,
+  DnsSupport,
+  SecurityGroupReferencingSupport,
+  MulticastSupport,
+  AmazonSideAsn,
+  TransitGatewayCidrBlocks,
+  Tags,
+  AssociationDefaultRouteTableId,
+  PropagationDefaultRouteTableId,
+  region
 )
 SELECT
-'{{ default_route_table_propagation }}',
- '{{ description }}',
- '{{ auto_accept_shared_attachments }}',
- '{{ default_route_table_association }}',
- '{{ vpn_ecmp_support }}',
- '{{ dns_support }}',
- '{{ security_group_referencing_support }}',
- '{{ multicast_support }}',
- '{{ amazon_side_asn }}',
- '{{ transit_gateway_cidr_blocks }}',
- '{{ tags }}',
- '{{ association_default_route_table_id }}',
- '{{ propagation_default_route_table_id }}',
-'{{ region }}';
+  '{{ default_route_table_propagation }}',
+  '{{ description }}',
+  '{{ auto_accept_shared_attachments }}',
+  '{{ default_route_table_association }}',
+  '{{ vpn_ecmp_support }}',
+  '{{ dns_support }}',
+  '{{ security_group_referencing_support }}',
+  '{{ multicast_support }}',
+  '{{ amazon_side_asn }}',
+  '{{ transit_gateway_cidr_blocks }}',
+  '{{ tags }}',
+  '{{ association_default_route_table_id }}',
+  '{{ propagation_default_route_table_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -300,36 +303,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateways (
- DefaultRouteTablePropagation,
- Description,
- AutoAcceptSharedAttachments,
- DefaultRouteTableAssociation,
- VpnEcmpSupport,
- DnsSupport,
- SecurityGroupReferencingSupport,
- MulticastSupport,
- AmazonSideAsn,
- TransitGatewayCidrBlocks,
- Tags,
- AssociationDefaultRouteTableId,
- PropagationDefaultRouteTableId,
- region
+  DefaultRouteTablePropagation,
+  Description,
+  AutoAcceptSharedAttachments,
+  DefaultRouteTableAssociation,
+  VpnEcmpSupport,
+  DnsSupport,
+  SecurityGroupReferencingSupport,
+  MulticastSupport,
+  AmazonSideAsn,
+  TransitGatewayCidrBlocks,
+  Tags,
+  AssociationDefaultRouteTableId,
+  PropagationDefaultRouteTableId,
+  region
 )
 SELECT
- '{{ default_route_table_propagation }}',
- '{{ description }}',
- '{{ auto_accept_shared_attachments }}',
- '{{ default_route_table_association }}',
- '{{ vpn_ecmp_support }}',
- '{{ dns_support }}',
- '{{ security_group_referencing_support }}',
- '{{ multicast_support }}',
- '{{ amazon_side_asn }}',
- '{{ transit_gateway_cidr_blocks }}',
- '{{ tags }}',
- '{{ association_default_route_table_id }}',
- '{{ propagation_default_route_table_id }}',
- '{{ region }}';
+  '{{ default_route_table_propagation }}',
+  '{{ description }}',
+  '{{ auto_accept_shared_attachments }}',
+  '{{ default_route_table_association }}',
+  '{{ vpn_ecmp_support }}',
+  '{{ dns_support }}',
+  '{{ security_group_referencing_support }}',
+  '{{ multicast_support }}',
+  '{{ amazon_side_asn }}',
+  '{{ transit_gateway_cidr_blocks }}',
+  '{{ tags }}',
+  '{{ association_default_route_table_id }}',
+  '{{ propagation_default_route_table_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -399,8 +402,9 @@ SET PatchDocument = string('{{ {
     "AssociationDefaultRouteTableId": association_default_route_table_id,
     "PropagationDefaultRouteTableId": propagation_default_route_table_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -409,8 +413,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateways
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

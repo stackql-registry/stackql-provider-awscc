@@ -140,13 +140,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hook_default_version</code>.
 ```sql
 SELECT
-region,
-type_version_arn,
-type_name,
-arn,
-version_id
+  region,
+  type_version_arn,
+  type_name,
+  arn,
+  version_id
 FROM awscc.cloudformation.hook_default_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>hook_default_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudformation.hook_default_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,16 +182,16 @@ Use the following StackQL query and manifest file to create a new <code>hook_def
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.hook_default_versions (
- TypeVersionArn,
- TypeName,
- VersionId,
- region
+  TypeVersionArn,
+  TypeName,
+  VersionId,
+  region
 )
 SELECT
-'{{ type_version_arn }}',
- '{{ type_name }}',
- '{{ version_id }}',
-'{{ region }}';
+  '{{ type_version_arn }}',
+  '{{ type_name }}',
+  '{{ version_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -196,16 +199,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.hook_default_versions (
- TypeVersionArn,
- TypeName,
- VersionId,
- region
+  TypeVersionArn,
+  TypeName,
+  VersionId,
+  region
 )
 SELECT
- '{{ type_version_arn }}',
- '{{ type_name }}',
- '{{ version_id }}',
- '{{ region }}';
+  '{{ type_version_arn }}',
+  '{{ type_name }}',
+  '{{ version_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ SET PatchDocument = string('{{ {
     "TypeName": type_name,
     "VersionId": version_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 

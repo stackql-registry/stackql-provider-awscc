@@ -173,15 +173,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>email_address</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-email_address_arn,
-description,
-email_address,
-display_name,
-tags
+  region,
+  instance_arn,
+  email_address_arn,
+  description,
+  email_address,
+  display_name,
+  tags
 FROM awscc.connect.email_addresses
-WHERE region = 'us-east-1' AND Identifier = '{{ email_address_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ email_address_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,10 +191,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ email_address_arn }}';
 Lists all <code>email_addresses</code> in a region.
 ```sql
 SELECT
-region,
-email_address_arn
+  region,
+  email_address_arn
 FROM awscc.connect.email_addresses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -214,14 +217,14 @@ Use the following StackQL query and manifest file to create a new <code>email_ad
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.email_addresses (
- InstanceArn,
- EmailAddress,
- region
+  InstanceArn,
+  EmailAddress,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ email_address }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ email_address }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -229,20 +232,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.email_addresses (
- InstanceArn,
- Description,
- EmailAddress,
- DisplayName,
- Tags,
- region
+  InstanceArn,
+  Description,
+  EmailAddress,
+  DisplayName,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ description }}',
- '{{ email_address }}',
- '{{ display_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ description }}',
+  '{{ email_address }}',
+  '{{ display_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ email_address_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ email_address_arn }}';
 ```
 
 
@@ -298,8 +302,9 @@ AND Identifier = '{{ email_address_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.email_addresses
-WHERE Identifier = '{{ email_address_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ email_address_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

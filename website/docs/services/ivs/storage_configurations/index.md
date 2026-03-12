@@ -165,13 +165,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>storage_configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-s3,
-tags
+  region,
+  arn,
+  name,
+  s3,
+  tags
 FROM awscc.ivs.storage_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,10 +181,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>storage_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.storage_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,12 +207,12 @@ Use the following StackQL query and manifest file to create a new <code>storage_
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.storage_configurations (
- S3,
- region
+  S3,
+  region
 )
 SELECT
-'{{ s3 }}',
-'{{ region }}';
+  '{{ s3 }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -217,16 +220,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.storage_configurations (
- Name,
- S3,
- Tags,
- region
+  Name,
+  S3,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ s3 }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ s3 }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.ivs.storage_configurations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.storage_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

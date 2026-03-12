@@ -232,18 +232,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_data_sync</code>.
 ```sql
 SELECT
-region,
-s3_destination,
-kms_key_arn,
-sync_source,
-bucket_name,
-bucket_region,
-sync_format,
-sync_name,
-sync_type,
-bucket_prefix
+  region,
+  s3_destination,
+  kms_key_arn,
+  sync_source,
+  bucket_name,
+  bucket_region,
+  sync_format,
+  sync_name,
+  sync_type,
+  bucket_prefix
 FROM awscc.ssm.resource_data_syncs
-WHERE region = 'us-east-1' AND Identifier = '{{ sync_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ sync_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,10 +253,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ sync_name }}';
 Lists all <code>resource_data_syncs</code> in a region.
 ```sql
 SELECT
-region,
-sync_name
+  region,
+  sync_name
 FROM awscc.ssm.resource_data_syncs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -276,12 +279,12 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.resource_data_syncs (
- SyncName,
- region
+  SyncName,
+  region
 )
 SELECT
-'{{ sync_name }}',
-'{{ region }}';
+  '{{ sync_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -289,28 +292,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssm.resource_data_syncs (
- S3Destination,
- KMSKeyArn,
- SyncSource,
- BucketName,
- BucketRegion,
- SyncFormat,
- SyncName,
- SyncType,
- BucketPrefix,
- region
+  S3Destination,
+  KMSKeyArn,
+  SyncSource,
+  BucketName,
+  BucketRegion,
+  SyncFormat,
+  SyncName,
+  SyncType,
+  BucketPrefix,
+  region
 )
 SELECT
- '{{ s3_destination }}',
- '{{ kms_key_arn }}',
- '{{ sync_source }}',
- '{{ bucket_name }}',
- '{{ bucket_region }}',
- '{{ sync_format }}',
- '{{ sync_name }}',
- '{{ sync_type }}',
- '{{ bucket_prefix }}',
- '{{ region }}';
+  '{{ s3_destination }}',
+  '{{ kms_key_arn }}',
+  '{{ sync_source }}',
+  '{{ bucket_name }}',
+  '{{ bucket_region }}',
+  '{{ sync_format }}',
+  '{{ sync_name }}',
+  '{{ sync_type }}',
+  '{{ bucket_prefix }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -372,8 +375,9 @@ UPDATE awscc.ssm.resource_data_syncs
 SET PatchDocument = string('{{ {
     "SyncSource": sync_source
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ sync_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ sync_name }}';
 ```
 
 
@@ -382,8 +386,9 @@ AND Identifier = '{{ sync_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_data_syncs
-WHERE Identifier = '{{ sync_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ sync_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

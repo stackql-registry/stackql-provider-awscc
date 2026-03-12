@@ -231,13 +231,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>storage_lens_group</code>.
 ```sql
 SELECT
-region,
-name,
-filter,
-storage_lens_group_arn,
-tags
+  region,
+  name,
+  filter,
+  storage_lens_group_arn,
+  tags
 FROM awscc.s3.storage_lens_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,10 +247,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>storage_lens_groups</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.s3.storage_lens_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,14 +273,14 @@ Use the following StackQL query and manifest file to create a new <code>storage_
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.storage_lens_groups (
- Name,
- Filter,
- region
+  Name,
+  Filter,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ filter }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ filter }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,16 +288,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3.storage_lens_groups (
- Name,
- Filter,
- Tags,
- region
+  Name,
+  Filter,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ filter }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ filter }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "Filter": filter,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.storage_lens_groups
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

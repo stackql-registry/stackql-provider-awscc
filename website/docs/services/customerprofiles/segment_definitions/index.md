@@ -219,17 +219,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>segment_definition</code>.
 ```sql
 SELECT
-region,
-created_at,
-description,
-display_name,
-domain_name,
-segment_definition_name,
-segment_groups,
-segment_definition_arn,
-tags
+  region,
+  created_at,
+  description,
+  display_name,
+  domain_name,
+  segment_definition_name,
+  segment_groups,
+  segment_definition_arn,
+  tags
 FROM awscc.customerprofiles.segment_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,11 +239,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ segment_defini
 Lists all <code>segment_definitions</code> in a region.
 ```sql
 SELECT
-region,
-domain_name,
-segment_definition_name
+  region,
+  domain_name,
+  segment_definition_name
 FROM awscc.customerprofiles.segment_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,18 +266,18 @@ Use the following StackQL query and manifest file to create a new <code>segment_
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.segment_definitions (
- DisplayName,
- DomainName,
- SegmentDefinitionName,
- SegmentGroups,
- region
+  DisplayName,
+  DomainName,
+  SegmentDefinitionName,
+  SegmentGroups,
+  region
 )
 SELECT
-'{{ display_name }}',
- '{{ domain_name }}',
- '{{ segment_definition_name }}',
- '{{ segment_groups }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ domain_name }}',
+  '{{ segment_definition_name }}',
+  '{{ segment_groups }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -282,22 +285,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.customerprofiles.segment_definitions (
- Description,
- DisplayName,
- DomainName,
- SegmentDefinitionName,
- SegmentGroups,
- Tags,
- region
+  Description,
+  DisplayName,
+  DomainName,
+  SegmentDefinitionName,
+  SegmentGroups,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ display_name }}',
- '{{ domain_name }}',
- '{{ segment_definition_name }}',
- '{{ segment_groups }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ domain_name }}',
+  '{{ segment_definition_name }}',
+  '{{ segment_groups }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -351,8 +354,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
 ```
 
 
@@ -361,8 +365,9 @@ AND Identifier = '{{ domain_name }}|{{ segment_definition_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.segment_definitions
-WHERE Identifier = '{{ domain_name }}|{{ segment_definition_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}|{{ segment_definition_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

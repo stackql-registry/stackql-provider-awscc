@@ -678,23 +678,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-egress_ip,
-name,
-availability_zone,
-flow_availability_zone,
-source,
-source_failover_config,
-vpc_interfaces,
-media_streams,
-maintenance,
-source_monitoring_config,
-flow_size,
-ndi_config,
-flow_ndi_machine_name
+  region,
+  flow_arn,
+  egress_ip,
+  name,
+  availability_zone,
+  flow_availability_zone,
+  source,
+  source_failover_config,
+  vpc_interfaces,
+  media_streams,
+  maintenance,
+  source_monitoring_config,
+  flow_size,
+  ndi_config,
+  flow_ndi_machine_name
 FROM awscc.mediaconnect.flows
-WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ flow_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -702,10 +704,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}';
 Lists all <code>flows</code> in a region.
 ```sql
 SELECT
-region,
-flow_arn
+  region,
+  flow_arn
 FROM awscc.mediaconnect.flows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -727,14 +730,14 @@ Use the following StackQL query and manifest file to create a new <code>flow</co
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flows (
- Name,
- Source,
- region
+  Name,
+  Source,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ source }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -742,30 +745,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.flows (
- Name,
- AvailabilityZone,
- Source,
- SourceFailoverConfig,
- VpcInterfaces,
- MediaStreams,
- Maintenance,
- SourceMonitoringConfig,
- FlowSize,
- NdiConfig,
- region
+  Name,
+  AvailabilityZone,
+  Source,
+  SourceFailoverConfig,
+  VpcInterfaces,
+  MediaStreams,
+  Maintenance,
+  SourceMonitoringConfig,
+  FlowSize,
+  NdiConfig,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ availability_zone }}',
- '{{ source }}',
- '{{ source_failover_config }}',
- '{{ vpc_interfaces }}',
- '{{ media_streams }}',
- '{{ maintenance }}',
- '{{ source_monitoring_config }}',
- '{{ flow_size }}',
- '{{ ndi_config }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ availability_zone }}',
+  '{{ source }}',
+  '{{ source_failover_config }}',
+  '{{ vpc_interfaces }}',
+  '{{ media_streams }}',
+  '{{ maintenance }}',
+  '{{ source_monitoring_config }}',
+  '{{ flow_size }}',
+  '{{ ndi_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -911,8 +914,9 @@ SET PatchDocument = string('{{ {
     "FlowSize": flow_size,
     "NdiConfig": ndi_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ flow_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ flow_arn }}';
 ```
 
 
@@ -921,8 +925,9 @@ AND Identifier = '{{ flow_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flows
-WHERE Identifier = '{{ flow_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ flow_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

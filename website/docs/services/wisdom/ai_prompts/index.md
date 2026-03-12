@@ -196,22 +196,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ai_prompt</code>.
 ```sql
 SELECT
-region,
-a_iprompt_id,
-a_iprompt_arn,
-api_format,
-assistant_id,
-assistant_arn,
-description,
-model_id,
-name,
-tags,
-template_configuration,
-template_type,
-type,
-modified_time_seconds
+  region,
+  a_iprompt_id,
+  a_iprompt_arn,
+  api_format,
+  assistant_id,
+  assistant_arn,
+  description,
+  model_id,
+  name,
+  tags,
+  template_configuration,
+  template_type,
+  type,
+  modified_time_seconds
 FROM awscc.wisdom.ai_prompts
-WHERE region = 'us-east-1' AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,11 +221,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id 
 Lists all <code>ai_prompts</code> in a region.
 ```sql
 SELECT
-region,
-a_iprompt_id,
-assistant_id
+  region,
+  a_iprompt_id,
+  assistant_id
 FROM awscc.wisdom.ai_prompts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,20 +248,20 @@ Use the following StackQL query and manifest file to create a new <code>ai_promp
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_prompts (
- ApiFormat,
- ModelId,
- TemplateConfiguration,
- TemplateType,
- Type,
- region
+  ApiFormat,
+  ModelId,
+  TemplateConfiguration,
+  TemplateType,
+  Type,
+  region
 )
 SELECT
-'{{ api_format }}',
- '{{ model_id }}',
- '{{ template_configuration }}',
- '{{ template_type }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ api_format }}',
+  '{{ model_id }}',
+  '{{ template_configuration }}',
+  '{{ template_type }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,28 +269,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.ai_prompts (
- ApiFormat,
- AssistantId,
- Description,
- ModelId,
- Name,
- Tags,
- TemplateConfiguration,
- TemplateType,
- Type,
- region
+  ApiFormat,
+  AssistantId,
+  Description,
+  ModelId,
+  Name,
+  Tags,
+  TemplateConfiguration,
+  TemplateType,
+  Type,
+  region
 )
 SELECT
- '{{ api_format }}',
- '{{ assistant_id }}',
- '{{ description }}',
- '{{ model_id }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ template_configuration }}',
- '{{ template_type }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ api_format }}',
+  '{{ assistant_id }}',
+  '{{ description }}',
+  '{{ model_id }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ template_configuration }}',
+  '{{ template_type }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -338,8 +341,9 @@ SET PatchDocument = string('{{ {
     "ModelId": model_id,
     "TemplateConfiguration": template_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```
 
 
@@ -348,8 +352,9 @@ AND Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_prompts
-WHERE Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

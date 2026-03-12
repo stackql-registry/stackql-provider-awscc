@@ -282,15 +282,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataflow_endpoint_group</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-endpoint_details,
-contact_pre_pass_duration_seconds,
-contact_post_pass_duration_seconds,
-tags
+  region,
+  id,
+  arn,
+  endpoint_details,
+  contact_pre_pass_duration_seconds,
+  contact_post_pass_duration_seconds,
+  tags
 FROM awscc.groundstation.dataflow_endpoint_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -298,10 +300,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>dataflow_endpoint_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.groundstation.dataflow_endpoint_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -323,12 +326,12 @@ Use the following StackQL query and manifest file to create a new <code>dataflow
 ```sql
 /*+ create */
 INSERT INTO awscc.groundstation.dataflow_endpoint_groups (
- EndpointDetails,
- region
+  EndpointDetails,
+  region
 )
 SELECT
-'{{ endpoint_details }}',
-'{{ region }}';
+  '{{ endpoint_details }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -336,18 +339,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.groundstation.dataflow_endpoint_groups (
- EndpointDetails,
- ContactPrePassDurationSeconds,
- ContactPostPassDurationSeconds,
- Tags,
- region
+  EndpointDetails,
+  ContactPrePassDurationSeconds,
+  ContactPostPassDurationSeconds,
+  Tags,
+  region
 )
 SELECT
- '{{ endpoint_details }}',
- '{{ contact_pre_pass_duration_seconds }}',
- '{{ contact_post_pass_duration_seconds }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ endpoint_details }}',
+  '{{ contact_pre_pass_duration_seconds }}',
+  '{{ contact_post_pass_duration_seconds }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -414,8 +417,9 @@ UPDATE awscc.groundstation.dataflow_endpoint_groups
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -424,8 +428,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.dataflow_endpoint_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

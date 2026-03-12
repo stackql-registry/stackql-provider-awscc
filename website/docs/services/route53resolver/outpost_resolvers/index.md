@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>outpost_resolver</code>.
 ```sql
 SELECT
-region,
-id,
-creator_request_id,
-name,
-arn,
-outpost_arn,
-preferred_instance_type,
-status,
-status_message,
-instance_count,
-creation_time,
-modification_time,
-tags
+  region,
+  id,
+  creator_request_id,
+  name,
+  arn,
+  outpost_arn,
+  preferred_instance_type,
+  status,
+  status_message,
+  instance_count,
+  creation_time,
+  modification_time,
+  tags
 FROM awscc.route53resolver.outpost_resolvers
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>outpost_resolvers</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.route53resolver.outpost_resolvers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>outpost_
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.outpost_resolvers (
- Name,
- OutpostArn,
- PreferredInstanceType,
- region
+  Name,
+  OutpostArn,
+  PreferredInstanceType,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ outpost_arn }}',
- '{{ preferred_instance_type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ outpost_arn }}',
+  '{{ preferred_instance_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,20 +265,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53resolver.outpost_resolvers (
- Name,
- OutpostArn,
- PreferredInstanceType,
- InstanceCount,
- Tags,
- region
+  Name,
+  OutpostArn,
+  PreferredInstanceType,
+  InstanceCount,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ outpost_arn }}',
- '{{ preferred_instance_type }}',
- '{{ instance_count }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ outpost_arn }}',
+  '{{ preferred_instance_type }}',
+  '{{ instance_count }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -321,8 +324,9 @@ SET PatchDocument = string('{{ {
     "InstanceCount": instance_count,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -331,8 +335,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.outpost_resolvers
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

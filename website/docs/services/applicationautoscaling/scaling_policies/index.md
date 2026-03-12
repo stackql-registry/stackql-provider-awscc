@@ -461,19 +461,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>scaling_policy</code>.
 ```sql
 SELECT
-region,
-policy_type,
-resource_id,
-scaling_target_id,
-policy_name,
-service_namespace,
-scalable_dimension,
-target_tracking_scaling_policy_configuration,
-arn,
-step_scaling_policy_configuration,
-predictive_scaling_policy_configuration
+  region,
+  policy_type,
+  resource_id,
+  scaling_target_id,
+  policy_name,
+  service_namespace,
+  scalable_dimension,
+  target_tracking_scaling_policy_configuration,
+  arn,
+  step_scaling_policy_configuration,
+  predictive_scaling_policy_configuration
 FROM awscc.applicationautoscaling.scaling_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ scalable_dimension }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}|{{ scalable_dimension }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -481,11 +483,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ scalable_dimension }}'
 Lists all <code>scaling_policies</code> in a region.
 ```sql
 SELECT
-region,
-arn,
-scalable_dimension
+  region,
+  arn,
+  scalable_dimension
 FROM awscc.applicationautoscaling.scaling_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -507,14 +510,14 @@ Use the following StackQL query and manifest file to create a new <code>scaling_
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationautoscaling.scaling_policies (
- PolicyType,
- PolicyName,
- region
+  PolicyType,
+  PolicyName,
+  region
 )
 SELECT
-'{{ policy_type }}',
- '{{ policy_name }}',
-'{{ region }}';
+  '{{ policy_type }}',
+  '{{ policy_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -522,28 +525,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.applicationautoscaling.scaling_policies (
- PolicyType,
- ResourceId,
- ScalingTargetId,
- PolicyName,
- ServiceNamespace,
- ScalableDimension,
- TargetTrackingScalingPolicyConfiguration,
- StepScalingPolicyConfiguration,
- PredictiveScalingPolicyConfiguration,
- region
+  PolicyType,
+  ResourceId,
+  ScalingTargetId,
+  PolicyName,
+  ServiceNamespace,
+  ScalableDimension,
+  TargetTrackingScalingPolicyConfiguration,
+  StepScalingPolicyConfiguration,
+  PredictiveScalingPolicyConfiguration,
+  region
 )
 SELECT
- '{{ policy_type }}',
- '{{ resource_id }}',
- '{{ scaling_target_id }}',
- '{{ policy_name }}',
- '{{ service_namespace }}',
- '{{ scalable_dimension }}',
- '{{ target_tracking_scaling_policy_configuration }}',
- '{{ step_scaling_policy_configuration }}',
- '{{ predictive_scaling_policy_configuration }}',
- '{{ region }}';
+  '{{ policy_type }}',
+  '{{ resource_id }}',
+  '{{ scaling_target_id }}',
+  '{{ policy_name }}',
+  '{{ service_namespace }}',
+  '{{ scalable_dimension }}',
+  '{{ target_tracking_scaling_policy_configuration }}',
+  '{{ step_scaling_policy_configuration }}',
+  '{{ predictive_scaling_policy_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -668,8 +671,9 @@ SET PatchDocument = string('{{ {
     "StepScalingPolicyConfiguration": step_scaling_policy_configuration,
     "PredictiveScalingPolicyConfiguration": predictive_scaling_policy_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}|{{ scalable_dimension }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}|{{ scalable_dimension }}';
 ```
 
 
@@ -678,8 +682,9 @@ AND Identifier = '{{ arn }}|{{ scalable_dimension }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationautoscaling.scaling_policies
-WHERE Identifier = '{{ arn }}|{{ scalable_dimension }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}|{{ scalable_dimension }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

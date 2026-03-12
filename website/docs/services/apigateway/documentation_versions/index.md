@@ -146,12 +146,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>documentation_version</code>.
 ```sql
 SELECT
-region,
-description,
-documentation_version,
-rest_api_id
+  region,
+  description,
+  documentation_version,
+  rest_api_id
 FROM awscc.apigateway.documentation_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -159,11 +161,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ documentation_version }}|{{ rest
 Lists all <code>documentation_versions</code> in a region.
 ```sql
 SELECT
-region,
-documentation_version,
-rest_api_id
+  region,
+  documentation_version,
+  rest_api_id
 FROM awscc.apigateway.documentation_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,14 +188,14 @@ Use the following StackQL query and manifest file to create a new <code>document
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.documentation_versions (
- DocumentationVersion,
- RestApiId,
- region
+  DocumentationVersion,
+  RestApiId,
+  region
 )
 SELECT
-'{{ documentation_version }}',
- '{{ rest_api_id }}',
-'{{ region }}';
+  '{{ documentation_version }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -200,16 +203,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.documentation_versions (
- Description,
- DocumentationVersion,
- RestApiId,
- region
+  Description,
+  DocumentationVersion,
+  RestApiId,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ documentation_version }}',
- '{{ rest_api_id }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ documentation_version }}',
+  '{{ rest_api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -246,8 +249,9 @@ UPDATE awscc.apigateway.documentation_versions
 SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```
 
 
@@ -256,8 +260,9 @@ AND Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.documentation_versions
-WHERE Identifier = '{{ documentation_version }}|{{ rest_api_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ documentation_version }}|{{ rest_api_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

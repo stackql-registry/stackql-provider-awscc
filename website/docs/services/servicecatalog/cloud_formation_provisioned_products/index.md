@@ -221,25 +221,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cloud_formation_provisioned_product</code>.
 ```sql
 SELECT
-region,
-accept_language,
-notification_arns,
-path_id,
-path_name,
-product_id,
-product_name,
-provisioned_product_name,
-provisioning_artifact_id,
-provisioning_artifact_name,
-provisioning_parameters,
-provisioning_preferences,
-tags,
-provisioned_product_id,
-record_id,
-cloudformation_stack_arn,
-outputs
+  region,
+  accept_language,
+  notification_arns,
+  path_id,
+  path_name,
+  product_id,
+  product_name,
+  provisioned_product_name,
+  provisioning_artifact_id,
+  provisioning_artifact_name,
+  provisioning_parameters,
+  provisioning_preferences,
+  tags,
+  provisioned_product_id,
+  record_id,
+  cloudformation_stack_arn,
+  outputs
 FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE region = 'us-east-1' AND Identifier = '{{ provisioned_product_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ provisioned_product_id }}';
 ```
 
 ## `INSERT` example
@@ -259,34 +261,34 @@ Use the following StackQL query and manifest file to create a new <code>cloud_fo
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.cloud_formation_provisioned_products (
- AcceptLanguage,
- NotificationArns,
- PathId,
- PathName,
- ProductId,
- ProductName,
- ProvisionedProductName,
- ProvisioningArtifactId,
- ProvisioningArtifactName,
- ProvisioningParameters,
- ProvisioningPreferences,
- Tags,
- region
+  AcceptLanguage,
+  NotificationArns,
+  PathId,
+  PathName,
+  ProductId,
+  ProductName,
+  ProvisionedProductName,
+  ProvisioningArtifactId,
+  ProvisioningArtifactName,
+  ProvisioningParameters,
+  ProvisioningPreferences,
+  Tags,
+  region
 )
 SELECT
-'{{ accept_language }}',
- '{{ notification_arns }}',
- '{{ path_id }}',
- '{{ path_name }}',
- '{{ product_id }}',
- '{{ product_name }}',
- '{{ provisioned_product_name }}',
- '{{ provisioning_artifact_id }}',
- '{{ provisioning_artifact_name }}',
- '{{ provisioning_parameters }}',
- '{{ provisioning_preferences }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ accept_language }}',
+  '{{ notification_arns }}',
+  '{{ path_id }}',
+  '{{ path_name }}',
+  '{{ product_id }}',
+  '{{ product_name }}',
+  '{{ provisioned_product_name }}',
+  '{{ provisioning_artifact_id }}',
+  '{{ provisioning_artifact_name }}',
+  '{{ provisioning_parameters }}',
+  '{{ provisioning_preferences }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -294,34 +296,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.cloud_formation_provisioned_products (
- AcceptLanguage,
- NotificationArns,
- PathId,
- PathName,
- ProductId,
- ProductName,
- ProvisionedProductName,
- ProvisioningArtifactId,
- ProvisioningArtifactName,
- ProvisioningParameters,
- ProvisioningPreferences,
- Tags,
- region
+  AcceptLanguage,
+  NotificationArns,
+  PathId,
+  PathName,
+  ProductId,
+  ProductName,
+  ProvisionedProductName,
+  ProvisioningArtifactId,
+  ProvisioningArtifactName,
+  ProvisioningParameters,
+  ProvisioningPreferences,
+  Tags,
+  region
 )
 SELECT
- '{{ accept_language }}',
- '{{ notification_arns }}',
- '{{ path_id }}',
- '{{ path_name }}',
- '{{ product_id }}',
- '{{ product_name }}',
- '{{ provisioned_product_name }}',
- '{{ provisioning_artifact_id }}',
- '{{ provisioning_artifact_name }}',
- '{{ provisioning_parameters }}',
- '{{ provisioning_preferences }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ accept_language }}',
+  '{{ notification_arns }}',
+  '{{ path_id }}',
+  '{{ path_name }}',
+  '{{ product_id }}',
+  '{{ product_name }}',
+  '{{ provisioned_product_name }}',
+  '{{ provisioning_artifact_id }}',
+  '{{ provisioning_artifact_name }}',
+  '{{ provisioning_parameters }}',
+  '{{ provisioning_preferences }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -399,8 +401,9 @@ SET PatchDocument = string('{{ {
     "ProvisioningPreferences": provisioning_preferences,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ provisioned_product_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ provisioned_product_id }}';
 ```
 
 
@@ -409,8 +412,9 @@ AND Identifier = '{{ provisioned_product_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE Identifier = '{{ provisioned_product_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ provisioned_product_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_set</code>.
 ```sql
 SELECT
-region,
-id,
-name,
-description,
-resource_type_list,
-resources,
-tags
+  region,
+  id,
+  name,
+  description,
+  resource_type_list,
+  resources,
+  tags
 FROM awscc.fms.resource_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>resource_sets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.fms.resource_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.resource_sets (
- Name,
- ResourceTypeList,
- region
+  Name,
+  ResourceTypeList,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ resource_type_list }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ resource_type_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.resource_sets (
- Name,
- Description,
- ResourceTypeList,
- Resources,
- Tags,
- region
+  Name,
+  Description,
+  ResourceTypeList,
+  Resources,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ resource_type_list }}',
- '{{ resources }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ resource_type_list }}',
+  '{{ resources }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ SET PatchDocument = string('{{ {
     "Resources": resources,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.resource_sets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

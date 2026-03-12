@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_peering</code>.
 ```sql
 SELECT
-region,
-core_network_id,
-core_network_arn,
-transit_gateway_arn,
-transit_gateway_peering_attachment_id,
-peering_id,
-state,
-edge_location,
-resource_arn,
-owner_account_id,
-peering_type,
-created_at,
-tags
+  region,
+  core_network_id,
+  core_network_arn,
+  transit_gateway_arn,
+  transit_gateway_peering_attachment_id,
+  peering_id,
+  state,
+  edge_location,
+  resource_arn,
+  owner_account_id,
+  peering_type,
+  created_at,
+  tags
 FROM awscc.networkmanager.transit_gateway_peerings
-WHERE region = 'us-east-1' AND Identifier = '{{ peering_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ peering_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ peering_id }}';
 Lists all <code>transit_gateway_peerings</code> in a region.
 ```sql
 SELECT
-region,
-peering_id
+  region,
+  peering_id
 FROM awscc.networkmanager.transit_gateway_peerings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_peerings (
- CoreNetworkId,
- TransitGatewayArn,
- region
+  CoreNetworkId,
+  TransitGatewayArn,
+  region
 )
 SELECT
-'{{ core_network_id }}',
- '{{ transit_gateway_arn }}',
-'{{ region }}';
+  '{{ core_network_id }}',
+  '{{ transit_gateway_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,16 +263,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_peerings (
- CoreNetworkId,
- TransitGatewayArn,
- Tags,
- region
+  CoreNetworkId,
+  TransitGatewayArn,
+  Tags,
+  region
 )
 SELECT
- '{{ core_network_id }}',
- '{{ transit_gateway_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ core_network_id }}',
+  '{{ transit_gateway_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -308,8 +311,9 @@ UPDATE awscc.networkmanager.transit_gateway_peerings
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ peering_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ peering_id }}';
 ```
 
 
@@ -318,8 +322,9 @@ AND Identifier = '{{ peering_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_peerings
-WHERE Identifier = '{{ peering_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ peering_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>discoverer</code>.
 ```sql
 SELECT
-region,
-discoverer_arn,
-discoverer_id,
-description,
-source_arn,
-cross_account,
-state,
-tags
+  region,
+  discoverer_arn,
+  discoverer_id,
+  description,
+  source_arn,
+  cross_account,
+  state,
+  tags
 FROM awscc.eventschemas.discoverers
-WHERE region = 'us-east-1' AND Identifier = '{{ discoverer_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ discoverer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ discoverer_arn }}';
 Lists all <code>discoverers</code> in a region.
 ```sql
 SELECT
-region,
-discoverer_arn
+  region,
+  discoverer_arn
 FROM awscc.eventschemas.discoverers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>discover
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.discoverers (
- SourceArn,
- region
+  SourceArn,
+  region
 )
 SELECT
-'{{ source_arn }}',
-'{{ region }}';
+  '{{ source_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.discoverers (
- Description,
- SourceArn,
- CrossAccount,
- Tags,
- region
+  Description,
+  SourceArn,
+  CrossAccount,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ source_arn }}',
- '{{ cross_account }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ source_arn }}',
+  '{{ cross_account }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "CrossAccount": cross_account,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ discoverer_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ discoverer_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ discoverer_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.discoverers
-WHERE Identifier = '{{ discoverer_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ discoverer_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

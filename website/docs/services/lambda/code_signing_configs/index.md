@@ -182,15 +182,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>code_signing_config</code>.
 ```sql
 SELECT
-region,
-description,
-allowed_publishers,
-code_signing_policies,
-code_signing_config_id,
-code_signing_config_arn,
-tags
+  region,
+  description,
+  allowed_publishers,
+  code_signing_policies,
+  code_signing_config_id,
+  code_signing_config_arn,
+  tags
 FROM awscc.lambda.code_signing_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ code_signing_config_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ code_signing_config_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -198,10 +200,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ code_signing_config_arn }}';
 Lists all <code>code_signing_configs</code> in a region.
 ```sql
 SELECT
-region,
-code_signing_config_arn
+  region,
+  code_signing_config_arn
 FROM awscc.lambda.code_signing_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -223,12 +226,12 @@ Use the following StackQL query and manifest file to create a new <code>code_sig
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.code_signing_configs (
- AllowedPublishers,
- region
+  AllowedPublishers,
+  region
 )
 SELECT
-'{{ allowed_publishers }}',
-'{{ region }}';
+  '{{ allowed_publishers }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,18 +239,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.code_signing_configs (
- Description,
- AllowedPublishers,
- CodeSigningPolicies,
- Tags,
- region
+  Description,
+  AllowedPublishers,
+  CodeSigningPolicies,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ allowed_publishers }}',
- '{{ code_signing_policies }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ allowed_publishers }}',
+  '{{ code_signing_policies }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -294,8 +297,9 @@ SET PatchDocument = string('{{ {
     "CodeSigningPolicies": code_signing_policies,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ code_signing_config_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ code_signing_config_arn }}';
 ```
 
 
@@ -304,8 +308,9 @@ AND Identifier = '{{ code_signing_config_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.code_signing_configs
-WHERE Identifier = '{{ code_signing_config_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ code_signing_config_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

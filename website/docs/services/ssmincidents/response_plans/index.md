@@ -323,18 +323,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>response_plan</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-display_name,
-chat_channel,
-engagements,
-actions,
-integrations,
-tags,
-incident_template
+  region,
+  arn,
+  name,
+  display_name,
+  chat_channel,
+  engagements,
+  actions,
+  integrations,
+  tags,
+  incident_template
 FROM awscc.ssmincidents.response_plans
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,10 +344,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>response_plans</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ssmincidents.response_plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -367,14 +370,14 @@ Use the following StackQL query and manifest file to create a new <code>response
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmincidents.response_plans (
- Name,
- IncidentTemplate,
- region
+  Name,
+  IncidentTemplate,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ incident_template }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ incident_template }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -382,26 +385,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmincidents.response_plans (
- Name,
- DisplayName,
- ChatChannel,
- Engagements,
- Actions,
- Integrations,
- Tags,
- IncidentTemplate,
- region
+  Name,
+  DisplayName,
+  ChatChannel,
+  Engagements,
+  Actions,
+  Integrations,
+  Tags,
+  IncidentTemplate,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ display_name }}',
- '{{ chat_channel }}',
- '{{ engagements }}',
- '{{ actions }}',
- '{{ integrations }}',
- '{{ tags }}',
- '{{ incident_template }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ display_name }}',
+  '{{ chat_channel }}',
+  '{{ engagements }}',
+  '{{ actions }}',
+  '{{ integrations }}',
+  '{{ tags }}',
+  '{{ incident_template }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -485,8 +488,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "IncidentTemplate": incident_template
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -495,8 +499,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmincidents.response_plans
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

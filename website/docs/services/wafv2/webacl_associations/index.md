@@ -85,11 +85,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>webacl_association</code>.
 ```sql
 SELECT
-region,
-resource_arn,
-web_acl_arn
+  region,
+  resource_arn,
+  web_acl_arn
 FROM awscc.wafv2.webacl_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_arn }}|{{ web_acl_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_arn }}|{{ web_acl_arn }}';
 ```
 
 ## `INSERT` example
@@ -109,14 +111,14 @@ Use the following StackQL query and manifest file to create a new <code>webacl_a
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.webacl_associations (
- ResourceArn,
- WebACLArn,
- region
+  ResourceArn,
+  WebACLArn,
+  region
 )
 SELECT
-'{{ resource_arn }}',
- '{{ web_acl_arn }}',
-'{{ region }}';
+  '{{ resource_arn }}',
+  '{{ web_acl_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -124,14 +126,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.webacl_associations (
- ResourceArn,
- WebACLArn,
- region
+  ResourceArn,
+  WebACLArn,
+  region
 )
 SELECT
- '{{ resource_arn }}',
- '{{ web_acl_arn }}',
- '{{ region }}';
+  '{{ resource_arn }}',
+  '{{ web_acl_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -162,8 +164,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.webacl_associations
-WHERE Identifier = '{{ resource_arn }}|{{ web_acl_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_arn }}|{{ web_acl_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

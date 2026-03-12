@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpn_connection_route</code>.
 ```sql
 SELECT
-region,
-destination_cidr_block,
-vpn_connection_id
+  region,
+  destination_cidr_block,
+  vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes
-WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ destination_cidr_block }}|{{ vpn
 Lists all <code>vpn_connection_routes</code> in a region.
 ```sql
 SELECT
-region,
-destination_cidr_block,
-vpn_connection_id
+  region,
+  destination_cidr_block,
+  vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>vpn_conn
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_connection_routes (
- DestinationCidrBlock,
- VpnConnectionId,
- region
+  DestinationCidrBlock,
+  VpnConnectionId,
+  region
 )
 SELECT
-'{{ destination_cidr_block }}',
- '{{ vpn_connection_id }}',
-'{{ region }}';
+  '{{ destination_cidr_block }}',
+  '{{ vpn_connection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpn_connection_routes (
- DestinationCidrBlock,
- VpnConnectionId,
- region
+  DestinationCidrBlock,
+  VpnConnectionId,
+  region
 )
 SELECT
- '{{ destination_cidr_block }}',
- '{{ vpn_connection_id }}',
- '{{ region }}';
+  '{{ destination_cidr_block }}',
+  '{{ vpn_connection_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_connection_routes
-WHERE Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -145,13 +145,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_route</code>.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id,
-destination_cidr_block,
-blackhole,
-transit_gateway_attachment_id
+  region,
+  transit_gateway_route_table_id,
+  destination_cidr_block,
+  blackhole,
+  transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_routes
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -159,11 +161,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }
 Lists all <code>transit_gateway_routes</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id,
-destination_cidr_block
+  region,
+  transit_gateway_route_table_id,
+  destination_cidr_block
 FROM awscc.ec2.transit_gateway_routes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,14 +188,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_routes (
- TransitGatewayRouteTableId,
- DestinationCidrBlock,
- region
+  TransitGatewayRouteTableId,
+  DestinationCidrBlock,
+  region
 )
 SELECT
-'{{ transit_gateway_route_table_id }}',
- '{{ destination_cidr_block }}',
-'{{ region }}';
+  '{{ transit_gateway_route_table_id }}',
+  '{{ destination_cidr_block }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -200,18 +203,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_routes (
- TransitGatewayRouteTableId,
- DestinationCidrBlock,
- Blackhole,
- TransitGatewayAttachmentId,
- region
+  TransitGatewayRouteTableId,
+  DestinationCidrBlock,
+  Blackhole,
+  TransitGatewayAttachmentId,
+  region
 )
 SELECT
- '{{ transit_gateway_route_table_id }}',
- '{{ destination_cidr_block }}',
- '{{ blackhole }}',
- '{{ transit_gateway_attachment_id }}',
- '{{ region }}';
+  '{{ transit_gateway_route_table_id }}',
+  '{{ destination_cidr_block }}',
+  '{{ blackhole }}',
+  '{{ transit_gateway_attachment_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -246,8 +249,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_routes
-WHERE Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

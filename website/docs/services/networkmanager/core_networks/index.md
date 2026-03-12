@@ -261,21 +261,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>core_network</code>.
 ```sql
 SELECT
-region,
-global_network_id,
-core_network_id,
-core_network_arn,
-policy_document,
-description,
-created_at,
-state,
-segments,
-network_function_groups,
-edges,
-owner_account,
-tags
+  region,
+  global_network_id,
+  core_network_id,
+  core_network_arn,
+  policy_document,
+  description,
+  created_at,
+  state,
+  segments,
+  network_function_groups,
+  edges,
+  owner_account,
+  tags
 FROM awscc.networkmanager.core_networks
-WHERE region = 'us-east-1' AND Identifier = '{{ core_network_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ core_network_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -283,10 +285,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ core_network_id }}';
 Lists all <code>core_networks</code> in a region.
 ```sql
 SELECT
-region,
-core_network_id
+  region,
+  core_network_id
 FROM awscc.networkmanager.core_networks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -308,12 +311,12 @@ Use the following StackQL query and manifest file to create a new <code>core_net
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.core_networks (
- GlobalNetworkId,
- region
+  GlobalNetworkId,
+  region
 )
 SELECT
-'{{ global_network_id }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -321,18 +324,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.core_networks (
- GlobalNetworkId,
- PolicyDocument,
- Description,
- Tags,
- region
+  GlobalNetworkId,
+  PolicyDocument,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ global_network_id }}',
- '{{ policy_document }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ global_network_id }}',
+  '{{ policy_document }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -375,8 +378,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ core_network_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ core_network_id }}';
 ```
 
 
@@ -385,8 +389,9 @@ AND Identifier = '{{ core_network_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.core_networks
-WHERE Identifier = '{{ core_network_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ core_network_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

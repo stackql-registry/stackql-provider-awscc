@@ -241,22 +241,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>location_azure_blob</code>.
 ```sql
 SELECT
-region,
-agent_arns,
-azure_blob_authentication_type,
-azure_blob_sas_configuration,
-azure_blob_container_url,
-azure_blob_type,
-azure_access_tier,
-subdirectory,
-tags,
-location_arn,
-location_uri,
-cmk_secret_config,
-custom_secret_config,
-managed_secret_config
+  region,
+  agent_arns,
+  azure_blob_authentication_type,
+  azure_blob_sas_configuration,
+  azure_blob_container_url,
+  azure_blob_type,
+  azure_access_tier,
+  subdirectory,
+  tags,
+  location_arn,
+  location_uri,
+  cmk_secret_config,
+  custom_secret_config,
+  managed_secret_config
 FROM awscc.datasync.location_azure_blobs
-WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,10 +266,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 Lists all <code>location_azure_blobs</code> in a region.
 ```sql
 SELECT
-region,
-location_arn
+  region,
+  location_arn
 FROM awscc.datasync.location_azure_blobs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -289,12 +292,12 @@ Use the following StackQL query and manifest file to create a new <code>location
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_azure_blobs (
- AzureBlobAuthenticationType,
- region
+  AzureBlobAuthenticationType,
+  region
 )
 SELECT
-'{{ azure_blob_authentication_type }}',
-'{{ region }}';
+  '{{ azure_blob_authentication_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -302,30 +305,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.location_azure_blobs (
- AgentArns,
- AzureBlobAuthenticationType,
- AzureBlobSasConfiguration,
- AzureBlobContainerUrl,
- AzureBlobType,
- AzureAccessTier,
- Subdirectory,
- Tags,
- CmkSecretConfig,
- CustomSecretConfig,
- region
+  AgentArns,
+  AzureBlobAuthenticationType,
+  AzureBlobSasConfiguration,
+  AzureBlobContainerUrl,
+  AzureBlobType,
+  AzureAccessTier,
+  Subdirectory,
+  Tags,
+  CmkSecretConfig,
+  CustomSecretConfig,
+  region
 )
 SELECT
- '{{ agent_arns }}',
- '{{ azure_blob_authentication_type }}',
- '{{ azure_blob_sas_configuration }}',
- '{{ azure_blob_container_url }}',
- '{{ azure_blob_type }}',
- '{{ azure_access_tier }}',
- '{{ subdirectory }}',
- '{{ tags }}',
- '{{ cmk_secret_config }}',
- '{{ custom_secret_config }}',
- '{{ region }}';
+  '{{ agent_arns }}',
+  '{{ azure_blob_authentication_type }}',
+  '{{ azure_blob_sas_configuration }}',
+  '{{ azure_blob_container_url }}',
+  '{{ azure_blob_type }}',
+  '{{ azure_access_tier }}',
+  '{{ subdirectory }}',
+  '{{ tags }}',
+  '{{ cmk_secret_config }}',
+  '{{ custom_secret_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -391,8 +394,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "CustomSecretConfig": custom_secret_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ location_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ location_arn }}';
 ```
 
 
@@ -401,8 +405,9 @@ AND Identifier = '{{ location_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_azure_blobs
-WHERE Identifier = '{{ location_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ location_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

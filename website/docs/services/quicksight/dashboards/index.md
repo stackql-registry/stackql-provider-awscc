@@ -920,7 +920,7 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
   {
     "name": "validation_strategy",
     "type": "object",
-    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, validation is skipped for specific errors.</p>",
+    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p>",
     "children": [
       {
         "name": "mode",
@@ -1349,29 +1349,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT
-region,
-created_time,
-parameters,
-version_description,
-source_entity,
-theme_arn,
-definition,
-last_updated_time,
-validation_strategy,
-folder_arns,
-dashboard_id,
-link_sharing_configuration,
-name,
-dashboard_publish_options,
-last_published_time,
-version,
-aws_account_id,
-permissions,
-link_entities,
-arn,
-tags
+  region,
+  created_time,
+  parameters,
+  version_description,
+  source_entity,
+  theme_arn,
+  definition,
+  last_updated_time,
+  validation_strategy,
+  folder_arns,
+  dashboard_id,
+  link_sharing_configuration,
+  name,
+  dashboard_publish_options,
+  last_published_time,
+  version,
+  aws_account_id,
+  permissions,
+  link_entities,
+  arn,
+  tags
 FROM awscc.quicksight.dashboards
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1379,11 +1381,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ dashboard_i
 Lists all <code>dashboards</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-dashboard_id
+  region,
+  aws_account_id,
+  dashboard_id
 FROM awscc.quicksight.dashboards_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1405,16 +1408,16 @@ Use the following StackQL query and manifest file to create a new <code>dashboar
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.dashboards (
- DashboardId,
- Name,
- AwsAccountId,
- region
+  DashboardId,
+  Name,
+  AwsAccountId,
+  region
 )
 SELECT
-'{{ dashboard_id }}',
- '{{ name }}',
- '{{ aws_account_id }}',
-'{{ region }}';
+  '{{ dashboard_id }}',
+  '{{ name }}',
+  '{{ aws_account_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1422,40 +1425,40 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.dashboards (
- Parameters,
- VersionDescription,
- SourceEntity,
- ThemeArn,
- Definition,
- ValidationStrategy,
- FolderArns,
- DashboardId,
- LinkSharingConfiguration,
- Name,
- DashboardPublishOptions,
- AwsAccountId,
- Permissions,
- LinkEntities,
- Tags,
- region
+  Parameters,
+  VersionDescription,
+  SourceEntity,
+  ThemeArn,
+  Definition,
+  ValidationStrategy,
+  FolderArns,
+  DashboardId,
+  LinkSharingConfiguration,
+  Name,
+  DashboardPublishOptions,
+  AwsAccountId,
+  Permissions,
+  LinkEntities,
+  Tags,
+  region
 )
 SELECT
- '{{ parameters }}',
- '{{ version_description }}',
- '{{ source_entity }}',
- '{{ theme_arn }}',
- '{{ definition }}',
- '{{ validation_strategy }}',
- '{{ folder_arns }}',
- '{{ dashboard_id }}',
- '{{ link_sharing_configuration }}',
- '{{ name }}',
- '{{ dashboard_publish_options }}',
- '{{ aws_account_id }}',
- '{{ permissions }}',
- '{{ link_entities }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ parameters }}',
+  '{{ version_description }}',
+  '{{ source_entity }}',
+  '{{ theme_arn }}',
+  '{{ definition }}',
+  '{{ validation_strategy }}',
+  '{{ folder_arns }}',
+  '{{ dashboard_id }}',
+  '{{ link_sharing_configuration }}',
+  '{{ name }}',
+  '{{ dashboard_publish_options }}',
+  '{{ aws_account_id }}',
+  '{{ permissions }}',
+  '{{ link_entities }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -3466,8 +3469,9 @@ SET PatchDocument = string('{{ {
     "LinkEntities": link_entities,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
 ```
 
 
@@ -3476,8 +3480,9 @@ AND Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.dashboards
-WHERE Identifier = '{{ aws_account_id }}|{{ dashboard_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ dashboard_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

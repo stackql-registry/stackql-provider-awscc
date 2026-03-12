@@ -235,20 +235,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>prompt</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-default_variant,
-description,
-id,
-name,
-updated_at,
-variants,
-tags,
-customer_encryption_key_arn,
-version
+  region,
+  arn,
+  created_at,
+  default_variant,
+  description,
+  id,
+  name,
+  updated_at,
+  variants,
+  tags,
+  customer_encryption_key_arn,
+  version
 FROM awscc.bedrock.prompts
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +258,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>prompts</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.bedrock.prompts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -281,12 +284,12 @@ Use the following StackQL query and manifest file to create a new <code>prompt</
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.prompts (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -294,22 +297,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.prompts (
- DefaultVariant,
- Description,
- Name,
- Variants,
- Tags,
- CustomerEncryptionKeyArn,
- region
+  DefaultVariant,
+  Description,
+  Name,
+  Variants,
+  Tags,
+  CustomerEncryptionKeyArn,
+  region
 )
 SELECT
- '{{ default_variant }}',
- '{{ description }}',
- '{{ name }}',
- '{{ variants }}',
- '{{ tags }}',
- '{{ customer_encryption_key_arn }}',
- '{{ region }}';
+  '{{ default_variant }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ variants }}',
+  '{{ tags }}',
+  '{{ customer_encryption_key_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "CustomerEncryptionKeyArn": customer_encryption_key_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.prompts
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -736,11 +736,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>spot_fleet</code>.
 ```sql
 SELECT
-region,
-id,
-spot_fleet_request_config_data
+  region,
+  id,
+  spot_fleet_request_config_data
 FROM awscc.ec2.spot_fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -748,10 +750,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>spot_fleets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.spot_fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -773,12 +776,12 @@ Use the following StackQL query and manifest file to create a new <code>spot_fle
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.spot_fleets (
- SpotFleetRequestConfigData,
- region
+  SpotFleetRequestConfigData,
+  region
 )
 SELECT
-'{{ spot_fleet_request_config_data }}',
-'{{ region }}';
+  '{{ spot_fleet_request_config_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -786,12 +789,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.spot_fleets (
- SpotFleetRequestConfigData,
- region
+  SpotFleetRequestConfigData,
+  region
 )
 SELECT
- '{{ spot_fleet_request_config_data }}',
- '{{ region }}';
+  '{{ spot_fleet_request_config_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -972,8 +975,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.spot_fleets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

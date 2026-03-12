@@ -207,18 +207,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-arn,
-channel_ids,
-cluster_type,
-id,
-instance_role_arn,
-name,
-network_settings,
-state,
-tags
+  region,
+  arn,
+  channel_ids,
+  cluster_type,
+  id,
+  instance_role_arn,
+  name,
+  network_settings,
+  state,
+  tags
 FROM awscc.medialive.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +228,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.medialive.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,20 +254,20 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.clusters (
- ClusterType,
- InstanceRoleArn,
- Name,
- NetworkSettings,
- Tags,
- region
+  ClusterType,
+  InstanceRoleArn,
+  Name,
+  NetworkSettings,
+  Tags,
+  region
 )
 SELECT
-'{{ cluster_type }}',
- '{{ instance_role_arn }}',
- '{{ name }}',
- '{{ network_settings }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ cluster_type }}',
+  '{{ instance_role_arn }}',
+  '{{ name }}',
+  '{{ network_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -272,20 +275,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.clusters (
- ClusterType,
- InstanceRoleArn,
- Name,
- NetworkSettings,
- Tags,
- region
+  ClusterType,
+  InstanceRoleArn,
+  Name,
+  NetworkSettings,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_type }}',
- '{{ instance_role_arn }}',
- '{{ name }}',
- '{{ network_settings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_type }}',
+  '{{ instance_role_arn }}',
+  '{{ name }}',
+  '{{ network_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ SET PatchDocument = string('{{ {
     "NetworkSettings": network_settings,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.clusters
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

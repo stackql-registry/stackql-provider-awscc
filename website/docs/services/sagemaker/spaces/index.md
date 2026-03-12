@@ -485,18 +485,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>space</code>.
 ```sql
 SELECT
-region,
-space_arn,
-domain_id,
-space_name,
-space_settings,
-tags,
-ownership_settings,
-space_sharing_settings,
-space_display_name,
-url
+  region,
+  space_arn,
+  domain_id,
+  space_name,
+  space_settings,
+  tags,
+  ownership_settings,
+  space_sharing_settings,
+  space_display_name,
+  url
 FROM awscc.sagemaker.spaces
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ space_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ space_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -504,11 +506,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ space_name }}';
 Lists all <code>spaces</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-space_name
+  region,
+  domain_id,
+  space_name
 FROM awscc.sagemaker.spaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -530,14 +533,14 @@ Use the following StackQL query and manifest file to create a new <code>space</c
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.spaces (
- DomainId,
- SpaceName,
- region
+  DomainId,
+  SpaceName,
+  region
 )
 SELECT
-'{{ domain_id }}',
- '{{ space_name }}',
-'{{ region }}';
+  '{{ domain_id }}',
+  '{{ space_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -545,24 +548,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.spaces (
- DomainId,
- SpaceName,
- SpaceSettings,
- Tags,
- OwnershipSettings,
- SpaceSharingSettings,
- SpaceDisplayName,
- region
+  DomainId,
+  SpaceName,
+  SpaceSettings,
+  Tags,
+  OwnershipSettings,
+  SpaceSharingSettings,
+  SpaceDisplayName,
+  region
 )
 SELECT
- '{{ domain_id }}',
- '{{ space_name }}',
- '{{ space_settings }}',
- '{{ tags }}',
- '{{ ownership_settings }}',
- '{{ space_sharing_settings }}',
- '{{ space_display_name }}',
- '{{ region }}';
+  '{{ domain_id }}',
+  '{{ space_name }}',
+  '{{ space_settings }}',
+  '{{ tags }}',
+  '{{ ownership_settings }}',
+  '{{ space_sharing_settings }}',
+  '{{ space_display_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -652,8 +655,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "SpaceDisplayName": space_display_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ space_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ space_name }}';
 ```
 
 
@@ -662,8 +666,9 @@ AND Identifier = '{{ domain_id }}|{{ space_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.spaces
-WHERE Identifier = '{{ domain_id }}|{{ space_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ space_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

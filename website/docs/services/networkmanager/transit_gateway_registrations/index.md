@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_registration</code>.
 ```sql
 SELECT
-region,
-global_network_id,
-transit_gateway_arn
+  region,
+  global_network_id,
+  transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations
-WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ transit_
 Lists all <code>transit_gateway_registrations</code> in a region.
 ```sql
 SELECT
-region,
-global_network_id,
-transit_gateway_arn
+  region,
+  global_network_id,
+  transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_registrations (
- GlobalNetworkId,
- TransitGatewayArn,
- region
+  GlobalNetworkId,
+  TransitGatewayArn,
+  region
 )
 SELECT
-'{{ global_network_id }}',
- '{{ transit_gateway_arn }}',
-'{{ region }}';
+  '{{ global_network_id }}',
+  '{{ transit_gateway_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_registrations (
- GlobalNetworkId,
- TransitGatewayArn,
- region
+  GlobalNetworkId,
+  TransitGatewayArn,
+  region
 )
 SELECT
- '{{ global_network_id }}',
- '{{ transit_gateway_arn }}',
- '{{ region }}';
+  '{{ global_network_id }}',
+  '{{ transit_gateway_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_registrations
-WHERE Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

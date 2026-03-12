@@ -405,13 +405,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT
-region,
-id,
-pipeline_name,
-tags,
-pipeline_activities
+  region,
+  id,
+  pipeline_name,
+  tags,
+  pipeline_activities
 FROM awscc.iotanalytics.pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pipeline_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -419,10 +421,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
 Lists all <code>pipelines</code> in a region.
 ```sql
 SELECT
-region,
-pipeline_name
+  region,
+  pipeline_name
 FROM awscc.iotanalytics.pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -444,12 +447,12 @@ Use the following StackQL query and manifest file to create a new <code>pipeline
 ```sql
 /*+ create */
 INSERT INTO awscc.iotanalytics.pipelines (
- PipelineActivities,
- region
+  PipelineActivities,
+  region
 )
 SELECT
-'{{ pipeline_activities }}',
-'{{ region }}';
+  '{{ pipeline_activities }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -457,16 +460,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotanalytics.pipelines (
- PipelineName,
- Tags,
- PipelineActivities,
- region
+  PipelineName,
+  Tags,
+  PipelineActivities,
+  region
 )
 SELECT
- '{{ pipeline_name }}',
- '{{ tags }}',
- '{{ pipeline_activities }}',
- '{{ region }}';
+  '{{ pipeline_name }}',
+  '{{ tags }}',
+  '{{ pipeline_activities }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -553,8 +556,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "PipelineActivities": pipeline_activities
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pipeline_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pipeline_name }}';
 ```
 
 
@@ -563,8 +567,9 @@ AND Identifier = '{{ pipeline_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotanalytics.pipelines
-WHERE Identifier = '{{ pipeline_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pipeline_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

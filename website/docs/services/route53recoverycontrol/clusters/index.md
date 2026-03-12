@@ -180,15 +180,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-name,
-cluster_arn,
-status,
-cluster_endpoints,
-tags,
-network_type
+  region,
+  name,
+  cluster_arn,
+  status,
+  cluster_endpoints,
+  tags,
+  network_type
 FROM awscc.route53recoverycontrol.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-cluster_arn
+  region,
+  cluster_arn
 FROM awscc.route53recoverycontrol.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.clusters (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,16 +237,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.clusters (
- Name,
- Tags,
- NetworkType,
- region
+  Name,
+  Tags,
+  NetworkType,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ network_type }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ network_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ UPDATE awscc.route53recoverycontrol.clusters
 SET PatchDocument = string('{{ {
     "NetworkType": network_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.clusters
-WHERE Identifier = '{{ cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

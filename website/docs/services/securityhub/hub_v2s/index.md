@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hub_v2</code>.
 ```sql
 SELECT
-region,
-hub_v2_arn,
-subscribed_at,
-tags
+  region,
+  hub_v2_arn,
+  subscribed_at,
+  tags
 FROM awscc.securityhub.hub_v2s
-WHERE region = 'us-east-1' AND Identifier = '{{ hub_v2_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hub_v2_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hub_v2_arn }}';
 Lists all <code>hub_v2s</code> in a region.
 ```sql
 SELECT
-region,
-hub_v2_arn
+  region,
+  hub_v2_arn
 FROM awscc.securityhub.hub_v2s_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,12 +182,12 @@ Use the following StackQL query and manifest file to create a new <code>hub_v2</
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.hub_v2s (
- Tags,
- region
+  Tags,
+  region
 )
 SELECT
-'{{ tags }}',
-'{{ region }}';
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -192,12 +195,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.hub_v2s (
- Tags,
- region
+  Tags,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -230,8 +233,9 @@ UPDATE awscc.securityhub.hub_v2s
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hub_v2_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hub_v2_arn }}';
 ```
 
 
@@ -240,8 +244,9 @@ AND Identifier = '{{ hub_v2_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.hub_v2s
-WHERE Identifier = '{{ hub_v2_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hub_v2_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -191,22 +191,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>component</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-version,
-description,
-change_description,
-type,
-platform,
-data,
-kms_key_id,
-encrypted,
-tags,
-uri,
-supported_os_versions
+  region,
+  arn,
+  name,
+  version,
+  description,
+  change_description,
+  type,
+  platform,
+  data,
+  kms_key_id,
+  encrypted,
+  tags,
+  uri,
+  supported_os_versions
 FROM awscc.imagebuilder.components
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>components</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.components_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,16 +242,16 @@ Use the following StackQL query and manifest file to create a new <code>componen
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.components (
- Name,
- Version,
- Platform,
- region
+  Name,
+  Version,
+  Platform,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ version }}',
- '{{ platform }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ version }}',
+  '{{ platform }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,30 +259,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.components (
- Name,
- Version,
- Description,
- ChangeDescription,
- Platform,
- Data,
- KmsKeyId,
- Tags,
- Uri,
- SupportedOsVersions,
- region
+  Name,
+  Version,
+  Description,
+  ChangeDescription,
+  Platform,
+  Data,
+  KmsKeyId,
+  Tags,
+  Uri,
+  SupportedOsVersions,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ version }}',
- '{{ description }}',
- '{{ change_description }}',
- '{{ platform }}',
- '{{ data }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ uri }}',
- '{{ supported_os_versions }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ version }}',
+  '{{ description }}',
+  '{{ change_description }}',
+  '{{ platform }}',
+  '{{ data }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ uri }}',
+  '{{ supported_os_versions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ UPDATE awscc.imagebuilder.components
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.components
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

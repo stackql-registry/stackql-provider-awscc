@@ -268,19 +268,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>config_rule</code>.
 ```sql
 SELECT
-region,
-config_rule_id,
-description,
-scope,
-config_rule_name,
-arn,
-compliance,
-maximum_execution_frequency,
-source,
-input_parameters,
-evaluation_modes
+  region,
+  config_rule_id,
+  description,
+  scope,
+  config_rule_name,
+  arn,
+  compliance,
+  maximum_execution_frequency,
+  source,
+  input_parameters,
+  evaluation_modes
 FROM awscc.config.config_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ config_rule_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ config_rule_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -288,10 +290,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ config_rule_name }}';
 Lists all <code>config_rules</code> in a region.
 ```sql
 SELECT
-region,
-config_rule_name
+  region,
+  config_rule_name
 FROM awscc.config.config_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -313,12 +316,12 @@ Use the following StackQL query and manifest file to create a new <code>config_r
 ```sql
 /*+ create */
 INSERT INTO awscc.config.config_rules (
- Source,
- region
+  Source,
+  region
 )
 SELECT
-'{{ source }}',
-'{{ region }}';
+  '{{ source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -326,26 +329,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.config.config_rules (
- Description,
- Scope,
- ConfigRuleName,
- Compliance,
- MaximumExecutionFrequency,
- Source,
- InputParameters,
- EvaluationModes,
- region
+  Description,
+  Scope,
+  ConfigRuleName,
+  Compliance,
+  MaximumExecutionFrequency,
+  Source,
+  InputParameters,
+  EvaluationModes,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ scope }}',
- '{{ config_rule_name }}',
- '{{ compliance }}',
- '{{ maximum_execution_frequency }}',
- '{{ source }}',
- '{{ input_parameters }}',
- '{{ evaluation_modes }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ scope }}',
+  '{{ config_rule_name }}',
+  '{{ compliance }}',
+  '{{ maximum_execution_frequency }}',
+  '{{ source }}',
+  '{{ input_parameters }}',
+  '{{ evaluation_modes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -414,8 +417,9 @@ SET PatchDocument = string('{{ {
     "InputParameters": input_parameters,
     "EvaluationModes": evaluation_modes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ config_rule_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ config_rule_name }}';
 ```
 
 
@@ -424,8 +428,9 @@ AND Identifier = '{{ config_rule_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.config_rules
-WHERE Identifier = '{{ config_rule_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ config_rule_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

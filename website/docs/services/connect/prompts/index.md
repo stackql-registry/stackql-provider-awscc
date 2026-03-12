@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>prompt</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-name,
-description,
-s3_uri,
-prompt_arn,
-tags
+  region,
+  instance_arn,
+  name,
+  description,
+  s3_uri,
+  prompt_arn,
+  tags
 FROM awscc.connect.prompts
-WHERE region = 'us-east-1' AND Identifier = '{{ prompt_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ prompt_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ prompt_arn }}';
 Lists all <code>prompts</code> in a region.
 ```sql
 SELECT
-region,
-prompt_arn
+  region,
+  prompt_arn
 FROM awscc.connect.prompts_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>prompt</
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.prompts (
- InstanceArn,
- Name,
- region
+  InstanceArn,
+  Name,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.prompts (
- InstanceArn,
- Name,
- Description,
- S3Uri,
- Tags,
- region
+  InstanceArn,
+  Name,
+  Description,
+  S3Uri,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ s3_uri }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ s3_uri }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "S3Uri": s3_uri,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ prompt_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ prompt_arn }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ prompt_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.prompts
-WHERE Identifier = '{{ prompt_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ prompt_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

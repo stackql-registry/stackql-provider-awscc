@@ -1125,21 +1125,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-name,
-index_id,
-type,
-data_source_configuration,
-description,
-schedule,
-role_arn,
-tags,
-custom_document_enrichment_configuration,
-language_code
+  region,
+  id,
+  arn,
+  name,
+  index_id,
+  type,
+  data_source_configuration,
+  description,
+  schedule,
+  role_arn,
+  tags,
+  custom_document_enrichment_configuration,
+  language_code
 FROM awscc.kendra.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ index_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1147,11 +1149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ index_id }}';
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-id,
-index_id
+  region,
+  id,
+  index_id
 FROM awscc.kendra.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1173,16 +1176,16 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.data_sources (
- Name,
- IndexId,
- Type,
- region
+  Name,
+  IndexId,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ index_id }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ index_id }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1190,30 +1193,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kendra.data_sources (
- Name,
- IndexId,
- Type,
- DataSourceConfiguration,
- Description,
- Schedule,
- RoleArn,
- Tags,
- CustomDocumentEnrichmentConfiguration,
- LanguageCode,
- region
+  Name,
+  IndexId,
+  Type,
+  DataSourceConfiguration,
+  Description,
+  Schedule,
+  RoleArn,
+  Tags,
+  CustomDocumentEnrichmentConfiguration,
+  LanguageCode,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ index_id }}',
- '{{ type }}',
- '{{ data_source_configuration }}',
- '{{ description }}',
- '{{ schedule }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ custom_document_enrichment_configuration }}',
- '{{ language_code }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ index_id }}',
+  '{{ type }}',
+  '{{ data_source_configuration }}',
+  '{{ description }}',
+  '{{ schedule }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ custom_document_enrichment_configuration }}',
+  '{{ language_code }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1487,8 +1490,9 @@ SET PatchDocument = string('{{ {
     "CustomDocumentEnrichmentConfiguration": custom_document_enrichment_configuration,
     "LanguageCode": language_code
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}|{{ index_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}|{{ index_id }}';
 ```
 
 
@@ -1497,8 +1501,9 @@ AND Identifier = '{{ id }}|{{ index_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendra.data_sources
-WHERE Identifier = '{{ id }}|{{ index_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ index_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

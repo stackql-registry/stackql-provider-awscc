@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>signaling_channel</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-type,
-message_ttl_seconds,
-tags
+  region,
+  arn,
+  name,
+  type,
+  message_ttl_seconds,
+  tags
 FROM awscc.kinesisvideo.signaling_channels
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>signaling_channels</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.kinesisvideo.signaling_channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>signalin
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisvideo.signaling_channels (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisvideo.signaling_channels (
- Name,
- Type,
- MessageTtlSeconds,
- Tags,
- region
+  Name,
+  Type,
+  MessageTtlSeconds,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ message_ttl_seconds }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ message_ttl_seconds }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "MessageTtlSeconds": message_ttl_seconds,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisvideo.signaling_channels
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

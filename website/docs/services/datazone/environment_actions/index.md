@@ -188,18 +188,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment_action</code>.
 ```sql
 SELECT
-region,
-description,
-domain_id,
-domain_identifier,
-environment_id,
-environment_identifier,
-id,
-identifier,
-name,
-parameters
+  region,
+  description,
+  domain_id,
+  domain_identifier,
+  environment_id,
+  environment_identifier,
+  id,
+  identifier,
+  name,
+  parameters
 FROM awscc.datazone.environment_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,12 +209,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }
 Lists all <code>environment_actions</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-environment_id,
-id
+  region,
+  domain_id,
+  environment_id,
+  id
 FROM awscc.datazone.environment_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,12 +237,12 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_actions (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -247,22 +250,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_actions (
- Description,
- DomainIdentifier,
- EnvironmentIdentifier,
- Identifier,
- Name,
- Parameters,
- region
+  Description,
+  DomainIdentifier,
+  EnvironmentIdentifier,
+  Identifier,
+  Name,
+  Parameters,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ environment_identifier }}',
- '{{ identifier }}',
- '{{ name }}',
- '{{ parameters }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ environment_identifier }}',
+  '{{ identifier }}',
+  '{{ name }}',
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Parameters": parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_actions
-WHERE Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

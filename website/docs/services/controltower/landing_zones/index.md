@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>landing_zone</code>.
 ```sql
 SELECT
-region,
-status,
-latest_available_version,
-version,
-drift_status,
-arn,
-manifest,
-landing_zone_identifier,
-tags
+  region,
+  status,
+  latest_available_version,
+  version,
+  drift_status,
+  arn,
+  manifest,
+  landing_zone_identifier,
+  tags
 FROM awscc.controltower.landing_zones
-WHERE region = 'us-east-1' AND Identifier = '{{ landing_zone_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ landing_zone_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ landing_zone_identifier }}';
 Lists all <code>landing_zones</code> in a region.
 ```sql
 SELECT
-region,
-landing_zone_identifier
+  region,
+  landing_zone_identifier
 FROM awscc.controltower.landing_zones_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,14 +224,14 @@ Use the following StackQL query and manifest file to create a new <code>landing_
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.landing_zones (
- Version,
- Manifest,
- region
+  Version,
+  Manifest,
+  region
 )
 SELECT
-'{{ version }}',
- '{{ manifest }}',
-'{{ region }}';
+  '{{ version }}',
+  '{{ manifest }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,16 +239,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.controltower.landing_zones (
- Version,
- Manifest,
- Tags,
- region
+  Version,
+  Manifest,
+  Tags,
+  region
 )
 SELECT
- '{{ version }}',
- '{{ manifest }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ version }}',
+  '{{ manifest }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ SET PatchDocument = string('{{ {
     "Manifest": manifest,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ landing_zone_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ landing_zone_identifier }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ landing_zone_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.landing_zones
-WHERE Identifier = '{{ landing_zone_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ landing_zone_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

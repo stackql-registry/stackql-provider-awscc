@@ -141,13 +141,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>finding_aggregator</code>.
 ```sql
 SELECT
-region,
-finding_aggregator_arn,
-region_linking_mode,
-regions,
-finding_aggregation_region
+  region,
+  finding_aggregator_arn,
+  region_linking_mode,
+  regions,
+  finding_aggregation_region
 FROM awscc.securityhub.finding_aggregators
-WHERE region = 'us-east-1' AND Identifier = '{{ finding_aggregator_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ finding_aggregator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -155,10 +157,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ finding_aggregator_arn }}';
 Lists all <code>finding_aggregators</code> in a region.
 ```sql
 SELECT
-region,
-finding_aggregator_arn
+  region,
+  finding_aggregator_arn
 FROM awscc.securityhub.finding_aggregators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -180,12 +183,12 @@ Use the following StackQL query and manifest file to create a new <code>finding_
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.finding_aggregators (
- RegionLinkingMode,
- region
+  RegionLinkingMode,
+  region
 )
 SELECT
-'{{ region_linking_mode }}',
-'{{ region }}';
+  '{{ region_linking_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -193,14 +196,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.finding_aggregators (
- RegionLinkingMode,
- Regions,
- region
+  RegionLinkingMode,
+  Regions,
+  region
 )
 SELECT
- '{{ region_linking_mode }}',
- '{{ regions }}',
- '{{ region }}';
+  '{{ region_linking_mode }}',
+  '{{ regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -237,8 +240,9 @@ SET PatchDocument = string('{{ {
     "RegionLinkingMode": region_linking_mode,
     "Regions": regions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ finding_aggregator_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ finding_aggregator_arn }}';
 ```
 
 
@@ -247,8 +251,9 @@ AND Identifier = '{{ finding_aggregator_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.finding_aggregators
-WHERE Identifier = '{{ finding_aggregator_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ finding_aggregator_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

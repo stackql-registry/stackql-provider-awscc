@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pod_identity_association</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-role_arn,
-namespace,
-service_account,
-association_arn,
-association_id,
-target_role_arn,
-external_id,
-disable_session_tags,
-tags
+  region,
+  cluster_name,
+  role_arn,
+  namespace,
+  service_account,
+  association_arn,
+  association_id,
+  target_role_arn,
+  external_id,
+  disable_session_tags,
+  tags
 FROM awscc.eks.pod_identity_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 Lists all <code>pod_identity_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_arn
+  region,
+  association_arn
 FROM awscc.eks.pod_identity_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,18 +236,18 @@ Use the following StackQL query and manifest file to create a new <code>pod_iden
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.pod_identity_associations (
- ClusterName,
- RoleArn,
- Namespace,
- ServiceAccount,
- region
+  ClusterName,
+  RoleArn,
+  Namespace,
+  ServiceAccount,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ role_arn }}',
- '{{ namespace }}',
- '{{ service_account }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ role_arn }}',
+  '{{ namespace }}',
+  '{{ service_account }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,24 +255,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eks.pod_identity_associations (
- ClusterName,
- RoleArn,
- Namespace,
- ServiceAccount,
- TargetRoleArn,
- DisableSessionTags,
- Tags,
- region
+  ClusterName,
+  RoleArn,
+  Namespace,
+  ServiceAccount,
+  TargetRoleArn,
+  DisableSessionTags,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ role_arn }}',
- '{{ namespace }}',
- '{{ service_account }}',
- '{{ target_role_arn }}',
- '{{ disable_session_tags }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ role_arn }}',
+  '{{ namespace }}',
+  '{{ service_account }}',
+  '{{ target_role_arn }}',
+  '{{ disable_session_tags }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -319,8 +322,9 @@ SET PatchDocument = string('{{ {
     "DisableSessionTags": disable_session_tags,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ association_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ association_arn }}';
 ```
 
 
@@ -329,8 +333,9 @@ AND Identifier = '{{ association_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.pod_identity_associations
-WHERE Identifier = '{{ association_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

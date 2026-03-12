@@ -495,23 +495,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT
-region,
-capacity,
-connector_arn,
-connector_configuration,
-connector_description,
-connector_name,
-kafka_cluster,
-kafka_cluster_client_authentication,
-kafka_cluster_encryption_in_transit,
-kafka_connect_version,
-log_delivery,
-plugins,
-service_execution_role_arn,
-tags,
-worker_configuration
+  region,
+  capacity,
+  connector_arn,
+  connector_configuration,
+  connector_description,
+  connector_name,
+  kafka_cluster,
+  kafka_cluster_client_authentication,
+  kafka_cluster_encryption_in_transit,
+  kafka_connect_version,
+  log_delivery,
+  plugins,
+  service_execution_role_arn,
+  tags,
+  worker_configuration
 FROM awscc.kafkaconnect.connectors
-WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -519,10 +521,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}';
 Lists all <code>connectors</code> in a region.
 ```sql
 SELECT
-region,
-connector_arn
+  region,
+  connector_arn
 FROM awscc.kafkaconnect.connectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -544,28 +547,28 @@ Use the following StackQL query and manifest file to create a new <code>connecto
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.connectors (
- Capacity,
- ConnectorConfiguration,
- ConnectorName,
- KafkaCluster,
- KafkaClusterClientAuthentication,
- KafkaClusterEncryptionInTransit,
- KafkaConnectVersion,
- Plugins,
- ServiceExecutionRoleArn,
- region
+  Capacity,
+  ConnectorConfiguration,
+  ConnectorName,
+  KafkaCluster,
+  KafkaClusterClientAuthentication,
+  KafkaClusterEncryptionInTransit,
+  KafkaConnectVersion,
+  Plugins,
+  ServiceExecutionRoleArn,
+  region
 )
 SELECT
-'{{ capacity }}',
- '{{ connector_configuration }}',
- '{{ connector_name }}',
- '{{ kafka_cluster }}',
- '{{ kafka_cluster_client_authentication }}',
- '{{ kafka_cluster_encryption_in_transit }}',
- '{{ kafka_connect_version }}',
- '{{ plugins }}',
- '{{ service_execution_role_arn }}',
-'{{ region }}';
+  '{{ capacity }}',
+  '{{ connector_configuration }}',
+  '{{ connector_name }}',
+  '{{ kafka_cluster }}',
+  '{{ kafka_cluster_client_authentication }}',
+  '{{ kafka_cluster_encryption_in_transit }}',
+  '{{ kafka_connect_version }}',
+  '{{ plugins }}',
+  '{{ service_execution_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -573,36 +576,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.connectors (
- Capacity,
- ConnectorConfiguration,
- ConnectorDescription,
- ConnectorName,
- KafkaCluster,
- KafkaClusterClientAuthentication,
- KafkaClusterEncryptionInTransit,
- KafkaConnectVersion,
- LogDelivery,
- Plugins,
- ServiceExecutionRoleArn,
- Tags,
- WorkerConfiguration,
- region
+  Capacity,
+  ConnectorConfiguration,
+  ConnectorDescription,
+  ConnectorName,
+  KafkaCluster,
+  KafkaClusterClientAuthentication,
+  KafkaClusterEncryptionInTransit,
+  KafkaConnectVersion,
+  LogDelivery,
+  Plugins,
+  ServiceExecutionRoleArn,
+  Tags,
+  WorkerConfiguration,
+  region
 )
 SELECT
- '{{ capacity }}',
- '{{ connector_configuration }}',
- '{{ connector_description }}',
- '{{ connector_name }}',
- '{{ kafka_cluster }}',
- '{{ kafka_cluster_client_authentication }}',
- '{{ kafka_cluster_encryption_in_transit }}',
- '{{ kafka_connect_version }}',
- '{{ log_delivery }}',
- '{{ plugins }}',
- '{{ service_execution_role_arn }}',
- '{{ tags }}',
- '{{ worker_configuration }}',
- '{{ region }}';
+  '{{ capacity }}',
+  '{{ connector_configuration }}',
+  '{{ connector_description }}',
+  '{{ connector_name }}',
+  '{{ kafka_cluster }}',
+  '{{ kafka_cluster_client_authentication }}',
+  '{{ kafka_cluster_encryption_in_transit }}',
+  '{{ kafka_connect_version }}',
+  '{{ log_delivery }}',
+  '{{ plugins }}',
+  '{{ service_execution_role_arn }}',
+  '{{ tags }}',
+  '{{ worker_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -710,8 +713,9 @@ SET PatchDocument = string('{{ {
     "ConnectorConfiguration": connector_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ connector_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ connector_arn }}';
 ```
 
 
@@ -720,8 +724,9 @@ AND Identifier = '{{ connector_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kafkaconnect.connectors
-WHERE Identifier = '{{ connector_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ connector_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -270,31 +270,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>signal_map</code>.
 ```sql
 SELECT
-region,
-arn,
-cloud_watch_alarm_template_group_identifiers,
-cloud_watch_alarm_template_group_ids,
-created_at,
-description,
-discovery_entry_point_arn,
-error_message,
-event_bridge_rule_template_group_identifiers,
-event_bridge_rule_template_group_ids,
-failed_media_resource_map,
-force_rediscovery,
-id,
-identifier,
-last_discovered_at,
-last_successful_monitor_deployment,
-media_resource_map,
-modified_at,
-monitor_changes_pending_deployment,
-monitor_deployment,
-name,
-status,
-tags
+  region,
+  arn,
+  cloud_watch_alarm_template_group_identifiers,
+  cloud_watch_alarm_template_group_ids,
+  created_at,
+  description,
+  discovery_entry_point_arn,
+  error_message,
+  event_bridge_rule_template_group_identifiers,
+  event_bridge_rule_template_group_ids,
+  failed_media_resource_map,
+  force_rediscovery,
+  id,
+  identifier,
+  last_discovered_at,
+  last_successful_monitor_deployment,
+  media_resource_map,
+  modified_at,
+  monitor_changes_pending_deployment,
+  monitor_deployment,
+  name,
+  status,
+  tags
 FROM awscc.medialive.signal_maps
-WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,10 +304,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 Lists all <code>signal_maps</code> in a region.
 ```sql
 SELECT
-region,
-identifier
+  region,
+  identifier
 FROM awscc.medialive.signal_maps_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -327,14 +330,14 @@ Use the following StackQL query and manifest file to create a new <code>signal_m
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.signal_maps (
- DiscoveryEntryPointArn,
- Name,
- region
+  DiscoveryEntryPointArn,
+  Name,
+  region
 )
 SELECT
-'{{ discovery_entry_point_arn }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ discovery_entry_point_arn }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -342,24 +345,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.signal_maps (
- CloudWatchAlarmTemplateGroupIdentifiers,
- Description,
- DiscoveryEntryPointArn,
- EventBridgeRuleTemplateGroupIdentifiers,
- ForceRediscovery,
- Name,
- Tags,
- region
+  CloudWatchAlarmTemplateGroupIdentifiers,
+  Description,
+  DiscoveryEntryPointArn,
+  EventBridgeRuleTemplateGroupIdentifiers,
+  ForceRediscovery,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ cloud_watch_alarm_template_group_identifiers }}',
- '{{ description }}',
- '{{ discovery_entry_point_arn }}',
- '{{ event_bridge_rule_template_group_identifiers }}',
- '{{ force_rediscovery }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cloud_watch_alarm_template_group_identifiers }}',
+  '{{ description }}',
+  '{{ discovery_entry_point_arn }}',
+  '{{ event_bridge_rule_template_group_identifiers }}',
+  '{{ force_rediscovery }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -411,8 +414,9 @@ SET PatchDocument = string('{{ {
     "ForceRediscovery": force_rediscovery,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identifier }}';
 ```
 
 
@@ -421,8 +425,9 @@ AND Identifier = '{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.signal_maps
-WHERE Identifier = '{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

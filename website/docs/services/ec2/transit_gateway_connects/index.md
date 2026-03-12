@@ -180,16 +180,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_connect</code>.
 ```sql
 SELECT
-region,
-transit_gateway_attachment_id,
-transport_transit_gateway_attachment_id,
-transit_gateway_id,
-state,
-creation_time,
-tags,
-options
+  region,
+  transit_gateway_attachment_id,
+  transport_transit_gateway_attachment_id,
+  transit_gateway_id,
+  state,
+  creation_time,
+  tags,
+  options
 FROM awscc.ec2.transit_gateway_connects
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +199,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_attachment_id }}
 Lists all <code>transit_gateway_connects</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_attachment_id
+  region,
+  transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_connects_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -222,14 +225,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_connects (
- TransportTransitGatewayAttachmentId,
- Options,
- region
+  TransportTransitGatewayAttachmentId,
+  Options,
+  region
 )
 SELECT
-'{{ transport_transit_gateway_attachment_id }}',
- '{{ options }}',
-'{{ region }}';
+  '{{ transport_transit_gateway_attachment_id }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -237,16 +240,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_connects (
- TransportTransitGatewayAttachmentId,
- Tags,
- Options,
- region
+  TransportTransitGatewayAttachmentId,
+  Tags,
+  Options,
+  region
 )
 SELECT
- '{{ transport_transit_gateway_attachment_id }}',
- '{{ tags }}',
- '{{ options }}',
- '{{ region }}';
+  '{{ transport_transit_gateway_attachment_id }}',
+  '{{ tags }}',
+  '{{ options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -286,8 +289,9 @@ UPDATE awscc.ec2.transit_gateway_connects
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ transit_gateway_attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 
 
@@ -296,8 +300,9 @@ AND Identifier = '{{ transit_gateway_attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_connects
-WHERE Identifier = '{{ transit_gateway_attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -186,20 +186,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sync_configuration</code>.
 ```sql
 SELECT
-region,
-owner_id,
-resource_name,
-repository_name,
-provider_type,
-branch,
-config_file,
-sync_type,
-role_arn,
-publish_deployment_status,
-trigger_resource_update_on,
-repository_link_id
+  region,
+  owner_id,
+  resource_name,
+  repository_name,
+  provider_type,
+  branch,
+  config_file,
+  sync_type,
+  role_arn,
+  publish_deployment_status,
+  trigger_resource_update_on,
+  repository_link_id
 FROM awscc.codestarconnections.sync_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ resource_name }}|{{ sync_type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,11 +209,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ resource_name }}|{{ sync_type }}
 Lists all <code>sync_configurations</code> in a region.
 ```sql
 SELECT
-region,
-resource_name,
-sync_type
+  region,
+  resource_name,
+  sync_type
 FROM awscc.codestarconnections.sync_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,22 +236,22 @@ Use the following StackQL query and manifest file to create a new <code>sync_con
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.sync_configurations (
- ResourceName,
- Branch,
- ConfigFile,
- SyncType,
- RoleArn,
- RepositoryLinkId,
- region
+  ResourceName,
+  Branch,
+  ConfigFile,
+  SyncType,
+  RoleArn,
+  RepositoryLinkId,
+  region
 )
 SELECT
-'{{ resource_name }}',
- '{{ branch }}',
- '{{ config_file }}',
- '{{ sync_type }}',
- '{{ role_arn }}',
- '{{ repository_link_id }}',
-'{{ region }}';
+  '{{ resource_name }}',
+  '{{ branch }}',
+  '{{ config_file }}',
+  '{{ sync_type }}',
+  '{{ role_arn }}',
+  '{{ repository_link_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -256,26 +259,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codestarconnections.sync_configurations (
- ResourceName,
- Branch,
- ConfigFile,
- SyncType,
- RoleArn,
- PublishDeploymentStatus,
- TriggerResourceUpdateOn,
- RepositoryLinkId,
- region
+  ResourceName,
+  Branch,
+  ConfigFile,
+  SyncType,
+  RoleArn,
+  PublishDeploymentStatus,
+  TriggerResourceUpdateOn,
+  RepositoryLinkId,
+  region
 )
 SELECT
- '{{ resource_name }}',
- '{{ branch }}',
- '{{ config_file }}',
- '{{ sync_type }}',
- '{{ role_arn }}',
- '{{ publish_deployment_status }}',
- '{{ trigger_resource_update_on }}',
- '{{ repository_link_id }}',
- '{{ region }}';
+  '{{ resource_name }}',
+  '{{ branch }}',
+  '{{ config_file }}',
+  '{{ sync_type }}',
+  '{{ role_arn }}',
+  '{{ publish_deployment_status }}',
+  '{{ trigger_resource_update_on }}',
+  '{{ repository_link_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -327,8 +330,9 @@ SET PatchDocument = string('{{ {
     "TriggerResourceUpdateOn": trigger_resource_update_on,
     "RepositoryLinkId": repository_link_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ resource_name }}|{{ sync_type }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```
 
 
@@ -337,8 +341,9 @@ AND Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.sync_configurations
-WHERE Identifier = '{{ resource_name }}|{{ sync_type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ resource_name }}|{{ sync_type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -126,11 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>notification_channel</code>.
 ```sql
 SELECT
-region,
-sns_role_name,
-sns_topic_arn
+  region,
+  sns_role_name,
+  sns_topic_arn
 FROM awscc.fms.notification_channels
-WHERE region = 'us-east-1' AND Identifier = '{{ sns_topic_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ sns_topic_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -138,10 +140,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ sns_topic_arn }}';
 Lists all <code>notification_channels</code> in a region.
 ```sql
 SELECT
-region,
-sns_topic_arn
+  region,
+  sns_topic_arn
 FROM awscc.fms.notification_channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -163,14 +166,14 @@ Use the following StackQL query and manifest file to create a new <code>notifica
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.notification_channels (
- SnsRoleName,
- SnsTopicArn,
- region
+  SnsRoleName,
+  SnsTopicArn,
+  region
 )
 SELECT
-'{{ sns_role_name }}',
- '{{ sns_topic_arn }}',
-'{{ region }}';
+  '{{ sns_role_name }}',
+  '{{ sns_topic_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -178,14 +181,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.fms.notification_channels (
- SnsRoleName,
- SnsTopicArn,
- region
+  SnsRoleName,
+  SnsTopicArn,
+  region
 )
 SELECT
- '{{ sns_role_name }}',
- '{{ sns_topic_arn }}',
- '{{ region }}';
+  '{{ sns_role_name }}',
+  '{{ sns_topic_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -221,8 +224,9 @@ SET PatchDocument = string('{{ {
     "SnsRoleName": sns_role_name,
     "SnsTopicArn": sns_topic_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ sns_topic_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ sns_topic_arn }}';
 ```
 
 
@@ -231,8 +235,9 @@ AND Identifier = '{{ sns_topic_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.notification_channels
-WHERE Identifier = '{{ sns_topic_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ sns_topic_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

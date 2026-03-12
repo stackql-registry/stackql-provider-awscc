@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-domain_name,
-name,
-owner,
-encryption_key,
-permissions_policy_document,
-tags,
-arn
+  region,
+  domain_name,
+  name,
+  owner,
+  encryption_key,
+  permissions_policy_document,
+  tags,
+  arn
 FROM awscc.codeartifact.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>domains</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.codeartifact.domains_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.domains (
- DomainName,
- region
+  DomainName,
+  region
 )
 SELECT
-'{{ domain_name }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,16 +231,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codeartifact.domains (
- DomainName,
- PermissionsPolicyDocument,
- Tags,
- region
+  DomainName,
+  PermissionsPolicyDocument,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ permissions_policy_document }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ permissions_policy_document }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "PermissionsPolicyDocument": permissions_policy_document,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.domains
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

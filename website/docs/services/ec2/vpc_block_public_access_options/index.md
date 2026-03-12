@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_block_public_access_option</code>.
 ```sql
 SELECT
-region,
-internet_gateway_block_mode,
-account_id,
-exclusions_allowed
+  region,
+  internet_gateway_block_mode,
+  account_id,
+  exclusions_allowed
 FROM awscc.ec2.vpc_block_public_access_options
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 
 ## `INSERT` example
@@ -120,12 +122,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_bloc
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_block_public_access_options (
- InternetGatewayBlockMode,
- region
+  InternetGatewayBlockMode,
+  region
 )
 SELECT
-'{{ internet_gateway_block_mode }}',
-'{{ region }}';
+  '{{ internet_gateway_block_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -133,12 +135,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_block_public_access_options (
- InternetGatewayBlockMode,
- region
+  InternetGatewayBlockMode,
+  region
 )
 SELECT
- '{{ internet_gateway_block_mode }}',
- '{{ region }}';
+  '{{ internet_gateway_block_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.ec2.vpc_block_public_access_options
 SET PatchDocument = string('{{ {
     "InternetGatewayBlockMode": internet_gateway_block_mode
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_block_public_access_options
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

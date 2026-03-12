@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>queue_inline_policy</code>.
 ```sql
 SELECT
-region,
-policy_document,
-queue
+  region,
+  policy_document,
+  queue
 FROM awscc.sqs.queue_inline_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ queue }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ queue }}';
 ```
 
 ## `INSERT` example
@@ -114,14 +116,14 @@ Use the following StackQL query and manifest file to create a new <code>queue_in
 ```sql
 /*+ create */
 INSERT INTO awscc.sqs.queue_inline_policies (
- PolicyDocument,
- Queue,
- region
+  PolicyDocument,
+  Queue,
+  region
 )
 SELECT
-'{{ policy_document }}',
- '{{ queue }}',
-'{{ region }}';
+  '{{ policy_document }}',
+  '{{ queue }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sqs.queue_inline_policies (
- PolicyDocument,
- Queue,
- region
+  PolicyDocument,
+  Queue,
+  region
 )
 SELECT
- '{{ policy_document }}',
- '{{ queue }}',
- '{{ region }}';
+  '{{ policy_document }}',
+  '{{ queue }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.sqs.queue_inline_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ queue }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ queue }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ queue }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sqs.queue_inline_policies
-WHERE Identifier = '{{ queue }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ queue }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

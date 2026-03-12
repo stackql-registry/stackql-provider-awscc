@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_provider</code>.
 ```sql
 SELECT
-region,
-identity_provider_arn,
-identity_provider_details,
-identity_provider_name,
-identity_provider_type,
-portal_arn,
-tags
+  region,
+  identity_provider_arn,
+  identity_provider_details,
+  identity_provider_name,
+  identity_provider_type,
+  portal_arn,
+  tags
 FROM awscc.workspacesweb.identity_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identity_provider_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_arn }}';
 Lists all <code>identity_providers</code> in a region.
 ```sql
 SELECT
-region,
-identity_provider_arn
+  region,
+  identity_provider_arn
 FROM awscc.workspacesweb.identity_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.identity_providers (
- IdentityProviderDetails,
- IdentityProviderName,
- IdentityProviderType,
- region
+  IdentityProviderDetails,
+  IdentityProviderName,
+  IdentityProviderType,
+  region
 )
 SELECT
-'{{ identity_provider_details }}',
- '{{ identity_provider_name }}',
- '{{ identity_provider_type }}',
-'{{ region }}';
+  '{{ identity_provider_details }}',
+  '{{ identity_provider_name }}',
+  '{{ identity_provider_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.identity_providers (
- IdentityProviderDetails,
- IdentityProviderName,
- IdentityProviderType,
- PortalArn,
- Tags,
- region
+  IdentityProviderDetails,
+  IdentityProviderName,
+  IdentityProviderType,
+  PortalArn,
+  Tags,
+  region
 )
 SELECT
- '{{ identity_provider_details }}',
- '{{ identity_provider_name }}',
- '{{ identity_provider_type }}',
- '{{ portal_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ identity_provider_details }}',
+  '{{ identity_provider_name }}',
+  '{{ identity_provider_type }}',
+  '{{ portal_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ SET PatchDocument = string('{{ {
     "IdentityProviderType": identity_provider_type,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identity_provider_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identity_provider_arn }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ identity_provider_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.identity_providers
-WHERE Identifier = '{{ identity_provider_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identity_provider_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster_subnet_group</code>.
 ```sql
 SELECT
-region,
-description,
-subnet_ids,
-tags,
-cluster_subnet_group_name
+  region,
+  description,
+  subnet_ids,
+  tags,
+  cluster_subnet_group_name
 FROM awscc.redshift.cluster_subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_subnet_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_subnet_group_name }}';
 Lists all <code>cluster_subnet_groups</code> in a region.
 ```sql
 SELECT
-region,
-cluster_subnet_group_name
+  region,
+  cluster_subnet_group_name
 FROM awscc.redshift.cluster_subnet_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>cluster_
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.cluster_subnet_groups (
- Description,
- SubnetIds,
- region
+  Description,
+  SubnetIds,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ subnet_ids }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,16 +215,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshift.cluster_subnet_groups (
- Description,
- SubnetIds,
- Tags,
- region
+  Description,
+  SubnetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -263,8 +266,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_subnet_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_subnet_group_name }}';
 ```
 
 
@@ -273,8 +277,9 @@ AND Identifier = '{{ cluster_subnet_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.cluster_subnet_groups
-WHERE Identifier = '{{ cluster_subnet_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_subnet_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

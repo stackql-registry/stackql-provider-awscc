@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>permission</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-version,
-is_resource_type_default,
-permission_type,
-resource_type,
-policy_template,
-tags
+  region,
+  arn,
+  name,
+  version,
+  is_resource_type_default,
+  permission_type,
+  resource_type,
+  policy_template,
+  tags
 FROM awscc.ram.permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>permissions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ram.permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>permissi
 ```sql
 /*+ create */
 INSERT INTO awscc.ram.permissions (
- Name,
- ResourceType,
- PolicyTemplate,
- region
+  Name,
+  ResourceType,
+  PolicyTemplate,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ resource_type }}',
- '{{ policy_template }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ resource_type }}',
+  '{{ policy_template }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,18 +241,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ram.permissions (
- Name,
- ResourceType,
- PolicyTemplate,
- Tags,
- region
+  Name,
+  ResourceType,
+  PolicyTemplate,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ resource_type }}',
- '{{ policy_template }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ resource_type }}',
+  '{{ policy_template }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -290,8 +293,9 @@ UPDATE awscc.ram.permissions
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -300,8 +304,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ram.permissions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

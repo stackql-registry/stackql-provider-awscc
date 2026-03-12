@@ -175,15 +175,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assignment</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-target_id,
-target_type,
-permission_set_arn,
-principal_type,
-principal_id
+  region,
+  instance_arn,
+  target_id,
+  target_type,
+  permission_set_arn,
+  principal_type,
+  principal_id
 FROM awscc.sso.assignments
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -191,15 +193,16 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ target_id }}|
 Lists all <code>assignments</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn,
-target_id,
-target_type,
-permission_set_arn,
-principal_type,
-principal_id
+  region,
+  instance_arn,
+  target_id,
+  target_type,
+  permission_set_arn,
+  principal_type,
+  principal_id
 FROM awscc.sso.assignments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,22 +224,22 @@ Use the following StackQL query and manifest file to create a new <code>assignme
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.assignments (
- InstanceArn,
- TargetId,
- TargetType,
- PermissionSetArn,
- PrincipalType,
- PrincipalId,
- region
+  InstanceArn,
+  TargetId,
+  TargetType,
+  PermissionSetArn,
+  PrincipalType,
+  PrincipalId,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ target_id }}',
- '{{ target_type }}',
- '{{ permission_set_arn }}',
- '{{ principal_type }}',
- '{{ principal_id }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ target_id }}',
+  '{{ target_type }}',
+  '{{ permission_set_arn }}',
+  '{{ principal_type }}',
+  '{{ principal_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,22 +247,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.assignments (
- InstanceArn,
- TargetId,
- TargetType,
- PermissionSetArn,
- PrincipalType,
- PrincipalId,
- region
+  InstanceArn,
+  TargetId,
+  TargetType,
+  PermissionSetArn,
+  PrincipalType,
+  PrincipalId,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ target_id }}',
- '{{ target_type }}',
- '{{ permission_set_arn }}',
- '{{ principal_type }}',
- '{{ principal_id }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ target_id }}',
+  '{{ target_type }}',
+  '{{ permission_set_arn }}',
+  '{{ principal_type }}',
+  '{{ principal_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -298,8 +301,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.assignments
-WHERE Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

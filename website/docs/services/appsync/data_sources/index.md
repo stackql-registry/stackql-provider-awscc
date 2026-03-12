@@ -353,23 +353,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-api_id,
-description,
-dynamo_db_config,
-elasticsearch_config,
-event_bridge_config,
-http_config,
-lambda_config,
-name,
-open_search_service_config,
-relational_database_config,
-service_role_arn,
-type,
-data_source_arn,
-metrics_config
+  region,
+  api_id,
+  description,
+  dynamo_db_config,
+  elasticsearch_config,
+  event_bridge_config,
+  http_config,
+  lambda_config,
+  name,
+  open_search_service_config,
+  relational_database_config,
+  service_role_arn,
+  type,
+  data_source_arn,
+  metrics_config
 FROM awscc.appsync.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ data_source_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ data_source_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -377,10 +379,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ data_source_arn }}';
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-data_source_arn
+  region,
+  data_source_arn
 FROM awscc.appsync.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -402,16 +405,16 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.data_sources (
- ApiId,
- Name,
- Type,
- region
+  ApiId,
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ api_id }}',
- '{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -419,36 +422,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.data_sources (
- ApiId,
- Description,
- DynamoDBConfig,
- ElasticsearchConfig,
- EventBridgeConfig,
- HttpConfig,
- LambdaConfig,
- Name,
- OpenSearchServiceConfig,
- RelationalDatabaseConfig,
- ServiceRoleArn,
- Type,
- MetricsConfig,
- region
+  ApiId,
+  Description,
+  DynamoDBConfig,
+  ElasticsearchConfig,
+  EventBridgeConfig,
+  HttpConfig,
+  LambdaConfig,
+  Name,
+  OpenSearchServiceConfig,
+  RelationalDatabaseConfig,
+  ServiceRoleArn,
+  Type,
+  MetricsConfig,
+  region
 )
 SELECT
- '{{ api_id }}',
- '{{ description }}',
- '{{ dynamo_db_config }}',
- '{{ elasticsearch_config }}',
- '{{ event_bridge_config }}',
- '{{ http_config }}',
- '{{ lambda_config }}',
- '{{ name }}',
- '{{ open_search_service_config }}',
- '{{ relational_database_config }}',
- '{{ service_role_arn }}',
- '{{ type }}',
- '{{ metrics_config }}',
- '{{ region }}';
+  '{{ api_id }}',
+  '{{ description }}',
+  '{{ dynamo_db_config }}',
+  '{{ elasticsearch_config }}',
+  '{{ event_bridge_config }}',
+  '{{ http_config }}',
+  '{{ lambda_config }}',
+  '{{ name }}',
+  '{{ open_search_service_config }}',
+  '{{ relational_database_config }}',
+  '{{ service_role_arn }}',
+  '{{ type }}',
+  '{{ metrics_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -542,8 +545,9 @@ SET PatchDocument = string('{{ {
     "Type": type,
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ data_source_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ data_source_arn }}';
 ```
 
 
@@ -552,8 +556,9 @@ AND Identifier = '{{ data_source_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.data_sources
-WHERE Identifier = '{{ data_source_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ data_source_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

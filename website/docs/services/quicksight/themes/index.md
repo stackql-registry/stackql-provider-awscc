@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
       {
         "name": "data_color_palette",
         "type": "object",
-        "description": "<p>The theme colors that are used for data colors in charts. The colors description is a<br />hexadecimal color code that consists of six alphanumerical characters, prefixed with<br />&#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, for example #37BFF5. </p>",
+        "description": "<p>The theme colors that are used for data colors in charts. The colors description is a<br />hexadecimal color code that consists of six alphanumerical characters, prefixed with<br /><code>#</code>, for example #37BFF5. </p>",
         "children": [
           {
             "name": "colors",
@@ -88,7 +88,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
       {
         "name": "u_icolor_palette",
         "type": "object",
-        "description": "<p>The theme colors that apply to UI and to charts, excluding data colors. The colors<br />description is a hexadecimal color code that consists of six alphanumerical characters,<br />prefixed with &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, for example #37BFF5. For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html\">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User<br />Guide.</i><br /></p>",
+        "description": "<p>The theme colors that apply to UI and to charts, excluding data colors. The colors<br />description is a hexadecimal color code that consists of six alphanumerical characters,<br />prefixed with <code>#</code>, for example #37BFF5. For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html\">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User<br />Guide.</i><br /></p>",
         "children": [
           {
             "name": "primary_foreground",
@@ -435,22 +435,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>theme</code>.
 ```sql
 SELECT
-region,
-arn,
-aws_account_id,
-base_theme_id,
-configuration,
-created_time,
-last_updated_time,
-name,
-permissions,
-tags,
-theme_id,
-type,
-version,
-version_description
+  region,
+  arn,
+  aws_account_id,
+  base_theme_id,
+  configuration,
+  created_time,
+  last_updated_time,
+  name,
+  permissions,
+  tags,
+  theme_id,
+  type,
+  version,
+  version_description
 FROM awscc.quicksight.themes
-WHERE region = 'us-east-1' AND Identifier = '{{ theme_id }}|{{ aws_account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -458,11 +460,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ theme_id }}|{{ aws_account_id }}
 Lists all <code>themes</code> in a region.
 ```sql
 SELECT
-region,
-theme_id,
-aws_account_id
+  region,
+  theme_id,
+  aws_account_id
 FROM awscc.quicksight.themes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -484,20 +487,20 @@ Use the following StackQL query and manifest file to create a new <code>theme</c
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.themes (
- AwsAccountId,
- BaseThemeId,
- Configuration,
- Name,
- ThemeId,
- region
+  AwsAccountId,
+  BaseThemeId,
+  Configuration,
+  Name,
+  ThemeId,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ base_theme_id }}',
- '{{ configuration }}',
- '{{ name }}',
- '{{ theme_id }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ base_theme_id }}',
+  '{{ configuration }}',
+  '{{ name }}',
+  '{{ theme_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -505,26 +508,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.themes (
- AwsAccountId,
- BaseThemeId,
- Configuration,
- Name,
- Permissions,
- Tags,
- ThemeId,
- VersionDescription,
- region
+  AwsAccountId,
+  BaseThemeId,
+  Configuration,
+  Name,
+  Permissions,
+  Tags,
+  ThemeId,
+  VersionDescription,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ base_theme_id }}',
- '{{ configuration }}',
- '{{ name }}',
- '{{ permissions }}',
- '{{ tags }}',
- '{{ theme_id }}',
- '{{ version_description }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ base_theme_id }}',
+  '{{ configuration }}',
+  '{{ name }}',
+  '{{ permissions }}',
+  '{{ tags }}',
+  '{{ theme_id }}',
+  '{{ version_description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -616,8 +619,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VersionDescription": version_description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ theme_id }}|{{ aws_account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```
 
 
@@ -626,8 +630,9 @@ AND Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.themes
-WHERE Identifier = '{{ theme_id }}|{{ aws_account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ theme_id }}|{{ aws_account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

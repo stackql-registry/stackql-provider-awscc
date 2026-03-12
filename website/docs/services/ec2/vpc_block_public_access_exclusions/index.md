@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_block_public_access_exclusion</code>.
 ```sql
 SELECT
-region,
-exclusion_id,
-internet_gateway_exclusion_mode,
-vpc_id,
-subnet_id,
-tags
+  region,
+  exclusion_id,
+  internet_gateway_exclusion_mode,
+  vpc_id,
+  subnet_id,
+  tags
 FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE region = 'us-east-1' AND Identifier = '{{ exclusion_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ exclusion_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ exclusion_id }}';
 Lists all <code>vpc_block_public_access_exclusions</code> in a region.
 ```sql
 SELECT
-region,
-exclusion_id
+  region,
+  exclusion_id
 FROM awscc.ec2.vpc_block_public_access_exclusions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_bloc
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_block_public_access_exclusions (
- InternetGatewayExclusionMode,
- region
+  InternetGatewayExclusionMode,
+  region
 )
 SELECT
-'{{ internet_gateway_exclusion_mode }}',
-'{{ region }}';
+  '{{ internet_gateway_exclusion_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_block_public_access_exclusions (
- InternetGatewayExclusionMode,
- VpcId,
- SubnetId,
- Tags,
- region
+  InternetGatewayExclusionMode,
+  VpcId,
+  SubnetId,
+  Tags,
+  region
 )
 SELECT
- '{{ internet_gateway_exclusion_mode }}',
- '{{ vpc_id }}',
- '{{ subnet_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ internet_gateway_exclusion_mode }}',
+  '{{ vpc_id }}',
+  '{{ subnet_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "InternetGatewayExclusionMode": internet_gateway_exclusion_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ exclusion_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ exclusion_id }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ exclusion_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE Identifier = '{{ exclusion_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ exclusion_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

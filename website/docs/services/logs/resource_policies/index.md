@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT
-region,
-policy_name,
-policy_document
+  region,
+  policy_name,
+  policy_document
 FROM awscc.logs.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}';
 Lists all <code>resource_policies</code> in a region.
 ```sql
 SELECT
-region,
-policy_name
+  region,
+  policy_name
 FROM awscc.logs.resource_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.resource_policies (
- PolicyName,
- PolicyDocument,
- region
+  PolicyName,
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ policy_name }}',
- '{{ policy_document }}',
-'{{ region }}';
+  '{{ policy_name }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.resource_policies (
- PolicyName,
- PolicyDocument,
- region
+  PolicyName,
+  PolicyDocument,
+  region
 )
 SELECT
- '{{ policy_name }}',
- '{{ policy_document }}',
- '{{ region }}';
+  '{{ policy_name }}',
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -230,8 +233,9 @@ UPDATE awscc.logs.resource_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_name }}';
 ```
 
 
@@ -240,8 +244,9 @@ AND Identifier = '{{ policy_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.resource_policies
-WHERE Identifier = '{{ policy_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>contact_flow_module</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-contact_flow_module_arn,
-name,
-content,
-description,
-state,
-status,
-tags
+  region,
+  instance_arn,
+  contact_flow_module_arn,
+  name,
+  content,
+  description,
+  state,
+  status,
+  tags
 FROM awscc.connect.contact_flow_modules
-WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_module_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ contact_flow_module_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_module_arn }}';
 Lists all <code>contact_flow_modules</code> in a region.
 ```sql
 SELECT
-region,
-contact_flow_module_arn
+  region,
+  contact_flow_module_arn
 FROM awscc.connect.contact_flow_modules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>contact_
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.contact_flow_modules (
- InstanceArn,
- Name,
- Content,
- region
+  InstanceArn,
+  Name,
+  Content,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ content }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ content }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,22 +241,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.contact_flow_modules (
- InstanceArn,
- Name,
- Content,
- Description,
- State,
- Tags,
- region
+  InstanceArn,
+  Name,
+  Content,
+  Description,
+  State,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ content }}',
- '{{ description }}',
- '{{ state }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ content }}',
+  '{{ description }}',
+  '{{ state }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -303,8 +306,9 @@ SET PatchDocument = string('{{ {
     "State": state,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ contact_flow_module_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ contact_flow_module_arn }}';
 ```
 
 
@@ -313,8 +317,9 @@ AND Identifier = '{{ contact_flow_module_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flow_modules
-WHERE Identifier = '{{ contact_flow_module_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ contact_flow_module_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

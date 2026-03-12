@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate</code>.
 ```sql
 SELECT
-region,
-certificate_name,
-domain_name,
-subject_alternative_names,
-certificate_arn,
-status,
-tags
+  region,
+  certificate_name,
+  domain_name,
+  subject_alternative_names,
+  certificate_arn,
+  status,
+  tags
 FROM awscc.lightsail.certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ certificate_name }}';
 Lists all <code>certificates</code> in a region.
 ```sql
 SELECT
-region,
-certificate_name
+  region,
+  certificate_name
 FROM awscc.lightsail.certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.certificates (
- CertificateName,
- DomainName,
- region
+  CertificateName,
+  DomainName,
+  region
 )
 SELECT
-'{{ certificate_name }}',
- '{{ domain_name }}',
-'{{ region }}';
+  '{{ certificate_name }}',
+  '{{ domain_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.certificates (
- CertificateName,
- DomainName,
- SubjectAlternativeNames,
- Tags,
- region
+  CertificateName,
+  DomainName,
+  SubjectAlternativeNames,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_name }}',
- '{{ domain_name }}',
- '{{ subject_alternative_names }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_name }}',
+  '{{ domain_name }}',
+  '{{ subject_alternative_names }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ UPDATE awscc.lightsail.certificates
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ certificate_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ certificate_name }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ certificate_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.certificates
-WHERE Identifier = '{{ certificate_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

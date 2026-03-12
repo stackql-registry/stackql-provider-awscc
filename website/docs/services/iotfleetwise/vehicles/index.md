@@ -200,19 +200,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vehicle</code>.
 ```sql
 SELECT
-region,
-arn,
-association_behavior,
-attributes,
-creation_time,
-decoder_manifest_arn,
-name,
-last_modification_time,
-model_manifest_arn,
-tags,
-state_templates
+  region,
+  arn,
+  association_behavior,
+  attributes,
+  creation_time,
+  decoder_manifest_arn,
+  name,
+  last_modification_time,
+  model_manifest_arn,
+  tags,
+  state_templates
 FROM awscc.iotfleetwise.vehicles
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>vehicles</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.vehicles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,16 +248,16 @@ Use the following StackQL query and manifest file to create a new <code>vehicle<
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.vehicles (
- DecoderManifestArn,
- Name,
- ModelManifestArn,
- region
+  DecoderManifestArn,
+  Name,
+  ModelManifestArn,
+  region
 )
 SELECT
-'{{ decoder_manifest_arn }}',
- '{{ name }}',
- '{{ model_manifest_arn }}',
-'{{ region }}';
+  '{{ decoder_manifest_arn }}',
+  '{{ name }}',
+  '{{ model_manifest_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,24 +265,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.vehicles (
- AssociationBehavior,
- Attributes,
- DecoderManifestArn,
- Name,
- ModelManifestArn,
- Tags,
- StateTemplates,
- region
+  AssociationBehavior,
+  Attributes,
+  DecoderManifestArn,
+  Name,
+  ModelManifestArn,
+  Tags,
+  StateTemplates,
+  region
 )
 SELECT
- '{{ association_behavior }}',
- '{{ attributes }}',
- '{{ decoder_manifest_arn }}',
- '{{ name }}',
- '{{ model_manifest_arn }}',
- '{{ tags }}',
- '{{ state_templates }}',
- '{{ region }}';
+  '{{ association_behavior }}',
+  '{{ attributes }}',
+  '{{ decoder_manifest_arn }}',
+  '{{ name }}',
+  '{{ model_manifest_arn }}',
+  '{{ tags }}',
+  '{{ state_templates }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "StateTemplates": state_templates
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.vehicles
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

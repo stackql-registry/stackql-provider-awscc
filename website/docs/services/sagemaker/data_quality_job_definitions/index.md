@@ -444,22 +444,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_quality_job_definition</code>.
 ```sql
 SELECT
-region,
-job_definition_arn,
-job_definition_name,
-data_quality_baseline_config,
-data_quality_app_specification,
-data_quality_job_input,
-data_quality_job_output_config,
-job_resources,
-network_config,
-endpoint_name,
-role_arn,
-stopping_condition,
-tags,
-creation_time
+  region,
+  job_definition_arn,
+  job_definition_name,
+  data_quality_baseline_config,
+  data_quality_app_specification,
+  data_quality_job_input,
+  data_quality_job_output_config,
+  job_resources,
+  network_config,
+  endpoint_name,
+  role_arn,
+  stopping_condition,
+  tags,
+  creation_time
 FROM awscc.sagemaker.data_quality_job_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ job_definition_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -467,10 +469,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_arn }}';
 Lists all <code>data_quality_job_definitions</code> in a region.
 ```sql
 SELECT
-region,
-job_definition_arn
+  region,
+  job_definition_arn
 FROM awscc.sagemaker.data_quality_job_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -492,20 +495,20 @@ Use the following StackQL query and manifest file to create a new <code>data_qua
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.data_quality_job_definitions (
- DataQualityAppSpecification,
- DataQualityJobInput,
- DataQualityJobOutputConfig,
- JobResources,
- RoleArn,
- region
+  DataQualityAppSpecification,
+  DataQualityJobInput,
+  DataQualityJobOutputConfig,
+  JobResources,
+  RoleArn,
+  region
 )
 SELECT
-'{{ data_quality_app_specification }}',
- '{{ data_quality_job_input }}',
- '{{ data_quality_job_output_config }}',
- '{{ job_resources }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ data_quality_app_specification }}',
+  '{{ data_quality_job_input }}',
+  '{{ data_quality_job_output_config }}',
+  '{{ job_resources }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -513,32 +516,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.data_quality_job_definitions (
- JobDefinitionName,
- DataQualityBaselineConfig,
- DataQualityAppSpecification,
- DataQualityJobInput,
- DataQualityJobOutputConfig,
- JobResources,
- NetworkConfig,
- EndpointName,
- RoleArn,
- StoppingCondition,
- Tags,
- region
+  JobDefinitionName,
+  DataQualityBaselineConfig,
+  DataQualityAppSpecification,
+  DataQualityJobInput,
+  DataQualityJobOutputConfig,
+  JobResources,
+  NetworkConfig,
+  EndpointName,
+  RoleArn,
+  StoppingCondition,
+  Tags,
+  region
 )
 SELECT
- '{{ job_definition_name }}',
- '{{ data_quality_baseline_config }}',
- '{{ data_quality_app_specification }}',
- '{{ data_quality_job_input }}',
- '{{ data_quality_job_output_config }}',
- '{{ job_resources }}',
- '{{ network_config }}',
- '{{ endpoint_name }}',
- '{{ role_arn }}',
- '{{ stopping_condition }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ job_definition_name }}',
+  '{{ data_quality_baseline_config }}',
+  '{{ data_quality_app_specification }}',
+  '{{ data_quality_job_input }}',
+  '{{ data_quality_job_output_config }}',
+  '{{ job_resources }}',
+  '{{ network_config }}',
+  '{{ endpoint_name }}',
+  '{{ role_arn }}',
+  '{{ stopping_condition }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -639,8 +642,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.data_quality_job_definitions
-WHERE Identifier = '{{ job_definition_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ job_definition_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

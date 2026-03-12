@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>allow_list</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-criteria,
-id,
-arn,
-status,
-tags
+  region,
+  name,
+  description,
+  criteria,
+  id,
+  arn,
+  status,
+  tags
 FROM awscc.macie.allow_lists
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>allow_lists</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.macie.allow_lists_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>allow_li
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.allow_lists (
- Name,
- Criteria,
- region
+  Name,
+  Criteria,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ criteria }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ criteria }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.allow_lists (
- Name,
- Description,
- Criteria,
- Tags,
- region
+  Name,
+  Description,
+  Criteria,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ criteria }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ criteria }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ SET PatchDocument = string('{{ {
     "Criteria": criteria,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.allow_lists
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -186,20 +186,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>authorizer</code>.
 ```sql
 SELECT
-region,
-rest_api_id,
-authorizer_id,
-auth_type,
-authorizer_credentials,
-authorizer_result_ttl_in_seconds,
-authorizer_uri,
-identity_source,
-identity_validation_expression,
-name,
-provider_arns,
-type
+  region,
+  rest_api_id,
+  authorizer_id,
+  auth_type,
+  authorizer_credentials,
+  authorizer_result_ttl_in_seconds,
+  authorizer_uri,
+  identity_source,
+  identity_validation_expression,
+  name,
+  provider_arns,
+  type
 FROM awscc.apigateway.authorizers
-WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,11 +209,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ authorizer_id 
 Lists all <code>authorizers</code> in a region.
 ```sql
 SELECT
-region,
-rest_api_id,
-authorizer_id
+  region,
+  rest_api_id,
+  authorizer_id
 FROM awscc.apigateway.authorizers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>authoriz
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.authorizers (
- RestApiId,
- Name,
- Type,
- region
+  RestApiId,
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ rest_api_id }}',
- '{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,30 +253,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.authorizers (
- RestApiId,
- AuthType,
- AuthorizerCredentials,
- AuthorizerResultTtlInSeconds,
- AuthorizerUri,
- IdentitySource,
- IdentityValidationExpression,
- Name,
- ProviderARNs,
- Type,
- region
+  RestApiId,
+  AuthType,
+  AuthorizerCredentials,
+  AuthorizerResultTtlInSeconds,
+  AuthorizerUri,
+  IdentitySource,
+  IdentityValidationExpression,
+  Name,
+  ProviderARNs,
+  Type,
+  region
 )
 SELECT
- '{{ rest_api_id }}',
- '{{ auth_type }}',
- '{{ authorizer_credentials }}',
- '{{ authorizer_result_ttl_in_seconds }}',
- '{{ authorizer_uri }}',
- '{{ identity_source }}',
- '{{ identity_validation_expression }}',
- '{{ name }}',
- '{{ provider_arns }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ rest_api_id }}',
+  '{{ auth_type }}',
+  '{{ authorizer_credentials }}',
+  '{{ authorizer_result_ttl_in_seconds }}',
+  '{{ authorizer_uri }}',
+  '{{ identity_source }}',
+  '{{ identity_validation_expression }}',
+  '{{ name }}',
+  '{{ provider_arns }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "ProviderARNs": provider_arns,
     "Type": type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.authorizers
-WHERE Identifier = '{{ rest_api_id }}|{{ authorizer_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rest_api_id }}|{{ authorizer_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

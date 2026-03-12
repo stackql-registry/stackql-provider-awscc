@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mlflow_tracking_server</code>.
 ```sql
 SELECT
-region,
-tracking_server_name,
-tracking_server_arn,
-tracking_server_size,
-mlflow_version,
-role_arn,
-artifact_store_uri,
-automatic_model_registration,
-weekly_maintenance_window_start,
-tags
+  region,
+  tracking_server_name,
+  tracking_server_arn,
+  tracking_server_size,
+  mlflow_version,
+  role_arn,
+  artifact_store_uri,
+  automatic_model_registration,
+  weekly_maintenance_window_start,
+  tags
 FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE region = 'us-east-1' AND Identifier = '{{ tracking_server_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ tracking_server_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ tracking_server_name }}';
 Lists all <code>mlflow_tracking_servers</code> in a region.
 ```sql
 SELECT
-region,
-tracking_server_name
+  region,
+  tracking_server_name
 FROM awscc.sagemaker.mlflow_tracking_servers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,16 +230,16 @@ Use the following StackQL query and manifest file to create a new <code>mlflow_t
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.mlflow_tracking_servers (
- TrackingServerName,
- RoleArn,
- ArtifactStoreUri,
- region
+  TrackingServerName,
+  RoleArn,
+  ArtifactStoreUri,
+  region
 )
 SELECT
-'{{ tracking_server_name }}',
- '{{ role_arn }}',
- '{{ artifact_store_uri }}',
-'{{ region }}';
+  '{{ tracking_server_name }}',
+  '{{ role_arn }}',
+  '{{ artifact_store_uri }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -244,26 +247,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.mlflow_tracking_servers (
- TrackingServerName,
- TrackingServerSize,
- MlflowVersion,
- RoleArn,
- ArtifactStoreUri,
- AutomaticModelRegistration,
- WeeklyMaintenanceWindowStart,
- Tags,
- region
+  TrackingServerName,
+  TrackingServerSize,
+  MlflowVersion,
+  RoleArn,
+  ArtifactStoreUri,
+  AutomaticModelRegistration,
+  WeeklyMaintenanceWindowStart,
+  Tags,
+  region
 )
 SELECT
- '{{ tracking_server_name }}',
- '{{ tracking_server_size }}',
- '{{ mlflow_version }}',
- '{{ role_arn }}',
- '{{ artifact_store_uri }}',
- '{{ automatic_model_registration }}',
- '{{ weekly_maintenance_window_start }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ tracking_server_name }}',
+  '{{ tracking_server_size }}',
+  '{{ mlflow_version }}',
+  '{{ role_arn }}',
+  '{{ artifact_store_uri }}',
+  '{{ automatic_model_registration }}',
+  '{{ weekly_maintenance_window_start }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -318,8 +321,9 @@ SET PatchDocument = string('{{ {
     "WeeklyMaintenanceWindowStart": weekly_maintenance_window_start,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ tracking_server_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ tracking_server_name }}';
 ```
 
 
@@ -328,8 +332,9 @@ AND Identifier = '{{ tracking_server_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE Identifier = '{{ tracking_server_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ tracking_server_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

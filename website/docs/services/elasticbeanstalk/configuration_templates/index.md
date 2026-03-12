@@ -205,17 +205,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_template</code>.
 ```sql
 SELECT
-region,
-application_name,
-description,
-environment_id,
-option_settings,
-platform_arn,
-solution_stack_name,
-source_configuration,
-template_name
+  region,
+  application_name,
+  description,
+  environment_id,
+  option_settings,
+  platform_arn,
+  solution_stack_name,
+  source_configuration,
+  template_name
 FROM awscc.elasticbeanstalk.configuration_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ template_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_name }}|{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,11 +225,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ template_
 Lists all <code>configuration_templates</code> in a region.
 ```sql
 SELECT
-region,
-application_name,
-template_name
+  region,
+  application_name,
+  template_name
 FROM awscc.elasticbeanstalk.configuration_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -249,12 +252,12 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.configuration_templates (
- ApplicationName,
- region
+  ApplicationName,
+  region
 )
 SELECT
-'{{ application_name }}',
-'{{ region }}';
+  '{{ application_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,24 +265,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.configuration_templates (
- ApplicationName,
- Description,
- EnvironmentId,
- OptionSettings,
- PlatformArn,
- SolutionStackName,
- SourceConfiguration,
- region
+  ApplicationName,
+  Description,
+  EnvironmentId,
+  OptionSettings,
+  PlatformArn,
+  SolutionStackName,
+  SourceConfiguration,
+  region
 )
 SELECT
- '{{ application_name }}',
- '{{ description }}',
- '{{ environment_id }}',
- '{{ option_settings }}',
- '{{ platform_arn }}',
- '{{ solution_stack_name }}',
- '{{ source_configuration }}',
- '{{ region }}';
+  '{{ application_name }}',
+  '{{ description }}',
+  '{{ environment_id }}',
+  '{{ option_settings }}',
+  '{{ platform_arn }}',
+  '{{ solution_stack_name }}',
+  '{{ source_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -331,8 +334,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "OptionSettings": option_settings
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_name }}|{{ template_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_name }}|{{ template_name }}';
 ```
 
 
@@ -341,8 +345,9 @@ AND Identifier = '{{ application_name }}|{{ template_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.configuration_templates
-WHERE Identifier = '{{ application_name }}|{{ template_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_name }}|{{ template_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

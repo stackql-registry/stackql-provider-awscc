@@ -183,18 +183,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>extension</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-version_number,
-name,
-description,
-actions,
-parameters,
-latest_version_number,
-tags
+  region,
+  id,
+  arn,
+  version_number,
+  name,
+  description,
+  actions,
+  parameters,
+  latest_version_number,
+  tags
 FROM awscc.appconfig.extensions
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>extensions</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.appconfig.extensions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,14 +230,14 @@ Use the following StackQL query and manifest file to create a new <code>extensio
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.extensions (
- Name,
- Actions,
- region
+  Name,
+  Actions,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ actions }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,22 +245,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.extensions (
- Name,
- Description,
- Actions,
- Parameters,
- LatestVersionNumber,
- Tags,
- region
+  Name,
+  Description,
+  Actions,
+  Parameters,
+  LatestVersionNumber,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ actions }}',
- '{{ parameters }}',
- '{{ latest_version_number }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ actions }}',
+  '{{ parameters }}',
+  '{{ latest_version_number }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ SET PatchDocument = string('{{ {
     "LatestVersionNumber": latest_version_number,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.extensions
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

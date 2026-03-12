@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key_signing_key</code>.
 ```sql
 SELECT
-region,
-hosted_zone_id,
-status,
-name,
-key_management_service_arn
+  region,
+  hosted_zone_id,
+  status,
+  name,
+  key_management_service_arn
 FROM awscc.route53.key_signing_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hosted_zone_id }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
 Lists all <code>key_signing_keys</code> in a region.
 ```sql
 SELECT
-region,
-hosted_zone_id,
-name
+  region,
+  hosted_zone_id,
+  name
 FROM awscc.route53.key_signing_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,18 +194,18 @@ Use the following StackQL query and manifest file to create a new <code>key_sign
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.key_signing_keys (
- HostedZoneId,
- Status,
- Name,
- KeyManagementServiceArn,
- region
+  HostedZoneId,
+  Status,
+  Name,
+  KeyManagementServiceArn,
+  region
 )
 SELECT
-'{{ hosted_zone_id }}',
- '{{ status }}',
- '{{ name }}',
- '{{ key_management_service_arn }}',
-'{{ region }}';
+  '{{ hosted_zone_id }}',
+  '{{ status }}',
+  '{{ name }}',
+  '{{ key_management_service_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,18 +213,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53.key_signing_keys (
- HostedZoneId,
- Status,
- Name,
- KeyManagementServiceArn,
- region
+  HostedZoneId,
+  Status,
+  Name,
+  KeyManagementServiceArn,
+  region
 )
 SELECT
- '{{ hosted_zone_id }}',
- '{{ status }}',
- '{{ name }}',
- '{{ key_management_service_arn }}',
- '{{ region }}';
+  '{{ hosted_zone_id }}',
+  '{{ status }}',
+  '{{ name }}',
+  '{{ key_management_service_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -260,8 +263,9 @@ UPDATE awscc.route53.key_signing_keys
 SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hosted_zone_id }}|{{ name }}';
 ```
 
 
@@ -270,8 +274,9 @@ AND Identifier = '{{ hosted_zone_id }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.key_signing_keys
-WHERE Identifier = '{{ hosted_zone_id }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hosted_zone_id }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

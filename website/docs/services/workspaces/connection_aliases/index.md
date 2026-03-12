@@ -134,14 +134,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connection_alias</code>.
 ```sql
 SELECT
-region,
-associations,
-alias_id,
-connection_string,
-connection_alias_state,
-tags
+  region,
+  associations,
+  alias_id,
+  connection_string,
+  connection_alias_state,
+  tags
 FROM awscc.workspaces.connection_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ alias_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alias_id }}';
 ```
 
 ## `INSERT` example
@@ -161,12 +163,12 @@ Use the following StackQL query and manifest file to create a new <code>connecti
 ```sql
 /*+ create */
 INSERT INTO awscc.workspaces.connection_aliases (
- ConnectionString,
- region
+  ConnectionString,
+  region
 )
 SELECT
-'{{ connection_string }}',
-'{{ region }}';
+  '{{ connection_string }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -174,14 +176,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspaces.connection_aliases (
- ConnectionString,
- Tags,
- region
+  ConnectionString,
+  Tags,
+  region
 )
 SELECT
- '{{ connection_string }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ connection_string }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -214,8 +216,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.connection_aliases
-WHERE Identifier = '{{ alias_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alias_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

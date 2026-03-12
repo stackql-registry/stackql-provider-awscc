@@ -190,17 +190,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>room</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-name,
-logging_configuration_identifiers,
-maximum_message_length,
-maximum_message_rate_per_second,
-message_review_handler,
-tags
+  region,
+  arn,
+  id,
+  name,
+  logging_configuration_identifiers,
+  maximum_message_length,
+  maximum_message_rate_per_second,
+  message_review_handler,
+  tags
 FROM awscc.ivschat.rooms
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rooms</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivschat.rooms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,12 +236,12 @@ Use the following StackQL query and manifest file to create a new <code>room</co
 ```sql
 /*+ create */
 INSERT INTO awscc.ivschat.rooms (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,22 +249,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivschat.rooms (
- Name,
- LoggingConfigurationIdentifiers,
- MaximumMessageLength,
- MaximumMessageRatePerSecond,
- MessageReviewHandler,
- Tags,
- region
+  Name,
+  LoggingConfigurationIdentifiers,
+  MaximumMessageLength,
+  MaximumMessageRatePerSecond,
+  MessageReviewHandler,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ logging_configuration_identifiers }}',
- '{{ maximum_message_length }}',
- '{{ maximum_message_rate_per_second }}',
- '{{ message_review_handler }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ logging_configuration_identifiers }}',
+  '{{ maximum_message_length }}',
+  '{{ maximum_message_rate_per_second }}',
+  '{{ message_review_handler }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ SET PatchDocument = string('{{ {
     "MessageReviewHandler": message_review_handler,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -324,8 +328,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivschat.rooms
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

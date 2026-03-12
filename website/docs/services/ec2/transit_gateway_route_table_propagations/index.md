@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_route_table_propagation</code>.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id,
-transit_gateway_attachment_id
+  region,
+  transit_gateway_route_table_id,
+  transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_route_table_propagations
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }
 Lists all <code>transit_gateway_route_table_propagations</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_route_table_id,
-transit_gateway_attachment_id
+  region,
+  transit_gateway_route_table_id,
+  transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_route_table_propagations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_route_table_propagations (
- TransitGatewayRouteTableId,
- TransitGatewayAttachmentId,
- region
+  TransitGatewayRouteTableId,
+  TransitGatewayAttachmentId,
+  region
 )
 SELECT
-'{{ transit_gateway_route_table_id }}',
- '{{ transit_gateway_attachment_id }}',
-'{{ region }}';
+  '{{ transit_gateway_route_table_id }}',
+  '{{ transit_gateway_attachment_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_route_table_propagations (
- TransitGatewayRouteTableId,
- TransitGatewayAttachmentId,
- region
+  TransitGatewayRouteTableId,
+  TransitGatewayAttachmentId,
+  region
 )
 SELECT
- '{{ transit_gateway_route_table_id }}',
- '{{ transit_gateway_attachment_id }}',
- '{{ region }}';
+  '{{ transit_gateway_route_table_id }}',
+  '{{ transit_gateway_attachment_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_route_table_propagations
-WHERE Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

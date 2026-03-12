@@ -253,22 +253,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>email_identity</code>.
 ```sql
 SELECT
-region,
-email_identity,
-configuration_set_attributes,
-dkim_signing_attributes,
-dkim_attributes,
-mail_from_attributes,
-feedback_attributes,
-dkim_dns_token_name1,
-dkim_dns_token_name2,
-dkim_dns_token_name3,
-dkim_dns_token_value1,
-dkim_dns_token_value2,
-dkim_dns_token_value3,
-tags
+  region,
+  email_identity,
+  configuration_set_attributes,
+  dkim_signing_attributes,
+  dkim_attributes,
+  mail_from_attributes,
+  feedback_attributes,
+  dkim_dns_token_name1,
+  dkim_dns_token_name2,
+  dkim_dns_token_name3,
+  dkim_dns_token_value1,
+  dkim_dns_token_value2,
+  dkim_dns_token_value3,
+  tags
 FROM awscc.ses.email_identities
-WHERE region = 'us-east-1' AND Identifier = '{{ email_identity }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ email_identity }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,10 +278,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ email_identity }}';
 Lists all <code>email_identities</code> in a region.
 ```sql
 SELECT
-region,
-email_identity
+  region,
+  email_identity
 FROM awscc.ses.email_identities_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -301,12 +304,12 @@ Use the following StackQL query and manifest file to create a new <code>email_id
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.email_identities (
- EmailIdentity,
- region
+  EmailIdentity,
+  region
 )
 SELECT
-'{{ email_identity }}',
-'{{ region }}';
+  '{{ email_identity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -314,24 +317,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.email_identities (
- EmailIdentity,
- ConfigurationSetAttributes,
- DkimSigningAttributes,
- DkimAttributes,
- MailFromAttributes,
- FeedbackAttributes,
- Tags,
- region
+  EmailIdentity,
+  ConfigurationSetAttributes,
+  DkimSigningAttributes,
+  DkimAttributes,
+  MailFromAttributes,
+  FeedbackAttributes,
+  Tags,
+  region
 )
 SELECT
- '{{ email_identity }}',
- '{{ configuration_set_attributes }}',
- '{{ dkim_signing_attributes }}',
- '{{ dkim_attributes }}',
- '{{ mail_from_attributes }}',
- '{{ feedback_attributes }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ email_identity }}',
+  '{{ configuration_set_attributes }}',
+  '{{ dkim_signing_attributes }}',
+  '{{ dkim_attributes }}',
+  '{{ mail_from_attributes }}',
+  '{{ feedback_attributes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -391,8 +394,9 @@ SET PatchDocument = string('{{ {
     "FeedbackAttributes": feedback_attributes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ email_identity }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ email_identity }}';
 ```
 
 
@@ -401,8 +405,9 @@ AND Identifier = '{{ email_identity }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.email_identities
-WHERE Identifier = '{{ email_identity }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ email_identity }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

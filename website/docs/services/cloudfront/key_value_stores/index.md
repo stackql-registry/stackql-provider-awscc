@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>key_value_store</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-status,
-name,
-comment,
-import_source
+  region,
+  arn,
+  id,
+  status,
+  name,
+  comment,
+  import_source
 FROM awscc.cloudfront.key_value_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>key_value_stores</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.cloudfront.key_value_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>key_valu
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.key_value_stores (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,16 +225,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.key_value_stores (
- Name,
- Comment,
- ImportSource,
- region
+  Name,
+  Comment,
+  ImportSource,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ comment }}',
- '{{ import_source }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ comment }}',
+  '{{ import_source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -271,8 +274,9 @@ SET PatchDocument = string('{{ {
     "Comment": comment,
     "ImportSource": import_source
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -281,8 +285,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.key_value_stores
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

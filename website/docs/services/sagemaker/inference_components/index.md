@@ -345,22 +345,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>inference_component</code>.
 ```sql
 SELECT
-region,
-inference_component_arn,
-inference_component_name,
-endpoint_arn,
-endpoint_name,
-variant_name,
-failure_reason,
-specification,
-runtime_config,
-deployment_config,
-inference_component_status,
-creation_time,
-last_modified_time,
-tags
+  region,
+  inference_component_arn,
+  inference_component_name,
+  endpoint_arn,
+  endpoint_name,
+  variant_name,
+  failure_reason,
+  specification,
+  runtime_config,
+  deployment_config,
+  inference_component_status,
+  creation_time,
+  last_modified_time,
+  tags
 FROM awscc.sagemaker.inference_components
-WHERE region = 'us-east-1' AND Identifier = '{{ inference_component_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ inference_component_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -368,10 +370,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ inference_component_arn }}';
 Lists all <code>inference_components</code> in a region.
 ```sql
 SELECT
-region,
-inference_component_arn
+  region,
+  inference_component_arn
 FROM awscc.sagemaker.inference_components_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -393,14 +396,14 @@ Use the following StackQL query and manifest file to create a new <code>inferenc
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.inference_components (
- EndpointName,
- Specification,
- region
+  EndpointName,
+  Specification,
+  region
 )
 SELECT
-'{{ endpoint_name }}',
- '{{ specification }}',
-'{{ region }}';
+  '{{ endpoint_name }}',
+  '{{ specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -408,26 +411,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.inference_components (
- InferenceComponentName,
- EndpointArn,
- EndpointName,
- VariantName,
- Specification,
- RuntimeConfig,
- DeploymentConfig,
- Tags,
- region
+  InferenceComponentName,
+  EndpointArn,
+  EndpointName,
+  VariantName,
+  Specification,
+  RuntimeConfig,
+  DeploymentConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ inference_component_name }}',
- '{{ endpoint_arn }}',
- '{{ endpoint_name }}',
- '{{ variant_name }}',
- '{{ specification }}',
- '{{ runtime_config }}',
- '{{ deployment_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ inference_component_name }}',
+  '{{ endpoint_arn }}',
+  '{{ endpoint_name }}',
+  '{{ variant_name }}',
+  '{{ specification }}',
+  '{{ runtime_config }}',
+  '{{ deployment_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -512,8 +515,9 @@ SET PatchDocument = string('{{ {
     "DeploymentConfig": deployment_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ inference_component_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ inference_component_arn }}';
 ```
 
 
@@ -522,8 +526,9 @@ AND Identifier = '{{ inference_component_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.inference_components
-WHERE Identifier = '{{ inference_component_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ inference_component_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

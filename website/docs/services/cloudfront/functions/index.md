@@ -192,16 +192,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>function</code>.
 ```sql
 SELECT
-region,
-auto_publish,
-function_arn,
-function_code,
-function_config,
-function_metadata,
-name,
-stage
+  region,
+  auto_publish,
+  function_arn,
+  function_code,
+  function_config,
+  function_metadata,
+  name,
+  stage
 FROM awscc.cloudfront.functions
-WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +211,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 Lists all <code>functions</code> in a region.
 ```sql
 SELECT
-region,
-function_arn
+  region,
+  function_arn
 FROM awscc.cloudfront.functions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,16 +237,16 @@ Use the following StackQL query and manifest file to create a new <code>function
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.functions (
- FunctionCode,
- FunctionConfig,
- Name,
- region
+  FunctionCode,
+  FunctionConfig,
+  Name,
+  region
 )
 SELECT
-'{{ function_code }}',
- '{{ function_config }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ function_code }}',
+  '{{ function_config }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -251,20 +254,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.functions (
- AutoPublish,
- FunctionCode,
- FunctionConfig,
- FunctionMetadata,
- Name,
- region
+  AutoPublish,
+  FunctionCode,
+  FunctionConfig,
+  FunctionMetadata,
+  Name,
+  region
 )
 SELECT
- '{{ auto_publish }}',
- '{{ function_code }}',
- '{{ function_config }}',
- '{{ function_metadata }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ auto_publish }}',
+  '{{ function_code }}',
+  '{{ function_config }}',
+  '{{ function_metadata }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "FunctionCode": function_code,
     "FunctionConfig": function_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ function_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ function_arn }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ function_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.functions
-WHERE Identifier = '{{ function_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

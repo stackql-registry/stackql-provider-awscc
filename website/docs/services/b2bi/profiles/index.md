@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT
-region,
-business_name,
-created_at,
-email,
-log_group_name,
-logging,
-modified_at,
-name,
-phone,
-profile_arn,
-profile_id,
-tags
+  region,
+  business_name,
+  created_at,
+  email,
+  log_group_name,
+  logging,
+  modified_at,
+  name,
+  phone,
+  profile_arn,
+  profile_id,
+  tags
 FROM awscc.b2bi.profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 Lists all <code>profiles</code> in a region.
 ```sql
 SELECT
-region,
-profile_id
+  region,
+  profile_id
 FROM awscc.b2bi.profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,18 +242,18 @@ Use the following StackQL query and manifest file to create a new <code>profile<
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.profiles (
- BusinessName,
- Logging,
- Name,
- Phone,
- region
+  BusinessName,
+  Logging,
+  Name,
+  Phone,
+  region
 )
 SELECT
-'{{ business_name }}',
- '{{ logging }}',
- '{{ name }}',
- '{{ phone }}',
-'{{ region }}';
+  '{{ business_name }}',
+  '{{ logging }}',
+  '{{ name }}',
+  '{{ phone }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,22 +261,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.b2bi.profiles (
- BusinessName,
- Email,
- Logging,
- Name,
- Phone,
- Tags,
- region
+  BusinessName,
+  Email,
+  Logging,
+  Name,
+  Phone,
+  Tags,
+  region
 )
 SELECT
- '{{ business_name }}',
- '{{ email }}',
- '{{ logging }}',
- '{{ name }}',
- '{{ phone }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ business_name }}',
+  '{{ email }}',
+  '{{ logging }}',
+  '{{ name }}',
+  '{{ phone }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ SET PatchDocument = string('{{ {
     "Phone": phone,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ profile_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ profile_id }}';
 ```
 
 
@@ -332,8 +336,9 @@ AND Identifier = '{{ profile_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.profiles
-WHERE Identifier = '{{ profile_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ profile_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

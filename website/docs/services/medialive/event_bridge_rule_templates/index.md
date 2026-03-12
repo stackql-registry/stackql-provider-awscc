@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_bridge_rule_template</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-description,
-event_targets,
-event_type,
-group_id,
-group_identifier,
-id,
-identifier,
-modified_at,
-name,
-tags
+  region,
+  arn,
+  created_at,
+  description,
+  event_targets,
+  event_type,
+  group_id,
+  group_identifier,
+  id,
+  identifier,
+  modified_at,
+  name,
+  tags
 FROM awscc.medialive.event_bridge_rule_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 Lists all <code>event_bridge_rule_templates</code> in a region.
 ```sql
 SELECT
-region,
-identifier
+  region,
+  identifier
 FROM awscc.medialive.event_bridge_rule_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,14 +248,14 @@ Use the following StackQL query and manifest file to create a new <code>event_br
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.event_bridge_rule_templates (
- EventType,
- Name,
- region
+  EventType,
+  Name,
+  region
 )
 SELECT
-'{{ event_type }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ event_type }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -260,22 +263,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.event_bridge_rule_templates (
- Description,
- EventTargets,
- EventType,
- GroupIdentifier,
- Name,
- Tags,
- region
+  Description,
+  EventTargets,
+  EventType,
+  GroupIdentifier,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ event_targets }}',
- '{{ event_type }}',
- '{{ group_identifier }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ event_targets }}',
+  '{{ event_type }}',
+  '{{ group_identifier }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -323,8 +326,9 @@ SET PatchDocument = string('{{ {
     "GroupIdentifier": group_identifier,
     "Name": name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ identifier }}';
 ```
 
 
@@ -333,8 +337,9 @@ AND Identifier = '{{ identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.event_bridge_rule_templates
-WHERE Identifier = '{{ identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

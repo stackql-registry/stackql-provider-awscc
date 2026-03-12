@@ -466,25 +466,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>task</code>.
 ```sql
 SELECT
-region,
-excludes,
-includes,
-tags,
-cloud_watch_log_group_arn,
-destination_location_arn,
-name,
-options,
-task_report_config,
-manifest_config,
-schedule,
-source_location_arn,
-task_arn,
-task_mode,
-status,
-source_network_interface_arns,
-destination_network_interface_arns
+  region,
+  excludes,
+  includes,
+  tags,
+  cloud_watch_log_group_arn,
+  destination_location_arn,
+  name,
+  options,
+  task_report_config,
+  manifest_config,
+  schedule,
+  source_location_arn,
+  task_arn,
+  task_mode,
+  status,
+  source_network_interface_arns,
+  destination_network_interface_arns
 FROM awscc.datasync.tasks
-WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ task_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -492,10 +494,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ task_arn }}';
 Lists all <code>tasks</code> in a region.
 ```sql
 SELECT
-region,
-task_arn
+  region,
+  task_arn
 FROM awscc.datasync.tasks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -517,14 +520,14 @@ Use the following StackQL query and manifest file to create a new <code>task</co
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.tasks (
- DestinationLocationArn,
- SourceLocationArn,
- region
+  DestinationLocationArn,
+  SourceLocationArn,
+  region
 )
 SELECT
-'{{ destination_location_arn }}',
- '{{ source_location_arn }}',
-'{{ region }}';
+  '{{ destination_location_arn }}',
+  '{{ source_location_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -532,34 +535,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datasync.tasks (
- Excludes,
- Includes,
- Tags,
- CloudWatchLogGroupArn,
- DestinationLocationArn,
- Name,
- Options,
- TaskReportConfig,
- ManifestConfig,
- Schedule,
- SourceLocationArn,
- TaskMode,
- region
+  Excludes,
+  Includes,
+  Tags,
+  CloudWatchLogGroupArn,
+  DestinationLocationArn,
+  Name,
+  Options,
+  TaskReportConfig,
+  ManifestConfig,
+  Schedule,
+  SourceLocationArn,
+  TaskMode,
+  region
 )
 SELECT
- '{{ excludes }}',
- '{{ includes }}',
- '{{ tags }}',
- '{{ cloud_watch_log_group_arn }}',
- '{{ destination_location_arn }}',
- '{{ name }}',
- '{{ options }}',
- '{{ task_report_config }}',
- '{{ manifest_config }}',
- '{{ schedule }}',
- '{{ source_location_arn }}',
- '{{ task_mode }}',
- '{{ region }}';
+  '{{ excludes }}',
+  '{{ includes }}',
+  '{{ tags }}',
+  '{{ cloud_watch_log_group_arn }}',
+  '{{ destination_location_arn }}',
+  '{{ name }}',
+  '{{ options }}',
+  '{{ task_report_config }}',
+  '{{ manifest_config }}',
+  '{{ schedule }}',
+  '{{ source_location_arn }}',
+  '{{ task_mode }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -669,8 +672,9 @@ SET PatchDocument = string('{{ {
     "ManifestConfig": manifest_config,
     "Schedule": schedule
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ task_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ task_arn }}';
 ```
 
 
@@ -679,8 +683,9 @@ AND Identifier = '{{ task_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.tasks
-WHERE Identifier = '{{ task_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ task_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

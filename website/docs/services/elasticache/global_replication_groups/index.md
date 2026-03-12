@@ -232,21 +232,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>global_replication_group</code>.
 ```sql
 SELECT
-region,
-global_replication_group_id_suffix,
-automatic_failover_enabled,
-cache_node_type,
-engine_version,
-engine,
-cache_parameter_group_name,
-global_node_group_count,
-global_replication_group_description,
-global_replication_group_id,
-members,
-status,
-regional_configurations
+  region,
+  global_replication_group_id_suffix,
+  automatic_failover_enabled,
+  cache_node_type,
+  engine_version,
+  engine,
+  cache_parameter_group_name,
+  global_node_group_count,
+  global_replication_group_description,
+  global_replication_group_id,
+  members,
+  status,
+  regional_configurations
 FROM awscc.elasticache.global_replication_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ global_replication_group_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_replication_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,10 +256,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_replication_group_id }}';
 Lists all <code>global_replication_groups</code> in a region.
 ```sql
 SELECT
-region,
-global_replication_group_id
+  region,
+  global_replication_group_id
 FROM awscc.elasticache.global_replication_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -279,12 +282,12 @@ Use the following StackQL query and manifest file to create a new <code>global_r
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.global_replication_groups (
- Members,
- region
+  Members,
+  region
 )
 SELECT
-'{{ members }}',
-'{{ region }}';
+  '{{ members }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -292,30 +295,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticache.global_replication_groups (
- GlobalReplicationGroupIdSuffix,
- AutomaticFailoverEnabled,
- CacheNodeType,
- EngineVersion,
- Engine,
- CacheParameterGroupName,
- GlobalNodeGroupCount,
- GlobalReplicationGroupDescription,
- Members,
- RegionalConfigurations,
- region
+  GlobalReplicationGroupIdSuffix,
+  AutomaticFailoverEnabled,
+  CacheNodeType,
+  EngineVersion,
+  Engine,
+  CacheParameterGroupName,
+  GlobalNodeGroupCount,
+  GlobalReplicationGroupDescription,
+  Members,
+  RegionalConfigurations,
+  region
 )
 SELECT
- '{{ global_replication_group_id_suffix }}',
- '{{ automatic_failover_enabled }}',
- '{{ cache_node_type }}',
- '{{ engine_version }}',
- '{{ engine }}',
- '{{ cache_parameter_group_name }}',
- '{{ global_node_group_count }}',
- '{{ global_replication_group_description }}',
- '{{ members }}',
- '{{ regional_configurations }}',
- '{{ region }}';
+  '{{ global_replication_group_id_suffix }}',
+  '{{ automatic_failover_enabled }}',
+  '{{ cache_node_type }}',
+  '{{ engine_version }}',
+  '{{ engine }}',
+  '{{ cache_parameter_group_name }}',
+  '{{ global_node_group_count }}',
+  '{{ global_replication_group_description }}',
+  '{{ members }}',
+  '{{ regional_configurations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -384,8 +387,9 @@ SET PatchDocument = string('{{ {
     "Members": members,
     "RegionalConfigurations": regional_configurations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ global_replication_group_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ global_replication_group_id }}';
 ```
 
 
@@ -394,8 +398,9 @@ AND Identifier = '{{ global_replication_group_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.global_replication_groups
-WHERE Identifier = '{{ global_replication_group_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_replication_group_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -193,20 +193,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ipam_resource_discovery_association</code>.
 ```sql
 SELECT
-region,
-ipam_arn,
-ipam_region,
-ipam_resource_discovery_association_id,
-ipam_resource_discovery_id,
-ipam_id,
-ipam_resource_discovery_association_arn,
-is_default,
-owner_id,
-state,
-resource_discovery_status,
-tags
+  region,
+  ipam_arn,
+  ipam_region,
+  ipam_resource_discovery_association_id,
+  ipam_resource_discovery_id,
+  ipam_id,
+  ipam_resource_discovery_association_arn,
+  is_default,
+  owner_id,
+  state,
+  resource_discovery_status,
+  tags
 FROM awscc.ec2.ipam_resource_discovery_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ ipam_resource_discovery_association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ ipam_resource_discovery_associat
 Lists all <code>ipam_resource_discovery_associations</code> in a region.
 ```sql
 SELECT
-region,
-ipam_resource_discovery_association_id
+  region,
+  ipam_resource_discovery_association_id
 FROM awscc.ec2.ipam_resource_discovery_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,14 +242,14 @@ Use the following StackQL query and manifest file to create a new <code>ipam_res
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_resource_discovery_associations (
- IpamResourceDiscoveryId,
- IpamId,
- region
+  IpamResourceDiscoveryId,
+  IpamId,
+  region
 )
 SELECT
-'{{ ipam_resource_discovery_id }}',
- '{{ ipam_id }}',
-'{{ region }}';
+  '{{ ipam_resource_discovery_id }}',
+  '{{ ipam_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,16 +257,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.ipam_resource_discovery_associations (
- IpamResourceDiscoveryId,
- IpamId,
- Tags,
- region
+  IpamResourceDiscoveryId,
+  IpamId,
+  Tags,
+  region
 )
 SELECT
- '{{ ipam_resource_discovery_id }}',
- '{{ ipam_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ipam_resource_discovery_id }}',
+  '{{ ipam_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -302,8 +305,9 @@ UPDATE awscc.ec2.ipam_resource_discovery_associations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ ipam_resource_discovery_association_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```
 
 
@@ -312,8 +316,9 @@ AND Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_resource_discovery_associations
-WHERE Identifier = '{{ ipam_resource_discovery_association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ ipam_resource_discovery_association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

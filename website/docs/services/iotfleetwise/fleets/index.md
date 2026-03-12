@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-id,
-last_modification_time,
-signal_catalog_arn,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  id,
+  last_modification_time,
+  signal_catalog_arn,
+  tags
 FROM awscc.iotfleetwise.fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>fleets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotfleetwise.fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>fleet</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.fleets (
- Id,
- SignalCatalogArn,
- region
+  Id,
+  SignalCatalogArn,
+  region
 )
 SELECT
-'{{ id }}',
- '{{ signal_catalog_arn }}',
-'{{ region }}';
+  '{{ id }}',
+  '{{ signal_catalog_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.fleets (
- Description,
- Id,
- SignalCatalogArn,
- Tags,
- region
+  Description,
+  Id,
+  SignalCatalogArn,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ id }}',
- '{{ signal_catalog_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ id }}',
+  '{{ signal_catalog_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.fleets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

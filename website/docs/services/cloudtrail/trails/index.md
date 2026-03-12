@@ -318,27 +318,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trail</code>.
 ```sql
 SELECT
-region,
-include_global_service_events,
-event_selectors,
-kms_key_id,
-cloud_watch_logs_role_arn,
-s3_key_prefix,
-advanced_event_selectors,
-trail_name,
-is_organization_trail,
-insight_selectors,
-cloud_watch_logs_log_group_arn,
-sns_topic_name,
-is_multi_region_trail,
-s3_bucket_name,
-sns_topic_arn,
-enable_log_file_validation,
-arn,
-tags,
-is_logging
+  region,
+  include_global_service_events,
+  event_selectors,
+  kms_key_id,
+  cloud_watch_logs_role_arn,
+  s3_key_prefix,
+  advanced_event_selectors,
+  trail_name,
+  is_organization_trail,
+  insight_selectors,
+  cloud_watch_logs_log_group_arn,
+  sns_topic_name,
+  is_multi_region_trail,
+  s3_bucket_name,
+  sns_topic_arn,
+  enable_log_file_validation,
+  arn,
+  tags,
+  is_logging
 FROM awscc.cloudtrail.trails
-WHERE region = 'us-east-1' AND Identifier = '{{ trail_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ trail_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,10 +348,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ trail_name }}';
 Lists all <code>trails</code> in a region.
 ```sql
 SELECT
-region,
-trail_name
+  region,
+  trail_name
 FROM awscc.cloudtrail.trails_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -371,14 +374,14 @@ Use the following StackQL query and manifest file to create a new <code>trail</c
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.trails (
- S3BucketName,
- IsLogging,
- region
+  S3BucketName,
+  IsLogging,
+  region
 )
 SELECT
-'{{ s3_bucket_name }}',
- '{{ is_logging }}',
-'{{ region }}';
+  '{{ s3_bucket_name }}',
+  '{{ is_logging }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -386,42 +389,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudtrail.trails (
- IncludeGlobalServiceEvents,
- EventSelectors,
- KMSKeyId,
- CloudWatchLogsRoleArn,
- S3KeyPrefix,
- AdvancedEventSelectors,
- TrailName,
- IsOrganizationTrail,
- InsightSelectors,
- CloudWatchLogsLogGroupArn,
- SnsTopicName,
- IsMultiRegionTrail,
- S3BucketName,
- EnableLogFileValidation,
- Tags,
- IsLogging,
- region
+  IncludeGlobalServiceEvents,
+  EventSelectors,
+  KMSKeyId,
+  CloudWatchLogsRoleArn,
+  S3KeyPrefix,
+  AdvancedEventSelectors,
+  TrailName,
+  IsOrganizationTrail,
+  InsightSelectors,
+  CloudWatchLogsLogGroupArn,
+  SnsTopicName,
+  IsMultiRegionTrail,
+  S3BucketName,
+  EnableLogFileValidation,
+  Tags,
+  IsLogging,
+  region
 )
 SELECT
- '{{ include_global_service_events }}',
- '{{ event_selectors }}',
- '{{ kms_key_id }}',
- '{{ cloud_watch_logs_role_arn }}',
- '{{ s3_key_prefix }}',
- '{{ advanced_event_selectors }}',
- '{{ trail_name }}',
- '{{ is_organization_trail }}',
- '{{ insight_selectors }}',
- '{{ cloud_watch_logs_log_group_arn }}',
- '{{ sns_topic_name }}',
- '{{ is_multi_region_trail }}',
- '{{ s3_bucket_name }}',
- '{{ enable_log_file_validation }}',
- '{{ tags }}',
- '{{ is_logging }}',
- '{{ region }}';
+  '{{ include_global_service_events }}',
+  '{{ event_selectors }}',
+  '{{ kms_key_id }}',
+  '{{ cloud_watch_logs_role_arn }}',
+  '{{ s3_key_prefix }}',
+  '{{ advanced_event_selectors }}',
+  '{{ trail_name }}',
+  '{{ is_organization_trail }}',
+  '{{ insight_selectors }}',
+  '{{ cloud_watch_logs_log_group_arn }}',
+  '{{ sns_topic_name }}',
+  '{{ is_multi_region_trail }}',
+  '{{ s3_bucket_name }}',
+  '{{ enable_log_file_validation }}',
+  '{{ tags }}',
+  '{{ is_logging }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -524,8 +527,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "IsLogging": is_logging
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ trail_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ trail_name }}';
 ```
 
 
@@ -534,8 +538,9 @@ AND Identifier = '{{ trail_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.trails
-WHERE Identifier = '{{ trail_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ trail_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

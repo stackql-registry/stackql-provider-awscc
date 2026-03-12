@@ -175,16 +175,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>link</code>.
 ```sql
 SELECT
-region,
-arn,
-label,
-label_template,
-resource_types,
-sink_identifier,
-link_configuration,
-tags
+  region,
+  arn,
+  label,
+  label_template,
+  resource_types,
+  sink_identifier,
+  link_configuration,
+  tags
 FROM awscc.oam.links
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -192,10 +194,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>links</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.oam.links_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -217,14 +220,14 @@ Use the following StackQL query and manifest file to create a new <code>link</co
 ```sql
 /*+ create */
 INSERT INTO awscc.oam.links (
- ResourceTypes,
- SinkIdentifier,
- region
+  ResourceTypes,
+  SinkIdentifier,
+  region
 )
 SELECT
-'{{ resource_types }}',
- '{{ sink_identifier }}',
-'{{ region }}';
+  '{{ resource_types }}',
+  '{{ sink_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -232,20 +235,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.oam.links (
- LabelTemplate,
- ResourceTypes,
- SinkIdentifier,
- LinkConfiguration,
- Tags,
- region
+  LabelTemplate,
+  ResourceTypes,
+  SinkIdentifier,
+  LinkConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ label_template }}',
- '{{ resource_types }}',
- '{{ sink_identifier }}',
- '{{ link_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ label_template }}',
+  '{{ resource_types }}',
+  '{{ sink_identifier }}',
+  '{{ link_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "LinkConfiguration": link_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.oam.links
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

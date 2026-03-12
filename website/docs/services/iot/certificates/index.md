@@ -161,16 +161,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate</code>.
 ```sql
 SELECT
-region,
-ca_certificate_pem,
-certificate_pem,
-certificate_signing_request,
-certificate_mode,
-status,
-id,
-arn
+  region,
+  ca_certificate_pem,
+  certificate_pem,
+  certificate_signing_request,
+  certificate_mode,
+  status,
+  id,
+  arn
 FROM awscc.iot.certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>certificates</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iot.certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.certificates (
- Status,
- region
+  Status,
+  region
 )
 SELECT
-'{{ status }}',
-'{{ region }}';
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,20 +219,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.certificates (
- CACertificatePem,
- CertificatePem,
- CertificateSigningRequest,
- CertificateMode,
- Status,
- region
+  CACertificatePem,
+  CertificatePem,
+  CertificateSigningRequest,
+  CertificateMode,
+  Status,
+  region
 )
 SELECT
- '{{ ca_certificate_pem }}',
- '{{ certificate_pem }}',
- '{{ certificate_signing_request }}',
- '{{ certificate_mode }}',
- '{{ status }}',
- '{{ region }}';
+  '{{ ca_certificate_pem }}',
+  '{{ certificate_pem }}',
+  '{{ certificate_signing_request }}',
+  '{{ certificate_mode }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ UPDATE awscc.iot.certificates
 SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.certificates
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

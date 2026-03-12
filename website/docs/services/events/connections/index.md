@@ -345,18 +345,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT
-region,
-name,
-arn,
-arn_for_policy,
-secret_arn,
-description,
-authorization_type,
-auth_parameters,
-invocation_connectivity_parameters,
-kms_key_identifier
+  region,
+  name,
+  arn,
+  arn_for_policy,
+  secret_arn,
+  description,
+  authorization_type,
+  auth_parameters,
+  invocation_connectivity_parameters,
+  kms_key_identifier
 FROM awscc.events.connections
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -364,10 +366,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>connections</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.events.connections_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -389,22 +392,22 @@ Use the following StackQL query and manifest file to create a new <code>connecti
 ```sql
 /*+ create */
 INSERT INTO awscc.events.connections (
- Name,
- Description,
- AuthorizationType,
- AuthParameters,
- InvocationConnectivityParameters,
- KmsKeyIdentifier,
- region
+  Name,
+  Description,
+  AuthorizationType,
+  AuthParameters,
+  InvocationConnectivityParameters,
+  KmsKeyIdentifier,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ description }}',
- '{{ authorization_type }}',
- '{{ auth_parameters }}',
- '{{ invocation_connectivity_parameters }}',
- '{{ kms_key_identifier }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ authorization_type }}',
+  '{{ auth_parameters }}',
+  '{{ invocation_connectivity_parameters }}',
+  '{{ kms_key_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -412,22 +415,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.events.connections (
- Name,
- Description,
- AuthorizationType,
- AuthParameters,
- InvocationConnectivityParameters,
- KmsKeyIdentifier,
- region
+  Name,
+  Description,
+  AuthorizationType,
+  AuthParameters,
+  InvocationConnectivityParameters,
+  KmsKeyIdentifier,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ authorization_type }}',
- '{{ auth_parameters }}',
- '{{ invocation_connectivity_parameters }}',
- '{{ kms_key_identifier }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ authorization_type }}',
+  '{{ auth_parameters }}',
+  '{{ invocation_connectivity_parameters }}',
+  '{{ kms_key_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -499,8 +502,9 @@ SET PatchDocument = string('{{ {
     "AuthorizationType": authorization_type,
     "KmsKeyIdentifier": kms_key_identifier
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -509,8 +513,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.connections
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

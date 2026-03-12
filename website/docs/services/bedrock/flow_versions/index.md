@@ -276,19 +276,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_version</code>.
 ```sql
 SELECT
-region,
-flow_arn,
-created_at,
-definition,
-description,
-execution_role_arn,
-flow_id,
-name,
-status,
-version,
-customer_encryption_key_arn
+  region,
+  flow_arn,
+  created_at,
+  definition,
+  description,
+  execution_role_arn,
+  flow_id,
+  name,
+  status,
+  version,
+  customer_encryption_key_arn
 FROM awscc.bedrock.flow_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ flow_arn }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,11 +298,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ version }}';
 Lists all <code>flow_versions</code> in a region.
 ```sql
 SELECT
-region,
-flow_arn,
-version
+  region,
+  flow_arn,
+  version
 FROM awscc.bedrock.flow_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,12 +325,12 @@ Use the following StackQL query and manifest file to create a new <code>flow_ver
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flow_versions (
- FlowArn,
- region
+  FlowArn,
+  region
 )
 SELECT
-'{{ flow_arn }}',
-'{{ region }}';
+  '{{ flow_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -335,14 +338,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flow_versions (
- FlowArn,
- Description,
- region
+  FlowArn,
+  Description,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -373,8 +376,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_versions
-WHERE Identifier = '{{ flow_arn }}|{{ version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ flow_arn }}|{{ version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

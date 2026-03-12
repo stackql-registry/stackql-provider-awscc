@@ -215,22 +215,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_profile</code>.
 ```sql
 SELECT
-region,
-allowed_access_control_tags,
-description,
-instance_arn,
-permissions,
-security_profile_arn,
-security_profile_name,
-tag_restricted_resources,
-hierarchy_restricted_resources,
-allowed_access_control_hierarchy_group_id,
-applications,
-tags,
-last_modified_region,
-last_modified_time
+  region,
+  allowed_access_control_tags,
+  description,
+  instance_arn,
+  permissions,
+  security_profile_arn,
+  security_profile_name,
+  tag_restricted_resources,
+  hierarchy_restricted_resources,
+  allowed_access_control_hierarchy_group_id,
+  applications,
+  tags,
+  last_modified_region,
+  last_modified_time
 FROM awscc.connect.security_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ security_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +240,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_arn }}';
 Lists all <code>security_profiles</code> in a region.
 ```sql
 SELECT
-region,
-security_profile_arn
+  region,
+  security_profile_arn
 FROM awscc.connect.security_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -263,14 +266,14 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.security_profiles (
- InstanceArn,
- SecurityProfileName,
- region
+  InstanceArn,
+  SecurityProfileName,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ security_profile_name }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ security_profile_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -278,30 +281,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.security_profiles (
- AllowedAccessControlTags,
- Description,
- InstanceArn,
- Permissions,
- SecurityProfileName,
- TagRestrictedResources,
- HierarchyRestrictedResources,
- AllowedAccessControlHierarchyGroupId,
- Applications,
- Tags,
- region
+  AllowedAccessControlTags,
+  Description,
+  InstanceArn,
+  Permissions,
+  SecurityProfileName,
+  TagRestrictedResources,
+  HierarchyRestrictedResources,
+  AllowedAccessControlHierarchyGroupId,
+  Applications,
+  Tags,
+  region
 )
 SELECT
- '{{ allowed_access_control_tags }}',
- '{{ description }}',
- '{{ instance_arn }}',
- '{{ permissions }}',
- '{{ security_profile_name }}',
- '{{ tag_restricted_resources }}',
- '{{ hierarchy_restricted_resources }}',
- '{{ allowed_access_control_hierarchy_group_id }}',
- '{{ applications }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ allowed_access_control_tags }}',
+  '{{ description }}',
+  '{{ instance_arn }}',
+  '{{ permissions }}',
+  '{{ security_profile_name }}',
+  '{{ tag_restricted_resources }}',
+  '{{ hierarchy_restricted_resources }}',
+  '{{ allowed_access_control_hierarchy_group_id }}',
+  '{{ applications }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -368,8 +371,9 @@ SET PatchDocument = string('{{ {
     "Applications": applications,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ security_profile_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ security_profile_arn }}';
 ```
 
 
@@ -378,8 +382,9 @@ AND Identifier = '{{ security_profile_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.security_profiles
-WHERE Identifier = '{{ security_profile_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ security_profile_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

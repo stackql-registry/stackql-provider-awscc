@@ -203,17 +203,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT
-region,
-arn,
-dataset_name,
-dataset_type,
-data_frequency,
-domain,
-encryption_config,
-schema,
-tags
+  region,
+  arn,
+  dataset_name,
+  dataset_type,
+  data_frequency,
+  domain,
+  encryption_config,
+  schema,
+  tags
 FROM awscc.forecast.datasets
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>datasets</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.forecast.datasets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,18 +249,18 @@ Use the following StackQL query and manifest file to create a new <code>dataset<
 ```sql
 /*+ create */
 INSERT INTO awscc.forecast.datasets (
- DatasetName,
- DatasetType,
- Domain,
- Schema,
- region
+  DatasetName,
+  DatasetType,
+  Domain,
+  Schema,
+  region
 )
 SELECT
-'{{ dataset_name }}',
- '{{ dataset_type }}',
- '{{ domain }}',
- '{{ schema }}',
-'{{ region }}';
+  '{{ dataset_name }}',
+  '{{ dataset_type }}',
+  '{{ domain }}',
+  '{{ schema }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -265,24 +268,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.forecast.datasets (
- DatasetName,
- DatasetType,
- DataFrequency,
- Domain,
- EncryptionConfig,
- Schema,
- Tags,
- region
+  DatasetName,
+  DatasetType,
+  DataFrequency,
+  Domain,
+  EncryptionConfig,
+  Schema,
+  Tags,
+  region
 )
 SELECT
- '{{ dataset_name }}',
- '{{ dataset_type }}',
- '{{ data_frequency }}',
- '{{ domain }}',
- '{{ encryption_config }}',
- '{{ schema }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ dataset_name }}',
+  '{{ dataset_type }}',
+  '{{ data_frequency }}',
+  '{{ domain }}',
+  '{{ encryption_config }}',
+  '{{ schema }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -330,8 +333,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.forecast.datasets
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

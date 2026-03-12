@@ -239,22 +239,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>metric_stream</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_date,
-exclude_filters,
-firehose_arn,
-include_filters,
-last_update_date,
-name,
-role_arn,
-state,
-output_format,
-statistics_configurations,
-tags,
-include_linked_accounts_metrics
+  region,
+  arn,
+  creation_date,
+  exclude_filters,
+  firehose_arn,
+  include_filters,
+  last_update_date,
+  name,
+  role_arn,
+  state,
+  output_format,
+  statistics_configurations,
+  tags,
+  include_linked_accounts_metrics
 FROM awscc.cloudwatch.metric_streams
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +264,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>metric_streams</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.cloudwatch.metric_streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,28 +290,28 @@ Use the following StackQL query and manifest file to create a new <code>metric_s
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.metric_streams (
- ExcludeFilters,
- FirehoseArn,
- IncludeFilters,
- Name,
- RoleArn,
- OutputFormat,
- StatisticsConfigurations,
- Tags,
- IncludeLinkedAccountsMetrics,
- region
+  ExcludeFilters,
+  FirehoseArn,
+  IncludeFilters,
+  Name,
+  RoleArn,
+  OutputFormat,
+  StatisticsConfigurations,
+  Tags,
+  IncludeLinkedAccountsMetrics,
+  region
 )
 SELECT
-'{{ exclude_filters }}',
- '{{ firehose_arn }}',
- '{{ include_filters }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ output_format }}',
- '{{ statistics_configurations }}',
- '{{ tags }}',
- '{{ include_linked_accounts_metrics }}',
-'{{ region }}';
+  '{{ exclude_filters }}',
+  '{{ firehose_arn }}',
+  '{{ include_filters }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ output_format }}',
+  '{{ statistics_configurations }}',
+  '{{ tags }}',
+  '{{ include_linked_accounts_metrics }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -316,28 +319,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudwatch.metric_streams (
- ExcludeFilters,
- FirehoseArn,
- IncludeFilters,
- Name,
- RoleArn,
- OutputFormat,
- StatisticsConfigurations,
- Tags,
- IncludeLinkedAccountsMetrics,
- region
+  ExcludeFilters,
+  FirehoseArn,
+  IncludeFilters,
+  Name,
+  RoleArn,
+  OutputFormat,
+  StatisticsConfigurations,
+  Tags,
+  IncludeLinkedAccountsMetrics,
+  region
 )
 SELECT
- '{{ exclude_filters }}',
- '{{ firehose_arn }}',
- '{{ include_filters }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ output_format }}',
- '{{ statistics_configurations }}',
- '{{ tags }}',
- '{{ include_linked_accounts_metrics }}',
- '{{ region }}';
+  '{{ exclude_filters }}',
+  '{{ firehose_arn }}',
+  '{{ include_filters }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ output_format }}',
+  '{{ statistics_configurations }}',
+  '{{ tags }}',
+  '{{ include_linked_accounts_metrics }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -404,8 +407,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "IncludeLinkedAccountsMetrics": include_linked_accounts_metrics
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -414,8 +418,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.metric_streams
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

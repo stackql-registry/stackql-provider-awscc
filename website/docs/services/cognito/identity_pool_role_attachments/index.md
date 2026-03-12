@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>identity_pool_role_attachment</code>.
 ```sql
 SELECT
-region,
-identity_pool_id,
-roles,
-id,
-role_mappings
+  region,
+  identity_pool_id,
+  roles,
+  id,
+  role_mappings
 FROM awscc.cognito.identity_pool_role_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>identity_pool_role_attachments</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cognito.identity_pool_role_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>identity
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pool_role_attachments (
- IdentityPoolId,
- region
+  IdentityPoolId,
+  region
 )
 SELECT
-'{{ identity_pool_id }}',
-'{{ region }}';
+  '{{ identity_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,16 +201,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.identity_pool_role_attachments (
- IdentityPoolId,
- Roles,
- RoleMappings,
- region
+  IdentityPoolId,
+  Roles,
+  RoleMappings,
+  region
 )
 SELECT
- '{{ identity_pool_id }}',
- '{{ roles }}',
- '{{ role_mappings }}',
- '{{ region }}';
+  '{{ identity_pool_id }}',
+  '{{ roles }}',
+  '{{ role_mappings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +248,9 @@ SET PatchDocument = string('{{ {
     "Roles": roles,
     "RoleMappings": role_mappings
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -255,8 +259,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pool_role_attachments
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -153,13 +153,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>thing</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-attribute_payload,
-thing_name
+  region,
+  id,
+  arn,
+  attribute_payload,
+  thing_name
 FROM awscc.iot.things
-WHERE region = 'us-east-1' AND Identifier = '{{ thing_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ thing_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -167,10 +169,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ thing_name }}';
 Lists all <code>things</code> in a region.
 ```sql
 SELECT
-region,
-thing_name
+  region,
+  thing_name
 FROM awscc.iot.things_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -192,14 +195,14 @@ Use the following StackQL query and manifest file to create a new <code>thing</c
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.things (
- AttributePayload,
- ThingName,
- region
+  AttributePayload,
+  ThingName,
+  region
 )
 SELECT
-'{{ attribute_payload }}',
- '{{ thing_name }}',
-'{{ region }}';
+  '{{ attribute_payload }}',
+  '{{ thing_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -207,14 +210,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.things (
- AttributePayload,
- ThingName,
- region
+  AttributePayload,
+  ThingName,
+  region
 )
 SELECT
- '{{ attribute_payload }}',
- '{{ thing_name }}',
- '{{ region }}';
+  '{{ attribute_payload }}',
+  '{{ thing_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +253,9 @@ UPDATE awscc.iot.things
 SET PatchDocument = string('{{ {
     "AttributePayload": attribute_payload
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ thing_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ thing_name }}';
 ```
 
 
@@ -260,8 +264,9 @@ AND Identifier = '{{ thing_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.things
-WHERE Identifier = '{{ thing_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ thing_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

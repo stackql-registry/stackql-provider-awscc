@@ -1173,27 +1173,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipe</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-current_state,
-description,
-desired_state,
-enrichment,
-enrichment_parameters,
-kms_key_identifier,
-last_modified_time,
-log_configuration,
-name,
-role_arn,
-source,
-source_parameters,
-state_reason,
-tags,
-target,
-target_parameters
+  region,
+  arn,
+  creation_time,
+  current_state,
+  description,
+  desired_state,
+  enrichment,
+  enrichment_parameters,
+  kms_key_identifier,
+  last_modified_time,
+  log_configuration,
+  name,
+  role_arn,
+  source,
+  source_parameters,
+  state_reason,
+  tags,
+  target,
+  target_parameters
 FROM awscc.pipes.pipes
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1201,10 +1203,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>pipes</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.pipes.pipes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1226,16 +1229,16 @@ Use the following StackQL query and manifest file to create a new <code>pipe</co
 ```sql
 /*+ create */
 INSERT INTO awscc.pipes.pipes (
- RoleArn,
- Source,
- Target,
- region
+  RoleArn,
+  Source,
+  Target,
+  region
 )
 SELECT
-'{{ role_arn }}',
- '{{ source }}',
- '{{ target }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ source }}',
+  '{{ target }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1243,36 +1246,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.pipes.pipes (
- Description,
- DesiredState,
- Enrichment,
- EnrichmentParameters,
- KmsKeyIdentifier,
- LogConfiguration,
- Name,
- RoleArn,
- Source,
- SourceParameters,
- Tags,
- Target,
- TargetParameters,
- region
+  Description,
+  DesiredState,
+  Enrichment,
+  EnrichmentParameters,
+  KmsKeyIdentifier,
+  LogConfiguration,
+  Name,
+  RoleArn,
+  Source,
+  SourceParameters,
+  Tags,
+  Target,
+  TargetParameters,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ desired_state }}',
- '{{ enrichment }}',
- '{{ enrichment_parameters }}',
- '{{ kms_key_identifier }}',
- '{{ log_configuration }}',
- '{{ name }}',
- '{{ role_arn }}',
- '{{ source }}',
- '{{ source_parameters }}',
- '{{ tags }}',
- '{{ target }}',
- '{{ target_parameters }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ desired_state }}',
+  '{{ enrichment }}',
+  '{{ enrichment_parameters }}',
+  '{{ kms_key_identifier }}',
+  '{{ log_configuration }}',
+  '{{ name }}',
+  '{{ role_arn }}',
+  '{{ source }}',
+  '{{ source_parameters }}',
+  '{{ tags }}',
+  '{{ target }}',
+  '{{ target_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1549,8 +1552,9 @@ SET PatchDocument = string('{{ {
     "Target": target,
     "TargetParameters": target_parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -1559,8 +1563,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pipes.pipes
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

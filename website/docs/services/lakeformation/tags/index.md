@@ -141,12 +141,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tag</code>.
 ```sql
 SELECT
-region,
-catalog_id,
-tag_key,
-tag_values
+  region,
+  catalog_id,
+  tag_key,
+  tag_values
 FROM awscc.lakeformation.tags
-WHERE region = 'us-east-1' AND Identifier = '{{ tag_key }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ tag_key }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -154,10 +156,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ tag_key }}';
 Lists all <code>tags</code> in a region.
 ```sql
 SELECT
-region,
-tag_key
+  region,
+  tag_key
 FROM awscc.lakeformation.tags_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>tag</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.tags (
- TagKey,
- TagValues,
- region
+  TagKey,
+  TagValues,
+  region
 )
 SELECT
-'{{ tag_key }}',
- '{{ tag_values }}',
-'{{ region }}';
+  '{{ tag_key }}',
+  '{{ tag_values }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,16 +197,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.tags (
- CatalogId,
- TagKey,
- TagValues,
- region
+  CatalogId,
+  TagKey,
+  TagValues,
+  region
 )
 SELECT
- '{{ catalog_id }}',
- '{{ tag_key }}',
- '{{ tag_values }}',
- '{{ region }}';
+  '{{ catalog_id }}',
+  '{{ tag_key }}',
+  '{{ tag_values }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -241,8 +244,9 @@ UPDATE awscc.lakeformation.tags
 SET PatchDocument = string('{{ {
     "TagValues": tag_values
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ tag_key }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ tag_key }}';
 ```
 
 
@@ -251,8 +255,9 @@ AND Identifier = '{{ tag_key }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tags
-WHERE Identifier = '{{ tag_key }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ tag_key }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -629,6 +629,9 @@ components:
             mediaType: application/json
             openAPIDocKey: '200'
         update_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive
           operation:
             $ref: '#/paths/~1?Action=UpdateResource&Version=2021-09-30/post'
           request:
@@ -641,6 +644,9 @@ components:
             mediaType: application/json
             openAPIDocKey: '200'
         delete_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive
           operation:
             $ref: '#/paths/~1?Action=DeleteResource&Version=2021-09-30/post'
           request:

@@ -233,28 +233,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT
-region,
-api_id,
-connection_id,
-connection_type,
-content_handling_strategy,
-credentials_arn,
-description,
-integration_method,
-integration_subtype,
-integration_id,
-integration_type,
-integration_uri,
-passthrough_behavior,
-payload_format_version,
-request_parameters,
-request_templates,
-response_parameters,
-template_selection_expression,
-timeout_in_millis,
-tls_config
+  region,
+  api_id,
+  connection_id,
+  connection_type,
+  content_handling_strategy,
+  credentials_arn,
+  description,
+  integration_method,
+  integration_subtype,
+  integration_id,
+  integration_type,
+  integration_uri,
+  passthrough_behavior,
+  payload_format_version,
+  request_parameters,
+  request_templates,
+  response_parameters,
+  template_selection_expression,
+  timeout_in_millis,
+  tls_config
 FROM awscc.apigatewayv2.integrations
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ integration_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,11 +264,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}';
 Lists all <code>integrations</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-integration_id
+  region,
+  api_id,
+  integration_id
 FROM awscc.apigatewayv2.integrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -288,14 +291,14 @@ Use the following StackQL query and manifest file to create a new <code>integrat
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.integrations (
- ApiId,
- IntegrationType,
- region
+  ApiId,
+  IntegrationType,
+  region
 )
 SELECT
-'{{ api_id }}',
- '{{ integration_type }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ integration_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,46 +306,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.integrations (
- ApiId,
- ConnectionId,
- ConnectionType,
- ContentHandlingStrategy,
- CredentialsArn,
- Description,
- IntegrationMethod,
- IntegrationSubtype,
- IntegrationType,
- IntegrationUri,
- PassthroughBehavior,
- PayloadFormatVersion,
- RequestParameters,
- RequestTemplates,
- ResponseParameters,
- TemplateSelectionExpression,
- TimeoutInMillis,
- TlsConfig,
- region
+  ApiId,
+  ConnectionId,
+  ConnectionType,
+  ContentHandlingStrategy,
+  CredentialsArn,
+  Description,
+  IntegrationMethod,
+  IntegrationSubtype,
+  IntegrationType,
+  IntegrationUri,
+  PassthroughBehavior,
+  PayloadFormatVersion,
+  RequestParameters,
+  RequestTemplates,
+  ResponseParameters,
+  TemplateSelectionExpression,
+  TimeoutInMillis,
+  TlsConfig,
+  region
 )
 SELECT
- '{{ api_id }}',
- '{{ connection_id }}',
- '{{ connection_type }}',
- '{{ content_handling_strategy }}',
- '{{ credentials_arn }}',
- '{{ description }}',
- '{{ integration_method }}',
- '{{ integration_subtype }}',
- '{{ integration_type }}',
- '{{ integration_uri }}',
- '{{ passthrough_behavior }}',
- '{{ payload_format_version }}',
- '{{ request_parameters }}',
- '{{ request_templates }}',
- '{{ response_parameters }}',
- '{{ template_selection_expression }}',
- '{{ timeout_in_millis }}',
- '{{ tls_config }}',
- '{{ region }}';
+  '{{ api_id }}',
+  '{{ connection_id }}',
+  '{{ connection_type }}',
+  '{{ content_handling_strategy }}',
+  '{{ credentials_arn }}',
+  '{{ description }}',
+  '{{ integration_method }}',
+  '{{ integration_subtype }}',
+  '{{ integration_type }}',
+  '{{ integration_uri }}',
+  '{{ passthrough_behavior }}',
+  '{{ payload_format_version }}',
+  '{{ request_parameters }}',
+  '{{ request_templates }}',
+  '{{ response_parameters }}',
+  '{{ template_selection_expression }}',
+  '{{ timeout_in_millis }}',
+  '{{ tls_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -426,8 +429,9 @@ SET PatchDocument = string('{{ {
     "TimeoutInMillis": timeout_in_millis,
     "TlsConfig": tls_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ integration_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ integration_id }}';
 ```
 
 
@@ -436,8 +440,9 @@ AND Identifier = '{{ api_id }}|{{ integration_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.integrations
-WHERE Identifier = '{{ api_id }}|{{ integration_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ integration_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

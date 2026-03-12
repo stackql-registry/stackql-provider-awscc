@@ -400,14 +400,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>backup_plan</code>.
 ```sql
 SELECT
-region,
-backup_plan,
-backup_plan_tags,
-backup_plan_arn,
-backup_plan_id,
-version_id
+  region,
+  backup_plan,
+  backup_plan_tags,
+  backup_plan_arn,
+  backup_plan_id,
+  version_id
 FROM awscc.backup.backup_plans
-WHERE region = 'us-east-1' AND Identifier = '{{ backup_plan_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ backup_plan_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -415,10 +417,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ backup_plan_id }}';
 Lists all <code>backup_plans</code> in a region.
 ```sql
 SELECT
-region,
-backup_plan_id
+  region,
+  backup_plan_id
 FROM awscc.backup.backup_plans_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -440,12 +443,12 @@ Use the following StackQL query and manifest file to create a new <code>backup_p
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_plans (
- BackupPlan,
- region
+  BackupPlan,
+  region
 )
 SELECT
-'{{ backup_plan }}',
-'{{ region }}';
+  '{{ backup_plan }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -453,14 +456,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.backup.backup_plans (
- BackupPlan,
- BackupPlanTags,
- region
+  BackupPlan,
+  BackupPlanTags,
+  region
 )
 SELECT
- '{{ backup_plan }}',
- '{{ backup_plan_tags }}',
- '{{ region }}';
+  '{{ backup_plan }}',
+  '{{ backup_plan_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -519,8 +522,9 @@ SET PatchDocument = string('{{ {
     "BackupPlan": backup_plan,
     "BackupPlanTags": backup_plan_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ backup_plan_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ backup_plan_id }}';
 ```
 
 
@@ -529,8 +533,9 @@ AND Identifier = '{{ backup_plan_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_plans
-WHERE Identifier = '{{ backup_plan_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ backup_plan_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

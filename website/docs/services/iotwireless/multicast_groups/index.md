@@ -205,18 +205,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multicast_group</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-lo_ra_wan,
-arn,
-id,
-tags,
-status,
-associate_wireless_device,
-disassociate_wireless_device
+  region,
+  name,
+  description,
+  lo_ra_wan,
+  arn,
+  id,
+  tags,
+  status,
+  associate_wireless_device,
+  disassociate_wireless_device
 FROM awscc.iotwireless.multicast_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,10 +226,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>multicast_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.multicast_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -249,12 +252,12 @@ Use the following StackQL query and manifest file to create a new <code>multicas
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.multicast_groups (
- LoRaWAN,
- region
+  LoRaWAN,
+  region
 )
 SELECT
-'{{ lo_ra_wan }}',
-'{{ region }}';
+  '{{ lo_ra_wan }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -262,22 +265,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.multicast_groups (
- Name,
- Description,
- LoRaWAN,
- Tags,
- AssociateWirelessDevice,
- DisassociateWirelessDevice,
- region
+  Name,
+  Description,
+  LoRaWAN,
+  Tags,
+  AssociateWirelessDevice,
+  DisassociateWirelessDevice,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ lo_ra_wan }}',
- '{{ tags }}',
- '{{ associate_wireless_device }}',
- '{{ disassociate_wireless_device }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ lo_ra_wan }}',
+  '{{ tags }}',
+  '{{ associate_wireless_device }}',
+  '{{ disassociate_wireless_device }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -330,8 +333,9 @@ SET PatchDocument = string('{{ {
     "AssociateWirelessDevice": associate_wireless_device,
     "DisassociateWirelessDevice": disassociate_wireless_device
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -340,8 +344,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.multicast_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

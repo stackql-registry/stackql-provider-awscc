@@ -187,16 +187,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy_store</code>.
 ```sql
 SELECT
-region,
-arn,
-description,
-policy_store_id,
-validation_settings,
-schema,
-deletion_protection,
-tags
+  region,
+  arn,
+  description,
+  policy_store_id,
+  validation_settings,
+  schema,
+  deletion_protection,
+  tags
 FROM awscc.verifiedpermissions.policy_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,10 +206,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_store_id }}';
 Lists all <code>policy_stores</code> in a region.
 ```sql
 SELECT
-region,
-policy_store_id
+  region,
+  policy_store_id
 FROM awscc.verifiedpermissions.policy_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -229,12 +232,12 @@ Use the following StackQL query and manifest file to create a new <code>policy_s
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policy_stores (
- ValidationSettings,
- region
+  ValidationSettings,
+  region
 )
 SELECT
-'{{ validation_settings }}',
-'{{ region }}';
+  '{{ validation_settings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,20 +245,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.verifiedpermissions.policy_stores (
- Description,
- ValidationSettings,
- Schema,
- DeletionProtection,
- Tags,
- region
+  Description,
+  ValidationSettings,
+  Schema,
+  DeletionProtection,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ validation_settings }}',
- '{{ schema }}',
- '{{ deletion_protection }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ validation_settings }}',
+  '{{ schema }}',
+  '{{ deletion_protection }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +307,9 @@ SET PatchDocument = string('{{ {
     "DeletionProtection": deletion_protection,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_store_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_store_id }}';
 ```
 
 
@@ -314,8 +318,9 @@ AND Identifier = '{{ policy_store_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policy_stores
-WHERE Identifier = '{{ policy_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

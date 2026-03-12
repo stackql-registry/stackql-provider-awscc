@@ -161,15 +161,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy_statement</code>.
 ```sql
 SELECT
-region,
-arn,
-statement_id,
-effect,
-action,
-principal,
-condition
+  region,
+  arn,
+  statement_id,
+  effect,
+  action,
+  principal,
+  condition
 FROM awscc.entityresolution.policy_statements
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ statement_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}|{{ statement_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,11 +179,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ statement_id }}';
 Lists all <code>policy_statements</code> in a region.
 ```sql
 SELECT
-region,
-arn,
-statement_id
+  region,
+  arn,
+  statement_id
 FROM awscc.entityresolution.policy_statements_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>policy_s
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.policy_statements (
- Arn,
- StatementId,
- region
+  Arn,
+  StatementId,
+  region
 )
 SELECT
-'{{ arn }}',
- '{{ statement_id }}',
-'{{ region }}';
+  '{{ arn }}',
+  '{{ statement_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,22 +221,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.policy_statements (
- Arn,
- StatementId,
- Effect,
- Action,
- Principal,
- Condition,
- region
+  Arn,
+  StatementId,
+  Effect,
+  Action,
+  Principal,
+  Condition,
+  region
 )
 SELECT
- '{{ arn }}',
- '{{ statement_id }}',
- '{{ effect }}',
- '{{ action }}',
- '{{ principal }}',
- '{{ condition }}',
- '{{ region }}';
+  '{{ arn }}',
+  '{{ statement_id }}',
+  '{{ effect }}',
+  '{{ action }}',
+  '{{ principal }}',
+  '{{ condition }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "Principal": principal,
     "Condition": condition
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}|{{ statement_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}|{{ statement_id }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ arn }}|{{ statement_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.policy_statements
-WHERE Identifier = '{{ arn }}|{{ statement_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}|{{ statement_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

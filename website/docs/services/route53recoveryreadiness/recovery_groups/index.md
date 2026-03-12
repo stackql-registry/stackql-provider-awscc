@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>recovery_group</code>.
 ```sql
 SELECT
-region,
-recovery_group_name,
-cells,
-recovery_group_arn,
-tags
+  region,
+  recovery_group_name,
+  cells,
+  recovery_group_arn,
+  tags
 FROM awscc.route53recoveryreadiness.recovery_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ recovery_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ recovery_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ recovery_group_name }}';
 Lists all <code>recovery_groups</code> in a region.
 ```sql
 SELECT
-region,
-recovery_group_name
+  region,
+  recovery_group_name
 FROM awscc.route53recoveryreadiness.recovery_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>recovery
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.recovery_groups (
- RecoveryGroupName,
- Cells,
- Tags,
- region
+  RecoveryGroupName,
+  Cells,
+  Tags,
+  region
 )
 SELECT
-'{{ recovery_group_name }}',
- '{{ cells }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ recovery_group_name }}',
+  '{{ cells }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.recovery_groups (
- RecoveryGroupName,
- Cells,
- Tags,
- region
+  RecoveryGroupName,
+  Cells,
+  Tags,
+  region
 )
 SELECT
- '{{ recovery_group_name }}',
- '{{ cells }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ recovery_group_name }}',
+  '{{ cells }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -264,8 +267,9 @@ SET PatchDocument = string('{{ {
     "Cells": cells,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ recovery_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ recovery_group_name }}';
 ```
 
 
@@ -274,8 +278,9 @@ AND Identifier = '{{ recovery_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.recovery_groups
-WHERE Identifier = '{{ recovery_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ recovery_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

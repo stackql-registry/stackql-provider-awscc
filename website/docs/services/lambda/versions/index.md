@@ -174,16 +174,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>version</code>.
 ```sql
 SELECT
-region,
-function_arn,
-version,
-code_sha256,
-description,
-function_name,
-provisioned_concurrency_config,
-runtime_policy
+  region,
+  function_arn,
+  version,
+  code_sha256,
+  description,
+  function_name,
+  provisioned_concurrency_config,
+  runtime_policy
 FROM awscc.lambda.versions
-WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -191,10 +193,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 Lists all <code>versions</code> in a region.
 ```sql
 SELECT
-region,
-function_arn
+  region,
+  function_arn
 FROM awscc.lambda.versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -216,12 +219,12 @@ Use the following StackQL query and manifest file to create a new <code>version<
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.versions (
- FunctionName,
- region
+  FunctionName,
+  region
 )
 SELECT
-'{{ function_name }}',
-'{{ region }}';
+  '{{ function_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -229,20 +232,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.versions (
- CodeSha256,
- Description,
- FunctionName,
- ProvisionedConcurrencyConfig,
- RuntimePolicy,
- region
+  CodeSha256,
+  Description,
+  FunctionName,
+  ProvisionedConcurrencyConfig,
+  RuntimePolicy,
+  region
 )
 SELECT
- '{{ code_sha256 }}',
- '{{ description }}',
- '{{ function_name }}',
- '{{ provisioned_concurrency_config }}',
- '{{ runtime_policy }}',
- '{{ region }}';
+  '{{ code_sha256 }}',
+  '{{ description }}',
+  '{{ function_name }}',
+  '{{ provisioned_concurrency_config }}',
+  '{{ runtime_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.versions
-WHERE Identifier = '{{ function_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

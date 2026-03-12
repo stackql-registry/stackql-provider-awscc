@@ -222,24 +222,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>investigation_group</code>.
 ```sql
 SELECT
-region,
-role_arn,
-name,
-created_by,
-created_at,
-last_modified_by,
-last_modified_at,
-arn,
-retention_in_days,
-encryption_config,
-investigation_group_policy,
-is_cloud_trail_event_history_enabled,
-tag_key_boundaries,
-chatbot_notification_channels,
-cross_account_configurations,
-tags
+  region,
+  role_arn,
+  name,
+  created_by,
+  created_at,
+  last_modified_by,
+  last_modified_at,
+  arn,
+  retention_in_days,
+  encryption_config,
+  investigation_group_policy,
+  is_cloud_trail_event_history_enabled,
+  tag_key_boundaries,
+  chatbot_notification_channels,
+  cross_account_configurations,
+  tags
 FROM awscc.aiops.investigation_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,10 +249,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>investigation_groups</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.aiops.investigation_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -272,12 +275,12 @@ Use the following StackQL query and manifest file to create a new <code>investig
 ```sql
 /*+ create */
 INSERT INTO awscc.aiops.investigation_groups (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,30 +288,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.aiops.investigation_groups (
- RoleArn,
- Name,
- RetentionInDays,
- EncryptionConfig,
- InvestigationGroupPolicy,
- IsCloudTrailEventHistoryEnabled,
- TagKeyBoundaries,
- ChatbotNotificationChannels,
- CrossAccountConfigurations,
- Tags,
- region
+  RoleArn,
+  Name,
+  RetentionInDays,
+  EncryptionConfig,
+  InvestigationGroupPolicy,
+  IsCloudTrailEventHistoryEnabled,
+  TagKeyBoundaries,
+  ChatbotNotificationChannels,
+  CrossAccountConfigurations,
+  Tags,
+  region
 )
 SELECT
- '{{ role_arn }}',
- '{{ name }}',
- '{{ retention_in_days }}',
- '{{ encryption_config }}',
- '{{ investigation_group_policy }}',
- '{{ is_cloud_trail_event_history_enabled }}',
- '{{ tag_key_boundaries }}',
- '{{ chatbot_notification_channels }}',
- '{{ cross_account_configurations }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ role_arn }}',
+  '{{ name }}',
+  '{{ retention_in_days }}',
+  '{{ encryption_config }}',
+  '{{ investigation_group_policy }}',
+  '{{ is_cloud_trail_event_history_enabled }}',
+  '{{ tag_key_boundaries }}',
+  '{{ chatbot_notification_channels }}',
+  '{{ cross_account_configurations }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -375,8 +378,9 @@ SET PatchDocument = string('{{ {
     "CrossAccountConfigurations": cross_account_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -385,8 +389,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aiops.investigation_groups
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

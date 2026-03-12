@@ -356,20 +356,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>container</code>.
 ```sql
 SELECT
-region,
-service_name,
-power,
-container_arn,
-scale,
-public_domain_names,
-container_service_deployment,
-is_disabled,
-private_registry_access,
-url,
-principal_arn,
-tags
+  region,
+  service_name,
+  power,
+  container_arn,
+  scale,
+  public_domain_names,
+  container_service_deployment,
+  is_disabled,
+  private_registry_access,
+  url,
+  principal_arn,
+  tags
 FROM awscc.lightsail.containers
-WHERE region = 'us-east-1' AND Identifier = '{{ service_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ service_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -377,10 +379,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ service_name }}';
 Lists all <code>containers</code> in a region.
 ```sql
 SELECT
-region,
-service_name
+  region,
+  service_name
 FROM awscc.lightsail.containers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -402,16 +405,16 @@ Use the following StackQL query and manifest file to create a new <code>containe
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.containers (
- ServiceName,
- Power,
- Scale,
- region
+  ServiceName,
+  Power,
+  Scale,
+  region
 )
 SELECT
-'{{ service_name }}',
- '{{ power }}',
- '{{ scale }}',
-'{{ region }}';
+  '{{ service_name }}',
+  '{{ power }}',
+  '{{ scale }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -419,26 +422,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lightsail.containers (
- ServiceName,
- Power,
- Scale,
- PublicDomainNames,
- ContainerServiceDeployment,
- IsDisabled,
- PrivateRegistryAccess,
- Tags,
- region
+  ServiceName,
+  Power,
+  Scale,
+  PublicDomainNames,
+  ContainerServiceDeployment,
+  IsDisabled,
+  PrivateRegistryAccess,
+  Tags,
+  region
 )
 SELECT
- '{{ service_name }}',
- '{{ power }}',
- '{{ scale }}',
- '{{ public_domain_names }}',
- '{{ container_service_deployment }}',
- '{{ is_disabled }}',
- '{{ private_registry_access }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ service_name }}',
+  '{{ power }}',
+  '{{ scale }}',
+  '{{ public_domain_names }}',
+  '{{ container_service_deployment }}',
+  '{{ is_disabled }}',
+  '{{ private_registry_access }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -519,8 +522,9 @@ SET PatchDocument = string('{{ {
     "IsDisabled": is_disabled,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ service_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ service_name }}';
 ```
 
 
@@ -529,8 +533,9 @@ AND Identifier = '{{ service_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.containers
-WHERE Identifier = '{{ service_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ service_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

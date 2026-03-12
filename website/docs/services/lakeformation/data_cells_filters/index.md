@@ -162,16 +162,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_cells_filter</code>.
 ```sql
 SELECT
-region,
-table_catalog_id,
-database_name,
-table_name,
-name,
-row_filter,
-column_names,
-column_wildcard
+  region,
+  table_catalog_id,
+  database_name,
+  table_name,
+  name,
+  row_filter,
+  column_names,
+  column_wildcard
 FROM awscc.lakeformation.data_cells_filters
-WHERE region = 'us-east-1' AND Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,13 +181,14 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_catalog_id }}|{{ database_
 Lists all <code>data_cells_filters</code> in a region.
 ```sql
 SELECT
-region,
-table_catalog_id,
-database_name,
-table_name,
-name
+  region,
+  table_catalog_id,
+  database_name,
+  table_name,
+  name
 FROM awscc.lakeformation.data_cells_filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -207,18 +210,18 @@ Use the following StackQL query and manifest file to create a new <code>data_cel
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.data_cells_filters (
- TableCatalogId,
- DatabaseName,
- TableName,
- Name,
- region
+  TableCatalogId,
+  DatabaseName,
+  TableName,
+  Name,
+  region
 )
 SELECT
-'{{ table_catalog_id }}',
- '{{ database_name }}',
- '{{ table_name }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ table_catalog_id }}',
+  '{{ database_name }}',
+  '{{ table_name }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,24 +229,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lakeformation.data_cells_filters (
- TableCatalogId,
- DatabaseName,
- TableName,
- Name,
- RowFilter,
- ColumnNames,
- ColumnWildcard,
- region
+  TableCatalogId,
+  DatabaseName,
+  TableName,
+  Name,
+  RowFilter,
+  ColumnNames,
+  ColumnWildcard,
+  region
 )
 SELECT
- '{{ table_catalog_id }}',
- '{{ database_name }}',
- '{{ table_name }}',
- '{{ name }}',
- '{{ row_filter }}',
- '{{ column_names }}',
- '{{ column_wildcard }}',
- '{{ region }}';
+  '{{ table_catalog_id }}',
+  '{{ database_name }}',
+  '{{ table_name }}',
+  '{{ name }}',
+  '{{ row_filter }}',
+  '{{ column_names }}',
+  '{{ column_wildcard }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.data_cells_filters
-WHERE Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

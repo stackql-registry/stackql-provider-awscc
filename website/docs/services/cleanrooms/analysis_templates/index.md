@@ -237,23 +237,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>analysis_template</code>.
 ```sql
 SELECT
-region,
-arn,
-collaboration_arn,
-collaboration_identifier,
-tags,
-analysis_parameters,
-analysis_template_identifier,
-description,
-membership_arn,
-membership_identifier,
-name,
-schema,
-source,
-source_metadata,
-format
+  region,
+  arn,
+  collaboration_arn,
+  collaboration_identifier,
+  tags,
+  analysis_parameters,
+  analysis_template_identifier,
+  description,
+  membership_arn,
+  membership_identifier,
+  name,
+  schema,
+  source,
+  source_metadata,
+  format
 FROM awscc.cleanrooms.analysis_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,11 +263,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ analysis_template_identifier }}|
 Lists all <code>analysis_templates</code> in a region.
 ```sql
 SELECT
-region,
-analysis_template_identifier,
-membership_identifier
+  region,
+  analysis_template_identifier,
+  membership_identifier
 FROM awscc.cleanrooms.analysis_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,18 +290,18 @@ Use the following StackQL query and manifest file to create a new <code>analysis
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.analysis_templates (
- MembershipIdentifier,
- Name,
- Source,
- Format,
- region
+  MembershipIdentifier,
+  Name,
+  Source,
+  Format,
+  region
 )
 SELECT
-'{{ membership_identifier }}',
- '{{ name }}',
- '{{ source }}',
- '{{ format }}',
-'{{ region }}';
+  '{{ membership_identifier }}',
+  '{{ name }}',
+  '{{ source }}',
+  '{{ format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -306,28 +309,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.analysis_templates (
- Tags,
- AnalysisParameters,
- Description,
- MembershipIdentifier,
- Name,
- Schema,
- Source,
- SourceMetadata,
- Format,
- region
+  Tags,
+  AnalysisParameters,
+  Description,
+  MembershipIdentifier,
+  Name,
+  Schema,
+  Source,
+  SourceMetadata,
+  Format,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ analysis_parameters }}',
- '{{ description }}',
- '{{ membership_identifier }}',
- '{{ name }}',
- '{{ schema }}',
- '{{ source }}',
- '{{ source_metadata }}',
- '{{ format }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ analysis_parameters }}',
+  '{{ description }}',
+  '{{ membership_identifier }}',
+  '{{ name }}',
+  '{{ schema }}',
+  '{{ source }}',
+  '{{ source_metadata }}',
+  '{{ format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -385,8 +388,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "SourceMetadata": source_metadata
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -395,8 +399,9 @@ AND Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.analysis_templates
-WHERE Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

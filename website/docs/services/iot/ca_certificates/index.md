@@ -205,19 +205,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ca_certificate</code>.
 ```sql
 SELECT
-region,
-ca_certificate_pem,
-verification_certificate_pem,
-status,
-certificate_mode,
-auto_registration_status,
-remove_auto_registration,
-registration_config,
-id,
-arn,
-tags
+  region,
+  ca_certificate_pem,
+  verification_certificate_pem,
+  status,
+  certificate_mode,
+  auto_registration_status,
+  remove_auto_registration,
+  registration_config,
+  id,
+  arn,
+  tags
 FROM awscc.iot.ca_certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,10 +227,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>ca_certificates</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iot.ca_certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -250,14 +253,14 @@ Use the following StackQL query and manifest file to create a new <code>ca_certi
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.ca_certificates (
- CACertificatePem,
- Status,
- region
+  CACertificatePem,
+  Status,
+  region
 )
 SELECT
-'{{ ca_certificate_pem }}',
- '{{ status }}',
-'{{ region }}';
+  '{{ ca_certificate_pem }}',
+  '{{ status }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -265,26 +268,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.ca_certificates (
- CACertificatePem,
- VerificationCertificatePem,
- Status,
- CertificateMode,
- AutoRegistrationStatus,
- RemoveAutoRegistration,
- RegistrationConfig,
- Tags,
- region
+  CACertificatePem,
+  VerificationCertificatePem,
+  Status,
+  CertificateMode,
+  AutoRegistrationStatus,
+  RemoveAutoRegistration,
+  RegistrationConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ ca_certificate_pem }}',
- '{{ verification_certificate_pem }}',
- '{{ status }}',
- '{{ certificate_mode }}',
- '{{ auto_registration_status }}',
- '{{ remove_auto_registration }}',
- '{{ registration_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ ca_certificate_pem }}',
+  '{{ verification_certificate_pem }}',
+  '{{ status }}',
+  '{{ certificate_mode }}',
+  '{{ auto_registration_status }}',
+  '{{ remove_auto_registration }}',
+  '{{ registration_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "RegistrationConfig": registration_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.ca_certificates
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cell</code>.
 ```sql
 SELECT
-region,
-cell_name,
-cell_arn,
-cells,
-parent_readiness_scopes,
-tags
+  region,
+  cell_name,
+  cell_arn,
+  cells,
+  parent_readiness_scopes,
+  tags
 FROM awscc.route53recoveryreadiness.cells
-WHERE region = 'us-east-1' AND Identifier = '{{ cell_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cell_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cell_name }}';
 Lists all <code>cells</code> in a region.
 ```sql
 SELECT
-region,
-cell_name
+  region,
+  cell_name
 FROM awscc.route53recoveryreadiness.cells_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>cell</co
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.cells (
- CellName,
- Cells,
- Tags,
- region
+  CellName,
+  Cells,
+  Tags,
+  region
 )
 SELECT
-'{{ cell_name }}',
- '{{ cells }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ cell_name }}',
+  '{{ cells }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,16 +223,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoveryreadiness.cells (
- CellName,
- Cells,
- Tags,
- region
+  CellName,
+  Cells,
+  Tags,
+  region
 )
 SELECT
- '{{ cell_name }}',
- '{{ cells }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cell_name }}',
+  '{{ cells }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ SET PatchDocument = string('{{ {
     "Cells": cells,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cell_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cell_name }}';
 ```
 
 
@@ -280,8 +284,9 @@ AND Identifier = '{{ cell_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.cells
-WHERE Identifier = '{{ cell_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cell_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

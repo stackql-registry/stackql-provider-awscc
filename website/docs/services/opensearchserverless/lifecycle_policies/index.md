@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>lifecycle_policy</code>.
 ```sql
 SELECT
-region,
-name,
-type,
-description,
-policy
+  region,
+  name,
+  type,
+  description,
+  policy
 FROM awscc.opensearchserverless.lifecycle_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ type }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ type }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ type }}|{{ name }}';
 Lists all <code>lifecycle_policies</code> in a region.
 ```sql
 SELECT
-region,
-type,
-name
+  region,
+  type,
+  name
 FROM awscc.opensearchserverless.lifecycle_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>lifecycl
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.lifecycle_policies (
- Name,
- Type,
- Policy,
- region
+  Name,
+  Type,
+  Policy,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchserverless.lifecycle_policies (
- Name,
- Type,
- Description,
- Policy,
- region
+  Name,
+  Type,
+  Description,
+  Policy,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ description }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ description }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -259,8 +262,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ type }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ type }}|{{ name }}';
 ```
 
 
@@ -269,8 +273,9 @@ AND Identifier = '{{ type }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.lifecycle_policies
-WHERE Identifier = '{{ type }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ type }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

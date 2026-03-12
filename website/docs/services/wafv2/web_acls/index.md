@@ -868,27 +868,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>web_acl</code>.
 ```sql
 SELECT
-region,
-arn,
-capacity,
-default_action,
-description,
-name,
-id,
-scope,
-rules,
-visibility_config,
-data_protection_config,
-tags,
-label_namespace,
-custom_response_bodies,
-captcha_config,
-challenge_config,
-token_domains,
-association_config,
-on_source_ddo_sprotection_config
+  region,
+  arn,
+  capacity,
+  default_action,
+  description,
+  name,
+  id,
+  scope,
+  rules,
+  visibility_config,
+  data_protection_config,
+  tags,
+  label_namespace,
+  custom_response_bodies,
+  captcha_config,
+  challenge_config,
+  token_domains,
+  association_config,
+  on_source_ddo_sprotection_config
 FROM awscc.wafv2.web_acls
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -896,12 +898,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 Lists all <code>web_acls</code> in a region.
 ```sql
 SELECT
-region,
-name,
-id,
-scope
+  region,
+  name,
+  id,
+  scope
 FROM awscc.wafv2.web_acls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -923,16 +926,16 @@ Use the following StackQL query and manifest file to create a new <code>web_acl<
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.web_acls (
- DefaultAction,
- Scope,
- VisibilityConfig,
- region
+  DefaultAction,
+  Scope,
+  VisibilityConfig,
+  region
 )
 SELECT
-'{{ default_action }}',
- '{{ scope }}',
- '{{ visibility_config }}',
-'{{ region }}';
+  '{{ default_action }}',
+  '{{ scope }}',
+  '{{ visibility_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -940,38 +943,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wafv2.web_acls (
- DefaultAction,
- Description,
- Name,
- Scope,
- Rules,
- VisibilityConfig,
- DataProtectionConfig,
- Tags,
- CustomResponseBodies,
- CaptchaConfig,
- ChallengeConfig,
- TokenDomains,
- AssociationConfig,
- OnSourceDDoSProtectionConfig,
- region
+  DefaultAction,
+  Description,
+  Name,
+  Scope,
+  Rules,
+  VisibilityConfig,
+  DataProtectionConfig,
+  Tags,
+  CustomResponseBodies,
+  CaptchaConfig,
+  ChallengeConfig,
+  TokenDomains,
+  AssociationConfig,
+  OnSourceDDoSProtectionConfig,
+  region
 )
 SELECT
- '{{ default_action }}',
- '{{ description }}',
- '{{ name }}',
- '{{ scope }}',
- '{{ rules }}',
- '{{ visibility_config }}',
- '{{ data_protection_config }}',
- '{{ tags }}',
- '{{ custom_response_bodies }}',
- '{{ captcha_config }}',
- '{{ challenge_config }}',
- '{{ token_domains }}',
- '{{ association_config }}',
- '{{ on_source_ddo_sprotection_config }}',
- '{{ region }}';
+  '{{ default_action }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ scope }}',
+  '{{ rules }}',
+  '{{ visibility_config }}',
+  '{{ data_protection_config }}',
+  '{{ tags }}',
+  '{{ custom_response_bodies }}',
+  '{{ captcha_config }}',
+  '{{ challenge_config }}',
+  '{{ token_domains }}',
+  '{{ association_config }}',
+  '{{ on_source_ddo_sprotection_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1305,8 +1308,9 @@ SET PatchDocument = string('{{ {
     "AssociationConfig": association_config,
     "OnSourceDDoSProtectionConfig": on_source_ddo_sprotection_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 
 
@@ -1315,8 +1319,9 @@ AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.web_acls
-WHERE Identifier = '{{ name }}|{{ id }}|{{ scope }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}|{{ id }}|{{ scope }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

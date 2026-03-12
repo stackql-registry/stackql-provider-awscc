@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>saml_provider</code>.
 ```sql
 SELECT
-region,
-name,
-saml_metadata_document,
-arn,
-tags,
-assertion_encryption_mode,
-add_private_key,
-remove_private_key,
-private_key_list,
-saml_provider_uu_id
+  region,
+  name,
+  saml_metadata_document,
+  arn,
+  tags,
+  assertion_encryption_mode,
+  add_private_key,
+  remove_private_key,
+  private_key_list,
+  saml_provider_uu_id
 FROM awscc.iam.saml_providers
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>saml_providers</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.iam.saml_providers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,24 +242,24 @@ Use the following StackQL query and manifest file to create a new <code>saml_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.saml_providers (
- Name,
- SamlMetadataDocument,
- Tags,
- AssertionEncryptionMode,
- AddPrivateKey,
- RemovePrivateKey,
- PrivateKeyList,
- region
+  Name,
+  SamlMetadataDocument,
+  Tags,
+  AssertionEncryptionMode,
+  AddPrivateKey,
+  RemovePrivateKey,
+  PrivateKeyList,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ saml_metadata_document }}',
- '{{ tags }}',
- '{{ assertion_encryption_mode }}',
- '{{ add_private_key }}',
- '{{ remove_private_key }}',
- '{{ private_key_list }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ saml_metadata_document }}',
+  '{{ tags }}',
+  '{{ assertion_encryption_mode }}',
+  '{{ add_private_key }}',
+  '{{ remove_private_key }}',
+  '{{ private_key_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -264,24 +267,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.saml_providers (
- Name,
- SamlMetadataDocument,
- Tags,
- AssertionEncryptionMode,
- AddPrivateKey,
- RemovePrivateKey,
- PrivateKeyList,
- region
+  Name,
+  SamlMetadataDocument,
+  Tags,
+  AssertionEncryptionMode,
+  AddPrivateKey,
+  RemovePrivateKey,
+  PrivateKeyList,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ saml_metadata_document }}',
- '{{ tags }}',
- '{{ assertion_encryption_mode }}',
- '{{ add_private_key }}',
- '{{ remove_private_key }}',
- '{{ private_key_list }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ saml_metadata_document }}',
+  '{{ tags }}',
+  '{{ assertion_encryption_mode }}',
+  '{{ add_private_key }}',
+  '{{ remove_private_key }}',
+  '{{ private_key_list }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "AssertionEncryptionMode": assertion_encryption_mode,
     "PrivateKeyList": private_key_list
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.saml_providers
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

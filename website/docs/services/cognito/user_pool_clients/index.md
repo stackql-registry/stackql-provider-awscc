@@ -317,35 +317,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_client</code>.
 ```sql
 SELECT
-region,
-client_name,
-explicit_auth_flows,
-generate_secret,
-read_attributes,
-auth_session_validity,
-refresh_token_validity,
-access_token_validity,
-id_token_validity,
-token_validity_units,
-refresh_token_rotation,
-user_pool_id,
-write_attributes,
-allowed_oauth_flows,
-allowed_oauth_flows_user_pool_client,
-allowed_oauth_scopes,
-callback_urls,
-default_redirect_uri,
-logout_urls,
-supported_identity_providers,
-analytics_configuration,
-prevent_user_existence_errors,
-enable_token_revocation,
-enable_propagate_additional_user_context_data,
-name,
-client_secret,
-client_id
+  region,
+  client_name,
+  explicit_auth_flows,
+  generate_secret,
+  read_attributes,
+  auth_session_validity,
+  refresh_token_validity,
+  access_token_validity,
+  id_token_validity,
+  token_validity_units,
+  refresh_token_rotation,
+  user_pool_id,
+  write_attributes,
+  allowed_oauth_flows,
+  allowed_oauth_flows_user_pool_client,
+  allowed_oauth_scopes,
+  callback_urls,
+  default_redirect_uri,
+  logout_urls,
+  supported_identity_providers,
+  analytics_configuration,
+  prevent_user_existence_errors,
+  enable_token_revocation,
+  enable_propagate_additional_user_context_data,
+  name,
+  client_secret,
+  client_id
 FROM awscc.cognito.user_pool_clients
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,11 +355,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}'
 Lists all <code>user_pool_clients</code> in a region.
 ```sql
 SELECT
-region,
-user_pool_id,
-client_id
+  region,
+  user_pool_id,
+  client_id
 FROM awscc.cognito.user_pool_clients_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -379,12 +382,12 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_clients (
- UserPoolId,
- region
+  UserPoolId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -392,56 +395,56 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_clients (
- ClientName,
- ExplicitAuthFlows,
- GenerateSecret,
- ReadAttributes,
- AuthSessionValidity,
- RefreshTokenValidity,
- AccessTokenValidity,
- IdTokenValidity,
- TokenValidityUnits,
- RefreshTokenRotation,
- UserPoolId,
- WriteAttributes,
- AllowedOAuthFlows,
- AllowedOAuthFlowsUserPoolClient,
- AllowedOAuthScopes,
- CallbackURLs,
- DefaultRedirectURI,
- LogoutURLs,
- SupportedIdentityProviders,
- AnalyticsConfiguration,
- PreventUserExistenceErrors,
- EnableTokenRevocation,
- EnablePropagateAdditionalUserContextData,
- region
+  ClientName,
+  ExplicitAuthFlows,
+  GenerateSecret,
+  ReadAttributes,
+  AuthSessionValidity,
+  RefreshTokenValidity,
+  AccessTokenValidity,
+  IdTokenValidity,
+  TokenValidityUnits,
+  RefreshTokenRotation,
+  UserPoolId,
+  WriteAttributes,
+  AllowedOAuthFlows,
+  AllowedOAuthFlowsUserPoolClient,
+  AllowedOAuthScopes,
+  CallbackURLs,
+  DefaultRedirectURI,
+  LogoutURLs,
+  SupportedIdentityProviders,
+  AnalyticsConfiguration,
+  PreventUserExistenceErrors,
+  EnableTokenRevocation,
+  EnablePropagateAdditionalUserContextData,
+  region
 )
 SELECT
- '{{ client_name }}',
- '{{ explicit_auth_flows }}',
- '{{ generate_secret }}',
- '{{ read_attributes }}',
- '{{ auth_session_validity }}',
- '{{ refresh_token_validity }}',
- '{{ access_token_validity }}',
- '{{ id_token_validity }}',
- '{{ token_validity_units }}',
- '{{ refresh_token_rotation }}',
- '{{ user_pool_id }}',
- '{{ write_attributes }}',
- '{{ allowed_oauth_flows }}',
- '{{ allowed_oauth_flows_user_pool_client }}',
- '{{ allowed_oauth_scopes }}',
- '{{ callback_urls }}',
- '{{ default_redirect_uri }}',
- '{{ logout_urls }}',
- '{{ supported_identity_providers }}',
- '{{ analytics_configuration }}',
- '{{ prevent_user_existence_errors }}',
- '{{ enable_token_revocation }}',
- '{{ enable_propagate_additional_user_context_data }}',
- '{{ region }}';
+  '{{ client_name }}',
+  '{{ explicit_auth_flows }}',
+  '{{ generate_secret }}',
+  '{{ read_attributes }}',
+  '{{ auth_session_validity }}',
+  '{{ refresh_token_validity }}',
+  '{{ access_token_validity }}',
+  '{{ id_token_validity }}',
+  '{{ token_validity_units }}',
+  '{{ refresh_token_rotation }}',
+  '{{ user_pool_id }}',
+  '{{ write_attributes }}',
+  '{{ allowed_oauth_flows }}',
+  '{{ allowed_oauth_flows_user_pool_client }}',
+  '{{ allowed_oauth_scopes }}',
+  '{{ callback_urls }}',
+  '{{ default_redirect_uri }}',
+  '{{ logout_urls }}',
+  '{{ supported_identity_providers }}',
+  '{{ analytics_configuration }}',
+  '{{ prevent_user_existence_errors }}',
+  '{{ enable_token_revocation }}',
+  '{{ enable_propagate_additional_user_context_data }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -556,8 +559,9 @@ SET PatchDocument = string('{{ {
     "EnableTokenRevocation": enable_token_revocation,
     "EnablePropagateAdditionalUserContextData": enable_propagate_additional_user_context_data
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -566,8 +570,9 @@ AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_clients
-WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ client_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

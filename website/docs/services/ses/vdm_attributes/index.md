@@ -109,12 +109,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vdm_attribute</code>.
 ```sql
 SELECT
-region,
-vdm_attributes_resource_id,
-dashboard_attributes,
-guardian_attributes
+  region,
+  vdm_attributes_resource_id,
+  dashboard_attributes,
+  guardian_attributes
 FROM awscc.ses.vdm_attributes
-WHERE region = 'us-east-1' AND Identifier = '{{ vdm_attributes_resource_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vdm_attributes_resource_id }}';
 ```
 
 ## `INSERT` example
@@ -134,14 +136,14 @@ Use the following StackQL query and manifest file to create a new <code>vdm_attr
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.vdm_attributes (
- DashboardAttributes,
- GuardianAttributes,
- region
+  DashboardAttributes,
+  GuardianAttributes,
+  region
 )
 SELECT
-'{{ dashboard_attributes }}',
- '{{ guardian_attributes }}',
-'{{ region }}';
+  '{{ dashboard_attributes }}',
+  '{{ guardian_attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -149,14 +151,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.vdm_attributes (
- DashboardAttributes,
- GuardianAttributes,
- region
+  DashboardAttributes,
+  GuardianAttributes,
+  region
 )
 SELECT
- '{{ dashboard_attributes }}',
- '{{ guardian_attributes }}',
- '{{ region }}';
+  '{{ dashboard_attributes }}',
+  '{{ guardian_attributes }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -194,8 +196,9 @@ SET PatchDocument = string('{{ {
     "DashboardAttributes": dashboard_attributes,
     "GuardianAttributes": guardian_attributes
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vdm_attributes_resource_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vdm_attributes_resource_id }}';
 ```
 
 
@@ -204,8 +207,9 @@ AND Identifier = '{{ vdm_attributes_resource_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.vdm_attributes
-WHERE Identifier = '{{ vdm_attributes_resource_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vdm_attributes_resource_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -198,22 +198,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>source_api_association</code>.
 ```sql
 SELECT
-region,
-source_api_identifier,
-merged_api_identifier,
-description,
-source_api_association_config,
-association_id,
-association_arn,
-source_api_id,
-source_api_arn,
-merged_api_id,
-merged_api_arn,
-source_api_association_status,
-source_api_association_status_detail,
-last_successful_merge_date
+  region,
+  source_api_identifier,
+  merged_api_identifier,
+  description,
+  source_api_association_config,
+  association_id,
+  association_arn,
+  source_api_id,
+  source_api_arn,
+  merged_api_id,
+  merged_api_arn,
+  source_api_association_status,
+  source_api_association_status_detail,
+  last_successful_merge_date
 FROM awscc.appsync.source_api_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 Lists all <code>source_api_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_arn
+  region,
+  association_arn
 FROM awscc.appsync.source_api_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,18 +249,18 @@ Use the following StackQL query and manifest file to create a new <code>source_a
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.source_api_associations (
- SourceApiIdentifier,
- MergedApiIdentifier,
- Description,
- SourceApiAssociationConfig,
- region
+  SourceApiIdentifier,
+  MergedApiIdentifier,
+  Description,
+  SourceApiAssociationConfig,
+  region
 )
 SELECT
-'{{ source_api_identifier }}',
- '{{ merged_api_identifier }}',
- '{{ description }}',
- '{{ source_api_association_config }}',
-'{{ region }}';
+  '{{ source_api_identifier }}',
+  '{{ merged_api_identifier }}',
+  '{{ description }}',
+  '{{ source_api_association_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -265,18 +268,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.source_api_associations (
- SourceApiIdentifier,
- MergedApiIdentifier,
- Description,
- SourceApiAssociationConfig,
- region
+  SourceApiIdentifier,
+  MergedApiIdentifier,
+  Description,
+  SourceApiAssociationConfig,
+  region
 )
 SELECT
- '{{ source_api_identifier }}',
- '{{ merged_api_identifier }}',
- '{{ description }}',
- '{{ source_api_association_config }}',
- '{{ region }}';
+  '{{ source_api_identifier }}',
+  '{{ merged_api_identifier }}',
+  '{{ description }}',
+  '{{ source_api_association_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -316,8 +319,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "SourceApiAssociationConfig": source_api_association_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ association_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ association_arn }}';
 ```
 
 
@@ -326,8 +330,9 @@ AND Identifier = '{{ association_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.source_api_associations
-WHERE Identifier = '{{ association_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel_policy</code>.
 ```sql
 SELECT
-region,
-channel_name,
-policy
+  region,
+  channel_name,
+  policy
 FROM awscc.mediatailor.channel_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ channel_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ channel_name }}';
 ```
 
 ## `INSERT` example
@@ -114,14 +116,14 @@ Use the following StackQL query and manifest file to create a new <code>channel_
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.channel_policies (
- ChannelName,
- Policy,
- region
+  ChannelName,
+  Policy,
+  region
 )
 SELECT
-'{{ channel_name }}',
- '{{ policy }}',
-'{{ region }}';
+  '{{ channel_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.channel_policies (
- ChannelName,
- Policy,
- region
+  ChannelName,
+  Policy,
+  region
 )
 SELECT
- '{{ channel_name }}',
- '{{ policy }}',
- '{{ region }}';
+  '{{ channel_name }}',
+  '{{ policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.mediatailor.channel_policies
 SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ channel_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ channel_name }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ channel_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.channel_policies
-WHERE Identifier = '{{ channel_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ channel_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

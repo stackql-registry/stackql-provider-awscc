@@ -242,25 +242,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>function_configuration</code>.
 ```sql
 SELECT
-region,
-function_id,
-function_arn,
-api_id,
-code,
-code_s3_location,
-data_source_name,
-description,
-function_version,
-max_batch_size,
-name,
-request_mapping_template,
-request_mapping_template_s3_location,
-response_mapping_template,
-response_mapping_template_s3_location,
-runtime,
-sync_config
+  region,
+  function_id,
+  function_arn,
+  api_id,
+  code,
+  code_s3_location,
+  data_source_name,
+  description,
+  function_version,
+  max_batch_size,
+  name,
+  request_mapping_template,
+  request_mapping_template_s3_location,
+  response_mapping_template,
+  response_mapping_template_s3_location,
+  runtime,
+  sync_config
 FROM awscc.appsync.function_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +270,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 Lists all <code>function_configurations</code> in a region.
 ```sql
 SELECT
-region,
-function_arn
+  region,
+  function_arn
 FROM awscc.appsync.function_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,16 +296,16 @@ Use the following StackQL query and manifest file to create a new <code>function
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.function_configurations (
- ApiId,
- DataSourceName,
- Name,
- region
+  ApiId,
+  DataSourceName,
+  Name,
+  region
 )
 SELECT
-'{{ api_id }}',
- '{{ data_source_name }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ data_source_name }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -310,38 +313,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.function_configurations (
- ApiId,
- Code,
- CodeS3Location,
- DataSourceName,
- Description,
- FunctionVersion,
- MaxBatchSize,
- Name,
- RequestMappingTemplate,
- RequestMappingTemplateS3Location,
- ResponseMappingTemplate,
- ResponseMappingTemplateS3Location,
- Runtime,
- SyncConfig,
- region
+  ApiId,
+  Code,
+  CodeS3Location,
+  DataSourceName,
+  Description,
+  FunctionVersion,
+  MaxBatchSize,
+  Name,
+  RequestMappingTemplate,
+  RequestMappingTemplateS3Location,
+  ResponseMappingTemplate,
+  ResponseMappingTemplateS3Location,
+  Runtime,
+  SyncConfig,
+  region
 )
 SELECT
- '{{ api_id }}',
- '{{ code }}',
- '{{ code_s3_location }}',
- '{{ data_source_name }}',
- '{{ description }}',
- '{{ function_version }}',
- '{{ max_batch_size }}',
- '{{ name }}',
- '{{ request_mapping_template }}',
- '{{ request_mapping_template_s3_location }}',
- '{{ response_mapping_template }}',
- '{{ response_mapping_template_s3_location }}',
- '{{ runtime }}',
- '{{ sync_config }}',
- '{{ region }}';
+  '{{ api_id }}',
+  '{{ code }}',
+  '{{ code_s3_location }}',
+  '{{ data_source_name }}',
+  '{{ description }}',
+  '{{ function_version }}',
+  '{{ max_batch_size }}',
+  '{{ name }}',
+  '{{ request_mapping_template }}',
+  '{{ request_mapping_template_s3_location }}',
+  '{{ response_mapping_template }}',
+  '{{ response_mapping_template_s3_location }}',
+  '{{ runtime }}',
+  '{{ sync_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -418,8 +421,9 @@ SET PatchDocument = string('{{ {
     "Runtime": runtime,
     "SyncConfig": sync_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ function_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ function_arn }}';
 ```
 
 
@@ -428,8 +432,9 @@ AND Identifier = '{{ function_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.function_configurations
-WHERE Identifier = '{{ function_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ function_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

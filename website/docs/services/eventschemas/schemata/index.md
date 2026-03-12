@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>schema</code>.
 ```sql
 SELECT
-region,
-type,
-description,
-schema_version,
-content,
-registry_name,
-schema_arn,
-schema_name,
-last_modified,
-version_created_date,
-tags
+  region,
+  type,
+  description,
+  schema_version,
+  content,
+  registry_name,
+  schema_arn,
+  schema_name,
+  last_modified,
+  version_created_date,
+  tags
 FROM awscc.eventschemas.schemata
-WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ schema_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
 Lists all <code>schemata</code> in a region.
 ```sql
 SELECT
-region,
-schema_arn
+  region,
+  schema_arn
 FROM awscc.eventschemas.schemata_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>schema</
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.schemata (
- Type,
- Content,
- RegistryName,
- region
+  Type,
+  Content,
+  RegistryName,
+  region
 )
 SELECT
-'{{ type }}',
- '{{ content }}',
- '{{ registry_name }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ content }}',
+  '{{ registry_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,22 +253,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.eventschemas.schemata (
- Type,
- Description,
- Content,
- RegistryName,
- SchemaName,
- Tags,
- region
+  Type,
+  Description,
+  Content,
+  RegistryName,
+  SchemaName,
+  Tags,
+  region
 )
 SELECT
- '{{ type }}',
- '{{ description }}',
- '{{ content }}',
- '{{ registry_name }}',
- '{{ schema_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ type }}',
+  '{{ description }}',
+  '{{ content }}',
+  '{{ registry_name }}',
+  '{{ schema_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -313,8 +316,9 @@ SET PatchDocument = string('{{ {
     "Content": content,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ schema_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ schema_arn }}';
 ```
 
 
@@ -323,8 +327,9 @@ AND Identifier = '{{ schema_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.schemata
-WHERE Identifier = '{{ schema_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ schema_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

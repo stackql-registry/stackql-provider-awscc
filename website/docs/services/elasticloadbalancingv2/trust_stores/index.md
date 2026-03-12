@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>trust_store</code>.
 ```sql
 SELECT
-region,
-name,
-ca_certificates_bundle_s3_bucket,
-ca_certificates_bundle_s3_key,
-ca_certificates_bundle_s3_object_version,
-status,
-number_of_ca_certificates,
-tags,
-trust_store_arn
+  region,
+  name,
+  ca_certificates_bundle_s3_bucket,
+  ca_certificates_bundle_s3_key,
+  ca_certificates_bundle_s3_object_version,
+  status,
+  number_of_ca_certificates,
+  tags,
+  trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
 Lists all <code>trust_stores</code> in a region.
 ```sql
 SELECT
-region,
-trust_store_arn
+  region,
+  trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,20 +224,20 @@ Use the following StackQL query and manifest file to create a new <code>trust_st
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.trust_stores (
- Name,
- CaCertificatesBundleS3Bucket,
- CaCertificatesBundleS3Key,
- CaCertificatesBundleS3ObjectVersion,
- Tags,
- region
+  Name,
+  CaCertificatesBundleS3Bucket,
+  CaCertificatesBundleS3Key,
+  CaCertificatesBundleS3ObjectVersion,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ ca_certificates_bundle_s3_bucket }}',
- '{{ ca_certificates_bundle_s3_key }}',
- '{{ ca_certificates_bundle_s3_object_version }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ ca_certificates_bundle_s3_bucket }}',
+  '{{ ca_certificates_bundle_s3_key }}',
+  '{{ ca_certificates_bundle_s3_object_version }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -242,20 +245,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.trust_stores (
- Name,
- CaCertificatesBundleS3Bucket,
- CaCertificatesBundleS3Key,
- CaCertificatesBundleS3ObjectVersion,
- Tags,
- region
+  Name,
+  CaCertificatesBundleS3Bucket,
+  CaCertificatesBundleS3Key,
+  CaCertificatesBundleS3ObjectVersion,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ ca_certificates_bundle_s3_bucket }}',
- '{{ ca_certificates_bundle_s3_key }}',
- '{{ ca_certificates_bundle_s3_object_version }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ ca_certificates_bundle_s3_bucket }}',
+  '{{ ca_certificates_bundle_s3_key }}',
+  '{{ ca_certificates_bundle_s3_object_version }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -301,8 +304,9 @@ SET PatchDocument = string('{{ {
     "CaCertificatesBundleS3ObjectVersion": ca_certificates_bundle_s3_object_version,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ trust_store_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ trust_store_arn }}';
 ```
 
 
@@ -311,8 +315,9 @@ AND Identifier = '{{ trust_store_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE Identifier = '{{ trust_store_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ trust_store_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

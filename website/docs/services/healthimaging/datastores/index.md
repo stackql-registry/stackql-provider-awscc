@@ -160,17 +160,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>datastore</code>.
 ```sql
 SELECT
-region,
-datastore_arn,
-datastore_name,
-datastore_id,
-datastore_status,
-kms_key_arn,
-created_at,
-updated_at,
-tags
+  region,
+  datastore_arn,
+  datastore_name,
+  datastore_id,
+  datastore_status,
+  kms_key_arn,
+  created_at,
+  updated_at,
+  tags
 FROM awscc.healthimaging.datastores
-WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
 Lists all <code>datastores</code> in a region.
 ```sql
 SELECT
-region,
-datastore_id
+  region,
+  datastore_id
 FROM awscc.healthimaging.datastores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>datastor
 ```sql
 /*+ create */
 INSERT INTO awscc.healthimaging.datastores (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,16 +219,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.healthimaging.datastores (
- DatastoreName,
- KmsKeyArn,
- Tags,
- region
+  DatastoreName,
+  KmsKeyArn,
+  Tags,
+  region
 )
 SELECT
- '{{ datastore_name }}',
- '{{ kms_key_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ datastore_name }}',
+  '{{ kms_key_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -258,8 +261,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.healthimaging.datastores
-WHERE Identifier = '{{ datastore_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ datastore_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

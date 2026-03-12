@@ -180,15 +180,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT
-region,
-status,
-user_name,
-access_string,
-authentication_mode,
-arn,
-tags
+  region,
+  status,
+  user_name,
+  access_string,
+  authentication_mode,
+  arn,
+  tags
 FROM awscc.memorydb.users
-WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
 Lists all <code>users</code> in a region.
 ```sql
 SELECT
-region,
-user_name
+  region,
+  user_name
 FROM awscc.memorydb.users_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>user</co
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.users (
- UserName,
- region
+  UserName,
+  region
 )
 SELECT
-'{{ user_name }}',
-'{{ region }}';
+  '{{ user_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,18 +237,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.users (
- UserName,
- AccessString,
- AuthenticationMode,
- Tags,
- region
+  UserName,
+  AccessString,
+  AuthenticationMode,
+  Tags,
+  region
 )
 SELECT
- '{{ user_name }}',
- '{{ access_string }}',
- '{{ authentication_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ user_name }}',
+  '{{ access_string }}',
+  '{{ authentication_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "AuthenticationMode": authentication_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_name }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ user_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.users
-WHERE Identifier = '{{ user_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

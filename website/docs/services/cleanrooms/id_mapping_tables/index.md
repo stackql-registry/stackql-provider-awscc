@@ -219,21 +219,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>id_mapping_table</code>.
 ```sql
 SELECT
-region,
-id_mapping_table_identifier,
-arn,
-input_reference_config,
-membership_identifier,
-membership_arn,
-collaboration_identifier,
-collaboration_arn,
-description,
-name,
-input_reference_properties,
-kms_key_arn,
-tags
+  region,
+  id_mapping_table_identifier,
+  arn,
+  input_reference_config,
+  membership_identifier,
+  membership_arn,
+  collaboration_identifier,
+  collaboration_arn,
+  description,
+  name,
+  input_reference_properties,
+  kms_key_arn,
+  tags
 FROM awscc.cleanrooms.id_mapping_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -241,11 +243,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id_mapping_table_identifier }}|{
 Lists all <code>id_mapping_tables</code> in a region.
 ```sql
 SELECT
-region,
-id_mapping_table_identifier,
-membership_identifier
+  region,
+  id_mapping_table_identifier,
+  membership_identifier
 FROM awscc.cleanrooms.id_mapping_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,16 +270,16 @@ Use the following StackQL query and manifest file to create a new <code>id_mappi
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.id_mapping_tables (
- InputReferenceConfig,
- MembershipIdentifier,
- Name,
- region
+  InputReferenceConfig,
+  MembershipIdentifier,
+  Name,
+  region
 )
 SELECT
-'{{ input_reference_config }}',
- '{{ membership_identifier }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ input_reference_config }}',
+  '{{ membership_identifier }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,22 +287,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cleanrooms.id_mapping_tables (
- InputReferenceConfig,
- MembershipIdentifier,
- Description,
- Name,
- KmsKeyArn,
- Tags,
- region
+  InputReferenceConfig,
+  MembershipIdentifier,
+  Description,
+  Name,
+  KmsKeyArn,
+  Tags,
+  region
 )
 SELECT
- '{{ input_reference_config }}',
- '{{ membership_identifier }}',
- '{{ description }}',
- '{{ name }}',
- '{{ kms_key_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ input_reference_config }}',
+  '{{ membership_identifier }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ kms_key_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -348,8 +351,9 @@ SET PatchDocument = string('{{ {
     "KmsKeyArn": kms_key_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -358,8 +362,9 @@ AND Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}'
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.id_mapping_tables
-WHERE Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

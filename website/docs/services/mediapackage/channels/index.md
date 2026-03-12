@@ -204,16 +204,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT
-region,
-arn,
-id,
-description,
-hls_ingest,
-tags,
-egress_access_logs,
-ingress_access_logs
+  region,
+  arn,
+  id,
+  description,
+  hls_ingest,
+  tags,
+  egress_access_logs,
+  ingress_access_logs
 FROM awscc.mediapackage.channels
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>channels</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.mediapackage.channels_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,12 +249,12 @@ Use the following StackQL query and manifest file to create a new <code>channel<
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.channels (
- Id,
- region
+  Id,
+  region
 )
 SELECT
-'{{ id }}',
-'{{ region }}';
+  '{{ id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -259,22 +262,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.channels (
- Id,
- Description,
- HlsIngest,
- Tags,
- EgressAccessLogs,
- IngressAccessLogs,
- region
+  Id,
+  Description,
+  HlsIngest,
+  Tags,
+  EgressAccessLogs,
+  IngressAccessLogs,
+  region
 )
 SELECT
- '{{ id }}',
- '{{ description }}',
- '{{ hls_ingest }}',
- '{{ tags }}',
- '{{ egress_access_logs }}',
- '{{ ingress_access_logs }}',
- '{{ region }}';
+  '{{ id }}',
+  '{{ description }}',
+  '{{ hls_ingest }}',
+  '{{ tags }}',
+  '{{ egress_access_logs }}',
+  '{{ ingress_access_logs }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -327,8 +330,9 @@ SET PatchDocument = string('{{ {
     "EgressAccessLogs": egress_access_logs,
     "IngressAccessLogs": ingress_access_logs
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -337,8 +341,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.channels
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -160,15 +160,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_multicast_domain_association</code>.
 ```sql
 SELECT
-region,
-transit_gateway_multicast_domain_id,
-transit_gateway_attachment_id,
-resource_id,
-resource_type,
-state,
-subnet_id
+  region,
+  transit_gateway_multicast_domain_id,
+  transit_gateway_attachment_id,
+  resource_id,
+  resource_type,
+  state,
+  subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,12 +178,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain
 Lists all <code>transit_gateway_multicast_domain_associations</code> in a region.
 ```sql
 SELECT
-region,
-transit_gateway_multicast_domain_id,
-transit_gateway_attachment_id,
-subnet_id
+  region,
+  transit_gateway_multicast_domain_id,
+  transit_gateway_attachment_id,
+  subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,16 +206,16 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_domain_associations (
- TransitGatewayMulticastDomainId,
- TransitGatewayAttachmentId,
- SubnetId,
- region
+  TransitGatewayMulticastDomainId,
+  TransitGatewayAttachmentId,
+  SubnetId,
+  region
 )
 SELECT
-'{{ transit_gateway_multicast_domain_id }}',
- '{{ transit_gateway_attachment_id }}',
- '{{ subnet_id }}',
-'{{ region }}';
+  '{{ transit_gateway_multicast_domain_id }}',
+  '{{ transit_gateway_attachment_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -220,16 +223,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.transit_gateway_multicast_domain_associations (
- TransitGatewayMulticastDomainId,
- TransitGatewayAttachmentId,
- SubnetId,
- region
+  TransitGatewayMulticastDomainId,
+  TransitGatewayAttachmentId,
+  SubnetId,
+  region
 )
 SELECT
- '{{ transit_gateway_multicast_domain_id }}',
- '{{ transit_gateway_attachment_id }}',
- '{{ subnet_id }}',
- '{{ region }}';
+  '{{ transit_gateway_multicast_domain_id }}',
+  '{{ transit_gateway_attachment_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -307,18 +307,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule_group</code>.
 ```sql
 SELECT
-region,
-rule_group_name,
-rule_group_arn,
-rule_group_id,
-rule_group,
-type,
-capacity,
-summary_configuration,
-description,
-tags
+  region,
+  rule_group_name,
+  rule_group_arn,
+  rule_group_id,
+  rule_group,
+  type,
+  capacity,
+  summary_configuration,
+  description,
+  tags
 FROM awscc.networkfirewall.rule_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,10 +328,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_group_arn }}';
 Lists all <code>rule_groups</code> in a region.
 ```sql
 SELECT
-region,
-rule_group_arn
+  region,
+  rule_group_arn
 FROM awscc.networkfirewall.rule_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -351,16 +354,16 @@ Use the following StackQL query and manifest file to create a new <code>rule_gro
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.rule_groups (
- RuleGroupName,
- Type,
- Capacity,
- region
+  RuleGroupName,
+  Type,
+  Capacity,
+  region
 )
 SELECT
-'{{ rule_group_name }}',
- '{{ type }}',
- '{{ capacity }}',
-'{{ region }}';
+  '{{ rule_group_name }}',
+  '{{ type }}',
+  '{{ capacity }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -368,24 +371,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.rule_groups (
- RuleGroupName,
- RuleGroup,
- Type,
- Capacity,
- SummaryConfiguration,
- Description,
- Tags,
- region
+  RuleGroupName,
+  RuleGroup,
+  Type,
+  Capacity,
+  SummaryConfiguration,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ rule_group_name }}',
- '{{ rule_group }}',
- '{{ type }}',
- '{{ capacity }}',
- '{{ summary_configuration }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ rule_group_name }}',
+  '{{ rule_group }}',
+  '{{ type }}',
+  '{{ capacity }}',
+  '{{ summary_configuration }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -447,8 +450,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_group_arn }}';
 ```
 
 
@@ -457,8 +461,9 @@ AND Identifier = '{{ rule_group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.rule_groups
-WHERE Identifier = '{{ rule_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

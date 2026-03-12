@@ -203,21 +203,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>threat_entity_set</code>.
 ```sql
 SELECT
-region,
-id,
-format,
-activate,
-status,
-created_at,
-updated_at,
-error_details,
-detector_id,
-name,
-location,
-expected_bucket_owner,
-tags
+  region,
+  id,
+  format,
+  activate,
+  status,
+  created_at,
+  updated_at,
+  error_details,
+  detector_id,
+  name,
+  location,
+  expected_bucket_owner,
+  tags
 FROM awscc.guardduty.threat_entity_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ detector_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}|{{ detector_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +227,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ detector_id }}';
 Lists all <code>threat_entity_sets</code> in a region.
 ```sql
 SELECT
-region,
-id,
-detector_id
+  region,
+  id,
+  detector_id
 FROM awscc.guardduty.threat_entity_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -251,14 +254,14 @@ Use the following StackQL query and manifest file to create a new <code>threat_e
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.threat_entity_sets (
- Format,
- Location,
- region
+  Format,
+  Location,
+  region
 )
 SELECT
-'{{ format }}',
- '{{ location }}',
-'{{ region }}';
+  '{{ format }}',
+  '{{ location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,24 +269,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.threat_entity_sets (
- Format,
- Activate,
- DetectorId,
- Name,
- Location,
- ExpectedBucketOwner,
- Tags,
- region
+  Format,
+  Activate,
+  DetectorId,
+  Name,
+  Location,
+  ExpectedBucketOwner,
+  Tags,
+  region
 )
 SELECT
- '{{ format }}',
- '{{ activate }}',
- '{{ detector_id }}',
- '{{ name }}',
- '{{ location }}',
- '{{ expected_bucket_owner }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ format }}',
+  '{{ activate }}',
+  '{{ detector_id }}',
+  '{{ name }}',
+  '{{ location }}',
+  '{{ expected_bucket_owner }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ SET PatchDocument = string('{{ {
     "ExpectedBucketOwner": expected_bucket_owner,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}|{{ detector_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}|{{ detector_id }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ id }}|{{ detector_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.threat_entity_sets
-WHERE Identifier = '{{ id }}|{{ detector_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}|{{ detector_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

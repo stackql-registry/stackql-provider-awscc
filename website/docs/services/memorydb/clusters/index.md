@@ -310,41 +310,43 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-description,
-multi_region_cluster_name,
-status,
-node_type,
-num_shards,
-num_replicas_per_shard,
-subnet_group_name,
-security_group_ids,
-maintenance_window,
-parameter_group_name,
-parameter_group_status,
-port,
-snapshot_retention_limit,
-snapshot_window,
-acl_name,
-sns_topic_arn,
-sns_topic_status,
-tls_enabled,
-data_tiering,
-network_type,
-ip_discovery,
-kms_key_id,
-snapshot_arns,
-snapshot_name,
-final_snapshot_name,
-arn,
-engine,
-engine_version,
-cluster_endpoint,
-auto_minor_version_upgrade,
-tags
+  region,
+  cluster_name,
+  description,
+  multi_region_cluster_name,
+  status,
+  node_type,
+  num_shards,
+  num_replicas_per_shard,
+  subnet_group_name,
+  security_group_ids,
+  maintenance_window,
+  parameter_group_name,
+  parameter_group_status,
+  port,
+  snapshot_retention_limit,
+  snapshot_window,
+  acl_name,
+  sns_topic_arn,
+  sns_topic_status,
+  tls_enabled,
+  data_tiering,
+  network_type,
+  ip_discovery,
+  kms_key_id,
+  snapshot_arns,
+  snapshot_name,
+  final_snapshot_name,
+  arn,
+  engine,
+  engine_version,
+  cluster_endpoint,
+  auto_minor_version_upgrade,
+  tags
 FROM awscc.memorydb.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,10 +354,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-cluster_name
+  region,
+  cluster_name
 FROM awscc.memorydb.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -377,16 +380,16 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.clusters (
- ClusterName,
- NodeType,
- ACLName,
- region
+  ClusterName,
+  NodeType,
+  ACLName,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ node_type }}',
- '{{ acl_name }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ node_type }}',
+  '{{ acl_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -394,68 +397,68 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.clusters (
- ClusterName,
- Description,
- MultiRegionClusterName,
- NodeType,
- NumShards,
- NumReplicasPerShard,
- SubnetGroupName,
- SecurityGroupIds,
- MaintenanceWindow,
- ParameterGroupName,
- Port,
- SnapshotRetentionLimit,
- SnapshotWindow,
- ACLName,
- SnsTopicArn,
- SnsTopicStatus,
- TLSEnabled,
- DataTiering,
- NetworkType,
- IpDiscovery,
- KmsKeyId,
- SnapshotArns,
- SnapshotName,
- FinalSnapshotName,
- Engine,
- EngineVersion,
- ClusterEndpoint,
- AutoMinorVersionUpgrade,
- Tags,
- region
+  ClusterName,
+  Description,
+  MultiRegionClusterName,
+  NodeType,
+  NumShards,
+  NumReplicasPerShard,
+  SubnetGroupName,
+  SecurityGroupIds,
+  MaintenanceWindow,
+  ParameterGroupName,
+  Port,
+  SnapshotRetentionLimit,
+  SnapshotWindow,
+  ACLName,
+  SnsTopicArn,
+  SnsTopicStatus,
+  TLSEnabled,
+  DataTiering,
+  NetworkType,
+  IpDiscovery,
+  KmsKeyId,
+  SnapshotArns,
+  SnapshotName,
+  FinalSnapshotName,
+  Engine,
+  EngineVersion,
+  ClusterEndpoint,
+  AutoMinorVersionUpgrade,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ description }}',
- '{{ multi_region_cluster_name }}',
- '{{ node_type }}',
- '{{ num_shards }}',
- '{{ num_replicas_per_shard }}',
- '{{ subnet_group_name }}',
- '{{ security_group_ids }}',
- '{{ maintenance_window }}',
- '{{ parameter_group_name }}',
- '{{ port }}',
- '{{ snapshot_retention_limit }}',
- '{{ snapshot_window }}',
- '{{ acl_name }}',
- '{{ sns_topic_arn }}',
- '{{ sns_topic_status }}',
- '{{ tls_enabled }}',
- '{{ data_tiering }}',
- '{{ network_type }}',
- '{{ ip_discovery }}',
- '{{ kms_key_id }}',
- '{{ snapshot_arns }}',
- '{{ snapshot_name }}',
- '{{ final_snapshot_name }}',
- '{{ engine }}',
- '{{ engine_version }}',
- '{{ cluster_endpoint }}',
- '{{ auto_minor_version_upgrade }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ description }}',
+  '{{ multi_region_cluster_name }}',
+  '{{ node_type }}',
+  '{{ num_shards }}',
+  '{{ num_replicas_per_shard }}',
+  '{{ subnet_group_name }}',
+  '{{ security_group_ids }}',
+  '{{ maintenance_window }}',
+  '{{ parameter_group_name }}',
+  '{{ port }}',
+  '{{ snapshot_retention_limit }}',
+  '{{ snapshot_window }}',
+  '{{ acl_name }}',
+  '{{ sns_topic_arn }}',
+  '{{ sns_topic_status }}',
+  '{{ tls_enabled }}',
+  '{{ data_tiering }}',
+  '{{ network_type }}',
+  '{{ ip_discovery }}',
+  '{{ kms_key_id }}',
+  '{{ snapshot_arns }}',
+  '{{ snapshot_name }}',
+  '{{ final_snapshot_name }}',
+  '{{ engine }}',
+  '{{ engine_version }}',
+  '{{ cluster_endpoint }}',
+  '{{ auto_minor_version_upgrade }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -567,8 +570,9 @@ SET PatchDocument = string('{{ {
     "AutoMinorVersionUpgrade": auto_minor_version_upgrade,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_name }}';
 ```
 
 
@@ -577,8 +581,9 @@ AND Identifier = '{{ cluster_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.clusters
-WHERE Identifier = '{{ cluster_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

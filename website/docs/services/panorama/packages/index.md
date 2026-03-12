@@ -195,15 +195,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>package</code>.
 ```sql
 SELECT
-region,
-package_name,
-package_id,
-arn,
-storage_location,
-created_time,
-tags
+  region,
+  package_name,
+  package_id,
+  arn,
+  storage_location,
+  created_time,
+  tags
 FROM awscc.panorama.packages
-WHERE region = 'us-east-1' AND Identifier = '{{ package_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ package_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -211,10 +213,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ package_id }}';
 Lists all <code>packages</code> in a region.
 ```sql
 SELECT
-region,
-package_id
+  region,
+  package_id
 FROM awscc.panorama.packages_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -236,12 +239,12 @@ Use the following StackQL query and manifest file to create a new <code>package<
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.packages (
- PackageName,
- region
+  PackageName,
+  region
 )
 SELECT
-'{{ package_name }}',
-'{{ region }}';
+  '{{ package_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -249,16 +252,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.panorama.packages (
- PackageName,
- StorageLocation,
- Tags,
- region
+  PackageName,
+  StorageLocation,
+  Tags,
+  region
 )
 SELECT
- '{{ package_name }}',
- '{{ storage_location }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ package_name }}',
+  '{{ storage_location }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -302,8 +305,9 @@ UPDATE awscc.panorama.packages
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ package_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ package_id }}';
 ```
 
 
@@ -312,8 +316,9 @@ AND Identifier = '{{ package_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.packages
-WHERE Identifier = '{{ package_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ package_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

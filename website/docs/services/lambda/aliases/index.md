@@ -187,16 +187,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>alias</code>.
 ```sql
 SELECT
-region,
-function_name,
-alias_arn,
-provisioned_concurrency_config,
-description,
-function_version,
-routing_config,
-name
+  region,
+  function_name,
+  alias_arn,
+  provisioned_concurrency_config,
+  description,
+  function_version,
+  routing_config,
+  name
 FROM awscc.lambda.aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ alias_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ alias_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -204,10 +206,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ alias_arn }}';
 Lists all <code>aliases</code> in a region.
 ```sql
 SELECT
-region,
-alias_arn
+  region,
+  alias_arn
 FROM awscc.lambda.aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -229,16 +232,16 @@ Use the following StackQL query and manifest file to create a new <code>alias</c
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.aliases (
- FunctionName,
- FunctionVersion,
- Name,
- region
+  FunctionName,
+  FunctionVersion,
+  Name,
+  region
 )
 SELECT
-'{{ function_name }}',
- '{{ function_version }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ function_name }}',
+  '{{ function_version }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,22 +249,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.lambda.aliases (
- FunctionName,
- ProvisionedConcurrencyConfig,
- Description,
- FunctionVersion,
- RoutingConfig,
- Name,
- region
+  FunctionName,
+  ProvisionedConcurrencyConfig,
+  Description,
+  FunctionVersion,
+  RoutingConfig,
+  Name,
+  region
 )
 SELECT
- '{{ function_name }}',
- '{{ provisioned_concurrency_config }}',
- '{{ description }}',
- '{{ function_version }}',
- '{{ routing_config }}',
- '{{ name }}',
- '{{ region }}';
+  '{{ function_name }}',
+  '{{ provisioned_concurrency_config }}',
+  '{{ description }}',
+  '{{ function_version }}',
+  '{{ routing_config }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -311,8 +314,9 @@ SET PatchDocument = string('{{ {
     "FunctionVersion": function_version,
     "RoutingConfig": routing_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ alias_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ alias_arn }}';
 ```
 
 
@@ -321,8 +325,9 @@ AND Identifier = '{{ alias_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.aliases
-WHERE Identifier = '{{ alias_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ alias_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

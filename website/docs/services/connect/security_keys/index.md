@@ -140,12 +140,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>security_key</code>.
 ```sql
 SELECT
-region,
-key,
-instance_id,
-association_id
+  region,
+  key,
+  instance_id,
+  association_id
 FROM awscc.connect.security_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_id }}|{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -153,11 +155,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ association_id
 Lists all <code>security_keys</code> in a region.
 ```sql
 SELECT
-region,
-instance_id,
-association_id
+  region,
+  instance_id,
+  association_id
 FROM awscc.connect.security_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>security
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.security_keys (
- Key,
- InstanceId,
- region
+  Key,
+  InstanceId,
+  region
 )
 SELECT
-'{{ key }}',
- '{{ instance_id }}',
-'{{ region }}';
+  '{{ key }}',
+  '{{ instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,14 +197,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.security_keys (
- Key,
- InstanceId,
- region
+  Key,
+  InstanceId,
+  region
 )
 SELECT
- '{{ key }}',
- '{{ instance_id }}',
- '{{ region }}';
+  '{{ key }}',
+  '{{ instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -232,8 +235,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.security_keys
-WHERE Identifier = '{{ instance_id }}|{{ association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_id }}|{{ association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

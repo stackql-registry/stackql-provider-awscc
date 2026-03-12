@@ -140,12 +140,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>volume_attachment</code>.
 ```sql
 SELECT
-region,
-volume_id,
-instance_id,
-device
+  region,
+  volume_id,
+  instance_id,
+  device
 FROM awscc.ec2.volume_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}|{{ instance_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ volume_id }}|{{ instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -153,11 +155,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}|{{ instance_id }}';
 Lists all <code>volume_attachments</code> in a region.
 ```sql
 SELECT
-region,
-volume_id,
-instance_id
+  region,
+  volume_id,
+  instance_id
 FROM awscc.ec2.volume_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -179,14 +182,14 @@ Use the following StackQL query and manifest file to create a new <code>volume_a
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.volume_attachments (
- VolumeId,
- InstanceId,
- region
+  VolumeId,
+  InstanceId,
+  region
 )
 SELECT
-'{{ volume_id }}',
- '{{ instance_id }}',
-'{{ region }}';
+  '{{ volume_id }}',
+  '{{ instance_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,16 +197,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.volume_attachments (
- VolumeId,
- InstanceId,
- Device,
- region
+  VolumeId,
+  InstanceId,
+  Device,
+  region
 )
 SELECT
- '{{ volume_id }}',
- '{{ instance_id }}',
- '{{ device }}',
- '{{ region }}';
+  '{{ volume_id }}',
+  '{{ instance_id }}',
+  '{{ device }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -236,8 +239,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.volume_attachments
-WHERE Identifier = '{{ volume_id }}|{{ instance_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ volume_id }}|{{ instance_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

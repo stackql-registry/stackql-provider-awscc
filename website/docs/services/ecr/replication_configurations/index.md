@@ -143,11 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>replication_configuration</code>.
 ```sql
 SELECT
-region,
-replication_configuration,
-registry_id
+  region,
+  replication_configuration,
+  registry_id
 FROM awscc.ecr.replication_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ registry_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -155,10 +157,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
 Lists all <code>replication_configurations</code> in a region.
 ```sql
 SELECT
-region,
-registry_id
+  region,
+  registry_id
 FROM awscc.ecr.replication_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -180,12 +183,12 @@ Use the following StackQL query and manifest file to create a new <code>replicat
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.replication_configurations (
- ReplicationConfiguration,
- region
+  ReplicationConfiguration,
+  region
 )
 SELECT
-'{{ replication_configuration }}',
-'{{ region }}';
+  '{{ replication_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -193,12 +196,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.replication_configurations (
- ReplicationConfiguration,
- region
+  ReplicationConfiguration,
+  region
 )
 SELECT
- '{{ replication_configuration }}',
- '{{ region }}';
+  '{{ replication_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -232,8 +235,9 @@ UPDATE awscc.ecr.replication_configurations
 SET PatchDocument = string('{{ {
     "ReplicationConfiguration": replication_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ registry_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ registry_id }}';
 ```
 
 
@@ -242,8 +246,9 @@ AND Identifier = '{{ registry_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.replication_configurations
-WHERE Identifier = '{{ registry_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ registry_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

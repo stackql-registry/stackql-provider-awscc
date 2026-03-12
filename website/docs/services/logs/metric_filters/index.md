@@ -200,14 +200,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>metric_filter</code>.
 ```sql
 SELECT
-region,
-metric_transformations,
-filter_pattern,
-log_group_name,
-apply_on_transformed_logs,
-filter_name
+  region,
+  metric_transformations,
+  filter_pattern,
+  log_group_name,
+  apply_on_transformed_logs,
+  filter_name
 FROM awscc.logs.metric_filters
-WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ filter_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,11 +217,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ filter_name
 Lists all <code>metric_filters</code> in a region.
 ```sql
 SELECT
-region,
-log_group_name,
-filter_name
+  region,
+  log_group_name,
+  filter_name
 FROM awscc.logs.metric_filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -241,16 +244,16 @@ Use the following StackQL query and manifest file to create a new <code>metric_f
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.metric_filters (
- MetricTransformations,
- FilterPattern,
- LogGroupName,
- region
+  MetricTransformations,
+  FilterPattern,
+  LogGroupName,
+  region
 )
 SELECT
-'{{ metric_transformations }}',
- '{{ filter_pattern }}',
- '{{ log_group_name }}',
-'{{ region }}';
+  '{{ metric_transformations }}',
+  '{{ filter_pattern }}',
+  '{{ log_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -258,20 +261,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.metric_filters (
- MetricTransformations,
- FilterPattern,
- LogGroupName,
- ApplyOnTransformedLogs,
- FilterName,
- region
+  MetricTransformations,
+  FilterPattern,
+  LogGroupName,
+  ApplyOnTransformedLogs,
+  FilterName,
+  region
 )
 SELECT
- '{{ metric_transformations }}',
- '{{ filter_pattern }}',
- '{{ log_group_name }}',
- '{{ apply_on_transformed_logs }}',
- '{{ filter_name }}',
- '{{ region }}';
+  '{{ metric_transformations }}',
+  '{{ filter_pattern }}',
+  '{{ log_group_name }}',
+  '{{ apply_on_transformed_logs }}',
+  '{{ filter_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -322,8 +325,9 @@ SET PatchDocument = string('{{ {
     "FilterPattern": filter_pattern,
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ log_group_name }}|{{ filter_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```
 
 
@@ -332,8 +336,9 @@ AND Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.metric_filters
-WHERE Identifier = '{{ log_group_name }}|{{ filter_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ log_group_name }}|{{ filter_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -271,18 +271,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_protection_setting</code>.
 ```sql
 SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-data_protection_settings_arn,
-description,
-display_name,
-inline_redaction_configuration,
-tags
+  region,
+  additional_encryption_context,
+  associated_portal_arns,
+  creation_date,
+  customer_managed_key,
+  data_protection_settings_arn,
+  description,
+  display_name,
+  inline_redaction_configuration,
+  tags
 FROM awscc.workspacesweb.data_protection_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ data_protection_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ data_protection_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,10 +292,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ data_protection_settings_arn }}'
 Lists all <code>data_protection_settings</code> in a region.
 ```sql
 SELECT
-region,
-data_protection_settings_arn
+  region,
+  data_protection_settings_arn
 FROM awscc.workspacesweb.data_protection_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -315,22 +318,22 @@ Use the following StackQL query and manifest file to create a new <code>data_pro
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.data_protection_settings (
- AdditionalEncryptionContext,
- CustomerManagedKey,
- Description,
- DisplayName,
- InlineRedactionConfiguration,
- Tags,
- region
+  AdditionalEncryptionContext,
+  CustomerManagedKey,
+  Description,
+  DisplayName,
+  InlineRedactionConfiguration,
+  Tags,
+  region
 )
 SELECT
-'{{ additional_encryption_context }}',
- '{{ customer_managed_key }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ inline_redaction_configuration }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ customer_managed_key }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ inline_redaction_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -338,22 +341,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.data_protection_settings (
- AdditionalEncryptionContext,
- CustomerManagedKey,
- Description,
- DisplayName,
- InlineRedactionConfiguration,
- Tags,
- region
+  AdditionalEncryptionContext,
+  CustomerManagedKey,
+  Description,
+  DisplayName,
+  InlineRedactionConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ additional_encryption_context }}',
- '{{ customer_managed_key }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ inline_redaction_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ additional_encryption_context }}',
+  '{{ customer_managed_key }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ inline_redaction_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -421,8 +424,9 @@ SET PatchDocument = string('{{ {
     "InlineRedactionConfiguration": inline_redaction_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ data_protection_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ data_protection_settings_arn }}';
 ```
 
 
@@ -431,8 +435,9 @@ AND Identifier = '{{ data_protection_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.data_protection_settings
-WHERE Identifier = '{{ data_protection_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ data_protection_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -175,14 +175,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_permission</code>.
 ```sql
 SELECT
-region,
-arn,
-aws_account_id,
-capabilities,
-custom_permissions_name,
-tags
+  region,
+  arn,
+  aws_account_id,
+  capabilities,
+  custom_permissions_name,
+  tags
 FROM awscc.quicksight.custom_permissions
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,11 +192,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ custom_perm
 Lists all <code>custom_permissions</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-custom_permissions_name
+  region,
+  aws_account_id,
+  custom_permissions_name
 FROM awscc.quicksight.custom_permissions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -216,14 +219,14 @@ Use the following StackQL query and manifest file to create a new <code>custom_p
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.custom_permissions (
- AwsAccountId,
- CustomPermissionsName,
- region
+  AwsAccountId,
+  CustomPermissionsName,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ custom_permissions_name }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ custom_permissions_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -231,18 +234,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.custom_permissions (
- AwsAccountId,
- Capabilities,
- CustomPermissionsName,
- Tags,
- region
+  AwsAccountId,
+  Capabilities,
+  CustomPermissionsName,
+  Tags,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ capabilities }}',
- '{{ custom_permissions_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ capabilities }}',
+  '{{ custom_permissions_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "Capabilities": capabilities,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.custom_permissions
-WHERE Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

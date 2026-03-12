@@ -167,16 +167,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>repository_association</code>.
 ```sql
 SELECT
-region,
-name,
-type,
-owner,
-bucket_name,
-connection_arn,
-association_arn,
-tags
+  region,
+  name,
+  type,
+  owner,
+  bucket_name,
+  connection_arn,
+  association_arn,
+  tags
 FROM awscc.codegurureviewer.repository_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 Lists all <code>repository_associations</code> in a region.
 ```sql
 SELECT
-region,
-association_arn
+  region,
+  association_arn
 FROM awscc.codegurureviewer.repository_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>reposito
 ```sql
 /*+ create */
 INSERT INTO awscc.codegurureviewer.repository_associations (
- Name,
- Type,
- region
+  Name,
+  Type,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,22 +227,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codegurureviewer.repository_associations (
- Name,
- Type,
- Owner,
- BucketName,
- ConnectionArn,
- Tags,
- region
+  Name,
+  Type,
+  Owner,
+  BucketName,
+  ConnectionArn,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ type }}',
- '{{ owner }}',
- '{{ bucket_name }}',
- '{{ connection_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ owner }}',
+  '{{ bucket_name }}',
+  '{{ connection_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -280,8 +283,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.codegurureviewer.repository_associations
-WHERE Identifier = '{{ association_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ association_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

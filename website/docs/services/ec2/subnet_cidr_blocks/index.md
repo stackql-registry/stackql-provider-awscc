@@ -155,16 +155,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet_cidr_block</code>.
 ```sql
 SELECT
-region,
-id,
-ipv6_cidr_block,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-subnet_id,
-ipv6_address_attribute,
-ip_source
+  region,
+  id,
+  ipv6_cidr_block,
+  ipv6_ipam_pool_id,
+  ipv6_netmask_length,
+  subnet_id,
+  ipv6_address_attribute,
+  ip_source
 FROM awscc.ec2.subnet_cidr_blocks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>subnet_cidr_blocks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.subnet_cidr_blocks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>subnet_c
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_cidr_blocks (
- SubnetId,
- region
+  SubnetId,
+  region
 )
 SELECT
-'{{ subnet_id }}',
-'{{ region }}';
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,18 +213,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_cidr_blocks (
- Ipv6CidrBlock,
- Ipv6IpamPoolId,
- Ipv6NetmaskLength,
- SubnetId,
- region
+  Ipv6CidrBlock,
+  Ipv6IpamPoolId,
+  Ipv6NetmaskLength,
+  SubnetId,
+  region
 )
 SELECT
- '{{ ipv6_cidr_block }}',
- '{{ ipv6_ipam_pool_id }}',
- '{{ ipv6_netmask_length }}',
- '{{ subnet_id }}',
- '{{ region }}';
+  '{{ ipv6_cidr_block }}',
+  '{{ ipv6_ipam_pool_id }}',
+  '{{ ipv6_netmask_length }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -256,8 +259,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_cidr_blocks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

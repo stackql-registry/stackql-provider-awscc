@@ -259,26 +259,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>branch</code>.
 ```sql
 SELECT
-region,
-app_id,
-arn,
-basic_auth_config,
-backend,
-branch_name,
-build_spec,
-compute_role_arn,
-description,
-enable_auto_build,
-enable_performance_mode,
-enable_pull_request_preview,
-enable_skew_protection,
-environment_variables,
-framework,
-pull_request_environment_name,
-stage,
-tags
+  region,
+  app_id,
+  arn,
+  basic_auth_config,
+  backend,
+  branch_name,
+  build_spec,
+  compute_role_arn,
+  description,
+  enable_auto_build,
+  enable_performance_mode,
+  enable_pull_request_preview,
+  enable_skew_protection,
+  environment_variables,
+  framework,
+  pull_request_environment_name,
+  stage,
+  tags
 FROM awscc.amplify.branches
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,10 +288,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>branches</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.amplify.branches_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -311,14 +314,14 @@ Use the following StackQL query and manifest file to create a new <code>branch</
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.branches (
- AppId,
- BranchName,
- region
+  AppId,
+  BranchName,
+  region
 )
 SELECT
-'{{ app_id }}',
- '{{ branch_name }}',
-'{{ region }}';
+  '{{ app_id }}',
+  '{{ branch_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -326,42 +329,42 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplify.branches (
- AppId,
- BasicAuthConfig,
- Backend,
- BranchName,
- BuildSpec,
- ComputeRoleArn,
- Description,
- EnableAutoBuild,
- EnablePerformanceMode,
- EnablePullRequestPreview,
- EnableSkewProtection,
- EnvironmentVariables,
- Framework,
- PullRequestEnvironmentName,
- Stage,
- Tags,
- region
+  AppId,
+  BasicAuthConfig,
+  Backend,
+  BranchName,
+  BuildSpec,
+  ComputeRoleArn,
+  Description,
+  EnableAutoBuild,
+  EnablePerformanceMode,
+  EnablePullRequestPreview,
+  EnableSkewProtection,
+  EnvironmentVariables,
+  Framework,
+  PullRequestEnvironmentName,
+  Stage,
+  Tags,
+  region
 )
 SELECT
- '{{ app_id }}',
- '{{ basic_auth_config }}',
- '{{ backend }}',
- '{{ branch_name }}',
- '{{ build_spec }}',
- '{{ compute_role_arn }}',
- '{{ description }}',
- '{{ enable_auto_build }}',
- '{{ enable_performance_mode }}',
- '{{ enable_pull_request_preview }}',
- '{{ enable_skew_protection }}',
- '{{ environment_variables }}',
- '{{ framework }}',
- '{{ pull_request_environment_name }}',
- '{{ stage }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ app_id }}',
+  '{{ basic_auth_config }}',
+  '{{ backend }}',
+  '{{ branch_name }}',
+  '{{ build_spec }}',
+  '{{ compute_role_arn }}',
+  '{{ description }}',
+  '{{ enable_auto_build }}',
+  '{{ enable_performance_mode }}',
+  '{{ enable_pull_request_preview }}',
+  '{{ enable_skew_protection }}',
+  '{{ environment_variables }}',
+  '{{ framework }}',
+  '{{ pull_request_environment_name }}',
+  '{{ stage }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -445,8 +448,9 @@ SET PatchDocument = string('{{ {
     "Stage": stage,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -455,8 +459,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.branches
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

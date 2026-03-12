@@ -904,39 +904,41 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>model_package</code>.
 ```sql
 SELECT
-region,
-tags,
-additional_inference_specifications,
-certify_for_marketplace,
-client_token,
-customer_metadata_properties,
-domain,
-drift_check_baselines,
-inference_specification,
-metadata_properties,
-model_approval_status,
-model_metrics,
-model_package_description,
-model_package_group_name,
-model_package_name,
-sample_payload_url,
-skip_model_validation,
-source_algorithm_specification,
-task,
-validation_specification,
-model_package_arn,
-approval_description,
-creation_time,
-last_modified_time,
-model_package_status,
-model_package_version,
-additional_inference_specifications_to_add,
-model_package_status_details,
-source_uri,
-model_card,
-security_config
+  region,
+  tags,
+  additional_inference_specifications,
+  certify_for_marketplace,
+  client_token,
+  customer_metadata_properties,
+  domain,
+  drift_check_baselines,
+  inference_specification,
+  metadata_properties,
+  model_approval_status,
+  model_metrics,
+  model_package_description,
+  model_package_group_name,
+  model_package_name,
+  sample_payload_url,
+  skip_model_validation,
+  source_algorithm_specification,
+  task,
+  validation_specification,
+  model_package_arn,
+  approval_description,
+  creation_time,
+  last_modified_time,
+  model_package_status,
+  model_package_version,
+  additional_inference_specifications_to_add,
+  model_package_status_details,
+  source_uri,
+  model_card,
+  security_config
 FROM awscc.sagemaker.model_packages
-WHERE region = 'us-east-1' AND Identifier = '{{ model_package_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ model_package_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -944,10 +946,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ model_package_arn }}';
 Lists all <code>model_packages</code> in a region.
 ```sql
 SELECT
-region,
-model_package_arn
+  region,
+  model_package_arn
 FROM awscc.sagemaker.model_packages_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -969,64 +972,64 @@ Use the following StackQL query and manifest file to create a new <code>model_pa
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.model_packages (
- Tags,
- AdditionalInferenceSpecifications,
- CertifyForMarketplace,
- ClientToken,
- CustomerMetadataProperties,
- Domain,
- DriftCheckBaselines,
- InferenceSpecification,
- MetadataProperties,
- ModelApprovalStatus,
- ModelMetrics,
- ModelPackageDescription,
- ModelPackageGroupName,
- ModelPackageName,
- SamplePayloadUrl,
- SkipModelValidation,
- SourceAlgorithmSpecification,
- Task,
- ValidationSpecification,
- ApprovalDescription,
- LastModifiedTime,
- ModelPackageVersion,
- AdditionalInferenceSpecificationsToAdd,
- ModelPackageStatusDetails,
- SourceUri,
- ModelCard,
- SecurityConfig,
- region
+  Tags,
+  AdditionalInferenceSpecifications,
+  CertifyForMarketplace,
+  ClientToken,
+  CustomerMetadataProperties,
+  Domain,
+  DriftCheckBaselines,
+  InferenceSpecification,
+  MetadataProperties,
+  ModelApprovalStatus,
+  ModelMetrics,
+  ModelPackageDescription,
+  ModelPackageGroupName,
+  ModelPackageName,
+  SamplePayloadUrl,
+  SkipModelValidation,
+  SourceAlgorithmSpecification,
+  Task,
+  ValidationSpecification,
+  ApprovalDescription,
+  LastModifiedTime,
+  ModelPackageVersion,
+  AdditionalInferenceSpecificationsToAdd,
+  ModelPackageStatusDetails,
+  SourceUri,
+  ModelCard,
+  SecurityConfig,
+  region
 )
 SELECT
-'{{ tags }}',
- '{{ additional_inference_specifications }}',
- '{{ certify_for_marketplace }}',
- '{{ client_token }}',
- '{{ customer_metadata_properties }}',
- '{{ domain }}',
- '{{ drift_check_baselines }}',
- '{{ inference_specification }}',
- '{{ metadata_properties }}',
- '{{ model_approval_status }}',
- '{{ model_metrics }}',
- '{{ model_package_description }}',
- '{{ model_package_group_name }}',
- '{{ model_package_name }}',
- '{{ sample_payload_url }}',
- '{{ skip_model_validation }}',
- '{{ source_algorithm_specification }}',
- '{{ task }}',
- '{{ validation_specification }}',
- '{{ approval_description }}',
- '{{ last_modified_time }}',
- '{{ model_package_version }}',
- '{{ additional_inference_specifications_to_add }}',
- '{{ model_package_status_details }}',
- '{{ source_uri }}',
- '{{ model_card }}',
- '{{ security_config }}',
-'{{ region }}';
+  '{{ tags }}',
+  '{{ additional_inference_specifications }}',
+  '{{ certify_for_marketplace }}',
+  '{{ client_token }}',
+  '{{ customer_metadata_properties }}',
+  '{{ domain }}',
+  '{{ drift_check_baselines }}',
+  '{{ inference_specification }}',
+  '{{ metadata_properties }}',
+  '{{ model_approval_status }}',
+  '{{ model_metrics }}',
+  '{{ model_package_description }}',
+  '{{ model_package_group_name }}',
+  '{{ model_package_name }}',
+  '{{ sample_payload_url }}',
+  '{{ skip_model_validation }}',
+  '{{ source_algorithm_specification }}',
+  '{{ task }}',
+  '{{ validation_specification }}',
+  '{{ approval_description }}',
+  '{{ last_modified_time }}',
+  '{{ model_package_version }}',
+  '{{ additional_inference_specifications_to_add }}',
+  '{{ model_package_status_details }}',
+  '{{ source_uri }}',
+  '{{ model_card }}',
+  '{{ security_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1034,64 +1037,64 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.model_packages (
- Tags,
- AdditionalInferenceSpecifications,
- CertifyForMarketplace,
- ClientToken,
- CustomerMetadataProperties,
- Domain,
- DriftCheckBaselines,
- InferenceSpecification,
- MetadataProperties,
- ModelApprovalStatus,
- ModelMetrics,
- ModelPackageDescription,
- ModelPackageGroupName,
- ModelPackageName,
- SamplePayloadUrl,
- SkipModelValidation,
- SourceAlgorithmSpecification,
- Task,
- ValidationSpecification,
- ApprovalDescription,
- LastModifiedTime,
- ModelPackageVersion,
- AdditionalInferenceSpecificationsToAdd,
- ModelPackageStatusDetails,
- SourceUri,
- ModelCard,
- SecurityConfig,
- region
+  Tags,
+  AdditionalInferenceSpecifications,
+  CertifyForMarketplace,
+  ClientToken,
+  CustomerMetadataProperties,
+  Domain,
+  DriftCheckBaselines,
+  InferenceSpecification,
+  MetadataProperties,
+  ModelApprovalStatus,
+  ModelMetrics,
+  ModelPackageDescription,
+  ModelPackageGroupName,
+  ModelPackageName,
+  SamplePayloadUrl,
+  SkipModelValidation,
+  SourceAlgorithmSpecification,
+  Task,
+  ValidationSpecification,
+  ApprovalDescription,
+  LastModifiedTime,
+  ModelPackageVersion,
+  AdditionalInferenceSpecificationsToAdd,
+  ModelPackageStatusDetails,
+  SourceUri,
+  ModelCard,
+  SecurityConfig,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ additional_inference_specifications }}',
- '{{ certify_for_marketplace }}',
- '{{ client_token }}',
- '{{ customer_metadata_properties }}',
- '{{ domain }}',
- '{{ drift_check_baselines }}',
- '{{ inference_specification }}',
- '{{ metadata_properties }}',
- '{{ model_approval_status }}',
- '{{ model_metrics }}',
- '{{ model_package_description }}',
- '{{ model_package_group_name }}',
- '{{ model_package_name }}',
- '{{ sample_payload_url }}',
- '{{ skip_model_validation }}',
- '{{ source_algorithm_specification }}',
- '{{ task }}',
- '{{ validation_specification }}',
- '{{ approval_description }}',
- '{{ last_modified_time }}',
- '{{ model_package_version }}',
- '{{ additional_inference_specifications_to_add }}',
- '{{ model_package_status_details }}',
- '{{ source_uri }}',
- '{{ model_card }}',
- '{{ security_config }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ additional_inference_specifications }}',
+  '{{ certify_for_marketplace }}',
+  '{{ client_token }}',
+  '{{ customer_metadata_properties }}',
+  '{{ domain }}',
+  '{{ drift_check_baselines }}',
+  '{{ inference_specification }}',
+  '{{ metadata_properties }}',
+  '{{ model_approval_status }}',
+  '{{ model_metrics }}',
+  '{{ model_package_description }}',
+  '{{ model_package_group_name }}',
+  '{{ model_package_name }}',
+  '{{ sample_payload_url }}',
+  '{{ skip_model_validation }}',
+  '{{ source_algorithm_specification }}',
+  '{{ task }}',
+  '{{ validation_specification }}',
+  '{{ approval_description }}',
+  '{{ last_modified_time }}',
+  '{{ model_package_version }}',
+  '{{ additional_inference_specifications_to_add }}',
+  '{{ model_package_status_details }}',
+  '{{ source_uri }}',
+  '{{ model_card }}',
+  '{{ security_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1299,8 +1302,9 @@ SET PatchDocument = string('{{ {
     "SourceUri": source_uri,
     "ModelCard": model_card
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ model_package_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ model_package_arn }}';
 ```
 
 
@@ -1309,8 +1313,9 @@ AND Identifier = '{{ model_package_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.model_packages
-WHERE Identifier = '{{ model_package_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ model_package_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -229,20 +229,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT
-region,
-arn,
-identifier,
-description,
-resource_tags,
-exclude_resource_tags,
-resource_type,
-tags,
-retention_period,
-status,
-lock_configuration,
-lock_state
+  region,
+  arn,
+  identifier,
+  description,
+  resource_tags,
+  exclude_resource_tags,
+  resource_type,
+  tags,
+  retention_period,
+  status,
+  lock_configuration,
+  lock_state
 FROM awscc.rbin.rules
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +252,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>rules</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.rbin.rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -275,14 +278,14 @@ Use the following StackQL query and manifest file to create a new <code>rule</co
 ```sql
 /*+ create */
 INSERT INTO awscc.rbin.rules (
- ResourceType,
- RetentionPeriod,
- region
+  ResourceType,
+  RetentionPeriod,
+  region
 )
 SELECT
-'{{ resource_type }}',
- '{{ retention_period }}',
-'{{ region }}';
+  '{{ resource_type }}',
+  '{{ retention_period }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,26 +293,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rbin.rules (
- Description,
- ResourceTags,
- ExcludeResourceTags,
- ResourceType,
- Tags,
- RetentionPeriod,
- Status,
- LockConfiguration,
- region
+  Description,
+  ResourceTags,
+  ExcludeResourceTags,
+  ResourceType,
+  Tags,
+  RetentionPeriod,
+  Status,
+  LockConfiguration,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ resource_tags }}',
- '{{ exclude_resource_tags }}',
- '{{ resource_type }}',
- '{{ tags }}',
- '{{ retention_period }}',
- '{{ status }}',
- '{{ lock_configuration }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ resource_tags }}',
+  '{{ exclude_resource_tags }}',
+  '{{ resource_type }}',
+  '{{ tags }}',
+  '{{ retention_period }}',
+  '{{ status }}',
+  '{{ lock_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -371,8 +374,9 @@ SET PatchDocument = string('{{ {
     "Status": status,
     "LockConfiguration": lock_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -381,8 +385,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rbin.rules
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

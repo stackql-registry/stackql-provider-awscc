@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>matchmaking_rule_set</code>.
 ```sql
 SELECT
-region,
-name,
-rule_set_body,
-creation_time,
-arn,
-tags
+  region,
+  name,
+  rule_set_body,
+  creation_time,
+  arn,
+  tags
 FROM awscc.gamelift.matchmaking_rule_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>matchmaking_rule_sets</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.gamelift.matchmaking_rule_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>matchmak
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.matchmaking_rule_sets (
- Name,
- RuleSetBody,
- region
+  Name,
+  RuleSetBody,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ rule_set_body }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ rule_set_body }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.gamelift.matchmaking_rule_sets (
- Name,
- RuleSetBody,
- Tags,
- region
+  Name,
+  RuleSetBody,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ rule_set_body }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ rule_set_body }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ UPDATE awscc.gamelift.matchmaking_rule_sets
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -276,8 +280,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.matchmaking_rule_sets
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

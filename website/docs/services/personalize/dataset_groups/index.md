@@ -145,14 +145,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>dataset_group</code>.
 ```sql
 SELECT
-region,
-dataset_group_arn,
-name,
-kms_key_arn,
-role_arn,
-domain
+  region,
+  dataset_group_arn,
+  name,
+  kms_key_arn,
+  role_arn,
+  domain
 FROM awscc.personalize.dataset_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ dataset_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
 Lists all <code>dataset_groups</code> in a region.
 ```sql
 SELECT
-region,
-dataset_group_arn
+  region,
+  dataset_group_arn
 FROM awscc.personalize.dataset_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>dataset_
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.dataset_groups (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,18 +201,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.personalize.dataset_groups (
- Name,
- KmsKeyArn,
- RoleArn,
- Domain,
- region
+  Name,
+  KmsKeyArn,
+  RoleArn,
+  Domain,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ kms_key_arn }}',
- '{{ role_arn }}',
- '{{ domain }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ kms_key_arn }}',
+  '{{ role_arn }}',
+  '{{ domain }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.dataset_groups
-WHERE Identifier = '{{ dataset_group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ dataset_group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

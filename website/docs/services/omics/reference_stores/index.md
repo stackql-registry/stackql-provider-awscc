@@ -167,16 +167,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>reference_store</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-name,
-reference_store_id,
-sse_config,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  name,
+  reference_store_id,
+  sse_config,
+  tags
 FROM awscc.omics.reference_stores
-WHERE region = 'us-east-1' AND Identifier = '{{ reference_store_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ reference_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ reference_store_id }}';
 Lists all <code>reference_stores</code> in a region.
 ```sql
 SELECT
-region,
-reference_store_id
+  region,
+  reference_store_id
 FROM awscc.omics.reference_stores_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>referenc
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.reference_stores (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.reference_stores (
- Description,
- Name,
- SseConfig,
- Tags,
- region
+  Description,
+  Name,
+  SseConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ sse_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ sse_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -270,8 +273,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.reference_stores
-WHERE Identifier = '{{ reference_store_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ reference_store_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

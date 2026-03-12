@@ -504,38 +504,40 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>agent</code>.
 ```sql
 SELECT
-region,
-action_groups,
-agent_arn,
-agent_id,
-agent_name,
-agent_resource_role_arn,
-agent_status,
-agent_version,
-auto_prepare,
-created_at,
-custom_orchestration,
-customer_encryption_key_arn,
-skip_resource_in_use_check_on_delete,
-description,
-failure_reasons,
-foundation_model,
-guardrail_configuration,
-memory_configuration,
-idle_session_ttl_in_seconds,
-agent_collaboration,
-instruction,
-knowledge_bases,
-agent_collaborators,
-orchestration_type,
-prepared_at,
-prompt_override_configuration,
-recommended_actions,
-tags,
-test_alias_tags,
-updated_at
+  region,
+  action_groups,
+  agent_arn,
+  agent_id,
+  agent_name,
+  agent_resource_role_arn,
+  agent_status,
+  agent_version,
+  auto_prepare,
+  created_at,
+  custom_orchestration,
+  customer_encryption_key_arn,
+  skip_resource_in_use_check_on_delete,
+  description,
+  failure_reasons,
+  foundation_model,
+  guardrail_configuration,
+  memory_configuration,
+  idle_session_ttl_in_seconds,
+  agent_collaboration,
+  instruction,
+  knowledge_bases,
+  agent_collaborators,
+  orchestration_type,
+  prepared_at,
+  prompt_override_configuration,
+  recommended_actions,
+  tags,
+  test_alias_tags,
+  updated_at
 FROM awscc.bedrock.agents
-WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ agent_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -543,10 +545,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}';
 Lists all <code>agents</code> in a region.
 ```sql
 SELECT
-region,
-agent_id
+  region,
+  agent_id
 FROM awscc.bedrock.agents_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -568,12 +571,12 @@ Use the following StackQL query and manifest file to create a new <code>agent</c
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.agents (
- AgentName,
- region
+  AgentName,
+  region
 )
 SELECT
-'{{ agent_name }}',
-'{{ region }}';
+  '{{ agent_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -581,50 +584,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.agents (
- ActionGroups,
- AgentName,
- AgentResourceRoleArn,
- AutoPrepare,
- CustomOrchestration,
- CustomerEncryptionKeyArn,
- SkipResourceInUseCheckOnDelete,
- Description,
- FoundationModel,
- GuardrailConfiguration,
- MemoryConfiguration,
- IdleSessionTTLInSeconds,
- AgentCollaboration,
- Instruction,
- KnowledgeBases,
- AgentCollaborators,
- OrchestrationType,
- PromptOverrideConfiguration,
- Tags,
- TestAliasTags,
- region
+  ActionGroups,
+  AgentName,
+  AgentResourceRoleArn,
+  AutoPrepare,
+  CustomOrchestration,
+  CustomerEncryptionKeyArn,
+  SkipResourceInUseCheckOnDelete,
+  Description,
+  FoundationModel,
+  GuardrailConfiguration,
+  MemoryConfiguration,
+  IdleSessionTTLInSeconds,
+  AgentCollaboration,
+  Instruction,
+  KnowledgeBases,
+  AgentCollaborators,
+  OrchestrationType,
+  PromptOverrideConfiguration,
+  Tags,
+  TestAliasTags,
+  region
 )
 SELECT
- '{{ action_groups }}',
- '{{ agent_name }}',
- '{{ agent_resource_role_arn }}',
- '{{ auto_prepare }}',
- '{{ custom_orchestration }}',
- '{{ customer_encryption_key_arn }}',
- '{{ skip_resource_in_use_check_on_delete }}',
- '{{ description }}',
- '{{ foundation_model }}',
- '{{ guardrail_configuration }}',
- '{{ memory_configuration }}',
- '{{ idle_session_ttl_in_seconds }}',
- '{{ agent_collaboration }}',
- '{{ instruction }}',
- '{{ knowledge_bases }}',
- '{{ agent_collaborators }}',
- '{{ orchestration_type }}',
- '{{ prompt_override_configuration }}',
- '{{ tags }}',
- '{{ test_alias_tags }}',
- '{{ region }}';
+  '{{ action_groups }}',
+  '{{ agent_name }}',
+  '{{ agent_resource_role_arn }}',
+  '{{ auto_prepare }}',
+  '{{ custom_orchestration }}',
+  '{{ customer_encryption_key_arn }}',
+  '{{ skip_resource_in_use_check_on_delete }}',
+  '{{ description }}',
+  '{{ foundation_model }}',
+  '{{ guardrail_configuration }}',
+  '{{ memory_configuration }}',
+  '{{ idle_session_ttl_in_seconds }}',
+  '{{ agent_collaboration }}',
+  '{{ instruction }}',
+  '{{ knowledge_bases }}',
+  '{{ agent_collaborators }}',
+  '{{ orchestration_type }}',
+  '{{ prompt_override_configuration }}',
+  '{{ tags }}',
+  '{{ test_alias_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -760,8 +763,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "TestAliasTags": test_alias_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ agent_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ agent_id }}';
 ```
 
 
@@ -770,8 +774,9 @@ AND Identifier = '{{ agent_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.agents
-WHERE Identifier = '{{ agent_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ agent_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

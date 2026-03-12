@@ -141,11 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account_alias</code>.
 ```sql
 SELECT
-region,
-account_alias,
-account_alias_resource_id
+  region,
+  account_alias,
+  account_alias_resource_id
 FROM awscc.supportapp.account_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ account_alias_resource_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_alias_resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -153,10 +155,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_alias_resource_id }}';
 Lists all <code>account_aliases</code> in a region.
 ```sql
 SELECT
-region,
-account_alias_resource_id
+  region,
+  account_alias_resource_id
 FROM awscc.supportapp.account_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -178,12 +181,12 @@ Use the following StackQL query and manifest file to create a new <code>account_
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.account_aliases (
- AccountAlias,
- region
+  AccountAlias,
+  region
 )
 SELECT
-'{{ account_alias }}',
-'{{ region }}';
+  '{{ account_alias }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -191,12 +194,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.supportapp.account_aliases (
- AccountAlias,
- region
+  AccountAlias,
+  region
 )
 SELECT
- '{{ account_alias }}',
- '{{ region }}';
+  '{{ account_alias }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -229,8 +232,9 @@ UPDATE awscc.supportapp.account_aliases
 SET PatchDocument = string('{{ {
     "AccountAlias": account_alias
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_alias_resource_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_alias_resource_id }}';
 ```
 
 
@@ -239,8 +243,9 @@ AND Identifier = '{{ account_alias_resource_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.account_aliases
-WHERE Identifier = '{{ account_alias_resource_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_alias_resource_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

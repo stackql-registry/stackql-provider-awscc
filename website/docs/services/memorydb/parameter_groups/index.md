@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>parameter_group</code>.
 ```sql
 SELECT
-region,
-parameter_group_name,
-family,
-description,
-tags,
-parameters,
-arn
+  region,
+  parameter_group_name,
+  family,
+  description,
+  tags,
+  parameters,
+  arn
 FROM awscc.memorydb.parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
 Lists all <code>parameter_groups</code> in a region.
 ```sql
 SELECT
-region,
-parameter_group_name
+  region,
+  parameter_group_name
 FROM awscc.memorydb.parameter_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>paramete
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.parameter_groups (
- ParameterGroupName,
- Family,
- region
+  ParameterGroupName,
+  Family,
+  region
 )
 SELECT
-'{{ parameter_group_name }}',
- '{{ family }}',
-'{{ region }}';
+  '{{ parameter_group_name }}',
+  '{{ family }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.parameter_groups (
- ParameterGroupName,
- Family,
- Description,
- Tags,
- Parameters,
- region
+  ParameterGroupName,
+  Family,
+  Description,
+  Tags,
+  Parameters,
+  region
 )
 SELECT
- '{{ parameter_group_name }}',
- '{{ family }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ parameters }}',
- '{{ region }}';
+  '{{ parameter_group_name }}',
+  '{{ family }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -281,8 +284,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Parameters": parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ parameter_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ parameter_group_name }}';
 ```
 
 
@@ -291,8 +295,9 @@ AND Identifier = '{{ parameter_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.parameter_groups
-WHERE Identifier = '{{ parameter_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ parameter_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

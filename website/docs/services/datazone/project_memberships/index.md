@@ -156,13 +156,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>project_membership</code>.
 ```sql
 SELECT
-region,
-project_identifier,
-designation,
-member,
-domain_identifier
+  region,
+  project_identifier,
+  designation,
+  member,
+  domain_identifier
 FROM awscc.datazone.project_memberships
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,13 +172,14 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_identifier }}|{{ member_i
 Lists all <code>project_memberships</code> in a region.
 ```sql
 SELECT
-region,
-domain_identifier,
-member_identifier,
-member_identifier_type,
-project_identifier
+  region,
+  domain_identifier,
+  member_identifier,
+  member_identifier_type,
+  project_identifier
 FROM awscc.datazone.project_memberships_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -198,18 +201,18 @@ Use the following StackQL query and manifest file to create a new <code>project_
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.project_memberships (
- ProjectIdentifier,
- Designation,
- Member,
- DomainIdentifier,
- region
+  ProjectIdentifier,
+  Designation,
+  Member,
+  DomainIdentifier,
+  region
 )
 SELECT
-'{{ project_identifier }}',
- '{{ designation }}',
- '{{ member }}',
- '{{ domain_identifier }}',
-'{{ region }}';
+  '{{ project_identifier }}',
+  '{{ designation }}',
+  '{{ member }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -217,18 +220,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.project_memberships (
- ProjectIdentifier,
- Designation,
- Member,
- DomainIdentifier,
- region
+  ProjectIdentifier,
+  Designation,
+  Member,
+  DomainIdentifier,
+  region
 )
 SELECT
- '{{ project_identifier }}',
- '{{ designation }}',
- '{{ member }}',
- '{{ domain_identifier }}',
- '{{ region }}';
+  '{{ project_identifier }}',
+  '{{ designation }}',
+  '{{ member }}',
+  '{{ domain_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ UPDATE awscc.datazone.project_memberships
 SET PatchDocument = string('{{ {
     "Designation": designation
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_iden
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.project_memberships
-WHERE Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

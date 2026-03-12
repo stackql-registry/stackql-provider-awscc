@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>api_key</code>.
 ```sql
 SELECT
-region,
-api_key_id,
-customer_id,
-description,
-enabled,
-generate_distinct_id,
-name,
-stage_keys,
-tags,
-value
+  region,
+  api_key_id,
+  customer_id,
+  description,
+  enabled,
+  generate_distinct_id,
+  name,
+  stage_keys,
+  tags,
+  value
 FROM awscc.apigateway.api_keys
-WHERE region = 'us-east-1' AND Identifier = '{{ api_key_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_key_id }}';
 Lists all <code>api_keys</code> in a region.
 ```sql
 SELECT
-region,
-api_key_id
+  region,
+  api_key_id
 FROM awscc.apigateway.api_keys_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,26 +242,26 @@ Use the following StackQL query and manifest file to create a new <code>api_key<
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.api_keys (
- CustomerId,
- Description,
- Enabled,
- GenerateDistinctId,
- Name,
- StageKeys,
- Tags,
- Value,
- region
+  CustomerId,
+  Description,
+  Enabled,
+  GenerateDistinctId,
+  Name,
+  StageKeys,
+  Tags,
+  Value,
+  region
 )
 SELECT
-'{{ customer_id }}',
- '{{ description }}',
- '{{ enabled }}',
- '{{ generate_distinct_id }}',
- '{{ name }}',
- '{{ stage_keys }}',
- '{{ tags }}',
- '{{ value }}',
-'{{ region }}';
+  '{{ customer_id }}',
+  '{{ description }}',
+  '{{ enabled }}',
+  '{{ generate_distinct_id }}',
+  '{{ name }}',
+  '{{ stage_keys }}',
+  '{{ tags }}',
+  '{{ value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -266,26 +269,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.api_keys (
- CustomerId,
- Description,
- Enabled,
- GenerateDistinctId,
- Name,
- StageKeys,
- Tags,
- Value,
- region
+  CustomerId,
+  Description,
+  Enabled,
+  GenerateDistinctId,
+  Name,
+  StageKeys,
+  Tags,
+  Value,
+  region
 )
 SELECT
- '{{ customer_id }}',
- '{{ description }}',
- '{{ enabled }}',
- '{{ generate_distinct_id }}',
- '{{ name }}',
- '{{ stage_keys }}',
- '{{ tags }}',
- '{{ value }}',
- '{{ region }}';
+  '{{ customer_id }}',
+  '{{ description }}',
+  '{{ enabled }}',
+  '{{ generate_distinct_id }}',
+  '{{ name }}',
+  '{{ stage_keys }}',
+  '{{ tags }}',
+  '{{ value }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -340,8 +343,9 @@ SET PatchDocument = string('{{ {
     "StageKeys": stage_keys,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_key_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_key_id }}';
 ```
 
 
@@ -350,8 +354,9 @@ AND Identifier = '{{ api_key_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.api_keys
-WHERE Identifier = '{{ api_key_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_key_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

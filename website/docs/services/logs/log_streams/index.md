@@ -135,11 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>log_stream</code>.
 ```sql
 SELECT
-region,
-log_stream_name,
-log_group_name
+  region,
+  log_stream_name,
+  log_group_name
 FROM awscc.logs.log_streams
-WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ log_stream_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ log_group_name }}|{{ log_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -147,11 +149,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ log_stream_
 Lists all <code>log_streams</code> in a region.
 ```sql
 SELECT
-region,
-log_group_name,
-log_stream_name
+  region,
+  log_group_name,
+  log_stream_name
 FROM awscc.logs.log_streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>log_stre
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.log_streams (
- LogGroupName,
- region
+  LogGroupName,
+  region
 )
 SELECT
-'{{ log_group_name }}',
-'{{ region }}';
+  '{{ log_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,14 +189,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.log_streams (
- LogStreamName,
- LogGroupName,
- region
+  LogStreamName,
+  LogGroupName,
+  region
 )
 SELECT
- '{{ log_stream_name }}',
- '{{ log_group_name }}',
- '{{ region }}';
+  '{{ log_stream_name }}',
+  '{{ log_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -224,8 +227,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_streams
-WHERE Identifier = '{{ log_group_name }}|{{ log_stream_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ log_group_name }}|{{ log_stream_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

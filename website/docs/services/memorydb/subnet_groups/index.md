@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet_group</code>.
 ```sql
 SELECT
-region,
-subnet_group_name,
-description,
-subnet_ids,
-tags,
-arn,
-supported_network_types
+  region,
+  subnet_group_name,
+  description,
+  subnet_ids,
+  tags,
+  arn,
+  supported_network_types
 FROM awscc.memorydb.subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ subnet_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subnet_group_name }}';
 Lists all <code>subnet_groups</code> in a region.
 ```sql
 SELECT
-region,
-subnet_group_name
+  region,
+  subnet_group_name
 FROM awscc.memorydb.subnet_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>subnet_g
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.subnet_groups (
- SubnetGroupName,
- SubnetIds,
- region
+  SubnetGroupName,
+  SubnetIds,
+  region
 )
 SELECT
-'{{ subnet_group_name }}',
- '{{ subnet_ids }}',
-'{{ region }}';
+  '{{ subnet_group_name }}',
+  '{{ subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,18 +227,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.memorydb.subnet_groups (
- SubnetGroupName,
- Description,
- SubnetIds,
- Tags,
- region
+  SubnetGroupName,
+  Description,
+  SubnetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ subnet_group_name }}',
- '{{ description }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ subnet_group_name }}',
+  '{{ description }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subnet_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subnet_group_name }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ subnet_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.subnet_groups
-WHERE Identifier = '{{ subnet_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subnet_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

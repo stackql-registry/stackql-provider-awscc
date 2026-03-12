@@ -175,14 +175,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT
-region,
-filter_expression,
-group_name,
-group_arn,
-insights_configuration,
-tags
+  region,
+  filter_expression,
+  group_name,
+  group_arn,
+  insights_configuration,
+  tags
 FROM awscc.xray.groups
-WHERE region = 'us-east-1' AND Identifier = '{{ group_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ group_arn }}';
 Lists all <code>groups</code> in a region.
 ```sql
 SELECT
-region,
-group_arn
+  region,
+  group_arn
 FROM awscc.xray.groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>group</c
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.groups (
- GroupName,
- region
+  GroupName,
+  region
 )
 SELECT
-'{{ group_name }}',
-'{{ region }}';
+  '{{ group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,18 +231,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.groups (
- FilterExpression,
- GroupName,
- InsightsConfiguration,
- Tags,
- region
+  FilterExpression,
+  GroupName,
+  InsightsConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ filter_expression }}',
- '{{ group_name }}',
- '{{ insights_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ filter_expression }}',
+  '{{ group_name }}',
+  '{{ insights_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ SET PatchDocument = string('{{ {
     "InsightsConfiguration": insights_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ group_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ group_arn }}';
 ```
 
 
@@ -295,8 +299,9 @@ AND Identifier = '{{ group_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.groups
-WHERE Identifier = '{{ group_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ group_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

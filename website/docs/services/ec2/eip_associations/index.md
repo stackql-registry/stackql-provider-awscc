@@ -150,15 +150,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>eip_association</code>.
 ```sql
 SELECT
-region,
-private_ip_address,
-instance_id,
-allocation_id,
-id,
-network_interface_id,
-e_ip
+  region,
+  private_ip_address,
+  instance_id,
+  allocation_id,
+  id,
+  network_interface_id,
+  e_ip
 FROM awscc.ec2.eip_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>eip_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.eip_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,20 +194,20 @@ Use the following StackQL query and manifest file to create a new <code>eip_asso
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.eip_associations (
- PrivateIpAddress,
- InstanceId,
- AllocationId,
- NetworkInterfaceId,
- EIP,
- region
+  PrivateIpAddress,
+  InstanceId,
+  AllocationId,
+  NetworkInterfaceId,
+  EIP,
+  region
 )
 SELECT
-'{{ private_ip_address }}',
- '{{ instance_id }}',
- '{{ allocation_id }}',
- '{{ network_interface_id }}',
- '{{ e_ip }}',
-'{{ region }}';
+  '{{ private_ip_address }}',
+  '{{ instance_id }}',
+  '{{ allocation_id }}',
+  '{{ network_interface_id }}',
+  '{{ e_ip }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,20 +215,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.eip_associations (
- PrivateIpAddress,
- InstanceId,
- AllocationId,
- NetworkInterfaceId,
- EIP,
- region
+  PrivateIpAddress,
+  InstanceId,
+  AllocationId,
+  NetworkInterfaceId,
+  EIP,
+  region
 )
 SELECT
- '{{ private_ip_address }}',
- '{{ instance_id }}',
- '{{ allocation_id }}',
- '{{ network_interface_id }}',
- '{{ e_ip }}',
- '{{ region }}';
+  '{{ private_ip_address }}',
+  '{{ instance_id }}',
+  '{{ allocation_id }}',
+  '{{ network_interface_id }}',
+  '{{ e_ip }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.eip_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

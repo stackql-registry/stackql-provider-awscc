@@ -243,15 +243,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>filter</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-filter_criteria,
-filter_action,
-arn,
-tags
+  region,
+  name,
+  description,
+  filter_criteria,
+  filter_action,
+  arn,
+  tags
 FROM awscc.inspectorv2.filters
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,10 +261,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>filters</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.inspectorv2.filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -284,16 +287,16 @@ Use the following StackQL query and manifest file to create a new <code>filter</
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.filters (
- Name,
- FilterCriteria,
- FilterAction,
- region
+  Name,
+  FilterCriteria,
+  FilterAction,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ filter_criteria }}',
- '{{ filter_action }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ filter_criteria }}',
+  '{{ filter_action }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,20 +304,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspectorv2.filters (
- Name,
- Description,
- FilterCriteria,
- FilterAction,
- Tags,
- region
+  Name,
+  Description,
+  FilterCriteria,
+  FilterAction,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ filter_criteria }}',
- '{{ filter_action }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ filter_criteria }}',
+  '{{ filter_action }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -420,8 +423,9 @@ SET PatchDocument = string('{{ {
     "FilterAction": filter_action,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -430,8 +434,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.filters
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -170,13 +170,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>keyspace</code>.
 ```sql
 SELECT
-region,
-keyspace_name,
-tags,
-replication_specification,
-client_side_timestamps_enabled
+  region,
+  keyspace_name,
+  tags,
+  replication_specification,
+  client_side_timestamps_enabled
 FROM awscc.cassandra.keyspaces
-WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ keyspace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}';
 Lists all <code>keyspaces</code> in a region.
 ```sql
 SELECT
-region,
-keyspace_name
+  region,
+  keyspace_name
 FROM awscc.cassandra.keyspaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>keyspace
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.keyspaces (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.keyspaces (
- KeyspaceName,
- Tags,
- ReplicationSpecification,
- ClientSideTimestampsEnabled,
- region
+  KeyspaceName,
+  Tags,
+  ReplicationSpecification,
+  ClientSideTimestampsEnabled,
+  region
 )
 SELECT
- '{{ keyspace_name }}',
- '{{ tags }}',
- '{{ replication_specification }}',
- '{{ client_side_timestamps_enabled }}',
- '{{ region }}';
+  '{{ keyspace_name }}',
+  '{{ tags }}',
+  '{{ replication_specification }}',
+  '{{ client_side_timestamps_enabled }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -279,8 +282,9 @@ SET PatchDocument = string('{{ {
     "ReplicationSpecification": replication_specification,
     "ClientSideTimestampsEnabled": client_side_timestamps_enabled
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ keyspace_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ keyspace_name }}';
 ```
 
 
@@ -289,8 +293,9 @@ AND Identifier = '{{ keyspace_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.keyspaces
-WHERE Identifier = '{{ keyspace_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ keyspace_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

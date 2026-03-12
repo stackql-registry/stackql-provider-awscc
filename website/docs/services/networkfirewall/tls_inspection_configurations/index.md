@@ -241,15 +241,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tls_inspection_configuration</code>.
 ```sql
 SELECT
-region,
-tls_inspection_configuration_name,
-tls_inspection_configuration_arn,
-tls_inspection_configuration,
-tls_inspection_configuration_id,
-description,
-tags
+  region,
+  tls_inspection_configuration_name,
+  tls_inspection_configuration_arn,
+  tls_inspection_configuration,
+  tls_inspection_configuration_id,
+  description,
+  tags
 FROM awscc.networkfirewall.tls_inspection_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ tls_inspection_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ tls_inspection_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +259,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ tls_inspection_configuration_arn
 Lists all <code>tls_inspection_configurations</code> in a region.
 ```sql
 SELECT
-region,
-tls_inspection_configuration_arn
+  region,
+  tls_inspection_configuration_arn
 FROM awscc.networkfirewall.tls_inspection_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -282,14 +285,14 @@ Use the following StackQL query and manifest file to create a new <code>tls_insp
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.tls_inspection_configurations (
- TLSInspectionConfigurationName,
- TLSInspectionConfiguration,
- region
+  TLSInspectionConfigurationName,
+  TLSInspectionConfiguration,
+  region
 )
 SELECT
-'{{ tls_inspection_configuration_name }}',
- '{{ tls_inspection_configuration }}',
-'{{ region }}';
+  '{{ tls_inspection_configuration_name }}',
+  '{{ tls_inspection_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -297,18 +300,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkfirewall.tls_inspection_configurations (
- TLSInspectionConfigurationName,
- TLSInspectionConfiguration,
- Description,
- Tags,
- region
+  TLSInspectionConfigurationName,
+  TLSInspectionConfiguration,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ tls_inspection_configuration_name }}',
- '{{ tls_inspection_configuration }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ tls_inspection_configuration_name }}',
+  '{{ tls_inspection_configuration }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -356,8 +359,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ tls_inspection_configuration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ tls_inspection_configuration_arn }}';
 ```
 
 
@@ -366,8 +370,9 @@ AND Identifier = '{{ tls_inspection_configuration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.tls_inspection_configurations
-WHERE Identifier = '{{ tls_inspection_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ tls_inspection_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

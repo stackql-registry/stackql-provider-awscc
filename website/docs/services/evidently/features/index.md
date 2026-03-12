@@ -176,18 +176,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>feature</code>.
 ```sql
 SELECT
-region,
-arn,
-project,
-name,
-description,
-evaluation_strategy,
-variations,
-default_variation,
-entity_overrides,
-tags
+  region,
+  arn,
+  project,
+  name,
+  description,
+  evaluation_strategy,
+  variations,
+  default_variation,
+  entity_overrides,
+  tags
 FROM awscc.evidently.features
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -207,16 +209,16 @@ Use the following StackQL query and manifest file to create a new <code>feature<
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.features (
- Project,
- Name,
- Variations,
- region
+  Project,
+  Name,
+  Variations,
+  region
 )
 SELECT
-'{{ project }}',
- '{{ name }}',
- '{{ variations }}',
-'{{ region }}';
+  '{{ project }}',
+  '{{ name }}',
+  '{{ variations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,26 +226,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.evidently.features (
- Project,
- Name,
- Description,
- EvaluationStrategy,
- Variations,
- DefaultVariation,
- EntityOverrides,
- Tags,
- region
+  Project,
+  Name,
+  Description,
+  EvaluationStrategy,
+  Variations,
+  DefaultVariation,
+  EntityOverrides,
+  Tags,
+  region
 )
 SELECT
- '{{ project }}',
- '{{ name }}',
- '{{ description }}',
- '{{ evaluation_strategy }}',
- '{{ variations }}',
- '{{ default_variation }}',
- '{{ entity_overrides }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ project }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ evaluation_strategy }}',
+  '{{ variations }}',
+  '{{ default_variation }}',
+  '{{ entity_overrides }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -304,8 +306,9 @@ SET PatchDocument = string('{{ {
     "EntityOverrides": entity_overrides,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -314,8 +317,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.features
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

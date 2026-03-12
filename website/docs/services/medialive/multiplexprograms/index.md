@@ -279,16 +279,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multiplexprogram</code>.
 ```sql
 SELECT
-region,
-channel_id,
-multiplex_id,
-multiplex_program_settings,
-preferred_channel_pipeline,
-packet_identifiers_map,
-pipeline_details,
-program_name
+  region,
+  channel_id,
+  multiplex_id,
+  multiplex_program_settings,
+  preferred_channel_pipeline,
+  packet_identifiers_map,
+  pipeline_details,
+  program_name
 FROM awscc.medialive.multiplexprograms
-WHERE region = 'us-east-1' AND Identifier = '{{ program_name }}|{{ multiplex_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,11 +298,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ program_name }}|{{ multiplex_id 
 Lists all <code>multiplexprograms</code> in a region.
 ```sql
 SELECT
-region,
-program_name,
-multiplex_id
+  region,
+  program_name,
+  multiplex_id
 FROM awscc.medialive.multiplexprograms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,22 +325,22 @@ Use the following StackQL query and manifest file to create a new <code>multiple
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.multiplexprograms (
- MultiplexId,
- MultiplexProgramSettings,
- PreferredChannelPipeline,
- PacketIdentifiersMap,
- PipelineDetails,
- ProgramName,
- region
+  MultiplexId,
+  MultiplexProgramSettings,
+  PreferredChannelPipeline,
+  PacketIdentifiersMap,
+  PipelineDetails,
+  ProgramName,
+  region
 )
 SELECT
-'{{ multiplex_id }}',
- '{{ multiplex_program_settings }}',
- '{{ preferred_channel_pipeline }}',
- '{{ packet_identifiers_map }}',
- '{{ pipeline_details }}',
- '{{ program_name }}',
-'{{ region }}';
+  '{{ multiplex_id }}',
+  '{{ multiplex_program_settings }}',
+  '{{ preferred_channel_pipeline }}',
+  '{{ packet_identifiers_map }}',
+  '{{ pipeline_details }}',
+  '{{ program_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -345,22 +348,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.multiplexprograms (
- MultiplexId,
- MultiplexProgramSettings,
- PreferredChannelPipeline,
- PacketIdentifiersMap,
- PipelineDetails,
- ProgramName,
- region
+  MultiplexId,
+  MultiplexProgramSettings,
+  PreferredChannelPipeline,
+  PacketIdentifiersMap,
+  PipelineDetails,
+  ProgramName,
+  region
 )
 SELECT
- '{{ multiplex_id }}',
- '{{ multiplex_program_settings }}',
- '{{ preferred_channel_pipeline }}',
- '{{ packet_identifiers_map }}',
- '{{ pipeline_details }}',
- '{{ program_name }}',
- '{{ region }}';
+  '{{ multiplex_id }}',
+  '{{ multiplex_program_settings }}',
+  '{{ preferred_channel_pipeline }}',
+  '{{ packet_identifiers_map }}',
+  '{{ pipeline_details }}',
+  '{{ program_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -431,8 +434,9 @@ SET PatchDocument = string('{{ {
     "PacketIdentifiersMap": packet_identifiers_map,
     "PipelineDetails": pipeline_details
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ program_name }}|{{ multiplex_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```
 
 
@@ -441,8 +445,9 @@ AND Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.multiplexprograms
-WHERE Identifier = '{{ program_name }}|{{ multiplex_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ program_name }}|{{ multiplex_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

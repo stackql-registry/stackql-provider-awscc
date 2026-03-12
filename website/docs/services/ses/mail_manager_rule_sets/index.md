@@ -185,14 +185,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_rule_set</code>.
 ```sql
 SELECT
-region,
-rule_set_arn,
-rule_set_id,
-rule_set_name,
-rules,
-tags
+  region,
+  rule_set_arn,
+  rule_set_id,
+  rule_set_name,
+  rules,
+  tags
 FROM awscc.ses.mail_manager_rule_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_set_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,10 +202,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_set_id }}';
 Lists all <code>mail_manager_rule_sets</code> in a region.
 ```sql
 SELECT
-region,
-rule_set_id
+  region,
+  rule_set_id
 FROM awscc.ses.mail_manager_rule_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -225,12 +228,12 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_rule_sets (
- Rules,
- region
+  Rules,
+  region
 )
 SELECT
-'{{ rules }}',
-'{{ region }}';
+  '{{ rules }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,16 +241,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_rule_sets (
- RuleSetName,
- Rules,
- Tags,
- region
+  RuleSetName,
+  Rules,
+  Tags,
+  region
 )
 SELECT
- '{{ rule_set_name }}',
- '{{ rules }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ rule_set_name }}',
+  '{{ rules }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -295,8 +298,9 @@ SET PatchDocument = string('{{ {
     "Rules": rules,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_set_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_set_id }}';
 ```
 
 
@@ -305,8 +309,9 @@ AND Identifier = '{{ rule_set_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_rule_sets
-WHERE Identifier = '{{ rule_set_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_set_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

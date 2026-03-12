@@ -258,19 +258,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>id_namespace</code>.
 ```sql
 SELECT
-region,
-id_namespace_name,
-description,
-input_source_config,
-id_mapping_workflow_properties,
-type,
-role_arn,
-id_namespace_arn,
-created_at,
-updated_at,
-tags
+  region,
+  id_namespace_name,
+  description,
+  input_source_config,
+  id_mapping_workflow_properties,
+  type,
+  role_arn,
+  id_namespace_arn,
+  created_at,
+  updated_at,
+  tags
 FROM awscc.entityresolution.id_namespaces
-WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id_namespace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,10 +280,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_name }}';
 Lists all <code>id_namespaces</code> in a region.
 ```sql
 SELECT
-region,
-id_namespace_name
+  region,
+  id_namespace_name
 FROM awscc.entityresolution.id_namespaces_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -303,14 +306,14 @@ Use the following StackQL query and manifest file to create a new <code>id_names
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.id_namespaces (
- IdNamespaceName,
- Type,
- region
+  IdNamespaceName,
+  Type,
+  region
 )
 SELECT
-'{{ id_namespace_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ id_namespace_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -318,24 +321,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.id_namespaces (
- IdNamespaceName,
- Description,
- InputSourceConfig,
- IdMappingWorkflowProperties,
- Type,
- RoleArn,
- Tags,
- region
+  IdNamespaceName,
+  Description,
+  InputSourceConfig,
+  IdMappingWorkflowProperties,
+  Type,
+  RoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ id_namespace_name }}',
- '{{ description }}',
- '{{ input_source_config }}',
- '{{ id_mapping_workflow_properties }}',
- '{{ type }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ id_namespace_name }}',
+  '{{ description }}',
+  '{{ input_source_config }}',
+  '{{ id_mapping_workflow_properties }}',
+  '{{ type }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -403,8 +406,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id_namespace_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id_namespace_name }}';
 ```
 
 
@@ -413,8 +417,9 @@ AND Identifier = '{{ id_namespace_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.id_namespaces
-WHERE Identifier = '{{ id_namespace_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id_namespace_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -185,17 +185,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>findings_filter</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-finding_criteria,
-action,
-position,
-id,
-arn,
-tags
+  region,
+  name,
+  description,
+  finding_criteria,
+  action,
+  position,
+  id,
+  arn,
+  tags
 FROM awscc.macie.findings_filters
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +205,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>findings_filters</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.macie.findings_filters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,14 +231,14 @@ Use the following StackQL query and manifest file to create a new <code>findings
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.findings_filters (
- Name,
- FindingCriteria,
- region
+  Name,
+  FindingCriteria,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ finding_criteria }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ finding_criteria }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -243,22 +246,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.macie.findings_filters (
- Name,
- Description,
- FindingCriteria,
- Action,
- Position,
- Tags,
- region
+  Name,
+  Description,
+  FindingCriteria,
+  Action,
+  Position,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ finding_criteria }}',
- '{{ action }}',
- '{{ position }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ finding_criteria }}',
+  '{{ action }}',
+  '{{ position }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "Position": position,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.findings_filters
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -448,19 +448,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>listener</code>.
 ```sql
 SELECT
-region,
-listener_arn,
-mutual_authentication,
-listener_attributes,
-alpn_policy,
-ssl_policy,
-load_balancer_arn,
-default_actions,
-port,
-certificates,
-protocol
+  region,
+  listener_arn,
+  mutual_authentication,
+  listener_attributes,
+  alpn_policy,
+  ssl_policy,
+  load_balancer_arn,
+  default_actions,
+  port,
+  certificates,
+  protocol
 FROM awscc.elasticloadbalancingv2.listeners
-WHERE region = 'us-east-1' AND Identifier = '{{ listener_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ listener_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -468,10 +470,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ listener_arn }}';
 Lists all <code>listeners</code> in a region.
 ```sql
 SELECT
-region,
-listener_arn
+  region,
+  listener_arn
 FROM awscc.elasticloadbalancingv2.listeners_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -493,14 +496,14 @@ Use the following StackQL query and manifest file to create a new <code>listener
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.listeners (
- LoadBalancerArn,
- DefaultActions,
- region
+  LoadBalancerArn,
+  DefaultActions,
+  region
 )
 SELECT
-'{{ load_balancer_arn }}',
- '{{ default_actions }}',
-'{{ region }}';
+  '{{ load_balancer_arn }}',
+  '{{ default_actions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -508,28 +511,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.listeners (
- MutualAuthentication,
- ListenerAttributes,
- AlpnPolicy,
- SslPolicy,
- LoadBalancerArn,
- DefaultActions,
- Port,
- Certificates,
- Protocol,
- region
+  MutualAuthentication,
+  ListenerAttributes,
+  AlpnPolicy,
+  SslPolicy,
+  LoadBalancerArn,
+  DefaultActions,
+  Port,
+  Certificates,
+  Protocol,
+  region
 )
 SELECT
- '{{ mutual_authentication }}',
- '{{ listener_attributes }}',
- '{{ alpn_policy }}',
- '{{ ssl_policy }}',
- '{{ load_balancer_arn }}',
- '{{ default_actions }}',
- '{{ port }}',
- '{{ certificates }}',
- '{{ protocol }}',
- '{{ region }}';
+  '{{ mutual_authentication }}',
+  '{{ listener_attributes }}',
+  '{{ alpn_policy }}',
+  '{{ ssl_policy }}',
+  '{{ load_balancer_arn }}',
+  '{{ default_actions }}',
+  '{{ port }}',
+  '{{ certificates }}',
+  '{{ protocol }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -636,8 +639,9 @@ SET PatchDocument = string('{{ {
     "Certificates": certificates,
     "Protocol": protocol
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ listener_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ listener_arn }}';
 ```
 
 
@@ -646,8 +650,9 @@ AND Identifier = '{{ listener_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.listeners
-WHERE Identifier = '{{ listener_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ listener_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

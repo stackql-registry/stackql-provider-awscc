@@ -205,18 +205,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name_v2</code>.
 ```sql
 SELECT
-region,
-certificate_arn,
-domain_name,
-endpoint_configuration,
-security_policy,
-policy,
-domain_name_id,
-domain_name_arn,
-routing_mode,
-tags
+  region,
+  certificate_arn,
+  domain_name,
+  endpoint_configuration,
+  security_policy,
+  policy,
+  domain_name_id,
+  domain_name_arn,
+  routing_mode,
+  tags
 FROM awscc.apigateway.domain_name_v2s
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,10 +226,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_arn }}';
 Lists all <code>domain_name_v2s</code> in a region.
 ```sql
 SELECT
-region,
-domain_name_arn
+  region,
+  domain_name_arn
 FROM awscc.apigateway.domain_name_v2s_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -249,24 +252,24 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_name_v2s (
- CertificateArn,
- DomainName,
- EndpointConfiguration,
- SecurityPolicy,
- Policy,
- RoutingMode,
- Tags,
- region
+  CertificateArn,
+  DomainName,
+  EndpointConfiguration,
+  SecurityPolicy,
+  Policy,
+  RoutingMode,
+  Tags,
+  region
 )
 SELECT
-'{{ certificate_arn }}',
- '{{ domain_name }}',
- '{{ endpoint_configuration }}',
- '{{ security_policy }}',
- '{{ policy }}',
- '{{ routing_mode }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ certificate_arn }}',
+  '{{ domain_name }}',
+  '{{ endpoint_configuration }}',
+  '{{ security_policy }}',
+  '{{ policy }}',
+  '{{ routing_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,24 +277,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.domain_name_v2s (
- CertificateArn,
- DomainName,
- EndpointConfiguration,
- SecurityPolicy,
- Policy,
- RoutingMode,
- Tags,
- region
+  CertificateArn,
+  DomainName,
+  EndpointConfiguration,
+  SecurityPolicy,
+  Policy,
+  RoutingMode,
+  Tags,
+  region
 )
 SELECT
- '{{ certificate_arn }}',
- '{{ domain_name }}',
- '{{ endpoint_configuration }}',
- '{{ security_policy }}',
- '{{ policy }}',
- '{{ routing_mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ certificate_arn }}',
+  '{{ domain_name }}',
+  '{{ endpoint_configuration }}',
+  '{{ security_policy }}',
+  '{{ policy }}',
+  '{{ routing_mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -346,8 +349,9 @@ SET PatchDocument = string('{{ {
     "RoutingMode": routing_mode,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name_arn }}';
 ```
 
 
@@ -356,8 +360,9 @@ AND Identifier = '{{ domain_name_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_name_v2s
-WHERE Identifier = '{{ domain_name_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

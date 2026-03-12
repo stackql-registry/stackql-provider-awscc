@@ -97,11 +97,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_group</code>.
 ```sql
 SELECT
-region,
-arn,
-resource_group_tags
+  region,
+  arn,
+  resource_group_tags
 FROM awscc.inspector.resource_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -121,12 +123,12 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.resource_groups (
- ResourceGroupTags,
- region
+  ResourceGroupTags,
+  region
 )
 SELECT
-'{{ resource_group_tags }}',
-'{{ region }}';
+  '{{ resource_group_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -134,12 +136,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.inspector.resource_groups (
- ResourceGroupTags,
- region
+  ResourceGroupTags,
+  region
 )
 SELECT
- '{{ resource_group_tags }}',
- '{{ region }}';
+  '{{ resource_group_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -170,8 +172,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.resource_groups
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

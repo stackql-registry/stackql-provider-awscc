@@ -286,27 +286,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transit_gateway_route_table_attachment</code>.
 ```sql
 SELECT
-region,
-peering_id,
-transit_gateway_route_table_arn,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_location,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-created_at,
-updated_at,
-tags
+  region,
+  peering_id,
+  transit_gateway_route_table_arn,
+  core_network_id,
+  core_network_arn,
+  attachment_id,
+  owner_account_id,
+  attachment_type,
+  state,
+  edge_location,
+  resource_arn,
+  attachment_policy_rule_number,
+  segment_name,
+  proposed_segment_change,
+  network_function_group_name,
+  proposed_network_function_group_change,
+  created_at,
+  updated_at,
+  tags
 FROM awscc.networkmanager.transit_gateway_route_table_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -314,10 +316,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 Lists all <code>transit_gateway_route_table_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_id
+  region,
+  attachment_id
 FROM awscc.networkmanager.transit_gateway_route_table_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -339,14 +342,14 @@ Use the following StackQL query and manifest file to create a new <code>transit_
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_route_table_attachments (
- PeeringId,
- TransitGatewayRouteTableArn,
- region
+  PeeringId,
+  TransitGatewayRouteTableArn,
+  region
 )
 SELECT
-'{{ peering_id }}',
- '{{ transit_gateway_route_table_arn }}',
-'{{ region }}';
+  '{{ peering_id }}',
+  '{{ transit_gateway_route_table_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -354,22 +357,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.networkmanager.transit_gateway_route_table_attachments (
- PeeringId,
- TransitGatewayRouteTableArn,
- ProposedSegmentChange,
- NetworkFunctionGroupName,
- ProposedNetworkFunctionGroupChange,
- Tags,
- region
+  PeeringId,
+  TransitGatewayRouteTableArn,
+  ProposedSegmentChange,
+  NetworkFunctionGroupName,
+  ProposedNetworkFunctionGroupChange,
+  Tags,
+  region
 )
 SELECT
- '{{ peering_id }}',
- '{{ transit_gateway_route_table_arn }}',
- '{{ proposed_segment_change }}',
- '{{ network_function_group_name }}',
- '{{ proposed_network_function_group_change }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ peering_id }}',
+  '{{ transit_gateway_route_table_arn }}',
+  '{{ proposed_segment_change }}',
+  '{{ network_function_group_name }}',
+  '{{ proposed_network_function_group_change }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -425,8 +428,9 @@ SET PatchDocument = string('{{ {
     "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -435,8 +439,9 @@ AND Identifier = '{{ attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_route_table_attachments
-WHERE Identifier = '{{ attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

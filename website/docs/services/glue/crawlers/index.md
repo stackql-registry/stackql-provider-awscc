@@ -452,23 +452,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>crawler</code>.
 ```sql
 SELECT
-region,
-classifiers,
-description,
-schema_change_policy,
-configuration,
-recrawl_policy,
-database_name,
-targets,
-crawler_security_configuration,
-name,
-role,
-lake_formation_configuration,
-schedule,
-table_prefix,
-tags
+  region,
+  classifiers,
+  description,
+  schema_change_policy,
+  configuration,
+  recrawl_policy,
+  database_name,
+  targets,
+  crawler_security_configuration,
+  name,
+  role,
+  lake_formation_configuration,
+  schedule,
+  table_prefix,
+  tags
 FROM awscc.glue.crawlers
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -476,10 +478,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>crawlers</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.glue.crawlers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -501,14 +504,14 @@ Use the following StackQL query and manifest file to create a new <code>crawler<
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.crawlers (
- Targets,
- Role,
- region
+  Targets,
+  Role,
+  region
 )
 SELECT
-'{{ targets }}',
- '{{ role }}',
-'{{ region }}';
+  '{{ targets }}',
+  '{{ role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -516,38 +519,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.glue.crawlers (
- Classifiers,
- Description,
- SchemaChangePolicy,
- Configuration,
- RecrawlPolicy,
- DatabaseName,
- Targets,
- CrawlerSecurityConfiguration,
- Name,
- Role,
- LakeFormationConfiguration,
- Schedule,
- TablePrefix,
- Tags,
- region
+  Classifiers,
+  Description,
+  SchemaChangePolicy,
+  Configuration,
+  RecrawlPolicy,
+  DatabaseName,
+  Targets,
+  CrawlerSecurityConfiguration,
+  Name,
+  Role,
+  LakeFormationConfiguration,
+  Schedule,
+  TablePrefix,
+  Tags,
+  region
 )
 SELECT
- '{{ classifiers }}',
- '{{ description }}',
- '{{ schema_change_policy }}',
- '{{ configuration }}',
- '{{ recrawl_policy }}',
- '{{ database_name }}',
- '{{ targets }}',
- '{{ crawler_security_configuration }}',
- '{{ name }}',
- '{{ role }}',
- '{{ lake_formation_configuration }}',
- '{{ schedule }}',
- '{{ table_prefix }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ classifiers }}',
+  '{{ description }}',
+  '{{ schema_change_policy }}',
+  '{{ configuration }}',
+  '{{ recrawl_policy }}',
+  '{{ database_name }}',
+  '{{ targets }}',
+  '{{ crawler_security_configuration }}',
+  '{{ name }}',
+  '{{ role }}',
+  '{{ lake_formation_configuration }}',
+  '{{ schedule }}',
+  '{{ table_prefix }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -674,8 +677,9 @@ SET PatchDocument = string('{{ {
     "TablePrefix": table_prefix,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -684,8 +688,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.crawlers
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

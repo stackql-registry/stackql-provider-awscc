@@ -1162,24 +1162,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>job_definition</code>.
 ```sql
 SELECT
-region,
-container_properties,
-ecs_properties,
-node_properties,
-job_definition_name,
-job_definition_arn,
-scheduling_priority,
-parameters,
-platform_capabilities,
-propagate_tags,
-retry_strategy,
-timeout,
-type,
-tags,
-eks_properties,
-consumable_resource_properties
+  region,
+  container_properties,
+  ecs_properties,
+  node_properties,
+  job_definition_name,
+  job_definition_arn,
+  scheduling_priority,
+  parameters,
+  platform_capabilities,
+  propagate_tags,
+  retry_strategy,
+  timeout,
+  type,
+  tags,
+  eks_properties,
+  consumable_resource_properties
 FROM awscc.batch.job_definitions
-WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ job_definition_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1187,10 +1189,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_name }}';
 Lists all <code>job_definitions</code> in a region.
 ```sql
 SELECT
-region,
-job_definition_name
+  region,
+  job_definition_name
 FROM awscc.batch.job_definitions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -1212,12 +1215,12 @@ Use the following StackQL query and manifest file to create a new <code>job_defi
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.job_definitions (
- Type,
- region
+  Type,
+  region
 )
 SELECT
-'{{ type }}',
-'{{ region }}';
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -1225,38 +1228,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.job_definitions (
- ContainerProperties,
- EcsProperties,
- NodeProperties,
- JobDefinitionName,
- SchedulingPriority,
- Parameters,
- PlatformCapabilities,
- PropagateTags,
- RetryStrategy,
- Timeout,
- Type,
- Tags,
- EksProperties,
- ConsumableResourceProperties,
- region
+  ContainerProperties,
+  EcsProperties,
+  NodeProperties,
+  JobDefinitionName,
+  SchedulingPriority,
+  Parameters,
+  PlatformCapabilities,
+  PropagateTags,
+  RetryStrategy,
+  Timeout,
+  Type,
+  Tags,
+  EksProperties,
+  ConsumableResourceProperties,
+  region
 )
 SELECT
- '{{ container_properties }}',
- '{{ ecs_properties }}',
- '{{ node_properties }}',
- '{{ job_definition_name }}',
- '{{ scheduling_priority }}',
- '{{ parameters }}',
- '{{ platform_capabilities }}',
- '{{ propagate_tags }}',
- '{{ retry_strategy }}',
- '{{ timeout }}',
- '{{ type }}',
- '{{ tags }}',
- '{{ eks_properties }}',
- '{{ consumable_resource_properties }}',
- '{{ region }}';
+  '{{ container_properties }}',
+  '{{ ecs_properties }}',
+  '{{ node_properties }}',
+  '{{ job_definition_name }}',
+  '{{ scheduling_priority }}',
+  '{{ parameters }}',
+  '{{ platform_capabilities }}',
+  '{{ propagate_tags }}',
+  '{{ retry_strategy }}',
+  '{{ timeout }}',
+  '{{ type }}',
+  '{{ tags }}',
+  '{{ eks_properties }}',
+  '{{ consumable_resource_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1550,8 +1553,9 @@ SET PatchDocument = string('{{ {
     "EksProperties": eks_properties,
     "ConsumableResourceProperties": consumable_resource_properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ job_definition_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ job_definition_name }}';
 ```
 
 
@@ -1560,8 +1564,9 @@ AND Identifier = '{{ job_definition_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.job_definitions
-WHERE Identifier = '{{ job_definition_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ job_definition_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

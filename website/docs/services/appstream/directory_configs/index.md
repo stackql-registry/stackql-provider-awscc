@@ -170,13 +170,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>directory_config</code>.
 ```sql
 SELECT
-region,
-organizational_unit_distinguished_names,
-service_account_credentials,
-directory_name,
-certificate_based_auth_properties
+  region,
+  organizational_unit_distinguished_names,
+  service_account_credentials,
+  directory_name,
+  certificate_based_auth_properties
 FROM awscc.appstream.directory_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ directory_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ directory_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ directory_name }}';
 Lists all <code>directory_configs</code> in a region.
 ```sql
 SELECT
-region,
-directory_name
+  region,
+  directory_name
 FROM awscc.appstream.directory_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>director
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.directory_configs (
- OrganizationalUnitDistinguishedNames,
- ServiceAccountCredentials,
- DirectoryName,
- region
+  OrganizationalUnitDistinguishedNames,
+  ServiceAccountCredentials,
+  DirectoryName,
+  region
 )
 SELECT
-'{{ organizational_unit_distinguished_names }}',
- '{{ service_account_credentials }}',
- '{{ directory_name }}',
-'{{ region }}';
+  '{{ organizational_unit_distinguished_names }}',
+  '{{ service_account_credentials }}',
+  '{{ directory_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,18 +229,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appstream.directory_configs (
- OrganizationalUnitDistinguishedNames,
- ServiceAccountCredentials,
- DirectoryName,
- CertificateBasedAuthProperties,
- region
+  OrganizationalUnitDistinguishedNames,
+  ServiceAccountCredentials,
+  DirectoryName,
+  CertificateBasedAuthProperties,
+  region
 )
 SELECT
- '{{ organizational_unit_distinguished_names }}',
- '{{ service_account_credentials }}',
- '{{ directory_name }}',
- '{{ certificate_based_auth_properties }}',
- '{{ region }}';
+  '{{ organizational_unit_distinguished_names }}',
+  '{{ service_account_credentials }}',
+  '{{ directory_name }}',
+  '{{ certificate_based_auth_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "ServiceAccountCredentials": service_account_credentials,
     "CertificateBasedAuthProperties": certificate_based_auth_properties
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ directory_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ directory_name }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ directory_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.directory_configs
-WHERE Identifier = '{{ directory_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ directory_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

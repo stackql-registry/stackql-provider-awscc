@@ -157,14 +157,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>gateway</code>.
 ```sql
 SELECT
-region,
-name,
-gateway_arn,
-gateway_state,
-egress_cidr_blocks,
-networks
+  region,
+  name,
+  gateway_arn,
+  gateway_state,
+  egress_cidr_blocks,
+  networks
 FROM awscc.mediaconnect.gateways
-WHERE region = 'us-east-1' AND Identifier = '{{ gateway_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ gateway_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ gateway_arn }}';
 Lists all <code>gateways</code> in a region.
 ```sql
 SELECT
-region,
-gateway_arn
+  region,
+  gateway_arn
 FROM awscc.mediaconnect.gateways_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>gateway<
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.gateways (
- Name,
- EgressCidrBlocks,
- Networks,
- region
+  Name,
+  EgressCidrBlocks,
+  Networks,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ egress_cidr_blocks }}',
- '{{ networks }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ egress_cidr_blocks }}',
+  '{{ networks }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.gateways (
- Name,
- EgressCidrBlocks,
- Networks,
- region
+  Name,
+  EgressCidrBlocks,
+  Networks,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ egress_cidr_blocks }}',
- '{{ networks }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ egress_cidr_blocks }}',
+  '{{ networks }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -259,8 +262,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.gateways
-WHERE Identifier = '{{ gateway_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ gateway_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

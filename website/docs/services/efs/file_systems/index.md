@@ -288,24 +288,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>file_system</code>.
 ```sql
 SELECT
-region,
-file_system_id,
-arn,
-encrypted,
-file_system_tags,
-kms_key_id,
-lifecycle_policies,
-file_system_protection,
-performance_mode,
-provisioned_throughput_in_mibps,
-throughput_mode,
-file_system_policy,
-bypass_policy_lockout_safety_check,
-backup_policy,
-availability_zone_name,
-replication_configuration
+  region,
+  file_system_id,
+  arn,
+  encrypted,
+  file_system_tags,
+  kms_key_id,
+  lifecycle_policies,
+  file_system_protection,
+  performance_mode,
+  provisioned_throughput_in_mibps,
+  throughput_mode,
+  file_system_policy,
+  bypass_policy_lockout_safety_check,
+  backup_policy,
+  availability_zone_name,
+  replication_configuration
 FROM awscc.efs.file_systems
-WHERE region = 'us-east-1' AND Identifier = '{{ file_system_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ file_system_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -313,10 +315,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ file_system_id }}';
 Lists all <code>file_systems</code> in a region.
 ```sql
 SELECT
-region,
-file_system_id
+  region,
+  file_system_id
 FROM awscc.efs.file_systems_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -338,36 +341,36 @@ Use the following StackQL query and manifest file to create a new <code>file_sys
 ```sql
 /*+ create */
 INSERT INTO awscc.efs.file_systems (
- Encrypted,
- FileSystemTags,
- KmsKeyId,
- LifecyclePolicies,
- FileSystemProtection,
- PerformanceMode,
- ProvisionedThroughputInMibps,
- ThroughputMode,
- FileSystemPolicy,
- BypassPolicyLockoutSafetyCheck,
- BackupPolicy,
- AvailabilityZoneName,
- ReplicationConfiguration,
- region
+  Encrypted,
+  FileSystemTags,
+  KmsKeyId,
+  LifecyclePolicies,
+  FileSystemProtection,
+  PerformanceMode,
+  ProvisionedThroughputInMibps,
+  ThroughputMode,
+  FileSystemPolicy,
+  BypassPolicyLockoutSafetyCheck,
+  BackupPolicy,
+  AvailabilityZoneName,
+  ReplicationConfiguration,
+  region
 )
 SELECT
-'{{ encrypted }}',
- '{{ file_system_tags }}',
- '{{ kms_key_id }}',
- '{{ lifecycle_policies }}',
- '{{ file_system_protection }}',
- '{{ performance_mode }}',
- '{{ provisioned_throughput_in_mibps }}',
- '{{ throughput_mode }}',
- '{{ file_system_policy }}',
- '{{ bypass_policy_lockout_safety_check }}',
- '{{ backup_policy }}',
- '{{ availability_zone_name }}',
- '{{ replication_configuration }}',
-'{{ region }}';
+  '{{ encrypted }}',
+  '{{ file_system_tags }}',
+  '{{ kms_key_id }}',
+  '{{ lifecycle_policies }}',
+  '{{ file_system_protection }}',
+  '{{ performance_mode }}',
+  '{{ provisioned_throughput_in_mibps }}',
+  '{{ throughput_mode }}',
+  '{{ file_system_policy }}',
+  '{{ bypass_policy_lockout_safety_check }}',
+  '{{ backup_policy }}',
+  '{{ availability_zone_name }}',
+  '{{ replication_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -375,36 +378,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.efs.file_systems (
- Encrypted,
- FileSystemTags,
- KmsKeyId,
- LifecyclePolicies,
- FileSystemProtection,
- PerformanceMode,
- ProvisionedThroughputInMibps,
- ThroughputMode,
- FileSystemPolicy,
- BypassPolicyLockoutSafetyCheck,
- BackupPolicy,
- AvailabilityZoneName,
- ReplicationConfiguration,
- region
+  Encrypted,
+  FileSystemTags,
+  KmsKeyId,
+  LifecyclePolicies,
+  FileSystemProtection,
+  PerformanceMode,
+  ProvisionedThroughputInMibps,
+  ThroughputMode,
+  FileSystemPolicy,
+  BypassPolicyLockoutSafetyCheck,
+  BackupPolicy,
+  AvailabilityZoneName,
+  ReplicationConfiguration,
+  region
 )
 SELECT
- '{{ encrypted }}',
- '{{ file_system_tags }}',
- '{{ kms_key_id }}',
- '{{ lifecycle_policies }}',
- '{{ file_system_protection }}',
- '{{ performance_mode }}',
- '{{ provisioned_throughput_in_mibps }}',
- '{{ throughput_mode }}',
- '{{ file_system_policy }}',
- '{{ bypass_policy_lockout_safety_check }}',
- '{{ backup_policy }}',
- '{{ availability_zone_name }}',
- '{{ replication_configuration }}',
- '{{ region }}';
+  '{{ encrypted }}',
+  '{{ file_system_tags }}',
+  '{{ kms_key_id }}',
+  '{{ lifecycle_policies }}',
+  '{{ file_system_protection }}',
+  '{{ performance_mode }}',
+  '{{ provisioned_throughput_in_mibps }}',
+  '{{ throughput_mode }}',
+  '{{ file_system_policy }}',
+  '{{ bypass_policy_lockout_safety_check }}',
+  '{{ backup_policy }}',
+  '{{ availability_zone_name }}',
+  '{{ replication_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -483,8 +486,9 @@ SET PatchDocument = string('{{ {
     "BypassPolicyLockoutSafetyCheck": bypass_policy_lockout_safety_check,
     "BackupPolicy": backup_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ file_system_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ file_system_id }}';
 ```
 
 
@@ -493,8 +497,9 @@ AND Identifier = '{{ file_system_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.file_systems
-WHERE Identifier = '{{ file_system_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ file_system_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

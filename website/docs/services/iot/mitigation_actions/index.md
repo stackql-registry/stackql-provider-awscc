@@ -252,15 +252,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mitigation_action</code>.
 ```sql
 SELECT
-region,
-action_name,
-role_arn,
-tags,
-action_params,
-mitigation_action_arn,
-mitigation_action_id
+  region,
+  action_name,
+  role_arn,
+  tags,
+  action_params,
+  mitigation_action_arn,
+  mitigation_action_id
 FROM awscc.iot.mitigation_actions
-WHERE region = 'us-east-1' AND Identifier = '{{ action_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ action_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,10 +270,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ action_name }}';
 Lists all <code>mitigation_actions</code> in a region.
 ```sql
 SELECT
-region,
-action_name
+  region,
+  action_name
 FROM awscc.iot.mitigation_actions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -293,14 +296,14 @@ Use the following StackQL query and manifest file to create a new <code>mitigati
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.mitigation_actions (
- RoleArn,
- ActionParams,
- region
+  RoleArn,
+  ActionParams,
+  region
 )
 SELECT
-'{{ role_arn }}',
- '{{ action_params }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ action_params }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -308,18 +311,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.mitigation_actions (
- ActionName,
- RoleArn,
- Tags,
- ActionParams,
- region
+  ActionName,
+  RoleArn,
+  Tags,
+  ActionParams,
+  region
 )
 SELECT
- '{{ action_name }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ action_params }}',
- '{{ region }}';
+  '{{ action_name }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ action_params }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -377,8 +380,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "ActionParams": action_params
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ action_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ action_name }}';
 ```
 
 
@@ -387,8 +391,9 @@ AND Identifier = '{{ action_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.mitigation_actions
-WHERE Identifier = '{{ action_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ action_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>view_version</code>.
 ```sql
 SELECT
-region,
-view_arn,
-view_version_arn,
-version_description,
-view_content_sha256,
-version
+  region,
+  view_arn,
+  view_version_arn,
+  version_description,
+  view_content_sha256,
+  version
 FROM awscc.connect.view_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ view_version_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ view_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,10 +167,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ view_version_arn }}';
 Lists all <code>view_versions</code> in a region.
 ```sql
 SELECT
-region,
-view_version_arn
+  region,
+  view_version_arn
 FROM awscc.connect.view_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -190,12 +193,12 @@ Use the following StackQL query and manifest file to create a new <code>view_ver
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.view_versions (
- ViewArn,
- region
+  ViewArn,
+  region
 )
 SELECT
-'{{ view_arn }}',
-'{{ region }}';
+  '{{ view_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -203,16 +206,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.view_versions (
- ViewArn,
- VersionDescription,
- ViewContentSha256,
- region
+  ViewArn,
+  VersionDescription,
+  ViewContentSha256,
+  region
 )
 SELECT
- '{{ view_arn }}',
- '{{ version_description }}',
- '{{ view_content_sha256 }}',
- '{{ region }}';
+  '{{ view_arn }}',
+  '{{ version_description }}',
+  '{{ view_content_sha256 }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +248,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.view_versions
-WHERE Identifier = '{{ view_version_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ view_version_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

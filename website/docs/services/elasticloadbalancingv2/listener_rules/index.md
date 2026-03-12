@@ -467,15 +467,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>listener_rule</code>.
 ```sql
 SELECT
-region,
-listener_arn,
-is_default,
-actions,
-priority,
-rule_arn,
-conditions
+  region,
+  listener_arn,
+  is_default,
+  actions,
+  priority,
+  rule_arn,
+  conditions
 FROM awscc.elasticloadbalancingv2.listener_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -483,10 +485,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 Lists all <code>listener_rules</code> in a region.
 ```sql
 SELECT
-region,
-rule_arn
+  region,
+  rule_arn
 FROM awscc.elasticloadbalancingv2.listener_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -508,16 +511,16 @@ Use the following StackQL query and manifest file to create a new <code>listener
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.listener_rules (
- Actions,
- Priority,
- Conditions,
- region
+  Actions,
+  Priority,
+  Conditions,
+  region
 )
 SELECT
-'{{ actions }}',
- '{{ priority }}',
- '{{ conditions }}',
-'{{ region }}';
+  '{{ actions }}',
+  '{{ priority }}',
+  '{{ conditions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -525,18 +528,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticloadbalancingv2.listener_rules (
- ListenerArn,
- Actions,
- Priority,
- Conditions,
- region
+  ListenerArn,
+  Actions,
+  Priority,
+  Conditions,
+  region
 )
 SELECT
- '{{ listener_arn }}',
- '{{ actions }}',
- '{{ priority }}',
- '{{ conditions }}',
- '{{ region }}';
+  '{{ listener_arn }}',
+  '{{ actions }}',
+  '{{ priority }}',
+  '{{ conditions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -639,8 +642,9 @@ SET PatchDocument = string('{{ {
     "Priority": priority,
     "Conditions": conditions
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -649,8 +653,9 @@ AND Identifier = '{{ rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.listener_rules
-WHERE Identifier = '{{ rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

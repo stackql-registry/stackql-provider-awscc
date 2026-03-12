@@ -345,20 +345,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>matching_workflow</code>.
 ```sql
 SELECT
-region,
-workflow_name,
-description,
-input_source_config,
-output_source_config,
-resolution_techniques,
-role_arn,
-tags,
-workflow_arn,
-created_at,
-updated_at,
-incremental_run_config
+  region,
+  workflow_name,
+  description,
+  input_source_config,
+  output_source_config,
+  resolution_techniques,
+  role_arn,
+  tags,
+  workflow_arn,
+  created_at,
+  updated_at,
+  incremental_run_config
 FROM awscc.entityresolution.matching_workflows
-WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ workflow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -366,10 +368,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
 Lists all <code>matching_workflows</code> in a region.
 ```sql
 SELECT
-region,
-workflow_name
+  region,
+  workflow_name
 FROM awscc.entityresolution.matching_workflows_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -391,20 +394,20 @@ Use the following StackQL query and manifest file to create a new <code>matching
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.matching_workflows (
- WorkflowName,
- InputSourceConfig,
- OutputSourceConfig,
- ResolutionTechniques,
- RoleArn,
- region
+  WorkflowName,
+  InputSourceConfig,
+  OutputSourceConfig,
+  ResolutionTechniques,
+  RoleArn,
+  region
 )
 SELECT
-'{{ workflow_name }}',
- '{{ input_source_config }}',
- '{{ output_source_config }}',
- '{{ resolution_techniques }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ workflow_name }}',
+  '{{ input_source_config }}',
+  '{{ output_source_config }}',
+  '{{ resolution_techniques }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -412,26 +415,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.entityresolution.matching_workflows (
- WorkflowName,
- Description,
- InputSourceConfig,
- OutputSourceConfig,
- ResolutionTechniques,
- RoleArn,
- Tags,
- IncrementalRunConfig,
- region
+  WorkflowName,
+  Description,
+  InputSourceConfig,
+  OutputSourceConfig,
+  ResolutionTechniques,
+  RoleArn,
+  Tags,
+  IncrementalRunConfig,
+  region
 )
 SELECT
- '{{ workflow_name }}',
- '{{ description }}',
- '{{ input_source_config }}',
- '{{ output_source_config }}',
- '{{ resolution_techniques }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ incremental_run_config }}',
- '{{ region }}';
+  '{{ workflow_name }}',
+  '{{ description }}',
+  '{{ input_source_config }}',
+  '{{ output_source_config }}',
+  '{{ resolution_techniques }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ incremental_run_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -513,8 +516,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "IncrementalRunConfig": incremental_run_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ workflow_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ workflow_name }}';
 ```
 
 
@@ -523,8 +527,9 @@ AND Identifier = '{{ workflow_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.matching_workflows
-WHERE Identifier = '{{ workflow_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ workflow_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -217,19 +217,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>multiplex</code>.
 ```sql
 SELECT
-region,
-arn,
-availability_zones,
-destinations,
-id,
-multiplex_settings,
-name,
-pipelines_running_count,
-program_count,
-state,
-tags
+  region,
+  arn,
+  availability_zones,
+  destinations,
+  id,
+  multiplex_settings,
+  name,
+  pipelines_running_count,
+  program_count,
+  state,
+  tags
 FROM awscc.medialive.multiplexes
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,10 +239,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>multiplexes</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.medialive.multiplexes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -262,16 +265,16 @@ Use the following StackQL query and manifest file to create a new <code>multiple
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.multiplexes (
- AvailabilityZones,
- MultiplexSettings,
- Name,
- region
+  AvailabilityZones,
+  MultiplexSettings,
+  Name,
+  region
 )
 SELECT
-'{{ availability_zones }}',
- '{{ multiplex_settings }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ availability_zones }}',
+  '{{ multiplex_settings }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,20 +282,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.medialive.multiplexes (
- AvailabilityZones,
- Destinations,
- MultiplexSettings,
- Name,
- Tags,
- region
+  AvailabilityZones,
+  Destinations,
+  MultiplexSettings,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ availability_zones }}',
- '{{ destinations }}',
- '{{ multiplex_settings }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ availability_zones }}',
+  '{{ destinations }}',
+  '{{ multiplex_settings }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -344,8 +347,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -354,8 +358,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.multiplexes
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

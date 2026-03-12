@@ -218,24 +218,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>certificate</code>.
 ```sql
 SELECT
-region,
-usage,
-certificate,
-certificate_chain,
-private_key,
-active_date,
-inactive_date,
-description,
-tags,
-arn,
-certificate_id,
-status,
-type,
-serial,
-not_before_date,
-not_after_date
+  region,
+  usage,
+  certificate,
+  certificate_chain,
+  private_key,
+  active_date,
+  inactive_date,
+  description,
+  tags,
+  arn,
+  certificate_id,
+  status,
+  type,
+  serial,
+  not_before_date,
+  not_after_date
 FROM awscc.transfer.certificates
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ certificate_id }}';
 Lists all <code>certificates</code> in a region.
 ```sql
 SELECT
-region,
-certificate_id
+  region,
+  certificate_id
 FROM awscc.transfer.certificates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,14 +271,14 @@ Use the following StackQL query and manifest file to create a new <code>certific
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.certificates (
- Usage,
- Certificate,
- region
+  Usage,
+  Certificate,
+  region
 )
 SELECT
-'{{ usage }}',
- '{{ certificate }}',
-'{{ region }}';
+  '{{ usage }}',
+  '{{ certificate }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,26 +286,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.certificates (
- Usage,
- Certificate,
- CertificateChain,
- PrivateKey,
- ActiveDate,
- InactiveDate,
- Description,
- Tags,
- region
+  Usage,
+  Certificate,
+  CertificateChain,
+  PrivateKey,
+  ActiveDate,
+  InactiveDate,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ usage }}',
- '{{ certificate }}',
- '{{ certificate_chain }}',
- '{{ private_key }}',
- '{{ active_date }}',
- '{{ inactive_date }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ usage }}',
+  '{{ certificate }}',
+  '{{ certificate_chain }}',
+  '{{ private_key }}',
+  '{{ active_date }}',
+  '{{ inactive_date }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -355,8 +358,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ certificate_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ certificate_id }}';
 ```
 
 
@@ -365,8 +369,9 @@ AND Identifier = '{{ certificate_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.certificates
-WHERE Identifier = '{{ certificate_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

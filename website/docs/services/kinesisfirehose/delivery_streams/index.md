@@ -2769,28 +2769,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>delivery_stream</code>.
 ```sql
 SELECT
-region,
-delivery_stream_encryption_configuration_input,
-http_endpoint_destination_configuration,
-kinesis_stream_source_configuration,
-delivery_stream_type,
-iceberg_destination_configuration,
-redshift_destination_configuration,
-amazonopensearchservice_destination_configuration,
-msk_source_configuration,
-direct_put_source_configuration,
-splunk_destination_configuration,
-extended_s3_destination_configuration,
-amazon_open_search_serverless_destination_configuration,
-elasticsearch_destination_configuration,
-snowflake_destination_configuration,
-database_source_configuration,
-s3_destination_configuration,
-delivery_stream_name,
-arn,
-tags
+  region,
+  delivery_stream_encryption_configuration_input,
+  http_endpoint_destination_configuration,
+  kinesis_stream_source_configuration,
+  delivery_stream_type,
+  iceberg_destination_configuration,
+  redshift_destination_configuration,
+  amazonopensearchservice_destination_configuration,
+  msk_source_configuration,
+  direct_put_source_configuration,
+  splunk_destination_configuration,
+  extended_s3_destination_configuration,
+  amazon_open_search_serverless_destination_configuration,
+  elasticsearch_destination_configuration,
+  snowflake_destination_configuration,
+  database_source_configuration,
+  s3_destination_configuration,
+  delivery_stream_name,
+  arn,
+  tags
 FROM awscc.kinesisfirehose.delivery_streams
-WHERE region = 'us-east-1' AND Identifier = '{{ delivery_stream_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ delivery_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -2798,10 +2800,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ delivery_stream_name }}';
 Lists all <code>delivery_streams</code> in a region.
 ```sql
 SELECT
-region,
-delivery_stream_name
+  region,
+  delivery_stream_name
 FROM awscc.kinesisfirehose.delivery_streams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -2823,46 +2826,46 @@ Use the following StackQL query and manifest file to create a new <code>delivery
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisfirehose.delivery_streams (
- DeliveryStreamEncryptionConfigurationInput,
- HttpEndpointDestinationConfiguration,
- KinesisStreamSourceConfiguration,
- DeliveryStreamType,
- IcebergDestinationConfiguration,
- RedshiftDestinationConfiguration,
- AmazonopensearchserviceDestinationConfiguration,
- MSKSourceConfiguration,
- DirectPutSourceConfiguration,
- SplunkDestinationConfiguration,
- ExtendedS3DestinationConfiguration,
- AmazonOpenSearchServerlessDestinationConfiguration,
- ElasticsearchDestinationConfiguration,
- SnowflakeDestinationConfiguration,
- DatabaseSourceConfiguration,
- S3DestinationConfiguration,
- DeliveryStreamName,
- Tags,
- region
+  DeliveryStreamEncryptionConfigurationInput,
+  HttpEndpointDestinationConfiguration,
+  KinesisStreamSourceConfiguration,
+  DeliveryStreamType,
+  IcebergDestinationConfiguration,
+  RedshiftDestinationConfiguration,
+  AmazonopensearchserviceDestinationConfiguration,
+  MSKSourceConfiguration,
+  DirectPutSourceConfiguration,
+  SplunkDestinationConfiguration,
+  ExtendedS3DestinationConfiguration,
+  AmazonOpenSearchServerlessDestinationConfiguration,
+  ElasticsearchDestinationConfiguration,
+  SnowflakeDestinationConfiguration,
+  DatabaseSourceConfiguration,
+  S3DestinationConfiguration,
+  DeliveryStreamName,
+  Tags,
+  region
 )
 SELECT
-'{{ delivery_stream_encryption_configuration_input }}',
- '{{ http_endpoint_destination_configuration }}',
- '{{ kinesis_stream_source_configuration }}',
- '{{ delivery_stream_type }}',
- '{{ iceberg_destination_configuration }}',
- '{{ redshift_destination_configuration }}',
- '{{ amazonopensearchservice_destination_configuration }}',
- '{{ msk_source_configuration }}',
- '{{ direct_put_source_configuration }}',
- '{{ splunk_destination_configuration }}',
- '{{ extended_s3_destination_configuration }}',
- '{{ amazon_open_search_serverless_destination_configuration }}',
- '{{ elasticsearch_destination_configuration }}',
- '{{ snowflake_destination_configuration }}',
- '{{ database_source_configuration }}',
- '{{ s3_destination_configuration }}',
- '{{ delivery_stream_name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ delivery_stream_encryption_configuration_input }}',
+  '{{ http_endpoint_destination_configuration }}',
+  '{{ kinesis_stream_source_configuration }}',
+  '{{ delivery_stream_type }}',
+  '{{ iceberg_destination_configuration }}',
+  '{{ redshift_destination_configuration }}',
+  '{{ amazonopensearchservice_destination_configuration }}',
+  '{{ msk_source_configuration }}',
+  '{{ direct_put_source_configuration }}',
+  '{{ splunk_destination_configuration }}',
+  '{{ extended_s3_destination_configuration }}',
+  '{{ amazon_open_search_serverless_destination_configuration }}',
+  '{{ elasticsearch_destination_configuration }}',
+  '{{ snowflake_destination_configuration }}',
+  '{{ database_source_configuration }}',
+  '{{ s3_destination_configuration }}',
+  '{{ delivery_stream_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -2870,46 +2873,46 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesisfirehose.delivery_streams (
- DeliveryStreamEncryptionConfigurationInput,
- HttpEndpointDestinationConfiguration,
- KinesisStreamSourceConfiguration,
- DeliveryStreamType,
- IcebergDestinationConfiguration,
- RedshiftDestinationConfiguration,
- AmazonopensearchserviceDestinationConfiguration,
- MSKSourceConfiguration,
- DirectPutSourceConfiguration,
- SplunkDestinationConfiguration,
- ExtendedS3DestinationConfiguration,
- AmazonOpenSearchServerlessDestinationConfiguration,
- ElasticsearchDestinationConfiguration,
- SnowflakeDestinationConfiguration,
- DatabaseSourceConfiguration,
- S3DestinationConfiguration,
- DeliveryStreamName,
- Tags,
- region
+  DeliveryStreamEncryptionConfigurationInput,
+  HttpEndpointDestinationConfiguration,
+  KinesisStreamSourceConfiguration,
+  DeliveryStreamType,
+  IcebergDestinationConfiguration,
+  RedshiftDestinationConfiguration,
+  AmazonopensearchserviceDestinationConfiguration,
+  MSKSourceConfiguration,
+  DirectPutSourceConfiguration,
+  SplunkDestinationConfiguration,
+  ExtendedS3DestinationConfiguration,
+  AmazonOpenSearchServerlessDestinationConfiguration,
+  ElasticsearchDestinationConfiguration,
+  SnowflakeDestinationConfiguration,
+  DatabaseSourceConfiguration,
+  S3DestinationConfiguration,
+  DeliveryStreamName,
+  Tags,
+  region
 )
 SELECT
- '{{ delivery_stream_encryption_configuration_input }}',
- '{{ http_endpoint_destination_configuration }}',
- '{{ kinesis_stream_source_configuration }}',
- '{{ delivery_stream_type }}',
- '{{ iceberg_destination_configuration }}',
- '{{ redshift_destination_configuration }}',
- '{{ amazonopensearchservice_destination_configuration }}',
- '{{ msk_source_configuration }}',
- '{{ direct_put_source_configuration }}',
- '{{ splunk_destination_configuration }}',
- '{{ extended_s3_destination_configuration }}',
- '{{ amazon_open_search_serverless_destination_configuration }}',
- '{{ elasticsearch_destination_configuration }}',
- '{{ snowflake_destination_configuration }}',
- '{{ database_source_configuration }}',
- '{{ s3_destination_configuration }}',
- '{{ delivery_stream_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ delivery_stream_encryption_configuration_input }}',
+  '{{ http_endpoint_destination_configuration }}',
+  '{{ kinesis_stream_source_configuration }}',
+  '{{ delivery_stream_type }}',
+  '{{ iceberg_destination_configuration }}',
+  '{{ redshift_destination_configuration }}',
+  '{{ amazonopensearchservice_destination_configuration }}',
+  '{{ msk_source_configuration }}',
+  '{{ direct_put_source_configuration }}',
+  '{{ splunk_destination_configuration }}',
+  '{{ extended_s3_destination_configuration }}',
+  '{{ amazon_open_search_serverless_destination_configuration }}',
+  '{{ elasticsearch_destination_configuration }}',
+  '{{ snowflake_destination_configuration }}',
+  '{{ database_source_configuration }}',
+  '{{ s3_destination_configuration }}',
+  '{{ delivery_stream_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -3254,8 +3257,9 @@ SET PatchDocument = string('{{ {
     "S3DestinationConfiguration": s3_destination_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ delivery_stream_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ delivery_stream_name }}';
 ```
 
 
@@ -3264,8 +3268,9 @@ AND Identifier = '{{ delivery_stream_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisfirehose.delivery_streams
-WHERE Identifier = '{{ delivery_stream_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ delivery_stream_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

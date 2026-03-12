@@ -210,20 +210,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>folder</code>.
 ```sql
 SELECT
-region,
-arn,
-aws_account_id,
-created_time,
-folder_id,
-folder_type,
-last_updated_time,
-name,
-parent_folder_arn,
-permissions,
-sharing_model,
-tags
+  region,
+  arn,
+  aws_account_id,
+  created_time,
+  folder_id,
+  folder_type,
+  last_updated_time,
+  name,
+  parent_folder_arn,
+  permissions,
+  sharing_model,
+  tags
 FROM awscc.quicksight.folders
-WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ folder_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,11 +233,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ folder_id }
 Lists all <code>folders</code> in a region.
 ```sql
 SELECT
-region,
-aws_account_id,
-folder_id
+  region,
+  aws_account_id,
+  folder_id
 FROM awscc.quicksight.folders_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,26 +260,26 @@ Use the following StackQL query and manifest file to create a new <code>folder</
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.folders (
- AwsAccountId,
- FolderId,
- FolderType,
- Name,
- ParentFolderArn,
- Permissions,
- SharingModel,
- Tags,
- region
+  AwsAccountId,
+  FolderId,
+  FolderType,
+  Name,
+  ParentFolderArn,
+  Permissions,
+  SharingModel,
+  Tags,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ folder_id }}',
- '{{ folder_type }}',
- '{{ name }}',
- '{{ parent_folder_arn }}',
- '{{ permissions }}',
- '{{ sharing_model }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ folder_id }}',
+  '{{ folder_type }}',
+  '{{ name }}',
+  '{{ parent_folder_arn }}',
+  '{{ permissions }}',
+  '{{ sharing_model }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,26 +287,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.quicksight.folders (
- AwsAccountId,
- FolderId,
- FolderType,
- Name,
- ParentFolderArn,
- Permissions,
- SharingModel,
- Tags,
- region
+  AwsAccountId,
+  FolderId,
+  FolderType,
+  Name,
+  ParentFolderArn,
+  Permissions,
+  SharingModel,
+  Tags,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ folder_id }}',
- '{{ folder_type }}',
- '{{ name }}',
- '{{ parent_folder_arn }}',
- '{{ permissions }}',
- '{{ sharing_model }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ folder_id }}',
+  '{{ folder_type }}',
+  '{{ name }}',
+  '{{ parent_folder_arn }}',
+  '{{ permissions }}',
+  '{{ sharing_model }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -357,8 +360,9 @@ SET PatchDocument = string('{{ {
     "Permissions": permissions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ aws_account_id }}|{{ folder_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```
 
 
@@ -367,8 +371,9 @@ AND Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.folders
-WHERE Identifier = '{{ aws_account_id }}|{{ folder_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ aws_account_id }}|{{ folder_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

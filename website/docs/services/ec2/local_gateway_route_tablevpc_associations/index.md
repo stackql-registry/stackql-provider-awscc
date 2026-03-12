@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>local_gateway_route_tablevpc_association</code>.
 ```sql
 SELECT
-region,
-local_gateway_id,
-local_gateway_route_table_id,
-local_gateway_route_table_vpc_association_id,
-state,
-vpc_id,
-tags
+  region,
+  local_gateway_id,
+  local_gateway_route_table_id,
+  local_gateway_route_table_vpc_association_id,
+  state,
+  vpc_id,
+  tags
 FROM awscc.ec2.local_gateway_route_tablevpc_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_vpc_as
 Lists all <code>local_gateway_route_tablevpc_associations</code> in a region.
 ```sql
 SELECT
-region,
-local_gateway_route_table_vpc_association_id
+  region,
+  local_gateway_route_table_vpc_association_id
 FROM awscc.ec2.local_gateway_route_tablevpc_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>local_ga
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_route_tablevpc_associations (
- LocalGatewayRouteTableId,
- VpcId,
- region
+  LocalGatewayRouteTableId,
+  VpcId,
+  region
 )
 SELECT
-'{{ local_gateway_route_table_id }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ local_gateway_route_table_id }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,16 +227,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_route_tablevpc_associations (
- LocalGatewayRouteTableId,
- VpcId,
- Tags,
- region
+  LocalGatewayRouteTableId,
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ local_gateway_route_table_id }}',
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ local_gateway_route_table_id }}',
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -272,8 +275,9 @@ UPDATE awscc.ec2.local_gateway_route_tablevpc_associations
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
 ```
 
 
@@ -282,8 +286,9 @@ AND Identifier = '{{ local_gateway_route_table_vpc_association_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_tablevpc_associations
-WHERE Identifier = '{{ local_gateway_route_table_vpc_association_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ local_gateway_route_table_vpc_association_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

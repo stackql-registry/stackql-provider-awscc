@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>gateway_route_table_association</code>.
 ```sql
 SELECT
-region,
-route_table_id,
-gateway_id,
-association_id
+  region,
+  route_table_id,
+  gateway_id,
+  association_id
 FROM awscc.ec2.gateway_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ gateway_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ gateway_id }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>gateway_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.gateway_route_table_associations (
- RouteTableId,
- GatewayId,
- region
+  RouteTableId,
+  GatewayId,
+  region
 )
 SELECT
-'{{ route_table_id }}',
- '{{ gateway_id }}',
-'{{ region }}';
+  '{{ route_table_id }}',
+  '{{ gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,14 +137,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.gateway_route_table_associations (
- RouteTableId,
- GatewayId,
- region
+  RouteTableId,
+  GatewayId,
+  region
 )
 SELECT
- '{{ route_table_id }}',
- '{{ gateway_id }}',
- '{{ region }}';
+  '{{ route_table_id }}',
+  '{{ gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -177,8 +179,9 @@ UPDATE awscc.ec2.gateway_route_table_associations
 SET PatchDocument = string('{{ {
     "RouteTableId": route_table_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ gateway_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ gateway_id }}';
 ```
 
 
@@ -187,8 +190,9 @@ AND Identifier = '{{ gateway_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.gateway_route_table_associations
-WHERE Identifier = '{{ gateway_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ gateway_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

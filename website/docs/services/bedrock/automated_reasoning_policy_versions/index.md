@@ -182,19 +182,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>automated_reasoning_policy_version</code>.
 ```sql
 SELECT
-region,
-policy_arn,
-name,
-description,
-version,
-definition_hash,
-last_updated_definition_hash,
-created_at,
-updated_at,
-policy_id,
-tags
+  region,
+  policy_arn,
+  name,
+  description,
+  version,
+  definition_hash,
+  last_updated_definition_hash,
+  created_at,
+  updated_at,
+  policy_id,
+  tags
 FROM awscc.bedrock.automated_reasoning_policy_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}|{{ version }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_arn }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,11 +204,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}|{{ version }}';
 Lists all <code>automated_reasoning_policy_versions</code> in a region.
 ```sql
 SELECT
-region,
-policy_arn,
-version
+  region,
+  policy_arn,
+  version
 FROM awscc.bedrock.automated_reasoning_policy_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -228,12 +231,12 @@ Use the following StackQL query and manifest file to create a new <code>automate
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.automated_reasoning_policy_versions (
- PolicyArn,
- region
+  PolicyArn,
+  region
 )
 SELECT
-'{{ policy_arn }}',
-'{{ region }}';
+  '{{ policy_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -241,16 +244,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.automated_reasoning_policy_versions (
- PolicyArn,
- LastUpdatedDefinitionHash,
- Tags,
- region
+  PolicyArn,
+  LastUpdatedDefinitionHash,
+  Tags,
+  region
 )
 SELECT
- '{{ policy_arn }}',
- '{{ last_updated_definition_hash }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ policy_arn }}',
+  '{{ last_updated_definition_hash }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -285,8 +288,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.automated_reasoning_policy_versions
-WHERE Identifier = '{{ policy_arn }}|{{ version }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_arn }}|{{ version }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

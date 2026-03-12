@@ -178,14 +178,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>serverless_cluster</code>.
 ```sql
 SELECT
-region,
-arn,
-cluster_name,
-vpc_configs,
-client_authentication,
-tags
+  region,
+  arn,
+  cluster_name,
+  vpc_configs,
+  client_authentication,
+  tags
 FROM awscc.msk.serverless_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,10 +195,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>serverless_clusters</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.msk.serverless_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -218,16 +221,16 @@ Use the following StackQL query and manifest file to create a new <code>serverle
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.serverless_clusters (
- ClusterName,
- VpcConfigs,
- ClientAuthentication,
- region
+  ClusterName,
+  VpcConfigs,
+  ClientAuthentication,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ vpc_configs }}',
- '{{ client_authentication }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ vpc_configs }}',
+  '{{ client_authentication }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -235,18 +238,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.msk.serverless_clusters (
- ClusterName,
- VpcConfigs,
- ClientAuthentication,
- Tags,
- region
+  ClusterName,
+  VpcConfigs,
+  ClientAuthentication,
+  Tags,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ vpc_configs }}',
- '{{ client_authentication }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ vpc_configs }}',
+  '{{ client_authentication }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.serverless_clusters
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

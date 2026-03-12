@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-policy_document,
-policy_name,
-tags
+  region,
+  id,
+  arn,
+  policy_document,
+  policy_name,
+  tags
 FROM awscc.iot.policies
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>policies</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iot.policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,12 +206,12 @@ Use the following StackQL query and manifest file to create a new <code>policy</
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.policies (
- PolicyDocument,
- region
+  PolicyDocument,
+  region
 )
 SELECT
-'{{ policy_document }}',
-'{{ region }}';
+  '{{ policy_document }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,16 +219,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.policies (
- PolicyDocument,
- PolicyName,
- Tags,
- region
+  PolicyDocument,
+  PolicyName,
+  Tags,
+  region
 )
 SELECT
- '{{ policy_document }}',
- '{{ policy_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ policy_document }}',
+  '{{ policy_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -265,8 +268,9 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -275,8 +279,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.policies
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

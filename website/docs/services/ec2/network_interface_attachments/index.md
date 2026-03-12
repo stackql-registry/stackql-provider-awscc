@@ -175,15 +175,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_interface_attachment</code>.
 ```sql
 SELECT
-region,
-attachment_id,
-delete_on_termination,
-device_index,
-instance_id,
-network_interface_id,
-ena_srd_specification
+  region,
+  attachment_id,
+  delete_on_termination,
+  device_index,
+  instance_id,
+  network_interface_id,
+  ena_srd_specification
 FROM awscc.ec2.network_interface_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -191,10 +193,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 Lists all <code>network_interface_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_id
+  region,
+  attachment_id
 FROM awscc.ec2.network_interface_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -216,16 +219,16 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_interface_attachments (
- DeviceIndex,
- InstanceId,
- NetworkInterfaceId,
- region
+  DeviceIndex,
+  InstanceId,
+  NetworkInterfaceId,
+  region
 )
 SELECT
-'{{ device_index }}',
- '{{ instance_id }}',
- '{{ network_interface_id }}',
-'{{ region }}';
+  '{{ device_index }}',
+  '{{ instance_id }}',
+  '{{ network_interface_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -233,20 +236,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_interface_attachments (
- DeleteOnTermination,
- DeviceIndex,
- InstanceId,
- NetworkInterfaceId,
- EnaSrdSpecification,
- region
+  DeleteOnTermination,
+  DeviceIndex,
+  InstanceId,
+  NetworkInterfaceId,
+  EnaSrdSpecification,
+  region
 )
 SELECT
- '{{ delete_on_termination }}',
- '{{ device_index }}',
- '{{ instance_id }}',
- '{{ network_interface_id }}',
- '{{ ena_srd_specification }}',
- '{{ region }}';
+  '{{ delete_on_termination }}',
+  '{{ device_index }}',
+  '{{ instance_id }}',
+  '{{ network_interface_id }}',
+  '{{ ena_srd_specification }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -291,8 +294,9 @@ SET PatchDocument = string('{{ {
     "DeleteOnTermination": delete_on_termination,
     "EnaSrdSpecification": ena_srd_specification
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -301,8 +305,9 @@ AND Identifier = '{{ attachment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_interface_attachments
-WHERE Identifier = '{{ attachment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

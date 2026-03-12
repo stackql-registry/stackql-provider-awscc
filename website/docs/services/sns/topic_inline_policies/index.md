@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>topic_inline_policy</code>.
 ```sql
 SELECT
-region,
-policy_document,
-topic_arn
+  region,
+  policy_document,
+  topic_arn
 FROM awscc.sns.topic_inline_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ topic_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ topic_arn }}';
 ```
 
 ## `INSERT` example
@@ -114,14 +116,14 @@ Use the following StackQL query and manifest file to create a new <code>topic_in
 ```sql
 /*+ create */
 INSERT INTO awscc.sns.topic_inline_policies (
- PolicyDocument,
- TopicArn,
- region
+  PolicyDocument,
+  TopicArn,
+  region
 )
 SELECT
-'{{ policy_document }}',
- '{{ topic_arn }}',
-'{{ region }}';
+  '{{ policy_document }}',
+  '{{ topic_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -129,14 +131,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sns.topic_inline_policies (
- PolicyDocument,
- TopicArn,
- region
+  PolicyDocument,
+  TopicArn,
+  region
 )
 SELECT
- '{{ policy_document }}',
- '{{ topic_arn }}',
- '{{ region }}';
+  '{{ policy_document }}',
+  '{{ topic_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -171,8 +173,9 @@ UPDATE awscc.sns.topic_inline_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ topic_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ topic_arn }}';
 ```
 
 
@@ -181,8 +184,9 @@ AND Identifier = '{{ topic_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sns.topic_inline_policies
-WHERE Identifier = '{{ topic_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ topic_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -197,16 +197,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assistant_association</code>.
 ```sql
 SELECT
-region,
-assistant_association_arn,
-assistant_arn,
-assistant_association_id,
-assistant_id,
-association,
-association_type,
-tags
+  region,
+  assistant_association_arn,
+  assistant_arn,
+  assistant_association_id,
+  assistant_id,
+  association,
+  association_type,
+  tags
 FROM awscc.wisdom.assistant_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ assistant_association_id }}|{{ assistant_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ assistant_association_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,11 +216,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ assistant_association_id }}|{{ a
 Lists all <code>assistant_associations</code> in a region.
 ```sql
 SELECT
-region,
-assistant_association_id,
-assistant_id
+  region,
+  assistant_association_id,
+  assistant_id
 FROM awscc.wisdom.assistant_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -240,16 +243,16 @@ Use the following StackQL query and manifest file to create a new <code>assistan
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.assistant_associations (
- AssistantId,
- Association,
- AssociationType,
- region
+  AssistantId,
+  Association,
+  AssociationType,
+  region
 )
 SELECT
-'{{ assistant_id }}',
- '{{ association }}',
- '{{ association_type }}',
-'{{ region }}';
+  '{{ assistant_id }}',
+  '{{ association }}',
+  '{{ association_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -257,18 +260,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.assistant_associations (
- AssistantId,
- Association,
- AssociationType,
- Tags,
- region
+  AssistantId,
+  Association,
+  AssociationType,
+  Tags,
+  region
 )
 SELECT
- '{{ assistant_id }}',
- '{{ association }}',
- '{{ association_type }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ assistant_id }}',
+  '{{ association }}',
+  '{{ association_type }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.assistant_associations
-WHERE Identifier = '{{ assistant_association_id }}|{{ assistant_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ assistant_association_id }}|{{ assistant_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

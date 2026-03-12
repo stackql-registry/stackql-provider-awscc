@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>farm</code>.
 ```sql
 SELECT
-region,
-description,
-display_name,
-farm_id,
-kms_key_arn,
-arn,
-tags
+  region,
+  description,
+  display_name,
+  farm_id,
+  kms_key_arn,
+  arn,
+  tags
 FROM awscc.deadline.farms
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>farms</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.deadline.farms_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,12 +212,12 @@ Use the following StackQL query and manifest file to create a new <code>farm</co
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.farms (
- DisplayName,
- region
+  DisplayName,
+  region
 )
 SELECT
-'{{ display_name }}',
-'{{ region }}';
+  '{{ display_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -222,18 +225,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.farms (
- Description,
- DisplayName,
- KmsKeyArn,
- Tags,
- region
+  Description,
+  DisplayName,
+  KmsKeyArn,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ display_name }}',
- '{{ kms_key_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ kms_key_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -276,8 +279,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -286,8 +290,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.farms
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

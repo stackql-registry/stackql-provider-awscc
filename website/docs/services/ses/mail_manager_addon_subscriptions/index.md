@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>mail_manager_addon_subscription</code>.
 ```sql
 SELECT
-region,
-addon_name,
-addon_subscription_arn,
-addon_subscription_id,
-tags
+  region,
+  addon_name,
+  addon_subscription_arn,
+  addon_subscription_id,
+  tags
 FROM awscc.ses.mail_manager_addon_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ addon_subscription_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ addon_subscription_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ addon_subscription_id }}';
 Lists all <code>mail_manager_addon_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-addon_subscription_id
+  region,
+  addon_subscription_id
 FROM awscc.ses.mail_manager_addon_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>mail_man
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_addon_subscriptions (
- AddonName,
- region
+  AddonName,
+  region
 )
 SELECT
-'{{ addon_name }}',
-'{{ region }}';
+  '{{ addon_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.mail_manager_addon_subscriptions (
- AddonName,
- Tags,
- region
+  AddonName,
+  Tags,
+  region
 )
 SELECT
- '{{ addon_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ addon_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -254,8 +257,9 @@ UPDATE awscc.ses.mail_manager_addon_subscriptions
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ addon_subscription_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ addon_subscription_id }}';
 ```
 
 
@@ -264,8 +268,9 @@ AND Identifier = '{{ addon_subscription_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_addon_subscriptions
-WHERE Identifier = '{{ addon_subscription_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ addon_subscription_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

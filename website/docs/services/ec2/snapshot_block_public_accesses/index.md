@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>snapshot_block_public_access</code>.
 ```sql
 SELECT
-region,
-state,
-account_id
+  region,
+  state,
+  account_id
 FROM awscc.ec2.snapshot_block_public_accesses
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>snapshot_block_public_accesses</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.ec2.snapshot_block_public_accesses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>snapshot
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.snapshot_block_public_accesses (
- State,
- region
+  State,
+  region
 )
 SELECT
-'{{ state }}',
-'{{ region }}';
+  '{{ state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,12 +189,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.snapshot_block_public_accesses (
- State,
- region
+  State,
+  region
 )
 SELECT
- '{{ state }}',
- '{{ region }}';
+  '{{ state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -224,8 +227,9 @@ UPDATE awscc.ec2.snapshot_block_public_accesses
 SET PatchDocument = string('{{ {
     "State": state
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -234,8 +238,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.snapshot_block_public_accesses
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

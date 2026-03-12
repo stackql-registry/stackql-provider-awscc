@@ -163,11 +163,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>origin_access_control</code>.
 ```sql
 SELECT
-region,
-id,
-origin_access_control_config
+  region,
+  id,
+  origin_access_control_config
 FROM awscc.cloudfront.origin_access_controls
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -175,10 +177,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>origin_access_controls</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.cloudfront.origin_access_controls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -200,12 +203,12 @@ Use the following StackQL query and manifest file to create a new <code>origin_a
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.origin_access_controls (
- OriginAccessControlConfig,
- region
+  OriginAccessControlConfig,
+  region
 )
 SELECT
-'{{ origin_access_control_config }}',
-'{{ region }}';
+  '{{ origin_access_control_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -213,12 +216,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudfront.origin_access_controls (
- OriginAccessControlConfig,
- region
+  OriginAccessControlConfig,
+  region
 )
 SELECT
- '{{ origin_access_control_config }}',
- '{{ region }}';
+  '{{ origin_access_control_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -256,8 +259,9 @@ UPDATE awscc.cloudfront.origin_access_controls
 SET PatchDocument = string('{{ {
     "OriginAccessControlConfig": origin_access_control_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -266,8 +270,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.origin_access_controls
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -210,18 +210,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>theme</code>.
 ```sql
 SELECT
-region,
-app_id,
-created_at,
-environment_name,
-id,
-modified_at,
-name,
-overrides,
-tags,
-values
+  region,
+  app_id,
+  created_at,
+  environment_name,
+  id,
+  modified_at,
+  name,
+  overrides,
+  tags,
+  values
 FROM awscc.amplifyuibuilder.themes
-WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,12 +231,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}
 Lists all <code>themes</code> in a region.
 ```sql
 SELECT
-region,
-app_id,
-environment_name,
-id
+  region,
+  app_id,
+  environment_name,
+  id
 FROM awscc.amplifyuibuilder.themes_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,22 +259,22 @@ Use the following StackQL query and manifest file to create a new <code>theme</c
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.themes (
- AppId,
- EnvironmentName,
- Name,
- Overrides,
- Tags,
- Values,
- region
+  AppId,
+  EnvironmentName,
+  Name,
+  Overrides,
+  Tags,
+  Values,
+  region
 )
 SELECT
-'{{ app_id }}',
- '{{ environment_name }}',
- '{{ name }}',
- '{{ overrides }}',
- '{{ tags }}',
- '{{ values }}',
-'{{ region }}';
+  '{{ app_id }}',
+  '{{ environment_name }}',
+  '{{ name }}',
+  '{{ overrides }}',
+  '{{ tags }}',
+  '{{ values }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,22 +282,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.amplifyuibuilder.themes (
- AppId,
- EnvironmentName,
- Name,
- Overrides,
- Tags,
- Values,
- region
+  AppId,
+  EnvironmentName,
+  Name,
+  Overrides,
+  Tags,
+  Values,
+  region
 )
 SELECT
- '{{ app_id }}',
- '{{ environment_name }}',
- '{{ name }}',
- '{{ overrides }}',
- '{{ tags }}',
- '{{ values }}',
- '{{ region }}';
+  '{{ app_id }}',
+  '{{ environment_name }}',
+  '{{ name }}',
+  '{{ overrides }}',
+  '{{ tags }}',
+  '{{ values }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -346,8 +349,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Values": values
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -356,8 +360,9 @@ AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.themes
-WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

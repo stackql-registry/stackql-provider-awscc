@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>db_subnet_group</code>.
 ```sql
 SELECT
-region,
-db_subnet_group_description,
-db_subnet_group_name,
-subnet_ids,
-tags
+  region,
+  db_subnet_group_description,
+  db_subnet_group_name,
+  subnet_ids,
+  tags
 FROM awscc.rds.db_subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ db_subnet_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ db_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ db_subnet_group_name }}';
 Lists all <code>db_subnet_groups</code> in a region.
 ```sql
 SELECT
-region,
-db_subnet_group_name
+  region,
+  db_subnet_group_name
 FROM awscc.rds.db_subnet_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,14 +200,14 @@ Use the following StackQL query and manifest file to create a new <code>db_subne
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_subnet_groups (
- DBSubnetGroupDescription,
- SubnetIds,
- region
+  DBSubnetGroupDescription,
+  SubnetIds,
+  region
 )
 SELECT
-'{{ db_subnet_group_description }}',
- '{{ subnet_ids }}',
-'{{ region }}';
+  '{{ db_subnet_group_description }}',
+  '{{ subnet_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -212,18 +215,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.db_subnet_groups (
- DBSubnetGroupDescription,
- DBSubnetGroupName,
- SubnetIds,
- Tags,
- region
+  DBSubnetGroupDescription,
+  DBSubnetGroupName,
+  SubnetIds,
+  Tags,
+  region
 )
 SELECT
- '{{ db_subnet_group_description }}',
- '{{ db_subnet_group_name }}',
- '{{ subnet_ids }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ db_subnet_group_description }}',
+  '{{ db_subnet_group_name }}',
+  '{{ subnet_ids }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -267,8 +270,9 @@ SET PatchDocument = string('{{ {
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ db_subnet_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ db_subnet_group_name }}';
 ```
 
 
@@ -277,8 +281,9 @@ AND Identifier = '{{ db_subnet_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_subnet_groups
-WHERE Identifier = '{{ db_subnet_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ db_subnet_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -346,14 +346,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_policy</code>.
 ```sql
 SELECT
-region,
-access_policy_id,
-access_policy_arn,
-access_policy_identity,
-access_policy_permission,
-access_policy_resource
+  region,
+  access_policy_id,
+  access_policy_arn,
+  access_policy_identity,
+  access_policy_permission,
+  access_policy_resource
 FROM awscc.iotsitewise.access_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ access_policy_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ access_policy_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -361,10 +363,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ access_policy_id }}';
 Lists all <code>access_policies</code> in a region.
 ```sql
 SELECT
-region,
-access_policy_id
+  region,
+  access_policy_id
 FROM awscc.iotsitewise.access_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -386,16 +389,16 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.access_policies (
- AccessPolicyIdentity,
- AccessPolicyPermission,
- AccessPolicyResource,
- region
+  AccessPolicyIdentity,
+  AccessPolicyPermission,
+  AccessPolicyResource,
+  region
 )
 SELECT
-'{{ access_policy_identity }}',
- '{{ access_policy_permission }}',
- '{{ access_policy_resource }}',
-'{{ region }}';
+  '{{ access_policy_identity }}',
+  '{{ access_policy_permission }}',
+  '{{ access_policy_resource }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -403,16 +406,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotsitewise.access_policies (
- AccessPolicyIdentity,
- AccessPolicyPermission,
- AccessPolicyResource,
- region
+  AccessPolicyIdentity,
+  AccessPolicyPermission,
+  AccessPolicyResource,
+  region
 )
 SELECT
- '{{ access_policy_identity }}',
- '{{ access_policy_permission }}',
- '{{ access_policy_resource }}',
- '{{ region }}';
+  '{{ access_policy_identity }}',
+  '{{ access_policy_permission }}',
+  '{{ access_policy_resource }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -480,8 +483,9 @@ SET PatchDocument = string('{{ {
     "AccessPolicyPermission": access_policy_permission,
     "AccessPolicyResource": access_policy_resource
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ access_policy_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ access_policy_id }}';
 ```
 
 
@@ -490,8 +494,9 @@ AND Identifier = '{{ access_policy_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.access_policies
-WHERE Identifier = '{{ access_policy_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ access_policy_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

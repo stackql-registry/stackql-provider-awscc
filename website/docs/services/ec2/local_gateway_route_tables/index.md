@@ -178,17 +178,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>local_gateway_route_table</code>.
 ```sql
 SELECT
-region,
-local_gateway_route_table_id,
-local_gateway_route_table_arn,
-local_gateway_id,
-outpost_arn,
-owner_id,
-state,
-mode,
-tags
+  region,
+  local_gateway_route_table_id,
+  local_gateway_route_table_arn,
+  local_gateway_id,
+  outpost_arn,
+  owner_id,
+  state,
+  mode,
+  tags
 FROM awscc.ec2.local_gateway_route_tables
-WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ local_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +198,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_id }}'
 Lists all <code>local_gateway_route_tables</code> in a region.
 ```sql
 SELECT
-region,
-local_gateway_route_table_id
+  region,
+  local_gateway_route_table_id
 FROM awscc.ec2.local_gateway_route_tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,12 +224,12 @@ Use the following StackQL query and manifest file to create a new <code>local_ga
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_route_tables (
- LocalGatewayId,
- region
+  LocalGatewayId,
+  region
 )
 SELECT
-'{{ local_gateway_id }}',
-'{{ region }}';
+  '{{ local_gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,16 +237,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.local_gateway_route_tables (
- LocalGatewayId,
- Mode,
- Tags,
- region
+  LocalGatewayId,
+  Mode,
+  Tags,
+  region
 )
 SELECT
- '{{ local_gateway_id }}',
- '{{ mode }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ local_gateway_id }}',
+  '{{ mode }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ UPDATE awscc.ec2.local_gateway_route_tables
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ local_gateway_route_table_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ local_gateway_route_table_id }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ local_gateway_route_table_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_tables
-WHERE Identifier = '{{ local_gateway_route_table_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ local_gateway_route_table_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

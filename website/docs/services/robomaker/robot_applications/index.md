@@ -190,16 +190,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>robot_application</code>.
 ```sql
 SELECT
-region,
-name,
-sources,
-environment,
-robot_software_suite,
-current_revision_id,
-arn,
-tags
+  region,
+  name,
+  sources,
+  environment,
+  robot_software_suite,
+  current_revision_id,
+  arn,
+  tags
 FROM awscc.robomaker.robot_applications
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,10 +209,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>robot_applications</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.robomaker.robot_applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -232,12 +235,12 @@ Use the following StackQL query and manifest file to create a new <code>robot_ap
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robot_applications (
- RobotSoftwareSuite,
- region
+  RobotSoftwareSuite,
+  region
 )
 SELECT
-'{{ robot_software_suite }}',
-'{{ region }}';
+  '{{ robot_software_suite }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,22 +248,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.robot_applications (
- Name,
- Sources,
- Environment,
- RobotSoftwareSuite,
- CurrentRevisionId,
- Tags,
- region
+  Name,
+  Sources,
+  Environment,
+  RobotSoftwareSuite,
+  CurrentRevisionId,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ sources }}',
- '{{ environment }}',
- '{{ robot_software_suite }}',
- '{{ current_revision_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ sources }}',
+  '{{ environment }}',
+  '{{ robot_software_suite }}',
+  '{{ current_revision_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -312,8 +315,9 @@ SET PatchDocument = string('{{ {
     "CurrentRevisionId": current_revision_id,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -322,8 +326,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.robot_applications
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

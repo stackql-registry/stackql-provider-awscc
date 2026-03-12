@@ -234,21 +234,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>prompt_version</code>.
 ```sql
 SELECT
-region,
-prompt_arn,
-arn,
-created_at,
-prompt_id,
-updated_at,
-version,
-variants,
-default_variant,
-description,
-customer_encryption_key_arn,
-name,
-tags
+  region,
+  prompt_arn,
+  arn,
+  created_at,
+  prompt_id,
+  updated_at,
+  version,
+  variants,
+  default_variant,
+  description,
+  customer_encryption_key_arn,
+  name,
+  tags
 FROM awscc.bedrock.prompt_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +258,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>prompt_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.bedrock.prompt_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -281,12 +284,12 @@ Use the following StackQL query and manifest file to create a new <code>prompt_v
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.prompt_versions (
- PromptArn,
- region
+  PromptArn,
+  region
 )
 SELECT
-'{{ prompt_arn }}',
-'{{ region }}';
+  '{{ prompt_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -294,16 +297,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.prompt_versions (
- PromptArn,
- Description,
- Tags,
- region
+  PromptArn,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ prompt_arn }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ prompt_arn }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -336,8 +339,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.prompt_versions
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

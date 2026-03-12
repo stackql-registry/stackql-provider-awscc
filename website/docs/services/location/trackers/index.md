@@ -198,22 +198,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>tracker</code>.
 ```sql
 SELECT
-region,
-create_time,
-description,
-event_bridge_enabled,
-kms_key_enable_geospatial_queries,
-kms_key_id,
-position_filtering,
-pricing_plan,
-pricing_plan_data_source,
-tags,
-tracker_arn,
-tracker_name,
-update_time,
-arn
+  region,
+  create_time,
+  description,
+  event_bridge_enabled,
+  kms_key_enable_geospatial_queries,
+  kms_key_id,
+  position_filtering,
+  pricing_plan,
+  pricing_plan_data_source,
+  tags,
+  tracker_arn,
+  tracker_name,
+  update_time,
+  arn
 FROM awscc.location.trackers
-WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ tracker_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +223,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}';
 Lists all <code>trackers</code> in a region.
 ```sql
 SELECT
-region,
-tracker_name
+  region,
+  tracker_name
 FROM awscc.location.trackers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -246,12 +249,12 @@ Use the following StackQL query and manifest file to create a new <code>tracker<
 ```sql
 /*+ create */
 INSERT INTO awscc.location.trackers (
- TrackerName,
- region
+  TrackerName,
+  region
 )
 SELECT
-'{{ tracker_name }}',
-'{{ region }}';
+  '{{ tracker_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -259,28 +262,28 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.location.trackers (
- Description,
- EventBridgeEnabled,
- KmsKeyEnableGeospatialQueries,
- KmsKeyId,
- PositionFiltering,
- PricingPlan,
- PricingPlanDataSource,
- Tags,
- TrackerName,
- region
+  Description,
+  EventBridgeEnabled,
+  KmsKeyEnableGeospatialQueries,
+  KmsKeyId,
+  PositionFiltering,
+  PricingPlan,
+  PricingPlanDataSource,
+  Tags,
+  TrackerName,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ event_bridge_enabled }}',
- '{{ kms_key_enable_geospatial_queries }}',
- '{{ kms_key_id }}',
- '{{ position_filtering }}',
- '{{ pricing_plan }}',
- '{{ pricing_plan_data_source }}',
- '{{ tags }}',
- '{{ tracker_name }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ event_bridge_enabled }}',
+  '{{ kms_key_enable_geospatial_queries }}',
+  '{{ kms_key_id }}',
+  '{{ position_filtering }}',
+  '{{ pricing_plan }}',
+  '{{ pricing_plan_data_source }}',
+  '{{ tags }}',
+  '{{ tracker_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "PricingPlanDataSource": pricing_plan_data_source,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ tracker_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ tracker_name }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ tracker_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.trackers
-WHERE Identifier = '{{ tracker_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ tracker_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -172,17 +172,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>auto_scaling_configuration</code>.
 ```sql
 SELECT
-region,
-auto_scaling_configuration_arn,
-auto_scaling_configuration_name,
-auto_scaling_configuration_revision,
-max_concurrency,
-max_size,
-min_size,
-latest,
-tags
+  region,
+  auto_scaling_configuration_arn,
+  auto_scaling_configuration_name,
+  auto_scaling_configuration_revision,
+  max_concurrency,
+  max_size,
+  min_size,
+  latest,
+  tags
 FROM awscc.apprunner.auto_scaling_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_configuration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ auto_scaling_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ auto_scaling_configuration_arn }
 Lists all <code>auto_scaling_configurations</code> in a region.
 ```sql
 SELECT
-region,
-auto_scaling_configuration_arn
+  region,
+  auto_scaling_configuration_arn
 FROM awscc.apprunner.auto_scaling_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,20 +218,20 @@ Use the following StackQL query and manifest file to create a new <code>auto_sca
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.auto_scaling_configurations (
- AutoScalingConfigurationName,
- MaxConcurrency,
- MaxSize,
- MinSize,
- Tags,
- region
+  AutoScalingConfigurationName,
+  MaxConcurrency,
+  MaxSize,
+  MinSize,
+  Tags,
+  region
 )
 SELECT
-'{{ auto_scaling_configuration_name }}',
- '{{ max_concurrency }}',
- '{{ max_size }}',
- '{{ min_size }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ auto_scaling_configuration_name }}',
+  '{{ max_concurrency }}',
+  '{{ max_size }}',
+  '{{ min_size }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,20 +239,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apprunner.auto_scaling_configurations (
- AutoScalingConfigurationName,
- MaxConcurrency,
- MaxSize,
- MinSize,
- Tags,
- region
+  AutoScalingConfigurationName,
+  MaxConcurrency,
+  MaxSize,
+  MinSize,
+  Tags,
+  region
 )
 SELECT
- '{{ auto_scaling_configuration_name }}',
- '{{ max_concurrency }}',
- '{{ max_size }}',
- '{{ min_size }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ auto_scaling_configuration_name }}',
+  '{{ max_concurrency }}',
+  '{{ max_size }}',
+  '{{ min_size }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -288,8 +291,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.auto_scaling_configurations
-WHERE Identifier = '{{ auto_scaling_configuration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ auto_scaling_configuration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

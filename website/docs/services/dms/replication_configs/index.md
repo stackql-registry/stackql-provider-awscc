@@ -240,20 +240,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>replication_config</code>.
 ```sql
 SELECT
-region,
-replication_config_identifier,
-replication_config_arn,
-source_endpoint_arn,
-target_endpoint_arn,
-replication_type,
-compute_config,
-replication_settings,
-supplemental_settings,
-resource_identifier,
-table_mappings,
-tags
+  region,
+  replication_config_identifier,
+  replication_config_arn,
+  source_endpoint_arn,
+  target_endpoint_arn,
+  replication_type,
+  compute_config,
+  replication_settings,
+  supplemental_settings,
+  resource_identifier,
+  table_mappings,
+  tags
 FROM awscc.dms.replication_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ replication_config_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ replication_config_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,10 +263,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ replication_config_arn }}';
 Lists all <code>replication_configs</code> in a region.
 ```sql
 SELECT
-region,
-replication_config_arn
+  region,
+  replication_config_arn
 FROM awscc.dms.replication_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -286,22 +289,22 @@ Use the following StackQL query and manifest file to create a new <code>replicat
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.replication_configs (
- ReplicationConfigIdentifier,
- SourceEndpointArn,
- TargetEndpointArn,
- ReplicationType,
- ComputeConfig,
- TableMappings,
- region
+  ReplicationConfigIdentifier,
+  SourceEndpointArn,
+  TargetEndpointArn,
+  ReplicationType,
+  ComputeConfig,
+  TableMappings,
+  region
 )
 SELECT
-'{{ replication_config_identifier }}',
- '{{ source_endpoint_arn }}',
- '{{ target_endpoint_arn }}',
- '{{ replication_type }}',
- '{{ compute_config }}',
- '{{ table_mappings }}',
-'{{ region }}';
+  '{{ replication_config_identifier }}',
+  '{{ source_endpoint_arn }}',
+  '{{ target_endpoint_arn }}',
+  '{{ replication_type }}',
+  '{{ compute_config }}',
+  '{{ table_mappings }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -309,30 +312,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.replication_configs (
- ReplicationConfigIdentifier,
- SourceEndpointArn,
- TargetEndpointArn,
- ReplicationType,
- ComputeConfig,
- ReplicationSettings,
- SupplementalSettings,
- ResourceIdentifier,
- TableMappings,
- Tags,
- region
+  ReplicationConfigIdentifier,
+  SourceEndpointArn,
+  TargetEndpointArn,
+  ReplicationType,
+  ComputeConfig,
+  ReplicationSettings,
+  SupplementalSettings,
+  ResourceIdentifier,
+  TableMappings,
+  Tags,
+  region
 )
 SELECT
- '{{ replication_config_identifier }}',
- '{{ source_endpoint_arn }}',
- '{{ target_endpoint_arn }}',
- '{{ replication_type }}',
- '{{ compute_config }}',
- '{{ replication_settings }}',
- '{{ supplemental_settings }}',
- '{{ resource_identifier }}',
- '{{ table_mappings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ replication_config_identifier }}',
+  '{{ source_endpoint_arn }}',
+  '{{ target_endpoint_arn }}',
+  '{{ replication_type }}',
+  '{{ compute_config }}',
+  '{{ replication_settings }}',
+  '{{ supplemental_settings }}',
+  '{{ resource_identifier }}',
+  '{{ table_mappings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -403,8 +406,9 @@ SET PatchDocument = string('{{ {
     "TableMappings": table_mappings,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ replication_config_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ replication_config_arn }}';
 ```
 
 
@@ -413,8 +417,9 @@ AND Identifier = '{{ replication_config_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.replication_configs
-WHERE Identifier = '{{ replication_config_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ replication_config_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

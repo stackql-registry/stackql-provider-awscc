@@ -177,13 +177,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>replication_set</code>.
 ```sql
 SELECT
-region,
-arn,
-regions,
-deletion_protected,
-tags
+  region,
+  arn,
+  regions,
+  deletion_protected,
+  tags
 FROM awscc.ssmincidents.replication_sets
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -191,10 +193,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>replication_sets</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ssmincidents.replication_sets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -216,12 +219,12 @@ Use the following StackQL query and manifest file to create a new <code>replicat
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmincidents.replication_sets (
- Regions,
- region
+  Regions,
+  region
 )
 SELECT
-'{{ regions }}',
-'{{ region }}';
+  '{{ regions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -229,16 +232,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmincidents.replication_sets (
- Regions,
- DeletionProtected,
- Tags,
- region
+  Regions,
+  DeletionProtected,
+  Tags,
+  region
 )
 SELECT
- '{{ regions }}',
- '{{ deletion_protected }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ regions }}',
+  '{{ deletion_protected }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "DeletionProtected": deletion_protected,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmincidents.replication_sets
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

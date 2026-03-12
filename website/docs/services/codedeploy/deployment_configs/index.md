@@ -227,14 +227,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment_config</code>.
 ```sql
 SELECT
-region,
-compute_platform,
-deployment_config_name,
-minimum_healthy_hosts,
-zonal_config,
-traffic_routing_config
+  region,
+  compute_platform,
+  deployment_config_name,
+  minimum_healthy_hosts,
+  zonal_config,
+  traffic_routing_config
 FROM awscc.codedeploy.deployment_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ deployment_config_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ deployment_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,10 +244,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ deployment_config_name }}';
 Lists all <code>deployment_configs</code> in a region.
 ```sql
 SELECT
-region,
-deployment_config_name
+  region,
+  deployment_config_name
 FROM awscc.codedeploy.deployment_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,20 +270,20 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.codedeploy.deployment_configs (
- ComputePlatform,
- DeploymentConfigName,
- MinimumHealthyHosts,
- ZonalConfig,
- TrafficRoutingConfig,
- region
+  ComputePlatform,
+  DeploymentConfigName,
+  MinimumHealthyHosts,
+  ZonalConfig,
+  TrafficRoutingConfig,
+  region
 )
 SELECT
-'{{ compute_platform }}',
- '{{ deployment_config_name }}',
- '{{ minimum_healthy_hosts }}',
- '{{ zonal_config }}',
- '{{ traffic_routing_config }}',
-'{{ region }}';
+  '{{ compute_platform }}',
+  '{{ deployment_config_name }}',
+  '{{ minimum_healthy_hosts }}',
+  '{{ zonal_config }}',
+  '{{ traffic_routing_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -288,20 +291,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codedeploy.deployment_configs (
- ComputePlatform,
- DeploymentConfigName,
- MinimumHealthyHosts,
- ZonalConfig,
- TrafficRoutingConfig,
- region
+  ComputePlatform,
+  DeploymentConfigName,
+  MinimumHealthyHosts,
+  ZonalConfig,
+  TrafficRoutingConfig,
+  region
 )
 SELECT
- '{{ compute_platform }}',
- '{{ deployment_config_name }}',
- '{{ minimum_healthy_hosts }}',
- '{{ zonal_config }}',
- '{{ traffic_routing_config }}',
- '{{ region }}';
+  '{{ compute_platform }}',
+  '{{ deployment_config_name }}',
+  '{{ minimum_healthy_hosts }}',
+  '{{ zonal_config }}',
+  '{{ traffic_routing_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -352,8 +355,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.codedeploy.deployment_configs
-WHERE Identifier = '{{ deployment_config_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ deployment_config_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

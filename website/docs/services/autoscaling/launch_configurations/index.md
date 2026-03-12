@@ -291,28 +291,30 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>launch_configuration</code>.
 ```sql
 SELECT
-region,
-placement_tenancy,
-security_groups,
-launch_configuration_name,
-metadata_options,
-instance_id,
-user_data,
-classic_link_vpc_security_groups,
-block_device_mappings,
-iam_instance_profile,
-kernel_id,
-associate_public_ip_address,
-classic_link_vpc_id,
-ebs_optimized,
-key_name,
-spot_price,
-image_id,
-instance_type,
-ram_disk_id,
-instance_monitoring
+  region,
+  placement_tenancy,
+  security_groups,
+  launch_configuration_name,
+  metadata_options,
+  instance_id,
+  user_data,
+  classic_link_vpc_security_groups,
+  block_device_mappings,
+  iam_instance_profile,
+  kernel_id,
+  associate_public_ip_address,
+  classic_link_vpc_id,
+  ebs_optimized,
+  key_name,
+  spot_price,
+  image_id,
+  instance_type,
+  ram_disk_id,
+  instance_monitoring
 FROM awscc.autoscaling.launch_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ launch_configuration_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ launch_configuration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,10 +322,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ launch_configuration_name }}';
 Lists all <code>launch_configurations</code> in a region.
 ```sql
 SELECT
-region,
-launch_configuration_name
+  region,
+  launch_configuration_name
 FROM awscc.autoscaling.launch_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -345,14 +348,14 @@ Use the following StackQL query and manifest file to create a new <code>launch_c
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.launch_configurations (
- ImageId,
- InstanceType,
- region
+  ImageId,
+  InstanceType,
+  region
 )
 SELECT
-'{{ image_id }}',
- '{{ instance_type }}',
-'{{ region }}';
+  '{{ image_id }}',
+  '{{ instance_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -360,48 +363,48 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.autoscaling.launch_configurations (
- PlacementTenancy,
- SecurityGroups,
- LaunchConfigurationName,
- MetadataOptions,
- InstanceId,
- UserData,
- ClassicLinkVPCSecurityGroups,
- BlockDeviceMappings,
- IamInstanceProfile,
- KernelId,
- AssociatePublicIpAddress,
- ClassicLinkVPCId,
- EbsOptimized,
- KeyName,
- SpotPrice,
- ImageId,
- InstanceType,
- RamDiskId,
- InstanceMonitoring,
- region
+  PlacementTenancy,
+  SecurityGroups,
+  LaunchConfigurationName,
+  MetadataOptions,
+  InstanceId,
+  UserData,
+  ClassicLinkVPCSecurityGroups,
+  BlockDeviceMappings,
+  IamInstanceProfile,
+  KernelId,
+  AssociatePublicIpAddress,
+  ClassicLinkVPCId,
+  EbsOptimized,
+  KeyName,
+  SpotPrice,
+  ImageId,
+  InstanceType,
+  RamDiskId,
+  InstanceMonitoring,
+  region
 )
 SELECT
- '{{ placement_tenancy }}',
- '{{ security_groups }}',
- '{{ launch_configuration_name }}',
- '{{ metadata_options }}',
- '{{ instance_id }}',
- '{{ user_data }}',
- '{{ classic_link_vpc_security_groups }}',
- '{{ block_device_mappings }}',
- '{{ iam_instance_profile }}',
- '{{ kernel_id }}',
- '{{ associate_public_ip_address }}',
- '{{ classic_link_vpc_id }}',
- '{{ ebs_optimized }}',
- '{{ key_name }}',
- '{{ spot_price }}',
- '{{ image_id }}',
- '{{ instance_type }}',
- '{{ ram_disk_id }}',
- '{{ instance_monitoring }}',
- '{{ region }}';
+  '{{ placement_tenancy }}',
+  '{{ security_groups }}',
+  '{{ launch_configuration_name }}',
+  '{{ metadata_options }}',
+  '{{ instance_id }}',
+  '{{ user_data }}',
+  '{{ classic_link_vpc_security_groups }}',
+  '{{ block_device_mappings }}',
+  '{{ iam_instance_profile }}',
+  '{{ kernel_id }}',
+  '{{ associate_public_ip_address }}',
+  '{{ classic_link_vpc_id }}',
+  '{{ ebs_optimized }}',
+  '{{ key_name }}',
+  '{{ spot_price }}',
+  '{{ image_id }}',
+  '{{ instance_type }}',
+  '{{ ram_disk_id }}',
+  '{{ instance_monitoring }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -482,8 +485,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.launch_configurations
-WHERE Identifier = '{{ launch_configuration_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ launch_configuration_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

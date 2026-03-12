@@ -129,12 +129,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>module_default_version</code>.
 ```sql
 SELECT
-region,
-arn,
-module_name,
-version_id
+  region,
+  arn,
+  module_name,
+  version_id
 FROM awscc.cloudformation.module_default_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -142,10 +144,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>module_default_versions</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.cloudformation.module_default_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -167,16 +170,16 @@ Use the following StackQL query and manifest file to create a new <code>module_d
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.module_default_versions (
- Arn,
- ModuleName,
- VersionId,
- region
+  Arn,
+  ModuleName,
+  VersionId,
+  region
 )
 SELECT
-'{{ arn }}',
- '{{ module_name }}',
- '{{ version_id }}',
-'{{ region }}';
+  '{{ arn }}',
+  '{{ module_name }}',
+  '{{ version_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -184,16 +187,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.module_default_versions (
- Arn,
- ModuleName,
- VersionId,
- region
+  Arn,
+  ModuleName,
+  VersionId,
+  region
 )
 SELECT
- '{{ arn }}',
- '{{ module_name }}',
- '{{ version_id }}',
- '{{ region }}';
+  '{{ arn }}',
+  '{{ module_name }}',
+  '{{ version_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">

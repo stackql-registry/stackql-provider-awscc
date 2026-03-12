@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_subscription</code>.
 ```sql
 SELECT
-region,
-tags,
-subscription_name,
-enabled,
-event_categories,
-sns_topic_arn,
-source_ids,
-source_type
+  region,
+  tags,
+  subscription_name,
+  enabled,
+  event_categories,
+  sns_topic_arn,
+  source_ids,
+  source_type
 FROM awscc.rds.event_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subscription_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subscription_name }}';
 Lists all <code>event_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-subscription_name
+  region,
+  subscription_name
 FROM awscc.rds.event_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>event_su
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.event_subscriptions (
- SnsTopicArn,
- region
+  SnsTopicArn,
+  region
 )
 SELECT
-'{{ sns_topic_arn }}',
-'{{ region }}';
+  '{{ sns_topic_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,24 +231,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.event_subscriptions (
- Tags,
- SubscriptionName,
- Enabled,
- EventCategories,
- SnsTopicArn,
- SourceIds,
- SourceType,
- region
+  Tags,
+  SubscriptionName,
+  Enabled,
+  EventCategories,
+  SnsTopicArn,
+  SourceIds,
+  SourceType,
+  region
 )
 SELECT
- '{{ tags }}',
- '{{ subscription_name }}',
- '{{ enabled }}',
- '{{ event_categories }}',
- '{{ sns_topic_arn }}',
- '{{ source_ids }}',
- '{{ source_type }}',
- '{{ region }}';
+  '{{ tags }}',
+  '{{ subscription_name }}',
+  '{{ enabled }}',
+  '{{ event_categories }}',
+  '{{ sns_topic_arn }}',
+  '{{ source_ids }}',
+  '{{ source_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -298,8 +301,9 @@ SET PatchDocument = string('{{ {
     "SourceIds": source_ids,
     "SourceType": source_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subscription_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subscription_name }}';
 ```
 
 
@@ -308,8 +312,9 @@ AND Identifier = '{{ subscription_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.event_subscriptions
-WHERE Identifier = '{{ subscription_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subscription_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

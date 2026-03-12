@@ -205,20 +205,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>flow_alias</code>.
 ```sql
 SELECT
-region,
-arn,
-flow_arn,
-concurrency_configuration,
-created_at,
-description,
-flow_id,
-id,
-name,
-routing_configuration,
-updated_at,
-tags
+  region,
+  arn,
+  flow_arn,
+  concurrency_configuration,
+  created_at,
+  description,
+  flow_id,
+  id,
+  name,
+  routing_configuration,
+  updated_at,
+  tags
 FROM awscc.bedrock.flow_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ flow_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}|{{ flow_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,11 +228,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ flow_arn }}';
 Lists all <code>flow_aliases</code> in a region.
 ```sql
 SELECT
-region,
-arn,
-flow_arn
+  region,
+  arn,
+  flow_arn
 FROM awscc.bedrock.flow_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -252,16 +255,16 @@ Use the following StackQL query and manifest file to create a new <code>flow_ali
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flow_aliases (
- FlowArn,
- Name,
- RoutingConfiguration,
- region
+  FlowArn,
+  Name,
+  RoutingConfiguration,
+  region
 )
 SELECT
-'{{ flow_arn }}',
- '{{ name }}',
- '{{ routing_configuration }}',
-'{{ region }}';
+  '{{ flow_arn }}',
+  '{{ name }}',
+  '{{ routing_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -269,22 +272,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.flow_aliases (
- FlowArn,
- ConcurrencyConfiguration,
- Description,
- Name,
- RoutingConfiguration,
- Tags,
- region
+  FlowArn,
+  ConcurrencyConfiguration,
+  Description,
+  Name,
+  RoutingConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ flow_arn }}',
- '{{ concurrency_configuration }}',
- '{{ description }}',
- '{{ name }}',
- '{{ routing_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ flow_arn }}',
+  '{{ concurrency_configuration }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ routing_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ SET PatchDocument = string('{{ {
     "RoutingConfiguration": routing_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}|{{ flow_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}|{{ flow_arn }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ arn }}|{{ flow_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_aliases
-WHERE Identifier = '{{ arn }}|{{ flow_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}|{{ flow_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

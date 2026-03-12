@@ -218,24 +218,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>environment_profile</code>.
 ```sql
 SELECT
-region,
-aws_account_id,
-aws_account_region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-environment_blueprint_id,
-environment_blueprint_identifier,
-id,
-name,
-project_id,
-project_identifier,
-updated_at,
-user_parameters
+  region,
+  aws_account_id,
+  aws_account_region,
+  created_at,
+  created_by,
+  description,
+  domain_id,
+  domain_identifier,
+  environment_blueprint_id,
+  environment_blueprint_identifier,
+  id,
+  name,
+  project_id,
+  project_identifier,
+  updated_at,
+  user_parameters
 FROM awscc.datazone.environment_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,11 +245,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 Lists all <code>environment_profiles</code> in a region.
 ```sql
 SELECT
-region,
-domain_id,
-id
+  region,
+  domain_id,
+  id
 FROM awscc.datazone.environment_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,22 +272,22 @@ Use the following StackQL query and manifest file to create a new <code>environm
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_profiles (
- AwsAccountId,
- AwsAccountRegion,
- DomainIdentifier,
- EnvironmentBlueprintIdentifier,
- Name,
- ProjectIdentifier,
- region
+  AwsAccountId,
+  AwsAccountRegion,
+  DomainIdentifier,
+  EnvironmentBlueprintIdentifier,
+  Name,
+  ProjectIdentifier,
+  region
 )
 SELECT
-'{{ aws_account_id }}',
- '{{ aws_account_region }}',
- '{{ domain_identifier }}',
- '{{ environment_blueprint_identifier }}',
- '{{ name }}',
- '{{ project_identifier }}',
-'{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ aws_account_region }}',
+  '{{ domain_identifier }}',
+  '{{ environment_blueprint_identifier }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -292,26 +295,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datazone.environment_profiles (
- AwsAccountId,
- AwsAccountRegion,
- Description,
- DomainIdentifier,
- EnvironmentBlueprintIdentifier,
- Name,
- ProjectIdentifier,
- UserParameters,
- region
+  AwsAccountId,
+  AwsAccountRegion,
+  Description,
+  DomainIdentifier,
+  EnvironmentBlueprintIdentifier,
+  Name,
+  ProjectIdentifier,
+  UserParameters,
+  region
 )
 SELECT
- '{{ aws_account_id }}',
- '{{ aws_account_region }}',
- '{{ description }}',
- '{{ domain_identifier }}',
- '{{ environment_blueprint_identifier }}',
- '{{ name }}',
- '{{ project_identifier }}',
- '{{ user_parameters }}',
- '{{ region }}';
+  '{{ aws_account_id }}',
+  '{{ aws_account_region }}',
+  '{{ description }}',
+  '{{ domain_identifier }}',
+  '{{ environment_blueprint_identifier }}',
+  '{{ name }}',
+  '{{ project_identifier }}',
+  '{{ user_parameters }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "UserParameters": user_parameters
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ domain_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_profiles
-WHERE Identifier = '{{ domain_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

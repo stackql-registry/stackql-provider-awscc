@@ -356,14 +356,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>distribution_configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-distributions,
-tags
+  region,
+  arn,
+  name,
+  description,
+  distributions,
+  tags
 FROM awscc.imagebuilder.distribution_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,10 +373,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>distribution_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.distribution_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -396,14 +399,14 @@ Use the following StackQL query and manifest file to create a new <code>distribu
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.distribution_configurations (
- Name,
- Distributions,
- region
+  Name,
+  Distributions,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ distributions }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ distributions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -411,18 +414,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.distribution_configurations (
- Name,
- Description,
- Distributions,
- Tags,
- region
+  Name,
+  Description,
+  Distributions,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ distributions }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ distributions }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -507,8 +510,9 @@ SET PatchDocument = string('{{ {
     "Distributions": distributions,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -517,8 +521,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.distribution_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

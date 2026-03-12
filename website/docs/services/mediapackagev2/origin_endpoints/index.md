@@ -256,12 +256,12 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
               {
                 "name": "mime_type",
                 "type": "string",
-                "description": "<p>The &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; of the resource that's at the font download URL.</p> <p>For information about font MIME types, see the <a href=\"https://dvb.org/wp-content/uploads/2021/06/A168r4&#95;MPEG-DASH-Profile-for-Transport-of-ISO-BMFF-Based-DVB-Services&#95;Draft-ts&#95;103-285-v140&#95;November&#95;2021.pdf\">MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services over IP Based Networks</a> document. </p>"
+                "description": "<p>The <code>mimeType</code> of the resource that's at the font download URL.</p> <p>For information about font MIME types, see the <a href=\"https://dvb.org/wp-content/uploads/2021/06/A168r4&#95;MPEG-DASH-Profile-for-Transport-of-ISO-BMFF-Based-DVB-Services&#95;Draft-ts&#95;103-285-v140&#95;November&#95;2021.pdf\">MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services over IP Based Networks</a> document. </p>"
               },
               {
                 "name": "font_family",
                 "type": "string",
-                "description": "<p>The &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; name for subtitles, as described in <a href=\"https://tech.ebu.ch/publications/tech3380\">EBU-TT-D Subtitling Distribution Format</a>. </p>"
+                "description": "<p>The <code>fontFamily</code> name for subtitles, as described in <a href=\"https://tech.ebu.ch/publications/tech3380\">EBU-TT-D Subtitling Distribution Format</a>. </p>"
               }
             ]
           },
@@ -323,7 +323,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "endpoint_error_conditions",
         "type": "array",
-        "description": "<p>The failover conditions for the endpoint. The options are:</p> <ul> <li> <p> &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; - The manifest stalled and there are no new segments or parts.</p> </li> <li> <p> &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; - There is a gap in the manifest.</p> </li> <li> <p> &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; - Key rotation is enabled but we're unable to fetch the key for the current key period.</p> </li> <li> <p> &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; - The segments which contain slate content are considered to be missing content.</p> </li> </ul>"
+        "description": "<p>The failover conditions for the endpoint. The options are:</p> <ul> <li> <p> <code>STALE_MANIFEST</code> - The manifest stalled and there are no new segments or parts.</p> </li> <li> <p> <code>INCOMPLETE_MANIFEST</code> - There is a gap in the manifest.</p> </li> <li> <p> <code>MISSING_DRM_KEY</code> - Key rotation is enabled but we're unable to fetch the key for the current key period.</p> </li> <li> <p> <code>SLATE_INPUT</code> - The segments which contain slate content are considered to be missing content.</p> </li> </ul>"
       }
     ]
   },
@@ -605,12 +605,12 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
           {
             "name": "key_rotation_interval_seconds",
             "type": "integer",
-            "description": "<p>The frequency (in seconds) of key changes for live workflows, in which content is streamed real time. The service retrieves content keys before the live content begins streaming, and then retrieves them as needed over the lifetime of the workflow. By default, key rotation is set to 300 seconds (5 minutes), the minimum rotation interval, which is equivalent to setting it to 300. If you don't enter an interval, content keys aren't rotated.</p> <p>The following example setting causes the service to rotate keys every thirty minutes: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; </p>"
+            "description": "<p>The frequency (in seconds) of key changes for live workflows, in which content is streamed real time. The service retrieves content keys before the live content begins streaming, and then retrieves them as needed over the lifetime of the workflow. By default, key rotation is set to 300 seconds (5 minutes), the minimum rotation interval, which is equivalent to setting it to 300. If you don't enter an interval, content keys aren't rotated.</p> <p>The following example setting causes the service to rotate keys every thirty minutes: <code>1800</code> </p>"
           },
           {
             "name": "cmaf_exclude_segment_drm_metadata",
             "type": "boolean",
-            "description": "<p>Excludes SEIG and SGPD boxes from segment metadata in CMAF containers.</p> <p>When set to &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, MediaPackage omits these DRM metadata boxes from CMAF segments, which can improve compatibility with certain devices and players that don't support these boxes.</p> <p>Important considerations:</p> <ul> <li> <p>This setting only affects CMAF container formats</p> </li> <li> <p>Key rotation can still be handled through media playlist signaling</p> </li> <li> <p>PSSH and TENC boxes remain unaffected</p> </li> <li> <p>Default behavior is preserved when this setting is disabled</p> </li> </ul> <p>Valid values: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; &#124; &#95;&#95;CODE&#95;BLOCK&#95;2&#95;&#95; </p> <p>Default: &#95;&#95;CODE&#95;BLOCK&#95;3&#95;&#95; </p>"
+            "description": "<p>Excludes SEIG and SGPD boxes from segment metadata in CMAF containers.</p> <p>When set to <code>true</code>, MediaPackage omits these DRM metadata boxes from CMAF segments, which can improve compatibility with certain devices and players that don't support these boxes.</p> <p>Important considerations:</p> <ul> <li> <p>This setting only affects CMAF container formats</p> </li> <li> <p>Key rotation can still be handled through media playlist signaling</p> </li> <li> <p>PSSH and TENC boxes remain unaffected</p> </li> <li> <p>Default behavior is preserved when this setting is disabled</p> </li> </ul> <p>Valid values: <code>true</code> &#124; <code>false</code> </p> <p>Default: <code>false</code> </p>"
           },
           {
             "name": "speke_key_provider",
@@ -625,7 +625,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
               {
                 "name": "resource_id",
                 "type": "string",
-                "description": "<p>The unique identifier for the content. The service sends this to the key server to identify the current endpoint. How unique you make this depends on how fine-grained you want access controls to be. The service does not permit you to use the same ID for two simultaneous encryption processes. The resource ID is also known as the content ID.</p> <p>The following example shows a resource ID: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; </p>"
+                "description": "<p>The unique identifier for the content. The service sends this to the key server to identify the current endpoint. How unique you make this depends on how fine-grained you want access controls to be. The service does not permit you to use the same ID for two simultaneous encryption processes. The resource ID is also known as the content ID.</p> <p>The following example shows a resource ID: <code>MovieNight20171126093045</code> </p>"
               },
               {
                 "name": "drm_systems",
@@ -635,12 +635,12 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
               {
                 "name": "role_arn",
                 "type": "string",
-                "description": "<p>The ARN for the IAM role granted by the key provider that provides access to the key provider API. This role must have a trust policy that allows MediaPackage to assume the role, and it must have a sufficient permissions policy to allow access to the specific key retrieval URL. Get this from your DRM solution provider.</p> <p>Valid format: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;. The following example shows a role ARN: &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95; </p>"
+                "description": "<p>The ARN for the IAM role granted by the key provider that provides access to the key provider API. This role must have a trust policy that allows MediaPackage to assume the role, and it must have a sufficient permissions policy to allow access to the specific key retrieval URL. Get this from your DRM solution provider.</p> <p>Valid format: <code>arn:aws:iam::{accountID}:role/{name}</code>. The following example shows a role ARN: <code>arn:aws:iam::444455556666:role/SpekeAccess</code> </p>"
               },
               {
                 "name": "url",
                 "type": "string",
-                "description": "<p>The URL of the API Gateway proxy that you set up to talk to your key server. The API Gateway proxy must reside in the same AWS Region as MediaPackage and must start with https://.</p> <p>The following example shows a URL: &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; </p>"
+                "description": "<p>The URL of the API Gateway proxy that you set up to talk to your key server. The API Gateway proxy must reside in the same AWS Region as MediaPackage and must start with https://.</p> <p>The following example shows a URL: <code>https://1wm2dx1f33.execute-api.us-west-2.amazonaws.com/SpekeSample/copyProtection</code> </p>"
               }
             ]
           }
@@ -768,27 +768,29 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>origin_endpoint</code>.
 ```sql
 SELECT
-region,
-arn,
-channel_group_name,
-channel_name,
-container_type,
-created_at,
-dash_manifests,
-description,
-force_endpoint_error_configuration,
-hls_manifests,
-low_latency_hls_manifests,
-modified_at,
-origin_endpoint_name,
-segment,
-startover_window_seconds,
-dash_manifest_urls,
-hls_manifest_urls,
-low_latency_hls_manifest_urls,
-tags
+  region,
+  arn,
+  channel_group_name,
+  channel_name,
+  container_type,
+  created_at,
+  dash_manifests,
+  description,
+  force_endpoint_error_configuration,
+  hls_manifests,
+  low_latency_hls_manifests,
+  modified_at,
+  origin_endpoint_name,
+  segment,
+  startover_window_seconds,
+  dash_manifest_urls,
+  hls_manifest_urls,
+  low_latency_hls_manifest_urls,
+  tags
 FROM awscc.mediapackagev2.origin_endpoints
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -796,10 +798,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>origin_endpoints</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.mediapackagev2.origin_endpoints_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -821,18 +824,18 @@ Use the following StackQL query and manifest file to create a new <code>origin_e
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.origin_endpoints (
- ChannelGroupName,
- ChannelName,
- ContainerType,
- OriginEndpointName,
- region
+  ChannelGroupName,
+  ChannelName,
+  ContainerType,
+  OriginEndpointName,
+  region
 )
 SELECT
-'{{ channel_group_name }}',
- '{{ channel_name }}',
- '{{ container_type }}',
- '{{ origin_endpoint_name }}',
-'{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ container_type }}',
+  '{{ origin_endpoint_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -840,34 +843,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.origin_endpoints (
- ChannelGroupName,
- ChannelName,
- ContainerType,
- DashManifests,
- Description,
- ForceEndpointErrorConfiguration,
- HlsManifests,
- LowLatencyHlsManifests,
- OriginEndpointName,
- Segment,
- StartoverWindowSeconds,
- Tags,
- region
+  ChannelGroupName,
+  ChannelName,
+  ContainerType,
+  DashManifests,
+  Description,
+  ForceEndpointErrorConfiguration,
+  HlsManifests,
+  LowLatencyHlsManifests,
+  OriginEndpointName,
+  Segment,
+  StartoverWindowSeconds,
+  Tags,
+  region
 )
 SELECT
- '{{ channel_group_name }}',
- '{{ channel_name }}',
- '{{ container_type }}',
- '{{ dash_manifests }}',
- '{{ description }}',
- '{{ force_endpoint_error_configuration }}',
- '{{ hls_manifests }}',
- '{{ low_latency_hls_manifests }}',
- '{{ origin_endpoint_name }}',
- '{{ segment }}',
- '{{ startover_window_seconds }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ channel_name }}',
+  '{{ container_type }}',
+  '{{ dash_manifests }}',
+  '{{ description }}',
+  '{{ force_endpoint_error_configuration }}',
+  '{{ hls_manifests }}',
+  '{{ low_latency_hls_manifests }}',
+  '{{ origin_endpoint_name }}',
+  '{{ segment }}',
+  '{{ startover_window_seconds }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1022,8 +1025,9 @@ SET PatchDocument = string('{{ {
     "StartoverWindowSeconds": startover_window_seconds,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -1032,8 +1036,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.origin_endpoints
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

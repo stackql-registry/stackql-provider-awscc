@@ -212,18 +212,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>lambda_hook</code>.
 ```sql
 SELECT
-region,
-lambda_function,
-hook_status,
-target_operations,
-failure_mode,
-target_filters,
-stack_filters,
-alias,
-hook_arn,
-execution_role
+  region,
+  lambda_function,
+  hook_status,
+  target_operations,
+  failure_mode,
+  target_filters,
+  stack_filters,
+  alias,
+  hook_arn,
+  execution_role
 FROM awscc.cloudformation.lambda_hooks
-WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hook_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
 Lists all <code>lambda_hooks</code> in a region.
 ```sql
 SELECT
-region,
-hook_arn
+  region,
+  hook_arn
 FROM awscc.cloudformation.lambda_hooks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,22 +259,22 @@ Use the following StackQL query and manifest file to create a new <code>lambda_h
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.lambda_hooks (
- LambdaFunction,
- HookStatus,
- TargetOperations,
- FailureMode,
- Alias,
- ExecutionRole,
- region
+  LambdaFunction,
+  HookStatus,
+  TargetOperations,
+  FailureMode,
+  Alias,
+  ExecutionRole,
+  region
 )
 SELECT
-'{{ lambda_function }}',
- '{{ hook_status }}',
- '{{ target_operations }}',
- '{{ failure_mode }}',
- '{{ alias }}',
- '{{ execution_role }}',
-'{{ region }}';
+  '{{ lambda_function }}',
+  '{{ hook_status }}',
+  '{{ target_operations }}',
+  '{{ failure_mode }}',
+  '{{ alias }}',
+  '{{ execution_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,26 +282,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cloudformation.lambda_hooks (
- LambdaFunction,
- HookStatus,
- TargetOperations,
- FailureMode,
- TargetFilters,
- StackFilters,
- Alias,
- ExecutionRole,
- region
+  LambdaFunction,
+  HookStatus,
+  TargetOperations,
+  FailureMode,
+  TargetFilters,
+  StackFilters,
+  Alias,
+  ExecutionRole,
+  region
 )
 SELECT
- '{{ lambda_function }}',
- '{{ hook_status }}',
- '{{ target_operations }}',
- '{{ failure_mode }}',
- '{{ target_filters }}',
- '{{ stack_filters }}',
- '{{ alias }}',
- '{{ execution_role }}',
- '{{ region }}';
+  '{{ lambda_function }}',
+  '{{ hook_status }}',
+  '{{ target_operations }}',
+  '{{ failure_mode }}',
+  '{{ target_filters }}',
+  '{{ stack_filters }}',
+  '{{ alias }}',
+  '{{ execution_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -363,8 +366,9 @@ SET PatchDocument = string('{{ {
     "StackFilters": stack_filters,
     "ExecutionRole": execution_role
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hook_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hook_arn }}';
 ```
 
 
@@ -373,8 +377,9 @@ AND Identifier = '{{ hook_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.lambda_hooks
-WHERE Identifier = '{{ hook_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hook_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

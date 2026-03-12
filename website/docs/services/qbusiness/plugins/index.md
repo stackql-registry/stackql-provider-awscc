@@ -225,22 +225,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>plugin</code>.
 ```sql
 SELECT
-region,
-application_id,
-auth_configuration,
-build_status,
-created_at,
-custom_plugin_configuration,
-display_name,
-plugin_arn,
-plugin_id,
-server_url,
-state,
-tags,
-type,
-updated_at
+  region,
+  application_id,
+  auth_configuration,
+  build_status,
+  created_at,
+  custom_plugin_configuration,
+  display_name,
+  plugin_arn,
+  plugin_id,
+  server_url,
+  state,
+  tags,
+  type,
+  updated_at
 FROM awscc.qbusiness.plugins
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ plugin_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,11 +250,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ plugin_id }
 Lists all <code>plugins</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-plugin_id
+  region,
+  application_id,
+  plugin_id
 FROM awscc.qbusiness.plugins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -274,16 +277,16 @@ Use the following StackQL query and manifest file to create a new <code>plugin</
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.plugins (
- AuthConfiguration,
- DisplayName,
- Type,
- region
+  AuthConfiguration,
+  DisplayName,
+  Type,
+  region
 )
 SELECT
-'{{ auth_configuration }}',
- '{{ display_name }}',
- '{{ type }}',
-'{{ region }}';
+  '{{ auth_configuration }}',
+  '{{ display_name }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -291,26 +294,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.plugins (
- ApplicationId,
- AuthConfiguration,
- CustomPluginConfiguration,
- DisplayName,
- ServerUrl,
- State,
- Tags,
- Type,
- region
+  ApplicationId,
+  AuthConfiguration,
+  CustomPluginConfiguration,
+  DisplayName,
+  ServerUrl,
+  State,
+  Tags,
+  Type,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ auth_configuration }}',
- '{{ custom_plugin_configuration }}',
- '{{ display_name }}',
- '{{ server_url }}',
- '{{ state }}',
- '{{ tags }}',
- '{{ type }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ auth_configuration }}',
+  '{{ custom_plugin_configuration }}',
+  '{{ display_name }}',
+  '{{ server_url }}',
+  '{{ state }}',
+  '{{ tags }}',
+  '{{ type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -367,8 +370,9 @@ SET PatchDocument = string('{{ {
     "State": state,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ plugin_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```
 
 
@@ -377,8 +381,9 @@ AND Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.plugins
-WHERE Identifier = '{{ application_id }}|{{ plugin_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ plugin_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

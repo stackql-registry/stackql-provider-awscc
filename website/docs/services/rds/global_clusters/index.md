@@ -190,18 +190,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>global_cluster</code>.
 ```sql
 SELECT
-region,
-engine,
-tags,
-engine_lifecycle_support,
-engine_version,
-deletion_protection,
-global_cluster_identifier,
-source_db_cluster_identifier,
-storage_encrypted,
-global_endpoint
+  region,
+  engine,
+  tags,
+  engine_lifecycle_support,
+  engine_version,
+  deletion_protection,
+  global_cluster_identifier,
+  source_db_cluster_identifier,
+  storage_encrypted,
+  global_endpoint
 FROM awscc.rds.global_clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ global_cluster_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ global_cluster_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +211,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ global_cluster_identifier }}';
 Lists all <code>global_clusters</code> in a region.
 ```sql
 SELECT
-region,
-global_cluster_identifier
+  region,
+  global_cluster_identifier
 FROM awscc.rds.global_clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,26 +237,26 @@ Use the following StackQL query and manifest file to create a new <code>global_c
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.global_clusters (
- Engine,
- Tags,
- EngineLifecycleSupport,
- EngineVersion,
- DeletionProtection,
- GlobalClusterIdentifier,
- SourceDBClusterIdentifier,
- StorageEncrypted,
- region
+  Engine,
+  Tags,
+  EngineLifecycleSupport,
+  EngineVersion,
+  DeletionProtection,
+  GlobalClusterIdentifier,
+  SourceDBClusterIdentifier,
+  StorageEncrypted,
+  region
 )
 SELECT
-'{{ engine }}',
- '{{ tags }}',
- '{{ engine_lifecycle_support }}',
- '{{ engine_version }}',
- '{{ deletion_protection }}',
- '{{ global_cluster_identifier }}',
- '{{ source_db_cluster_identifier }}',
- '{{ storage_encrypted }}',
-'{{ region }}';
+  '{{ engine }}',
+  '{{ tags }}',
+  '{{ engine_lifecycle_support }}',
+  '{{ engine_version }}',
+  '{{ deletion_protection }}',
+  '{{ global_cluster_identifier }}',
+  '{{ source_db_cluster_identifier }}',
+  '{{ storage_encrypted }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -261,26 +264,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rds.global_clusters (
- Engine,
- Tags,
- EngineLifecycleSupport,
- EngineVersion,
- DeletionProtection,
- GlobalClusterIdentifier,
- SourceDBClusterIdentifier,
- StorageEncrypted,
- region
+  Engine,
+  Tags,
+  EngineLifecycleSupport,
+  EngineVersion,
+  DeletionProtection,
+  GlobalClusterIdentifier,
+  SourceDBClusterIdentifier,
+  StorageEncrypted,
+  region
 )
 SELECT
- '{{ engine }}',
- '{{ tags }}',
- '{{ engine_lifecycle_support }}',
- '{{ engine_version }}',
- '{{ deletion_protection }}',
- '{{ global_cluster_identifier }}',
- '{{ source_db_cluster_identifier }}',
- '{{ storage_encrypted }}',
- '{{ region }}';
+  '{{ engine }}',
+  '{{ tags }}',
+  '{{ engine_lifecycle_support }}',
+  '{{ engine_version }}',
+  '{{ deletion_protection }}',
+  '{{ global_cluster_identifier }}',
+  '{{ source_db_cluster_identifier }}',
+  '{{ storage_encrypted }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -332,8 +335,9 @@ SET PatchDocument = string('{{ {
     "EngineVersion": engine_version,
     "DeletionProtection": deletion_protection
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ global_cluster_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ global_cluster_identifier }}';
 ```
 
 
@@ -342,8 +346,9 @@ AND Identifier = '{{ global_cluster_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.global_clusters
-WHERE Identifier = '{{ global_cluster_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ global_cluster_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

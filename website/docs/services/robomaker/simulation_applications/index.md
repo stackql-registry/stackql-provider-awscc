@@ -224,18 +224,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>simulation_application</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-current_revision_id,
-rendering_engine,
-robot_software_suite,
-simulation_software_suite,
-sources,
-environment,
-tags
+  region,
+  arn,
+  name,
+  current_revision_id,
+  rendering_engine,
+  robot_software_suite,
+  simulation_software_suite,
+  sources,
+  environment,
+  tags
 FROM awscc.robomaker.simulation_applications
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>simulation_applications</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.robomaker.simulation_applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,14 +271,14 @@ Use the following StackQL query and manifest file to create a new <code>simulati
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.simulation_applications (
- RobotSoftwareSuite,
- SimulationSoftwareSuite,
- region
+  RobotSoftwareSuite,
+  SimulationSoftwareSuite,
+  region
 )
 SELECT
-'{{ robot_software_suite }}',
- '{{ simulation_software_suite }}',
-'{{ region }}';
+  '{{ robot_software_suite }}',
+  '{{ simulation_software_suite }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -283,26 +286,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.robomaker.simulation_applications (
- Name,
- CurrentRevisionId,
- RenderingEngine,
- RobotSoftwareSuite,
- SimulationSoftwareSuite,
- Sources,
- Environment,
- Tags,
- region
+  Name,
+  CurrentRevisionId,
+  RenderingEngine,
+  RobotSoftwareSuite,
+  SimulationSoftwareSuite,
+  Sources,
+  Environment,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ current_revision_id }}',
- '{{ rendering_engine }}',
- '{{ robot_software_suite }}',
- '{{ simulation_software_suite }}',
- '{{ sources }}',
- '{{ environment }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ current_revision_id }}',
+  '{{ rendering_engine }}',
+  '{{ robot_software_suite }}',
+  '{{ simulation_software_suite }}',
+  '{{ sources }}',
+  '{{ environment }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -364,8 +367,9 @@ SET PatchDocument = string('{{ {
     "Environment": environment,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -374,8 +378,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.simulation_applications
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

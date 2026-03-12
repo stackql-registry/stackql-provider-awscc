@@ -153,13 +153,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>bridge_source</code>.
 ```sql
 SELECT
-region,
-name,
-bridge_arn,
-flow_source,
-network_source
+  region,
+  name,
+  bridge_arn,
+  flow_source,
+  network_source
 FROM awscc.mediaconnect.bridge_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}|{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -179,14 +181,14 @@ Use the following StackQL query and manifest file to create a new <code>bridge_s
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridge_sources (
- Name,
- BridgeArn,
- region
+  Name,
+  BridgeArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ bridge_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ bridge_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -194,18 +196,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediaconnect.bridge_sources (
- Name,
- BridgeArn,
- FlowSource,
- NetworkSource,
- region
+  Name,
+  BridgeArn,
+  FlowSource,
+  NetworkSource,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ bridge_arn }}',
- '{{ flow_source }}',
- '{{ network_source }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ bridge_arn }}',
+  '{{ flow_source }}',
+  '{{ network_source }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -254,8 +256,9 @@ SET PatchDocument = string('{{ {
     "FlowSource": flow_source,
     "NetworkSource": network_source
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ bridge_arn }}|{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 
@@ -264,8 +267,9 @@ AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridge_sources
-WHERE Identifier = '{{ bridge_arn }}|{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ bridge_arn }}|{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

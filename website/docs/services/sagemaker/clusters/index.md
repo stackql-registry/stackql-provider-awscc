@@ -420,23 +420,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-cluster_arn,
-vpc_config,
-node_recovery,
-instance_groups,
-restricted_instance_groups,
-orchestrator,
-cluster_role,
-node_provisioning_mode,
-creation_time,
-cluster_name,
-failure_message,
-auto_scaling,
-cluster_status,
-tags
+  region,
+  cluster_arn,
+  vpc_config,
+  node_recovery,
+  instance_groups,
+  restricted_instance_groups,
+  orchestrator,
+  cluster_role,
+  node_provisioning_mode,
+  creation_time,
+  cluster_name,
+  failure_message,
+  auto_scaling,
+  cluster_status,
+  tags
 FROM awscc.sagemaker.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -444,10 +446,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-cluster_arn
+  region,
+  cluster_arn
 FROM awscc.sagemaker.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -469,12 +472,12 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.clusters (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -482,30 +485,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.clusters (
- VpcConfig,
- NodeRecovery,
- InstanceGroups,
- RestrictedInstanceGroups,
- Orchestrator,
- ClusterRole,
- NodeProvisioningMode,
- ClusterName,
- AutoScaling,
- Tags,
- region
+  VpcConfig,
+  NodeRecovery,
+  InstanceGroups,
+  RestrictedInstanceGroups,
+  Orchestrator,
+  ClusterRole,
+  NodeProvisioningMode,
+  ClusterName,
+  AutoScaling,
+  Tags,
+  region
 )
 SELECT
- '{{ vpc_config }}',
- '{{ node_recovery }}',
- '{{ instance_groups }}',
- '{{ restricted_instance_groups }}',
- '{{ orchestrator }}',
- '{{ cluster_role }}',
- '{{ node_provisioning_mode }}',
- '{{ cluster_name }}',
- '{{ auto_scaling }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ vpc_config }}',
+  '{{ node_recovery }}',
+  '{{ instance_groups }}',
+  '{{ restricted_instance_groups }}',
+  '{{ orchestrator }}',
+  '{{ cluster_role }}',
+  '{{ node_provisioning_mode }}',
+  '{{ cluster_name }}',
+  '{{ auto_scaling }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -621,8 +624,9 @@ SET PatchDocument = string('{{ {
     "AutoScaling": auto_scaling,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -631,8 +635,9 @@ AND Identifier = '{{ cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.clusters
-WHERE Identifier = '{{ cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

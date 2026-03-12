@@ -142,16 +142,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>managed_login_branding</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-client_id,
-use_cognito_provided_values,
-settings,
-assets,
-managed_login_branding_id,
-return_merged_resources
+  region,
+  user_pool_id,
+  client_id,
+  use_cognito_provided_values,
+  settings,
+  assets,
+  managed_login_branding_id,
+  return_merged_resources
 FROM awscc.cognito.managed_login_brandings
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```
 
 ## `INSERT` example
@@ -171,12 +173,12 @@ Use the following StackQL query and manifest file to create a new <code>managed_
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.managed_login_brandings (
- UserPoolId,
- region
+  UserPoolId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -184,22 +186,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.managed_login_brandings (
- UserPoolId,
- ClientId,
- UseCognitoProvidedValues,
- Settings,
- Assets,
- ReturnMergedResources,
- region
+  UserPoolId,
+  ClientId,
+  UseCognitoProvidedValues,
+  Settings,
+  Assets,
+  ReturnMergedResources,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ client_id }}',
- '{{ use_cognito_provided_values }}',
- '{{ settings }}',
- '{{ assets }}',
- '{{ return_merged_resources }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ client_id }}',
+  '{{ use_cognito_provided_values }}',
+  '{{ settings }}',
+  '{{ assets }}',
+  '{{ return_merged_resources }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -250,8 +252,9 @@ SET PatchDocument = string('{{ {
     "Assets": assets,
     "ReturnMergedResources": return_merged_resources
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```
 
 
@@ -260,8 +263,9 @@ AND Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.managed_login_brandings
-WHERE Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

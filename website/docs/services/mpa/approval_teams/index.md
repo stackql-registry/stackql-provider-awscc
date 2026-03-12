@@ -256,24 +256,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>approval_team</code>.
 ```sql
 SELECT
-region,
-approval_strategy,
-approvers,
-tags,
-policies,
-name,
-description,
-arn,
-version_id,
-update_session_arn,
-creation_time,
-last_update_time,
-number_of_approvers,
-status,
-status_code,
-status_message
+  region,
+  approval_strategy,
+  approvers,
+  tags,
+  policies,
+  name,
+  description,
+  arn,
+  version_id,
+  update_session_arn,
+  creation_time,
+  last_update_time,
+  number_of_approvers,
+  status,
+  status_code,
+  status_message
 FROM awscc.mpa.approval_teams
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -281,10 +283,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>approval_teams</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.mpa.approval_teams_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -306,20 +309,20 @@ Use the following StackQL query and manifest file to create a new <code>approval
 ```sql
 /*+ create */
 INSERT INTO awscc.mpa.approval_teams (
- ApprovalStrategy,
- Approvers,
- Policies,
- Name,
- Description,
- region
+  ApprovalStrategy,
+  Approvers,
+  Policies,
+  Name,
+  Description,
+  region
 )
 SELECT
-'{{ approval_strategy }}',
- '{{ approvers }}',
- '{{ policies }}',
- '{{ name }}',
- '{{ description }}',
-'{{ region }}';
+  '{{ approval_strategy }}',
+  '{{ approvers }}',
+  '{{ policies }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -327,22 +330,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mpa.approval_teams (
- ApprovalStrategy,
- Approvers,
- Tags,
- Policies,
- Name,
- Description,
- region
+  ApprovalStrategy,
+  Approvers,
+  Tags,
+  Policies,
+  Name,
+  Description,
+  region
 )
 SELECT
- '{{ approval_strategy }}',
- '{{ approvers }}',
- '{{ tags }}',
- '{{ policies }}',
- '{{ name }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ approval_strategy }}',
+  '{{ approvers }}',
+  '{{ tags }}',
+  '{{ policies }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -397,8 +400,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -407,8 +411,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mpa.approval_teams
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

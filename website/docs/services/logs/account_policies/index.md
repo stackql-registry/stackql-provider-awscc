@@ -166,15 +166,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>account_policy</code>.
 ```sql
 SELECT
-region,
-account_id,
-policy_name,
-policy_document,
-policy_type,
-scope,
-selection_criteria
+  region,
+  account_id,
+  policy_name,
+  policy_document,
+  policy_type,
+  scope,
+  selection_criteria
 FROM awscc.logs.account_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,12 +184,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ policy_type }}|
 Lists all <code>account_policies</code> in a region.
 ```sql
 SELECT
-region,
-account_id,
-policy_type,
-policy_name
+  region,
+  account_id,
+  policy_type,
+  policy_name
 FROM awscc.logs.account_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,16 +212,16 @@ Use the following StackQL query and manifest file to create a new <code>account_
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.account_policies (
- PolicyName,
- PolicyDocument,
- PolicyType,
- region
+  PolicyName,
+  PolicyDocument,
+  PolicyType,
+  region
 )
 SELECT
-'{{ policy_name }}',
- '{{ policy_document }}',
- '{{ policy_type }}',
-'{{ region }}';
+  '{{ policy_name }}',
+  '{{ policy_document }}',
+  '{{ policy_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -226,20 +229,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.account_policies (
- PolicyName,
- PolicyDocument,
- PolicyType,
- Scope,
- SelectionCriteria,
- region
+  PolicyName,
+  PolicyDocument,
+  PolicyType,
+  Scope,
+  SelectionCriteria,
+  region
 )
 SELECT
- '{{ policy_name }}',
- '{{ policy_document }}',
- '{{ policy_type }}',
- '{{ scope }}',
- '{{ selection_criteria }}',
- '{{ region }}';
+  '{{ policy_name }}',
+  '{{ policy_document }}',
+  '{{ policy_type }}',
+  '{{ scope }}',
+  '{{ selection_criteria }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "Scope": scope,
     "SelectionCriteria": selection_criteria
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.account_policies
-WHERE Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -236,16 +236,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT
-region,
-name,
-alias,
-arn,
-creation_date,
-public_access_block_configuration,
-policy_status,
-object_lambda_configuration
+  region,
+  name,
+  alias,
+  arn,
+  creation_date,
+  public_access_block_configuration,
+  policy_status,
+  object_lambda_configuration
 FROM awscc.s3objectlambda.access_points
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,10 +255,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>access_points</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.s3objectlambda.access_points_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -278,12 +281,12 @@ Use the following StackQL query and manifest file to create a new <code>access_p
 ```sql
 /*+ create */
 INSERT INTO awscc.s3objectlambda.access_points (
- ObjectLambdaConfiguration,
- region
+  ObjectLambdaConfiguration,
+  region
 )
 SELECT
-'{{ object_lambda_configuration }}',
-'{{ region }}';
+  '{{ object_lambda_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -291,14 +294,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3objectlambda.access_points (
- Name,
- ObjectLambdaConfiguration,
- region
+  Name,
+  ObjectLambdaConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ object_lambda_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ object_lambda_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -341,8 +344,9 @@ UPDATE awscc.s3objectlambda.access_points
 SET PatchDocument = string('{{ {
     "ObjectLambdaConfiguration": object_lambda_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -351,8 +355,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3objectlambda.access_points
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

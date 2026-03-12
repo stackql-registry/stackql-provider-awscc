@@ -90,12 +90,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_pool_user_to_group_attachment</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-username,
-group_name
+  region,
+  user_pool_id,
+  username,
+  group_name
 FROM awscc.cognito.user_pool_user_to_group_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}';
 ```
 
 ## `INSERT` example
@@ -115,16 +117,16 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_user_to_group_attachments (
- UserPoolId,
- Username,
- GroupName,
- region
+  UserPoolId,
+  Username,
+  GroupName,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ username }}',
- '{{ group_name }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ username }}',
+  '{{ group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -132,16 +134,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_pool_user_to_group_attachments (
- UserPoolId,
- Username,
- GroupName,
- region
+  UserPoolId,
+  Username,
+  GroupName,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ username }}',
- '{{ group_name }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ username }}',
+  '{{ group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -174,8 +176,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_user_to_group_attachments
-WHERE Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

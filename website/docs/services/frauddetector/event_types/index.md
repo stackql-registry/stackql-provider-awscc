@@ -309,18 +309,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>event_type</code>.
 ```sql
 SELECT
-region,
-name,
-tags,
-description,
-event_variables,
-labels,
-entity_types,
-arn,
-created_time,
-last_updated_time
+  region,
+  name,
+  tags,
+  description,
+  event_variables,
+  labels,
+  entity_types,
+  arn,
+  created_time,
+  last_updated_time
 FROM awscc.frauddetector.event_types
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,10 +330,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>event_types</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.frauddetector.event_types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -353,18 +356,18 @@ Use the following StackQL query and manifest file to create a new <code>event_ty
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.event_types (
- Name,
- EventVariables,
- Labels,
- EntityTypes,
- region
+  Name,
+  EventVariables,
+  Labels,
+  EntityTypes,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ event_variables }}',
- '{{ labels }}',
- '{{ entity_types }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ event_variables }}',
+  '{{ labels }}',
+  '{{ entity_types }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -372,22 +375,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.frauddetector.event_types (
- Name,
- Tags,
- Description,
- EventVariables,
- Labels,
- EntityTypes,
- region
+  Name,
+  Tags,
+  Description,
+  EventVariables,
+  Labels,
+  EntityTypes,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ description }}',
- '{{ event_variables }}',
- '{{ labels }}',
- '{{ entity_types }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ description }}',
+  '{{ event_variables }}',
+  '{{ labels }}',
+  '{{ entity_types }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -457,8 +460,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -467,8 +471,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.event_types
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

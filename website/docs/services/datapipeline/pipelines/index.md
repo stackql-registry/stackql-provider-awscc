@@ -248,17 +248,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT
-region,
-activate,
-description,
-name,
-parameter_objects,
-parameter_values,
-pipeline_objects,
-pipeline_tags,
-pipeline_id
+  region,
+  activate,
+  description,
+  name,
+  parameter_objects,
+  parameter_values,
+  pipeline_objects,
+  pipeline_tags,
+  pipeline_id
 FROM awscc.datapipeline.pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ pipeline_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,10 +268,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_id }}';
 Lists all <code>pipelines</code> in a region.
 ```sql
 SELECT
-region,
-pipeline_id
+  region,
+  pipeline_id
 FROM awscc.datapipeline.pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -291,12 +294,12 @@ Use the following StackQL query and manifest file to create a new <code>pipeline
 ```sql
 /*+ create */
 INSERT INTO awscc.datapipeline.pipelines (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -304,24 +307,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.datapipeline.pipelines (
- Activate,
- Description,
- Name,
- ParameterObjects,
- ParameterValues,
- PipelineObjects,
- PipelineTags,
- region
+  Activate,
+  Description,
+  Name,
+  ParameterObjects,
+  ParameterValues,
+  PipelineObjects,
+  PipelineTags,
+  region
 )
 SELECT
- '{{ activate }}',
- '{{ description }}',
- '{{ name }}',
- '{{ parameter_objects }}',
- '{{ parameter_values }}',
- '{{ pipeline_objects }}',
- '{{ pipeline_tags }}',
- '{{ region }}';
+  '{{ activate }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ parameter_objects }}',
+  '{{ parameter_values }}',
+  '{{ pipeline_objects }}',
+  '{{ pipeline_tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -384,8 +387,9 @@ SET PatchDocument = string('{{ {
     "PipelineObjects": pipeline_objects,
     "PipelineTags": pipeline_tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ pipeline_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ pipeline_id }}';
 ```
 
 
@@ -394,8 +398,9 @@ AND Identifier = '{{ pipeline_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datapipeline.pipelines
-WHERE Identifier = '{{ pipeline_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ pipeline_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

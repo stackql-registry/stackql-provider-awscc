@@ -170,17 +170,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hosted_configuration_version</code>.
 ```sql
 SELECT
-region,
-configuration_profile_id,
-description,
-content_type,
-latest_version_number,
-content,
-version_label,
-application_id,
-version_number
+  region,
+  configuration_profile_id,
+  description,
+  content_type,
+  latest_version_number,
+  content,
+  version_label,
+  application_id,
+  version_number
 FROM awscc.appconfig.hosted_configuration_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,12 +190,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configurati
 Lists all <code>hosted_configuration_versions</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-configuration_profile_id,
-version_number
+  region,
+  application_id,
+  configuration_profile_id,
+  version_number
 FROM awscc.appconfig.hosted_configuration_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,18 +218,18 @@ Use the following StackQL query and manifest file to create a new <code>hosted_c
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.hosted_configuration_versions (
- ConfigurationProfileId,
- ContentType,
- Content,
- ApplicationId,
- region
+  ConfigurationProfileId,
+  ContentType,
+  Content,
+  ApplicationId,
+  region
 )
 SELECT
-'{{ configuration_profile_id }}',
- '{{ content_type }}',
- '{{ content }}',
- '{{ application_id }}',
-'{{ region }}';
+  '{{ configuration_profile_id }}',
+  '{{ content_type }}',
+  '{{ content }}',
+  '{{ application_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -234,24 +237,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appconfig.hosted_configuration_versions (
- ConfigurationProfileId,
- Description,
- ContentType,
- LatestVersionNumber,
- Content,
- VersionLabel,
- ApplicationId,
- region
+  ConfigurationProfileId,
+  Description,
+  ContentType,
+  LatestVersionNumber,
+  Content,
+  VersionLabel,
+  ApplicationId,
+  region
 )
 SELECT
- '{{ configuration_profile_id }}',
- '{{ description }}',
- '{{ content_type }}',
- '{{ latest_version_number }}',
- '{{ content }}',
- '{{ version_label }}',
- '{{ application_id }}',
- '{{ region }}';
+  '{{ configuration_profile_id }}',
+  '{{ description }}',
+  '{{ content_type }}',
+  '{{ latest_version_number }}',
+  '{{ content }}',
+  '{{ version_label }}',
+  '{{ application_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.hosted_configuration_versions
-WHERE Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -177,17 +177,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>type</code>.
 ```sql
 SELECT
-region,
-keyspace_name,
-type_name,
-fields,
-direct_referring_tables,
-direct_parent_types,
-max_nesting_depth,
-last_modified_timestamp,
-keyspace_arn
+  region,
+  keyspace_name,
+  type_name,
+  fields,
+  direct_referring_tables,
+  direct_parent_types,
+  max_nesting_depth,
+  last_modified_timestamp,
+  keyspace_arn
 FROM awscc.cassandra.types
-WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ type_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ keyspace_name }}|{{ type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,11 +197,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}|{{ type_name }}
 Lists all <code>types</code> in a region.
 ```sql
 SELECT
-region,
-keyspace_name,
-type_name
+  region,
+  keyspace_name,
+  type_name
 FROM awscc.cassandra.types_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,16 +224,16 @@ Use the following StackQL query and manifest file to create a new <code>type</co
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.types (
- KeyspaceName,
- TypeName,
- Fields,
- region
+  KeyspaceName,
+  TypeName,
+  Fields,
+  region
 )
 SELECT
-'{{ keyspace_name }}',
- '{{ type_name }}',
- '{{ fields }}',
-'{{ region }}';
+  '{{ keyspace_name }}',
+  '{{ type_name }}',
+  '{{ fields }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,16 +241,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cassandra.types (
- KeyspaceName,
- TypeName,
- Fields,
- region
+  KeyspaceName,
+  TypeName,
+  Fields,
+  region
 )
 SELECT
- '{{ keyspace_name }}',
- '{{ type_name }}',
- '{{ fields }}',
- '{{ region }}';
+  '{{ keyspace_name }}',
+  '{{ type_name }}',
+  '{{ fields }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.types
-WHERE Identifier = '{{ keyspace_name }}|{{ type_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ keyspace_name }}|{{ type_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

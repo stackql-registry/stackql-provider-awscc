@@ -207,12 +207,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_hierarchy_structure</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-user_hierarchy_structure_arn,
-user_hierarchy_structure
+  region,
+  instance_arn,
+  user_hierarchy_structure_arn,
+  user_hierarchy_structure
 FROM awscc.connect.user_hierarchy_structures
-WHERE region = 'us-east-1' AND Identifier = '{{ user_hierarchy_structure_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_hierarchy_structure_arn }}';
 ```
 
 ## `INSERT` example
@@ -232,12 +234,12 @@ Use the following StackQL query and manifest file to create a new <code>user_hie
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.user_hierarchy_structures (
- InstanceArn,
- region
+  InstanceArn,
+  region
 )
 SELECT
-'{{ instance_arn }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -245,14 +247,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.user_hierarchy_structures (
- InstanceArn,
- UserHierarchyStructure,
- region
+  InstanceArn,
+  UserHierarchyStructure,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ user_hierarchy_structure }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ user_hierarchy_structure }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +309,9 @@ UPDATE awscc.connect.user_hierarchy_structures
 SET PatchDocument = string('{{ {
     "UserHierarchyStructure": user_hierarchy_structure
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_hierarchy_structure_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_hierarchy_structure_arn }}';
 ```
 
 
@@ -317,8 +320,9 @@ AND Identifier = '{{ user_hierarchy_structure_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.user_hierarchy_structures
-WHERE Identifier = '{{ user_hierarchy_structure_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_hierarchy_structure_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

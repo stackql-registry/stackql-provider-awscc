@@ -187,20 +187,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>agent_status</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-agent_status_arn,
-description,
-name,
-display_order,
-state,
-type,
-reset_order_number,
-tags,
-last_modified_region,
-last_modified_time
+  region,
+  instance_arn,
+  agent_status_arn,
+  description,
+  name,
+  display_order,
+  state,
+  type,
+  reset_order_number,
+  tags,
+  last_modified_region,
+  last_modified_time
 FROM awscc.connect.agent_statuses
-WHERE region = 'us-east-1' AND Identifier = '{{ agent_status_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ agent_status_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ agent_status_arn }}';
 Lists all <code>agent_statuses</code> in a region.
 ```sql
 SELECT
-region,
-agent_status_arn
+  region,
+  agent_status_arn
 FROM awscc.connect.agent_statuses_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>agent_st
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.agent_statuses (
- InstanceArn,
- Name,
- State,
- region
+  InstanceArn,
+  Name,
+  State,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ state }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ state }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,26 +253,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.agent_statuses (
- InstanceArn,
- Description,
- Name,
- DisplayOrder,
- State,
- Type,
- ResetOrderNumber,
- Tags,
- region
+  InstanceArn,
+  Description,
+  Name,
+  DisplayOrder,
+  State,
+  Type,
+  ResetOrderNumber,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ description }}',
- '{{ name }}',
- '{{ display_order }}',
- '{{ state }}',
- '{{ type }}',
- '{{ reset_order_number }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ display_order }}',
+  '{{ state }}',
+  '{{ type }}',
+  '{{ reset_order_number }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -325,8 +328,9 @@ SET PatchDocument = string('{{ {
     "ResetOrderNumber": reset_order_number,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ agent_status_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ agent_status_arn }}';
 ```
 
 

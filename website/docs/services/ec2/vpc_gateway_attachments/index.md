@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_gateway_attachment</code>.
 ```sql
 SELECT
-region,
-attachment_type,
-internet_gateway_id,
-vpc_id,
-vpn_gateway_id
+  region,
+  attachment_type,
+  internet_gateway_id,
+  vpc_id,
+  vpn_gateway_id
 FROM awscc.ec2.vpc_gateway_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ attachment_type }}|{{ vpc_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ attachment_type }}|{{ vpc_id }}'
 Lists all <code>vpc_gateway_attachments</code> in a region.
 ```sql
 SELECT
-region,
-attachment_type,
-vpc_id
+  region,
+  attachment_type,
+  vpc_id
 FROM awscc.ec2.vpc_gateway_attachments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>vpc_gate
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_gateway_attachments (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,16 +207,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpc_gateway_attachments (
- InternetGatewayId,
- VpcId,
- VpnGatewayId,
- region
+  InternetGatewayId,
+  VpcId,
+  VpnGatewayId,
+  region
 )
 SELECT
- '{{ internet_gateway_id }}',
- '{{ vpc_id }}',
- '{{ vpn_gateway_id }}',
- '{{ region }}';
+  '{{ internet_gateway_id }}',
+  '{{ vpc_id }}',
+  '{{ vpn_gateway_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ SET PatchDocument = string('{{ {
     "InternetGatewayId": internet_gateway_id,
     "VpnGatewayId": vpn_gateway_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ attachment_type }}|{{ vpc_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```
 
 
@@ -261,8 +265,9 @@ AND Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_gateway_attachments
-WHERE Identifier = '{{ attachment_type }}|{{ vpc_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ attachment_type }}|{{ vpc_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

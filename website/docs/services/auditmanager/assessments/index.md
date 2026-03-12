@@ -305,22 +305,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>assessment</code>.
 ```sql
 SELECT
-region,
-framework_id,
-assessment_id,
-aws_account,
-arn,
-tags,
-delegations,
-roles,
-scope,
-assessment_reports_destination,
-status,
-creation_time,
-name,
-description
+  region,
+  framework_id,
+  assessment_id,
+  aws_account,
+  arn,
+  tags,
+  delegations,
+  roles,
+  scope,
+  assessment_reports_destination,
+  status,
+  creation_time,
+  name,
+  description
 FROM awscc.auditmanager.assessments
-WHERE region = 'us-east-1' AND Identifier = '{{ assessment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ assessment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,10 +330,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ assessment_id }}';
 Lists all <code>assessments</code> in a region.
 ```sql
 SELECT
-region,
-assessment_id
+  region,
+  assessment_id
 FROM awscc.auditmanager.assessments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -353,12 +356,12 @@ Use the following StackQL query and manifest file to create a new <code>assessme
 ```sql
 /*+ create */
 INSERT INTO awscc.auditmanager.assessments (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -366,30 +369,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.auditmanager.assessments (
- FrameworkId,
- AwsAccount,
- Tags,
- Delegations,
- Roles,
- Scope,
- AssessmentReportsDestination,
- Status,
- Name,
- Description,
- region
+  FrameworkId,
+  AwsAccount,
+  Tags,
+  Delegations,
+  Roles,
+  Scope,
+  AssessmentReportsDestination,
+  Status,
+  Name,
+  Description,
+  region
 )
 SELECT
- '{{ framework_id }}',
- '{{ aws_account }}',
- '{{ tags }}',
- '{{ delegations }}',
- '{{ roles }}',
- '{{ scope }}',
- '{{ assessment_reports_destination }}',
- '{{ status }}',
- '{{ name }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ framework_id }}',
+  '{{ aws_account }}',
+  '{{ tags }}',
+  '{{ delegations }}',
+  '{{ roles }}',
+  '{{ scope }}',
+  '{{ assessment_reports_destination }}',
+  '{{ status }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -471,8 +474,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ assessment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ assessment_id }}';
 ```
 
 
@@ -481,8 +485,9 @@ AND Identifier = '{{ assessment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.auditmanager.assessments
-WHERE Identifier = '{{ assessment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ assessment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

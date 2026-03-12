@@ -267,30 +267,32 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet</code>.
 ```sql
 SELECT
-region,
-assign_ipv6_address_on_creation,
-vpc_id,
-map_public_ip_on_launch,
-enable_lni_at_device_index,
-network_acl_association_id,
-availability_zone,
-availability_zone_id,
-cidr_block,
-subnet_id,
-ipv6_cidr_blocks,
-ipv6_cidr_block,
-outpost_arn,
-ipv6_native,
-enable_dns64,
-private_dns_name_options_on_launch,
-tags,
-ipv4_ipam_pool_id,
-ipv4_netmask_length,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-block_public_access_states
+  region,
+  assign_ipv6_address_on_creation,
+  vpc_id,
+  map_public_ip_on_launch,
+  enable_lni_at_device_index,
+  network_acl_association_id,
+  availability_zone,
+  availability_zone_id,
+  cidr_block,
+  subnet_id,
+  ipv6_cidr_blocks,
+  ipv6_cidr_block,
+  outpost_arn,
+  ipv6_native,
+  enable_dns64,
+  private_dns_name_options_on_launch,
+  tags,
+  ipv4_ipam_pool_id,
+  ipv4_netmask_length,
+  ipv6_ipam_pool_id,
+  ipv6_netmask_length,
+  block_public_access_states
 FROM awscc.ec2.subnets
-WHERE region = 'us-east-1' AND Identifier = '{{ subnet_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ subnet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -298,10 +300,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ subnet_id }}';
 Lists all <code>subnets</code> in a region.
 ```sql
 SELECT
-region,
-subnet_id
+  region,
+  subnet_id
 FROM awscc.ec2.subnets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -323,12 +326,12 @@ Use the following StackQL query and manifest file to create a new <code>subnet</
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnets (
- VpcId,
- region
+  VpcId,
+  region
 )
 SELECT
-'{{ vpc_id }}',
-'{{ region }}';
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -336,44 +339,44 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnets (
- AssignIpv6AddressOnCreation,
- VpcId,
- MapPublicIpOnLaunch,
- EnableLniAtDeviceIndex,
- AvailabilityZone,
- AvailabilityZoneId,
- CidrBlock,
- Ipv6CidrBlock,
- OutpostArn,
- Ipv6Native,
- EnableDns64,
- PrivateDnsNameOptionsOnLaunch,
- Tags,
- Ipv4IpamPoolId,
- Ipv4NetmaskLength,
- Ipv6IpamPoolId,
- Ipv6NetmaskLength,
- region
+  AssignIpv6AddressOnCreation,
+  VpcId,
+  MapPublicIpOnLaunch,
+  EnableLniAtDeviceIndex,
+  AvailabilityZone,
+  AvailabilityZoneId,
+  CidrBlock,
+  Ipv6CidrBlock,
+  OutpostArn,
+  Ipv6Native,
+  EnableDns64,
+  PrivateDnsNameOptionsOnLaunch,
+  Tags,
+  Ipv4IpamPoolId,
+  Ipv4NetmaskLength,
+  Ipv6IpamPoolId,
+  Ipv6NetmaskLength,
+  region
 )
 SELECT
- '{{ assign_ipv6_address_on_creation }}',
- '{{ vpc_id }}',
- '{{ map_public_ip_on_launch }}',
- '{{ enable_lni_at_device_index }}',
- '{{ availability_zone }}',
- '{{ availability_zone_id }}',
- '{{ cidr_block }}',
- '{{ ipv6_cidr_block }}',
- '{{ outpost_arn }}',
- '{{ ipv6_native }}',
- '{{ enable_dns64 }}',
- '{{ private_dns_name_options_on_launch }}',
- '{{ tags }}',
- '{{ ipv4_ipam_pool_id }}',
- '{{ ipv4_netmask_length }}',
- '{{ ipv6_ipam_pool_id }}',
- '{{ ipv6_netmask_length }}',
- '{{ region }}';
+  '{{ assign_ipv6_address_on_creation }}',
+  '{{ vpc_id }}',
+  '{{ map_public_ip_on_launch }}',
+  '{{ enable_lni_at_device_index }}',
+  '{{ availability_zone }}',
+  '{{ availability_zone_id }}',
+  '{{ cidr_block }}',
+  '{{ ipv6_cidr_block }}',
+  '{{ outpost_arn }}',
+  '{{ ipv6_native }}',
+  '{{ enable_dns64 }}',
+  '{{ private_dns_name_options_on_launch }}',
+  '{{ tags }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ ipv4_netmask_length }}',
+  '{{ ipv6_ipam_pool_id }}',
+  '{{ ipv6_netmask_length }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -449,8 +452,9 @@ SET PatchDocument = string('{{ {
     "PrivateDnsNameOptionsOnLaunch": private_dns_name_options_on_launch,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ subnet_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ subnet_id }}';
 ```
 
 
@@ -459,8 +463,9 @@ AND Identifier = '{{ subnet_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnets
-WHERE Identifier = '{{ subnet_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ subnet_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

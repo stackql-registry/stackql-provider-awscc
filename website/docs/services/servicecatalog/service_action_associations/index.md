@@ -145,12 +145,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_action_association</code>.
 ```sql
 SELECT
-region,
-product_id,
-provisioning_artifact_id,
-service_action_id
+  region,
+  product_id,
+  provisioning_artifact_id,
+  service_action_id
 FROM awscc.servicecatalog.service_action_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -158,12 +160,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ product_id }}|{{ provisioning_ar
 Lists all <code>service_action_associations</code> in a region.
 ```sql
 SELECT
-region,
-product_id,
-provisioning_artifact_id,
-service_action_id
+  region,
+  product_id,
+  provisioning_artifact_id,
+  service_action_id
 FROM awscc.servicecatalog.service_action_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,16 +188,16 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.service_action_associations (
- ProductId,
- ProvisioningArtifactId,
- ServiceActionId,
- region
+  ProductId,
+  ProvisioningArtifactId,
+  ServiceActionId,
+  region
 )
 SELECT
-'{{ product_id }}',
- '{{ provisioning_artifact_id }}',
- '{{ service_action_id }}',
-'{{ region }}';
+  '{{ product_id }}',
+  '{{ provisioning_artifact_id }}',
+  '{{ service_action_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -202,16 +205,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalog.service_action_associations (
- ProductId,
- ProvisioningArtifactId,
- ServiceActionId,
- region
+  ProductId,
+  ProvisioningArtifactId,
+  ServiceActionId,
+  region
 )
 SELECT
- '{{ product_id }}',
- '{{ provisioning_artifact_id }}',
- '{{ service_action_id }}',
- '{{ region }}';
+  '{{ product_id }}',
+  '{{ provisioning_artifact_id }}',
+  '{{ service_action_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.service_action_associations
-WHERE Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -281,15 +281,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>app_image_config</code>.
 ```sql
 SELECT
-region,
-app_image_config_arn,
-app_image_config_name,
-kernel_gateway_image_config,
-jupyter_lab_app_image_config,
-code_editor_app_image_config,
-tags
+  region,
+  app_image_config_arn,
+  app_image_config_name,
+  kernel_gateway_image_config,
+  jupyter_lab_app_image_config,
+  code_editor_app_image_config,
+  tags
 FROM awscc.sagemaker.app_image_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ app_image_config_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ app_image_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,10 +299,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ app_image_config_name }}';
 Lists all <code>app_image_configs</code> in a region.
 ```sql
 SELECT
-region,
-app_image_config_name
+  region,
+  app_image_config_name
 FROM awscc.sagemaker.app_image_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -322,12 +325,12 @@ Use the following StackQL query and manifest file to create a new <code>app_imag
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.app_image_configs (
- AppImageConfigName,
- region
+  AppImageConfigName,
+  region
 )
 SELECT
-'{{ app_image_config_name }}',
-'{{ region }}';
+  '{{ app_image_config_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -335,20 +338,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.app_image_configs (
- AppImageConfigName,
- KernelGatewayImageConfig,
- JupyterLabAppImageConfig,
- CodeEditorAppImageConfig,
- Tags,
- region
+  AppImageConfigName,
+  KernelGatewayImageConfig,
+  JupyterLabAppImageConfig,
+  CodeEditorAppImageConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ app_image_config_name }}',
- '{{ kernel_gateway_image_config }}',
- '{{ jupyter_lab_app_image_config }}',
- '{{ code_editor_app_image_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ app_image_config_name }}',
+  '{{ kernel_gateway_image_config }}',
+  '{{ jupyter_lab_app_image_config }}',
+  '{{ code_editor_app_image_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -410,8 +413,9 @@ SET PatchDocument = string('{{ {
     "CodeEditorAppImageConfig": code_editor_app_image_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ app_image_config_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ app_image_config_name }}';
 ```
 
 
@@ -420,8 +424,9 @@ AND Identifier = '{{ app_image_config_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.app_image_configs
-WHERE Identifier = '{{ app_image_config_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ app_image_config_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

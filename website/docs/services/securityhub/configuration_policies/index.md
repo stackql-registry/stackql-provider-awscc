@@ -212,18 +212,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>configuration_policy</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-configuration_policy,
-id,
-created_at,
-updated_at,
-service_enabled,
-tags
+  region,
+  arn,
+  name,
+  description,
+  configuration_policy,
+  id,
+  created_at,
+  updated_at,
+  service_enabled,
+  tags
 FROM awscc.securityhub.configuration_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +233,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>configuration_policies</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.securityhub.configuration_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -256,14 +259,14 @@ Use the following StackQL query and manifest file to create a new <code>configur
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.configuration_policies (
- Name,
- ConfigurationPolicy,
- region
+  Name,
+  ConfigurationPolicy,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ configuration_policy }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ configuration_policy }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -271,18 +274,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.securityhub.configuration_policies (
- Name,
- Description,
- ConfigurationPolicy,
- Tags,
- region
+  Name,
+  Description,
+  ConfigurationPolicy,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ configuration_policy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ configuration_policy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -336,8 +339,9 @@ SET PatchDocument = string('{{ {
     "ConfigurationPolicy": configuration_policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -346,8 +350,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.configuration_policies
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

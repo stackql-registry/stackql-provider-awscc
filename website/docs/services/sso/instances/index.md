@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>instance</code>.
 ```sql
 SELECT
-region,
-name,
-instance_arn,
-owner_account_id,
-identity_store_id,
-status,
-tags
+  region,
+  name,
+  instance_arn,
+  owner_account_id,
+  identity_store_id,
+  status,
+  tags
 FROM awscc.sso.instances
-WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}';
 Lists all <code>instances</code> in a region.
 ```sql
 SELECT
-region,
-instance_arn
+  region,
+  instance_arn
 FROM awscc.sso.instances_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>instance
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.instances (
- Name,
- Tags,
- region
+  Name,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,14 +227,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sso.instances (
- Name,
- Tags,
- region
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -269,8 +272,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ instance_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ instance_arn }}';
 ```
 
 
@@ -279,8 +283,9 @@ AND Identifier = '{{ instance_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.instances
-WHERE Identifier = '{{ instance_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ instance_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -150,14 +150,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>enclave_certificate_iam_role_association</code>.
 ```sql
 SELECT
-region,
-certificate_arn,
-role_arn,
-certificate_s3_bucket_name,
-certificate_s3_object_key,
-encryption_kms_key_id
+  region,
+  certificate_arn,
+  role_arn,
+  certificate_s3_bucket_name,
+  certificate_s3_object_key,
+  encryption_kms_key_id
 FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ certificate_arn }}|{{ role_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ certificate_arn }}|{{ role_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ certificate_arn }}|{{ role_arn }
 Lists all <code>enclave_certificate_iam_role_associations</code> in a region.
 ```sql
 SELECT
-region,
-certificate_arn,
-role_arn
+  region,
+  certificate_arn,
+  role_arn
 FROM awscc.ec2.enclave_certificate_iam_role_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>enclave_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.enclave_certificate_iam_role_associations (
- CertificateArn,
- RoleArn,
- region
+  CertificateArn,
+  RoleArn,
+  region
 )
 SELECT
-'{{ certificate_arn }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ certificate_arn }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.enclave_certificate_iam_role_associations (
- CertificateArn,
- RoleArn,
- region
+  CertificateArn,
+  RoleArn,
+  region
 )
 SELECT
- '{{ certificate_arn }}',
- '{{ role_arn }}',
- '{{ region }}';
+  '{{ certificate_arn }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -244,8 +247,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE Identifier = '{{ certificate_arn }}|{{ role_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ certificate_arn }}|{{ role_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT
-region,
-deployment_id,
-description,
-stage_name,
-api_id
+  region,
+  deployment_id,
+  description,
+  stage_name,
+  api_id
 FROM awscc.apigatewayv2.deployments
-WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ deployment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ deployment_id }}';
 Lists all <code>deployments</code> in a region.
 ```sql
 SELECT
-region,
-api_id,
-deployment_id
+  region,
+  api_id,
+  deployment_id
 FROM awscc.apigatewayv2.deployments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,12 +194,12 @@ Use the following StackQL query and manifest file to create a new <code>deployme
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.deployments (
- ApiId,
- region
+  ApiId,
+  region
 )
 SELECT
-'{{ api_id }}',
-'{{ region }}';
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -204,16 +207,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigatewayv2.deployments (
- Description,
- StageName,
- ApiId,
- region
+  Description,
+  StageName,
+  ApiId,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ stage_name }}',
- '{{ api_id }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ stage_name }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -251,8 +254,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "StageName": stage_name
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_id }}|{{ deployment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```
 
 
@@ -261,8 +265,9 @@ AND Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.deployments
-WHERE Identifier = '{{ api_id }}|{{ deployment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_id }}|{{ deployment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

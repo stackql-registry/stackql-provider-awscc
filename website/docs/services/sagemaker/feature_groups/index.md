@@ -319,21 +319,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>feature_group</code>.
 ```sql
 SELECT
-region,
-feature_group_name,
-record_identifier_feature_name,
-event_time_feature_name,
-feature_definitions,
-online_store_config,
-offline_store_config,
-throughput_config,
-role_arn,
-description,
-creation_time,
-feature_group_status,
-tags
+  region,
+  feature_group_name,
+  record_identifier_feature_name,
+  event_time_feature_name,
+  feature_definitions,
+  online_store_config,
+  offline_store_config,
+  throughput_config,
+  role_arn,
+  description,
+  creation_time,
+  feature_group_status,
+  tags
 FROM awscc.sagemaker.feature_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ feature_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ feature_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -341,10 +343,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ feature_group_name }}';
 Lists all <code>feature_groups</code> in a region.
 ```sql
 SELECT
-region,
-feature_group_name
+  region,
+  feature_group_name
 FROM awscc.sagemaker.feature_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -366,18 +369,18 @@ Use the following StackQL query and manifest file to create a new <code>feature_
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.feature_groups (
- FeatureGroupName,
- RecordIdentifierFeatureName,
- EventTimeFeatureName,
- FeatureDefinitions,
- region
+  FeatureGroupName,
+  RecordIdentifierFeatureName,
+  EventTimeFeatureName,
+  FeatureDefinitions,
+  region
 )
 SELECT
-'{{ feature_group_name }}',
- '{{ record_identifier_feature_name }}',
- '{{ event_time_feature_name }}',
- '{{ feature_definitions }}',
-'{{ region }}';
+  '{{ feature_group_name }}',
+  '{{ record_identifier_feature_name }}',
+  '{{ event_time_feature_name }}',
+  '{{ feature_definitions }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -385,30 +388,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.sagemaker.feature_groups (
- FeatureGroupName,
- RecordIdentifierFeatureName,
- EventTimeFeatureName,
- FeatureDefinitions,
- OnlineStoreConfig,
- OfflineStoreConfig,
- ThroughputConfig,
- RoleArn,
- Description,
- Tags,
- region
+  FeatureGroupName,
+  RecordIdentifierFeatureName,
+  EventTimeFeatureName,
+  FeatureDefinitions,
+  OnlineStoreConfig,
+  OfflineStoreConfig,
+  ThroughputConfig,
+  RoleArn,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ feature_group_name }}',
- '{{ record_identifier_feature_name }}',
- '{{ event_time_feature_name }}',
- '{{ feature_definitions }}',
- '{{ online_store_config }}',
- '{{ offline_store_config }}',
- '{{ throughput_config }}',
- '{{ role_arn }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ feature_group_name }}',
+  '{{ record_identifier_feature_name }}',
+  '{{ event_time_feature_name }}',
+  '{{ feature_definitions }}',
+  '{{ online_store_config }}',
+  '{{ offline_store_config }}',
+  '{{ throughput_config }}',
+  '{{ role_arn }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -483,8 +486,9 @@ SET PatchDocument = string('{{ {
     "FeatureDefinitions": feature_definitions,
     "ThroughputConfig": throughput_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ feature_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ feature_group_name }}';
 ```
 
 
@@ -493,8 +497,9 @@ AND Identifier = '{{ feature_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.feature_groups
-WHERE Identifier = '{{ feature_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ feature_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

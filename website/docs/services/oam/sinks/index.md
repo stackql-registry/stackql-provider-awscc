@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>sink</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-policy,
-tags
+  region,
+  arn,
+  name,
+  policy,
+  tags
 FROM awscc.oam.sinks
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>sinks</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.oam.sinks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>sink</co
 ```sql
 /*+ create */
 INSERT INTO awscc.oam.sinks (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,16 +201,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.oam.sinks (
- Name,
- Policy,
- Tags,
- region
+  Name,
+  Policy,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ policy }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ policy }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -245,8 +248,9 @@ SET PatchDocument = string('{{ {
     "Policy": policy,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -255,8 +259,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.oam.sinks
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

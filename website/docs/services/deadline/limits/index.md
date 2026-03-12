@@ -166,16 +166,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>limit</code>.
 ```sql
 SELECT
-region,
-amount_requirement_name,
-current_count,
-description,
-display_name,
-farm_id,
-limit_id,
-max_count
+  region,
+  amount_requirement_name,
+  current_count,
+  description,
+  display_name,
+  farm_id,
+  limit_id,
+  max_count
 FROM awscc.deadline.limits
-WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ limit_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,11 +185,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ limit_id }}';
 Lists all <code>limits</code> in a region.
 ```sql
 SELECT
-region,
-farm_id,
-limit_id
+  region,
+  farm_id,
+  limit_id
 FROM awscc.deadline.limits_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,18 +212,18 @@ Use the following StackQL query and manifest file to create a new <code>limit</c
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.limits (
- AmountRequirementName,
- DisplayName,
- FarmId,
- MaxCount,
- region
+  AmountRequirementName,
+  DisplayName,
+  FarmId,
+  MaxCount,
+  region
 )
 SELECT
-'{{ amount_requirement_name }}',
- '{{ display_name }}',
- '{{ farm_id }}',
- '{{ max_count }}',
-'{{ region }}';
+  '{{ amount_requirement_name }}',
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ max_count }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,20 +231,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.limits (
- AmountRequirementName,
- Description,
- DisplayName,
- FarmId,
- MaxCount,
- region
+  AmountRequirementName,
+  Description,
+  DisplayName,
+  FarmId,
+  MaxCount,
+  region
 )
 SELECT
- '{{ amount_requirement_name }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ farm_id }}',
- '{{ max_count }}',
- '{{ region }}';
+  '{{ amount_requirement_name }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ farm_id }}',
+  '{{ max_count }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "MaxCount": max_count
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ farm_id }}|{{ limit_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.limits
-WHERE Identifier = '{{ farm_id }}|{{ limit_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ farm_id }}|{{ limit_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

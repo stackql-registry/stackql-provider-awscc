@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>service_environment</code>.
 ```sql
 SELECT
-region,
-service_environment_arn,
-service_environment_name,
-state,
-service_environment_type,
-capacity_limits,
-tags
+  region,
+  service_environment_arn,
+  service_environment_name,
+  state,
+  service_environment_type,
+  capacity_limits,
+  tags
 FROM awscc.batch.service_environments
-WHERE region = 'us-east-1' AND Identifier = '{{ service_environment_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ service_environment_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ service_environment_arn }}';
 Lists all <code>service_environments</code> in a region.
 ```sql
 SELECT
-region,
-service_environment_arn
+  region,
+  service_environment_arn
 FROM awscc.batch.service_environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>service_
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.service_environments (
- ServiceEnvironmentType,
- CapacityLimits,
- region
+  ServiceEnvironmentType,
+  CapacityLimits,
+  region
 )
 SELECT
-'{{ service_environment_type }}',
- '{{ capacity_limits }}',
-'{{ region }}';
+  '{{ service_environment_type }}',
+  '{{ capacity_limits }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.batch.service_environments (
- ServiceEnvironmentName,
- State,
- ServiceEnvironmentType,
- CapacityLimits,
- Tags,
- region
+  ServiceEnvironmentName,
+  State,
+  ServiceEnvironmentType,
+  CapacityLimits,
+  Tags,
+  region
 )
 SELECT
- '{{ service_environment_name }}',
- '{{ state }}',
- '{{ service_environment_type }}',
- '{{ capacity_limits }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ service_environment_name }}',
+  '{{ state }}',
+  '{{ service_environment_type }}',
+  '{{ capacity_limits }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -282,8 +285,9 @@ SET PatchDocument = string('{{ {
     "CapacityLimits": capacity_limits,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ service_environment_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ service_environment_arn }}';
 ```
 
 
@@ -292,8 +296,9 @@ AND Identifier = '{{ service_environment_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.service_environments
-WHERE Identifier = '{{ service_environment_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ service_environment_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

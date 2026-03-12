@@ -710,36 +710,38 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT
-region,
-cluster_config,
-domain_name,
-access_policies,
-ip_address_type,
-engine_version,
-advanced_options,
-log_publishing_options,
-snapshot_options,
-vpc_options,
-node_to_node_encryption_options,
-domain_endpoint_options,
-cognito_options,
-advanced_security_options,
-domain_endpoint,
-domain_endpoint_v2,
-domain_endpoints,
-ebs_options,
-id,
-arn,
-domain_arn,
-encryption_at_rest_options,
-tags,
-service_software_options,
-off_peak_window_options,
-software_update_options,
-skip_shard_migration_wait,
-identity_center_options
+  region,
+  cluster_config,
+  domain_name,
+  access_policies,
+  ip_address_type,
+  engine_version,
+  advanced_options,
+  log_publishing_options,
+  snapshot_options,
+  vpc_options,
+  node_to_node_encryption_options,
+  domain_endpoint_options,
+  cognito_options,
+  advanced_security_options,
+  domain_endpoint,
+  domain_endpoint_v2,
+  domain_endpoints,
+  ebs_options,
+  id,
+  arn,
+  domain_arn,
+  encryption_at_rest_options,
+  tags,
+  service_software_options,
+  off_peak_window_options,
+  software_update_options,
+  skip_shard_migration_wait,
+  identity_center_options
 FROM awscc.opensearchservice.domains
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 ## `INSERT` example
@@ -759,50 +761,50 @@ Use the following StackQL query and manifest file to create a new <code>domain</
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchservice.domains (
- ClusterConfig,
- DomainName,
- AccessPolicies,
- IPAddressType,
- EngineVersion,
- AdvancedOptions,
- LogPublishingOptions,
- SnapshotOptions,
- VPCOptions,
- NodeToNodeEncryptionOptions,
- DomainEndpointOptions,
- CognitoOptions,
- AdvancedSecurityOptions,
- EBSOptions,
- EncryptionAtRestOptions,
- Tags,
- OffPeakWindowOptions,
- SoftwareUpdateOptions,
- SkipShardMigrationWait,
- IdentityCenterOptions,
- region
+  ClusterConfig,
+  DomainName,
+  AccessPolicies,
+  IPAddressType,
+  EngineVersion,
+  AdvancedOptions,
+  LogPublishingOptions,
+  SnapshotOptions,
+  VPCOptions,
+  NodeToNodeEncryptionOptions,
+  DomainEndpointOptions,
+  CognitoOptions,
+  AdvancedSecurityOptions,
+  EBSOptions,
+  EncryptionAtRestOptions,
+  Tags,
+  OffPeakWindowOptions,
+  SoftwareUpdateOptions,
+  SkipShardMigrationWait,
+  IdentityCenterOptions,
+  region
 )
 SELECT
-'{{ cluster_config }}',
- '{{ domain_name }}',
- '{{ access_policies }}',
- '{{ ip_address_type }}',
- '{{ engine_version }}',
- '{{ advanced_options }}',
- '{{ log_publishing_options }}',
- '{{ snapshot_options }}',
- '{{ vpc_options }}',
- '{{ node_to_node_encryption_options }}',
- '{{ domain_endpoint_options }}',
- '{{ cognito_options }}',
- '{{ advanced_security_options }}',
- '{{ ebs_options }}',
- '{{ encryption_at_rest_options }}',
- '{{ tags }}',
- '{{ off_peak_window_options }}',
- '{{ software_update_options }}',
- '{{ skip_shard_migration_wait }}',
- '{{ identity_center_options }}',
-'{{ region }}';
+  '{{ cluster_config }}',
+  '{{ domain_name }}',
+  '{{ access_policies }}',
+  '{{ ip_address_type }}',
+  '{{ engine_version }}',
+  '{{ advanced_options }}',
+  '{{ log_publishing_options }}',
+  '{{ snapshot_options }}',
+  '{{ vpc_options }}',
+  '{{ node_to_node_encryption_options }}',
+  '{{ domain_endpoint_options }}',
+  '{{ cognito_options }}',
+  '{{ advanced_security_options }}',
+  '{{ ebs_options }}',
+  '{{ encryption_at_rest_options }}',
+  '{{ tags }}',
+  '{{ off_peak_window_options }}',
+  '{{ software_update_options }}',
+  '{{ skip_shard_migration_wait }}',
+  '{{ identity_center_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -810,50 +812,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.opensearchservice.domains (
- ClusterConfig,
- DomainName,
- AccessPolicies,
- IPAddressType,
- EngineVersion,
- AdvancedOptions,
- LogPublishingOptions,
- SnapshotOptions,
- VPCOptions,
- NodeToNodeEncryptionOptions,
- DomainEndpointOptions,
- CognitoOptions,
- AdvancedSecurityOptions,
- EBSOptions,
- EncryptionAtRestOptions,
- Tags,
- OffPeakWindowOptions,
- SoftwareUpdateOptions,
- SkipShardMigrationWait,
- IdentityCenterOptions,
- region
+  ClusterConfig,
+  DomainName,
+  AccessPolicies,
+  IPAddressType,
+  EngineVersion,
+  AdvancedOptions,
+  LogPublishingOptions,
+  SnapshotOptions,
+  VPCOptions,
+  NodeToNodeEncryptionOptions,
+  DomainEndpointOptions,
+  CognitoOptions,
+  AdvancedSecurityOptions,
+  EBSOptions,
+  EncryptionAtRestOptions,
+  Tags,
+  OffPeakWindowOptions,
+  SoftwareUpdateOptions,
+  SkipShardMigrationWait,
+  IdentityCenterOptions,
+  region
 )
 SELECT
- '{{ cluster_config }}',
- '{{ domain_name }}',
- '{{ access_policies }}',
- '{{ ip_address_type }}',
- '{{ engine_version }}',
- '{{ advanced_options }}',
- '{{ log_publishing_options }}',
- '{{ snapshot_options }}',
- '{{ vpc_options }}',
- '{{ node_to_node_encryption_options }}',
- '{{ domain_endpoint_options }}',
- '{{ cognito_options }}',
- '{{ advanced_security_options }}',
- '{{ ebs_options }}',
- '{{ encryption_at_rest_options }}',
- '{{ tags }}',
- '{{ off_peak_window_options }}',
- '{{ software_update_options }}',
- '{{ skip_shard_migration_wait }}',
- '{{ identity_center_options }}',
- '{{ region }}';
+  '{{ cluster_config }}',
+  '{{ domain_name }}',
+  '{{ access_policies }}',
+  '{{ ip_address_type }}',
+  '{{ engine_version }}',
+  '{{ advanced_options }}',
+  '{{ log_publishing_options }}',
+  '{{ snapshot_options }}',
+  '{{ vpc_options }}',
+  '{{ node_to_node_encryption_options }}',
+  '{{ domain_endpoint_options }}',
+  '{{ cognito_options }}',
+  '{{ advanced_security_options }}',
+  '{{ ebs_options }}',
+  '{{ encryption_at_rest_options }}',
+  '{{ tags }}',
+  '{{ off_peak_window_options }}',
+  '{{ software_update_options }}',
+  '{{ skip_shard_migration_wait }}',
+  '{{ identity_center_options }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -1023,8 +1025,9 @@ SET PatchDocument = string('{{ {
     "SoftwareUpdateOptions": software_update_options,
     "SkipShardMigrationWait": skip_shard_migration_wait
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -1033,8 +1036,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchservice.domains
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

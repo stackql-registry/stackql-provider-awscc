@@ -225,22 +225,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fuota_task</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-lo_ra_wan,
-firmware_update_image,
-firmware_update_role,
-arn,
-id,
-tags,
-fuota_task_status,
-associate_wireless_device,
-disassociate_wireless_device,
-associate_multicast_group,
-disassociate_multicast_group
+  region,
+  name,
+  description,
+  lo_ra_wan,
+  firmware_update_image,
+  firmware_update_role,
+  arn,
+  id,
+  tags,
+  fuota_task_status,
+  associate_wireless_device,
+  disassociate_wireless_device,
+  associate_multicast_group,
+  disassociate_multicast_group
 FROM awscc.iotwireless.fuota_tasks
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,10 +250,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>fuota_tasks</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.iotwireless.fuota_tasks_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -273,16 +276,16 @@ Use the following StackQL query and manifest file to create a new <code>fuota_ta
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.fuota_tasks (
- LoRaWAN,
- FirmwareUpdateImage,
- FirmwareUpdateRole,
- region
+  LoRaWAN,
+  FirmwareUpdateImage,
+  FirmwareUpdateRole,
+  region
 )
 SELECT
-'{{ lo_ra_wan }}',
- '{{ firmware_update_image }}',
- '{{ firmware_update_role }}',
-'{{ region }}';
+  '{{ lo_ra_wan }}',
+  '{{ firmware_update_image }}',
+  '{{ firmware_update_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,30 +293,30 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotwireless.fuota_tasks (
- Name,
- Description,
- LoRaWAN,
- FirmwareUpdateImage,
- FirmwareUpdateRole,
- Tags,
- AssociateWirelessDevice,
- DisassociateWirelessDevice,
- AssociateMulticastGroup,
- DisassociateMulticastGroup,
- region
+  Name,
+  Description,
+  LoRaWAN,
+  FirmwareUpdateImage,
+  FirmwareUpdateRole,
+  Tags,
+  AssociateWirelessDevice,
+  DisassociateWirelessDevice,
+  AssociateMulticastGroup,
+  DisassociateMulticastGroup,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ lo_ra_wan }}',
- '{{ firmware_update_image }}',
- '{{ firmware_update_role }}',
- '{{ tags }}',
- '{{ associate_wireless_device }}',
- '{{ disassociate_wireless_device }}',
- '{{ associate_multicast_group }}',
- '{{ disassociate_multicast_group }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ lo_ra_wan }}',
+  '{{ firmware_update_image }}',
+  '{{ firmware_update_role }}',
+  '{{ tags }}',
+  '{{ associate_wireless_device }}',
+  '{{ disassociate_wireless_device }}',
+  '{{ associate_multicast_group }}',
+  '{{ disassociate_multicast_group }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -378,8 +381,9 @@ SET PatchDocument = string('{{ {
     "AssociateMulticastGroup": associate_multicast_group,
     "DisassociateMulticastGroup": disassociate_multicast_group
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -388,8 +392,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.fuota_tasks
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

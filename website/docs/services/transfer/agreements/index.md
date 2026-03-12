@@ -235,22 +235,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>agreement</code>.
 ```sql
 SELECT
-region,
-description,
-server_id,
-local_profile_id,
-partner_profile_id,
-base_directory,
-access_role,
-status,
-tags,
-agreement_id,
-arn,
-preserve_filename,
-enforce_message_signing,
-custom_directories
+  region,
+  description,
+  server_id,
+  local_profile_id,
+  partner_profile_id,
+  base_directory,
+  access_role,
+  status,
+  tags,
+  agreement_id,
+  arn,
+  preserve_filename,
+  enforce_message_signing,
+  custom_directories
 FROM awscc.transfer.agreements
-WHERE region = 'us-east-1' AND Identifier = '{{ agreement_id }}|{{ server_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,11 +260,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ agreement_id }}|{{ server_id }}'
 Lists all <code>agreements</code> in a region.
 ```sql
 SELECT
-region,
-agreement_id,
-server_id
+  region,
+  agreement_id,
+  server_id
 FROM awscc.transfer.agreements_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -284,18 +287,18 @@ Use the following StackQL query and manifest file to create a new <code>agreemen
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.agreements (
- ServerId,
- LocalProfileId,
- PartnerProfileId,
- AccessRole,
- region
+  ServerId,
+  LocalProfileId,
+  PartnerProfileId,
+  AccessRole,
+  region
 )
 SELECT
-'{{ server_id }}',
- '{{ local_profile_id }}',
- '{{ partner_profile_id }}',
- '{{ access_role }}',
-'{{ region }}';
+  '{{ server_id }}',
+  '{{ local_profile_id }}',
+  '{{ partner_profile_id }}',
+  '{{ access_role }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -303,32 +306,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.transfer.agreements (
- Description,
- ServerId,
- LocalProfileId,
- PartnerProfileId,
- BaseDirectory,
- AccessRole,
- Status,
- Tags,
- PreserveFilename,
- EnforceMessageSigning,
- CustomDirectories,
- region
+  Description,
+  ServerId,
+  LocalProfileId,
+  PartnerProfileId,
+  BaseDirectory,
+  AccessRole,
+  Status,
+  Tags,
+  PreserveFilename,
+  EnforceMessageSigning,
+  CustomDirectories,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ server_id }}',
- '{{ local_profile_id }}',
- '{{ partner_profile_id }}',
- '{{ base_directory }}',
- '{{ access_role }}',
- '{{ status }}',
- '{{ tags }}',
- '{{ preserve_filename }}',
- '{{ enforce_message_signing }}',
- '{{ custom_directories }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ server_id }}',
+  '{{ local_profile_id }}',
+  '{{ partner_profile_id }}',
+  '{{ base_directory }}',
+  '{{ access_role }}',
+  '{{ status }}',
+  '{{ tags }}',
+  '{{ preserve_filename }}',
+  '{{ enforce_message_signing }}',
+  '{{ custom_directories }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -397,8 +400,9 @@ SET PatchDocument = string('{{ {
     "EnforceMessageSigning": enforce_message_signing,
     "CustomDirectories": custom_directories
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ agreement_id }}|{{ server_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```
 
 
@@ -407,8 +411,9 @@ AND Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.agreements
-WHERE Identifier = '{{ agreement_id }}|{{ server_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ agreement_id }}|{{ server_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

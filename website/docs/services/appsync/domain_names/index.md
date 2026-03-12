@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name</code>.
 ```sql
 SELECT
-region,
-domain_name,
-description,
-certificate_arn,
-app_sync_domain_name,
-hosted_zone_id,
-domain_name_arn,
-tags
+  region,
+  domain_name,
+  description,
+  certificate_arn,
+  app_sync_domain_name,
+  hosted_zone_id,
+  domain_name_arn,
+  tags
 FROM awscc.appsync.domain_names
-WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 Lists all <code>domain_names</code> in a region.
 ```sql
 SELECT
-region,
-domain_name
+  region,
+  domain_name
 FROM awscc.appsync.domain_names_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,14 +218,14 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.domain_names (
- DomainName,
- CertificateArn,
- region
+  DomainName,
+  CertificateArn,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ certificate_arn }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ certificate_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -230,18 +233,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.domain_names (
- DomainName,
- Description,
- CertificateArn,
- Tags,
- region
+  DomainName,
+  Description,
+  CertificateArn,
+  Tags,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ description }}',
- '{{ certificate_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ description }}',
+  '{{ certificate_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -283,8 +286,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ domain_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ domain_name }}';
 ```
 
 
@@ -293,8 +297,9 @@ AND Identifier = '{{ domain_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.domain_names
-WHERE Identifier = '{{ domain_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ domain_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

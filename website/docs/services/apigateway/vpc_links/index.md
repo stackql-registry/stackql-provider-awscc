@@ -163,14 +163,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc_link</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-tags,
-target_arns,
-vpc_link_id
+  region,
+  name,
+  description,
+  tags,
+  target_arns,
+  vpc_link_id
 FROM awscc.apigateway.vpc_links
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_link_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_link_id }}';
 Lists all <code>vpc_links</code> in a region.
 ```sql
 SELECT
-region,
-vpc_link_id
+  region,
+  vpc_link_id
 FROM awscc.apigateway.vpc_links_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>vpc_link
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.vpc_links (
- Name,
- TargetArns,
- region
+  Name,
+  TargetArns,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ target_arns }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ target_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,18 +221,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.apigateway.vpc_links (
- Name,
- Description,
- Tags,
- TargetArns,
- region
+  Name,
+  Description,
+  Tags,
+  TargetArns,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ target_arns }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ target_arns }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -273,8 +276,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpc_link_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpc_link_id }}';
 ```
 
 
@@ -283,8 +287,9 @@ AND Identifier = '{{ vpc_link_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.vpc_links
-WHERE Identifier = '{{ vpc_link_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_link_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

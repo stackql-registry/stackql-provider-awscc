@@ -151,14 +151,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table_policy</code>.
 ```sql
 SELECT
-region,
-resource_policy,
-table_name,
-table_bucket_arn,
-table_arn,
-namespace
+  region,
+  resource_policy,
+  table_name,
+  table_bucket_arn,
+  table_arn,
+  namespace
 FROM awscc.s3tables.table_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ table_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -166,10 +168,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_arn }}';
 Lists all <code>table_policies</code> in a region.
 ```sql
 SELECT
-region,
-table_arn
+  region,
+  table_arn
 FROM awscc.s3tables.table_policies_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,14 +194,14 @@ Use the following StackQL query and manifest file to create a new <code>table_po
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.table_policies (
- ResourcePolicy,
- TableARN,
- region
+  ResourcePolicy,
+  TableARN,
+  region
 )
 SELECT
-'{{ resource_policy }}',
- '{{ table_arn }}',
-'{{ region }}';
+  '{{ resource_policy }}',
+  '{{ table_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -206,14 +209,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.table_policies (
- ResourcePolicy,
- TableARN,
- region
+  ResourcePolicy,
+  TableARN,
+  region
 )
 SELECT
- '{{ resource_policy }}',
- '{{ table_arn }}',
- '{{ region }}';
+  '{{ resource_policy }}',
+  '{{ table_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -248,8 +251,9 @@ UPDATE awscc.s3tables.table_policies
 SET PatchDocument = string('{{ {
     "ResourcePolicy": resource_policy
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ table_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ table_arn }}';
 ```
 
 
@@ -258,8 +262,9 @@ AND Identifier = '{{ table_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.table_policies
-WHERE Identifier = '{{ table_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

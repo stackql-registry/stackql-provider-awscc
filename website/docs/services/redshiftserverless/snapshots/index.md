@@ -227,15 +227,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>snapshot</code>.
 ```sql
 SELECT
-region,
-snapshot_name,
-namespace_name,
-owner_account,
-retention_period,
-tags,
-snapshot
+  region,
+  snapshot_name,
+  namespace_name,
+  owner_account,
+  retention_period,
+  tags,
+  snapshot
 FROM awscc.redshiftserverless.snapshots
-WHERE region = 'us-east-1' AND Identifier = '{{ snapshot_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ snapshot_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,10 +245,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ snapshot_name }}';
 Lists all <code>snapshots</code> in a region.
 ```sql
 SELECT
-region,
-snapshot_name
+  region,
+  snapshot_name
 FROM awscc.redshiftserverless.snapshots_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -268,12 +271,12 @@ Use the following StackQL query and manifest file to create a new <code>snapshot
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.snapshots (
- SnapshotName,
- region
+  SnapshotName,
+  region
 )
 SELECT
-'{{ snapshot_name }}',
-'{{ region }}';
+  '{{ snapshot_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -281,18 +284,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.redshiftserverless.snapshots (
- SnapshotName,
- NamespaceName,
- RetentionPeriod,
- Tags,
- region
+  SnapshotName,
+  NamespaceName,
+  RetentionPeriod,
+  Tags,
+  region
 )
 SELECT
- '{{ snapshot_name }}',
- '{{ namespace_name }}',
- '{{ retention_period }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ snapshot_name }}',
+  '{{ namespace_name }}',
+  '{{ retention_period }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ UPDATE awscc.redshiftserverless.snapshots
 SET PatchDocument = string('{{ {
     "RetentionPeriod": retention_period
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ snapshot_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ snapshot_name }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ snapshot_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.snapshots
-WHERE Identifier = '{{ snapshot_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ snapshot_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

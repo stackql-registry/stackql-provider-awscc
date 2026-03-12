@@ -199,12 +199,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-application_name,
-description,
-resource_lifecycle_config
+  region,
+  application_name,
+  description,
+  resource_lifecycle_config
 FROM awscc.elasticbeanstalk.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,10 +214,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-application_name
+  region,
+  application_name
 FROM awscc.elasticbeanstalk.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -237,16 +240,16 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.applications (
- ApplicationName,
- Description,
- ResourceLifecycleConfig,
- region
+  ApplicationName,
+  Description,
+  ResourceLifecycleConfig,
+  region
 )
 SELECT
-'{{ application_name }}',
- '{{ description }}',
- '{{ resource_lifecycle_config }}',
-'{{ region }}';
+  '{{ application_name }}',
+  '{{ description }}',
+  '{{ resource_lifecycle_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,16 +257,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.elasticbeanstalk.applications (
- ApplicationName,
- Description,
- ResourceLifecycleConfig,
- region
+  ApplicationName,
+  Description,
+  ResourceLifecycleConfig,
+  region
 )
 SELECT
- '{{ application_name }}',
- '{{ description }}',
- '{{ resource_lifecycle_config }}',
- '{{ region }}';
+  '{{ application_name }}',
+  '{{ description }}',
+  '{{ resource_lifecycle_config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -311,8 +314,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "ResourceLifecycleConfig": resource_lifecycle_config
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_name }}';
 ```
 
 
@@ -321,8 +325,9 @@ AND Identifier = '{{ application_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.applications
-WHERE Identifier = '{{ application_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

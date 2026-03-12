@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_access_logging_setting</code>.
 ```sql
 SELECT
-region,
-associated_portal_arns,
-kinesis_stream_arn,
-tags,
-user_access_logging_settings_arn
+  region,
+  associated_portal_arns,
+  kinesis_stream_arn,
+  tags,
+  user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings
-WHERE region = 'us-east-1' AND Identifier = '{{ user_access_logging_settings_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_access_logging_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ user_access_logging_settings_arn
 Lists all <code>user_access_logging_settings</code> in a region.
 ```sql
 SELECT
-region,
-user_access_logging_settings_arn
+  region,
+  user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,12 +200,12 @@ Use the following StackQL query and manifest file to create a new <code>user_acc
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.user_access_logging_settings (
- KinesisStreamArn,
- region
+  KinesisStreamArn,
+  region
 )
 SELECT
-'{{ kinesis_stream_arn }}',
-'{{ region }}';
+  '{{ kinesis_stream_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -210,14 +213,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.workspacesweb.user_access_logging_settings (
- KinesisStreamArn,
- Tags,
- region
+  KinesisStreamArn,
+  Tags,
+  region
 )
 SELECT
- '{{ kinesis_stream_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ kinesis_stream_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -255,8 +258,9 @@ SET PatchDocument = string('{{ {
     "KinesisStreamArn": kinesis_stream_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_access_logging_settings_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_access_logging_settings_arn }}';
 ```
 
 
@@ -265,8 +269,9 @@ AND Identifier = '{{ user_access_logging_settings_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.user_access_logging_settings
-WHERE Identifier = '{{ user_access_logging_settings_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_access_logging_settings_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

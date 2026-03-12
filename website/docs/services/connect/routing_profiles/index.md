@@ -236,18 +236,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>routing_profile</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-name,
-description,
-media_concurrencies,
-default_outbound_queue_arn,
-routing_profile_arn,
-queue_configs,
-tags,
-agent_availability_timer
+  region,
+  instance_arn,
+  name,
+  description,
+  media_concurrencies,
+  default_outbound_queue_arn,
+  routing_profile_arn,
+  queue_configs,
+  tags,
+  agent_availability_timer
 FROM awscc.connect.routing_profiles
-WHERE region = 'us-east-1' AND Identifier = '{{ routing_profile_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ routing_profile_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,10 +257,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ routing_profile_arn }}';
 Lists all <code>routing_profiles</code> in a region.
 ```sql
 SELECT
-region,
-routing_profile_arn
+  region,
+  routing_profile_arn
 FROM awscc.connect.routing_profiles_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -280,20 +283,20 @@ Use the following StackQL query and manifest file to create a new <code>routing_
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.routing_profiles (
- InstanceArn,
- Name,
- Description,
- MediaConcurrencies,
- DefaultOutboundQueueArn,
- region
+  InstanceArn,
+  Name,
+  Description,
+  MediaConcurrencies,
+  DefaultOutboundQueueArn,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ media_concurrencies }}',
- '{{ default_outbound_queue_arn }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ media_concurrencies }}',
+  '{{ default_outbound_queue_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -301,26 +304,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.routing_profiles (
- InstanceArn,
- Name,
- Description,
- MediaConcurrencies,
- DefaultOutboundQueueArn,
- QueueConfigs,
- Tags,
- AgentAvailabilityTimer,
- region
+  InstanceArn,
+  Name,
+  Description,
+  MediaConcurrencies,
+  DefaultOutboundQueueArn,
+  QueueConfigs,
+  Tags,
+  AgentAvailabilityTimer,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ media_concurrencies }}',
- '{{ default_outbound_queue_arn }}',
- '{{ queue_configs }}',
- '{{ tags }}',
- '{{ agent_availability_timer }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ media_concurrencies }}',
+  '{{ default_outbound_queue_arn }}',
+  '{{ queue_configs }}',
+  '{{ tags }}',
+  '{{ agent_availability_timer }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -385,8 +388,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "AgentAvailabilityTimer": agent_availability_timer
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ routing_profile_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ routing_profile_arn }}';
 ```
 
 
@@ -395,8 +399,9 @@ AND Identifier = '{{ routing_profile_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.routing_profiles
-WHERE Identifier = '{{ routing_profile_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ routing_profile_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

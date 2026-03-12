@@ -224,17 +224,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>safety_rule</code>.
 ```sql
 SELECT
-region,
-assertion_rule,
-gating_rule,
-name,
-safety_rule_arn,
-control_panel_arn,
-status,
-rule_config,
-tags
+  region,
+  assertion_rule,
+  gating_rule,
+  name,
+  safety_rule_arn,
+  control_panel_arn,
+  status,
+  rule_config,
+  tags
 FROM awscc.route53recoverycontrol.safety_rules
-WHERE region = 'us-east-1' AND Identifier = '{{ safety_rule_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ safety_rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,10 +244,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ safety_rule_arn }}';
 Lists all <code>safety_rules</code> in a region.
 ```sql
 SELECT
-region,
-safety_rule_arn
+  region,
+  safety_rule_arn
 FROM awscc.route53recoverycontrol.safety_rules_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -267,12 +270,12 @@ Use the following StackQL query and manifest file to create a new <code>safety_r
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.safety_rules (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -280,22 +283,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.route53recoverycontrol.safety_rules (
- AssertionRule,
- GatingRule,
- Name,
- ControlPanelArn,
- RuleConfig,
- Tags,
- region
+  AssertionRule,
+  GatingRule,
+  Name,
+  ControlPanelArn,
+  RuleConfig,
+  Tags,
+  region
 )
 SELECT
- '{{ assertion_rule }}',
- '{{ gating_rule }}',
- '{{ name }}',
- '{{ control_panel_arn }}',
- '{{ rule_config }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ assertion_rule }}',
+  '{{ gating_rule }}',
+  '{{ name }}',
+  '{{ control_panel_arn }}',
+  '{{ rule_config }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -356,8 +359,9 @@ SET PatchDocument = string('{{ {
     "RuleConfig": rule_config,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ safety_rule_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ safety_rule_arn }}';
 ```
 
 
@@ -366,8 +370,9 @@ AND Identifier = '{{ safety_rule_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.safety_rules
-WHERE Identifier = '{{ safety_rule_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ safety_rule_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

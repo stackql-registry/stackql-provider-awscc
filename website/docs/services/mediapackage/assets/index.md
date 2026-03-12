@@ -189,18 +189,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>asset</code>.
 ```sql
 SELECT
-region,
-arn,
-created_at,
-egress_endpoints,
-id,
-packaging_group_id,
-resource_id,
-source_arn,
-source_role_arn,
-tags
+  region,
+  arn,
+  created_at,
+  egress_endpoints,
+  id,
+  packaging_group_id,
+  resource_id,
+  source_arn,
+  source_role_arn,
+  tags
 FROM awscc.mediapackage.assets
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>assets</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.mediapackage.assets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,18 +236,18 @@ Use the following StackQL query and manifest file to create a new <code>asset</c
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.assets (
- Id,
- PackagingGroupId,
- SourceArn,
- SourceRoleArn,
- region
+  Id,
+  PackagingGroupId,
+  SourceArn,
+  SourceRoleArn,
+  region
 )
 SELECT
-'{{ id }}',
- '{{ packaging_group_id }}',
- '{{ source_arn }}',
- '{{ source_role_arn }}',
-'{{ region }}';
+  '{{ id }}',
+  '{{ packaging_group_id }}',
+  '{{ source_arn }}',
+  '{{ source_role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -252,24 +255,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackage.assets (
- EgressEndpoints,
- Id,
- PackagingGroupId,
- ResourceId,
- SourceArn,
- SourceRoleArn,
- Tags,
- region
+  EgressEndpoints,
+  Id,
+  PackagingGroupId,
+  ResourceId,
+  SourceArn,
+  SourceRoleArn,
+  Tags,
+  region
 )
 SELECT
- '{{ egress_endpoints }}',
- '{{ id }}',
- '{{ packaging_group_id }}',
- '{{ resource_id }}',
- '{{ source_arn }}',
- '{{ source_role_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ egress_endpoints }}',
+  '{{ id }}',
+  '{{ packaging_group_id }}',
+  '{{ resource_id }}',
+  '{{ source_arn }}',
+  '{{ source_role_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -314,8 +317,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.assets
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

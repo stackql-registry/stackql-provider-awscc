@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>accelerator</code>.
 ```sql
 SELECT
-region,
-name,
-ip_address_type,
-ip_addresses,
-enabled,
-dns_name,
-ipv4_addresses,
-ipv6_addresses,
-dual_stack_dns_name,
-accelerator_arn,
-tags
+  region,
+  name,
+  ip_address_type,
+  ip_addresses,
+  enabled,
+  dns_name,
+  ipv4_addresses,
+  ipv6_addresses,
+  dual_stack_dns_name,
+  accelerator_arn,
+  tags
 FROM awscc.globalaccelerator.accelerators
-WHERE region = 'us-east-1' AND Identifier = '{{ accelerator_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ accelerator_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ accelerator_arn }}';
 Lists all <code>accelerators</code> in a region.
 ```sql
 SELECT
-region,
-accelerator_arn
+  region,
+  accelerator_arn
 FROM awscc.globalaccelerator.accelerators_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,12 +236,12 @@ Use the following StackQL query and manifest file to create a new <code>accelera
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.accelerators (
- Name,
- region
+  Name,
+  region
 )
 SELECT
-'{{ name }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,20 +249,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.globalaccelerator.accelerators (
- Name,
- IpAddressType,
- IpAddresses,
- Enabled,
- Tags,
- region
+  Name,
+  IpAddressType,
+  IpAddresses,
+  Enabled,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ ip_address_type }}',
- '{{ ip_addresses }}',
- '{{ enabled }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ ip_address_type }}',
+  '{{ ip_addresses }}',
+  '{{ enabled }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "Enabled": enabled,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ accelerator_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ accelerator_arn }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ accelerator_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.accelerators
-WHERE Identifier = '{{ accelerator_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ accelerator_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

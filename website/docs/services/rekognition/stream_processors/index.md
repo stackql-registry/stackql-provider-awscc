@@ -304,25 +304,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stream_processor</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-kms_key_id,
-role_arn,
-kinesis_video_stream,
-face_search_settings,
-connected_home_settings,
-kinesis_data_stream,
-s3_destination,
-notification_channel,
-data_sharing_preference,
-polygon_regions_of_interest,
-bounding_box_regions_of_interest,
-status,
-status_message,
-tags
+  region,
+  arn,
+  name,
+  kms_key_id,
+  role_arn,
+  kinesis_video_stream,
+  face_search_settings,
+  connected_home_settings,
+  kinesis_data_stream,
+  s3_destination,
+  notification_channel,
+  data_sharing_preference,
+  polygon_regions_of_interest,
+  bounding_box_regions_of_interest,
+  status,
+  status_message,
+  tags
 FROM awscc.rekognition.stream_processors
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,10 +332,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>stream_processors</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.rekognition.stream_processors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -355,14 +358,14 @@ Use the following StackQL query and manifest file to create a new <code>stream_p
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.stream_processors (
- RoleArn,
- KinesisVideoStream,
- region
+  RoleArn,
+  KinesisVideoStream,
+  region
 )
 SELECT
-'{{ role_arn }}',
- '{{ kinesis_video_stream }}',
-'{{ region }}';
+  '{{ role_arn }}',
+  '{{ kinesis_video_stream }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -370,36 +373,36 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rekognition.stream_processors (
- Name,
- KmsKeyId,
- RoleArn,
- KinesisVideoStream,
- FaceSearchSettings,
- ConnectedHomeSettings,
- KinesisDataStream,
- S3Destination,
- NotificationChannel,
- DataSharingPreference,
- PolygonRegionsOfInterest,
- BoundingBoxRegionsOfInterest,
- Tags,
- region
+  Name,
+  KmsKeyId,
+  RoleArn,
+  KinesisVideoStream,
+  FaceSearchSettings,
+  ConnectedHomeSettings,
+  KinesisDataStream,
+  S3Destination,
+  NotificationChannel,
+  DataSharingPreference,
+  PolygonRegionsOfInterest,
+  BoundingBoxRegionsOfInterest,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ kms_key_id }}',
- '{{ role_arn }}',
- '{{ kinesis_video_stream }}',
- '{{ face_search_settings }}',
- '{{ connected_home_settings }}',
- '{{ kinesis_data_stream }}',
- '{{ s3_destination }}',
- '{{ notification_channel }}',
- '{{ data_sharing_preference }}',
- '{{ polygon_regions_of_interest }}',
- '{{ bounding_box_regions_of_interest }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ kms_key_id }}',
+  '{{ role_arn }}',
+  '{{ kinesis_video_stream }}',
+  '{{ face_search_settings }}',
+  '{{ connected_home_settings }}',
+  '{{ kinesis_data_stream }}',
+  '{{ s3_destination }}',
+  '{{ notification_channel }}',
+  '{{ data_sharing_preference }}',
+  '{{ polygon_regions_of_interest }}',
+  '{{ bounding_box_regions_of_interest }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -475,8 +478,9 @@ UPDATE awscc.rekognition.stream_processors
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -485,8 +489,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.stream_processors
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

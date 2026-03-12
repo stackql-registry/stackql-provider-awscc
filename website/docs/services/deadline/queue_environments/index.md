@@ -171,16 +171,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>queue_environment</code>.
 ```sql
 SELECT
-region,
-farm_id,
-name,
-priority,
-queue_environment_id,
-queue_id,
-template,
-template_type
+  region,
+  farm_id,
+  name,
+  priority,
+  queue_environment_id,
+  queue_id,
+  template,
+  template_type
 FROM awscc.deadline.queue_environments
-WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,12 +190,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ que
 Lists all <code>queue_environments</code> in a region.
 ```sql
 SELECT
-region,
-farm_id,
-queue_id,
-queue_environment_id
+  region,
+  farm_id,
+  queue_id,
+  queue_environment_id
 FROM awscc.deadline.queue_environments_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,20 +218,20 @@ Use the following StackQL query and manifest file to create a new <code>queue_en
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.queue_environments (
- FarmId,
- Priority,
- QueueId,
- Template,
- TemplateType,
- region
+  FarmId,
+  Priority,
+  QueueId,
+  Template,
+  TemplateType,
+  region
 )
 SELECT
-'{{ farm_id }}',
- '{{ priority }}',
- '{{ queue_id }}',
- '{{ template }}',
- '{{ template_type }}',
-'{{ region }}';
+  '{{ farm_id }}',
+  '{{ priority }}',
+  '{{ queue_id }}',
+  '{{ template }}',
+  '{{ template_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -236,20 +239,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.deadline.queue_environments (
- FarmId,
- Priority,
- QueueId,
- Template,
- TemplateType,
- region
+  FarmId,
+  Priority,
+  QueueId,
+  Template,
+  TemplateType,
+  region
 )
 SELECT
- '{{ farm_id }}',
- '{{ priority }}',
- '{{ queue_id }}',
- '{{ template }}',
- '{{ template_type }}',
- '{{ region }}';
+  '{{ farm_id }}',
+  '{{ priority }}',
+  '{{ queue_id }}',
+  '{{ template }}',
+  '{{ template_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -292,8 +295,9 @@ SET PatchDocument = string('{{ {
     "Template": template,
     "TemplateType": template_type
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```
 
 
@@ -302,8 +306,9 @@ AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_environments
-WHERE Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

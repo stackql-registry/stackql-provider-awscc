@@ -146,13 +146,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>message_template_version</code>.
 ```sql
 SELECT
-region,
-message_template_arn,
-message_template_version_arn,
-message_template_content_sha256,
-message_template_version_number
+  region,
+  message_template_arn,
+  message_template_version_arn,
+  message_template_content_sha256,
+  message_template_version_number
 FROM awscc.wisdom.message_template_versions
-WHERE region = 'us-east-1' AND Identifier = '{{ message_template_version_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ message_template_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -160,10 +162,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ message_template_version_arn }}'
 Lists all <code>message_template_versions</code> in a region.
 ```sql
 SELECT
-region,
-message_template_version_arn
+  region,
+  message_template_version_arn
 FROM awscc.wisdom.message_template_versions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -185,12 +188,12 @@ Use the following StackQL query and manifest file to create a new <code>message_
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.message_template_versions (
- MessageTemplateArn,
- region
+  MessageTemplateArn,
+  region
 )
 SELECT
-'{{ message_template_arn }}',
-'{{ region }}';
+  '{{ message_template_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -198,14 +201,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.wisdom.message_template_versions (
- MessageTemplateArn,
- MessageTemplateContentSha256,
- region
+  MessageTemplateArn,
+  MessageTemplateContentSha256,
+  region
 )
 SELECT
- '{{ message_template_arn }}',
- '{{ message_template_content_sha256 }}',
- '{{ region }}';
+  '{{ message_template_arn }}',
+  '{{ message_template_content_sha256 }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -240,8 +243,9 @@ UPDATE awscc.wisdom.message_template_versions
 SET PatchDocument = string('{{ {
     "MessageTemplateContentSha256": message_template_content_sha256
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ message_template_version_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ message_template_version_arn }}';
 ```
 
 
@@ -250,8 +254,9 @@ AND Identifier = '{{ message_template_version_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.message_template_versions
-WHERE Identifier = '{{ message_template_version_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ message_template_version_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

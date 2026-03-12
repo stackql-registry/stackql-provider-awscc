@@ -214,17 +214,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>custom_plugin</code>.
 ```sql
 SELECT
-region,
-name,
-description,
-custom_plugin_arn,
-content_type,
-file_description,
-location,
-revision,
-tags
+  region,
+  name,
+  description,
+  custom_plugin_arn,
+  content_type,
+  file_description,
+  location,
+  revision,
+  tags
 FROM awscc.kafkaconnect.custom_plugins
-WHERE region = 'us-east-1' AND Identifier = '{{ custom_plugin_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ custom_plugin_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +234,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ custom_plugin_arn }}';
 Lists all <code>custom_plugins</code> in a region.
 ```sql
 SELECT
-region,
-custom_plugin_arn
+  region,
+  custom_plugin_arn
 FROM awscc.kafkaconnect.custom_plugins_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -257,16 +260,16 @@ Use the following StackQL query and manifest file to create a new <code>custom_p
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.custom_plugins (
- Name,
- ContentType,
- Location,
- region
+  Name,
+  ContentType,
+  Location,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ content_type }}',
- '{{ location }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ content_type }}',
+  '{{ location }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -274,20 +277,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kafkaconnect.custom_plugins (
- Name,
- Description,
- ContentType,
- Location,
- Tags,
- region
+  Name,
+  Description,
+  ContentType,
+  Location,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ content_type }}',
- '{{ location }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ content_type }}',
+  '{{ location }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -334,8 +337,9 @@ UPDATE awscc.kafkaconnect.custom_plugins
 SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ custom_plugin_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ custom_plugin_arn }}';
 ```
 
 
@@ -344,8 +348,9 @@ AND Identifier = '{{ custom_plugin_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kafkaconnect.custom_plugins
-WHERE Identifier = '{{ custom_plugin_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ custom_plugin_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

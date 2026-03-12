@@ -258,17 +258,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>hours_of_operation</code>.
 ```sql
 SELECT
-region,
-instance_arn,
-name,
-description,
-time_zone,
-config,
-hours_of_operation_arn,
-tags,
-hours_of_operation_overrides
+  region,
+  instance_arn,
+  name,
+  description,
+  time_zone,
+  config,
+  hours_of_operation_arn,
+  tags,
+  hours_of_operation_overrides
 FROM awscc.connect.hours_of_operations
-WHERE region = 'us-east-1' AND Identifier = '{{ hours_of_operation_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ hours_of_operation_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,10 +278,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ hours_of_operation_arn }}';
 Lists all <code>hours_of_operations</code> in a region.
 ```sql
 SELECT
-region,
-hours_of_operation_arn
+  region,
+  hours_of_operation_arn
 FROM awscc.connect.hours_of_operations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -301,18 +304,18 @@ Use the following StackQL query and manifest file to create a new <code>hours_of
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.hours_of_operations (
- InstanceArn,
- Name,
- TimeZone,
- Config,
- region
+  InstanceArn,
+  Name,
+  TimeZone,
+  Config,
+  region
 )
 SELECT
-'{{ instance_arn }}',
- '{{ name }}',
- '{{ time_zone }}',
- '{{ config }}',
-'{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ time_zone }}',
+  '{{ config }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -320,24 +323,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.connect.hours_of_operations (
- InstanceArn,
- Name,
- Description,
- TimeZone,
- Config,
- Tags,
- HoursOfOperationOverrides,
- region
+  InstanceArn,
+  Name,
+  Description,
+  TimeZone,
+  Config,
+  Tags,
+  HoursOfOperationOverrides,
+  region
 )
 SELECT
- '{{ instance_arn }}',
- '{{ name }}',
- '{{ description }}',
- '{{ time_zone }}',
- '{{ config }}',
- '{{ tags }}',
- '{{ hours_of_operation_overrides }}',
- '{{ region }}';
+  '{{ instance_arn }}',
+  '{{ name }}',
+  '{{ description }}',
+  '{{ time_zone }}',
+  '{{ config }}',
+  '{{ tags }}',
+  '{{ hours_of_operation_overrides }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -406,8 +409,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "HoursOfOperationOverrides": hours_of_operation_overrides
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ hours_of_operation_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ hours_of_operation_arn }}';
 ```
 
 
@@ -416,8 +420,9 @@ AND Identifier = '{{ hours_of_operation_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.hours_of_operations
-WHERE Identifier = '{{ hours_of_operation_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ hours_of_operation_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -217,20 +217,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>agent_alias</code>.
 ```sql
 SELECT
-region,
-agent_alias_arn,
-agent_alias_history_events,
-agent_alias_id,
-agent_alias_name,
-agent_alias_status,
-agent_id,
-created_at,
-description,
-routing_configuration,
-tags,
-updated_at
+  region,
+  agent_alias_arn,
+  agent_alias_history_events,
+  agent_alias_id,
+  agent_alias_name,
+  agent_alias_status,
+  agent_id,
+  created_at,
+  description,
+  routing_configuration,
+  tags,
+  updated_at
 FROM awscc.bedrock.agent_aliases
-WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,11 +240,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}
 Lists all <code>agent_aliases</code> in a region.
 ```sql
 SELECT
-region,
-agent_id,
-agent_alias_id
+  region,
+  agent_id,
+  agent_alias_id
 FROM awscc.bedrock.agent_aliases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -264,14 +267,14 @@ Use the following StackQL query and manifest file to create a new <code>agent_al
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.agent_aliases (
- AgentAliasName,
- AgentId,
- region
+  AgentAliasName,
+  AgentId,
+  region
 )
 SELECT
-'{{ agent_alias_name }}',
- '{{ agent_id }}',
-'{{ region }}';
+  '{{ agent_alias_name }}',
+  '{{ agent_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -279,20 +282,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.bedrock.agent_aliases (
- AgentAliasName,
- AgentId,
- Description,
- RoutingConfiguration,
- Tags,
- region
+  AgentAliasName,
+  AgentId,
+  Description,
+  RoutingConfiguration,
+  Tags,
+  region
 )
 SELECT
- '{{ agent_alias_name }}',
- '{{ agent_id }}',
- '{{ description }}',
- '{{ routing_configuration }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ agent_alias_name }}',
+  '{{ agent_id }}',
+  '{{ description }}',
+  '{{ routing_configuration }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "RoutingConfiguration": routing_configuration,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.agent_aliases
-WHERE Identifier = '{{ agent_id }}|{{ agent_alias_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ agent_id }}|{{ agent_alias_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

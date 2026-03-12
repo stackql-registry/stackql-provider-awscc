@@ -181,20 +181,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>log_anomaly_detector</code>.
 ```sql
 SELECT
-region,
-account_id,
-kms_key_id,
-detector_name,
-log_group_arn_list,
-evaluation_frequency,
-filter_pattern,
-anomaly_detector_status,
-anomaly_visibility_time,
-creation_time_stamp,
-last_modified_time_stamp,
-anomaly_detector_arn
+  region,
+  account_id,
+  kms_key_id,
+  detector_name,
+  log_group_arn_list,
+  evaluation_frequency,
+  filter_pattern,
+  anomaly_detector_status,
+  anomaly_visibility_time,
+  creation_time_stamp,
+  last_modified_time_stamp,
+  anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors
-WHERE region = 'us-east-1' AND Identifier = '{{ anomaly_detector_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ anomaly_detector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +204,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ anomaly_detector_arn }}';
 Lists all <code>log_anomaly_detectors</code> in a region.
 ```sql
 SELECT
-region,
-anomaly_detector_arn
+  region,
+  anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -227,12 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>log_anom
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.log_anomaly_detectors (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -240,24 +243,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.logs.log_anomaly_detectors (
- AccountId,
- KmsKeyId,
- DetectorName,
- LogGroupArnList,
- EvaluationFrequency,
- FilterPattern,
- AnomalyVisibilityTime,
- region
+  AccountId,
+  KmsKeyId,
+  DetectorName,
+  LogGroupArnList,
+  EvaluationFrequency,
+  FilterPattern,
+  AnomalyVisibilityTime,
+  region
 )
 SELECT
- '{{ account_id }}',
- '{{ kms_key_id }}',
- '{{ detector_name }}',
- '{{ log_group_arn_list }}',
- '{{ evaluation_frequency }}',
- '{{ filter_pattern }}',
- '{{ anomaly_visibility_time }}',
- '{{ region }}';
+  '{{ account_id }}',
+  '{{ kms_key_id }}',
+  '{{ detector_name }}',
+  '{{ log_group_arn_list }}',
+  '{{ evaluation_frequency }}',
+  '{{ filter_pattern }}',
+  '{{ anomaly_visibility_time }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -309,8 +312,9 @@ SET PatchDocument = string('{{ {
     "FilterPattern": filter_pattern,
     "AnomalyVisibilityTime": anomaly_visibility_time
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ anomaly_detector_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ anomaly_detector_arn }}';
 ```
 
 
@@ -319,8 +323,9 @@ AND Identifier = '{{ anomaly_detector_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_anomaly_detectors
-WHERE Identifier = '{{ anomaly_detector_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ anomaly_detector_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -173,16 +173,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>channel_group</code>.
 ```sql
 SELECT
-region,
-arn,
-channel_group_name,
-created_at,
-description,
-egress_domain,
-modified_at,
-tags
+  region,
+  arn,
+  channel_group_name,
+  created_at,
+  description,
+  egress_domain,
+  modified_at,
+  tags
 FROM awscc.mediapackagev2.channel_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>channel_groups</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.mediapackagev2.channel_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,12 +218,12 @@ Use the following StackQL query and manifest file to create a new <code>channel_
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.channel_groups (
- ChannelGroupName,
- region
+  ChannelGroupName,
+  region
 )
 SELECT
-'{{ channel_group_name }}',
-'{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -228,16 +231,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediapackagev2.channel_groups (
- ChannelGroupName,
- Description,
- Tags,
- region
+  ChannelGroupName,
+  Description,
+  Tags,
+  region
 )
 SELECT
- '{{ channel_group_name }}',
- '{{ description }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ channel_group_name }}',
+  '{{ description }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -277,8 +280,9 @@ SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -287,8 +291,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.channel_groups
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

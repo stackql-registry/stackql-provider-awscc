@@ -219,23 +219,25 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT
-region,
-api_gateway_proxy,
-arn,
-api_gateway_id,
-vpc_link_id,
-nlb_arn,
-nlb_name,
-application_identifier,
-environment_identifier,
-name,
-proxy_type,
-vpc_id,
-stage_name,
-proxy_url,
-tags
+  region,
+  api_gateway_proxy,
+  arn,
+  api_gateway_id,
+  vpc_link_id,
+  nlb_arn,
+  nlb_name,
+  application_identifier,
+  environment_identifier,
+  name,
+  proxy_type,
+  vpc_id,
+  stage_name,
+  proxy_url,
+  tags
 FROM awscc.refactorspaces.applications
-WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,11 +245,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ app
 Lists all <code>applications</code> in a region.
 ```sql
 SELECT
-region,
-environment_identifier,
-application_identifier
+  region,
+  environment_identifier,
+  application_identifier
 FROM awscc.refactorspaces.applications_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,18 +272,18 @@ Use the following StackQL query and manifest file to create a new <code>applicat
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.applications (
- EnvironmentIdentifier,
- Name,
- ProxyType,
- VpcId,
- region
+  EnvironmentIdentifier,
+  Name,
+  ProxyType,
+  VpcId,
+  region
 )
 SELECT
-'{{ environment_identifier }}',
- '{{ name }}',
- '{{ proxy_type }}',
- '{{ vpc_id }}',
-'{{ region }}';
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ proxy_type }}',
+  '{{ vpc_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -288,22 +291,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.refactorspaces.applications (
- ApiGatewayProxy,
- EnvironmentIdentifier,
- Name,
- ProxyType,
- VpcId,
- Tags,
- region
+  ApiGatewayProxy,
+  EnvironmentIdentifier,
+  Name,
+  ProxyType,
+  VpcId,
+  Tags,
+  region
 )
 SELECT
- '{{ api_gateway_proxy }}',
- '{{ environment_identifier }}',
- '{{ name }}',
- '{{ proxy_type }}',
- '{{ vpc_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ api_gateway_proxy }}',
+  '{{ environment_identifier }}',
+  '{{ name }}',
+  '{{ proxy_type }}',
+  '{{ vpc_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -346,8 +349,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.applications
-WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ environment_identifier }}|{{ application_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

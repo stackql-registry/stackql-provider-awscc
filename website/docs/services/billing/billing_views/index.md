@@ -224,19 +224,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>billing_view</code>.
 ```sql
 SELECT
-region,
-arn,
-billing_view_type,
-data_filter_expression,
-created_at,
-description,
-name,
-owner_account_id,
-tags,
-source_views,
-updated_at
+  region,
+  arn,
+  billing_view_type,
+  data_filter_expression,
+  created_at,
+  description,
+  name,
+  owner_account_id,
+  tags,
+  source_views,
+  updated_at
 FROM awscc.billing.billing_views
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +246,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>billing_views</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.billing.billing_views_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,14 +272,14 @@ Use the following StackQL query and manifest file to create a new <code>billing_
 ```sql
 /*+ create */
 INSERT INTO awscc.billing.billing_views (
- Name,
- SourceViews,
- region
+  Name,
+  SourceViews,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ source_views }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ source_views }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -284,20 +287,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.billing.billing_views (
- DataFilterExpression,
- Description,
- Name,
- Tags,
- SourceViews,
- region
+  DataFilterExpression,
+  Description,
+  Name,
+  Tags,
+  SourceViews,
+  region
 )
 SELECT
- '{{ data_filter_expression }}',
- '{{ description }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ source_views }}',
- '{{ region }}';
+  '{{ data_filter_expression }}',
+  '{{ description }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ source_views }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -350,8 +353,9 @@ SET PatchDocument = string('{{ {
     "DataFilterExpression": data_filter_expression,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -360,8 +364,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billing.billing_views
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

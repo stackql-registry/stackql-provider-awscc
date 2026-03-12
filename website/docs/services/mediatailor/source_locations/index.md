@@ -114,7 +114,7 @@ Creates, updates, deletes or gets a <code>source_location</code> resource or lis
       {
         "name": "base_url",
         "type": "string",
-        "description": "<p>The base URL of the host or path of the segment delivery server that you're using to serve segments. This is typically a content delivery network (CDN). The URL can be absolute or relative. To use an absolute URL include the protocol, such as &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;. To use a relative URL specify the relative path, such as &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+        "description": "<p>The base URL of the host or path of the segment delivery server that you're using to serve segments. This is typically a content delivery network (CDN). The URL can be absolute or relative. To use an absolute URL include the protocol, such as <code>https://example.com/some/path</code>. To use a relative URL specify the relative path, such as <code>/some/path*</code>.</p>"
       },
       {
         "name": "name",
@@ -228,16 +228,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>source_location</code>.
 ```sql
 SELECT
-region,
-access_configuration,
-arn,
-default_segment_delivery_configuration,
-http_configuration,
-segment_delivery_configurations,
-source_location_name,
-tags
+  region,
+  access_configuration,
+  arn,
+  default_segment_delivery_configuration,
+  http_configuration,
+  segment_delivery_configurations,
+  source_location_name,
+  tags
 FROM awscc.mediatailor.source_locations
-WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ source_location_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,10 +247,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}';
 Lists all <code>source_locations</code> in a region.
 ```sql
 SELECT
-region,
-source_location_name
+  region,
+  source_location_name
 FROM awscc.mediatailor.source_locations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -270,14 +273,14 @@ Use the following StackQL query and manifest file to create a new <code>source_l
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.source_locations (
- HttpConfiguration,
- SourceLocationName,
- region
+  HttpConfiguration,
+  SourceLocationName,
+  region
 )
 SELECT
-'{{ http_configuration }}',
- '{{ source_location_name }}',
-'{{ region }}';
+  '{{ http_configuration }}',
+  '{{ source_location_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -285,22 +288,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.mediatailor.source_locations (
- AccessConfiguration,
- DefaultSegmentDeliveryConfiguration,
- HttpConfiguration,
- SegmentDeliveryConfigurations,
- SourceLocationName,
- Tags,
- region
+  AccessConfiguration,
+  DefaultSegmentDeliveryConfiguration,
+  HttpConfiguration,
+  SegmentDeliveryConfigurations,
+  SourceLocationName,
+  Tags,
+  region
 )
 SELECT
- '{{ access_configuration }}',
- '{{ default_segment_delivery_configuration }}',
- '{{ http_configuration }}',
- '{{ segment_delivery_configurations }}',
- '{{ source_location_name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ access_configuration }}',
+  '{{ default_segment_delivery_configuration }}',
+  '{{ http_configuration }}',
+  '{{ segment_delivery_configurations }}',
+  '{{ source_location_name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -358,8 +361,9 @@ SET PatchDocument = string('{{ {
     "SegmentDeliveryConfigurations": segment_delivery_configurations,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ source_location_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ source_location_name }}';
 ```
 
 
@@ -368,8 +372,9 @@ AND Identifier = '{{ source_location_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.source_locations
-WHERE Identifier = '{{ source_location_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ source_location_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

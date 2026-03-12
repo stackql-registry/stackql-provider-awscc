@@ -205,17 +205,19 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>signal_catalog</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-name,
-node_counts,
-nodes,
-tags
+  region,
+  arn,
+  creation_time,
+  description,
+  last_modification_time,
+  name,
+  node_counts,
+  nodes,
+  tags
 FROM awscc.iotfleetwise.signal_catalogs
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,10 +225,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>signal_catalogs</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.iotfleetwise.signal_catalogs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -248,20 +251,20 @@ Use the following StackQL query and manifest file to create a new <code>signal_c
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.signal_catalogs (
- Description,
- Name,
- NodeCounts,
- Nodes,
- Tags,
- region
+  Description,
+  Name,
+  NodeCounts,
+  Nodes,
+  Tags,
+  region
 )
 SELECT
-'{{ description }}',
- '{{ name }}',
- '{{ node_counts }}',
- '{{ nodes }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ node_counts }}',
+  '{{ nodes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -269,20 +272,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iotfleetwise.signal_catalogs (
- Description,
- Name,
- NodeCounts,
- Nodes,
- Tags,
- region
+  Description,
+  Name,
+  NodeCounts,
+  Nodes,
+  Tags,
+  region
 )
 SELECT
- '{{ description }}',
- '{{ name }}',
- '{{ node_counts }}',
- '{{ nodes }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ description }}',
+  '{{ name }}',
+  '{{ node_counts }}',
+  '{{ nodes }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -333,8 +336,9 @@ SET PatchDocument = string('{{ {
     "Nodes": nodes,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -343,8 +347,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.signal_catalogs
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

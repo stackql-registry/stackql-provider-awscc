@@ -612,29 +612,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>job</code>.
 ```sql
 SELECT
-region,
-dataset_name,
-encryption_key_arn,
-encryption_mode,
-name,
-type,
-log_subscription,
-max_capacity,
-max_retries,
-outputs,
-data_catalog_outputs,
-database_outputs,
-output_location,
-project_name,
-recipe,
-role_arn,
-tags,
-timeout,
-job_sample,
-profile_configuration,
-validation_configurations
+  region,
+  dataset_name,
+  encryption_key_arn,
+  encryption_mode,
+  name,
+  type,
+  log_subscription,
+  max_capacity,
+  max_retries,
+  outputs,
+  data_catalog_outputs,
+  database_outputs,
+  output_location,
+  project_name,
+  recipe,
+  role_arn,
+  tags,
+  timeout,
+  job_sample,
+  profile_configuration,
+  validation_configurations
 FROM awscc.databrew.jobs
-WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -642,10 +644,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 Lists all <code>jobs</code> in a region.
 ```sql
 SELECT
-region,
-name
+  region,
+  name
 FROM awscc.databrew.jobs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -667,16 +670,16 @@ Use the following StackQL query and manifest file to create a new <code>job</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.jobs (
- Name,
- Type,
- RoleArn,
- region
+  Name,
+  Type,
+  RoleArn,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ type }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ type }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -684,50 +687,50 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.databrew.jobs (
- DatasetName,
- EncryptionKeyArn,
- EncryptionMode,
- Name,
- Type,
- LogSubscription,
- MaxCapacity,
- MaxRetries,
- Outputs,
- DataCatalogOutputs,
- DatabaseOutputs,
- OutputLocation,
- ProjectName,
- Recipe,
- RoleArn,
- Tags,
- Timeout,
- JobSample,
- ProfileConfiguration,
- ValidationConfigurations,
- region
+  DatasetName,
+  EncryptionKeyArn,
+  EncryptionMode,
+  Name,
+  Type,
+  LogSubscription,
+  MaxCapacity,
+  MaxRetries,
+  Outputs,
+  DataCatalogOutputs,
+  DatabaseOutputs,
+  OutputLocation,
+  ProjectName,
+  Recipe,
+  RoleArn,
+  Tags,
+  Timeout,
+  JobSample,
+  ProfileConfiguration,
+  ValidationConfigurations,
+  region
 )
 SELECT
- '{{ dataset_name }}',
- '{{ encryption_key_arn }}',
- '{{ encryption_mode }}',
- '{{ name }}',
- '{{ type }}',
- '{{ log_subscription }}',
- '{{ max_capacity }}',
- '{{ max_retries }}',
- '{{ outputs }}',
- '{{ data_catalog_outputs }}',
- '{{ database_outputs }}',
- '{{ output_location }}',
- '{{ project_name }}',
- '{{ recipe }}',
- '{{ role_arn }}',
- '{{ tags }}',
- '{{ timeout }}',
- '{{ job_sample }}',
- '{{ profile_configuration }}',
- '{{ validation_configurations }}',
- '{{ region }}';
+  '{{ dataset_name }}',
+  '{{ encryption_key_arn }}',
+  '{{ encryption_mode }}',
+  '{{ name }}',
+  '{{ type }}',
+  '{{ log_subscription }}',
+  '{{ max_capacity }}',
+  '{{ max_retries }}',
+  '{{ outputs }}',
+  '{{ data_catalog_outputs }}',
+  '{{ database_outputs }}',
+  '{{ output_location }}',
+  '{{ project_name }}',
+  '{{ recipe }}',
+  '{{ role_arn }}',
+  '{{ tags }}',
+  '{{ timeout }}',
+  '{{ job_sample }}',
+  '{{ profile_configuration }}',
+  '{{ validation_configurations }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -879,8 +882,9 @@ SET PatchDocument = string('{{ {
     "ProfileConfiguration": profile_configuration,
     "ValidationConfigurations": validation_configurations
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ name }}';
 ```
 
 
@@ -889,8 +893,9 @@ AND Identifier = '{{ name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.jobs
-WHERE Identifier = '{{ name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

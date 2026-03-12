@@ -151,13 +151,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>target_account_configuration</code>.
 ```sql
 SELECT
-region,
-experiment_template_id,
-account_id,
-role_arn,
-description
+  region,
+  experiment_template_id,
+  account_id,
+  role_arn,
+  description
 FROM awscc.fis.target_account_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ experiment_template_id }}|{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -165,11 +167,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ experiment_template_id }}|{{ acc
 Lists all <code>target_account_configurations</code> in a region.
 ```sql
 SELECT
-region,
-experiment_template_id,
-account_id
+  region,
+  experiment_template_id,
+  account_id
 FROM awscc.fis.target_account_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -191,16 +194,16 @@ Use the following StackQL query and manifest file to create a new <code>target_a
 ```sql
 /*+ create */
 INSERT INTO awscc.fis.target_account_configurations (
- ExperimentTemplateId,
- AccountId,
- RoleArn,
- region
+  ExperimentTemplateId,
+  AccountId,
+  RoleArn,
+  region
 )
 SELECT
-'{{ experiment_template_id }}',
- '{{ account_id }}',
- '{{ role_arn }}',
-'{{ region }}';
+  '{{ experiment_template_id }}',
+  '{{ account_id }}',
+  '{{ role_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -208,18 +211,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.fis.target_account_configurations (
- ExperimentTemplateId,
- AccountId,
- RoleArn,
- Description,
- region
+  ExperimentTemplateId,
+  AccountId,
+  RoleArn,
+  Description,
+  region
 )
 SELECT
- '{{ experiment_template_id }}',
- '{{ account_id }}',
- '{{ role_arn }}',
- '{{ description }}',
- '{{ region }}';
+  '{{ experiment_template_id }}',
+  '{{ account_id }}',
+  '{{ role_arn }}',
+  '{{ description }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -259,8 +262,9 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Description": description
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ experiment_template_id }}|{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```
 
 
@@ -269,8 +273,9 @@ AND Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fis.target_account_configurations
-WHERE Identifier = '{{ experiment_template_id }}|{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ experiment_template_id }}|{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

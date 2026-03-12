@@ -165,14 +165,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>resource_association</code>.
 ```sql
 SELECT
-region,
-application,
-resource,
-resource_type,
-application_arn,
-resource_arn
+  region,
+  application,
+  resource,
+  resource_type,
+  application_arn,
+  resource_arn
 FROM awscc.servicecatalogappregistry.resource_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -180,12 +182,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ resource_a
 Lists all <code>resource_associations</code> in a region.
 ```sql
 SELECT
-region,
-application_arn,
-resource_arn,
-resource_type
+  region,
+  application_arn,
+  resource_arn,
+  resource_type
 FROM awscc.servicecatalogappregistry.resource_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -207,16 +210,16 @@ Use the following StackQL query and manifest file to create a new <code>resource
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.resource_associations (
- Application,
- Resource,
- ResourceType,
- region
+  Application,
+  Resource,
+  ResourceType,
+  region
 )
 SELECT
-'{{ application }}',
- '{{ resource }}',
- '{{ resource_type }}',
-'{{ region }}';
+  '{{ application }}',
+  '{{ resource }}',
+  '{{ resource_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,16 +227,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.servicecatalogappregistry.resource_associations (
- Application,
- Resource,
- ResourceType,
- region
+  Application,
+  Resource,
+  ResourceType,
+  region
 )
 SELECT
- '{{ application }}',
- '{{ resource }}',
- '{{ resource_type }}',
- '{{ region }}';
+  '{{ application }}',
+  '{{ resource }}',
+  '{{ resource_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -266,8 +269,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.resource_associations
-WHERE Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

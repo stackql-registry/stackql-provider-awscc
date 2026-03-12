@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>domain_name_api_association</code>.
 ```sql
 SELECT
-region,
-domain_name,
-api_id,
-api_association_identifier
+  region,
+  domain_name,
+  api_id,
+  api_association_identifier
 FROM awscc.appsync.domain_name_api_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ api_association_identifier }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ api_association_identifier }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>domain_n
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.domain_name_api_associations (
- DomainName,
- ApiId,
- region
+  DomainName,
+  ApiId,
+  region
 )
 SELECT
-'{{ domain_name }}',
- '{{ api_id }}',
-'{{ region }}';
+  '{{ domain_name }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,14 +137,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.appsync.domain_name_api_associations (
- DomainName,
- ApiId,
- region
+  DomainName,
+  ApiId,
+  region
 )
 SELECT
- '{{ domain_name }}',
- '{{ api_id }}',
- '{{ region }}';
+  '{{ domain_name }}',
+  '{{ api_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -177,8 +179,9 @@ UPDATE awscc.appsync.domain_name_api_associations
 SET PatchDocument = string('{{ {
     "ApiId": api_id
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ api_association_identifier }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ api_association_identifier }}';
 ```
 
 
@@ -187,8 +190,9 @@ AND Identifier = '{{ api_association_identifier }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.domain_name_api_associations
-WHERE Identifier = '{{ api_association_identifier }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ api_association_identifier }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

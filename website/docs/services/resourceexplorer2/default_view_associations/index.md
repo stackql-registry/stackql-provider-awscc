@@ -90,11 +90,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>default_view_association</code>.
 ```sql
 SELECT
-region,
-view_arn,
-associated_aws_principal
+  region,
+  view_arn,
+  associated_aws_principal
 FROM awscc.resourceexplorer2.default_view_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ associated_aws_principal }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ associated_aws_principal }}';
 ```
 
 ## `INSERT` example
@@ -114,12 +116,12 @@ Use the following StackQL query and manifest file to create a new <code>default_
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.default_view_associations (
- ViewArn,
- region
+  ViewArn,
+  region
 )
 SELECT
-'{{ view_arn }}',
-'{{ region }}';
+  '{{ view_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -127,12 +129,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.resourceexplorer2.default_view_associations (
- ViewArn,
- region
+  ViewArn,
+  region
 )
 SELECT
- '{{ view_arn }}',
- '{{ region }}';
+  '{{ view_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -165,8 +167,9 @@ UPDATE awscc.resourceexplorer2.default_view_associations
 SET PatchDocument = string('{{ {
     "ViewArn": view_arn
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ associated_aws_principal }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ associated_aws_principal }}';
 ```
 
 
@@ -175,8 +178,9 @@ AND Identifier = '{{ associated_aws_principal }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.default_view_associations
-WHERE Identifier = '{{ associated_aws_principal }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ associated_aws_principal }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

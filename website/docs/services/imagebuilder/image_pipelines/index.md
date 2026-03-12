@@ -283,24 +283,26 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>image_pipeline</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-description,
-image_tests_configuration,
-status,
-schedule,
-image_recipe_arn,
-container_recipe_arn,
-distribution_configuration_arn,
-infrastructure_configuration_arn,
-workflows,
-enhanced_image_metadata_enabled,
-image_scanning_configuration,
-execution_role,
-tags
+  region,
+  arn,
+  name,
+  description,
+  image_tests_configuration,
+  status,
+  schedule,
+  image_recipe_arn,
+  container_recipe_arn,
+  distribution_configuration_arn,
+  infrastructure_configuration_arn,
+  workflows,
+  enhanced_image_metadata_enabled,
+  image_scanning_configuration,
+  execution_role,
+  tags
 FROM awscc.imagebuilder.image_pipelines
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,10 +310,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>image_pipelines</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.imagebuilder.image_pipelines_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -333,38 +336,38 @@ Use the following StackQL query and manifest file to create a new <code>image_pi
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.image_pipelines (
- Name,
- Description,
- ImageTestsConfiguration,
- Status,
- Schedule,
- ImageRecipeArn,
- ContainerRecipeArn,
- DistributionConfigurationArn,
- InfrastructureConfigurationArn,
- Workflows,
- EnhancedImageMetadataEnabled,
- ImageScanningConfiguration,
- ExecutionRole,
- Tags,
- region
+  Name,
+  Description,
+  ImageTestsConfiguration,
+  Status,
+  Schedule,
+  ImageRecipeArn,
+  ContainerRecipeArn,
+  DistributionConfigurationArn,
+  InfrastructureConfigurationArn,
+  Workflows,
+  EnhancedImageMetadataEnabled,
+  ImageScanningConfiguration,
+  ExecutionRole,
+  Tags,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ description }}',
- '{{ image_tests_configuration }}',
- '{{ status }}',
- '{{ schedule }}',
- '{{ image_recipe_arn }}',
- '{{ container_recipe_arn }}',
- '{{ distribution_configuration_arn }}',
- '{{ infrastructure_configuration_arn }}',
- '{{ workflows }}',
- '{{ enhanced_image_metadata_enabled }}',
- '{{ image_scanning_configuration }}',
- '{{ execution_role }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ image_tests_configuration }}',
+  '{{ status }}',
+  '{{ schedule }}',
+  '{{ image_recipe_arn }}',
+  '{{ container_recipe_arn }}',
+  '{{ distribution_configuration_arn }}',
+  '{{ infrastructure_configuration_arn }}',
+  '{{ workflows }}',
+  '{{ enhanced_image_metadata_enabled }}',
+  '{{ image_scanning_configuration }}',
+  '{{ execution_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -372,38 +375,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.imagebuilder.image_pipelines (
- Name,
- Description,
- ImageTestsConfiguration,
- Status,
- Schedule,
- ImageRecipeArn,
- ContainerRecipeArn,
- DistributionConfigurationArn,
- InfrastructureConfigurationArn,
- Workflows,
- EnhancedImageMetadataEnabled,
- ImageScanningConfiguration,
- ExecutionRole,
- Tags,
- region
+  Name,
+  Description,
+  ImageTestsConfiguration,
+  Status,
+  Schedule,
+  ImageRecipeArn,
+  ContainerRecipeArn,
+  DistributionConfigurationArn,
+  InfrastructureConfigurationArn,
+  Workflows,
+  EnhancedImageMetadataEnabled,
+  ImageScanningConfiguration,
+  ExecutionRole,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ description }}',
- '{{ image_tests_configuration }}',
- '{{ status }}',
- '{{ schedule }}',
- '{{ image_recipe_arn }}',
- '{{ container_recipe_arn }}',
- '{{ distribution_configuration_arn }}',
- '{{ infrastructure_configuration_arn }}',
- '{{ workflows }}',
- '{{ enhanced_image_metadata_enabled }}',
- '{{ image_scanning_configuration }}',
- '{{ execution_role }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ description }}',
+  '{{ image_tests_configuration }}',
+  '{{ status }}',
+  '{{ schedule }}',
+  '{{ image_recipe_arn }}',
+  '{{ container_recipe_arn }}',
+  '{{ distribution_configuration_arn }}',
+  '{{ infrastructure_configuration_arn }}',
+  '{{ workflows }}',
+  '{{ enhanced_image_metadata_enabled }}',
+  '{{ image_scanning_configuration }}',
+  '{{ execution_role }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -490,8 +493,9 @@ SET PatchDocument = string('{{ {
     "ExecutionRole": execution_role,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -500,8 +504,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.image_pipelines
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

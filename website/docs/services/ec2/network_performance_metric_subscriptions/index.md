@@ -155,13 +155,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>network_performance_metric_subscription</code>.
 ```sql
 SELECT
-region,
-source,
-destination,
-metric,
-statistic
+  region,
+  source,
+  destination,
+  metric,
+  statistic
 FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -169,13 +171,14 @@ WHERE region = 'us-east-1' AND Identifier = '{{ source }}|{{ destination }}|{{ m
 Lists all <code>network_performance_metric_subscriptions</code> in a region.
 ```sql
 SELECT
-region,
-source,
-destination,
-metric,
-statistic
+  region,
+  source,
+  destination,
+  metric,
+  statistic
 FROM awscc.ec2.network_performance_metric_subscriptions_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,18 +200,18 @@ Use the following StackQL query and manifest file to create a new <code>network_
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_performance_metric_subscriptions (
- Source,
- Destination,
- Metric,
- Statistic,
- region
+  Source,
+  Destination,
+  Metric,
+  Statistic,
+  region
 )
 SELECT
-'{{ source }}',
- '{{ destination }}',
- '{{ metric }}',
- '{{ statistic }}',
-'{{ region }}';
+  '{{ source }}',
+  '{{ destination }}',
+  '{{ metric }}',
+  '{{ statistic }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -216,18 +219,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.network_performance_metric_subscriptions (
- Source,
- Destination,
- Metric,
- Statistic,
- region
+  Source,
+  Destination,
+  Metric,
+  Statistic,
+  region
 )
 SELECT
- '{{ source }}',
- '{{ destination }}',
- '{{ metric }}',
- '{{ statistic }}',
- '{{ region }}';
+  '{{ source }}',
+  '{{ destination }}',
+  '{{ metric }}',
+  '{{ statistic }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

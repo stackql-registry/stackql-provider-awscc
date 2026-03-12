@@ -168,15 +168,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>crl</code>.
 ```sql
 SELECT
-region,
-crl_data,
-crl_id,
-enabled,
-name,
-trust_anchor_arn,
-tags
+  region,
+  crl_data,
+  crl_id,
+  enabled,
+  name,
+  trust_anchor_arn,
+  tags
 FROM awscc.rolesanywhere.crls
-WHERE region = 'us-east-1' AND Identifier = '{{ crl_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ crl_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +186,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ crl_id }}';
 Lists all <code>crls</code> in a region.
 ```sql
 SELECT
-region,
-crl_id
+  region,
+  crl_id
 FROM awscc.rolesanywhere.crls_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,14 +212,14 @@ Use the following StackQL query and manifest file to create a new <code>crl</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.crls (
- CrlData,
- Name,
- region
+  CrlData,
+  Name,
+  region
 )
 SELECT
-'{{ crl_data }}',
- '{{ name }}',
-'{{ region }}';
+  '{{ crl_data }}',
+  '{{ name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -224,20 +227,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.rolesanywhere.crls (
- CrlData,
- Enabled,
- Name,
- TrustAnchorArn,
- Tags,
- region
+  CrlData,
+  Enabled,
+  Name,
+  TrustAnchorArn,
+  Tags,
+  region
 )
 SELECT
- '{{ crl_data }}',
- '{{ enabled }}',
- '{{ name }}',
- '{{ trust_anchor_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ crl_data }}',
+  '{{ enabled }}',
+  '{{ name }}',
+  '{{ trust_anchor_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -284,8 +287,9 @@ SET PatchDocument = string('{{ {
     "TrustAnchorArn": trust_anchor_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ crl_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ crl_id }}';
 ```
 
 
@@ -294,8 +298,9 @@ AND Identifier = '{{ crl_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.crls
-WHERE Identifier = '{{ crl_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ crl_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

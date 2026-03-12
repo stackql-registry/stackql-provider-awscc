@@ -305,22 +305,24 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT
-region,
-name,
-base_capacity,
-environment_type,
-compute_type,
-overflow_behavior,
-fleet_service_role,
-fleet_vpc_config,
-fleet_proxy_configuration,
-tags,
-arn,
-image_id,
-scaling_configuration,
-compute_configuration
+  region,
+  name,
+  base_capacity,
+  environment_type,
+  compute_type,
+  overflow_behavior,
+  fleet_service_role,
+  fleet_vpc_config,
+  fleet_proxy_configuration,
+  tags,
+  arn,
+  image_id,
+  scaling_configuration,
+  compute_configuration
 FROM awscc.codebuild.fleets
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,10 +330,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>fleets</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.codebuild.fleets_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -353,34 +356,34 @@ Use the following StackQL query and manifest file to create a new <code>fleet</c
 ```sql
 /*+ create */
 INSERT INTO awscc.codebuild.fleets (
- Name,
- BaseCapacity,
- EnvironmentType,
- ComputeType,
- OverflowBehavior,
- FleetServiceRole,
- FleetVpcConfig,
- FleetProxyConfiguration,
- Tags,
- ImageId,
- ScalingConfiguration,
- ComputeConfiguration,
- region
+  Name,
+  BaseCapacity,
+  EnvironmentType,
+  ComputeType,
+  OverflowBehavior,
+  FleetServiceRole,
+  FleetVpcConfig,
+  FleetProxyConfiguration,
+  Tags,
+  ImageId,
+  ScalingConfiguration,
+  ComputeConfiguration,
+  region
 )
 SELECT
-'{{ name }}',
- '{{ base_capacity }}',
- '{{ environment_type }}',
- '{{ compute_type }}',
- '{{ overflow_behavior }}',
- '{{ fleet_service_role }}',
- '{{ fleet_vpc_config }}',
- '{{ fleet_proxy_configuration }}',
- '{{ tags }}',
- '{{ image_id }}',
- '{{ scaling_configuration }}',
- '{{ compute_configuration }}',
-'{{ region }}';
+  '{{ name }}',
+  '{{ base_capacity }}',
+  '{{ environment_type }}',
+  '{{ compute_type }}',
+  '{{ overflow_behavior }}',
+  '{{ fleet_service_role }}',
+  '{{ fleet_vpc_config }}',
+  '{{ fleet_proxy_configuration }}',
+  '{{ tags }}',
+  '{{ image_id }}',
+  '{{ scaling_configuration }}',
+  '{{ compute_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -388,34 +391,34 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.codebuild.fleets (
- Name,
- BaseCapacity,
- EnvironmentType,
- ComputeType,
- OverflowBehavior,
- FleetServiceRole,
- FleetVpcConfig,
- FleetProxyConfiguration,
- Tags,
- ImageId,
- ScalingConfiguration,
- ComputeConfiguration,
- region
+  Name,
+  BaseCapacity,
+  EnvironmentType,
+  ComputeType,
+  OverflowBehavior,
+  FleetServiceRole,
+  FleetVpcConfig,
+  FleetProxyConfiguration,
+  Tags,
+  ImageId,
+  ScalingConfiguration,
+  ComputeConfiguration,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ base_capacity }}',
- '{{ environment_type }}',
- '{{ compute_type }}',
- '{{ overflow_behavior }}',
- '{{ fleet_service_role }}',
- '{{ fleet_vpc_config }}',
- '{{ fleet_proxy_configuration }}',
- '{{ tags }}',
- '{{ image_id }}',
- '{{ scaling_configuration }}',
- '{{ compute_configuration }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ base_capacity }}',
+  '{{ environment_type }}',
+  '{{ compute_type }}',
+  '{{ overflow_behavior }}',
+  '{{ fleet_service_role }}',
+  '{{ fleet_vpc_config }}',
+  '{{ fleet_proxy_configuration }}',
+  '{{ tags }}',
+  '{{ image_id }}',
+  '{{ scaling_configuration }}',
+  '{{ compute_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -504,8 +507,9 @@ SET PatchDocument = string('{{ {
     "ScalingConfiguration": scaling_configuration,
     "ComputeConfiguration": compute_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -514,8 +518,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codebuild.fleets
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

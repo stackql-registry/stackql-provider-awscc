@@ -227,19 +227,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_migration</code>.
 ```sql
 SELECT
-region,
-data_migration_name,
-data_migration_arn,
-data_migration_identifier,
-data_migration_create_time,
-service_access_role_arn,
-migration_project_identifier,
-data_migration_type,
-data_migration_settings,
-source_data_settings,
-tags
+  region,
+  data_migration_name,
+  data_migration_arn,
+  data_migration_identifier,
+  data_migration_create_time,
+  service_access_role_arn,
+  migration_project_identifier,
+  data_migration_type,
+  data_migration_settings,
+  source_data_settings,
+  tags
 FROM awscc.dms.data_migrations
-WHERE region = 'us-east-1' AND Identifier = '{{ data_migration_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ data_migration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,10 +249,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ data_migration_arn }}';
 Lists all <code>data_migrations</code> in a region.
 ```sql
 SELECT
-region,
-data_migration_arn
+  region,
+  data_migration_arn
 FROM awscc.dms.data_migrations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -272,16 +275,16 @@ Use the following StackQL query and manifest file to create a new <code>data_mig
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.data_migrations (
- ServiceAccessRoleArn,
- MigrationProjectIdentifier,
- DataMigrationType,
- region
+  ServiceAccessRoleArn,
+  MigrationProjectIdentifier,
+  DataMigrationType,
+  region
 )
 SELECT
-'{{ service_access_role_arn }}',
- '{{ migration_project_identifier }}',
- '{{ data_migration_type }}',
-'{{ region }}';
+  '{{ service_access_role_arn }}',
+  '{{ migration_project_identifier }}',
+  '{{ data_migration_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -289,26 +292,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.dms.data_migrations (
- DataMigrationName,
- DataMigrationIdentifier,
- ServiceAccessRoleArn,
- MigrationProjectIdentifier,
- DataMigrationType,
- DataMigrationSettings,
- SourceDataSettings,
- Tags,
- region
+  DataMigrationName,
+  DataMigrationIdentifier,
+  ServiceAccessRoleArn,
+  MigrationProjectIdentifier,
+  DataMigrationType,
+  DataMigrationSettings,
+  SourceDataSettings,
+  Tags,
+  region
 )
 SELECT
- '{{ data_migration_name }}',
- '{{ data_migration_identifier }}',
- '{{ service_access_role_arn }}',
- '{{ migration_project_identifier }}',
- '{{ data_migration_type }}',
- '{{ data_migration_settings }}',
- '{{ source_data_settings }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ data_migration_name }}',
+  '{{ data_migration_identifier }}',
+  '{{ service_access_role_arn }}',
+  '{{ migration_project_identifier }}',
+  '{{ data_migration_type }}',
+  '{{ data_migration_settings }}',
+  '{{ source_data_settings }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -371,8 +374,9 @@ SET PatchDocument = string('{{ {
     "SourceDataSettings": source_data_settings,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ data_migration_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ data_migration_arn }}';
 ```
 
 
@@ -381,8 +385,9 @@ AND Identifier = '{{ data_migration_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.data_migrations
-WHERE Identifier = '{{ data_migration_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ data_migration_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

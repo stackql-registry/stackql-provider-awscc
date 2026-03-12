@@ -162,15 +162,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>stream_consumer</code>.
 ```sql
 SELECT
-region,
-consumer_creation_timestamp,
-consumer_name,
-consumer_arn,
-consumer_status,
-stream_arn,
-tags
+  region,
+  consumer_creation_timestamp,
+  consumer_name,
+  consumer_arn,
+  consumer_status,
+  stream_arn,
+  tags
 FROM awscc.kinesis.stream_consumers
-WHERE region = 'us-east-1' AND Identifier = '{{ consumer_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ consumer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,10 +180,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ consumer_arn }}';
 Lists all <code>stream_consumers</code> in a region.
 ```sql
 SELECT
-region,
-consumer_arn
+  region,
+  consumer_arn
 FROM awscc.kinesis.stream_consumers_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,14 +206,14 @@ Use the following StackQL query and manifest file to create a new <code>stream_c
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.stream_consumers (
- ConsumerName,
- StreamARN,
- region
+  ConsumerName,
+  StreamARN,
+  region
 )
 SELECT
-'{{ consumer_name }}',
- '{{ stream_arn }}',
-'{{ region }}';
+  '{{ consumer_name }}',
+  '{{ stream_arn }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -218,16 +221,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.kinesis.stream_consumers (
- ConsumerName,
- StreamARN,
- Tags,
- region
+  ConsumerName,
+  StreamARN,
+  Tags,
+  region
 )
 SELECT
- '{{ consumer_name }}',
- '{{ stream_arn }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ consumer_name }}',
+  '{{ stream_arn }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -262,8 +265,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.stream_consumers
-WHERE Identifier = '{{ consumer_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ consumer_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

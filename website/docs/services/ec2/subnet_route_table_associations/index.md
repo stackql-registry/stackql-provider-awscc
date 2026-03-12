@@ -135,12 +135,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>subnet_route_table_association</code>.
 ```sql
 SELECT
-region,
-route_table_id,
-id,
-subnet_id
+  region,
+  route_table_id,
+  id,
+  subnet_id
 FROM awscc.ec2.subnet_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>subnet_route_table_associations</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ec2.subnet_route_table_associations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,14 +176,14 @@ Use the following StackQL query and manifest file to create a new <code>subnet_r
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_route_table_associations (
- RouteTableId,
- SubnetId,
- region
+  RouteTableId,
+  SubnetId,
+  region
 )
 SELECT
-'{{ route_table_id }}',
- '{{ subnet_id }}',
-'{{ region }}';
+  '{{ route_table_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -188,14 +191,14 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.subnet_route_table_associations (
- RouteTableId,
- SubnetId,
- region
+  RouteTableId,
+  SubnetId,
+  region
 )
 SELECT
- '{{ route_table_id }}',
- '{{ subnet_id }}',
- '{{ region }}';
+  '{{ route_table_id }}',
+  '{{ subnet_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -226,8 +229,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_route_table_associations
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

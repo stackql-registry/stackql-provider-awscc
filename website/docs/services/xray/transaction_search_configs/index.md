@@ -136,11 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>transaction_search_config</code>.
 ```sql
 SELECT
-region,
-account_id,
-indexing_percentage
+  region,
+  account_id,
+  indexing_percentage
 FROM awscc.xray.transaction_search_configs
-WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -148,10 +150,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 Lists all <code>transaction_search_configs</code> in a region.
 ```sql
 SELECT
-region,
-account_id
+  region,
+  account_id
 FROM awscc.xray.transaction_search_configs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -173,12 +176,12 @@ Use the following StackQL query and manifest file to create a new <code>transact
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.transaction_search_configs (
- IndexingPercentage,
- region
+  IndexingPercentage,
+  region
 )
 SELECT
-'{{ indexing_percentage }}',
-'{{ region }}';
+  '{{ indexing_percentage }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -186,12 +189,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.xray.transaction_search_configs (
- IndexingPercentage,
- region
+  IndexingPercentage,
+  region
 )
 SELECT
- '{{ indexing_percentage }}',
- '{{ region }}';
+  '{{ indexing_percentage }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -224,8 +227,9 @@ UPDATE awscc.xray.transaction_search_configs
 SET PatchDocument = string('{{ {
     "IndexingPercentage": indexing_percentage
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ account_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ account_id }}';
 ```
 
 
@@ -234,8 +238,9 @@ AND Identifier = '{{ account_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.transaction_search_configs
-WHERE Identifier = '{{ account_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ account_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

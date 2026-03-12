@@ -171,18 +171,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>run_group</code>.
 ```sql
 SELECT
-region,
-arn,
-creation_time,
-id,
-max_cpus,
-max_gpus,
-max_duration,
-max_runs,
-name,
-tags
+  region,
+  arn,
+  creation_time,
+  id,
+  max_cpus,
+  max_gpus,
+  max_duration,
+  max_runs,
+  name,
+  tags
 FROM awscc.omics.run_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +192,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>run_groups</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.omics.run_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -215,22 +218,22 @@ Use the following StackQL query and manifest file to create a new <code>run_grou
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.run_groups (
- MaxCpus,
- MaxGpus,
- MaxDuration,
- MaxRuns,
- Name,
- Tags,
- region
+  MaxCpus,
+  MaxGpus,
+  MaxDuration,
+  MaxRuns,
+  Name,
+  Tags,
+  region
 )
 SELECT
-'{{ max_cpus }}',
- '{{ max_gpus }}',
- '{{ max_duration }}',
- '{{ max_runs }}',
- '{{ name }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ max_cpus }}',
+  '{{ max_gpus }}',
+  '{{ max_duration }}',
+  '{{ max_runs }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -238,22 +241,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.omics.run_groups (
- MaxCpus,
- MaxGpus,
- MaxDuration,
- MaxRuns,
- Name,
- Tags,
- region
+  MaxCpus,
+  MaxGpus,
+  MaxDuration,
+  MaxRuns,
+  Name,
+  Tags,
+  region
 )
 SELECT
- '{{ max_cpus }}',
- '{{ max_gpus }}',
- '{{ max_duration }}',
- '{{ max_runs }}',
- '{{ name }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ max_cpus }}',
+  '{{ max_gpus }}',
+  '{{ max_duration }}',
+  '{{ max_runs }}',
+  '{{ name }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -301,8 +304,9 @@ SET PatchDocument = string('{{ {
     "Name": name,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ id }}';
 ```
 
 
@@ -311,8 +315,9 @@ AND Identifier = '{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.run_groups
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

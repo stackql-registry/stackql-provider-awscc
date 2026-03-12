@@ -218,25 +218,27 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT
-region,
-cluster_name,
-cluster_arn,
-cluster_endpoint,
-admin_user_name,
-admin_user_password,
-shard_capacity,
-shard_count,
-vpc_security_group_ids,
-subnet_ids,
-preferred_maintenance_window,
-preferred_backup_window,
-backup_retention_period,
-shard_instance_count,
-kms_key_id,
-tags,
-auth_type
+  region,
+  cluster_name,
+  cluster_arn,
+  cluster_endpoint,
+  admin_user_name,
+  admin_user_password,
+  shard_capacity,
+  shard_count,
+  vpc_security_group_ids,
+  subnet_ids,
+  preferred_maintenance_window,
+  preferred_backup_window,
+  backup_retention_period,
+  shard_instance_count,
+  kms_key_id,
+  tags,
+  auth_type
 FROM awscc.docdbelastic.clusters
-WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +246,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 Lists all <code>clusters</code> in a region.
 ```sql
 SELECT
-region,
-cluster_arn
+  region,
+  cluster_arn
 FROM awscc.docdbelastic.clusters_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -269,20 +272,20 @@ Use the following StackQL query and manifest file to create a new <code>cluster<
 ```sql
 /*+ create */
 INSERT INTO awscc.docdbelastic.clusters (
- ClusterName,
- AdminUserName,
- ShardCapacity,
- ShardCount,
- AuthType,
- region
+  ClusterName,
+  AdminUserName,
+  ShardCapacity,
+  ShardCount,
+  AuthType,
+  region
 )
 SELECT
-'{{ cluster_name }}',
- '{{ admin_user_name }}',
- '{{ shard_capacity }}',
- '{{ shard_count }}',
- '{{ auth_type }}',
-'{{ region }}';
+  '{{ cluster_name }}',
+  '{{ admin_user_name }}',
+  '{{ shard_capacity }}',
+  '{{ shard_count }}',
+  '{{ auth_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -290,38 +293,38 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.docdbelastic.clusters (
- ClusterName,
- AdminUserName,
- AdminUserPassword,
- ShardCapacity,
- ShardCount,
- VpcSecurityGroupIds,
- SubnetIds,
- PreferredMaintenanceWindow,
- PreferredBackupWindow,
- BackupRetentionPeriod,
- ShardInstanceCount,
- KmsKeyId,
- Tags,
- AuthType,
- region
+  ClusterName,
+  AdminUserName,
+  AdminUserPassword,
+  ShardCapacity,
+  ShardCount,
+  VpcSecurityGroupIds,
+  SubnetIds,
+  PreferredMaintenanceWindow,
+  PreferredBackupWindow,
+  BackupRetentionPeriod,
+  ShardInstanceCount,
+  KmsKeyId,
+  Tags,
+  AuthType,
+  region
 )
 SELECT
- '{{ cluster_name }}',
- '{{ admin_user_name }}',
- '{{ admin_user_password }}',
- '{{ shard_capacity }}',
- '{{ shard_count }}',
- '{{ vpc_security_group_ids }}',
- '{{ subnet_ids }}',
- '{{ preferred_maintenance_window }}',
- '{{ preferred_backup_window }}',
- '{{ backup_retention_period }}',
- '{{ shard_instance_count }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ auth_type }}',
- '{{ region }}';
+  '{{ cluster_name }}',
+  '{{ admin_user_name }}',
+  '{{ admin_user_password }}',
+  '{{ shard_capacity }}',
+  '{{ shard_count }}',
+  '{{ vpc_security_group_ids }}',
+  '{{ subnet_ids }}',
+  '{{ preferred_maintenance_window }}',
+  '{{ preferred_backup_window }}',
+  '{{ backup_retention_period }}',
+  '{{ shard_instance_count }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ auth_type }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -393,8 +396,9 @@ SET PatchDocument = string('{{ {
     "ShardInstanceCount": shard_instance_count,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ cluster_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -403,8 +407,9 @@ AND Identifier = '{{ cluster_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.docdbelastic.clusters
-WHERE Identifier = '{{ cluster_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ cluster_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

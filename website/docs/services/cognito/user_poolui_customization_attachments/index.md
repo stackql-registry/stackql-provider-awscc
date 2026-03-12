@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>user_poolui_customization_attachment</code>.
 ```sql
 SELECT
-region,
-user_pool_id,
-client_id,
-c_ss
+  region,
+  user_pool_id,
+  client_id,
+  c_ss
 FROM awscc.cognito.user_poolui_customization_attachments
-WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>user_poo
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_poolui_customization_attachments (
- UserPoolId,
- ClientId,
- region
+  UserPoolId,
+  ClientId,
+  region
 )
 SELECT
-'{{ user_pool_id }}',
- '{{ client_id }}',
-'{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ client_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,16 +137,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.cognito.user_poolui_customization_attachments (
- UserPoolId,
- ClientId,
- CSS,
- region
+  UserPoolId,
+  ClientId,
+  CSS,
+  region
 )
 SELECT
- '{{ user_pool_id }}',
- '{{ client_id }}',
- '{{ c_ss }}',
- '{{ region }}';
+  '{{ user_pool_id }}',
+  '{{ client_id }}',
+  '{{ c_ss }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -181,8 +183,9 @@ UPDATE awscc.cognito.user_poolui_customization_attachments
 SET PatchDocument = string('{{ {
     "CSS": c_ss
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -191,8 +194,9 @@ AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_poolui_customization_attachments
-WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ user_pool_id }}|{{ client_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -143,11 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>template</code>.
 ```sql
 SELECT
-region,
-id,
-template
+  region,
+  id,
+  template
 FROM awscc.ses.templates
-WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -155,10 +157,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 Lists all <code>templates</code> in a region.
 ```sql
 SELECT
-region,
-id
+  region,
+  id
 FROM awscc.ses.templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -180,12 +183,12 @@ Use the following StackQL query and manifest file to create a new <code>template
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.templates (
- Template,
- region
+  Template,
+  region
 )
 SELECT
-'{{ template }}',
-'{{ region }}';
+  '{{ template }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -193,12 +196,12 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ses.templates (
- Template,
- region
+  Template,
+  region
 )
 SELECT
- '{{ template }}',
- '{{ region }}';
+  '{{ template }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -228,8 +231,9 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.templates
-WHERE Identifier = '{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

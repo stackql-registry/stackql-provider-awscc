@@ -198,21 +198,23 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>vpc</code>.
 ```sql
 SELECT
-region,
-vpc_id,
-instance_tenancy,
-ipv4_netmask_length,
-cidr_block_associations,
-cidr_block,
-ipv4_ipam_pool_id,
-default_network_acl,
-enable_dns_support,
-ipv6_cidr_blocks,
-default_security_group,
-enable_dns_hostnames,
-tags
+  region,
+  vpc_id,
+  instance_tenancy,
+  ipv4_netmask_length,
+  cidr_block_associations,
+  cidr_block,
+  ipv4_ipam_pool_id,
+  default_network_acl,
+  enable_dns_support,
+  ipv6_cidr_blocks,
+  default_security_group,
+  enable_dns_hostnames,
+  tags
 FROM awscc.ec2.vpcs
-WHERE region = 'us-east-1' AND Identifier = '{{ vpc_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +222,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ vpc_id }}';
 Lists all <code>vpcs</code> in a region.
 ```sql
 SELECT
-region,
-vpc_id
+  region,
+  vpc_id
 FROM awscc.ec2.vpcs_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,24 +248,24 @@ Use the following StackQL query and manifest file to create a new <code>vpc</cod
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpcs (
- InstanceTenancy,
- Ipv4NetmaskLength,
- CidrBlock,
- Ipv4IpamPoolId,
- EnableDnsSupport,
- EnableDnsHostnames,
- Tags,
- region
+  InstanceTenancy,
+  Ipv4NetmaskLength,
+  CidrBlock,
+  Ipv4IpamPoolId,
+  EnableDnsSupport,
+  EnableDnsHostnames,
+  Tags,
+  region
 )
 SELECT
-'{{ instance_tenancy }}',
- '{{ ipv4_netmask_length }}',
- '{{ cidr_block }}',
- '{{ ipv4_ipam_pool_id }}',
- '{{ enable_dns_support }}',
- '{{ enable_dns_hostnames }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ instance_tenancy }}',
+  '{{ ipv4_netmask_length }}',
+  '{{ cidr_block }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ enable_dns_support }}',
+  '{{ enable_dns_hostnames }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -270,24 +273,24 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ec2.vpcs (
- InstanceTenancy,
- Ipv4NetmaskLength,
- CidrBlock,
- Ipv4IpamPoolId,
- EnableDnsSupport,
- EnableDnsHostnames,
- Tags,
- region
+  InstanceTenancy,
+  Ipv4NetmaskLength,
+  CidrBlock,
+  Ipv4IpamPoolId,
+  EnableDnsSupport,
+  EnableDnsHostnames,
+  Tags,
+  region
 )
 SELECT
- '{{ instance_tenancy }}',
- '{{ ipv4_netmask_length }}',
- '{{ cidr_block }}',
- '{{ ipv4_ipam_pool_id }}',
- '{{ enable_dns_support }}',
- '{{ enable_dns_hostnames }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ instance_tenancy }}',
+  '{{ ipv4_netmask_length }}',
+  '{{ cidr_block }}',
+  '{{ ipv4_ipam_pool_id }}',
+  '{{ enable_dns_support }}',
+  '{{ enable_dns_hostnames }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -337,8 +340,9 @@ SET PatchDocument = string('{{ {
     "EnableDnsHostnames": enable_dns_hostnames,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ vpc_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ vpc_id }}';
 ```
 
 
@@ -347,8 +351,9 @@ AND Identifier = '{{ vpc_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpcs
-WHERE Identifier = '{{ vpc_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ vpc_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

@@ -188,19 +188,21 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>ingest_configuration</code>.
 ```sql
 SELECT
-region,
-arn,
-name,
-stage_arn,
-participant_id,
-ingest_protocol,
-insecure_ingest,
-state,
-stream_key,
-user_id,
-tags
+  region,
+  arn,
+  name,
+  stage_arn,
+  participant_id,
+  ingest_protocol,
+  insecure_ingest,
+  state,
+  stream_key,
+  user_id,
+  tags
 FROM awscc.ivs.ingest_configurations
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +210,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 Lists all <code>ingest_configurations</code> in a region.
 ```sql
 SELECT
-region,
-arn
+  region,
+  arn
 FROM awscc.ivs.ingest_configurations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,12 +236,12 @@ Use the following StackQL query and manifest file to create a new <code>ingest_c
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.ingest_configurations (
- ,
- region
+  ,
+  region
 )
 SELECT
-'{{  }}',
-'{{ region }}';
+  '{{  }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -246,22 +249,22 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ivs.ingest_configurations (
- Name,
- StageArn,
- IngestProtocol,
- InsecureIngest,
- UserId,
- Tags,
- region
+  Name,
+  StageArn,
+  IngestProtocol,
+  InsecureIngest,
+  UserId,
+  Tags,
+  region
 )
 SELECT
- '{{ name }}',
- '{{ stage_arn }}',
- '{{ ingest_protocol }}',
- '{{ insecure_ingest }}',
- '{{ user_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ name }}',
+  '{{ stage_arn }}',
+  '{{ ingest_protocol }}',
+  '{{ insecure_ingest }}',
+  '{{ user_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -307,8 +310,9 @@ SET PatchDocument = string('{{ {
     "StageArn": stage_arn,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -317,8 +321,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.ingest_configurations
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

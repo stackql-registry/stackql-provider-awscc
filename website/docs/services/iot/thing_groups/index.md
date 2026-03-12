@@ -192,16 +192,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>thing_group</code>.
 ```sql
 SELECT
-region,
-id,
-arn,
-thing_group_name,
-parent_group_name,
-query_string,
-thing_group_properties,
-tags
+  region,
+  id,
+  arn,
+  thing_group_name,
+  parent_group_name,
+  query_string,
+  thing_group_properties,
+  tags
 FROM awscc.iot.thing_groups
-WHERE region = 'us-east-1' AND Identifier = '{{ thing_group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ thing_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +211,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ thing_group_name }}';
 Lists all <code>thing_groups</code> in a region.
 ```sql
 SELECT
-region,
-thing_group_name
+  region,
+  thing_group_name
 FROM awscc.iot.thing_groups_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -234,20 +237,20 @@ Use the following StackQL query and manifest file to create a new <code>thing_gr
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.thing_groups (
- ThingGroupName,
- ParentGroupName,
- QueryString,
- ThingGroupProperties,
- Tags,
- region
+  ThingGroupName,
+  ParentGroupName,
+  QueryString,
+  ThingGroupProperties,
+  Tags,
+  region
 )
 SELECT
-'{{ thing_group_name }}',
- '{{ parent_group_name }}',
- '{{ query_string }}',
- '{{ thing_group_properties }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ thing_group_name }}',
+  '{{ parent_group_name }}',
+  '{{ query_string }}',
+  '{{ thing_group_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -255,20 +258,20 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.thing_groups (
- ThingGroupName,
- ParentGroupName,
- QueryString,
- ThingGroupProperties,
- Tags,
- region
+  ThingGroupName,
+  ParentGroupName,
+  QueryString,
+  ThingGroupProperties,
+  Tags,
+  region
 )
 SELECT
- '{{ thing_group_name }}',
- '{{ parent_group_name }}',
- '{{ query_string }}',
- '{{ thing_group_properties }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ thing_group_name }}',
+  '{{ parent_group_name }}',
+  '{{ query_string }}',
+  '{{ thing_group_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -316,8 +319,9 @@ SET PatchDocument = string('{{ {
     "ThingGroupProperties": thing_group_properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ thing_group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ thing_group_name }}';
 ```
 
 
@@ -326,8 +330,9 @@ AND Identifier = '{{ thing_group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.thing_groups
-WHERE Identifier = '{{ thing_group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ thing_group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

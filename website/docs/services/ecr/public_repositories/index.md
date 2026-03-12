@@ -190,14 +190,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>public_repository</code>.
 ```sql
 SELECT
-region,
-repository_name,
-repository_policy_text,
-arn,
-repository_catalog_data,
-tags
+  region,
+  repository_name,
+  repository_policy_text,
+  arn,
+  repository_catalog_data,
+  tags
 FROM awscc.ecr.public_repositories
-WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ repository_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -205,10 +207,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
 Lists all <code>public_repositories</code> in a region.
 ```sql
 SELECT
-region,
-repository_name
+  region,
+  repository_name
 FROM awscc.ecr.public_repositories_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -230,18 +233,18 @@ Use the following StackQL query and manifest file to create a new <code>public_r
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.public_repositories (
- RepositoryName,
- RepositoryPolicyText,
- RepositoryCatalogData,
- Tags,
- region
+  RepositoryName,
+  RepositoryPolicyText,
+  RepositoryCatalogData,
+  Tags,
+  region
 )
 SELECT
-'{{ repository_name }}',
- '{{ repository_policy_text }}',
- '{{ repository_catalog_data }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ repository_name }}',
+  '{{ repository_policy_text }}',
+  '{{ repository_catalog_data }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -249,18 +252,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ecr.public_repositories (
- RepositoryName,
- RepositoryPolicyText,
- RepositoryCatalogData,
- Tags,
- region
+  RepositoryName,
+  RepositoryPolicyText,
+  RepositoryCatalogData,
+  Tags,
+  region
 )
 SELECT
- '{{ repository_name }}',
- '{{ repository_policy_text }}',
- '{{ repository_catalog_data }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ repository_name }}',
+  '{{ repository_policy_text }}',
+  '{{ repository_catalog_data }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -310,8 +313,9 @@ SET PatchDocument = string('{{ {
     "RepositoryCatalogData": repository_catalog_data,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ repository_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ repository_name }}';
 ```
 
 
@@ -320,8 +324,9 @@ AND Identifier = '{{ repository_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.public_repositories
-WHERE Identifier = '{{ repository_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ repository_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

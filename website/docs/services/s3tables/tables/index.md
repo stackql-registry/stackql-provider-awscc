@@ -241,20 +241,22 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT
-region,
-without_metadata,
-compaction,
-namespace,
-table_name,
-table_bucket_arn,
-version_token,
-table_arn,
-open_table_format,
-iceberg_metadata,
-warehouse_location,
-snapshot_management
+  region,
+  without_metadata,
+  compaction,
+  namespace,
+  table_name,
+  table_bucket_arn,
+  version_token,
+  table_arn,
+  open_table_format,
+  iceberg_metadata,
+  warehouse_location,
+  snapshot_management
 FROM awscc.s3tables.tables
-WHERE region = 'us-east-1' AND Identifier = '{{ table_arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ table_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +264,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ table_arn }}';
 Lists all <code>tables</code> in a region.
 ```sql
 SELECT
-region,
-table_arn
+  region,
+  table_arn
 FROM awscc.s3tables.tables_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -287,18 +290,18 @@ Use the following StackQL query and manifest file to create a new <code>table</c
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.tables (
- Namespace,
- TableName,
- TableBucketARN,
- OpenTableFormat,
- region
+  Namespace,
+  TableName,
+  TableBucketARN,
+  OpenTableFormat,
+  region
 )
 SELECT
-'{{ namespace }}',
- '{{ table_name }}',
- '{{ table_bucket_arn }}',
- '{{ open_table_format }}',
-'{{ region }}';
+  '{{ namespace }}',
+  '{{ table_name }}',
+  '{{ table_bucket_arn }}',
+  '{{ open_table_format }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -306,26 +309,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.s3tables.tables (
- WithoutMetadata,
- Compaction,
- Namespace,
- TableName,
- TableBucketARN,
- OpenTableFormat,
- IcebergMetadata,
- SnapshotManagement,
- region
+  WithoutMetadata,
+  Compaction,
+  Namespace,
+  TableName,
+  TableBucketARN,
+  OpenTableFormat,
+  IcebergMetadata,
+  SnapshotManagement,
+  region
 )
 SELECT
- '{{ without_metadata }}',
- '{{ compaction }}',
- '{{ namespace }}',
- '{{ table_name }}',
- '{{ table_bucket_arn }}',
- '{{ open_table_format }}',
- '{{ iceberg_metadata }}',
- '{{ snapshot_management }}',
- '{{ region }}';
+  '{{ without_metadata }}',
+  '{{ compaction }}',
+  '{{ namespace }}',
+  '{{ table_name }}',
+  '{{ table_bucket_arn }}',
+  '{{ open_table_format }}',
+  '{{ iceberg_metadata }}',
+  '{{ snapshot_management }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -385,8 +388,9 @@ SET PatchDocument = string('{{ {
     "TableName": table_name,
     "SnapshotManagement": snapshot_management
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ table_arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ table_arn }}';
 ```
 
 
@@ -395,8 +399,9 @@ AND Identifier = '{{ table_arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.tables
-WHERE Identifier = '{{ table_arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ table_arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

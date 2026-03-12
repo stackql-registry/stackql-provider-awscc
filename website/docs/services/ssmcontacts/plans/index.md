@@ -148,13 +148,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>plan</code>.
 ```sql
 SELECT
-region,
-contact_id,
-stages,
-rotation_ids,
-arn
+  region,
+  contact_id,
+  stages,
+  rotation_ids,
+  arn
 FROM awscc.ssmcontacts.plans
-WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -174,16 +176,16 @@ Use the following StackQL query and manifest file to create a new <code>plan</co
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.plans (
- ContactId,
- Stages,
- RotationIds,
- region
+  ContactId,
+  Stages,
+  RotationIds,
+  region
 )
 SELECT
-'{{ contact_id }}',
- '{{ stages }}',
- '{{ rotation_ids }}',
-'{{ region }}';
+  '{{ contact_id }}',
+  '{{ stages }}',
+  '{{ rotation_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -191,16 +193,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.ssmcontacts.plans (
- ContactId,
- Stages,
- RotationIds,
- region
+  ContactId,
+  Stages,
+  RotationIds,
+  region
 )
 SELECT
- '{{ contact_id }}',
- '{{ stages }}',
- '{{ rotation_ids }}',
- '{{ region }}';
+  '{{ contact_id }}',
+  '{{ stages }}',
+  '{{ rotation_ids }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -247,8 +249,9 @@ SET PatchDocument = string('{{ {
     "Stages": stages,
     "RotationIds": rotation_ids
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ arn }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}';
 ```
 
 
@@ -257,8 +260,9 @@ AND Identifier = '{{ arn }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmcontacts.plans
-WHERE Identifier = '{{ arn }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ arn }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

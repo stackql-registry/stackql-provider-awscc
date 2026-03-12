@@ -190,16 +190,18 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>publishing_destination</code>.
 ```sql
 SELECT
-region,
-id,
-detector_id,
-destination_type,
-destination_properties,
-status,
-publishing_failure_start_timestamp,
-tags
+  region,
+  id,
+  detector_id,
+  destination_type,
+  destination_properties,
+  status,
+  publishing_failure_start_timestamp,
+  tags
 FROM awscc.guardduty.publishing_destinations
-WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ detector_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,11 +209,12 @@ WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ id }}';
 Lists all <code>publishing_destinations</code> in a region.
 ```sql
 SELECT
-region,
-detector_id,
-id
+  region,
+  detector_id,
+  id
 FROM awscc.guardduty.publishing_destinations_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -233,16 +236,16 @@ Use the following StackQL query and manifest file to create a new <code>publishi
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.publishing_destinations (
- DetectorId,
- DestinationType,
- DestinationProperties,
- region
+  DetectorId,
+  DestinationType,
+  DestinationProperties,
+  region
 )
 SELECT
-'{{ detector_id }}',
- '{{ destination_type }}',
- '{{ destination_properties }}',
-'{{ region }}';
+  '{{ detector_id }}',
+  '{{ destination_type }}',
+  '{{ destination_properties }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -250,18 +253,18 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.guardduty.publishing_destinations (
- DetectorId,
- DestinationType,
- DestinationProperties,
- Tags,
- region
+  DetectorId,
+  DestinationType,
+  DestinationProperties,
+  Tags,
+  region
 )
 SELECT
- '{{ detector_id }}',
- '{{ destination_type }}',
- '{{ destination_properties }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ detector_id }}',
+  '{{ destination_type }}',
+  '{{ destination_properties }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -306,8 +309,9 @@ SET PatchDocument = string('{{ {
     "DestinationProperties": destination_properties,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ detector_id }}|{{ id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ detector_id }}|{{ id }}';
 ```
 
 
@@ -316,8 +320,9 @@ AND Identifier = '{{ detector_id }}|{{ id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.publishing_destinations
-WHERE Identifier = '{{ detector_id }}|{{ id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ detector_id }}|{{ id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

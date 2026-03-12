@@ -385,26 +385,28 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT
-region,
-application_id,
-configuration,
-created_at,
-data_source_arn,
-data_source_id,
-description,
-display_name,
-document_enrichment_configuration,
-media_extraction_configuration,
-index_id,
-role_arn,
-status,
-sync_schedule,
-tags,
-type,
-updated_at,
-vpc_configuration
+  region,
+  application_id,
+  configuration,
+  created_at,
+  data_source_arn,
+  data_source_id,
+  description,
+  display_name,
+  document_enrichment_configuration,
+  media_extraction_configuration,
+  index_id,
+  role_arn,
+  status,
+  sync_schedule,
+  tags,
+  type,
+  updated_at,
+  vpc_configuration
 FROM awscc.qbusiness.data_sources
-WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -412,12 +414,13 @@ WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_source
 Lists all <code>data_sources</code> in a region.
 ```sql
 SELECT
-region,
-application_id,
-data_source_id,
-index_id
+  region,
+  application_id,
+  data_source_id,
+  index_id
 FROM awscc.qbusiness.data_sources_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -439,18 +442,18 @@ Use the following StackQL query and manifest file to create a new <code>data_sou
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.data_sources (
- ApplicationId,
- Configuration,
- DisplayName,
- IndexId,
- region
+  ApplicationId,
+  Configuration,
+  DisplayName,
+  IndexId,
+  region
 )
 SELECT
-'{{ application_id }}',
- '{{ configuration }}',
- '{{ display_name }}',
- '{{ index_id }}',
-'{{ region }}';
+  '{{ application_id }}',
+  '{{ configuration }}',
+  '{{ display_name }}',
+  '{{ index_id }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -458,32 +461,32 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.qbusiness.data_sources (
- ApplicationId,
- Configuration,
- Description,
- DisplayName,
- DocumentEnrichmentConfiguration,
- MediaExtractionConfiguration,
- IndexId,
- RoleArn,
- SyncSchedule,
- Tags,
- VpcConfiguration,
- region
+  ApplicationId,
+  Configuration,
+  Description,
+  DisplayName,
+  DocumentEnrichmentConfiguration,
+  MediaExtractionConfiguration,
+  IndexId,
+  RoleArn,
+  SyncSchedule,
+  Tags,
+  VpcConfiguration,
+  region
 )
 SELECT
- '{{ application_id }}',
- '{{ configuration }}',
- '{{ description }}',
- '{{ display_name }}',
- '{{ document_enrichment_configuration }}',
- '{{ media_extraction_configuration }}',
- '{{ index_id }}',
- '{{ role_arn }}',
- '{{ sync_schedule }}',
- '{{ tags }}',
- '{{ vpc_configuration }}',
- '{{ region }}';
+  '{{ application_id }}',
+  '{{ configuration }}',
+  '{{ description }}',
+  '{{ display_name }}',
+  '{{ document_enrichment_configuration }}',
+  '{{ media_extraction_configuration }}',
+  '{{ index_id }}',
+  '{{ role_arn }}',
+  '{{ sync_schedule }}',
+  '{{ tags }}',
+  '{{ vpc_configuration }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -572,8 +575,9 @@ SET PatchDocument = string('{{ {
     "Tags": tags,
     "VpcConfiguration": vpc_configuration
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```
 
 
@@ -582,8 +586,9 @@ AND Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.data_sources
-WHERE Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

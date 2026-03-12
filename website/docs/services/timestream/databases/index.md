@@ -158,13 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>database</code>.
 ```sql
 SELECT
-region,
-arn,
-database_name,
-kms_key_id,
-tags
+  region,
+  arn,
+  database_name,
+  kms_key_id,
+  tags
 FROM awscc.timestream.databases
-WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -172,10 +174,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
 Lists all <code>databases</code> in a region.
 ```sql
 SELECT
-region,
-database_name
+  region,
+  database_name
 FROM awscc.timestream.databases_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -197,16 +200,16 @@ Use the following StackQL query and manifest file to create a new <code>database
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.databases (
- DatabaseName,
- KmsKeyId,
- Tags,
- region
+  DatabaseName,
+  KmsKeyId,
+  Tags,
+  region
 )
 SELECT
-'{{ database_name }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
-'{{ region }}';
+  '{{ database_name }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -214,16 +217,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.timestream.databases (
- DatabaseName,
- KmsKeyId,
- Tags,
- region
+  DatabaseName,
+  KmsKeyId,
+  Tags,
+  region
 )
 SELECT
- '{{ database_name }}',
- '{{ kms_key_id }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ database_name }}',
+  '{{ kms_key_id }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -263,8 +266,9 @@ SET PatchDocument = string('{{ {
     "KmsKeyId": kms_key_id,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ database_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ database_name }}';
 ```
 
 
@@ -273,8 +277,9 @@ AND Identifier = '{{ database_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.databases
-WHERE Identifier = '{{ database_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ database_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

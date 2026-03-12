@@ -95,12 +95,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>group_policy</code>.
 ```sql
 SELECT
-region,
-policy_document,
-policy_name,
-group_name
+  region,
+  policy_document,
+  policy_name,
+  group_name
 FROM awscc.iam.group_policies
-WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}|{{ group_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ policy_name }}|{{ group_name }}';
 ```
 
 ## `INSERT` example
@@ -120,14 +122,14 @@ Use the following StackQL query and manifest file to create a new <code>group_po
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.group_policies (
- PolicyName,
- GroupName,
- region
+  PolicyName,
+  GroupName,
+  region
 )
 SELECT
-'{{ policy_name }}',
- '{{ group_name }}',
-'{{ region }}';
+  '{{ policy_name }}',
+  '{{ group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -135,16 +137,16 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iam.group_policies (
- PolicyDocument,
- PolicyName,
- GroupName,
- region
+  PolicyDocument,
+  PolicyName,
+  GroupName,
+  region
 )
 SELECT
- '{{ policy_document }}',
- '{{ policy_name }}',
- '{{ group_name }}',
- '{{ region }}';
+  '{{ policy_document }}',
+  '{{ policy_name }}',
+  '{{ group_name }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -181,8 +183,9 @@ UPDATE awscc.iam.group_policies
 SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ policy_name }}|{{ group_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ policy_name }}|{{ group_name }}';
 ```
 
 
@@ -191,8 +194,9 @@ AND Identifier = '{{ policy_name }}|{{ group_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.group_policies
-WHERE Identifier = '{{ policy_name }}|{{ group_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ policy_name }}|{{ group_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions

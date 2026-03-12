@@ -195,18 +195,20 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 Gets all properties from an individual <code>provisioning_template</code>.
 ```sql
 SELECT
-region,
-template_arn,
-template_name,
-description,
-enabled,
-provisioning_role_arn,
-template_body,
-template_type,
-pre_provisioning_hook,
-tags
+  region,
+  template_arn,
+  template_name,
+  description,
+  enabled,
+  provisioning_role_arn,
+  template_body,
+  template_type,
+  pre_provisioning_hook,
+  tags
 FROM awscc.iot.provisioning_templates
-WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
+WHERE
+  region = 'us-east-1' AND
+  Identifier = '{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +216,11 @@ WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
 Lists all <code>provisioning_templates</code> in a region.
 ```sql
 SELECT
-region,
-template_name
+  region,
+  template_name
 FROM awscc.iot.provisioning_templates_list_only
-WHERE region = 'us-east-1';
+WHERE
+  region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,14 +242,14 @@ Use the following StackQL query and manifest file to create a new <code>provisio
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.provisioning_templates (
- ProvisioningRoleArn,
- TemplateBody,
- region
+  ProvisioningRoleArn,
+  TemplateBody,
+  region
 )
 SELECT
-'{{ provisioning_role_arn }}',
- '{{ template_body }}',
-'{{ region }}';
+  '{{ provisioning_role_arn }}',
+  '{{ template_body }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="all">
@@ -254,26 +257,26 @@ SELECT
 ```sql
 /*+ create */
 INSERT INTO awscc.iot.provisioning_templates (
- TemplateName,
- Description,
- Enabled,
- ProvisioningRoleArn,
- TemplateBody,
- TemplateType,
- PreProvisioningHook,
- Tags,
- region
+  TemplateName,
+  Description,
+  Enabled,
+  ProvisioningRoleArn,
+  TemplateBody,
+  TemplateType,
+  PreProvisioningHook,
+  Tags,
+  region
 )
 SELECT
- '{{ template_name }}',
- '{{ description }}',
- '{{ enabled }}',
- '{{ provisioning_role_arn }}',
- '{{ template_body }}',
- '{{ template_type }}',
- '{{ pre_provisioning_hook }}',
- '{{ tags }}',
- '{{ region }}';
+  '{{ template_name }}',
+  '{{ description }}',
+  '{{ enabled }}',
+  '{{ provisioning_role_arn }}',
+  '{{ template_body }}',
+  '{{ template_type }}',
+  '{{ pre_provisioning_hook }}',
+  '{{ tags }}',
+  '{{ region }}';
 ```
 </TabItem>
 <TabItem value="manifest">
@@ -329,8 +332,9 @@ SET PatchDocument = string('{{ {
     "PreProvisioningHook": pre_provisioning_hook,
     "Tags": tags
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '{{ template_name }}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ template_name }}';
 ```
 
 
@@ -339,8 +343,9 @@ AND Identifier = '{{ template_name }}';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.provisioning_templates
-WHERE Identifier = '{{ template_name }}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '{{ template_name }}' AND
+  region = 'us-east-1';
 ```
 
 ## Permissions
