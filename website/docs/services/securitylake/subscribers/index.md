@@ -261,7 +261,7 @@ SELECT
   subscriber_arn
 FROM awscc.securitylake.subscribers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
@@ -274,7 +274,7 @@ SELECT
   subscriber_arn
 FROM awscc.securitylake.subscribers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -403,7 +403,7 @@ WHERE
 DELETE FROM awscc.securitylake.subscribers
 WHERE
   Identifier = '{{ subscriber_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

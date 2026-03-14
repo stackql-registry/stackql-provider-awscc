@@ -239,7 +239,7 @@ SELECT
   input_reference_properties
 FROM awscc.cleanrooms.id_namespace_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
@@ -253,7 +253,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.id_namespace_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +371,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.id_namespace_associations
 WHERE
   Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -195,7 +195,7 @@ SELECT
   tags
 FROM awscc.iot.authorizers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ authorizer_name }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   authorizer_name
 FROM awscc.iot.authorizers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +329,7 @@ WHERE
 DELETE FROM awscc.iot.authorizers
 WHERE
   Identifier = '{{ authorizer_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

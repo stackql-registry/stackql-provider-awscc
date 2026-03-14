@@ -435,7 +435,7 @@ SELECT
   sse_specification
 FROM awscc.ec2.verified_access_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ verified_access_endpoint_id }}';
 ```
 </TabItem>
@@ -448,7 +448,7 @@ SELECT
   verified_access_endpoint_id
 FROM awscc.ec2.verified_access_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -635,7 +635,7 @@ WHERE
 DELETE FROM awscc.ec2.verified_access_endpoints
 WHERE
   Identifier = '{{ verified_access_endpoint_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

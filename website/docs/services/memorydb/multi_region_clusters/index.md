@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>multi_region_cluster</code> resource o
   {
     "name": "tls_enabled",
     "type": "boolean",
-    "description": "A flag that enables in-transit encryption when set to true.<br />You cannot modify the value of TransitEncryptionEnabled after the cluster is created. To enable in-transit encryption on a cluster you must set TransitEncryptionEnabled to true when you create a cluster."
+    "description": "<details><summary>A flag that enables in-transit encryption when set to true.</summary>You cannot modify the value of TransitEncryptionEnabled after the cluster is created. To enable in-transit encryption on a cluster you must set TransitEncryptionEnabled to true when you create a cluster.</details>"
   },
   {
     "name": "arn",
@@ -106,12 +106,12 @@ Creates, updates, deletes or gets a <code>multi_region_cluster</code> resource o
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -219,7 +219,7 @@ SELECT
   update_strategy
 FROM awscc.memorydb.multi_region_clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ multi_region_cluster_name }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   multi_region_cluster_name
 FROM awscc.memorydb.multi_region_clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +361,7 @@ WHERE
 DELETE FROM awscc.memorydb.multi_region_clusters
 WHERE
   Identifier = '{{ multi_region_cluster_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

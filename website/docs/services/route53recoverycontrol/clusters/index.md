@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "status",
     "type": "string",
-    "description": "Deployment status of a resource. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+    "description": "Deployment status of a resource. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION."
   },
   {
     "name": "cluster_endpoints",
@@ -189,7 +189,7 @@ SELECT
   network_type
 FROM awscc.route53recoverycontrol.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   cluster_arn
 FROM awscc.route53recoverycontrol.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.route53recoverycontrol.clusters
 WHERE
   Identifier = '{{ cluster_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

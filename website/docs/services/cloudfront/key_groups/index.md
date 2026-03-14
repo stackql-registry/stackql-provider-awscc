@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>key_group</code> resource or lists <co
 <tbody>
 <tr><td><b>Name</b></td><td><code>key_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>A key group.<br />A key group contains a list of public keys that you can use with &#91;CloudFront signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>A key group.</summary>A key group contains a list of public keys that you can use with <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">CloudFront signed URLs and signed cookies</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.key_groups" /></td></tr>
 </tbody>
 </table>

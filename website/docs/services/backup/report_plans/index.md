@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>report_plan</code> resource or lists <
   {
     "name": "report_plan_name",
     "type": "string",
-    "description": "The unique name of the report plan. The name must be between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (&#95;)."
+    "description": "The unique name of the report plan. The name must be between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (_)."
   },
   {
     "name": "report_plan_arn",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>report_plan</code> resource or lists <
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -105,7 +105,7 @@ Creates, updates, deletes or gets a <code>report_plan</code> resource or lists <
       {
         "name": "report_template",
         "type": "string",
-        "description": "Identifies the report template for the report. Reports are built using a report template. The report templates are: &#96;BACKUP&#95;JOB&#95;REPORT &#124; COPY&#95;JOB&#95;REPORT &#124; RESTORE&#95;JOB&#95;REPORT&#96;"
+        "description": "Identifies the report template for the report. Reports are built using a report template. The report templates are: <code>BACKUP_JOB_REPORT | COPY_JOB_REPORT | RESTORE_JOB_REPORT</code>"
       },
       {
         "name": "framework_arns",
@@ -221,7 +221,7 @@ SELECT
   report_setting
 FROM awscc.backup.report_plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ report_plan_arn }}';
 ```
 </TabItem>
@@ -234,7 +234,7 @@ SELECT
   report_plan_arn
 FROM awscc.backup.report_plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +356,7 @@ WHERE
 DELETE FROM awscc.backup.report_plans
 WHERE
   Identifier = '{{ report_plan_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

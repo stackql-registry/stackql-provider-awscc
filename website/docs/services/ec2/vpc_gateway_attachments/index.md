@@ -158,7 +158,7 @@ SELECT
   vpn_gateway_id
 FROM awscc.ec2.vpc_gateway_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.vpc_gateway_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ WHERE
 DELETE FROM awscc.ec2.vpc_gateway_attachments
 WHERE
   Identifier = '{{ attachment_type }}|{{ vpc_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -51,12 +51,12 @@ Creates, updates, deletes or gets a <code>network_interface_attachment</code> re
   {
     "name": "delete_on_termination",
     "type": "boolean",
-    "description": "Whether to delete the network interface when the instance terminates. By default, this value is set to &#96;&#96;true&#96;&#96;."
+    "description": "Whether to delete the network interface when the instance terminates. By default, this value is set to <code>true</code>."
   },
   {
     "name": "device_index",
     "type": "string",
-    "description": "The network interface's position in the attachment order. For example, the first attached network interface has a &#96;&#96;DeviceIndex&#96;&#96; of 0."
+    "description": "The network interface's position in the attachment order. For example, the first attached network interface has a <code>DeviceIndex</code> of 0."
   },
   {
     "name": "instance_id",
@@ -184,7 +184,7 @@ SELECT
   ena_srd_specification
 FROM awscc.ec2.network_interface_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
@@ -197,7 +197,7 @@ SELECT
   attachment_id
 FROM awscc.ec2.network_interface_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +307,7 @@ WHERE
 DELETE FROM awscc.ec2.network_interface_attachments
 WHERE
   Identifier = '{{ attachment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

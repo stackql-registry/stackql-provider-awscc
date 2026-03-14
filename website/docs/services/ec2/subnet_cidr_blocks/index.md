@@ -165,7 +165,7 @@ SELECT
   ip_source
 FROM awscc.ec2.subnet_cidr_blocks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   id
 FROM awscc.ec2.subnet_cidr_blocks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +261,7 @@ resources:
 DELETE FROM awscc.ec2.subnet_cidr_blocks
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

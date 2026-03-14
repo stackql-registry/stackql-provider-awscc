@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>resource_default_version</code> resour
   {
     "name": "type_name",
     "type": "string",
-    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+    "description": "<details><summary>The name of the type being registered.</summary>We recommend that type names adhere to the following pattern: company_or_organization::service::type.</details>"
   },
   {
     "name": "arn",
@@ -153,7 +153,7 @@ SELECT
   type_version_arn
 FROM awscc.cloudformation.resource_default_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   arn
 FROM awscc.cloudformation.resource_default_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +266,7 @@ WHERE
 DELETE FROM awscc.cloudformation.resource_default_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

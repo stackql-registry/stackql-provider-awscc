@@ -165,7 +165,7 @@ Creates, updates, deletes or gets a <code>knowledge_base</code> resource or list
   {
     "name": "role_arn",
     "type": "string",
-    "description": "The ARN of the IAM role with permissions to invoke API operations on the knowledge base. The ARN must begin with AmazonBedrockExecutionRoleForKnowledgeBase&#95;"
+    "description": "The ARN of the IAM role with permissions to invoke API operations on the knowledge base. The ARN must begin with AmazonBedrockExecutionRoleForKnowledgeBase_"
   },
   {
     "name": "created_at",
@@ -571,7 +571,7 @@ SELECT
   tags
 FROM awscc.bedrock.knowledge_bases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ knowledge_base_id }}';
 ```
 </TabItem>
@@ -584,7 +584,7 @@ SELECT
   knowledge_base_id
 FROM awscc.bedrock.knowledge_bases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -799,7 +799,7 @@ WHERE
 DELETE FROM awscc.bedrock.knowledge_bases
 WHERE
   Identifier = '{{ knowledge_base_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

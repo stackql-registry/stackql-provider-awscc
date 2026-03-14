@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>documentation_part</code> resource or 
 <tbody>
 <tr><td><b>Name</b></td><td><code>documentation_parts</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::DocumentationPart&#96;&#96; resource creates a documentation part for an API. For more information, see &#91;Representation of API Documentation in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::DocumentationPart</code> resource creates a documentation part for an API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html">Representation of API Documentation in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.documentation_parts" /></td></tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>documentation_part</code> resource or 
   {
     "name": "location",
     "type": "object",
-    "description": "The &#96;&#96;Location&#96;&#96; property specifies the location of the Amazon API Gateway API entity that the documentation applies to. &#96;&#96;Location&#96;&#96; is a property of the &#91;AWS::ApiGateway::DocumentationPart&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-documentationpart.html) resource.<br />For more information about each property, including constraints and valid values, see &#91;DocumentationPart&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;DocumentationPartLocation.html) in the &#42;Amazon API Gateway REST API Reference&#42;.",
+    "description": "<details><summary>The <code>Location</code> property specifies the location of the Amazon API Gateway API entity that the documentation applies to. <code>Location</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-documentationpart.html\">AWS::ApiGateway::DocumentationPart</a> resource.</summary>For more information about each property, including constraints and valid values, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/API_DocumentationPartLocation.html\">DocumentationPart</a> in the <i>Amazon API Gateway REST API Reference</i>.</details>",
     "children": [
       {
         "name": "method",
@@ -185,7 +185,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.documentation_parts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```
 </TabItem>
@@ -199,7 +199,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.documentation_parts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.apigateway.documentation_parts
 WHERE
   Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

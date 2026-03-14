@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>delivery_source</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>delivery_sources</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>A delivery source is an AWS resource that sends logs to an AWS destination. The destination can be CloudWatch Logs, Amazon S3, or Kinesis Data Firehose.<br />Only some AWS services support being configured as a delivery source. These services are listed as Supported &#91;V2 Permissions&#93; in the table at &#91;Enabling logging from AWS services&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>A delivery source is an AWS resource that sends logs to an AWS destination. The destination can be CloudWatch Logs, Amazon S3, or Kinesis Data Firehose.</summary>Only some AWS services support being configured as a delivery source. These services are listed as Supported [V2 Permissions] in the table at <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html">Enabling logging from AWS services</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.delivery_sources" /></td></tr>
 </tbody>
 </table>
@@ -178,7 +178,7 @@ SELECT
   tags
 FROM awscc.logs.delivery_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -191,7 +191,7 @@ SELECT
   name
 FROM awscc.logs.delivery_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ WHERE
 DELETE FROM awscc.logs.delivery_sources
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

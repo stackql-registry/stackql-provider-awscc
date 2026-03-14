@@ -201,7 +201,7 @@ SELECT
   tags
 FROM awscc.bedrock.blueprints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ blueprint_arn }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   blueprint_arn
 FROM awscc.bedrock.blueprints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +329,7 @@ WHERE
 DELETE FROM awscc.bedrock.blueprints
 WHERE
   Identifier = '{{ blueprint_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

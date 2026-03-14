@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.sagemaker.images
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ image_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   image_arn
 FROM awscc.sagemaker.images_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.sagemaker.images
 WHERE
   Identifier = '{{ image_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

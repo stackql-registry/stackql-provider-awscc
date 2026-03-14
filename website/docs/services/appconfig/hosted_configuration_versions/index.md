@@ -181,7 +181,7 @@ SELECT
   version_number
 FROM awscc.appconfig.hosted_configuration_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   version_number
 FROM awscc.appconfig.hosted_configuration_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ resources:
 DELETE FROM awscc.appconfig.hosted_configuration_versions
 WHERE
   Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

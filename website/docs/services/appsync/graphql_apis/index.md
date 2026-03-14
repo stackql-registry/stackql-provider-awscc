@@ -93,7 +93,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
           {
             "name": "iat_ttl",
             "type": "number",
-            "description": "The number of milliseconds that a token is valid after it's issued to a user.<br />"
+            "description": "The number of milliseconds that a token is valid after it's issued to a user."
           }
         ]
       },
@@ -154,17 +154,17 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
       {
         "name": "operation_level_metrics_config",
         "type": "string",
-        "description": "Controls how operation metrics will be emitted to CloudWatch. Operation metrics include:<br />"
+        "description": "Controls how operation metrics will be emitted to CloudWatch. Operation metrics include:"
       },
       {
         "name": "resolver_level_metrics_behavior",
         "type": "string",
-        "description": "Controls how resolver metrics will be emitted to CloudWatch. Resolver metrics include:<br />"
+        "description": "Controls how resolver metrics will be emitted to CloudWatch. Resolver metrics include:"
       },
       {
         "name": "data_source_level_metrics_behavior",
         "type": "string",
-        "description": "Controls how data source metrics will be emitted to CloudWatch. Data source metrics include:<br />"
+        "description": "Controls how data source metrics will be emitted to CloudWatch. Data source metrics include:"
       }
     ]
   },
@@ -196,7 +196,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
   {
     "name": "lambda_authorizer_config",
     "type": "object",
-    "description": "A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS&#95;LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.",
+    "description": "A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS_LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.",
     "children": [
       {
         "name": "identity_validation_expression",
@@ -270,7 +270,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
       {
         "name": "iat_ttl",
         "type": "number",
-        "description": "The number of milliseconds that a token is valid after it's issued to a user.<br />"
+        "description": "The number of milliseconds that a token is valid after it's issued to a user."
       }
     ]
   },
@@ -302,7 +302,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
   {
     "name": "tags",
     "type": "array",
-    "description": "An arbitrary set of tags (key-value pairs) for this GraphQL API.<br />",
+    "description": "An arbitrary set of tags (key-value pairs) for this GraphQL API.",
     "children": [
       {
         "name": "value",
@@ -319,7 +319,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
   {
     "name": "user_pool_config",
     "type": "object",
-    "description": "Optional authorization configuration for using Amazon Cognito user pools with your GraphQL endpoint.<br />",
+    "description": "Optional authorization configuration for using Amazon Cognito user pools with your GraphQL endpoint.",
     "children": [
       {
         "name": "app_id_client_regex",
@@ -351,7 +351,7 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
   {
     "name": "xray_enabled",
     "type": "boolean",
-    "description": "A flag indicating whether to use AWS X-Ray tracing for this GraphqlApi.<br />"
+    "description": "A flag indicating whether to use AWS X-Ray tracing for this GraphqlApi."
   },
   {
     "name": "region",
@@ -464,7 +464,7 @@ SELECT
   xray_enabled
 FROM awscc.appsync.graphql_apis
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_id }}';
 ```
 </TabItem>
@@ -477,7 +477,7 @@ SELECT
   api_id
 FROM awscc.appsync.graphql_apis_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -676,7 +676,7 @@ WHERE
 DELETE FROM awscc.appsync.graphql_apis
 WHERE
   Identifier = '{{ api_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -147,7 +147,7 @@ SELECT
   tag_values
 FROM awscc.lakeformation.tags
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ tag_key }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   tag_key
 FROM awscc.lakeformation.tags_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +257,7 @@ WHERE
 DELETE FROM awscc.lakeformation.tags
 WHERE
   Identifier = '{{ tag_key }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

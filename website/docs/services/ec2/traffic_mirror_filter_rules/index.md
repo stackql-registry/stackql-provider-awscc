@@ -220,7 +220,7 @@ SELECT
   tags
 FROM awscc.ec2.traffic_mirror_filter_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ traffic_mirror_filter_rule_id }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   traffic_mirror_filter_rule_id
 FROM awscc.ec2.traffic_mirror_filter_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +382,7 @@ WHERE
 DELETE FROM awscc.ec2.traffic_mirror_filter_rules
 WHERE
   Identifier = '{{ traffic_mirror_filter_rule_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

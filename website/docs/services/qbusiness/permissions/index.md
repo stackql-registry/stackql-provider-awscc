@@ -175,7 +175,7 @@ SELECT
   principal
 FROM awscc.qbusiness.permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ statement_id }}';
 ```
 </TabItem>
@@ -189,7 +189,7 @@ SELECT
   statement_id
 FROM awscc.qbusiness.permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +287,7 @@ resources:
 DELETE FROM awscc.qbusiness.permissions
 WHERE
   Identifier = '{{ application_id }}|{{ statement_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

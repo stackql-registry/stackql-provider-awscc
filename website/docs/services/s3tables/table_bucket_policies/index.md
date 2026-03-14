@@ -141,7 +141,7 @@ SELECT
   table_bucket_arn
 FROM awscc.s3tables.table_bucket_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_bucket_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   table_bucket_arn
 FROM awscc.s3tables.table_bucket_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +246,7 @@ WHERE
 DELETE FROM awscc.s3tables.table_bucket_policies
 WHERE
   Identifier = '{{ table_bucket_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

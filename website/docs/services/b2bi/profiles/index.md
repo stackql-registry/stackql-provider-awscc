@@ -207,7 +207,7 @@ SELECT
   tags
 FROM awscc.b2bi.profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ profile_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   profile_id
 FROM awscc.b2bi.profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +338,7 @@ WHERE
 DELETE FROM awscc.b2bi.profiles
 WHERE
   Identifier = '{{ profile_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

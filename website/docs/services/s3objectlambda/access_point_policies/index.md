@@ -95,7 +95,7 @@ SELECT
   policy_document
 FROM awscc.s3objectlambda.access_point_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ object_lambda_access_point }}';
 ```
 
@@ -186,7 +186,7 @@ WHERE
 DELETE FROM awscc.s3objectlambda.access_point_policies
 WHERE
   Identifier = '{{ object_lambda_access_point }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

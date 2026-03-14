@@ -361,7 +361,7 @@ SELECT
   tags
 FROM awscc.sagemaker.inference_components
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ inference_component_arn }}';
 ```
 </TabItem>
@@ -374,7 +374,7 @@ SELECT
   inference_component_arn
 FROM awscc.sagemaker.inference_components_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -528,7 +528,7 @@ WHERE
 DELETE FROM awscc.sagemaker.inference_components
 WHERE
   Identifier = '{{ inference_component_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

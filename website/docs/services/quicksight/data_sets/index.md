@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>data_set</code> resource or lists <cod
   {
     "name": "consumed_spice_capacity_in_bytes",
     "type": "number",
-    "description": "<p>The amount of SPICE capacity used by this dataset. This is 0 if the dataset isn't<br />imported into SPICE.</p>"
+    "description": "<details><summary><p>The amount of SPICE capacity used by this dataset. This is 0 if the dataset isn't</summary>imported into SPICE.</p></details>"
   },
   {
     "name": "row_level_permission_data_set",
     "type": "object",
-    "description": "<p>Information about a dataset that contains permissions for row-level security (RLS).<br />The permissions dataset maps fields to users or groups. For more information, see<br /><a href=\"https://docs.aws.amazon.com/quicksight/latest/user/restrict-access-to-a-data-set-using-row-level-security.html\">Using Row-Level Security (RLS) to Restrict Access to a Dataset</a> in the <i>Amazon QuickSight User<br />Guide</i>.</p><br /><p>The option to deny permissions by setting <code>PermissionPolicy</code> to <code>DENY_ACCESS</code> is<br />not supported for new RLS datasets.</p>",
+    "description": "<details><summary><p>Information about a dataset that contains permissions for row-level security (RLS).</summary>The permissions dataset maps fields to users or groups. For more information, see<br /><a href=\"https://docs.aws.amazon.com/quicksight/latest/user/restrict-access-to-a-data-set-using-row-level-security.html\">Using Row-Level Security (RLS) to Restrict Access to a Dataset</a> in the <i>Amazon QuickSight User<br />Guide</i>.</p><br /><p>The option to deny permissions by setting <code>PermissionPolicy</code> to <code>DENY_ACCESS</code> is<br />not supported for new RLS datasets.</p></details>",
     "children": [
       {
         "name": "status",
@@ -98,19 +98,19 @@ Creates, updates, deletes or gets a <code>data_set</code> resource or lists <cod
       {
         "name": "wait_for_spice_ingestion",
         "type": "boolean",
-        "description": "<p>Wait for SPICE ingestion to finish to mark dataset creation/update successful. Default (true).<br />Applicable only when DataSetImportMode mode is set to SPICE.</p>"
+        "description": "<details><summary><p>Wait for SPICE ingestion to finish to mark dataset creation/update successful. Default (true).</summary>Applicable only when DataSetImportMode mode is set to SPICE.</p></details>"
       },
       {
         "name": "ingestion_wait_time_in_hours",
         "type": "number",
-        "description": "<p>The maximum time (in hours) to wait for Ingestion to complete. Default timeout is 36 hours.<br />Applicable only when DataSetImportMode mode is set to SPICE and WaitForSpiceIngestion is set to true.</p>"
+        "description": "<details><summary><p>The maximum time (in hours) to wait for Ingestion to complete. Default timeout is 36 hours.</summary>Applicable only when DataSetImportMode mode is set to SPICE and WaitForSpiceIngestion is set to true.</p></details>"
       }
     ]
   },
   {
     "name": "column_level_permission_rules",
     "type": "array",
-    "description": "<p>A set of one or more definitions of a <code><br /><a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API&#95;ColumnLevelPermissionRule.html\">ColumnLevelPermissionRule</a><br /></code>.</p>",
+    "description": "<details><summary><p>A set of one or more definitions of a <code></summary><a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnLevelPermissionRule.html\">ColumnLevelPermissionRule</a><br /></code>.</p></details>",
     "children": [
       {
         "name": "column_names",
@@ -137,7 +137,7 @@ Creates, updates, deletes or gets a <code>data_set</code> resource or lists <cod
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -508,7 +508,7 @@ Creates, updates, deletes or gets a <code>data_set</code> resource or lists <cod
   {
     "name": "output_columns",
     "type": "array",
-    "description": "<p>The list of columns after all transforms. These columns are available in templates,<br />analyses, and dashboards.</p>",
+    "description": "<details><summary><p>The list of columns after all transforms. These columns are available in templates,</summary>analyses, and dashboards.</p></details>",
     "children": [
       {
         "name": "type",
@@ -653,7 +653,7 @@ SELECT
   arn
 FROM awscc.quicksight.data_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ data_set_id }}';
 ```
 </TabItem>
@@ -667,7 +667,7 @@ SELECT
   data_set_id
 FROM awscc.quicksight.data_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -957,7 +957,7 @@ WHERE
 DELETE FROM awscc.quicksight.data_sets
 WHERE
   Identifier = '{{ aws_account_id }}|{{ data_set_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

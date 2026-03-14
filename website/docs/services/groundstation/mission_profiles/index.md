@@ -252,7 +252,7 @@ SELECT
   region
 FROM awscc.groundstation.mission_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}|{{ arn }}';
 ```
 </TabItem>
@@ -266,7 +266,7 @@ SELECT
   arn
 FROM awscc.groundstation.mission_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -405,7 +405,7 @@ WHERE
 DELETE FROM awscc.groundstation.mission_profiles
 WHERE
   Identifier = '{{ id }}|{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

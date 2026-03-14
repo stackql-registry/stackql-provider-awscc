@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 <tbody>
 <tr><td><b>Name</b></td><td><code>deployments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::Deployment&#96;&#96; resource creates a deployment for an API.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::Deployment</code> resource creates a deployment for an API.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.deployments" /></td></tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ SELECT
   api_id
 FROM awscc.apigatewayv2.deployments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_id }}|{{ deployment_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   deployment_id
 FROM awscc.apigatewayv2.deployments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.deployments
 WHERE
   Identifier = '{{ api_id }}|{{ deployment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

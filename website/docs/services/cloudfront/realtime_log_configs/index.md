@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>realtime_log_config</code> resource or
           {
             "name": "role_arn",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) of an IAMlong (IAM) role that CloudFront can use to send real-time log data to your Kinesis data stream.<br />For more information the IAM role, see &#91;Real-time log configuration IAM role&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role) in the &#42;Amazon CloudFront Developer Guide&#42;."
+            "description": "<details><summary>The Amazon Resource Name (ARN) of an IAMlong (IAM) role that CloudFront can use to send real-time log data to your Kinesis data stream.</summary>For more information the IAM role, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role\">Real-time log configuration IAM role</a> in the <i>Amazon CloudFront Developer Guide</i>.</details>"
           },
           {
             "name": "stream_arn",
@@ -73,14 +73,14 @@ Creates, updates, deletes or gets a <code>realtime_log_config</code> resource or
       {
         "name": "stream_type",
         "type": "string",
-        "description": "The type of data stream where you are sending real-time log data. The only valid value is &#96;&#96;Kinesis&#96;&#96;."
+        "description": "The type of data stream where you are sending real-time log data. The only valid value is <code>Kinesis</code>."
       }
     ]
   },
   {
     "name": "fields",
     "type": "array",
-    "description": "A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream.<br />For more information about fields, see &#91;Real-time log configuration fields&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields) in the &#42;Amazon CloudFront Developer Guide&#42;."
+    "description": "<details><summary>A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream.</summary>For more information about fields, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields\">Real-time log configuration fields</a> in the <i>Amazon CloudFront Developer Guide</i>.</details>"
   },
   {
     "name": "name",

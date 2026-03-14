@@ -120,7 +120,7 @@ SELECT
   managed_login_version
 FROM awscc.cognito.user_pool_domains
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ domain }}';
 ```
 
@@ -221,7 +221,7 @@ WHERE
 DELETE FROM awscc.cognito.user_pool_domains
 WHERE
   Identifier = '{{ user_pool_id }}|{{ domain }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

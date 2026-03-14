@@ -195,7 +195,7 @@ SELECT
   tags
 FROM awscc.ec2.ipam_scopes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_scope_id }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   ipam_scope_id
 FROM awscc.ec2.ipam_scopes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +305,7 @@ WHERE
 DELETE FROM awscc.ec2.ipam_scopes
 WHERE
   Identifier = '{{ ipam_scope_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

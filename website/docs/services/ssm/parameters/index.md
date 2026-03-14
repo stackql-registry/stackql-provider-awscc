@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
 <tbody>
 <tr><td><b>Name</b></td><td><code>parameters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SSM::Parameter&#96;&#96; resource creates an SSM parameter in SYSlong Parameter Store.<br />To create an SSM parameter, you must have the IAMlong (IAM) permissions &#96;&#96;ssm:PutParameter&#96;&#96; and &#96;&#96;ssm:AddTagsToResource&#96;&#96;. On stack creation, CFNlong adds the following three tags to the parameter: &#96;&#96;aws:cloudformation:stack-name&#96;&#96;, &#96;&#96;aws:cloudformation:logical-id&#96;&#96;, and &#96;&#96;aws:cloudformation:stack-id&#96;&#96;, in addition to any custom tags you specify.<br />To add, update, or remove tags during stack update, you must have IAM permissions for both &#96;&#96;ssm:AddTagsToResource&#96;&#96; and &#96;&#96;ssm:RemoveTagsFromResource&#96;&#96;. For more information, see &#91;Managing access using policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/security-iam.html#security&#95;iam&#95;access-manage) in the &#42;User Guide&#42;.<br />For information about valid values for parameters, see &#91;About requirements and constraints for parameter names&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints) in the &#42;User Guide&#42; and &#91;PutParameter&#93;(https://docs.aws.amazon.com/systems-manager/latest/APIReference/API&#95;PutParameter.html) in the &#42;API Reference&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::SSM::Parameter</code> resource creates an SSM parameter in SYSlong Parameter Store.</summary>To create an SSM parameter, you must have the IAMlong (IAM) permissions <code>ssm:PutParameter</code> and <code>ssm:AddTagsToResource</code>. On stack creation, CFNlong adds the following three tags to the parameter: <code>aws:cloudformation:stack-name</code>, <code>aws:cloudformation:logical-id</code>, and <code>aws:cloudformation:stack-id</code>, in addition to any custom tags you specify.<br />To add, update, or remove tags during stack update, you must have IAM permissions for both <code>ssm:AddTagsToResource</code> and <code>ssm:RemoveTagsFromResource</code>. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/security-iam.html#security_iam_access-manage">Managing access using policies</a> in the <i>User Guide</i>.<br />For information about valid values for parameters, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints">About requirements and constraints for parameter names</a> in the <i>User Guide</i> and <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html">PutParameter</a> in the <i>API Reference</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ssm.parameters" /></td></tr>
 </tbody>
 </table>
@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
   {
     "name": "type",
     "type": "string",
-    "description": "The type of parameter.<br />Parameters of type &#96;&#96;SecureString&#96;&#96; are not supported by CFNlong."
+    "description": "<details><summary>The type of parameter.</summary>Parameters of type <code>SecureString</code> are not supported by CFNlong.</details>"
   },
   {
     "name": "value",
     "type": "string",
-    "description": "The parameter value.<br />If type is &#96;&#96;StringList&#96;&#96;, the system returns a comma-separated string with no spaces between commas in the &#96;&#96;Value&#96;&#96; field."
+    "description": "<details><summary>The parameter value.</summary>If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in the <code>Value</code> field.</details>"
   },
   {
     "name": "description",
@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
   {
     "name": "policies",
     "type": "string",
-    "description": "Information about the policies assigned to a parameter.<br />&#91;Assigning parameter policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html) in the &#42;User Guide&#42;."
+    "description": "<details><summary>Information about the policies assigned to a parameter.</summary><a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html\">Assigning parameter policies</a> in the <i>User Guide</i>.</details>"
   },
   {
     "name": "allowed_pattern",
     "type": "string",
-    "description": "A regular expression used to validate the parameter value. For example, for &#96;&#96;String&#96;&#96; types with values restricted to numbers, you can specify the following: &#96;&#96;AllowedPattern=^\\d+$&#96;&#96;"
+    "description": "A regular expression used to validate the parameter value. For example, for <code>String</code> types with values restricted to numbers, you can specify the following: <code>AllowedPattern=^\\d+$</code>"
   },
   {
     "name": "tier",
@@ -81,12 +81,12 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
   {
     "name": "data_type",
     "type": "string",
-    "description": "The data type of the parameter, such as &#96;&#96;text&#96;&#96; or &#96;&#96;aws:ec2:image&#96;&#96;. The default is &#96;&#96;text&#96;&#96;."
+    "description": "The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>."
   },
   {
     "name": "name",
     "type": "string",
-    "description": "The name of the parameter.<br />The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: &#96;&#96;arn:aws:ssm:us-east-2:111122223333:parameter/&#96;&#96;."
+    "description": "<details><summary>The name of the parameter.</summary>The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.</details>"
   },
   {
     "name": "region",
@@ -101,7 +101,7 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
   {
     "name": "name",
     "type": "string",
-    "description": "The name of the parameter.<br />The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: &#96;&#96;arn:aws:ssm:us-east-2:111122223333:parameter/&#96;&#96;."
+    "description": "<details><summary>The name of the parameter.</summary>The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.</details>"
   },
   {
     "name": "region",
@@ -183,7 +183,7 @@ SELECT
   name
 FROM awscc.ssm.parameters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   name
 FROM awscc.ssm.parameters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +323,7 @@ WHERE
 DELETE FROM awscc.ssm.parameters
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

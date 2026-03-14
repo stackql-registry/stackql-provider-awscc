@@ -105,7 +105,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "elasticsearch_config",
     "type": "object",
-    "description": "AWS Region and Endpoints for an Amazon OpenSearch Service domain in your account.<br />As of September 2021, Amazon Elasticsearch Service is Amazon OpenSearch Service. This property is deprecated. For new data sources, use OpenSearchServiceConfig to specify an OpenSearch Service data source.",
+    "description": "<details><summary>AWS Region and Endpoints for an Amazon OpenSearch Service domain in your account.</summary>As of September 2021, Amazon Elasticsearch Service is Amazon OpenSearch Service. This property is deprecated. For new data sources, use OpenSearchServiceConfig to specify an OpenSearch Service data source.</details>",
     "children": [
       {
         "name": "aws_region",
@@ -370,7 +370,7 @@ SELECT
   metrics_config
 FROM awscc.appsync.data_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ data_source_arn }}';
 ```
 </TabItem>
@@ -383,7 +383,7 @@ SELECT
   data_source_arn
 FROM awscc.appsync.data_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -558,7 +558,7 @@ WHERE
 DELETE FROM awscc.appsync.data_sources
 WHERE
   Identifier = '{{ data_source_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

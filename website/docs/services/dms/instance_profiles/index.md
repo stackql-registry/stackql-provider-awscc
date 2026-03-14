@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.dms.instance_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_profile_arn }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   instance_profile_arn
 FROM awscc.dms.instance_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +378,7 @@ WHERE
 DELETE FROM awscc.dms.instance_profiles
 WHERE
   Identifier = '{{ instance_profile_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

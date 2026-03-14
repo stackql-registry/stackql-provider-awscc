@@ -207,7 +207,7 @@ SELECT
   tags
 FROM awscc.workspacesweb.ip_access_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ip_access_settings_arn }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   ip_access_settings_arn
 FROM awscc.workspacesweb.ip_access_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +333,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.ip_access_settings
 WHERE
   Identifier = '{{ ip_access_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

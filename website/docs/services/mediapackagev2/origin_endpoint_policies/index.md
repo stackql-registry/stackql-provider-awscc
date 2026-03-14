@@ -125,7 +125,7 @@ SELECT
   policy
 FROM awscc.mediapackagev2.origin_endpoint_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
 ```
 
@@ -236,7 +236,7 @@ WHERE
 DELETE FROM awscc.mediapackagev2.origin_endpoint_policies
 WHERE
   Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

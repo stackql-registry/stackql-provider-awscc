@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>domain_names</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::DomainName&#96;&#96; resource specifies a custom domain name for your API in Amazon API Gateway (API Gateway). <br />You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see &#91;Set up Custom Domain Name for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::ApiGatewayV2::DomainName</code> resource specifies a custom domain name for your API in Amazon API Gateway (API Gateway).</summary>You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Set up Custom Domain Name for an API in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.domain_names" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
       {
         "name": "truststore_uri",
         "type": "string",
-        "description": "An Amazon S3 URL that specifies the truststore for mutual TLS authentication, for example, &#96;&#96;s3://bucket-name/key-name&#96;&#96;. The truststore can contain certificates from public or private certificate authorities. To update the truststore, upload a new version to S3, and then update your custom domain name to use the new version. To update the truststore, you must have permissions to access the S3 object."
+        "description": "An Amazon S3 URL that specifies the truststore for mutual TLS authentication, for example, <code>s3://bucket-name/key-name</code>. The truststore can contain certificates from public or private certificate authorities. To update the truststore, upload a new version to S3, and then update your custom domain name to use the new version. To update the truststore, you must have permissions to access the S3 object."
       }
     ]
   },
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
   {
     "name": "domain_name",
     "type": "string",
-    "description": "The custom domain name for your API in Amazon API Gateway. Uppercase letters and the underscore (&#96;&#96;&#95;&#96;&#96;) character are not supported."
+    "description": "The custom domain name for your API in Amazon API Gateway. Uppercase letters and the underscore (<code>_</code>) character are not supported."
   },
   {
     "name": "domain_name_configurations",
@@ -103,7 +103,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
       {
         "name": "security_policy",
         "type": "string",
-        "description": "The Transport Layer Security (TLS) version of the security policy for this domain name. The valid values are &#96;&#96;TLS&#95;1&#95;0&#96;&#96; and &#96;&#96;TLS&#95;1&#95;2&#96;&#96;."
+        "description": "The Transport Layer Security (TLS) version of the security policy for this domain name. The valid values are <code>TLS_1_0</code> and <code>TLS_1_2</code>."
       },
       {
         "name": "certificate_arn",
@@ -140,7 +140,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
   {
     "name": "domain_name",
     "type": "string",
-    "description": "The custom domain name for your API in Amazon API Gateway. Uppercase letters and the underscore (&#96;&#96;&#95;&#96;&#96;) character are not supported."
+    "description": "The custom domain name for your API in Amazon API Gateway. Uppercase letters and the underscore (<code>_</code>) character are not supported."
   },
   {
     "name": "region",
@@ -221,7 +221,7 @@ SELECT
   tags
 FROM awscc.apigatewayv2.domain_names
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}';
 ```
 </TabItem>
@@ -234,7 +234,7 @@ SELECT
   domain_name
 FROM awscc.apigatewayv2.domain_names_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +347,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.domain_names
 WHERE
   Identifier = '{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

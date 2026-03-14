@@ -51,7 +51,7 @@ Creates, updates, deletes or gets an <code>auto_scaling_configuration</code> res
   {
     "name": "auto_scaling_configuration_name",
     "type": "string",
-    "description": "The customer-provided auto scaling configuration name. When you use it for the first time in an AWS Region, App Runner creates revision number 1 of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration. The auto scaling configuration name can be used in multiple revisions of a configuration."
+    "description": "The customer-provided auto scaling configuration name.  When you use it for the first time in an AWS Region, App Runner creates revision number 1 of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration. The auto scaling configuration name can be used in multiple revisions of a configuration."
   },
   {
     "name": "auto_scaling_configuration_revision",
@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.apprunner.auto_scaling_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ auto_scaling_configuration_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   auto_scaling_configuration_arn
 FROM awscc.apprunner.auto_scaling_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ resources:
 DELETE FROM awscc.apprunner.auto_scaling_configurations
 WHERE
   Identifier = '{{ auto_scaling_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

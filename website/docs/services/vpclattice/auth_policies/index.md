@@ -101,7 +101,7 @@ SELECT
   state
 FROM awscc.vpclattice.auth_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_identifier }}';
 ```
 
@@ -192,7 +192,7 @@ WHERE
 DELETE FROM awscc.vpclattice.auth_policies
 WHERE
   Identifier = '{{ resource_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

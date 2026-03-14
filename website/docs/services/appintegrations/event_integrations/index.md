@@ -184,7 +184,7 @@ SELECT
   tags
 FROM awscc.appintegrations.event_integrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -197,7 +197,7 @@ SELECT
   name
 FROM awscc.appintegrations.event_integrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +307,7 @@ WHERE
 DELETE FROM awscc.appintegrations.event_integrations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

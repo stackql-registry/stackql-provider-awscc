@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
 <tbody>
 <tr><td><b>Name</b></td><td><code>access_points</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::EFS::AccessPoint&#96;&#96; resource creates an EFS access point. An access point is an application-specific view into an EFS file system that applies an operating system user and group, and a file system path, to any file system request made through the access point. The operating system user and group override any identity information provided by the NFS client. The file system path is exposed as the access point's root directory. Applications using the access point can only access data in its own directory and below. To learn more, see &#91;Mounting a file system using EFS access points&#93;(https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html).<br />This operation requires permissions for the &#96;&#96;elasticfilesystem:CreateAccessPoint&#96;&#96; action.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::EFS::AccessPoint</code> resource creates an EFS access point. An access point is an application-specific view into an EFS file system that applies an operating system user and group, and a file system path, to any file system request made through the access point. The operating system user and group override any identity information provided by the NFS client. The file system path is exposed as the access point's root directory. Applications using the access point can only access data in its own directory and below. To learn more, see <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html">Mounting a file system using EFS access points</a>.</summary>This operation requires permissions for the <code>elasticfilesystem:CreateAccessPoint</code> action.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.efs.access_points" /></td></tr>
 </tbody>
 </table>
@@ -61,12 +61,12 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
   {
     "name": "access_point_tags",
     "type": "array",
-    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "description": "<details><summary>An array of key-value pairs to apply to this resource.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key (String). The key can't start with &#96;&#96;aws:&#96;&#96;."
+        "description": "The tag key (String). The key can't start with <code>aws:</code>."
       },
       {
         "name": "value",
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
   {
     "name": "file_system_id",
     "type": "string",
-    "description": "The ID of the EFS file system that the access point applies to. Accepts only the ID format for input when specifying a file system, for example &#96;&#96;fs-0123456789abcedf2&#96;&#96;."
+    "description": "The ID of the EFS file system that the access point applies to. Accepts only the ID format for input when specifying a file system, for example <code>fs-0123456789abcedf2</code>."
   },
   {
     "name": "posix_user",
@@ -110,27 +110,27 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
       {
         "name": "path",
         "type": "string",
-        "description": "Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system. A path can have up to four subdirectories. If the specified path does not exist, you are required to provide the &#96;&#96;CreationInfo&#96;&#96;."
+        "description": "Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system. A path can have up to four subdirectories. If the specified path does not exist, you are required to provide the <code>CreationInfo</code>."
       },
       {
         "name": "creation_info",
         "type": "object",
-        "description": "(Optional) Specifies the POSIX IDs and permissions to apply to the access point's &#96;&#96;RootDirectory&#96;&#96;. If the &#96;&#96;RootDirectory&#96;&#96; &gt; &#96;&#96;Path&#96;&#96; specified does not exist, EFS creates the root directory using the &#96;&#96;CreationInfo&#96;&#96; settings when a client connects to an access point. When specifying the &#96;&#96;CreationInfo&#96;&#96;, you must provide values for all properties. <br />If you do not provide &#96;&#96;CreationInfo&#96;&#96; and the specified &#96;&#96;RootDirectory&#96;&#96; &gt; &#96;&#96;Path&#96;&#96; does not exist, attempts to mount the file system using the access point will fail.",
+        "description": "<details><summary>(Optional) Specifies the POSIX IDs and permissions to apply to the access point's <code>RootDirectory</code>. If the <code>RootDirectory</code> > <code>Path</code> specified does not exist, EFS creates the root directory using the <code>CreationInfo</code> settings when a client connects to an access point. When specifying the <code>CreationInfo</code>, you must provide values for all properties.</summary>If you do not provide <code>CreationInfo</code> and the specified <code>RootDirectory</code> > <code>Path</code> does not exist, attempts to mount the file system using the access point will fail.</details>",
         "children": [
           {
             "name": "owner_uid",
             "type": "string",
-            "description": "Specifies the POSIX user ID to apply to the &#96;&#96;RootDirectory&#96;&#96;. Accepts values from 0 to 2^32 (4294967295)."
+            "description": "Specifies the POSIX user ID to apply to the <code>RootDirectory</code>. Accepts values from 0 to 2^32 (4294967295)."
           },
           {
             "name": "owner_gid",
             "type": "string",
-            "description": "Specifies the POSIX group ID to apply to the &#96;&#96;RootDirectory&#96;&#96;. Accepts values from 0 to 2^32 (4294967295)."
+            "description": "Specifies the POSIX group ID to apply to the <code>RootDirectory</code>. Accepts values from 0 to 2^32 (4294967295)."
           },
           {
             "name": "permissions",
             "type": "string",
-            "description": "Specifies the POSIX permissions to apply to the &#96;&#96;RootDirectory&#96;&#96;, in the format of an octal number representing the file's mode bits."
+            "description": "Specifies the POSIX permissions to apply to the <code>RootDirectory</code>, in the format of an octal number representing the file's mode bits."
           }
         ]
       }
@@ -229,7 +229,7 @@ SELECT
   root_directory
 FROM awscc.efs.access_points
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ access_point_id }}';
 ```
 </TabItem>
@@ -242,7 +242,7 @@ SELECT
   access_point_id
 FROM awscc.efs.access_points_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +355,7 @@ WHERE
 DELETE FROM awscc.efs.access_points
 WHERE
   Identifier = '{{ access_point_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

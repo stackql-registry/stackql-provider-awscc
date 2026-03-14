@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template</code> reso
   {
     "name": "group_id",
     "type": "string",
-    "description": "A cloudwatch alarm template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+    "description": "A cloudwatch alarm template group's id. AWS provided template groups have ids that start with <code>aws-</code>"
   },
   {
     "name": "group_identifier",
@@ -86,7 +86,7 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template</code> reso
   {
     "name": "id",
     "type": "string",
-    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
@@ -151,7 +151,7 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template</code> reso
   {
     "name": "id",
     "type": "string",
-    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
@@ -248,7 +248,7 @@ SELECT
   treat_missing_data
 FROM awscc.medialive.cloud_watch_alarm_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identifier }}';
 ```
 </TabItem>
@@ -261,7 +261,7 @@ SELECT
   identifier
 FROM awscc.medialive.cloud_watch_alarm_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +422,7 @@ WHERE
 DELETE FROM awscc.medialive.cloud_watch_alarm_templates
 WHERE
   Identifier = '{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

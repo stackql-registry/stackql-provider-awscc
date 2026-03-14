@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>resolver_endpoint</code> resource or l
   {
     "name": "direction",
     "type": "string",
-    "description": "Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:<br />- INBOUND: allows DNS queries to your VPC from your network <br />- OUTBOUND: allows DNS queries from your VPC to your network <br />- INBOUND&#95;DELEGATION: allows DNS queries to your VPC from your network with authoritative answers from private hosted zones"
+    "description": "<details><summary>Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:</summary>- INBOUND: allows DNS queries to your VPC from your network<br />- OUTBOUND: allows DNS queries from your VPC to your network<br />- INBOUND_DELEGATION: allows DNS queries to your VPC from your network with authoritative answers from private hosted zones</details>"
   },
   {
     "name": "host_vpc_id",
@@ -128,12 +128,12 @@ Creates, updates, deletes or gets a <code>resolver_endpoint</code> resource or l
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -236,7 +236,7 @@ SELECT
   tags
 FROM awscc.route53resolver.resolver_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resolver_endpoint_id }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   resolver_endpoint_id
 FROM awscc.route53resolver.resolver_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +382,7 @@ WHERE
 DELETE FROM awscc.route53resolver.resolver_endpoints
 WHERE
   Identifier = '{{ resolver_endpoint_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

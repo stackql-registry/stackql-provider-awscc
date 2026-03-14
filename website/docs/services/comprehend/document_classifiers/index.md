@@ -316,7 +316,7 @@ SELECT
   arn
 FROM awscc.comprehend.document_classifiers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -329,7 +329,7 @@ SELECT
   arn
 FROM awscc.comprehend.document_classifiers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -492,7 +492,7 @@ WHERE
 DELETE FROM awscc.comprehend.document_classifiers
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

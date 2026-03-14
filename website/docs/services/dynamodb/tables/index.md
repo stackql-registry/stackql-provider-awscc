@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
 <tbody>
 <tr><td><b>Name</b></td><td><code>tables</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::DynamoDB::Table&#96;&#96; resource creates a DDB table. For more information, see &#91;CreateTable&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API&#95;CreateTable.html) in the &#42;API Reference&#42;.<br />You should be aware of the following behaviors when working with DDB tables:<br />+ CFNlong typically creates DDB tables in parallel. However, if your template includes multiple DDB tables with indexes, you must declare dependencies so that the tables are created sequentially. DDBlong limits the number of tables with secondary indexes that are in the creating state. If you create multiple tables with indexes at the same time, DDB returns an error and the stack operation fails. For an example, see &#91;DynamoDB Table with a DependsOn Attribute&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#aws-resource-dynamodb-table--examples--DynamoDB&#95;Table&#95;with&#95;a&#95;DependsOn&#95;Attribute).<br /><br />Our guidance is to use the latest schema documented for your CFNlong templates. This schema supports the provisioning of all table settings below. When using this schema in your CFNlong templates, please ensure that your Identity and Access Management (IAM) policies are updated with appropriate permissions to allow for the authorization of these setting changes.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::DynamoDB::Table</code> resource creates a DDB table. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html">CreateTable</a> in the <i>API Reference</i>.</summary>You should be aware of the following behaviors when working with DDB tables:<br />+  CFNlong typically creates DDB tables in parallel. However, if your template includes multiple DDB tables with indexes, you must declare dependencies so that the tables are created sequentially. DDBlong limits the number of tables with secondary indexes that are in the creating state. If you create multiple tables with indexes at the same time, DDB returns an error and the stack operation fails. For an example, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#aws-resource-dynamodb-table--examples--DynamoDB_Table_with_a_DependsOn_Attribute">DynamoDB Table with a DependsOn Attribute</a>.<br />Our guidance is to use the latest schema documented for your CFNlong templates. This schema supports the provisioning of all table settings below. When using this schema in your CFNlong templates, please ensure that your Identity and Access Management (IAM) policies are updated with appropriate permissions to allow for the authorization of these setting changes.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.dynamodb.tables" /></td></tr>
 </tbody>
 </table>
@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "on_demand_throughput",
     "type": "object",
-    "description": "Sets the maximum number of read and write units for the specified on-demand table. If you use this property, you must specify &#96;&#96;MaxReadRequestUnits&#96;&#96;, &#96;&#96;MaxWriteRequestUnits&#96;&#96;, or both.",
+    "description": "Sets the maximum number of read and write units for the specified on-demand table. If you use this property, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.",
     "children": [
       {
         "name": "max_read_request_units",
         "type": "integer",
-        "description": "Maximum number of read request units for the specified table.<br />To specify a maximum &#96;&#96;OnDemandThroughput&#96;&#96; on your table, set the value of &#96;&#96;MaxReadRequestUnits&#96;&#96; as greater than or equal to 1. To remove the maximum &#96;&#96;OnDemandThroughput&#96;&#96; that is currently set on your table, set the value of &#96;&#96;MaxReadRequestUnits&#96;&#96; to -1."
+        "description": "<details><summary>Maximum number of read request units for the specified table.</summary>To specify a maximum <code>OnDemandThroughput</code> on your table, set the value of <code>MaxReadRequestUnits</code> as greater than or equal to 1. To remove the maximum <code>OnDemandThroughput</code> that is currently set on your table, set the value of <code>MaxReadRequestUnits</code> to -1.</details>"
       },
       {
         "name": "max_write_request_units",
         "type": "integer",
-        "description": "Maximum number of write request units for the specified table.<br />To specify a maximum &#96;&#96;OnDemandThroughput&#96;&#96; on your table, set the value of &#96;&#96;MaxWriteRequestUnits&#96;&#96; as greater than or equal to 1. To remove the maximum &#96;&#96;OnDemandThroughput&#96;&#96; that is currently set on your table, set the value of &#96;&#96;MaxWriteRequestUnits&#96;&#96; to -1."
+        "description": "<details><summary>Maximum number of write request units for the specified table.</summary>To specify a maximum <code>OnDemandThroughput</code> on your table, set the value of <code>MaxWriteRequestUnits</code> as greater than or equal to 1. To remove the maximum <code>OnDemandThroughput</code> that is currently set on your table, set the value of <code>MaxWriteRequestUnits</code> to -1.</details>"
       }
     ]
   },
@@ -68,17 +68,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
       {
         "name": "sse_enabled",
         "type": "boolean",
-        "description": "Indicates whether server-side encryption is done using an AWS managed key or an AWS owned key. If enabled (true), server-side encryption type is set to &#96;&#96;KMS&#96;&#96; and an AWS managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to AWS owned key."
+        "description": "Indicates whether server-side encryption is done using an AWS managed key or an AWS owned key. If enabled (true), server-side encryption type is set to <code>KMS</code> and an AWS managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to AWS owned key."
       },
       {
         "name": "sse_type",
         "type": "string",
-        "description": "Server-side encryption type. The only supported value is:<br />+ &#96;&#96;KMS&#96;&#96; - Server-side encryption that uses KMSlong. The key is stored in your account and is managed by KMS (KMS charges apply)."
+        "description": "<details><summary>Server-side encryption type. The only supported value is:</summary>+  <code>KMS</code> - Server-side encryption that uses KMSlong. The key is stored in your account and is managed by KMS (KMS charges apply).</details>"
       },
       {
         "name": "kms_master_key_id",
         "type": "string",
-        "description": "The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key &#96;&#96;alias/aws/dynamodb&#96;&#96;."
+        "description": "The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key <code>alias/aws/dynamodb</code>."
       }
     ]
   },
@@ -95,7 +95,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
       {
         "name": "stream_arn",
         "type": "string",
-        "description": "The ARN for a specific Kinesis data stream.<br />Length Constraints: Minimum length of 37. Maximum length of 1024."
+        "description": "<details><summary>The ARN for a specific Kinesis data stream.</summary>Length Constraints: Minimum length of 37. Maximum length of 1024.</details>"
       }
     ]
   },
@@ -107,17 +107,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
       {
         "name": "stream_view_type",
         "type": "string",
-        "description": "When an item in the table is modified, &#96;&#96;StreamViewType&#96;&#96; determines what information is written to the stream for this table. Valid values for &#96;&#96;StreamViewType&#96;&#96; are:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the key attributes of the modified item are written to the stream.<br />+ &#96;&#96;NEW&#95;IMAGE&#96;&#96; - The entire item, as it appears after it was modified, is written to the stream.<br />+ &#96;&#96;OLD&#95;IMAGE&#96;&#96; - The entire item, as it appeared before it was modified, is written to the stream.<br />+ &#96;&#96;NEW&#95;AND&#95;OLD&#95;IMAGES&#96;&#96; - Both the new and the old item images of the item are written to the stream."
+        "description": "<details><summary>When an item in the table is modified, <code>StreamViewType</code> determines what information is written to the stream for this table. Valid values for <code>StreamViewType</code> are:</summary>+  <code>KEYS_ONLY</code> - Only the key attributes of the modified item are written to the stream.<br />+  <code>NEW_IMAGE</code> - The entire item, as it appears after it was modified, is written to the stream.<br />+  <code>OLD_IMAGE</code> - The entire item, as it appeared before it was modified, is written to the stream.<br />+  <code>NEW_AND_OLD_IMAGES</code> - Both the new and the old item images of the item are written to the stream.</details>"
       },
       {
         "name": "resource_policy",
         "type": "object",
-        "description": "Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table's streams. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.<br />In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).",
+        "description": "<details><summary>Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table's streams. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.</summary>In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>.</details>",
         "children": [
           {
             "name": "policy_document",
             "type": "object",
-            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html)."
+            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>."
           }
         ]
       }
@@ -143,7 +143,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "import_source_specification",
     "type": "object",
-    "description": "Specifies the properties of data being imported from the S3 bucket source to the\" table.<br />If you specify the &#96;&#96;ImportSourceSpecification&#96;&#96; property, and also specify either the &#96;&#96;StreamSpecification&#96;&#96;, the &#96;&#96;TableClass&#96;&#96; property, the &#96;&#96;DeletionProtectionEnabled&#96;&#96; property, or the &#96;&#96;WarmThroughput&#96;&#96; property, the IAM entity creating/updating stack must have &#96;&#96;UpdateTable&#96;&#96; permission.",
+    "description": "<details><summary>Specifies the properties of data being imported from the S3 bucket source to the\" table.</summary>If you specify the <code>ImportSourceSpecification</code> property, and also specify either the <code>StreamSpecification</code>, the <code>TableClass</code> property, the <code>DeletionProtectionEnabled</code> property, or the <code>WarmThroughput</code> property, the IAM entity creating/updating stack must have <code>UpdateTable</code> permission.</details>",
     "children": [
       {
         "name": "s3_bucket_source",
@@ -170,7 +170,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
       {
         "name": "input_format",
         "type": "string",
-        "description": "The format of the source data. Valid values for &#96;&#96;ImportFormat&#96;&#96; are &#96;&#96;CSV&#96;&#96;, &#96;&#96;DYNAMODB&#95;JSON&#96;&#96; or &#96;&#96;ION&#96;&#96;."
+        "description": "The format of the source data. Valid values for <code>ImportFormat</code> are <code>CSV</code>, <code>DYNAMODB_JSON</code> or <code>ION</code>."
       },
       {
         "name": "input_format_options",
@@ -223,17 +223,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "provisioned_throughput",
     "type": "object",
-    "description": "Throughput for the specified table, which consists of values for &#96;&#96;ReadCapacityUnits&#96;&#96; and &#96;&#96;WriteCapacityUnits&#96;&#96;. For more information about the contents of a provisioned throughput structure, see &#91;Amazon DynamoDB Table ProvisionedThroughput&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API&#95;ProvisionedThroughput.html). <br />If you set &#96;&#96;BillingMode&#96;&#96; as &#96;&#96;PROVISIONED&#96;&#96;, you must specify this property. If you set &#96;&#96;BillingMode&#96;&#96; as &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96;, you cannot specify this property.",
+    "description": "<details><summary>Throughput for the specified table, which consists of values for <code>ReadCapacityUnits</code> and <code>WriteCapacityUnits</code>. For more information about the contents of a provisioned throughput structure, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html\">Amazon DynamoDB Table ProvisionedThroughput</a>.</summary>If you set <code>BillingMode</code> as <code>PROVISIONED</code>, you must specify this property. If you set <code>BillingMode</code> as <code>PAY_PER_REQUEST</code>, you cannot specify this property.</details>",
     "children": [
       {
         "name": "write_capacity_units",
         "type": "integer",
-        "description": "The maximum number of writes consumed per second before DynamoDB returns a &#96;&#96;ThrottlingException&#96;&#96;. For more information, see &#91;Specifying Read and Write Requirements&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the &#42;Amazon DynamoDB Developer Guide&#42;.<br />If read/write capacity mode is &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; the value is set to 0."
+        "description": "<details><summary>The maximum number of writes consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</summary>If read/write capacity mode is <code>PAY_PER_REQUEST</code> the value is set to 0.</details>"
       },
       {
         "name": "read_capacity_units",
         "type": "integer",
-        "description": "The maximum number of strongly consistent reads consumed per second before DynamoDB returns a &#96;&#96;ThrottlingException&#96;&#96;. For more information, see &#91;Specifying Read and Write Requirements&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the &#42;Amazon DynamoDB Developer Guide&#42;.<br />If read/write capacity mode is &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; the value is set to 0."
+        "description": "<details><summary>The maximum number of strongly consistent reads consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</summary>If read/write capacity mode is <code>PAY_PER_REQUEST</code> the value is set to 0.</details>"
       }
     ]
   },
@@ -257,17 +257,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "table_name",
     "type": "string",
-    "description": "A name for the table. If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the table name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>A name for the table. If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the table name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "attribute_definitions",
     "type": "array",
-    "description": "A list of attributes that describe the key schema for the table and indexes.<br />This property is required to create a DDB table.<br />Update requires: &#91;Some interruptions&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-some-interrupt). Replacement if you edit an existing AttributeDefinition.",
+    "description": "<details><summary>A list of attributes that describe the key schema for the table and indexes.</summary>This property is required to create a DDB table.<br />Update requires: <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-some-interrupt\">Some interruptions</a>. Replacement if you edit an existing AttributeDefinition.</details>",
     "children": [
       {
         "name": "attribute_type",
         "type": "string",
-        "description": "The data type for the attribute, where:<br />+ &#96;&#96;S&#96;&#96; - the attribute is of type String<br />+ &#96;&#96;N&#96;&#96; - the attribute is of type Number<br />+ &#96;&#96;B&#96;&#96; - the attribute is of type Binary"
+        "description": "<details><summary>The data type for the attribute, where:</summary>+  <code>S</code> - the attribute is of type String<br />+  <code>N</code> - the attribute is of type Number<br />+  <code>B</code> - the attribute is of type Binary</details>"
       },
       {
         "name": "attribute_name",
@@ -279,12 +279,12 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "billing_mode",
     "type": "string",
-    "description": "Specify how you are charged for read and write throughput and how you manage capacity.<br />Valid values include:<br />+ &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; - We recommend using &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; for most DynamoDB workloads. &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; sets the billing mode to &#91;On-demand capacity mode&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html). <br />+ &#96;&#96;PROVISIONED&#96;&#96; - We recommend using &#96;&#96;PROVISIONED&#96;&#96; for steady workloads with predictable growth where capacity requirements can be reliably forecasted. &#96;&#96;PROVISIONED&#96;&#96; sets the billing mode to &#91;Provisioned capacity mode&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html).<br /><br />If not specified, the default is &#96;&#96;PROVISIONED&#96;&#96;."
+    "description": "<details><summary>Specify how you are charged for read and write throughput and how you manage capacity.</summary>Valid values include:<br />+  <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for most DynamoDB workloads. <code>PAY_PER_REQUEST</code> sets the billing mode to <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html\">On-demand capacity mode</a>.<br />+  <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for steady workloads with predictable growth where capacity requirements can be reliably forecasted. <code>PROVISIONED</code> sets the billing mode to <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html\">Provisioned capacity mode</a>.<br />If not specified, the default is <code>PROVISIONED</code>.</details>"
   },
   {
     "name": "global_secondary_indexes",
     "type": "array",
-    "description": "Global secondary indexes to be created on the table. You can create up to 20 global secondary indexes.<br />If you update a table to include a new global secondary index, CFNlong initiates the index creation and then proceeds with the stack update. CFNlong doesn't wait for the index to complete creation because the backfilling phase can take a long time, depending on the size of the table. You can't use the index or update the table until the index's status is &#96;&#96;ACTIVE&#96;&#96;. You can track its status by using the DynamoDB &#91;DescribeTable&#93;(https://docs.aws.amazon.com/cli/latest/reference/dynamodb/describe-table.html) command.<br />If you add or delete an index during an update, we recommend that you don't update any other resources. If your stack fails to update and is rolled back while adding a new index, you must manually delete the index. <br />Updates are not supported. The following are exceptions:<br />+ If you update either the contributor insights specification or the provisioned throughput values of global secondary indexes, you can update the table without interruption.<br />+ You can delete or add one global secondary index without interruption. If you do both in the same update (for example, by changing the index's logical ID), the update fails.",
+    "description": "<details><summary>Global secondary indexes to be created on the table. You can create up to 20 global secondary indexes.</summary>If you update a table to include a new global secondary index, CFNlong initiates the index creation and then proceeds with the stack update. CFNlong doesn't wait for the index to complete creation because the backfilling phase can take a long time, depending on the size of the table. You can't use the index or update the table until the index's status is <code>ACTIVE</code>. You can track its status by using the DynamoDB <a href=\"https://docs.aws.amazon.com/cli/latest/reference/dynamodb/describe-table.html\">DescribeTable</a> command.<br />If you add or delete an index during an update, we recommend that you don't update any other resources. If your stack fails to update and is rolled back while adding a new index, you must manually delete the index.<br />Updates are not supported. The following are exceptions:<br />+  If you update either the contributor insights specification or the provisioned throughput values of global secondary indexes, you can update the table without interruption.<br />+  You can delete or add one global secondary index without interruption. If you do both in the same update (for example, by changing the index's logical ID), the update fails.</details>",
     "children": [
       {
         "name": "index_name",
@@ -299,24 +299,24 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
           {
             "name": "non_key_attributes",
             "type": "array",
-            "description": "Represents the non-key attribute names which will be projected into the index.<br />For global and local secondary indexes, the total count of &#96;&#96;NonKeyAttributes&#96;&#96; summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of &#96;&#96;INCLUDE&#96;&#96;. You still can specify the ProjectionType of &#96;&#96;ALL&#96;&#96; to project all attributes from the source table, even if the table has more than 100 attributes."
+            "description": "<details><summary>Represents the non-key attribute names which will be projected into the index.</summary>For global and local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of <code>INCLUDE</code>. You still can specify the ProjectionType of <code>ALL</code> to project all attributes from the source table, even if the table has more than 100 attributes.</details>"
           },
           {
             "name": "projection_type",
             "type": "string",
-            "description": "The set of attributes that are projected into the index:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the index and primary keys are projected into the index.<br />+ &#96;&#96;INCLUDE&#96;&#96; - In addition to the attributes described in &#96;&#96;KEYS&#95;ONLY&#96;&#96;, the secondary index will include other non-key attributes that you specify.<br />+ &#96;&#96;ALL&#96;&#96; - All of the table attributes are projected into the index.<br /><br />When using the DynamoDB console, &#96;&#96;ALL&#96;&#96; is selected by default."
+            "description": "<details><summary>The set of attributes that are projected into the index:</summary>+  <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the index.<br />+  <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index will include other non-key attributes that you specify.<br />+  <code>ALL</code> - All of the table attributes are projected into the index.<br />When using the DynamoDB console, <code>ALL</code> is selected by default.</details>"
           }
         ]
       },
       {
         "name": "key_schema",
         "type": "array",
-        "description": "The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.",
+        "description": "<details><summary>The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>",
         "children": [
           {
             "name": "key_type",
             "type": "string",
-            "description": "The role that this key attribute will assume:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value."
+            "description": "<details><summary>The role that this key attribute will assume:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>"
           },
           {
             "name": "attribute_name",
@@ -330,19 +330,19 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "resource_policy",
     "type": "object",
-    "description": "An AWS resource-based policy document in JSON format that will be attached to the table.<br />When you attach a resource-based policy while creating a table, the policy application is &#42;strongly consistent&#42;.<br />The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when calculating the size of a policy against this limit. For a full list of all considerations that apply for resource-based policies, see &#91;Resource-based policy considerations&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html).<br />You need to specify the &#96;&#96;CreateTable&#96;&#96; and &#96;&#96;PutResourcePolicy&#96;&#96; IAM actions for authorizing a user to create a table with a resource-based policy.",
+    "description": "<details><summary>An AWS resource-based policy document in JSON format that will be attached to the table.</summary>When you attach a resource-based policy while creating a table, the policy application is <i>strongly consistent</i>.<br />The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when calculating the size of a policy against this limit. For a full list of all considerations that apply for resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html\">Resource-based policy considerations</a>.<br />You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for authorizing a user to create a table with a resource-based policy.</details>",
     "children": [
       {
         "name": "policy_document",
         "type": "object",
-        "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html)."
+        "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>."
       }
     ]
   },
   {
     "name": "key_schema",
     "type": "object",
-    "description": "Specifies the attributes that make up the primary key for the table. The attributes in the &#96;&#96;KeySchema&#96;&#96; property must also be defined in the &#96;&#96;AttributeDefinitions&#96;&#96; property."
+    "description": "Specifies the attributes that make up the primary key for the table. The attributes in the <code>KeySchema</code> property must also be defined in the <code>AttributeDefinitions</code> property."
   },
   {
     "name": "local_secondary_indexes",
@@ -362,24 +362,24 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
           {
             "name": "non_key_attributes",
             "type": "array",
-            "description": "Represents the non-key attribute names which will be projected into the index.<br />For global and local secondary indexes, the total count of &#96;&#96;NonKeyAttributes&#96;&#96; summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of &#96;&#96;INCLUDE&#96;&#96;. You still can specify the ProjectionType of &#96;&#96;ALL&#96;&#96; to project all attributes from the source table, even if the table has more than 100 attributes."
+            "description": "<details><summary>Represents the non-key attribute names which will be projected into the index.</summary>For global and local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of <code>INCLUDE</code>. You still can specify the ProjectionType of <code>ALL</code> to project all attributes from the source table, even if the table has more than 100 attributes.</details>"
           },
           {
             "name": "projection_type",
             "type": "string",
-            "description": "The set of attributes that are projected into the index:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the index and primary keys are projected into the index.<br />+ &#96;&#96;INCLUDE&#96;&#96; - In addition to the attributes described in &#96;&#96;KEYS&#95;ONLY&#96;&#96;, the secondary index will include other non-key attributes that you specify.<br />+ &#96;&#96;ALL&#96;&#96; - All of the table attributes are projected into the index.<br /><br />When using the DynamoDB console, &#96;&#96;ALL&#96;&#96; is selected by default."
+            "description": "<details><summary>The set of attributes that are projected into the index:</summary>+  <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the index.<br />+  <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index will include other non-key attributes that you specify.<br />+  <code>ALL</code> - All of the table attributes are projected into the index.<br />When using the DynamoDB console, <code>ALL</code> is selected by default.</details>"
           }
         ]
       },
       {
         "name": "key_schema",
         "type": "array",
-        "description": "The complete key schema for the local secondary index, consisting of one or more pairs of attribute names and key types:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.",
+        "description": "<details><summary>The complete key schema for the local secondary index, consisting of one or more pairs of attribute names and key types:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>",
         "children": [
           {
             "name": "key_type",
             "type": "string",
-            "description": "The role that this key attribute will assume:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value."
+            "description": "<details><summary>The role that this key attribute will assume:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>"
           },
           {
             "name": "attribute_name",
@@ -403,17 +403,17 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "deletion_protection_enabled",
     "type": "boolean",
-    "description": "Determines if a table is protected from deletion. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default. For more information, see &#91;Using deletion protection&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.Basics.html#WorkingWithTables.Basics.DeletionProtection) in the &#42;Developer Guide&#42;."
+    "description": "Determines if a table is protected from deletion. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.Basics.html#WorkingWithTables.Basics.DeletionProtection\">Using deletion protection</a> in the <i>Developer Guide</i>."
   },
   {
     "name": "table_class",
     "type": "string",
-    "description": "The table class of the new table. Valid values are &#96;&#96;STANDARD&#96;&#96; and &#96;&#96;STANDARD&#95;INFREQUENT&#95;ACCESS&#96;&#96;."
+    "description": "The table class of the new table. Valid values are <code>STANDARD</code> and <code>STANDARD_INFREQUENT_ACCESS</code>."
   },
   {
     "name": "tags",
     "type": "array",
-    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "description": "<details><summary>An array of key-value pairs to apply to this resource.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
         "name": "value",
@@ -430,7 +430,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "time_to_live_specification",
     "type": "object",
-    "description": "Specifies the Time to Live (TTL) settings for the table.<br />For detailed information about the limits in DynamoDB, see &#91;Limits in Amazon DynamoDB&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the Amazon DynamoDB Developer Guide.",
+    "description": "<details><summary>Specifies the Time to Live (TTL) settings for the table.</summary>For detailed information about the limits in DynamoDB, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html\">Limits in Amazon DynamoDB</a> in the Amazon DynamoDB Developer Guide.</details>",
     "children": [
       {
         "name": "enabled",
@@ -440,7 +440,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
       {
         "name": "attribute_name",
         "type": "string",
-        "description": "The name of the TTL attribute used to store the expiration time for items in the table.<br />+ The &#96;&#96;AttributeName&#96;&#96; property is required when enabling the TTL, or when TTL is already enabled.<br />+ To update this property, you must first disable TTL and then enable TTL with the new attribute name."
+        "description": "<details><summary>The name of the TTL attribute used to store the expiration time for items in the table.</summary>+  The <code>AttributeName</code> property is required when enabling the TTL, or when TTL is already enabled.<br />+  To update this property, you must first disable TTL and then enable TTL with the new attribute name.</details>"
       }
     ]
   },
@@ -457,7 +457,7 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
   {
     "name": "table_name",
     "type": "string",
-    "description": "A name for the table. If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the table name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>A name for the table. If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the table name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "region",
@@ -552,7 +552,7 @@ SELECT
   time_to_live_specification
 FROM awscc.dynamodb.tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_name }}';
 ```
 </TabItem>
@@ -565,7 +565,7 @@ SELECT
   table_name
 FROM awscc.dynamodb.tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -795,7 +795,7 @@ WHERE
 DELETE FROM awscc.dynamodb.tables
 WHERE
   Identifier = '{{ table_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

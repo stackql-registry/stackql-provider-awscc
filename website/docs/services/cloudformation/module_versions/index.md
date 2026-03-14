@@ -52,7 +52,7 @@ Creates, updates, deletes or gets a <code>module_version</code> resource or list
   {
     "name": "module_name",
     "type": "string",
-    "description": "The name of the module being registered.<br />Recommended module naming pattern: company&#95;or&#95;organization::service::type::MODULE."
+    "description": "<details><summary>The name of the module being registered.</summary>Recommended module naming pattern: company_or_organization::service::type::MODULE.</details>"
   },
   {
     "name": "module_package",
@@ -82,7 +82,7 @@ Creates, updates, deletes or gets a <code>module_version</code> resource or list
   {
     "name": "visibility",
     "type": "string",
-    "description": "The scope at which the type is visible and usable in CloudFormation operations.<br />The only allowed value at present is:<br />PRIVATE: The type is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any types you register as PRIVATE."
+    "description": "<details><summary>The scope at which the type is visible and usable in CloudFormation operations.</summary>The only allowed value at present is:<br />PRIVATE: The type is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any types you register as PRIVATE.</details>"
   },
   {
     "name": "region",
@@ -138,7 +138,7 @@ SELECT
   visibility
 FROM awscc.cloudformation.module_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -214,7 +214,7 @@ resources:
 DELETE FROM awscc.cloudformation.module_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

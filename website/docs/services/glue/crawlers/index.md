@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
       {
         "name": "update_behavior",
         "type": "string",
-        "description": "The update behavior when the crawler finds a changed schema. A value of LOG specifies that if a table or a partition already exists, and a change is detected, do not update it, only log that a change was detected. Add new tables and new partitions (including on existing tables). A value of UPDATE&#95;IN&#95;DATABASE specifies that if a table or partition already exists, and a change is detected, update it. Add new tables and partitions."
+        "description": "The update behavior when the crawler finds a changed schema. A value of LOG specifies that if a table or a partition already exists, and a change is detected, do not update it, only log that a change was detected. Add new tables and new partitions (including on existing tables). A value of UPDATE_IN_DATABASE specifies that if a table or partition already exists, and a change is detected, update it. Add new tables and partitions."
       },
       {
         "name": "delete_behavior",
         "type": "string",
-        "description": "The deletion behavior when the crawler finds a deleted object. A value of LOG specifies that if a table or partition is found to no longer exist, do not delete it, only log that it was found to no longer exist. A value of DELETE&#95;FROM&#95;DATABASE specifies that if a table or partition is found to have been removed, delete it from the database. A value of DEPRECATE&#95;IN&#95;DATABASE specifies that if a table has been found to no longer exist, to add a property to the table that says 'DEPRECATED' and includes a timestamp with the time of deprecation."
+        "description": "The deletion behavior when the crawler finds a deleted object. A value of LOG specifies that if a table or partition is found to no longer exist, do not delete it, only log that it was found to no longer exist. A value of DELETE_FROM_DATABASE specifies that if a table or partition is found to have been removed, delete it from the database. A value of DEPRECATE_IN_DATABASE specifies that if a table has been found to no longer exist, to add a property to the table that says 'DEPRECATED' and includes a timestamp with the time of deprecation."
       }
     ]
   },
@@ -83,7 +83,7 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
       {
         "name": "recrawl_behavior",
         "type": "string",
-        "description": "Specifies whether to crawl the entire dataset again or to crawl only folders that were added since the last crawler run. A value of CRAWL&#95;EVERYTHING specifies crawling the entire dataset again. A value of CRAWL&#95;NEW&#95;FOLDERS&#95;ONLY specifies crawling only folders that were added since the last crawler run. A value of CRAWL&#95;EVENT&#95;MODE specifies crawling only the changes identified by Amazon S3 events."
+        "description": "Specifies whether to crawl the entire dataset again or to crawl only folders that were added since the last crawler run. A value of CRAWL_EVERYTHING specifies crawling the entire dataset again. A value of CRAWL_NEW_FOLDERS_ONLY specifies crawling only folders that were added since the last crawler run. A value of CRAWL_EVENT_MODE specifies crawling only the changes identified by Amazon S3 events."
       }
     ]
   },
@@ -233,7 +233,7 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
           {
             "name": "enable_additional_metadata",
             "type": "array",
-            "description": "Specify a value of RAWTYPES or COMMENTS to enable additional metadata in table responses. RAWTYPES provides the native-level datatype. COMMENTS provides comments associated with a column or table in the database.<br />If you do not need additional metadata, keep the field empty."
+            "description": "<details><summary>Specify a value of RAWTYPES or COMMENTS to enable additional metadata in table responses. RAWTYPES provides the native-level datatype. COMMENTS provides comments associated with a column or table in the database.</summary>If you do not need additional metadata, keep the field empty.</details>"
           }
         ]
       },
@@ -255,7 +255,7 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
           {
             "name": "scan_rate",
             "type": "number",
-            "description": "The percentage of the configured read capacity units to use by the AWS Glue crawler. Read capacity units is a term defined by DynamoDB, and is a numeric value that acts as rate limiter for the number of reads that can be performed on that table per second.<br />The valid values are null or a value between 0.1 to 1.5. A null value is used when user does not provide a value, and defaults to 0.5 of the configured Read Capacity Unit (for provisioned tables), or 0.25 of the max configured Read Capacity Unit (for tables using on-demand mode)."
+            "description": "<details><summary>The percentage of the configured read capacity units to use by the AWS Glue crawler. Read capacity units is a term defined by DynamoDB, and is a numeric value that acts as rate limiter for the number of reads that can be performed on that table per second.</summary>The valid values are null or a value between 0.1 to 1.5. A null value is used when user does not provide a value, and defaults to 0.5 of the configured Read Capacity Unit (for provisioned tables), or 0.25 of the max configured Read Capacity Unit (for tables using on-demand mode).</details>"
           }
         ]
       },
@@ -355,7 +355,7 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
       {
         "name": "schedule_expression",
         "type": "string",
-        "description": "A cron expression used to specify the schedule. For more information, see Time-Based Schedules for Jobs and Crawlers. For example, to run something every day at 12:15 UTC, specify cron(15 12 &#42; &#42; ? &#42;)."
+        "description": "A cron expression used to specify the schedule. For more information, see Time-Based Schedules for Jobs and Crawlers. For example, to run something every day at 12:15 UTC, specify cron(15 12 <i> </i> ? *)."
       }
     ]
   },
@@ -469,7 +469,7 @@ SELECT
   tags
 FROM awscc.glue.crawlers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -482,7 +482,7 @@ SELECT
   name
 FROM awscc.glue.crawlers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -690,7 +690,7 @@ WHERE
 DELETE FROM awscc.glue.crawlers
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

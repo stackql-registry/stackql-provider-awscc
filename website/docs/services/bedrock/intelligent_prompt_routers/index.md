@@ -221,7 +221,7 @@ SELECT
   updated_at
 FROM awscc.bedrock.intelligent_prompt_routers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ prompt_router_arn }}';
 ```
 </TabItem>
@@ -234,7 +234,7 @@ SELECT
   prompt_router_arn
 FROM awscc.bedrock.intelligent_prompt_routers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -351,7 +351,7 @@ WHERE
 DELETE FROM awscc.bedrock.intelligent_prompt_routers
 WHERE
   Identifier = '{{ prompt_router_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

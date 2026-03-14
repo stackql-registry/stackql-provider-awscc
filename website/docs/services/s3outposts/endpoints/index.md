@@ -214,7 +214,7 @@ SELECT
   failed_reason
 FROM awscc.s3outposts.endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -227,7 +227,7 @@ SELECT
   arn
 FROM awscc.s3outposts.endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +324,7 @@ resources:
 DELETE FROM awscc.s3outposts.endpoints
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

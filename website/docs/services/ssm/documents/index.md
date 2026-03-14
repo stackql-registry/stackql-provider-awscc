@@ -230,7 +230,7 @@ SELECT
   update_method
 FROM awscc.ssm.documents
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -243,7 +243,7 @@ SELECT
   name
 FROM awscc.ssm.documents_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -380,7 +380,7 @@ WHERE
 DELETE FROM awscc.ssm.documents
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

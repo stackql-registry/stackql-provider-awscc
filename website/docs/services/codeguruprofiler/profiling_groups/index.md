@@ -95,12 +95,12 @@ Creates, updates, deletes or gets a <code>profiling_group</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @."
       }
     ]
   },
@@ -196,7 +196,7 @@ SELECT
   tags
 FROM awscc.codeguruprofiler.profiling_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ profiling_group_name }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   profiling_group_name
 FROM awscc.codeguruprofiler.profiling_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.codeguruprofiler.profiling_groups
 WHERE
   Identifier = '{{ profiling_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

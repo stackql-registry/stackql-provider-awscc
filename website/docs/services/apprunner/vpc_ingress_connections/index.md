@@ -195,7 +195,7 @@ SELECT
   tags
 FROM awscc.apprunner.vpc_ingress_connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpc_ingress_connection_arn }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   vpc_ingress_connection_arn
 FROM awscc.apprunner.vpc_ingress_connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +312,7 @@ WHERE
 DELETE FROM awscc.apprunner.vpc_ingress_connections
 WHERE
   Identifier = '{{ vpc_ingress_connection_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

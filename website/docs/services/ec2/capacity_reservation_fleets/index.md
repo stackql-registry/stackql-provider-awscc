@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>capacity_reservation_fleet</code> reso
       {
         "name": "resource_type",
         "type": "string",
-        "description": "The type of resource to tag. You can specify tags for the following resource types only: &#96;&#96;instance&#96;&#96; &#124; &#96;&#96;volume&#96;&#96; &#124; &#96;&#96;network-interface&#96;&#96; &#124; &#96;&#96;spot-instances-request&#96;&#96;. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.<br />To tag a resource after it has been created, see &#91;CreateTags&#93;(https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API&#95;CreateTags.html)."
+        "description": "<details><summary>The type of resource to tag. You can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.</summary>To tag a resource after it has been created, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html\">CreateTags</a>.</details>"
       },
       {
         "name": "tags",
@@ -250,7 +250,7 @@ SELECT
   no_remove_end_date
 FROM awscc.ec2.capacity_reservation_fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ capacity_reservation_fleet_id }}';
 ```
 </TabItem>
@@ -263,7 +263,7 @@ SELECT
   capacity_reservation_fleet_id
 FROM awscc.ec2.capacity_reservation_fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +410,7 @@ WHERE
 DELETE FROM awscc.ec2.capacity_reservation_fleets
 WHERE
   Identifier = '{{ capacity_reservation_fleet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

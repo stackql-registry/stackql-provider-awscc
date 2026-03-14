@@ -46,22 +46,22 @@ Creates, updates, deletes or gets a <code>profile_association</code> resource or
   {
     "name": "resource_id",
     "type": "string",
-    "description": "The resource that you associated the profile with."
+    "description": "The resource that you associated the  profile with."
   },
   {
     "name": "profile_id",
     "type": "string",
-    "description": "The ID of the profile that you associated with the resource that is specified by ResourceId."
+    "description": "The ID of the  profile that you associated with the resource that is specified by ResourceId."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Primary Identifier for Profile Association"
+    "description": "Primary Identifier for  Profile Association"
   },
   {
     "name": "name",
     "type": "string",
-    "description": "The name of an association between a Profile and a VPC."
+    "description": "The name of an association between a  Profile and a VPC."
   },
   {
     "name": "tags",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>profile_association</code> resource or
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -98,7 +98,7 @@ Creates, updates, deletes or gets a <code>profile_association</code> resource or
   {
     "name": "id",
     "type": "string",
-    "description": "Primary Identifier for Profile Association"
+    "description": "Primary Identifier for  Profile Association"
   },
   {
     "name": "region",
@@ -177,7 +177,7 @@ SELECT
   arn
 FROM awscc.route53profiles.profile_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   id
 FROM awscc.route53profiles.profile_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.route53profiles.profile_associations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

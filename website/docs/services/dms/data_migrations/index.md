@@ -240,7 +240,7 @@ SELECT
   tags
 FROM awscc.dms.data_migrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ data_migration_arn }}';
 ```
 </TabItem>
@@ -253,7 +253,7 @@ SELECT
   data_migration_arn
 FROM awscc.dms.data_migrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +387,7 @@ WHERE
 DELETE FROM awscc.dms.data_migrations
 WHERE
   Identifier = '{{ data_migration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

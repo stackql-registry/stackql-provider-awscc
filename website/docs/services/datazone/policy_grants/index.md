@@ -197,7 +197,7 @@ SELECT
   domain_identifier
 FROM awscc.datazone.policy_grants
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   policy_type
 FROM awscc.datazone.policy_grants_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +311,7 @@ resources:
 DELETE FROM awscc.datazone.policy_grants
 WHERE
   Identifier = '{{ domain_identifier }}|{{ grant_id }}|{{ entity_identifier }}|{{ entity_type }}|{{ policy_type }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

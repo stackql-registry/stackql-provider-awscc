@@ -151,7 +151,7 @@ SELECT
   queue_id
 FROM awscc.deadline.queue_limit_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ farm_id }}|{{ limit_id }}|{{ queue_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   queue_id
 FROM awscc.deadline.queue_limit_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.deadline.queue_limit_associations
 WHERE
   Identifier = '{{ farm_id }}|{{ limit_id }}|{{ queue_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

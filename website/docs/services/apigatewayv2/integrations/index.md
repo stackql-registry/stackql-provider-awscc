@@ -56,17 +56,17 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
   {
     "name": "connection_type",
     "type": "string",
-    "description": "The type of the network connection to the integration endpoint. Specify INTERNET for connections through the public routable internet or VPC&#95;LINK for private connections between API Gateway and resources in a VPC. The default value is INTERNET."
+    "description": "The type of the network connection to the integration endpoint. Specify INTERNET for connections through the public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The default value is INTERNET."
   },
   {
     "name": "content_handling_strategy",
     "type": "string",
-    "description": "Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported values are CONVERT&#95;TO&#95;BINARY and CONVERT&#95;TO&#95;TEXT."
+    "description": "Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT."
   },
   {
     "name": "credentials_arn",
     "type": "string",
-    "description": "Specifies the credentials required for the integration, if any. For AWS integrations, three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string arn:aws:iam::&#42;:user/&#42;. To use resource-based permissions on supported AWS services, don't specify this parameter."
+    "description": "Specifies the credentials required for the integration, if any. For AWS integrations, three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string arn:aws:iam::<i>:user/</i>. To use resource-based permissions on supported AWS services, don't specify this parameter."
   },
   {
     "name": "description",
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
   {
     "name": "integration_subtype",
     "type": "string",
-    "description": "Supported only for HTTP API AWS&#95;PROXY integrations. Specifies the AWS service action to invoke."
+    "description": "Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke."
   },
   {
     "name": "integration_id",
@@ -101,7 +101,7 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
   {
     "name": "passthrough_behavior",
     "type": "string",
-    "description": "Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and the available mapping templates specified as the requestTemplates property on the Integration resource. There are three valid values: WHEN&#95;NO&#95;MATCH, WHEN&#95;NO&#95;TEMPLATES, and NEVER. Supported only for WebSocket APIs."
+    "description": "Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and the available mapping templates specified as the requestTemplates property on the Integration resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs."
   },
   {
     "name": "payload_format_version",
@@ -255,7 +255,7 @@ SELECT
   tls_config
 FROM awscc.apigatewayv2.integrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_id }}|{{ integration_id }}';
 ```
 </TabItem>
@@ -269,7 +269,7 @@ SELECT
   integration_id
 FROM awscc.apigatewayv2.integrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -442,7 +442,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.integrations
 WHERE
   Identifier = '{{ api_id }}|{{ integration_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

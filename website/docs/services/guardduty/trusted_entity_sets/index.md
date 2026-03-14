@@ -218,7 +218,7 @@ SELECT
   tags
 FROM awscc.guardduty.trusted_entity_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}|{{ detector_id }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   detector_id
 FROM awscc.guardduty.trusted_entity_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.guardduty.trusted_entity_sets
 WHERE
   Identifier = '{{ id }}|{{ detector_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

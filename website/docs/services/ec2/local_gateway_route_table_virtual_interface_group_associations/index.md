@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ local_gateway_route_table_virtual_interface_group_association_id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   local_gateway_route_table_virtual_interface_group_association_id
 FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +300,7 @@ WHERE
 DELETE FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
 WHERE
   Identifier = '{{ local_gateway_route_table_virtual_interface_group_association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

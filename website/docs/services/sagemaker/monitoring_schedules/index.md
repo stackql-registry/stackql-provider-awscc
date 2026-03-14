@@ -403,7 +403,7 @@ SELECT
   monitoring_schedule_status
 FROM awscc.sagemaker.monitoring_schedules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ monitoring_schedule_arn }}';
 ```
 </TabItem>
@@ -416,7 +416,7 @@ SELECT
   monitoring_schedule_arn
 FROM awscc.sagemaker.monitoring_schedules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -607,7 +607,7 @@ WHERE
 DELETE FROM awscc.sagemaker.monitoring_schedules
 WHERE
   Identifier = '{{ monitoring_schedule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

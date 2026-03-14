@@ -224,7 +224,7 @@ SELECT
   test_case_version
 FROM awscc.apptest.test_cases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ test_case_id }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   test_case_id
 FROM awscc.apptest.test_cases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +342,7 @@ WHERE
 DELETE FROM awscc.apptest.test_cases
 WHERE
   Identifier = '{{ test_case_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

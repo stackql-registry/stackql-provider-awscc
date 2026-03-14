@@ -244,7 +244,7 @@ SELECT
   tags
 FROM awscc.mediapackagev2.channels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -257,7 +257,7 @@ SELECT
   arn
 FROM awscc.mediapackagev2.channels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -377,7 +377,7 @@ WHERE
 DELETE FROM awscc.mediapackagev2.channels
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

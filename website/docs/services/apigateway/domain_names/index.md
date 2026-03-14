@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>domain_names</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::DomainName&#96;&#96; resource specifies a custom domain name for your API in API Gateway.<br />You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see &#91;Set up Custom Domain Name for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::ApiGateway::DomainName</code> resource specifies a custom domain name for your API in API Gateway.</summary>You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Set up Custom Domain Name for an API in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.domain_names" /></td></tr>
 </tbody>
 </table>
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
   {
     "name": "endpoint_configuration",
     "type": "object",
-    "description": "The &#96;&#96;EndpointConfiguration&#96;&#96; property type specifies the endpoint types of a REST API.<br />&#96;&#96;EndpointConfiguration&#96;&#96; is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.",
+    "description": "<details><summary>The <code>EndpointConfiguration</code> property type specifies the endpoint types of a REST API.</summary><code>EndpointConfiguration</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html\">AWS::ApiGateway::RestApi</a> resource.</details>",
     "children": [
       {
         "name": "ip_address_type",
@@ -254,7 +254,7 @@ SELECT
   tags
 FROM awscc.apigateway.domain_names
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}';
 ```
 </TabItem>
@@ -267,7 +267,7 @@ SELECT
   domain_name
 FROM awscc.apigateway.domain_names_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -417,7 +417,7 @@ WHERE
 DELETE FROM awscc.apigateway.domain_names
 WHERE
   Identifier = '{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

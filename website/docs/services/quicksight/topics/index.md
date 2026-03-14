@@ -818,7 +818,7 @@ SELECT
   user_experience_version
 FROM awscc.quicksight.topics
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```
 </TabItem>
@@ -832,7 +832,7 @@ SELECT
   topic_id
 FROM awscc.quicksight.topics_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1118,7 +1118,7 @@ WHERE
 DELETE FROM awscc.quicksight.topics
 WHERE
   Identifier = '{{ aws_account_id }}|{{ topic_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
   {
     "name": "schedule_expression",
     "type": "string",
-    "description": "The scheduling expression. For example, \"cron(0 20 &#42; &#42; ? &#42;)\", \"rate(5 minutes)\". For more information, see Creating an Amazon EventBridge rule that runs on a schedule."
+    "description": "The scheduling expression. For example, \"cron(0 20 <i> </i> ? *)\", \"rate(5 minutes)\". For more information, see Creating an Amazon EventBridge rule that runs on a schedule."
   },
   {
     "name": "description",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
   {
     "name": "targets",
     "type": "array",
-    "description": "Adds the specified targets to the specified rule, or updates the targets if they are already associated with the rule.<br />Targets are the resources that are invoked when a rule is triggered.",
+    "description": "<details><summary>Adds the specified targets to the specified rule, or updates the targets if they are already associated with the rule.</summary>Targets are the resources that are invoked when a rule is triggered.</details>",
     "children": [
       {
         "name": "input_path",
@@ -600,7 +600,7 @@ SELECT
   name
 FROM awscc.events.rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -613,7 +613,7 @@ SELECT
   arn
 FROM awscc.events.rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -834,7 +834,7 @@ WHERE
 DELETE FROM awscc.events.rules
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

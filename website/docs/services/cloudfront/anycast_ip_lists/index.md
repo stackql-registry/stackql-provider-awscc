@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>anycast_ip_lists</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html">Request Anycast static IPs to use for allowlisting</a> in the <i>Amazon CloudFront Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.anycast_ip_lists" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
   {
     "name": "anycast_ip_list",
     "type": "object",
-    "description": "An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the &#42;Amazon CloudFront Developer Guide&#42;.",
+    "description": "An Anycast static IP list. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html\">Request Anycast static IPs to use for allowlisting</a> in the <i>Amazon CloudFront Developer Guide</i>.",
     "children": [
       {
         "name": "e_tag",
@@ -71,22 +71,22 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
       {
         "name": "tags",
         "type": "object",
-        "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+        "description": "A complex type that contains zero or more <code>Tag</code> elements.",
         "children": [
           {
             "name": "items",
             "type": "array",
-            "description": "A complex type that contains &#96;&#96;Tag&#96;&#96; elements.",
+            "description": "A complex type that contains <code>Tag</code> elements.",
             "children": [
               {
                 "name": "key",
                 "type": "string",
-                "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+                "description": "<details><summary>A string that contains <code>Tag</code> key.</summary>The string length should be between 1 and 128 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
               },
               {
                 "name": "value",
                 "type": "string",
-                "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+                "description": "<details><summary>A string that contains an optional <code>Tag</code> value.</summary>The string length should be between 0 and 256 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
               }
             ]
           }
@@ -117,22 +117,22 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
   {
     "name": "tags",
     "type": "object",
-    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "description": "A complex type that contains zero or more <code>Tag</code> elements.",
     "children": [
       {
         "name": "items",
         "type": "array",
-        "description": "A complex type that contains &#96;&#96;Tag&#96;&#96; elements.",
+        "description": "A complex type that contains <code>Tag</code> elements.",
         "children": [
           {
             "name": "key",
             "type": "string",
-            "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+            "description": "<details><summary>A string that contains <code>Tag</code> key.</summary>The string length should be between 1 and 128 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
           },
           {
             "name": "value",
             "type": "string",
-            "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+            "description": "<details><summary>A string that contains an optional <code>Tag</code> value.</summary>The string length should be between 0 and 256 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
           }
         ]
       }

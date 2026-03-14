@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.vpclattice.access_log_subscriptions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   arn
 FROM awscc.vpclattice.access_log_subscriptions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +304,7 @@ WHERE
 DELETE FROM awscc.vpclattice.access_log_subscriptions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -101,7 +101,7 @@ SELECT
   policy
 FROM awscc.mediapackagev2.channel_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ channel_group_name }}|{{ channel_name }}';
 ```
 
@@ -198,7 +198,7 @@ WHERE
 DELETE FROM awscc.mediapackagev2.channel_policies
 WHERE
   Identifier = '{{ channel_group_name }}|{{ channel_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

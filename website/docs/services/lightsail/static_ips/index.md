@@ -159,7 +159,7 @@ SELECT
   static_ip_arn
 FROM awscc.lightsail.static_ips
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ static_ip_name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   static_ip_name
 FROM awscc.lightsail.static_ips_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +262,7 @@ WHERE
 DELETE FROM awscc.lightsail.static_ips
 WHERE
   Identifier = '{{ static_ip_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -229,7 +229,7 @@ SELECT
   tags
 FROM awscc.workspacesweb.session_loggers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ session_logger_arn }}';
 ```
 </TabItem>
@@ -242,7 +242,7 @@ SELECT
   session_logger_arn
 FROM awscc.workspacesweb.session_loggers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +361,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.session_loggers
 WHERE
   Identifier = '{{ session_logger_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

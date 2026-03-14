@@ -655,7 +655,7 @@ SELECT
   tags
 FROM awscc.sagemaker.user_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_profile_name }}|{{ domain_id }}';
 ```
 </TabItem>
@@ -669,7 +669,7 @@ SELECT
   domain_id
 FROM awscc.sagemaker.user_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -844,7 +844,7 @@ resources:
 DELETE FROM awscc.sagemaker.user_profiles
 WHERE
   Identifier = '{{ user_profile_name }}|{{ domain_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

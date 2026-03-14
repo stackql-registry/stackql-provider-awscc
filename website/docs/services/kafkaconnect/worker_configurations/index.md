@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.kafkaconnect.worker_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ worker_configuration_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   worker_configuration_arn
 FROM awscc.kafkaconnect.worker_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +292,7 @@ WHERE
 DELETE FROM awscc.kafkaconnect.worker_configurations
 WHERE
   Identifier = '{{ worker_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

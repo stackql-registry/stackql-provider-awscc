@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>request_validator</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>request_validators</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::RequestValidator&#96;&#96; resource sets up basic validation rules for incoming requests to your API. For more information, see &#91;Enable Basic Request Validation for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::RequestValidator</code> resource sets up basic validation rules for incoming requests to your API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html">Enable Basic Request Validation for an API in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.request_validators" /></td></tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ SELECT
   validate_request_parameters
 FROM awscc.apigateway.request_validators
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ request_validator_id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   request_validator_id
 FROM awscc.apigateway.request_validators_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -277,7 +277,7 @@ WHERE
 DELETE FROM awscc.apigateway.request_validators
 WHERE
   Identifier = '{{ rest_api_id }}|{{ request_validator_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

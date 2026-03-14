@@ -230,7 +230,7 @@ SELECT
   selection_id
 FROM awscc.backup.backup_selections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -243,7 +243,7 @@ SELECT
   id
 FROM awscc.backup.backup_selections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +340,7 @@ resources:
 DELETE FROM awscc.backup.backup_selections
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

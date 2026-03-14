@@ -294,7 +294,7 @@ SELECT
   iam_instance_profile_arn
 FROM awscc.pcs.compute_node_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -307,7 +307,7 @@ SELECT
   arn
 FROM awscc.pcs.compute_node_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -465,7 +465,7 @@ WHERE
 DELETE FROM awscc.pcs.compute_node_groups
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

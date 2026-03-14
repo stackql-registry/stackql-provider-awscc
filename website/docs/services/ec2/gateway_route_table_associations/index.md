@@ -101,7 +101,7 @@ SELECT
   association_id
 FROM awscc.ec2.gateway_route_table_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ gateway_id }}';
 ```
 
@@ -192,7 +192,7 @@ WHERE
 DELETE FROM awscc.ec2.gateway_route_table_associations
 WHERE
   Identifier = '{{ gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>public_repositories</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::PublicRepository&#96;&#96; resource specifies an Amazon Elastic Container Registry Public (Amazon ECR Public) repository, where users can push and pull Docker images, Open Container Initiative (OCI) images, and OCI compatible artifacts. For more information, see &#91;Amazon ECR public repositories&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) in the &#42;Amazon ECR Public User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ECR::PublicRepository</code> resource specifies an Amazon Elastic Container Registry Public (Amazon ECR Public) repository, where users can push and pull Docker images, Open Container Initiative (OCI) images, and OCI compatible artifacts. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html">Amazon ECR public repositories</a> in the <i>Amazon ECR Public User Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.public_repositories" /></td></tr>
 </tbody>
 </table>
@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
   {
     "name": "repository_name",
     "type": "string",
-    "description": "The name to use for the public repository. The repository name may be specified on its own (such as &#96;&#96;nginx-web-app&#96;&#96;) or it can be prepended with a namespace to group the repository into a category (such as &#96;&#96;project-a/nginx-web-app&#96;&#96;). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>The name to use for the public repository. The repository name may be specified on its own (such as <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such as <code>project-a/nginx-web-app</code>). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "repository_policy_text",
     "type": "object",
-    "description": "The JSON repository policy text to apply to the public repository. For more information, see &#91;Amazon ECR Public repository policies&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-policies.html) in the &#42;Amazon ECR Public User Guide&#42;."
+    "description": "The JSON repository policy text to apply to the public repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-policies.html\">Amazon ECR Public repository policies</a> in the <i>Amazon ECR Public User Guide</i>."
   },
   {
     "name": "arn",
@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
   {
     "name": "repository_catalog_data",
     "type": "object",
-    "description": "The details about the repository that are publicly visible in the Amazon ECR Public Gallery. For more information, see &#91;Amazon ECR Public repository catalog data&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-catalog-data.html) in the &#42;Amazon ECR Public User Guide&#42;.",
+    "description": "The details about the repository that are publicly visible in the Amazon ECR Public Gallery. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-catalog-data.html\">Amazon ECR Public repository catalog data</a> in the <i>Amazon ECR Public User Guide</i>.",
     "children": [
       {
         "name": "repository_description",
@@ -98,12 +98,12 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
       {
         "name": "key",
         "type": "string",
-        "description": "One part of a key-value pair that make up a tag. A &#96;&#96;key&#96;&#96; is a general label that acts like a category for more specific tag values."
+        "description": "One part of a key-value pair that make up a tag. A <code>key</code> is a general label that acts like a category for more specific tag values."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A &#96;&#96;value&#96;&#96; acts as a descriptor within a tag category (key)."
+        "description": "A <code>value</code> acts as a descriptor within a tag category (key)."
       }
     ]
   },
@@ -120,7 +120,7 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
   {
     "name": "repository_name",
     "type": "string",
-    "description": "The name to use for the public repository. The repository name may be specified on its own (such as &#96;&#96;nginx-web-app&#96;&#96;) or it can be prepended with a namespace to group the repository into a category (such as &#96;&#96;project-a/nginx-web-app&#96;&#96;). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>The name to use for the public repository. The repository name may be specified on its own (such as <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such as <code>project-a/nginx-web-app</code>). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "region",
@@ -198,7 +198,7 @@ SELECT
   tags
 FROM awscc.ecr.public_repositories
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ repository_name }}';
 ```
 </TabItem>
@@ -211,7 +211,7 @@ SELECT
   repository_name
 FROM awscc.ecr.public_repositories_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +326,7 @@ WHERE
 DELETE FROM awscc.ecr.public_repositories
 WHERE
   Identifier = '{{ repository_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

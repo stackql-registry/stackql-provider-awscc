@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>target_group</code> resource or lists 
   {
     "name": "matcher",
     "type": "object",
-    "description": "&#91;HTTP/HTTPS health checks&#93; The HTTP or gRPC codes to use when checking for a successful response from a target.",
+    "description": "[HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.",
     "children": [
       {
         "name": "grpc_code",
@@ -83,7 +83,7 @@ Creates, updates, deletes or gets a <code>target_group</code> resource or lists 
   {
     "name": "health_check_path",
     "type": "string",
-    "description": "&#91;HTTP/HTTPS health checks&#93; The destination for health checks on the targets. &#91;HTTP1 or HTTP2 protocol version&#93; The ping path. The default is /. &#91;GRPC protocol version&#93; The path of a custom health check method with the format /package.service/method. The default is /AWS.ALB/healthcheck."
+    "description": "[HTTP/HTTPS health checks] The destination for health checks on the targets. [HTTP1 or HTTP2 protocol version] The ping path. The default is /. [GRPC protocol version] The path of a custom health check method with the format /package.service/method. The default is /AWS.ALB/healthcheck."
   },
   {
     "name": "port",
@@ -120,7 +120,7 @@ Creates, updates, deletes or gets a <code>target_group</code> resource or lists 
   {
     "name": "protocol_version",
     "type": "string",
-    "description": "&#91;HTTP/HTTPS protocol&#93; The protocol version. The possible values are GRPC, HTTP1, and HTTP2."
+    "description": "[HTTP/HTTPS protocol] The protocol version. The possible values are GRPC, HTTP1, and HTTP2."
   },
   {
     "name": "unhealthy_threshold_count",
@@ -320,7 +320,7 @@ SELECT
   tags
 FROM awscc.elasticloadbalancingv2.target_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ target_group_arn }}';
 ```
 </TabItem>
@@ -333,7 +333,7 @@ SELECT
   target_group_arn
 FROM awscc.elasticloadbalancingv2.target_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -547,7 +547,7 @@ WHERE
 DELETE FROM awscc.elasticloadbalancingv2.target_groups
 WHERE
   Identifier = '{{ target_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -207,7 +207,7 @@ SELECT
   tags
 FROM awscc.ec2.ipam_resource_discovery_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   ipam_resource_discovery_association_id
 FROM awscc.ec2.ipam_resource_discovery_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +318,7 @@ WHERE
 DELETE FROM awscc.ec2.ipam_resource_discovery_associations
 WHERE
   Identifier = '{{ ipam_resource_discovery_association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

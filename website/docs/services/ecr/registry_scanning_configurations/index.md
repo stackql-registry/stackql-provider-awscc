@@ -51,24 +51,24 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
       {
         "name": "repository_filters",
         "type": "array",
-        "description": "The details of a scanning repository filter. For more information on how to use filters, see &#91;Using filters&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html#image-scanning-filters) in the &#42;Amazon Elastic Container Registry User Guide&#42;.",
+        "description": "The details of a scanning repository filter. For more information on how to use filters, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html#image-scanning-filters\">Using filters</a> in the <i>Amazon Elastic Container Registry User Guide</i>.",
         "children": [
           {
             "name": "filter",
             "type": "string",
-            "description": "The repository filter details. When the &#96;&#96;PREFIX&#95;MATCH&#96;&#96; filter type is specified, this value is required and should be the repository name prefix to configure replication for."
+            "description": "The repository filter details. When the <code>PREFIX_MATCH</code> filter type is specified, this value is required and should be the repository name prefix to configure replication for."
           },
           {
             "name": "filter_type",
             "type": "string",
-            "description": "The repository filter type. The only supported value is &#96;&#96;PREFIX&#95;MATCH&#96;&#96;, which is a repository name prefix specified with the &#96;&#96;filter&#96;&#96; parameter."
+            "description": "The repository filter type. The only supported value is <code>PREFIX_MATCH</code>, which is a repository name prefix specified with the <code>filter</code> parameter."
           }
         ]
       },
       {
         "name": "scan_frequency",
         "type": "string",
-        "description": "The frequency that scans are performed at for a private registry. When the &#96;&#96;ENHANCED&#96;&#96; scan type is specified, the supported scan frequencies are &#96;&#96;CONTINUOUS&#95;SCAN&#96;&#96; and &#96;&#96;SCAN&#95;ON&#95;PUSH&#96;&#96;. When the &#96;&#96;BASIC&#96;&#96; scan type is specified, the &#96;&#96;SCAN&#95;ON&#95;PUSH&#96;&#96; scan frequency is supported. If scan on push is not specified, then the &#96;&#96;MANUAL&#96;&#96; scan frequency is set by default."
+        "description": "The frequency that scans are performed at for a private registry. When the <code>ENHANCED</code> scan type is specified, the supported scan frequencies are <code>CONTINUOUS_SCAN</code> and <code>SCAN_ON_PUSH</code>. When the <code>BASIC</code> scan type is specified, the <code>SCAN_ON_PUSH</code> scan frequency is supported. If scan on push is not specified, then the <code>MANUAL</code> scan frequency is set by default."
       }
     ]
   },
@@ -171,7 +171,7 @@ SELECT
   registry_id
 FROM awscc.ecr.registry_scanning_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ registry_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   registry_id
 FROM awscc.ecr.registry_scanning_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +281,7 @@ WHERE
 DELETE FROM awscc.ecr.registry_scanning_configurations
 WHERE
   Identifier = '{{ registry_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

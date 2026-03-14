@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>observability_configuration</code> re
 <tbody>
 <tr><td><b>Name</b></td><td><code>observability_configurations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The AWS::AppRunner::ObservabilityConfiguration resource is an AWS App Runner resource type that specifies an App Runner observability configuration</td></tr>
+<tr><td><b>Description</b></td><td>The AWS::AppRunner::ObservabilityConfiguration resource  is an AWS App Runner resource type that specifies an App Runner observability configuration</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apprunner.observability_configurations" /></td></tr>
 </tbody>
 </table>
@@ -178,7 +178,7 @@ SELECT
   tags
 FROM awscc.apprunner.observability_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ observability_configuration_arn }}';
 ```
 </TabItem>
@@ -191,7 +191,7 @@ SELECT
   observability_configuration_arn
 FROM awscc.apprunner.observability_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +273,7 @@ resources:
 DELETE FROM awscc.apprunner.observability_configurations
 WHERE
   Identifier = '{{ observability_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

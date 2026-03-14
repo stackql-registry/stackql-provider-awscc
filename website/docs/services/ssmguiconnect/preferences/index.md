@@ -172,7 +172,7 @@ SELECT
   connection_recording_preferences
 FROM awscc.ssmguiconnect.preferences
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   account_id
 FROM awscc.ssmguiconnect.preferences_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +276,7 @@ WHERE
 DELETE FROM awscc.ssmguiconnect.preferences
 WHERE
   Identifier = '{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -141,7 +141,7 @@ SELECT
   policy_document
 FROM awscc.s3express.bucket_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bucket }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   bucket
 FROM awscc.s3express.bucket_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +246,7 @@ WHERE
 DELETE FROM awscc.s3express.bucket_policies
 WHERE
   Identifier = '{{ bucket }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

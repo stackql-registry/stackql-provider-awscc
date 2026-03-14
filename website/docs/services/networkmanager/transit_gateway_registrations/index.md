@@ -140,7 +140,7 @@ SELECT
   transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.networkmanager.transit_gateway_registrations
 WHERE
   Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

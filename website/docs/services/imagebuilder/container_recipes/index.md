@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>container_recipe</code> resource or li
   {
     "name": "version",
     "type": "string",
-    "description": "The semantic version of the container recipe (&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;)."
+    "description": "The semantic version of the container recipe (<major>.<minor>.<patch>)."
   },
   {
     "name": "components",
@@ -337,7 +337,7 @@ SELECT
   tags
 FROM awscc.imagebuilder.container_recipes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -350,7 +350,7 @@ SELECT
   arn
 FROM awscc.imagebuilder.container_recipes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -541,7 +541,7 @@ WHERE
 DELETE FROM awscc.imagebuilder.container_recipes
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

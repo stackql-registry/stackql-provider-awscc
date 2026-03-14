@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>resolver_rule_association</code> resou
 <tbody>
 <tr><td><b>Name</b></td><td><code>resolver_rule_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>In the response to an &#91;AssociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;AssociateResolverRule.html), &#91;DisassociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;DisassociateResolverRule.html), or &#91;ListResolverRuleAssociations&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;ListResolverRuleAssociations.html) request, provides information about an association between a resolver rule and a VPC. The association determines which DNS queries that originate in the VPC are forwarded to your network.</td></tr>
+<tr><td><b>Description</b></td><td>In the response to an <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_AssociateResolverRule.html">AssociateResolverRule</a>, <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_DisassociateResolverRule.html">DisassociateResolverRule</a>, or <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_ListResolverRuleAssociations.html">ListResolverRuleAssociations</a> request, provides information about an association between a resolver rule and a VPC. The association determines which DNS queries that originate in the VPC are forwarded to your network.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.route53resolver.resolver_rule_associations" /></td></tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>resolver_rule_association</code> resou
   {
     "name": "resolver_rule_id",
     "type": "string",
-    "description": "The ID of the Resolver rule that you associated with the VPC that is specified by &#96;&#96;VPCId&#96;&#96;."
+    "description": "The ID of the Resolver rule that you associated with the VPC that is specified by <code>VPCId</code>."
   },
   {
     "name": "resolver_rule_association_id",
@@ -147,7 +147,7 @@ SELECT
   name
 FROM awscc.route53resolver.resolver_rule_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resolver_rule_association_id }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   resolver_rule_association_id
 FROM awscc.route53resolver.resolver_rule_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -241,7 +241,7 @@ resources:
 DELETE FROM awscc.route53resolver.resolver_rule_associations
 WHERE
   Identifier = '{{ resolver_rule_association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

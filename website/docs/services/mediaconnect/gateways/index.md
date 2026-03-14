@@ -165,7 +165,7 @@ SELECT
   networks
 FROM awscc.mediaconnect.gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ gateway_arn }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   gateway_arn
 FROM awscc.mediaconnect.gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ resources:
 DELETE FROM awscc.mediaconnect.gateways
 WHERE
   Identifier = '{{ gateway_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

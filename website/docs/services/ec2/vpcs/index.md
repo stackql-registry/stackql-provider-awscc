@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>vpc</code> resource or lists <code>vpc
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpcs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a virtual private cloud (VPC).<br />To add an IPv6 CIDR block to the VPC, see &#91;AWS::EC2::VPCCidrBlock&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html).<br />For more information, see &#91;Virtual private clouds (VPC)&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-your-vpc.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a virtual private cloud (VPC).</summary>To add an IPv6 CIDR block to the VPC, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html">AWS::EC2::VPCCidrBlock</a>.<br />For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/configure-your-vpc.html">Virtual private clouds (VPC)</a> in the <i>Amazon VPC User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpcs" /></td></tr>
 </tbody>
 </table>
@@ -51,12 +51,12 @@ Creates, updates, deletes or gets a <code>vpc</code> resource or lists <code>vpc
   {
     "name": "instance_tenancy",
     "type": "string",
-    "description": "The allowed tenancy of instances launched into the VPC.<br />+ &#96;&#96;default&#96;&#96;: An instance launched into the VPC runs on shared hardware by default, unless you explicitly specify a different tenancy during instance launch.<br />+ &#96;&#96;dedicated&#96;&#96;: An instance launched into the VPC runs on dedicated hardware by default, unless you explicitly specify a tenancy of &#96;&#96;host&#96;&#96; during instance launch. You cannot specify a tenancy of &#96;&#96;default&#96;&#96; during instance launch.<br /><br />Updating &#96;&#96;InstanceTenancy&#96;&#96; requires no replacement only if you are updating its value from &#96;&#96;dedicated&#96;&#96; to &#96;&#96;default&#96;&#96;. Updating &#96;&#96;InstanceTenancy&#96;&#96; from &#96;&#96;default&#96;&#96; to &#96;&#96;dedicated&#96;&#96; requires replacement."
+    "description": "<details><summary>The allowed tenancy of instances launched into the VPC.</summary>+  <code>default</code>: An instance launched into the VPC runs on shared hardware by default, unless you explicitly specify a different tenancy during instance launch.<br />+  <code>dedicated</code>: An instance launched into the VPC runs on dedicated hardware by default, unless you explicitly specify a tenancy of <code>host</code> during instance launch. You cannot specify a tenancy of <code>default</code> during instance launch.<br />Updating <code>InstanceTenancy</code> requires no replacement only if you are updating its value from <code>dedicated</code> to <code>default</code>. Updating <code>InstanceTenancy</code> from <code>default</code> to <code>dedicated</code> requires replacement.</details>"
   },
   {
     "name": "ipv4_netmask_length",
     "type": "integer",
-    "description": "The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM) pool. For more information about IPAM, see &#91;What is IPAM?&#93;(https://docs.aws.amazon.com//vpc/latest/ipam/what-is-it-ipam.html) in the &#42;Amazon VPC IPAM User Guide&#42;."
+    "description": "The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM) pool. For more information about IPAM, see <a href=\"https://docs.aws.amazon.com//vpc/latest/ipam/what-is-it-ipam.html\">What is IPAM?</a> in the <i>Amazon VPC IPAM User Guide</i>."
   },
   {
     "name": "cidr_block_associations",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>vpc</code> resource or lists <code>vpc
   {
     "name": "cidr_block",
     "type": "string",
-    "description": "The IPv4 network range for the VPC, in CIDR notation. For example, &#96;&#96;10.0.0.0/16&#96;&#96;. We modify the specified CIDR block to its canonical form; for example, if you specify &#96;&#96;100.68.0.18/18&#96;&#96;, we modify it to &#96;&#96;100.68.0.0/18&#96;&#96;.<br />You must specify either&#96;&#96;CidrBlock&#96;&#96; or &#96;&#96;Ipv4IpamPoolId&#96;&#96;."
+    "description": "<details><summary>The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it to <code>100.68.0.0/18</code>.</summary>You must specify either<code>CidrBlock</code> or <code>Ipv4IpamPoolId</code>.</details>"
   },
   {
     "name": "ipv4_ipam_pool_id",
     "type": "string",
-    "description": "The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see &#91;What is IPAM?&#93;(https://docs.aws.amazon.com//vpc/latest/ipam/what-is-it-ipam.html) in the &#42;Amazon VPC IPAM User Guide&#42;.<br />You must specify either&#96;&#96;CidrBlock&#96;&#96; or &#96;&#96;Ipv4IpamPoolId&#96;&#96;."
+    "description": "<details><summary>The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a href=\"https://docs.aws.amazon.com//vpc/latest/ipam/what-is-it-ipam.html\">What is IPAM?</a> in the <i>Amazon VPC IPAM User Guide</i>.</summary>You must specify either<code>CidrBlock</code> or <code>Ipv4IpamPoolId</code>.</details>"
   },
   {
     "name": "default_network_acl",
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>vpc</code> resource or lists <code>vpc
   {
     "name": "enable_dns_support",
     "type": "boolean",
-    "description": "Indicates whether the DNS resolution is supported for the VPC. If enabled, queries to the Amazon provided DNS server at the 169.254.169.253 IP address, or the reserved IP address at the base of the VPC network range \"plus two\" succeed. If disabled, the Amazon provided DNS service in the VPC that resolves public DNS hostnames to IP addresses is not enabled. Enabled by default. For more information, see &#91;DNS attributes in your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support)."
+    "description": "Indicates whether the DNS resolution is supported for the VPC. If enabled, queries to the Amazon provided DNS server at the 169.254.169.253 IP address, or the reserved IP address at the base of the VPC network range \"plus two\" succeed. If disabled, the Amazon provided DNS service in the VPC that resolves public DNS hostnames to IP addresses is not enabled. Enabled by default. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support\">DNS attributes in your VPC</a>."
   },
   {
     "name": "ipv6_cidr_blocks",
@@ -96,7 +96,7 @@ Creates, updates, deletes or gets a <code>vpc</code> resource or lists <code>vpc
   {
     "name": "enable_dns_hostnames",
     "type": "boolean",
-    "description": "Indicates whether the instances launched in the VPC get DNS hostnames. If enabled, instances in the VPC get DNS hostnames; otherwise, they do not. Disabled by default for nondefault VPCs. For more information, see &#91;DNS attributes in your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support).<br />You can only enable DNS hostnames if you've enabled DNS support."
+    "description": "<details><summary>Indicates whether the instances launched in the VPC get DNS hostnames. If enabled, instances in the VPC get DNS hostnames; otherwise, they do not. Disabled by default for nondefault VPCs. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support\">DNS attributes in your VPC</a>.</summary>You can only enable DNS hostnames if you've enabled DNS support.</details>"
   },
   {
     "name": "tags",
@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.ec2.vpcs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpc_id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.vpcs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +353,7 @@ WHERE
 DELETE FROM awscc.ec2.vpcs
 WHERE
   Identifier = '{{ vpc_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

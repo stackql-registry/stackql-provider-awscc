@@ -201,7 +201,7 @@ SELECT
   access_policy
 FROM awscc.backup.logically_air_gapped_backup_vaults
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ backup_vault_name }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   backup_vault_name
 FROM awscc.backup.logically_air_gapped_backup_vaults_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +329,7 @@ WHERE
 DELETE FROM awscc.backup.logically_air_gapped_backup_vaults
 WHERE
   Identifier = '{{ backup_vault_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -247,7 +247,7 @@ SELECT
   regional_configurations
 FROM awscc.elasticache.global_replication_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ global_replication_group_id }}';
 ```
 </TabItem>
@@ -260,7 +260,7 @@ SELECT
   global_replication_group_id
 FROM awscc.elasticache.global_replication_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -400,7 +400,7 @@ WHERE
 DELETE FROM awscc.elasticache.global_replication_groups
 WHERE
   Identifier = '{{ global_replication_group_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

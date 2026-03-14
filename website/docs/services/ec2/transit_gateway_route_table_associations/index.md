@@ -140,7 +140,7 @@ SELECT
   transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_route_table_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_route_table_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.ec2.transit_gateway_route_table_associations
 WHERE
   Identifier = '{{ transit_gateway_route_table_id }}|{{ transit_gateway_attachment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

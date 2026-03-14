@@ -179,7 +179,7 @@ SELECT
   view_name
 FROM awscc.resourceexplorer2.views
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ view_arn }}';
 ```
 </TabItem>
@@ -192,7 +192,7 @@ SELECT
   view_arn
 FROM awscc.resourceexplorer2.views_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.resourceexplorer2.views
 WHERE
   Identifier = '{{ view_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

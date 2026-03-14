@@ -207,7 +207,7 @@ SELECT
   supported_os_versions
 FROM awscc.imagebuilder.components
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   arn
 FROM awscc.imagebuilder.components_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +347,7 @@ WHERE
 DELETE FROM awscc.imagebuilder.components
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -437,7 +437,7 @@ SELECT
   tags
 FROM awscc.sagemaker.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
@@ -450,7 +450,7 @@ SELECT
   cluster_arn
 FROM awscc.sagemaker.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -637,7 +637,7 @@ WHERE
 DELETE FROM awscc.sagemaker.clusters
 WHERE
   Identifier = '{{ cluster_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

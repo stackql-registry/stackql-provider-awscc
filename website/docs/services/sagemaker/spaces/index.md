@@ -497,7 +497,7 @@ SELECT
   url
 FROM awscc.sagemaker.spaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ space_name }}';
 ```
 </TabItem>
@@ -511,7 +511,7 @@ SELECT
   space_name
 FROM awscc.sagemaker.spaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -668,7 +668,7 @@ WHERE
 DELETE FROM awscc.sagemaker.spaces
 WHERE
   Identifier = '{{ domain_id }}|{{ space_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

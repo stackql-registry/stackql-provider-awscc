@@ -61,7 +61,7 @@ Creates, updates, deletes or gets an <code>endpoint_group</code> resource or lis
       {
         "name": "endpoint_id",
         "type": "string",
-        "description": "Id of the endpoint. For Network/Application Load Balancer this value is the ARN. For EIP, this value is the allocation ID. For EC2 instances, this is the EC2 instance ID"
+        "description": "Id of the endpoint. For Network/Application Load Balancer this value is the ARN.  For EIP, this value is the allocation ID.  For EC2 instances, this is the EC2 instance ID"
       },
       {
         "name": "attachment_arn",

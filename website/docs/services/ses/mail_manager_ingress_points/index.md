@@ -213,7 +213,7 @@ SELECT
   type
 FROM awscc.ses.mail_manager_ingress_points
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ingress_point_id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   ingress_point_id
 FROM awscc.ses.mail_manager_ingress_points_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -351,7 +351,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_ingress_points
 WHERE
   Identifier = '{{ ingress_point_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

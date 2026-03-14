@@ -219,7 +219,7 @@ SELECT
   configured_table_association_analysis_rules
 FROM awscc.cleanrooms.configured_table_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.configured_table_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.configured_table_associations
 WHERE
   Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

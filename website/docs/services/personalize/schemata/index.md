@@ -152,7 +152,7 @@ SELECT
   domain
 FROM awscc.personalize.schemata
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ schema_arn }}';
 ```
 </TabItem>
@@ -165,7 +165,7 @@ SELECT
   schema_arn
 FROM awscc.personalize.schemata_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +246,7 @@ resources:
 DELETE FROM awscc.personalize.schemata
 WHERE
   Identifier = '{{ schema_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

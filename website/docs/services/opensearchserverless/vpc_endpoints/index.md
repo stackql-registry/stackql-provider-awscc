@@ -159,7 +159,7 @@ SELECT
   vpc_id
 FROM awscc.opensearchserverless.vpc_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   id
 FROM awscc.opensearchserverless.vpc_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -277,7 +277,7 @@ WHERE
 DELETE FROM awscc.opensearchserverless.vpc_endpoints
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

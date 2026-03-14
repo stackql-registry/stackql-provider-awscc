@@ -436,7 +436,7 @@ SELECT
   tags
 FROM awscc.iotanalytics.datasets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dataset_name }}';
 ```
 </TabItem>
@@ -449,7 +449,7 @@ SELECT
   dataset_name
 FROM awscc.iotanalytics.datasets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -616,7 +616,7 @@ WHERE
 DELETE FROM awscc.iotanalytics.datasets
 WHERE
   Identifier = '{{ dataset_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

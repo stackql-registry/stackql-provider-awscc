@@ -245,7 +245,7 @@ SELECT
   tags
 FROM awscc.refactorspaces.routes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
 ```
 </TabItem>
@@ -260,7 +260,7 @@ SELECT
   route_identifier
 FROM awscc.refactorspaces.routes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -386,7 +386,7 @@ WHERE
 DELETE FROM awscc.refactorspaces.routes
 WHERE
   Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

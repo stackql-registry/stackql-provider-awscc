@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>principal_permission</code> resource o
 <tbody>
 <tr><td><b>Name</b></td><td><code>principal_permissions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::LakeFormation::PrincipalPermissions&#96;&#96; resource represents the permissions that a principal has on a GLUDC resource (such as GLUlong databases or GLUlong tables). When you create a &#96;&#96;PrincipalPermissions&#96;&#96; resource, the permissions are granted via the LFlong&#96;&#96;GrantPermissions&#96;&#96; API operation. When you delete a &#96;&#96;PrincipalPermissions&#96;&#96; resource, the permissions on principal-resource pair are revoked via the LFlong&#96;&#96;RevokePermissions&#96;&#96; API operation.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::LakeFormation::PrincipalPermissions</code> resource represents the permissions that a principal has on a GLUDC resource (such as GLUlong databases or GLUlong tables). When you create a <code>PrincipalPermissions</code> resource, the permissions are granted via the LFlong<code>GrantPermissions</code> API operation. When you delete a <code>PrincipalPermissions</code> resource, the permissions on principal-resource pair are revoked via the LFlong<code>RevokePermissions</code> API operation.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.lakeformation.principal_permissions" /></td></tr>
 </tbody>
 </table>
@@ -175,7 +175,7 @@ SELECT
   resource_identifier
 FROM awscc.lakeformation.principal_permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ principal_identifier }}|{{ resource_identifier }}';
 ```
 
@@ -284,7 +284,7 @@ resources:
 DELETE FROM awscc.lakeformation.principal_permissions
 WHERE
   Identifier = '{{ principal_identifier }}|{{ resource_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -224,7 +224,7 @@ SELECT
   release_notes
 FROM awscc.sagemaker.image_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ image_version_arn }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   image_version_arn
 FROM awscc.sagemaker.image_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +374,7 @@ WHERE
 DELETE FROM awscc.sagemaker.image_versions
 WHERE
   Identifier = '{{ image_version_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

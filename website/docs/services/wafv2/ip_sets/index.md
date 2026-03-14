@@ -199,7 +199,7 @@ SELECT
   tags
 FROM awscc.wafv2.ip_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   scope
 FROM awscc.wafv2.ip_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +330,7 @@ WHERE
 DELETE FROM awscc.wafv2.ip_sets
 WHERE
   Identifier = '{{ name }}|{{ id }}|{{ scope }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

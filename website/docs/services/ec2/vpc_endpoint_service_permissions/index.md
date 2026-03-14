@@ -141,7 +141,7 @@ SELECT
   service_id
 FROM awscc.ec2.vpc_endpoint_service_permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ service_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   service_id
 FROM awscc.ec2.vpc_endpoint_service_permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +245,7 @@ WHERE
 DELETE FROM awscc.ec2.vpc_endpoint_service_permissions
 WHERE
   Identifier = '{{ service_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

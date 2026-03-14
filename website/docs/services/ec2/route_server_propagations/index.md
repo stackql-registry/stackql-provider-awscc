@@ -140,7 +140,7 @@ SELECT
   route_table_id
 FROM awscc.ec2.route_server_propagations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ route_server_id }}|{{ route_table_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   route_table_id
 FROM awscc.ec2.route_server_propagations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.ec2.route_server_propagations
 WHERE
   Identifier = '{{ route_server_id }}|{{ route_table_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

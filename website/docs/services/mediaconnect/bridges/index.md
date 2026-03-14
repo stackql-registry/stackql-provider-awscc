@@ -350,7 +350,7 @@ SELECT
   egress_gateway_bridge
 FROM awscc.mediaconnect.bridges
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bridge_arn }}';
 ```
 </TabItem>
@@ -363,7 +363,7 @@ SELECT
   bridge_arn
 FROM awscc.mediaconnect.bridges_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -512,7 +512,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.bridges
 WHERE
   Identifier = '{{ bridge_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

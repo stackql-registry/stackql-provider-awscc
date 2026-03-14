@@ -95,7 +95,7 @@ SELECT
   associated_aws_principal
 FROM awscc.resourceexplorer2.default_view_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ associated_aws_principal }}';
 ```
 
@@ -180,7 +180,7 @@ WHERE
 DELETE FROM awscc.resourceexplorer2.default_view_associations
 WHERE
   Identifier = '{{ associated_aws_principal }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>usage_plans</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::UsagePlan&#96;&#96; resource creates a usage plan for deployed APIs. A usage plan sets a target for the throttling and quota limits on individual client API keys. For more information, see &#91;Creating and Using API Usage Plans in Amazon API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html) in the &#42;API Gateway Developer Guide&#42;.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::ApiGateway::UsagePlan</code> resource creates a usage plan for deployed APIs. A usage plan sets a target for the throttling and quota limits on individual client API keys. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Creating and Using API Usage Plans in Amazon API Gateway</a> in the <i>API Gateway Developer Guide</i>.</summary>In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using [](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and [](https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.usage_plans" /></td></tr>
 </tbody>
 </table>
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <
   {
     "name": "quota",
     "type": "object",
-    "description": "&#96;&#96;QuotaSettings&#96;&#96; is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies a target for the maximum number of requests users can make to your REST APIs.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.",
+    "description": "<details><summary><code>QuotaSettings</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html\">AWS::ApiGateway::UsagePlan</a> resource that specifies a target for the maximum number of requests users can make to your REST APIs.</summary>In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using [](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and [](https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</details>",
     "children": [
       {
         "name": "limit",
@@ -117,7 +117,7 @@ Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <
   {
     "name": "throttle",
     "type": "object",
-    "description": "&#96;&#96;ThrottleSettings&#96;&#96; is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies the overall request rate (average requests per second) and burst capacity when users call your REST APIs.",
+    "description": "<code>ThrottleSettings</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html\">AWS::ApiGateway::UsagePlan</a> resource that specifies the overall request rate (average requests per second) and burst capacity when users call your REST APIs.",
     "children": [
       {
         "name": "burst_limit",
@@ -229,7 +229,7 @@ SELECT
   usage_plan_name
 FROM awscc.apigateway.usage_plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -242,7 +242,7 @@ SELECT
   id
 FROM awscc.apigateway.usage_plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +373,7 @@ WHERE
 DELETE FROM awscc.apigateway.usage_plans
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

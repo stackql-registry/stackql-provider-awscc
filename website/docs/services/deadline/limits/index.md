@@ -176,7 +176,7 @@ SELECT
   max_count
 FROM awscc.deadline.limits
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ farm_id }}|{{ limit_id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   limit_id
 FROM awscc.deadline.limits_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +300,7 @@ WHERE
 DELETE FROM awscc.deadline.limits
 WHERE
   Identifier = '{{ farm_id }}|{{ limit_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -219,7 +219,7 @@ SELECT
   sse_specification
 FROM awscc.ec2.verified_access_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ verified_access_group_id }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   verified_access_group_id
 FROM awscc.ec2.verified_access_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +347,7 @@ WHERE
 DELETE FROM awscc.ec2.verified_access_groups
 WHERE
   Identifier = '{{ verified_access_group_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -182,7 +182,7 @@ SELECT
   status
 FROM awscc.lightsail.load_balancer_tls_certificates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_name }}|{{ load_balancer_name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   load_balancer_name
 FROM awscc.lightsail.load_balancer_tls_certificates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +308,7 @@ WHERE
 DELETE FROM awscc.lightsail.load_balancer_tls_certificates
 WHERE
   Identifier = '{{ certificate_name }}|{{ load_balancer_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

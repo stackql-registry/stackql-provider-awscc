@@ -314,7 +314,7 @@ SELECT
   bot_alias_tags
 FROM awscc.lex.bot_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bot_alias_id }}|{{ bot_id }}';
 ```
 </TabItem>
@@ -328,7 +328,7 @@ SELECT
   bot_id
 FROM awscc.lex.bot_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -479,7 +479,7 @@ WHERE
 DELETE FROM awscc.lex.bot_aliases
 WHERE
   Identifier = '{{ bot_alias_id }}|{{ bot_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

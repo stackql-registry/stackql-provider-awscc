@@ -159,7 +159,7 @@ SELECT
   automated_discovery_status
 FROM awscc.macie.sessions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   aws_account_id
 FROM awscc.macie.sessions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +265,7 @@ WHERE
 DELETE FROM awscc.macie.sessions
 WHERE
   Identifier = '{{ aws_account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -363,7 +363,7 @@ SELECT
   security_profile_arn
 FROM awscc.iot.security_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ security_profile_name }}';
 ```
 </TabItem>
@@ -376,7 +376,7 @@ SELECT
   security_profile_name
 FROM awscc.iot.security_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -531,7 +531,7 @@ WHERE
 DELETE FROM awscc.iot.security_profiles
 WHERE
   Identifier = '{{ security_profile_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

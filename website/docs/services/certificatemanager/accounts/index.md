@@ -102,7 +102,7 @@ SELECT
   account_id
 FROM awscc.certificatemanager.accounts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}';
 ```
 
@@ -188,7 +188,7 @@ WHERE
 DELETE FROM awscc.certificatemanager.accounts
 WHERE
   Identifier = '{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
   {
     "name": "configuration",
     "type": "object",
-    "description": "<p>The theme configuration. This configuration contains all of the display properties for<br />a theme.</p>",
+    "description": "<details><summary><p>The theme configuration. This configuration contains all of the display properties for</summary>a theme.</p></details>",
     "children": [
       {
         "name": "data_color_palette",
         "type": "object",
-        "description": "<p>The theme colors that are used for data colors in charts. The colors description is a<br />hexadecimal color code that consists of six alphanumerical characters, prefixed with<br /><code>#</code>, for example #37BFF5. </p>",
+        "description": "<details><summary><p>The theme colors that are used for data colors in charts. The colors description is a</summary>hexadecimal color code that consists of six alphanumerical characters, prefixed with<br /><code>#</code>, for example #37BFF5. </p></details>",
         "children": [
           {
             "name": "colors",
@@ -81,19 +81,19 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "empty_fill_color",
             "type": "string",
-            "description": "<p>The hexadecimal code of a color that applies to charts where a lack of data is<br />highlighted.</p>"
+            "description": "<details><summary><p>The hexadecimal code of a color that applies to charts where a lack of data is</summary>highlighted.</p></details>"
           }
         ]
       },
       {
         "name": "u_icolor_palette",
         "type": "object",
-        "description": "<p>The theme colors that apply to UI and to charts, excluding data colors. The colors<br />description is a hexadecimal color code that consists of six alphanumerical characters,<br />prefixed with <code>#</code>, for example #37BFF5. For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html\">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User<br />Guide.</i><br /></p>",
+        "description": "<details><summary><p>The theme colors that apply to UI and to charts, excluding data colors. The colors</summary>description is a hexadecimal color code that consists of six alphanumerical characters,<br />prefixed with <code>#</code>, for example #37BFF5. For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html\">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User<br />Guide.</i><br /></p></details>",
         "children": [
           {
             "name": "primary_foreground",
             "type": "string",
-            "description": "<p>The color of text and other foreground elements that appear over the primary<br />background regions, such as grid lines, borders, table banding, icons, and so on.</p>"
+            "description": "<details><summary><p>The color of text and other foreground elements that appear over the primary</summary>background regions, such as grid lines, borders, table banding, icons, and so on.</p></details>"
           },
           {
             "name": "primary_background",
@@ -103,7 +103,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "secondary_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any sheet title, sheet control text, or UI that<br />appears over the secondary background.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any sheet title, sheet control text, or UI that</summary>appears over the secondary background.</p></details>"
           },
           {
             "name": "secondary_background",
@@ -118,7 +118,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "accent_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />accent color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>accent color.</p></details>"
           },
           {
             "name": "danger",
@@ -128,7 +128,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "danger_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />error color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>error color.</p></details>"
           },
           {
             "name": "warning",
@@ -138,27 +138,27 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "warning_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />warning color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>warning color.</p></details>"
           },
           {
             "name": "success",
             "type": "string",
-            "description": "<p>The color that applies to success messages, for example the check mark for a<br />successful download.</p>"
+            "description": "<details><summary><p>The color that applies to success messages, for example the check mark for a</summary>successful download.</p></details>"
           },
           {
             "name": "success_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />success color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>success color.</p></details>"
           },
           {
             "name": "dimension",
             "type": "string",
-            "description": "<p>The color that applies to the names of fields that are identified as<br />dimensions.</p>"
+            "description": "<details><summary><p>The color that applies to the names of fields that are identified as</summary>dimensions.</p></details>"
           },
           {
             "name": "dimension_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />dimension color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>dimension color.</p></details>"
           },
           {
             "name": "measure",
@@ -168,7 +168,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
           {
             "name": "measure_foreground",
             "type": "string",
-            "description": "<p>The foreground color that applies to any text or other elements that appear over the<br />measure color.</p>"
+            "description": "<details><summary><p>The foreground color that applies to any text or other elements that appear over the</summary>measure color.</p></details>"
           }
         ]
       },
@@ -252,7 +252,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -311,7 +311,7 @@ Creates, updates, deletes or gets a <code>theme</code> resource or lists <code>t
       {
         "name": "base_theme_id",
         "type": "string",
-        "description": "<p>The Amazon QuickSight-defined ID of the theme that a custom theme inherits from. All<br />themes initially inherit from a default Amazon QuickSight theme.</p>"
+        "description": "<details><summary><p>The Amazon QuickSight-defined ID of the theme that a custom theme inherits from. All</summary>themes initially inherit from a default Amazon QuickSight theme.</p></details>"
       },
       {
         "name": "created_time",
@@ -451,7 +451,7 @@ SELECT
   version_description
 FROM awscc.quicksight.themes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
@@ -465,7 +465,7 @@ SELECT
   aws_account_id
 FROM awscc.quicksight.themes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -632,7 +632,7 @@ WHERE
 DELETE FROM awscc.quicksight.themes
 WHERE
   Identifier = '{{ theme_id }}|{{ aws_account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

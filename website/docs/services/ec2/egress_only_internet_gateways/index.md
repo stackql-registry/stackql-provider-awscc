@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.ec2.egress_only_internet_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   id
 FROM awscc.ec2.egress_only_internet_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.ec2.egress_only_internet_gateways
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

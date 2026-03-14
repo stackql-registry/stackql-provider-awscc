@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>publisher</code> resource or lists <co
   {
     "name": "accept_terms_and_conditions",
     "type": "boolean",
-    "description": "Whether you accept the terms and conditions for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to publish public extensions to the CloudFormation registry. The terms and conditions can be found at https://cloudformation-registry-documents.s3.amazonaws.com/Terms&#95;and&#95;Conditions&#95;for&#95;AWS&#95;CloudFormation&#95;Registry&#95;Publishers.pdf"
+    "description": "Whether you accept the terms and conditions for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to publish public extensions to the CloudFormation registry. The terms and conditions can be found at https://cloudformation-registry-documents.s3.amazonaws.com/Terms_and_Conditions_for_AWS_CloudFormation_Registry_Publishers.pdf"
   },
   {
     "name": "publisher_id",
@@ -153,7 +153,7 @@ SELECT
   identity_provider
 FROM awscc.cloudformation.publishers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ publisher_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   publisher_id
 FROM awscc.cloudformation.publishers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>

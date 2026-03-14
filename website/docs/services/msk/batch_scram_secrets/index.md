@@ -141,7 +141,7 @@ SELECT
   secret_arn_list
 FROM awscc.msk.batch_scram_secrets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   cluster_arn
 FROM awscc.msk.batch_scram_secrets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +245,7 @@ WHERE
 DELETE FROM awscc.msk.batch_scram_secrets
 WHERE
   Identifier = '{{ cluster_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

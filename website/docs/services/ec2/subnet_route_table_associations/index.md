@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>subnet_route_table_association</code> 
 <tbody>
 <tr><td><b>Name</b></td><td><code>subnet_route_table_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Associates a subnet with a route table. The subnet and route table must be in the same VPC. This association causes traffic originating from the subnet to be routed according to the routes in the route table. A route table can be associated with multiple subnets. To create a route table, see &#91;AWS::EC2::RouteTable&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routetable.html).</td></tr>
+<tr><td><b>Description</b></td><td>Associates a subnet with a route table. The subnet and route table must be in the same VPC. This association causes traffic originating from the subnet to be routed according to the routes in the route table. A route table can be associated with multiple subnets. To create a route table, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routetable.html">AWS::EC2::RouteTable</a>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.subnet_route_table_associations" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>subnet_route_table_association</code> 
   {
     "name": "route_table_id",
     "type": "string",
-    "description": "The ID of the route table.<br />The physical ID changes when the route table ID is changed."
+    "description": "<details><summary>The ID of the route table.</summary>The physical ID changes when the route table ID is changed.</details>"
   },
   {
     "name": "id",
@@ -141,7 +141,7 @@ SELECT
   subnet_id
 FROM awscc.ec2.subnet_route_table_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   id
 FROM awscc.ec2.subnet_route_table_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.ec2.subnet_route_table_associations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

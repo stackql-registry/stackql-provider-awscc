@@ -193,7 +193,7 @@ SELECT
   vod_source_name
 FROM awscc.mediatailor.vod_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```
 </TabItem>
@@ -207,7 +207,7 @@ SELECT
   vod_source_name
 FROM awscc.mediatailor.vod_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +315,7 @@ WHERE
 DELETE FROM awscc.mediatailor.vod_sources
 WHERE
   Identifier = '{{ source_location_name }}|{{ vod_source_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

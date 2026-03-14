@@ -254,7 +254,7 @@ SELECT
   tags
 FROM awscc.dms.replication_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ replication_config_arn }}';
 ```
 </TabItem>
@@ -267,7 +267,7 @@ SELECT
   replication_config_arn
 FROM awscc.dms.replication_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -419,7 +419,7 @@ WHERE
 DELETE FROM awscc.dms.replication_configs
 WHERE
   Identifier = '{{ replication_config_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

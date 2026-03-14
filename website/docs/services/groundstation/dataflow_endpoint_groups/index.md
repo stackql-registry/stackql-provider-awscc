@@ -291,7 +291,7 @@ SELECT
   tags
 FROM awscc.groundstation.dataflow_endpoint_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -304,7 +304,7 @@ SELECT
   id
 FROM awscc.groundstation.dataflow_endpoint_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -430,7 +430,7 @@ WHERE
 DELETE FROM awscc.groundstation.dataflow_endpoint_groups
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -179,7 +179,7 @@ SELECT
   post_setup_script_details
 FROM awscc.appstream.app_blocks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.appstream.app_blocks
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

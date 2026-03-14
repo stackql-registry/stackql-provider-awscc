@@ -201,7 +201,7 @@ SELECT
   billing_view_arn
 FROM awscc.cur.report_definitions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ report_name }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   report_name
 FROM awscc.cur.report_definitions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -368,7 +368,7 @@ WHERE
 DELETE FROM awscc.cur.report_definitions
 WHERE
   Identifier = '{{ report_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

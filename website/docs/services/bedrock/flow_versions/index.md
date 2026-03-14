@@ -289,7 +289,7 @@ SELECT
   customer_encryption_key_arn
 FROM awscc.bedrock.flow_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ flow_arn }}|{{ version }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   version
 FROM awscc.bedrock.flow_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +378,7 @@ resources:
 DELETE FROM awscc.bedrock.flow_versions
 WHERE
   Identifier = '{{ flow_arn }}|{{ version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

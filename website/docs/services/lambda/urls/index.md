@@ -56,12 +56,12 @@ Creates, updates, deletes or gets an <code>url</code> resource or lists <code>ur
   {
     "name": "auth_type",
     "type": "string",
-    "description": "Can be either AWS&#95;IAM if the requests are authorized via IAM, or NONE if no authorization is configured on the Function URL."
+    "description": "Can be either AWS_IAM if the requests are authorized via IAM, or NONE if no authorization is configured on the Function URL."
   },
   {
     "name": "invoke_mode",
     "type": "string",
-    "description": "The invocation mode for the function's URL. Set to BUFFERED if you want to buffer responses before returning them to the client. Set to RESPONSE&#95;STREAM if you want to stream responses, allowing faster time to first byte and larger response payload sizes. If not set, defaults to BUFFERED."
+    "description": "The invocation mode for the function's URL. Set to BUFFERED if you want to buffer responses before returning them to the client. Set to RESPONSE_STREAM if you want to stream responses, allowing faster time to first byte and larger response payload sizes. If not set, defaults to BUFFERED."
   },
   {
     "name": "function_arn",
@@ -203,7 +203,7 @@ SELECT
   cors
 FROM awscc.lambda.urls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ function_arn }}';
 ```
 </TabItem>
@@ -216,7 +216,7 @@ SELECT
   function_arn
 FROM awscc.lambda.urls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -332,7 +332,7 @@ WHERE
 DELETE FROM awscc.lambda.urls
 WHERE
   Identifier = '{{ function_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

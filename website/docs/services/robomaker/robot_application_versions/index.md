@@ -97,7 +97,7 @@ SELECT
   arn
 FROM awscc.robomaker.robot_application_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -171,7 +171,7 @@ resources:
 DELETE FROM awscc.robomaker.robot_application_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

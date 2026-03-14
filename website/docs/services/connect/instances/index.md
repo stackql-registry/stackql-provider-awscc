@@ -101,52 +101,52 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "contactflow_logs",
         "type": "boolean",
-        "description": "Boolean flag which enables CONTACTFLOW&#95;LOGS on an instance."
+        "description": "Boolean flag which enables CONTACTFLOW_LOGS on an instance."
       },
       {
         "name": "contact_lens",
         "type": "boolean",
-        "description": "Boolean flag which enables CONTACT&#95;LENS on an instance."
+        "description": "Boolean flag which enables CONTACT_LENS on an instance."
       },
       {
         "name": "auto_resolve_best_voices",
         "type": "boolean",
-        "description": "Boolean flag which enables AUTO&#95;RESOLVE&#95;BEST&#95;VOICES on an instance."
+        "description": "Boolean flag which enables AUTO_RESOLVE_BEST_VOICES on an instance."
       },
       {
         "name": "use_custom_tt_svoices",
         "type": "boolean",
-        "description": "Boolean flag which enables USE&#95;CUSTOM&#95;TTS&#95;VOICES on an instance."
+        "description": "Boolean flag which enables USE_CUSTOM_TTS_VOICES on an instance."
       },
       {
         "name": "early_media",
         "type": "boolean",
-        "description": "Boolean flag which enables EARLY&#95;MEDIA on an instance."
+        "description": "Boolean flag which enables EARLY_MEDIA on an instance."
       },
       {
         "name": "multi_party_conference",
         "type": "boolean",
-        "description": "Boolean flag which enables MULTI&#95;PARTY&#95;CONFERENCE on an instance."
+        "description": "Boolean flag which enables MULTI_PARTY_CONFERENCE on an instance."
       },
       {
         "name": "high_volume_out_bound",
         "type": "boolean",
-        "description": "Boolean flag which enables HIGH&#95;VOLUME&#95;OUTBOUND on an instance."
+        "description": "Boolean flag which enables HIGH_VOLUME_OUTBOUND on an instance."
       },
       {
         "name": "enhanced_contact_monitoring",
         "type": "boolean",
-        "description": "Boolean flag which enables ENHANCED&#95;CONTACT&#95;MONITORING on an instance."
+        "description": "Boolean flag which enables ENHANCED_CONTACT_MONITORING on an instance."
       },
       {
         "name": "enhanced_chat_monitoring",
         "type": "boolean",
-        "description": "Boolean flag which enables ENHANCED&#95;CHAT&#95;MONITORING on an instance."
+        "description": "Boolean flag which enables ENHANCED_CHAT_MONITORING on an instance."
       },
       {
         "name": "multi_party_chat_conference",
         "type": "boolean",
-        "description": "Boolean flag which enables MULTI&#95;PARTY&#95;CHAT&#95;CONFERENCE on an instance."
+        "description": "Boolean flag which enables MULTI_PARTY_CHAT_CONFERENCE on an instance."
       }
     ]
   },
@@ -263,7 +263,7 @@ SELECT
   tags
 FROM awscc.connect.instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -276,7 +276,7 @@ SELECT
   arn
 FROM awscc.connect.instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -395,7 +395,7 @@ WHERE
 DELETE FROM awscc.connect.instances
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -153,7 +153,7 @@ SELECT
   role_mappings
 FROM awscc.cognito.identity_pool_role_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   id
 FROM awscc.cognito.identity_pool_role_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +261,7 @@ WHERE
 DELETE FROM awscc.cognito.identity_pool_role_attachments
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

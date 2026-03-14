@@ -61,17 +61,17 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "sse_enabled",
         "type": "boolean",
-        "description": "Indicates whether server-side encryption is done using an AWS managed key or an AWS owned key. If enabled (true), server-side encryption type is set to &#96;&#96;KMS&#96;&#96; and an AWS managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to AWS owned key."
+        "description": "Indicates whether server-side encryption is done using an AWS managed key or an AWS owned key. If enabled (true), server-side encryption type is set to <code>KMS</code> and an AWS managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to AWS owned key."
       },
       {
         "name": "sse_type",
         "type": "string",
-        "description": "Server-side encryption type. The only supported value is:<br />+ &#96;&#96;KMS&#96;&#96; - Server-side encryption that uses KMSlong. The key is stored in your account and is managed by KMS (KMS charges apply)."
+        "description": "<details><summary>Server-side encryption type. The only supported value is:</summary>+  <code>KMS</code> - Server-side encryption that uses KMSlong. The key is stored in your account and is managed by KMS (KMS charges apply).</details>"
       },
       {
         "name": "kms_master_key_id",
         "type": "string",
-        "description": "The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key &#96;&#96;alias/aws/dynamodb&#96;&#96;."
+        "description": "The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key <code>alias/aws/dynamodb</code>."
       }
     ]
   },
@@ -83,17 +83,17 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "stream_view_type",
         "type": "string",
-        "description": "When an item in the table is modified, &#96;&#96;StreamViewType&#96;&#96; determines what information is written to the stream for this table. Valid values for &#96;&#96;StreamViewType&#96;&#96; are:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the key attributes of the modified item are written to the stream.<br />+ &#96;&#96;NEW&#95;IMAGE&#96;&#96; - The entire item, as it appears after it was modified, is written to the stream.<br />+ &#96;&#96;OLD&#95;IMAGE&#96;&#96; - The entire item, as it appeared before it was modified, is written to the stream.<br />+ &#96;&#96;NEW&#95;AND&#95;OLD&#95;IMAGES&#96;&#96; - Both the new and the old item images of the item are written to the stream."
+        "description": "<details><summary>When an item in the table is modified, <code>StreamViewType</code> determines what information is written to the stream for this table. Valid values for <code>StreamViewType</code> are:</summary>+  <code>KEYS_ONLY</code> - Only the key attributes of the modified item are written to the stream.<br />+  <code>NEW_IMAGE</code> - The entire item, as it appears after it was modified, is written to the stream.<br />+  <code>OLD_IMAGE</code> - The entire item, as it appeared before it was modified, is written to the stream.<br />+  <code>NEW_AND_OLD_IMAGES</code> - Both the new and the old item images of the item are written to the stream.</details>"
       },
       {
         "name": "resource_policy",
         "type": "object",
-        "description": "Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table's streams. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.<br />In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).",
+        "description": "<details><summary>Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table's streams. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.</summary>In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>.</details>",
         "children": [
           {
             "name": "policy_document",
             "type": "object",
-            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html)."
+            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>."
           }
         ]
       }
@@ -102,7 +102,7 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
   {
     "name": "warm_throughput",
     "type": "object",
-    "description": "Provides visibility into the number of read and write operations your table or secondary index can instantaneously support. The settings can be modified using the &#96;&#96;UpdateTable&#96;&#96; operation to meet the throughput requirements of an upcoming peak event.",
+    "description": "Provides visibility into the number of read and write operations your table or secondary index can instantaneously support. The settings can be modified using the <code>UpdateTable</code> operation to meet the throughput requirements of an upcoming peak event.",
     "children": [
       {
         "name": "read_units_per_second",
@@ -146,7 +146,7 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
           {
             "name": "stream_arn",
             "type": "string",
-            "description": "The ARN for a specific Kinesis data stream.<br />Length Constraints: Minimum length of 37. Maximum length of 1024."
+            "description": "<details><summary>The ARN for a specific Kinesis data stream.</summary>Length Constraints: Minimum length of 37. Maximum length of 1024.</details>"
           }
         ]
       },
@@ -192,12 +192,12 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
           {
             "name": "resource_policy",
             "type": "object",
-            "description": "Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table, its indexes, and stream. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.<br />In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).<br />While defining resource-based policies in your CFNshort templates, the following considerations apply:<br />+ The maximum size supported for a resource-based policy document in JSON format is 20 KB. DDB counts whitespaces when calculating the size of a policy against this limit. <br />+ Resource-based policies don't support &#91;drift detection&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html#). If you update a policy outside of the CFNshort stack template, you'll need to update the CFNshort stack with the changes.<br />+ Resource-based policies don't support out-of-band changes. If you add, update, or delete a policy outside of the CFNshort template, the change won't be overwritten if there are no changes to the policy within the template.<br />For example, say that your template contains a resource-based policy, which you later update outside of the template. If you don't make any changes to the policy in the template, the updated policy in DDB won’t be synced with the policy in the template.<br />Conversely, say that your template doesn’t contain a resource-based policy, but you add a policy outside of the template. This policy won’t be removed from DDB as long as you don’t add it to the template. When you add a policy to the template and update the stack, the existing policy in DDB will be updated to match the one defined in the template.<br /><br />For a full list of all considerations, see &#91;Resource-based policy considerations&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html).",
+            "description": "<details><summary>Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table, its indexes, and stream. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.</summary>In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>.<br />While defining resource-based policies in your CFNshort templates, the following considerations apply:<br />+  The maximum size supported for a resource-based policy document in JSON format is 20 KB. DDB counts whitespaces when calculating the size of a policy against this limit.<br />+  Resource-based policies don't support <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html#\">drift detection</a>. If you update a policy outside of the CFNshort stack template, you'll need to update the CFNshort stack with the changes.<br />+  Resource-based policies don't support out-of-band changes. If you add, update, or delete a policy outside of the CFNshort template, the change won't be overwritten if there are no changes to the policy within the template.<br />For example, say that your template contains a resource-based policy, which you later update outside of the template. If you don't make any changes to the policy in the template, the updated policy in DDB won’t be synced with the policy in the template.<br />Conversely, say that your template doesn’t contain a resource-based policy, but you add a policy outside of the template. This policy won’t be removed from DDB as long as you don’t add it to the template. When you add a policy to the template and update the stack, the existing policy in DDB will be updated to match the one defined in the template.<br />For a full list of all considerations, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html\">Resource-based policy considerations</a>.</details>",
             "children": [
               {
                 "name": "policy_document",
                 "type": "object",
-                "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html)."
+                "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>."
               }
             ]
           }
@@ -252,12 +252,12 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "resource_policy",
         "type": "object",
-        "description": "Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table, its indexes, and stream. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.<br />In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).<br />While defining resource-based policies in your CFNshort templates, the following considerations apply:<br />+ The maximum size supported for a resource-based policy document in JSON format is 20 KB. DDB counts whitespaces when calculating the size of a policy against this limit. <br />+ Resource-based policies don't support &#91;drift detection&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html#). If you update a policy outside of the CFNshort stack template, you'll need to update the CFNshort stack with the changes.<br />+ Resource-based policies don't support out-of-band changes. If you add, update, or delete a policy outside of the CFNshort template, the change won't be overwritten if there are no changes to the policy within the template.<br />For example, say that your template contains a resource-based policy, which you later update outside of the template. If you don't make any changes to the policy in the template, the updated policy in DDB won’t be synced with the policy in the template.<br />Conversely, say that your template doesn’t contain a resource-based policy, but you add a policy outside of the template. This policy won’t be removed from DDB as long as you don’t add it to the template. When you add a policy to the template and update the stack, the existing policy in DDB will be updated to match the one defined in the template.<br /><br />For a full list of all considerations, see &#91;Resource-based policy considerations&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html).",
+        "description": "<details><summary>Creates or updates a resource-based policy document that contains the permissions for DDB resources, such as a table, its indexes, and stream. Resource-based policies let you define access permissions by specifying who has access to each resource, and the actions they are allowed to perform on each resource.</summary>In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>.<br />While defining resource-based policies in your CFNshort templates, the following considerations apply:<br />+  The maximum size supported for a resource-based policy document in JSON format is 20 KB. DDB counts whitespaces when calculating the size of a policy against this limit.<br />+  Resource-based policies don't support <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html#\">drift detection</a>. If you update a policy outside of the CFNshort stack template, you'll need to update the CFNshort stack with the changes.<br />+  Resource-based policies don't support out-of-band changes. If you add, update, or delete a policy outside of the CFNshort template, the change won't be overwritten if there are no changes to the policy within the template.<br />For example, say that your template contains a resource-based policy, which you later update outside of the template. If you don't make any changes to the policy in the template, the updated policy in DDB won’t be synced with the policy in the template.<br />Conversely, say that your template doesn’t contain a resource-based policy, but you add a policy outside of the template. This policy won’t be removed from DDB as long as you don’t add it to the template. When you add a policy to the template and update the stack, the existing policy in DDB will be updated to match the one defined in the template.<br />For a full list of all considerations, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html\">Resource-based policy considerations</a>.</details>",
         "children": [
           {
             "name": "policy_document",
             "type": "object",
-            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see &#91;Using resource-based policies for&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html) and &#91;Resource-based policy examples&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html)."
+            "description": "A resource-based policy document that contains permissions to add to the specified DDB table, index, or both. In a CFNshort template, you can provide the policy in JSON or YAML format because CFNshort converts YAML to JSON before submitting it to DDB. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-resource-based.html\">Using resource-based policies for</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html\">Resource-based policy examples</a>."
           }
         ]
       },
@@ -434,7 +434,7 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "attribute_type",
         "type": "string",
-        "description": "The data type for the attribute, where:<br />+ &#96;&#96;S&#96;&#96; - the attribute is of type String<br />+ &#96;&#96;N&#96;&#96; - the attribute is of type Number<br />+ &#96;&#96;B&#96;&#96; - the attribute is of type Binary"
+        "description": "<details><summary>The data type for the attribute, where:</summary>+  <code>S</code> - the attribute is of type String<br />+  <code>N</code> - the attribute is of type Number<br />+  <code>B</code> - the attribute is of type Binary</details>"
       },
       {
         "name": "attribute_name",
@@ -461,17 +461,17 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "on_demand_throughput",
         "type": "object",
-        "description": "The maximum number of read and write units for the specified global secondary index. If you use this parameter, you must specify &#96;&#96;MaxReadRequestUnits&#96;&#96;, &#96;&#96;MaxWriteRequestUnits&#96;&#96;, or both. You must use either &#96;&#96;OnDemandThroughput&#96;&#96; or &#96;&#96;ProvisionedThroughput&#96;&#96; based on your table's capacity mode.",
+        "description": "The maximum number of read and write units for the specified global secondary index. If you use this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both. You must use either <code>OnDemandThroughput</code> or <code>ProvisionedThroughput</code> based on your table's capacity mode.",
         "children": [
           {
             "name": "max_read_request_units",
             "type": "integer",
-            "description": "Maximum number of read request units for the specified table.<br />To specify a maximum &#96;&#96;OnDemandThroughput&#96;&#96; on your table, set the value of &#96;&#96;MaxReadRequestUnits&#96;&#96; as greater than or equal to 1. To remove the maximum &#96;&#96;OnDemandThroughput&#96;&#96; that is currently set on your table, set the value of &#96;&#96;MaxReadRequestUnits&#96;&#96; to -1."
+            "description": "<details><summary>Maximum number of read request units for the specified table.</summary>To specify a maximum <code>OnDemandThroughput</code> on your table, set the value of <code>MaxReadRequestUnits</code> as greater than or equal to 1. To remove the maximum <code>OnDemandThroughput</code> that is currently set on your table, set the value of <code>MaxReadRequestUnits</code> to -1.</details>"
           },
           {
             "name": "max_write_request_units",
             "type": "integer",
-            "description": "Maximum number of write request units for the specified table.<br />To specify a maximum &#96;&#96;OnDemandThroughput&#96;&#96; on your table, set the value of &#96;&#96;MaxWriteRequestUnits&#96;&#96; as greater than or equal to 1. To remove the maximum &#96;&#96;OnDemandThroughput&#96;&#96; that is currently set on your table, set the value of &#96;&#96;MaxWriteRequestUnits&#96;&#96; to -1."
+            "description": "<details><summary>Maximum number of write request units for the specified table.</summary>To specify a maximum <code>OnDemandThroughput</code> on your table, set the value of <code>MaxWriteRequestUnits</code> as greater than or equal to 1. To remove the maximum <code>OnDemandThroughput</code> that is currently set on your table, set the value of <code>MaxWriteRequestUnits</code> to -1.</details>"
           }
         ]
       },
@@ -500,41 +500,41 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
           {
             "name": "non_key_attributes",
             "type": "array",
-            "description": "Represents the non-key attribute names which will be projected into the index.<br />For global and local secondary indexes, the total count of &#96;&#96;NonKeyAttributes&#96;&#96; summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of &#96;&#96;INCLUDE&#96;&#96;. You still can specify the ProjectionType of &#96;&#96;ALL&#96;&#96; to project all attributes from the source table, even if the table has more than 100 attributes."
+            "description": "<details><summary>Represents the non-key attribute names which will be projected into the index.</summary>For global and local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of <code>INCLUDE</code>. You still can specify the ProjectionType of <code>ALL</code> to project all attributes from the source table, even if the table has more than 100 attributes.</details>"
           },
           {
             "name": "projection_type",
             "type": "string",
-            "description": "The set of attributes that are projected into the index:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the index and primary keys are projected into the index.<br />+ &#96;&#96;INCLUDE&#96;&#96; - In addition to the attributes described in &#96;&#96;KEYS&#95;ONLY&#96;&#96;, the secondary index will include other non-key attributes that you specify.<br />+ &#96;&#96;ALL&#96;&#96; - All of the table attributes are projected into the index.<br /><br />When using the DynamoDB console, &#96;&#96;ALL&#96;&#96; is selected by default."
+            "description": "<details><summary>The set of attributes that are projected into the index:</summary>+  <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the index.<br />+  <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index will include other non-key attributes that you specify.<br />+  <code>ALL</code> - All of the table attributes are projected into the index.<br />When using the DynamoDB console, <code>ALL</code> is selected by default.</details>"
           }
         ]
       },
       {
         "name": "provisioned_throughput",
         "type": "object",
-        "description": "Represents the provisioned throughput settings for the specified global secondary index. You must use either &#96;&#96;OnDemandThroughput&#96;&#96; or &#96;&#96;ProvisionedThroughput&#96;&#96; based on your table's capacity mode.<br />For current minimum and maximum provisioned throughput values, see &#91;Service, Account, and Table Quotas&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the &#42;Amazon DynamoDB Developer Guide&#42;.",
+        "description": "<details><summary>Represents the provisioned throughput settings for the specified global secondary index. You must use either <code>OnDemandThroughput</code> or <code>ProvisionedThroughput</code> based on your table's capacity mode.</summary>For current minimum and maximum provisioned throughput values, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html\">Service, Account, and Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.</details>",
         "children": [
           {
             "name": "write_capacity_units",
             "type": "integer",
-            "description": "The maximum number of writes consumed per second before DynamoDB returns a &#96;&#96;ThrottlingException&#96;&#96;. For more information, see &#91;Specifying Read and Write Requirements&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the &#42;Amazon DynamoDB Developer Guide&#42;.<br />If read/write capacity mode is &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; the value is set to 0."
+            "description": "<details><summary>The maximum number of writes consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</summary>If read/write capacity mode is <code>PAY_PER_REQUEST</code> the value is set to 0.</details>"
           },
           {
             "name": "read_capacity_units",
             "type": "integer",
-            "description": "The maximum number of strongly consistent reads consumed per second before DynamoDB returns a &#96;&#96;ThrottlingException&#96;&#96;. For more information, see &#91;Specifying Read and Write Requirements&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the &#42;Amazon DynamoDB Developer Guide&#42;.<br />If read/write capacity mode is &#96;&#96;PAY&#95;PER&#95;REQUEST&#96;&#96; the value is set to 0."
+            "description": "<details><summary>The maximum number of strongly consistent reads consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</summary>If read/write capacity mode is <code>PAY_PER_REQUEST</code> the value is set to 0.</details>"
           }
         ]
       },
       {
         "name": "key_schema",
         "type": "array",
-        "description": "The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.",
+        "description": "<details><summary>The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>",
         "children": [
           {
             "name": "key_type",
             "type": "string",
-            "description": "The role that this key attribute will assume:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value."
+            "description": "<details><summary>The role that this key attribute will assume:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>"
           },
           {
             "name": "attribute_name",
@@ -553,7 +553,7 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "key_type",
         "type": "string",
-        "description": "The role that this key attribute will assume:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value."
+        "description": "<details><summary>The role that this key attribute will assume:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>"
       },
       {
         "name": "attribute_name",
@@ -580,19 +580,19 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
           {
             "name": "non_key_attributes",
             "type": "array",
-            "description": "Represents the non-key attribute names which will be projected into the index.<br />For global and local secondary indexes, the total count of &#96;&#96;NonKeyAttributes&#96;&#96; summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of &#96;&#96;INCLUDE&#96;&#96;. You still can specify the ProjectionType of &#96;&#96;ALL&#96;&#96; to project all attributes from the source table, even if the table has more than 100 attributes."
+            "description": "<details><summary>Represents the non-key attribute names which will be projected into the index.</summary>For global and local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total. This limit only applies when you specify the ProjectionType of <code>INCLUDE</code>. You still can specify the ProjectionType of <code>ALL</code> to project all attributes from the source table, even if the table has more than 100 attributes.</details>"
           },
           {
             "name": "projection_type",
             "type": "string",
-            "description": "The set of attributes that are projected into the index:<br />+ &#96;&#96;KEYS&#95;ONLY&#96;&#96; - Only the index and primary keys are projected into the index.<br />+ &#96;&#96;INCLUDE&#96;&#96; - In addition to the attributes described in &#96;&#96;KEYS&#95;ONLY&#96;&#96;, the secondary index will include other non-key attributes that you specify.<br />+ &#96;&#96;ALL&#96;&#96; - All of the table attributes are projected into the index.<br /><br />When using the DynamoDB console, &#96;&#96;ALL&#96;&#96; is selected by default."
+            "description": "<details><summary>The set of attributes that are projected into the index:</summary>+  <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the index.<br />+  <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index will include other non-key attributes that you specify.<br />+  <code>ALL</code> - All of the table attributes are projected into the index.<br />When using the DynamoDB console, <code>ALL</code> is selected by default.</details>"
           }
         ]
       },
       {
         "name": "key_schema",
         "type": "array",
-        "description": "The complete key schema for the local secondary index, consisting of one or more pairs of attribute names and key types:<br />+ &#96;&#96;HASH&#96;&#96; - partition key<br />+ &#96;&#96;RANGE&#96;&#96; - sort key<br /><br />The partition key of an item is also known as its &#42;hash attribute&#42;. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its &#42;range attribute&#42;. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value."
+        "description": "<details><summary>The complete key schema for the local secondary index, consisting of one or more pairs of attribute names and key types:</summary>+  <code>HASH</code> - partition key<br />+  <code>RANGE</code> - sort key<br />The partition key of an item is also known as its <i>hash attribute</i>. The term \"hash attribute\" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.<br />The sort key of an item is also known as its <i>range attribute</i>. The term \"range attribute\" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.</details>"
       }
     ]
   },
@@ -619,7 +619,7 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
       {
         "name": "attribute_name",
         "type": "string",
-        "description": "The name of the TTL attribute used to store the expiration time for items in the table.<br />+ The &#96;&#96;AttributeName&#96;&#96; property is required when enabling the TTL, or when TTL is already enabled.<br />+ To update this property, you must first disable TTL and then enable TTL with the new attribute name."
+        "description": "<details><summary>The name of the TTL attribute used to store the expiration time for items in the table.</summary>+  The <code>AttributeName</code> property is required when enabling the TTL, or when TTL is already enabled.<br />+  To update this property, you must first disable TTL and then enable TTL with the new attribute name.</details>"
       }
     ]
   },
@@ -727,7 +727,7 @@ SELECT
   time_to_live_specification
 FROM awscc.dynamodb.global_tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_name }}';
 ```
 </TabItem>
@@ -740,7 +740,7 @@ SELECT
   table_name
 FROM awscc.dynamodb.global_tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -971,7 +971,7 @@ WHERE
 DELETE FROM awscc.dynamodb.global_tables
 WHERE
   Identifier = '{{ table_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

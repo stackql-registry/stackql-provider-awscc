@@ -223,7 +223,7 @@ SELECT
   tags
 FROM awscc.chatbot.custom_actions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ custom_action_arn }}';
 ```
 </TabItem>
@@ -236,7 +236,7 @@ SELECT
   custom_action_arn
 FROM awscc.chatbot.custom_actions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +353,7 @@ WHERE
 DELETE FROM awscc.chatbot.custom_actions
 WHERE
   Identifier = '{{ custom_action_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

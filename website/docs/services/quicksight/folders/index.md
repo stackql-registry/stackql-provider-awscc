@@ -91,7 +91,7 @@ Creates, updates, deletes or gets a <code>folder</code> resource or lists <code>
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -224,7 +224,7 @@ SELECT
   tags
 FROM awscc.quicksight.folders
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ folder_id }}';
 ```
 </TabItem>
@@ -238,7 +238,7 @@ SELECT
   folder_id
 FROM awscc.quicksight.folders_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +373,7 @@ WHERE
 DELETE FROM awscc.quicksight.folders
 WHERE
   Identifier = '{{ aws_account_id }}|{{ folder_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

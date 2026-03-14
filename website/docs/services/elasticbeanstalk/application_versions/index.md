@@ -170,7 +170,7 @@ SELECT
   source_bundle
 FROM awscc.elasticbeanstalk.application_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_name }}|{{ id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   id
 FROM awscc.elasticbeanstalk.application_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +282,7 @@ WHERE
 DELETE FROM awscc.elasticbeanstalk.application_versions
 WHERE
   Identifier = '{{ application_name }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

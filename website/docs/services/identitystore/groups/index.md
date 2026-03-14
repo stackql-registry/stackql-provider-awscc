@@ -158,7 +158,7 @@ SELECT
   identity_store_id
 FROM awscc.identitystore.groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ group_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   identity_store_id
 FROM awscc.identitystore.groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +269,7 @@ WHERE
 DELETE FROM awscc.identitystore.groups
 WHERE
   Identifier = '{{ group_id }}|{{ identity_store_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

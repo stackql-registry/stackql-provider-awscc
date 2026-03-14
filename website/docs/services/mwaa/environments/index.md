@@ -66,7 +66,7 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
   {
     "name": "kms_key",
     "type": "string",
-    "description": "The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for MWAA data encryption.<br />You can specify the CMK using any of the following:<br />Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.<br />Key alias. For example, alias/ExampleAlias.<br />Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.<br />Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.<br />AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails."
+    "description": "<details><summary>The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for MWAA data encryption.</summary>You can specify the CMK using any of the following:<br />Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.<br />Key alias. For example, alias/ExampleAlias.<br />Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.<br />Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.<br />AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails.</details>"
   },
   {
     "name": "airflow_version",
@@ -91,7 +91,7 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
   {
     "name": "airflow_configuration_options",
     "type": "object",
-    "description": "Key/value pairs representing Airflow configuration variables.<br />Keys are prefixed by their section:<br />&#91;core&#93;<br />dags&#95;folder=&#123;AIRFLOW&#95;HOME&#125;/dags<br />Would be represented as<br />\"core.dags&#95;folder\": \"&#123;AIRFLOW&#95;HOME&#125;/dags\""
+    "description": "<details><summary>Key/value pairs representing Airflow configuration variables.</summary>Keys are prefixed by their section:<br />[core]<br />dags_folder=&#123;AIRFLOW_HOME&#125;/dags<br />Would be represented as<br />\"core.dags_folder\": \"&#123;AIRFLOW_HOME&#125;/dags\"</details>"
   },
   {
     "name": "environment_class",
@@ -207,7 +207,7 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
   {
     "name": "worker_replacement_strategy",
     "type": "string",
-    "description": "The worker replacement strategy to use when updating the environment. Valid values: &#96;FORCED&#96;, &#96;GRACEFUL&#96;. FORCED means Apache Airflow workers will be stopped and replaced without waiting for tasks to complete before an update. GRACEFUL means Apache Airflow workers will be able to complete running tasks for up to 12 hours during an update before being stopped and replaced."
+    "description": "The worker replacement strategy to use when updating the environment. Valid values: <code>FORCED</code>, <code>GRACEFUL</code>. FORCED means Apache Airflow workers will be stopped and replaced without waiting for tasks to complete before an update. GRACEFUL means Apache Airflow workers will be able to complete running tasks for up to 12 hours during an update before being stopped and replaced."
   },
   {
     "name": "region",
@@ -326,7 +326,7 @@ SELECT
   worker_replacement_strategy
 FROM awscc.mwaa.environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -339,7 +339,7 @@ SELECT
   name
 FROM awscc.mwaa.environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -557,7 +557,7 @@ WHERE
 DELETE FROM awscc.mwaa.environments
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

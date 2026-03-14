@@ -270,7 +270,7 @@ SELECT
   tags
 FROM awscc.amplifyuibuilder.forms
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
@@ -285,7 +285,7 @@ SELECT
   id
 FROM awscc.amplifyuibuilder.forms_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -458,7 +458,7 @@ WHERE
 DELETE FROM awscc.amplifyuibuilder.forms
 WHERE
   Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

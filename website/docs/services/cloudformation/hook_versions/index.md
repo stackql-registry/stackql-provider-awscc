@@ -83,12 +83,12 @@ Creates, updates, deletes or gets a <code>hook_version</code> resource or lists 
   {
     "name": "schema_handler_package",
     "type": "string",
-    "description": "A url to the S3 bucket containing the schema handler package that contains the schema, event handlers, and associated files for the type you want to register.<br />For information on generating a schema handler package for the type you want to register, see submit in the CloudFormation CLI User Guide."
+    "description": "<details><summary>A url to the S3 bucket containing the schema handler package that contains the schema, event handlers, and associated files for the type you want to register.</summary>For information on generating a schema handler package for the type you want to register, see submit in the CloudFormation CLI User Guide.</details>"
   },
   {
     "name": "type_name",
     "type": "string",
-    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+    "description": "<details><summary>The name of the type being registered.</summary>We recommend that type names adhere to the following pattern: company_or_organization::service::type.</details>"
   },
   {
     "name": "version_id",
@@ -98,7 +98,7 @@ Creates, updates, deletes or gets a <code>hook_version</code> resource or lists 
   {
     "name": "visibility",
     "type": "string",
-    "description": "The scope at which the type is visible and usable in CloudFormation operations.<br />Valid values include:<br />PRIVATE: The type is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any types you register as PRIVATE.<br />PUBLIC: The type is publically visible and usable within any Amazon account."
+    "description": "<details><summary>The scope at which the type is visible and usable in CloudFormation operations.</summary>Valid values include:<br />PRIVATE: The type is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any types you register as PRIVATE.<br />PUBLIC: The type is publically visible and usable within any Amazon account.</details>"
   },
   {
     "name": "region",
@@ -189,7 +189,7 @@ SELECT
   visibility
 FROM awscc.cloudformation.hook_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   arn
 FROM awscc.cloudformation.hook_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ resources:
 DELETE FROM awscc.cloudformation.hook_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

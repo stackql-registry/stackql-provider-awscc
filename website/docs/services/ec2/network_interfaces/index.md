@@ -323,7 +323,7 @@ SELECT
   connection_tracking_specification
 FROM awscc.ec2.network_interfaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -336,7 +336,7 @@ SELECT
   id
 FROM awscc.ec2.network_interfaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -510,7 +510,7 @@ WHERE
 DELETE FROM awscc.ec2.network_interfaces
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

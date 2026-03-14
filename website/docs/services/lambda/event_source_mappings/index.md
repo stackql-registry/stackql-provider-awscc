@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
 <tbody>
 <tr><td><b>Name</b></td><td><code>event_source_mappings</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::Lambda::EventSourceMapping&#96;&#96; resource creates a mapping between an event source and an LAMlong function. LAM reads items from the event source and triggers the function.<br />For details about each event source type, see the following topics. In particular, each of the topics describes the required and optional parameters for the specific event source. <br />+ &#91;Configuring a Dynamo DB stream as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html#services-dynamodb-eventsourcemapping) <br />+ &#91;Configuring a Kinesis stream as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-eventsourcemapping) <br />+ &#91;Configuring an SQS queue as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-eventsource) <br />+ &#91;Configuring an MQ broker as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#services-mq-eventsourcemapping) <br />+ &#91;Configuring MSK as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html) <br />+ &#91;Configuring Self-Managed Apache Kafka as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/kafka-smaa.html) <br />+ &#91;Configuring Amazon DocumentDB as an event source&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-documentdb.html)</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::Lambda::EventSourceMapping</code> resource creates a mapping between an event source and an LAMlong function. LAM reads items from the event source and triggers the function.</summary>For details about each event source type, see the following topics. In particular, each of the topics describes the required and optional parameters for the specific event source.<br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html#services-dynamodb-eventsourcemapping">Configuring a Dynamo DB stream as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-eventsourcemapping">Configuring a Kinesis stream as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-eventsource">Configuring an SQS queue as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#services-mq-eventsourcemapping">Configuring an MQ broker as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html">Configuring MSK as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/kafka-smaa.html">Configuring Self-Managed Apache Kafka as an event source</a><br />+   <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-documentdb.html">Configuring Amazon DocumentDB as an event source</a></details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.lambda.event_source_mappings" /></td></tr>
 </tbody>
 </table>
@@ -51,12 +51,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "batch_size",
     "type": "integer",
-    "description": "The maximum number of records in each batch that Lambda pulls from your stream or queue and sends to your function. Lambda passes all of the records in the batch to the function in a single call, up to the payload limit for synchronous invocation (6 MB).<br />+ &#42;Amazon Kinesis&#42; – Default 100. Max 10,000.<br />+ &#42;Amazon DynamoDB Streams&#42; – Default 100. Max 10,000.<br />+ &#42;Amazon Simple Queue Service&#42; – Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.<br />+ &#42;Amazon Managed Streaming for Apache Kafka&#42; – Default 100. Max 10,000.<br />+ &#42;Self-managed Apache Kafka&#42; – Default 100. Max 10,000.<br />+ &#42;Amazon MQ (ActiveMQ and RabbitMQ)&#42; – Default 100. Max 10,000.<br />+ &#42;DocumentDB&#42; – Default 100. Max 10,000."
+    "description": "<details><summary>The maximum number of records in each batch that Lambda pulls from your stream or queue and sends to your function. Lambda passes all of the records in the batch to the function in a single call, up to the payload limit for synchronous invocation (6 MB).</summary>+  <i>Amazon Kinesis</i> – Default 100. Max 10,000.<br />+  <i>Amazon DynamoDB Streams</i> – Default 100. Max 10,000.<br />+  <i>Amazon Simple Queue Service</i> – Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.<br />+  <i>Amazon Managed Streaming for Apache Kafka</i> – Default 100. Max 10,000.<br />+  <i>Self-managed Apache Kafka</i> – Default 100. Max 10,000.<br />+  <i>Amazon MQ (ActiveMQ and RabbitMQ)</i> – Default 100. Max 10,000.<br />+  <i>DocumentDB</i> – Default 100. Max 10,000.</details>"
   },
   {
     "name": "bisect_batch_on_function_error",
     "type": "boolean",
-    "description": "(Kinesis and DynamoDB Streams only) If the function returns an error, split the batch in two and retry. The default value is false.<br />When using &#96;&#96;BisectBatchOnFunctionError&#96;&#96;, check the &#96;&#96;BatchSize&#96;&#96; parameter in the &#96;&#96;OnFailure&#96;&#96; destination message's metadata. The &#96;&#96;BatchSize&#96;&#96; could be greater than 1 since LAM consolidates failed messages metadata when writing to the &#96;&#96;OnFailure&#96;&#96; destination."
+    "description": "<details><summary>(Kinesis and DynamoDB Streams only) If the function returns an error, split the batch in two and retry. The default value is false.</summary>When using <code>BisectBatchOnFunctionError</code>, check the <code>BatchSize</code> parameter in the <code>OnFailure</code> destination message's metadata. The <code>BatchSize</code> could be greater than 1 since LAM consolidates failed messages metadata when writing to the <code>OnFailure</code> destination.</details>"
   },
   {
     "name": "destination_config",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
           {
             "name": "destination",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) of the destination resource.<br />To retain records of unsuccessful &#91;asynchronous invocations&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations), you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from &#91;Kinesis&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html), &#91;DynamoDB&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html), &#91;self-managed Kafka&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination) or &#91;Amazon MSK&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination), you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination."
+            "description": "<details><summary>The Amazon Resource Name (ARN) of the destination resource.</summary>To retain records of unsuccessful <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations\">asynchronous invocations</a>, you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html\">Kinesis</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html\">DynamoDB</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination\">self-managed Kafka</a> or <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination\">Amazon MSK</a>, you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination.</details>"
           }
         ]
       }
@@ -80,12 +80,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "enabled",
     "type": "boolean",
-    "description": "When true, the event source mapping is active. When false, Lambda pauses polling and invocation.<br />Default: True"
+    "description": "<details><summary>When true, the event source mapping is active. When false, Lambda pauses polling and invocation.</summary>Default: True</details>"
   },
   {
     "name": "event_source_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the event source.<br />+ &#42;Amazon Kinesis&#42; – The ARN of the data stream or a stream consumer.<br />+ &#42;Amazon DynamoDB Streams&#42; – The ARN of the stream.<br />+ &#42;Amazon Simple Queue Service&#42; – The ARN of the queue.<br />+ &#42;Amazon Managed Streaming for Apache Kafka&#42; – The ARN of the cluster or the ARN of the VPC connection (for &#91;cross-account event source mappings&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc)).<br />+ &#42;Amazon MQ&#42; – The ARN of the broker.<br />+ &#42;Amazon DocumentDB&#42; – The ARN of the DocumentDB change stream."
+    "description": "<details><summary>The Amazon Resource Name (ARN) of the event source.</summary>+  <i>Amazon Kinesis</i> – The ARN of the data stream or a stream consumer.<br />+  <i>Amazon DynamoDB Streams</i> – The ARN of the stream.<br />+  <i>Amazon Simple Queue Service</i> – The ARN of the queue.<br />+  <i>Amazon Managed Streaming for Apache Kafka</i> – The ARN of the cluster or the ARN of the VPC connection (for <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc\">cross-account event source mappings</a>).<br />+  <i>Amazon MQ</i> – The ARN of the broker.<br />+  <i>Amazon DocumentDB</i> – The ARN of the DocumentDB change stream.</details>"
   },
   {
     "name": "event_source_mapping_arn",
@@ -95,7 +95,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "filter_criteria",
     "type": "object",
-    "description": "An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see &#91;Lambda event filtering&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html).",
+    "description": "An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html\">Lambda event filtering</a>.",
     "children": [
       {
         "name": "filters",
@@ -105,7 +105,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
           {
             "name": "pattern",
             "type": "string",
-            "description": "A filter pattern. For more information on the syntax of a filter pattern, see &#91;Filter rule syntax&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-syntax)."
+            "description": "A filter pattern. For more information on the syntax of a filter pattern, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-syntax\">Filter rule syntax</a>."
           }
         ]
       }
@@ -114,22 +114,22 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "kms_key_arn",
     "type": "string",
-    "description": "The ARN of the KMSlong (KMS) customer managed key that Lambda uses to encrypt your function's &#91;filter criteria&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics)."
+    "description": "The ARN of the KMSlong (KMS) customer managed key that Lambda uses to encrypt your function's <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics\">filter criteria</a>."
   },
   {
     "name": "function_name",
     "type": "string",
-    "description": "The name or ARN of the Lambda function.<br />&#42;&#42;Name formats&#42;&#42;<br />+ &#42;Function name&#42; – &#96;&#96;MyFunction&#96;&#96;.<br />+ &#42;Function ARN&#42; – &#96;&#96;arn:aws:lambda:us-west-2:123456789012:function:MyFunction&#96;&#96;.<br />+ &#42;Version or Alias ARN&#42; – &#96;&#96;arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD&#96;&#96;.<br />+ &#42;Partial ARN&#42; – &#96;&#96;123456789012:function:MyFunction&#96;&#96;.<br /><br />The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length."
+    "description": "<details><summary>The name or ARN of the Lambda function.</summary><b>Name formats</b><br />+  <i>Function name</i> – <code>MyFunction</code>.<br />+  <i>Function ARN</i> – <code>arn:aws:lambda:us-west-2:123456789012:function:MyFunction</code>.<br />+  <i>Version or Alias ARN</i> – <code>arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD</code>.<br />+  <i>Partial ARN</i> – <code>123456789012:function:MyFunction</code>.<br />The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.</details>"
   },
   {
     "name": "maximum_batching_window_in_seconds",
     "type": "integer",
-    "description": "The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function.<br />&#42;Default (, , event sources)&#42;: 0<br />&#42;Default (, Kafka, , event sources)&#42;: 500 ms<br />&#42;Related setting:&#42; For SQS event sources, when you set &#96;&#96;BatchSize&#96;&#96; to a value greater than 10, you must set &#96;&#96;MaximumBatchingWindowInSeconds&#96;&#96; to at least 1."
+    "description": "<details><summary>The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function.</summary><i>Default (, , event sources)</i>: 0<br /><i>Default (, Kafka, , event sources)</i>: 500 ms<br /><i>Related setting:</i> For SQS event sources, when you set <code>BatchSize</code> to a value greater than 10, you must set <code>MaximumBatchingWindowInSeconds</code> to at least 1.</details>"
   },
   {
     "name": "maximum_record_age_in_seconds",
     "type": "integer",
-    "description": "(Kinesis and DynamoDB Streams only) Discard records older than the specified age. The default value is -1, which sets the maximum age to infinite. When the value is set to infinite, Lambda never discards old records.<br />The minimum valid value for maximum record age is 60s. Although values less than 60 and greater than -1 fall within the parameter's absolute range, they are not allowed"
+    "description": "<details><summary>(Kinesis and DynamoDB Streams only) Discard records older than the specified age. The default value is -1, which sets the maximum age to infinite. When the value is set to infinite, Lambda never discards old records.</summary>The minimum valid value for maximum record age is 60s. Although values less than 60 and greater than -1 fall within the parameter's absolute range, they are not allowed</details>"
   },
   {
     "name": "maximum_retry_attempts",
@@ -144,17 +144,17 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "starting_position",
     "type": "string",
-    "description": "The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB.<br />+ &#42;LATEST&#42; - Read only new records.<br />+ &#42;TRIM&#95;HORIZON&#42; - Process all available records.<br />+ &#42;AT&#95;TIMESTAMP&#42; - Specify a time from which to start reading records."
+    "description": "<details><summary>The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB.</summary>+  <i>LATEST</i> - Read only new records.<br />+  <i>TRIM_HORIZON</i> - Process all available records.<br />+  <i>AT_TIMESTAMP</i> - Specify a time from which to start reading records.</details>"
   },
   {
     "name": "starting_position_timestamp",
     "type": "number",
-    "description": "With &#96;&#96;StartingPosition&#96;&#96; set to &#96;&#96;AT&#95;TIMESTAMP&#96;&#96;, the time from which to start reading, in Unix time seconds. &#96;&#96;StartingPositionTimestamp&#96;&#96; cannot be in the future."
+    "description": "With <code>StartingPosition</code> set to <code>AT_TIMESTAMP</code>, the time from which to start reading, in Unix time seconds. <code>StartingPositionTimestamp</code> cannot be in the future."
   },
   {
     "name": "tags",
     "type": "array",
-    "description": "A list of tags to add to the event source mapping.<br />You must have the &#96;&#96;lambda:TagResource&#96;&#96;, &#96;&#96;lambda:UntagResource&#96;&#96;, and &#96;&#96;lambda:ListTags&#96;&#96; permissions for your &#91;principal&#93;(https://docs.aws.amazon.com/IAM/latest/UserGuide/id&#95;roles&#95;terms-and-concepts.html) to manage the CFN stack. If you don't have these permissions, there might be unexpected behavior with stack-level tags propagating to the resource during resource creation and update.",
+    "description": "<details><summary>A list of tags to add to the event source mapping.</summary>You must have the <code>lambda:TagResource</code>, <code>lambda:UntagResource</code>, and <code>lambda:ListTags</code> permissions for your <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html\">principal</a> to manage the CFN stack. If you don't have these permissions, there might be unexpected behavior with stack-level tags propagating to the resource during resource creation and update.</details>",
     "children": [
       {
         "name": "value",
@@ -186,12 +186,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
       {
         "name": "type",
         "type": "string",
-        "description": "The type of authentication protocol, VPC components, or virtual host for your event source. For example: &#96;&#96;\"Type\":\"SASL&#95;SCRAM&#95;512&#95;AUTH\"&#96;&#96;.<br />+ &#96;&#96;BASIC&#95;AUTH&#96;&#96; – (Amazon MQ) The ASMlong secret that stores your broker credentials.<br />+ &#96;&#96;BASIC&#95;AUTH&#96;&#96; – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL/PLAIN authentication of your Apache Kafka brokers.<br />+ &#96;&#96;VPC&#95;SUBNET&#96;&#96; – (Self-managed Apache Kafka) The subnets associated with your VPC. Lambda connects to these subnets to fetch data from your self-managed Apache Kafka cluster.<br />+ &#96;&#96;VPC&#95;SECURITY&#95;GROUP&#96;&#96; – (Self-managed Apache Kafka) The VPC security group used to manage access to your self-managed Apache Kafka brokers.<br />+ &#96;&#96;SASL&#95;SCRAM&#95;256&#95;AUTH&#96;&#96; – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL SCRAM-256 authentication of your self-managed Apache Kafka brokers.<br />+ &#96;&#96;SASL&#95;SCRAM&#95;512&#95;AUTH&#96;&#96; – (Amazon MSK, Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL SCRAM-512 authentication of your self-managed Apache Kafka brokers.<br />+ &#96;&#96;VIRTUAL&#95;HOST&#96;&#96; –- (RabbitMQ) The name of the virtual host in your RabbitMQ broker. Lambda uses this RabbitMQ host as the event source. This property cannot be specified in an UpdateEventSourceMapping API call.<br />+ &#96;&#96;CLIENT&#95;CERTIFICATE&#95;TLS&#95;AUTH&#96;&#96; – (Amazon MSK, self-managed Apache Kafka) The Secrets Manager ARN of your secret key containing the certificate chain (X.509 PEM), private key (PKCS#8 PEM), and private key password (optional) used for mutual TLS authentication of your MSK/Apache Kafka brokers.<br />+ &#96;&#96;SERVER&#95;ROOT&#95;CA&#95;CERTIFICATE&#96;&#96; – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key containing the root CA certificate (X.509 PEM) used for TLS encryption of your Apache Kafka brokers."
+        "description": "<details><summary>The type of authentication protocol, VPC components, or virtual host for your event source. For example: <code>\"Type\":\"SASL_SCRAM_512_AUTH\"</code>.</summary>+  <code>BASIC_AUTH</code> – (Amazon MQ) The ASMlong secret that stores your broker credentials.<br />+  <code>BASIC_AUTH</code> – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL/PLAIN authentication of your Apache Kafka brokers.<br />+  <code>VPC_SUBNET</code> – (Self-managed Apache Kafka) The subnets associated with your VPC. Lambda connects to these subnets to fetch data from your self-managed Apache Kafka cluster.<br />+  <code>VPC_SECURITY_GROUP</code> – (Self-managed Apache Kafka) The VPC security group used to manage access to your self-managed Apache Kafka brokers.<br />+  <code>SASL_SCRAM_256_AUTH</code> – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL SCRAM-256 authentication of your self-managed Apache Kafka brokers.<br />+  <code>SASL_SCRAM_512_AUTH</code> – (Amazon MSK, Self-managed Apache Kafka) The Secrets Manager ARN of your secret key used for SASL SCRAM-512 authentication of your self-managed Apache Kafka brokers.<br />+  <code>VIRTUAL_HOST</code> –- (RabbitMQ) The name of the virtual host in your RabbitMQ broker. Lambda uses this RabbitMQ host as the event source. This property cannot be specified in an UpdateEventSourceMapping API call.<br />+  <code>CLIENT_CERTIFICATE_TLS_AUTH</code> – (Amazon MSK, self-managed Apache Kafka) The Secrets Manager ARN of your secret key containing the certificate chain (X.509 PEM), private key (PKCS#8 PEM), and private key password (optional) used for mutual TLS authentication of your MSK/Apache Kafka brokers.<br />+  <code>SERVER_ROOT_CA_CERTIFICATE</code> – (Self-managed Apache Kafka) The Secrets Manager ARN of your secret key containing the root CA certificate (X.509 PEM) used for TLS encryption of your Apache Kafka brokers.</details>"
       },
       {
         "name": "uri",
         "type": "string",
-        "description": "The value for your chosen configuration in &#96;&#96;Type&#96;&#96;. For example: &#96;&#96;\"URI\": \"arn:aws:secretsmanager:us-east-1:01234567890:secret:MyBrokerSecretName\"&#96;&#96;."
+        "description": "The value for your chosen configuration in <code>Type</code>. For example: <code>\"URI\": \"arn:aws:secretsmanager:us-east-1:01234567890:secret:MyBrokerSecretName\"</code>."
       }
     ]
   },
@@ -203,7 +203,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "function_response_types",
     "type": "array",
-    "description": "(Kinesis, DynamoDB Streams, and SQS) A list of current response type enums applied to the event source mapping.<br />Valid Values: &#96;&#96;ReportBatchItemFailures&#96;&#96;"
+    "description": "<details><summary>(Kinesis, DynamoDB Streams, and SQS) A list of current response type enums applied to the event source mapping.</summary>Valid Values: <code>ReportBatchItemFailures</code></details>"
   },
   {
     "name": "self_managed_event_source",
@@ -213,12 +213,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
       {
         "name": "endpoints",
         "type": "object",
-        "description": "The list of bootstrap servers for your Kafka brokers in the following format: &#96;&#96;\"KafkaBootstrapServers\": &#91;\"abc.xyz.com:xxxx\",\"abc2.xyz.com:xxxx\"&#93;&#96;&#96;.",
+        "description": "The list of bootstrap servers for your Kafka brokers in the following format: <code>\"KafkaBootstrapServers\": [\"abc.xyz.com:xxxx\",\"abc2.xyz.com:xxxx\"]</code>.",
         "children": [
           {
             "name": "kafka_bootstrap_servers",
             "type": "array",
-            "description": "The list of bootstrap servers for your Kafka brokers in the following format: &#96;&#96;\"KafkaBootstrapServers\": &#91;\"abc.xyz.com:xxxx\",\"abc2.xyz.com:xxxx\"&#93;&#96;&#96;."
+            "description": "The list of bootstrap servers for your Kafka brokers in the following format: <code>\"KafkaBootstrapServers\": [\"abc.xyz.com:xxxx\",\"abc2.xyz.com:xxxx\"]</code>."
           }
         ]
       }
@@ -232,7 +232,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
       {
         "name": "consumer_group_id",
         "type": "string",
-        "description": "The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see &#91;Customizable consumer group ID&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-consumer-group-id)."
+        "description": "The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-consumer-group-id\">Customizable consumer group ID</a>."
       },
       {
         "name": "schema_registry_config",
@@ -242,12 +242,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
           {
             "name": "schema_registry_uri",
             "type": "string",
-            "description": "The URI for your schema registry. The correct URI format depends on the type of schema registry you're using.<br />+ For GLU schema registries, use the ARN of the registry.<br />+ For Confluent schema registries, use the URL of the registry."
+            "description": "<details><summary>The URI for your schema registry. The correct URI format depends on the type of schema registry you're using.</summary>+  For GLU schema registries, use the ARN of the registry.<br />+  For Confluent schema registries, use the URL of the registry.</details>"
           },
           {
             "name": "event_record_format",
             "type": "string",
-            "description": "The record format that Lambda delivers to your function after schema validation.<br />+ Choose &#96;&#96;JSON&#96;&#96; to have Lambda deliver the record to your function as a standard JSON object.<br />+ Choose &#96;&#96;SOURCE&#96;&#96; to have Lambda deliver the record to your function in its original source format. Lambda removes all schema metadata, such as the schema ID, before sending the record to your function."
+            "description": "<details><summary>The record format that Lambda delivers to your function after schema validation.</summary>+  Choose <code>JSON</code> to have Lambda deliver the record to your function as a standard JSON object.<br />+  Choose <code>SOURCE</code> to have Lambda deliver the record to your function in its original source format. Lambda removes all schema metadata, such as the schema ID, before sending the record to your function.</details>"
           },
           {
             "name": "access_configs",
@@ -274,7 +274,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
               {
                 "name": "attribute",
                 "type": "string",
-                "description": "The attributes you want your schema registry to validate and filter for. If you selected &#96;&#96;JSON&#96;&#96; as the &#96;&#96;EventRecordFormat&#96;&#96;, Lambda also deserializes the selected message attributes."
+                "description": "The attributes you want your schema registry to validate and filter for. If you selected <code>JSON</code> as the <code>EventRecordFormat</code>, Lambda also deserializes the selected message attributes."
               }
             ]
           }
@@ -290,7 +290,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
       {
         "name": "consumer_group_id",
         "type": "string",
-        "description": "The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see &#91;Customizable consumer group ID&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kafka-process.html#services-smaa-topic-add)."
+        "description": "The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kafka-process.html#services-smaa-topic-add\">Customizable consumer group ID</a>."
       },
       {
         "name": "schema_registry_config",
@@ -300,12 +300,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
           {
             "name": "schema_registry_uri",
             "type": "string",
-            "description": "The URI for your schema registry. The correct URI format depends on the type of schema registry you're using.<br />+ For GLU schema registries, use the ARN of the registry.<br />+ For Confluent schema registries, use the URL of the registry."
+            "description": "<details><summary>The URI for your schema registry. The correct URI format depends on the type of schema registry you're using.</summary>+  For GLU schema registries, use the ARN of the registry.<br />+  For Confluent schema registries, use the URL of the registry.</details>"
           },
           {
             "name": "event_record_format",
             "type": "string",
-            "description": "The record format that Lambda delivers to your function after schema validation.<br />+ Choose &#96;&#96;JSON&#96;&#96; to have Lambda deliver the record to your function as a standard JSON object.<br />+ Choose &#96;&#96;SOURCE&#96;&#96; to have Lambda deliver the record to your function in its original source format. Lambda removes all schema metadata, such as the schema ID, before sending the record to your function."
+            "description": "<details><summary>The record format that Lambda delivers to your function after schema validation.</summary>+  Choose <code>JSON</code> to have Lambda deliver the record to your function as a standard JSON object.<br />+  Choose <code>SOURCE</code> to have Lambda deliver the record to your function in its original source format. Lambda removes all schema metadata, such as the schema ID, before sending the record to your function.</details>"
           },
           {
             "name": "access_configs",
@@ -332,7 +332,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
               {
                 "name": "attribute",
                 "type": "string",
-                "description": "The attributes you want your schema registry to validate and filter for. If you selected &#96;&#96;JSON&#96;&#96; as the &#96;&#96;EventRecordFormat&#96;&#96;, Lambda also deserializes the selected message attributes."
+                "description": "The attributes you want your schema registry to validate and filter for. If you selected <code>JSON</code> as the <code>EventRecordFormat</code>, Lambda also deserializes the selected message attributes."
               }
             ]
           }
@@ -343,7 +343,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "scaling_config",
     "type": "object",
-    "description": "(Amazon SQS only) The scaling configuration for the event source. For more information, see &#91;Configuring maximum concurrency for Amazon SQS event sources&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency).",
+    "description": "(Amazon SQS only) The scaling configuration for the event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency\">Configuring maximum concurrency for Amazon SQS event sources</a>.",
     "children": [
       {
         "name": "maximum_concurrency",
@@ -377,7 +377,7 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "provisioned_poller_config",
     "type": "object",
-    "description": "(Amazon MSK and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see &#91;provisioned mode&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode).",
+    "description": "(Amazon MSK and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode\">provisioned mode</a>.",
     "children": [
       {
         "name": "minimum_pollers",
@@ -394,12 +394,12 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
   {
     "name": "metrics_config",
     "type": "object",
-    "description": "The metrics configuration for your event source. For more information, see &#91;Event source mapping metrics&#93;(https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics).",
+    "description": "The metrics configuration for your event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics\">Event source mapping metrics</a>.",
     "children": [
       {
         "name": "metrics",
         "type": "array",
-        "description": "The metrics you want your event source mapping to produce. Include &#96;&#96;EventCount&#96;&#96; to receive event source mapping metrics related to the number of events processed by your event source mapping. For more information about these metrics, see &#91;Event source mapping metrics&#93;(https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics)."
+        "description": "The metrics you want your event source mapping to produce. Include <code>EventCount</code> to receive event source mapping metrics related to the number of events processed by your event source mapping. For more information about these metrics, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics\">Event source mapping metrics</a>."
       }
     ]
   },
@@ -518,7 +518,7 @@ SELECT
   metrics_config
 FROM awscc.lambda.event_source_mappings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -531,7 +531,7 @@ SELECT
   id
 FROM awscc.lambda.event_source_mappings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -776,7 +776,7 @@ WHERE
 DELETE FROM awscc.lambda.event_source_mappings
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

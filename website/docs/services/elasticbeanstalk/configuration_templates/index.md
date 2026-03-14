@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>configuration_template</code> resource
   {
     "name": "option_settings",
     "type": "array",
-    "description": "Option values for the Elastic Beanstalk configuration, such as the instance type. If specified, these values override the values obtained from the solution stack or the source configuration template. For a complete list of Elastic Beanstalk configuration options, see &#91;Option Values&#93;(https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html) in the AWS Elastic Beanstalk Developer Guide.",
+    "description": "Option values for the Elastic Beanstalk configuration, such as the instance type. If specified, these values override the values obtained from the solution stack or the source configuration template. For a complete list of Elastic Beanstalk configuration options, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html\">Option Values</a> in the AWS Elastic Beanstalk Developer Guide.",
     "children": [
       {
         "name": "namespace",
@@ -88,17 +88,17 @@ Creates, updates, deletes or gets a <code>configuration_template</code> resource
   {
     "name": "platform_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the custom platform. For more information, see &#91;Custom Platforms&#93;(https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html) in the AWS Elastic Beanstalk Developer Guide."
+    "description": "The Amazon Resource Name (ARN) of the custom platform. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html\">Custom Platforms</a> in the AWS Elastic Beanstalk Developer Guide."
   },
   {
     "name": "solution_stack_name",
     "type": "string",
-    "description": "The name of an Elastic Beanstalk solution stack (platform version) that this configuration uses. For example, 64bit Amazon Linux 2013.09 running Tomcat 7 Java 7. A solution stack specifies the operating system, runtime, and application server for a configuration template. It also determines the set of configuration options as well as the possible and default values. For more information, see &#91;Supported Platforms&#93;(https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html) in the AWS Elastic Beanstalk Developer Guide.<br />You must specify SolutionStackName if you don't specify PlatformArn, EnvironmentId, or SourceConfiguration.<br />Use the ListAvailableSolutionStacks API to obtain a list of available solution stacks."
+    "description": "<details><summary>The name of an Elastic Beanstalk solution stack (platform version) that this configuration uses. For example, 64bit Amazon Linux 2013.09 running Tomcat 7 Java 7. A solution stack specifies the operating system, runtime, and application server for a configuration template. It also determines the set of configuration options as well as the possible and default values. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html\">Supported Platforms</a> in the AWS Elastic Beanstalk Developer Guide.</summary>You must specify SolutionStackName if you don't specify PlatformArn, EnvironmentId, or SourceConfiguration.<br />Use the ListAvailableSolutionStacks API to obtain a list of available solution stacks.</details>"
   },
   {
     "name": "source_configuration",
     "type": "object",
-    "description": "An Elastic Beanstalk configuration template to base this one on. If specified, Elastic Beanstalk uses the configuration values from the specified configuration template to create a new configuration.<br />Values specified in OptionSettings override any values obtained from the SourceConfiguration.<br />You must specify SourceConfiguration if you don't specify PlatformArn, EnvironmentId, or SolutionStackName.<br />Constraint: If both solution stack name and source configuration are specified, the solution stack of the source configuration template must match the specified solution stack name.",
+    "description": "<details><summary>An Elastic Beanstalk configuration template to base this one on. If specified, Elastic Beanstalk uses the configuration values from the specified configuration template to create a new configuration.</summary>Values specified in OptionSettings override any values obtained from the SourceConfiguration.<br />You must specify SourceConfiguration if you don't specify PlatformArn, EnvironmentId, or SolutionStackName.<br />Constraint: If both solution stack name and source configuration are specified, the solution stack of the source configuration template must match the specified solution stack name.</details>",
     "children": [
       {
         "name": "application_name",
@@ -216,7 +216,7 @@ SELECT
   template_name
 FROM awscc.elasticbeanstalk.configuration_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_name }}|{{ template_name }}';
 ```
 </TabItem>
@@ -230,7 +230,7 @@ SELECT
   template_name
 FROM awscc.elasticbeanstalk.configuration_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +347,7 @@ WHERE
 DELETE FROM awscc.elasticbeanstalk.configuration_templates
 WHERE
   Identifier = '{{ application_name }}|{{ template_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

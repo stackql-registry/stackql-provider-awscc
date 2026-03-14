@@ -142,12 +142,12 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
               {
                 "name": "encryption_option",
                 "type": "string",
-                "description": "Either SSE&#95;KMS or SSE&#95;S3."
+                "description": "Either SSE_KMS or SSE_S3."
               },
               {
                 "name": "kms_key_id",
                 "type": "string",
-                "description": "Must be provided if SSE&#95;KMS is specified as the encryption option"
+                "description": "Must be provided if SSE_KMS is specified as the encryption option"
               }
             ]
           }
@@ -276,7 +276,7 @@ SELECT
   tags
 FROM awscc.timestream.tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ database_name }}|{{ table_name }}';
 ```
 </TabItem>
@@ -290,7 +290,7 @@ SELECT
   table_name
 FROM awscc.timestream.tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -414,7 +414,7 @@ WHERE
 DELETE FROM awscc.timestream.tables
 WHERE
   Identifier = '{{ database_name }}|{{ table_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

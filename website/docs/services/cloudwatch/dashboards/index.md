@@ -141,7 +141,7 @@ SELECT
   dashboard_body
 FROM awscc.cloudwatch.dashboards
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dashboard_name }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   dashboard_name
 FROM awscc.cloudwatch.dashboards_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -244,7 +244,7 @@ WHERE
 DELETE FROM awscc.cloudwatch.dashboards
 WHERE
   Identifier = '{{ dashboard_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -141,7 +141,7 @@ SELECT
   policy_document
 FROM awscc.aps.resource_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   workspace_arn
 FROM awscc.aps.resource_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +246,7 @@ WHERE
 DELETE FROM awscc.aps.resource_policies
 WHERE
   Identifier = '{{ workspace_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

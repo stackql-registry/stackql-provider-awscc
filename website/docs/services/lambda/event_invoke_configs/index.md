@@ -46,7 +46,7 @@ Creates, updates, deletes or gets an <code>event_invoke_config</code> resource o
   {
     "name": "destination_config",
     "type": "object",
-    "description": "A configuration object that specifies the destination of an event after Lambda processes it. For more information, see &#91;Adding a destination&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-async-destinations).",
+    "description": "A configuration object that specifies the destination of an event after Lambda processes it. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-async-destinations\">Adding a destination</a>.",
     "children": [
       {
         "name": "on_failure",
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets an <code>event_invoke_config</code> resource o
           {
             "name": "destination",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) of the destination resource.<br />To retain records of unsuccessful &#91;asynchronous invocations&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations), you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from &#91;Kinesis&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html), &#91;DynamoDB&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html), &#91;self-managed Kafka&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination) or &#91;Amazon MSK&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination), you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination."
+            "description": "<details><summary>The Amazon Resource Name (ARN) of the destination resource.</summary>To retain records of unsuccessful <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations\">asynchronous invocations</a>, you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html\">Kinesis</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html\">DynamoDB</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination\">self-managed Kafka</a> or <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination\">Amazon MSK</a>, you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination.</details>"
           }
         ]
       }
@@ -178,7 +178,7 @@ SELECT
   qualifier
 FROM awscc.lambda.event_invoke_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ function_name }}|{{ qualifier }}';
 ```
 </TabItem>
@@ -192,7 +192,7 @@ SELECT
   qualifier
 FROM awscc.lambda.event_invoke_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +300,7 @@ WHERE
 DELETE FROM awscc.lambda.event_invoke_configs
 WHERE
   Identifier = '{{ function_name }}|{{ qualifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

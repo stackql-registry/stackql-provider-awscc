@@ -148,7 +148,7 @@ SELECT
   template
 FROM awscc.ses.templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -161,7 +161,7 @@ SELECT
   id
 FROM awscc.ses.templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +233,7 @@ resources:
 DELETE FROM awscc.ses.templates
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

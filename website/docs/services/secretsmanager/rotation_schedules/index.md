@@ -239,7 +239,7 @@ SELECT
   rotation_rules
 FROM awscc.secretsmanager.rotation_schedules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -252,7 +252,7 @@ SELECT
   id
 FROM awscc.secretsmanager.rotation_schedules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +371,7 @@ WHERE
 DELETE FROM awscc.secretsmanager.rotation_schedules
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

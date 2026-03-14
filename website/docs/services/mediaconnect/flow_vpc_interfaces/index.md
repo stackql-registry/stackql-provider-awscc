@@ -170,7 +170,7 @@ SELECT
   network_interface_ids
 FROM awscc.mediaconnect.flow_vpc_interfaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ flow_arn }}|{{ name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   name
 FROM awscc.mediaconnect.flow_vpc_interfaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.flow_vpc_interfaces
 WHERE
   Identifier = '{{ flow_arn }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

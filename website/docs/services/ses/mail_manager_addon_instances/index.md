@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_addon_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ addon_instance_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   addon_instance_id
 FROM awscc.ses.mail_manager_addon_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +276,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_addon_instances
 WHERE
   Identifier = '{{ addon_instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

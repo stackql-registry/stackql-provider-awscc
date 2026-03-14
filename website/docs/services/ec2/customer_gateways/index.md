@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>customer_gateway</code> resource or li
   {
     "name": "type",
     "type": "string",
-    "description": "The type of VPN connection that this customer gateway supports (&#96;&#96;ipsec.1&#96;&#96;)."
+    "description": "The type of VPN connection that this customer gateway supports (<code>ipsec.1</code>)."
   },
   {
     "name": "customer_gateway_id",
@@ -56,17 +56,17 @@ Creates, updates, deletes or gets a <code>customer_gateway</code> resource or li
   {
     "name": "ip_address",
     "type": "string",
-    "description": "The IP address for the customer gateway device's outside interface. The address must be static. If &#96;&#96;OutsideIpAddressType&#96;&#96; in your VPN connection options is set to &#96;&#96;PrivateIpv4&#96;&#96;, you can use an RFC6598 or RFC1918 private IPv4 address. If &#96;&#96;OutsideIpAddressType&#96;&#96; is set to &#96;&#96;Ipv6&#96;&#96;, you can use an IPv6 address."
+    "description": "The IP address for the customer gateway device's outside interface. The address must be static. If <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to <code>Ipv6</code>, you can use an IPv6 address."
   },
   {
     "name": "bgp_asn_extended",
     "type": "number",
-    "description": "For customer gateway devices that support BGP, specify the device's ASN. You must specify either &#96;&#96;BgpAsn&#96;&#96; or &#96;&#96;BgpAsnExtended&#96;&#96; when creating the customer gateway. If the ASN is larger than &#96;&#96;2,147,483,647&#96;&#96;, you must use &#96;&#96;BgpAsnExtended&#96;&#96;.<br />Valid values: &#96;&#96;2,147,483,648&#96;&#96; to &#96;&#96;4,294,967,295&#96;&#96;"
+    "description": "<details><summary>For customer gateway devices that support BGP, specify the device's ASN. You must specify either <code>BgpAsn</code> or <code>BgpAsnExtended</code> when creating the customer gateway. If the ASN is larger than <code>2,147,483,647</code>, you must use <code>BgpAsnExtended</code>.</summary>Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code></details>"
   },
   {
     "name": "bgp_asn",
     "type": "integer",
-    "description": "For customer gateway devices that support BGP, specify the device's ASN. You must specify either &#96;&#96;BgpAsn&#96;&#96; or &#96;&#96;BgpAsnExtended&#96;&#96; when creating the customer gateway. If the ASN is larger than &#96;&#96;2,147,483,647&#96;&#96;, you must use &#96;&#96;BgpAsnExtended&#96;&#96;.<br />Default: 65000<br />Valid values: &#96;&#96;1&#96;&#96; to &#96;&#96;2,147,483,647&#96;&#96;"
+    "description": "<details><summary>For customer gateway devices that support BGP, specify the device's ASN. You must specify either <code>BgpAsn</code> or <code>BgpAsnExtended</code> when creating the customer gateway. If the ASN is larger than <code>2,147,483,647</code>, you must use <code>BgpAsnExtended</code>.</summary>Default: 65000<br />Valid values: <code>1</code> to <code>2,147,483,647</code></details>"
   },
   {
     "name": "tags",
@@ -189,7 +189,7 @@ SELECT
   device_name
 FROM awscc.ec2.customer_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ customer_gateway_id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   customer_gateway_id
 FROM awscc.ec2.customer_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +316,7 @@ WHERE
 DELETE FROM awscc.ec2.customer_gateways
 WHERE
   Identifier = '{{ customer_gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

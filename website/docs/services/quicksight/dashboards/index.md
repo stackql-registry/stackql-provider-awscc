@@ -952,7 +952,7 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
           {
             "name": "principal",
             "type": "string",
-            "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+            "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
           },
           {
             "name": "actions",
@@ -1171,7 +1171,7 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
       {
         "name": "data_set_arns",
         "type": "array",
-        "description": "<p>The Amazon Resource Numbers (ARNs) for the datasets that are associated with this<br />version of the dashboard.</p>"
+        "description": "<details><summary><p>The Amazon Resource Numbers (ARNs) for the datasets that are associated with this</summary>version of the dashboard.</p></details>"
       },
       {
         "name": "theme_arn",
@@ -1206,7 +1206,7 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
           {
             "name": "name",
             "type": "string",
-            "description": "<p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight<br />console.</p>"
+            "description": "<details><summary><p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight</summary>console.</p></details>"
           }
         ]
       }
@@ -1225,7 +1225,7 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -1372,7 +1372,7 @@ SELECT
   tags
 FROM awscc.quicksight.dashboards
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ dashboard_id }}';
 ```
 </TabItem>
@@ -1386,7 +1386,7 @@ SELECT
   dashboard_id
 FROM awscc.quicksight.dashboards_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -3482,7 +3482,7 @@ WHERE
 DELETE FROM awscc.quicksight.dashboards
 WHERE
   Identifier = '{{ aws_account_id }}|{{ dashboard_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

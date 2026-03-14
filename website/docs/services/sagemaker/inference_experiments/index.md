@@ -367,7 +367,7 @@ SELECT
   desired_state
 FROM awscc.sagemaker.inference_experiments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -380,7 +380,7 @@ SELECT
   name
 FROM awscc.sagemaker.inference_experiments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -551,7 +551,7 @@ WHERE
 DELETE FROM awscc.sagemaker.inference_experiments
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

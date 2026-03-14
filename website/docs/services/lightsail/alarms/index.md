@@ -207,7 +207,7 @@ SELECT
   state
 FROM awscc.lightsail.alarms
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   alarm_name
 FROM awscc.lightsail.alarms_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -365,7 +365,7 @@ WHERE
 DELETE FROM awscc.lightsail.alarms
 WHERE
   Identifier = '{{ alarm_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

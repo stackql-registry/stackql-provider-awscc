@@ -183,7 +183,7 @@ SELECT
   is_default
 FROM awscc.connect.traffic_distribution_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ traffic_distribution_group_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   traffic_distribution_group_arn
 FROM awscc.connect.traffic_distribution_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.connect.traffic_distribution_groups
 WHERE
   Identifier = '{{ traffic_distribution_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

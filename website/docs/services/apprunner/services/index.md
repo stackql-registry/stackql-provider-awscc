@@ -442,7 +442,7 @@ SELECT
   network_configuration
 FROM awscc.apprunner.services
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ service_arn }}';
 ```
 </TabItem>
@@ -455,7 +455,7 @@ SELECT
   service_arn
 FROM awscc.apprunner.services_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -631,7 +631,7 @@ WHERE
 DELETE FROM awscc.apprunner.services
 WHERE
   Identifier = '{{ service_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

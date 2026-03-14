@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>trigger</code> resource or lists <code
   {
     "name": "start_on_creation",
     "type": "boolean",
-    "description": "Set to true to start SCHEDULED and CONDITIONAL triggers when created. True is not supported for ON&#95;DEMAND triggers."
+    "description": "Set to true to start SCHEDULED and CONDITIONAL triggers when created. True is not supported for ON_DEMAND triggers."
   },
   {
     "name": "description",
@@ -279,7 +279,7 @@ SELECT
   predicate
 FROM awscc.glue.triggers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -292,7 +292,7 @@ SELECT
   name
 FROM awscc.glue.triggers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -438,7 +438,7 @@ WHERE
 DELETE FROM awscc.glue.triggers
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

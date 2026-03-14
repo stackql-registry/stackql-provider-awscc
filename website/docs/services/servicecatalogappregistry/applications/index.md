@@ -177,7 +177,7 @@ SELECT
   application_name
 FROM awscc.servicecatalogappregistry.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   id
 FROM awscc.servicecatalogappregistry.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +286,7 @@ WHERE
 DELETE FROM awscc.servicecatalogappregistry.applications
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

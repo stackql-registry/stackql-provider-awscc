@@ -151,7 +151,7 @@ SELECT
   service_action_id
 FROM awscc.servicecatalog.service_action_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   service_action_id
 FROM awscc.servicecatalog.service_action_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.servicecatalog.service_action_associations
 WHERE
   Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

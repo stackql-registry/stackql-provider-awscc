@@ -239,7 +239,7 @@ SELECT
   tags
 FROM awscc.gamelift.game_session_queues
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -252,7 +252,7 @@ SELECT
   name
 FROM awscc.gamelift.game_session_queues_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +388,7 @@ WHERE
 DELETE FROM awscc.gamelift.game_session_queues
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -51,7 +51,7 @@ Creates, updates, deletes or gets an <code>asset_model</code> resource or lists 
   {
     "name": "asset_model_type",
     "type": "string",
-    "description": "The type of the asset model (ASSET&#95;MODEL OR COMPONENT&#95;MODEL or INTERFACE)"
+    "description": "The type of the asset model (ASSET_MODEL OR COMPONENT_MODEL or INTERFACE)"
   },
   {
     "name": "asset_model_external_id",
@@ -410,7 +410,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.asset_models
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ asset_model_id }}';
 ```
 </TabItem>
@@ -423,7 +423,7 @@ SELECT
   asset_model_id
 FROM awscc.iotsitewise.asset_models_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -600,7 +600,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.asset_models
 WHERE
   Identifier = '{{ asset_model_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

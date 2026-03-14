@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -83,7 +83,7 @@ Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists 
   {
     "name": "supported_network_types",
     "type": "array",
-    "description": "Supported network types would be a list of network types supported by subnet group and can be either &#91;ipv4&#93; or &#91;ipv4, dual&#95;stack&#93; or &#91;ipv6&#93;."
+    "description": "Supported network types would be a list of network types supported by subnet group and can be either [ipv4] or [ipv4, dual_stack] or [ipv6]."
   },
   {
     "name": "region",
@@ -177,7 +177,7 @@ SELECT
   supported_network_types
 FROM awscc.memorydb.subnet_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ subnet_group_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   subnet_group_name
 FROM awscc.memorydb.subnet_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +295,7 @@ WHERE
 DELETE FROM awscc.memorydb.subnet_groups
 WHERE
   Identifier = '{{ subnet_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

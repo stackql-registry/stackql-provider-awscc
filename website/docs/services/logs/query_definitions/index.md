@@ -159,7 +159,7 @@ SELECT
   query_language
 FROM awscc.logs.query_definitions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ query_definition_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   query_definition_id
 FROM awscc.logs.query_definitions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +276,7 @@ WHERE
 DELETE FROM awscc.logs.query_definitions
 WHERE
   Identifier = '{{ query_definition_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

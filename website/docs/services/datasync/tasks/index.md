@@ -51,12 +51,12 @@ Creates, updates, deletes or gets a <code>task</code> resource or lists <code>ta
       {
         "name": "filter_type",
         "type": "string",
-        "description": "The type of filter rule to apply. AWS DataSync only supports the SIMPLE&#95;PATTERN rule type."
+        "description": "The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A single filter string that consists of the patterns to include or exclude. The patterns are delimited by \"&#124;\"."
+        "description": "A single filter string that consists of the patterns to include or exclude. The patterns are delimited by \"|\"."
       }
     ]
   },
@@ -485,7 +485,7 @@ SELECT
   destination_network_interface_arns
 FROM awscc.datasync.tasks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ task_arn }}';
 ```
 </TabItem>
@@ -498,7 +498,7 @@ SELECT
   task_arn
 FROM awscc.datasync.tasks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -685,7 +685,7 @@ WHERE
 DELETE FROM awscc.datasync.tasks
 WHERE
   Identifier = '{{ task_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -115,7 +115,7 @@ SELECT
   guardian_attributes
 FROM awscc.ses.vdm_attributes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vdm_attributes_resource_id }}';
 ```
 
@@ -209,7 +209,7 @@ WHERE
 DELETE FROM awscc.ses.vdm_attributes
 WHERE
   Identifier = '{{ vdm_attributes_resource_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

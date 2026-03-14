@@ -202,7 +202,7 @@ SELECT
   tags
 FROM awscc.iot.thing_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ thing_group_name }}';
 ```
 </TabItem>
@@ -215,7 +215,7 @@ SELECT
   thing_group_name
 FROM awscc.iot.thing_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -332,7 +332,7 @@ WHERE
 DELETE FROM awscc.iot.thing_groups
 WHERE
   Identifier = '{{ thing_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

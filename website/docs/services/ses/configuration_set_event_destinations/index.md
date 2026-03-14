@@ -234,7 +234,7 @@ SELECT
   event_destination
 FROM awscc.ses.configuration_set_event_destinations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -247,7 +247,7 @@ SELECT
   id
 FROM awscc.ses.configuration_set_event_destinations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +355,7 @@ WHERE
 DELETE FROM awscc.ses.configuration_set_event_destinations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

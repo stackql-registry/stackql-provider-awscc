@@ -170,7 +170,7 @@ SELECT
   detector_id
 FROM awscc.guardduty.members
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ detector_id }}|{{ member_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   member_id
 FROM awscc.guardduty.members_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ WHERE
 DELETE FROM awscc.guardduty.members
 WHERE
   Identifier = '{{ detector_id }}|{{ member_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

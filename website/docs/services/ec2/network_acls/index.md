@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>network_acl</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>network_acls</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a network ACL for your VPC.<br />To add a network ACL entry, see &#91;AWS::EC2::NetworkAclEntry&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkaclentry.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a network ACL for your VPC.</summary>To add a network ACL entry, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkaclentry.html">AWS::EC2::NetworkAclEntry</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.network_acls" /></td></tr>
 </tbody>
 </table>
@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.ec2.network_acls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   id
 FROM awscc.ec2.network_acls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.ec2.network_acls
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

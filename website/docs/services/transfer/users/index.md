@@ -241,7 +241,7 @@ SELECT
   user_name
 FROM awscc.transfer.users
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -254,7 +254,7 @@ SELECT
   arn
 FROM awscc.transfer.users_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -397,7 +397,7 @@ WHERE
 DELETE FROM awscc.transfer.users
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -247,7 +247,7 @@ SELECT
   user_parameters
 FROM awscc.datazone.projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
@@ -261,7 +261,7 @@ SELECT
   id
 FROM awscc.datazone.projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +388,7 @@ WHERE
 DELETE FROM awscc.datazone.projects
 WHERE
   Identifier = '{{ domain_id }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

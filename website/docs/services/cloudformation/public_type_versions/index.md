@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>public_type_version</code> resource or
   {
     "name": "type_name",
     "type": "string",
-    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+    "description": "<details><summary>The name of the type being registered.</summary>We recommend that type names adhere to the following pattern: company_or_organization::service::type.</details>"
   },
   {
     "name": "log_delivery_bucket",
@@ -175,7 +175,7 @@ SELECT
   type
 FROM awscc.cloudformation.public_type_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ public_type_arn }}';
 ```
 </TabItem>
@@ -188,7 +188,7 @@ SELECT
   public_type_arn
 FROM awscc.cloudformation.public_type_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>

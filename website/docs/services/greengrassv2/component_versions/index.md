@@ -290,7 +290,7 @@ SELECT
   tags
 FROM awscc.greengrassv2.component_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   arn
 FROM awscc.greengrassv2.component_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -436,7 +436,7 @@ WHERE
 DELETE FROM awscc.greengrassv2.component_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

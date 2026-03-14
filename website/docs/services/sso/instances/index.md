@@ -66,7 +66,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "status",
     "type": "string",
-    "description": "The status of the Identity Center (SSO) Instance, create&#95;in&#95;progress/delete&#95;in&#95;progress/active"
+    "description": "The status of the Identity Center (SSO) Instance, create_in_progress/delete_in_progress/active"
   },
   {
     "name": "tags",
@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.sso.instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   instance_arn
 FROM awscc.sso.instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ WHERE
 DELETE FROM awscc.sso.instances
 WHERE
   Identifier = '{{ instance_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

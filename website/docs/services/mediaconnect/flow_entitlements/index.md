@@ -224,7 +224,7 @@ SELECT
   subscribers
 FROM awscc.mediaconnect.flow_entitlements
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ entitlement_arn }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   entitlement_arn
 FROM awscc.mediaconnect.flow_entitlements_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -367,7 +367,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.flow_entitlements
 WHERE
   Identifier = '{{ entitlement_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

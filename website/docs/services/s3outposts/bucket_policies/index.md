@@ -95,7 +95,7 @@ SELECT
   policy_document
 FROM awscc.s3outposts.bucket_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bucket }}';
 ```
 
@@ -186,7 +186,7 @@ WHERE
 DELETE FROM awscc.s3outposts.bucket_policies
 WHERE
   Identifier = '{{ bucket }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

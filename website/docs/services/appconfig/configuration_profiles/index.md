@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>configuration_profile</code> resource 
       {
         "name": "type",
         "type": "string",
-        "description": "AWS AppConfig supports validators of type JSON&#95;SCHEMA and LAMBDA."
+        "description": "AWS AppConfig supports validators of type JSON_SCHEMA and LAMBDA."
       },
       {
         "name": "content",
@@ -230,7 +230,7 @@ SELECT
   name
 FROM awscc.appconfig.configuration_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ configuration_profile_id }}';
 ```
 </TabItem>
@@ -244,7 +244,7 @@ SELECT
   configuration_profile_id
 FROM awscc.appconfig.configuration_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -380,7 +380,7 @@ WHERE
 DELETE FROM awscc.appconfig.configuration_profiles
 WHERE
   Identifier = '{{ application_id }}|{{ configuration_profile_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

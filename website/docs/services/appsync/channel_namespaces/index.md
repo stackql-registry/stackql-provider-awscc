@@ -68,7 +68,7 @@ Creates, updates, deletes or gets a <code>channel_namespace</code> resource or l
   {
     "name": "code_handlers",
     "type": "string",
-    "description": "String of APPSYNC&#95;JS code to be used by the handlers."
+    "description": "String of APPSYNC_JS code to be used by the handlers."
   },
   {
     "name": "code_s3_location",
@@ -233,7 +233,7 @@ SELECT
   handler_configs
 FROM awscc.appsync.channel_namespaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ channel_namespace_arn }}';
 ```
 </TabItem>
@@ -246,7 +246,7 @@ SELECT
   channel_namespace_arn
 FROM awscc.appsync.channel_namespaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -377,7 +377,7 @@ WHERE
 DELETE FROM awscc.appsync.channel_namespaces
 WHERE
   Identifier = '{{ channel_namespace_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

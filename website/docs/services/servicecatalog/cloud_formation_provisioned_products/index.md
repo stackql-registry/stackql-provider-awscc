@@ -240,7 +240,7 @@ SELECT
   outputs
 FROM awscc.servicecatalog.cloud_formation_provisioned_products
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ provisioned_product_id }}';
 ```
 
@@ -414,7 +414,7 @@ WHERE
 DELETE FROM awscc.servicecatalog.cloud_formation_provisioned_products
 WHERE
   Identifier = '{{ provisioned_product_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>repository_association</code> resource
   {
     "name": "bucket_name",
     "type": "string",
-    "description": "The name of the S3 bucket associated with an associated S3 repository. It must start with &#96;codeguru-reviewer-&#96;."
+    "description": "The name of the S3 bucket associated with an associated S3 repository. It must start with <code>codeguru-reviewer-</code>."
   },
   {
     "name": "connection_arn",
@@ -81,12 +81,12 @@ Creates, updates, deletes or gets a <code>repository_association</code> resource
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @."
       }
     ]
   },
@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.codegurureviewer.repository_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   association_arn
 FROM awscc.codegurureviewer.repository_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ resources:
 DELETE FROM awscc.codegurureviewer.repository_associations
 WHERE
   Identifier = '{{ association_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>resource_association</code> resource o
   {
     "name": "resource_type",
     "type": "string",
-    "description": "The type of the CFN Resource for now it's enum CFN&#95;STACK."
+    "description": "The type of the CFN Resource for now it's enum CFN_STACK."
   },
   {
     "name": "application_arn",
@@ -91,7 +91,7 @@ Creates, updates, deletes or gets a <code>resource_association</code> resource o
   {
     "name": "resource_type",
     "type": "string",
-    "description": "The type of the CFN Resource for now it's enum CFN&#95;STACK."
+    "description": "The type of the CFN Resource for now it's enum CFN_STACK."
   },
   {
     "name": "application_arn",
@@ -173,7 +173,7 @@ SELECT
   resource_arn
 FROM awscc.servicecatalogappregistry.resource_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}';
 ```
 </TabItem>
@@ -188,7 +188,7 @@ SELECT
   resource_type
 FROM awscc.servicecatalogappregistry.resource_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +271,7 @@ resources:
 DELETE FROM awscc.servicecatalogappregistry.resource_associations
 WHERE
   Identifier = '{{ application_arn }}|{{ resource_arn }}|{{ resource_type }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -277,7 +277,7 @@ SELECT
   browser_extension_configuration
 FROM awscc.qbusiness.web_experiences
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ web_experience_id }}';
 ```
 </TabItem>
@@ -291,7 +291,7 @@ SELECT
   web_experience_id
 FROM awscc.qbusiness.web_experiences_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -435,7 +435,7 @@ WHERE
 DELETE FROM awscc.qbusiness.web_experiences
 WHERE
   Identifier = '{{ application_id }}|{{ web_experience_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

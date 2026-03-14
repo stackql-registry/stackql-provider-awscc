@@ -113,7 +113,7 @@ SELECT
   complete_certificate_chain
 FROM awscc.acmpca.certificate_authority_activations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_authority_arn }}';
 ```
 
@@ -214,7 +214,7 @@ WHERE
 DELETE FROM awscc.acmpca.certificate_authority_activations
 WHERE
   Identifier = '{{ certificate_authority_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

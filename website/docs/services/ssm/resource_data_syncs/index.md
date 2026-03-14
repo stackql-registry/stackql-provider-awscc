@@ -244,7 +244,7 @@ SELECT
   bucket_prefix
 FROM awscc.ssm.resource_data_syncs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ sync_name }}';
 ```
 </TabItem>
@@ -257,7 +257,7 @@ SELECT
   sync_name
 FROM awscc.ssm.resource_data_syncs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +388,7 @@ WHERE
 DELETE FROM awscc.ssm.resource_data_syncs
 WHERE
   Identifier = '{{ sync_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

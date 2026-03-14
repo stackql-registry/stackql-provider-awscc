@@ -279,7 +279,7 @@ SELECT
   user_settings_arn
 FROM awscc.workspacesweb.portals
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ portal_arn }}';
 ```
 </TabItem>
@@ -292,7 +292,7 @@ SELECT
   portal_arn
 FROM awscc.workspacesweb.portals_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -476,7 +476,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.portals
 WHERE
   Identifier = '{{ portal_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

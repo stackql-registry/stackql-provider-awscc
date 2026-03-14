@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>schema_mapping</code> resource or list
       {
         "name": "sub_type",
         "type": "string",
-        "description": "The subtype of the Attribute. Would be required only when type is PROVIDER&#95;ID"
+        "description": "The subtype of the Attribute. Would be required only when type is PROVIDER_ID"
       },
       {
         "name": "hashed",
@@ -88,12 +88,12 @@ Creates, updates, deletes or gets a <code>schema_mapping</code> resource or list
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -211,7 +211,7 @@ SELECT
   has_workflows
 FROM awscc.entityresolution.schema_mappings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ schema_name }}';
 ```
 </TabItem>
@@ -224,7 +224,7 @@ SELECT
   schema_name
 FROM awscc.entityresolution.schema_mappings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +334,7 @@ WHERE
 DELETE FROM awscc.entityresolution.schema_mappings
 WHERE
   Identifier = '{{ schema_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

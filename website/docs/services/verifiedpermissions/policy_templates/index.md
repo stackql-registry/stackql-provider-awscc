@@ -158,7 +158,7 @@ SELECT
   statement
 FROM awscc.verifiedpermissions.policy_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ policy_store_id }}|{{ policy_template_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   policy_template_id
 FROM awscc.verifiedpermissions.policy_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +269,7 @@ WHERE
 DELETE FROM awscc.verifiedpermissions.policy_templates
 WHERE
   Identifier = '{{ policy_store_id }}|{{ policy_template_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

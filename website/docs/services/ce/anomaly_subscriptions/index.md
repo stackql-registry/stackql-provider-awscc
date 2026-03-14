@@ -212,7 +212,7 @@ SELECT
   resource_tags
 FROM awscc.ce.anomaly_subscriptions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ subscription_arn }}';
 ```
 </TabItem>
@@ -225,7 +225,7 @@ SELECT
   subscription_arn
 FROM awscc.ce.anomaly_subscriptions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -351,7 +351,7 @@ WHERE
 DELETE FROM awscc.ce.anomaly_subscriptions
 WHERE
   Identifier = '{{ subscription_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

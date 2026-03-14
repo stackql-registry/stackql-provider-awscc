@@ -220,7 +220,7 @@ SELECT
   gateway_capability_summaries
 FROM awscc.iotsitewise.gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ gateway_id }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   gateway_id
 FROM awscc.iotsitewise.gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +348,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.gateways
 WHERE
   Identifier = '{{ gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

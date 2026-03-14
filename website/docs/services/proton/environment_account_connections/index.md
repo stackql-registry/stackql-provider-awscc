@@ -91,7 +91,7 @@ Creates, updates, deletes or gets an <code>environment_account_connection</code>
   {
     "name": "tags",
     "type": "array",
-    "description": "<p>An optional list of metadata items that you can associate with the Proton environment account connection. A tag is a key-value pair.</p><br /><p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p>",
+    "description": "<details><summary><p>An optional list of metadata items that you can associate with the Proton environment account connection. A tag is a key-value pair.</p></summary><p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p></details>",
     "children": [
       {
         "name": "key",
@@ -201,7 +201,7 @@ SELECT
   tags
 FROM awscc.proton.environment_account_connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   arn
 FROM awscc.proton.environment_account_connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -344,7 +344,7 @@ WHERE
 DELETE FROM awscc.proton.environment_account_connections
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

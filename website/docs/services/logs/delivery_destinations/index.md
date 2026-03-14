@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>delivery_destination</code> resource o
 <tbody>
 <tr><td><b>Name</b></td><td><code>delivery_destinations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>This structure contains information about one delivery destination in your account.<br />A delivery destination is an AWS resource that represents an AWS service that logs can be sent to CloudWatch Logs, Amazon S3, are supported as Kinesis Data Firehose delivery destinations.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>This structure contains information about one delivery destination in your account.</summary>A delivery destination is an AWS resource that represents an AWS service that logs can be sent to CloudWatch Logs, Amazon S3, are supported as Kinesis Data Firehose delivery destinations.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.delivery_destinations" /></td></tr>
 </tbody>
 </table>
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets a <code>delivery_destination</code> resource o
   {
     "name": "delivery_destination_policy",
     "type": "object",
-    "description": "IAM policy that grants permissions to CloudWatch Logs to deliver logs cross-account to a specified destination in this account.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 51200",
+    "description": "<details><summary>IAM policy that grants permissions to CloudWatch Logs to deliver logs cross-account to a specified destination in this account.</summary>The policy must be in JSON string format.<br />Length Constraints: Maximum length of 51200</details>",
     "children": [
       {
         "name": "delivery_destination_name",
@@ -190,7 +190,7 @@ SELECT
   output_format
 FROM awscc.logs.delivery_destinations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -203,7 +203,7 @@ SELECT
   name
 FROM awscc.logs.delivery_destinations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +310,7 @@ WHERE
 DELETE FROM awscc.logs.delivery_destinations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

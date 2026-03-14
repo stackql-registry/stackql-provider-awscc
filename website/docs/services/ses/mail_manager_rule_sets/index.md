@@ -193,7 +193,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_rule_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_set_id }}';
 ```
 </TabItem>
@@ -206,7 +206,7 @@ SELECT
   rule_set_id
 FROM awscc.ses.mail_manager_rule_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +311,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_rule_sets
 WHERE
   Identifier = '{{ rule_set_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

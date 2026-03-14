@@ -239,7 +239,7 @@ SELECT
   role_arn
 FROM awscc.iot.account_audit_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}';
 ```
 </TabItem>
@@ -252,7 +252,7 @@ SELECT
   account_id
 FROM awscc.iot.account_audit_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -384,7 +384,7 @@ WHERE
 DELETE FROM awscc.iot.account_audit_configurations
 WHERE
   Identifier = '{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

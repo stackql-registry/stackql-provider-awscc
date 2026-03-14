@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>multiplexprogram</code> resource or li
       {
         "name": "preferred_channel_pipeline",
         "type": "string",
-        "description": "Indicates which pipeline is preferred by the multiplex for program ingest.<br />If set to \\\"PIPELINE&#95;0\\\" or \\\"PIPELINE&#95;1\\\" and an unhealthy ingest causes the multiplex to switch to the non-preferred pipeline,<br />it will switch back once that ingest is healthy again. If set to \\\"CURRENTLY&#95;ACTIVE\\\",<br />it will not switch back to the other pipeline based on it recovering to a healthy state,<br />it will only switch if the active pipeline becomes unhealthy.<br />"
+        "description": "<details><summary>Indicates which pipeline is preferred by the multiplex for program ingest.</summary>If set to \\\"PIPELINE_0\\\" or \\\"PIPELINE_1\\\" and an unhealthy ingest causes the multiplex to switch to the non-preferred pipeline,<br />it will switch back once that ingest is healthy again. If set to \\\"CURRENTLY_ACTIVE\\\",<br />it will not switch back to the other pipeline based on it recovering to a healthy state,<br />it will only switch if the active pipeline becomes unhealthy.</details>"
       },
       {
         "name": "program_number",
@@ -289,7 +289,7 @@ SELECT
   program_name
 FROM awscc.medialive.multiplexprograms
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   multiplex_id
 FROM awscc.medialive.multiplexprograms_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +447,7 @@ WHERE
 DELETE FROM awscc.medialive.multiplexprograms
 WHERE
   Identifier = '{{ program_name }}|{{ multiplex_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

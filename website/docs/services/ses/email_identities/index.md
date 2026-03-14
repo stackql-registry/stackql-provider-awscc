@@ -68,17 +68,17 @@ Creates, updates, deletes or gets an <code>email_identity</code> resource or lis
       {
         "name": "domain_signing_selector",
         "type": "string",
-        "description": "&#91;Bring Your Own DKIM&#93; A string that's used to identify a public key in the DNS configuration for a domain."
+        "description": "[Bring Your Own DKIM] A string that's used to identify a public key in the DNS configuration for a domain."
       },
       {
         "name": "domain_signing_private_key",
         "type": "string",
-        "description": "&#91;Bring Your Own DKIM&#93; A private key that's used to generate a DKIM signature. The private key must use 1024 or 2048-bit RSA encryption, and must be encoded using base64 encoding."
+        "description": "[Bring Your Own DKIM] A private key that's used to generate a DKIM signature. The private key must use 1024 or 2048-bit RSA encryption, and must be encoded using base64 encoding."
       },
       {
         "name": "next_signing_key_length",
         "type": "string",
-        "description": "&#91;Easy DKIM&#93; The key length of the future DKIM key pair to be generated. This can be changed at most once per day."
+        "description": "[Easy DKIM] The key length of the future DKIM key pair to be generated. This can be changed at most once per day."
       }
     ]
   },
@@ -269,7 +269,7 @@ SELECT
   tags
 FROM awscc.ses.email_identities
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ email_identity }}';
 ```
 </TabItem>
@@ -282,7 +282,7 @@ SELECT
   email_identity
 FROM awscc.ses.email_identities_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +407,7 @@ WHERE
 DELETE FROM awscc.ses.email_identities
 WHERE
   Identifier = '{{ email_identity }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

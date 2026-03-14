@@ -225,7 +225,7 @@ SELECT
   updated_at
 FROM awscc.bedrock.application_inference_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ inference_profile_identifier }}';
 ```
 </TabItem>
@@ -238,7 +238,7 @@ SELECT
   inference_profile_identifier
 FROM awscc.bedrock.application_inference_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +338,7 @@ WHERE
 DELETE FROM awscc.bedrock.application_inference_profiles
 WHERE
   Identifier = '{{ inference_profile_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

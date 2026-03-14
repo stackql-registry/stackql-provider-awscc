@@ -153,7 +153,7 @@ SELECT
   creation_time
 FROM awscc.notifications.notification_hubs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ region }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   region
 FROM awscc.notifications.notification_hubs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +237,7 @@ resources:
 DELETE FROM awscc.notifications.notification_hubs
 WHERE
   Identifier = '{{ region }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

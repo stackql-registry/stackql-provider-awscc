@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>directory_bucket</code> resource or li
   {
     "name": "bucket_name",
     "type": "string",
-    "description": "Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket&#95;base&#95;name--zone&#95;id--x-s3'. The zone&#95;id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name."
+    "description": "Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket_base_name--zone_id--x-s3'. The zone_id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name."
   },
   {
     "name": "location_name",
@@ -190,7 +190,7 @@ Creates, updates, deletes or gets a <code>directory_bucket</code> resource or li
   {
     "name": "bucket_name",
     "type": "string",
-    "description": "Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket&#95;base&#95;name--zone&#95;id--x-s3'. The zone&#95;id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name."
+    "description": "Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket_base_name--zone_id--x-s3'. The zone_id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name."
   },
   {
     "name": "region",
@@ -271,7 +271,7 @@ SELECT
   tags
 FROM awscc.s3express.directory_buckets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
@@ -284,7 +284,7 @@ SELECT
   bucket_name
 FROM awscc.s3express.directory_buckets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +410,7 @@ WHERE
 DELETE FROM awscc.s3express.directory_buckets
 WHERE
   Identifier = '{{ bucket_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

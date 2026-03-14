@@ -248,7 +248,7 @@ SELECT
   agent_availability_timer
 FROM awscc.connect.routing_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ routing_profile_arn }}';
 ```
 </TabItem>
@@ -261,7 +261,7 @@ SELECT
   routing_profile_arn
 FROM awscc.connect.routing_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +401,7 @@ WHERE
 DELETE FROM awscc.connect.routing_profiles
 WHERE
   Identifier = '{{ routing_profile_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

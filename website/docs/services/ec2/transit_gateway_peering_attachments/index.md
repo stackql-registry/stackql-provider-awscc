@@ -207,7 +207,7 @@ SELECT
   transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_peering_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_attachment_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_peering_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +330,7 @@ WHERE
 DELETE FROM awscc.ec2.transit_gateway_peering_attachments
 WHERE
   Identifier = '{{ transit_gateway_attachment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

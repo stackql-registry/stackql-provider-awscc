@@ -531,7 +531,7 @@ SELECT
   word_policy_config
 FROM awscc.bedrock.guardrails
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ guardrail_arn }}';
 ```
 </TabItem>
@@ -544,7 +544,7 @@ SELECT
   guardrail_arn
 FROM awscc.bedrock.guardrails_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -751,7 +751,7 @@ WHERE
 DELETE FROM awscc.bedrock.guardrails
 WHERE
   Identifier = '{{ guardrail_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

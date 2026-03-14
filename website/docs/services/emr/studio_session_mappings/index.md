@@ -163,7 +163,7 @@ SELECT
   studio_id
 FROM awscc.emr.studio_session_mappings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   identity_name
 FROM awscc.emr.studio_session_mappings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +282,7 @@ WHERE
 DELETE FROM awscc.emr.studio_session_mappings
 WHERE
   Identifier = '{{ studio_id }}|{{ identity_type }}|{{ identity_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

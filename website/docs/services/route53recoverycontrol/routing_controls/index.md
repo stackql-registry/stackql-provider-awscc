@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>routing_control</code> resource or lis
   {
     "name": "status",
     "type": "string",
-    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION."
   },
   {
     "name": "cluster_arn",
@@ -159,7 +159,7 @@ SELECT
   cluster_arn
 FROM awscc.route53recoverycontrol.routing_controls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ routing_control_arn }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   routing_control_arn
 FROM awscc.route53recoverycontrol.routing_controls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +266,7 @@ WHERE
 DELETE FROM awscc.route53recoverycontrol.routing_controls
 WHERE
   Identifier = '{{ routing_control_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.controltower.landing_zones
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ landing_zone_identifier }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   landing_zone_identifier
 FROM awscc.controltower.landing_zones_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.controltower.landing_zones
 WHERE
   Identifier = '{{ landing_zone_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

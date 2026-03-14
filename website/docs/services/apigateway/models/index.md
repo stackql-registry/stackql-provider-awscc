@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>model</code> resource or lists <code>m
 <tbody>
 <tr><td><b>Name</b></td><td><code>models</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Model&#96;&#96; resource defines the structure of a request or response payload for an API method.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Model</code> resource defines the structure of a request or response payload for an API method.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.models" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>model</code> resource or lists <code>m
   {
     "name": "name",
     "type": "string",
-    "description": "A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "rest_api_id",
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>model</code> resource or lists <code>m
   {
     "name": "name",
     "type": "string",
-    "description": "A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "rest_api_id",
@@ -164,7 +164,7 @@ SELECT
   schema
 FROM awscc.apigateway.models
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   name
 FROM awscc.apigateway.models_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +281,7 @@ WHERE
 DELETE FROM awscc.apigateway.models
 WHERE
   Identifier = '{{ rest_api_id }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

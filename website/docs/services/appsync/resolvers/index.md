@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>resolvers</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::AppSync::Resolver&#96;&#96; resource defines the logical GraphQL resolver that you attach to fields in a schema. Request and response templates for resolvers are written in Apache Velocity Template Language (VTL) format. For more information about resolvers, see &#91;Resolver Mapping Template Reference&#93;(https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference.html).<br />When you submit an update, CFNLong updates resources based on differences between what you submit and the stack's current template. To cause this resource to be updated you must change a property value for this resource in the CFNshort template. Changing the S3 file content without changing a property value will not result in an update operation.<br />See &#91;Update Behaviors of Stack Resources&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html) in the &#42;User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::AppSync::Resolver</code> resource defines the logical GraphQL resolver that you attach to fields in a schema. Request and response templates for resolvers are written in Apache Velocity Template Language (VTL) format. For more information about resolvers, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference.html">Resolver Mapping Template Reference</a>.</summary>When you submit an update, CFNLong updates resources based on differences between what you submit and the stack's current template. To cause this resource to be updated you must change a property value for this resource in the CFNshort template. Changing the S3 file content without changing a property value will not result in an update operation.<br />See <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html">Update Behaviors of Stack Resources</a> in the <i>User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.appsync.resolvers" /></td></tr>
 </tbody>
 </table>
@@ -56,19 +56,19 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
       {
         "name": "caching_keys",
         "type": "array",
-        "description": "The caching keys for a resolver that has caching activated.<br />Valid values are entries from the &#96;&#96;$context.arguments&#96;&#96;, &#96;&#96;$context.source&#96;&#96;, and &#96;&#96;$context.identity&#96;&#96; maps."
+        "description": "<details><summary>The caching keys for a resolver that has caching activated.</summary>Valid values are entries from the <code>$context.arguments</code>, <code>$context.source</code>, and <code>$context.identity</code> maps.</details>"
       },
       {
         "name": "ttl",
         "type": "number",
-        "description": "The TTL in seconds for a resolver that has caching activated.<br />Valid values are 1–3,600 seconds."
+        "description": "<details><summary>The TTL in seconds for a resolver that has caching activated.</summary>Valid values are 1–3,600 seconds.</details>"
       }
     ]
   },
   {
     "name": "code",
     "type": "string",
-    "description": "The &#96;&#96;resolver&#96;&#96; code that contains the request and response functions. When code is used, the &#96;&#96;runtime&#96;&#96; is required. The runtime value must be &#96;&#96;APPSYNC&#95;JS&#96;&#96;."
+    "description": "The <code>resolver</code> code that contains the request and response functions. When code is used, the <code>runtime</code> is required. The runtime value must be <code>APPSYNC_JS</code>."
   },
   {
     "name": "code_s3_location",
@@ -88,12 +88,12 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
   {
     "name": "kind",
     "type": "string",
-    "description": "The resolver type.<br />+ &#42;UNIT&#42;: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to run a GraphQL query against a single data source.<br />+ &#42;PIPELINE&#42;: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of &#96;&#96;Function&#96;&#96; objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against multiple data sources."
+    "description": "<details><summary>The resolver type.</summary>+  <i>UNIT</i>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to run a GraphQL query against a single data source.<br />+  <i>PIPELINE</i>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against multiple data sources.</details>"
   },
   {
     "name": "max_batch_size",
     "type": "integer",
-    "description": "The maximum number of resolver request inputs that will be sent to a single LAMlong function in a &#96;&#96;BatchInvoke&#96;&#96; operation."
+    "description": "The maximum number of resolver request inputs that will be sent to a single LAMlong function in a <code>BatchInvoke</code> operation."
   },
   {
     "name": "pipeline_config",
@@ -103,14 +103,14 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
       {
         "name": "functions",
         "type": "array",
-        "description": "A list of &#96;&#96;Function&#96;&#96; objects."
+        "description": "A list of <code>Function</code> objects."
       }
     ]
   },
   {
     "name": "request_mapping_template",
     "type": "string",
-    "description": "The request mapping template.<br />Request mapping templates are optional when using a Lambda data source. For all other data sources, a request mapping template is required."
+    "description": "<details><summary>The request mapping template.</summary>Request mapping templates are optional when using a Lambda data source. For all other data sources, a request mapping template is required.</details>"
   },
   {
     "name": "request_mapping_template_s3_location",
@@ -140,34 +140,34 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
       {
         "name": "runtime_version",
         "type": "string",
-        "description": "The &#96;&#96;version&#96;&#96; of the runtime to use. Currently, the only allowed version is &#96;&#96;1.0.0&#96;&#96;."
+        "description": "The <code>version</code> of the runtime to use. Currently, the only allowed version is <code>1.0.0</code>."
       },
       {
         "name": "name",
         "type": "string",
-        "description": "The &#96;&#96;name&#96;&#96; of the runtime to use. Currently, the only allowed value is &#96;&#96;APPSYNC&#95;JS&#96;&#96;."
+        "description": "The <code>name</code> of the runtime to use. Currently, the only allowed value is <code>APPSYNC_JS</code>."
       }
     ]
   },
   {
     "name": "sync_config",
     "type": "object",
-    "description": "The &#96;&#96;SyncConfig&#96;&#96; for a resolver attached to a versioned data source.",
+    "description": "The <code>SyncConfig</code> for a resolver attached to a versioned data source.",
     "children": [
       {
         "name": "conflict_handler",
         "type": "string",
-        "description": "The Conflict Resolution strategy to perform in the event of a conflict.<br />+ &#42;OPTIMISTIC&#95;CONCURRENCY&#42;: Resolve conflicts by rejecting mutations when versions don't match the latest version at the server.<br />+ &#42;AUTOMERGE&#42;: Resolve conflicts with the Automerge conflict resolution strategy.<br />+ &#42;LAMBDA&#42;: Resolve conflicts with an LAMlong function supplied in the &#96;&#96;LambdaConflictHandlerConfig&#96;&#96;."
+        "description": "<details><summary>The Conflict Resolution strategy to perform in the event of a conflict.</summary>+  <i>OPTIMISTIC_CONCURRENCY</i>: Resolve conflicts by rejecting mutations when versions don't match the latest version at the server.<br />+  <i>AUTOMERGE</i>: Resolve conflicts with the Automerge conflict resolution strategy.<br />+  <i>LAMBDA</i>: Resolve conflicts with an LAMlong function supplied in the <code>LambdaConflictHandlerConfig</code>.</details>"
       },
       {
         "name": "conflict_detection",
         "type": "string",
-        "description": "The Conflict Detection strategy to use.<br />+ &#42;VERSION&#42;: Detect conflicts based on object versions for this resolver.<br />+ &#42;NONE&#42;: Do not detect conflicts when invoking this resolver."
+        "description": "<details><summary>The Conflict Detection strategy to use.</summary>+  <i>VERSION</i>: Detect conflicts based on object versions for this resolver.<br />+  <i>NONE</i>: Do not detect conflicts when invoking this resolver.</details>"
       },
       {
         "name": "lambda_conflict_handler_config",
         "type": "object",
-        "description": "The &#96;&#96;LambdaConflictHandlerConfig&#96;&#96; when configuring &#96;&#96;LAMBDA&#96;&#96; as the Conflict Handler.",
+        "description": "The <code>LambdaConflictHandlerConfig</code> when configuring <code>LAMBDA</code> as the Conflict Handler.",
         "children": [
           {
             "name": "lambda_conflict_handler_arn",
@@ -186,7 +186,7 @@ Creates, updates, deletes or gets a <code>resolver</code> resource or lists <cod
   {
     "name": "metrics_config",
     "type": "string",
-    "description": "Enables or disables enhanced resolver metrics for specified resolvers. Note that &#96;&#96;MetricsConfig&#96;&#96; won't be used unless the &#96;&#96;resolverLevelMetricsBehavior&#96;&#96; value is set to &#96;&#96;PER&#95;RESOLVER&#95;METRICS&#96;&#96;. If the &#96;&#96;resolverLevelMetricsBehavior&#96;&#96; is set to &#96;&#96;FULL&#95;REQUEST&#95;RESOLVER&#95;METRICS&#96;&#96; instead, &#96;&#96;MetricsConfig&#96;&#96; will be ignored. However, you can still set its value."
+    "description": "Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>MetricsConfig</code> won't be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>. If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead, <code>MetricsConfig</code> will be ignored. However, you can still set its value."
   },
   {
     "name": "region",
@@ -292,7 +292,7 @@ SELECT
   metrics_config
 FROM awscc.appsync.resolvers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resolver_arn }}';
 ```
 </TabItem>
@@ -305,7 +305,7 @@ SELECT
   resolver_arn
 FROM awscc.appsync.resolvers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -483,7 +483,7 @@ WHERE
 DELETE FROM awscc.appsync.resolvers
 WHERE
   Identifier = '{{ resolver_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

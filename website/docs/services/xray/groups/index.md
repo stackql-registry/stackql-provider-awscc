@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.xray.groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ group_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   group_arn
 FROM awscc.xray.groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.xray.groups
 WHERE
   Identifier = '{{ group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

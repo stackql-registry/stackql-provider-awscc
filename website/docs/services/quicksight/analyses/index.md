@@ -1003,7 +1003,7 @@ Creates, updates, deletes or gets an <code>analysis</code> resource or lists <co
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -1047,7 +1047,7 @@ Creates, updates, deletes or gets an <code>analysis</code> resource or lists <co
       {
         "name": "name",
         "type": "string",
-        "description": "<p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight<br />console.</p>"
+        "description": "<details><summary><p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight</summary>console.</p></details>"
       }
     ]
   },
@@ -1160,7 +1160,7 @@ SELECT
   sheets
 FROM awscc.quicksight.analyses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ analysis_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
@@ -1174,7 +1174,7 @@ SELECT
   aws_account_id
 FROM awscc.quicksight.analyses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -3248,7 +3248,7 @@ WHERE
 DELETE FROM awscc.quicksight.analyses
 WHERE
   Identifier = '{{ analysis_id }}|{{ aws_account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

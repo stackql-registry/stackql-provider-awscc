@@ -195,7 +195,7 @@ SELECT
   conformance_pack_input_parameters
 FROM awscc.config.conformance_packs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ conformance_pack_name }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   conformance_pack_name
 FROM awscc.config.conformance_packs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ WHERE
 DELETE FROM awscc.config.conformance_packs
 WHERE
   Identifier = '{{ conformance_pack_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

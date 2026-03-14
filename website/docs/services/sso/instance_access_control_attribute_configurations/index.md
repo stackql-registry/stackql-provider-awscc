@@ -51,7 +51,7 @@ Creates, updates, deletes or gets an <code>instance_access_control_attribute_con
   {
     "name": "instance_access_control_attribute_configuration",
     "type": "object",
-    "description": "The InstanceAccessControlAttributeConfiguration property has been deprecated but is still supported for backwards compatibility purposes. We recomend that you use AccessControlAttributes property instead.",
+    "description": "The InstanceAccessControlAttributeConfiguration property has been deprecated but is still supported for backwards compatibility purposes. We recomend that you use  AccessControlAttributes property instead.",
     "children": [
       {
         "name": "access_control_attributes",
@@ -192,7 +192,7 @@ SELECT
   access_control_attributes
 FROM awscc.sso.instance_access_control_attribute_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}';
 ```
 </TabItem>
@@ -205,7 +205,7 @@ SELECT
   instance_arn
 FROM awscc.sso.instance_access_control_attribute_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +305,7 @@ WHERE
 DELETE FROM awscc.sso.instance_access_control_attribute_configurations
 WHERE
   Identifier = '{{ instance_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

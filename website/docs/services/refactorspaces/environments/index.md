@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.refactorspaces.environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ environment_identifier }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   environment_identifier
 FROM awscc.refactorspaces.environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.refactorspaces.environments
 WHERE
   Identifier = '{{ environment_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

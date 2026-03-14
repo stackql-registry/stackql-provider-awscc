@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.dashboards
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dashboard_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   dashboard_id
 FROM awscc.iotsitewise.dashboards_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +307,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.dashboards
 WHERE
   Identifier = '{{ dashboard_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

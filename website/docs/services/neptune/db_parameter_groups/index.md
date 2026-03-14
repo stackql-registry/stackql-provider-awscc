@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
   {
     "name": "family",
     "type": "string",
-    "description": "Must be &#96;neptune1&#96; for engine versions prior to 1.2.0.0, or &#96;neptune1.2&#96; for engine version &#96;1.2.0.0&#96; and higher."
+    "description": "Must be <code>neptune1</code> for engine versions prior to 1.2.0.0, or <code>neptune1.2</code> for engine version <code>1.2.0.0</code> and higher."
   },
   {
     "name": "parameters",
     "type": "object",
-    "description": "The parameters to set for this DB parameter group.<br />The parameters are expressed as a JSON object consisting of key-value pairs.<br />Changes to dynamic parameters are applied immediately. During an update, if you have static parameters (whether they were changed or not), it triggers AWS CloudFormation to reboot the associated DB instance without failover."
+    "description": "<details><summary>The parameters to set for this DB parameter group.</summary>The parameters are expressed as a JSON object consisting of key-value pairs.<br />Changes to dynamic parameters are applied immediately. During an update, if you have static parameters (whether they were changed or not), it triggers AWS CloudFormation to reboot the associated DB instance without failover.</details>"
   },
   {
     "name": "tags",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.neptune.db_parameter_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   name
 FROM awscc.neptune.db_parameter_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ WHERE
 DELETE FROM awscc.neptune.db_parameter_groups
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

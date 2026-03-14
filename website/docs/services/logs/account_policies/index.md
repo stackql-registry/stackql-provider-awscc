@@ -56,7 +56,7 @@ Creates, updates, deletes or gets an <code>account_policy</code> resource or lis
   {
     "name": "policy_document",
     "type": "string",
-    "description": "The body of the policy document you want to use for this topic.<br />You can only add one policy per PolicyType.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30720"
+    "description": "<details><summary>The body of the policy document you want to use for this topic.</summary>You can only add one policy per PolicyType.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30720</details>"
   },
   {
     "name": "policy_type",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets an <code>account_policy</code> resource or lis
   {
     "name": "selection_criteria",
     "type": "string",
-    "description": "Log group selection criteria to apply policy only to a subset of log groups. SelectionCriteria string can be up to 25KB and cloudwatchlogs determines the length of selectionCriteria by using its UTF-8 bytes"
+    "description": "Log group  selection criteria to apply policy only to a subset of log groups. SelectionCriteria string can be up to 25KB and cloudwatchlogs determines the length of selectionCriteria by using its UTF-8 bytes"
   },
   {
     "name": "region",
@@ -175,7 +175,7 @@ SELECT
   selection_criteria
 FROM awscc.logs.account_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   policy_name
 FROM awscc.logs.account_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.logs.account_policies
 WHERE
   Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

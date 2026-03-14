@@ -266,7 +266,7 @@ SELECT
   version_name
 FROM awscc.iot.software_package_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ package_name }}|{{ version_name }}';
 ```
 </TabItem>
@@ -280,7 +280,7 @@ SELECT
   version_name
 FROM awscc.iot.software_package_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +406,7 @@ WHERE
 DELETE FROM awscc.iot.software_package_versions
 WHERE
   Identifier = '{{ package_name }}|{{ version_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -190,7 +190,7 @@ SELECT
   tags
 FROM awscc.signer.signing_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -203,7 +203,7 @@ SELECT
   arn
 FROM awscc.signer.signing_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.signer.signing_profiles
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

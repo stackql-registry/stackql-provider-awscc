@@ -159,7 +159,7 @@ SELECT
   namespace
 FROM awscc.s3tables.table_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_arn }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   table_arn
 FROM awscc.s3tables.table_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.s3tables.table_policies
 WHERE
   Identifier = '{{ table_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

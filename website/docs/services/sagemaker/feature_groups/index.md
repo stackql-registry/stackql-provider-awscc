@@ -334,7 +334,7 @@ SELECT
   tags
 FROM awscc.sagemaker.feature_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ feature_group_name }}';
 ```
 </TabItem>
@@ -347,7 +347,7 @@ SELECT
   feature_group_name
 FROM awscc.sagemaker.feature_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -499,7 +499,7 @@ WHERE
 DELETE FROM awscc.sagemaker.feature_groups
 WHERE
   Identifier = '{{ feature_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

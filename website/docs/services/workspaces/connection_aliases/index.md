@@ -142,7 +142,7 @@ SELECT
   tags
 FROM awscc.workspaces.connection_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alias_id }}';
 ```
 
@@ -218,7 +218,7 @@ resources:
 DELETE FROM awscc.workspaces.connection_aliases
 WHERE
   Identifier = '{{ alias_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

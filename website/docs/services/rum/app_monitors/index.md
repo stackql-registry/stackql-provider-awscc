@@ -76,12 +76,12 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -148,7 +148,7 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
           {
             "name": "iam_role_arn",
             "type": "string",
-            "description": "This parameter is required if Destination is Evidently. If Destination is CloudWatch, do not use this parameter.<br />This parameter specifies the ARN of an IAM role that RUM will assume to write to the Evidently experiment that you are sending metrics to. This role must have permission to write to that experiment."
+            "description": "<details><summary>This parameter is required if Destination is Evidently. If Destination is CloudWatch, do not use this parameter.</summary>This parameter specifies the ARN of an IAM role that RUM will assume to write to the Evidently experiment that you are sending metrics to. This role must have permission to write to that experiment.</details>"
           },
           {
             "name": "metric_definitions",
@@ -158,7 +158,7 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
               {
                 "name": "name",
                 "type": "string",
-                "description": "The name for the metric that is defined in this structure. For extended metrics, valid values are the following:<br />PerformanceNavigationDuration<br />PerformanceResourceDuration<br />NavigationSatisfiedTransaction<br />NavigationToleratedTransaction<br />NavigationFrustratedTransaction<br />WebVitalsCumulativeLayoutShift<br />WebVitalsFirstInputDelay<br />WebVitalsLargestContentfulPaint<br />JsErrorCount<br />HttpErrorCount<br />SessionCount"
+                "description": "<details><summary>The name for the metric that is defined in this structure. For extended metrics, valid values are the following:</summary>PerformanceNavigationDuration<br />PerformanceResourceDuration<br />NavigationSatisfiedTransaction<br />NavigationToleratedTransaction<br />NavigationFrustratedTransaction<br />WebVitalsCumulativeLayoutShift<br />WebVitalsFirstInputDelay<br />WebVitalsLargestContentfulPaint<br />JsErrorCount<br />HttpErrorCount<br />SessionCount</details>"
               },
               {
                 "name": "namespace",
@@ -168,7 +168,7 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
               {
                 "name": "value_key",
                 "type": "string",
-                "description": "The field within the event object that the metric value is sourced from.<br />If you omit this field, a hardcoded value of 1 is pushed as the metric value. This is useful if you just want to count the number of events that the filter catches.<br />If this metric is sent to Evidently, this field will be passed to Evidently raw and Evidently will handle data extraction from the event."
+                "description": "<details><summary>The field within the event object that the metric value is sourced from.</summary>If you omit this field, a hardcoded value of 1 is pushed as the metric value. This is useful if you just want to count the number of events that the filter catches.<br />If this metric is sent to Evidently, this field will be passed to Evidently raw and Evidently will handle data extraction from the event.</details>"
               },
               {
                 "name": "unit_label",
@@ -178,12 +178,12 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
               {
                 "name": "dimension_keys",
                 "type": "object",
-                "description": "Use this field only if you are sending the metric to CloudWatch.<br />This field is a map of field paths to dimension names. It defines the dimensions to associate with this metric in CloudWatch. For extended metrics, valid values for the entries in this field are the following:<br />\"metadata.pageId\": \"PageId\"<br />\"metadata.browserName\": \"BrowserName\"<br />\"metadata.deviceType\": \"DeviceType\"<br />\"metadata.osName\": \"OSName\"<br />\"metadata.countryCode\": \"CountryCode\"<br />\"event&#95;details.fileType\": \"FileType\"<br />All dimensions listed in this field must also be included in EventPattern."
+                "description": "<details><summary>Use this field only if you are sending the metric to CloudWatch.</summary>This field is a map of field paths to dimension names. It defines the dimensions to associate with this metric in CloudWatch. For extended metrics, valid values for the entries in this field are the following:<br />\"metadata.pageId\": \"PageId\"<br />\"metadata.browserName\": \"BrowserName\"<br />\"metadata.deviceType\": \"DeviceType\"<br />\"metadata.osName\": \"OSName\"<br />\"metadata.countryCode\": \"CountryCode\"<br />\"event_details.fileType\": \"FileType\"<br />All dimensions listed in this field must also be included in EventPattern.</details>"
               },
               {
                 "name": "event_pattern",
                 "type": "string",
-                "description": "The pattern that defines the metric, specified as a JSON object. RUM checks events that happen in a user's session against the pattern, and events that match the pattern are sent to the metric destination.<br />When you define extended metrics, the metric definition is not valid if EventPattern is omitted.<br />Example event patterns:<br />'&#123; \"event&#95;type\": &#91;\"com.amazon.rum.js&#95;error&#95;event\"&#93;, \"metadata\": &#123; \"browserName\": &#91; \"Chrome\", \"Safari\" &#93;, &#125; &#125;'<br />'&#123; \"event&#95;type\": &#91;\"com.amazon.rum.performance&#95;navigation&#95;event\"&#93;, \"metadata\": &#123; \"browserName\": &#91; \"Chrome\", \"Firefox\" &#93; &#125;, \"event&#95;details\": &#123; \"duration\": &#91;&#123; \"numeric\": &#91; \"&lt;\", 2000 &#93; &#125;&#93; &#125; &#125;'<br />'&#123; \"event&#95;type\": &#91;\"com.amazon.rum.performance&#95;navigation&#95;event\"&#93;, \"metadata\": &#123; \"browserName\": &#91; \"Chrome\", \"Safari\" &#93;, \"countryCode\": &#91; \"US\" &#93; &#125;, \"event&#95;details\": &#123; \"duration\": &#91;&#123; \"numeric\": &#91; \"&gt;=\", 2000, \"&lt;\", 8000 &#93; &#125;&#93; &#125; &#125;'<br />If the metrics destination' is CloudWatch and the event also matches a value in DimensionKeys, then the metric is published with the specified dimensions."
+                "description": "<details><summary>The pattern that defines the metric, specified as a JSON object. RUM checks events that happen in a user's session against the pattern, and events that match the pattern are sent to the metric destination.</summary>When you define extended metrics, the metric definition is not valid if EventPattern is omitted.<br />Example event patterns:<br />'&#123; \"event_type\": [\"com.amazon.rum.js_error_event\"], \"metadata\": &#123; \"browserName\": [ \"Chrome\", \"Safari\" ], &#125; &#125;'<br />'&#123; \"event_type\": [\"com.amazon.rum.performance_navigation_event\"], \"metadata\": &#123; \"browserName\": [ \"Chrome\", \"Firefox\" ] &#125;, \"event_details\": &#123; \"duration\": [&#123; \"numeric\": [ \"<\", 2000 ] }] } }'<br />'&#123; \"event_type\": [\"com.amazon.rum.performance_navigation_event\"], \"metadata\": &#123; \"browserName\": [ \"Chrome\", \"Safari\" ], \"countryCode\": [ \"US\" ] &#125;, \"event_details\": &#123; \"duration\": [&#123; \"numeric\": [ \">=\", 2000, \"<\", 8000 ] }] } }'<br />If the metrics destination' is CloudWatch and the event also matches a value in DimensionKeys, then the metric is published with the specified dimensions.</details>"
               }
             ]
           }
@@ -216,7 +216,7 @@ Creates, updates, deletes or gets an <code>app_monitor</code> resource or lists 
       {
         "name": "policy_revision_id",
         "type": "string",
-        "description": "A string value that you can use to conditionally update your policy. You can provide the revision ID of your existing policy to make mutating requests against that policy. <br />When you assign a policy revision ID, then later requests about that policy will be rejected with an InvalidPolicyRevisionIdException error if they don't provide the correct current revision ID."
+        "description": "<details><summary>A string value that you can use to conditionally update your policy. You can provide the revision ID of your existing policy to make mutating requests against that policy.</summary>When you assign a policy revision ID, then later requests about that policy will be rejected with an InvalidPolicyRevisionIdException error if they don't provide the correct current revision ID.</details>"
       }
     ]
   },
@@ -340,7 +340,7 @@ SELECT
   deobfuscation_configuration
 FROM awscc.rum.app_monitors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -353,7 +353,7 @@ SELECT
   name
 FROM awscc.rum.app_monitors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -510,7 +510,7 @@ WHERE
 DELETE FROM awscc.rum.app_monitors
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

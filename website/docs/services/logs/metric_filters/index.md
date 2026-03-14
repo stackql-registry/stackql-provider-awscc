@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>metric_filter</code> resource or lists
 <tbody>
 <tr><td><b>Name</b></td><td><code>metric_filters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::Logs::MetricFilter&#96;&#96; resource specifies a metric filter that describes how CWL extracts information from logs and transforms it into Amazon CloudWatch metrics. If you have multiple metric filters that are associated with a log group, all the filters are applied to the log streams in that group.<br />The maximum number of metric filters that can be associated with a log group is 100.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::Logs::MetricFilter</code> resource specifies a metric filter that describes how CWL extracts information from logs and transforms it into Amazon CloudWatch metrics. If you have multiple metric filters that are associated with a log group, all the filters are applied to the log streams in that group.</summary>The maximum number of metric filters that can be associated with a log group is 100.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.metric_filters" /></td></tr>
 </tbody>
 </table>
@@ -61,41 +61,41 @@ Creates, updates, deletes or gets a <code>metric_filter</code> resource or lists
       {
         "name": "metric_value",
         "type": "string",
-        "description": "The value that is published to the CloudWatch metric. For example, if you're counting the occurrences of a particular term like &#96;&#96;Error&#96;&#96;, specify 1 for the metric value. If you're counting the number of bytes transferred, reference the value that is in the log event by using $. followed by the name of the field that you specified in the filter pattern, such as &#96;&#96;$.size&#96;&#96;."
+        "description": "The value that is published to the CloudWatch metric. For example, if you're counting the occurrences of a particular term like <code>Error</code>, specify 1 for the metric value. If you're counting the number of bytes transferred, reference the value that is in the log event by using $. followed by the name of the field that you specified in the filter pattern, such as <code>$.size</code>."
       },
       {
         "name": "metric_namespace",
         "type": "string",
-        "description": "A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are similar. For more information, see &#91;Namespaces&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch&#95;concepts.html#Namespace)."
+        "description": "A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are similar. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace\">Namespaces</a>."
       },
       {
         "name": "dimensions",
         "type": "array",
-        "description": "The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.<br />Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not specify high-cardinality fields such as &#96;&#96;IPAddress&#96;&#96; or &#96;&#96;requestID&#96;&#96; as dimensions. Each different value found for a dimension is treated as a separate metric and accrues charges as a separate custom metric. <br />CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified dimensions within a certain amount of time. This helps to prevent accidental high charges.<br />You can also set up a billing alarm to alert you if your charges are higher than expected. For more information, see &#91;Creating a Billing Alarm to Monitor Your Estimated Charges&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor&#95;estimated&#95;charges&#95;with&#95;cloudwatch.html).",
+        "description": "<details><summary>The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.</summary>Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as dimensions. Each different value found for a dimension is treated as a separate metric and accrues charges as a separate custom metric.<br />CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified dimensions within a certain amount of time. This helps to prevent accidental high charges.<br />You can also set up a billing alarm to alert you if your charges are higher than expected. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html\">Creating a Billing Alarm to Monitor Your Estimated Charges</a>.</details>",
         "children": [
           {
             "name": "value",
             "type": "string",
-            "description": "The log event field that will contain the value for this dimension. This dimension will only be published for a metric if the value is found in the log event. For example, &#96;&#96;$.eventType&#96;&#96; for JSON log events, or &#96;&#96;$server&#96;&#96; for space-delimited log events."
+            "description": "The log event field that will contain the value for this dimension. This dimension will only be published for a metric if the value is found in the log event. For example, <code>$.eventType</code> for JSON log events, or <code>$server</code> for space-delimited log events."
           },
           {
             "name": "key",
             "type": "string",
-            "description": "The name for the CW metric dimension that the metric filter creates.<br />Dimension names must contain only ASCII characters, must include at least one non-whitespace character, and cannot start with a colon (:)."
+            "description": "<details><summary>The name for the CW metric dimension that the metric filter creates.</summary>Dimension names must contain only ASCII characters, must include at least one non-whitespace character, and cannot start with a colon (:).</details>"
           }
         ]
       },
       {
         "name": "unit",
         "type": "string",
-        "description": "The unit to assign to the metric. If you omit this, the unit is set as &#96;&#96;None&#96;&#96;."
+        "description": "The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>."
       }
     ]
   },
   {
     "name": "filter_pattern",
     "type": "string",
-    "description": "A filter pattern for extracting metric data out of ingested log events. For more information, see &#91;Filter and Pattern Syntax&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html)."
+    "description": "A filter pattern for extracting metric data out of ingested log events. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html\">Filter and Pattern Syntax</a>."
   },
   {
     "name": "log_group_name",
@@ -105,7 +105,7 @@ Creates, updates, deletes or gets a <code>metric_filter</code> resource or lists
   {
     "name": "apply_on_transformed_logs",
     "type": "boolean",
-    "description": "This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see &#91;PutTransformer&#93;(https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API&#95;PutTransformer.html).<br />If this value is &#96;&#96;true&#96;&#96;, the metric filter is applied on the transformed version of the log events instead of the original ingested log events."
+    "description": "<details><summary>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html\">PutTransformer</a>.</summary>If this value is <code>true</code>, the metric filter is applied on the transformed version of the log events instead of the original ingested log events.</details>"
   },
   {
     "name": "filter_name",
@@ -208,7 +208,7 @@ SELECT
   filter_name
 FROM awscc.logs.metric_filters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ log_group_name }}|{{ filter_name }}';
 ```
 </TabItem>
@@ -222,7 +222,7 @@ SELECT
   filter_name
 FROM awscc.logs.metric_filters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +338,7 @@ WHERE
 DELETE FROM awscc.logs.metric_filters
 WHERE
   Identifier = '{{ log_group_name }}|{{ filter_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

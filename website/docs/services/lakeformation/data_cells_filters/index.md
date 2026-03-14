@@ -172,7 +172,7 @@ SELECT
   column_wildcard
 FROM awscc.lakeformation.data_cells_filters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}';
 ```
 </TabItem>
@@ -188,7 +188,7 @@ SELECT
   name
 FROM awscc.lakeformation.data_cells_filters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ resources:
 DELETE FROM awscc.lakeformation.data_cells_filters
 WHERE
   Identifier = '{{ table_catalog_id }}|{{ database_name }}|{{ table_name }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -196,7 +196,7 @@ SELECT
   egress_access_logs
 FROM awscc.mediapackage.packaging_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   id
 FROM awscc.mediapackage.packaging_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +313,7 @@ WHERE
 DELETE FROM awscc.mediapackage.packaging_groups
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

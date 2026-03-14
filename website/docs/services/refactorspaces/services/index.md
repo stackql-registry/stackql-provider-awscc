@@ -230,7 +230,7 @@ SELECT
   tags
 FROM awscc.refactorspaces.services
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   service_identifier
 FROM awscc.refactorspaces.services_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +359,7 @@ resources:
 DELETE FROM awscc.refactorspaces.services
 WHERE
   Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

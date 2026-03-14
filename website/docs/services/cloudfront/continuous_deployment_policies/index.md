@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>continuous_deployment_policy</code> re
 <tbody>
 <tr><td><b>Name</b></td><td><code>continuous_deployment_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a continuous deployment policy that routes a subset of production traffic from a primary distribution to a staging distribution.<br />After you create and update a staging distribution, you can use a continuous deployment policy to incrementally move traffic to the staging distribution. This enables you to test changes to a distribution's configuration before moving all of your production traffic to the new configuration.<br />For more information, see &#91;Using CloudFront continuous deployment to safely test CDN configuration changes&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/continuous-deployment.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Creates a continuous deployment policy that routes a subset of production traffic from a primary distribution to a staging distribution.</summary>After you create and update a staging distribution, you can use a continuous deployment policy to incrementally move traffic to the staging distribution. This enables you to test changes to a distribution's configuration before moving all of your production traffic to the new configuration.<br />For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/continuous-deployment.html">Using CloudFront continuous deployment to safely test CDN configuration changes</a> in the <i>Amazon CloudFront Developer Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.continuous_deployment_policies" /></td></tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>continuous_deployment_policy</code> re
       {
         "name": "enabled",
         "type": "boolean",
-        "description": "A Boolean that indicates whether this continuous deployment policy is enabled (in effect). When this value is &#96;&#96;true&#96;&#96;, this policy is enabled and in effect. When this value is &#96;&#96;false&#96;&#96;, this policy is not enabled and has no effect."
+        "description": "A Boolean that indicates whether this continuous deployment policy is enabled (in effect). When this value is <code>true</code>, this policy is enabled and in effect. When this value is <code>false</code>, this policy is not enabled and has no effect."
       },
       {
         "name": "single_header_policy_config",
@@ -102,7 +102,7 @@ Creates, updates, deletes or gets a <code>continuous_deployment_policy</code> re
       {
         "name": "staging_distribution_dns_names",
         "type": "array",
-        "description": "The CloudFront domain name of the staging distribution. For example: &#96;&#96;d111111abcdef8.cloudfront.net&#96;&#96;."
+        "description": "The CloudFront domain name of the staging distribution. For example: <code>d111111abcdef8.cloudfront.net</code>."
       },
       {
         "name": "traffic_config",
@@ -117,7 +117,7 @@ Creates, updates, deletes or gets a <code>continuous_deployment_policy</code> re
               {
                 "name": "header",
                 "type": "string",
-                "description": "The request header name that you want CloudFront to send to your staging distribution. The header must contain the prefix &#96;&#96;aws-cf-cd-&#96;&#96;."
+                "description": "The request header name that you want CloudFront to send to your staging distribution. The header must contain the prefix <code>aws-cf-cd-</code>."
               },
               {
                 "name": "value",

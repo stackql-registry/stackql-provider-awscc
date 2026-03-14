@@ -246,7 +246,7 @@ SELECT
   vpc_subnet_ids
 FROM awscc.rds.db_proxies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_proxy_name }}';
 ```
 </TabItem>
@@ -259,7 +259,7 @@ SELECT
   db_proxy_name
 FROM awscc.rds.db_proxies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -404,7 +404,7 @@ WHERE
 DELETE FROM awscc.rds.db_proxies
 WHERE
   Identifier = '{{ db_proxy_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.ses.dedicated_ip_pools
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ pool_name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   pool_name
 FROM awscc.ses.dedicated_ip_pools_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +273,7 @@ WHERE
 DELETE FROM awscc.ses.dedicated_ip_pools
 WHERE
   Identifier = '{{ pool_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

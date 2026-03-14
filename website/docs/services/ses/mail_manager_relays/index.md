@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_relays
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ relay_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   relay_id
 FROM awscc.ses.mail_manager_relays_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +308,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_relays
 WHERE
   Identifier = '{{ relay_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

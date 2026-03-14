@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
   {
     "name": "game_server_container_group_definition_name",
     "type": "string",
-    "description": "The name of the container group definition that will be created per game server. You must specify GAME&#95;SERVER container group. You have the option to also specify one PER&#95;INSTANCE container group."
+    "description": "The name of the container group definition that will be created per game server. You must specify GAME_SERVER container group. You have the option to also specify one PER_INSTANCE container group."
   },
   {
     "name": "game_server_container_group_definition_arn",
@@ -108,7 +108,7 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
       {
         "name": "ip_range",
         "type": "string",
-        "description": "A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: \"000.000.000.000/&#91;subnet mask&#93;\" or optionally the shortened version \"0.0.0.0/&#91;subnet mask&#93;\"."
+        "description": "A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: \"000.000.000.000/[subnet mask]\" or optionally the shortened version \"0.0.0.0/[subnet mask]\"."
       },
       {
         "name": "protocol",
@@ -162,7 +162,7 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
       {
         "name": "protection_strategy",
         "type": "string",
-        "description": "The protection strategy for deployment on the container fleet; defaults to WITH&#95;PROTECTION."
+        "description": "The protection strategy for deployment on the container fleet; defaults to WITH_PROTECTION."
       },
       {
         "name": "minimum_healthy_percentage",
@@ -184,7 +184,7 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
   {
     "name": "billing_type",
     "type": "string",
-    "description": "Indicates whether to use On-Demand instances or Spot instances for this fleet. If empty, the default is ON&#95;DEMAND. Both categories of instances use identical hardware and configurations based on the instance type selected for this fleet."
+    "description": "Indicates whether to use On-Demand instances or Spot instances for this fleet. If empty, the default is ON_DEMAND. Both categories of instances use identical hardware and configurations based on the instance type selected for this fleet."
   },
   {
     "name": "locations",
@@ -348,7 +348,7 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
       {
         "name": "update_status",
         "type": "string",
-        "description": "The current status of the fleet's scaling policies in a requested fleet location. The status PENDING&#95;UPDATE indicates that an update was requested for the fleet but has not yet been completed for the location."
+        "description": "The current status of the fleet's scaling policies in a requested fleet location. The status PENDING_UPDATE indicates that an update was requested for the fleet but has not yet been completed for the location."
       }
     ]
   },
@@ -534,7 +534,7 @@ SELECT
   fleet_arn
 FROM awscc.gamelift.container_fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
@@ -547,7 +547,7 @@ SELECT
   fleet_id
 FROM awscc.gamelift.container_fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -749,7 +749,7 @@ WHERE
 DELETE FROM awscc.gamelift.container_fleets
 WHERE
   Identifier = '{{ fleet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

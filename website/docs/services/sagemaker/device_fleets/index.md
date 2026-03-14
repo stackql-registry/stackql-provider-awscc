@@ -137,7 +137,7 @@ SELECT
   tags
 FROM awscc.sagemaker.device_fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ device_fleet_name }}';
 ```
 
@@ -249,7 +249,7 @@ WHERE
 DELETE FROM awscc.sagemaker.device_fleets
 WHERE
   Identifier = '{{ device_fleet_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

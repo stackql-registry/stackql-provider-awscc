@@ -200,7 +200,7 @@ SELECT
   tags
 FROM awscc.guardduty.publishing_destinations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ detector_id }}|{{ id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   id
 FROM awscc.guardduty.publishing_destinations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -322,7 +322,7 @@ WHERE
 DELETE FROM awscc.guardduty.publishing_destinations
 WHERE
   Identifier = '{{ detector_id }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

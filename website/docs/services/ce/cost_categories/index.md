@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.ce.cost_categories
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   arn
 FROM awscc.ce.cost_categories_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +318,7 @@ WHERE
 DELETE FROM awscc.ce.cost_categories
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

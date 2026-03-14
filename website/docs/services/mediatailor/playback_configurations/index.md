@@ -68,7 +68,7 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
       {
         "name": "mode",
         "type": "string",
-        "description": "Sets the ad suppression mode. By default, ad suppression is off and all ad breaks are filled with ads or slate. When Mode is set to BEHIND&#95;LIVE&#95;EDGE, ad suppression is active and MediaTailor won't fill ad breaks on or behind the ad suppression Value time in the manifest lookback window. When Mode is set to AFTER&#95;LIVE&#95;EDGE, ad suppression is active and MediaTailor won't fill ad breaks that are within the live edge plus the avail suppression value."
+        "description": "Sets the ad suppression mode. By default, ad suppression is off and all ad breaks are filled with ads or slate. When Mode is set to BEHIND_LIVE_EDGE, ad suppression is active and MediaTailor won't fill ad breaks on or behind the ad suppression Value time in the manifest lookback window. When Mode is set to AFTER_LIVE_EDGE, ad suppression is active and MediaTailor won't fill ad breaks that are within the live edge plus the avail suppression value."
       },
       {
         "name": "value",
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
       {
         "name": "fill_policy",
         "type": "string",
-        "description": "Defines the policy to apply to the avail suppression mode. BEHIND&#95;LIVE&#95;EDGE will always use the full avail suppression policy. AFTER&#95;LIVE&#95;EDGE mode can be used to invoke partial ad break fills when a session starts mid-break. Valid values are FULL&#95;AVAIL&#95;ONLY and PARTIAL&#95;AVAIL"
+        "description": "Defines the policy to apply to the avail suppression mode. BEHIND_LIVE_EDGE will always use the full avail suppression policy. AFTER_LIVE_EDGE mode can be used to invoke partial ad break fills when a session starts mid-break. Valid values are FULL_AVAIL_ONLY and PARTIAL_AVAIL"
       }
     ]
   },
@@ -107,7 +107,7 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
       {
         "name": "ad_segment_url_prefix",
         "type": "string",
-        "description": "A non-default content delivery network (CDN) to serve ad segments. By default, AWS Elemental MediaTailor uses Amazon CloudFront with default cache settings as its CDN for ad segments. To set up an alternate CDN, create a rule in your CDN for the origin ads.mediatailor.&lt;region&gt;.amazonaws.com. Then specify the rule's name in this AdSegmentUrlPrefix. When AWS Elemental MediaTailor serves a manifest, it reports your CDN as the source for ad segments."
+        "description": "A non-default content delivery network (CDN) to serve ad segments. By default, AWS Elemental MediaTailor uses Amazon CloudFront with default cache settings as its CDN for ad segments. To set up an alternate CDN, create a rule in your CDN for the origin ads.mediatailor.&lt;region>.amazonaws.com. Then specify the rule's name in this AdSegmentUrlPrefix. When AWS Elemental MediaTailor serves a manifest, it reports your CDN as the source for ad segments."
       },
       {
         "name": "content_segment_url_prefix",
@@ -129,12 +129,12 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
       {
         "name": "mpd_location",
         "type": "string",
-        "description": "The setting that controls whether MediaTailor includes the Location tag in DASH manifests. MediaTailor populates the Location tag with the URL for manifest update requests, to be used by players that don't support sticky redirects. Disable this if you have CDN routing rules set up for accessing MediaTailor manifests, and you are either using client-side reporting or your players support sticky HTTP redirects. Valid values are DISABLED and EMT&#95;DEFAULT. The EMT&#95;DEFAULT setting enables the inclusion of the tag and is the default value."
+        "description": "The setting that controls whether MediaTailor includes the Location tag in DASH manifests. MediaTailor populates the Location tag with the URL for manifest update requests, to be used by players that don't support sticky redirects. Disable this if you have CDN routing rules set up for accessing MediaTailor manifests, and you are either using client-side reporting or your players support sticky HTTP redirects. Valid values are DISABLED and EMT_DEFAULT. The EMT_DEFAULT setting enables the inclusion of the tag and is the default value."
       },
       {
         "name": "origin_manifest_type",
         "type": "string",
-        "description": "The setting that controls whether MediaTailor handles manifests from the origin server as multi-period manifests or single-period manifests. If your origin server produces single-period manifests, set this to SINGLE&#95;PERIOD. The default setting is MULTI&#95;PERIOD. For multi-period manifests, omit this setting or set it to MULTI&#95;PERIOD."
+        "description": "The setting that controls whether MediaTailor handles manifests from the origin server as multi-period manifests or single-period manifests. If your origin server produces single-period manifests, set this to SINGLE_PERIOD. The default setting is MULTI_PERIOD. For multi-period manifests, omit this setting or set it to MULTI_PERIOD."
       },
       {
         "name": "manifest_endpoint_prefix",
@@ -146,7 +146,7 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
   {
     "name": "insertion_mode",
     "type": "string",
-    "description": "The setting that controls whether players can use stitched or guided ad insertion. The default, STITCHED&#95;ONLY, forces all player sessions to use stitched (server-side) ad insertion. Choosing PLAYER&#95;SELECT allows players to select either stitched or guided ad insertion at session-initialization time. The default for players that do not specify an insertion mode is stitched."
+    "description": "The setting that controls whether players can use stitched or guided ad insertion. The default, STITCHED_ONLY, forces all player sessions to use stitched (server-side) ad insertion. Choosing PLAYER_SELECT allows players to select either stitched or guided ad insertion at session-initialization time. The default for players that do not specify an insertion mode is stitched."
   },
   {
     "name": "live_pre_roll_configuration",
@@ -229,14 +229,14 @@ Creates, updates, deletes or gets a <code>playback_configuration</code> resource
           {
             "name": "publish_opt_in_event_types",
             "type": "array",
-            "description": "Indicates that MediaTailor emits RAW&#95;ADS&#95;RESPONSE logs for playback sessions that are initialized with this configuration."
+            "description": "Indicates that MediaTailor emits RAW_ADS_RESPONSE logs for playback sessions that are initialized with this configuration."
           }
         ]
       },
       {
         "name": "enabled_logging_strategies",
         "type": "array",
-        "description": "The method used for collecting logs from AWS Elemental MediaTailor. To configure MediaTailor to send logs directly to Amazon CloudWatch Logs, choose LEGACY&#95;CLOUDWATCH. To configure MediaTailor to send logs to CloudWatch, which then vends the logs to your destination of choice, choose VENDED&#95;LOGS. Supported destinations are CloudWatch Logs log group, Amazon S3 bucket, and Amazon Data Firehose stream. To use vended logs, you must configure the delivery destination in Amazon CloudWatch"
+        "description": "The method used for collecting logs from AWS Elemental MediaTailor. To configure MediaTailor to send logs directly to Amazon CloudWatch Logs, choose LEGACY_CLOUDWATCH. To configure MediaTailor to send logs to CloudWatch, which then vends the logs to your destination of choice, choose VENDED_LOGS. Supported destinations are CloudWatch Logs log group, Amazon S3 bucket, and Amazon Data Firehose stream. To use vended logs, you must configure the delivery destination in Amazon CloudWatch"
       },
       {
         "name": "manifest_service_interaction_log",
@@ -406,7 +406,7 @@ SELECT
   video_content_source_url
 FROM awscc.mediatailor.playback_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -419,7 +419,7 @@ SELECT
   name
 FROM awscc.mediatailor.playback_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -620,7 +620,7 @@ WHERE
 DELETE FROM awscc.mediatailor.playback_configurations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

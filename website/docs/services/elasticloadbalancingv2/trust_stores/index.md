@@ -189,7 +189,7 @@ SELECT
   trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ trust_store_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -317,7 +317,7 @@ WHERE
 DELETE FROM awscc.elasticloadbalancingv2.trust_stores
 WHERE
   Identifier = '{{ trust_store_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
           {
             "name": "data_set_references",
             "type": "array",
-            "description": "<p>A structure containing information about the dataset references used as placeholders<br />in the template.</p>",
+            "description": "<details><summary><p>A structure containing information about the dataset references used as placeholders</summary>in the template.</p></details>",
             "children": [
               {
                 "name": "data_set_arn",
@@ -918,7 +918,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
       {
         "name": "data_set_configurations",
         "type": "array",
-        "description": "<p>Schema of the dataset identified by the placeholder. Any dashboard created from this<br />template should be bound to new datasets matching the same schema described through this<br />API operation.</p>",
+        "description": "<details><summary><p>Schema of the dataset identified by the placeholder. Any dashboard created from this</summary>template should be bound to new datasets matching the same schema described through this<br />API operation.</p></details>",
         "children": [
           {
             "name": "placeholder",
@@ -959,7 +959,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
       {
         "name": "source_entity_arn",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of an analysis or template that was used to create this<br />template.</p>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of an analysis or template that was used to create this</summary>template.</p></details>"
       },
       {
         "name": "version_number",
@@ -979,7 +979,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
           {
             "name": "name",
             "type": "string",
-            "description": "<p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight<br />console.</p>"
+            "description": "<details><summary><p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight</summary>console.</p></details>"
           }
         ]
       }
@@ -998,7 +998,7 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -1138,7 +1138,7 @@ SELECT
   template_id
 FROM awscc.quicksight.templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ template_id }}';
 ```
 </TabItem>
@@ -1152,7 +1152,7 @@ SELECT
   template_id
 FROM awscc.quicksight.templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -3173,7 +3173,7 @@ WHERE
 DELETE FROM awscc.quicksight.templates
 WHERE
   Identifier = '{{ aws_account_id }}|{{ template_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

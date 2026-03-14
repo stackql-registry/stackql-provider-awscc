@@ -252,7 +252,7 @@ SELECT
   tags
 FROM awscc.inspectorv2.filters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -265,7 +265,7 @@ SELECT
   arn
 FROM awscc.inspectorv2.filters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -436,7 +436,7 @@ WHERE
 DELETE FROM awscc.inspectorv2.filters
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

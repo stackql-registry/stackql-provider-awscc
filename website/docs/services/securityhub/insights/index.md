@@ -761,7 +761,7 @@ SELECT
   group_by_attribute
 FROM awscc.securityhub.insights
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ insight_arn }}';
 ```
 </TabItem>
@@ -774,7 +774,7 @@ SELECT
   insight_arn
 FROM awscc.securityhub.insights_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1091,7 +1091,7 @@ WHERE
 DELETE FROM awscc.securityhub.insights
 WHERE
   Identifier = '{{ insight_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

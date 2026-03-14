@@ -140,7 +140,7 @@ SELECT
   tracker_name
 FROM awscc.location.tracker_consumers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ tracker_name }}|{{ consumer_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   consumer_arn
 FROM awscc.location.tracker_consumers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.location.tracker_consumers
 WHERE
   Identifier = '{{ tracker_name }}|{{ consumer_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

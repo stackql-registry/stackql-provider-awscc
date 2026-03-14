@@ -150,7 +150,7 @@ SELECT
   updated_latest_patch_version
 FROM awscc.panorama.package_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}';
 ```
 
@@ -260,7 +260,7 @@ WHERE
 DELETE FROM awscc.panorama.package_versions
 WHERE
   Identifier = '{{ package_id }}|{{ package_version }}|{{ patch_version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

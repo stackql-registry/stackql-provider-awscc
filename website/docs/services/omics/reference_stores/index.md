@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.omics.reference_stores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ reference_store_id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   reference_store_id
 FROM awscc.omics.reference_stores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +275,7 @@ resources:
 DELETE FROM awscc.omics.reference_stores
 WHERE
   Identifier = '{{ reference_store_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -230,7 +230,7 @@ SELECT
   tags
 FROM awscc.batch.job_queues
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ job_queue_arn }}';
 ```
 </TabItem>
@@ -243,7 +243,7 @@ SELECT
   job_queue_arn
 FROM awscc.batch.job_queues_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +374,7 @@ WHERE
 DELETE FROM awscc.batch.job_queues
 WHERE
   Identifier = '{{ job_queue_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

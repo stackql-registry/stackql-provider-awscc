@@ -171,7 +171,7 @@ SELECT
   arn
 FROM awscc.iot.certificate_providers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_provider_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   certificate_provider_name
 FROM awscc.iot.certificate_providers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ WHERE
 DELETE FROM awscc.iot.certificate_providers
 WHERE
   Identifier = '{{ certificate_provider_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>delivery</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>deliveries</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>This structure contains information about one delivery in your account.<br />A delivery is a connection between a logical delivery source and a logical delivery destination.<br />For more information, see &#91;CreateDelivery&#93;(https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API&#95;CreateDelivery.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>This structure contains information about one delivery in your account.</summary>A delivery is a connection between a logical delivery source and a logical delivery destination.<br />For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateDelivery.html">CreateDelivery</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.deliveries" /></td></tr>
 </tbody>
 </table>
@@ -196,7 +196,7 @@ SELECT
   s3_enable_hive_compatible_path
 FROM awscc.logs.deliveries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ delivery_id }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   delivery_id
 FROM awscc.logs.deliveries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -328,7 +328,7 @@ WHERE
 DELETE FROM awscc.logs.deliveries
 WHERE
   Identifier = '{{ delivery_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

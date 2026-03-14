@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
 <tbody>
 <tr><td><b>Name</b></td><td><code>stages</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Stage&#96;&#96; resource creates a stage for a deployment.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Stage</code> resource creates a stage for a deployment.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.stages" /></td></tr>
 </tbody>
 </table>
@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
   {
     "name": "access_log_setting",
     "type": "object",
-    "description": "The &#96;&#96;AccessLogSetting&#96;&#96; property type specifies settings for logging access in this stage.<br />&#96;&#96;AccessLogSetting&#96;&#96; is a property of the &#91;AWS::ApiGateway::Stage&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html) resource.",
+    "description": "<details><summary>The <code>AccessLogSetting</code> property type specifies settings for logging access in this stage.</summary><code>AccessLogSetting</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html\">AWS::ApiGateway::Stage</a> resource.</details>",
     "children": [
       {
         "name": "destination_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with &#96;&#96;amazon-apigateway-&#96;&#96;. This parameter is required to enable access logging."
+        "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with <code>amazon-apigateway-</code>. This parameter is required to enable access logging."
       },
       {
         "name": "format",
         "type": "string",
-        "description": "A single line format of the access logs of data, as specified by selected &#91;$context variables&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference). The format must include at least &#96;&#96;$context.requestId&#96;&#96;. This parameter is required to enable access logging."
+        "description": "A single line format of the access logs of data, as specified by selected <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference\">$context variables</a>. The format must include at least <code>$context.requestId</code>. This parameter is required to enable access logging."
       }
     ]
   },
@@ -145,7 +145,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
       {
         "name": "http_method",
         "type": "string",
-        "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+        "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
       },
       {
         "name": "logging_level",
@@ -160,7 +160,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
       {
         "name": "resource_path",
         "type": "string",
-        "description": "The resource path for this method. Forward slashes (&#96;&#96;/&#96;&#96;) are encoded as &#96;&#96;&#126;1&#96;&#96; and the initial slash must include a forward slash. For example, the path value &#96;&#96;/resource/subresource&#96;&#96; must be encoded as &#96;&#96;/&#126;1resource&#126;1subresource&#96;&#96;. To specify the root path, use only a slash (&#96;&#96;/&#96;&#96;). To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+        "description": "The resource path for this method. Forward slashes (<code>/</code>) are encoded as <code>~1</code> and the initial slash must include a forward slash. For example, the path value <code>/resource/subresource</code> must be encoded as <code>/~1resource~1subresource</code>. To specify the root path, use only a slash (<code>/</code>). To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
       },
       {
         "name": "throttling_burst_limit",
@@ -209,7 +209,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
   {
     "name": "variables",
     "type": "object",
-    "description": "A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: &#96;&#96;&#91;A-Za-z0-9-.&#95;&#126;:/?#&=,&#93;+&#96;&#96;."
+    "description": "A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: <code>[A-Za-z0-9-._~:/?#&=,]+</code>."
   },
   {
     "name": "region",
@@ -316,7 +316,7 @@ SELECT
   variables
 FROM awscc.apigateway.stages
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ stage_name }}';
 ```
 </TabItem>
@@ -330,7 +330,7 @@ SELECT
   stage_name
 FROM awscc.apigateway.stages_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -497,7 +497,7 @@ WHERE
 DELETE FROM awscc.apigateway.stages
 WHERE
   Identifier = '{{ rest_api_id }}|{{ stage_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

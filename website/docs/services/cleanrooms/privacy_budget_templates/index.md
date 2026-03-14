@@ -218,7 +218,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.privacy_budget_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.privacy_budget_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -345,7 +345,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.privacy_budget_templates
 WHERE
   Identifier = '{{ privacy_budget_template_identifier }}|{{ membership_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

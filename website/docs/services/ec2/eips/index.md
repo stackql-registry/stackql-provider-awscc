@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>eip</code> resource or lists <code>ei
 <tbody>
 <tr><td><b>Name</b></td><td><code>eips</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies an Elastic IP (EIP) address and can, optionally, associate it with an Amazon EC2 instance.<br />You can allocate an Elastic IP address from an address pool owned by AWS or from an address pool created from a public IPv4 address range that you have brought to AWS for use with your AWS resources using bring your own IP addresses (BYOIP). For more information, see &#91;Bring Your Own IP Addresses (BYOIP)&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html) in the &#42;Amazon EC2 User Guide&#42;.<br />For more information, see &#91;Elastic IP Addresses&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) in the &#42;Amazon EC2 User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies an Elastic IP (EIP) address and can, optionally, associate it with an Amazon EC2 instance.</summary>You can allocate an Elastic IP address from an address pool owned by AWS or from an address pool created from a public IPv4 address range that you have brought to AWS for use with your AWS resources using bring your own IP addresses (BYOIP). For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon EC2 User Guide</i>.<br />For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic IP Addresses</a> in the <i>Amazon EC2 User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.eips" /></td></tr>
 </tbody>
 </table>
@@ -56,27 +56,27 @@ Creates, updates, deletes or gets an <code>eip</code> resource or lists <code>ei
   {
     "name": "domain",
     "type": "string",
-    "description": "The network (&#96;&#96;vpc&#96;&#96;).<br />If you define an Elastic IP address and associate it with a VPC that is defined in the same template, you must declare a dependency on the VPC-gateway attachment by using the &#91;DependsOn Attribute&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) on this resource."
+    "description": "<details><summary>The network (<code>vpc</code>).</summary>If you define an Elastic IP address and associate it with a VPC that is defined in the same template, you must declare a dependency on the VPC-gateway attachment by using the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html\">DependsOn Attribute</a> on this resource.</details>"
   },
   {
     "name": "network_border_group",
     "type": "string",
-    "description": "A unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network border groups.<br />Use &#91;DescribeAvailabilityZones&#93;(https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API&#95;DescribeAvailabilityZones.html) to view the network border groups."
+    "description": "<details><summary>A unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network border groups.</summary>Use <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeAvailabilityZones.html\">DescribeAvailabilityZones</a> to view the network border groups.</details>"
   },
   {
     "name": "transfer_address",
     "type": "string",
-    "description": "The Elastic IP address you are accepting for transfer. You can only accept one transferred address. For more information on Elastic IP address transfers, see &#91;Transfer Elastic IP addresses&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#transfer-EIPs-intro) in the &#42;Amazon Virtual Private Cloud User Guide&#42;."
+    "description": "The Elastic IP address you are accepting for transfer. You can only accept one transferred address. For more information on Elastic IP address transfers, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#transfer-EIPs-intro\">Transfer Elastic IP addresses</a> in the <i>Amazon Virtual Private Cloud User Guide</i>."
   },
   {
     "name": "instance_id",
     "type": "string",
-    "description": "The ID of the instance.<br />Updates to the &#96;&#96;InstanceId&#96;&#96; property may require &#42;some interruptions&#42;. Updates on an EIP reassociates the address on its associated resource."
+    "description": "<details><summary>The ID of the instance.</summary>Updates to the <code>InstanceId</code> property may require <i>some interruptions</i>. Updates on an EIP reassociates the address on its associated resource.</details>"
   },
   {
     "name": "public_ipv4_pool",
     "type": "string",
-    "description": "The ID of an address pool that you own. Use this parameter to let Amazon EC2 select an address from the address pool.<br />Updates to the &#96;&#96;PublicIpv4Pool&#96;&#96; property may require &#42;some interruptions&#42;. Updates on an EIP reassociates the address on its associated resource."
+    "description": "<details><summary>The ID of an address pool that you own. Use this parameter to let Amazon EC2 select an address from the address pool.</summary>Updates to the <code>PublicIpv4Pool</code> property may require <i>some interruptions</i>. Updates on an EIP reassociates the address on its associated resource.</details>"
   },
   {
     "name": "ipam_pool_id",
@@ -91,7 +91,7 @@ Creates, updates, deletes or gets an <code>eip</code> resource or lists <code>ei
   {
     "name": "tags",
     "type": "array",
-    "description": "Any tags assigned to the Elastic IP address.<br />Updates to the &#96;&#96;Tags&#96;&#96; property may require &#42;some interruptions&#42;. Updates on an EIP reassociates the address on its associated resource.",
+    "description": "<details><summary>Any tags assigned to the Elastic IP address.</summary>Updates to the <code>Tags</code> property may require <i>some interruptions</i>. Updates on an EIP reassociates the address on its associated resource.</details>",
     "children": [
       {
         "name": "key",
@@ -206,7 +206,7 @@ SELECT
   tags
 FROM awscc.ec2.eips
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ public_ip }}|{{ allocation_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   allocation_id
 FROM awscc.ec2.eips_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +353,7 @@ WHERE
 DELETE FROM awscc.ec2.eips
 WHERE
   Identifier = '{{ public_ip }}|{{ allocation_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

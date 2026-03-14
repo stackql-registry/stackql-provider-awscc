@@ -90,7 +90,7 @@ SELECT
   application_arn
 FROM awscc.appstream.application_fleet_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ fleet_name }}|{{ application_arn }}';
 ```
 
@@ -166,7 +166,7 @@ resources:
 DELETE FROM awscc.appstream.application_fleet_associations
 WHERE
   Identifier = '{{ fleet_name }}|{{ application_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

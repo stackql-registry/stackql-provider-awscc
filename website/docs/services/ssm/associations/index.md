@@ -273,7 +273,7 @@ SELECT
   automation_target_parameter_name
 FROM awscc.ssm.associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_id }}';
 ```
 </TabItem>
@@ -286,7 +286,7 @@ SELECT
   association_id
 FROM awscc.ssm.associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -460,7 +460,7 @@ WHERE
 DELETE FROM awscc.ssm.associations
 WHERE
   Identifier = '{{ association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

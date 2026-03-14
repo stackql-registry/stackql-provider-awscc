@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>function_configuration</code> resource
   {
     "name": "code",
     "type": "string",
-    "description": "The resolver code that contains the request and response functions. When code is used, the runtime is required. The runtime value must be APPSYNC&#95;JS."
+    "description": "The resolver code that contains the request and response functions. When code is used, the runtime is required. The runtime value must be APPSYNC_JS."
   },
   {
     "name": "code_s3_location",
@@ -121,12 +121,12 @@ Creates, updates, deletes or gets a <code>function_configuration</code> resource
       {
         "name": "runtime_version",
         "type": "string",
-        "description": "The &#96;&#96;version&#96;&#96; of the runtime to use. Currently, the only allowed version is &#96;&#96;1.0.0&#96;&#96;."
+        "description": "The <code>version</code> of the runtime to use. Currently, the only allowed version is <code>1.0.0</code>."
       },
       {
         "name": "name",
         "type": "string",
-        "description": "The &#96;&#96;name&#96;&#96; of the runtime to use. Currently, the only allowed value is &#96;&#96;APPSYNC&#95;JS&#96;&#96;."
+        "description": "The <code>name</code> of the runtime to use. Currently, the only allowed value is <code>APPSYNC_JS</code>."
       }
     ]
   },
@@ -138,17 +138,17 @@ Creates, updates, deletes or gets a <code>function_configuration</code> resource
       {
         "name": "conflict_handler",
         "type": "string",
-        "description": "The Conflict Resolution strategy to perform in the event of a conflict.<br />+ &#42;OPTIMISTIC&#95;CONCURRENCY&#42;: Resolve conflicts by rejecting mutations when versions don't match the latest version at the server.<br />+ &#42;AUTOMERGE&#42;: Resolve conflicts with the Automerge conflict resolution strategy.<br />+ &#42;LAMBDA&#42;: Resolve conflicts with an LAMlong function supplied in the &#96;&#96;LambdaConflictHandlerConfig&#96;&#96;."
+        "description": "<details><summary>The Conflict Resolution strategy to perform in the event of a conflict.</summary>+  <i>OPTIMISTIC_CONCURRENCY</i>: Resolve conflicts by rejecting mutations when versions don't match the latest version at the server.<br />+  <i>AUTOMERGE</i>: Resolve conflicts with the Automerge conflict resolution strategy.<br />+  <i>LAMBDA</i>: Resolve conflicts with an LAMlong function supplied in the <code>LambdaConflictHandlerConfig</code>.</details>"
       },
       {
         "name": "conflict_detection",
         "type": "string",
-        "description": "The Conflict Detection strategy to use.<br />+ &#42;VERSION&#42;: Detect conflicts based on object versions for this resolver.<br />+ &#42;NONE&#42;: Do not detect conflicts when invoking this resolver."
+        "description": "<details><summary>The Conflict Detection strategy to use.</summary>+  <i>VERSION</i>: Detect conflicts based on object versions for this resolver.<br />+  <i>NONE</i>: Do not detect conflicts when invoking this resolver.</details>"
       },
       {
         "name": "lambda_conflict_handler_config",
         "type": "object",
-        "description": "The &#96;&#96;LambdaConflictHandlerConfig&#96;&#96; when configuring &#96;&#96;LAMBDA&#96;&#96; as the Conflict Handler.",
+        "description": "The <code>LambdaConflictHandlerConfig</code> when configuring <code>LAMBDA</code> as the Conflict Handler.",
         "children": [
           {
             "name": "lambda_conflict_handler_arn",
@@ -261,7 +261,7 @@ SELECT
   sync_config
 FROM awscc.appsync.function_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ function_arn }}';
 ```
 </TabItem>
@@ -274,7 +274,7 @@ SELECT
   function_arn
 FROM awscc.appsync.function_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -434,7 +434,7 @@ WHERE
 DELETE FROM awscc.appsync.function_configurations
 WHERE
   Identifier = '{{ function_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

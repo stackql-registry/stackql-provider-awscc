@@ -186,7 +186,7 @@ SELECT
   principal_entity_type
 FROM awscc.verifiedpermissions.identity_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identity_source_id }}|{{ policy_store_id }}';
 ```
 </TabItem>
@@ -200,7 +200,7 @@ SELECT
   policy_store_id
 FROM awscc.verifiedpermissions.identity_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.verifiedpermissions.identity_sources
 WHERE
   Identifier = '{{ identity_source_id }}|{{ policy_store_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

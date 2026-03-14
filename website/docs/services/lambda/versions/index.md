@@ -184,7 +184,7 @@ SELECT
   runtime_policy
 FROM awscc.lambda.versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ function_arn }}';
 ```
 </TabItem>
@@ -197,7 +197,7 @@ SELECT
   function_arn
 FROM awscc.lambda.versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +287,7 @@ resources:
 DELETE FROM awscc.lambda.versions
 WHERE
   Identifier = '{{ function_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

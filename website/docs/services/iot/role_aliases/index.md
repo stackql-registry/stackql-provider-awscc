@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.iot.role_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ role_alias }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   role_alias
 FROM awscc.iot.role_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +286,7 @@ WHERE
 DELETE FROM awscc.iot.role_aliases
 WHERE
   Identifier = '{{ role_alias }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

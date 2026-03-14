@@ -191,7 +191,7 @@ SELECT
   cluster_status
 FROM awscc.redshift.endpoint_authorizations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_identifier }}|{{ account }}';
 ```
 </TabItem>
@@ -205,7 +205,7 @@ SELECT
   account
 FROM awscc.redshift.endpoint_authorizations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +307,7 @@ WHERE
 DELETE FROM awscc.redshift.endpoint_authorizations
 WHERE
   Identifier = '{{ cluster_identifier }}|{{ account }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

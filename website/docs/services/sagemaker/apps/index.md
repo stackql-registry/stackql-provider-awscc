@@ -232,7 +232,7 @@ SELECT
   recovery_mode
 FROM awscc.sagemaker.apps
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
 ```
 </TabItem>
@@ -248,7 +248,7 @@ SELECT
   user_profile_name
 FROM awscc.sagemaker.apps_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +371,7 @@ WHERE
 DELETE FROM awscc.sagemaker.apps
 WHERE
   Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

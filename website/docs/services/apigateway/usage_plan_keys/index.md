@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>usage_plan_key</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>usage_plan_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::UsagePlanKey&#96;&#96; resource associates an API key with a usage plan. This association determines which users the usage plan is applied to.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::UsagePlanKey</code> resource associates an API key with a usage plan. This association determines which users the usage plan is applied to.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.usage_plan_keys" /></td></tr>
 </tbody>
 </table>
@@ -147,7 +147,7 @@ SELECT
   id
 FROM awscc.apigateway.usage_plan_keys
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   id
 FROM awscc.apigateway.usage_plan_keys_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -243,7 +243,7 @@ resources:
 DELETE FROM awscc.apigateway.usage_plan_keys
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -158,7 +158,7 @@ SELECT
   state_reason
 FROM awscc.ec2.security_group_vpc_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ group_id }}|{{ vpc_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.security_group_vpc_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.ec2.security_group_vpc_associations
 WHERE
   Identifier = '{{ group_id }}|{{ vpc_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -183,7 +183,7 @@ SELECT
   model_package_group_status
 FROM awscc.sagemaker.model_package_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ model_package_group_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   model_package_group_arn
 FROM awscc.sagemaker.model_package_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.sagemaker.model_package_groups
 WHERE
   Identifier = '{{ model_package_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

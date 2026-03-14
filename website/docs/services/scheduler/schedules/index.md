@@ -449,7 +449,7 @@ SELECT
   target
 FROM awscc.scheduler.schedules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -462,7 +462,7 @@ SELECT
   name
 FROM awscc.scheduler.schedules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -651,7 +651,7 @@ WHERE
 DELETE FROM awscc.scheduler.schedules
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

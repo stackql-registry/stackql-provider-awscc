@@ -726,7 +726,7 @@ SELECT
   user_pool_tier
 FROM awscc.cognito.user_pools
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}';
 ```
 </TabItem>
@@ -739,7 +739,7 @@ SELECT
   user_pool_id
 FROM awscc.cognito.user_pools_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1098,7 +1098,7 @@ WHERE
 DELETE FROM awscc.cognito.user_pools
 WHERE
   Identifier = '{{ user_pool_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

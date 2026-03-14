@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.healthimaging.datastores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   datastore_id
 FROM awscc.healthimaging.datastores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +263,7 @@ resources:
 DELETE FROM awscc.healthimaging.datastores
 WHERE
   Identifier = '{{ datastore_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

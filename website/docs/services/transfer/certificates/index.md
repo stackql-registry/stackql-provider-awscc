@@ -236,7 +236,7 @@ SELECT
   not_after_date
 FROM awscc.transfer.certificates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_id }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   certificate_id
 FROM awscc.transfer.certificates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +371,7 @@ WHERE
 DELETE FROM awscc.transfer.certificates
 WHERE
   Identifier = '{{ certificate_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

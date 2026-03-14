@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>simple_ad</code> resource or lists <co
   {
     "name": "dns_ip_addresses",
     "type": "array",
-    "description": "The IP addresses of the DNS servers for the directory, such as &#91; \"172.31.3.154\", \"172.31.63.203\" &#93;."
+    "description": "The IP addresses of the DNS servers for the directory, such as [ \"172.31.3.154\", \"172.31.63.203\" ]."
   },
   {
     "name": "create_alias",
@@ -207,7 +207,7 @@ SELECT
   vpc_settings
 FROM awscc.directoryservice.simple_ads
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ directory_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   directory_id
 FROM awscc.directoryservice.simple_ads_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +341,7 @@ WHERE
 DELETE FROM awscc.directoryservice.simple_ads
 WHERE
   Identifier = '{{ directory_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

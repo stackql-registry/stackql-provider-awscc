@@ -487,7 +487,7 @@ SELECT
   snapshot_copy_configurations
 FROM awscc.redshiftserverless.namespaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ namespace_name }}';
 ```
 </TabItem>
@@ -500,7 +500,7 @@ SELECT
   namespace_name
 FROM awscc.redshiftserverless.namespaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -667,7 +667,7 @@ WHERE
 DELETE FROM awscc.redshiftserverless.namespaces
 WHERE
   Identifier = '{{ namespace_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

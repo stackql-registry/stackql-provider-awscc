@@ -207,7 +207,7 @@ SELECT
   arn
 FROM awscc.ec2.prefix_lists
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ prefix_list_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   prefix_list_id
 FROM awscc.ec2.prefix_lists_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -332,7 +332,7 @@ WHERE
 DELETE FROM awscc.ec2.prefix_lists
 WHERE
   Identifier = '{{ prefix_list_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

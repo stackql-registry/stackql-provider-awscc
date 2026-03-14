@@ -158,7 +158,7 @@ SELECT
   version_id
 FROM awscc.glue.schema_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ version_id }}';
 ```
 </TabItem>
@@ -171,7 +171,7 @@ SELECT
   version_id
 FROM awscc.glue.schema_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +251,7 @@ resources:
 DELETE FROM awscc.glue.schema_versions
 WHERE
   Identifier = '{{ version_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

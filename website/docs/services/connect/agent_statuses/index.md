@@ -201,7 +201,7 @@ SELECT
   last_modified_time
 FROM awscc.connect.agent_statuses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ agent_status_arn }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   agent_status_arn
 FROM awscc.connect.agent_statuses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>

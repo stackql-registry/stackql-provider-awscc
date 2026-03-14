@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>cloud_front_origin_access_identity</co
 <tbody>
 <tr><td><b>Name</b></td><td><code>cloud_front_origin_access_identities</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The request to create a new origin access identity (OAI). An origin access identity is a special CloudFront user that you can associate with Amazon S3 origins, so that you can secure all or just some of your Amazon S3 content. For more information, see &#91;Restricting Access to Amazon S3 Content by Using an Origin Access Identity&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The request to create a new origin access identity (OAI). An origin access identity is a special CloudFront user that you can associate with Amazon S3 origins, so that you can secure all or just some of your Amazon S3 content. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html">Restricting Access to Amazon S3 Content by Using an Origin Access Identity</a> in the <i>Amazon CloudFront Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.cloud_front_origin_access_identities" /></td></tr>
 </tbody>
 </table>

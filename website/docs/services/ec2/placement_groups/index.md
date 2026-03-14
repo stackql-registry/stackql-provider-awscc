@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>placement_group</code> resource or lis
   {
     "name": "partition_count",
     "type": "integer",
-    "description": "The number of partitions. Valid only when &#42;&#42;Strategy&#42;&#42; is set to &#96;partition&#96;"
+    "description": "The number of partitions. Valid only when <b>Strategy</b> is set to <code>partition</code>"
   },
   {
     "name": "tags",
@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.ec2.placement_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ group_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   group_name
 FROM awscc.ec2.placement_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +269,7 @@ resources:
 DELETE FROM awscc.ec2.placement_groups
 WHERE
   Identifier = '{{ group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -231,7 +231,7 @@ SELECT
   tags
 FROM awscc.ec2.transit_gateway_connect_peers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```
 </TabItem>
@@ -244,7 +244,7 @@ SELECT
   transit_gateway_connect_peer_id
 FROM awscc.ec2.transit_gateway_connect_peers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +353,7 @@ WHERE
 DELETE FROM awscc.ec2.transit_gateway_connect_peers
 WHERE
   Identifier = '{{ transit_gateway_connect_peer_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

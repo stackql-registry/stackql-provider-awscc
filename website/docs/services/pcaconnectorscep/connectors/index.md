@@ -188,7 +188,7 @@ SELECT
   tags
 FROM awscc.pcaconnectorscep.connectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
@@ -201,7 +201,7 @@ SELECT
   connector_arn
 FROM awscc.pcaconnectorscep.connectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +295,7 @@ WHERE
 DELETE FROM awscc.pcaconnectorscep.connectors
 WHERE
   Identifier = '{{ connector_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

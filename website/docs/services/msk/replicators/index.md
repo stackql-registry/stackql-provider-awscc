@@ -193,7 +193,7 @@ Creates, updates, deletes or gets a <code>replicator</code> resource or lists <c
           {
             "name": "synchronise_consumer_group_offsets",
             "type": "boolean",
-            "description": "Whether to periodically write the translated offsets to &#95;&#95;consumer&#95;offsets topic in target cluster."
+            "description": "Whether to periodically write the translated offsets to __consumer_offsets topic in target cluster."
           },
           {
             "name": "detect_and_copy_new_consumer_groups",
@@ -320,7 +320,7 @@ SELECT
   tags
 FROM awscc.msk.replicators
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ replicator_arn }}';
 ```
 </TabItem>
@@ -333,7 +333,7 @@ SELECT
   replicator_arn
 FROM awscc.msk.replicators_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -476,7 +476,7 @@ WHERE
 DELETE FROM awscc.msk.replicators
 WHERE
   Identifier = '{{ replicator_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

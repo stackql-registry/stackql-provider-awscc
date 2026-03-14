@@ -741,7 +741,7 @@ SELECT
   spot_fleet_request_config_data
 FROM awscc.ec2.spot_fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -754,7 +754,7 @@ SELECT
   id
 FROM awscc.ec2.spot_fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -977,7 +977,7 @@ resources:
 DELETE FROM awscc.ec2.spot_fleets
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

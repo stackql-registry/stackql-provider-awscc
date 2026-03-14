@@ -212,7 +212,7 @@ SELECT
   updated_at
 FROM awscc.qbusiness.retrievers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   retriever_id
 FROM awscc.qbusiness.retrievers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +343,7 @@ WHERE
 DELETE FROM awscc.qbusiness.retrievers
 WHERE
   Identifier = '{{ application_id }}|{{ retriever_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

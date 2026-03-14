@@ -301,7 +301,7 @@ SELECT
   tags
 FROM awscc.imagebuilder.image_pipelines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -314,7 +314,7 @@ SELECT
   arn
 FROM awscc.imagebuilder.image_pipelines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -506,7 +506,7 @@ WHERE
 DELETE FROM awscc.imagebuilder.image_pipelines
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

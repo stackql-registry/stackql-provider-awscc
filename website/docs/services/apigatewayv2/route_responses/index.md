@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>route_response</code> resource or list
 <tbody>
 <tr><td><b>Name</b></td><td><code>route_responses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::RouteResponse&#96;&#96; resource creates a route response for a WebSocket API. For more information, see &#91;Set up Route Responses for a WebSocket API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-route-response.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::RouteResponse</code> resource creates a route response for a WebSocket API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-route-response.html">Set up Route Responses for a WebSocket API in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.route_responses" /></td></tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ SELECT
   route_response_id
 FROM awscc.apigatewayv2.route_responses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   route_response_id
 FROM awscc.apigatewayv2.route_responses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +309,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.route_responses
 WHERE
   Identifier = '{{ api_id }}|{{ route_id }}|{{ route_response_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

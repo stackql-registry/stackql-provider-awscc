@@ -171,7 +171,7 @@ SELECT
   vpc_information
 FROM awscc.pcaconnectorad.connectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_arn }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   connector_arn
 FROM awscc.pcaconnectorad.connectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ WHERE
 DELETE FROM awscc.pcaconnectorad.connectors
 WHERE
   Identifier = '{{ connector_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

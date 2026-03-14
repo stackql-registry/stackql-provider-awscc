@@ -235,7 +235,7 @@ SELECT
   tags
 FROM awscc.iotwireless.wireless_device_import_tasks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -248,7 +248,7 @@ SELECT
   id
 FROM awscc.iotwireless.wireless_device_import_tasks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -352,7 +352,7 @@ WHERE
 DELETE FROM awscc.iotwireless.wireless_device_import_tasks
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

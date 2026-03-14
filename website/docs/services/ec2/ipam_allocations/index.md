@@ -163,7 +163,7 @@ SELECT
   description
 FROM awscc.ec2.ipam_allocations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   cidr
 FROM awscc.ec2.ipam_allocations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +261,7 @@ resources:
 DELETE FROM awscc.ec2.ipam_allocations
 WHERE
   Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

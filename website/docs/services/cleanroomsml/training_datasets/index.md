@@ -274,7 +274,7 @@ SELECT
   status
 FROM awscc.cleanroomsml.training_datasets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ training_dataset_arn }}';
 ```
 </TabItem>
@@ -287,7 +287,7 @@ SELECT
   training_dataset_arn
 FROM awscc.cleanroomsml.training_datasets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +406,7 @@ WHERE
 DELETE FROM awscc.cleanroomsml.training_datasets
 WHERE
   Identifier = '{{ training_dataset_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

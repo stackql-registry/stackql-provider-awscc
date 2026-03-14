@@ -220,7 +220,7 @@ SELECT
   access_grants_location_configuration
 FROM awscc.s3.access_grants
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ access_grant_id }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   access_grant_id
 FROM awscc.s3.access_grants_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +356,7 @@ WHERE
 DELETE FROM awscc.s3.access_grants
 WHERE
   Identifier = '{{ access_grant_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -101,7 +101,7 @@ SELECT
   c_ss
 FROM awscc.cognito.user_poolui_customization_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
@@ -196,7 +196,7 @@ WHERE
 DELETE FROM awscc.cognito.user_poolui_customization_attachments
 WHERE
   Identifier = '{{ user_pool_id }}|{{ client_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

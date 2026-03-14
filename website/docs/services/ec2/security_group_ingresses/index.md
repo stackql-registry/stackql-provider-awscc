@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>security_group_ingress</code> resource
   {
     "name": "cidr_ipv6",
     "type": "string",
-    "description": "&#91;VPC only&#93; The IPv6 ranges"
+    "description": "[VPC only] The IPv6 ranges"
   },
   {
     "name": "description",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>security_group_ingress</code> resource
   {
     "name": "from_port",
     "type": "integer",
-    "description": "The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of -1 indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.<br />Use this for ICMP and any protocol that uses ports."
+    "description": "<details><summary>The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of -1 indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.</summary>Use this for ICMP and any protocol that uses ports.</details>"
   },
   {
     "name": "group_id",
     "type": "string",
-    "description": "The ID of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.<br />You must specify the GroupName property or the GroupId property. For security groups that are in a VPC, you must use the GroupId property."
+    "description": "<details><summary>The ID of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.</summary>You must specify the GroupName property or the GroupId property. For security groups that are in a VPC, you must use the GroupId property.</details>"
   },
   {
     "name": "group_name",
@@ -81,12 +81,12 @@ Creates, updates, deletes or gets a <code>security_group_ingress</code> resource
   {
     "name": "ip_protocol",
     "type": "string",
-    "description": "The IP protocol name (tcp, udp, icmp, icmpv6) or number (see Protocol Numbers).<br />&#91;VPC only&#93; Use -1 to specify all protocols. When authorizing security group rules, specifying -1 or a protocol number other than tcp, udp, icmp, or icmpv6 allows traffic on all ports, regardless of any port range you specify. For tcp, udp, and icmp, you must specify a port range. For icmpv6, the port range is optional; if you omit the port range, traffic for all types and codes is allowed."
+    "description": "<details><summary>The IP protocol name (tcp, udp, icmp, icmpv6) or number (see Protocol Numbers).</summary>[VPC only] Use -1 to specify all protocols. When authorizing security group rules, specifying -1 or a protocol number other than tcp, udp, icmp, or icmpv6 allows traffic on all ports, regardless of any port range you specify. For tcp, udp, and icmp, you must specify a port range. For icmpv6, the port range is optional; if you omit the port range, traffic for all types and codes is allowed.</details>"
   },
   {
     "name": "source_prefix_list_id",
     "type": "string",
-    "description": "&#91;EC2-VPC only&#93; The ID of a prefix list.<br />"
+    "description": "[EC2-VPC only] The ID of a prefix list."
   },
   {
     "name": "source_security_group_id",
@@ -96,17 +96,17 @@ Creates, updates, deletes or gets a <code>security_group_ingress</code> resource
   {
     "name": "source_security_group_name",
     "type": "string",
-    "description": "&#91;EC2-Classic, default VPC&#93; The name of the source security group.<br />You must specify the GroupName property or the GroupId property. For security groups that are in a VPC, you must use the GroupId property."
+    "description": "<details><summary>[EC2-Classic, default VPC] The name of the source security group.</summary>You must specify the GroupName property or the GroupId property. For security groups that are in a VPC, you must use the GroupId property.</details>"
   },
   {
     "name": "source_security_group_owner_id",
     "type": "string",
-    "description": "&#91;nondefault VPC&#93; The AWS account ID that owns the source security group. You can't specify this property with an IP address range.<br />If you specify SourceSecurityGroupName or SourceSecurityGroupId and that security group is owned by a different account than the account creating the stack, you must specify the SourceSecurityGroupOwnerId; otherwise, this property is optional."
+    "description": "<details><summary>[nondefault VPC] The AWS account ID that owns the source security group. You can't specify this property with an IP address range.</summary>If you specify SourceSecurityGroupName or SourceSecurityGroupId and that security group is owned by a different account than the account creating the stack, you must specify the SourceSecurityGroupOwnerId; otherwise, this property is optional.</details>"
   },
   {
     "name": "to_port",
     "type": "integer",
-    "description": "The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of -1 indicates all ICMP/ICMPv6 codes for the specified ICMP type. If you specify all ICMP/ICMPv6 types, you must specify all codes.<br />Use this for ICMP and any protocol that uses ports."
+    "description": "<details><summary>The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of -1 indicates all ICMP/ICMPv6 codes for the specified ICMP type. If you specify all ICMP/ICMPv6 types, you must specify all codes.</summary>Use this for ICMP and any protocol that uses ports.</details>"
   },
   {
     "name": "region",
@@ -207,7 +207,7 @@ SELECT
   to_port
 FROM awscc.ec2.security_group_ingresses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   id
 FROM awscc.ec2.security_group_ingresses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.ec2.security_group_ingresses
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

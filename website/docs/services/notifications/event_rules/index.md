@@ -183,7 +183,7 @@ SELECT
   status_summary_by_region
 FROM awscc.notifications.event_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   arn
 FROM awscc.notifications.event_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +306,7 @@ WHERE
 DELETE FROM awscc.notifications.event_rules
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

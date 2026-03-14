@@ -61,7 +61,7 @@ Creates, updates, deletes or gets an <code>aggregator_v2</code> resource or list
   {
     "name": "tags",
     "type": "object",
-    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
   },
   {
     "name": "region",
@@ -154,7 +154,7 @@ SELECT
   aggregation_region
 FROM awscc.securityhub.aggregator_v2s
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aggregator_v2_arn }}';
 ```
 </TabItem>
@@ -167,7 +167,7 @@ SELECT
   aggregator_v2_arn
 FROM awscc.securityhub.aggregator_v2s_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +266,7 @@ WHERE
 DELETE FROM awscc.securityhub.aggregator_v2s
 WHERE
   Identifier = '{{ aggregator_v2_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

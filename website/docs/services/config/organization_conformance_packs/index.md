@@ -183,7 +183,7 @@ SELECT
   excluded_accounts
 FROM awscc.config.organization_conformance_packs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ organization_conformance_pack_name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   organization_conformance_pack_name
 FROM awscc.config.organization_conformance_packs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +314,7 @@ WHERE
 DELETE FROM awscc.config.organization_conformance_packs
 WHERE
   Identifier = '{{ organization_conformance_pack_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

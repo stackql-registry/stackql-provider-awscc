@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.sagemaker.studio_lifecycle_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ studio_lifecycle_config_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   studio_lifecycle_config_name
 FROM awscc.sagemaker.studio_lifecycle_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ resources:
 DELETE FROM awscc.sagemaker.studio_lifecycle_configs
 WHERE
   Identifier = '{{ studio_lifecycle_config_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

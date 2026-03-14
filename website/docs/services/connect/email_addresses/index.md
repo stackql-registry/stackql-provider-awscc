@@ -182,7 +182,7 @@ SELECT
   tags
 FROM awscc.connect.email_addresses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ email_address_arn }}';
 ```
 </TabItem>
@@ -195,7 +195,7 @@ SELECT
   email_address_arn
 FROM awscc.connect.email_addresses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +304,7 @@ WHERE
 DELETE FROM awscc.connect.email_addresses
 WHERE
   Identifier = '{{ email_address_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>workgroup</code> resource or lists <co
   {
     "name": "config_parameters",
     "type": "array",
-    "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable&#95;user&#95;activity&#95;logging, query&#95;group, search&#95;path, max&#95;query&#95;execution&#95;time, and require&#95;ssl.",
+    "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable_user_activity_logging, query_group, search_path, max_query_execution_time, and require_ssl.",
     "children": [
       {
         "name": "parameter_key",
@@ -197,7 +197,7 @@ Creates, updates, deletes or gets a <code>workgroup</code> resource or lists <co
       {
         "name": "config_parameters",
         "type": "array",
-        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable&#95;user&#95;activity&#95;logging, query&#95;group, search&#95;path, max&#95;query&#95;execution&#95;time, and require&#95;ssl."
+        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable_user_activity_logging, query_group, search_path, max_query_execution_time, and require_ssl."
       },
       {
         "name": "security_group_ids",
@@ -299,7 +299,7 @@ Creates, updates, deletes or gets a <code>workgroup</code> resource or lists <co
       {
         "name": "config_parameters",
         "type": "array",
-        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable&#95;user&#95;activity&#95;logging, query&#95;group, search&#95;path, max&#95;query&#95;execution&#95;time, and require&#95;ssl."
+        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable_user_activity_logging, query_group, search_path, max_query_execution_time, and require_ssl."
       },
       {
         "name": "security_group_ids",
@@ -442,7 +442,7 @@ SELECT
   workgroup
 FROM awscc.redshiftserverless.workgroups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workgroup_name }}';
 ```
 </TabItem>
@@ -455,7 +455,7 @@ SELECT
   workgroup_name
 FROM awscc.redshiftserverless.workgroups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -653,7 +653,7 @@ WHERE
 DELETE FROM awscc.redshiftserverless.workgroups
 WHERE
   Identifier = '{{ workgroup_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

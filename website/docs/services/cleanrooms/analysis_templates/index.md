@@ -254,7 +254,7 @@ SELECT
   format
 FROM awscc.cleanrooms.analysis_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
@@ -268,7 +268,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.analysis_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +401,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.analysis_templates
 WHERE
   Identifier = '{{ analysis_template_identifier }}|{{ membership_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

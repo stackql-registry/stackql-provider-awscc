@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 <tbody>
 <tr><td><b>Name</b></td><td><code>applications</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates an Amazon Kinesis Data Analytics application. For information about creating a Kinesis Data Analytics application, see &#91;Creating an Application&#93;(https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html).</td></tr>
+<tr><td><b>Description</b></td><td>Creates an Amazon Kinesis Data Analytics application. For information about creating a Kinesis Data Analytics application, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating an Application</a>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.kinesisanalyticsv2.applications" /></td></tr>
 </tbody>
 </table>
@@ -95,7 +95,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
           {
             "name": "key_type",
             "type": "string",
-            "description": "Specifies whether application data is encrypted using service key: AWS&#95;OWNED&#95;KEY or customer key: CUSTOMER&#95;MANAGED&#95;KEY"
+            "description": "Specifies whether application data is encrypted using service key: AWS_OWNED_KEY or customer key: CUSTOMER_MANAGED_KEY"
           }
         ]
       },
@@ -160,7 +160,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "configuration_type",
                 "type": "string",
-                "description": "Describes whether the application uses Kinesis Data Analytics' default checkpointing behavior. You must set this property to &#96;CUSTOM&#96; in order to set the &#96;CheckpointingEnabled&#96;, &#96;CheckpointInterval&#96;, or &#96;MinPauseBetweenCheckpoints&#96; parameters."
+                "description": "Describes whether the application uses Kinesis Data Analytics' default checkpointing behavior. You must set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>, <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters."
               },
               {
                 "name": "checkpointing_enabled",
@@ -209,7 +209,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "configuration_type",
                 "type": "string",
-                "description": "Describes whether the application uses the default parallelism for the Kinesis Data Analytics service. You must set this property to &#96;CUSTOM&#96; in order to change your application's &#96;AutoScalingEnabled&#96;, &#96;Parallelism&#96;, or &#96;ParallelismPerKPU&#96; properties."
+                "description": "Describes whether the application uses the default parallelism for the Kinesis Data Analytics service. You must set this property to <code>CUSTOM</code> in order to change your application's <code>AutoScalingEnabled</code>, <code>Parallelism</code>, or <code>ParallelismPerKPU</code> properties."
               },
               {
                 "name": "parallelism_per_kp_u",
@@ -243,7 +243,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "name_prefix",
                 "type": "string",
-                "description": "The name prefix to use when creating an in-application stream. Suppose that you specify a prefix &#96;\"MyInApplicationStream\"&#96;. Kinesis Data Analytics then creates one or more (as per the InputParallelism count you specified) in-application streams with the names &#96;\"MyInApplicationStream&#95;001\"&#96;, &#96;\"MyInApplicationStream&#95;002\"&#96;, and so on."
+                "description": "The name prefix to use when creating an in-application stream. Suppose that you specify a prefix <code>\"MyInApplicationStream\"</code>. Kinesis Data Analytics then creates one or more (as per the InputParallelism count you specified) in-application streams with the names <code>\"MyInApplicationStream_001\"</code>, <code>\"MyInApplicationStream_002\"</code>, and so on."
               },
               {
                 "name": "input_schema",
@@ -299,7 +299,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "log_level",
                 "type": "string",
-                "description": "The verbosity of the CloudWatch Logs for an application. You can set it to &#96;INFO&#96;, &#96;WARN&#96;, &#96;ERROR&#96;, or &#96;DEBUG&#96;."
+                "description": "The verbosity of the CloudWatch Logs for an application. You can set it to <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>, or <code>DEBUG</code>."
               }
             ]
           },
@@ -323,7 +323,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "artifact_type",
                 "type": "string",
-                "description": "Set this to either &#96;UDF&#96; or &#96;DEPENDENCY&#95;JAR&#96;. &#96;UDF&#96; stands for user-defined functions. This type of artifact must be in an S3 bucket. A &#96;DEPENDENCY&#95;JAR&#96; can be in either Maven or an S3 bucket."
+                "description": "Set this to either <code>UDF</code> or <code>DEPENDENCY_JAR</code>. <code>UDF</code> stands for user-defined functions. This type of artifact must be in an S3 bucket. A <code>DEPENDENCY_JAR</code> can be in either Maven or an S3 bucket."
               },
               {
                 "name": "maven_reference",
@@ -366,7 +366,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
   {
     "name": "application_mode",
     "type": "string",
-    "description": "To create a Kinesis Data Analytics Studio notebook, you must set the mode to &#96;INTERACTIVE&#96;. However, for a Kinesis Data Analytics for Apache Flink application, the mode is optional."
+    "description": "To create a Kinesis Data Analytics Studio notebook, you must set the mode to <code>INTERACTIVE</code>. However, for a Kinesis Data Analytics for Apache Flink application, the mode is optional."
   },
   {
     "name": "application_name",
@@ -401,7 +401,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
           {
             "name": "snapshot_name",
             "type": "string",
-            "description": "The identifier of an existing snapshot of application state to use to restart an application. The application uses this value if RESTORE&#95;FROM&#95;CUSTOM&#95;SNAPSHOT is specified for the ApplicationRestoreType."
+            "description": "The identifier of an existing snapshot of application state to use to restart an application. The application uses this value if RESTORE_FROM_CUSTOM_SNAPSHOT is specified for the ApplicationRestoreType."
           }
         ]
       },
@@ -439,7 +439,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that's 1 to 128 Unicode characters in length and can't be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that's 1 to 128 Unicode characters in length and can't be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
@@ -543,7 +543,7 @@ SELECT
   tags
 FROM awscc.kinesisanalyticsv2.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_name }}';
 ```
 </TabItem>
@@ -556,7 +556,7 @@ SELECT
   application_name
 FROM awscc.kinesisanalyticsv2.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -773,7 +773,7 @@ WHERE
 DELETE FROM awscc.kinesisanalyticsv2.applications
 WHERE
   Identifier = '{{ application_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

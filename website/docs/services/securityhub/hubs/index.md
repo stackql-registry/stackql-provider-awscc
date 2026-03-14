@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>hub</code> resource or lists <code>hub
 <tbody>
 <tr><td><b>Name</b></td><td><code>hubs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The AWS::SecurityHub::Hub resource represents the implementation of the AWS Security Hub service in your account. One hub resource is created for each Region in which you enable Security Hub.<br /></td></tr>
+<tr><td><b>Description</b></td><td>The AWS::SecurityHub::Hub resource represents the implementation of the AWS Security Hub service in your account. One hub resource is created for each Region in which you enable Security Hub.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.securityhub.hubs" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>hub</code> resource or lists <code>hub
   {
     "name": "control_finding_generator",
     "type": "string",
-    "description": "This field, used when enabling Security Hub, specifies whether the calling account has consolidated control findings turned on. If the value for this field is set to SECURITY&#95;CONTROL, Security Hub generates a single finding for a control check even when the check applies to multiple enabled standards. If the value for this field is set to STANDARD&#95;CONTROL, Security Hub generates separate findings for a control check when the check applies to multiple enabled standards."
+    "description": "This field, used when enabling Security Hub, specifies whether the calling account has consolidated control findings turned on. If the value for this field is set to SECURITY_CONTROL, Security Hub generates a single finding for a control check even when the check applies to multiple enabled standards.  If the value for this field is set to STANDARD_CONTROL, Security Hub generates separate findings for a control check when the check applies to multiple enabled standards."
   },
   {
     "name": "auto_enable_controls",
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>hub</code> resource or lists <code>hub
   {
     "name": "tags",
     "type": "object",
-    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
   },
   {
     "name": "subscribed_at",
@@ -165,7 +165,7 @@ SELECT
   subscribed_at
 FROM awscc.securityhub.hubs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   arn
 FROM awscc.securityhub.hubs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ WHERE
 DELETE FROM awscc.securityhub.hubs
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

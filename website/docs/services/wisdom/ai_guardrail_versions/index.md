@@ -181,7 +181,7 @@ SELECT
   modified_time_seconds
 FROM awscc.wisdom.ai_guardrail_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   version_number
 FROM awscc.wisdom.ai_guardrail_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -277,7 +277,7 @@ resources:
 DELETE FROM awscc.wisdom.ai_guardrail_versions
 WHERE
   Identifier = '{{ assistant_id }}|{{ a_iguardrail_id }}|{{ version_number }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

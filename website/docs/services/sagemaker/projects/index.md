@@ -127,7 +127,7 @@ Creates, updates, deletes or gets a <code>project</code> resource or lists <code
   {
     "name": "service_catalog_provisioned_product_details",
     "type": "object",
-    "description": "Provisioned ServiceCatalog Details",
+    "description": "Provisioned ServiceCatalog  Details",
     "children": [
       {
         "name": "provisioned_product_id",
@@ -288,7 +288,7 @@ SELECT
   project_status
 FROM awscc.sagemaker.projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ project_arn }}';
 ```
 </TabItem>
@@ -301,7 +301,7 @@ SELECT
   project_arn
 FROM awscc.sagemaker.projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +424,7 @@ WHERE
 DELETE FROM awscc.sagemaker.projects
 WHERE
   Identifier = '{{ project_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.s3.access_grants_locations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ access_grants_location_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   access_grants_location_id
 FROM awscc.s3.access_grants_locations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +281,7 @@ WHERE
 DELETE FROM awscc.s3.access_grants_locations
 WHERE
   Identifier = '{{ access_grants_location_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -314,7 +314,7 @@ SELECT
   tags
 FROM awscc.ssm.patch_baselines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -327,7 +327,7 @@ SELECT
   id
 FROM awscc.ssm.patch_baselines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -501,7 +501,7 @@ WHERE
 DELETE FROM awscc.ssm.patch_baselines
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

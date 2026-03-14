@@ -1110,7 +1110,7 @@ SELECT
   tags
 FROM awscc.ec2.network_insights_analyses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ network_insights_analysis_id }}';
 ```
 </TabItem>
@@ -1123,7 +1123,7 @@ SELECT
   network_insights_analysis_id
 FROM awscc.ec2.network_insights_analyses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1231,7 +1231,7 @@ WHERE
 DELETE FROM awscc.ec2.network_insights_analyses
 WHERE
   Identifier = '{{ network_insights_analysis_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

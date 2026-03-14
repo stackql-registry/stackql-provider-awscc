@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.scheduler.schedule_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   name
 FROM awscc.scheduler.schedule_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +284,7 @@ WHERE
 DELETE FROM awscc.scheduler.schedule_groups
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

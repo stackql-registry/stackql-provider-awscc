@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.iot.software_packages
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ package_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   package_name
 FROM awscc.iot.software_packages_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +279,7 @@ WHERE
 DELETE FROM awscc.iot.software_packages
 WHERE
   Identifier = '{{ package_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

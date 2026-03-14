@@ -96,7 +96,7 @@ SELECT
   group_name
 FROM awscc.cognito.user_pool_user_to_group_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}';
 ```
 
@@ -178,7 +178,7 @@ resources:
 DELETE FROM awscc.cognito.user_pool_user_to_group_attachments
 WHERE
   Identifier = '{{ user_pool_id }}|{{ group_name }}|{{ username }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

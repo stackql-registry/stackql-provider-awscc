@@ -408,7 +408,7 @@ SELECT
   version_id
 FROM awscc.backup.backup_plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ backup_plan_id }}';
 ```
 </TabItem>
@@ -421,7 +421,7 @@ SELECT
   backup_plan_id
 FROM awscc.backup.backup_plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -535,7 +535,7 @@ WHERE
 DELETE FROM awscc.backup.backup_plans
 WHERE
   Identifier = '{{ backup_plan_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

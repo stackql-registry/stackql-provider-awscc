@@ -144,17 +144,17 @@ Creates, updates, deletes or gets a <code>processing_job</code> resource or list
           {
             "name": "local_path",
             "type": "string",
-            "description": "The local path in your container where you want Amazon SageMaker to write input data to. &#96;LocalPath&#96; is an absolute path to the input data and must begin with &#96;/opt/ml/processing/&#96;. LocalPath is a required parameter when &#96;AppManaged&#96; is &#96;False&#96; (default)."
+            "description": "The local path in your container where you want Amazon SageMaker to write input data to. <code>LocalPath</code> is an absolute path to the input data and must begin with <code>/opt/ml/processing/</code>. LocalPath is a required parameter when <code>AppManaged</code> is <code>False</code> (default)."
           },
           {
             "name": "s3_compression_type",
             "type": "string",
-            "description": "Whether to GZIP-decompress the data in Amazon S3 as it is streamed into the processing container. &#96;Gzip&#96; can only be used when &#96;Pipe&#96; mode is specified as the &#96;S3InputMode&#96;. In &#96;Pipe&#96; mode, Amazon SageMaker streams input data from the source directly to your container without using the EBS volume."
+            "description": "Whether to GZIP-decompress the data in Amazon S3 as it is streamed into the processing container. <code>Gzip</code> can only be used when <code>Pipe</code> mode is specified as the <code>S3InputMode</code>. In <code>Pipe</code> mode, Amazon SageMaker streams input data from the source directly to your container without using the EBS volume."
           },
           {
             "name": "s3_data_distribution_type",
             "type": "string",
-            "description": "Whether to distribute the data from Amazon S3 to all processing instances with &#96;FullyReplicated&#96;, or whether the data from Amazon S3 is shared by Amazon S3 key, downloading one shard of data to each processing instance."
+            "description": "Whether to distribute the data from Amazon S3 to all processing instances with <code>FullyReplicated</code>, or whether the data from Amazon S3 is shared by Amazon S3 key, downloading one shard of data to each processing instance."
           },
           {
             "name": "s3_data_type",
@@ -176,7 +176,7 @@ Creates, updates, deletes or gets a <code>processing_job</code> resource or list
       {
         "name": "dataset_definition",
         "type": "object",
-        "description": "Configuration for Dataset Definition inputs. The Dataset Definition input must specify exactly one of either &#96;AthenaDatasetDefinition&#96; or &#96;RedshiftDatasetDefinition&#96; types.",
+        "description": "Configuration for Dataset Definition inputs. The Dataset Definition input must specify exactly one of either <code>AthenaDatasetDefinition</code> or <code>RedshiftDatasetDefinition</code> types.",
         "children": [
           {
             "name": "athena_dataset_definition",
@@ -599,7 +599,7 @@ SELECT
   processing_end_time
 FROM awscc.sagemaker.processing_jobs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ processing_job_arn }}';
 ```
 </TabItem>
@@ -612,7 +612,7 @@ SELECT
   processing_job_arn
 FROM awscc.sagemaker.processing_jobs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -793,7 +793,7 @@ resources:
 DELETE FROM awscc.sagemaker.processing_jobs
 WHERE
   Identifier = '{{ processing_job_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

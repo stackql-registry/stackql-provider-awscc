@@ -181,7 +181,7 @@ SELECT
   template_type
 FROM awscc.deadline.queue_environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   queue_environment_id
 FROM awscc.deadline.queue_environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +308,7 @@ WHERE
 DELETE FROM awscc.deadline.queue_environments
 WHERE
   Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

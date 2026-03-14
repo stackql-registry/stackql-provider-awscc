@@ -204,7 +204,7 @@ SELECT
   tags
 FROM awscc.panorama.packages
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ package_id }}';
 ```
 </TabItem>
@@ -217,7 +217,7 @@ SELECT
   package_id
 FROM awscc.panorama.packages_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +318,7 @@ WHERE
 DELETE FROM awscc.panorama.packages
 WHERE
   Identifier = '{{ package_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

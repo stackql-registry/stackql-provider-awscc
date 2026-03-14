@@ -166,7 +166,7 @@ SELECT
   instance_reuse_policy
 FROM awscc.autoscaling.warm_pools
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ auto_scaling_group_name }}';
 ```
 </TabItem>
@@ -179,7 +179,7 @@ SELECT
   auto_scaling_group_name
 FROM awscc.autoscaling.warm_pools_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ WHERE
 DELETE FROM awscc.autoscaling.warm_pools
 WHERE
   Identifier = '{{ auto_scaling_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

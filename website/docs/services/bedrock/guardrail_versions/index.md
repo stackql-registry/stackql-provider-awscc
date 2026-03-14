@@ -108,7 +108,7 @@ SELECT
   version
 FROM awscc.bedrock.guardrail_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ guardrail_id }}|{{ version }}';
 ```
 
@@ -182,7 +182,7 @@ resources:
 DELETE FROM awscc.bedrock.guardrail_versions
 WHERE
   Identifier = '{{ guardrail_id }}|{{ version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -141,7 +141,7 @@ SELECT
   version_id
 FROM awscc.supportapp.slack_workspace_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ team_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   team_id
 FROM awscc.supportapp.slack_workspace_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -244,7 +244,7 @@ WHERE
 DELETE FROM awscc.supportapp.slack_workspace_configurations
 WHERE
   Identifier = '{{ team_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

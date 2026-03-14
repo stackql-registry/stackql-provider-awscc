@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>api_mapping</code> resource or lists 
 <tbody>
 <tr><td><b>Name</b></td><td><code>api_mappings</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::ApiMapping&#96;&#96; resource contains an API mapping. An API mapping relates a path of your custom domain name to a stage of your API. A custom domain name can have multiple API mappings, but the paths can't overlap. A custom domain can map only to APIs of the same protocol type. For more information, see &#91;CreateApiMapping&#93;(https://docs.aws.amazon.com/apigatewayv2/latest/api-reference/domainnames-domainname-apimappings.html#CreateApiMapping) in the &#42;Amazon API Gateway V2 API Reference&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::ApiMapping</code> resource contains an API mapping. An API mapping relates a path of your custom domain name to a stage of your API. A custom domain name can have multiple API mappings, but the paths can't overlap. A custom domain can map only to APIs of the same protocol type. For more information, see <a href="https://docs.aws.amazon.com/apigatewayv2/latest/api-reference/domainnames-domainname-apimappings.html#CreateApiMapping">CreateApiMapping</a> in the <i>Amazon API Gateway V2 API Reference</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.api_mappings" /></td></tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ SELECT
   api_id
 FROM awscc.apigatewayv2.api_mappings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_mapping_id }}|{{ domain_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   domain_name
 FROM awscc.apigatewayv2.api_mappings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +282,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.api_mappings
 WHERE
   Identifier = '{{ api_mapping_id }}|{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

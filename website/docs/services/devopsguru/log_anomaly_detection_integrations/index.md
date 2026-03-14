@@ -135,7 +135,7 @@ SELECT
   account_id
 FROM awscc.devopsguru.log_anomaly_detection_integrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}';
 ```
 </TabItem>
@@ -148,7 +148,7 @@ SELECT
   account_id
 FROM awscc.devopsguru.log_anomaly_detection_integrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -217,7 +217,7 @@ resources:
 DELETE FROM awscc.devopsguru.log_anomaly_detection_integrations
 WHERE
   Identifier = '{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

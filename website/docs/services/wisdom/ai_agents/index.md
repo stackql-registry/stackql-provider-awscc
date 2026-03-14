@@ -194,7 +194,7 @@ SELECT
   modified_time_seconds
 FROM awscc.wisdom.ai_agents
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   assistant_id
 FROM awscc.wisdom.ai_agents_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.wisdom.ai_agents
 WHERE
   Identifier = '{{ a_iagent_id }}|{{ assistant_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

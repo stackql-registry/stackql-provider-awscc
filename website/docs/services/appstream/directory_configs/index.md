@@ -177,7 +177,7 @@ SELECT
   certificate_based_auth_properties
 FROM awscc.appstream.directory_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ directory_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   directory_name
 FROM awscc.appstream.directory_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.appstream.directory_configs
 WHERE
   Identifier = '{{ directory_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

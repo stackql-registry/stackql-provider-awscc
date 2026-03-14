@@ -226,7 +226,7 @@ SELECT
   tags
 FROM awscc.iotwireless.partner_accounts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ partner_account_id }}';
 ```
 </TabItem>
@@ -239,7 +239,7 @@ SELECT
   partner_account_id
 FROM awscc.iotwireless.partner_accounts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +373,7 @@ WHERE
 DELETE FROM awscc.iotwireless.partner_accounts
 WHERE
   Identifier = '{{ partner_account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

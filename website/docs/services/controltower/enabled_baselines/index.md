@@ -194,7 +194,7 @@ SELECT
   tags
 FROM awscc.controltower.enabled_baselines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ enabled_baseline_identifier }}';
 ```
 </TabItem>
@@ -207,7 +207,7 @@ SELECT
   enabled_baseline_identifier
 FROM awscc.controltower.enabled_baselines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.controltower.enabled_baselines
 WHERE
   Identifier = '{{ enabled_baseline_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

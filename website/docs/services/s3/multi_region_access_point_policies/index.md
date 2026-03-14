@@ -113,7 +113,7 @@ SELECT
   policy_status
 FROM awscc.s3.multi_region_access_point_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ mrap_name }}';
 ```
 
@@ -204,7 +204,7 @@ WHERE
 DELETE FROM awscc.s3.multi_region_access_point_policies
 WHERE
   Identifier = '{{ mrap_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

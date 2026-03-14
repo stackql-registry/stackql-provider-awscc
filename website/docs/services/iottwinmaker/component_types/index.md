@@ -237,7 +237,7 @@ SELECT
   tags
 FROM awscc.iottwinmaker.component_types
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```
 </TabItem>
@@ -251,7 +251,7 @@ SELECT
   component_type_id
 FROM awscc.iottwinmaker.component_types_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +383,7 @@ WHERE
 DELETE FROM awscc.iottwinmaker.component_types
 WHERE
   Identifier = '{{ workspace_id }}|{{ component_type_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

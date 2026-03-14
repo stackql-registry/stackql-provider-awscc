@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.iot.policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   id
 FROM awscc.iot.policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +281,7 @@ WHERE
 DELETE FROM awscc.iot.policies
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

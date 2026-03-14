@@ -798,7 +798,7 @@ SELECT
   tags
 FROM awscc.iot.topic_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_name }}';
 ```
 </TabItem>
@@ -811,7 +811,7 @@ SELECT
   rule_name
 FROM awscc.iot.topic_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1063,7 +1063,7 @@ WHERE
 DELETE FROM awscc.iot.topic_rules
 WHERE
   Identifier = '{{ rule_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

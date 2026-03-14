@@ -266,7 +266,7 @@ SELECT
   inference_scheduler_arn
 FROM awscc.lookoutequipment.inference_schedulers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ inference_scheduler_name }}';
 ```
 </TabItem>
@@ -279,7 +279,7 @@ SELECT
   inference_scheduler_name
 FROM awscc.lookoutequipment.inference_schedulers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -423,7 +423,7 @@ WHERE
 DELETE FROM awscc.lookoutequipment.inference_schedulers
 WHERE
   Identifier = '{{ inference_scheduler_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

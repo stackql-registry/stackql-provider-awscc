@@ -177,7 +177,7 @@ SELECT
   target_arn
 FROM awscc.logs.destinations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ destination_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   destination_name
 FROM awscc.logs.destinations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.logs.destinations
 WHERE
   Identifier = '{{ destination_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -243,7 +243,7 @@ SELECT
   app_block_arns
 FROM awscc.appstream.app_block_builders
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -256,7 +256,7 @@ SELECT
   name
 FROM awscc.appstream.app_block_builders_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +406,7 @@ WHERE
 DELETE FROM awscc.appstream.app_block_builders
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

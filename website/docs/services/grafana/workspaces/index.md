@@ -213,7 +213,7 @@ Creates, updates, deletes or gets a <code>workspace</code> resource or lists <co
   {
     "name": "account_access_type",
     "type": "string",
-    "description": "These enums represent valid account access types. Specifically these enums determine whether the workspace can access AWS resources in the AWS account only, or whether it can also access resources in other accounts in the same organization. If the value CURRENT&#95;ACCOUNT is used, a workspace role ARN must be provided. If the value is ORGANIZATION, a list of organizational units must be provided."
+    "description": "These enums represent valid account access types. Specifically these enums determine whether the workspace can access AWS resources in the AWS account only, or whether it can also access resources in other accounts in the same organization. If the value CURRENT_ACCOUNT is used, a workspace role ARN must be provided. If the value is ORGANIZATION, a list of organizational units must be provided."
   },
   {
     "name": "organization_role_name",
@@ -223,7 +223,7 @@ Creates, updates, deletes or gets a <code>workspace</code> resource or lists <co
   {
     "name": "permission_type",
     "type": "string",
-    "description": "These enums represent valid permission types to use when creating or configuring a Grafana workspace. The SERVICE&#95;MANAGED permission type means the Managed Grafana service will create a workspace IAM role on your behalf. The CUSTOMER&#95;MANAGED permission type means that the customer is expected to provide an IAM role that the Grafana workspace can use to query data sources."
+    "description": "These enums represent valid permission types to use when creating or configuring a Grafana workspace. The SERVICE_MANAGED permission type means the Managed Grafana service will create a workspace IAM role on your behalf. The CUSTOMER_MANAGED permission type means that the customer is expected to provide an IAM role that the Grafana workspace can use to query data sources."
   },
   {
     "name": "stack_set_name",
@@ -380,7 +380,7 @@ SELECT
   plugin_admin_enabled
 FROM awscc.grafana.workspaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -393,7 +393,7 @@ SELECT
   id
 FROM awscc.grafana.workspaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -592,7 +592,7 @@ WHERE
 DELETE FROM awscc.grafana.workspaces
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

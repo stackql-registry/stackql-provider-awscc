@@ -135,7 +135,7 @@ SELECT
   security_configuration
 FROM awscc.emr.security_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -148,7 +148,7 @@ SELECT
   name
 FROM awscc.emr.security_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -223,7 +223,7 @@ resources:
 DELETE FROM awscc.emr.security_configurations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

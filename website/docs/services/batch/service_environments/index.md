@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.batch.service_environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ service_environment_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   service_environment_arn
 FROM awscc.batch.service_environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.batch.service_environments
 WHERE
   Identifier = '{{ service_environment_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -340,7 +340,7 @@ SELECT
   arn
 FROM awscc.transfer.workflows
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workflow_id }}';
 ```
 </TabItem>
@@ -353,7 +353,7 @@ SELECT
   workflow_id
 FROM awscc.transfer.workflows_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -487,7 +487,7 @@ WHERE
 DELETE FROM awscc.transfer.workflows
 WHERE
   Identifier = '{{ workflow_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

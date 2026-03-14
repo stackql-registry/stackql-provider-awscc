@@ -177,7 +177,7 @@ SELECT
   client_side_timestamps_enabled
 FROM awscc.cassandra.keyspaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ keyspace_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   keyspace_name
 FROM awscc.cassandra.keyspaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +295,7 @@ WHERE
 DELETE FROM awscc.cassandra.keyspaces
 WHERE
   Identifier = '{{ keyspace_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

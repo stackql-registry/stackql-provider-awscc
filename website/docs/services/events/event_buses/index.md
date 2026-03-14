@@ -214,7 +214,7 @@ SELECT
   log_config
 FROM awscc.events.event_buses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -227,7 +227,7 @@ SELECT
   name
 FROM awscc.events.event_buses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -352,7 +352,7 @@ WHERE
 DELETE FROM awscc.events.event_buses
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

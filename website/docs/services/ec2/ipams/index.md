@@ -123,7 +123,7 @@ Creates, updates, deletes or gets an <code>ipam</code> resource or lists <code>i
       {
         "name": "organizations_entity_path",
         "type": "string",
-        "description": "An AWS Organizations entity path. Build the path for the OU(s) using AWS Organizations IDs separated by a '/'. Include all child OUs by ending the path with '/&#42;'."
+        "description": "An AWS Organizations entity path. Build the path for the OU(s) using AWS Organizations IDs separated by a '/'. Include all child OUs by ending the path with '/*'."
       }
     ]
   },
@@ -245,7 +245,7 @@ SELECT
   tags
 FROM awscc.ec2.ipams
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_id }}';
 ```
 </TabItem>
@@ -258,7 +258,7 @@ SELECT
   ipam_id
 FROM awscc.ec2.ipams_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +378,7 @@ WHERE
 DELETE FROM awscc.ec2.ipams
 WHERE
   Identifier = '{{ ipam_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

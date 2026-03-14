@@ -234,7 +234,7 @@ SELECT
   type
 FROM awscc.datazone.connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ connection_id }}';
 ```
 </TabItem>
@@ -248,7 +248,7 @@ SELECT
   connection_id
 FROM awscc.datazone.connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -364,7 +364,7 @@ WHERE
 DELETE FROM awscc.datazone.connections
 WHERE
   Identifier = '{{ domain_id }}|{{ connection_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

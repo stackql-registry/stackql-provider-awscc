@@ -119,7 +119,7 @@ SELECT
   enable_monitoring_dashboard
 FROM awscc.networkfirewall.logging_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ firewall_arn }}';
 ```
 
@@ -223,7 +223,7 @@ WHERE
 DELETE FROM awscc.networkfirewall.logging_configurations
 WHERE
   Identifier = '{{ firewall_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

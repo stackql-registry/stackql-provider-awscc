@@ -206,7 +206,7 @@ SELECT
   validation_window_hours
 FROM awscc.backup.restore_testing_selections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   restore_testing_selection_name
 FROM awscc.backup.restore_testing_selections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.backup.restore_testing_selections
 WHERE
   Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

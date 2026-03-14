@@ -157,7 +157,7 @@ SELECT
   integration_type
 FROM awscc.connect.integration_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   integration_arn
 FROM awscc.connect.integration_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +255,7 @@ resources:
 DELETE FROM awscc.connect.integration_associations
 WHERE
   Identifier = '{{ instance_id }}|{{ integration_type }}|{{ integration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

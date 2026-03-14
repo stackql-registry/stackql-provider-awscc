@@ -232,7 +232,7 @@ SELECT
   tags
 FROM awscc.m2.environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ environment_arn }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   environment_arn
 FROM awscc.m2.environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -395,7 +395,7 @@ WHERE
 DELETE FROM awscc.m2.environments
 WHERE
   Identifier = '{{ environment_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

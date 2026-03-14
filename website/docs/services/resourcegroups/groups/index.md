@@ -248,7 +248,7 @@ SELECT
   resources
 FROM awscc.resourcegroups.groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -261,7 +261,7 @@ SELECT
   name
 FROM awscc.resourcegroups.groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +388,7 @@ WHERE
 DELETE FROM awscc.resourcegroups.groups
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

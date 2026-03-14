@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.workspacesweb.browser_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ browser_settings_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   browser_settings_arn
 FROM awscc.workspacesweb.browser_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.browser_settings
 WHERE
   Identifier = '{{ browser_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

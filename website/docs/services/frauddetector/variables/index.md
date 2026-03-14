@@ -201,7 +201,7 @@ SELECT
   last_updated_time
 FROM awscc.frauddetector.variables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   arn
 FROM awscc.frauddetector.variables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +337,7 @@ WHERE
 DELETE FROM awscc.frauddetector.variables
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

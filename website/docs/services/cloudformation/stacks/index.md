@@ -301,7 +301,7 @@ SELECT
   creation_time
 FROM awscc.cloudformation.stacks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ stack_id }}';
 ```
 </TabItem>
@@ -314,7 +314,7 @@ SELECT
   stack_id
 FROM awscc.cloudformation.stacks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -473,7 +473,7 @@ WHERE
 DELETE FROM awscc.cloudformation.stacks
 WHERE
   Identifier = '{{ stack_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

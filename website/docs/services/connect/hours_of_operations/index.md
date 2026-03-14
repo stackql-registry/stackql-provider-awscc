@@ -269,7 +269,7 @@ SELECT
   hours_of_operation_overrides
 FROM awscc.connect.hours_of_operations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ hours_of_operation_arn }}';
 ```
 </TabItem>
@@ -282,7 +282,7 @@ SELECT
   hours_of_operation_arn
 FROM awscc.connect.hours_of_operations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +422,7 @@ WHERE
 DELETE FROM awscc.connect.hours_of_operations
 WHERE
   Identifier = '{{ hours_of_operation_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

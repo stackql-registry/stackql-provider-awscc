@@ -160,7 +160,7 @@ SELECT
   network_source
 FROM awscc.mediaconnect.bridge_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
@@ -269,7 +269,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.bridge_sources
 WHERE
   Identifier = '{{ bridge_arn }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -171,7 +171,7 @@ SELECT
   arn
 FROM awscc.iot.certificates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   id
 FROM awscc.iot.certificates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +286,7 @@ WHERE
 DELETE FROM awscc.iot.certificates
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

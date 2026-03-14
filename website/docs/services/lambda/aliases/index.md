@@ -197,7 +197,7 @@ SELECT
   name
 FROM awscc.lambda.aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alias_arn }}';
 ```
 </TabItem>
@@ -210,7 +210,7 @@ SELECT
   alias_arn
 FROM awscc.lambda.aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ WHERE
 DELETE FROM awscc.lambda.aliases
 WHERE
   Identifier = '{{ alias_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

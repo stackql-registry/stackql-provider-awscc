@@ -384,7 +384,7 @@ SELECT
   replica_specifications
 FROM awscc.cassandra.tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ keyspace_name }}|{{ table_name }}';
 ```
 </TabItem>
@@ -398,7 +398,7 @@ SELECT
   table_name
 FROM awscc.cassandra.tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -577,7 +577,7 @@ WHERE
 DELETE FROM awscc.cassandra.tables
 WHERE
   Identifier = '{{ keyspace_name }}|{{ table_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

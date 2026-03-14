@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ project_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   project_id
 FROM awscc.iotsitewise.projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +306,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.projects
 WHERE
   Identifier = '{{ project_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

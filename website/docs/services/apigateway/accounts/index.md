@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>account</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>accounts</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Account&#96;&#96; resource specifies the IAM role that Amazon API Gateway uses to write API logs to Amazon CloudWatch Logs. To avoid overwriting other roles, you should only have one &#96;&#96;AWS::ApiGateway::Account&#96;&#96; resource per region per account.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Account</code> resource specifies the IAM role that Amazon API Gateway uses to write API logs to Amazon CloudWatch Logs. To avoid overwriting other roles, you should only have one <code>AWS::ApiGateway::Account</code> resource per region per account.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.accounts" /></td></tr>
 </tbody>
 </table>
@@ -95,7 +95,7 @@ SELECT
   cloud_watch_role_arn
 FROM awscc.apigateway.accounts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 
@@ -180,7 +180,7 @@ WHERE
 DELETE FROM awscc.apigateway.accounts
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

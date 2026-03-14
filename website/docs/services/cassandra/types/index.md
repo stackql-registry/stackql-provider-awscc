@@ -188,7 +188,7 @@ SELECT
   keyspace_arn
 FROM awscc.cassandra.types
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ keyspace_name }}|{{ type_name }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   type_name
 FROM awscc.cassandra.types_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +287,7 @@ resources:
 DELETE FROM awscc.cassandra.types
 WHERE
   Identifier = '{{ keyspace_name }}|{{ type_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

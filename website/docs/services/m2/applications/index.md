@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.m2.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   application_arn
 FROM awscc.m2.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +310,7 @@ WHERE
 DELETE FROM awscc.m2.applications
 WHERE
   Identifier = '{{ application_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

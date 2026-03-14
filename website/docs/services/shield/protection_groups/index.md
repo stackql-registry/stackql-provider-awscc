@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>protection_group</code> resource or li
   {
     "name": "aggregation",
     "type": "string",
-    "description": "Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.<br />&#42; Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.<br />&#42; Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.<br />&#42; Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include Amazon CloudFront and origin resources for CloudFront distributions."
+    "description": "<details><summary>Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.</summary>* Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.<br />* Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.<br />* Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include Amazon CloudFront and origin resources for CloudFront distributions.</details>"
   },
   {
     "name": "pattern",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>protection_group</code> resource or li
   {
     "name": "members",
     "type": "array",
-    "description": "The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set &#96;Pattern&#96; to &#96;ARBITRARY&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+    "description": "The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set <code>Pattern</code> to <code>ARBITRARY</code> and you must not set it for any other <code>Pattern</code> setting."
   },
   {
     "name": "resource_type",
     "type": "string",
-    "description": "The resource type to include in the protection group. All protected resources of this type are included in the protection group. Newly protected resources of this type are automatically added to the group. You must set this when you set &#96;Pattern&#96; to &#96;BY&#95;RESOURCE&#95;TYPE&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+    "description": "The resource type to include in the protection group. All protected resources of this type are included in the protection group. Newly protected resources of this type are automatically added to the group. You must set this when you set <code>Pattern</code> to <code>BY_RESOURCE_TYPE</code> and you must not set it for any other <code>Pattern</code> setting."
   },
   {
     "name": "tags",

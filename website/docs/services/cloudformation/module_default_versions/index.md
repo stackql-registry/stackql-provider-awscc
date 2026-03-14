@@ -135,7 +135,7 @@ SELECT
   version_id
 FROM awscc.cloudformation.module_default_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -148,7 +148,7 @@ SELECT
   arn
 FROM awscc.cloudformation.module_default_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>rest_api</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>rest_apis</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::RestApi&#96;&#96; resource creates a REST API. For more information, see &#91;restapi:create&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;CreateRestApi.html) in the &#42;Amazon API Gateway REST API Reference&#42;.<br />On January 1, 2016, the Swagger Specification was donated to the &#91;OpenAPI initiative&#93;(https://docs.aws.amazon.com/https://www.openapis.org/), becoming the foundation of the OpenAPI Specification.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::ApiGateway::RestApi</code> resource creates a REST API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/API_CreateRestApi.html">restapi:create</a> in the <i>Amazon API Gateway REST API Reference</i>.</summary>On January 1, 2016, the Swagger Specification was donated to the <a href="https://docs.aws.amazon.com/https://www.openapis.org/">OpenAPI initiative</a>, becoming the foundation of the OpenAPI Specification.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.rest_apis" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>rest_api</code> resource or lists <cod
   {
     "name": "policy",
     "type": "object",
-    "description": "A policy document that contains the permissions for the &#96;&#96;RestApi&#96;&#96; resource. To set the ARN for the policy, use the &#96;&#96;!Join&#96;&#96; intrinsic function with &#96;&#96;\"\"&#96;&#96; as delimiter and values of &#96;&#96;\"execute-api:/\"&#96;&#96; and &#96;&#96;\"&#42;\"&#96;&#96;."
+    "description": "A policy document that contains the permissions for the <code>RestApi</code> resource. To set the ARN for the policy, use the <code>!Join</code> intrinsic function with <code>\"\"</code> as delimiter and values of <code>\"execute-api:/\"</code> and <code>\"*\"</code>."
   },
   {
     "name": "body_s3_location",
@@ -98,7 +98,7 @@ Creates, updates, deletes or gets a <code>rest_api</code> resource or lists <cod
   {
     "name": "mode",
     "type": "string",
-    "description": "This property applies only when you use OpenAPI to define your REST API. The &#96;&#96;Mode&#96;&#96; determines how API Gateway handles resource updates.<br />Valid values are &#96;&#96;overwrite&#96;&#96; or &#96;&#96;merge&#96;&#96;. <br />For &#96;&#96;overwrite&#96;&#96;, the new API definition replaces the existing one. The existing API identifier remains unchanged.<br />For &#96;&#96;merge&#96;&#96;, the new API definition is merged with the existing API.<br />If you don't specify this property, a default value is chosen. For REST APIs created before March 29, 2021, the default is &#96;&#96;overwrite&#96;&#96;. For REST APIs created after March 29, 2021, the new API definition takes precedence, but any container types such as endpoint configurations and binary media types are merged with the existing API. <br />Use the default mode to define top-level &#96;&#96;RestApi&#96;&#96; properties in addition to using OpenAPI. Generally, it's preferred to use API Gateway's OpenAPI extensions to model these properties."
+    "description": "<details><summary>This property applies only when you use OpenAPI to define your REST API. The <code>Mode</code> determines how API Gateway handles resource updates.</summary>Valid values are <code>overwrite</code> or <code>merge</code>.<br />For <code>overwrite</code>, the new API definition replaces the existing one. The existing API identifier remains unchanged.<br />For <code>merge</code>, the new API definition is merged with the existing API.<br />If you don't specify this property, a default value is chosen. For REST APIs created before March 29, 2021, the default is <code>overwrite</code>. For REST APIs created after March 29, 2021, the new API definition takes precedence, but any container types such as endpoint configurations and binary media types are merged with the existing API.<br />Use the default mode to define top-level <code>RestApi</code> properties in addition to using OpenAPI. Generally, it's preferred to use API Gateway's OpenAPI extensions to model these properties.</details>"
   },
   {
     "name": "rest_api_id",
@@ -138,7 +138,7 @@ Creates, updates, deletes or gets a <code>rest_api</code> resource or lists <cod
   {
     "name": "endpoint_configuration",
     "type": "object",
-    "description": "A list of the endpoint types of the API. Use this property when creating an API. When importing an existing API, specify the endpoint configuration types using the &#96;&#96;Parameters&#96;&#96; property.",
+    "description": "A list of the endpoint types of the API. Use this property when creating an API. When importing an existing API, specify the endpoint configuration types using the <code>Parameters</code> property.",
     "children": [
       {
         "name": "ip_address_type",
@@ -282,7 +282,7 @@ SELECT
   tags
 FROM awscc.apigateway.rest_apis
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}';
 ```
 </TabItem>
@@ -295,7 +295,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.rest_apis_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -491,7 +491,7 @@ WHERE
 DELETE FROM awscc.apigateway.rest_apis
 WHERE
   Identifier = '{{ rest_api_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

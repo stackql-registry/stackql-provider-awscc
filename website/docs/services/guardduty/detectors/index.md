@@ -258,7 +258,7 @@ SELECT
   tags
 FROM awscc.guardduty.detectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -271,7 +271,7 @@ SELECT
   id
 FROM awscc.guardduty.detectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +392,7 @@ WHERE
 DELETE FROM awscc.guardduty.detectors
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

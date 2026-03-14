@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>vpn_gateway</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_gateways</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.</summary>For more information, see [](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the <i>User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_gateways" /></td></tr>
 </tbody>
 </table>
@@ -165,7 +165,7 @@ SELECT
   type
 FROM awscc.ec2.vpn_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ v_pn_gateway_id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   v_pn_gateway_id
 FROM awscc.ec2.vpn_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +274,7 @@ WHERE
 DELETE FROM awscc.ec2.vpn_gateways
 WHERE
   Identifier = '{{ v_pn_gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

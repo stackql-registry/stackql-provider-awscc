@@ -231,7 +231,7 @@ SELECT
   updated_at
 FROM awscc.bedrock.agent_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   agent_alias_id
 FROM awscc.bedrock.agent_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +353,7 @@ WHERE
 DELETE FROM awscc.bedrock.agent_aliases
 WHERE
   Identifier = '{{ agent_id }}|{{ agent_alias_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

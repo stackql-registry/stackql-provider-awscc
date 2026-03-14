@@ -335,7 +335,7 @@ SELECT
   incident_template
 FROM awscc.ssmincidents.response_plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -348,7 +348,7 @@ SELECT
   arn
 FROM awscc.ssmincidents.response_plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -501,7 +501,7 @@ WHERE
 DELETE FROM awscc.ssmincidents.response_plans
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.medialive.sdi_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   id
 FROM awscc.medialive.sdi_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +307,7 @@ WHERE
 DELETE FROM awscc.medialive.sdi_sources
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

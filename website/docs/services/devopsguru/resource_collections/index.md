@@ -172,7 +172,7 @@ SELECT
   resource_collection_type
 FROM awscc.devopsguru.resource_collections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_collection_type }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   resource_collection_type
 FROM awscc.devopsguru.resource_collections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +278,7 @@ WHERE
 DELETE FROM awscc.devopsguru.resource_collections
 WHERE
   Identifier = '{{ resource_collection_type }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

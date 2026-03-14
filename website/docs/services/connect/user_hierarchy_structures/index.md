@@ -213,7 +213,7 @@ SELECT
   user_hierarchy_structure
 FROM awscc.connect.user_hierarchy_structures
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_hierarchy_structure_arn }}';
 ```
 
@@ -322,7 +322,7 @@ WHERE
 DELETE FROM awscc.connect.user_hierarchy_structures
 WHERE
   Identifier = '{{ user_hierarchy_structure_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

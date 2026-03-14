@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>managed_notification_additional_channe
   {
     "name": "channel_arn",
     "type": "string",
-    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+    "description": "<details><summary>ARN identifier of the channel.</summary>Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</details>"
   },
   {
     "name": "managed_notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing"
+    "description": "<details><summary>ARN identifier of the Managed Notification.</summary>Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing</details>"
   },
   {
     "name": "region",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>managed_notification_additional_channe
   {
     "name": "channel_arn",
     "type": "string",
-    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+    "description": "<details><summary>ARN identifier of the channel.</summary>Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</details>"
   },
   {
     "name": "managed_notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing"
+    "description": "<details><summary>ARN identifier of the Managed Notification.</summary>Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing</details>"
   },
   {
     "name": "region",
@@ -140,7 +140,7 @@ SELECT
   managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.notifications.managed_notification_additional_channel_associations
 WHERE
   Identifier = '{{ channel_arn }}|{{ managed_notification_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

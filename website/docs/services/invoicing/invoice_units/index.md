@@ -196,7 +196,7 @@ SELECT
   resource_tags
 FROM awscc.invoicing.invoice_units
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ invoice_unit_arn }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   invoice_unit_arn
 FROM awscc.invoicing.invoice_units_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +326,7 @@ WHERE
 DELETE FROM awscc.invoicing.invoice_units
 WHERE
   Identifier = '{{ invoice_unit_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

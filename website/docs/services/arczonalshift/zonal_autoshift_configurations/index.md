@@ -181,7 +181,7 @@ SELECT
   resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_identifier }}';
 ```
 </TabItem>
@@ -194,7 +194,7 @@ SELECT
   resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.arczonalshift.zonal_autoshift_configurations
 WHERE
   Identifier = '{{ resource_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

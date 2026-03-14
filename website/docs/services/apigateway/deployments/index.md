@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 <tbody>
 <tr><td><b>Name</b></td><td><code>deployments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Deployment&#96;&#96; resource deploys an API Gateway &#96;&#96;RestApi&#96;&#96; resource to a stage so that clients can call the API over the internet. The stage acts as an environment.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Deployment</code> resource deploys an API Gateway <code>RestApi</code> resource to a stage so that clients can call the API over the internet. The stage acts as an environment.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.deployments" /></td></tr>
 </tbody>
 </table>
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
       {
         "name": "logging_level",
         "type": "string",
-        "description": "The logging level for this method. For valid values, see the &#96;&#96;loggingLevel&#96;&#96; property of the &#91;MethodSetting&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;MethodSetting.html) resource in the &#42;Amazon API Gateway API Reference&#42;."
+        "description": "The logging level for this method. For valid values, see the <code>loggingLevel</code> property of the <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/API_MethodSetting.html\">MethodSetting</a> resource in the <i>Amazon API Gateway API Reference</i>."
       },
       {
         "name": "canary_setting",
@@ -103,7 +103,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
       {
         "name": "throttling_rate_limit",
         "type": "number",
-        "description": "The target request steady-state rate limit. For more information, see &#91;Manage API Request Throttling&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html) in the &#42;API Gateway Developer Guide&#42;."
+        "description": "The target request steady-state rate limit. For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html\">Manage API Request Throttling</a> in the <i>API Gateway Developer Guide</i>."
       },
       {
         "name": "client_certificate_id",
@@ -113,7 +113,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
       {
         "name": "variables",
         "type": "object",
-        "description": "A map that defines the stage variables. Variable names must consist of alphanumeric characters, and the values must match the following regular expression: &#96;&#96;&#91;A-Za-z0-9-.&#95;&#126;:/?#&=,&#93;+&#96;&#96;."
+        "description": "A map that defines the stage variables. Variable names must consist of alphanumeric characters, and the values must match the following regular expression: <code>[A-Za-z0-9-._~:/?#&=,]+</code>."
       },
       {
         "name": "documentation_version",
@@ -133,17 +133,17 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
       {
         "name": "throttling_burst_limit",
         "type": "integer",
-        "description": "The target request burst rate limit. This allows more requests through for a period of time than the target rate limit. For more information, see &#91;Manage API Request Throttling&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html) in the &#42;API Gateway Developer Guide&#42;."
+        "description": "The target request burst rate limit. This allows more requests through for a period of time than the target rate limit. For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html\">Manage API Request Throttling</a> in the <i>API Gateway Developer Guide</i>."
       },
       {
         "name": "caching_enabled",
         "type": "boolean",
-        "description": "Indicates whether responses are cached and returned for requests. You must enable a cache cluster on the stage to cache responses. For more information, see &#91;Enable API Gateway Caching in a Stage to Enhance API Performance&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html) in the &#42;API Gateway Developer Guide&#42;."
+        "description": "Indicates whether responses are cached and returned for requests. You must enable a cache cluster on the stage to cache responses. For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html\">Enable API Gateway Caching in a Stage to Enhance API Performance</a> in the <i>API Gateway Developer Guide</i>."
       },
       {
         "name": "tracing_enabled",
         "type": "boolean",
-        "description": "Specifies whether active tracing with X-ray is enabled for this stage.<br />For more information, see &#91;Trace API Gateway API Execution with X-Ray&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-xray.html) in the &#42;API Gateway Developer Guide&#42;."
+        "description": "<details><summary>Specifies whether active tracing with X-ray is enabled for this stage.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-xray.html\">Trace API Gateway API Execution with X-Ray</a> in the <i>API Gateway Developer Guide</i>.</details>"
       },
       {
         "name": "method_settings",
@@ -173,7 +173,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
           {
             "name": "http_method",
             "type": "string",
-            "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+            "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
           },
           {
             "name": "logging_level",
@@ -188,7 +188,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
           {
             "name": "resource_path",
             "type": "string",
-            "description": "The resource path for this method. Forward slashes (&#96;&#96;/&#96;&#96;) are encoded as &#96;&#96;&#126;1&#96;&#96; and the initial slash must include a forward slash. For example, the path value &#96;&#96;/resource/subresource&#96;&#96; must be encoded as &#96;&#96;/&#126;1resource&#126;1subresource&#96;&#96;. To specify the root path, use only a slash (&#96;&#96;/&#96;&#96;). To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+            "description": "The resource path for this method. Forward slashes (<code>/</code>) are encoded as <code>~1</code> and the initial slash must include a forward slash. For example, the path value <code>/resource/subresource</code> must be encoded as <code>/~1resource~1subresource</code>. To specify the root path, use only a slash (<code>/</code>). To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
           },
           {
             "name": "throttling_burst_limit",
@@ -210,19 +210,19 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
           {
             "name": "destination_arn",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with &#96;&#96;amazon-apigateway-&#96;&#96;. This parameter is required to enable access logging."
+            "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with <code>amazon-apigateway-</code>. This parameter is required to enable access logging."
           },
           {
             "name": "format",
             "type": "string",
-            "description": "A single line format of the access logs of data, as specified by selected &#91;$context variables&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference). The format must include at least &#96;&#96;$context.requestId&#96;&#96;. This parameter is required to enable access logging."
+            "description": "A single line format of the access logs of data, as specified by selected <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference\">$context variables</a>. The format must include at least <code>$context.requestId</code>. This parameter is required to enable access logging."
           }
         ]
       },
       {
         "name": "cache_cluster_size",
         "type": "string",
-        "description": "The size of the stage's cache cluster. For more information, see &#91;cacheClusterSize&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;CreateStage.html#apigw-CreateStage-request-cacheClusterSize) in the &#42;API Gateway API Reference&#42;."
+        "description": "The size of the stage's cache cluster. For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/API_CreateStage.html#apigw-CreateStage-request-cacheClusterSize\">cacheClusterSize</a> in the <i>API Gateway API Reference</i>."
       },
       {
         "name": "metrics_enabled",
@@ -266,7 +266,7 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
   {
     "name": "deployment_canary_settings",
     "type": "object",
-    "description": "The &#96;&#96;DeploymentCanarySettings&#96;&#96; property type specifies settings for the canary deployment.",
+    "description": "The <code>DeploymentCanarySettings</code> property type specifies settings for the canary deployment.",
     "children": [
       {
         "name": "stage_variable_overrides",
@@ -382,7 +382,7 @@ SELECT
   deployment_canary_settings
 FROM awscc.apigateway.deployments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ deployment_id }}|{{ rest_api_id }}';
 ```
 </TabItem>
@@ -396,7 +396,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.deployments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -540,7 +540,7 @@ WHERE
 DELETE FROM awscc.apigateway.deployments
 WHERE
   Identifier = '{{ deployment_id }}|{{ rest_api_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

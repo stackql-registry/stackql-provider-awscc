@@ -195,7 +195,7 @@ SELECT
   generated_scene_metadata
 FROM awscc.iottwinmaker.scenes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   scene_id
 FROM awscc.iottwinmaker.scenes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -328,7 +328,7 @@ WHERE
 DELETE FROM awscc.iottwinmaker.scenes
 WHERE
   Identifier = '{{ workspace_id }}|{{ scene_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

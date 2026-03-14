@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_archives
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ archive_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   archive_id
 FROM awscc.ses.mail_manager_archives_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +304,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_archives
 WHERE
   Identifier = '{{ archive_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

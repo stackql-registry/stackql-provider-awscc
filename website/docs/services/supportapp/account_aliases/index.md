@@ -146,7 +146,7 @@ SELECT
   account_alias_resource_id
 FROM awscc.supportapp.account_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_alias_resource_id }}';
 ```
 </TabItem>
@@ -159,7 +159,7 @@ SELECT
   account_alias_resource_id
 FROM awscc.supportapp.account_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +245,7 @@ WHERE
 DELETE FROM awscc.supportapp.account_aliases
 WHERE
   Identifier = '{{ account_alias_resource_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

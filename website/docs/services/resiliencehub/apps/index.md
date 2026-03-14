@@ -283,7 +283,7 @@ SELECT
   drift_status
 FROM awscc.resiliencehub.apps
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ app_arn }}';
 ```
 </TabItem>
@@ -296,7 +296,7 @@ SELECT
   app_arn
 FROM awscc.resiliencehub.apps_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -442,7 +442,7 @@ WHERE
 DELETE FROM awscc.resiliencehub.apps
 WHERE
   Identifier = '{{ app_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

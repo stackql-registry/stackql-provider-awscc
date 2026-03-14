@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.iot.scheduled_audits
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ scheduled_audit_name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   scheduled_audit_name
 FROM awscc.iot.scheduled_audits_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +311,7 @@ WHERE
 DELETE FROM awscc.iot.scheduled_audits
 WHERE
   Identifier = '{{ scheduled_audit_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

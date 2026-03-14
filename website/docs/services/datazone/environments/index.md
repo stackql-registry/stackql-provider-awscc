@@ -278,7 +278,7 @@ SELECT
   user_parameters
 FROM awscc.datazone.environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
@@ -292,7 +292,7 @@ SELECT
   id
 FROM awscc.datazone.environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +424,7 @@ WHERE
 DELETE FROM awscc.datazone.environments
 WHERE
   Identifier = '{{ domain_id }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

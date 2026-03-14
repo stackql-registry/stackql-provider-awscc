@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "mode",
         "type": "string",
-        "description": "The client certificate handling method. Options are &#96;&#96;off&#96;&#96;, &#96;&#96;passthrough&#96;&#96; or &#96;&#96;verify&#96;&#96;. The default value is &#96;&#96;off&#96;&#96;."
+        "description": "The client certificate handling method. Options are <code>off</code>, <code>passthrough</code> or <code>verify</code>. The default value is <code>off</code>."
       },
       {
         "name": "trust_store_arn",
@@ -88,19 +88,19 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "key",
         "type": "string",
-        "description": "The name of the attribute.<br />The following attribute is supported by Network Load Balancers, and Gateway Load Balancers.<br />+ &#96;&#96;tcp.idle&#95;timeout.seconds&#96;&#96; - The tcp idle timeout value, in seconds. The valid range is 60-6000 seconds. The default is 350 seconds.<br /><br />The following attributes are only supported by Application Load Balancers.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert&#95;serial&#95;number.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert-Serial-Number&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert&#95;issuer.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert-Issuer&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert&#95;subject.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert-Subject&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert&#95;validity.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert-Validity&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert&#95;leaf.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert-Leaf&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;mtls&#95;clientcert.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Mtls-Clientcert&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;tls&#95;version.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Tls-Version&#42; HTTP request header.<br />+ &#96;&#96;routing.http.request.x&#95;amzn&#95;tls&#95;cipher&#95;suite.header&#95;name&#96;&#96; - Enables you to modify the header name of the &#42;X-Amzn-Tls-Cipher-Suite&#42; HTTP request header.<br />+ &#96;&#96;routing.http.response.server.enabled&#96;&#96; - Enables you to allow or remove the HTTP response server header.<br />+ &#96;&#96;routing.http.response.strict&#95;transport&#95;security.header&#95;value&#96;&#96; - Informs browsers that the site should only be accessed using HTTPS, and that any future attempts to access it using HTTP should automatically be converted to HTTPS.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;allow&#95;origin.header&#95;value&#96;&#96; - Specifies which origins are allowed to access the server.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;allow&#95;methods.header&#95;value&#96;&#96; - Returns which HTTP methods are allowed when accessing the server from a different origin.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;allow&#95;headers.header&#95;value&#96;&#96; - Specifies which headers can be used during the request.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;allow&#95;credentials.header&#95;value&#96;&#96; - Indicates whether the browser should include credentials such as cookies or authentication when making requests.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;expose&#95;headers.header&#95;value&#96;&#96; - Returns which headers the browser can expose to the requesting client.<br />+ &#96;&#96;routing.http.response.access&#95;control&#95;max&#95;age.header&#95;value&#96;&#96; - Specifies how long the results of a preflight request can be cached, in seconds.<br />+ &#96;&#96;routing.http.response.content&#95;security&#95;policy.header&#95;value&#96;&#96; - Specifies restrictions enforced by the browser to help minimize the risk of certain types of security threats.<br />+ &#96;&#96;routing.http.response.x&#95;content&#95;type&#95;options.header&#95;value&#96;&#96; - Indicates whether the MIME types advertised in the &#42;Content-Type&#42; headers should be followed and not be changed.<br />+ &#96;&#96;routing.http.response.x&#95;frame&#95;options.header&#95;value&#96;&#96; - Indicates whether the browser is allowed to render a page in a &#42;frame&#42;, &#42;iframe&#42;, &#42;embed&#42; or &#42;object&#42;."
+        "description": "<details><summary>The name of the attribute.</summary>The following attribute is supported by Network Load Balancers, and Gateway Load Balancers.<br />+  <code>tcp.idle_timeout.seconds</code> - The tcp idle timeout value, in seconds. The valid range is 60-6000 seconds. The default is 350 seconds.<br />The following attributes are only supported by Application Load Balancers.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert_serial_number.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert-Serial-Number</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert_issuer.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert-Issuer</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert_subject.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert-Subject</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert_validity.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert-Validity</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert_leaf.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert-Leaf</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_mtls_clientcert.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Mtls-Clientcert</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_tls_version.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Tls-Version</i> HTTP request header.<br />+  <code>routing.http.request.x_amzn_tls_cipher_suite.header_name</code> - Enables you to modify the header name of the <i>X-Amzn-Tls-Cipher-Suite</i> HTTP request header.<br />+  <code>routing.http.response.server.enabled</code> - Enables you to allow or remove the HTTP response server header.<br />+  <code>routing.http.response.strict_transport_security.header_value</code> - Informs browsers that the site should only be accessed using HTTPS, and that any future attempts to access it using HTTP should automatically be converted to HTTPS.<br />+  <code>routing.http.response.access_control_allow_origin.header_value</code> - Specifies which origins are allowed to access the server.<br />+  <code>routing.http.response.access_control_allow_methods.header_value</code> - Returns which HTTP methods are allowed when accessing the server from a different origin.<br />+  <code>routing.http.response.access_control_allow_headers.header_value</code> - Specifies which headers can be used during the request.<br />+  <code>routing.http.response.access_control_allow_credentials.header_value</code> - Indicates whether the browser should include credentials such as cookies or authentication when making requests.<br />+  <code>routing.http.response.access_control_expose_headers.header_value</code> - Returns which headers the browser can expose to the requesting client.<br />+  <code>routing.http.response.access_control_max_age.header_value</code> - Specifies how long the results of a preflight request can be cached, in seconds.<br />+  <code>routing.http.response.content_security_policy.header_value</code> - Specifies restrictions enforced by the browser to help minimize the risk of certain types of security threats.<br />+  <code>routing.http.response.x_content_type_options.header_value</code> - Indicates whether the MIME types advertised in the <i>Content-Type</i> headers should be followed and not be changed.<br />+  <code>routing.http.response.x_frame_options.header_value</code> - Indicates whether the browser is allowed to render a page in a <i>frame</i>, <i>iframe</i>, <i>embed</i> or <i>object</i>.</details>"
       }
     ]
   },
   {
     "name": "alpn_policy",
     "type": "array",
-    "description": "&#91;TLS listener&#93; The name of the Application-Layer Protocol Negotiation (ALPN) policy."
+    "description": "[TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy."
   },
   {
     "name": "ssl_policy",
     "type": "string",
-    "description": "&#91;HTTPS and TLS listeners&#93; The security policy that defines which protocols and ciphers are supported. For more information, see &#91;Security policies&#93;(https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html) in the &#42;Application Load Balancers Guide&#42; and &#91;Security policies&#93;(https://docs.aws.amazon.com/elasticloadbalancing/latest/network/describe-ssl-policies.html) in the &#42;Network Load Balancers Guide&#42;.<br />&#91;HTTPS listeners&#93; Updating the security policy can result in interruptions if the load balancer is handling a high volume of traffic. To decrease the possibility of an interruption if your load balancer is handling a high volume of traffic, create an additional load balancer or request an LCU reservation."
+    "description": "<details><summary>[HTTPS and TLS listeners] The security policy that defines which protocols and ciphers are supported. For more information, see <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html\">Security policies</a> in the <i>Application Load Balancers Guide</i> and <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/network/describe-ssl-policies.html\">Security policies</a> in the <i>Network Load Balancers Guide</i>.</summary>[HTTPS listeners] Updating the security policy can result in interruptions if the load balancer is handling a high volume of traffic. To decrease the possibility of an interruption if your load balancer is handling a high volume of traffic, create an additional load balancer or request an LCU reservation.</details>"
   },
   {
     "name": "load_balancer_arn",
@@ -110,7 +110,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
   {
     "name": "default_actions",
     "type": "array",
-    "description": "The actions for the default rule. You cannot define a condition for a default rule.<br />To create additional rules for an Application Load Balancer, use &#91;AWS::ElasticLoadBalancingV2::ListenerRule&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html).",
+    "description": "<details><summary>The actions for the default rule. You cannot define a condition for a default rule.</summary>To create additional rules for an Application Load Balancer, use <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html\">AWS::ElasticLoadBalancingV2::ListenerRule</a>.</details>",
     "children": [
       {
         "name": "order",
@@ -120,17 +120,17 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "target_group_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the target group. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;forward&#96;&#96; and you want to route to a single target group. To route to one or more target groups, use &#96;&#96;ForwardConfig&#96;&#96; instead."
+        "description": "The Amazon Resource Name (ARN) of the target group. Specify only when <code>Type</code> is <code>forward</code> and you want to route to a single target group. To route to one or more target groups, use <code>ForwardConfig</code> instead."
       },
       {
         "name": "fixed_response_config",
         "type": "object",
-        "description": "&#91;Application Load Balancer&#93; Information for creating an action that returns a custom HTTP response. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;fixed-response&#96;&#96;.",
+        "description": "[Application Load Balancer] Information for creating an action that returns a custom HTTP response. Specify only when <code>Type</code> is <code>fixed-response</code>.",
         "children": [
           {
             "name": "content_type",
             "type": "string",
-            "description": "The content type.<br />Valid Values: text/plain &#124; text/css &#124; text/html &#124; application/javascript &#124; application/json"
+            "description": "<details><summary>The content type.</summary>Valid Values: text/plain | text/css | text/html | application/javascript | application/json</details>"
           },
           {
             "name": "status_code",
@@ -147,12 +147,12 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "authenticate_cognito_config",
         "type": "object",
-        "description": "&#91;HTTPS listeners&#93; Information for using Amazon Cognito to authenticate users. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;authenticate-cognito&#96;&#96;.",
+        "description": "[HTTPS listeners] Information for using Amazon Cognito to authenticate users. Specify only when <code>Type</code> is <code>authenticate-cognito</code>.",
         "children": [
           {
             "name": "on_unauthenticated_request",
             "type": "string",
-            "description": "The behavior if the user is not authenticated. The following are possible values:<br />+ deny&#96;&#96;&#96;&#96; - Return an HTTP 401 Unauthorized error.<br />+ allow&#96;&#96;&#96;&#96; - Allow the request to be forwarded to the target.<br />+ authenticate&#96;&#96;&#96;&#96; - Redirect the request to the IdP authorization endpoint. This is the default value."
+            "description": "<details><summary>The behavior if the user is not authenticated. The following are possible values:</summary>+  deny`<code><code> - Return an HTTP 401 Unauthorized error.<br />+  allow</code><code> - Allow the request to be forwarded to the target.<br />+  authenticate</code></code>` - Redirect the request to the IdP authorization endpoint. This is the default value.</details>"
           },
           {
             "name": "user_pool_client_id",
@@ -172,7 +172,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
           {
             "name": "scope",
             "type": "string",
-            "description": "The set of user claims to be requested from the IdP. The default is &#96;&#96;openid&#96;&#96;.<br />To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP."
+            "description": "<details><summary>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</summary>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</details>"
           },
           {
             "name": "session_cookie_name",
@@ -199,7 +199,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "redirect_config",
         "type": "object",
-        "description": "&#91;Application Load Balancer&#93; Information for creating a redirect action. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;redirect&#96;&#96;.",
+        "description": "[Application Load Balancer] Information for creating a redirect action. Specify only when <code>Type</code> is <code>redirect</code>.",
         "children": [
           {
             "name": "path",
@@ -236,7 +236,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "forward_config",
         "type": "object",
-        "description": "Information for creating an action that distributes requests among one or more target groups. For Network Load Balancers, you can specify a single target group. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;forward&#96;&#96;. If you specify both &#96;&#96;ForwardConfig&#96;&#96; and &#96;&#96;TargetGroupArn&#96;&#96;, you can specify only one target group using &#96;&#96;ForwardConfig&#96;&#96; and it must be the same target group specified in &#96;&#96;TargetGroupArn&#96;&#96;.",
+        "description": "Information for creating an action that distributes requests among one or more target groups. For Network Load Balancers, you can specify a single target group. Specify only when <code>Type</code> is <code>forward</code>. If you specify both <code>ForwardConfig</code> and <code>TargetGroupArn</code>, you can specify only one target group using <code>ForwardConfig</code> and it must be the same target group specified in <code>TargetGroupArn</code>.",
         "children": [
           {
             "name": "target_group_stickiness_config",
@@ -277,12 +277,12 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
       {
         "name": "authenticate_oidc_config",
         "type": "object",
-        "description": "&#91;HTTPS listeners&#93; Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;authenticate-oidc&#96;&#96;.",
+        "description": "[HTTPS listeners] Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when <code>Type</code> is <code>authenticate-oidc</code>.",
         "children": [
           {
             "name": "on_unauthenticated_request",
             "type": "string",
-            "description": "The behavior if the user is not authenticated. The following are possible values:<br />+ deny&#96;&#96;&#96;&#96; - Return an HTTP 401 Unauthorized error.<br />+ allow&#96;&#96;&#96;&#96; - Allow the request to be forwarded to the target.<br />+ authenticate&#96;&#96;&#96;&#96; - Redirect the request to the IdP authorization endpoint. This is the default value."
+            "description": "<details><summary>The behavior if the user is not authenticated. The following are possible values:</summary>+  deny`<code><code> - Return an HTTP 401 Unauthorized error.<br />+  allow</code><code> - Allow the request to be forwarded to the target.<br />+  authenticate</code></code>` - Redirect the request to the IdP authorization endpoint. This is the default value.</details>"
           },
           {
             "name": "token_endpoint",
@@ -302,7 +302,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
           {
             "name": "scope",
             "type": "string",
-            "description": "The set of user claims to be requested from the IdP. The default is &#96;&#96;openid&#96;&#96;.<br />To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP."
+            "description": "<details><summary>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</summary>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</details>"
           },
           {
             "name": "issuer",
@@ -312,7 +312,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
           {
             "name": "client_secret",
             "type": "string",
-            "description": "The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set &#96;&#96;UseExistingClientSecret&#96;&#96; to true."
+            "description": "The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set <code>UseExistingClientSecret</code> to true."
           },
           {
             "name": "user_info_endpoint",
@@ -351,7 +351,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
   {
     "name": "certificates",
     "type": "array",
-    "description": "The default SSL server certificate for a secure listener. You must provide exactly one certificate if the listener protocol is HTTPS or TLS.<br />For an HTTPS listener, update requires some interruptions. For a TLS listener, update requires no interruption.<br />To create a certificate list for a secure listener, use &#91;AWS::ElasticLoadBalancingV2::ListenerCertificate&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenercertificate.html).",
+    "description": "<details><summary>The default SSL server certificate for a secure listener. You must provide exactly one certificate if the listener protocol is HTTPS or TLS.</summary>For an HTTPS listener, update requires some interruptions. For a TLS listener, update requires no interruption.<br />To create a certificate list for a secure listener, use <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenercertificate.html\">AWS::ElasticLoadBalancingV2::ListenerCertificate</a>.</details>",
     "children": [
       {
         "name": "certificate_arn",
@@ -363,7 +363,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
   {
     "name": "protocol",
     "type": "string",
-    "description": "The protocol for connections from clients to the load balancer. For Application Load Balancers, the supported protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, and TCP&#95;UDP. You can’t specify the UDP or TCP&#95;UDP protocol if dual-stack mode is enabled. You can't specify a protocol for a Gateway Load Balancer."
+    "description": "The protocol for connections from clients to the load balancer. For Application Load Balancers, the supported protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, and TCP_UDP. You can’t specify the UDP or TCP_UDP protocol if dual-stack mode is enabled. You can't specify a protocol for a Gateway Load Balancer."
   },
   {
     "name": "region",
@@ -461,7 +461,7 @@ SELECT
   protocol
 FROM awscc.elasticloadbalancingv2.listeners
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ listener_arn }}';
 ```
 </TabItem>
@@ -474,7 +474,7 @@ SELECT
   listener_arn
 FROM awscc.elasticloadbalancingv2.listeners_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -652,7 +652,7 @@ WHERE
 DELETE FROM awscc.elasticloadbalancingv2.listeners
 WHERE
   Identifier = '{{ listener_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

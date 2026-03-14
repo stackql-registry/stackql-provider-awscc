@@ -196,7 +196,7 @@ SELECT
   tags
 FROM awscc.networkfirewall.vpc_endpoint_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpc_endpoint_association_arn }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   vpc_endpoint_association_arn
 FROM awscc.networkfirewall.vpc_endpoint_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.networkfirewall.vpc_endpoint_associations
 WHERE
   Identifier = '{{ vpc_endpoint_association_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

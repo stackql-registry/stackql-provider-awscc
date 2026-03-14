@@ -537,7 +537,7 @@ SELECT
   tags
 FROM awscc.dms.data_providers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ data_provider_arn }}';
 ```
 </TabItem>
@@ -550,7 +550,7 @@ SELECT
   data_provider_arn
 FROM awscc.dms.data_providers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -732,7 +732,7 @@ WHERE
 DELETE FROM awscc.dms.data_providers
 WHERE
   Identifier = '{{ data_provider_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

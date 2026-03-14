@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>volume_attachment</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>volume_attachments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Attaches an Amazon EBS volume to a running instance and exposes it to the instance with the specified device name.<br />Before this resource can be deleted (and therefore the volume detached), you must first unmount the volume in the instance. Failure to do so results in the volume being stuck in the busy state while it is trying to detach, which could possibly damage the file system or the data it contains.<br />If an Amazon EBS volume is the root device of an instance, it cannot be detached while the instance is in the "running" state. To detach the root volume, stop the instance first.<br />If the root volume is detached from an instance with an MKT product code, then the product codes from that volume are no longer associated with the instance.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Attaches an Amazon EBS volume to a running instance and exposes it to the instance with the specified device name.</summary>Before this resource can be deleted (and therefore the volume detached), you must first unmount the volume in the instance. Failure to do so results in the volume being stuck in the busy state while it is trying to detach, which could possibly damage the file system or the data it contains.<br />If an Amazon EBS volume is the root device of an instance, it cannot be detached while the instance is in the "running" state. To detach the root volume, stop the instance first.<br />If the root volume is detached from an instance with an MKT product code, then the product codes from that volume are no longer associated with the instance.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.volume_attachments" /></td></tr>
 </tbody>
 </table>
@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>volume_attachment</code> resource or l
   {
     "name": "volume_id",
     "type": "string",
-    "description": "The ID of the Amazon EBS volume. The volume and instance must be within the same Availability Zone. This value can be a reference to an &#91;AWS::EC2::Volume&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html) resource, or it can be the volume ID of an existing Amazon EBS volume."
+    "description": "The ID of the Amazon EBS volume. The volume and instance must be within the same Availability Zone. This value can be a reference to an <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html\">AWS::EC2::Volume</a> resource, or it can be the volume ID of an existing Amazon EBS volume."
   },
   {
     "name": "instance_id",
     "type": "string",
-    "description": "The ID of the instance to which the volume attaches. This value can be a reference to an &#91;AWS::EC2::Instance&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html) resource, or it can be the physical ID of an existing EC2 instance."
+    "description": "The ID of the instance to which the volume attaches. This value can be a reference to an <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html\">AWS::EC2::Instance</a> resource, or it can be the physical ID of an existing EC2 instance."
   },
   {
     "name": "device",
     "type": "string",
-    "description": "The device name (for example, &#96;&#96;/dev/sdh&#96;&#96; or &#96;&#96;xvdh&#96;&#96;)."
+    "description": "The device name (for example, <code>/dev/sdh</code> or <code>xvdh</code>)."
   },
   {
     "name": "region",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>volume_attachment</code> resource or l
   {
     "name": "volume_id",
     "type": "string",
-    "description": "The ID of the Amazon EBS volume. The volume and instance must be within the same Availability Zone. This value can be a reference to an &#91;AWS::EC2::Volume&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html) resource, or it can be the volume ID of an existing Amazon EBS volume."
+    "description": "The ID of the Amazon EBS volume. The volume and instance must be within the same Availability Zone. This value can be a reference to an <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html\">AWS::EC2::Volume</a> resource, or it can be the volume ID of an existing Amazon EBS volume."
   },
   {
     "name": "instance_id",
     "type": "string",
-    "description": "The ID of the instance to which the volume attaches. This value can be a reference to an &#91;AWS::EC2::Instance&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html) resource, or it can be the physical ID of an existing EC2 instance."
+    "description": "The ID of the instance to which the volume attaches. This value can be a reference to an <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html\">AWS::EC2::Instance</a> resource, or it can be the physical ID of an existing EC2 instance."
   },
   {
     "name": "region",
@@ -146,7 +146,7 @@ SELECT
   device
 FROM awscc.ec2.volume_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ volume_id }}|{{ instance_id }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   instance_id
 FROM awscc.ec2.volume_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -241,7 +241,7 @@ resources:
 DELETE FROM awscc.ec2.volume_attachments
 WHERE
   Identifier = '{{ volume_id }}|{{ instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>channel_association</code> resource or
   {
     "name": "arn",
     "type": "string",
-    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+    "description": "<details><summary>ARN identifier of the channel.</summary>Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</details>"
   },
   {
     "name": "notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1"
+    "description": "<details><summary>ARN identifier of the NotificationConfiguration.</summary>Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1</details>"
   },
   {
     "name": "region",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>channel_association</code> resource or
   {
     "name": "arn",
     "type": "string",
-    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+    "description": "<details><summary>ARN identifier of the channel.</summary>Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</details>"
   },
   {
     "name": "notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1"
+    "description": "<details><summary>ARN identifier of the NotificationConfiguration.</summary>Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1</details>"
   },
   {
     "name": "region",
@@ -140,7 +140,7 @@ SELECT
   notification_configuration_arn
 FROM awscc.notifications.channel_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}|{{ notification_configuration_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   notification_configuration_arn
 FROM awscc.notifications.channel_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.notifications.channel_associations
 WHERE
   Identifier = '{{ arn }}|{{ notification_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
 <tbody>
 <tr><td><b>Name</b></td><td><code>db_parameter_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::DBParameterGroup&#96;&#96; resource creates a custom parameter group for an RDS database family.<br />This type can be declared in a template and referenced in the &#96;&#96;DBParameterGroupName&#96;&#96; property of an &#96;&#96;AWS::RDS::DBInstance&#96;&#96; resource.<br />For information about configuring parameters for Amazon RDS DB instances, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;WorkingWithParamGroups.html) in the &#42;Amazon RDS User Guide&#42;.<br />For information about configuring parameters for Amazon Aurora DB instances, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER&#95;WorkingWithParamGroups.html) in the &#42;Amazon Aurora User Guide&#42;.<br />Applying a parameter group to a DB instance may require the DB instance to reboot, resulting in a database outage for the duration of the reboot.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::RDS::DBParameterGroup</code> resource creates a custom parameter group for an RDS database family.</summary>This type can be declared in a template and referenced in the <code>DBParameterGroupName</code> property of an <code>AWS::RDS::DBInstance</code> resource.<br />For information about configuring parameters for Amazon RDS DB instances, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html">Working with parameter groups</a> in the <i>Amazon RDS User Guide</i>.<br />For information about configuring parameters for Amazon Aurora DB instances, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_WorkingWithParamGroups.html">Working with parameter groups</a> in the <i>Amazon Aurora User Guide</i>.<br />Applying a parameter group to a DB instance may require the DB instance to reboot, resulting in a database outage for the duration of the reboot.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.db_parameter_groups" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
   {
     "name": "db_parameter_group_name",
     "type": "string",
-    "description": "The name of the DB parameter group.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens.<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />If you don't specify a value for &#96;&#96;DBParameterGroupName&#96;&#96; property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string."
+    "description": "<details><summary>The name of the DB parameter group.</summary>Constraints:<br />+  Must be 1 to 255 letters, numbers, or hyphens.<br />+  First character must be a letter<br />+  Can't end with a hyphen or contain two consecutive hyphens<br />If you don't specify a value for <code>DBParameterGroupName</code> property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string.</details>"
   },
   {
     "name": "description",
@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
   {
     "name": "family",
     "type": "string",
-    "description": "The DB parameter group family name. A DB parameter group can be associated with one and only one DB parameter group family, and can be applied only to a DB instance running a database engine and engine version compatible with that DB parameter group family.<br />To list all of the available parameter group families for a DB engine, use the following command:<br />&#96;&#96;aws rds describe-db-engine-versions --query \"DBEngineVersions&#91;&#93;.DBParameterGroupFamily\" --engine &lt;engine&gt;&#96;&#96; <br />For example, to list all of the available parameter group families for the MySQL DB engine, use the following command:<br />&#96;&#96;aws rds describe-db-engine-versions --query \"DBEngineVersions&#91;&#93;.DBParameterGroupFamily\" --engine mysql&#96;&#96; <br />The output contains duplicates.<br />The following are the valid DB engine values:<br />+ &#96;&#96;aurora-mysql&#96;&#96; <br />+ &#96;&#96;aurora-postgresql&#96;&#96; <br />+ &#96;&#96;db2-ae&#96;&#96; <br />+ &#96;&#96;db2-se&#96;&#96; <br />+ &#96;&#96;mysql&#96;&#96; <br />+ &#96;&#96;oracle-ee&#96;&#96; <br />+ &#96;&#96;oracle-ee-cdb&#96;&#96; <br />+ &#96;&#96;oracle-se2&#96;&#96; <br />+ &#96;&#96;oracle-se2-cdb&#96;&#96; <br />+ &#96;&#96;postgres&#96;&#96; <br />+ &#96;&#96;sqlserver-ee&#96;&#96; <br />+ &#96;&#96;sqlserver-se&#96;&#96; <br />+ &#96;&#96;sqlserver-ex&#96;&#96; <br />+ &#96;&#96;sqlserver-web&#96;&#96;"
+    "description": "<details><summary>The DB parameter group family name. A DB parameter group can be associated with one and only one DB parameter group family, and can be applied only to a DB instance running a database engine and engine version compatible with that DB parameter group family.</summary>To list all of the available parameter group families for a DB engine, use the following command:<br /><code>aws rds describe-db-engine-versions --query \"DBEngineVersions[].DBParameterGroupFamily\" --engine <engine></code><br />For example, to list all of the available parameter group families for the MySQL DB engine, use the following command:<br /><code>aws rds describe-db-engine-versions --query \"DBEngineVersions[].DBParameterGroupFamily\" --engine mysql</code><br />The output contains duplicates.<br />The following are the valid DB engine values:<br />+   <code>aurora-mysql</code><br />+   <code>aurora-postgresql</code><br />+   <code>db2-ae</code><br />+   <code>db2-se</code><br />+   <code>mysql</code><br />+   <code>oracle-ee</code><br />+   <code>oracle-ee-cdb</code><br />+   <code>oracle-se2</code><br />+   <code>oracle-se2-cdb</code><br />+   <code>postgres</code><br />+   <code>sqlserver-ee</code><br />+   <code>sqlserver-se</code><br />+   <code>sqlserver-ex</code><br />+   <code>sqlserver-web</code></details>"
   },
   {
     "name": "parameters",
     "type": "object",
-    "description": "A mapping of parameter names and values for the parameter update. You must specify at least one parameter name and value.<br />For more information about parameter groups, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;WorkingWithParamGroups.html) in the &#42;Amazon RDS User Guide&#42;, or &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER&#95;WorkingWithParamGroups.html) in the &#42;Amazon Aurora User Guide&#42;.<br />AWS CloudFormation doesn't support specifying an apply method for each individual parameter. The default apply method for each parameter is used."
+    "description": "<details><summary>A mapping of parameter names and values for the parameter update. You must specify at least one parameter name and value.</summary>For more information about parameter groups, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html\">Working with parameter groups</a> in the <i>Amazon RDS User Guide</i>, or <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_WorkingWithParamGroups.html\">Working with parameter groups</a> in the <i>Amazon Aurora User Guide</i>.<br />AWS CloudFormation doesn't support specifying an apply method for each individual parameter. The default apply method for each parameter is used.</details>"
   },
   {
     "name": "tags",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
       {
         "name": "key",
         "type": "string",
-        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       }
     ]
   },
@@ -93,7 +93,7 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
   {
     "name": "db_parameter_group_name",
     "type": "string",
-    "description": "The name of the DB parameter group.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens.<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />If you don't specify a value for &#96;&#96;DBParameterGroupName&#96;&#96; property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string."
+    "description": "<details><summary>The name of the DB parameter group.</summary>Constraints:<br />+  Must be 1 to 255 letters, numbers, or hyphens.<br />+  First character must be a letter<br />+  Can't end with a hyphen or contain two consecutive hyphens<br />If you don't specify a value for <code>DBParameterGroupName</code> property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string.</details>"
   },
   {
     "name": "region",
@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.rds.db_parameter_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_parameter_group_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   db_parameter_group_name
 FROM awscc.rds.db_parameter_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +291,7 @@ WHERE
 DELETE FROM awscc.rds.db_parameter_groups
 WHERE
   Identifier = '{{ db_parameter_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

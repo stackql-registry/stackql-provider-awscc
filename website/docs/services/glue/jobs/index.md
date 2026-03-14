@@ -310,7 +310,7 @@ SELECT
   job_run_queuing_enabled
 FROM awscc.glue.jobs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -323,7 +323,7 @@ SELECT
   name
 FROM awscc.glue.jobs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -528,7 +528,7 @@ WHERE
 DELETE FROM awscc.glue.jobs
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

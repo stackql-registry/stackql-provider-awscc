@@ -249,7 +249,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.assets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ asset_id }}';
 ```
 </TabItem>
@@ -262,7 +262,7 @@ SELECT
   asset_id
 FROM awscc.iotsitewise.assets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -390,7 +390,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.assets
 WHERE
   Identifier = '{{ asset_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

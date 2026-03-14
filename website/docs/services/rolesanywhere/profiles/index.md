@@ -232,7 +232,7 @@ SELECT
   accept_role_session_name
 FROM awscc.rolesanywhere.profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ profile_id }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   profile_id
 FROM awscc.rolesanywhere.profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -384,7 +384,7 @@ WHERE
 DELETE FROM awscc.rolesanywhere.profiles
 WHERE
   Identifier = '{{ profile_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

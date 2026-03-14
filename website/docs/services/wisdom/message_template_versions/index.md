@@ -153,7 +153,7 @@ SELECT
   message_template_version_number
 FROM awscc.wisdom.message_template_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ message_template_version_arn }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   message_template_version_arn
 FROM awscc.wisdom.message_template_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +256,7 @@ WHERE
 DELETE FROM awscc.wisdom.message_template_versions
 WHERE
   Identifier = '{{ message_template_version_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

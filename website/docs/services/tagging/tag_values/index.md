@@ -75,7 +75,7 @@ SELECT
   region
 FROM awscc.tagging.tag_values
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 

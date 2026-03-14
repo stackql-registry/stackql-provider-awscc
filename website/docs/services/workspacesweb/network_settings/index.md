@@ -177,7 +177,7 @@ SELECT
   vpc_id
 FROM awscc.workspacesweb.network_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ network_settings_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   network_settings_arn
 FROM awscc.workspacesweb.network_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.network_settings
 WHERE
   Identifier = '{{ network_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions
