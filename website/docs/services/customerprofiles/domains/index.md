@@ -180,7 +180,7 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
           {
             "name": "attribute_matching_model",
             "type": "string",
-            "description": "Configures the AttributeMatchingModel, you can either choose ONE&#95;TO&#95;ONE or MANY&#95;TO&#95;MANY."
+            "description": "Configures the AttributeMatchingModel, you can either choose ONE_TO_ONE or MANY_TO_MANY."
           },
           {
             "name": "address",
@@ -304,12 +304,12 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -419,7 +419,7 @@ SELECT
   last_updated_at
 FROM awscc.customerprofiles.domains
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}';
 ```
 </TabItem>
@@ -432,7 +432,7 @@ SELECT
   domain_name
 FROM awscc.customerprofiles.domains_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -584,7 +584,7 @@ WHERE
 DELETE FROM awscc.customerprofiles.domains
 WHERE
   Identifier = '{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -308,7 +308,7 @@ SELECT
   updated_at
 FROM awscc.qbusiness.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}';
 ```
 </TabItem>
@@ -321,7 +321,7 @@ SELECT
   application_id
 FROM awscc.qbusiness.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -477,7 +477,7 @@ WHERE
 DELETE FROM awscc.qbusiness.applications
 WHERE
   Identifier = '{{ application_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

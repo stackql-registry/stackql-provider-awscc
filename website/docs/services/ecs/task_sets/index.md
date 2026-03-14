@@ -42,7 +42,7 @@ Creates, updates, deletes or gets a <code>task_set</code> resource or lists <cod
   {
     "name": "external_id",
     "type": "string",
-    "description": "An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the ECS&#95;TASK&#95;SET&#95;EXTERNAL&#95;ID AWS Cloud Map attribute set to the provided value."
+    "description": "An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the ECS_TASK_SET_EXTERNAL_ID AWS Cloud Map attribute set to the provided value."
   },
   {
     "name": "cluster",
@@ -57,7 +57,7 @@ Creates, updates, deletes or gets a <code>task_set</code> resource or lists <cod
       {
         "name": "target_group_arn",
         "type": "string",
-        "description": "The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service or task set. A target group ARN is only specified when using an Application Load Balancer or Network Load Balancer. If you are using a Classic Load Balancer this should be omitted. For services using the ECS deployment controller, you can specify one or multiple target groups. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html in the Amazon Elastic Container Service Developer Guide. For services using the CODE&#95;DEPLOY deployment controller, you are required to define two target groups for the load balancer. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html in the Amazon Elastic Container Service Developer Guide. If your service's task definition uses the awsvpc network mode (which is required for the Fargate launch type), you must choose ip as the target type, not instance, when creating your target groups because tasks that use the awsvpc network mode are associated with an elastic network interface, not an Amazon EC2 instance."
+        "description": "The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service or task set. A target group ARN is only specified when using an Application Load Balancer or Network Load Balancer. If you are using a Classic Load Balancer this should be omitted. For services using the ECS deployment controller, you can specify one or multiple target groups. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html in the Amazon Elastic Container Service Developer Guide. For services using the CODE_DEPLOY deployment controller, you are required to define two target groups for the load balancer. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html in the Amazon Elastic Container Service Developer Guide. If your service's task definition uses the awsvpc network mode (which is required for the Fargate launch type), you must choose ip as the target type, not instance, when creating your target groups because tasks that use the awsvpc network mode are associated with an elastic network interface, not an Amazon EC2 instance."
       },
       {
         "name": "container_name",
@@ -116,7 +116,7 @@ Creates, updates, deletes or gets a <code>task_set</code> resource or lists <cod
       {
         "name": "registry_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is AWS Cloud Map. For more information, see https://docs.aws.amazon.com/cloud-map/latest/api/API&#95;CreateService.html"
+        "description": "The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is AWS Cloud Map. For more information, see https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html"
       }
     ]
   },
@@ -145,7 +145,7 @@ Creates, updates, deletes or gets a <code>task_set</code> resource or lists <cod
   {
     "name": "launch_type",
     "type": "string",
-    "description": "The launch type that new tasks in the task set will use. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch&#95;types.html in the Amazon Elastic Container Service Developer Guide."
+    "description": "The launch type that new tasks in the task set will use. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html in the Amazon Elastic Container Service Developer Guide."
   },
   {
     "name": "task_definition",
@@ -265,7 +265,7 @@ SELECT
   tags
 FROM awscc.ecs.task_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster }}|{{ service }}|{{ id }}';
 ```
 
@@ -419,7 +419,7 @@ WHERE
 DELETE FROM awscc.ecs.task_sets
 WHERE
   Identifier = '{{ cluster }}|{{ service }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -111,12 +111,12 @@ Creates, updates, deletes or gets a <code>vpc_attachment</code> resource or list
           {
             "name": "key",
             "type": "string",
-            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
           },
           {
             "name": "value",
             "type": "string",
-            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
           }
         ]
       },
@@ -150,12 +150,12 @@ Creates, updates, deletes or gets a <code>vpc_attachment</code> resource or list
           {
             "name": "key",
             "type": "string",
-            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
           },
           {
             "name": "value",
             "type": "string",
-            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
           }
         ]
       },
@@ -179,12 +179,12 @@ Creates, updates, deletes or gets a <code>vpc_attachment</code> resource or list
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -211,22 +211,22 @@ Creates, updates, deletes or gets a <code>vpc_attachment</code> resource or list
       {
         "name": "ipv6_support",
         "type": "boolean",
-        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable | disable"
       },
       {
         "name": "appliance_mode_support",
         "type": "boolean",
-        "description": "Indicates whether to enable ApplianceModeSupport Support for Vpc Attachment. Valid Values: true &#124; false"
+        "description": "Indicates whether to enable ApplianceModeSupport Support for Vpc Attachment. Valid Values: true | false"
       },
       {
         "name": "dns_support",
         "type": "boolean",
-        "description": "Indicates whether to enable private DNS Support for Vpc Attachment. Valid Values: true &#124; false"
+        "description": "Indicates whether to enable private DNS Support for Vpc Attachment. Valid Values: true | false"
       },
       {
         "name": "security_group_referencing_support",
         "type": "boolean",
-        "description": "Indicates whether to enable Security Group Referencing Support for Vpc Attachment. Valid Values: true &#124; false"
+        "description": "Indicates whether to enable Security Group Referencing Support for Vpc Attachment. Valid Values: true | false"
       }
     ]
   },
@@ -335,7 +335,7 @@ SELECT
   options
 FROM awscc.networkmanager.vpc_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
@@ -348,7 +348,7 @@ SELECT
   attachment_id
 FROM awscc.networkmanager.vpc_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -481,7 +481,7 @@ WHERE
 DELETE FROM awscc.networkmanager.vpc_attachments
 WHERE
   Identifier = '{{ attachment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

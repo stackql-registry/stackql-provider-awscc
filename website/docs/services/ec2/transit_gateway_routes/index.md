@@ -152,7 +152,7 @@ SELECT
   transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_routes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   destination_cidr_block
 FROM awscc.ec2.transit_gateway_routes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +251,7 @@ resources:
 DELETE FROM awscc.ec2.transit_gateway_routes
 WHERE
   Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

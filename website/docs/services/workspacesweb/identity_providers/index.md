@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.workspacesweb.identity_providers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identity_provider_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   identity_provider_arn
 FROM awscc.workspacesweb.identity_providers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.identity_providers
 WHERE
   Identifier = '{{ identity_provider_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

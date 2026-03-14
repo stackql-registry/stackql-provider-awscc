@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>data_repository_association</code> res
 <tbody>
 <tr><td><b>Name</b></td><td><code>data_repository_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates an Amazon FSx for Lustre data repository association (DRA). A data repository association is a link between a directory on the file system and an Amazon S3 bucket or prefix. You can have a maximum of 8 data repository associations on a file system. Data repository associations are supported on all FSx for Lustre 2.12 and newer file systems, excluding &#96;&#96;scratch&#95;1&#96;&#96; deployment type. <br />Each data repository association must have a unique Amazon FSx file system directory and a unique S3 bucket or prefix associated with it. You can configure a data repository association for automatic import only, for automatic export only, or for both. To learn more about linking a data repository to your file system, see &#91;Linking your file system to an S3 bucket&#93;(https://docs.aws.amazon.com/fsx/latest/LustreGuide/create-dra-linked-data-repo.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Creates an Amazon FSx for Lustre data repository association (DRA). A data repository association is a link between a directory on the file system and an Amazon S3 bucket or prefix. You can have a maximum of 8 data repository associations on a file system. Data repository associations are supported on all FSx for Lustre 2.12 and newer file systems, excluding <code>scratch_1</code> deployment type.</summary>Each data repository association must have a unique Amazon FSx file system directory and a unique S3 bucket or prefix associated with it. You can configure a data repository association for automatic import only, for automatic export only, or for both. To learn more about linking a data repository to your file system, see <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/create-dra-linked-data-repo.html">Linking your file system to an S3 bucket</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.fsx.data_repository_associations" /></td></tr>
 </tbody>
 </table>
@@ -61,22 +61,22 @@ Creates, updates, deletes or gets a <code>data_repository_association</code> res
   {
     "name": "file_system_path",
     "type": "string",
-    "description": "A path on the Amazon FSx for Lustre file system that points to a high-level directory (such as &#96;&#96;/ns1/&#96;&#96;) or subdirectory (such as &#96;&#96;/ns1/subdir/&#96;&#96;) that will be mapped 1-1 with &#96;&#96;DataRepositoryPath&#96;&#96;. The leading forward slash in the name is required. Two data repository associations cannot have overlapping file system paths. For example, if a data repository is associated with file system path &#96;&#96;/ns1/&#96;&#96;, then you cannot link another data repository with file system path &#96;&#96;/ns1/ns2&#96;&#96;.<br />This path specifies where in your file system files will be exported from or imported to. This file system directory can be linked to only one Amazon S3 bucket, and no other S3 bucket can be linked to the directory.<br />If you specify only a forward slash (&#96;&#96;/&#96;&#96;) as the file system path, you can link only one data repository to the file system. You can only specify \"/\" as the file system path for the first data repository associated with a file system."
+    "description": "<details><summary>A path on the Amazon FSx for Lustre file system that points to a high-level directory (such as <code>/ns1/</code>) or subdirectory (such as <code>/ns1/subdir/</code>) that will be mapped 1-1 with <code>DataRepositoryPath</code>. The leading forward slash in the name is required. Two data repository associations cannot have overlapping file system paths. For example, if a data repository is associated with file system path <code>/ns1/</code>, then you cannot link another data repository with file system path <code>/ns1/ns2</code>.</summary>This path specifies where in your file system files will be exported from or imported to. This file system directory can be linked to only one Amazon S3 bucket, and no other S3 bucket can be linked to the directory.<br />If you specify only a forward slash (<code>/</code>) as the file system path, you can link only one data repository to the file system. You can only specify \"/\" as the file system path for the first data repository associated with a file system.</details>"
   },
   {
     "name": "data_repository_path",
     "type": "string",
-    "description": "The path to the Amazon S3 data repository that will be linked to the file system. The path can be an S3 bucket or prefix in the format &#96;&#96;s3://myBucket/myPrefix/&#96;&#96;. This path specifies where in the S3 data repository files will be imported from or exported to."
+    "description": "The path to the Amazon S3 data repository that will be linked to the file system. The path can be an S3 bucket or prefix in the format <code>s3://myBucket/myPrefix/</code>. This path specifies where in the S3 data repository files will be imported from or exported to."
   },
   {
     "name": "batch_import_meta_data_on_create",
     "type": "boolean",
-    "description": "A boolean flag indicating whether an import data repository task to import metadata should run after the data repository association is created. The task runs if this flag is set to &#96;&#96;true&#96;&#96;."
+    "description": "A boolean flag indicating whether an import data repository task to import metadata should run after the data repository association is created. The task runs if this flag is set to <code>true</code>."
   },
   {
     "name": "imported_file_chunk_size",
     "type": "integer",
-    "description": "For files imported from a data repository, this value determines the stripe count and maximum amount of data per file (in MiB) stored on a single physical disk. The maximum number of disks that a single file can be striped across is limited by the total number of disks that make up the file system or cache.<br />The default chunk size is 1,024 MiB (1 GiB) and can go as high as 512,000 MiB (500 GiB). Amazon S3 objects have a maximum size of 5 TB."
+    "description": "<details><summary>For files imported from a data repository, this value determines the stripe count and maximum amount of data per file (in MiB) stored on a single physical disk. The maximum number of disks that a single file can be striped across is limited by the total number of disks that make up the file system or cache.</summary>The default chunk size is 1,024 MiB (1 GiB) and can go as high as 512,000 MiB (500 GiB). Amazon S3 objects have a maximum size of 5 TB.</details>"
   },
   {
     "name": "s3",
@@ -86,24 +86,24 @@ Creates, updates, deletes or gets a <code>data_repository_association</code> res
       {
         "name": "auto_import_policy",
         "type": "object",
-        "description": "Describes the data repository association's automatic import policy. The AutoImportPolicy defines how Amazon FSx keeps your file metadata and directory listings up to date by importing changes to your Amazon FSx for Lustre file system as you modify objects in a linked S3 bucket.<br />The &#96;&#96;AutoImportPolicy&#96;&#96; is only supported on Amazon FSx for Lustre file systems with a data repository association.",
+        "description": "<details><summary>Describes the data repository association's automatic import policy. The AutoImportPolicy defines how Amazon FSx keeps your file metadata and directory listings up to date by importing changes to your Amazon FSx for Lustre file system as you modify objects in a linked S3 bucket.</summary>The <code>AutoImportPolicy</code> is only supported on Amazon FSx for Lustre file systems with a data repository association.</details>",
         "children": [
           {
             "name": "events",
             "type": "array",
-            "description": "The &#96;&#96;AutoImportPolicy&#96;&#96; can have the following event values:<br />+ &#96;&#96;NEW&#96;&#96; - Amazon FSx automatically imports metadata of files added to the linked S3 bucket that do not currently exist in the FSx file system.<br />+ &#96;&#96;CHANGED&#96;&#96; - Amazon FSx automatically updates file metadata and invalidates existing file content on the file system as files change in the data repository.<br />+ &#96;&#96;DELETED&#96;&#96; - Amazon FSx automatically deletes files on the file system as corresponding files are deleted in the data repository.<br /><br />You can define any combination of event types for your &#96;&#96;AutoImportPolicy&#96;&#96;."
+            "description": "<details><summary>The <code>AutoImportPolicy</code> can have the following event values:</summary>+   <code>NEW</code> - Amazon FSx automatically imports metadata of files added to the linked S3 bucket that do not currently exist in the FSx file system.<br />+   <code>CHANGED</code> - Amazon FSx automatically updates file metadata and invalidates existing file content on the file system as files change in the data repository.<br />+   <code>DELETED</code> - Amazon FSx automatically deletes files on the file system as corresponding files are deleted in the data repository.<br />You can define any combination of event types for your <code>AutoImportPolicy</code>.</details>"
           }
         ]
       },
       {
         "name": "auto_export_policy",
         "type": "object",
-        "description": "Describes a data repository association's automatic export policy. The &#96;&#96;AutoExportPolicy&#96;&#96; defines the types of updated objects on the file system that will be automatically exported to the data repository. As you create, modify, or delete files, Amazon FSx for Lustre automatically exports the defined changes asynchronously once your application finishes modifying the file.<br />The &#96;&#96;AutoExportPolicy&#96;&#96; is only supported on Amazon FSx for Lustre file systems with a data repository association.",
+        "description": "<details><summary>Describes a data repository association's automatic export policy. The <code>AutoExportPolicy</code> defines the types of updated objects on the file system that will be automatically exported to the data repository. As you create, modify, or delete files, Amazon FSx for Lustre automatically exports the defined changes asynchronously once your application finishes modifying the file.</summary>The <code>AutoExportPolicy</code> is only supported on Amazon FSx for Lustre file systems with a data repository association.</details>",
         "children": [
           {
             "name": "events",
             "type": "array",
-            "description": "The &#96;&#96;AutoExportPolicy&#96;&#96; can have the following event values:<br />+ &#96;&#96;NEW&#96;&#96; - New files and directories are automatically exported to the data repository as they are added to the file system.<br />+ &#96;&#96;CHANGED&#96;&#96; - Changes to files and directories on the file system are automatically exported to the data repository.<br />+ &#96;&#96;DELETED&#96;&#96; - Files and directories are automatically deleted on the data repository when they are deleted on the file system.<br /><br />You can define any combination of event types for your &#96;&#96;AutoExportPolicy&#96;&#96;."
+            "description": "<details><summary>The <code>AutoExportPolicy</code> can have the following event values:</summary>+   <code>NEW</code> - New files and directories are automatically exported to the data repository as they are added to the file system.<br />+   <code>CHANGED</code> - Changes to files and directories on the file system are automatically exported to the data repository.<br />+   <code>DELETED</code> - Files and directories are automatically deleted on the data repository when they are deleted on the file system.<br />You can define any combination of event types for your <code>AutoExportPolicy</code>.</details>"
           }
         ]
       }
@@ -112,17 +112,17 @@ Creates, updates, deletes or gets a <code>data_repository_association</code> res
   {
     "name": "tags",
     "type": "array",
-    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "description": "<details><summary>An array of key-value pairs to apply to this resource.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
         "name": "key",
         "type": "string",
-        "description": "A value that specifies the &#96;&#96;TagKey&#96;&#96;, the name of the tag. Tag keys must be unique for the resource to which they are attached."
+        "description": "A value that specifies the <code>TagKey</code>, the name of the tag. Tag keys must be unique for the resource to which they are attached."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A value that specifies the &#96;&#96;TagValue&#96;&#96;, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of &#96;&#96;finances : April&#96;&#96; and also of &#96;&#96;payroll : April&#96;&#96;."
+        "description": "A value that specifies the <code>TagValue</code>, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <code>finances : April</code> and also of <code>payroll : April</code>."
       }
     ]
   },
@@ -221,7 +221,7 @@ SELECT
   tags
 FROM awscc.fsx.data_repository_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_id }}';
 ```
 </TabItem>
@@ -234,7 +234,7 @@ SELECT
   association_id
 FROM awscc.fsx.data_repository_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.fsx.data_repository_associations
 WHERE
   Identifier = '{{ association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

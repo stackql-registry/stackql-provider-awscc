@@ -170,7 +170,7 @@ SELECT
   attribute_mapping
 FROM awscc.cognito.user_pool_identity_providers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ provider_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   provider_name
 FROM awscc.cognito.user_pool_identity_providers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.cognito.user_pool_identity_providers
 WHERE
   Identifier = '{{ user_pool_id }}|{{ provider_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

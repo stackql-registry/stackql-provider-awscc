@@ -159,7 +159,7 @@ SELECT
   membership_id
 FROM awscc.identitystore.group_memberships
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ membership_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
@@ -173,7 +173,7 @@ SELECT
   identity_store_id
 FROM awscc.identitystore.group_memberships_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +257,7 @@ resources:
 DELETE FROM awscc.identitystore.group_memberships
 WHERE
   Identifier = '{{ membership_id }}|{{ identity_store_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

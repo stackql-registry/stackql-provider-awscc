@@ -255,7 +255,7 @@ SELECT
   include_linked_accounts_metrics
 FROM awscc.cloudwatch.metric_streams
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -268,7 +268,7 @@ SELECT
   name
 FROM awscc.cloudwatch.metric_streams_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -420,7 +420,7 @@ WHERE
 DELETE FROM awscc.cloudwatch.metric_streams
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

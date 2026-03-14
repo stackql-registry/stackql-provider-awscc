@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_addon_subscriptions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ addon_subscription_id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   addon_subscription_id
 FROM awscc.ses.mail_manager_addon_subscriptions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +270,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_addon_subscriptions
 WHERE
   Identifier = '{{ addon_subscription_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

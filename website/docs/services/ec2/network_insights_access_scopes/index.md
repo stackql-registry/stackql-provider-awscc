@@ -275,7 +275,7 @@ SELECT
   exclude_paths
 FROM awscc.ec2.network_insights_access_scopes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ network_insights_access_scope_id }}';
 ```
 </TabItem>
@@ -288,7 +288,7 @@ SELECT
   network_insights_access_scope_id
 FROM awscc.ec2.network_insights_access_scopes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -413,7 +413,7 @@ WHERE
 DELETE FROM awscc.ec2.network_insights_access_scopes
 WHERE
   Identifier = '{{ network_insights_access_scope_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -317,7 +317,7 @@ SELECT
   status
 FROM awscc.datazone.project_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_identifier }}|{{ identifier }}';
 ```
 </TabItem>
@@ -331,7 +331,7 @@ SELECT
   identifier
 FROM awscc.datazone.project_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -458,7 +458,7 @@ WHERE
 DELETE FROM awscc.datazone.project_profiles
 WHERE
   Identifier = '{{ domain_identifier }}|{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

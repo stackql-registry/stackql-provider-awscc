@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
 <tbody>
 <tr><td><b>Name</b></td><td><code>response_headers_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>A response headers policy.<br />A response headers policy contains information about a set of HTTP response headers.<br />After you create a response headers policy, you can use its ID to attach it to one or more cache behaviors in a CloudFront distribution. When it's attached to a cache behavior, the response headers policy affects the HTTP headers that CloudFront includes in HTTP responses to requests that match the cache behavior. CloudFront adds or removes response headers according to the configuration of the response headers policy.<br />For more information, see &#91;Adding or removing HTTP headers in CloudFront responses&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/modifying-response-headers.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>A response headers policy.</summary>A response headers policy contains information about a set of HTTP response headers.<br />After you create a response headers policy, you can use its ID to attach it to one or more cache behaviors in a CloudFront distribution. When it's attached to a cache behavior, the response headers policy affects the HTTP headers that CloudFront includes in HTTP responses to requests that match the cache behavior. CloudFront adds or removes response headers according to the configuration of the response headers policy.<br />For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/modifying-response-headers.html">Adding or removing HTTP headers in CloudFront responses</a> in the <i>Amazon CloudFront Developer Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.response_headers_policies" /></td></tr>
 </tbody>
 </table>
@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
       {
         "name": "comment",
         "type": "string",
-        "description": "A comment to describe the response headers policy.<br />The comment cannot be longer than 128 characters."
+        "description": "<details><summary>A comment to describe the response headers policy.</summary>The comment cannot be longer than 128 characters.</details>"
       },
       {
         "name": "cors_config",
@@ -71,60 +71,60 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
           {
             "name": "access_control_allow_credentials",
             "type": "boolean",
-            "description": "A Boolean that CloudFront uses as the value for the &#96;&#96;Access-Control-Allow-Credentials&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Allow-Credentials&#96;&#96; HTTP response header, see &#91;Access-Control-Allow-Credentials&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) in the MDN Web Docs."
+            "description": "<details><summary>A Boolean that CloudFront uses as the value for the <code>Access-Control-Allow-Credentials</code> HTTP response header.</summary>For more information about the <code>Access-Control-Allow-Credentials</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials\">Access-Control-Allow-Credentials</a> in the MDN Web Docs.</details>"
           },
           {
             "name": "access_control_allow_headers",
             "type": "object",
-            "description": "A list of HTTP header names that CloudFront includes as values for the &#96;&#96;Access-Control-Allow-Headers&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Allow-Headers&#96;&#96; HTTP response header, see &#91;Access-Control-Allow-Headers&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) in the MDN Web Docs.",
+            "description": "<details><summary>A list of HTTP header names that CloudFront includes as values for the <code>Access-Control-Allow-Headers</code> HTTP response header.</summary>For more information about the <code>Access-Control-Allow-Headers</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers\">Access-Control-Allow-Headers</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "items",
                 "type": "array",
-                "description": "The list of HTTP header names. You can specify &#96;&#96;&#42;&#96;&#96; to allow all headers."
+                "description": "The list of HTTP header names. You can specify <code>*</code> to allow all headers."
               }
             ]
           },
           {
             "name": "access_control_allow_methods",
             "type": "object",
-            "description": "A list of HTTP methods that CloudFront includes as values for the &#96;&#96;Access-Control-Allow-Methods&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Allow-Methods&#96;&#96; HTTP response header, see &#91;Access-Control-Allow-Methods&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) in the MDN Web Docs.",
+            "description": "<details><summary>A list of HTTP methods that CloudFront includes as values for the <code>Access-Control-Allow-Methods</code> HTTP response header.</summary>For more information about the <code>Access-Control-Allow-Methods</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods\">Access-Control-Allow-Methods</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "items",
                 "type": "array",
-                "description": "The list of HTTP methods. Valid values are:<br />+ &#96;&#96;GET&#96;&#96; <br />+ &#96;&#96;DELETE&#96;&#96; <br />+ &#96;&#96;HEAD&#96;&#96; <br />+ &#96;&#96;OPTIONS&#96;&#96; <br />+ &#96;&#96;PATCH&#96;&#96; <br />+ &#96;&#96;POST&#96;&#96; <br />+ &#96;&#96;PUT&#96;&#96; <br />+ &#96;&#96;ALL&#96;&#96; <br /><br />&#96;&#96;ALL&#96;&#96; is a special value that includes all of the listed HTTP methods."
+                "description": "<details><summary>The list of HTTP methods. Valid values are:</summary>+   <code>GET</code><br />+   <code>DELETE</code><br />+   <code>HEAD</code><br />+   <code>OPTIONS</code><br />+   <code>PATCH</code><br />+   <code>POST</code><br />+   <code>PUT</code><br />+   <code>ALL</code><br /><code>ALL</code> is a special value that includes all of the listed HTTP methods.</details>"
               }
             ]
           },
           {
             "name": "access_control_allow_origins",
             "type": "object",
-            "description": "A list of origins (domain names) that CloudFront can use as the value for the &#96;&#96;Access-Control-Allow-Origin&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Allow-Origin&#96;&#96; HTTP response header, see &#91;Access-Control-Allow-Origin&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) in the MDN Web Docs.",
+            "description": "<details><summary>A list of origins (domain names) that CloudFront can use as the value for the <code>Access-Control-Allow-Origin</code> HTTP response header.</summary>For more information about the <code>Access-Control-Allow-Origin</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin\">Access-Control-Allow-Origin</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "items",
                 "type": "array",
-                "description": "The list of origins (domain names). You can specify &#96;&#96;&#42;&#96;&#96; to allow all origins."
+                "description": "The list of origins (domain names). You can specify <code>*</code> to allow all origins."
               }
             ]
           },
           {
             "name": "access_control_expose_headers",
             "type": "object",
-            "description": "A list of HTTP headers that CloudFront includes as values for the &#96;&#96;Access-Control-Expose-Headers&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Expose-Headers&#96;&#96; HTTP response header, see &#91;Access-Control-Expose-Headers&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers) in the MDN Web Docs.",
+            "description": "<details><summary>A list of HTTP headers that CloudFront includes as values for the <code>Access-Control-Expose-Headers</code> HTTP response header.</summary>For more information about the <code>Access-Control-Expose-Headers</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers\">Access-Control-Expose-Headers</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "items",
                 "type": "array",
-                "description": "The list of HTTP headers. You can specify &#96;&#96;&#42;&#96;&#96; to expose all headers."
+                "description": "The list of HTTP headers. You can specify <code>*</code> to expose all headers."
               }
             ]
           },
           {
             "name": "access_control_max_age_sec",
             "type": "integer",
-            "description": "A number that CloudFront uses as the value for the &#96;&#96;Access-Control-Max-Age&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Access-Control-Max-Age&#96;&#96; HTTP response header, see &#91;Access-Control-Max-Age&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) in the MDN Web Docs."
+            "description": "<details><summary>A number that CloudFront uses as the value for the <code>Access-Control-Max-Age</code> HTTP response header.</summary>For more information about the <code>Access-Control-Max-Age</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age\">Access-Control-Max-Age</a> in the MDN Web Docs.</details>"
           },
           {
             "name": "origin_override",
@@ -165,7 +165,7 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
       {
         "name": "name",
         "type": "string",
-        "description": "A name to identify the response headers policy.<br />The name must be unique for response headers policies in this AWS-account."
+        "description": "<details><summary>A name to identify the response headers policy.</summary>The name must be unique for response headers policies in this AWS-account.</details>"
       },
       {
         "name": "remove_headers_config",
@@ -194,117 +194,117 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
           {
             "name": "content_security_policy",
             "type": "object",
-            "description": "The policy directives and their values that CloudFront includes as values for the &#96;&#96;Content-Security-Policy&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Content-Security-Policy&#96;&#96; HTTP response header, see &#91;Content-Security-Policy&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) in the MDN Web Docs.",
+            "description": "<details><summary>The policy directives and their values that CloudFront includes as values for the <code>Content-Security-Policy</code> HTTP response header.</summary>For more information about the <code>Content-Security-Policy</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy\">Content-Security-Policy</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "content_security_policy",
                 "type": "string",
-                "description": "The policy directives and their values that CloudFront includes as values for the &#96;&#96;Content-Security-Policy&#96;&#96; HTTP response header.<br />For more information about the &#96;&#96;Content-Security-Policy&#96;&#96; HTTP response header, see &#91;Content-Security-Policy&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) in the MDN Web Docs."
+                "description": "<details><summary>The policy directives and their values that CloudFront includes as values for the <code>Content-Security-Policy</code> HTTP response header.</summary>For more information about the <code>Content-Security-Policy</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy\">Content-Security-Policy</a> in the MDN Web Docs.</details>"
               },
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;Content-Security-Policy&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>Content-Security-Policy</code> HTTP response header received from the origin with the one specified in this response headers policy."
               }
             ]
           },
           {
             "name": "content_type_options",
             "type": "object",
-            "description": "Determines whether CloudFront includes the &#96;&#96;X-Content-Type-Options&#96;&#96; HTTP response header with its value set to &#96;&#96;nosniff&#96;&#96;.<br />For more information about the &#96;&#96;X-Content-Type-Options&#96;&#96; HTTP response header, see &#91;X-Content-Type-Options&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options) in the MDN Web Docs.",
+            "description": "<details><summary>Determines whether CloudFront includes the <code>X-Content-Type-Options</code> HTTP response header with its value set to <code>nosniff</code>.</summary>For more information about the <code>X-Content-Type-Options</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options\">X-Content-Type-Options</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;X-Content-Type-Options&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>X-Content-Type-Options</code> HTTP response header received from the origin with the one specified in this response headers policy."
               }
             ]
           },
           {
             "name": "frame_options",
             "type": "object",
-            "description": "Determines whether CloudFront includes the &#96;&#96;X-Frame-Options&#96;&#96; HTTP response header and the header's value.<br />For more information about the &#96;&#96;X-Frame-Options&#96;&#96; HTTP response header, see &#91;X-Frame-Options&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) in the MDN Web Docs.",
+            "description": "<details><summary>Determines whether CloudFront includes the <code>X-Frame-Options</code> HTTP response header and the header's value.</summary>For more information about the <code>X-Frame-Options</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options\">X-Frame-Options</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "frame_option",
                 "type": "string",
-                "description": "The value of the &#96;&#96;X-Frame-Options&#96;&#96; HTTP response header. Valid values are &#96;&#96;DENY&#96;&#96; and &#96;&#96;SAMEORIGIN&#96;&#96;.<br />For more information about these values, see &#91;X-Frame-Options&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) in the MDN Web Docs."
+                "description": "<details><summary>The value of the <code>X-Frame-Options</code> HTTP response header. Valid values are <code>DENY</code> and <code>SAMEORIGIN</code>.</summary>For more information about these values, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options\">X-Frame-Options</a> in the MDN Web Docs.</details>"
               },
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;X-Frame-Options&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>X-Frame-Options</code> HTTP response header received from the origin with the one specified in this response headers policy."
               }
             ]
           },
           {
             "name": "referrer_policy",
             "type": "object",
-            "description": "Determines whether CloudFront includes the &#96;&#96;Referrer-Policy&#96;&#96; HTTP response header and the header's value.<br />For more information about the &#96;&#96;Referrer-Policy&#96;&#96; HTTP response header, see &#91;Referrer-Policy&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) in the MDN Web Docs.",
+            "description": "<details><summary>Determines whether CloudFront includes the <code>Referrer-Policy</code> HTTP response header and the header's value.</summary>For more information about the <code>Referrer-Policy</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy\">Referrer-Policy</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;Referrer-Policy&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>Referrer-Policy</code> HTTP response header received from the origin with the one specified in this response headers policy."
               },
               {
                 "name": "referrer_policy",
                 "type": "string",
-                "description": "Determines whether CloudFront includes the &#96;&#96;Referrer-Policy&#96;&#96; HTTP response header and the header's value.<br />For more information about the &#96;&#96;Referrer-Policy&#96;&#96; HTTP response header, see &#91;Referrer-Policy&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) in the MDN Web Docs."
+                "description": "<details><summary>Determines whether CloudFront includes the <code>Referrer-Policy</code> HTTP response header and the header's value.</summary>For more information about the <code>Referrer-Policy</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy\">Referrer-Policy</a> in the MDN Web Docs.</details>"
               }
             ]
           },
           {
             "name": "strict_transport_security",
             "type": "object",
-            "description": "Determines whether CloudFront includes the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header and the header's value.<br />For more information about the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header, see &#91;Security headers&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html#understanding-response-headers-policies-security) in the &#42;Amazon CloudFront Developer Guide&#42; and &#91;Strict-Transport-Security&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) in the MDN Web Docs.",
+            "description": "<details><summary>Determines whether CloudFront includes the <code>Strict-Transport-Security</code> HTTP response header and the header's value.</summary>For more information about the <code>Strict-Transport-Security</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html#understanding-response-headers-policies-security\">Security headers</a> in the <i>Amazon CloudFront Developer Guide</i> and <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security\">Strict-Transport-Security</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "access_control_max_age_sec",
                 "type": "integer",
-                "description": "A number that CloudFront uses as the value for the &#96;&#96;max-age&#96;&#96; directive in the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header."
+                "description": "A number that CloudFront uses as the value for the <code>max-age</code> directive in the <code>Strict-Transport-Security</code> HTTP response header."
               },
               {
                 "name": "include_subdomains",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront includes the &#96;&#96;includeSubDomains&#96;&#96; directive in the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header."
+                "description": "A Boolean that determines whether CloudFront includes the <code>includeSubDomains</code> directive in the <code>Strict-Transport-Security</code> HTTP response header."
               },
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>Strict-Transport-Security</code> HTTP response header received from the origin with the one specified in this response headers policy."
               },
               {
                 "name": "preload",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront includes the &#96;&#96;preload&#96;&#96; directive in the &#96;&#96;Strict-Transport-Security&#96;&#96; HTTP response header."
+                "description": "A Boolean that determines whether CloudFront includes the <code>preload</code> directive in the <code>Strict-Transport-Security</code> HTTP response header."
               }
             ]
           },
           {
             "name": "x_ss_protection",
             "type": "object",
-            "description": "Determines whether CloudFront includes the &#96;&#96;X-XSS-Protection&#96;&#96; HTTP response header and the header's value.<br />For more information about the &#96;&#96;X-XSS-Protection&#96;&#96; HTTP response header, see &#91;X-XSS-Protection&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) in the MDN Web Docs.",
+            "description": "<details><summary>Determines whether CloudFront includes the <code>X-XSS-Protection</code> HTTP response header and the header's value.</summary>For more information about the <code>X-XSS-Protection</code> HTTP response header, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection\">X-XSS-Protection</a> in the MDN Web Docs.</details>",
             "children": [
               {
                 "name": "mode_block",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront includes the &#96;&#96;mode=block&#96;&#96; directive in the &#96;&#96;X-XSS-Protection&#96;&#96; header.<br />For more information about this directive, see &#91;X-XSS-Protection&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) in the MDN Web Docs."
+                "description": "<details><summary>A Boolean that determines whether CloudFront includes the <code>mode=block</code> directive in the <code>X-XSS-Protection</code> header.</summary>For more information about this directive, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection\">X-XSS-Protection</a> in the MDN Web Docs.</details>"
               },
               {
                 "name": "override",
                 "type": "boolean",
-                "description": "A Boolean that determines whether CloudFront overrides the &#96;&#96;X-XSS-Protection&#96;&#96; HTTP response header received from the origin with the one specified in this response headers policy."
+                "description": "A Boolean that determines whether CloudFront overrides the <code>X-XSS-Protection</code> HTTP response header received from the origin with the one specified in this response headers policy."
               },
               {
                 "name": "protection",
                 "type": "boolean",
-                "description": "A Boolean that determines the value of the &#96;&#96;X-XSS-Protection&#96;&#96; HTTP response header. When this setting is &#96;&#96;true&#96;&#96;, the value of the &#96;&#96;X-XSS-Protection&#96;&#96; header is &#96;&#96;1&#96;&#96;. When this setting is &#96;&#96;false&#96;&#96;, the value of the &#96;&#96;X-XSS-Protection&#96;&#96; header is &#96;&#96;0&#96;&#96;.<br />For more information about these settings, see &#91;X-XSS-Protection&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) in the MDN Web Docs."
+                "description": "<details><summary>A Boolean that determines the value of the <code>X-XSS-Protection</code> HTTP response header. When this setting is <code>true</code>, the value of the <code>X-XSS-Protection</code> header is <code>1</code>. When this setting is <code>false</code>, the value of the <code>X-XSS-Protection</code> header is <code>0</code>.</summary>For more information about these settings, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection\">X-XSS-Protection</a> in the MDN Web Docs.</details>"
               },
               {
                 "name": "report_uri",
                 "type": "string",
-                "description": "A reporting URI, which CloudFront uses as the value of the &#96;&#96;report&#96;&#96; directive in the &#96;&#96;X-XSS-Protection&#96;&#96; header.<br />You cannot specify a &#96;&#96;ReportUri&#96;&#96; when &#96;&#96;ModeBlock&#96;&#96; is &#96;&#96;true&#96;&#96;.<br />For more information about using a reporting URL, see &#91;X-XSS-Protection&#93;(https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) in the MDN Web Docs."
+                "description": "<details><summary>A reporting URI, which CloudFront uses as the value of the <code>report</code> directive in the <code>X-XSS-Protection</code> header.</summary>You cannot specify a <code>ReportUri</code> when <code>ModeBlock</code> is <code>true</code>.<br />For more information about using a reporting URL, see <a href=\"https://docs.aws.amazon.com/https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection\">X-XSS-Protection</a> in the MDN Web Docs.</details>"
               }
             ]
           }
@@ -313,17 +313,17 @@ Creates, updates, deletes or gets a <code>response_headers_policy</code> resourc
       {
         "name": "server_timing_headers_config",
         "type": "object",
-        "description": "A configuration for enabling the &#96;&#96;Server-Timing&#96;&#96; header in HTTP responses sent from CloudFront.",
+        "description": "A configuration for enabling the <code>Server-Timing</code> header in HTTP responses sent from CloudFront.",
         "children": [
           {
             "name": "enabled",
             "type": "boolean",
-            "description": "A Boolean that determines whether CloudFront adds the &#96;&#96;Server-Timing&#96;&#96; header to HTTP responses that it sends in response to requests that match a cache behavior that's associated with this response headers policy."
+            "description": "A Boolean that determines whether CloudFront adds the <code>Server-Timing</code> header to HTTP responses that it sends in response to requests that match a cache behavior that's associated with this response headers policy."
           },
           {
             "name": "sampling_rate",
             "type": "number",
-            "description": "A number 0–100 (inclusive) that specifies the percentage of responses that you want CloudFront to add the &#96;&#96;Server-Timing&#96;&#96; header to. When you set the sampling rate to 100, CloudFront adds the &#96;&#96;Server-Timing&#96;&#96; header to the HTTP response for every request that matches the cache behavior that this response headers policy is attached to. When you set it to 50, CloudFront adds the header to 50% of the responses for requests that match the cache behavior. You can set the sampling rate to any number 0–100 with up to four decimal places."
+            "description": "A number 0–100 (inclusive) that specifies the percentage of responses that you want CloudFront to add the <code>Server-Timing</code> header to. When you set the sampling rate to 100, CloudFront adds the <code>Server-Timing</code> header to the HTTP response for every request that matches the cache behavior that this response headers policy is attached to. When you set it to 50, CloudFront adds the header to 50% of the responses for requests that match the cache behavior. You can set the sampling rate to any number 0–100 with up to four decimal places."
           }
         ]
       }

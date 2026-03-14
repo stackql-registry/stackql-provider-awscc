@@ -311,7 +311,7 @@ Creates, updates, deletes or gets a <code>connector_profile</code> resource or l
               {
                 "name": "stage",
                 "type": "string",
-                "description": "The name of the Amazon S3 stage that was created while setting up an Amazon S3 stage in the<br />Snowﬂake account. This is written in the following format: &lt; Database&gt;&lt; Schema&gt;&lt;Stage Name&gt;."
+                "description": "<details><summary>The name of the Amazon S3 stage that was created while setting up an Amazon S3 stage in the</summary>Snowﬂake account. This is written in the following format: < Database>< Schema><Stage Name>.</details>"
               },
               {
                 "name": "bucket_name",
@@ -882,7 +882,7 @@ SELECT
   credentials_arn
 FROM awscc.appflow.connector_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_profile_name }}';
 ```
 </TabItem>
@@ -895,7 +895,7 @@ SELECT
   connector_profile_name
 FROM awscc.appflow.connector_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1160,7 +1160,7 @@ WHERE
 DELETE FROM awscc.appflow.connector_profiles
 WHERE
   Identifier = '{{ connector_profile_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

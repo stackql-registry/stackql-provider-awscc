@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>distribution</code> resource or lists 
       {
         "name": "path",
         "type": "string",
-        "description": "The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify wildcard directories (path/to/assets/&#42;), and file types (&#42;.html, &#42;jpg, &#42;js). Directories and file paths are case-sensitive."
+        "description": "The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify wildcard directories (path/to/assets/<i>), and file types (</i>.html, <i>jpg, </i>js). Directories and file paths are case-sensitive."
       }
     ]
   },
@@ -225,12 +225,12 @@ Creates, updates, deletes or gets a <code>distribution</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -333,7 +333,7 @@ SELECT
   tags
 FROM awscc.lightsail.distributions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ distribution_name }}';
 ```
 </TabItem>
@@ -346,7 +346,7 @@ SELECT
   distribution_name
 FROM awscc.lightsail.distributions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -506,7 +506,7 @@ WHERE
 DELETE FROM awscc.lightsail.distributions
 WHERE
   Identifier = '{{ distribution_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

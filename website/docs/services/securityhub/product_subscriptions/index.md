@@ -135,7 +135,7 @@ SELECT
   product_subscription_arn
 FROM awscc.securityhub.product_subscriptions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ product_subscription_arn }}';
 ```
 </TabItem>
@@ -148,7 +148,7 @@ SELECT
   product_subscription_arn
 FROM awscc.securityhub.product_subscriptions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -219,7 +219,7 @@ resources:
 DELETE FROM awscc.securityhub.product_subscriptions
 WHERE
   Identifier = '{{ product_subscription_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

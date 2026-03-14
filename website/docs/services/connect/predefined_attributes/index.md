@@ -195,7 +195,7 @@ SELECT
   last_modified_time
 FROM awscc.connect.predefined_attributes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}|{{ name }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   name
 FROM awscc.connect.predefined_attributes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +320,7 @@ WHERE
 DELETE FROM awscc.connect.predefined_attributes
 WHERE
   Identifier = '{{ instance_arn }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

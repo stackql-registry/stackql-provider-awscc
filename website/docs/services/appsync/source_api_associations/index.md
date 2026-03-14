@@ -214,7 +214,7 @@ SELECT
   last_successful_merge_date
 FROM awscc.appsync.source_api_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_arn }}';
 ```
 </TabItem>
@@ -227,7 +227,7 @@ SELECT
   association_arn
 FROM awscc.appsync.source_api_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -332,7 +332,7 @@ WHERE
 DELETE FROM awscc.appsync.source_api_associations
 WHERE
   Identifier = '{{ association_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

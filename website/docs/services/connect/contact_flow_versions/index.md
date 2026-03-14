@@ -164,7 +164,7 @@ SELECT
   flow_content_sha256
 FROM awscc.connect.contact_flow_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ contact_flow_version_arn }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   contact_flow_version_arn
 FROM awscc.connect.contact_flow_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +252,7 @@ resources:
 DELETE FROM awscc.connect.contact_flow_versions
 WHERE
   Identifier = '{{ contact_flow_version_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

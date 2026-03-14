@@ -242,7 +242,7 @@ SELECT
   state_reason
 FROM awscc.events.endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -255,7 +255,7 @@ SELECT
   name
 FROM awscc.events.endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +374,7 @@ WHERE
 DELETE FROM awscc.events.endpoints
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

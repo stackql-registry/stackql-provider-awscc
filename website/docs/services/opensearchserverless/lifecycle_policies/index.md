@@ -158,7 +158,7 @@ SELECT
   policy
 FROM awscc.opensearchserverless.lifecycle_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ type }}|{{ name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   name
 FROM awscc.opensearchserverless.lifecycle_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +275,7 @@ WHERE
 DELETE FROM awscc.opensearchserverless.lifecycle_policies
 WHERE
   Identifier = '{{ type }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

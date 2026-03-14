@@ -141,7 +141,7 @@ SELECT
   policy_document
 FROM awscc.logs.resource_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ policy_name }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   policy_name
 FROM awscc.logs.resource_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +246,7 @@ WHERE
 DELETE FROM awscc.logs.resource_policies
 WHERE
   Identifier = '{{ policy_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

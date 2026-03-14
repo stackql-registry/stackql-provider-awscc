@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.connect.contact_flow_modules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ contact_flow_module_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   contact_flow_module_arn
 FROM awscc.connect.contact_flow_modules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.connect.contact_flow_modules
 WHERE
   Identifier = '{{ contact_flow_module_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

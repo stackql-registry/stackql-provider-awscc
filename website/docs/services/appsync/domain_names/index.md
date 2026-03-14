@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.appsync.domain_names
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   domain_name
 FROM awscc.appsync.domain_names_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ WHERE
 DELETE FROM awscc.appsync.domain_names
 WHERE
   Identifier = '{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

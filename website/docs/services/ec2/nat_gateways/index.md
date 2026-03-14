@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>nat_gateways</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a network address translation (NAT) gateway in the specified subnet. You can create either a public NAT gateway or a private NAT gateway. The default is a public NAT gateway. If you create a public NAT gateway, you must specify an elastic IP address.<br />With a NAT gateway, instances in a private subnet can connect to the internet, other AWS services, or an on-premises network using the IP address of the NAT gateway. For more information, see &#91;NAT gateways&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the &#42;Amazon VPC User Guide&#42;.<br />If you add a default route (&#96;&#96;AWS::EC2::Route&#96;&#96; resource) that points to a NAT gateway, specify the NAT gateway ID for the route's &#96;&#96;NatGatewayId&#96;&#96; property.<br />When you associate an Elastic IP address or secondary Elastic IP address with a public NAT gateway, the network border group of the Elastic IP address must match the network border group of the Availability Zone (AZ) that the public NAT gateway is in. Otherwise, the NAT gateway fails to launch. You can see the network border group for the AZ by viewing the details of the subnet. Similarly, you can view the network border group for the Elastic IP address by viewing its details. For more information, see &#91;Allocate an Elastic IP address&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#allocate-eip) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a network address translation (NAT) gateway in the specified subnet. You can create either a public NAT gateway or a private NAT gateway. The default is a public NAT gateway. If you create a public NAT gateway, you must specify an elastic IP address.</summary>With a NAT gateway, instances in a private subnet can connect to the internet, other AWS services, or an on-premises network using the IP address of the NAT gateway. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT gateways</a> in the <i>Amazon VPC User Guide</i>.<br />If you add a default route (<code>AWS::EC2::Route</code> resource) that points to a NAT gateway, specify the NAT gateway ID for the route's <code>NatGatewayId</code> property.<br />When you associate an Elastic IP address or secondary Elastic IP address with a public NAT gateway, the network border group of the Elastic IP address must match the network border group of the Availability Zone (AZ) that the public NAT gateway is in. Otherwise, the NAT gateway fails to launch. You can see the network border group for the AZ by viewing the details of the subnet. Similarly, you can view the network border group for the Elastic IP address by viewing its details. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#allocate-eip">Allocate an Elastic IP address</a> in the <i>Amazon VPC User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.nat_gateways" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
   {
     "name": "secondary_allocation_ids",
     "type": "array",
-    "description": "Secondary EIP allocation IDs. For more information, see &#91;Create a NAT gateway&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html) in the &#42;Amazon VPC User Guide&#42;."
+    "description": "Secondary EIP allocation IDs. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html\">Create a NAT gateway</a> in the <i>Amazon VPC User Guide</i>."
   },
   {
     "name": "private_ip_address",
@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
   {
     "name": "secondary_private_ip_address_count",
     "type": "integer",
-    "description": "&#91;Private NAT gateway only&#93; The number of secondary private IPv4 addresses you want to assign to the NAT gateway. For more information about secondary addresses, see &#91;Create a NAT gateway&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating) in the &#42;Amazon Virtual Private Cloud User Guide&#42;.<br />&#96;&#96;SecondaryPrivateIpAddressCount&#96;&#96; and &#96;&#96;SecondaryPrivateIpAddresses&#96;&#96; cannot be set at the same time."
+    "description": "<details><summary>[Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway. For more information about secondary addresses, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating\">Create a NAT gateway</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</summary><code>SecondaryPrivateIpAddressCount</code> and <code>SecondaryPrivateIpAddresses</code> cannot be set at the same time.</details>"
   },
   {
     "name": "allocation_id",
     "type": "string",
-    "description": "&#91;Public NAT gateway only&#93; The allocation ID of the Elastic IP address that's associated with the NAT gateway. This property is required for a public NAT gateway and cannot be specified with a private NAT gateway."
+    "description": "[Public NAT gateway only] The allocation ID of the Elastic IP address that's associated with the NAT gateway. This property is required for a public NAT gateway and cannot be specified with a private NAT gateway."
   },
   {
     "name": "subnet_id",
@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
   {
     "name": "secondary_private_ip_addresses",
     "type": "array",
-    "description": "Secondary private IPv4 addresses. For more information about secondary addresses, see &#91;Create a NAT gateway&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating) in the &#42;Amazon Virtual Private Cloud User Guide&#42;.<br />&#96;&#96;SecondaryPrivateIpAddressCount&#96;&#96; and &#96;&#96;SecondaryPrivateIpAddresses&#96;&#96; cannot be set at the same time."
+    "description": "<details><summary>Secondary private IPv4 addresses. For more information about secondary addresses, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating\">Create a NAT gateway</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</summary><code>SecondaryPrivateIpAddressCount</code> and <code>SecondaryPrivateIpAddresses</code> cannot be set at the same time.</details>"
   },
   {
     "name": "nat_gateway_id",
@@ -201,7 +201,7 @@ SELECT
   max_drain_duration_seconds
 FROM awscc.ec2.nat_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ nat_gateway_id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   nat_gateway_id
 FROM awscc.ec2.nat_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +356,7 @@ WHERE
 DELETE FROM awscc.ec2.nat_gateways
 WHERE
   Identifier = '{{ nat_gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

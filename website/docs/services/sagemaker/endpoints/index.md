@@ -119,7 +119,7 @@ Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <co
               {
                 "name": "type",
                 "type": "string",
-                "description": "Specifies whether the &#96;Value&#96; is an instance count or a capacity unit."
+                "description": "Specifies whether the <code>Value</code> is an instance count or a capacity unit."
               },
               {
                 "name": "value",
@@ -290,7 +290,7 @@ SELECT
   tags
 FROM awscc.sagemaker.endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ endpoint_arn }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   endpoint_arn
 FROM awscc.sagemaker.endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -435,7 +435,7 @@ WHERE
 DELETE FROM awscc.sagemaker.endpoints
 WHERE
   Identifier = '{{ endpoint_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

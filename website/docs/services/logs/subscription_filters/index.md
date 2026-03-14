@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>subscription_filter</code> resource or
 <tbody>
 <tr><td><b>Name</b></td><td><code>subscription_filters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::Logs::SubscriptionFilter&#96;&#96; resource specifies a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events and have them delivered to a specific destination. Currently, the supported destinations are:<br />+ An Amazon Kinesis data stream belonging to the same account as the subscription filter, for same-account delivery.<br />+ A logical destination that belongs to a different account, for cross-account delivery.<br />+ An Amazon Kinesis Firehose delivery stream that belongs to the same account as the subscription filter, for same-account delivery.<br />+ An LAMlong function that belongs to the same account as the subscription filter, for same-account delivery.<br /><br />There can be as many as two subscription filters associated with a log group.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::Logs::SubscriptionFilter</code> resource specifies a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events and have them delivered to a specific destination. Currently, the supported destinations are:</summary>+  An Amazon Kinesis data stream belonging to the same account as the subscription filter, for same-account delivery.<br />+  A logical destination that belongs to a different account, for cross-account delivery.<br />+  An Amazon Kinesis Firehose delivery stream that belongs to the same account as the subscription filter, for same-account delivery.<br />+  An LAMlong function that belongs to the same account as the subscription filter, for same-account delivery.<br />There can be as many as two subscription filters associated with a log group.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.subscription_filters" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>subscription_filter</code> resource or
   {
     "name": "filter_pattern",
     "type": "string",
-    "description": "The filtering expressions that restrict what gets delivered to the destination AWS resource. For more information about the filter pattern syntax, see &#91;Filter and Pattern Syntax&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html)."
+    "description": "The filtering expressions that restrict what gets delivered to the destination AWS resource. For more information about the filter pattern syntax, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html\">Filter and Pattern Syntax</a>."
   },
   {
     "name": "log_group_name",
@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>subscription_filter</code> resource or
   {
     "name": "apply_on_transformed_logs",
     "type": "boolean",
-    "description": "This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see &#91;PutTransformer&#93;(https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API&#95;PutTransformer.html).<br />If this value is &#96;&#96;true&#96;&#96;, the subscription filter is applied on the transformed version of the log events instead of the original ingested log events."
+    "description": "<details><summary>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html\">PutTransformer</a>.</summary>If this value is <code>true</code>, the subscription filter is applied on the transformed version of the log events instead of the original ingested log events.</details>"
   },
   {
     "name": "region",
@@ -176,7 +176,7 @@ SELECT
   apply_on_transformed_logs
 FROM awscc.logs.subscription_filters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   log_group_name
 FROM awscc.logs.subscription_filters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +308,7 @@ WHERE
 DELETE FROM awscc.logs.subscription_filters
 WHERE
   Identifier = '{{ filter_name }}|{{ log_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

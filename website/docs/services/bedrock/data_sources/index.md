@@ -617,7 +617,7 @@ SELECT
   failure_reasons
 FROM awscc.bedrock.data_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```
 </TabItem>
@@ -631,7 +631,7 @@ SELECT
   data_source_id
 FROM awscc.bedrock.data_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -839,7 +839,7 @@ WHERE
 DELETE FROM awscc.bedrock.data_sources
 WHERE
   Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

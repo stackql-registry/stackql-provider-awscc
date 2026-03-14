@@ -90,7 +90,7 @@ SELECT
   web_acl_arn
 FROM awscc.wafv2.webacl_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_arn }}|{{ web_acl_arn }}';
 ```
 
@@ -166,7 +166,7 @@ resources:
 DELETE FROM awscc.wafv2.webacl_associations
 WHERE
   Identifier = '{{ resource_arn }}|{{ web_acl_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

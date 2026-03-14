@@ -171,7 +171,7 @@ SELECT
   integration_status
 FROM awscc.logs.integrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ integration_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   integration_name
 FROM awscc.logs.integrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +274,7 @@ resources:
 DELETE FROM awscc.logs.integrations
 WHERE
   Identifier = '{{ integration_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

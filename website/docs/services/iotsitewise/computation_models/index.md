@@ -202,7 +202,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.computation_models
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ computation_model_id }}';
 ```
 </TabItem>
@@ -215,7 +215,7 @@ SELECT
   computation_model_id
 FROM awscc.iotsitewise.computation_models_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +330,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.computation_models
 WHERE
   Identifier = '{{ computation_model_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

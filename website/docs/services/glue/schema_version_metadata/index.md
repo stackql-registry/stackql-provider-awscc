@@ -151,7 +151,7 @@ SELECT
   value
 FROM awscc.glue.schema_version_metadata
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   value
 FROM awscc.glue.schema_version_metadata_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.glue.schema_version_metadata
 WHERE
   Identifier = '{{ schema_version_id }}|{{ key }}|{{ value }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

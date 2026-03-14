@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>hook_default_version</code> resource o
   {
     "name": "type_name",
     "type": "string",
-    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+    "description": "<details><summary>The name of the type being registered.</summary>We recommend that type names adhere to the following pattern: company_or_organization::service::type.</details>"
   },
   {
     "name": "arn",
@@ -147,7 +147,7 @@ SELECT
   version_id
 FROM awscc.cloudformation.hook_default_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   arn
 FROM awscc.cloudformation.hook_default_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>

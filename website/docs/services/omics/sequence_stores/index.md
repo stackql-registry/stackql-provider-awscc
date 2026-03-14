@@ -243,7 +243,7 @@ SELECT
   update_time
 FROM awscc.omics.sequence_stores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ sequence_store_id }}';
 ```
 </TabItem>
@@ -256,7 +256,7 @@ SELECT
   sequence_store_id
 FROM awscc.omics.sequence_stores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +383,7 @@ WHERE
 DELETE FROM awscc.omics.sequence_stores
 WHERE
   Identifier = '{{ sequence_store_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

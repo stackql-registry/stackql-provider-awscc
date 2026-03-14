@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>build</code> resource or lists <code>b
   {
     "name": "operating_system",
     "type": "string",
-    "description": "The operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build. If your game build contains multiple executables, they all must run on the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses the default value (WINDOWS&#95;2012). This value cannot be changed later."
+    "description": "The operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build. If your game build contains multiple executables, they all must run on the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later."
   },
   {
     "name": "storage_location",
@@ -211,7 +211,7 @@ SELECT
   build_arn
 FROM awscc.gamelift.builds
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ build_id }}';
 ```
 </TabItem>
@@ -224,7 +224,7 @@ SELECT
   build_id
 FROM awscc.gamelift.builds_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +338,7 @@ WHERE
 DELETE FROM awscc.gamelift.builds
 WHERE
   Identifier = '{{ build_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

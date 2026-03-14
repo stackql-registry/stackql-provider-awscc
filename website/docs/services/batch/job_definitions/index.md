@@ -1180,7 +1180,7 @@ SELECT
   consumable_resource_properties
 FROM awscc.batch.job_definitions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ job_definition_name }}';
 ```
 </TabItem>
@@ -1193,7 +1193,7 @@ SELECT
   job_definition_name
 FROM awscc.batch.job_definitions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1566,7 +1566,7 @@ WHERE
 DELETE FROM awscc.batch.job_definitions
 WHERE
   Identifier = '{{ job_definition_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

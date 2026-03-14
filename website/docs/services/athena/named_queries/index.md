@@ -164,7 +164,7 @@ SELECT
   named_query_id
 FROM awscc.athena.named_queries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ named_query_id }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   named_query_id
 FROM awscc.athena.named_queries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +266,7 @@ resources:
 DELETE FROM awscc.athena.named_queries
 WHERE
   Identifier = '{{ named_query_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

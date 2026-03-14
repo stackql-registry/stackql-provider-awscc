@@ -263,7 +263,7 @@ SELECT
   vpc_id
 FROM awscc.quicksight.vpc_connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}';
 ```
 </TabItem>
@@ -277,7 +277,7 @@ SELECT
   vpc_connection_id
 FROM awscc.quicksight.vpc_connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +422,7 @@ WHERE
 DELETE FROM awscc.quicksight.vpc_connections
 WHERE
   Identifier = '{{ aws_account_id }}|{{ vpc_connection_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.sso.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_arn }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   application_arn
 FROM awscc.sso.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.sso.applications
 WHERE
   Identifier = '{{ application_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

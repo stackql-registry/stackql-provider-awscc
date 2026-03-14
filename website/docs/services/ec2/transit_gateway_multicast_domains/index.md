@@ -93,17 +93,17 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain</code
       {
         "name": "auto_accept_shared_associations",
         "type": "string",
-        "description": "Indicates whether to automatically cross-account subnet associations that are associated with the transit gateway multicast domain. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to automatically cross-account subnet associations that are associated with the transit gateway multicast domain. Valid Values: enable | disable"
       },
       {
         "name": "igmpv2_support",
         "type": "string",
-        "description": "Indicates whether Internet Group Management Protocol (IGMP) version 2 is turned on for the transit gateway multicast domain. Valid Values: enable &#124; disable"
+        "description": "Indicates whether Internet Group Management Protocol (IGMP) version 2 is turned on for the transit gateway multicast domain. Valid Values: enable | disable"
       },
       {
         "name": "static_sources_support",
         "type": "string",
-        "description": "Indicates whether support for statically configuring transit gateway multicast group sources is turned on. Valid Values: enable &#124; disable"
+        "description": "Indicates whether support for statically configuring transit gateway multicast group sources is turned on. Valid Values: enable | disable"
       }
     ]
   },
@@ -200,7 +200,7 @@ SELECT
   options
 FROM awscc.ec2.transit_gateway_multicast_domains
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```
 </TabItem>
@@ -213,7 +213,7 @@ SELECT
   transit_gateway_multicast_domain_id
 FROM awscc.ec2.transit_gateway_multicast_domains_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +313,7 @@ WHERE
 DELETE FROM awscc.ec2.transit_gateway_multicast_domains
 WHERE
   Identifier = '{{ transit_gateway_multicast_domain_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

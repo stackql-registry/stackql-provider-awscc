@@ -412,7 +412,7 @@ SELECT
   pipeline_activities
 FROM awscc.iotanalytics.pipelines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ pipeline_name }}';
 ```
 </TabItem>
@@ -425,7 +425,7 @@ SELECT
   pipeline_name
 FROM awscc.iotanalytics.pipelines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -569,7 +569,7 @@ WHERE
 DELETE FROM awscc.iotanalytics.pipelines
 WHERE
   Identifier = '{{ pipeline_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

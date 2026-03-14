@@ -518,7 +518,7 @@ SELECT
   tags
 FROM awscc.bedrock.data_automation_projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ project_arn }}';
 ```
 </TabItem>
@@ -531,7 +531,7 @@ SELECT
   project_arn
 FROM awscc.bedrock.data_automation_projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -722,7 +722,7 @@ WHERE
 DELETE FROM awscc.bedrock.data_automation_projects
 WHERE
   Identifier = '{{ project_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

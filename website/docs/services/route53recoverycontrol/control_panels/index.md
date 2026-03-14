@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>control_panel</code> resource or lists
   {
     "name": "status",
     "type": "string",
-    "description": "The deployment status of control panel. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+    "description": "The deployment status of control panel. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION."
   },
   {
     "name": "default_control_panel",
@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.route53recoverycontrol.control_panels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ control_panel_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   control_panel_arn
 FROM awscc.route53recoverycontrol.control_panels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +292,7 @@ WHERE
 DELETE FROM awscc.route53recoverycontrol.control_panels
 WHERE
   Identifier = '{{ control_panel_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

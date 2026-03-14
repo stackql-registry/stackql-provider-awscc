@@ -251,7 +251,7 @@ SELECT
   arn
 FROM awscc.ssmcontacts.rotations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -264,7 +264,7 @@ SELECT
   arn
 FROM awscc.ssmcontacts.rotations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +401,7 @@ WHERE
 DELETE FROM awscc.ssmcontacts.rotations
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

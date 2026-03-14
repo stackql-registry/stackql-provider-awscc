@@ -217,7 +217,7 @@ SELECT
   trust_anchor_arn
 FROM awscc.rolesanywhere.trust_anchors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ trust_anchor_id }}';
 ```
 </TabItem>
@@ -230,7 +230,7 @@ SELECT
   trust_anchor_id
 FROM awscc.rolesanywhere.trust_anchors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -346,7 +346,7 @@ WHERE
 DELETE FROM awscc.rolesanywhere.trust_anchors
 WHERE
   Identifier = '{{ trust_anchor_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -246,7 +246,7 @@ SELECT
   vpc_security_groups
 FROM awscc.redshift.endpoint_accesses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ endpoint_name }}';
 ```
 </TabItem>
@@ -259,7 +259,7 @@ SELECT
   endpoint_name
 FROM awscc.redshift.endpoint_accesses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -368,7 +368,7 @@ WHERE
 DELETE FROM awscc.redshift.endpoint_accesses
 WHERE
   Identifier = '{{ endpoint_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

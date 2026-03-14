@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>webhook</code> resource or lists <code
       {
         "name": "secret_token",
         "type": "string",
-        "description": "The property used to configure GitHub authentication. For GITHUB&#95;HMAC, only the SecretToken property must be set."
+        "description": "The property used to configure GitHub authentication. For GITHUB_HMAC, only the SecretToken property must be set."
       }
     ]
   },
@@ -80,7 +80,7 @@ Creates, updates, deletes or gets a <code>webhook</code> resource or lists <code
   {
     "name": "authentication",
     "type": "string",
-    "description": "Supported options are GITHUB&#95;HMAC, IP, and UNAUTHENTICATED."
+    "description": "Supported options are GITHUB_HMAC, IP, and UNAUTHENTICATED."
   },
   {
     "name": "target_pipeline",
@@ -213,7 +213,7 @@ SELECT
   register_with_third_party
 FROM awscc.codepipeline.webhooks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   id
 FROM awscc.codepipeline.webhooks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +358,7 @@ WHERE
 DELETE FROM awscc.codepipeline.webhooks
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

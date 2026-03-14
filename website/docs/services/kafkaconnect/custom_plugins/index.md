@@ -225,7 +225,7 @@ SELECT
   tags
 FROM awscc.kafkaconnect.custom_plugins
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ custom_plugin_arn }}';
 ```
 </TabItem>
@@ -238,7 +238,7 @@ SELECT
   custom_plugin_arn
 FROM awscc.kafkaconnect.custom_plugins_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.kafkaconnect.custom_plugins
 WHERE
   Identifier = '{{ custom_plugin_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

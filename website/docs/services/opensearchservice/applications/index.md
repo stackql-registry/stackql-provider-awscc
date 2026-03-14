@@ -230,7 +230,7 @@ SELECT
   tags
 FROM awscc.opensearchservice.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -243,7 +243,7 @@ SELECT
   name
 FROM awscc.opensearchservice.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -362,7 +362,7 @@ WHERE
 DELETE FROM awscc.opensearchservice.applications
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

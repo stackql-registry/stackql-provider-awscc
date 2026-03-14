@@ -158,7 +158,7 @@ SELECT
   statement_id
 FROM awscc.signer.profile_permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ statement_id }}|{{ profile_name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   profile_name
 FROM awscc.signer.profile_permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +265,7 @@ resources:
 DELETE FROM awscc.signer.profile_permissions
 WHERE
   Identifier = '{{ statement_id }}|{{ profile_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

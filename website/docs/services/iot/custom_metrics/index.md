@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.iot.custom_metrics
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ metric_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   metric_name
 FROM awscc.iot.custom_metrics_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ WHERE
 DELETE FROM awscc.iot.custom_metrics
 WHERE
   Identifier = '{{ metric_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -201,7 +201,7 @@ SELECT
   tags
 FROM awscc.ec2.traffic_mirror_sessions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   id
 FROM awscc.ec2.traffic_mirror_sessions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +348,7 @@ WHERE
 DELETE FROM awscc.ec2.traffic_mirror_sessions
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

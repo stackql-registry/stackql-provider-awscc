@@ -51,12 +51,12 @@ Creates, updates, deletes or gets a <code>proactive_engagement</code> resource o
   {
     "name": "proactive_engagement_status",
     "type": "string",
-    "description": "If &#96;ENABLED&#96;, the Shield Response Team (SRT) will use email and phone to notify contacts about escalations to the SRT and to initiate proactive customer support.<br />If &#96;DISABLED&#96;, the SRT will not proactively notify contacts about escalations or to initiate proactive customer support."
+    "description": "<details><summary>If <code>ENABLED</code>, the Shield Response Team (SRT) will use email and phone to notify contacts about escalations to the SRT and to initiate proactive customer support.</summary>If <code>DISABLED</code>, the SRT will not proactively notify contacts about escalations or to initiate proactive customer support.</details>"
   },
   {
     "name": "emergency_contact_list",
     "type": "array",
-    "description": "A list of email addresses and phone numbers that the Shield Response Team (SRT) can use to contact you for escalations to the SRT and to initiate proactive customer support.<br />To enable proactive engagement, the contact list must include at least one phone number.",
+    "description": "<details><summary>A list of email addresses and phone numbers that the Shield Response Team (SRT) can use to contact you for escalations to the SRT and to initiate proactive customer support.</summary>To enable proactive engagement, the contact list must include at least one phone number.</details>",
     "children": [
       {
         "name": "contact_notes",

@@ -411,7 +411,7 @@ SELECT
   logging_filter
 FROM awscc.wafv2.logging_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_arn }}';
 ```
 </TabItem>
@@ -424,7 +424,7 @@ SELECT
   resource_arn
 FROM awscc.wafv2.logging_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -578,7 +578,7 @@ WHERE
 DELETE FROM awscc.wafv2.logging_configurations
 WHERE
   Identifier = '{{ resource_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -245,12 +245,12 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "user_name",
     "type": "string",
-    "description": "Username of the Lightsail instance."
+    "description": "Username of the  Lightsail instance."
   },
   {
     "name": "ssh_key_name",
     "type": "string",
-    "description": "SSH Key Name of the Lightsail instance."
+    "description": "SSH Key Name of the  Lightsail instance."
   },
   {
     "name": "instance_name",
@@ -265,12 +265,12 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "bundle_id",
     "type": "string",
-    "description": "The bundle of specification information for your virtual private server (or instance ), including the pricing plan (e.g., micro&#95;1&#95;0 )."
+    "description": "The bundle of specification information for your virtual private server (or instance ), including the pricing plan (e.g., micro_1_0 )."
   },
   {
     "name": "blueprint_id",
     "type": "string",
-    "description": "The ID for a virtual private server image (e.g., app&#95;wordpress&#95;4&#95;4 or app&#95;lamp&#95;7&#95;0 ). Use the get blueprints operation to return a list of available images (or blueprints )."
+    "description": "The ID for a virtual private server image (e.g., app_wordpress_4_4 or app_lamp_7_0 ). Use the get blueprints operation to return a list of available images (or blueprints )."
   },
   {
     "name": "add_ons",
@@ -319,12 +319,12 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -440,7 +440,7 @@ SELECT
   instance_arn
 FROM awscc.lightsail.instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_name }}';
 ```
 </TabItem>
@@ -453,7 +453,7 @@ SELECT
   instance_name
 FROM awscc.lightsail.instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -626,7 +626,7 @@ WHERE
 DELETE FROM awscc.lightsail.instances
 WHERE
   Identifier = '{{ instance_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

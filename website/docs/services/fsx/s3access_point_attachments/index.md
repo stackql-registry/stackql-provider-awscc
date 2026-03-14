@@ -217,7 +217,7 @@ SELECT
   s3_access_point
 FROM awscc.fsx.s3access_point_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -230,7 +230,7 @@ SELECT
   name
 FROM awscc.fsx.s3access_point_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +330,7 @@ resources:
 DELETE FROM awscc.fsx.s3access_point_attachments
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

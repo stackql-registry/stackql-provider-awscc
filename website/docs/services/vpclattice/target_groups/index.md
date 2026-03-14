@@ -309,7 +309,7 @@ SELECT
   tags
 FROM awscc.vpclattice.target_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -322,7 +322,7 @@ SELECT
   arn
 FROM awscc.vpclattice.target_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +447,7 @@ WHERE
 DELETE FROM awscc.vpclattice.target_groups
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

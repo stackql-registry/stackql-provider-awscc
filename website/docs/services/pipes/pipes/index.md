@@ -1194,7 +1194,7 @@ SELECT
   target_parameters
 FROM awscc.pipes.pipes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -1207,7 +1207,7 @@ SELECT
   name
 FROM awscc.pipes.pipes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1565,7 +1565,7 @@ WHERE
 DELETE FROM awscc.pipes.pipes
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

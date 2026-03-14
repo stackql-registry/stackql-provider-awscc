@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.quicksight.custom_permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```
 </TabItem>
@@ -197,7 +197,7 @@ SELECT
   custom_permissions_name
 FROM awscc.quicksight.custom_permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +323,7 @@ WHERE
 DELETE FROM awscc.quicksight.custom_permissions
 WHERE
   Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

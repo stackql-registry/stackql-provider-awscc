@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>vpc_link</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpc_links</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::VpcLink&#96;&#96; resource creates a VPC link. Supported only for HTTP APIs. The VPC link status must transition from &#96;&#96;PENDING&#96;&#96; to &#96;&#96;AVAILABLE&#96;&#96; to successfully create a VPC link, which can take up to 10 minutes. To learn more, see &#91;Working with VPC Links for HTTP APIs&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vpc-links.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::VpcLink</code> resource creates a VPC link. Supported only for HTTP APIs. The VPC link status must transition from <code>PENDING</code> to <code>AVAILABLE</code> to successfully create a VPC link, which can take up to 10 minutes. To learn more, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vpc-links.html">Working with VPC Links for HTTP APIs</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.vpc_links" /></td></tr>
 </tbody>
 </table>
@@ -159,7 +159,7 @@ SELECT
   name
 FROM awscc.apigatewayv2.vpc_links
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpc_link_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   vpc_link_id
 FROM awscc.apigatewayv2.vpc_links_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +275,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.vpc_links
 WHERE
   Identifier = '{{ vpc_link_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

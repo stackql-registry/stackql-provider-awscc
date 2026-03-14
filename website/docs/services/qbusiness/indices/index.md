@@ -267,7 +267,7 @@ SELECT
   updated_at
 FROM awscc.qbusiness.indices
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ index_id }}';
 ```
 </TabItem>
@@ -281,7 +281,7 @@ SELECT
   index_id
 FROM awscc.qbusiness.indices_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -403,7 +403,7 @@ WHERE
 DELETE FROM awscc.qbusiness.indices
 WHERE
   Identifier = '{{ application_id }}|{{ index_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

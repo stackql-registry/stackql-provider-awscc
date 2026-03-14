@@ -61,7 +61,7 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template_group</cod
   {
     "name": "id",
     "type": "string",
-    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
@@ -96,7 +96,7 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template_group</cod
   {
     "name": "id",
     "type": "string",
-    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
@@ -182,7 +182,7 @@ SELECT
   tags
 FROM awscc.medialive.event_bridge_rule_template_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identifier }}';
 ```
 </TabItem>
@@ -195,7 +195,7 @@ SELECT
   identifier
 FROM awscc.medialive.event_bridge_rule_template_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ WHERE
 DELETE FROM awscc.medialive.event_bridge_rule_template_groups
 WHERE
   Identifier = '{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

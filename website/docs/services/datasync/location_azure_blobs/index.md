@@ -257,7 +257,7 @@ SELECT
   managed_secret_config
 FROM awscc.datasync.location_azure_blobs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ location_arn }}';
 ```
 </TabItem>
@@ -270,7 +270,7 @@ SELECT
   location_arn
 FROM awscc.datasync.location_azure_blobs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +407,7 @@ WHERE
 DELETE FROM awscc.datasync.location_azure_blobs
 WHERE
   Identifier = '{{ location_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

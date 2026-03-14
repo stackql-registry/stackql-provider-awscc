@@ -184,7 +184,7 @@ SELECT
   principal_id
 FROM awscc.sso.assignments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   principal_id
 FROM awscc.sso.assignments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +303,7 @@ resources:
 DELETE FROM awscc.sso.assignments
 WHERE
   Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

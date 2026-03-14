@@ -241,7 +241,7 @@ SELECT
   disassociate_multicast_group
 FROM awscc.iotwireless.fuota_tasks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -254,7 +254,7 @@ SELECT
   id
 FROM awscc.iotwireless.fuota_tasks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -394,7 +394,7 @@ WHERE
 DELETE FROM awscc.iotwireless.fuota_tasks
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

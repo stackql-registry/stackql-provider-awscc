@@ -62,7 +62,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
       {
         "name": "integration_association_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the integration association. &#96;&#96;IntegrationAssociationArn&#96;&#96; is required if &#96;&#96;TriggerEventSource&#96;&#96; is one of the following values: &#96;&#96;OnZendeskTicketCreate&#96;&#96; &#124; &#96;&#96;OnZendeskTicketStatusUpdate&#96;&#96; &#124; &#96;&#96;OnSalesforceCaseCreate&#96;&#96;"
+        "description": "The Amazon Resource Name (ARN) of the integration association. <code>IntegrationAssociationArn</code> is required if <code>TriggerEventSource</code> is one of the following values: <code>OnZendeskTicketCreate</code> | <code>OnZendeskTicketStatusUpdate</code> | <code>OnSalesforceCaseCreate</code>"
       }
     ]
   },
@@ -79,7 +79,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
       {
         "name": "assign_contact_category_actions",
         "type": "array",
-        "description": "Information about the contact category action. The syntax can be empty, for example, &#96;&#96;&#123;&#125;&#96;&#96;."
+        "description": "Information about the contact category action. The syntax can be empty, for example, <code>&#123;&#125;</code>."
       },
       {
         "name": "event_bridge_actions",
@@ -96,17 +96,17 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
       {
         "name": "task_actions",
         "type": "array",
-        "description": "Information about the task action. This field is required if &#96;&#96;TriggerEventSource&#96;&#96; is one of the following values: &#96;&#96;OnZendeskTicketCreate&#96;&#96; &#124; &#96;&#96;OnZendeskTicketStatusUpdate&#96;&#96; &#124; &#96;&#96;OnSalesforceCaseCreate&#96;&#96;",
+        "description": "Information about the task action. This field is required if <code>TriggerEventSource</code> is one of the following values: <code>OnZendeskTicketCreate</code> | <code>OnZendeskTicketStatusUpdate</code> | <code>OnSalesforceCaseCreate</code>",
         "children": [
           {
             "name": "name",
             "type": "string",
-            "description": "The name. Supports variable injection. For more information, see &#91;JSONPath reference&#93;(https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html) in the &#42;Administrators Guide&#42;."
+            "description": "The name. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Administrators Guide</i>."
           },
           {
             "name": "description",
             "type": "string",
-            "description": "The description. Supports variable injection. For more information, see &#91;JSONPath reference&#93;(https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html) in the &#42;Administrators Guide&#42;."
+            "description": "The description. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Administrators Guide</i>."
           },
           {
             "name": "contact_flow_arn",
@@ -116,7 +116,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
           {
             "name": "references",
             "type": "object",
-            "description": "Information about the reference when the &#96;&#96;referenceType&#96;&#96; is &#96;&#96;URL&#96;&#96;. Otherwise, null. &#96;&#96;URL&#96;&#96; is the only accepted type. (Supports variable injection in the &#96;&#96;Value&#96;&#96; field.)"
+            "description": "Information about the reference when the <code>referenceType</code> is <code>URL</code>. Otherwise, null. <code>URL</code> is the only accepted type. (Supports variable injection in the <code>Value</code> field.)"
           }
         ]
       },
@@ -128,22 +128,22 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
           {
             "name": "delivery_method",
             "type": "string",
-            "description": "Notification delivery method.<br />&#42;Allowed value&#42;: &#96;&#96;EMAIL&#96;&#96;"
+            "description": "<details><summary>Notification delivery method.</summary><i>Allowed value</i>: <code>EMAIL</code></details>"
           },
           {
             "name": "subject",
             "type": "string",
-            "description": "The subject of the email if the delivery method is &#96;&#96;EMAIL&#96;&#96;. Supports variable injection. For more information, see &#91;JSONPath reference&#93;(https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html) in the &#42;Administrators Guide&#42;."
+            "description": "The subject of the email if the delivery method is <code>EMAIL</code>. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Administrators Guide</i>."
           },
           {
             "name": "content",
             "type": "string",
-            "description": "Notification content. Supports variable injection. For more information, see &#91;JSONPath reference&#93;(https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html) in the &#42;Administrators Guide&#42;."
+            "description": "Notification content. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Administrators Guide</i>."
           },
           {
             "name": "content_type",
             "type": "string",
-            "description": "Content type format.<br />&#42;Allowed value&#42;: &#96;&#96;PLAIN&#95;TEXT&#96;&#96;"
+            "description": "<details><summary>Content type format.</summary><i>Allowed value</i>: <code>PLAIN_TEXT</code></details>"
           },
           {
             "name": "recipient",
@@ -259,7 +259,7 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
   {
     "name": "publish_status",
     "type": "string",
-    "description": "The publish status of the rule.<br />&#42;Allowed values&#42;: &#96;&#96;DRAFT&#96;&#96; &#124; &#96;&#96;PUBLISHED&#96;&#96;"
+    "description": "<details><summary>The publish status of the rule.</summary><i>Allowed values</i>: <code>DRAFT</code> | <code>PUBLISHED</code></details>"
   },
   {
     "name": "tags",
@@ -335,7 +335,7 @@ SELECT
   tags
 FROM awscc.connect.rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_arn }}';
 ```
 
@@ -495,7 +495,7 @@ WHERE
 DELETE FROM awscc.connect.rules
 WHERE
   Identifier = '{{ rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

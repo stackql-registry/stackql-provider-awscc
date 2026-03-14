@@ -336,7 +336,7 @@ SELECT
   payment_configuration
 FROM awscc.cleanrooms.memberships
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ membership_identifier }}';
 ```
 </TabItem>
@@ -349,7 +349,7 @@ SELECT
   membership_identifier
 FROM awscc.cleanrooms.memberships_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -489,7 +489,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.memberships
 WHERE
   Identifier = '{{ membership_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

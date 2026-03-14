@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>secrets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a new secret. A &#42;secret&#42; can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager.<br />For RDS master user credentials, see &#91;AWS::RDS::DBCluster MasterUserSecret&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-masterusersecret.html).<br />For RS admin user credentials, see &#91;AWS::Redshift::Cluster&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html).<br />To retrieve a secret in a CFNshort template, use a &#42;dynamic reference&#42;. For more information, see &#91;Retrieve a secret in an resource&#93;(https://docs.aws.amazon.com/secretsmanager/latest/userguide/cfn-example&#95;reference-secret.html).<br />For information about creating a secret in the console, see &#91;Create a secret&#93;(https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage&#95;create-basic-secret.html). For information about creating a secret using the CLI or SDK, see &#91;CreateSecret&#93;(https://docs.aws.amazon.com/secretsmanager/latest/apireference/API&#95;CreateSecret.html).<br />For information about retrieving a secret in code, see &#91;Retrieve secrets from Secrets Manager&#93;(https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Creates a new secret. A <i>secret</i> can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager.</summary>For RDS master user credentials, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-masterusersecret.html">AWS::RDS::DBCluster MasterUserSecret</a>.<br />For RS admin user credentials, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html">AWS::Redshift::Cluster</a>.<br />To retrieve a secret in a CFNshort template, use a <i>dynamic reference</i>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/cfn-example_reference-secret.html">Retrieve a secret in an resource</a>.<br />For information about creating a secret in the console, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html">Create a secret</a>. For information about creating a secret using the CLI or SDK, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html">CreateSecret</a>.<br />For information about retrieving a secret in code, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html">Retrieve secrets from Secrets Manager</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.secretsmanager.secrets" /></td></tr>
 </tbody>
 </table>
@@ -51,17 +51,17 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
   {
     "name": "kms_key_id",
     "type": "string",
-    "description": "The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret. An alias is always prefixed by &#96;&#96;alias/&#96;&#96;, for example &#96;&#96;alias/aws/secretsmanager&#96;&#96;. For more information, see &#91;About aliases&#93;(https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html).<br />To use a KMS key in a different account, use the key ARN or the alias ARN.<br />If you don't specify this value, then Secrets Manager uses the key &#96;&#96;aws/secretsmanager&#96;&#96;. If that key doesn't yet exist, then Secrets Manager creates it for you automatically the first time it encrypts the secret value.<br />If the secret is in a different AWS account from the credentials calling the API, then you can't use &#96;&#96;aws/secretsmanager&#96;&#96; to encrypt the secret, and you must create and use a customer managed KMS key."
+    "description": "<details><summary>The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret. An alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html\">About aliases</a>.</summary>To use a KMS key in a different account, use the key ARN or the alias ARN.<br />If you don't specify this value, then Secrets Manager uses the key <code>aws/secretsmanager</code>. If that key doesn't yet exist, then Secrets Manager creates it for you automatically the first time it encrypts the secret value.<br />If the secret is in a different AWS account from the credentials calling the API, then you can't use <code>aws/secretsmanager</code> to encrypt the secret, and you must create and use a customer managed KMS key.</details>"
   },
   {
     "name": "secret_string",
     "type": "string",
-    "description": "The text to encrypt and store in the secret. We recommend you use a JSON structure of key/value pairs for your secret value. To generate a random password, use &#96;&#96;GenerateSecretString&#96;&#96; instead. If you omit both &#96;&#96;GenerateSecretString&#96;&#96; and &#96;&#96;SecretString&#96;&#96;, you create an empty secret. When you make a change to this property, a new secret version is created."
+    "description": "The text to encrypt and store in the secret. We recommend you use a JSON structure of key/value pairs for your secret value. To generate a random password, use <code>GenerateSecretString</code> instead. If you omit both <code>GenerateSecretString</code> and <code>SecretString</code>, you create an empty secret. When you make a change to this property, a new secret version is created."
   },
   {
     "name": "generate_secret_string",
     "type": "object",
-    "description": "A structure that specifies how to generate a password to encrypt and store in the secret. To include a specific string in the secret, use &#96;&#96;SecretString&#96;&#96; instead. If you omit both &#96;&#96;GenerateSecretString&#96;&#96; and &#96;&#96;SecretString&#96;&#96;, you create an empty secret. When you make a change to this property, a new secret version is created.<br />We recommend that you specify the maximum length and include every character type that the system you are generating a password for can support.",
+    "description": "<details><summary>A structure that specifies how to generate a password to encrypt and store in the secret. To include a specific string in the secret, use <code>SecretString</code> instead. If you omit both <code>GenerateSecretString</code> and <code>SecretString</code>, you create an empty secret. When you make a change to this property, a new secret version is created.</summary>We recommend that you specify the maximum length and include every character type that the system you are generating a password for can support.</details>",
     "children": [
       {
         "name": "exclude_uppercase",
@@ -86,7 +86,7 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
       {
         "name": "generate_string_key",
         "type": "string",
-        "description": "The JSON key name for the key/value pair, where the value is the generated password. This pair is added to the JSON structure specified by the &#96;&#96;SecretStringTemplate&#96;&#96; parameter. If you specify this parameter, then you must also specify &#96;&#96;SecretStringTemplate&#96;&#96;."
+        "description": "The JSON key name for the key/value pair, where the value is the generated password. This pair is added to the JSON structure specified by the <code>SecretStringTemplate</code> parameter. If you specify this parameter, then you must also specify <code>SecretStringTemplate</code>."
       },
       {
         "name": "password_length",
@@ -96,7 +96,7 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
       {
         "name": "exclude_punctuation",
         "type": "boolean",
-        "description": "Specifies whether to exclude the following punctuation characters from the password: &#96;&#96;! \" # $ % & ' ( ) &#42; + , - . / : ; &lt; = &gt; ? @ &#91; \\ &#93; ^ &#95; &#96; &#123; &#124; &#125; &#126;&#96;&#96;. If you don't include this switch, the password can contain punctuation."
+        "description": "Specifies whether to exclude the following punctuation characters from the password: `<code>! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ </code> &#123; | &#125; ~``. If you don't include this switch, the password can contain punctuation."
       },
       {
         "name": "exclude_lowercase",
@@ -118,17 +118,17 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
   {
     "name": "replica_regions",
     "type": "array",
-    "description": "A custom type that specifies a &#96;&#96;Region&#96;&#96; and the &#96;&#96;KmsKeyId&#96;&#96; for a replica secret.",
+    "description": "A custom type that specifies a <code>Region</code> and the <code>KmsKeyId</code> for a replica secret.",
     "children": [
       {
         "name": "kms_key_id",
         "type": "string",
-        "description": "The ARN, key ID, or alias of the KMS key to encrypt the secret. If you don't include this field, Secrets Manager uses &#96;&#96;aws/secretsmanager&#96;&#96;."
+        "description": "The ARN, key ID, or alias of the KMS key to encrypt the secret. If you don't include this field, Secrets Manager uses <code>aws/secretsmanager</code>."
       },
       {
         "name": "region",
         "type": "string",
-        "description": "A string that represents a &#96;&#96;Region&#96;&#96;, for example \"us-east-1\"."
+        "description": "A string that represents a <code>Region</code>, for example \"us-east-1\"."
       }
     ]
   },
@@ -140,7 +140,7 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
   {
     "name": "tags",
     "type": "array",
-    "description": "A list of tags to attach to the secret. Each tag is a key and value pair of strings in a JSON text string, for example:<br />&#96;&#96;&#91;&#123;\"Key\":\"CostCenter\",\"Value\":\"12345\"&#125;,&#123;\"Key\":\"environment\",\"Value\":\"production\"&#125;&#93;&#96;&#96; <br />Secrets Manager tag key names are case sensitive. A tag with the key \"ABC\" is a different tag from one with key \"abc\".<br />Stack-level tags, tags you apply to the CloudFormation stack, are also attached to the secret. <br />If you check tags in permissions policies as part of your security strategy, then adding or removing a tag can change permissions. If the completion of this operation would result in you losing your permissions for this secret, then Secrets Manager blocks the operation and returns an &#96;&#96;Access Denied&#96;&#96; error. For more information, see &#91;Control access to secrets using tags&#93;(https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access&#95;examples.html#tag-secrets-abac) and &#91;Limit access to identities with tags that match secrets' tags&#93;(https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access&#95;examples.html#auth-and-access&#95;tags2).<br />For information about how to format a JSON parameter for the various command line tool environments, see &#91;Using JSON for Parameters&#93;(https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json). If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to avoid confusion with the double quotes required in the JSON text.<br />The following restrictions apply to tags:<br />+ Maximum number of tags per secret: 50<br />+ Maximum key length: 127 Unicode characters in UTF-8<br />+ Maximum value length: 255 Unicode characters in UTF-8<br />+ Tag keys and values are case sensitive.<br />+ Do not use the &#96;&#96;aws:&#96;&#96; prefix in your tag names or values because AWS reserves it for AWS use. You can't edit or delete tag names or values with this prefix. Tags with this prefix do not count against your tags per secret limit.<br />+ If you use your tagging schema across multiple services and resources, other services might have restrictions on allowed characters. Generally allowed characters: letters, spaces, and numbers representable in UTF-8, plus the following special characters: + - = . &#95; : / @.",
+    "description": "<details><summary>A list of tags to attach to the secret. Each tag is a key and value pair of strings in a JSON text string, for example:</summary><code>[&#123;\"Key\":\"CostCenter\",\"Value\":\"12345\"&#125;,&#123;\"Key\":\"environment\",\"Value\":\"production\"&#125;]</code><br />Secrets Manager tag key names are case sensitive. A tag with the key \"ABC\" is a different tag from one with key \"abc\".<br />Stack-level tags, tags you apply to the CloudFormation stack, are also attached to the secret.<br />If you check tags in permissions policies as part of your security strategy, then adding or removing a tag can change permissions. If the completion of this operation would result in you losing your permissions for this secret, then Secrets Manager blocks the operation and returns an <code>Access Denied</code> error. For more information, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html#tag-secrets-abac\">Control access to secrets using tags</a> and <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html#auth-and-access_tags2\">Limit access to identities with tags that match secrets' tags</a>.<br />For information about how to format a JSON parameter for the various command line tool environments, see <a href=\"https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json\">Using JSON for Parameters</a>. If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to avoid confusion with the double quotes required in the JSON text.<br />The following restrictions apply to tags:<br />+  Maximum number of tags per secret: 50<br />+  Maximum key length: 127 Unicode characters in UTF-8<br />+  Maximum value length: 255 Unicode characters in UTF-8<br />+  Tag keys and values are case sensitive.<br />+  Do not use the <code>aws:</code> prefix in your tag names or values because AWS reserves it for AWS use. You can't edit or delete tag names or values with this prefix. Tags with this prefix do not count against your tags per secret limit.<br />+  If you use your tagging schema across multiple services and resources, other services might have restrictions on allowed characters. Generally allowed characters: letters, spaces, and numbers representable in UTF-8, plus the following special characters: + - = . _ : / @.</details>",
     "children": [
       {
         "name": "value",
@@ -157,7 +157,7 @@ Creates, updates, deletes or gets a <code>secret</code> resource or lists <code>
   {
     "name": "name",
     "type": "string",
-    "description": "The name of the new secret.<br />The secret name can contain ASCII letters, numbers, and the following characters: /&#95;+=.@-<br />Do not end your secret name with a hyphen followed by six characters. If you do so, you risk confusion and unexpected results when searching for a secret by partial ARN. Secrets Manager automatically adds a hyphen and six random characters after the secret name at the end of the ARN."
+    "description": "<details><summary>The name of the new secret.</summary>The secret name can contain ASCII letters, numbers, and the following characters: /_+=.@-<br />Do not end your secret name with a hyphen followed by six characters. If you do so, you risk confusion and unexpected results when searching for a secret by partial ARN. Secrets Manager automatically adds a hyphen and six random characters after the secret name at the end of the ARN.</details>"
   },
   {
     "name": "region",
@@ -253,7 +253,7 @@ SELECT
   name
 FROM awscc.secretsmanager.secrets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -266,7 +266,7 @@ SELECT
   id
 FROM awscc.secretsmanager.secrets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +407,7 @@ WHERE
 DELETE FROM awscc.secretsmanager.secrets
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

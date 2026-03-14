@@ -151,7 +151,7 @@ SELECT
   link_id
 FROM awscc.networkmanager.link_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   link_id
 FROM awscc.networkmanager.link_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.networkmanager.link_associations
 WHERE
   Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>registry_policy</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>registry_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::RegistryPolicy&#96;&#96; resource creates or updates the permissions policy for a private registry.<br />A private registry policy is used to specify permissions for another AWS-account and is used when configuring cross-account replication. For more information, see &#91;Registry permissions&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html) in the &#42;Amazon Elastic Container Registry User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::ECR::RegistryPolicy</code> resource creates or updates the permissions policy for a private registry.</summary>A private registry policy is used to specify permissions for another AWS-account and is used when configuring cross-account replication. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html">Registry permissions</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.registry_policies" /></td></tr>
 </tbody>
 </table>
@@ -141,7 +141,7 @@ SELECT
   policy_text
 FROM awscc.ecr.registry_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ registry_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   registry_id
 FROM awscc.ecr.registry_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -240,7 +240,7 @@ WHERE
 DELETE FROM awscc.ecr.registry_policies
 WHERE
   Identifier = '{{ registry_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

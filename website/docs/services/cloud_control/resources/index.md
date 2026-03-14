@@ -90,7 +90,7 @@ SELECT
   region
 FROM awscc.cloud_control.resources
 WHERE
-  region = 'us-east-1' AND TypeName = '<TypeName>';;
+  region = 'us-east-1' AND TypeName = '<TypeName>';
 ```
 
 

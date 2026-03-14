@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.connect.prompts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ prompt_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   prompt_arn
 FROM awscc.connect.prompts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +300,7 @@ WHERE
 DELETE FROM awscc.connect.prompts
 WHERE
   Identifier = '{{ prompt_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -231,7 +231,7 @@ SELECT
   propagation_default_route_table_id
 FROM awscc.ec2.transit_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -244,7 +244,7 @@ SELECT
   id
 FROM awscc.ec2.transit_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -415,7 +415,7 @@ WHERE
 DELETE FROM awscc.ec2.transit_gateways
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

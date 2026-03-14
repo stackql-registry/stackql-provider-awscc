@@ -144,12 +144,12 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 1 to 128 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 1 to 128 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -178,7 +178,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
       {
         "name": "idle_timeout_minutes",
         "type": "integer",
-        "description": "The amount of time &#91;in minutes&#93; to wait before auto stopping the Application when idle. Defaults to 15 minutes."
+        "description": "The amount of time [in minutes] to wait before auto stopping the Application when idle. Defaults to 15 minutes."
       }
     ]
   },
@@ -271,7 +271,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
               {
                 "name": "value",
                 "type": "array",
-                "description": "List of Applicable values: &#91;STDOUT, STDERR, HIVE&#95;LOG, TEZ&#95;AM, SYSTEM&#95;LOGS&#93;"
+                "description": "List of Applicable values: [STDOUT, STDERR, HIVE_LOG, TEZ_AM, SYSTEM_LOGS]"
               }
             ]
           }
@@ -496,7 +496,7 @@ SELECT
   identity_center_configuration
 FROM awscc.emrserverless.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}';
 ```
 </TabItem>
@@ -509,7 +509,7 @@ SELECT
   application_id
 FROM awscc.emrserverless.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -709,7 +709,7 @@ WHERE
 DELETE FROM awscc.emrserverless.applications
 WHERE
   Identifier = '{{ application_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

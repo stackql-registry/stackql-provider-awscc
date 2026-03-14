@@ -375,7 +375,7 @@ SELECT
   id
 FROM awscc.groundstation.configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -388,7 +388,7 @@ SELECT
   arn
 FROM awscc.groundstation.configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -523,7 +523,7 @@ WHERE
 DELETE FROM awscc.groundstation.configs
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

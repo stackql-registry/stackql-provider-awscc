@@ -147,7 +147,7 @@ SELECT
   tags
 FROM awscc.pcaconnectorad.directory_registrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ directory_registration_arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   directory_registration_arn
 FROM awscc.pcaconnectorad.directory_registrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +250,7 @@ WHERE
 DELETE FROM awscc.pcaconnectorad.directory_registrations
 WHERE
   Identifier = '{{ directory_registration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

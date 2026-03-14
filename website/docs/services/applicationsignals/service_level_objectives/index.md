@@ -194,7 +194,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
           {
             "name": "total_request_count_metric",
             "type": "array",
-            "description": "This structure defines the metric that is used as the \"total requests\" number for a request-based SLO. The number observed for this metric is divided by the number of \"good requests\" or \"bad requests\" that is observed for the metric defined in &#96;MonitoredRequestCountMetric&#96;.",
+            "description": "This structure defines the metric that is used as the \"total requests\" number for a request-based SLO. The number observed for this metric is divided by the number of \"good requests\" or \"bad requests\" that is observed for the metric defined in <code>MonitoredRequestCountMetric</code>.",
             "children": [
               {
                 "name": "metric_stat",
@@ -226,7 +226,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
           {
             "name": "monitored_request_count_metric",
             "type": "object",
-            "description": "This structure defines the metric that is used as the \"good request\" or \"bad request\" value for a request-based SLO. This value observed for the metric defined in &#96;TotalRequestCountMetric&#96; is divided by the number found for &#96;MonitoredRequestCountMetric&#96; to determine the percentage of successful requests that this SLO tracks."
+            "description": "This structure defines the metric that is used as the \"good request\" or \"bad request\" value for a request-based SLO. This value observed for the metric defined in <code>TotalRequestCountMetric</code> is divided by the number found for <code>MonitoredRequestCountMetric</code> to determine the percentage of successful requests that this SLO tracks."
           },
           {
             "name": "dependency_config",
@@ -272,7 +272,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
       {
         "name": "interval",
         "type": "object",
-        "description": "The time period used to evaluate the SLO. It can be either a calendar interval or rolling interval.<br />If you omit this parameter, a rolling interval of 7 days is used.",
+        "description": "<details><summary>The time period used to evaluate the SLO. It can be either a calendar interval or rolling interval.</summary>If you omit this parameter, a rolling interval of 7 days is used.</details>",
         "children": [
           {
             "name": "rolling_interval",
@@ -287,7 +287,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
               {
                 "name": "duration",
                 "type": "integer",
-                "description": "Specifies the duration of each interval. For example, if &#96;Duration&#96; is 1 and &#96;DurationUnit&#96; is &#96;MONTH&#96;, each interval is one month, aligned with the calendar."
+                "description": "Specifies the duration of each interval. For example, if <code>Duration</code> is 1 and <code>DurationUnit</code> is <code>MONTH</code>, each interval is one month, aligned with the calendar."
               }
             ]
           },
@@ -299,7 +299,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
               {
                 "name": "start_time",
                 "type": "integer",
-                "description": "Epoch time in seconds you want the first interval to start. Be sure to choose a time that configures the intervals the way that you want. For example, if you want weekly intervals starting on Mondays at 6 a.m., be sure to specify a start time that is a Monday at 6 a.m.<br />As soon as one calendar interval ends, another automatically begins."
+                "description": "<details><summary>Epoch time in seconds you want the first interval to start. Be sure to choose a time that configures the intervals the way that you want. For example, if you want weekly intervals starting on Mondays at 6 a.m., be sure to specify a start time that is a Monday at 6 a.m.</summary>As soon as one calendar interval ends, another automatically begins.</details>"
               },
               {
                 "name": "duration_unit",
@@ -309,7 +309,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
               {
                 "name": "duration",
                 "type": "integer",
-                "description": "Specifies the duration of each interval. For example, if &#96;Duration&#96; is 1 and &#96;DurationUnit&#96; is &#96;MONTH&#96;, each interval is one month, aligned with the calendar."
+                "description": "Specifies the duration of each interval. For example, if <code>Duration</code> is 1 and <code>DurationUnit</code> is <code>MONTH</code>, each interval is one month, aligned with the calendar."
               }
             ]
           }
@@ -318,7 +318,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
       {
         "name": "attainment_goal",
         "type": "number",
-        "description": "The threshold that determines if the goal is being met. An attainment goal is the ratio of good periods that meet the threshold requirements to the total periods within the interval. For example, an attainment goal of 99.9% means that within your interval, you are targeting 99.9% of the periods to be in healthy state.<br />If you omit this parameter, 99 is used to represent 99% as the attainment goal."
+        "description": "<details><summary>The threshold that determines if the goal is being met. An attainment goal is the ratio of good periods that meet the threshold requirements to the total periods within the interval. For example, an attainment goal of 99.9% means that within your interval, you are targeting 99.9% of the periods to be in healthy state.</summary>If you omit this parameter, 99 is used to represent 99% as the attainment goal.</details>"
       },
       {
         "name": "warning_threshold",
@@ -374,7 +374,7 @@ Creates, updates, deletes or gets a <code>service_level_objective</code> resourc
           {
             "name": "duration",
             "type": "integer",
-            "description": "Specifies the duration of each interval. For example, if &#96;Duration&#96; is 1 and &#96;DurationUnit&#96; is &#96;MONTH&#96;, each interval is one month, aligned with the calendar."
+            "description": "Specifies the duration of each interval. For example, if <code>Duration</code> is 1 and <code>DurationUnit</code> is <code>MONTH</code>, each interval is one month, aligned with the calendar."
           }
         ]
       },
@@ -500,7 +500,7 @@ SELECT
   exclusion_windows
 FROM awscc.applicationsignals.service_level_objectives
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -513,7 +513,7 @@ SELECT
   arn
 FROM awscc.applicationsignals.service_level_objectives_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -690,7 +690,7 @@ WHERE
 DELETE FROM awscc.applicationsignals.service_level_objectives
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

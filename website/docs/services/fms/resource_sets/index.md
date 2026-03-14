@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.fms.resource_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   id
 FROM awscc.fms.resource_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.fms.resource_sets
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

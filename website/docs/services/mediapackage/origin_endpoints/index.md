@@ -167,7 +167,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
           {
             "name": "ad_markers",
             "type": "string",
-            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35&#95;ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
+            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
           },
           {
             "name": "include_iframe_only_stream",
@@ -258,7 +258,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
           {
             "name": "profile",
             "type": "string",
-            "description": "The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to \"HBBTV&#95;1&#95;5\", HbbTV 1.5 compliant output is enabled."
+            "description": "The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled."
           },
           {
             "name": "scte_markers_source",
@@ -336,7 +336,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "segment_template_format",
         "type": "string",
-        "description": "Determines the type of SegmentTemplate included in the Media Presentation Description (MPD). When set to NUMBER&#95;WITH&#95;TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs. When set to TIME&#95;WITH&#95;TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER&#95;WITH&#95;DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs."
+        "description": "Determines the type of SegmentTemplate included in the Media Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs. When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs."
       },
       {
         "name": "include_encoder_configuration_in_segments",
@@ -477,7 +477,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
           {
             "name": "ad_markers",
             "type": "string",
-            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35&#95;ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
+            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
           },
           {
             "name": "include_iframe_only_stream",
@@ -654,7 +654,7 @@ SELECT
   tags
 FROM awscc.mediapackage.origin_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -667,7 +667,7 @@ SELECT
   id
 FROM awscc.mediapackage.origin_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -875,7 +875,7 @@ WHERE
 DELETE FROM awscc.mediapackage.origin_endpoints
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

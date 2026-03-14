@@ -166,7 +166,7 @@ SELECT
   tags
 FROM awscc.connect.user_hierarchy_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_hierarchy_group_arn }}';
 ```
 </TabItem>
@@ -179,7 +179,7 @@ SELECT
   user_hierarchy_group_arn
 FROM awscc.connect.user_hierarchy_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.connect.user_hierarchy_groups
 WHERE
   Identifier = '{{ user_hierarchy_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

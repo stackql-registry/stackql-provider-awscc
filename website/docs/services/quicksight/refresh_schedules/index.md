@@ -275,7 +275,7 @@ SELECT
   schedule
 FROM awscc.quicksight.refresh_schedules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}';
 ```
 </TabItem>
@@ -290,7 +290,7 @@ SELECT
   schedule/schedule_id
 FROM awscc.quicksight.refresh_schedules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -379,7 +379,7 @@ resources:
 DELETE FROM awscc.quicksight.refresh_schedules
 WHERE
   Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

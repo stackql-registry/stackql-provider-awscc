@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>key_pair</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>key_pairs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a key pair for use with an EC2long instance as follows:<br />+ To import an existing key pair, include the &#96;&#96;PublicKeyMaterial&#96;&#96; property.<br />+ To create a new key pair, omit the &#96;&#96;PublicKeyMaterial&#96;&#96; property.<br /><br />When you import an existing key pair, you specify the public key material for the key. We assume that you have the private key material for the key. CFNlong does not create or return the private key material when you import a key pair.<br />When you create a new key pair, the private key is saved to SYSlong Parameter Store, using a parameter with the following name: &#96;&#96;/ec2/keypair/&#123;key&#95;pair&#95;id&#125;&#96;&#96;. For more information about retrieving private key, and the required permissions, see &#91;Create a key pair using&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#create-key-pair-cloudformation) in the &#42;User Guide&#42;.<br />When CFN deletes a key pair that was created or imported by a stack, it also deletes the parameter that was used to store the private key material in Parameter Store.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a key pair for use with an EC2long instance as follows:</summary>+  To import an existing key pair, include the <code>PublicKeyMaterial</code> property.<br />+  To create a new key pair, omit the <code>PublicKeyMaterial</code> property.<br />When you import an existing key pair, you specify the public key material for the key. We assume that you have the private key material for the key. CFNlong does not create or return the private key material when you import a key pair.<br />When you create a new key pair, the private key is saved to SYSlong Parameter Store, using a parameter with the following name: <code>/ec2/keypair/&#123;key_pair_id&#125;</code>. For more information about retrieving private key, and the required permissions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#create-key-pair-cloudformation">Create a key pair using</a> in the <i>User Guide</i>.<br />When CFN deletes a key pair that was created or imported by a stack, it also deletes the parameter that was used to store the private key material in Parameter Store.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.key_pairs" /></td></tr>
 </tbody>
 </table>
@@ -46,22 +46,22 @@ Creates, updates, deletes or gets a <code>key_pair</code> resource or lists <cod
   {
     "name": "key_name",
     "type": "string",
-    "description": "A unique name for the key pair.<br />Constraints: Up to 255 ASCII characters"
+    "description": "<details><summary>A unique name for the key pair.</summary>Constraints: Up to 255 ASCII characters</details>"
   },
   {
     "name": "key_type",
     "type": "string",
-    "description": "The type of key pair. Note that ED25519 keys are not supported for Windows instances.<br />If the &#96;&#96;PublicKeyMaterial&#96;&#96; property is specified, the &#96;&#96;KeyType&#96;&#96; property is ignored, and the key type is inferred from the &#96;&#96;PublicKeyMaterial&#96;&#96; value.<br />Default: &#96;&#96;rsa&#96;&#96;"
+    "description": "<details><summary>The type of key pair. Note that ED25519 keys are not supported for Windows instances.</summary>If the <code>PublicKeyMaterial</code> property is specified, the <code>KeyType</code> property is ignored, and the key type is inferred from the <code>PublicKeyMaterial</code> value.<br />Default: <code>rsa</code></details>"
   },
   {
     "name": "key_format",
     "type": "string",
-    "description": "The format of the key pair.<br />Default: &#96;&#96;pem&#96;&#96;"
+    "description": "<details><summary>The format of the key pair.</summary>Default: <code>pem</code></details>"
   },
   {
     "name": "public_key_material",
     "type": "string",
-    "description": "The public key material. The &#96;&#96;PublicKeyMaterial&#96;&#96; property is used to import a key pair. If this property is not specified, then a new key pair will be created."
+    "description": "The public key material. The <code>PublicKeyMaterial</code> property is used to import a key pair. If this property is not specified, then a new key pair will be created."
   },
   {
     "name": "key_fingerprint",
@@ -103,7 +103,7 @@ Creates, updates, deletes or gets a <code>key_pair</code> resource or lists <cod
   {
     "name": "key_name",
     "type": "string",
-    "description": "A unique name for the key pair.<br />Constraints: Up to 255 ASCII characters"
+    "description": "<details><summary>A unique name for the key pair.</summary>Constraints: Up to 255 ASCII characters</details>"
   },
   {
     "name": "region",
@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.ec2.key_pairs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ key_name }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   key_name
 FROM awscc.ec2.key_pairs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +279,7 @@ resources:
 DELETE FROM awscc.ec2.key_pairs
 WHERE
   Identifier = '{{ key_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

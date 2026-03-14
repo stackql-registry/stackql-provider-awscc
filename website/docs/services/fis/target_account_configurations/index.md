@@ -158,7 +158,7 @@ SELECT
   description
 FROM awscc.fis.target_account_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ experiment_template_id }}|{{ account_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   account_id
 FROM awscc.fis.target_account_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +275,7 @@ WHERE
 DELETE FROM awscc.fis.target_account_configurations
 WHERE
   Identifier = '{{ experiment_template_id }}|{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

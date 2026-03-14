@@ -173,7 +173,7 @@ SELECT
   description
 FROM awscc.appflow.connectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_label }}';
 ```
 </TabItem>
@@ -186,7 +186,7 @@ SELECT
   connector_label
 FROM awscc.appflow.connectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +290,7 @@ WHERE
 DELETE FROM awscc.appflow.connectors
 WHERE
   Identifier = '{{ connector_label }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

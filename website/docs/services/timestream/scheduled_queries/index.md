@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>scheduled_query</code> resource or lis
   {
     "name": "query_string",
     "type": "string",
-    "description": "The query string to run. Parameter names can be specified in the query string @ character followed by an identifier. The named Parameter @scheduled&#95;runtime is reserved and can be used in the query to get the time at which the query is scheduled to run. The timestamp calculated according to the ScheduleConfiguration parameter, will be the value of @scheduled&#95;runtime paramater for each query run. For example, consider an instance of a scheduled query executing on 2021-12-01 00:00:00. For this instance, the @scheduled&#95;runtime parameter is initialized to the timestamp 2021-12-01 00:00:00 when invoking the query."
+    "description": "The query string to run. Parameter names can be specified in the query string @ character followed by an identifier. The named Parameter @scheduled_runtime is reserved and can be used in the query to get the time at which the query is scheduled to run. The timestamp calculated according to the ScheduleConfiguration parameter, will be the value of @scheduled_runtime paramater for each query run. For example, consider an instance of a scheduled query executing on 2021-12-01 00:00:00. For this instance, the @scheduled_runtime parameter is initialized to the timestamp 2021-12-01 00:00:00 when invoking the query."
   },
   {
     "name": "schedule_configuration",
@@ -222,7 +222,7 @@ Creates, updates, deletes or gets a <code>scheduled_query</code> resource or lis
           {
             "name": "encryption_option",
             "type": "string",
-            "description": "Encryption at rest options for the error reports. If no encryption option is specified, Timestream will choose SSE&#95;S3 as default."
+            "description": "Encryption at rest options for the error reports. If no encryption option is specified, Timestream will choose SSE_S3 as default."
           }
         ]
       }
@@ -231,7 +231,7 @@ Creates, updates, deletes or gets a <code>scheduled_query</code> resource or lis
   {
     "name": "kms_key_id",
     "type": "string",
-    "description": "The Amazon KMS key used to encrypt the scheduled query resource, at-rest. If the Amazon KMS key is not specified, the scheduled query resource will be encrypted with a Timestream owned Amazon KMS key. To specify a KMS key, use the key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix the name with alias/. If ErrorReportConfiguration uses SSE&#95;KMS as encryption type, the same KmsKeyId is used to encrypt the error report at rest."
+    "description": "The Amazon KMS key used to encrypt the scheduled query resource, at-rest. If the Amazon KMS key is not specified, the scheduled query resource will be encrypted with a Timestream owned Amazon KMS key. To specify a KMS key, use the key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix the name with alias/. If ErrorReportConfiguration uses SSE_KMS as encryption type, the same KmsKeyId is used to encrypt the error report at rest."
   },
   {
     "name": "sq_name",
@@ -241,7 +241,7 @@ Creates, updates, deletes or gets a <code>scheduled_query</code> resource or lis
   {
     "name": "sq_query_string",
     "type": "string",
-    "description": "The query string to run. Parameter names can be specified in the query string @ character followed by an identifier. The named Parameter @scheduled&#95;runtime is reserved and can be used in the query to get the time at which the query is scheduled to run. The timestamp calculated according to the ScheduleConfiguration parameter, will be the value of @scheduled&#95;runtime paramater for each query run. For example, consider an instance of a scheduled query executing on 2021-12-01 00:00:00. For this instance, the @scheduled&#95;runtime parameter is initialized to the timestamp 2021-12-01 00:00:00 when invoking the query."
+    "description": "The query string to run. Parameter names can be specified in the query string @ character followed by an identifier. The named Parameter @scheduled_runtime is reserved and can be used in the query to get the time at which the query is scheduled to run. The timestamp calculated according to the ScheduleConfiguration parameter, will be the value of @scheduled_runtime paramater for each query run. For example, consider an instance of a scheduled query executing on 2021-12-01 00:00:00. For this instance, the @scheduled_runtime parameter is initialized to the timestamp 2021-12-01 00:00:00 when invoking the query."
   },
   {
     "name": "sq_schedule_configuration",
@@ -271,7 +271,7 @@ Creates, updates, deletes or gets a <code>scheduled_query</code> resource or lis
   {
     "name": "sq_kms_key_id",
     "type": "string",
-    "description": "The Amazon KMS key used to encrypt the scheduled query resource, at-rest. If the Amazon KMS key is not specified, the scheduled query resource will be encrypted with a Timestream owned Amazon KMS key. To specify a KMS key, use the key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix the name with alias/. If ErrorReportConfiguration uses SSE&#95;KMS as encryption type, the same KmsKeyId is used to encrypt the error report at rest."
+    "description": "The Amazon KMS key used to encrypt the scheduled query resource, at-rest. If the Amazon KMS key is not specified, the scheduled query resource will be encrypted with a Timestream owned Amazon KMS key. To specify a KMS key, use the key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix the name with alias/. If ErrorReportConfiguration uses SSE_KMS as encryption type, the same KmsKeyId is used to encrypt the error report at rest."
   },
   {
     "name": "tags",
@@ -395,7 +395,7 @@ SELECT
   tags
 FROM awscc.timestream.scheduled_queries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -408,7 +408,7 @@ SELECT
   arn
 FROM awscc.timestream.scheduled_queries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -568,7 +568,7 @@ WHERE
 DELETE FROM awscc.timestream.scheduled_queries
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

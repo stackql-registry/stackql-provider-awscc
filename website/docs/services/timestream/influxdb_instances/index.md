@@ -155,7 +155,7 @@ Creates, updates, deletes or gets an <code>influxdb_instance</code> resource or 
   {
     "name": "secondary_availability_zone",
     "type": "string",
-    "description": "The Secondary Availability Zone (AZ) where the InfluxDB instance is created, if DeploymentType is set as WITH&#95;MULTIAZ&#95;STANDBY."
+    "description": "The Secondary Availability Zone (AZ) where the InfluxDB instance is created, if DeploymentType is set as WITH_MULTIAZ_STANDBY."
   },
   {
     "name": "endpoint",
@@ -304,7 +304,7 @@ SELECT
   tags
 FROM awscc.timestream.influxdb_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -317,7 +317,7 @@ SELECT
   id
 FROM awscc.timestream.influxdb_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -513,7 +513,7 @@ WHERE
 DELETE FROM awscc.timestream.influxdb_instances
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>stack_set</code> resource or lists <co
   {
     "name": "auto_deployment",
     "type": "object",
-    "description": "Describes whether StackSets automatically deploys to AWS Organizations accounts that are added to the target organization or organizational unit (OU). Specify only if PermissionModel is SERVICE&#95;MANAGED.",
+    "description": "Describes whether StackSets automatically deploys to AWS Organizations accounts that are added to the target organization or organizational unit (OU). Specify only if PermissionModel is SERVICE_MANAGED.",
     "children": [
       {
         "name": "enabled",
@@ -240,7 +240,7 @@ Creates, updates, deletes or gets a <code>stack_set</code> resource or lists <co
   {
     "name": "call_as",
     "type": "string",
-    "description": "Specifies the AWS account that you are acting from. By default, SELF is specified. For self-managed permissions, specify SELF; for service-managed permissions, if you are signed in to the organization's management account, specify SELF. If you are signed in to a delegated administrator account, specify DELEGATED&#95;ADMIN."
+    "description": "Specifies the AWS account that you are acting from. By default, SELF is specified. For self-managed permissions, specify SELF; for service-managed permissions, if you are signed in to the organization's management account, specify SELF. If you are signed in to a delegated administrator account, specify DELEGATED_ADMIN."
   },
   {
     "name": "managed_execution",
@@ -356,7 +356,7 @@ SELECT
   managed_execution
 FROM awscc.cloudformation.stack_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ stack_set_id }}';
 ```
 </TabItem>
@@ -369,7 +369,7 @@ SELECT
   stack_set_id
 FROM awscc.cloudformation.stack_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -552,7 +552,7 @@ WHERE
 DELETE FROM awscc.cloudformation.stack_sets
 WHERE
   Identifier = '{{ stack_set_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

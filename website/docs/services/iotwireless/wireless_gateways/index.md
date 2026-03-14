@@ -207,7 +207,7 @@ SELECT
   last_uplink_received_at
 FROM awscc.iotwireless.wireless_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   id
 FROM awscc.iotwireless.wireless_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +340,7 @@ WHERE
 DELETE FROM awscc.iotwireless.wireless_gateways
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

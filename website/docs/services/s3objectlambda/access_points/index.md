@@ -83,7 +83,7 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
       {
         "name": "block_public_acls",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should block public access control lists (ACLs) to this object lambda access point. Setting this element to TRUE causes the following behavior:<br />- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs."
+        "description": "<details><summary>Specifies whether Amazon S3 should block public access control lists (ACLs) to this object lambda access point. Setting this element to TRUE causes the following behavior:</summary>- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs.</details>"
       },
       {
         "name": "ignore_public_acls",
@@ -98,7 +98,7 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
       {
         "name": "restrict_public_buckets",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.<br />Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+        "description": "<details><summary>Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.</summary>Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.</details>"
       }
     ]
   },
@@ -246,7 +246,7 @@ SELECT
   object_lambda_configuration
 FROM awscc.s3objectlambda.access_points
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -259,7 +259,7 @@ SELECT
   name
 FROM awscc.s3objectlambda.access_points_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.s3objectlambda.access_points
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

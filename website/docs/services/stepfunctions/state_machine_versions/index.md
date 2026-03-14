@@ -147,7 +147,7 @@ SELECT
   description
 FROM awscc.stepfunctions.state_machine_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   arn
 FROM awscc.stepfunctions.state_machine_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -239,7 +239,7 @@ resources:
 DELETE FROM awscc.stepfunctions.state_machine_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

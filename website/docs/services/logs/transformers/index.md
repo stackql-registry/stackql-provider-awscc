@@ -608,7 +608,7 @@ SELECT
   transformer_config
 FROM awscc.logs.transformers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ log_group_identifier }}';
 ```
 </TabItem>
@@ -621,7 +621,7 @@ SELECT
   log_group_identifier
 FROM awscc.logs.transformers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -808,7 +808,7 @@ WHERE
 DELETE FROM awscc.logs.transformers
 WHERE
   Identifier = '{{ log_group_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

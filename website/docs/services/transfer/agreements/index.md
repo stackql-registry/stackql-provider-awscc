@@ -251,7 +251,7 @@ SELECT
   custom_directories
 FROM awscc.transfer.agreements
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ agreement_id }}|{{ server_id }}';
 ```
 </TabItem>
@@ -265,7 +265,7 @@ SELECT
   server_id
 FROM awscc.transfer.agreements_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -413,7 +413,7 @@ WHERE
 DELETE FROM awscc.transfer.agreements
 WHERE
   Identifier = '{{ agreement_id }}|{{ server_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

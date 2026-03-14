@@ -163,7 +163,7 @@ SELECT
   domain_identifier
 FROM awscc.datazone.project_memberships
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}';
 ```
 </TabItem>
@@ -179,7 +179,7 @@ SELECT
   project_identifier
 FROM awscc.datazone.project_memberships_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.datazone.project_memberships
 WHERE
   Identifier = '{{ domain_identifier }}|{{ member_identifier }}|{{ member_identifier_type }}|{{ project_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

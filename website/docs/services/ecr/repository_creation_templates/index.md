@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
   {
     "name": "image_tag_mutability",
     "type": "string",
-    "description": "The tag mutability setting for the repository. If this parameter is omitted, the default setting of &#96;&#96;MUTABLE&#96;&#96; will be used which will allow image tags to be overwritten. If &#96;&#96;IMMUTABLE&#96;&#96; is specified, all image tags within the repository will be immutable which will prevent them from being overwritten."
+    "description": "The tag mutability setting for the repository. If this parameter is omitted, the default setting of <code>MUTABLE</code> will be used which will allow image tags to be overwritten. If <code>IMMUTABLE</code> is specified, all image tags within the repository will be immutable which will prevent them from being overwritten."
   },
   {
     "name": "image_tag_mutability_exclusion_filters",
@@ -93,12 +93,12 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
       {
         "name": "encryption_type",
         "type": "string",
-        "description": "The encryption type to use.<br />If you use the &#96;&#96;KMS&#96;&#96; encryption type, the contents of the repository will be encrypted using server-side encryption with KMSlong key stored in KMS. When you use KMS to encrypt your data, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you already created.<br />If you use the &#96;&#96;KMS&#95;DSSE&#96;&#96; encryption type, the contents of the repository will be encrypted with two layers of encryption using server-side encryption with the KMS Management Service key stored in KMS. Similar to the &#96;&#96;KMS&#96;&#96; encryption type, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you've already created. <br />If you use the &#96;&#96;AES256&#96;&#96; encryption type, Amazon ECR uses server-side encryption with Amazon S3-managed encryption keys which encrypts the images in the repository using an AES256 encryption algorithm.<br />For more information, see &#91;Amazon ECR encryption at rest&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/encryption-at-rest.html) in the &#42;Amazon Elastic Container Registry User Guide&#42;."
+        "description": "<details><summary>The encryption type to use.</summary>If you use the <code>KMS</code> encryption type, the contents of the repository will be encrypted using server-side encryption with KMSlong key stored in KMS. When you use KMS to encrypt your data, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you already created.<br />If you use the <code>KMS_DSSE</code> encryption type, the contents of the repository will be encrypted with two layers of encryption using server-side encryption with the KMS Management Service key stored in KMS. Similar to the <code>KMS</code> encryption type, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you've already created.<br />If you use the <code>AES256</code> encryption type, Amazon ECR uses server-side encryption with Amazon S3-managed encryption keys which encrypts the images in the repository using an AES256 encryption algorithm.<br />For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/encryption-at-rest.html\">Amazon ECR encryption at rest</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</details>"
       },
       {
         "name": "kms_key",
         "type": "string",
-        "description": "If you use the &#96;&#96;KMS&#96;&#96; encryption type, specify the KMS key to use for encryption. The alias, key ID, or full ARN of the KMS key can be specified. The key must exist in the same Region as the repository. If no key is specified, the default AWS managed KMS key for Amazon ECR will be used."
+        "description": "If you use the <code>KMS</code> encryption type, specify the KMS key to use for encryption. The alias, key ID, or full ARN of the KMS key can be specified. The key must exist in the same Region as the repository. If no key is specified, the default AWS managed KMS key for Amazon ECR will be used."
       }
     ]
   },
@@ -110,19 +110,19 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
       {
         "name": "key",
         "type": "string",
-        "description": "One part of a key-value pair that make up a tag. A &#96;&#96;key&#96;&#96; is a general label that acts like a category for more specific tag values."
+        "description": "One part of a key-value pair that make up a tag. A <code>key</code> is a general label that acts like a category for more specific tag values."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A &#96;&#96;value&#96;&#96; acts as a descriptor within a tag category (key)."
+        "description": "A <code>value</code> acts as a descriptor within a tag category (key)."
       }
     ]
   },
   {
     "name": "applied_for",
     "type": "array",
-    "description": "A list of enumerable Strings representing the repository creation scenarios that this template will apply towards. The two supported scenarios are PULL&#95;THROUGH&#95;CACHE and REPLICATION"
+    "description": "A list of enumerable Strings representing the repository creation scenarios that this template will apply towards. The two supported scenarios are PULL_THROUGH_CACHE and REPLICATION"
   },
   {
     "name": "custom_role_arn",
@@ -237,7 +237,7 @@ SELECT
   updated_at
 FROM awscc.ecr.repository_creation_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ prefix }}';
 ```
 </TabItem>
@@ -250,7 +250,7 @@ SELECT
   prefix
 FROM awscc.ecr.repository_creation_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -389,7 +389,7 @@ WHERE
 DELETE FROM awscc.ecr.repository_creation_templates
 WHERE
   Identifier = '{{ prefix }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

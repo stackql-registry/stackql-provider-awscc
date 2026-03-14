@@ -236,7 +236,7 @@ SELECT
   tags
 FROM awscc.ssmquicksetup.configuration_managers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ manager_arn }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   manager_arn
 FROM awscc.ssmquicksetup.configuration_managers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +355,7 @@ WHERE
 DELETE FROM awscc.ssmquicksetup.configuration_managers
 WHERE
   Identifier = '{{ manager_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

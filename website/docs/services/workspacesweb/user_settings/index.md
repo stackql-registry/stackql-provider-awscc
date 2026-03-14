@@ -257,7 +257,7 @@ SELECT
   deep_link_allowed
 FROM awscc.workspacesweb.user_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_settings_arn }}';
 ```
 </TabItem>
@@ -270,7 +270,7 @@ SELECT
   user_settings_arn
 FROM awscc.workspacesweb.user_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -437,7 +437,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.user_settings
 WHERE
   Identifier = '{{ user_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

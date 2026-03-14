@@ -95,7 +95,7 @@ SELECT
   queue
 FROM awscc.sqs.queue_inline_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ queue }}';
 ```
 
@@ -186,7 +186,7 @@ WHERE
 DELETE FROM awscc.sqs.queue_inline_policies
 WHERE
   Identifier = '{{ queue }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

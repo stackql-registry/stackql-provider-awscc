@@ -88,7 +88,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "data_source_parameters",
     "type": "object",
-    "description": "<p>The parameters that Amazon QuickSight uses to connect to your underlying data source.<br />This is a variant type structure. For this structure to be valid, only one of the<br />attributes can be non-null.</p>",
+    "description": "<details><summary><p>The parameters that Amazon QuickSight uses to connect to your underlying data source.</summary>This is a variant type structure. For this structure to be valid, only one of the<br />attributes can be non-null.</p></details>",
     "children": [
       {
         "name": "aurora_postgre_sql_parameters",
@@ -335,12 +335,12 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
       {
         "name": "redshift_parameters",
         "type": "object",
-        "description": "<p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if<br /><code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>",
+        "description": "<details><summary><p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if</summary><code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p></details>",
         "children": [
           {
             "name": "iam_parameters",
             "type": "object",
-            "description": "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API&#95;GetClusterCredentials.html\"><br /><code>GetClusterCredentials</code><br /></a>.</p>",
+            "description": "<details><summary><p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API_GetClusterCredentials.html\"></summary><code>GetClusterCredentials</code><br /></a>.</p></details>",
             "children": [
               {
                 "name": "auto_create_database_user",
@@ -367,7 +367,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "cluster_id",
             "type": "string",
-            "description": "<p>Cluster ID. This field can be blank if the <code>Host</code> and <code>Port</code> are<br />provided.</p>"
+            "description": "<details><summary><p>Cluster ID. This field can be blank if the <code>Host</code> and <code>Port</code> are</summary>provided.</p></details>"
           },
           {
             "name": "port",
@@ -664,7 +664,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "alternate_data_source_parameters",
     "type": "array",
-    "description": "<p>A set of alternate data source parameters that you want to share for the credentials<br />stored with this data source. The credentials are applied in tandem with the data source<br />parameters when you copy a data source by using a create or update request. The API<br />operation compares the <code>DataSourceParameters</code> structure that's in the request<br />with the structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the credentials from this<br />existing data source. If the <code>AlternateDataSourceParameters</code> list is null,<br />the <code>Credentials</code> originally used with this <code>DataSourceParameters</code><br />are automatically allowed.</p>"
+    "description": "<details><summary><p>A set of alternate data source parameters that you want to share for the credentials</summary>stored with this data source. The credentials are applied in tandem with the data source<br />parameters when you copy a data source by using a create or update request. The API<br />operation compares the <code>DataSourceParameters</code> structure that's in the request<br />with the structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the credentials from this<br />existing data source. If the <code>AlternateDataSourceParameters</code> list is null,<br />the <code>Credentials</code> originally used with this <code>DataSourceParameters</code><br />are automatically allowed.</p></details>"
   },
   {
     "name": "aws_account_id",
@@ -679,7 +679,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
       {
         "name": "principal",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       },
       {
         "name": "actions",
@@ -696,7 +696,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "ssl_properties",
     "type": "object",
-    "description": "<p>Secure Socket Layer (SSL) properties that apply when Amazon QuickSight connects to your<br />underlying data source.</p>",
+    "description": "<details><summary><p>Secure Socket Layer (SSL) properties that apply when Amazon QuickSight connects to your</summary>underlying data source.</p></details>",
     "children": [
       {
         "name": "disable_ssl",
@@ -708,7 +708,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "credentials",
     "type": "object",
-    "description": "<p>Data source credentials. This is a variant type structure. For this structure to be<br />valid, only one of the attributes can be non-null.</p>",
+    "description": "<details><summary><p>Data source credentials. This is a variant type structure. For this structure to be</summary>valid, only one of the attributes can be non-null.</p></details>",
     "children": [
       {
         "name": "secret_arn",
@@ -718,7 +718,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
       {
         "name": "copy_source_arn",
         "type": "string",
-        "description": "<p>The Amazon Resource Name (ARN) of a data source that has the credential pair that you<br />want to use. When <code>CopySourceArn</code> is not null, the credential pair from the<br />data source in the ARN is used as the credentials for the<br /><code>DataSourceCredentials</code> structure.</p>"
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of a data source that has the credential pair that you</summary>want to use. When <code>CopySourceArn</code> is not null, the credential pair from the<br />data source in the ARN is used as the credentials for the<br /><code>DataSourceCredentials</code> structure.</p></details>"
       },
       {
         "name": "credential_pair",
@@ -728,7 +728,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
           {
             "name": "alternate_data_source_parameters",
             "type": "array",
-            "description": "<p>A set of alternate data source parameters that you want to share for these<br />credentials. The credentials are applied in tandem with the data source parameters when<br />you copy a data source by using a create or update request. The API operation compares<br />the <code>DataSourceParameters</code> structure that's in the request with the<br />structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the new data source with<br />the existing credentials. If the <code>AlternateDataSourceParameters</code> list is<br />null, the <code>DataSourceParameters</code> originally used with these<br /><code>Credentials</code> is automatically allowed.</p>"
+            "description": "<details><summary><p>A set of alternate data source parameters that you want to share for these</summary>credentials. The credentials are applied in tandem with the data source parameters when<br />you copy a data source by using a create or update request. The API operation compares<br />the <code>DataSourceParameters</code> structure that's in the request with the<br />structures in the <code>AlternateDataSourceParameters</code> allow list. If the<br />structures are an exact match, the request is allowed to use the new data source with<br />the existing credentials. If the <code>AlternateDataSourceParameters</code> list is<br />null, the <code>DataSourceParameters</code> originally used with these<br /><code>Credentials</code> is automatically allowed.</p></details>"
           },
           {
             "name": "username",
@@ -874,7 +874,7 @@ SELECT
   tags
 FROM awscc.quicksight.data_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```
 </TabItem>
@@ -888,7 +888,7 @@ SELECT
   data_source_id
 FROM awscc.quicksight.data_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1147,7 +1147,7 @@ WHERE
 DELETE FROM awscc.quicksight.data_sources
 WHERE
   Identifier = '{{ aws_account_id }}|{{ data_source_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

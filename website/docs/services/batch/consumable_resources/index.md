@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.batch.consumable_resources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ consumable_resource_arn }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   consumable_resource_arn
 FROM awscc.batch.consumable_resources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +290,7 @@ WHERE
 DELETE FROM awscc.batch.consumable_resources
 WHERE
   Identifier = '{{ consumable_resource_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

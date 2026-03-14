@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.ec2.vpc_block_public_access_exclusions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ exclusion_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   exclusion_id
 FROM awscc.ec2.vpc_block_public_access_exclusions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +285,7 @@ WHERE
 DELETE FROM awscc.ec2.vpc_block_public_access_exclusions
 WHERE
   Identifier = '{{ exclusion_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

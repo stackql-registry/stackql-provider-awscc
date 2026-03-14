@@ -285,7 +285,7 @@ SELECT
   tags
 FROM awscc.iot.commands
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ command_id }}';
 ```
 </TabItem>
@@ -298,7 +298,7 @@ SELECT
   command_id
 FROM awscc.iot.commands_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -453,7 +453,7 @@ WHERE
 DELETE FROM awscc.iot.commands
 WHERE
   Identifier = '{{ command_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

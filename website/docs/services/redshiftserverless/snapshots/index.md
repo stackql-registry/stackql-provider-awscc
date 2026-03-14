@@ -236,7 +236,7 @@ SELECT
   snapshot
 FROM awscc.redshiftserverless.snapshots
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ snapshot_name }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   snapshot_name
 FROM awscc.redshiftserverless.snapshots_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +349,7 @@ WHERE
 DELETE FROM awscc.redshiftserverless.snapshots
 WHERE
   Identifier = '{{ snapshot_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

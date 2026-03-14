@@ -195,7 +195,7 @@ SELECT
   tags
 FROM awscc.bedrock.automated_reasoning_policy_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ policy_arn }}|{{ version }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   version
 FROM awscc.bedrock.automated_reasoning_policy_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +290,7 @@ resources:
 DELETE FROM awscc.bedrock.automated_reasoning_policy_versions
 WHERE
   Identifier = '{{ policy_arn }}|{{ version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

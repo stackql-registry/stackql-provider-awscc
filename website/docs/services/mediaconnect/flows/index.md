@@ -695,7 +695,7 @@ SELECT
   flow_ndi_machine_name
 FROM awscc.mediaconnect.flows
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ flow_arn }}';
 ```
 </TabItem>
@@ -708,7 +708,7 @@ SELECT
   flow_arn
 FROM awscc.mediaconnect.flows_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -927,7 +927,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.flows
 WHERE
   Identifier = '{{ flow_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

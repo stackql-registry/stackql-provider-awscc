@@ -189,7 +189,7 @@ SELECT
   elements
 FROM awscc.frauddetector.lists
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   arn
 FROM awscc.frauddetector.lists_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +310,7 @@ WHERE
 DELETE FROM awscc.frauddetector.lists
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

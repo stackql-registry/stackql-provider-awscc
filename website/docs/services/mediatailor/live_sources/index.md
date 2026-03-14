@@ -193,7 +193,7 @@ SELECT
   tags
 FROM awscc.mediatailor.live_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ live_source_name }}|{{ source_location_name }}';
 ```
 </TabItem>
@@ -207,7 +207,7 @@ SELECT
   source_location_name
 FROM awscc.mediatailor.live_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +315,7 @@ WHERE
 DELETE FROM awscc.mediatailor.live_sources
 WHERE
   Identifier = '{{ live_source_name }}|{{ source_location_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

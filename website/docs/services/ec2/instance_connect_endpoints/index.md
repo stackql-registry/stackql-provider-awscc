@@ -177,7 +177,7 @@ SELECT
   security_group_ids
 FROM awscc.ec2.instance_connect_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   id
 FROM awscc.ec2.instance_connect_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +295,7 @@ WHERE
 DELETE FROM awscc.ec2.instance_connect_endpoints
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -192,7 +192,7 @@ SELECT
   db_cluster_identifiers
 FROM awscc.rds.db_proxy_target_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ target_group_arn }}';
 ```
 </TabItem>
@@ -205,7 +205,7 @@ SELECT
   target_group_arn
 FROM awscc.rds.db_proxy_target_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ WHERE
 DELETE FROM awscc.rds.db_proxy_target_groups
 WHERE
   Identifier = '{{ target_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

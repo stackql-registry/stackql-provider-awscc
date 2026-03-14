@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>buckets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::S3::Bucket&#96;&#96; resource creates an Amazon S3 bucket in the same AWS Region where you create the AWS CloudFormation stack.<br />To control how AWS CloudFormation handles the bucket when the stack is deleted, you can set a deletion policy for your bucket. You can choose to &#42;retain&#42; the bucket or to &#42;delete&#42; the bucket. For more information, see &#91;DeletionPolicy Attribute&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html).<br />You can only delete empty buckets. Deletion fails for buckets that have contents.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::S3::Bucket</code> resource creates an Amazon S3 bucket in the same AWS Region where you create the AWS CloudFormation stack.</summary>To control how AWS CloudFormation handles the bucket when the stack is deleted, you can set a deletion policy for your bucket. You can choose to <i>retain</i> the bucket or to <i>delete</i> the bucket. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html">DeletionPolicy Attribute</a>.<br />You can only delete empty buckets. Deletion fails for buckets that have contents.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.s3.buckets" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "accelerate_configuration",
     "type": "object",
-    "description": "Configures the transfer acceleration state for an Amazon S3 bucket. For more information, see &#91;Amazon S3 Transfer Acceleration&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html) in the &#42;Amazon S3 User Guide&#42;.",
+    "description": "Configures the transfer acceleration state for an Amazon S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html\">Amazon S3 Transfer Acceleration</a> in the <i>Amazon S3 User Guide</i>.",
     "children": [
       {
         "name": "acceleration_status",
@@ -58,7 +58,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "access_control",
     "type": "string",
-    "description": "This is a legacy property, and it is not recommended for most use cases. A majority of modern use cases in Amazon S3 no longer require the use of ACLs, and we recommend that you keep ACLs disabled. For more information, see &#91;Controlling object ownership&#93;(https://docs.aws.amazon.com//AmazonS3/latest/userguide/about-object-ownership.html) in the &#42;Amazon S3 User Guide&#42;.<br />A canned access control list (ACL) that grants predefined permissions to the bucket. For more information about canned ACLs, see &#91;Canned ACL&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) in the &#42;Amazon S3 User Guide&#42;.<br />S3 buckets are created with ACLs disabled by default. Therefore, unless you explicitly set the &#91;AWS::S3::OwnershipControls&#93;(https://docs.aws.amazon.com//AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-ownershipcontrols.html) property to enable ACLs, your resource will fail to deploy with any value other than Private. Use cases requiring ACLs are uncommon.<br />The majority of access control configurations can be successfully and more easily achieved with bucket policies. For more information, see &#91;AWS::S3::BucketPolicy&#93;(https://docs.aws.amazon.com//AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html). For examples of common policy configurations, including S3 Server Access Logs buckets and more, see &#91;Bucket policy examples&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) in the &#42;Amazon S3 User Guide&#42;."
+    "description": "<details><summary>This is a legacy property, and it is not recommended for most use cases. A majority of modern use cases in Amazon S3 no longer require the use of ACLs, and we recommend that you keep ACLs disabled. For more information, see <a href=\"https://docs.aws.amazon.com//AmazonS3/latest/userguide/about-object-ownership.html\">Controlling object ownership</a> in the <i>Amazon S3 User Guide</i>.</summary>A canned access control list (ACL) that grants predefined permissions to the bucket. For more information about canned ACLs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl\">Canned ACL</a> in the <i>Amazon S3 User Guide</i>.<br />S3 buckets are created with ACLs disabled by default. Therefore, unless you explicitly set the <a href=\"https://docs.aws.amazon.com//AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-ownershipcontrols.html\">AWS::S3::OwnershipControls</a> property to enable ACLs, your resource will fail to deploy with any value other than Private. Use cases requiring ACLs are uncommon.<br />The majority of access control configurations can be successfully and more easily achieved with bucket policies. For more information, see <a href=\"https://docs.aws.amazon.com//AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html\">AWS::S3::BucketPolicy</a>. For examples of common policy configurations, including S3 Server Access Logs buckets and more, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html\">Bucket policy examples</a> in the <i>Amazon S3 User Guide</i>.</details>"
   },
   {
     "name": "analytics_configurations",
@@ -68,7 +68,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "tag_filters",
         "type": "array",
-        "description": "The tags to use when evaluating an analytics filter.<br />The analytics only includes objects that meet the filter's criteria. If no filter is specified, all of the contents of the bucket are included in the analysis.",
+        "description": "<details><summary>The tags to use when evaluating an analytics filter.</summary>The analytics only includes objects that meet the filter's criteria. If no filter is specified, all of the contents of the bucket are included in the analysis.</details>",
         "children": [
           {
             "name": "value",
@@ -121,7 +121,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "bucket_encryption",
     "type": "object",
-    "description": "Specifies default encryption for a bucket using server-side encryption with Amazon S3-managed keys (SSE-S3), AWS KMS-managed keys (SSE-KMS), or dual-layer server-side encryption with KMS-managed keys (DSSE-KMS). For information about the Amazon S3 default encryption feature, see &#91;Amazon S3 Default Encryption for S3 Buckets&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html) in the &#42;Amazon S3 User Guide&#42;.",
+    "description": "Specifies default encryption for a bucket using server-side encryption with Amazon S3-managed keys (SSE-S3), AWS KMS-managed keys (SSE-KMS), or dual-layer server-side encryption with KMS-managed keys (DSSE-KMS). For information about the Amazon S3 default encryption feature, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html\">Amazon S3 Default Encryption for S3 Buckets</a> in the <i>Amazon S3 User Guide</i>.",
     "children": [
       {
         "name": "server_side_encryption_configuration",
@@ -131,7 +131,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "bucket_key_enabled",
             "type": "boolean",
-            "description": "Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the &#96;&#96;BucketKeyEnabled&#96;&#96; element to &#96;&#96;true&#96;&#96; causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled.<br />For more information, see &#91;Amazon S3 Bucket Keys&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "<details><summary>Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the <code>BucketKeyEnabled</code> element to <code>true</code> causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html\">Amazon S3 Bucket Keys</a> in the <i>Amazon S3 User Guide</i>.</details>"
           },
           {
             "name": "server_side_encryption_by_default",
@@ -141,12 +141,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "kms_master_key_id",
                 "type": "string",
-                "description": "AWS Key Management Service (KMS) customer managed key ID to use for the default encryption. <br />+ &#42;General purpose buckets&#42; - This parameter is allowed if and only if &#96;&#96;SSEAlgorithm&#96;&#96; is set to &#96;&#96;aws:kms&#96;&#96; or &#96;&#96;aws:kms:dsse&#96;&#96;.<br />+ &#42;Directory buckets&#42; - This parameter is allowed if and only if &#96;&#96;SSEAlgorithm&#96;&#96; is set to &#96;&#96;aws:kms&#96;&#96;.<br /><br />You can specify the key ID, key alias, or the Amazon Resource Name (ARN) of the KMS key.<br />+ Key ID: &#96;&#96;1234abcd-12ab-34cd-56ef-1234567890ab&#96;&#96;<br />+ Key ARN: &#96;&#96;arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab&#96;&#96;<br />+ Key Alias: &#96;&#96;alias/alias-name&#96;&#96;<br /><br />If you are using encryption with cross-account or AWS service operations, you must use a fully qualified KMS key ARN. For more information, see &#91;Using encryption for cross-account operations&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy).<br />+ &#42;General purpose buckets&#42; - If you're specifying a customer managed KMS key, we recommend using a fully qualified KMS key ARN. If you use a KMS key alias instead, then KMS resolves the key within the requester’s account. This behavior can result in data that's encrypted with a KMS key that belongs to the requester, and not the bucket owner. Also, if you use a key ID, you can run into a LogDestination undeliverable error when creating a VPC flow log. <br />+ &#42;Directory buckets&#42; - When you specify an &#91;customer managed key&#93;(https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk) for encryption in your directory bucket, only use the key ID or key ARN. The key alias format of the KMS key isn't supported.<br /><br />Amazon S3 only supports symmetric encryption KMS keys. For more information, see &#91;Asymmetric keys in KMS&#93;(https://docs.aws.amazon.com//kms/latest/developerguide/symmetric-asymmetric.html) in the &#42;Key Management Service Developer Guide&#42;."
+                "description": "<details><summary>AWS Key Management Service (KMS) customer managed key ID to use for the default encryption.</summary>+  <i>General purpose buckets</i> - This parameter is allowed if and only if <code>SSEAlgorithm</code> is set to <code>aws:kms</code> or <code>aws:kms:dsse</code>.<br />+  <i>Directory buckets</i> - This parameter is allowed if and only if <code>SSEAlgorithm</code> is set to <code>aws:kms</code>.<br />You can specify the key ID, key alias, or the Amazon Resource Name (ARN) of the KMS key.<br />+  Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code><br />+  Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code><br />+  Key Alias: <code>alias/alias-name</code><br />If you are using encryption with cross-account or AWS service operations, you must use a fully qualified KMS key ARN. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy\">Using encryption for cross-account operations</a>.<br />+  <i>General purpose buckets</i> - If you're specifying a customer managed KMS key, we recommend using a fully qualified KMS key ARN. If you use a KMS key alias instead, then KMS resolves the key within the requester’s account. This behavior can result in data that's encrypted with a KMS key that belongs to the requester, and not the bucket owner. Also, if you use a key ID, you can run into a LogDestination undeliverable error when creating a VPC flow log.<br />+  <i>Directory buckets</i> - When you specify an <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk\">customer managed key</a> for encryption in your directory bucket, only use the key ID or key ARN. The key alias format of the KMS key isn't supported.<br />Amazon S3 only supports symmetric encryption KMS keys. For more information, see <a href=\"https://docs.aws.amazon.com//kms/latest/developerguide/symmetric-asymmetric.html\">Asymmetric keys in KMS</a> in the <i>Key Management Service Developer Guide</i>.</details>"
               },
               {
                 "name": "sse_algorithm",
                 "type": "string",
-                "description": "Server-side encryption algorithm to use for the default encryption.<br />For directory buckets, there are only two supported values for server-side encryption: &#96;&#96;AES256&#96;&#96; and &#96;&#96;aws:kms&#96;&#96;."
+                "description": "<details><summary>Server-side encryption algorithm to use for the default encryption.</summary>For directory buckets, there are only two supported values for server-side encryption: <code>AES256</code> and <code>aws:kms</code>.</details>"
               }
             ]
           }
@@ -157,12 +157,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "bucket_name",
     "type": "string",
-    "description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow &#91;Amazon S3 bucket restrictions and limitations&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html). For more information, see &#91;Rules for naming Amazon S3 buckets&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) in the &#42;Amazon S3 User Guide&#42;. <br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you need to replace the resource, specify a new name."
+    "description": "<details><summary>A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html\">Amazon S3 bucket restrictions and limitations</a>. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html\">Rules for naming Amazon S3 buckets</a> in the <i>Amazon S3 User Guide</i>.</summary>If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you need to replace the resource, specify a new name.</details>"
   },
   {
     "name": "cors_configuration",
     "type": "object",
-    "description": "Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see &#91;Enabling Cross-Origin Resource Sharing&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the &#42;Amazon S3 User Guide&#42;.",
+    "description": "Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html\">Enabling Cross-Origin Resource Sharing</a> in the <i>Amazon S3 User Guide</i>.",
     "children": [
       {
         "name": "cors_rules",
@@ -172,12 +172,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "allowed_headers",
             "type": "array",
-            "description": "Headers that are specified in the &#96;&#96;Access-Control-Request-Headers&#96;&#96; header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are allowed."
+            "description": "Headers that are specified in the <code>Access-Control-Request-Headers</code> header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are allowed."
           },
           {
             "name": "allowed_methods",
             "type": "array",
-            "description": "An HTTP method that you allow the origin to run.<br />&#42;Allowed values&#42;: &#96;&#96;GET&#96;&#96; &#124; &#96;&#96;PUT&#96;&#96; &#124; &#96;&#96;HEAD&#96;&#96; &#124; &#96;&#96;POST&#96;&#96; &#124; &#96;&#96;DELETE&#96;&#96;"
+            "description": "<details><summary>An HTTP method that you allow the origin to run.</summary><i>Allowed values</i>: <code>GET</code> | <code>PUT</code> | <code>HEAD</code> | <code>POST</code> | <code>DELETE</code></details>"
           },
           {
             "name": "allowed_origins",
@@ -187,7 +187,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "exposed_headers",
             "type": "array",
-            "description": "One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript &#96;&#96;XMLHttpRequest&#96;&#96; object)."
+            "description": "One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript <code>XMLHttpRequest</code> object)."
           },
           {
             "name": "id",
@@ -243,12 +243,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "tierings",
         "type": "array",
-        "description": "Specifies a list of S3 Intelligent-Tiering storage class tiers in the configuration. At least one tier must be defined in the list. At most, you can specify two tiers in the list, one for each available AccessTier: &#96;&#96;ARCHIVE&#95;ACCESS&#96;&#96; and &#96;&#96;DEEP&#95;ARCHIVE&#95;ACCESS&#96;&#96;.<br />You only need Intelligent Tiering Configuration enabled on a bucket if you want to automatically move objects stored in the Intelligent-Tiering storage class to Archive Access or Deep Archive Access tiers.",
+        "description": "<details><summary>Specifies a list of S3 Intelligent-Tiering storage class tiers in the configuration. At least one tier must be defined in the list. At most, you can specify two tiers in the list, one for each available AccessTier: <code>ARCHIVE_ACCESS</code> and <code>DEEP_ARCHIVE_ACCESS</code>.</summary>You only need Intelligent Tiering Configuration enabled on a bucket if you want to automatically move objects stored in the Intelligent-Tiering storage class to Archive Access or Deep Archive Access tiers.</details>",
         "children": [
           {
             "name": "access_tier",
             "type": "string",
-            "description": "S3 Intelligent-Tiering access tier. See &#91;Storage class for automatically optimizing frequently and infrequently accessed objects&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access) for a list of access tiers in the S3 Intelligent-Tiering storage class."
+            "description": "S3 Intelligent-Tiering access tier. See <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access\">Storage class for automatically optimizing frequently and infrequently accessed objects</a> for a list of access tiers in the S3 Intelligent-Tiering storage class."
           },
           {
             "name": "days",
@@ -262,7 +262,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "inventory_configurations",
     "type": "array",
-    "description": "Specifies the inventory configuration for an Amazon S3 bucket. For more information, see &#91;GET Bucket inventory&#93;(https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html) in the &#42;Amazon S3 API Reference&#42;.",
+    "description": "Specifies the inventory configuration for an Amazon S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html\">GET Bucket inventory</a> in the <i>Amazon S3 API Reference</i>.",
     "children": [
       {
         "name": "destination",
@@ -277,12 +277,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "bucket_account_id",
             "type": "string",
-            "description": "The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.<br />Although this value is optional, we strongly recommend that you set it to help prevent problems if the destination bucket ownership changes."
+            "description": "<details><summary>The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.</summary>Although this value is optional, we strongly recommend that you set it to help prevent problems if the destination bucket ownership changes.</details>"
           },
           {
             "name": "format",
             "type": "string",
-            "description": "Specifies the file format used when exporting data to Amazon S3.<br />&#42;Allowed values&#42;: &#96;&#96;CSV&#96;&#96; &#124; &#96;&#96;ORC&#96;&#96; &#124; &#96;&#96;Parquet&#96;&#96;"
+            "description": "<details><summary>Specifies the file format used when exporting data to Amazon S3.</summary><i>Allowed values</i>: <code>CSV</code> | <code>ORC</code> | <code>Parquet</code></details>"
           },
           {
             "name": "prefix",
@@ -294,7 +294,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "enabled",
         "type": "boolean",
-        "description": "Specifies whether the inventory is enabled or disabled. If set to &#96;&#96;True&#96;&#96;, an inventory list is generated. If set to &#96;&#96;False&#96;&#96;, no inventory list is generated."
+        "description": "Specifies whether the inventory is enabled or disabled. If set to <code>True</code>, an inventory list is generated. If set to <code>False</code>, no inventory list is generated."
       },
       {
         "name": "id",
@@ -304,7 +304,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "included_object_versions",
         "type": "string",
-        "description": "Object versions to include in the inventory list. If set to &#96;&#96;All&#96;&#96;, the list includes all the object versions, which adds the version-related fields &#96;&#96;VersionId&#96;&#96;, &#96;&#96;IsLatest&#96;&#96;, and &#96;&#96;DeleteMarker&#96;&#96; to the list. If set to &#96;&#96;Current&#96;&#96;, the list does not contain these version-related fields."
+        "description": "Object versions to include in the inventory list. If set to <code>All</code>, the list includes all the object versions, which adds the version-related fields <code>VersionId</code>, <code>IsLatest</code>, and <code>DeleteMarker</code> to the list. If set to <code>Current</code>, the list does not contain these version-related fields."
       },
       {
         "name": "optional_fields",
@@ -326,7 +326,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "lifecycle_configuration",
     "type": "object",
-    "description": "Specifies the lifecycle configuration for objects in an Amazon S3 bucket. For more information, see &#91;Object Lifecycle Management&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html) in the &#42;Amazon S3 User Guide&#42;.",
+    "description": "Specifies the lifecycle configuration for objects in an Amazon S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html\">Object Lifecycle Management</a> in the <i>Amazon S3 User Guide</i>.",
     "children": [
       {
         "name": "rules",
@@ -358,7 +358,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "expired_object_delete_marker",
             "type": "boolean",
-            "description": "Indicates whether Amazon S3 will remove a delete marker without any noncurrent versions. If set to true, the delete marker will be removed if there are no noncurrent versions. This cannot be specified with &#96;&#96;ExpirationInDays&#96;&#96;, &#96;&#96;ExpirationDate&#96;&#96;, or &#96;&#96;TagFilters&#96;&#96;."
+            "description": "Indicates whether Amazon S3 will remove a delete marker without any noncurrent versions. If set to true, the delete marker will be removed if there are no noncurrent versions. This cannot be specified with <code>ExpirationInDays</code>, <code>ExpirationDate</code>, or <code>TagFilters</code>."
           },
           {
             "name": "id",
@@ -378,19 +378,19 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "noncurrent_days",
                 "type": "integer",
-                "description": "Specifies the number of days an object is noncurrent before S3 can perform the associated action. For information about the noncurrent days calculations, see &#91;How Amazon S3 Calculates When an Object Became Noncurrent&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations) in the &#42;Amazon S3 User Guide&#42;."
+                "description": "Specifies the number of days an object is noncurrent before S3 can perform the associated action. For information about the noncurrent days calculations, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations\">How Amazon S3 Calculates When an Object Became Noncurrent</a> in the <i>Amazon S3 User Guide</i>."
               },
               {
                 "name": "newer_noncurrent_versions",
                 "type": "integer",
-                "description": "Specifies how many noncurrent versions S3 will retain. If there are this many more recent noncurrent versions, S3 will take the associated action. For more information about noncurrent versions, see &#91;Lifecycle configuration elements&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) in the &#42;Amazon S3 User Guide&#42;."
+                "description": "Specifies how many noncurrent versions S3 will retain. If there are this many more recent noncurrent versions, S3 will take the associated action. For more information about noncurrent versions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html\">Lifecycle configuration elements</a> in the <i>Amazon S3 User Guide</i>."
               }
             ]
           },
           {
             "name": "noncurrent_version_transition",
             "type": "object",
-            "description": "(Deprecated.) For buckets with versioning enabled (or suspended), specifies when non-current objects transition to a specified storage class. If you specify a transition and expiration time, the expiration time must be later than the transition time. If you specify this property, don't specify the &#96;&#96;NoncurrentVersionTransitions&#96;&#96; property.",
+            "description": "(Deprecated.) For buckets with versioning enabled (or suspended), specifies when non-current objects transition to a specified storage class. If you specify a transition and expiration time, the expiration time must be later than the transition time. If you specify this property, don't specify the <code>NoncurrentVersionTransitions</code> property.",
             "children": [
               {
                 "name": "storage_class",
@@ -400,29 +400,29 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "transition_in_days",
                 "type": "integer",
-                "description": "Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. For information about the noncurrent days calculations, see &#91;How Amazon S3 Calculates How Long an Object Has Been Noncurrent&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations) in the &#42;Amazon S3 User Guide&#42;."
+                "description": "Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. For information about the noncurrent days calculations, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations\">How Amazon S3 Calculates How Long an Object Has Been Noncurrent</a> in the <i>Amazon S3 User Guide</i>."
               },
               {
                 "name": "newer_noncurrent_versions",
                 "type": "integer",
-                "description": "Specifies how many noncurrent versions S3 will retain. If there are this many more recent noncurrent versions, S3 will take the associated action. For more information about noncurrent versions, see &#91;Lifecycle configuration elements&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) in the &#42;Amazon S3 User Guide&#42;."
+                "description": "Specifies how many noncurrent versions S3 will retain. If there are this many more recent noncurrent versions, S3 will take the associated action. For more information about noncurrent versions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html\">Lifecycle configuration elements</a> in the <i>Amazon S3 User Guide</i>."
               }
             ]
           },
           {
             "name": "noncurrent_version_transitions",
             "type": "array",
-            "description": "For buckets with versioning enabled (or suspended), one or more transition rules that specify when non-current objects transition to a specified storage class. If you specify a transition and expiration time, the expiration time must be later than the transition time. If you specify this property, don't specify the &#96;&#96;NoncurrentVersionTransition&#96;&#96; property."
+            "description": "For buckets with versioning enabled (or suspended), one or more transition rules that specify when non-current objects transition to a specified storage class. If you specify a transition and expiration time, the expiration time must be later than the transition time. If you specify this property, don't specify the <code>NoncurrentVersionTransition</code> property."
           },
           {
             "name": "prefix",
             "type": "string",
-            "description": "Object key prefix that identifies one or more objects to which this rule applies.<br />Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see &#91;XML related object key constraints&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints)."
+            "description": "<details><summary>Object key prefix that identifies one or more objects to which this rule applies.</summary>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\">XML related object key constraints</a>.</details>"
           },
           {
             "name": "status",
             "type": "string",
-            "description": "If &#96;&#96;Enabled&#96;&#96;, the rule is currently being applied. If &#96;&#96;Disabled&#96;&#96;, the rule is not currently being applied."
+            "description": "If <code>Enabled</code>, the rule is currently being applied. If <code>Disabled</code>, the rule is not currently being applied."
           },
           {
             "name": "tag_filters",
@@ -444,17 +444,17 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "object_size_greater_than",
             "type": "string",
-            "description": "Specifies the minimum object size in bytes for this rule to apply to. Objects must be larger than this value in bytes. For more information about size based rules, see &#91;Lifecycle configuration using size-based rules&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-configuration-examples.html#lc-size-rules) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "Specifies the minimum object size in bytes for this rule to apply to. Objects must be larger than this value in bytes. For more information about size based rules, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-configuration-examples.html#lc-size-rules\">Lifecycle configuration using size-based rules</a> in the <i>Amazon S3 User Guide</i>."
           },
           {
             "name": "object_size_less_than",
             "type": "string",
-            "description": "Specifies the maximum object size in bytes for this rule to apply to. Objects must be smaller than this value in bytes. For more information about sized based rules, see &#91;Lifecycle configuration using size-based rules&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-configuration-examples.html#lc-size-rules) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "Specifies the maximum object size in bytes for this rule to apply to. Objects must be smaller than this value in bytes. For more information about sized based rules, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-configuration-examples.html#lc-size-rules\">Lifecycle configuration using size-based rules</a> in the <i>Amazon S3 User Guide</i>."
           },
           {
             "name": "transition",
             "type": "object",
-            "description": "(Deprecated.) Specifies when an object transitions to a specified storage class. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time. If you specify this property, don't specify the &#96;&#96;Transitions&#96;&#96; property.",
+            "description": "(Deprecated.) Specifies when an object transitions to a specified storage class. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time. If you specify this property, don't specify the <code>Transitions</code> property.",
             "children": [
               {
                 "name": "storage_class",
@@ -464,21 +464,21 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "transition_in_days",
                 "type": "integer",
-                "description": "Indicates the number of days after creation when objects are transitioned to the specified storage class. If the specified storage class is &#96;&#96;INTELLIGENT&#95;TIERING&#96;&#96;, &#96;&#96;GLACIER&#95;IR&#96;&#96;, &#96;&#96;GLACIER&#96;&#96;, or &#96;&#96;DEEP&#95;ARCHIVE&#96;&#96;, valid values are &#96;&#96;0&#96;&#96; or positive integers. If the specified storage class is &#96;&#96;STANDARD&#95;IA&#96;&#96; or &#96;&#96;ONEZONE&#95;IA&#96;&#96;, valid values are positive integers greater than &#96;&#96;30&#96;&#96;. Be aware that some storage classes have a minimum storage duration and that you're charged for transitioning objects before their minimum storage duration. For more information, see &#91;Constraints and considerations for transitions&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html#lifecycle-configuration-constraints) in the &#42;Amazon S3 User Guide&#42;."
+                "description": "Indicates the number of days after creation when objects are transitioned to the specified storage class. If the specified storage class is <code>INTELLIGENT_TIERING</code>, <code>GLACIER_IR</code>, <code>GLACIER</code>, or <code>DEEP_ARCHIVE</code>, valid values are <code>0</code> or positive integers. If the specified storage class is <code>STANDARD_IA</code> or <code>ONEZONE_IA</code>, valid values are positive integers greater than <code>30</code>. Be aware that some storage classes have a minimum storage duration and that you're charged for transitioning objects before their minimum storage duration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html#lifecycle-configuration-constraints\">Constraints and considerations for transitions</a> in the <i>Amazon S3 User Guide</i>."
               }
             ]
           },
           {
             "name": "transitions",
             "type": "array",
-            "description": "One or more transition rules that specify when an object transitions to a specified storage class. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time. If you specify this property, don't specify the &#96;&#96;Transition&#96;&#96; property."
+            "description": "One or more transition rules that specify when an object transitions to a specified storage class. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time. If you specify this property, don't specify the <code>Transition</code> property."
           }
         ]
       },
       {
         "name": "transition_default_minimum_object_size",
         "type": "string",
-        "description": "Indicates which default minimum object size behavior is applied to the lifecycle configuration.<br />This parameter applies to general purpose buckets only. It isn't supported for directory bucket lifecycle configurations.<br />+ &#96;&#96;all&#95;storage&#95;classes&#95;128K&#96;&#96; - Objects smaller than 128 KB will not transition to any storage class by default.<br />+ &#96;&#96;varies&#95;by&#95;storage&#95;class&#96;&#96; - Objects smaller than 128 KB will transition to Glacier Flexible Retrieval or Glacier Deep Archive storage classes. By default, all other storage classes will prevent transitions smaller than 128 KB. <br /><br />To customize the minimum object size for any transition you can add a filter that specifies a custom &#96;&#96;ObjectSizeGreaterThan&#96;&#96; or &#96;&#96;ObjectSizeLessThan&#96;&#96; in the body of your transition rule. Custom filters always take precedence over the default transition behavior."
+        "description": "<details><summary>Indicates which default minimum object size behavior is applied to the lifecycle configuration.</summary>This parameter applies to general purpose buckets only. It isn't supported for directory bucket lifecycle configurations.<br />+  <code>all_storage_classes_128K</code> - Objects smaller than 128 KB will not transition to any storage class by default.<br />+  <code>varies_by_storage_class</code> - Objects smaller than 128 KB will transition to Glacier Flexible Retrieval or Glacier Deep Archive storage classes. By default, all other storage classes will prevent transitions smaller than 128 KB.<br />To customize the minimum object size for any transition you can add a filter that specifies a custom <code>ObjectSizeGreaterThan</code> or <code>ObjectSizeLessThan</code> in the body of your transition rule. Custom filters always take precedence over the default transition behavior.</details>"
       }
     ]
   },
@@ -490,7 +490,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "destination_bucket_name",
         "type": "string",
-        "description": "The name of the bucket where Amazon S3 should store server access log files. You can store log files in any bucket that you own. By default, logs are stored in the bucket where the &#96;&#96;LoggingConfiguration&#96;&#96; property is defined."
+        "description": "The name of the bucket where Amazon S3 should store server access log files. You can store log files in any bucket that you own. By default, logs are stored in the bucket where the <code>LoggingConfiguration</code> property is defined."
       },
       {
         "name": "log_file_prefix",
@@ -507,7 +507,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "metrics_configurations",
     "type": "array",
-    "description": "Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration. If you don't include the elements you want to keep, they are erased. For more information, see &#91;PutBucketMetricsConfiguration&#93;(https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html).",
+    "description": "Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration. If you don't include the elements you want to keep, they are erased. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html\">PutBucketMetricsConfiguration</a>.",
     "children": [
       {
         "name": "access_point_arn",
@@ -551,7 +551,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "s3_tables_destination",
         "type": "object",
-        "description": "The destination information for the metadata table configuration. The destination table bucket must be in the same Region and AWS-account as the general purpose bucket. The specified metadata table name must be unique within the &#96;&#96;aws&#95;s3&#95;metadata&#96;&#96; namespace in the destination table bucket.",
+        "description": "The destination information for the metadata table configuration. The destination table bucket must be in the same Region and AWS-account as the general purpose bucket. The specified metadata table name must be unique within the <code>aws_s3_metadata</code> namespace in the destination table bucket.",
         "children": [
           {
             "name": "table_bucket_arn",
@@ -561,17 +561,17 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "table_name",
             "type": "string",
-            "description": "The name for the metadata table in your metadata table configuration. The specified metadata table name must be unique within the &#96;&#96;aws&#95;s3&#95;metadata&#96;&#96; namespace in the destination table bucket."
+            "description": "The name for the metadata table in your metadata table configuration. The specified metadata table name must be unique within the <code>aws_s3_metadata</code> namespace in the destination table bucket."
           },
           {
             "name": "table_namespace",
             "type": "string",
-            "description": "The table bucket namespace for the metadata table in your metadata table configuration. This value is always &#96;&#96;aws&#95;s3&#95;metadata&#96;&#96;."
+            "description": "The table bucket namespace for the metadata table in your metadata table configuration. This value is always <code>aws_s3_metadata</code>."
           },
           {
             "name": "table_arn",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) for the metadata table in the metadata table configuration. The specified metadata table name must be unique within the &#96;&#96;aws&#95;s3&#95;metadata&#96;&#96; namespace in the destination table bucket."
+            "description": "The Amazon Resource Name (ARN) for the metadata table in the metadata table configuration. The specified metadata table name must be unique within the <code>aws_s3_metadata</code> namespace in the destination table bucket."
           }
         ]
       }
@@ -721,12 +721,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "event",
             "type": "string",
-            "description": "The Amazon S3 bucket event for which to invoke the LAMlong function. For more information, see &#91;Supported Event Types&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "The Amazon S3 bucket event for which to invoke the LAMlong function. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html\">Supported Event Types</a> in the <i>Amazon S3 User Guide</i>."
           },
           {
             "name": "filter",
             "type": "object",
-            "description": "The filtering rules that determine which objects invoke the AWS Lambda function. For example, you can create a filter so that only image files with a &#96;&#96;.jpg&#96;&#96; extension invoke the function when they are added to the Amazon S3 bucket.",
+            "description": "The filtering rules that determine which objects invoke the AWS Lambda function. For example, you can create a filter so that only image files with a <code>.jpg</code> extension invoke the function when they are added to the Amazon S3 bucket.",
             "children": [
               {
                 "name": "s3_key",
@@ -750,12 +750,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "event",
             "type": "string",
-            "description": "The Amazon S3 bucket event about which you want to publish messages to Amazon SQS. For more information, see &#91;Supported Event Types&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "The Amazon S3 bucket event about which you want to publish messages to Amazon SQS. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html\">Supported Event Types</a> in the <i>Amazon S3 User Guide</i>."
           },
           {
             "name": "filter",
             "type": "object",
-            "description": "The filtering rules that determine which objects trigger notifications. For example, you can create a filter so that Amazon S3 sends notifications only when image files with a &#96;&#96;.jpg&#96;&#96; extension are added to the bucket. For more information, see &#91;Configuring event notifications using object key name filtering&#93;(https://docs.aws.amazon.com/AmazonS3/latest/user-guide/notification-how-to-filtering.html) in the &#42;Amazon S3 User Guide&#42;.",
+            "description": "The filtering rules that determine which objects trigger notifications. For example, you can create a filter so that Amazon S3 sends notifications only when image files with a <code>.jpg</code> extension are added to the bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/user-guide/notification-how-to-filtering.html\">Configuring event notifications using object key name filtering</a> in the <i>Amazon S3 User Guide</i>.",
             "children": [
               {
                 "name": "s3_key",
@@ -779,12 +779,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "event",
             "type": "string",
-            "description": "The Amazon S3 bucket event about which to send notifications. For more information, see &#91;Supported Event Types&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "The Amazon S3 bucket event about which to send notifications. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html\">Supported Event Types</a> in the <i>Amazon S3 User Guide</i>."
           },
           {
             "name": "filter",
             "type": "object",
-            "description": "The filtering rules that determine for which objects to send notifications. For example, you can create a filter so that Amazon S3 sends notifications only when image files with a &#96;&#96;.jpg&#96;&#96; extension are added to the bucket.",
+            "description": "The filtering rules that determine for which objects to send notifications. For example, you can create a filter so that Amazon S3 sends notifications only when image files with a <code>.jpg</code> extension are added to the bucket.",
             "children": [
               {
                 "name": "s3_key",
@@ -805,37 +805,37 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "object_lock_configuration",
     "type": "object",
-    "description": "This operation is not supported for directory buckets.<br />Places an Object Lock configuration on the specified bucket. The rule specified in the Object Lock configuration will be applied by default to every new object placed in the specified bucket. For more information, see &#91;Locking Objects&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html). <br />+ The &#96;&#96;DefaultRetention&#96;&#96; settings require both a mode and a period.<br />+ The &#96;&#96;DefaultRetention&#96;&#96; period can be either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96; but you must select one. You cannot specify &#96;&#96;Days&#96;&#96; and &#96;&#96;Years&#96;&#96; at the same time.<br />+ You can enable Object Lock for new or existing buckets. For more information, see &#91;Configuring Object Lock&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-configure.html).",
+    "description": "<details><summary>This operation is not supported for directory buckets.</summary>Places an Object Lock configuration on the specified bucket. The rule specified in the Object Lock configuration will be applied by default to every new object placed in the specified bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html\">Locking Objects</a>.<br />+  The <code>DefaultRetention</code> settings require both a mode and a period.<br />+  The <code>DefaultRetention</code> period can be either <code>Days</code> or <code>Years</code> but you must select one. You cannot specify <code>Days</code> and <code>Years</code> at the same time.<br />+  You can enable Object Lock for new or existing buckets. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-configure.html\">Configuring Object Lock</a>.</details>",
     "children": [
       {
         "name": "object_lock_enabled",
         "type": "string",
-        "description": "Indicates whether this bucket has an Object Lock configuration enabled. Enable &#96;&#96;ObjectLockEnabled&#96;&#96; when you apply &#96;&#96;ObjectLockConfiguration&#96;&#96; to a bucket."
+        "description": "Indicates whether this bucket has an Object Lock configuration enabled. Enable <code>ObjectLockEnabled</code> when you apply <code>ObjectLockConfiguration</code> to a bucket."
       },
       {
         "name": "rule",
         "type": "object",
-        "description": "Specifies the Object Lock rule for the specified object. Enable this rule when you apply &#96;&#96;ObjectLockConfiguration&#96;&#96; to a bucket. If Object Lock is turned on, bucket settings require both &#96;&#96;Mode&#96;&#96; and a period of either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96;. You cannot specify &#96;&#96;Days&#96;&#96; and &#96;&#96;Years&#96;&#96; at the same time. For more information, see &#91;ObjectLockRule&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-objectlockrule.html) and &#91;DefaultRetention&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-defaultretention.html).",
+        "description": "Specifies the Object Lock rule for the specified object. Enable this rule when you apply <code>ObjectLockConfiguration</code> to a bucket. If Object Lock is turned on, bucket settings require both <code>Mode</code> and a period of either <code>Days</code> or <code>Years</code>. You cannot specify <code>Days</code> and <code>Years</code> at the same time. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-objectlockrule.html\">ObjectLockRule</a> and <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-defaultretention.html\">DefaultRetention</a>.",
         "children": [
           {
             "name": "default_retention",
             "type": "object",
-            "description": "The default Object Lock retention mode and period that you want to apply to new objects placed in the specified bucket. If Object Lock is turned on, bucket settings require both &#96;&#96;Mode&#96;&#96; and a period of either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96;. You cannot specify &#96;&#96;Days&#96;&#96; and &#96;&#96;Years&#96;&#96; at the same time. For more information about allowable values for mode and period, see &#91;DefaultRetention&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-defaultretention.html).",
+            "description": "The default Object Lock retention mode and period that you want to apply to new objects placed in the specified bucket. If Object Lock is turned on, bucket settings require both <code>Mode</code> and a period of either <code>Days</code> or <code>Years</code>. You cannot specify <code>Days</code> and <code>Years</code> at the same time. For more information about allowable values for mode and period, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-defaultretention.html\">DefaultRetention</a>.",
             "children": [
               {
                 "name": "years",
                 "type": "integer",
-                "description": "The number of years that you want to specify for the default retention period. If Object Lock is turned on, you must specify &#96;&#96;Mode&#96;&#96; and specify either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96;."
+                "description": "The number of years that you want to specify for the default retention period. If Object Lock is turned on, you must specify <code>Mode</code> and specify either <code>Days</code> or <code>Years</code>."
               },
               {
                 "name": "days",
                 "type": "integer",
-                "description": "The number of days that you want to specify for the default retention period. If Object Lock is turned on, you must specify &#96;&#96;Mode&#96;&#96; and specify either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96;."
+                "description": "The number of days that you want to specify for the default retention period. If Object Lock is turned on, you must specify <code>Mode</code> and specify either <code>Days</code> or <code>Years</code>."
               },
               {
                 "name": "mode",
                 "type": "string",
-                "description": "The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. If Object Lock is turned on, you must specify &#96;&#96;Mode&#96;&#96; and specify either &#96;&#96;Days&#96;&#96; or &#96;&#96;Years&#96;&#96;."
+                "description": "The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. If Object Lock is turned on, you must specify <code>Mode</code> and specify either <code>Days</code> or <code>Years</code>."
               }
             ]
           }
@@ -846,7 +846,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "object_lock_enabled",
     "type": "boolean",
-    "description": "Indicates whether this bucket has an Object Lock configuration enabled. Enable &#96;&#96;ObjectLockEnabled&#96;&#96; when you apply &#96;&#96;ObjectLockConfiguration&#96;&#96; to a bucket."
+    "description": "Indicates whether this bucket has an Object Lock configuration enabled. Enable <code>ObjectLockEnabled</code> when you apply <code>ObjectLockConfiguration</code> to a bucket."
   },
   {
     "name": "ownership_controls",
@@ -875,7 +875,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "restrict_public_buckets",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.<br />Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+        "description": "<details><summary>Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.</summary>Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.</details>"
       },
       {
         "name": "block_public_policy",
@@ -885,7 +885,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "block_public_acls",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:<br />- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs."
+        "description": "<details><summary>Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:</summary>- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs.</details>"
       },
       {
         "name": "ignore_public_acls",
@@ -897,12 +897,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "replication_configuration",
     "type": "object",
-    "description": "Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the &#96;&#96;VersioningConfiguration&#96;&#96; property.<br />Amazon S3 can store replicated objects in a single destination bucket or multiple destination buckets. The destination bucket or buckets must already exist.",
+    "description": "<details><summary>Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the <code>VersioningConfiguration</code> property.</summary>Amazon S3 can store replicated objects in a single destination bucket or multiple destination buckets. The destination bucket or buckets must already exist.</details>",
     "children": [
       {
         "name": "role",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the IAMlong (IAM) role that Amazon S3 assumes when replicating objects. For more information, see &#91;How to Set Up Replication&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html) in the &#42;Amazon S3 User Guide&#42;."
+        "description": "The Amazon Resource Name (ARN) of the IAMlong (IAM) role that Amazon S3 assumes when replicating objects. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html\">How to Set Up Replication</a> in the <i>Amazon S3 User Guide</i>."
       },
       {
         "name": "rules",
@@ -912,7 +912,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "delete_marker_replication",
             "type": "object",
-            "description": "Specifies whether Amazon S3 replicates delete markers. If you specify a &#96;&#96;Filter&#96;&#96; in your replication configuration, you must also include a &#96;&#96;DeleteMarkerReplication&#96;&#96; element. If your &#96;&#96;Filter&#96;&#96; includes a &#96;&#96;Tag&#96;&#96; element, the &#96;&#96;DeleteMarkerReplication&#96;&#96;&#96;&#96;Status&#96;&#96; must be set to Disabled, because Amazon S3 does not support replicating delete markers for tag-based rules. For an example configuration, see &#91;Basic Rule Configuration&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-config-min-rule-config). <br />For more information about delete marker replication, see &#91;Basic Rule Configuration&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html). <br />If you are using an earlier version of the replication configuration, Amazon S3 handles replication of delete markers differently. For more information, see &#91;Backward Compatibility&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations).",
+            "description": "<details><summary>Specifies whether Amazon S3 replicates delete markers. If you specify a <code>Filter</code> in your replication configuration, you must also include a <code>DeleteMarkerReplication</code> element. If your <code>Filter</code> includes a <code>Tag</code> element, the <code>DeleteMarkerReplication</code><code>Status</code> must be set to Disabled, because Amazon S3 does not support replicating delete markers for tag-based rules. For an example configuration, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-config-min-rule-config\">Basic Rule Configuration</a>.</summary>For more information about delete marker replication, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html\">Basic Rule Configuration</a>.<br />If you are using an earlier version of the replication configuration, Amazon S3 handles replication of delete markers differently. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations\">Backward Compatibility</a>.</details>",
             "children": [
               {
                 "name": "status",
@@ -934,7 +934,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "account",
                 "type": "string",
-                "description": "Destination bucket owner account ID. In a cross-account scenario, if you direct Amazon S3 to change replica ownership to the AWS-account that owns the destination bucket by specifying the &#96;&#96;AccessControlTranslation&#96;&#96; property, this is the account ID of the destination bucket owner. For more information, see &#91;Cross-Region Replication Additional Configuration: Change Replica Owner&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-change-owner.html) in the &#42;Amazon S3 User Guide&#42;.<br />If you specify the &#96;&#96;AccessControlTranslation&#96;&#96; property, the &#96;&#96;Account&#96;&#96; property is required."
+                "description": "<details><summary>Destination bucket owner account ID. In a cross-account scenario, if you direct Amazon S3 to change replica ownership to the AWS-account that owns the destination bucket by specifying the <code>AccessControlTranslation</code> property, this is the account ID of the destination bucket owner. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-change-owner.html\">Cross-Region Replication Additional Configuration: Change Replica Owner</a> in the <i>Amazon S3 User Guide</i>.</summary>If you specify the <code>AccessControlTranslation</code> property, the <code>Account</code> property is required.</details>"
               },
               {
                 "name": "bucket",
@@ -954,34 +954,34 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "replication_time",
                 "type": "object",
-                "description": "A container specifying S3 Replication Time Control (S3 RTC), including whether S3 RTC is enabled and the time when all objects and operations on objects must be replicated. Must be specified together with a &#96;&#96;Metrics&#96;&#96; block."
+                "description": "A container specifying S3 Replication Time Control (S3 RTC), including whether S3 RTC is enabled and the time when all objects and operations on objects must be replicated. Must be specified together with a <code>Metrics</code> block."
               },
               {
                 "name": "storage_class",
                 "type": "string",
-                "description": "The storage class to use when replicating objects, such as S3 Standard or reduced redundancy. By default, Amazon S3 uses the storage class of the source object to create the object replica. <br />For valid values, see the &#96;&#96;StorageClass&#96;&#96; element of the &#91;PUT Bucket replication&#93;(https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) action in the &#42;Amazon S3 API Reference&#42;."
+                "description": "<details><summary>The storage class to use when replicating objects, such as S3 Standard or reduced redundancy. By default, Amazon S3 uses the storage class of the source object to create the object replica.</summary>For valid values, see the <code>StorageClass</code> element of the <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html\">PUT Bucket replication</a> action in the <i>Amazon S3 API Reference</i>.</details>"
               }
             ]
           },
           {
             "name": "filter",
             "type": "object",
-            "description": "A filter that identifies the subset of objects to which the replication rule applies. A &#96;&#96;Filter&#96;&#96; must specify exactly one &#96;&#96;Prefix&#96;&#96;, &#96;&#96;TagFilter&#96;&#96;, or an &#96;&#96;And&#96;&#96; child element. The use of the filter field indicates that this is a V2 replication configuration. This field isn't supported in a V1 replication configuration.<br />V1 replication configuration only supports filtering by key prefix. To filter using a V1 replication configuration, add the &#96;&#96;Prefix&#96;&#96; directly as a child element of the &#96;&#96;Rule&#96;&#96; element.",
+            "description": "<details><summary>A filter that identifies the subset of objects to which the replication rule applies. A <code>Filter</code> must specify exactly one <code>Prefix</code>, <code>TagFilter</code>, or an <code>And</code> child element. The use of the filter field indicates that this is a V2 replication configuration. This field isn't supported in a V1 replication configuration.</summary>V1 replication configuration only supports filtering by key prefix. To filter using a V1 replication configuration, add the <code>Prefix</code> directly as a child element of the <code>Rule</code> element.</details>",
             "children": [
               {
                 "name": "and",
                 "type": "object",
-                "description": "A container for specifying rule filters. The filters determine the subset of objects to which the rule applies. This element is required only if you specify more than one filter. For example: <br />+ If you specify both a &#96;&#96;Prefix&#96;&#96; and a &#96;&#96;TagFilter&#96;&#96;, wrap these filters in an &#96;&#96;And&#96;&#96; tag.<br />+ If you specify a filter based on multiple tags, wrap the &#96;&#96;TagFilter&#96;&#96; elements in an &#96;&#96;And&#96;&#96; tag."
+                "description": "<details><summary>A container for specifying rule filters. The filters determine the subset of objects to which the rule applies. This element is required only if you specify more than one filter. For example:</summary>+  If you specify both a <code>Prefix</code> and a <code>TagFilter</code>, wrap these filters in an <code>And</code> tag.<br />+  If you specify a filter based on multiple tags, wrap the <code>TagFilter</code> elements in an <code>And</code> tag.</details>"
               },
               {
                 "name": "prefix",
                 "type": "string",
-                "description": "An object key name prefix that identifies the subset of objects to which the rule applies.<br />Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see &#91;XML related object key constraints&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints)."
+                "description": "<details><summary>An object key name prefix that identifies the subset of objects to which the rule applies.</summary>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\">XML related object key constraints</a>.</details>"
               },
               {
                 "name": "tag_filter",
                 "type": "object",
-                "description": "A container for specifying a tag key and value. <br />The rule applies only to objects that have the tag in their tag set."
+                "description": "<details><summary>A container for specifying a tag key and value.</summary>The rule applies only to objects that have the tag in their tag set.</details>"
               }
             ]
           },
@@ -993,12 +993,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
           {
             "name": "prefix",
             "type": "string",
-            "description": "An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string. To filter using a V1 replication configuration, add the &#96;&#96;Prefix&#96;&#96; directly as a child element of the &#96;&#96;Rule&#96;&#96; element.<br />Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see &#91;XML related object key constraints&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints)."
+            "description": "<details><summary>An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string. To filter using a V1 replication configuration, add the <code>Prefix</code> directly as a child element of the <code>Rule</code> element.</summary>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\">XML related object key constraints</a>.</details>"
           },
           {
             "name": "priority",
             "type": "integer",
-            "description": "The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority. <br />For more information, see &#91;Replication&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html) in the &#42;Amazon S3 User Guide&#42;."
+            "description": "<details><summary>The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html\">Replication</a> in the <i>Amazon S3 User Guide</i>.</details>"
           },
           {
             "name": "source_selection_criteria",
@@ -1046,7 +1046,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "versioning_configuration",
     "type": "object",
-    "description": "Enables multiple versions of all objects in this bucket. You might enable versioning to prevent objects from being deleted or overwritten by mistake or to archive objects so that you can retrieve previous versions of them.<br />When you enable versioning on a bucket for the first time, it might take a short amount of time for the change to be fully propagated. We recommend that you wait for 15 minutes after enabling versioning before issuing write operations (&#96;&#96;PUT&#96;&#96; or &#96;&#96;DELETE&#96;&#96;) on objects in the bucket.",
+    "description": "<details><summary>Enables multiple versions of all objects in this bucket. You might enable versioning to prevent objects from being deleted or overwritten by mistake or to archive objects so that you can retrieve previous versions of them.</summary>When you enable versioning on a bucket for the first time, it might take a short amount of time for the change to be fully propagated. We recommend that you wait for 15 minutes after enabling versioning before issuing write operations (<code>PUT</code> or <code>DELETE</code>) on objects in the bucket.</details>",
     "children": [
       {
         "name": "status",
@@ -1058,7 +1058,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "website_configuration",
     "type": "object",
-    "description": "Information used to configure the bucket as a static website. For more information, see &#91;Hosting Websites on Amazon S3&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html).",
+    "description": "Information used to configure the bucket as a static website. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html\">Hosting Websites on Amazon S3</a>.",
     "children": [
       {
         "name": "error_document",
@@ -1098,29 +1098,29 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
               {
                 "name": "replace_key_prefix_with",
                 "type": "string",
-                "description": "The object key prefix to use in the redirect request. For example, to redirect requests for all pages with prefix &#96;&#96;docs/&#96;&#96; (objects in the &#96;&#96;docs/&#96;&#96; folder) to &#96;&#96;documents/&#96;&#96;, you can set a condition block with &#96;&#96;KeyPrefixEquals&#96;&#96; set to &#96;&#96;docs/&#96;&#96; and in the Redirect set &#96;&#96;ReplaceKeyPrefixWith&#96;&#96; to &#96;&#96;/documents&#96;&#96;. Not required if one of the siblings is present. Can be present only if &#96;&#96;ReplaceKeyWith&#96;&#96; is not provided.<br />Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see &#91;XML related object key constraints&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints)."
+                "description": "<details><summary>The object key prefix to use in the redirect request. For example, to redirect requests for all pages with prefix <code>docs/</code> (objects in the <code>docs/</code> folder) to <code>documents/</code>, you can set a condition block with <code>KeyPrefixEquals</code> set to <code>docs/</code> and in the Redirect set <code>ReplaceKeyPrefixWith</code> to <code>/documents</code>. Not required if one of the siblings is present. Can be present only if <code>ReplaceKeyWith</code> is not provided.</summary>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\">XML related object key constraints</a>.</details>"
               },
               {
                 "name": "replace_key_with",
                 "type": "string",
-                "description": "The specific object key to use in the redirect request. For example, redirect request to &#96;&#96;error.html&#96;&#96;. Not required if one of the siblings is present. Can be present only if &#96;&#96;ReplaceKeyPrefixWith&#96;&#96; is not provided.<br />Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see &#91;XML related object key constraints&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints)."
+                "description": "<details><summary>The specific object key to use in the redirect request. For example, redirect request to <code>error.html</code>. Not required if one of the siblings is present. Can be present only if <code>ReplaceKeyPrefixWith</code> is not provided.</summary>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\">XML related object key constraints</a>.</details>"
               }
             ]
           },
           {
             "name": "routing_rule_condition",
             "type": "object",
-            "description": "A container for describing a condition that must be met for the specified redirect to apply. For example, 1. If request is for pages in the &#96;&#96;/docs&#96;&#96; folder, redirect to the &#96;&#96;/documents&#96;&#96; folder. 2. If request results in HTTP error 4xx, redirect request to another host where you might process the error.",
+            "description": "A container for describing a condition that must be met for the specified redirect to apply. For example, 1. If request is for pages in the <code>/docs</code> folder, redirect to the <code>/documents</code> folder. 2. If request results in HTTP error 4xx, redirect request to another host where you might process the error.",
             "children": [
               {
                 "name": "key_prefix_equals",
                 "type": "string",
-                "description": "The object key name prefix when the redirect is applied. For example, to redirect requests for &#96;&#96;ExamplePage.html&#96;&#96;, the key prefix will be &#96;&#96;ExamplePage.html&#96;&#96;. To redirect request for all pages with the prefix &#96;&#96;docs/&#96;&#96;, the key prefix will be &#96;&#96;docs/&#96;&#96;, which identifies all objects in the docs/ folder.<br />Required when the parent element &#96;&#96;Condition&#96;&#96; is specified and sibling &#96;&#96;HttpErrorCodeReturnedEquals&#96;&#96; is not specified. If both conditions are specified, both must be true for the redirect to be applied."
+                "description": "<details><summary>The object key name prefix when the redirect is applied. For example, to redirect requests for <code>ExamplePage.html</code>, the key prefix will be <code>ExamplePage.html</code>. To redirect request for all pages with the prefix <code>docs/</code>, the key prefix will be <code>docs/</code>, which identifies all objects in the docs/ folder.</summary>Required when the parent element <code>Condition</code> is specified and sibling <code>HttpErrorCodeReturnedEquals</code> is not specified. If both conditions are specified, both must be true for the redirect to be applied.</details>"
               },
               {
                 "name": "http_error_code_returned_equals",
                 "type": "string",
-                "description": "The HTTP error code when the redirect is applied. In the event of an error, if the error code equals this value, then the specified redirect is applied.<br />Required when parent element &#96;&#96;Condition&#96;&#96; is specified and sibling &#96;&#96;KeyPrefixEquals&#96;&#96; is not specified. If both are specified, then both must be true for the redirect to be applied."
+                "description": "<details><summary>The HTTP error code when the redirect is applied. In the event of an error, if the error code equals this value, then the specified redirect is applied.</summary>Required when parent element <code>Condition</code> is specified and sibling <code>KeyPrefixEquals</code> is not specified. If both are specified, then both must be true for the redirect to be applied.</details>"
               }
             ]
           }
@@ -1129,7 +1129,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "redirect_all_requests_to",
         "type": "object",
-        "description": "The redirect behavior for every request to this bucket's website endpoint.<br />If you specify this property, you can't specify any other property.",
+        "description": "<details><summary>The redirect behavior for every request to this bucket's website endpoint.</summary>If you specify this property, you can't specify any other property.</details>",
         "children": [
           {
             "name": "host_name",
@@ -1183,7 +1183,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "bucket_name",
     "type": "string",
-    "description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow &#91;Amazon S3 bucket restrictions and limitations&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html). For more information, see &#91;Rules for naming Amazon S3 buckets&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) in the &#42;Amazon S3 User Guide&#42;. <br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you need to replace the resource, specify a new name."
+    "description": "<details><summary>A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html\">Amazon S3 bucket restrictions and limitations</a>. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html\">Rules for naming Amazon S3 buckets</a> in the <i>Amazon S3 User Guide</i>.</summary>If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you need to replace the resource, specify a new name.</details>"
   },
   {
     "name": "region",
@@ -1283,7 +1283,7 @@ SELECT
   website_url
 FROM awscc.s3.buckets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bucket_name }}';
 ```
 </TabItem>
@@ -1296,7 +1296,7 @@ SELECT
   bucket_name
 FROM awscc.s3.buckets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1681,7 +1681,7 @@ WHERE
 DELETE FROM awscc.s3.buckets
 WHERE
   Identifier = '{{ bucket_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>api_key</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>api_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::ApiKey&#96;&#96; resource creates a unique key that you can distribute to clients who are executing API Gateway &#96;&#96;Method&#96;&#96; resources that require an API key. To specify which API key clients must use, map the API key with the &#96;&#96;RestApi&#96;&#96; and &#96;&#96;Stage&#96;&#96; resources that include the methods that require a key.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::ApiKey</code> resource creates a unique key that you can distribute to clients who are executing API Gateway <code>Method</code> resources that require an API key. To specify which API key clients must use, map the API key with the <code>RestApi</code> and <code>Stage</code> resources that include the methods that require a key.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.api_keys" /></td></tr>
 </tbody>
 </table>
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets an <code>api_key</code> resource or lists <cod
   {
     "name": "name",
     "type": "string",
-    "description": "A name for the API key. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the API key name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>A name for the API key. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the API key name. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html\">Name Type</a>.</summary>If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "stage_keys",
@@ -207,7 +207,7 @@ SELECT
   value
 FROM awscc.apigateway.api_keys
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_key_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   api_key_id
 FROM awscc.apigateway.api_keys_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +356,7 @@ WHERE
 DELETE FROM awscc.apigateway.api_keys
 WHERE
   Identifier = '{{ api_key_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

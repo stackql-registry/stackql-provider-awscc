@@ -232,7 +232,7 @@ SELECT
   database_name
 FROM awscc.glue.databases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ database_name }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   database_name
 FROM awscc.glue.databases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +358,7 @@ WHERE
 DELETE FROM awscc.glue.databases
 WHERE
   Identifier = '{{ database_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

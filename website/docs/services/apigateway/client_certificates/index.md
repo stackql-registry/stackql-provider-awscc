@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>client_certificate</code> resource or 
 <tbody>
 <tr><td><b>Name</b></td><td><code>client_certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::ClientCertificate&#96;&#96; resource creates a client certificate that API Gateway uses to configure client-side SSL authentication for sending requests to the integration endpoint.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::ClientCertificate</code> resource creates a client certificate that API Gateway uses to configure client-side SSL authentication for sending requests to the integration endpoint.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.client_certificates" /></td></tr>
 </tbody>
 </table>
@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.apigateway.client_certificates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ client_certificate_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   client_certificate_id
 FROM awscc.apigateway.client_certificates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ WHERE
 DELETE FROM awscc.apigateway.client_certificates
 WHERE
   Identifier = '{{ client_certificate_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

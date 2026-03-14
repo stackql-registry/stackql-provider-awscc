@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>delegated_admin</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>delegated_admins</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SecurityHub::DelegatedAdmin&#96;&#96; resource designates the delegated ASHlong administrator account for an organization. You must enable the integration between ASH and AOlong before you can designate a delegated ASH administrator. Only the management account for an organization can designate the delegated ASH administrator account. For more information, see &#91;Designating the delegated administrator&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/designate-orgs-admin-account.html#designate-admin-instructions) in the &#42;User Guide&#42;.<br />To change the delegated administrator account, remove the current delegated administrator account, and then designate the new account.<br />To designate multiple delegated administrators in different organizations and AWS-Regions, we recommend using &#91;mappings&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html).<br />Tags aren't supported for this resource.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::SecurityHub::DelegatedAdmin</code> resource designates the delegated ASHlong administrator account for an organization. You must enable the integration between ASH and AOlong before you can designate a delegated ASH administrator. Only the management account for an organization can designate the delegated ASH administrator account. For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/designate-orgs-admin-account.html#designate-admin-instructions">Designating the delegated administrator</a> in the <i>User Guide</i>.</summary>To change the delegated administrator account, remove the current delegated administrator account, and then designate the new account.<br />To designate multiple delegated administrators in different organizations and AWS-Regions, we recommend using <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html">mappings</a>.<br />Tags aren't supported for this resource.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.securityhub.delegated_admins" /></td></tr>
 </tbody>
 </table>
@@ -141,7 +141,7 @@ SELECT
   status
 FROM awscc.securityhub.delegated_admins
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ delegated_admin_identifier }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   delegated_admin_identifier
 FROM awscc.securityhub.delegated_admins_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -225,7 +225,7 @@ resources:
 DELETE FROM awscc.securityhub.delegated_admins
 WHERE
   Identifier = '{{ delegated_admin_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

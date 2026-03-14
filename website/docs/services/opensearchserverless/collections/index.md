@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>collection</code> resource or lists <c
   {
     "name": "name",
     "type": "string",
-    "description": "The name of the collection.<br />The name must meet the following criteria:<br />Unique to your account and AWS Region<br />Starts with a lowercase letter<br />Contains only lowercase letters a-z, the numbers 0-9 and the hyphen (-)<br />Contains between 3 and 32 characters<br />"
+    "description": "<details><summary>The name of the collection.</summary>The name must meet the following criteria:<br />Unique to your account and AWS Region<br />Starts with a lowercase letter<br />Contains only lowercase letters a-z, the numbers 0-9 and the hyphen (-)<br />Contains between 3 and 32 characters</details>"
   },
   {
     "name": "tags",
@@ -195,7 +195,7 @@ SELECT
   standby_replicas
 FROM awscc.opensearchserverless.collections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   id
 FROM awscc.opensearchserverless.collections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +313,7 @@ WHERE
 DELETE FROM awscc.opensearchserverless.collections
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

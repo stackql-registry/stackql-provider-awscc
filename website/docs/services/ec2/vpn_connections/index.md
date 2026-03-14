@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_connections</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.<br />To specify a VPN connection between a transit gateway and customer gateway, use the &#96;&#96;TransitGatewayId&#96;&#96; and &#96;&#96;CustomerGatewayId&#96;&#96; properties.<br />To specify a VPN connection between a virtual private gateway and customer gateway, use the &#96;&#96;VpnGatewayId&#96;&#96; and &#96;&#96;CustomerGatewayId&#96;&#96; properties.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.</summary>To specify a VPN connection between a transit gateway and customer gateway, use the <code>TransitGatewayId</code> and <code>CustomerGatewayId</code> properties.<br />To specify a VPN connection between a virtual private gateway and customer gateway, use the <code>VpnGatewayId</code> and <code>CustomerGatewayId</code> properties.<br />For more information, see [](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the <i>User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_connections" /></td></tr>
 </tbody>
 </table>
@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
   {
     "name": "remote_ipv6_network_cidr",
     "type": "string",
-    "description": "The IPv6 CIDR on the AWS side of the VPN connection.<br />Default: &#96;&#96;::/0&#96;&#96;"
+    "description": "<details><summary>The IPv6 CIDR on the AWS side of the VPN connection.</summary>Default: <code>::/0</code></details>"
   },
   {
     "name": "remote_ipv4_network_cidr",
     "type": "string",
-    "description": "The IPv4 CIDR on the AWS side of the VPN connection.<br />Default: &#96;&#96;0.0.0.0/0&#96;&#96;"
+    "description": "<details><summary>The IPv4 CIDR on the AWS side of the VPN connection.</summary>Default: <code>0.0.0.0/0</code></details>"
   },
   {
     "name": "vpn_tunnel_options_specifications",
@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "phase2_encryption_algorithms",
         "type": "array",
-        "description": "One or more encryption algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.<br />Valid values: &#96;&#96;AES128&#96;&#96; &#124; &#96;&#96;AES256&#96;&#96; &#124; &#96;&#96;AES128-GCM-16&#96;&#96; &#124; &#96;&#96;AES256-GCM-16&#96;&#96;",
+        "description": "<details><summary>One or more encryption algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</summary>Valid values: <code>AES128</code> | <code>AES256</code> | <code>AES128-GCM-16</code> | <code>AES256-GCM-16</code></details>",
         "children": [
           {
             "name": "value",
@@ -73,7 +73,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "phase2_dh_group_numbers",
         "type": "array",
-        "description": "One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.<br />Valid values: &#96;&#96;2&#96;&#96; &#124; &#96;&#96;5&#96;&#96; &#124; &#96;&#96;14&#96;&#96; &#124; &#96;&#96;15&#96;&#96; &#124; &#96;&#96;16&#96;&#96; &#124; &#96;&#96;17&#96;&#96; &#124; &#96;&#96;18&#96;&#96; &#124; &#96;&#96;19&#96;&#96; &#124; &#96;&#96;20&#96;&#96; &#124; &#96;&#96;21&#96;&#96; &#124; &#96;&#96;22&#96;&#96; &#124; &#96;&#96;23&#96;&#96; &#124; &#96;&#96;24&#96;&#96;",
+        "description": "<details><summary>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.</summary>Valid values: <code>2</code> | <code>5</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code></details>",
         "children": [
           {
             "name": "value",
@@ -85,22 +85,22 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "tunnel_inside_ipv6_cidr",
         "type": "string",
-        "description": "The range of inside IPv6 addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same transit gateway.<br />Constraints: A size /126 CIDR block from the local &#96;&#96;fd00::/8&#96;&#96; range."
+        "description": "<details><summary>The range of inside IPv6 addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same transit gateway.</summary>Constraints: A size /126 CIDR block from the local <code>fd00::/8</code> range.</details>"
       },
       {
         "name": "startup_action",
         "type": "string",
-        "description": "The action to take when the establishing the tunnel for the VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify &#96;&#96;start&#96;&#96; for AWS to initiate the IKE negotiation.<br />Valid Values: &#96;&#96;add&#96;&#96; &#124; &#96;&#96;start&#96;&#96;<br />Default: &#96;&#96;add&#96;&#96;"
+        "description": "<details><summary>The action to take when the establishing the tunnel for the VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify <code>start</code> for AWS to initiate the IKE negotiation.</summary>Valid Values: <code>add</code> | <code>start</code><br />Default: <code>add</code></details>"
       },
       {
         "name": "tunnel_inside_cidr",
         "type": "string",
-        "description": "The range of inside IP addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same virtual private gateway. <br />Constraints: A size /30 CIDR block from the &#96;&#96;169.254.0.0/16&#96;&#96; range. The following CIDR blocks are reserved and cannot be used:<br />+ &#96;&#96;169.254.0.0/30&#96;&#96; <br />+ &#96;&#96;169.254.1.0/30&#96;&#96; <br />+ &#96;&#96;169.254.2.0/30&#96;&#96; <br />+ &#96;&#96;169.254.3.0/30&#96;&#96; <br />+ &#96;&#96;169.254.4.0/30&#96;&#96; <br />+ &#96;&#96;169.254.5.0/30&#96;&#96; <br />+ &#96;&#96;169.254.169.252/30&#96;&#96;"
+        "description": "<details><summary>The range of inside IP addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same virtual private gateway.</summary>Constraints: A size /30 CIDR block from the <code>169.254.0.0/16</code> range. The following CIDR blocks are reserved and cannot be used:<br />+   <code>169.254.0.0/30</code><br />+   <code>169.254.1.0/30</code><br />+   <code>169.254.2.0/30</code><br />+   <code>169.254.3.0/30</code><br />+   <code>169.254.4.0/30</code><br />+   <code>169.254.5.0/30</code><br />+   <code>169.254.169.252/30</code></details>"
       },
       {
         "name": "i_ke_versions",
         "type": "array",
-        "description": "The IKE versions that are permitted for the VPN tunnel.<br />Valid values: &#96;&#96;ikev1&#96;&#96; &#124; &#96;&#96;ikev2&#96;&#96;",
+        "description": "<details><summary>The IKE versions that are permitted for the VPN tunnel.</summary>Valid values: <code>ikev1</code> | <code>ikev2</code></details>",
         "children": [
           {
             "name": "value",
@@ -122,12 +122,12 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
               {
                 "name": "log_enabled",
                 "type": "boolean",
-                "description": "Enable or disable VPN tunnel logging feature. Default value is &#96;&#96;False&#96;&#96;.<br />Valid values: &#96;&#96;True&#96;&#96; &#124; &#96;&#96;False&#96;&#96;"
+                "description": "<details><summary>Enable or disable VPN tunnel logging feature. Default value is <code>False</code>.</summary>Valid values: <code>True</code> | <code>False</code></details>"
               },
               {
                 "name": "log_output_format",
                 "type": "string",
-                "description": "Set log format. Default format is &#96;&#96;json&#96;&#96;.<br />Valid values: &#96;&#96;json&#96;&#96; &#124; &#96;&#96;text&#96;&#96;"
+                "description": "<details><summary>Set log format. Default format is <code>json</code>.</summary>Valid values: <code>json</code> | <code>text</code></details>"
               },
               {
                 "name": "log_group_arn",
@@ -141,7 +141,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "phase1_dh_group_numbers",
         "type": "array",
-        "description": "One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.<br />Valid values: &#96;&#96;2&#96;&#96; &#124; &#96;&#96;14&#96;&#96; &#124; &#96;&#96;15&#96;&#96; &#124; &#96;&#96;16&#96;&#96; &#124; &#96;&#96;17&#96;&#96; &#124; &#96;&#96;18&#96;&#96; &#124; &#96;&#96;19&#96;&#96; &#124; &#96;&#96;20&#96;&#96; &#124; &#96;&#96;21&#96;&#96; &#124; &#96;&#96;22&#96;&#96; &#124; &#96;&#96;23&#96;&#96; &#124; &#96;&#96;24&#96;&#96;",
+        "description": "<details><summary>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.</summary>Valid values: <code>2</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code></details>",
         "children": [
           {
             "name": "value",
@@ -153,7 +153,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "replay_window_size",
         "type": "integer",
-        "description": "The number of packets in an IKE replay window.<br />Constraints: A value between 64 and 2048.<br />Default: &#96;&#96;1024&#96;&#96;"
+        "description": "<details><summary>The number of packets in an IKE replay window.</summary>Constraints: A value between 64 and 2048.<br />Default: <code>1024</code></details>"
       },
       {
         "name": "enable_tunnel_lifecycle_control",
@@ -163,22 +163,22 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "rekey_margin_time_seconds",
         "type": "integer",
-        "description": "The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey. The exact time of the rekey is randomly selected based on the value for &#96;&#96;RekeyFuzzPercentage&#96;&#96;.<br />Constraints: A value between 60 and half of &#96;&#96;Phase2LifetimeSeconds&#96;&#96;.<br />Default: &#96;&#96;270&#96;&#96;"
+        "description": "<details><summary>The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey. The exact time of the rekey is randomly selected based on the value for <code>RekeyFuzzPercentage</code>.</summary>Constraints: A value between 60 and half of <code>Phase2LifetimeSeconds</code>.<br />Default: <code>270</code></details>"
       },
       {
         "name": "d_pd_timeout_action",
         "type": "string",
-        "description": "The action to take after DPD timeout occurs. Specify &#96;&#96;restart&#96;&#96; to restart the IKE initiation. Specify &#96;&#96;clear&#96;&#96; to end the IKE session.<br />Valid Values: &#96;&#96;clear&#96;&#96; &#124; &#96;&#96;none&#96;&#96; &#124; &#96;&#96;restart&#96;&#96;<br />Default: &#96;&#96;clear&#96;&#96;"
+        "description": "<details><summary>The action to take after DPD timeout occurs. Specify <code>restart</code> to restart the IKE initiation. Specify <code>clear</code> to end the IKE session.</summary>Valid Values: <code>clear</code> | <code>none</code> | <code>restart</code><br />Default: <code>clear</code></details>"
       },
       {
         "name": "phase2_lifetime_seconds",
         "type": "integer",
-        "description": "The lifetime for phase 2 of the IKE negotiation, in seconds.<br />Constraints: A value between 900 and 3,600. The value must be less than the value for &#96;&#96;Phase1LifetimeSeconds&#96;&#96;.<br />Default: &#96;&#96;3600&#96;&#96;"
+        "description": "<details><summary>The lifetime for phase 2 of the IKE negotiation, in seconds.</summary>Constraints: A value between 900 and 3,600. The value must be less than the value for <code>Phase1LifetimeSeconds</code>.<br />Default: <code>3600</code></details>"
       },
       {
         "name": "phase2_integrity_algorithms",
         "type": "array",
-        "description": "One or more integrity algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.<br />Valid values: &#96;&#96;SHA1&#96;&#96; &#124; &#96;&#96;SHA2-256&#96;&#96; &#124; &#96;&#96;SHA2-384&#96;&#96; &#124; &#96;&#96;SHA2-512&#96;&#96;",
+        "description": "<details><summary>One or more integrity algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</summary>Valid values: <code>SHA1</code> | <code>SHA2-256</code> | <code>SHA2-384</code> | <code>SHA2-512</code></details>",
         "children": [
           {
             "name": "value",
@@ -190,7 +190,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "phase1_integrity_algorithms",
         "type": "array",
-        "description": "One or more integrity algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.<br />Valid values: &#96;&#96;SHA1&#96;&#96; &#124; &#96;&#96;SHA2-256&#96;&#96; &#124; &#96;&#96;SHA2-384&#96;&#96; &#124; &#96;&#96;SHA2-512&#96;&#96;",
+        "description": "<details><summary>One or more integrity algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</summary>Valid values: <code>SHA1</code> | <code>SHA2-256</code> | <code>SHA2-384</code> | <code>SHA2-512</code></details>",
         "children": [
           {
             "name": "value",
@@ -202,22 +202,22 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "pre_shared_key",
         "type": "string",
-        "description": "The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and customer gateway.<br />Constraints: Allowed characters are alphanumeric characters, periods (.), and underscores (&#95;). Must be between 8 and 64 characters in length and cannot start with zero (0)."
+        "description": "<details><summary>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and customer gateway.</summary>Constraints: Allowed characters are alphanumeric characters, periods (.), and underscores (_). Must be between 8 and 64 characters in length and cannot start with zero (0).</details>"
       },
       {
         "name": "phase1_lifetime_seconds",
         "type": "integer",
-        "description": "The lifetime for phase 1 of the IKE negotiation, in seconds.<br />Constraints: A value between 900 and 28,800.<br />Default: &#96;&#96;28800&#96;&#96;"
+        "description": "<details><summary>The lifetime for phase 1 of the IKE negotiation, in seconds.</summary>Constraints: A value between 900 and 28,800.<br />Default: <code>28800</code></details>"
       },
       {
         "name": "rekey_fuzz_percentage",
         "type": "integer",
-        "description": "The percentage of the rekey window (determined by &#96;&#96;RekeyMarginTimeSeconds&#96;&#96;) during which the rekey time is randomly selected.<br />Constraints: A value between 0 and 100.<br />Default: &#96;&#96;100&#96;&#96;"
+        "description": "<details><summary>The percentage of the rekey window (determined by <code>RekeyMarginTimeSeconds</code>) during which the rekey time is randomly selected.</summary>Constraints: A value between 0 and 100.<br />Default: <code>100</code></details>"
       },
       {
         "name": "phase1_encryption_algorithms",
         "type": "array",
-        "description": "One or more encryption algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.<br />Valid values: &#96;&#96;AES128&#96;&#96; &#124; &#96;&#96;AES256&#96;&#96; &#124; &#96;&#96;AES128-GCM-16&#96;&#96; &#124; &#96;&#96;AES256-GCM-16&#96;&#96;",
+        "description": "<details><summary>One or more encryption algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</summary>Valid values: <code>AES128</code> | <code>AES256</code> | <code>AES128-GCM-16</code> | <code>AES256-GCM-16</code></details>",
         "children": [
           {
             "name": "value",
@@ -229,7 +229,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
       {
         "name": "d_pd_timeout_seconds",
         "type": "integer",
-        "description": "The number of seconds after which a DPD timeout occurs.<br />Constraints: A value greater than or equal to 30.<br />Default: &#96;&#96;30&#96;&#96;"
+        "description": "<details><summary>The number of seconds after which a DPD timeout occurs.</summary>Constraints: A value greater than or equal to 30.<br />Default: <code>30</code></details>"
       }
     ]
   },
@@ -241,22 +241,22 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
   {
     "name": "outside_ip_address_type",
     "type": "string",
-    "description": "The type of IP address assigned to the outside interface of the customer gateway device.<br />Valid values: &#96;&#96;PrivateIpv4&#96;&#96; &#124; &#96;&#96;PublicIpv4&#96;&#96; &#124; &#96;&#96;Ipv6&#96;&#96;<br />Default: &#96;&#96;PublicIpv4&#96;&#96;"
+    "description": "<details><summary>The type of IP address assigned to the outside interface of the customer gateway device.</summary>Valid values: <code>PrivateIpv4</code> | <code>PublicIpv4</code> | <code>Ipv6</code><br />Default: <code>PublicIpv4</code></details>"
   },
   {
     "name": "static_routes_only",
     "type": "boolean",
-    "description": "Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.<br />If you are creating a VPN connection for a device that does not support Border Gateway Protocol (BGP), you must specify &#96;&#96;true&#96;&#96;."
+    "description": "<details><summary>Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.</summary>If you are creating a VPN connection for a device that does not support Border Gateway Protocol (BGP), you must specify <code>true</code>.</details>"
   },
   {
     "name": "enable_acceleration",
     "type": "boolean",
-    "description": "Indicate whether to enable acceleration for the VPN connection.<br />Default: &#96;&#96;false&#96;&#96;"
+    "description": "<details><summary>Indicate whether to enable acceleration for the VPN connection.</summary>Default: <code>false</code></details>"
   },
   {
     "name": "transit_gateway_id",
     "type": "string",
-    "description": "The ID of the transit gateway associated with the VPN connection.<br />You must specify either &#96;&#96;TransitGatewayId&#96;&#96; or &#96;&#96;VpnGatewayId&#96;&#96;, but not both."
+    "description": "<details><summary>The ID of the transit gateway associated with the VPN connection.</summary>You must specify either <code>TransitGatewayId</code> or <code>VpnGatewayId</code>, but not both.</details>"
   },
   {
     "name": "type",
@@ -266,12 +266,12 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
   {
     "name": "local_ipv4_network_cidr",
     "type": "string",
-    "description": "The IPv4 CIDR on the customer gateway (on-premises) side of the VPN connection.<br />Default: &#96;&#96;0.0.0.0/0&#96;&#96;"
+    "description": "<details><summary>The IPv4 CIDR on the customer gateway (on-premises) side of the VPN connection.</summary>Default: <code>0.0.0.0/0</code></details>"
   },
   {
     "name": "vpn_gateway_id",
     "type": "string",
-    "description": "The ID of the virtual private gateway at the AWS side of the VPN connection.<br />You must specify either &#96;&#96;TransitGatewayId&#96;&#96; or &#96;&#96;VpnGatewayId&#96;&#96;, but not both."
+    "description": "<details><summary>The ID of the virtual private gateway at the AWS side of the VPN connection.</summary>You must specify either <code>TransitGatewayId</code> or <code>VpnGatewayId</code>, but not both.</details>"
   },
   {
     "name": "pre_shared_key_storage",
@@ -281,12 +281,12 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
   {
     "name": "transport_transit_gateway_attachment_id",
     "type": "string",
-    "description": "The transit gateway attachment ID to use for the VPN tunnel.<br />Required if &#96;&#96;OutsideIpAddressType&#96;&#96; is set to &#96;&#96;PrivateIpv4&#96;&#96;."
+    "description": "<details><summary>The transit gateway attachment ID to use for the VPN tunnel.</summary>Required if <code>OutsideIpAddressType</code> is set to <code>PrivateIpv4</code>.</details>"
   },
   {
     "name": "local_ipv6_network_cidr",
     "type": "string",
-    "description": "The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection.<br />Default: &#96;&#96;::/0&#96;&#96;"
+    "description": "<details><summary>The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection.</summary>Default: <code>::/0</code></details>"
   },
   {
     "name": "vpn_connection_id",
@@ -296,7 +296,7 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
   {
     "name": "tunnel_inside_ip_version",
     "type": "string",
-    "description": "Indicate whether the VPN tunnels process IPv4 or IPv6 traffic.<br />Default: &#96;&#96;ipv4&#96;&#96;"
+    "description": "<details><summary>Indicate whether the VPN tunnels process IPv4 or IPv6 traffic.</summary>Default: <code>ipv4</code></details>"
   },
   {
     "name": "tags",
@@ -418,7 +418,7 @@ SELECT
   tags
 FROM awscc.ec2.vpn_connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpn_connection_id }}';
 ```
 </TabItem>
@@ -431,7 +431,7 @@ SELECT
   vpn_connection_id
 FROM awscc.ec2.vpn_connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -612,7 +612,7 @@ WHERE
 DELETE FROM awscc.ec2.vpn_connections
 WHERE
   Identifier = '{{ vpn_connection_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

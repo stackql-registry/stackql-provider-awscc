@@ -165,7 +165,7 @@ SELECT
   user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_access_logging_settings_arn }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +271,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.user_access_logging_settings
 WHERE
   Identifier = '{{ user_access_logging_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

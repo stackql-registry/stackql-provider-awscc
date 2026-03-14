@@ -259,7 +259,7 @@ SELECT
   pipeline_id
 FROM awscc.datapipeline.pipelines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ pipeline_id }}';
 ```
 </TabItem>
@@ -272,7 +272,7 @@ SELECT
   pipeline_id
 FROM awscc.datapipeline.pipelines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -400,7 +400,7 @@ WHERE
 DELETE FROM awscc.datapipeline.pipelines
 WHERE
   Identifier = '{{ pipeline_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

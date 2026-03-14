@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
 <tbody>
 <tr><td><b>Name</b></td><td><code>permissions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::Lambda::Permission&#96;&#96; resource grants an AWS service or another account permission to use a function. You can apply the policy at the function level, or specify a qualifier to restrict access to a single version or alias. If you use a qualifier, the invoker must use the full Amazon Resource Name (ARN) of that version or alias to invoke the function.<br />To grant permission to another account, specify the account ID as the &#96;&#96;Principal&#96;&#96;. To grant permission to an organization defined in AOlong, specify the organization ID as the &#96;&#96;PrincipalOrgID&#96;&#96;. For AWS services, the principal is a domain-style identifier defined by the service, like &#96;&#96;s3.amazonaws.com&#96;&#96; or &#96;&#96;sns.amazonaws.com&#96;&#96;. For AWS services, you can also specify the ARN of the associated resource as the &#96;&#96;SourceArn&#96;&#96;. If you grant permission to a service principal without specifying the source, other accounts could potentially configure resources in their account to invoke your Lambda function.<br />If your function has a function URL, you can specify the &#96;&#96;FunctionUrlAuthType&#96;&#96; parameter. This adds a condition to your permission that only applies when your function URL's &#96;&#96;AuthType&#96;&#96; matches the specified &#96;&#96;FunctionUrlAuthType&#96;&#96;. For more information about the &#96;&#96;AuthType&#96;&#96; parameter, see &#91;Security and auth model for function URLs&#93;(https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html).<br />This resource adds a statement to a resource-based permission policy for the function. For more information about function policies, see &#91;Lambda Function Policies&#93;(https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html).</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::Lambda::Permission</code> resource grants an AWS service or another account permission to use a function. You can apply the policy at the function level, or specify a qualifier to restrict access to a single version or alias. If you use a qualifier, the invoker must use the full Amazon Resource Name (ARN) of that version or alias to invoke the function.</summary>To grant permission to another account, specify the account ID as the <code>Principal</code>. To grant permission to an organization defined in AOlong, specify the organization ID as the <code>PrincipalOrgID</code>. For AWS services, the principal is a domain-style identifier defined by the service, like <code>s3.amazonaws.com</code> or <code>sns.amazonaws.com</code>. For AWS services, you can also specify the ARN of the associated resource as the <code>SourceArn</code>. If you grant permission to a service principal without specifying the source, other accounts could potentially configure resources in their account to invoke your Lambda function.<br />If your function has a function URL, you can specify the <code>FunctionUrlAuthType</code> parameter. This adds a condition to your permission that only applies when your function URL's <code>AuthType</code> matches the specified <code>FunctionUrlAuthType</code>. For more information about the <code>AuthType</code> parameter, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for function URLs</a>.<br />This resource adds a statement to a resource-based permission policy for the function. For more information about function policies, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html">Lambda Function Policies</a>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.lambda.permissions" /></td></tr>
 </tbody>
 </table>
@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
   {
     "name": "function_name",
     "type": "string",
-    "description": "The name or ARN of the Lambda function, version, or alias.<br />&#42;&#42;Name formats&#42;&#42;<br />+ &#42;Function name&#42; – &#96;&#96;my-function&#96;&#96; (name-only), &#96;&#96;my-function:v1&#96;&#96; (with alias).<br />+ &#42;Function ARN&#42; – &#96;&#96;arn:aws:lambda:us-west-2:123456789012:function:my-function&#96;&#96;.<br />+ &#42;Partial ARN&#42; – &#96;&#96;123456789012:function:my-function&#96;&#96;.<br /><br />You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length."
+    "description": "<details><summary>The name or ARN of the Lambda function, version, or alias.</summary><b>Name formats</b><br />+  <i>Function name</i> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).<br />+  <i>Function ARN</i> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.<br />+  <i>Partial ARN</i> – <code>123456789012:function:my-function</code>.<br />You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</details>"
   },
   {
     "name": "action",
     "type": "string",
-    "description": "The action that the principal can use on the function. For example, &#96;&#96;lambda:InvokeFunction&#96;&#96; or &#96;&#96;lambda:GetFunction&#96;&#96;."
+    "description": "The action that the principal can use on the function. For example, <code>lambda:InvokeFunction</code> or <code>lambda:GetFunction</code>."
   },
   {
     "name": "event_source_token",
@@ -61,17 +61,17 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
   {
     "name": "function_url_auth_type",
     "type": "string",
-    "description": "The type of authentication that your function URL uses. Set to &#96;&#96;AWS&#95;IAM&#96;&#96; if you want to restrict access to authenticated users only. Set to &#96;&#96;NONE&#96;&#96; if you want to bypass IAM authentication to create a public endpoint. For more information, see &#91;Security and auth model for Lambda function URLs&#93;(https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html)."
+    "description": "The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a public endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html\">Security and auth model for Lambda function URLs</a>."
   },
   {
     "name": "source_arn",
     "type": "string",
-    "description": "For AWS-services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or Amazon SNS topic.<br />Note that Lambda configures the comparison using the &#96;&#96;StringLike&#96;&#96; operator."
+    "description": "<details><summary>For AWS-services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or Amazon SNS topic.</summary>Note that Lambda configures the comparison using the <code>StringLike</code> operator.</details>"
   },
   {
     "name": "source_account",
     "type": "string",
-    "description": "For AWS-service, the ID of the AWS-account that owns the resource. Use this together with &#96;&#96;SourceArn&#96;&#96; to ensure that the specified account owns the resource. It is possible for an Amazon S3 bucket to be deleted by its owner and recreated by another account."
+    "description": "For AWS-service, the ID of the AWS-account that owns the resource. Use this together with <code>SourceArn</code> to ensure that the specified account owns the resource. It is possible for an Amazon S3 bucket to be deleted by its owner and recreated by another account."
   },
   {
     "name": "principal_org_id",
@@ -86,7 +86,7 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
   {
     "name": "principal",
     "type": "string",
-    "description": "The AWS-service, AWS-account, IAM user, or IAM role that invokes the function. If you specify a service, use &#96;&#96;SourceArn&#96;&#96; or &#96;&#96;SourceAccount&#96;&#96; to limit who can invoke the function through that service."
+    "description": "The AWS-service, AWS-account, IAM user, or IAM role that invokes the function. If you specify a service, use <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that service."
   },
   {
     "name": "region",
@@ -101,7 +101,7 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
   {
     "name": "function_name",
     "type": "string",
-    "description": "The name or ARN of the Lambda function, version, or alias.<br />&#42;&#42;Name formats&#42;&#42;<br />+ &#42;Function name&#42; – &#96;&#96;my-function&#96;&#96; (name-only), &#96;&#96;my-function:v1&#96;&#96; (with alias).<br />+ &#42;Function ARN&#42; – &#96;&#96;arn:aws:lambda:us-west-2:123456789012:function:my-function&#96;&#96;.<br />+ &#42;Partial ARN&#42; – &#96;&#96;123456789012:function:my-function&#96;&#96;.<br /><br />You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length."
+    "description": "<details><summary>The name or ARN of the Lambda function, version, or alias.</summary><b>Name formats</b><br />+  <i>Function name</i> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).<br />+  <i>Function ARN</i> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.<br />+  <i>Partial ARN</i> – <code>123456789012:function:my-function</code>.<br />You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</details>"
   },
   {
     "name": "id",
@@ -182,7 +182,7 @@ SELECT
   principal
 FROM awscc.lambda.permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ function_name }}|{{ id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   id
 FROM awscc.lambda.permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +299,7 @@ resources:
 DELETE FROM awscc.lambda.permissions
 WHERE
   Identifier = '{{ function_name }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

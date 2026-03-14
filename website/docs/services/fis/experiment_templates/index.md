@@ -304,7 +304,7 @@ SELECT
   experiment_report_configuration
 FROM awscc.fis.experiment_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -317,7 +317,7 @@ SELECT
   id
 FROM awscc.fis.experiment_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -467,7 +467,7 @@ WHERE
 DELETE FROM awscc.fis.experiment_templates
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

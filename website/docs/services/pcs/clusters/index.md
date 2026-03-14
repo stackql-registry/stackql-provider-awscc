@@ -164,12 +164,12 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
           {
             "name": "default_purge_time_in_days",
             "type": "integer",
-            "description": "The default value for all purge settings for &#96;slurmdbd.conf&#96;. For more information, see the &#91;slurmdbd.conf documentation at SchedMD&#93;(https://slurm.schedmd.com/slurmdbd.conf.html). The default value is &#96;-1&#96;. A value of &#96;-1&#96; means there is no purge time and records persist as long as the cluster exists."
+            "description": "The default value for all purge settings for <code>slurmdbd.conf</code>. For more information, see the <a href=\"https://slurm.schedmd.com/slurmdbd.conf.html\">slurmdbd.conf documentation at SchedMD</a>. The default value is <code>-1</code>. A value of <code>-1</code> means there is no purge time and records persist as long as the cluster exists."
           },
           {
             "name": "mode",
             "type": "string",
-            "description": "The default value is &#96;STANDARD&#96;. A value of &#96;STANDARD&#96; means that Slurm accounting is enabled."
+            "description": "The default value is <code>STANDARD</code>. A value of <code>STANDARD</code> means that Slurm accounting is enabled."
           }
         ]
       },
@@ -321,7 +321,7 @@ SELECT
   tags
 FROM awscc.pcs.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -334,7 +334,7 @@ SELECT
   arn
 FROM awscc.pcs.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -461,7 +461,7 @@ WHERE
 DELETE FROM awscc.pcs.clusters
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

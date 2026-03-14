@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ACMPCA::Certificate&#96;&#96; resource is used to issue a certificate using your private certificate authority. For more information, see the &#91;IssueCertificate&#93;(https://docs.aws.amazon.com/privateca/latest/APIReference/API&#95;IssueCertificate.html) action.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ACMPCA::Certificate</code> resource is used to issue a certificate using your private certificate authority. For more information, see the <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_IssueCertificate.html">IssueCertificate</a> action.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.acmpca.certificates" /></td></tr>
 </tbody>
 </table>
@@ -37,7 +37,7 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
   {
     "name": "api_passthrough",
     "type": "object",
-    "description": "Specifies X.509 certificate information to be included in the issued certificate. An &#96;&#96;APIPassthrough&#96;&#96; or &#96;&#96;APICSRPassthrough&#96;&#96; template variant must be selected, or else this parameter is ignored.",
+    "description": "Specifies X.509 certificate information to be included in the issued certificate. An <code>APIPassthrough</code> or <code>APICSRPassthrough</code> template variant must be selected, or else this parameter is ignored.",
     "children": [
       {
         "name": "extensions",
@@ -47,34 +47,34 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
           {
             "name": "certificate_policies",
             "type": "array",
-            "description": "Contains a sequence of one or more policy information terms, each of which consists of an object identifier (OID) and optional qualifiers. For more information, see NIST's definition of &#91;Object Identifier (OID)&#93;(https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object&#95;Identifier).<br />In an end-entity certificate, these terms indicate the policy under which the certificate was issued and the purposes for which it may be used. In a CA certificate, these terms limit the set of policies for certification paths that include this certificate.",
+            "description": "<details><summary>Contains a sequence of one or more policy information terms, each of which consists of an object identifier (OID) and optional qualifiers. For more information, see NIST's definition of <a href=\"https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier\">Object Identifier (OID)</a>.</summary>In an end-entity certificate, these terms indicate the policy under which the certificate was issued and the purposes for which it may be used. In a CA certificate, these terms limit the set of policies for certification paths that include this certificate.</details>",
             "children": [
               {
                 "name": "cert_policy_id",
                 "type": "string",
-                "description": "Specifies the object identifier (OID) of the certificate policy under which the certificate was issued. For more information, see NIST's definition of &#91;Object Identifier (OID)&#93;(https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object&#95;Identifier)."
+                "description": "Specifies the object identifier (OID) of the certificate policy under which the certificate was issued. For more information, see NIST's definition of <a href=\"https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier\">Object Identifier (OID)</a>."
               },
               {
                 "name": "policy_qualifiers",
                 "type": "array",
-                "description": "Modifies the given &#96;&#96;CertPolicyId&#96;&#96; with a qualifier. AWS Private CA supports the certification practice statement (CPS) qualifier."
+                "description": "Modifies the given <code>CertPolicyId</code> with a qualifier. AWS Private CA supports the certification practice statement (CPS) qualifier."
               }
             ]
           },
           {
             "name": "extended_key_usage",
             "type": "array",
-            "description": "Specifies additional purposes for which the certified public key may be used other than basic purposes indicated in the &#96;&#96;KeyUsage&#96;&#96; extension.",
+            "description": "Specifies additional purposes for which the certified public key may be used other than basic purposes indicated in the <code>KeyUsage</code> extension.",
             "children": [
               {
                 "name": "extended_key_usage_type",
                 "type": "string",
-                "description": "Specifies a standard &#96;&#96;ExtendedKeyUsage&#96;&#96; as defined as in &#91;RFC 5280&#93;(https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12)."
+                "description": "Specifies a standard <code>ExtendedKeyUsage</code> as defined as in <a href=\"https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12\">RFC 5280</a>."
               },
               {
                 "name": "extended_key_usage_object_identifier",
                 "type": "string",
-                "description": "Specifies a custom &#96;&#96;ExtendedKeyUsage&#96;&#96; with an object identifier (OID)."
+                "description": "Specifies a custom <code>ExtendedKeyUsage</code> with an object identifier (OID)."
               }
             ]
           },
@@ -180,7 +180,7 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
           {
             "name": "custom_extensions",
             "type": "array",
-            "description": "Contains a sequence of one or more X.509 extensions, each of which consists of an object identifier (OID), a base64-encoded value, and the critical flag. For more information, see the &#91;Global OID reference database.&#93;(https://docs.aws.amazon.com/https://oidref.com/2.5.29)",
+            "description": "Contains a sequence of one or more X.509 extensions, each of which consists of an object identifier (OID), a base64-encoded value, and the critical flag. For more information, see the <a href=\"https://docs.aws.amazon.com/https://oidref.com/2.5.29\">Global OID reference database.</a>",
             "children": [
               {
                 "name": "critical",
@@ -190,7 +190,7 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
               {
                 "name": "object_identifier",
                 "type": "string",
-                "description": "Specifies the object identifier (OID) of the X.509 extension. For more information, see the &#91;Global OID reference database.&#93;(https://docs.aws.amazon.com/https://oidref.com/2.5.29)"
+                "description": "Specifies the object identifier (OID) of the X.509 extension. For more information, see the <a href=\"https://docs.aws.amazon.com/https://oidref.com/2.5.29\">Global OID reference database.</a>"
               },
               {
                 "name": "value",
@@ -310,7 +310,7 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
   {
     "name": "signing_algorithm",
     "type": "string",
-    "description": "The name of the algorithm that will be used to sign the certificate to be issued. <br />This parameter should not be confused with the &#96;&#96;SigningAlgorithm&#96;&#96; parameter used to sign a CSR in the &#96;&#96;CreateCertificateAuthority&#96;&#96; action.<br />The specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key."
+    "description": "<details><summary>The name of the algorithm that will be used to sign the certificate to be issued.</summary>This parameter should not be confused with the <code>SigningAlgorithm</code> parameter used to sign a CSR in the <code>CreateCertificateAuthority</code> action.<br />The specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.</details>"
   },
   {
     "name": "validity",
@@ -320,12 +320,12 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
       {
         "name": "value",
         "type": "number",
-        "description": "A long integer interpreted according to the value of &#96;&#96;Type&#96;&#96;, below."
+        "description": "A long integer interpreted according to the value of <code>Type</code>, below."
       },
       {
         "name": "type",
         "type": "string",
-        "description": "Specifies whether the &#96;&#96;Value&#96;&#96; parameter represents days, months, or years."
+        "description": "Specifies whether the <code>Value</code> parameter represents days, months, or years."
       }
     ]
   },
@@ -387,7 +387,7 @@ SELECT
   arn
 FROM awscc.acmpca.certificates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}|{{ certificate_authority_arn }}';
 ```
 
@@ -544,7 +544,7 @@ resources:
 DELETE FROM awscc.acmpca.certificates
 WHERE
   Identifier = '{{ arn }}|{{ certificate_authority_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

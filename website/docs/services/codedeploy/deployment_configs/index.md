@@ -235,7 +235,7 @@ SELECT
   traffic_routing_config
 FROM awscc.codedeploy.deployment_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ deployment_config_name }}';
 ```
 </TabItem>
@@ -248,7 +248,7 @@ SELECT
   deployment_config_name
 FROM awscc.codedeploy.deployment_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ resources:
 DELETE FROM awscc.codedeploy.deployment_configs
 WHERE
   Identifier = '{{ deployment_config_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

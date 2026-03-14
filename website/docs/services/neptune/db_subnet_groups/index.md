@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
   {
     "name": "db_subnet_group_name",
     "type": "string",
-    "description": "The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be \"Default\".<br />Example: mysubnetgroup<br />"
+    "description": "<details><summary>The name for the DB subnet group. This value is stored as a lowercase string.</summary>Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be \"Default\".<br />Example: mysubnetgroup</details>"
   },
   {
     "name": "db_subnet_group_description",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -88,7 +88,7 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
   {
     "name": "db_subnet_group_name",
     "type": "string",
-    "description": "The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be \"Default\".<br />Example: mysubnetgroup<br />"
+    "description": "<details><summary>The name for the DB subnet group. This value is stored as a lowercase string.</summary>Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be \"Default\".<br />Example: mysubnetgroup</details>"
   },
   {
     "name": "region",
@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.neptune.db_subnet_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_subnet_group_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   db_subnet_group_name
 FROM awscc.neptune.db_subnet_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.neptune.db_subnet_groups
 WHERE
   Identifier = '{{ db_subnet_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

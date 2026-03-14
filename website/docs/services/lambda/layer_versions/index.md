@@ -182,7 +182,7 @@ SELECT
   compatible_architectures
 FROM awscc.lambda.layer_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ layer_version_arn }}';
 ```
 </TabItem>
@@ -195,7 +195,7 @@ SELECT
   layer_version_arn
 FROM awscc.lambda.layer_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +291,7 @@ resources:
 DELETE FROM awscc.lambda.layer_versions
 WHERE
   Identifier = '{{ layer_version_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

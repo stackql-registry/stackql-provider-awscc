@@ -207,7 +207,7 @@ SELECT
   tags
 FROM awscc.iotfleetwise.decoder_manifests
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   name
 FROM awscc.iotfleetwise.decoder_manifests_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -345,7 +345,7 @@ WHERE
 DELETE FROM awscc.iotfleetwise.decoder_manifests
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

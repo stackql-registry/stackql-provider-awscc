@@ -191,7 +191,7 @@ SELECT
   tags
 FROM awscc.lambda.code_signing_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ code_signing_config_arn }}';
 ```
 </TabItem>
@@ -204,7 +204,7 @@ SELECT
   code_signing_config_arn
 FROM awscc.lambda.code_signing_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +310,7 @@ WHERE
 DELETE FROM awscc.lambda.code_signing_configs
 WHERE
   Identifier = '{{ code_signing_config_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

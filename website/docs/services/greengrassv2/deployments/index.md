@@ -295,7 +295,7 @@ SELECT
   tags
 FROM awscc.greengrassv2.deployments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ deployment_id }}';
 ```
 </TabItem>
@@ -308,7 +308,7 @@ SELECT
   deployment_id
 FROM awscc.greengrassv2.deployments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -438,7 +438,7 @@ WHERE
 DELETE FROM awscc.greengrassv2.deployments
 WHERE
   Identifier = '{{ deployment_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

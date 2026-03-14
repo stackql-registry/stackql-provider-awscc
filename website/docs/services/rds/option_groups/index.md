@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>option_group</code> resource or lists
 <tbody>
 <tr><td><b>Name</b></td><td><code>option_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::OptionGroup&#96;&#96; resource creates or updates an option group, to enable and configure features that are specific to a particular DB engine.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::RDS::OptionGroup</code> resource creates or updates an option group, to enable and configure features that are specific to a particular DB engine.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.option_groups" /></td></tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@ Creates, updates, deletes or gets an <code>option_group</code> resource or lists
   {
     "name": "option_group_name",
     "type": "string",
-    "description": "The name of the option group to be created.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />Example: &#96;&#96;myoptiongroup&#96;&#96;<br />If you don't specify a value for &#96;&#96;OptionGroupName&#96;&#96; property, a name is automatically created for the option group.<br />This value is stored as a lowercase string."
+    "description": "<details><summary>The name of the option group to be created.</summary>Constraints:<br />+  Must be 1 to 255 letters, numbers, or hyphens<br />+  First character must be a letter<br />+  Can't end with a hyphen or contain two consecutive hyphens<br />Example: <code>myoptiongroup</code><br />If you don't specify a value for <code>OptionGroupName</code> property, a name is automatically created for the option group.<br />This value is stored as a lowercase string.</details>"
   },
   {
     "name": "option_group_description",
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets an <code>option_group</code> resource or lists
   {
     "name": "engine_name",
     "type": "string",
-    "description": "Specifies the name of the engine that this option group should be associated with.<br />Valid Values: <br />+ &#96;&#96;mariadb&#96;&#96; <br />+ &#96;&#96;mysql&#96;&#96; <br />+ &#96;&#96;oracle-ee&#96;&#96; <br />+ &#96;&#96;oracle-ee-cdb&#96;&#96; <br />+ &#96;&#96;oracle-se2&#96;&#96; <br />+ &#96;&#96;oracle-se2-cdb&#96;&#96; <br />+ &#96;&#96;postgres&#96;&#96; <br />+ &#96;&#96;sqlserver-ee&#96;&#96; <br />+ &#96;&#96;sqlserver-se&#96;&#96; <br />+ &#96;&#96;sqlserver-ex&#96;&#96; <br />+ &#96;&#96;sqlserver-web&#96;&#96;"
+    "description": "<details><summary>Specifies the name of the engine that this option group should be associated with.</summary>Valid Values:<br />+   <code>mariadb</code><br />+   <code>mysql</code><br />+   <code>oracle-ee</code><br />+   <code>oracle-ee-cdb</code><br />+   <code>oracle-se2</code><br />+   <code>oracle-se2-cdb</code><br />+   <code>postgres</code><br />+   <code>sqlserver-ee</code><br />+   <code>sqlserver-se</code><br />+   <code>sqlserver-ex</code><br />+   <code>sqlserver-web</code></details>"
   },
   {
     "name": "major_engine_version",
@@ -120,12 +120,12 @@ Creates, updates, deletes or gets an <code>option_group</code> resource or lists
       {
         "name": "key",
         "type": "string",
-        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       }
     ]
   },
@@ -142,7 +142,7 @@ Creates, updates, deletes or gets an <code>option_group</code> resource or lists
   {
     "name": "option_group_name",
     "type": "string",
-    "description": "The name of the option group to be created.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />Example: &#96;&#96;myoptiongroup&#96;&#96;<br />If you don't specify a value for &#96;&#96;OptionGroupName&#96;&#96; property, a name is automatically created for the option group.<br />This value is stored as a lowercase string."
+    "description": "<details><summary>The name of the option group to be created.</summary>Constraints:<br />+  Must be 1 to 255 letters, numbers, or hyphens<br />+  First character must be a letter<br />+  Can't end with a hyphen or contain two consecutive hyphens<br />Example: <code>myoptiongroup</code><br />If you don't specify a value for <code>OptionGroupName</code> property, a name is automatically created for the option group.<br />This value is stored as a lowercase string.</details>"
   },
   {
     "name": "region",
@@ -221,7 +221,7 @@ SELECT
   tags
 FROM awscc.rds.option_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ option_group_name }}';
 ```
 </TabItem>
@@ -234,7 +234,7 @@ SELECT
   option_group_name
 FROM awscc.rds.option_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.rds.option_groups
 WHERE
   Identifier = '{{ option_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

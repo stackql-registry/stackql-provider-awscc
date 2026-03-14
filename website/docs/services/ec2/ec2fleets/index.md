@@ -137,7 +137,7 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
       {
         "name": "resource_type",
         "type": "string",
-        "description": "The type of resource to tag. You can specify tags for the following resource types only: &#96;&#96;instance&#96;&#96; &#124; &#96;&#96;volume&#96;&#96; &#124; &#96;&#96;network-interface&#96;&#96; &#124; &#96;&#96;spot-instances-request&#96;&#96;. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.<br />To tag a resource after it has been created, see &#91;CreateTags&#93;(https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API&#95;CreateTags.html)."
+        "description": "<details><summary>The type of resource to tag. You can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.</summary>To tag a resource after it has been created, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html\">CreateTags</a>.</details>"
       },
       {
         "name": "tags",
@@ -274,7 +274,7 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
           {
             "name": "placement",
             "type": "object",
-            "description": "Specifies the placement of an instance.<br />&#96;&#96;Placement&#96;&#96; is a property of &#91;AWS::EC2::LaunchTemplate LaunchTemplateData&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html).",
+            "description": "<details><summary>Specifies the placement of an instance.</summary><code>Placement</code> is a property of <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html\">AWS::EC2::LaunchTemplate LaunchTemplateData</a>.</details>",
             "children": [
               {
                 "name": "group_name",
@@ -294,7 +294,7 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
               {
                 "name": "partition_number",
                 "type": "integer",
-                "description": "The number of the partition the instance should launch in. Valid only if the placement group strategy is set to &#96;&#96;partition&#96;&#96;."
+                "description": "The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>."
               },
               {
                 "name": "availability_zone",
@@ -314,12 +314,12 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
               {
                 "name": "host_resource_group_arn",
                 "type": "string",
-                "description": "The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the &#42;Tenancy&#42; parameter or set it to &#96;&#96;host&#96;&#96;."
+                "description": "The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the <i>Tenancy</i> parameter or set it to <code>host</code>."
               },
               {
                 "name": "group_id",
                 "type": "string",
-                "description": "The Group Id of a placement group. You must specify the Placement Group &#42;Group Id&#42; to launch an instance in a shared placement group."
+                "description": "The Group Id of a placement group. You must specify the Placement Group <i>Group Id</i> to launch an instance in a shared placement group."
               }
             ]
           },
@@ -630,7 +630,7 @@ SELECT
   context
 FROM awscc.ec2.ec2fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
@@ -643,7 +643,7 @@ SELECT
   fleet_id
 FROM awscc.ec2.ec2fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -891,7 +891,7 @@ WHERE
 DELETE FROM awscc.ec2.ec2fleets
 WHERE
   Identifier = '{{ fleet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

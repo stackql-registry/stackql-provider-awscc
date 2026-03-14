@@ -206,7 +206,7 @@ SELECT
   ipv6_cidr_block_network_border_group
 FROM awscc.ec2.vpc_cidr_blocks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}|{{ vpc_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.vpc_cidr_blocks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ resources:
 DELETE FROM awscc.ec2.vpc_cidr_blocks
 WHERE
   Identifier = '{{ id }}|{{ vpc_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

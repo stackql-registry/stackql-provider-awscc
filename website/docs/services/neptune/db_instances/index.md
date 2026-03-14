@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
   {
     "name": "auto_minor_version_upgrade",
     "type": "boolean",
-    "description": "Indicates that minor version patches are applied automatically.<br />When updating this property, some interruptions may occur."
+    "description": "<details><summary>Indicates that minor version patches are applied automatically.</summary>When updating this property, some interruptions may occur.</details>"
   },
   {
     "name": "availability_zone",
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
   {
     "name": "db_instance_class",
     "type": "string",
-    "description": "Contains the name of the compute and memory capacity class of the DB instance.<br />If you update this property, some interruptions may occur."
+    "description": "<details><summary>Contains the name of the compute and memory capacity class of the DB instance.</summary>If you update this property, some interruptions may occur.</details>"
   },
   {
     "name": "db_instance_identifier",
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
   {
     "name": "db_snapshot_identifier",
     "type": "string",
-    "description": "This parameter is not supported.<br />&#96;AWS::Neptune::DBInstance&#96; does not support restoring from snapshots.<br />&#96;AWS::Neptune::DBCluster&#96; does support restoring from snapshots.<br />"
+    "description": "<details><summary>This parameter is not supported.</summary><code>AWS::Neptune::DBInstance</code> does not support restoring from snapshots.<br /><code>AWS::Neptune::DBCluster</code> does support restoring from snapshots.</details>"
   },
   {
     "name": "db_subnet_group_name",
@@ -91,7 +91,7 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
   {
     "name": "endpoint",
     "type": "string",
-    "description": "The connection endpoint for the database. For example: &#96;mystack-mydb-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com&#96;."
+    "description": "The connection endpoint for the database. For example: <code>mystack-mydb-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com</code>."
   },
   {
     "name": "preferred_maintenance_window",
@@ -101,7 +101,7 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
   {
     "name": "port",
     "type": "string",
-    "description": "The port number on which the database accepts connections. For example: &#96;8182&#96;."
+    "description": "The port number on which the database accepts connections. For example: <code>8182</code>."
   },
   {
     "name": "tags",
@@ -111,12 +111,12 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -219,7 +219,7 @@ SELECT
   tags
 FROM awscc.neptune.db_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_instance_identifier }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   db_instance_identifier
 FROM awscc.neptune.db_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -365,7 +365,7 @@ WHERE
 DELETE FROM awscc.neptune.db_instances
 WHERE
   Identifier = '{{ db_instance_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

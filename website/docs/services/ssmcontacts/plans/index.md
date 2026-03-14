@@ -155,7 +155,7 @@ SELECT
   arn
 FROM awscc.ssmcontacts.plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -262,7 +262,7 @@ WHERE
 DELETE FROM awscc.ssmcontacts.plans
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -237,7 +237,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.portals
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ portal_id }}';
 ```
 </TabItem>
@@ -250,7 +250,7 @@ SELECT
   portal_id
 FROM awscc.iotsitewise.portals_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +387,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.portals
 WHERE
   Identifier = '{{ portal_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

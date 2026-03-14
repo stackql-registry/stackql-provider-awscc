@@ -535,7 +535,7 @@ SELECT
   tags
 FROM awscc.s3.storage_lens
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ storage_lens_configuration/id }}';
 ```
 </TabItem>
@@ -548,7 +548,7 @@ SELECT
   storage_lens_configuration/id
 FROM awscc.s3.storage_lens_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -688,7 +688,7 @@ WHERE
 DELETE FROM awscc.s3.storage_lens
 WHERE
   Identifier = '{{ storage_lens_configuration/id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

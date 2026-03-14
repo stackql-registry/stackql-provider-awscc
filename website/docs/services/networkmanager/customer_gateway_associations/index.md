@@ -152,7 +152,7 @@ SELECT
   link_id
 FROM awscc.networkmanager.customer_gateway_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ global_network_id }}|{{ customer_gateway_arn }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   customer_gateway_arn
 FROM awscc.networkmanager.customer_gateway_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +253,7 @@ resources:
 DELETE FROM awscc.networkmanager.customer_gateway_associations
 WHERE
   Identifier = '{{ global_network_id }}|{{ customer_gateway_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

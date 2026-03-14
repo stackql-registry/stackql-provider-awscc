@@ -168,7 +168,7 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
   {
     "name": "tags",
     "type": "object",
-    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
   },
   {
     "name": "rule_arn",
@@ -282,7 +282,7 @@ SELECT
   updated_at
 FROM awscc.securityhub.automation_rule_v2s
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
@@ -295,7 +295,7 @@ SELECT
   rule_arn
 FROM awscc.securityhub.automation_rule_v2s_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -459,7 +459,7 @@ WHERE
 DELETE FROM awscc.securityhub.automation_rule_v2s
 WHERE
   Identifier = '{{ rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

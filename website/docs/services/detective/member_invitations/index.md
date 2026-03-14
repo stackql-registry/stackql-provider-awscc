@@ -158,7 +158,7 @@ SELECT
   message
 FROM awscc.detective.member_invitations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ graph_arn }}|{{ member_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   member_id
 FROM awscc.detective.member_invitations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +263,7 @@ resources:
 DELETE FROM awscc.detective.member_invitations
 WHERE
   Identifier = '{{ graph_arn }}|{{ member_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

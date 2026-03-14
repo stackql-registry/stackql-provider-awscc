@@ -149,7 +149,7 @@ SELECT
   log_configurations
 FROM awscc.cognito.log_delivery_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 
@@ -246,7 +246,7 @@ WHERE
 DELETE FROM awscc.cognito.log_delivery_configurations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

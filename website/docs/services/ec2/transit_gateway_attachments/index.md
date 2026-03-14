@@ -51,22 +51,22 @@ Creates, updates, deletes or gets a <code>transit_gateway_attachment</code> reso
       {
         "name": "ipv6_support",
         "type": "string",
-        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable | disable"
       },
       {
         "name": "appliance_mode_support",
         "type": "string",
-        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable | disable"
       },
       {
         "name": "security_group_referencing_support",
         "type": "string",
-        "description": "Indicates whether to enable Security Group referencing support for Vpc Attachment. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to enable Security Group referencing support for Vpc Attachment. Valid Values: enable | disable"
       },
       {
         "name": "dns_support",
         "type": "string",
-        "description": "Indicates whether to enable DNS Support for Vpc Attachment. Valid Values: enable &#124; disable"
+        "description": "Indicates whether to enable DNS Support for Vpc Attachment. Valid Values: enable | disable"
       }
     ]
   },
@@ -199,7 +199,7 @@ SELECT
   tags
 FROM awscc.ec2.transit_gateway_attachments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -212,7 +212,7 @@ SELECT
   id
 FROM awscc.ec2.transit_gateway_attachments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ WHERE
 DELETE FROM awscc.ec2.transit_gateway_attachments
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -281,7 +281,7 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
               {
                 "name": "retry_mode",
                 "type": "string",
-                "description": "The specified retry mode type for the given stage. FAILED&#95;ACTIONS will retry only the failed actions. ALL&#95;ACTIONS will retry both failed and successful"
+                "description": "The specified retry mode type for the given stage. FAILED_ACTIONS will retry only the failed actions. ALL_ACTIONS will retry both failed and successful"
               }
             ]
           },
@@ -445,7 +445,7 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
   {
     "name": "variables",
     "type": "array",
-    "description": "A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and underscore characters, and the values must match &#91;A-Za-z0-9@\\-&#95;&#93;+.",
+    "description": "A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and underscore characters, and the values must match [A-Za-z0-9@\\-_]+.",
     "children": [
       {
         "name": "default_value",
@@ -624,7 +624,7 @@ SELECT
   tags
 FROM awscc.codepipeline.pipelines
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -637,7 +637,7 @@ SELECT
   name
 FROM awscc.codepipeline.pipelines_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -874,7 +874,7 @@ WHERE
 DELETE FROM awscc.codepipeline.pipelines
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

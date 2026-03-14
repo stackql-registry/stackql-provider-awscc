@@ -110,7 +110,7 @@ SELECT
   region
 FROM awscc.cloud_control.resource_request
 WHERE
-  region = 'us-east-1' AND RequestToken = '<RequestToken>';;
+  region = 'us-east-1' AND RequestToken = '<RequestToken>';
 ```
 
 

@@ -311,7 +311,7 @@ SELECT
   version
 FROM awscc.licensemanager.licenses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ license_arn }}';
 ```
 </TabItem>
@@ -324,7 +324,7 @@ SELECT
   license_arn
 FROM awscc.licensemanager.licenses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -490,7 +490,7 @@ WHERE
 DELETE FROM awscc.licensemanager.licenses
 WHERE
   Identifier = '{{ license_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

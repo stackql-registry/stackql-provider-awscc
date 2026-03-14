@@ -158,7 +158,7 @@ SELECT
   query_statement
 FROM awscc.athena.prepared_statements
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ statement_name }}|{{ work_group }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   work_group
 FROM awscc.athena.prepared_statements_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +275,7 @@ WHERE
 DELETE FROM awscc.athena.prepared_statements
 WHERE
   Identifier = '{{ statement_name }}|{{ work_group }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

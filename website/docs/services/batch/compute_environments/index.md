@@ -388,7 +388,7 @@ SELECT
   context
 FROM awscc.batch.compute_environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ compute_environment_arn }}';
 ```
 </TabItem>
@@ -401,7 +401,7 @@ SELECT
   compute_environment_arn
 FROM awscc.batch.compute_environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -571,7 +571,7 @@ WHERE
 DELETE FROM awscc.batch.compute_environments
 WHERE
   Identifier = '{{ compute_environment_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

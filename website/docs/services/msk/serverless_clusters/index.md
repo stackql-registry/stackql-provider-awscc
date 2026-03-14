@@ -186,7 +186,7 @@ SELECT
   tags
 FROM awscc.msk.serverless_clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -199,7 +199,7 @@ SELECT
   arn
 FROM awscc.msk.serverless_clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ resources:
 DELETE FROM awscc.msk.serverless_clusters
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

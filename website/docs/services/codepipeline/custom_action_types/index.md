@@ -276,7 +276,7 @@ SELECT
   id
 FROM awscc.codepipeline.custom_action_types
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```
 </TabItem>
@@ -291,7 +291,7 @@ SELECT
   version
 FROM awscc.codepipeline.custom_action_types_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -428,7 +428,7 @@ WHERE
 DELETE FROM awscc.codepipeline.custom_action_types
 WHERE
   Identifier = '{{ category }}|{{ provider }}|{{ version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -224,7 +224,7 @@ SELECT
   permissions_boundary
 FROM awscc.sso.permission_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```
 </TabItem>
@@ -238,7 +238,7 @@ SELECT
   permission_set_arn
 FROM awscc.sso.permission_sets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -376,7 +376,7 @@ WHERE
 DELETE FROM awscc.sso.permission_sets
 WHERE
   Identifier = '{{ instance_arn }}|{{ permission_set_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

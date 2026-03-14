@@ -283,7 +283,7 @@ SELECT
   tags
 FROM awscc.workspacesweb.data_protection_settings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ data_protection_settings_arn }}';
 ```
 </TabItem>
@@ -296,7 +296,7 @@ SELECT
   data_protection_settings_arn
 FROM awscc.workspacesweb.data_protection_settings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -437,7 +437,7 @@ WHERE
 DELETE FROM awscc.workspacesweb.data_protection_settings
 WHERE
   Identifier = '{{ data_protection_settings_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

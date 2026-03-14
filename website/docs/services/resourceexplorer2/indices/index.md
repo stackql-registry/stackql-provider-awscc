@@ -153,7 +153,7 @@ SELECT
   index_state
 FROM awscc.resourceexplorer2.indices
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   arn
 FROM awscc.resourceexplorer2.indices_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +257,7 @@ WHERE
 DELETE FROM awscc.resourceexplorer2.indices
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

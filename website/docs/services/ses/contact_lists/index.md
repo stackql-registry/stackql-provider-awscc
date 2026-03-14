@@ -187,7 +187,7 @@ SELECT
   tags
 FROM awscc.ses.contact_lists
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ contact_list_name }}';
 ```
 </TabItem>
@@ -200,7 +200,7 @@ SELECT
   contact_list_name
 FROM awscc.ses.contact_lists_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +312,7 @@ WHERE
 DELETE FROM awscc.ses.contact_lists
 WHERE
   Identifier = '{{ contact_list_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

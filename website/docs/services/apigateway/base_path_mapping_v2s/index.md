@@ -164,7 +164,7 @@ SELECT
   base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ base_path_mapping_arn }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +278,7 @@ WHERE
 DELETE FROM awscc.apigateway.base_path_mapping_v2s
 WHERE
   Identifier = '{{ base_path_mapping_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

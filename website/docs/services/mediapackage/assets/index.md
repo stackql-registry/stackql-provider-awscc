@@ -93,7 +93,7 @@ Creates, updates, deletes or gets an <code>asset</code> resource or lists <code>
   {
     "name": "source_role_arn",
     "type": "string",
-    "description": "The IAM role&#95;arn used to access the source S3 bucket."
+    "description": "The IAM role_arn used to access the source S3 bucket."
   },
   {
     "name": "tags",
@@ -201,7 +201,7 @@ SELECT
   tags
 FROM awscc.mediapackage.assets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   id
 FROM awscc.mediapackage.assets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +319,7 @@ resources:
 DELETE FROM awscc.mediapackage.assets
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

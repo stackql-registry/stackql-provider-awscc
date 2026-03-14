@@ -159,7 +159,7 @@ SELECT
   service_id
 FROM awscc.ec2.vpc_endpoint_connection_notifications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   vpc_endpoint_connection_notification_id
 FROM awscc.ec2.vpc_endpoint_connection_notifications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +274,7 @@ WHERE
 DELETE FROM awscc.ec2.vpc_endpoint_connection_notifications
 WHERE
   Identifier = '{{ vpc_endpoint_connection_notification_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

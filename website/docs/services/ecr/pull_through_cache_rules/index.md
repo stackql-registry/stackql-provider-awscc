@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>pull_through_cache_rule</code> resourc
 <tbody>
 <tr><td><b>Name</b></td><td><code>pull_through_cache_rules</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::PullThroughCacheRule&#96;&#96; resource creates or updates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry in your Amazon ECR private registry.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ECR::PullThroughCacheRule</code> resource creates or updates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry in your Amazon ECR private registry.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.pull_through_cache_rules" /></td></tr>
 </tbody>
 </table>
@@ -165,7 +165,7 @@ SELECT
   upstream_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ecr_repository_prefix }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   ecr_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +279,7 @@ resources:
 DELETE FROM awscc.ecr.pull_through_cache_rules
 WHERE
   Identifier = '{{ ecr_repository_prefix }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

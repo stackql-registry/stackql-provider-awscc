@@ -245,7 +245,7 @@ SELECT
   tags
 FROM awscc.inspectorv2.code_security_integrations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -258,7 +258,7 @@ SELECT
   arn
 FROM awscc.inspectorv2.code_security_integrations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +378,7 @@ WHERE
 DELETE FROM awscc.inspectorv2.code_security_integrations
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

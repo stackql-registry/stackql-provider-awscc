@@ -261,7 +261,7 @@ SELECT
   mitigation_action_id
 FROM awscc.iot.mitigation_actions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ action_name }}';
 ```
 </TabItem>
@@ -274,7 +274,7 @@ SELECT
   action_name
 FROM awscc.iot.mitigation_actions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +393,7 @@ WHERE
 DELETE FROM awscc.iot.mitigation_actions
 WHERE
   Identifier = '{{ action_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -147,7 +147,7 @@ SELECT
   current_version
 FROM awscc.msk.cluster_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   cluster_arn
 FROM awscc.msk.cluster_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +252,7 @@ WHERE
 DELETE FROM awscc.msk.cluster_policies
 WHERE
   Identifier = '{{ cluster_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

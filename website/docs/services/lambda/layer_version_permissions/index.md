@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>layer_version_permission</code> resour
   {
     "name": "organization_id",
     "type": "string",
-    "description": "With the principal set to &#42;, grant permission to all accounts in the specified organization."
+    "description": "With the principal set to *, grant permission to all accounts in the specified organization."
   },
   {
     "name": "principal",
     "type": "string",
-    "description": "An account ID, or &#42; to grant layer usage permission to all accounts in an organization, or all AWS accounts (if organizationId is not specified)."
+    "description": "An account ID, or * to grant layer usage permission to all accounts in an organization, or all AWS accounts (if organizationId is not specified)."
   },
   {
     "name": "region",
@@ -153,7 +153,7 @@ SELECT
   principal
 FROM awscc.lambda.layer_version_permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   id
 FROM awscc.lambda.layer_version_permissions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +253,7 @@ resources:
 DELETE FROM awscc.lambda.layer_version_permissions
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -145,7 +145,7 @@ Creates, updates, deletes or gets an <code>event_data_store</code> resource or l
   {
     "name": "status",
     "type": "string",
-    "description": "The status of an event data store. Values are STARTING&#95;INGESTION, ENABLED, STOPPING&#95;INGESTION, STOPPED&#95;INGESTION and PENDING&#95;DELETION."
+    "description": "The status of an event data store. Values are STARTING_INGESTION, ENABLED, STOPPING_INGESTION, STOPPED_INGESTION and PENDING_DELETION."
   },
   {
     "name": "termination_protection_enabled",
@@ -165,12 +165,12 @@ Creates, updates, deletes or gets an <code>event_data_store</code> resource or l
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -324,7 +324,7 @@ SELECT
   ingestion_enabled
 FROM awscc.cloudtrail.event_data_stores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ event_data_store_arn }}';
 ```
 </TabItem>
@@ -337,7 +337,7 @@ SELECT
   event_data_store_arn
 FROM awscc.cloudtrail.event_data_stores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -519,7 +519,7 @@ WHERE
 DELETE FROM awscc.cloudtrail.event_data_stores
 WHERE
   Identifier = '{{ event_data_store_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

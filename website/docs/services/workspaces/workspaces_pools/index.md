@@ -249,7 +249,7 @@ SELECT
   tags
 FROM awscc.workspaces.workspaces_pools
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ pool_id }}';
 ```
 </TabItem>
@@ -262,7 +262,7 @@ SELECT
   pool_id
 FROM awscc.workspaces.workspaces_pools_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +401,7 @@ WHERE
 DELETE FROM awscc.workspaces.workspaces_pools
 WHERE
   Identifier = '{{ pool_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

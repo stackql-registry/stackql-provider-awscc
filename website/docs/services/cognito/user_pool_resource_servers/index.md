@@ -170,7 +170,7 @@ SELECT
   scopes
 FROM awscc.cognito.user_pool_resource_servers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ identifier }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   identifier
 FROM awscc.cognito.user_pool_resource_servers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ WHERE
 DELETE FROM awscc.cognito.user_pool_resource_servers
 WHERE
   Identifier = '{{ user_pool_id }}|{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

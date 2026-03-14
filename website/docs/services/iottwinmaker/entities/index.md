@@ -219,7 +219,7 @@ SELECT
   composite_components
 FROM awscc.iottwinmaker.entities
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   entity_id
 FROM awscc.iottwinmaker.entities_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -354,7 +354,7 @@ WHERE
 DELETE FROM awscc.iottwinmaker.entities
 WHERE
   Identifier = '{{ workspace_id }}|{{ entity_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

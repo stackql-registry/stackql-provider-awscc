@@ -198,7 +198,7 @@ SELECT
   deployment_preference
 FROM awscc.stepfunctions.state_machine_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -211,7 +211,7 @@ SELECT
   arn
 FROM awscc.stepfunctions.state_machine_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -325,7 +325,7 @@ WHERE
 DELETE FROM awscc.stepfunctions.state_machine_aliases
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

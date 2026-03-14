@@ -194,7 +194,7 @@ SELECT
   tags
 FROM awscc.gamelift.aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alias_id }}';
 ```
 </TabItem>
@@ -207,7 +207,7 @@ SELECT
   alias_id
 FROM awscc.gamelift.aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +315,7 @@ WHERE
 DELETE FROM awscc.gamelift.aliases
 WHERE
   Identifier = '{{ alias_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

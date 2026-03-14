@@ -56,17 +56,17 @@ Creates, updates, deletes or gets a <code>verified_access_instance</code> resour
       {
         "name": "trust_provider_type",
         "type": "string",
-        "description": "Type of trust provider. Possible values: user&#124;device"
+        "description": "Type of trust provider. Possible values: user|device"
       },
       {
         "name": "device_trust_provider_type",
         "type": "string",
-        "description": "The type of device-based trust provider. Possible values: jamf&#124;crowdstrike"
+        "description": "The type of device-based trust provider. Possible values: jamf|crowdstrike"
       },
       {
         "name": "user_trust_provider_type",
         "type": "string",
-        "description": "The type of device-based trust provider. Possible values: oidc&#124;iam-identity-center"
+        "description": "The type of device-based trust provider. Possible values: oidc|iam-identity-center"
       },
       {
         "name": "oidc_options",
@@ -363,7 +363,7 @@ Creates, updates, deletes or gets a <code>verified_access_instance</code> resour
   {
     "name": "cidr_endpoints_custom_sub_domain_name_servers",
     "type": "array",
-    "description": "Property to represent the name servers assoicated with the domain that AVA manages (say, &#91;'ns1.amazonaws.com', 'ns2.amazonaws.com', 'ns3.amazonaws.com', 'ns4.amazonaws.com'&#93;)."
+    "description": "Property to represent the name servers assoicated with the domain that AVA manages (say, ['ns1.amazonaws.com', 'ns2.amazonaws.com', 'ns3.amazonaws.com', 'ns4.amazonaws.com'])."
   },
   {
     "name": "region",
@@ -462,7 +462,7 @@ SELECT
   cidr_endpoints_custom_sub_domain_name_servers
 FROM awscc.ec2.verified_access_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ verified_access_instance_id }}';
 ```
 </TabItem>
@@ -475,7 +475,7 @@ SELECT
   verified_access_instance_id
 FROM awscc.ec2.verified_access_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -649,7 +649,7 @@ WHERE
 DELETE FROM awscc.ec2.verified_access_instances
 WHERE
   Identifier = '{{ verified_access_instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

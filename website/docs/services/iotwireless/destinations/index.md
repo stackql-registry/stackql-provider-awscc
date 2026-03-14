@@ -183,7 +183,7 @@ SELECT
   arn
 FROM awscc.iotwireless.destinations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   name
 FROM awscc.iotwireless.destinations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +312,7 @@ WHERE
 DELETE FROM awscc.iotwireless.destinations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
 <tbody>
 <tr><td><b>Name</b></td><td><code>listener_rules</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a listener rule. The listener must be associated with an Application Load Balancer. Each rule consists of a priority, one or more actions, and one or more conditions.<br />For more information, see &#91;Quotas for your Application Load Balancers&#93;(https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html) in the &#42;User Guide for Application Load Balancers&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a listener rule. The listener must be associated with an Application Load Balancer. Each rule consists of a priority, one or more actions, and one or more conditions.</summary>For more information, see <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html">Quotas for your Application Load Balancers</a> in the <i>User Guide for Application Load Balancers</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.elasticloadbalancingv2.listener_rules" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
   {
     "name": "actions",
     "type": "array",
-    "description": "The actions.<br />The rule must include exactly one of the following types of actions: &#96;&#96;forward&#96;&#96;, &#96;&#96;fixed-response&#96;&#96;, or &#96;&#96;redirect&#96;&#96;, and it must be the last action to be performed. If the rule is for an HTTPS listener, it can also optionally include an authentication action.",
+    "description": "<details><summary>The actions.</summary>The rule must include exactly one of the following types of actions: <code>forward</code>, <code>fixed-response</code>, or <code>redirect</code>, and it must be the last action to be performed. If the rule is for an HTTPS listener, it can also optionally include an authentication action.</details>",
     "children": [
       {
         "name": "order",
@@ -66,17 +66,17 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "target_group_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the target group. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;forward&#96;&#96; and you want to route to a single target group. To route to one or more target groups, use &#96;&#96;ForwardConfig&#96;&#96; instead."
+        "description": "The Amazon Resource Name (ARN) of the target group. Specify only when <code>Type</code> is <code>forward</code> and you want to route to a single target group. To route to one or more target groups, use <code>ForwardConfig</code> instead."
       },
       {
         "name": "fixed_response_config",
         "type": "object",
-        "description": "&#91;Application Load Balancer&#93; Information for creating an action that returns a custom HTTP response. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;fixed-response&#96;&#96;.",
+        "description": "[Application Load Balancer] Information for creating an action that returns a custom HTTP response. Specify only when <code>Type</code> is <code>fixed-response</code>.",
         "children": [
           {
             "name": "content_type",
             "type": "string",
-            "description": "The content type.<br />Valid Values: text/plain &#124; text/css &#124; text/html &#124; application/javascript &#124; application/json"
+            "description": "<details><summary>The content type.</summary>Valid Values: text/plain | text/css | text/html | application/javascript | application/json</details>"
           },
           {
             "name": "status_code",
@@ -93,12 +93,12 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "authenticate_cognito_config",
         "type": "object",
-        "description": "&#91;HTTPS listeners&#93; Information for using Amazon Cognito to authenticate users. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;authenticate-cognito&#96;&#96;.",
+        "description": "[HTTPS listeners] Information for using Amazon Cognito to authenticate users. Specify only when <code>Type</code> is <code>authenticate-cognito</code>.",
         "children": [
           {
             "name": "on_unauthenticated_request",
             "type": "string",
-            "description": "The behavior if the user is not authenticated. The following are possible values:<br />+ deny&#96;&#96;&#96;&#96; - Return an HTTP 401 Unauthorized error.<br />+ allow&#96;&#96;&#96;&#96; - Allow the request to be forwarded to the target.<br />+ authenticate&#96;&#96;&#96;&#96; - Redirect the request to the IdP authorization endpoint. This is the default value."
+            "description": "<details><summary>The behavior if the user is not authenticated. The following are possible values:</summary>+  deny`<code><code> - Return an HTTP 401 Unauthorized error.<br />+  allow</code><code> - Allow the request to be forwarded to the target.<br />+  authenticate</code></code>` - Redirect the request to the IdP authorization endpoint. This is the default value.</details>"
           },
           {
             "name": "user_pool_client_id",
@@ -118,7 +118,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
           {
             "name": "scope",
             "type": "string",
-            "description": "The set of user claims to be requested from the IdP. The default is &#96;&#96;openid&#96;&#96;.<br />To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP."
+            "description": "<details><summary>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</summary>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</details>"
           },
           {
             "name": "session_cookie_name",
@@ -145,7 +145,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "redirect_config",
         "type": "object",
-        "description": "&#91;Application Load Balancer&#93; Information for creating a redirect action. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;redirect&#96;&#96;.",
+        "description": "[Application Load Balancer] Information for creating a redirect action. Specify only when <code>Type</code> is <code>redirect</code>.",
         "children": [
           {
             "name": "path",
@@ -182,7 +182,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "forward_config",
         "type": "object",
-        "description": "Information for creating an action that distributes requests among one or more target groups. For Network Load Balancers, you can specify a single target group. Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;forward&#96;&#96;. If you specify both &#96;&#96;ForwardConfig&#96;&#96; and &#96;&#96;TargetGroupArn&#96;&#96;, you can specify only one target group using &#96;&#96;ForwardConfig&#96;&#96; and it must be the same target group specified in &#96;&#96;TargetGroupArn&#96;&#96;.",
+        "description": "Information for creating an action that distributes requests among one or more target groups. For Network Load Balancers, you can specify a single target group. Specify only when <code>Type</code> is <code>forward</code>. If you specify both <code>ForwardConfig</code> and <code>TargetGroupArn</code>, you can specify only one target group using <code>ForwardConfig</code> and it must be the same target group specified in <code>TargetGroupArn</code>.",
         "children": [
           {
             "name": "target_group_stickiness_config",
@@ -223,12 +223,12 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "authenticate_oidc_config",
         "type": "object",
-        "description": "&#91;HTTPS listeners&#93; Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when &#96;&#96;Type&#96;&#96; is &#96;&#96;authenticate-oidc&#96;&#96;.",
+        "description": "[HTTPS listeners] Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when <code>Type</code> is <code>authenticate-oidc</code>.",
         "children": [
           {
             "name": "on_unauthenticated_request",
             "type": "string",
-            "description": "The behavior if the user is not authenticated. The following are possible values:<br />+ deny&#96;&#96;&#96;&#96; - Return an HTTP 401 Unauthorized error.<br />+ allow&#96;&#96;&#96;&#96; - Allow the request to be forwarded to the target.<br />+ authenticate&#96;&#96;&#96;&#96; - Redirect the request to the IdP authorization endpoint. This is the default value."
+            "description": "<details><summary>The behavior if the user is not authenticated. The following are possible values:</summary>+  deny`<code><code> - Return an HTTP 401 Unauthorized error.<br />+  allow</code><code> - Allow the request to be forwarded to the target.<br />+  authenticate</code></code>` - Redirect the request to the IdP authorization endpoint. This is the default value.</details>"
           },
           {
             "name": "token_endpoint",
@@ -248,7 +248,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
           {
             "name": "scope",
             "type": "string",
-            "description": "The set of user claims to be requested from the IdP. The default is &#96;&#96;openid&#96;&#96;.<br />To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP."
+            "description": "<details><summary>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</summary>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</details>"
           },
           {
             "name": "issuer",
@@ -258,7 +258,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
           {
             "name": "client_secret",
             "type": "string",
-            "description": "The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set &#96;&#96;UseExistingClientSecret&#96;&#96; to true."
+            "description": "The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set <code>UseExistingClientSecret</code> to true."
           },
           {
             "name": "user_info_endpoint",
@@ -292,7 +292,7 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
   {
     "name": "priority",
     "type": "integer",
-    "description": "The rule priority. A listener can't have multiple rules with the same priority.<br />If you try to reorder rules by updating their priorities, do not specify a new priority if an existing rule already uses this priority, as this can cause an error. If you need to reuse a priority with a different rule, you must remove it as a priority first, and then specify it in a subsequent update."
+    "description": "<details><summary>The rule priority. A listener can't have multiple rules with the same priority.</summary>If you try to reorder rules by updating their priorities, do not specify a new priority if an existing rule already uses this priority, as this can cause an error. If you need to reuse a priority with a different rule, you must remove it as a priority first, and then specify it in a subsequent update.</details>"
   },
   {
     "name": "rule_arn",
@@ -302,22 +302,22 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
   {
     "name": "conditions",
     "type": "array",
-    "description": "The conditions.<br />The rule can optionally include up to one of each of the following conditions: &#96;&#96;http-request-method&#96;&#96;, &#96;&#96;host-header&#96;&#96;, &#96;&#96;path-pattern&#96;&#96;, and &#96;&#96;source-ip&#96;&#96;. A rule can also optionally include one or more of each of the following conditions: &#96;&#96;http-header&#96;&#96; and &#96;&#96;query-string&#96;&#96;.",
+    "description": "<details><summary>The conditions.</summary>The rule can optionally include up to one of each of the following conditions: <code>http-request-method</code>, <code>host-header</code>, <code>path-pattern</code>, and <code>source-ip</code>. A rule can also optionally include one or more of each of the following conditions: <code>http-header</code> and <code>query-string</code>.</details>",
     "children": [
       {
         "name": "field",
         "type": "string",
-        "description": "The field in the HTTP request. The following are the possible values:<br />+ &#96;&#96;http-header&#96;&#96; <br />+ &#96;&#96;http-request-method&#96;&#96; <br />+ &#96;&#96;host-header&#96;&#96; <br />+ &#96;&#96;path-pattern&#96;&#96; <br />+ &#96;&#96;query-string&#96;&#96; <br />+ &#96;&#96;source-ip&#96;&#96;"
+        "description": "<details><summary>The field in the HTTP request. The following are the possible values:</summary>+   <code>http-header</code><br />+   <code>http-request-method</code><br />+   <code>host-header</code><br />+   <code>path-pattern</code><br />+   <code>query-string</code><br />+   <code>source-ip</code></details>"
       },
       {
         "name": "http_header_config",
         "type": "object",
-        "description": "Information for an HTTP header condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;http-header&#96;&#96;.",
+        "description": "Information for an HTTP header condition. Specify only when <code>Field</code> is <code>http-header</code>.",
         "children": [
           {
             "name": "values",
             "type": "array",
-            "description": "The strings to compare against the value of the HTTP header. The maximum size of each string is 128 characters. The comparison strings are case insensitive. The following wildcard characters are supported: &#42; (matches 0 or more characters) and ? (matches exactly 1 character).<br />If the same header appears multiple times in the request, we search them in order until a match is found.<br />If you specify multiple strings, the condition is satisfied if one of the strings matches the value of the HTTP header. To require that all of the strings are a match, create one condition per string."
+            "description": "<details><summary>The strings to compare against the value of the HTTP header. The maximum size of each string is 128 characters. The comparison strings are case insensitive. The following wildcard characters are supported: * (matches 0 or more characters) and ? (matches exactly 1 character).</summary>If the same header appears multiple times in the request, we search them in order until a match is found.<br />If you specify multiple strings, the condition is satisfied if one of the strings matches the value of the HTTP header. To require that all of the strings are a match, create one condition per string.</details>"
           },
           {
             "name": "http_header_name",
@@ -329,17 +329,17 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "values",
         "type": "array",
-        "description": "The condition value. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;host-header&#96;&#96; or &#96;&#96;path-pattern&#96;&#96;. Alternatively, to specify multiple host names or multiple path patterns, use &#96;&#96;HostHeaderConfig&#96;&#96; or &#96;&#96;PathPatternConfig&#96;&#96;.<br />If &#96;&#96;Field&#96;&#96; is &#96;&#96;host-header&#96;&#96; and you're not using &#96;&#96;HostHeaderConfig&#96;&#96;, you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters.<br />+ A-Z, a-z, 0-9<br />+ - .<br />+ &#42; (matches 0 or more characters)<br />+ ? (matches exactly 1 character)<br /><br />If &#96;&#96;Field&#96;&#96; is &#96;&#96;path-pattern&#96;&#96; and you're not using &#96;&#96;PathPatternConfig&#96;&#96;, you can specify a single path pattern (for example, /img/&#42;). A path pattern is case-sensitive, can be up to 128 characters in length, and can contain any of the following characters.<br />+ A-Z, a-z, 0-9<br />+ &#95; - . $ / &#126; \" ' @ : +<br />+ & (using &amp;)<br />+ &#42; (matches 0 or more characters)<br />+ ? (matches exactly 1 character)"
+        "description": "<details><summary>The condition value. Specify only when <code>Field</code> is <code>host-header</code> or <code>path-pattern</code>. Alternatively, to specify multiple host names or multiple path patterns, use <code>HostHeaderConfig</code> or <code>PathPatternConfig</code>.</summary>If <code>Field</code> is <code>host-header</code> and you're not using <code>HostHeaderConfig</code>, you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters.<br />+  A-Z, a-z, 0-9<br />+  - .<br />+  * (matches 0 or more characters)<br />+  ? (matches exactly 1 character)<br />If <code>Field</code> is <code>path-pattern</code> and you're not using <code>PathPatternConfig</code>, you can specify a single path pattern (for example, /img/*). A path pattern is case-sensitive, can be up to 128 characters in length, and can contain any of the following characters.<br />+  A-Z, a-z, 0-9<br />+  _ - . $ / ~ \" ' @ : +<br />+  & (using &amp;)<br />+  * (matches 0 or more characters)<br />+  ? (matches exactly 1 character)</details>"
       },
       {
         "name": "query_string_config",
         "type": "object",
-        "description": "Information for a query string condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;query-string&#96;&#96;.",
+        "description": "Information for a query string condition. Specify only when <code>Field</code> is <code>query-string</code>.",
         "children": [
           {
             "name": "values",
             "type": "array",
-            "description": "The key/value pairs or values to find in the query string. The maximum size of each string is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: &#42; (matches 0 or more characters) and ? (matches exactly 1 character). To search for a literal '&#42;' or '?' character in a query string, you must escape these characters in &#96;&#96;Values&#96;&#96; using a '\\' character.<br />If you specify multiple key/value pairs or values, the condition is satisfied if one of them is found in the query string.",
+            "description": "<details><summary>The key/value pairs or values to find in the query string. The maximum size of each string is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: <i> (matches 0 or more characters) and ? (matches exactly 1 character). To search for a literal '</i>' or '?' character in a query string, you must escape these characters in <code>Values</code> using a '\\' character.</summary>If you specify multiple key/value pairs or values, the condition is satisfied if one of them is found in the query string.</details>",
             "children": [
               {
                 "name": "value",
@@ -358,27 +358,27 @@ Creates, updates, deletes or gets a <code>listener_rule</code> resource or lists
       {
         "name": "host_header_config",
         "type": "object",
-        "description": "Information for a host header condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;host-header&#96;&#96;."
+        "description": "Information for a host header condition. Specify only when <code>Field</code> is <code>host-header</code>."
       },
       {
         "name": "http_request_method_config",
         "type": "object",
-        "description": "Information for an HTTP method condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;http-request-method&#96;&#96;."
+        "description": "Information for an HTTP method condition. Specify only when <code>Field</code> is <code>http-request-method</code>."
       },
       {
         "name": "path_pattern_config",
         "type": "object",
-        "description": "Information for a path pattern condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;path-pattern&#96;&#96;."
+        "description": "Information for a path pattern condition. Specify only when <code>Field</code> is <code>path-pattern</code>."
       },
       {
         "name": "source_ip_config",
         "type": "object",
-        "description": "Information for a source IP condition. Specify only when &#96;&#96;Field&#96;&#96; is &#96;&#96;source-ip&#96;&#96;.",
+        "description": "Information for a source IP condition. Specify only when <code>Field</code> is <code>source-ip</code>.",
         "children": [
           {
             "name": "values",
             "type": "array",
-            "description": "The source IP addresses, in CIDR format. You can use both IPv4 and IPv6 addresses. Wildcards are not supported.<br />If you specify multiple addresses, the condition is satisfied if the source IP address of the request matches one of the CIDR blocks. This condition is not satisfied by the addresses in the X-Forwarded-For header."
+            "description": "<details><summary>The source IP addresses, in CIDR format. You can use both IPv4 and IPv6 addresses. Wildcards are not supported.</summary>If you specify multiple addresses, the condition is satisfied if the source IP address of the request matches one of the CIDR blocks. This condition is not satisfied by the addresses in the X-Forwarded-For header.</details>"
           }
         ]
       }
@@ -476,7 +476,7 @@ SELECT
   conditions
 FROM awscc.elasticloadbalancingv2.listener_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
@@ -489,7 +489,7 @@ SELECT
   rule_arn
 FROM awscc.elasticloadbalancingv2.listener_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -655,7 +655,7 @@ WHERE
 DELETE FROM awscc.elasticloadbalancingv2.listener_rules
 WHERE
   Identifier = '{{ rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

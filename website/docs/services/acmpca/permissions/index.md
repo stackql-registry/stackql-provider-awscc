@@ -102,7 +102,7 @@ SELECT
   source_account
 FROM awscc.acmpca.permissions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_authority_arn }}|{{ principal }}';
 ```
 
@@ -189,7 +189,7 @@ resources:
 DELETE FROM awscc.acmpca.permissions
 WHERE
   Identifier = '{{ certificate_authority_arn }}|{{ principal }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

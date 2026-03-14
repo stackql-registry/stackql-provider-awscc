@@ -91,12 +91,12 @@ Creates, updates, deletes or gets an <code>object_type</code> resource or lists 
           {
             "name": "source",
             "type": "string",
-            "description": "A field of a ProfileObject. For example: &#95;source.FirstName, where \"&#95;source\" is a ProfileObjectType of a Zendesk user and \"FirstName\" is a field in that ObjectType."
+            "description": "A field of a ProfileObject. For example: _source.FirstName, where \"_source\" is a ProfileObjectType of a Zendesk user and \"FirstName\" is a field in that ObjectType."
           },
           {
             "name": "target",
             "type": "string",
-            "description": "The location of the data in the standard ProfileObject model. For example: &#95;profile.Address.PostalCode."
+            "description": "The location of the data in the standard ProfileObject model. For example: _profile.Address.PostalCode."
           },
           {
             "name": "content_type",
@@ -130,7 +130,7 @@ Creates, updates, deletes or gets an <code>object_type</code> resource or lists 
           {
             "name": "standard_identifiers",
             "type": "array",
-            "description": "The types of keys that a ProfileObject can have. Each ProfileObject can have only 1 UNIQUE key but multiple PROFILE keys. PROFILE means that this key can be used to tie an object to a PROFILE. UNIQUE means that it can be used to uniquely identify an object. If a key a is marked as SECONDARY, it will be used to search for profiles after all other PROFILE keys have been searched. A LOOKUP&#95;ONLY key is only used to match a profile but is not persisted to be used for searching of the profile. A NEW&#95;ONLY key is only used if the profile does not already exist before the object is ingested, otherwise it is only used for matching objects to profiles."
+            "description": "The types of keys that a ProfileObject can have. Each ProfileObject can have only 1 UNIQUE key but multiple PROFILE keys. PROFILE means that this key can be used to tie an object to a PROFILE. UNIQUE means that it can be used to uniquely identify an object. If a key a is marked as SECONDARY, it will be used to search for profiles after all other PROFILE keys have been searched. A LOOKUP_ONLY key is only used to match a profile but is not persisted to be used for searching of the profile. A NEW_ONLY key is only used if the profile does not already exist before the object is ingested, otherwise it is only used for matching objects to profiles."
           }
         ]
       }
@@ -159,12 +159,12 @@ Creates, updates, deletes or gets an <code>object_type</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -289,7 +289,7 @@ SELECT
   max_available_profile_object_count
 FROM awscc.customerprofiles.object_types
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   object_type_name
 FROM awscc.customerprofiles.object_types_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -459,7 +459,7 @@ WHERE
 DELETE FROM awscc.customerprofiles.object_types
 WHERE
   Identifier = '{{ domain_name }}|{{ object_type_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

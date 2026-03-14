@@ -171,7 +171,7 @@ SELECT
   kms_key_identifier
 FROM awscc.events.archives
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ archive_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   archive_name
 FROM awscc.events.archives_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ WHERE
 DELETE FROM awscc.events.archives
 WHERE
   Identifier = '{{ archive_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -80,7 +80,7 @@ SELECT
   region
 FROM awscc.tagging.report_creation
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 

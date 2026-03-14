@@ -1007,7 +1007,7 @@ SELECT
   metadata_catalog_config
 FROM awscc.appflow.flows
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ flow_name }}';
 ```
 </TabItem>
@@ -1020,7 +1020,7 @@ SELECT
   flow_name
 FROM awscc.appflow.flows_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1331,7 +1331,7 @@ WHERE
 DELETE FROM awscc.appflow.flows
 WHERE
   Identifier = '{{ flow_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

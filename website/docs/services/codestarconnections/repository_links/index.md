@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.codestarconnections.repository_links
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ repository_link_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   repository_link_arn
 FROM awscc.codestarconnections.repository_links_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +312,7 @@ WHERE
 DELETE FROM awscc.codestarconnections.repository_links
 WHERE
   Identifier = '{{ repository_link_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

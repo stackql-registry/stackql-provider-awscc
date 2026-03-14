@@ -141,7 +141,7 @@ SELECT
   account_id
 FROM awscc.ec2.snapshot_block_public_accesses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   account_id
 FROM awscc.ec2.snapshot_block_public_accesses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -240,7 +240,7 @@ WHERE
 DELETE FROM awscc.ec2.snapshot_block_public_accesses
 WHERE
   Identifier = '{{ account_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

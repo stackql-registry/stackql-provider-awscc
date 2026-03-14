@@ -178,7 +178,7 @@ SELECT
   billing_group_properties
 FROM awscc.iot.billing_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ billing_group_name }}';
 ```
 </TabItem>
@@ -191,7 +191,7 @@ SELECT
   billing_group_name
 FROM awscc.iot.billing_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +293,7 @@ WHERE
 DELETE FROM awscc.iot.billing_groups
 WHERE
   Identifier = '{{ billing_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

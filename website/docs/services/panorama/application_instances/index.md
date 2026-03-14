@@ -236,7 +236,7 @@ SELECT
   tags
 FROM awscc.panorama.application_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_instance_id }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   application_instance_id
 FROM awscc.panorama.application_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +369,7 @@ WHERE
 DELETE FROM awscc.panorama.application_instances
 WHERE
   Identifier = '{{ application_instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

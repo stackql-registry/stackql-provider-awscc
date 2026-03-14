@@ -2791,7 +2791,7 @@ SELECT
   tags
 FROM awscc.kinesisfirehose.delivery_streams
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ delivery_stream_name }}';
 ```
 </TabItem>
@@ -2804,7 +2804,7 @@ SELECT
   delivery_stream_name
 FROM awscc.kinesisfirehose.delivery_streams_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -3270,7 +3270,7 @@ WHERE
 DELETE FROM awscc.kinesisfirehose.delivery_streams
 WHERE
   Identifier = '{{ delivery_stream_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

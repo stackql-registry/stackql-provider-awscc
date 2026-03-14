@@ -366,7 +366,7 @@ SELECT
   positioning
 FROM awscc.iotwireless.wireless_devices
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -379,7 +379,7 @@ SELECT
   id
 FROM awscc.iotwireless.wireless_devices_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -536,7 +536,7 @@ WHERE
 DELETE FROM awscc.iotwireless.wireless_devices
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

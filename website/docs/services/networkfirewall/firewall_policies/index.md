@@ -250,7 +250,7 @@ SELECT
   tags
 FROM awscc.networkfirewall.firewall_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ firewall_policy_arn }}';
 ```
 </TabItem>
@@ -263,7 +263,7 @@ SELECT
   firewall_policy_arn
 FROM awscc.networkfirewall.firewall_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +372,7 @@ WHERE
 DELETE FROM awscc.networkfirewall.firewall_policies
 WHERE
   Identifier = '{{ firewall_policy_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

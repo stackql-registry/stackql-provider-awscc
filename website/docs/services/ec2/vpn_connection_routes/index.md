@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>vpn_connection_route</code> resource o
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_connection_routes</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a static route for a VPN connection between an existing virtual private gateway and a VPN customer gateway. The static route allows traffic to be routed from the virtual private gateway to the VPN customer gateway.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a static route for a VPN connection between an existing virtual private gateway and a VPN customer gateway. The static route allows traffic to be routed from the virtual private gateway to the VPN customer gateway.</summary>For more information, see [](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the <i>User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_connection_routes" /></td></tr>
 </tbody>
 </table>
@@ -140,7 +140,7 @@ SELECT
   vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.ec2.vpn_connection_routes
 WHERE
   Identifier = '{{ destination_cidr_block }}|{{ vpn_connection_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

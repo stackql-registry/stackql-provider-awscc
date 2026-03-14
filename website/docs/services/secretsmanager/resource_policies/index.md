@@ -153,7 +153,7 @@ SELECT
   block_public_policy
 FROM awscc.secretsmanager.resource_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   id
 FROM awscc.secretsmanager.resource_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +263,7 @@ WHERE
 DELETE FROM awscc.secretsmanager.resource_policies
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

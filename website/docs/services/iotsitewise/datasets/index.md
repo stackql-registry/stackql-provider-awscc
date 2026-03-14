@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.iotsitewise.datasets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dataset_id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   dataset_id
 FROM awscc.iotsitewise.datasets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +337,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.datasets
 WHERE
   Identifier = '{{ dataset_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

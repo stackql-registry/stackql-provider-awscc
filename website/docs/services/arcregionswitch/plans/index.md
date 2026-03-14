@@ -330,7 +330,7 @@ SELECT
   route53_health_checks
 FROM awscc.arcregionswitch.plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -343,7 +343,7 @@ SELECT
   arn
 FROM awscc.arcregionswitch.plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -499,7 +499,7 @@ WHERE
 DELETE FROM awscc.arcregionswitch.plans
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

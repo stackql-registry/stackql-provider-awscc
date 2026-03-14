@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
 <tbody>
 <tr><td><b>Name</b></td><td><code>alarm_models</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Represents an alarm model to monitor an ITE input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see &#91;Create an alarm model&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html) in the &#42;Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>Represents an alarm model to monitor an ITE input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html">Create an alarm model</a> in the <i>Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotevents.alarm_models" /></td></tr>
 </tbody>
 </table>
@@ -56,12 +56,12 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
   {
     "name": "role_arn",
     "type": "string",
-    "description": "The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see &#91;Amazon Resource Names (ARNs)&#93;(https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the &#42;General Reference&#42;."
+    "description": "The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>General Reference</i>."
   },
   {
     "name": "key",
     "type": "string",
-    "description": "An input attribute used as a key to create an alarm. ITE routes &#91;inputs&#93;(https://docs.aws.amazon.com/iotevents/latest/apireference/API&#95;Input.html) associated with this key to the alarm."
+    "description": "An input attribute used as a key to create an alarm. ITE routes <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_Input.html\">inputs</a> associated with this key to the alarm."
   },
   {
     "name": "severity",
@@ -110,17 +110,17 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
           {
             "name": "dynamo_db",
             "type": "object",
-            "description": "Defines an action to write to the Amazon DynamoDB table that you created. The standard action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the &#91;payload&#93;(https://docs.aws.amazon.com/iotevents/latest/apireference/API&#95;Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify.<br />You must use expressions for all parameters in &#96;&#96;DynamoDBAction&#96;&#96;. The expressions accept literals, operators, functions, references, and substitution templates.<br />&#42;&#42;Examples&#42;&#42;<br />+ For literal values, the expressions must contain single quotes. For example, the value for the &#96;&#96;hashKeyType&#96;&#96; parameter can be &#96;&#96;'STRING'&#96;&#96;.<br />+ For references, you must specify either variables or input values. For example, the value for the &#96;&#96;hashKeyField&#96;&#96; parameter can be &#96;&#96;$input.GreenhouseInput.name&#96;&#96;.<br />+ For a substitution template, you must use &#96;&#96;$&#123;&#125;&#96;&#96;, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the &#96;&#96;hashKeyValue&#96;&#96; parameter uses a substitution template. <br />&#96;&#96;'$&#123;$input.GreenhouseInput.temperature &#42; 6 / 5 + 32&#125; in Fahrenheit'&#96;&#96; <br />+ For a string concatenation, you must use &#96;&#96;+&#96;&#96;. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the &#96;&#96;tableName&#96;&#96; parameter uses a string concatenation. <br />&#96;&#96;'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date&#96;&#96; <br /><br />For more information, see &#91;Expressions&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the &#42;Developer Guide&#42;.<br />If the defined payload type is a string, &#96;&#96;DynamoDBAction&#96;&#96; writes non-JSON data to the DynamoDB table as binary data. The DynamoDB console displays the data as Base64-encoded text. The value for the &#96;&#96;payloadField&#96;&#96; parameter is &#96;&#96;&lt;payload-field&gt;&#95;raw&#96;&#96;.",
+            "description": "<details><summary>Defines an action to write to the Amazon DynamoDB table that you created. The standard action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html\">payload</a>. One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify.</summary>You must use expressions for all parameters in <code>DynamoDBAction</code>. The expressions accept literals, operators, functions, references, and substitution templates.<br /><b>Examples</b><br />+  For literal values, the expressions must contain single quotes. For example, the value for the <code>hashKeyType</code> parameter can be <code>'STRING'</code>.<br />+  For references, you must specify either variables or input values. For example, the value for the <code>hashKeyField</code> parameter can be <code>$input.GreenhouseInput.name</code>.<br />+  For a substitution template, you must use <code>$&#123;&#125;</code>, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the <code>hashKeyValue</code> parameter uses a substitution template.<br /><code>'$&#123;$input.GreenhouseInput.temperature * 6 / 5 + 32&#125; in Fahrenheit'</code><br />+  For a string concatenation, you must use <code>+</code>. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the <code>tableName</code> parameter uses a string concatenation.<br /><code>'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date</code><br />For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html\">Expressions</a> in the <i>Developer Guide</i>.<br />If the defined payload type is a string, <code>DynamoDBAction</code> writes non-JSON data to the DynamoDB table as binary data. The DynamoDB console displays the data as Base64-encoded text. The value for the <code>payloadField</code> parameter is <code><payload-field>_raw</code>.</details>",
             "children": [
               {
                 "name": "hash_key_field",
                 "type": "string",
-                "description": "The name of the hash key (also called the partition key). The &#96;&#96;hashKeyField&#96;&#96; value must match the partition key of the target DynamoDB table."
+                "description": "The name of the hash key (also called the partition key). The <code>hashKeyField</code> value must match the partition key of the target DynamoDB table."
               },
               {
                 "name": "hash_key_type",
                 "type": "string",
-                "description": "The data type for the hash key (also called the partition key). You can specify the following values:<br />+ &#96;&#96;'STRING'&#96;&#96; - The hash key is a string.<br />+ &#96;&#96;'NUMBER'&#96;&#96; - The hash key is a number.<br /><br />If you don't specify &#96;&#96;hashKeyType&#96;&#96;, the default value is &#96;&#96;'STRING'&#96;&#96;."
+                "description": "<details><summary>The data type for the hash key (also called the partition key). You can specify the following values:</summary>+   <code>'STRING'</code> - The hash key is a string.<br />+   <code>'NUMBER'</code> - The hash key is a number.<br />If you don't specify <code>hashKeyType</code>, the default value is <code>'STRING'</code>.</details>"
               },
               {
                 "name": "hash_key_value",
@@ -130,27 +130,27 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
               {
                 "name": "operation",
                 "type": "string",
-                "description": "The type of operation to perform. You can specify the following values: <br />+ &#96;&#96;'INSERT'&#96;&#96; - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.<br />+ &#96;&#96;'UPDATE'&#96;&#96; - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.<br />+ &#96;&#96;'DELETE'&#96;&#96; - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.<br /><br />If you don't specify this parameter, ITE triggers the &#96;&#96;'INSERT'&#96;&#96; operation."
+                "description": "<details><summary>The type of operation to perform. You can specify the following values:</summary>+   <code>'INSERT'</code> - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.<br />+   <code>'UPDATE'</code> - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.<br />+   <code>'DELETE'</code> - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.<br />If you don't specify this parameter, ITE triggers the <code>'INSERT'</code> operation.</details>"
               },
               {
                 "name": "payload",
                 "type": "object",
-                "description": "Information needed to configure the payload.<br />By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use &#96;&#96;contentExpression&#96;&#96;."
+                "description": "<details><summary>Information needed to configure the payload.</summary>By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use <code>contentExpression</code>.</details>"
               },
               {
                 "name": "payload_field",
                 "type": "string",
-                "description": "The name of the DynamoDB column that receives the action payload.<br />If you don't specify this parameter, the name of the DynamoDB column is &#96;&#96;payload&#96;&#96;."
+                "description": "<details><summary>The name of the DynamoDB column that receives the action payload.</summary>If you don't specify this parameter, the name of the DynamoDB column is <code>payload</code>.</details>"
               },
               {
                 "name": "range_key_field",
                 "type": "string",
-                "description": "The name of the range key (also called the sort key). The &#96;&#96;rangeKeyField&#96;&#96; value must match the sort key of the target DynamoDB table."
+                "description": "The name of the range key (also called the sort key). The <code>rangeKeyField</code> value must match the sort key of the target DynamoDB table."
               },
               {
                 "name": "range_key_type",
                 "type": "string",
-                "description": "The data type for the range key (also called the sort key), You can specify the following values:<br />+ &#96;&#96;'STRING'&#96;&#96; - The range key is a string.<br />+ &#96;&#96;'NUMBER'&#96;&#96; - The range key is number.<br /><br />If you don't specify &#96;&#96;rangeKeyField&#96;&#96;, the default value is &#96;&#96;'STRING'&#96;&#96;."
+                "description": "<details><summary>The data type for the range key (also called the sort key), You can specify the following values:</summary>+   <code>'STRING'</code> - The range key is a string.<br />+   <code>'NUMBER'</code> - The range key is number.<br />If you don't specify <code>rangeKeyField</code>, the default value is <code>'STRING'</code>.</details>"
               },
               {
                 "name": "range_key_value",
@@ -160,19 +160,19 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
               {
                 "name": "table_name",
                 "type": "string",
-                "description": "The name of the DynamoDB table. The &#96;&#96;tableName&#96;&#96; value must match the table name of the target DynamoDB table."
+                "description": "The name of the DynamoDB table. The <code>tableName</code> value must match the table name of the target DynamoDB table."
               }
             ]
           },
           {
             "name": "dynamo_dbv2",
             "type": "object",
-            "description": "Defines an action to write to the Amazon DynamoDB table that you created. The default action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the &#91;payload&#93;(https://docs.aws.amazon.com/iotevents/latest/apireference/API&#95;Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify.<br />You must use expressions for all parameters in &#96;&#96;DynamoDBv2Action&#96;&#96;. The expressions accept literals, operators, functions, references, and substitution templates.<br />&#42;&#42;Examples&#42;&#42;<br />+ For literal values, the expressions must contain single quotes. For example, the value for the &#96;&#96;tableName&#96;&#96; parameter can be &#96;&#96;'GreenhouseTemperatureTable'&#96;&#96;.<br />+ For references, you must specify either variables or input values. For example, the value for the &#96;&#96;tableName&#96;&#96; parameter can be &#96;&#96;$variable.ddbtableName&#96;&#96;.<br />+ For a substitution template, you must use &#96;&#96;$&#123;&#125;&#96;&#96;, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the &#96;&#96;contentExpression&#96;&#96; parameter in &#96;&#96;Payload&#96;&#96; uses a substitution template. <br />&#96;&#96;'&#123;\\\"sensorID\\\": \\\"$&#123;$input.GreenhouseInput.sensor&#95;id&#125;\\\", \\\"temperature\\\": \\\"$&#123;$input.GreenhouseInput.temperature &#42; 9 / 5 + 32&#125;\\\"&#125;'&#96;&#96; <br />+ For a string concatenation, you must use &#96;&#96;+&#96;&#96;. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the &#96;&#96;tableName&#96;&#96; parameter uses a string concatenation. <br />&#96;&#96;'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date&#96;&#96; <br /><br />For more information, see &#91;Expressions&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the &#42;Developer Guide&#42;.<br />The value for the &#96;&#96;type&#96;&#96; parameter in &#96;&#96;Payload&#96;&#96; must be &#96;&#96;JSON&#96;&#96;.",
+            "description": "<details><summary>Defines an action to write to the Amazon DynamoDB table that you created. The default action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html\">payload</a>. A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify.</summary>You must use expressions for all parameters in <code>DynamoDBv2Action</code>. The expressions accept literals, operators, functions, references, and substitution templates.<br /><b>Examples</b><br />+  For literal values, the expressions must contain single quotes. For example, the value for the <code>tableName</code> parameter can be <code>'GreenhouseTemperatureTable'</code>.<br />+  For references, you must specify either variables or input values. For example, the value for the <code>tableName</code> parameter can be <code>$variable.ddbtableName</code>.<br />+  For a substitution template, you must use <code>$&#123;&#125;</code>, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the <code>contentExpression</code> parameter in <code>Payload</code> uses a substitution template.<br /><code>'&#123;\\\"sensorID\\\": \\\"$&#123;$input.GreenhouseInput.sensor_id&#125;\\\", \\\"temperature\\\": \\\"$&#123;$input.GreenhouseInput.temperature * 9 / 5 + 32&#125;\\\"&#125;'</code><br />+  For a string concatenation, you must use <code>+</code>. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the <code>tableName</code> parameter uses a string concatenation.<br /><code>'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date</code><br />For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html\">Expressions</a> in the <i>Developer Guide</i>.<br />The value for the <code>type</code> parameter in <code>Payload</code> must be <code>JSON</code>.</details>",
             "children": [
               {
                 "name": "payload",
                 "type": "object",
-                "description": "Information needed to configure the payload.<br />By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use &#96;&#96;contentExpression&#96;&#96;."
+                "description": "<details><summary>Information needed to configure the payload.</summary>By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use <code>contentExpression</code>.</details>"
               },
               {
                 "name": "table_name",
@@ -223,7 +223,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
           {
             "name": "iot_site_wise",
             "type": "object",
-            "description": "Sends information about the detector model instance and the event that triggered the action to a specified asset property in ITSW.<br />You must use expressions for all parameters in &#96;&#96;IotSiteWiseAction&#96;&#96;. The expressions accept literals, operators, functions, references, and substitutions templates.<br />&#42;&#42;Examples&#42;&#42;<br />+ For literal values, the expressions must contain single quotes. For example, the value for the &#96;&#96;propertyAlias&#96;&#96; parameter can be &#96;&#96;'/company/windfarm/3/turbine/7/temperature'&#96;&#96;.<br />+ For references, you must specify either variables or input values. For example, the value for the &#96;&#96;assetId&#96;&#96; parameter can be &#96;&#96;$input.TurbineInput.assetId1&#96;&#96;.<br />+ For a substitution template, you must use &#96;&#96;$&#123;&#125;&#96;&#96;, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the &#96;&#96;propertyAlias&#96;&#96; parameter uses a substitution template. <br />&#96;&#96;'company/windfarm/$&#123;$input.TemperatureInput.sensorData.windfarmID&#125;/turbine/ $&#123;$input.TemperatureInput.sensorData.turbineID&#125;/temperature'&#96;&#96; <br /><br />You must specify either &#96;&#96;propertyAlias&#96;&#96; or both &#96;&#96;assetId&#96;&#96; and &#96;&#96;propertyId&#96;&#96; to identify the target asset property in ITSW.<br />For more information, see &#91;Expressions&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the &#42;Developer Guide&#42;.",
+            "description": "<details><summary>Sends information about the detector model instance and the event that triggered the action to a specified asset property in ITSW.</summary>You must use expressions for all parameters in <code>IotSiteWiseAction</code>. The expressions accept literals, operators, functions, references, and substitutions templates.<br /><b>Examples</b><br />+  For literal values, the expressions must contain single quotes. For example, the value for the <code>propertyAlias</code> parameter can be <code>'/company/windfarm/3/turbine/7/temperature'</code>.<br />+  For references, you must specify either variables or input values. For example, the value for the <code>assetId</code> parameter can be <code>$input.TurbineInput.assetId1</code>.<br />+  For a substitution template, you must use <code>$&#123;&#125;</code>, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.<br />In the following example, the value for the <code>propertyAlias</code> parameter uses a substitution template.<br /><code>'company/windfarm/$&#123;$input.TemperatureInput.sensorData.windfarmID&#125;/turbine/ $&#123;$input.TemperatureInput.sensorData.turbineID&#125;/temperature'</code><br />You must specify either <code>propertyAlias</code> or both <code>assetId</code> and <code>propertyId</code> to identify the target asset property in ITSW.<br />For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html\">Expressions</a> in the <i>Developer Guide</i>.</details>",
             "children": [
               {
                 "name": "asset_id",
@@ -260,7 +260,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
               {
                 "name": "mqtt_topic",
                 "type": "string",
-                "description": "The MQTT topic of the message. You can use a string expression that includes variables (&#96;&#96;$variable.&lt;variable-name&gt;&#96;&#96;) and input values (&#96;&#96;$input.&lt;input-name&gt;.&lt;path-to-datum&gt;&#96;&#96;) as the topic string."
+                "description": "The MQTT topic of the message. You can use a string expression that includes variables (<code>$variable.<variable-name></code>) and input values (<code>$input.<input-name>.<path-to-datum></code>) as the topic string."
               },
               {
                 "name": "payload",
@@ -342,7 +342,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
           {
             "name": "disabled_on_initialization",
             "type": "boolean",
-            "description": "The value must be &#96;&#96;TRUE&#96;&#96; or &#96;&#96;FALSE&#96;&#96;. If &#96;&#96;FALSE&#96;&#96;, all alarm instances created based on the alarm model are activated. The default value is &#96;&#96;TRUE&#96;&#96;."
+            "description": "The value must be <code>TRUE</code> or <code>FALSE</code>. If <code>FALSE</code>, all alarm instances created based on the alarm model are activated. The default value is <code>TRUE</code>."
           }
         ]
       },
@@ -354,7 +354,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
           {
             "name": "enabled",
             "type": "boolean",
-            "description": "The value must be &#96;&#96;TRUE&#96;&#96; or &#96;&#96;FALSE&#96;&#96;. If &#96;&#96;TRUE&#96;&#96;, you receive a notification when the alarm state changes. You must choose to acknowledge the notification before the alarm state can return to &#96;&#96;NORMAL&#96;&#96;. If &#96;&#96;FALSE&#96;&#96;, you won't receive notifications. The alarm automatically changes to the &#96;&#96;NORMAL&#96;&#96; state when the input property value returns to the specified range."
+            "description": "The value must be <code>TRUE</code> or <code>FALSE</code>. If <code>TRUE</code>, you receive a notification when the alarm state changes. You must choose to acknowledge the notification before the alarm state can return to <code>NORMAL</code>. If <code>FALSE</code>, you won't receive notifications. The alarm automatically changes to the <code>NORMAL</code> state when the input property value returns to the specified range."
           }
         ]
       }
@@ -363,7 +363,7 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
   {
     "name": "tags",
     "type": "array",
-    "description": "A list of key-value pairs that contain metadata for the alarm model. The tags help you manage the alarm model. For more information, see &#91;Tagging your resources&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/tagging-iotevents.html) in the &#42;Developer Guide&#42;.<br />You can create up to 50 tags for one alarm model.",
+    "description": "<details><summary>A list of key-value pairs that contain metadata for the alarm model. The tags help you manage the alarm model. For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/tagging-iotevents.html\">Tagging your resources</a> in the <i>Developer Guide</i>.</summary>You can create up to 50 tags for one alarm model.</details>",
     "children": [
       {
         "name": "key",
@@ -472,7 +472,7 @@ SELECT
   tags
 FROM awscc.iotevents.alarm_models
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alarm_model_name }}';
 ```
 </TabItem>
@@ -485,7 +485,7 @@ SELECT
   alarm_model_name
 FROM awscc.iotevents.alarm_models_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -673,7 +673,7 @@ WHERE
 DELETE FROM awscc.iotevents.alarm_models
 WHERE
   Identifier = '{{ alarm_model_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

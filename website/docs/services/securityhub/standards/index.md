@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>standard</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>standards</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SecurityHub::Standard&#96;&#96; resource specifies the enablement of a security standard. The standard is identified by the &#96;&#96;StandardsArn&#96;&#96; property. To view a list of ASH standards and their Amazon Resource Names (ARNs), use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API&#95;DescribeStandards.html) API operation.<br />You must create a separate &#96;&#96;AWS::SecurityHub::Standard&#96;&#96; resource for each standard that you want to enable.<br />For more information about ASH standards, see &#91;standards reference&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/standards-reference.html) in the &#42;User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::SecurityHub::Standard</code> resource specifies the enablement of a security standard. The standard is identified by the <code>StandardsArn</code> property. To view a list of ASH standards and their Amazon Resource Names (ARNs), use the <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html">DescribeStandards</a> API operation.</summary>You must create a separate <code>AWS::SecurityHub::Standard</code> resource for each standard that you want to enable.<br />For more information about ASH standards, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/standards-reference.html">standards reference</a> in the <i>User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.securityhub.standards" /></td></tr>
 </tbody>
 </table>
@@ -51,12 +51,12 @@ Creates, updates, deletes or gets a <code>standard</code> resource or lists <cod
   {
     "name": "standards_arn",
     "type": "string",
-    "description": "The ARN of the standard that you want to enable. To view a list of available ASH standards and their ARNs, use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API&#95;DescribeStandards.html) API operation."
+    "description": "The ARN of the standard that you want to enable. To view a list of available ASH standards and their ARNs, use the <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html\">DescribeStandards</a> API operation."
   },
   {
     "name": "disabled_standards_controls",
     "type": "array",
-    "description": "Specifies which controls are to be disabled in a standard. <br />&#42;Maximum&#42;: &#96;&#96;100&#96;&#96;",
+    "description": "<details><summary>Specifies which controls are to be disabled in a standard.</summary><i>Maximum</i>: <code>100</code></details>",
     "children": [
       {
         "name": "standards_control_arn",
@@ -159,7 +159,7 @@ SELECT
   disabled_standards_controls
 FROM awscc.securityhub.standards
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ standards_subscription_arn }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   standards_subscription_arn
 FROM awscc.securityhub.standards_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.securityhub.standards
 WHERE
   Identifier = '{{ standards_subscription_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

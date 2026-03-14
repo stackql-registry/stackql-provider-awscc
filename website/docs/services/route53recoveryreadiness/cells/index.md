@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.route53recoveryreadiness.cells
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cell_name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   cell_name
 FROM awscc.route53recoveryreadiness.cells_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +286,7 @@ WHERE
 DELETE FROM awscc.route53recoveryreadiness.cells
 WHERE
   Identifier = '{{ cell_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

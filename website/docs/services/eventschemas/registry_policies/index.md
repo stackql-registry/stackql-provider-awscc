@@ -107,7 +107,7 @@ SELECT
   revision_id
 FROM awscc.eventschemas.registry_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 
@@ -204,7 +204,7 @@ WHERE
 DELETE FROM awscc.eventschemas.registry_policies
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

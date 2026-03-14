@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>cluster_capacity_provider_association<
       {
         "name": "capacity_provider",
         "type": "string",
-        "description": "If using ec2 auto-scaling, the name of the associated capacity provider. Otherwise FARGATE, FARGATE&#95;SPOT."
+        "description": "If using ec2 auto-scaling, the name of the associated capacity provider. Otherwise FARGATE, FARGATE_SPOT."
       },
       {
         "name": "base",
@@ -164,7 +164,7 @@ SELECT
   cluster
 FROM awscc.ecs.cluster_capacity_provider_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   cluster
 FROM awscc.ecs.cluster_capacity_provider_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +280,7 @@ WHERE
 DELETE FROM awscc.ecs.cluster_capacity_provider_associations
 WHERE
   Identifier = '{{ cluster }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

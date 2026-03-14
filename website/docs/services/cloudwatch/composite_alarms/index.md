@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>composite_alarm</code> resource or lis
   {
     "name": "insufficient_data_actions",
     "type": "array",
-    "description": "The actions to execute when this alarm transitions to the INSUFFICIENT&#95;DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN)."
+    "description": "The actions to execute when this alarm transitions to the INSUFFICIENT_DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN)."
   },
   {
     "name": "actions_suppressor",
@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.cloudwatch.composite_alarms
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   alarm_name
 FROM awscc.cloudwatch.composite_alarms_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +366,7 @@ WHERE
 DELETE FROM awscc.cloudwatch.composite_alarms
 WHERE
   Identifier = '{{ alarm_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

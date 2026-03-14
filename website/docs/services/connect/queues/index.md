@@ -237,7 +237,7 @@ SELECT
   type
 FROM awscc.connect.queues
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ queue_arn }}';
 ```
 </TabItem>
@@ -250,7 +250,7 @@ SELECT
   queue_arn
 FROM awscc.connect.queues_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +392,7 @@ WHERE
 DELETE FROM awscc.connect.queues
 WHERE
   Identifier = '{{ queue_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

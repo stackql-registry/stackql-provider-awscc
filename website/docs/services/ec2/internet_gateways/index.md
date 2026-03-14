@@ -153,7 +153,7 @@ SELECT
   tags
 FROM awscc.ec2.internet_gateways
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ internet_gateway_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   internet_gateway_id
 FROM awscc.ec2.internet_gateways_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -254,7 +254,7 @@ WHERE
 DELETE FROM awscc.ec2.internet_gateways
 WHERE
   Identifier = '{{ internet_gateway_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

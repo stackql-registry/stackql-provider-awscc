@@ -153,7 +153,7 @@ SELECT
   domain
 FROM awscc.personalize.dataset_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dataset_group_arn }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   dataset_group_arn
 FROM awscc.personalize.dataset_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.personalize.dataset_groups
 WHERE
   Identifier = '{{ dataset_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

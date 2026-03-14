@@ -56,22 +56,22 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "multi_attach_enabled",
         "type": "boolean",
-        "description": "Indicates whether Amazon EBS Multi-Attach is enabled.<br />CFNlong does not currently support updating a single-attach volume to be multi-attach enabled, updating a multi-attach enabled volume to be single-attach, or updating the size or number of I/O operations per second (IOPS) of a multi-attach enabled volume."
+        "description": "<details><summary>Indicates whether Amazon EBS Multi-Attach is enabled.</summary>CFNlong does not currently support updating a single-attach volume to be multi-attach enabled, updating a multi-attach enabled volume to be single-attach, or updating the size or number of I/O operations per second (IOPS) of a multi-attach enabled volume.</details>"
       },
       {
         "name": "kms_key_id",
         "type": "string",
-        "description": "The identifier of the kms-key-long to use for Amazon EBS encryption. If &#96;&#96;KmsKeyId&#96;&#96; is specified, the encrypted state must be &#96;&#96;true&#96;&#96;.<br />If you omit this property and your account is enabled for encryption by default, or &#42;Encrypted&#42; is set to &#96;&#96;true&#96;&#96;, then the volume is encrypted using the default key specified for your account. If your account does not have a default key, then the volume is encrypted using the aws-managed-key.<br />Alternatively, if you want to specify a different key, you can specify one of the following:<br />+ Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.<br />+ Key alias. Specify the alias for the key, prefixed with &#96;&#96;alias/&#96;&#96;. For example, for a key with the alias &#96;&#96;my&#95;cmk&#96;&#96;, use &#96;&#96;alias/my&#95;cmk&#96;&#96;. Or to specify the aws-managed-key, use &#96;&#96;alias/aws/ebs&#96;&#96;.<br />+ Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.<br />+ Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias."
+        "description": "<details><summary>The identifier of the kms-key-long to use for Amazon EBS encryption. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</summary>If you omit this property and your account is enabled for encryption by default, or <i>Encrypted</i> is set to <code>true</code>, then the volume is encrypted using the default key specified for your account. If your account does not have a default key, then the volume is encrypted using the aws-managed-key.<br />Alternatively, if you want to specify a different key, you can specify one of the following:<br />+  Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.<br />+  Key alias. Specify the alias for the key, prefixed with <code>alias/</code>. For example, for a key with the alias <code>my_cmk</code>, use <code>alias/my_cmk</code>. Or to specify the aws-managed-key, use <code>alias/aws/ebs</code>.<br />+  Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.<br />+  Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.</details>"
       },
       {
         "name": "encrypted",
         "type": "boolean",
-        "description": "Indicates whether the volume should be encrypted. The effect of setting the encryption state to &#96;&#96;true&#96;&#96; depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see &#91;Encryption by default&#93;(https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default) in the &#42;Amazon EBS User Guide&#42;.<br />Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more information, see &#91;Supported instance types&#93;(https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption&#95;supported&#95;instances)."
+        "description": "<details><summary>Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default\">Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</summary>Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances\">Supported instance types</a>.</details>"
       },
       {
         "name": "size",
         "type": "integer",
-        "description": "The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the snapshot size.<br />The following are the supported volumes sizes for each volume type:<br />+ &#96;&#96;gp2&#96;&#96; and &#96;&#96;gp3&#96;&#96;: 1 - 16,384 GiB<br />+ &#96;&#96;io1&#96;&#96;: 4 - 16,384 GiB<br />+ &#96;&#96;io2&#96;&#96;: 4 - 65,536 GiB<br />+ &#96;&#96;st1&#96;&#96; and &#96;&#96;sc1&#96;&#96;: 125 - 16,384 GiB<br />+ &#96;&#96;standard&#96;&#96;: 1 - 1024 GiB"
+        "description": "<details><summary>The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the snapshot size.</summary>The following are the supported volumes sizes for each volume type:<br />+  <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB<br />+  <code>io1</code>: 4 - 16,384 GiB<br />+  <code>io2</code>: 4 - 65,536 GiB<br />+  <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB<br />+  <code>standard</code>: 1 - 1024 GiB</details>"
       },
       {
         "name": "auto_enable_io",
@@ -86,22 +86,22 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "availability_zone",
         "type": "string",
-        "description": "The ID of the Availability Zone in which to create the volume. For example, &#96;&#96;us-east-1a&#96;&#96;.<br />Either &#96;&#96;AvailabilityZone&#96;&#96; or &#96;&#96;AvailabilityZoneId&#96;&#96; must be specified, but not both."
+        "description": "<details><summary>The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.</summary>Either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code> must be specified, but not both.</details>"
       },
       {
         "name": "throughput",
         "type": "integer",
-        "description": "The throughput to provision for a volume, with a maximum of 1,000 MiB/s.<br />This parameter is valid only for &#96;&#96;gp3&#96;&#96; volumes. The default value is 125.<br />Valid Range: Minimum value of 125. Maximum value of 1000."
+        "description": "<details><summary>The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</summary>This parameter is valid only for <code>gp3</code> volumes. The default value is 125.<br />Valid Range: Minimum value of 125. Maximum value of 1000.</details>"
       },
       {
         "name": "iops",
         "type": "integer",
-        "description": "The number of I/O operations per second (IOPS). For &#96;&#96;gp3&#96;&#96;, &#96;&#96;io1&#96;&#96;, and &#96;&#96;io2&#96;&#96; volumes, this represents the number of IOPS that are provisioned for the volume. For &#96;&#96;gp2&#96;&#96; volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.<br />The following are the supported values for each volume type:<br />+ &#96;&#96;gp3&#96;&#96;: 3,000 - 16,000 IOPS<br />+ &#96;&#96;io1&#96;&#96;: 100 - 64,000 IOPS<br />+ &#96;&#96;io2&#96;&#96;: 100 - 256,000 IOPS<br /><br />For &#96;&#96;io2&#96;&#96; volumes, you can achieve up to 256,000 IOPS on &#91;instances built on the Nitro System&#93;(https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html). On other instances, you can achieve performance up to 32,000 IOPS.<br />This parameter is required for &#96;&#96;io1&#96;&#96; and &#96;&#96;io2&#96;&#96; volumes. The default for &#96;&#96;gp3&#96;&#96; volumes is 3,000 IOPS. This parameter is not supported for &#96;&#96;gp2&#96;&#96;, &#96;&#96;st1&#96;&#96;, &#96;&#96;sc1&#96;&#96;, or &#96;&#96;standard&#96;&#96; volumes."
+        "description": "<details><summary>The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.</summary>The following are the supported values for each volume type:<br />+  <code>gp3</code>: 3,000 - 16,000 IOPS<br />+  <code>io1</code>: 100 - 64,000 IOPS<br />+  <code>io2</code>: 100 - 256,000 IOPS<br />For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a href=\"https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html\">instances built on the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.<br />This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code> volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</details>"
       },
       {
         "name": "volume_initialization_rate",
         "type": "integer",
-        "description": "Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the volume. This is also known as &#42;volume initialization&#42;. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.<br />This parameter is supported only for volumes created from snapshots. Omit this parameter if:<br />+ You want to create the volume using fast snapshot restore. You must specify a snapshot that is enabled for fast snapshot restore. In this case, the volume is fully initialized at creation.<br />If you specify a snapshot that is enabled for fast snapshot restore and a volume initialization rate, the volume will be initialized at the specified rate instead of fast snapshot restore.<br />+ You want to create a volume that is initialized at the default rate.<br /><br />For more information, see &#91;Initialize Amazon EBS volumes&#93;(https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html) in the &#42;Amazon EC2 User Guide&#42;.<br />Valid range: 100 - 300 MiB/s"
+        "description": "<details><summary>Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the volume. This is also known as <i>volume initialization</i>. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.</summary>This parameter is supported only for volumes created from snapshots. Omit this parameter if:<br />+  You want to create the volume using fast snapshot restore. You must specify a snapshot that is enabled for fast snapshot restore. In this case, the volume is fully initialized at creation.<br />If you specify a snapshot that is enabled for fast snapshot restore and a volume initialization rate, the volume will be initialized at the specified rate instead of fast snapshot restore.<br />+  You want to create a volume that is initialized at the default rate.<br />For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html\">Initialize Amazon EBS volumes</a> in the <i>Amazon EC2 User Guide</i>.<br />Valid range: 100 - 300 MiB/s</details>"
       },
       {
         "name": "snapshot_id",
@@ -116,7 +116,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "volume_type",
         "type": "string",
-        "description": "The volume type. This parameter can be one of the following values:<br />+ General Purpose SSD: &#96;&#96;gp2&#96;&#96; &#124; &#96;&#96;gp3&#96;&#96;<br />+ Provisioned IOPS SSD: &#96;&#96;io1&#96;&#96; &#124; &#96;&#96;io2&#96;&#96;<br />+ Throughput Optimized HDD: &#96;&#96;st1&#96;&#96;<br />+ Cold HDD: &#96;&#96;sc1&#96;&#96;<br />+ Magnetic: &#96;&#96;standard&#96;&#96;<br /><br />For more information, see &#91;Amazon EBS volume types&#93;(https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html).<br />Default: &#96;&#96;gp2&#96;&#96;"
+        "description": "<details><summary>The volume type. This parameter can be one of the following values:</summary>+  General Purpose SSD: <code>gp2</code> | <code>gp3</code><br />+  Provisioned IOPS SSD: <code>io1</code> | <code>io2</code><br />+  Throughput Optimized HDD: <code>st1</code><br />+  Cold HDD: <code>sc1</code><br />+  Magnetic: <code>standard</code><br />For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html\">Amazon EBS volume types</a>.<br />Default: <code>gp2</code></details>"
       },
       {
         "name": "tags",
@@ -179,7 +179,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "additional_info",
     "type": "string",
-    "description": "This property is reserved for internal use. If you use it, the stack fails with this error: Bad property set: &#91;Testing this property&#93; (Service: AmazonEC2; Status Code: 400; Error Code: InvalidParameterCombination; Request ID: 0XXXXXX-49c7-4b40-8bcc-76885dcXXXXX)."
+    "description": "This property is reserved for internal use. If you use it, the stack fails with this error: Bad property set: [Testing this property] (Service: AmazonEC2; Status Code: 400; Error Code: InvalidParameterCombination; Request ID: 0XXXXXX-49c7-4b40-8bcc-76885dcXXXXX)."
   },
   {
     "name": "hibernation_options",
@@ -213,27 +213,27 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "http_put_response_hop_limit",
         "type": "integer",
-        "description": "The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.<br />Default: &#96;&#96;1&#96;&#96;<br />Possible values: Integers from 1 to 64"
+        "description": "<details><summary>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</summary>Default: <code>1</code><br />Possible values: Integers from 1 to 64</details>"
       },
       {
         "name": "http_tokens",
         "type": "string",
-        "description": "Indicates whether IMDSv2 is required.<br />+ &#96;&#96;optional&#96;&#96; - IMDSv2 is optional. You can choose whether to send a session token in your instance metadata retrieval requests. If you retrieve IAM role credentials without a session token, you receive the IMDSv1 role credentials. If you retrieve IAM role credentials using a valid session token, you receive the IMDSv2 role credentials.<br />+ &#96;&#96;required&#96;&#96; - IMDSv2 is required. You must send a session token in your instance metadata retrieval requests. With this option, retrieving the IAM role credentials always returns IMDSv2 credentials; IMDSv1 credentials are not available.<br /><br />Default: If the value of &#96;&#96;ImdsSupport&#96;&#96; for the Amazon Machine Image (AMI) for your instance is &#96;&#96;v2.0&#96;&#96;, the default is &#96;&#96;required&#96;&#96;."
+        "description": "<details><summary>Indicates whether IMDSv2 is required.</summary>+  <code>optional</code> - IMDSv2 is optional. You can choose whether to send a session token in your instance metadata retrieval requests. If you retrieve IAM role credentials without a session token, you receive the IMDSv1 role credentials. If you retrieve IAM role credentials using a valid session token, you receive the IMDSv2 role credentials.<br />+  <code>required</code> - IMDSv2 is required. You must send a session token in your instance metadata retrieval requests. With this option, retrieving the IAM role credentials always returns IMDSv2 credentials; IMDSv1 credentials are not available.<br />Default: If the value of <code>ImdsSupport</code> for the Amazon Machine Image (AMI) for your instance is <code>v2.0</code>, the default is <code>required</code>.</details>"
       },
       {
         "name": "http_protocol_ipv6",
         "type": "string",
-        "description": "Enables or disables the IPv6 endpoint for the instance metadata service.<br />Default: &#96;&#96;disabled&#96;&#96;"
+        "description": "<details><summary>Enables or disables the IPv6 endpoint for the instance metadata service.</summary>Default: <code>disabled</code></details>"
       },
       {
         "name": "instance_metadata_tags",
         "type": "string",
-        "description": "Set to &#96;&#96;enabled&#96;&#96; to allow access to instance tags from the instance metadata. Set to &#96;&#96;disabled&#96;&#96; to turn off access to instance tags from the instance metadata. For more information, see &#91;View tags for your EC2 instances using instance metadata&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html).<br />Default: &#96;&#96;disabled&#96;&#96;"
+        "description": "<details><summary>Set to <code>enabled</code> to allow access to instance tags from the instance metadata. Set to <code>disabled</code> to turn off access to instance tags from the instance metadata. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html\">View tags for your EC2 instances using instance metadata</a>.</summary>Default: <code>disabled</code></details>"
       },
       {
         "name": "http_endpoint",
         "type": "string",
-        "description": "Enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is &#96;&#96;enabled&#96;&#96;.<br />If you specify a value of &#96;&#96;disabled&#96;&#96;, you will not be able to access your instance metadata."
+        "description": "<details><summary>Enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</summary>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata.</details>"
       }
     ]
   },
@@ -277,7 +277,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "hostname_type",
         "type": "string",
-        "description": "The type of hostname for EC2 instances. For IPv4 only subnets, an instance DNS name must be based on the instance IPv4 address. For IPv6 only subnets, an instance DNS name must be based on the instance ID. For dual-stack subnets, you can specify whether DNS names use the instance IPv4 address or the instance ID. For more information, see &#91;Amazon EC2 instance hostname types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the &#42;User Guide&#42;."
+        "description": "The type of hostname for EC2 instances. For IPv4 only subnets, an instance DNS name must be based on the instance IPv4 address. For IPv6 only subnets, an instance DNS name must be based on the instance ID. For dual-stack subnets, you can specify whether DNS names use the instance IPv4 address or the instance ID. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">Amazon EC2 instance hostname types</a> in the <i>User Guide</i>."
       },
       {
         "name": "enable_resource_name_dns_aa_aa_record",
@@ -304,7 +304,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "placement_group_name",
     "type": "string",
-    "description": "The name of an existing placement group that you want to launch the instance into (cluster &#124; partition &#124; spread)."
+    "description": "The name of an existing placement group that you want to launch the instance into (cluster | partition | spread)."
   },
   {
     "name": "ssm_associations",
@@ -375,7 +375,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "private_ip_address",
     "type": "string",
-    "description": "&#91;EC2-VPC&#93; The primary IPv4 address. You must specify a value from the IPv4 address range of the subnet."
+    "description": "[EC2-VPC] The primary IPv4 address. You must specify a value from the IPv4 address range of the subnet."
   },
   {
     "name": "user_data",
@@ -449,7 +449,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "ipv6_addresses",
     "type": "array",
-    "description": "&#91;EC2-VPC&#93; The IPv6 addresses from the range of the subnet to associate with the primary network interface.",
+    "description": "[EC2-VPC] The IPv6 addresses from the range of the subnet to associate with the primary network interface.",
     "children": [
       {
         "name": "ipv6_address",
@@ -466,7 +466,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "subnet_id",
     "type": "string",
-    "description": "&#91;EC2-VPC&#93; The ID of the subnet to launch the instance into.<br />"
+    "description": "[EC2-VPC] The ID of the subnet to launch the instance into."
   },
   {
     "name": "ebs_optimized",
@@ -510,7 +510,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "ipv6_address_count",
     "type": "integer",
-    "description": "&#91;EC2-VPC&#93; The number of IPv6 addresses to associate with the primary network interface. Amazon EC2 chooses the IPv6 addresses from the range of your subnet."
+    "description": "[EC2-VPC] The number of IPv6 addresses to associate with the primary network interface. Amazon EC2 chooses the IPv6 addresses from the range of your subnet."
   },
   {
     "name": "launch_template",
@@ -885,7 +885,7 @@ SELECT
   credit_specification
 FROM awscc.ec2.instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_id }}';
 ```
 </TabItem>
@@ -898,7 +898,7 @@ SELECT
   instance_id
 FROM awscc.ec2.instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1327,7 +1327,7 @@ WHERE
 DELETE FROM awscc.ec2.instances
 WHERE
   Identifier = '{{ instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -141,7 +141,7 @@ SELECT
   key_arn
 FROM awscc.paymentcryptography.aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ alias_name }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   alias_name
 FROM awscc.paymentcryptography.aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -244,7 +244,7 @@ WHERE
 DELETE FROM awscc.paymentcryptography.aliases
 WHERE
   Identifier = '{{ alias_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

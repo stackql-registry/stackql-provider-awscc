@@ -612,7 +612,7 @@ SELECT
   e_c2_managed_instance
 FROM awscc.workspacesinstances.workspace_instances
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_instance_id }}';
 ```
 </TabItem>
@@ -625,7 +625,7 @@ SELECT
   workspace_instance_id
 FROM awscc.workspacesinstances.workspace_instances_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -795,7 +795,7 @@ WHERE
 DELETE FROM awscc.workspacesinstances.workspace_instances
 WHERE
   Identifier = '{{ workspace_instance_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -195,7 +195,7 @@ SELECT
   tags
 FROM awscc.sagemaker.mlflow_tracking_servers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ tracking_server_name }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   tracking_server_name
 FROM awscc.sagemaker.mlflow_tracking_servers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +334,7 @@ WHERE
 DELETE FROM awscc.sagemaker.mlflow_tracking_servers
 WHERE
   Identifier = '{{ tracking_server_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

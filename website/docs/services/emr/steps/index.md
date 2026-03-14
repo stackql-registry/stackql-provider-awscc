@@ -42,7 +42,7 @@ Creates, updates, deletes or gets a <code>step</code> resource or lists <code>st
   {
     "name": "action_on_failure",
     "type": "string",
-    "description": "This specifies what action to take when the cluster step fails. Possible values are CANCEL&#95;AND&#95;WAIT and CONTINUE."
+    "description": "This specifies what action to take when the cluster step fails. Possible values are CANCEL_AND_WAIT and CONTINUE."
   },
   {
     "name": "hadoop_jar_step",
@@ -137,7 +137,7 @@ SELECT
   name
 FROM awscc.emr.steps
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 

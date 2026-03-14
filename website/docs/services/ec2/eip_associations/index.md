@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>eip_association</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>eip_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account. For more information about working with Elastic IP addresses, see &#91;Elastic IP address concepts and rules&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#vpc-eip-overview).<br />You must specify &#96;&#96;AllocationId&#96;&#96; and either &#96;&#96;InstanceId&#96;&#96;, &#96;&#96;NetworkInterfaceId&#96;&#96;, or &#96;&#96;PrivateIpAddress&#96;&#96;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account. For more information about working with Elastic IP addresses, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#vpc-eip-overview">Elastic IP address concepts and rules</a>.</summary>You must specify <code>AllocationId</code> and either <code>InstanceId</code>, <code>NetworkInterfaceId</code>, or <code>PrivateIpAddress</code>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.eip_associations" /></td></tr>
 </tbody>
 </table>
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets an <code>eip_association</code> resource or li
   {
     "name": "network_interface_id",
     "type": "string",
-    "description": "The ID of the network interface. If the instance has more than one network interface, you must specify a network interface ID.<br />You can specify either the instance ID or the network interface ID, but not both."
+    "description": "<details><summary>The ID of the network interface. If the instance has more than one network interface, you must specify a network interface ID.</summary>You can specify either the instance ID or the network interface ID, but not both.</details>"
   },
   {
     "name": "e_ip",
@@ -159,7 +159,7 @@ SELECT
   e_ip
 FROM awscc.ec2.eip_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   id
 FROM awscc.ec2.eip_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ resources:
 DELETE FROM awscc.ec2.eip_associations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

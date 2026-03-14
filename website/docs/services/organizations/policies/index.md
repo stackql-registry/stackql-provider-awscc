@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Policies in AWS Organizations enable you to manage different features of the AWS accounts in your organization. You can use policies when all features are enabled in your organization.</td></tr>
+<tr><td><b>Description</b></td><td>Policies in AWS Organizations enable you to manage different features of the AWS accounts in your organization.  You can use policies when all features are enabled in your organization.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.organizations.policies" /></td></tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
   {
     "name": "type",
     "type": "string",
-    "description": "The type of policy to create. You can specify one of the following values: AISERVICES&#95;OPT&#95;OUT&#95;POLICY, BACKUP&#95;POLICY, SERVICE&#95;CONTROL&#95;POLICY, TAG&#95;POLICY, CHATBOT&#95;POLICY, RESOURCE&#95;CONTROL&#95;POLICY,DECLARATIVE&#95;POLICY&#95;EC2, SECURITYHUB&#95;POLICY"
+    "description": "The type of policy to create. You can specify one of the following values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY, CHATBOT_POLICY, RESOURCE_CONTROL_POLICY,DECLARATIVE_POLICY_EC2, SECURITYHUB_POLICY"
   },
   {
     "name": "content",

@@ -227,7 +227,7 @@ SELECT
   actions
 FROM awscc.apigatewayv2.routing_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ routing_rule_arn }}';
 ```
 </TabItem>
@@ -240,7 +240,7 @@ SELECT
   routing_rule_arn
 FROM awscc.apigatewayv2.routing_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.routing_rules
 WHERE
   Identifier = '{{ routing_rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

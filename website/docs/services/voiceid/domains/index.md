@@ -178,7 +178,7 @@ SELECT
   tags
 FROM awscc.voiceid.domains
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}';
 ```
 </TabItem>
@@ -191,7 +191,7 @@ SELECT
   domain_id
 FROM awscc.voiceid.domains_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.voiceid.domains
 WHERE
   Identifier = '{{ domain_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

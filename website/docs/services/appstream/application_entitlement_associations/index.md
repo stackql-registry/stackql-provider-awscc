@@ -96,7 +96,7 @@ SELECT
   application_identifier
 FROM awscc.appstream.application_entitlement_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}';
 ```
 
@@ -178,7 +178,7 @@ resources:
 DELETE FROM awscc.appstream.application_entitlement_associations
 WHERE
   Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

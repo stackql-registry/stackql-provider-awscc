@@ -188,7 +188,7 @@ SELECT
   max_size
 FROM awscc.autoscaling.scheduled_actions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   auto_scaling_group_name
 FROM awscc.autoscaling.scheduled_actions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -322,7 +322,7 @@ WHERE
 DELETE FROM awscc.autoscaling.scheduled_actions
 WHERE
   Identifier = '{{ scheduled_action_name }}|{{ auto_scaling_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

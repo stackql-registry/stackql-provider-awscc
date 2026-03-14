@@ -115,7 +115,7 @@ SELECT
   region
 FROM awscc.cloud_control.resource_requests
 WHERE
-  region = 'us-east-1' AND ResourceRequestStatusFilter = '<ResourceRequestStatusFilter>';;
+  region = 'us-east-1' AND ResourceRequestStatusFilter = '<ResourceRequestStatusFilter>';
 ```
 
 

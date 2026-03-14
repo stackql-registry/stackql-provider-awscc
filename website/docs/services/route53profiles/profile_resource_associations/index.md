@@ -46,22 +46,22 @@ Creates, updates, deletes or gets a <code>profile_resource_association</code> re
   {
     "name": "profile_id",
     "type": "string",
-    "description": "The ID of the profile that you associated the resource to that is specified by ResourceArn."
+    "description": "The ID of the  profile that you associated the resource to that is specified by ResourceArn."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Primary Identifier for Profile Resource Association"
+    "description": "Primary Identifier for  Profile Resource Association"
   },
   {
     "name": "name",
     "type": "string",
-    "description": "The name of an association between the Profile and resource."
+    "description": "The name of an association between the  Profile and resource."
   },
   {
     "name": "resource_arn",
     "type": "string",
-    "description": "The arn of the resource that you associated to the Profile."
+    "description": "The arn of the resource that you associated to the  Profile."
   },
   {
     "name": "resource_properties",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>profile_resource_association</code> re
   {
     "name": "resource_type",
     "type": "string",
-    "description": "The type of the resource associated to the Profile."
+    "description": "The type of the resource associated to the  Profile."
   },
   {
     "name": "region",
@@ -86,7 +86,7 @@ Creates, updates, deletes or gets a <code>profile_resource_association</code> re
   {
     "name": "id",
     "type": "string",
-    "description": "Primary Identifier for Profile Resource Association"
+    "description": "Primary Identifier for  Profile Resource Association"
   },
   {
     "name": "region",
@@ -165,7 +165,7 @@ SELECT
   resource_type
 FROM awscc.route53profiles.profile_resource_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   id
 FROM awscc.route53profiles.profile_resource_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +280,7 @@ WHERE
 DELETE FROM awscc.route53profiles.profile_resource_associations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

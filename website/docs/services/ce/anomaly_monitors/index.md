@@ -201,7 +201,7 @@ SELECT
   resource_tags
 FROM awscc.ce.anomaly_monitors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ monitor_arn }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   monitor_arn
 FROM awscc.ce.anomaly_monitors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +320,7 @@ WHERE
 DELETE FROM awscc.ce.anomaly_monitors
 WHERE
   Identifier = '{{ monitor_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

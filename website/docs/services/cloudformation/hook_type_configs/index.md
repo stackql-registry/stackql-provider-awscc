@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>hook_type_config</code> resource or li
   {
     "name": "type_name",
     "type": "string",
-    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+    "description": "<details><summary>The name of the type being registered.</summary>We recommend that type names adhere to the following pattern: company_or_organization::service::type.</details>"
   },
   {
     "name": "configuration_arn",
@@ -164,7 +164,7 @@ SELECT
   configuration_alias
 FROM awscc.cloudformation.hook_type_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ configuration_arn }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   configuration_arn
 FROM awscc.cloudformation.hook_type_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.cloudformation.hook_type_configs
 WHERE
   Identifier = '{{ configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

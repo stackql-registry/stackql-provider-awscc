@@ -405,7 +405,7 @@ SELECT
   vpc_configuration
 FROM awscc.qbusiness.data_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}';
 ```
 </TabItem>
@@ -420,7 +420,7 @@ SELECT
   index_id
 FROM awscc.qbusiness.data_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -588,7 +588,7 @@ WHERE
 DELETE FROM awscc.qbusiness.data_sources
 WHERE
   Identifier = '{{ application_id }}|{{ data_source_id }}|{{ index_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

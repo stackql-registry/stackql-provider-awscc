@@ -451,7 +451,7 @@ SELECT
   tags
 FROM awscc.iot.job_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ job_template_id }}';
 ```
 </TabItem>
@@ -464,7 +464,7 @@ SELECT
   job_template_id
 FROM awscc.iot.job_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -756,7 +756,7 @@ resources:
 DELETE FROM awscc.iot.job_templates
 WHERE
   Identifier = '{{ job_template_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

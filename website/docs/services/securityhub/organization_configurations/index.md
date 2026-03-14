@@ -171,7 +171,7 @@ SELECT
   organization_configuration_identifier
 FROM awscc.securityhub.organization_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ organization_configuration_identifier }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   organization_configuration_identifier
 FROM awscc.securityhub.organization_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +280,7 @@ WHERE
 DELETE FROM awscc.securityhub.organization_configurations
 WHERE
   Identifier = '{{ organization_configuration_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

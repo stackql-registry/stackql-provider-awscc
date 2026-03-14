@@ -224,7 +224,7 @@ SELECT
   execution_role
 FROM awscc.cloudformation.lambda_hooks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ hook_arn }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   hook_arn
 FROM awscc.cloudformation.lambda_hooks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -379,7 +379,7 @@ WHERE
 DELETE FROM awscc.cloudformation.lambda_hooks
 WHERE
   Identifier = '{{ hook_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

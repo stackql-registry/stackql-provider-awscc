@@ -152,7 +152,7 @@ SELECT
   return_merged_resources
 FROM awscc.cognito.managed_login_brandings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```
 
@@ -265,7 +265,7 @@ WHERE
 DELETE FROM awscc.cognito.managed_login_brandings
 WHERE
   Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

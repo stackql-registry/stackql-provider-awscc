@@ -18,6 +18,12 @@ const providerName = 'awscc';
 const providerDirName = 'awscc'; // Directory name differs from provider name
 const staticServices = [];
 const nativeServices = ['cloud_control', 'tagging'];
+// AWS global services where us-east-1 is the canonical region for Cloud Control API
+const globalOnlyServices = ['iam', 'route53', 'organizations', 'cloudfront', 'globalaccelerator', 'shield', 'budgets'];
+
+function getRegionExample(serviceName) {
+    return globalOnlyServices.includes(serviceName) ? 'us-east-1' : '{{ region }}';
+}
 const websiteDir = '../website';
 const providerDevDir = '../provider-dev';
 const openAPIdir = '../openapi';
@@ -212,7 +218,7 @@ ${sqlCodeBlockStart}
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
 WHERE
   Identifier = '${resourceData['x-identifiers'].map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|')}' AND
-  region = 'us-east-1';
+  region = '${getRegionExample(serviceName)}';
 ${codeBlockEnd}
 `;
 }
@@ -536,7 +542,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
     const sqlExampleSelect = `SELECT`;
     const sqlExampleFrom = `FROM ${providerName}.${serviceName}.${resourceName}`;
 
-    sqlExampleWhere = "WHERE region = 'us-east-1'";
+    sqlExampleWhere = `WHERE region = '${getRegionExample(serviceName)}'`;
   
     let fields = resourceIdentifiers;
 
@@ -597,7 +603,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
         fields = schema.properties;
         resourceDescription = schema.description;
         if(schema['x-example-where-clause']){
-            sqlExampleWhere = `${schema['x-example-where-clause']};`
+            sqlExampleWhere = schema['x-example-where-clause'];
         }
 
         sqlVerbsList.push({
@@ -622,7 +628,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
         const hasProperties = !!(resolvedNativeSchema?.properties && Object.keys(resolvedNativeSchema.properties).length > 0);
 
         if (resourceData['x-example-where-clause']) {
-            sqlExampleWhere = `${resourceData['x-example-where-clause']};`;
+            sqlExampleWhere = resourceData['x-example-where-clause'];
         } else if (hasSchemaName && !hasProperties) {
             // Named-schema native with no resolvable properties and no where clause — not selectable
             isSelectable = false;
@@ -905,7 +911,7 @@ ${resourceDescription}
 <tbody>
 <tr><td><b>Name</b></td><td><code>${resourceName}</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-${schema.description ? `<tr><td><b>Description</b></td><td>${cleanDescription(schema.description)}</td></tr>` : `<tr><td><b>Description</b></td><td>${resourceName}</td></tr>`}
+${schema.description ? `<tr><td><b>Description</b></td><td>${wrapInDetails(cleanDescription(schema.description))}</td></tr>` : `<tr><td><b>Description</b></td><td>${resourceName}</td></tr>`}
 <tr><td><b>Id</b></td><td><CopyableCode code="${providerName}.${serviceName}.${resourceName}" /></td></tr>
 </tbody>
 </table>
@@ -941,79 +947,81 @@ function getTypeFromRef(ref, components) {
 
 function cleanDescription(description) {
     if (!description) return '';
-    
-    // MDX special chars to escape
-    const escapeForMdx = (str) => str
-        .replace(/{/g, '&#123;')
-        .replace(/}/g, '&#125;')
-        .replace(/\[/g, '&#91;')
-        .replace(/\]/g, '&#93;')
-        .replace(/\*/g, '&#42;')
-        .replace(/~/g, '&#126;')
-        .replace(/_/g, '&#95;')
-        .replace(/`/g, '&#96;')
-        .replace(/\|/g, '&#124;');
 
-    // Fix potentially malformed code tags from source
-    const fixCodeTags = (str) => {
-        // Remove any unclosed <code> tags by ensuring pairs
-        let result = str;
-        const openCount = (result.match(/<code>/gi) || []).length;
-        const closeCount = (result.match(/<\/code>/gi) || []).length;
-        
-        if (openCount > closeCount) {
-            // Add missing closing tags at end
-            for (let i = 0; i < openCount - closeCount; i++) {
-                result += '</code>';
-            }
-        } else if (closeCount > openCount) {
-            // Remove orphan closing tags
-            let diff = closeCount - openCount;
-            result = result.replace(/<\/code>/gi, (match) => {
-                if (diff > 0) {
-                    diff--;
-                    return '';
-                }
-                return match;
-            });
-        }
-        return result;
-    };
-
-    const htmlPattern = /<p[\s\S]*?>[\s\S]*?<\/p>|<code[\s\S]*?>[\s\S]*?<\/code>|<pre[\s\S]*?>[\s\S]*?<\/pre>|<br\s*\/?>/i;
-    
+    // Step 1: Convert markdown inline elements to HTML.
+    // Order: double-backtick before single, links before bare brackets, bold before italic.
     let result = description;
-    
-    // Protect content inside <code> tags from MDX escaping
-    // Use a placeholder that contains no characters touched by escapeForMdx
-    const codeBlocks = [];
-    result = result.replace(/<code>(.*?)<\/code>/gi, (match, content) => {
-        codeBlocks.push(content);
-        return `CODEBLOCK${codeBlocks.length - 1}END`;
-    });
+    result = result.replace(/``([^`]+?)``/g, '<code>$1</code>');
+    result = result.replace(/`([^`]+?)`/g, '<code>$1</code>');
+    result = result.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2">$1</a>');
+    result = result.replace(/\*\*([^*]+?)\*\*/g, '<b>$1</b>');
+    // *italic* — must not greedily consume across line boundaries
+    result = result.replace(/\*([^*\n]+?)\*/g, '<i>$1</i>');
 
-    // Apply MDX escaping to non-code content
-    result = escapeForMdx(result);
+    // Step 2: Process line structure — split on newlines, trim indent, convert
+    // ordered list items (1.  text) to <li>, group consecutive <li> into <ul>,
+    // and join remaining lines with <br /> (blank lines become paragraph breaks).
+    const lines = result.split(/\r?\n/);
+    const processed = [];
+    let inList = false;
 
-    // Restore code blocks (unescaped)
-    result = result.replace(/CODEBLOCK(\d+)END/g, (match, index) => {
-        return `<code>${codeBlocks[parseInt(index)]}</code>`;
-    });
-    
-    if(!htmlPattern.test(description)){
-        result = result
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+
+        if (/^\d+\.\s+/.test(line)) {
+            // Ordered list item → bullet <li>
+            if (!inList) {
+                processed.push('<ul>');
+                inList = true;
+            }
+            processed.push('<li>' + line.replace(/^\d+\.\s+/, '') + '</li>');
+        } else {
+            if (inList) {
+                processed.push('</ul>');
+                inList = false;
+            }
+            if (line === '') {
+                // Blank line — skip (lists and text lines already handle their own spacing)
+            } else {
+                // Non-empty non-list line — append with a single <br /> separator
+                const prev = processed.length > 0 ? processed[processed.length - 1] : '';
+                if (processed.length > 0 &&
+                    !prev.endsWith('<ul>') &&
+                    !prev.endsWith('</ul>')) {
+                    processed.push('<br />');
+                }
+                processed.push(line);
+            }
+        }
     }
-    
+    if (inList) processed.push('</ul>');
+    result = processed.join('');
+
+    // Step 3: Protect all HTML tags from MDX escaping using placeholders.
+    const htmlTags = [];
+    result = result.replace(/<[^>]+>/g, (tag) => {
+        htmlTags.push(tag);
+        return `HTMLTAG${htmlTags.length - 1}END`;
+    });
+
+    // Step 4: Escape only MDX-breaking chars in plain text.
     result = result
-        .replace(/[\r\n]+/g, '<br />')
-        .replace(/\t/g, ' ')
-        .replace(/\s\s+/g, ' ')
-        .replace(/<br \/>\s+/g, '<br />')
-        .trim();
-    
-    return fixCodeTags(result);
+        .replace(/{/g, '&#123;')
+        .replace(/}/g, '&#125;');
+
+    // Step 5: Restore HTML tags.
+    result = result.replace(/HTMLTAG(\d+)END/g, (_, i) => htmlTags[parseInt(i)]);
+
+    return result.trim();
+}
+
+function wrapInDetails(html) {
+    const breakIndex = html.indexOf('<br />');
+    if (breakIndex === -1) return html;
+    const firstLine = html.substring(0, breakIndex);
+    const rest = html.substring(breakIndex + 6); // skip '<br />'
+    if (!rest.trim()) return html;
+    return `<details><summary>${firstLine}</summary>${rest}</details>`;
 }
 
 function toSnakeCase(str) {
@@ -1115,7 +1123,7 @@ function generateSchemaJson(schema, componentsSchemas, depth = 0, maxDepth = 4, 
         }
 
         if (prop.description) propDesc = prop.description;
-        propDesc = cleanDescription(propDesc);
+        propDesc = wrapInDetails(cleanDescription(propDesc));
 
         // Handle arrays - get children from items
         if ((propType === 'array' || resolvedSchema.type === 'array') && (resolvedSchema.items || prop.items)) {

@@ -162,7 +162,7 @@ SELECT
   domain_identifier
 FROM awscc.datazone.owners
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}';
 ```
 </TabItem>
@@ -179,7 +179,7 @@ SELECT
   owner_identifier
 FROM awscc.datazone.owners_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +268,7 @@ resources:
 DELETE FROM awscc.datazone.owners
 WHERE
   Identifier = '{{ domain_identifier }}|{{ entity_type }}|{{ entity_identifier }}|{{ owner_type }}|{{ owner_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

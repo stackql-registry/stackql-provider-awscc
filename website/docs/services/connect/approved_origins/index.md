@@ -140,7 +140,7 @@ SELECT
   instance_id
 FROM awscc.connect.approved_origins
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_id }}|{{ origin }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   origin
 FROM awscc.connect.approved_origins_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.connect.approved_origins
 WHERE
   Identifier = '{{ instance_id }}|{{ origin }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

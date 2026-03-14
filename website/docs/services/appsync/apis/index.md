@@ -118,7 +118,7 @@ Creates, updates, deletes or gets an <code>api</code> resource or lists <code>ap
               {
                 "name": "iat_ttl",
                 "type": "number",
-                "description": "The number of milliseconds that a token is valid after it's issued to a user.<br />"
+                "description": "The number of milliseconds that a token is valid after it's issued to a user."
               }
             ]
           },
@@ -309,7 +309,7 @@ SELECT
   tags
 FROM awscc.appsync.apis
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_arn }}';
 ```
 </TabItem>
@@ -322,7 +322,7 @@ SELECT
   api_arn
 FROM awscc.appsync.apis_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +447,7 @@ WHERE
 DELETE FROM awscc.appsync.apis
 WHERE
   Identifier = '{{ api_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

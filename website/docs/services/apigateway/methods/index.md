@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>method</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>methods</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Method&#96;&#96; resource creates API Gateway methods that define the parameters and body that clients must send in their requests.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Method</code> resource creates API Gateway methods that define the parameters and body that clients must send in their requests.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.methods" /></td></tr>
 </tbody>
 </table>
@@ -37,7 +37,7 @@ Creates, updates, deletes or gets a <code>method</code> resource or lists <code>
   {
     "name": "integration",
     "type": "object",
-    "description": "&#96;&#96;Integration&#96;&#96; is a property of the &#91;AWS::ApiGateway::Method&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html) resource that specifies information about the target backend that a method calls.",
+    "description": "<code>Integration</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html\">AWS::ApiGateway::Method</a> resource that specifies information about the target backend that a method calls.",
     "children": [
       {
         "name": "cache_namespace",
@@ -208,7 +208,7 @@ Creates, updates, deletes or gets a <code>method</code> resource or lists <code>
   {
     "name": "authorization_type",
     "type": "string",
-    "description": "The method's authorization type. This parameter is required. For valid values, see &#91;Method&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;Method.html) in the &#42;API Gateway API Reference&#42;.<br />If you specify the &#96;&#96;AuthorizerId&#96;&#96; property, specify &#96;&#96;CUSTOM&#96;&#96; or &#96;&#96;COGNITO&#95;USER&#95;POOLS&#96;&#96; for this property."
+    "description": "<details><summary>The method's authorization type. This parameter is required. For valid values, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/API_Method.html\">Method</a> in the <i>API Gateway API Reference</i>.</summary>If you specify the <code>AuthorizerId</code> property, specify <code>CUSTOM</code> or <code>COGNITO_USER_POOLS</code> for this property.</details>"
   },
   {
     "name": "http_method",
@@ -277,7 +277,7 @@ SELECT
   http_method
 FROM awscc.apigateway.methods
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```
 
@@ -447,7 +447,7 @@ WHERE
 DELETE FROM awscc.apigateway.methods
 WHERE
   Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

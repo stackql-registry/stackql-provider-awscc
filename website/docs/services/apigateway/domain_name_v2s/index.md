@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or list
   {
     "name": "endpoint_configuration",
     "type": "object",
-    "description": "The &#96;&#96;EndpointConfiguration&#96;&#96; property type specifies the endpoint types of a REST API.<br />&#96;&#96;EndpointConfiguration&#96;&#96; is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.",
+    "description": "<details><summary>The <code>EndpointConfiguration</code> property type specifies the endpoint types of a REST API.</summary><code>EndpointConfiguration</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html\">AWS::ApiGateway::RestApi</a> resource.</details>",
     "children": [
       {
         "name": "ip_address_type",
@@ -98,7 +98,7 @@ Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or list
   {
     "name": "routing_mode",
     "type": "string",
-    "description": "The valid routing modes are &#91;BASE&#95;PATH&#95;MAPPING&#95;ONLY&#93;, &#91;ROUTING&#95;RULE&#95;THEN&#95;BASE&#95;PATH&#95;MAPPING&#93; and &#91;ROUTING&#95;RULE&#95;ONLY&#93;. All other inputs are invalid."
+    "description": "The valid routing modes are [BASE_PATH_MAPPING_ONLY], [ROUTING_RULE_THEN_BASE_PATH_MAPPING] and [ROUTING_RULE_ONLY]. All other inputs are invalid."
   },
   {
     "name": "tags",
@@ -217,7 +217,7 @@ SELECT
   tags
 FROM awscc.apigateway.domain_name_v2s
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name_arn }}';
 ```
 </TabItem>
@@ -230,7 +230,7 @@ SELECT
   domain_name_arn
 FROM awscc.apigateway.domain_name_v2s_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -362,7 +362,7 @@ WHERE
 DELETE FROM awscc.apigateway.domain_name_v2s
 WHERE
   Identifier = '{{ domain_name_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -130,12 +130,12 @@ Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>
           {
             "name": "encryption_mode",
             "type": "string",
-            "description": "Encryption mode for encrypting artifacts when uploading to S3. Valid values: SSE&#95;S3 and SSE&#95;KMS."
+            "description": "Encryption mode for encrypting artifacts when uploading to S3. Valid values: SSE_S3 and SSE_KMS."
           },
           {
             "name": "kms_key_arn",
             "type": "string",
-            "description": "KMS key Arn for encrypting artifacts when uploading to S3. You must specify KMS key Arn for SSE&#95;KMS encryption mode only."
+            "description": "KMS key Arn for encrypting artifacts when uploading to S3. You must specify KMS key Arn for SSE_KMS encryption mode only."
           }
         ]
       }
@@ -198,12 +198,12 @@ Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -450,7 +450,7 @@ SELECT
   visual_references
 FROM awscc.synthetics.canaries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -463,7 +463,7 @@ SELECT
   name
 FROM awscc.synthetics.canaries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -690,7 +690,7 @@ WHERE
 DELETE FROM awscc.synthetics.canaries
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

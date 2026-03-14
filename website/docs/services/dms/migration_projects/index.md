@@ -258,7 +258,7 @@ SELECT
   tags
 FROM awscc.dms.migration_projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ migration_project_arn }}';
 ```
 </TabItem>
@@ -271,7 +271,7 @@ SELECT
   migration_project_arn
 FROM awscc.dms.migration_projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -444,7 +444,7 @@ WHERE
 DELETE FROM awscc.dms.migration_projects
 WHERE
   Identifier = '{{ migration_project_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

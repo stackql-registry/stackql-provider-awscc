@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>compliance_summary</code> resource or 
       {
         "name": "target_id",
         "type": "string",
-        "description": "The account identifier or the root identifier of the organization. If you don't know the root ID, you can call the Organizations &lt;a href=\"https://docs.aws.amazon.com/organizations/latest/APIReference/API&#95;ListRoots.html\"&gt;ListRoots&lt;/a&gt; API."
+        "description": "The account identifier or the root identifier of the organization. If you don't know the root ID, you can call the Organizations <a href=\"https://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html\">ListRoots</a> API."
       },
       {
         "name": "target_id_type",
@@ -107,7 +107,7 @@ SELECT
   region
 FROM awscc.tagging.compliance_summary
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 

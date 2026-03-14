@@ -105,19 +105,19 @@ Creates, updates, deletes or gets an <code>analyzer</code> resource or lists <co
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
   {
     "name": "type",
     "type": "string",
-    "description": "The type of the analyzer, must be one of ACCOUNT, ORGANIZATION, ACCOUNT&#95;INTERNAL&#95;ACCESS, ORGANIZATION&#95;INTERNAL&#95;ACCESS, ACCOUNT&#95;UNUSED&#95;ACCESS and ORGANIZATION&#95;UNUSED&#95;ACCESS"
+    "description": "The type of the analyzer, must be one of ACCOUNT, ORGANIZATION, ACCOUNT_INTERNAL_ACCESS, ORGANIZATION_INTERNAL_ACCESS, ACCOUNT_UNUSED_ACCESS and ORGANIZATION_UNUSED_ACCESS"
   },
   {
     "name": "analyzer_configuration",
@@ -261,7 +261,7 @@ SELECT
   analyzer_configuration
 FROM awscc.accessanalyzer.analyzers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -274,7 +274,7 @@ SELECT
   arn
 FROM awscc.accessanalyzer.analyzers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +407,7 @@ WHERE
 DELETE FROM awscc.accessanalyzer.analyzers
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

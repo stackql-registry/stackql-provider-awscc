@@ -170,7 +170,7 @@ SELECT
   type
 FROM awscc.ec2.local_gateway_routes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   local_gateway_route_table_id
 FROM awscc.ec2.local_gateway_routes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -289,7 +289,7 @@ WHERE
 DELETE FROM awscc.ec2.local_gateway_routes
 WHERE
   Identifier = '{{ destination_cidr_block }}|{{ local_gateway_route_table_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

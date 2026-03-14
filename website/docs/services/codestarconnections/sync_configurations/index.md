@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>sync_configuration</code> resource or 
   {
     "name": "sync_type",
     "type": "string",
-    "description": "The type of resource synchronization service that is to be configured, for example, CFN&#95;STACK&#95;SYNC."
+    "description": "The type of resource synchronization service that is to be configured, for example, CFN_STACK_SYNC."
   },
   {
     "name": "role_arn",
@@ -116,7 +116,7 @@ Creates, updates, deletes or gets a <code>sync_configuration</code> resource or 
   {
     "name": "sync_type",
     "type": "string",
-    "description": "The type of resource synchronization service that is to be configured, for example, CFN&#95;STACK&#95;SYNC."
+    "description": "The type of resource synchronization service that is to be configured, for example, CFN_STACK_SYNC."
   },
   {
     "name": "region",
@@ -200,7 +200,7 @@ SELECT
   repository_link_id
 FROM awscc.codestarconnections.sync_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   sync_type
 FROM awscc.codestarconnections.sync_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +343,7 @@ WHERE
 DELETE FROM awscc.codestarconnections.sync_configurations
 WHERE
   Identifier = '{{ resource_name }}|{{ sync_type }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

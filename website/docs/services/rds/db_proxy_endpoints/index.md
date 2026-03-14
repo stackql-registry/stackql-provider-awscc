@@ -206,7 +206,7 @@ SELECT
   tags
 FROM awscc.rds.db_proxy_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_proxy_endpoint_name }}';
 ```
 </TabItem>
@@ -219,7 +219,7 @@ SELECT
   db_proxy_endpoint_name
 FROM awscc.rds.db_proxy_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +335,7 @@ WHERE
 DELETE FROM awscc.rds.db_proxy_endpoints
 WHERE
   Identifier = '{{ db_proxy_endpoint_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

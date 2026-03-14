@@ -83,7 +83,7 @@ Creates, updates, deletes or gets a <code>data_catalog</code> resource or lists 
   {
     "name": "status",
     "type": "string",
-    "description": "The status of the creation or deletion of the data catalog. LAMBDA, GLUE, and HIVE data catalog types are created synchronously. Their status is either CREATE&#95;COMPLETE or CREATE&#95;FAILED. The FEDERATED data catalog type is created asynchronously."
+    "description": "The status of the creation or deletion of the data catalog. LAMBDA, GLUE, and HIVE data catalog types are created synchronously. Their status is either CREATE_COMPLETE or CREATE_FAILED. The FEDERATED data catalog type is created asynchronously."
   },
   {
     "name": "connection_type",
@@ -189,7 +189,7 @@ SELECT
   error
 FROM awscc.athena.data_catalogs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   name
 FROM awscc.athena.data_catalogs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +326,7 @@ WHERE
 DELETE FROM awscc.athena.data_catalogs
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

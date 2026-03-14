@@ -296,7 +296,7 @@ SELECT
   health_events_config
 FROM awscc.internetmonitor.monitors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ monitor_name }}';
 ```
 </TabItem>
@@ -309,7 +309,7 @@ SELECT
   monitor_name
 FROM awscc.internetmonitor.monitors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -465,7 +465,7 @@ WHERE
 DELETE FROM awscc.internetmonitor.monitors
 WHERE
   Identifier = '{{ monitor_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

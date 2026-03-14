@@ -201,7 +201,7 @@ SELECT
   tags
 FROM awscc.ec2.hosts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ host_id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   host_id
 FROM awscc.ec2.hosts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +337,7 @@ WHERE
 DELETE FROM awscc.ec2.hosts
 WHERE
   Identifier = '{{ host_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

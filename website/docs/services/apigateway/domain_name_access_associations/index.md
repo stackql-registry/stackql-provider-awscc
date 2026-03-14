@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.apigateway.domain_name_access_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name_access_association_arn }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   domain_name_access_association_arn
 FROM awscc.apigateway.domain_name_access_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ resources:
 DELETE FROM awscc.apigateway.domain_name_access_associations
 WHERE
   Identifier = '{{ domain_name_access_association_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -172,7 +172,7 @@ SELECT
   snapshot_s3_location
 FROM awscc.simspaceweaver.simulations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   name
 FROM awscc.simspaceweaver.simulations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +276,7 @@ resources:
 DELETE FROM awscc.simspaceweaver.simulations
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

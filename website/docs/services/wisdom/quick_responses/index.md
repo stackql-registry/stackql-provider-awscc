@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>quick_response</code> resource or list
   {
     "name": "content_type",
     "type": "string",
-    "description": "The media type of the quick response content.<br />- Use application/x.quickresponse;format=plain for quick response written in plain text.<br />- Use application/x.quickresponse;format=markdown for quick response written in richtext."
+    "description": "<details><summary>The media type of the quick response content.</summary>- Use application/x.quickresponse;format=plain for quick response written in plain text.<br />- Use application/x.quickresponse;format=markdown for quick response written in richtext.</details>"
   },
   {
     "name": "knowledge_base_arn",
@@ -120,7 +120,7 @@ Creates, updates, deletes or gets a <code>quick_response</code> resource or list
   {
     "name": "language",
     "type": "string",
-    "description": "The language code value for the language in which the quick response is written. The supported language codes include de&#95;DE, en&#95;US, es&#95;ES, fr&#95;FR, id&#95;ID, it&#95;IT, ja&#95;JP, ko&#95;KR, pt&#95;BR, zh&#95;CN, zh&#95;TW"
+    "description": "The language code value for the language in which the quick response is written. The supported language codes include de_DE, en_US, es_ES, fr_FR, id_ID, it_IT, ja_JP, ko_KR, pt_BR, zh_CN, zh_TW"
   },
   {
     "name": "shortcut_key",
@@ -140,12 +140,12 @@ Creates, updates, deletes or gets a <code>quick_response</code> resource or list
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       }
     ]
   },
@@ -250,7 +250,7 @@ SELECT
   tags
 FROM awscc.wisdom.quick_responses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ quick_response_arn }}';
 ```
 </TabItem>
@@ -263,7 +263,7 @@ SELECT
   quick_response_arn
 FROM awscc.wisdom.quick_responses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -409,7 +409,7 @@ WHERE
 DELETE FROM awscc.wisdom.quick_responses
 WHERE
   Identifier = '{{ quick_response_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

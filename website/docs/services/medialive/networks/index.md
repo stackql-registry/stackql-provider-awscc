@@ -208,7 +208,7 @@ SELECT
   tags
 FROM awscc.medialive.networks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -221,7 +221,7 @@ SELECT
   id
 FROM awscc.medialive.networks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +329,7 @@ WHERE
 DELETE FROM awscc.medialive.networks
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

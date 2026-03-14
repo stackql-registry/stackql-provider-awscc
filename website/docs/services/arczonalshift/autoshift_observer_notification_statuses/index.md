@@ -158,7 +158,7 @@ SELECT
   region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ account_id }}|{{ region }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -244,7 +244,7 @@ resources:
 DELETE FROM awscc.arczonalshift.autoshift_observer_notification_statuses
 WHERE
   Identifier = '{{ account_id }}|{{ region }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

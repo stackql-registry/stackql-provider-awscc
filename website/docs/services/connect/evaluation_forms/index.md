@@ -51,19 +51,19 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
       {
         "name": "status",
         "type": "string",
-        "description": "The scoring status of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;ENABLED&#96;&#96; &#124; &#96;&#96;DISABLED&#96;&#96;"
+        "description": "<details><summary>The scoring status of the evaluation form.</summary><i>Allowed values</i>: <code>ENABLED</code> | <code>DISABLED</code></details>"
       },
       {
         "name": "mode",
         "type": "string",
-        "description": "The scoring mode of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;QUESTION&#95;ONLY&#96;&#96; &#124; &#96;&#96;SECTION&#95;ONLY&#96;&#96;"
+        "description": "<details><summary>The scoring mode of the evaluation form.</summary><i>Allowed values</i>: <code>QUESTION_ONLY</code> | <code>SECTION_ONLY</code></details>"
       }
     ]
   },
   {
     "name": "status",
     "type": "string",
-    "description": "The status of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;DRAFT&#96;&#96; &#124; &#96;&#96;ACTIVE&#96;&#96;"
+    "description": "<details><summary>The status of the evaluation form.</summary><i>Allowed values</i>: <code>DRAFT</code> | <code>ACTIVE</code></details>"
   },
   {
     "name": "auto_evaluation_configuration",
@@ -80,7 +80,7 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
   {
     "name": "description",
     "type": "string",
-    "description": "The description of the evaluation form.<br />&#42;Length Constraints&#42;: Minimum length of 0. Maximum length of 1024."
+    "description": "<details><summary>The description of the evaluation form.</summary><i>Length Constraints</i>: Minimum length of 0. Maximum length of 1024.</details>"
   },
   {
     "name": "instance_arn",
@@ -95,7 +95,7 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
   {
     "name": "items",
     "type": "array",
-    "description": "Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.<br />&#42;Minimum size&#42;: 1<br />&#42;Maximum size&#42;: 100",
+    "description": "<details><summary>Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.</summary><i>Minimum size</i>: 1<br /><i>Maximum size</i>: 100</details>",
     "children": [
       {
         "name": "section",
@@ -105,7 +105,7 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
           {
             "name": "title",
             "type": "string",
-            "description": "The title of the section.<br />&#42;Length Constraints&#42;: Minimum length of 1. Maximum length of 128."
+            "description": "<details><summary>The title of the section.</summary><i>Length Constraints</i>: Minimum length of 1. Maximum length of 128.</details>"
           },
           {
             "name": "instructions",
@@ -115,7 +115,7 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
           {
             "name": "items",
             "type": "array",
-            "description": "The items of the section.<br />&#42;Minimum&#42;: 1",
+            "description": "<details><summary>The items of the section.</summary><i>Minimum</i>: 1</details>",
             "children": [
               {
                 "name": "question",
@@ -127,12 +127,12 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
           {
             "name": "ref_id",
             "type": "string",
-            "description": "The identifier of the section. An identifier must be unique within the evaluation form.<br />&#42;Length Constraints&#42;: Minimum length of 1. Maximum length of 40."
+            "description": "<details><summary>The identifier of the section. An identifier must be unique within the evaluation form.</summary><i>Length Constraints</i>: Minimum length of 1. Maximum length of 40.</details>"
           },
           {
             "name": "weight",
             "type": "number",
-            "description": "The scoring weight of the section.<br />&#42;Minimum&#42;: 0 <br />&#42;Maximum&#42;: 100"
+            "description": "<details><summary>The scoring weight of the section.</summary><i>Minimum</i>: 0<br /><i>Maximum</i>: 100</details>"
           }
         ]
       }
@@ -255,7 +255,7 @@ SELECT
   tags
 FROM awscc.connect.evaluation_forms
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ evaluation_form_arn }}';
 ```
 </TabItem>
@@ -268,7 +268,7 @@ SELECT
   evaluation_form_arn
 FROM awscc.connect.evaluation_forms_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -441,7 +441,7 @@ WHERE
 DELETE FROM awscc.connect.evaluation_forms
 WHERE
   Identifier = '{{ evaluation_form_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

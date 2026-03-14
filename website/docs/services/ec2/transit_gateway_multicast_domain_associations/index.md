@@ -169,7 +169,7 @@ SELECT
   subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ resources:
 DELETE FROM awscc.ec2.transit_gateway_multicast_domain_associations
 WHERE
   Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ transit_gateway_attachment_id }}|{{ subnet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

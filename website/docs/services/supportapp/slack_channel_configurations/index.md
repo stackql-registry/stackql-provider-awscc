@@ -182,7 +182,7 @@ SELECT
   channel_role_arn
 FROM awscc.supportapp.slack_channel_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ team_id }}|{{ channel_id }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   channel_id
 FROM awscc.supportapp.slack_channel_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +321,7 @@ WHERE
 DELETE FROM awscc.supportapp.slack_channel_configurations
 WHERE
   Identifier = '{{ team_id }}|{{ channel_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

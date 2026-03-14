@@ -172,7 +172,7 @@ SELECT
   tags
 FROM awscc.iottwinmaker.workspaces
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_id }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   workspace_id
 FROM awscc.iottwinmaker.workspaces_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +294,7 @@ WHERE
 DELETE FROM awscc.iottwinmaker.workspaces
 WHERE
   Identifier = '{{ workspace_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

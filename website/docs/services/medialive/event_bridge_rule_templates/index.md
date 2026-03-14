@@ -51,7 +51,7 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
   {
     "name": "created_at",
     "type": "string",
-    "description": "Placeholder documentation for &#95;&#95;timestampIso8601"
+    "description": "Placeholder documentation for __timestampIso8601"
   },
   {
     "name": "description",
@@ -61,7 +61,7 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
   {
     "name": "event_targets",
     "type": "array",
-    "description": "Placeholder documentation for &#95;&#95;listOfEventBridgeRuleTemplateTarget",
+    "description": "Placeholder documentation for __listOfEventBridgeRuleTemplateTarget",
     "children": [
       {
         "name": "arn",
@@ -78,7 +78,7 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
   {
     "name": "group_id",
     "type": "string",
-    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with <code>aws-</code>"
   },
   {
     "name": "group_identifier",
@@ -88,17 +88,17 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
   {
     "name": "id",
     "type": "string",
-    "description": "An eventbridge rule template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+    "description": "An eventbridge rule template's id. AWS provided templates have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
     "type": "string",
-    "description": "Placeholder documentation for &#95;&#95;string"
+    "description": "Placeholder documentation for __string"
   },
   {
     "name": "modified_at",
     "type": "string",
-    "description": "Placeholder documentation for &#95;&#95;timestampIso8601"
+    "description": "Placeholder documentation for __timestampIso8601"
   },
   {
     "name": "name",
@@ -123,12 +123,12 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
   {
     "name": "id",
     "type": "string",
-    "description": "An eventbridge rule template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+    "description": "An eventbridge rule template's id. AWS provided templates have ids that start with <code>aws-</code>"
   },
   {
     "name": "identifier",
     "type": "string",
-    "description": "Placeholder documentation for &#95;&#95;string"
+    "description": "Placeholder documentation for __string"
   },
   {
     "name": "region",
@@ -213,7 +213,7 @@ SELECT
   tags
 FROM awscc.medialive.event_bridge_rule_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identifier }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   identifier
 FROM awscc.medialive.event_bridge_rule_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +339,7 @@ WHERE
 DELETE FROM awscc.medialive.event_bridge_rule_templates
 WHERE
   Identifier = '{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

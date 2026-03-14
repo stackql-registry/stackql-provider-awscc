@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>scheduled_action</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>scheduled_actions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;AWS::Redshift::ScheduledAction&#96; resource creates an Amazon Redshift Scheduled Action.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::Redshift::ScheduledAction</code> resource creates an Amazon Redshift Scheduled Action.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.redshift.scheduled_actions" /></td></tr>
 </tbody>
 </table>
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>scheduled_action</code> resource or li
   {
     "name": "schedule",
     "type": "string",
-    "description": "The schedule in &#96;at( )&#96; or &#96;cron( )&#96; format."
+    "description": "The schedule in <code>at( )</code> or <code>cron( )</code> format."
   },
   {
     "name": "iam_role",
@@ -106,7 +106,7 @@ Creates, updates, deletes or gets a <code>scheduled_action</code> resource or li
   {
     "name": "schedule",
     "type": "string",
-    "description": "The schedule in &#96;at( )&#96; or &#96;cron( )&#96; format."
+    "description": "The schedule in <code>at( )</code> or <code>cron( )</code> format."
   },
   {
     "name": "region",
@@ -189,7 +189,7 @@ SELECT
   next_invocations
 FROM awscc.redshift.scheduled_actions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ scheduled_action_name }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   scheduled_action_name
 FROM awscc.redshift.scheduled_actions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -322,7 +322,7 @@ WHERE
 DELETE FROM awscc.redshift.scheduled_actions
 WHERE
   Identifier = '{{ scheduled_action_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

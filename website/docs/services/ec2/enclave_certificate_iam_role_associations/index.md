@@ -158,7 +158,7 @@ SELECT
   encryption_kms_key_id
 FROM awscc.ec2.enclave_certificate_iam_role_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ certificate_arn }}|{{ role_arn }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   role_arn
 FROM awscc.ec2.enclave_certificate_iam_role_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +249,7 @@ resources:
 DELETE FROM awscc.ec2.enclave_certificate_iam_role_associations
 WHERE
   Identifier = '{{ certificate_arn }}|{{ role_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

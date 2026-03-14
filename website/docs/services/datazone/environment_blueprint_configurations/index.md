@@ -218,7 +218,7 @@ SELECT
   manage_access_role_arn
 FROM awscc.datazone.environment_blueprint_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   environment_blueprint_id
 FROM awscc.datazone.environment_blueprint_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +359,7 @@ WHERE
 DELETE FROM awscc.datazone.environment_blueprint_configurations
 WHERE
   Identifier = '{{ domain_id }}|{{ environment_blueprint_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>gateway_response</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>gateway_responses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::GatewayResponse&#96;&#96; resource creates a gateway response for your API. For more information, see &#91;API Gateway Responses&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/customize-gateway-responses.html#api-gateway-gatewayResponse-definition) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::GatewayResponse</code> resource creates a gateway response for your API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/customize-gateway-responses.html#api-gateway-gatewayResponse-definition">API Gateway Responses</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.gateway_responses" /></td></tr>
 </tbody>
 </table>
@@ -165,7 +165,7 @@ SELECT
   response_templates
 FROM awscc.apigateway.gateway_responses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   id
 FROM awscc.apigateway.gateway_responses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +284,7 @@ WHERE
 DELETE FROM awscc.apigateway.gateway_responses
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

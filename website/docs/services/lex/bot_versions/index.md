@@ -212,7 +212,7 @@ SELECT
   bot_version_locale_specification
 FROM awscc.lex.bot_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ bot_id }}|{{ bot_version }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   bot_version
 FROM awscc.lex.bot_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +313,7 @@ resources:
 DELETE FROM awscc.lex.bot_versions
 WHERE
   Identifier = '{{ bot_id }}|{{ bot_version }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

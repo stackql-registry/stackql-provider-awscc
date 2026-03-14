@@ -81,12 +81,12 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -108,7 +108,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
   {
     "name": "preset",
     "type": "string",
-    "description": "Optional transcode preset for the channel. This is selectable only for ADVANCED&#95;HD and ADVANCED&#95;SD channel types. For those channel types, the default preset is HIGHER&#95;BANDWIDTH&#95;DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string (\"\")."
+    "description": "Optional transcode preset for the channel. This is selectable only for ADVANCED_HD and ADVANCED_SD channel types. For those channel types, the default preset is HIGHER_BANDWIDTH_DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string (\"\")."
   },
   {
     "name": "multitrack_input_configuration",
@@ -118,7 +118,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
       {
         "name": "enabled",
         "type": "boolean",
-        "description": "Indicates whether multitrack input is enabled. Can be set to true only if channel type is STANDARD. Setting enabled to true with any other channel type will cause an exception. If true, then policy, maximumResolution, and containerFormat are required, and containerFormat must be set to FRAGMENTED&#95;MP4. Default: false."
+        "description": "Indicates whether multitrack input is enabled. Can be set to true only if channel type is STANDARD. Setting enabled to true with any other channel type will cause an exception. If true, then policy, maximumResolution, and containerFormat are required, and containerFormat must be set to FRAGMENTED_MP4. Default: false."
       },
       {
         "name": "maximum_resolution",
@@ -135,7 +135,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
   {
     "name": "container_format",
     "type": "string",
-    "description": "Indicates which content-packaging format is used (MPEG-TS or fMP4). If multitrackInputConfiguration is specified and enabled is true, then containerFormat is required and must be set to FRAGMENTED&#95;MP4. Otherwise, containerFormat may be set to TS or FRAGMENTED&#95;MP4. Default: TS."
+    "description": "Indicates which content-packaging format is used (MPEG-TS or fMP4). If multitrackInputConfiguration is specified and enabled is true, then containerFormat is required and must be set to FRAGMENTED_MP4. Otherwise, containerFormat may be set to TS or FRAGMENTED_MP4. Default: TS."
   },
   {
     "name": "region",
@@ -236,7 +236,7 @@ SELECT
   container_format
 FROM awscc.ivs.channels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   arn
 FROM awscc.ivs.channels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -385,7 +385,7 @@ WHERE
 DELETE FROM awscc.ivs.channels
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

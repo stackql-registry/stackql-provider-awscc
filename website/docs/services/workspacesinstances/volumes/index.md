@@ -207,7 +207,7 @@ SELECT
   tag_specifications
 FROM awscc.workspacesinstances.volumes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ volume_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   volume_id
 FROM awscc.workspacesinstances.volumes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ resources:
 DELETE FROM awscc.workspacesinstances.volumes
 WHERE
   Identifier = '{{ volume_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

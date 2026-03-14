@@ -342,7 +342,7 @@ SELECT
   arn
 FROM awscc.eks.nodegroups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -355,7 +355,7 @@ SELECT
   id
 FROM awscc.eks.nodegroups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -544,7 +544,7 @@ WHERE
 DELETE FROM awscc.eks.nodegroups
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

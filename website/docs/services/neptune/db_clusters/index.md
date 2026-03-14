@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "endpoint",
     "type": "string",
-    "description": "The connection endpoint for the DB cluster. For example: &#96;mystack-mydbcluster-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com&#96;"
+    "description": "The connection endpoint for the DB cluster. For example: <code>mystack-mydbcluster-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com</code>"
   },
   {
     "name": "read_endpoint",
     "type": "string",
-    "description": "The reader endpoint for the DB cluster. For example: &#96;mystack-mydbcluster-ro-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com&#96;"
+    "description": "The reader endpoint for the DB cluster. For example: <code>mystack-mydbcluster-ro-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com</code>"
   },
   {
     "name": "cluster_resource_id",
     "type": "string",
-    "description": "The resource id for the DB cluster. For example: &#96;cluster-ABCD1234EFGH5678IJKL90MNOP&#96;. The cluster ID uniquely identifies the cluster and is used in things like IAM authentication policies."
+    "description": "The resource id for the DB cluster. For example: <code>cluster-ABCD1234EFGH5678IJKL90MNOP</code>. The cluster ID uniquely identifies the cluster and is used in things like IAM authentication policies."
   },
   {
     "name": "associated_roles",
@@ -108,7 +108,7 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "db_port",
     "type": "integer",
-    "description": "The port number on which the DB instances in the DB cluster accept connections. <br />If not specified, the default port used is &#96;8182&#96;. <br />Note: &#96;Port&#96; property will soon be deprecated from this resource. Please update existing templates to rename it with new property &#96;DBPort&#96; having same functionalities."
+    "description": "<details><summary>The port number on which the DB instances in the DB cluster accept connections.</summary>If not specified, the default port used is <code>8182</code>.<br />Note: <code>Port</code> property will soon be deprecated from this resource. Please update existing templates to rename it with new property <code>DBPort</code> having same functionalities.</details>"
   },
   {
     "name": "db_subnet_group_name",
@@ -143,7 +143,7 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "port",
     "type": "string",
-    "description": "The port number on which the DB cluster accepts connections. For example: &#96;8182&#96;."
+    "description": "The port number on which the DB cluster accepts connections. For example: <code>8182</code>."
   },
   {
     "name": "preferred_backup_window",
@@ -158,12 +158,12 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "restore_to_time",
     "type": "string",
-    "description": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot.<br />If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group."
+    "description": "<details><summary>Creates a new DB cluster from a DB snapshot or DB cluster snapshot.</summary>If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.</details>"
   },
   {
     "name": "restore_type",
     "type": "string",
-    "description": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot.<br />If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group."
+    "description": "<details><summary>Creates a new DB cluster from a DB snapshot or DB cluster snapshot.</summary>If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.</details>"
   },
   {
     "name": "serverless_scaling_configuration",
@@ -185,17 +185,17 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "snapshot_identifier",
     "type": "string",
-    "description": "Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.<br />After you restore a DB cluster using a SnapshotIdentifier, you must specify the same SnapshotIdentifier for any future updates to the DB cluster. When you specify this property for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not changed.<br />However, if you don't specify the SnapshotIdentifier, an empty DB cluster is created, and the original DB cluster is deleted. If you specify a property that is different from the previous snapshot restore property, the DB cluster is restored from the snapshot specified by the SnapshotIdentifier, and the original DB cluster is deleted."
+    "description": "<details><summary>Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.</summary>After you restore a DB cluster using a SnapshotIdentifier, you must specify the same SnapshotIdentifier for any future updates to the DB cluster. When you specify this property for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not changed.<br />However, if you don't specify the SnapshotIdentifier, an empty DB cluster is created, and the original DB cluster is deleted. If you specify a property that is different from the previous snapshot restore property, the DB cluster is restored from the snapshot specified by the SnapshotIdentifier, and the original DB cluster is deleted.</details>"
   },
   {
     "name": "source_db_cluster_identifier",
     "type": "string",
-    "description": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot.<br />If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group."
+    "description": "<details><summary>Creates a new DB cluster from a DB snapshot or DB cluster snapshot.</summary>If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.</details>"
   },
   {
     "name": "storage_encrypted",
     "type": "boolean",
-    "description": "Indicates whether the DB cluster is encrypted.<br />If you specify the KmsKeyId property, then you must enable encryption and set this property to true.<br />If you enable the StorageEncrypted property but don't specify KmsKeyId property, then the default KMS key is used. If you specify KmsKeyId property, then that KMS Key is used to encrypt the database instances in the DB cluster.<br />If you specify the SourceDBClusterIdentifier property and don't specify this property or disable it. The value is inherited from the source DB cluster, and if the DB cluster is encrypted, the KmsKeyId property from the source cluster is used.<br />If you specify the DBSnapshotIdentifier and don't specify this property or disable it. The value is inherited from the snapshot, and the specified KmsKeyId property from the snapshot is used."
+    "description": "<details><summary>Indicates whether the DB cluster is encrypted.</summary>If you specify the KmsKeyId property, then you must enable encryption and set this property to true.<br />If you enable the StorageEncrypted property but don't specify KmsKeyId property, then the default KMS key is used. If you specify KmsKeyId property, then that KMS Key is used to encrypt the database instances in the DB cluster.<br />If you specify the SourceDBClusterIdentifier property and don't specify this property or disable it. The value is inherited from the source DB cluster, and if the DB cluster is encrypted, the KmsKeyId property from the source cluster is used.<br />If you specify the DBSnapshotIdentifier and don't specify this property or disable it. The value is inherited from the snapshot, and the specified KmsKeyId property from the snapshot is used.</details>"
   },
   {
     "name": "tags",
@@ -205,19 +205,19 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
   {
     "name": "use_latest_restorable_time",
     "type": "boolean",
-    "description": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot.<br />If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group."
+    "description": "<details><summary>Creates a new DB cluster from a DB snapshot or DB cluster snapshot.</summary>If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.<br />If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.</details>"
   },
   {
     "name": "vpc_security_group_ids",
@@ -339,7 +339,7 @@ SELECT
   vpc_security_group_ids
 FROM awscc.neptune.db_clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_cluster_identifier }}';
 ```
 </TabItem>
@@ -352,7 +352,7 @@ SELECT
   db_cluster_identifier
 FROM awscc.neptune.db_clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -605,7 +605,7 @@ WHERE
 DELETE FROM awscc.neptune.db_clusters
 WHERE
   Identifier = '{{ db_cluster_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

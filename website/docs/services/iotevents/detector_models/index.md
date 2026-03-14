@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>detector_model</code> resource or list
 <tbody>
 <tr><td><b>Name</b></td><td><code>detector_models</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The AWS::IoTEvents::DetectorModel resource creates a detector model. You create a &#42;detector model&#42; (a model of your equipment or process) using &#42;states&#42;. For each state, you define conditional (Boolean) logic that evaluates the incoming inputs to detect significant events. When an event is detected, it can change the state or trigger custom-built or predefined actions using other AWS services. You can define additional events that trigger actions when entering or exiting a state and, optionally, when a condition is met. For more information, see &#91;How to Use&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the &#42;Developer Guide&#42;.<br />When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) all detector instances created by the model are reset to their initial states. (The detector's &#96;&#96;state&#96;&#96;, and the values of any variables and timers are reset.)<br />When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) the version number of the detector model is incremented. (A detector model with version number 1 before the update has version number 2 after the update succeeds.)<br />If you attempt to update a detector model using CFN and the update does not succeed, the system may, in some cases, restore the original detector model. When this occurs, the detector model's version is incremented twice (for example, from version 1 to version 3) and the detector instances are reset.<br />Also, be aware that if you attempt to update several detector models at once using CFN, some updates may succeed and others fail. In this case, the effects on each detector model's detector instances and version number depend on whether the update succeeded or failed, with the results as stated.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The AWS::IoTEvents::DetectorModel resource creates a detector model. You create a <i>detector model</i> (a model of your equipment or process) using <i>states</i>. For each state, you define conditional (Boolean) logic that evaluates the incoming inputs to detect significant events. When an event is detected, it can change the state or trigger custom-built or predefined actions using other AWS services. You can define additional events that trigger actions when entering or exiting a state and, optionally, when a condition is met. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html">How to Use</a> in the <i>Developer Guide</i>.</summary>When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) all detector instances created by the model are reset to their initial states. (The detector's <code>state</code>, and the values of any variables and timers are reset.)<br />When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) the version number of the detector model is incremented. (A detector model with version number 1 before the update has version number 2 after the update succeeds.)<br />If you attempt to update a detector model using CFN and the update does not succeed, the system may, in some cases, restore the original detector model. When this occurs, the detector model's version is incremented twice (for example, from version 1 to version 3) and the detector instances are reset.<br />Also, be aware that if you attempt to update several detector models at once using CFN, some updates may succeed and others fail. In this case, the effects on each detector model's detector instances and version number depend on whether the update succeeded or failed, with the results as stated.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotevents.detector_models" /></td></tr>
 </tbody>
 </table>
@@ -61,41 +61,41 @@ Creates, updates, deletes or gets a <code>detector_model</code> resource or list
           {
             "name": "on_enter",
             "type": "object",
-            "description": "When entering this state, perform these &#96;&#96;actions&#96;&#96; if the &#96;&#96;condition&#96;&#96; is TRUE.",
+            "description": "When entering this state, perform these <code>actions</code> if the <code>condition</code> is TRUE.",
             "children": [
               {
                 "name": "events",
                 "type": "array",
-                "description": "Specifies the actions that are performed when the state is entered and the &#96;&#96;condition&#96;&#96; is &#96;&#96;TRUE&#96;&#96;."
+                "description": "Specifies the actions that are performed when the state is entered and the <code>condition</code> is <code>TRUE</code>."
               }
             ]
           },
           {
             "name": "on_exit",
             "type": "object",
-            "description": "When exiting this state, perform these &#96;&#96;actions&#96;&#96; if the specified &#96;&#96;condition&#96;&#96; is &#96;&#96;TRUE&#96;&#96;.",
+            "description": "When exiting this state, perform these <code>actions</code> if the specified <code>condition</code> is <code>TRUE</code>.",
             "children": [
               {
                 "name": "events",
                 "type": "array",
-                "description": "Specifies the &#96;&#96;actions&#96;&#96; that are performed when the state is exited and the &#96;&#96;condition&#96;&#96; is &#96;&#96;TRUE&#96;&#96;."
+                "description": "Specifies the <code>actions</code> that are performed when the state is exited and the <code>condition</code> is <code>TRUE</code>."
               }
             ]
           },
           {
             "name": "on_input",
             "type": "object",
-            "description": "When an input is received and the &#96;&#96;condition&#96;&#96; is TRUE, perform the specified &#96;&#96;actions&#96;&#96;.",
+            "description": "When an input is received and the <code>condition</code> is TRUE, perform the specified <code>actions</code>.",
             "children": [
               {
                 "name": "events",
                 "type": "array",
-                "description": "Specifies the actions performed when the &#96;&#96;condition&#96;&#96; evaluates to TRUE."
+                "description": "Specifies the actions performed when the <code>condition</code> evaluates to TRUE."
               },
               {
                 "name": "transition_events",
                 "type": "array",
-                "description": "Specifies the actions performed, and the next state entered, when a &#96;&#96;condition&#96;&#96; evaluates to TRUE."
+                "description": "Specifies the actions performed, and the next state entered, when a <code>condition</code> evaluates to TRUE."
               }
             ]
           },
@@ -126,7 +126,7 @@ Creates, updates, deletes or gets a <code>detector_model</code> resource or list
   {
     "name": "key",
     "type": "string",
-    "description": "The value used to identify a detector instance. When a device or system sends input, a new detector instance with a unique key value is created. ITE can continue to route input to its corresponding detector instance based on this identifying information. <br />This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct detector instance, the device must send a message payload that contains the same attribute-value."
+    "description": "<details><summary>The value used to identify a detector instance. When a device or system sends input, a new detector instance with a unique key value is created. ITE can continue to route input to its corresponding detector instance based on this identifying information.</summary>This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct detector instance, the device must send a message payload that contains the same attribute-value.</details>"
   },
   {
     "name": "role_arn",
@@ -136,7 +136,7 @@ Creates, updates, deletes or gets a <code>detector_model</code> resource or list
   {
     "name": "tags",
     "type": "array",
-    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "description": "<details><summary>An array of key-value pairs to apply to this resource.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
         "name": "key",
@@ -243,7 +243,7 @@ SELECT
   tags
 FROM awscc.iotevents.detector_models
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ detector_model_name }}';
 ```
 </TabItem>
@@ -256,7 +256,7 @@ SELECT
   detector_model_name
 FROM awscc.iotevents.detector_models_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -456,7 +456,7 @@ WHERE
 DELETE FROM awscc.iotevents.detector_models
 WHERE
   Identifier = '{{ detector_model_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

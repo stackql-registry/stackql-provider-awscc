@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>solution</code> resource or lists <cod
   {
     "name": "event_type",
     "type": "string",
-    "description": "When your have multiple event types (using an EVENT&#95;TYPE schema field), this parameter specifies which event type (for example, 'click' or 'like') is used for training the model. If you do not provide an eventType, Amazon Personalize will use all interactions for training with equal weight regardless of type."
+    "description": "When your have multiple event types (using an EVENT_TYPE schema field), this parameter specifies which event type (for example, 'click' or 'like') is used for training the model. If you do not provide an eventType, Amazon Personalize will use all interactions for training with equal weight regardless of type."
   },
   {
     "name": "dataset_group_arn",
@@ -273,7 +273,7 @@ SELECT
   solution_config
 FROM awscc.personalize.solutions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ solution_arn }}';
 ```
 </TabItem>
@@ -286,7 +286,7 @@ SELECT
   solution_arn
 FROM awscc.personalize.solutions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -411,7 +411,7 @@ resources:
 DELETE FROM awscc.personalize.solutions
 WHERE
   Identifier = '{{ solution_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -194,7 +194,7 @@ SELECT
   tags
 FROM awscc.medialive.channel_placement_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}|{{ cluster_id }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   cluster_id
 FROM awscc.medialive.channel_placement_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -317,7 +317,7 @@ WHERE
 DELETE FROM awscc.medialive.channel_placement_groups
 WHERE
   Identifier = '{{ id }}|{{ cluster_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

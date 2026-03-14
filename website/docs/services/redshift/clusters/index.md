@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "destination_region",
     "type": "string",
-    "description": "The destination AWS Region that you want to copy snapshots to. Constraints: Must be the name of a valid AWS Region. For more information, see Regions and Endpoints in the Amazon Web Services &#91;https://docs.aws.amazon.com/general/latest/gr/rande.html#redshift&#95;region&#93; General Reference"
+    "description": "The destination AWS Region that you want to copy snapshots to. Constraints: Must be the name of a valid AWS Region. For more information, see Regions and Endpoints in the Amazon Web Services [https://docs.aws.amazon.com/general/latest/gr/rande.html#redshift_region] General Reference"
   },
   {
     "name": "allow_version_upgrade",
@@ -123,19 +123,19 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
   {
     "name": "snapshot_cluster_identifier",
     "type": "string",
-    "description": "The name of the cluster the source snapshot was created from. This parameter is required if your IAM user has a policy containing a snapshot resource element that specifies anything other than &#42; for the cluster name."
+    "description": "The name of the cluster the source snapshot was created from. This parameter is required if your IAM user has a policy containing a snapshot resource element that specifies anything other than * for the cluster name."
   },
   {
     "name": "iam_roles",
@@ -217,7 +217,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "node_type",
     "type": "string",
-    "description": "The node type to be provisioned for the cluster.Valid Values: ds2.xlarge &#124; ds2.8xlarge &#124; dc1.large &#124; dc1.8xlarge &#124; dc2.large &#124; dc2.8xlarge &#124; ra3.large &#124; ra3.4xlarge &#124; ra3.16xlarge"
+    "description": "The node type to be provisioned for the cluster.Valid Values: ds2.xlarge | ds2.8xlarge | dc1.large | dc1.8xlarge | dc2.large | dc2.8xlarge | ra3.large | ra3.4xlarge | ra3.16xlarge"
   },
   {
     "name": "master_username",
@@ -237,7 +237,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "manual_snapshot_retention_period",
     "type": "integer",
-    "description": "The number of days to retain newly copied snapshots in the destination AWS Region after they are copied from the source AWS Region. If the value is -1, the manual snapshot is retained indefinitely.<br />The value must be either -1 or an integer between 1 and 3,653."
+    "description": "<details><summary>The number of days to retain newly copied snapshots in the destination AWS Region after they are copied from the source AWS Region. If the value is -1, the manual snapshot is retained indefinitely.</summary>The value must be either -1 or an integer between 1 and 3,653.</details>"
   },
   {
     "name": "resource_action",
@@ -262,7 +262,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "aqua_configuration_status",
     "type": "string",
-    "description": "The value represents how the cluster is configured to use AQUA (Advanced Query Accelerator) after the cluster is restored. Possible values include the following.<br />enabled - Use AQUA if it is available for the current Region and Amazon Redshift node type.<br />disabled - Don't use AQUA.<br />auto - Amazon Redshift determines whether to use AQUA.<br />"
+    "description": "<details><summary>The value represents how the cluster is configured to use AQUA (Advanced Query Accelerator) after the cluster is restored. Possible values include the following.</summary>enabled - Use AQUA if it is available for the current Region and Amazon Redshift node type.<br />disabled - Don't use AQUA.<br />auto - Amazon Redshift determines whether to use AQUA.</details>"
   },
   {
     "name": "snapshot_identifier",
@@ -282,7 +282,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "enhanced_vpc_routing",
     "type": "boolean",
-    "description": "An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see Enhanced VPC Routing in the Amazon Redshift Cluster Management Guide.<br />If this option is true , enhanced VPC routing is enabled.<br />Default: false"
+    "description": "<details><summary>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see Enhanced VPC Routing in the Amazon Redshift Cluster Management Guide.</summary>If this option is true , enhanced VPC routing is enabled.<br />Default: false</details>"
   },
   {
     "name": "cluster_parameter_group_name",
@@ -362,7 +362,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "snapshot_copy_retention_period",
     "type": "integer",
-    "description": "The number of days to retain automated snapshots in the destination region after they are copied from the source region. <br />Default is 7. <br />Constraints: Must be at least 1 and no more than 35."
+    "description": "<details><summary>The number of days to retain automated snapshots in the destination region after they are copied from the source region.</summary>Default is 7.<br />Constraints: Must be at least 1 and no more than 35.</details>"
   },
   {
     "name": "region",
@@ -505,7 +505,7 @@ SELECT
   snapshot_copy_retention_period
 FROM awscc.redshift.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_identifier }}';
 ```
 </TabItem>
@@ -518,7 +518,7 @@ SELECT
   cluster_identifier
 FROM awscc.redshift.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -869,7 +869,7 @@ WHERE
 DELETE FROM awscc.redshift.clusters
 WHERE
   Identifier = '{{ cluster_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

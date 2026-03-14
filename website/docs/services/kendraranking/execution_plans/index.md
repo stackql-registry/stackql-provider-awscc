@@ -184,7 +184,7 @@ SELECT
   capacity_units
 FROM awscc.kendraranking.execution_plans
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -197,7 +197,7 @@ SELECT
   id
 FROM awscc.kendraranking.execution_plans_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.kendraranking.execution_plans
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

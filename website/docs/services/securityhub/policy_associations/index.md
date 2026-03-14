@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>policy_association</code> resource or 
   {
     "name": "configuration_policy_id",
     "type": "string",
-    "description": "The universally unique identifier (UUID) of the configuration policy or a value of SELF&#95;MANAGED&#95;SECURITY&#95;HUB for a self-managed configuration"
+    "description": "The universally unique identifier (UUID) of the configuration policy or a value of SELF_MANAGED_SECURITY_HUB for a self-managed configuration"
   },
   {
     "name": "association_status",
@@ -177,7 +177,7 @@ SELECT
   association_identifier
 FROM awscc.securityhub.policy_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_identifier }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   association_identifier
 FROM awscc.securityhub.policy_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +288,7 @@ WHERE
 DELETE FROM awscc.securityhub.policy_associations
 WHERE
   Identifier = '{{ association_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

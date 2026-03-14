@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>source_location</code> resource or lis
           {
             "name": "secret_string_key",
             "type": "string",
-            "description": "<p>The AWS Secrets Manager <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/apireference/API&#95;CreateSecret.html#SecretsManager-CreateSecret-request-SecretString.html\">SecretString</a> key associated with the access token. MediaTailor uses the key to look up SecretString key and value pair containing the access token.</p>"
+            "description": "<p>The AWS Secrets Manager <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html#SecretsManager-CreateSecret-request-SecretString.html\">SecretString</a> key associated with the access token. MediaTailor uses the key to look up SecretString key and value pair containing the access token.</p>"
           }
         ]
       }
@@ -238,7 +238,7 @@ SELECT
   tags
 FROM awscc.mediatailor.source_locations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ source_location_name }}';
 ```
 </TabItem>
@@ -251,7 +251,7 @@ SELECT
   source_location_name
 FROM awscc.mediatailor.source_locations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +374,7 @@ WHERE
 DELETE FROM awscc.mediatailor.source_locations
 WHERE
   Identifier = '{{ source_location_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

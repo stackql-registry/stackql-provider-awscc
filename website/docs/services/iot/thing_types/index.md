@@ -218,7 +218,7 @@ SELECT
   tags
 FROM awscc.iot.thing_types
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ thing_type_name }}';
 ```
 </TabItem>
@@ -231,7 +231,7 @@ SELECT
   thing_type_name
 FROM awscc.iot.thing_types_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +347,7 @@ WHERE
 DELETE FROM awscc.iot.thing_types
 WHERE
   Identifier = '{{ thing_type_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

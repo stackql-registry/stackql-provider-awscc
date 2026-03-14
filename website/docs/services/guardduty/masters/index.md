@@ -146,7 +146,7 @@ SELECT
   detector_id
 FROM awscc.guardduty.masters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ detector_id }}|{{ master_id }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   master_id
 FROM awscc.guardduty.masters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -241,7 +241,7 @@ resources:
 DELETE FROM awscc.guardduty.masters
 WHERE
   Identifier = '{{ detector_id }}|{{ master_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

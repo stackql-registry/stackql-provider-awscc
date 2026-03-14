@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>documentation_version</code> resource 
 <tbody>
 <tr><td><b>Name</b></td><td><code>documentation_versions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::DocumentationVersion&#96;&#96; resource creates a snapshot of the documentation for an API. For more information, see &#91;Representation of API Documentation in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::DocumentationVersion</code> resource creates a snapshot of the documentation for an API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html">Representation of API Documentation in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.documentation_versions" /></td></tr>
 </tbody>
 </table>
@@ -152,7 +152,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.documentation_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.documentation_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +262,7 @@ WHERE
 DELETE FROM awscc.apigateway.documentation_versions
 WHERE
   Identifier = '{{ documentation_version }}|{{ rest_api_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

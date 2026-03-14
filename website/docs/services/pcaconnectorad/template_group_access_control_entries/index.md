@@ -165,7 +165,7 @@ SELECT
   template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ group_security_identifier }}|{{ template_arn }}';
 ```
 </TabItem>
@@ -179,7 +179,7 @@ SELECT
   template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +282,7 @@ WHERE
 DELETE FROM awscc.pcaconnectorad.template_group_access_control_entries
 WHERE
   Identifier = '{{ group_security_identifier }}|{{ template_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

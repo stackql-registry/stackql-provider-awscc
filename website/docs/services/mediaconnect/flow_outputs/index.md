@@ -224,7 +224,7 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
           {
             "name": "compression_factor",
             "type": "number",
-            "description": "A value that is used to calculate compression for an output. The bitrate of the output is calculated as follows: Output bitrate = (1 / compressionFactor) &#42; (source bitrate) This property only applies to outputs that use the ST 2110 JPEG XS protocol, with a flow source that uses the CDI protocol. Valid values are in the range of 3.0 to 10.0, inclusive."
+            "description": "A value that is used to calculate compression for an output. The bitrate of the output is calculated as follows: Output bitrate = (1 / compressionFactor) * (source bitrate) This property only applies to outputs that use the ST 2110 JPEG XS protocol, with a flow source that uses the CDI protocol. Valid values are in the range of 3.0 to 10.0, inclusive."
           },
           {
             "name": "encoder_profile",
@@ -355,7 +355,7 @@ SELECT
   ndi_speed_hq_quality
 FROM awscc.mediaconnect.flow_outputs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ output_arn }}';
 ```
 </TabItem>
@@ -368,7 +368,7 @@ SELECT
   output_arn
 FROM awscc.mediaconnect.flow_outputs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -561,7 +561,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.flow_outputs
 WHERE
   Identifier = '{{ output_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

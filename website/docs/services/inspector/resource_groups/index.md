@@ -102,7 +102,7 @@ SELECT
   resource_group_tags
 FROM awscc.inspector.resource_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -174,7 +174,7 @@ resources:
 DELETE FROM awscc.inspector.resource_groups
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

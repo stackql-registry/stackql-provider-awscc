@@ -187,7 +187,7 @@ SELECT
   tags_identifier
 FROM awscc.lakeformation.tag_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_identifier }}|{{ tags_identifier }}';
 ```
 
@@ -282,7 +282,7 @@ resources:
 DELETE FROM awscc.lakeformation.tag_associations
 WHERE
   Identifier = '{{ resource_identifier }}|{{ tags_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

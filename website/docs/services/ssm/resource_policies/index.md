@@ -163,7 +163,7 @@ SELECT
   policy_hash
 FROM awscc.ssm.resource_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ policy_id }}|{{ resource_arn }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   resource_arn
 FROM awscc.ssm.resource_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +269,7 @@ WHERE
 DELETE FROM awscc.ssm.resource_policies
 WHERE
   Identifier = '{{ policy_id }}|{{ resource_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

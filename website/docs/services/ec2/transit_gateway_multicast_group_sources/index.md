@@ -193,7 +193,7 @@ SELECT
   source_type
 FROM awscc.ec2.transit_gateway_multicast_group_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   network_interface_id
 FROM awscc.ec2.transit_gateway_multicast_group_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +291,7 @@ resources:
 DELETE FROM awscc.ec2.transit_gateway_multicast_group_sources
 WHERE
   Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

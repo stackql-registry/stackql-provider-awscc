@@ -172,7 +172,7 @@ SELECT
   status
 FROM awscc.licensemanager.grants
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ grant_arn }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   grant_arn
 FROM awscc.licensemanager.grants_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.licensemanager.grants
 WHERE
   Identifier = '{{ grant_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

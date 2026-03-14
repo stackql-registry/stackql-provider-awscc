@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>quick_connect</code> resource or lists
       {
         "name": "quick_connect_type",
         "type": "string",
-        "description": "The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE&#95;NUMBER), or Queue (QUEUE)."
+        "description": "The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE_NUMBER), or Queue (QUEUE)."
       },
       {
         "name": "phone_config",
         "type": "object",
-        "description": "The phone configuration. This is required only if QuickConnectType is PHONE&#95;NUMBER.",
+        "description": "The phone configuration. This is required only if QuickConnectType is PHONE_NUMBER.",
         "children": [
           {
             "name": "phone_number",
@@ -141,7 +141,7 @@ Creates, updates, deletes or gets a <code>quick_connect</code> resource or lists
   {
     "name": "quick_connect_type",
     "type": "string",
-    "description": "The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE&#95;NUMBER), or Queue (QUEUE)."
+    "description": "The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE_NUMBER), or Queue (QUEUE)."
   },
   {
     "name": "region",
@@ -236,7 +236,7 @@ SELECT
   quick_connect_type
 FROM awscc.connect.quick_connects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ quick_connect_arn }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   quick_connect_arn
 FROM awscc.connect.quick_connects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +370,7 @@ WHERE
 DELETE FROM awscc.connect.quick_connects
 WHERE
   Identifier = '{{ quick_connect_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

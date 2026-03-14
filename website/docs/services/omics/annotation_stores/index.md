@@ -232,7 +232,7 @@ SELECT
   update_time
 FROM awscc.omics.annotation_stores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -245,7 +245,7 @@ SELECT
   name
 FROM awscc.omics.annotation_stores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +360,7 @@ WHERE
 DELETE FROM awscc.omics.annotation_stores
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

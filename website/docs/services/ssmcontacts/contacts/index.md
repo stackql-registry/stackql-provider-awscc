@@ -225,7 +225,7 @@ SELECT
   arn
 FROM awscc.ssmcontacts.contacts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -238,7 +238,7 @@ SELECT
   arn
 FROM awscc.ssmcontacts.contacts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +356,7 @@ WHERE
 DELETE FROM awscc.ssmcontacts.contacts
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -130,7 +130,7 @@ Creates, updates, deletes or gets a <code>firewall</code> resource or lists <cod
   {
     "name": "enabled_analysis_types",
     "type": "array",
-    "description": "The types of analysis to enable for the firewall. Can be TLS&#95;SNI, HTTP&#95;HOST, or both."
+    "description": "The types of analysis to enable for the firewall. Can be TLS_SNI, HTTP_HOST, or both."
   },
   {
     "name": "tags",
@@ -251,7 +251,7 @@ SELECT
   tags
 FROM awscc.networkfirewall.firewalls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ firewall_arn }}';
 ```
 </TabItem>
@@ -264,7 +264,7 @@ SELECT
   firewall_arn
 FROM awscc.networkfirewall.firewalls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -416,7 +416,7 @@ WHERE
 DELETE FROM awscc.networkfirewall.firewalls
 WHERE
   Identifier = '{{ firewall_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

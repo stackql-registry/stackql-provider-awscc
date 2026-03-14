@@ -182,7 +182,7 @@ SELECT
   tags
 FROM awscc.controltower.enabled_controls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   control_identifier
 FROM awscc.controltower.enabled_controls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +301,7 @@ WHERE
 DELETE FROM awscc.controltower.enabled_controls
 WHERE
   Identifier = '{{ target_identifier }}|{{ control_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -170,7 +170,7 @@ SELECT
   condition
 FROM awscc.entityresolution.policy_statements
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}|{{ statement_id }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   statement_id
 FROM awscc.entityresolution.policy_statements_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +297,7 @@ WHERE
 DELETE FROM awscc.entityresolution.policy_statements
 WHERE
   Identifier = '{{ arn }}|{{ statement_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

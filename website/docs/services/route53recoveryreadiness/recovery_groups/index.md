@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.route53recoveryreadiness.recovery_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ recovery_group_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   recovery_group_name
 FROM awscc.route53recoveryreadiness.recovery_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +280,7 @@ WHERE
 DELETE FROM awscc.route53recoveryreadiness.recovery_groups
 WHERE
   Identifier = '{{ recovery_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -207,7 +207,7 @@ SELECT
   arn
 FROM awscc.codestarnotifications.notification_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   arn
 FROM awscc.codestarnotifications.notification_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +361,7 @@ WHERE
 DELETE FROM awscc.codestarnotifications.notification_rules
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

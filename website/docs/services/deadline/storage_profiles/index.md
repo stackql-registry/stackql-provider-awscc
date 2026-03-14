@@ -181,7 +181,7 @@ SELECT
   storage_profile_id
 FROM awscc.deadline.storage_profiles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```
 </TabItem>
@@ -195,7 +195,7 @@ SELECT
   storage_profile_id
 FROM awscc.deadline.storage_profiles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +302,7 @@ WHERE
 DELETE FROM awscc.deadline.storage_profiles
 WHERE
   Identifier = '{{ farm_id }}|{{ storage_profile_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

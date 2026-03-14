@@ -243,7 +243,7 @@ SELECT
   lock_state
 FROM awscc.rbin.rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -256,7 +256,7 @@ SELECT
   arn
 FROM awscc.rbin.rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +387,7 @@ WHERE
 DELETE FROM awscc.rbin.rules
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

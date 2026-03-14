@@ -141,7 +141,7 @@ SELECT
   association_id
 FROM awscc.ec2.subnet_network_acl_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ association_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   association_id
 FROM awscc.ec2.subnet_network_acl_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.ec2.subnet_network_acl_associations
 WHERE
   Identifier = '{{ association_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.ec2.dhcp_options
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dhcp_options_id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   dhcp_options_id
 FROM awscc.ec2.dhcp_options_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +329,7 @@ WHERE
 DELETE FROM awscc.ec2.dhcp_options
 WHERE
   Identifier = '{{ dhcp_options_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

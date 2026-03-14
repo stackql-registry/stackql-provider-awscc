@@ -135,7 +135,7 @@ SELECT
   project_name
 FROM awscc.lookoutvision.projects
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ project_name }}';
 ```
 </TabItem>
@@ -148,7 +148,7 @@ SELECT
   project_name
 FROM awscc.lookoutvision.projects_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -219,7 +219,7 @@ resources:
 DELETE FROM awscc.lookoutvision.projects
 WHERE
   Identifier = '{{ project_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

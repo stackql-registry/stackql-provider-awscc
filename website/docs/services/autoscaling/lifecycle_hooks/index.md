@@ -182,7 +182,7 @@ SELECT
   role_arn
 FROM awscc.autoscaling.lifecycle_hooks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   lifecycle_hook_name
 FROM awscc.autoscaling.lifecycle_hooks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -317,7 +317,7 @@ WHERE
 DELETE FROM awscc.autoscaling.lifecycle_hooks
 WHERE
   Identifier = '{{ auto_scaling_group_name }}|{{ lifecycle_hook_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

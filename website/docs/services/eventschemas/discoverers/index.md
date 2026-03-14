@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.eventschemas.discoverers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ discoverer_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   discoverer_arn
 FROM awscc.eventschemas.discoverers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.eventschemas.discoverers
 WHERE
   Identifier = '{{ discoverer_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

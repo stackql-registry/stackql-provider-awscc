@@ -219,7 +219,7 @@ SELECT
   tags
 FROM awscc.bedrock.flow_aliases
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}|{{ flow_arn }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   flow_arn
 FROM awscc.bedrock.flow_aliases_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +350,7 @@ WHERE
 DELETE FROM awscc.bedrock.flow_aliases
 WHERE
   Identifier = '{{ arn }}|{{ flow_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

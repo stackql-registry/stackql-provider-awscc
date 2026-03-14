@@ -123,7 +123,7 @@ Creates, updates, deletes or gets a <code>security_group</code> resource or list
   {
     "name": "security_group_egress",
     "type": "array",
-    "description": "&#91;VPC only&#93; The outbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.",
+    "description": "[VPC only] The outbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.",
     "children": [
       {
         "name": "cidr_ip",
@@ -283,7 +283,7 @@ SELECT
   group_id
 FROM awscc.ec2.security_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -296,7 +296,7 @@ SELECT
   id
 FROM awscc.ec2.security_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +424,7 @@ WHERE
 DELETE FROM awscc.ec2.security_groups
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

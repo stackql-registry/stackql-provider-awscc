@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.gamelift.locations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ location_name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   location_name
 FROM awscc.gamelift.locations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.gamelift.locations
 WHERE
   Identifier = '{{ location_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

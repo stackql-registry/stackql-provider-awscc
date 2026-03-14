@@ -354,7 +354,7 @@ SELECT
   access_policy_resource
 FROM awscc.iotsitewise.access_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ access_policy_id }}';
 ```
 </TabItem>
@@ -367,7 +367,7 @@ SELECT
   access_policy_id
 FROM awscc.iotsitewise.access_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -496,7 +496,7 @@ WHERE
 DELETE FROM awscc.iotsitewise.access_policies
 WHERE
   Identifier = '{{ access_policy_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

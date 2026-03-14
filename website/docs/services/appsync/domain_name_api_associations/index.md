@@ -101,7 +101,7 @@ SELECT
   api_association_identifier
 FROM awscc.appsync.domain_name_api_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_association_identifier }}';
 ```
 
@@ -192,7 +192,7 @@ WHERE
 DELETE FROM awscc.appsync.domain_name_api_associations
 WHERE
   Identifier = '{{ api_association_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

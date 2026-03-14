@@ -165,7 +165,7 @@ SELECT
   creation_time
 FROM awscc.route53resolver.resolver_query_logging_config_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   id
 FROM awscc.route53resolver.resolver_query_logging_config_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +255,7 @@ resources:
 DELETE FROM awscc.route53resolver.resolver_query_logging_config_associations
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

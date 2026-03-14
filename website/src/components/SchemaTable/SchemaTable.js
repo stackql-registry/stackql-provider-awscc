@@ -20,7 +20,7 @@ function SchemaRow({ name, type, description, children, depth = 0 }) {
           <code>{name}</code>
         </td>
         <td><code>{type}</code></td>
-        <td>{description}</td>
+        <td dangerouslySetInnerHTML={{ __html: description }} />
       </tr>
       {expanded && children?.map((child, idx) => (
         <SchemaRow key={idx} {...child} depth={depth + 1} />

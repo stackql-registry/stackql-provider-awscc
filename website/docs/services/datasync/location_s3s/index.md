@@ -190,7 +190,7 @@ SELECT
   location_uri
 FROM awscc.datasync.location_s3s
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ location_arn }}';
 ```
 </TabItem>
@@ -203,7 +203,7 @@ SELECT
   location_arn
 FROM awscc.datasync.location_s3s_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +311,7 @@ WHERE
 DELETE FROM awscc.datasync.location_s3s
 WHERE
   Identifier = '{{ location_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -270,7 +270,7 @@ SELECT
   security_policy_name
 FROM awscc.transfer.connectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_id }}';
 ```
 </TabItem>
@@ -283,7 +283,7 @@ SELECT
   connector_id
 FROM awscc.transfer.connectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -417,7 +417,7 @@ WHERE
 DELETE FROM awscc.transfer.connectors
 WHERE
   Identifier = '{{ connector_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -46,7 +46,7 @@ Creates, updates, deletes or gets an <code>organizational_unit_association</code
   {
     "name": "notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1"
+    "description": "<details><summary>ARN identifier of the NotificationConfiguration.</summary>Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1</details>"
   },
   {
     "name": "organizational_unit_id",
@@ -66,7 +66,7 @@ Creates, updates, deletes or gets an <code>organizational_unit_association</code
   {
     "name": "notification_configuration_arn",
     "type": "string",
-    "description": "ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1"
+    "description": "<details><summary>ARN identifier of the NotificationConfiguration.</summary>Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1</details>"
   },
   {
     "name": "organizational_unit_id",
@@ -140,7 +140,7 @@ SELECT
   organizational_unit_id
 FROM awscc.notifications.organizational_unit_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   organizational_unit_id
 FROM awscc.notifications.organizational_unit_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.notifications.organizational_unit_associations
 WHERE
   Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

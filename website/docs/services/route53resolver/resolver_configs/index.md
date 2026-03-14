@@ -158,7 +158,7 @@ SELECT
   autodefined_reverse_flag
 FROM awscc.route53resolver.resolver_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_id }}';
 ```
 </TabItem>
@@ -171,7 +171,7 @@ SELECT
   resource_id
 FROM awscc.route53resolver.resolver_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -248,7 +248,7 @@ resources:
 DELETE FROM awscc.route53resolver.resolver_configs
 WHERE
   Identifier = '{{ resource_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

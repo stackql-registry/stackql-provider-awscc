@@ -127,12 +127,12 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
           {
             "name": "timestamp_source",
             "type": "string",
-            "description": "An expression specifying the field in your JSON object from which the date should be parsed. The expression should follow the structure of \\\"&#123;ObjectTypeName.&lt;Location of timestamp field in JSON pointer format&gt;&#125;\\\". E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"1737587945945\"&#125;&#125;, then TimestampSource should be \"&#123;MyType.generatedAt.timestamp&#125;\"."
+            "description": "An expression specifying the field in your JSON object from which the date should be parsed. The expression should follow the structure of \\\"&#123;ObjectTypeName.<Location of timestamp field in JSON pointer format>&#125;\\\". E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"1737587945945\"&#125;&#125;, then TimestampSource should be \"&#123;MyType.generatedAt.timestamp&#125;\"."
           },
           {
             "name": "timestamp_format",
             "type": "string",
-            "description": "The format the timestamp field in your JSON object is specified. This value should be one of EPOCHMILLI or ISO&#95;8601. E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"2001-07-04T12:08:56.235Z\"&#125;&#125;, then TimestampFormat should be \"ISO&#95;8601\"."
+            "description": "The format the timestamp field in your JSON object is specified. This value should be one of EPOCHMILLI or ISO_8601. E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"2001-07-04T12:08:56.235Z\"&#125;&#125;, then TimestampFormat should be \"ISO_8601\"."
           }
         ]
       },
@@ -210,12 +210,12 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -323,7 +323,7 @@ SELECT
   tags
 FROM awscc.customerprofiles.calculated_attribute_definitions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}';
 ```
 </TabItem>
@@ -337,7 +337,7 @@ SELECT
   calculated_attribute_name
 FROM awscc.customerprofiles.calculated_attribute_definitions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -482,7 +482,7 @@ WHERE
 DELETE FROM awscc.customerprofiles.calculated_attribute_definitions
 WHERE
   Identifier = '{{ domain_name }}|{{ calculated_attribute_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

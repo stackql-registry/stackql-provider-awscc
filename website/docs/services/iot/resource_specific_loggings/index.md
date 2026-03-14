@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>resource_specific_logging</code> resou
   {
     "name": "target_type",
     "type": "string",
-    "description": "The target type. Value must be THING&#95;GROUP, CLIENT&#95;ID, SOURCE&#95;IP, PRINCIPAL&#95;ID, or EVENT&#95;TYPE."
+    "description": "The target type. Value must be THING_GROUP, CLIENT_ID, SOURCE_IP, PRINCIPAL_ID, or EVENT_TYPE."
   },
   {
     "name": "target_name",
@@ -153,7 +153,7 @@ SELECT
   target_id
 FROM awscc.iot.resource_specific_loggings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ target_id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   target_id
 FROM awscc.iot.resource_specific_loggings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.iot.resource_specific_loggings
 WHERE
   Identifier = '{{ target_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

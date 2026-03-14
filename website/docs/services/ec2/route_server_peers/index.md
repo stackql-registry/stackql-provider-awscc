@@ -219,7 +219,7 @@ SELECT
   tags
 FROM awscc.ec2.route_server_peers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   id
 FROM awscc.ec2.route_server_peers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +338,7 @@ WHERE
 DELETE FROM awscc.ec2.route_server_peers
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

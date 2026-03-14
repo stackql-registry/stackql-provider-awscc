@@ -364,7 +364,7 @@ SELECT
   tags
 FROM awscc.xray.sampling_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
@@ -377,7 +377,7 @@ SELECT
   rule_arn
 FROM awscc.xray.sampling_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -512,7 +512,7 @@ WHERE
 DELETE FROM awscc.xray.sampling_rules
 WHERE
   Identifier = '{{ rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

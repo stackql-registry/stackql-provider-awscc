@@ -265,7 +265,7 @@ SELECT
   updated_at
 FROM awscc.qbusiness.data_accessors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```
 </TabItem>
@@ -279,7 +279,7 @@ SELECT
   data_accessor_id
 FROM awscc.qbusiness.data_accessors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -417,7 +417,7 @@ WHERE
 DELETE FROM awscc.qbusiness.data_accessors
 WHERE
   Identifier = '{{ application_id }}|{{ data_accessor_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

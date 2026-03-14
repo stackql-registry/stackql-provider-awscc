@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.eventschemas.registries
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ registry_arn }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   registry_arn
 FROM awscc.eventschemas.registries_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +279,7 @@ WHERE
 DELETE FROM awscc.eventschemas.registries
 WHERE
   Identifier = '{{ registry_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>route_table</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>route_tables</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a route table for the specified VPC. After you create a route table, you can add routes and associate the table with a subnet.<br />For more information, see &#91;Route tables&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC&#95;Route&#95;Tables.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a route table for the specified VPC. After you create a route table, you can add routes and associate the table with a subnet.</summary>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route tables</a> in the <i>Amazon VPC User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.route_tables" /></td></tr>
 </tbody>
 </table>
@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.ec2.route_tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ route_table_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   route_table_id
 FROM awscc.ec2.route_tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +264,7 @@ WHERE
 DELETE FROM awscc.ec2.route_tables
 WHERE
   Identifier = '{{ route_table_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -190,7 +190,7 @@ SELECT
   traffic_policy_name
 FROM awscc.ses.mail_manager_traffic_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ traffic_policy_id }}';
 ```
 </TabItem>
@@ -203,7 +203,7 @@ SELECT
   traffic_policy_id
 FROM awscc.ses.mail_manager_traffic_policies_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +316,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_traffic_policies
 WHERE
   Identifier = '{{ traffic_policy_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -96,7 +96,7 @@ SELECT
   service
 FROM awscc.ecs.primary_task_sets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster }}|{{ service }}';
 ```
 

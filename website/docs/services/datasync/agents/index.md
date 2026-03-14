@@ -189,7 +189,7 @@ SELECT
   agent_arn
 FROM awscc.datasync.agents
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ agent_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   agent_arn
 FROM awscc.datasync.agents_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +313,7 @@ WHERE
 DELETE FROM awscc.datasync.agents
 WHERE
   Identifier = '{{ agent_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

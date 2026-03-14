@@ -95,7 +95,7 @@ SELECT
   resource_policy
 FROM awscc.kinesis.resource_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ resource_arn }}';
 ```
 
@@ -186,7 +186,7 @@ WHERE
 DELETE FROM awscc.kinesis.resource_policies
 WHERE
   Identifier = '{{ resource_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

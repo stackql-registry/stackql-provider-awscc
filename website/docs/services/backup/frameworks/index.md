@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
   {
     "name": "framework_name",
     "type": "string",
-    "description": "The unique name of a framework. This name is between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (&#95;)."
+    "description": "The unique name of a framework. This name is between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (_)."
   },
   {
     "name": "framework_description",
@@ -61,7 +61,7 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
   {
     "name": "deployment_status",
     "type": "string",
-    "description": "The deployment status of a framework. The statuses are: &#96;CREATE&#95;IN&#95;PROGRESS &#124; UPDATE&#95;IN&#95;PROGRESS &#124; DELETE&#95;IN&#95;PROGRESS &#124; COMPLETED &#124; FAILED&#96;"
+    "description": "The deployment status of a framework. The statuses are: <code>CREATE_IN_PROGRESS | UPDATE_IN_PROGRESS | DELETE_IN_PROGRESS | COMPLETED | FAILED</code>"
   },
   {
     "name": "creation_time",
@@ -108,7 +108,7 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
           {
             "name": "compliance_resource_types",
             "type": "array",
-            "description": "Describes whether the control scope includes one or more types of resources, such as &#96;EFS&#96; or &#96;RDS&#96;."
+            "description": "Describes whether the control scope includes one or more types of resources, such as <code>EFS</code> or <code>RDS</code>."
           },
           {
             "name": "tags",
@@ -118,12 +118,12 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
               {
                 "name": "value",
                 "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
               },
               {
                 "name": "key",
                 "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
               }
             ]
           }
@@ -134,7 +134,7 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
   {
     "name": "framework_status",
     "type": "string",
-    "description": "A framework consists of one or more controls. Each control governs a resource, such as backup plans, backup selections, backup vaults, or recovery points. You can also turn AWS Config recording on or off for each resource. The statuses are:<br />&#96;ACTIVE&#96; when recording is turned on for all resources governed by the framework.<br />&#96;PARTIALLY&#95;ACTIVE&#96; when recording is turned off for at least one resource governed by the framework.<br />&#96;INACTIVE&#96; when recording is turned off for all resources governed by the framework.<br />&#96;UNAVAILABLE&#96; when AWS Backup is unable to validate recording status at this time."
+    "description": "<details><summary>A framework consists of one or more controls. Each control governs a resource, such as backup plans, backup selections, backup vaults, or recovery points. You can also turn AWS Config recording on or off for each resource. The statuses are:</summary><code>ACTIVE</code> when recording is turned on for all resources governed by the framework.<br /><code>PARTIALLY_ACTIVE</code> when recording is turned off for at least one resource governed by the framework.<br /><code>INACTIVE</code> when recording is turned off for all resources governed by the framework.<br /><code>UNAVAILABLE</code> when AWS Backup is unable to validate recording status at this time.</details>"
   },
   {
     "name": "framework_tags",
@@ -144,12 +144,12 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -247,7 +247,7 @@ SELECT
   framework_tags
 FROM awscc.backup.frameworks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ framework_arn }}';
 ```
 </TabItem>
@@ -260,7 +260,7 @@ SELECT
   framework_arn
 FROM awscc.backup.frameworks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +373,7 @@ WHERE
 DELETE FROM awscc.backup.frameworks
 WHERE
   Identifier = '{{ framework_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

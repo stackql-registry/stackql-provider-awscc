@@ -71,17 +71,17 @@ Creates, updates, deletes or gets a <code>vpc_origin</code> resource or lists <c
   {
     "name": "tags",
     "type": "array",
-    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "description": "A complex type that contains zero or more <code>Tag</code> elements.",
     "children": [
       {
         "name": "key",
         "type": "string",
-        "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+        "description": "<details><summary>A string that contains <code>Tag</code> key.</summary>The string length should be between 1 and 128 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+        "description": "<details><summary>A string that contains an optional <code>Tag</code> value.</summary>The string length should be between 0 and 256 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
       }
     ]
   },
@@ -98,12 +98,12 @@ Creates, updates, deletes or gets a <code>vpc_origin</code> resource or lists <c
       {
         "name": "h_tt_pport",
         "type": "integer",
-        "description": "The HTTP port for the CloudFront VPC origin endpoint configuration. The default value is &#96;&#96;80&#96;&#96;."
+        "description": "The HTTP port for the CloudFront VPC origin endpoint configuration. The default value is <code>80</code>."
       },
       {
         "name": "h_tt_ps_port",
         "type": "integer",
-        "description": "The HTTPS port of the CloudFront VPC origin endpoint configuration. The default value is &#96;&#96;443&#96;&#96;."
+        "description": "The HTTPS port of the CloudFront VPC origin endpoint configuration. The default value is <code>443</code>."
       },
       {
         "name": "name",
@@ -118,7 +118,7 @@ Creates, updates, deletes or gets a <code>vpc_origin</code> resource or lists <c
       {
         "name": "origin_ss_lprotocols",
         "type": "array",
-        "description": "Specifies the minimum SSL/TLS protocol that CloudFront uses when connecting to your origin over HTTPS. Valid values include &#96;&#96;SSLv3&#96;&#96;, &#96;&#96;TLSv1&#96;&#96;, &#96;&#96;TLSv1.1&#96;&#96;, and &#96;&#96;TLSv1.2&#96;&#96;.<br />For more information, see &#91;Minimum Origin SSL Protocol&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html#DownloadDistValuesOriginSSLProtocols) in the &#42;Amazon CloudFront Developer Guide&#42;."
+        "description": "<details><summary>Specifies the minimum SSL/TLS protocol that CloudFront uses when connecting to your origin over HTTPS. Valid values include <code>SSLv3</code>, <code>TLSv1</code>, <code>TLSv1.1</code>, and <code>TLSv1.2</code>.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html#DownloadDistValuesOriginSSLProtocols\">Minimum Origin SSL Protocol</a> in the <i>Amazon CloudFront Developer Guide</i>.</details>"
       }
     ]
   },

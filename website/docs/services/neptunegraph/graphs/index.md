@@ -46,12 +46,12 @@ Creates, updates, deletes or gets a <code>graph</code> resource or lists <code>g
   {
     "name": "deletion_protection",
     "type": "boolean",
-    "description": "Value that indicates whether the Graph has deletion protection enabled. The graph can't be deleted when deletion protection is enabled.<br />&#95;Default&#95;: If not specified, the default value is true."
+    "description": "<details><summary>Value that indicates whether the Graph has deletion protection enabled. The graph can't be deleted when deletion protection is enabled.</summary>_Default_: If not specified, the default value is true.</details>"
   },
   {
     "name": "graph_name",
     "type": "string",
-    "description": "Contains a user-supplied name for the Graph. <br />If you don't specify a name, we generate a unique Graph Name using a combination of Stack Name and a UUID comprising of 4 characters.<br />&#95;Important&#95;: If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+    "description": "<details><summary>Contains a user-supplied name for the Graph.</summary>If you don't specify a name, we generate a unique Graph Name using a combination of Stack Name and a UUID comprising of 4 characters.<br />_Important_: If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</details>"
   },
   {
     "name": "provisioned_memory",
@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>graph</code> resource or lists <code>g
   {
     "name": "public_connectivity",
     "type": "boolean",
-    "description": "Specifies whether the Graph can be reached over the internet. Access to all graphs requires IAM authentication.<br />When the Graph is publicly reachable, its Domain Name System (DNS) endpoint resolves to the public IP address from the internet.<br />When the Graph isn't publicly reachable, you need to create a PrivateGraphEndpoint in a given VPC to ensure the DNS name resolves to a private IP address that is reachable from the VPC.<br />&#95;Default&#95;: If not specified, the default value is false."
+    "description": "<details><summary>Specifies whether the Graph can be reached over the internet. Access to all graphs requires IAM authentication.</summary>When the Graph is publicly reachable, its Domain Name System (DNS) endpoint resolves to the public IP address from the internet.<br />When the Graph isn't publicly reachable, you need to create a PrivateGraphEndpoint in a given VPC to ensure the DNS name resolves to a private IP address that is reachable from the VPC.<br />_Default_: If not specified, the default value is false.</details>"
   },
   {
     "name": "replica_count",
     "type": "integer",
-    "description": "Specifies the number of replicas you want when finished. All replicas will be provisioned in different availability zones.<br />Replica Count should always be less than or equal to 2.<br />&#95;Default&#95;: If not specified, the default value is 1."
+    "description": "<details><summary>Specifies the number of replicas you want when finished. All replicas will be provisioned in different availability zones.</summary>Replica Count should always be less than or equal to 2.<br />_Default_: If not specified, the default value is 1.</details>"
   },
   {
     "name": "tags",
@@ -76,12 +76,12 @@ Creates, updates, deletes or gets a <code>graph</code> resource or lists <code>g
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -100,7 +100,7 @@ Creates, updates, deletes or gets a <code>graph</code> resource or lists <code>g
   {
     "name": "endpoint",
     "type": "string",
-    "description": "The connection endpoint for the graph. For example: &#96;g-12a3bcdef4.us-east-1.neptune-graph.amazonaws.com&#96;"
+    "description": "The connection endpoint for the graph. For example: <code>g-12a3bcdef4.us-east-1.neptune-graph.amazonaws.com</code>"
   },
   {
     "name": "graph_arn",
@@ -208,7 +208,7 @@ SELECT
   graph_id
 FROM awscc.neptunegraph.graphs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ graph_id }}';
 ```
 </TabItem>
@@ -221,7 +221,7 @@ SELECT
   graph_id
 FROM awscc.neptunegraph.graphs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +337,7 @@ WHERE
 DELETE FROM awscc.neptunegraph.graphs
 WHERE
   Identifier = '{{ graph_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

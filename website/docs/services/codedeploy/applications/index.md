@@ -159,7 +159,7 @@ SELECT
   tags
 FROM awscc.codedeploy.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_name }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   application_name
 FROM awscc.codedeploy.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +272,7 @@ WHERE
 DELETE FROM awscc.codedeploy.applications
 WHERE
   Identifier = '{{ application_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

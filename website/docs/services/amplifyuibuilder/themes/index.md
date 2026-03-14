@@ -222,7 +222,7 @@ SELECT
   values
 FROM awscc.amplifyuibuilder.themes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   id
 FROM awscc.amplifyuibuilder.themes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -362,7 +362,7 @@ WHERE
 DELETE FROM awscc.amplifyuibuilder.themes
 WHERE
   Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

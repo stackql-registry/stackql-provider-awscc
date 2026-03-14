@@ -264,7 +264,7 @@ SELECT
   tags
 FROM awscc.paymentcryptography.keys
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ key_identifier }}';
 ```
 </TabItem>
@@ -277,7 +277,7 @@ SELECT
   key_identifier
 FROM awscc.paymentcryptography.keys_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -405,7 +405,7 @@ WHERE
 DELETE FROM awscc.paymentcryptography.keys
 WHERE
   Identifier = '{{ key_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

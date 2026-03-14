@@ -186,7 +186,7 @@ SELECT
   created_time
 FROM awscc.appstream.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 
@@ -340,7 +340,7 @@ WHERE
 DELETE FROM awscc.appstream.applications
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

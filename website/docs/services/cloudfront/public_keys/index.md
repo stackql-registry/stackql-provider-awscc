@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>public_key</code> resource or lists <c
 <tbody>
 <tr><td><b>Name</b></td><td><code>public_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>A public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).</td></tr>
+<tr><td><b>Description</b></td><td>A public key that you can use with <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">signed URLs and signed cookies</a>, or with <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html">field-level encryption</a>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.public_keys" /></td></tr>
 </tbody>
 </table>
@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>public_key</code> resource or lists <c
   {
     "name": "public_key_config",
     "type": "object",
-    "description": "Configuration information about a public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).",
+    "description": "Configuration information about a public key that you can use with <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html\">signed URLs and signed cookies</a>, or with <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html\">field-level encryption</a>.",
     "children": [
       {
         "name": "caller_reference",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>public_key</code> resource or lists <c
       {
         "name": "encoded_key",
         "type": "string",
-        "description": "The public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html)."
+        "description": "The public key that you can use with <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html\">signed URLs and signed cookies</a>, or with <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html\">field-level encryption</a>."
       },
       {
         "name": "name",

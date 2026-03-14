@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>connection</code> resource or lists <c
   {
     "name": "connection_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the connection. The ARN is used as the connection reference when the connection is shared between AWS services."
+    "description": "The Amazon Resource Name (ARN) of the  connection. The ARN is used as the connection reference when the connection is shared between AWS services."
   },
   {
     "name": "connection_name",
@@ -103,7 +103,7 @@ Creates, updates, deletes or gets a <code>connection</code> resource or lists <c
   {
     "name": "connection_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the connection. The ARN is used as the connection reference when the connection is shared between AWS services."
+    "description": "The Amazon Resource Name (ARN) of the  connection. The ARN is used as the connection reference when the connection is shared between AWS services."
   },
   {
     "name": "region",
@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.codestarconnections.connections
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connection_arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   connection_arn
 FROM awscc.codestarconnections.connections_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +296,7 @@ WHERE
 DELETE FROM awscc.codestarconnections.connections
 WHERE
   Identifier = '{{ connection_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

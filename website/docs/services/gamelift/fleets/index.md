@@ -142,7 +142,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
       {
         "name": "update_status",
         "type": "string",
-        "description": "The current status of the fleet's scaling policies in a requested fleet location. The status PENDING&#95;UPDATE indicates that an update was requested for the fleet but has not yet been completed for the location."
+        "description": "The current status of the fleet's scaling policies in a requested fleet location. The status PENDING_UPDATE indicates that an update was requested for the fleet but has not yet been completed for the location."
       }
     ]
   },
@@ -161,7 +161,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "apply_capacity",
     "type": "string",
-    "description": "Determines when and how to apply fleet or location capacities. Allowed options are ON&#95;UPDATE (default), ON&#95;CREATE&#95;AND&#95;UPDATE and ON&#95;CREATE&#95;AND&#95;UPDATE&#95;WITH&#95;AUTOSCALING. If you choose ON&#95;CREATE&#95;AND&#95;UPDATE&#95;WITH&#95;AUTOSCALING, MinSize and MaxSize will still be applied on creation and on updates, but DesiredEC2Instances will only be applied once on fleet creation and will be ignored during updates to prevent conflicts with auto-scaling. During updates with ON&#95;CREATE&#95;AND&#95;UPDATE&#95;WITH&#95;AUTOSCALING chosen, if current desired instance is lower than the new MinSize, it will be increased to the new MinSize; if current desired instance is larger than the new MaxSize, it will be decreased to the new MaxSize."
+    "description": "Determines when and how to apply fleet or location capacities. Allowed options are ON_UPDATE (default), ON_CREATE_AND_UPDATE and ON_CREATE_AND_UPDATE_WITH_AUTOSCALING. If you choose ON_CREATE_AND_UPDATE_WITH_AUTOSCALING, MinSize and MaxSize will still be applied on creation and on updates, but DesiredEC2Instances will only be applied once on fleet creation and will be ignored during updates to prevent conflicts with auto-scaling. During updates with ON_CREATE_AND_UPDATE_WITH_AUTOSCALING chosen, if current desired instance is lower than the new MinSize, it will be increased to the new MinSize; if current desired instance is larger than the new MaxSize, it will be decreased to the new MaxSize."
   },
   {
     "name": "certificate_configuration",
@@ -188,7 +188,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "desired_ec2_instances",
     "type": "integer",
-    "description": "&#91;DEPRECATED&#93; The number of EC2 instances that you want this fleet to host. When creating a new fleet, GameLift automatically sets this value to \"1\" and initiates a single instance. Once the fleet is active, update this value to trigger GameLift to add or remove instances from the fleet."
+    "description": "[DEPRECATED] The number of EC2 instances that you want this fleet to host. When creating a new fleet, GameLift automatically sets this value to \"1\" and initiates a single instance. Once the fleet is active, update this value to trigger GameLift to add or remove instances from the fleet."
   },
   {
     "name": "e_c2_inbound_permissions",
@@ -203,7 +203,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
       {
         "name": "ip_range",
         "type": "string",
-        "description": "A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: \"000.000.000.000/&#91;subnet mask&#93;\" or optionally the shortened version \"0.0.0.0/&#91;subnet mask&#93;\"."
+        "description": "A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: \"000.000.000.000/[subnet mask]\" or optionally the shortened version \"0.0.0.0/[subnet mask]\"."
       },
       {
         "name": "protocol",
@@ -225,7 +225,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "fleet_type",
     "type": "string",
-    "description": "Indicates whether to use On-Demand instances or Spot instances for this fleet. If empty, the default is ON&#95;DEMAND. Both categories of instances use identical hardware and configurations based on the instance type selected for this fleet."
+    "description": "Indicates whether to use On-Demand instances or Spot instances for this fleet. If empty, the default is ON_DEMAND. Both categories of instances use identical hardware and configurations based on the instance type selected for this fleet."
   },
   {
     "name": "instance_role_arn",
@@ -308,7 +308,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "max_size",
     "type": "integer",
-    "description": "&#91;DEPRECATED&#93; The maximum value that is allowed for the fleet's instance count. When creating a new fleet, GameLift automatically sets this value to \"1\". Once the fleet is active, you can change this value."
+    "description": "[DEPRECATED] The maximum value that is allowed for the fleet's instance count. When creating a new fleet, GameLift automatically sets this value to \"1\". Once the fleet is active, you can change this value."
   },
   {
     "name": "metric_groups",
@@ -318,7 +318,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "min_size",
     "type": "integer",
-    "description": "&#91;DEPRECATED&#93; The minimum value allowed for the fleet's instance count. When creating a new fleet, GameLift automatically sets this value to \"0\". After the fleet is active, you can change this value."
+    "description": "[DEPRECATED] The minimum value allowed for the fleet's instance count. When creating a new fleet, GameLift automatically sets this value to \"0\". After the fleet is active, you can change this value."
   },
   {
     "name": "name",
@@ -370,12 +370,12 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
   {
     "name": "script_id",
     "type": "string",
-    "description": "A unique identifier for a Realtime script to be deployed on a new Realtime Servers fleet. The script must have been successfully uploaded to Amazon GameLift. This fleet setting cannot be changed once the fleet is created.<br />Note: It is not currently possible to use the !Ref command to reference a script created with a CloudFormation template for the fleet property ScriptId. Instead, use Fn::GetAtt Script.Arn or Fn::GetAtt Script.Id to retrieve either of these properties as input for ScriptId. Alternatively, enter a ScriptId string manually."
+    "description": "<details><summary>A unique identifier for a Realtime script to be deployed on a new Realtime Servers fleet. The script must have been successfully uploaded to Amazon GameLift. This fleet setting cannot be changed once the fleet is created.</summary>Note: It is not currently possible to use the !Ref command to reference a script created with a CloudFormation template for the fleet property ScriptId. Instead, use Fn::GetAtt Script.Arn or Fn::GetAtt Script.Id to retrieve either of these properties as input for ScriptId. Alternatively, enter a ScriptId string manually.</details>"
   },
   {
     "name": "runtime_configuration",
     "type": "object",
-    "description": "Instructions for launching server processes on each instance in the fleet. Server processes run either a custom game build executable or a Realtime script. The runtime configuration defines the server executables or launch script file, launch parameters, and the number of processes to run concurrently on each instance. When creating a fleet, the runtime configuration must have at least one server process configuration; otherwise the request fails with an invalid request exception.<br />This parameter is required unless the parameters ServerLaunchPath and ServerLaunchParameters are defined. Runtime configuration has replaced these parameters, but fleets that use them will continue to work.",
+    "description": "<details><summary>Instructions for launching server processes on each instance in the fleet. Server processes run either a custom game build executable or a Realtime script. The runtime configuration defines the server executables or launch script file, launch parameters, and the number of processes to run concurrently on each instance. When creating a fleet, the runtime configuration must have at least one server process configuration; otherwise the request fails with an invalid request exception.</summary>This parameter is required unless the parameters ServerLaunchPath and ServerLaunchParameters are defined. Runtime configuration has replaced these parameters, but fleets that use them will continue to work.</details>",
     "children": [
       {
         "name": "game_session_activation_timeout_seconds",
@@ -400,7 +400,7 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
           {
             "name": "launch_path",
             "type": "string",
-            "description": "The location of the server executable in a custom game build or the name of the Realtime script file that contains the Init() function. Game builds and Realtime scripts are installed on instances at the root:<br />Windows (for custom game builds only): C:\\game. Example: \"C:\\game\\MyGame\\server.exe\"<br />Linux: /local/game. Examples: \"/local/game/MyGame/server.exe\" or \"/local/game/MyRealtimeScript.js\""
+            "description": "<details><summary>The location of the server executable in a custom game build or the name of the Realtime script file that contains the Init() function. Game builds and Realtime scripts are installed on instances at the root:</summary>Windows (for custom game builds only): C:\\game. Example: \"C:\\game\\MyGame\\server.exe\"<br />Linux: /local/game. Examples: \"/local/game/MyGame/server.exe\" or \"/local/game/MyRealtimeScript.js\"</details>"
           },
           {
             "name": "parameters",
@@ -559,7 +559,7 @@ SELECT
   fleet_arn
 FROM awscc.gamelift.fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
@@ -572,7 +572,7 @@ SELECT
   fleet_id
 FROM awscc.gamelift.fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -818,7 +818,7 @@ WHERE
 DELETE FROM awscc.gamelift.fleets
 WHERE
   Identifier = '{{ fleet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

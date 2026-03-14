@@ -131,7 +131,7 @@ SELECT
   sns_topic_arn
 FROM awscc.fms.notification_channels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ sns_topic_arn }}';
 ```
 </TabItem>
@@ -144,7 +144,7 @@ SELECT
   sns_topic_arn
 FROM awscc.fms.notification_channels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +237,7 @@ WHERE
 DELETE FROM awscc.fms.notification_channels
 WHERE
   Identifier = '{{ sns_topic_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

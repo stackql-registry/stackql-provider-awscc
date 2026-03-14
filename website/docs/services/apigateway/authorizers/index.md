@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>authorizer</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>authorizers</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Authorizer&#96;&#96; resource creates an authorization layer that API Gateway activates for methods that have authorization enabled. API Gateway activates the authorizer when a client calls those methods.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Authorizer</code> resource creates an authorization layer that API Gateway activates for methods that have authorization enabled. API Gateway activates the authorizer when a client calls those methods.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.authorizers" /></td></tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ SELECT
   type
 FROM awscc.apigateway.authorizers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```
 </TabItem>
@@ -214,7 +214,7 @@ SELECT
   authorizer_id
 FROM awscc.apigateway.authorizers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +349,7 @@ WHERE
 DELETE FROM awscc.apigateway.authorizers
 WHERE
   Identifier = '{{ rest_api_id }}|{{ authorizer_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

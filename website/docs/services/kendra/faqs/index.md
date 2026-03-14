@@ -218,7 +218,7 @@ SELECT
   language_code
 FROM awscc.kendra.faqs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}|{{ index_id }}';
 ```
 </TabItem>
@@ -232,7 +232,7 @@ SELECT
   index_id
 FROM awscc.kendra.faqs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +357,7 @@ WHERE
 DELETE FROM awscc.kendra.faqs
 WHERE
   Identifier = '{{ id }}|{{ index_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

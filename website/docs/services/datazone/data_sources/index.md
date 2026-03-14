@@ -319,7 +319,7 @@ SELECT
   updated_at
 FROM awscc.datazone.data_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
@@ -333,7 +333,7 @@ SELECT
   id
 FROM awscc.datazone.data_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -487,7 +487,7 @@ WHERE
 DELETE FROM awscc.datazone.data_sources
 WHERE
   Identifier = '{{ domain_id }}|{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

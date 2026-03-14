@@ -256,7 +256,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
               {
                 "name": "mime_type",
                 "type": "string",
-                "description": "<p>The <code>mimeType</code> of the resource that's at the font download URL.</p> <p>For information about font MIME types, see the <a href=\"https://dvb.org/wp-content/uploads/2021/06/A168r4&#95;MPEG-DASH-Profile-for-Transport-of-ISO-BMFF-Based-DVB-Services&#95;Draft-ts&#95;103-285-v140&#95;November&#95;2021.pdf\">MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services over IP Based Networks</a> document. </p>"
+                "description": "<p>The <code>mimeType</code> of the resource that's at the font download URL.</p> <p>For information about font MIME types, see the <a href=\"https://dvb.org/wp-content/uploads/2021/06/A168r4_MPEG-DASH-Profile-for-Transport-of-ISO-BMFF-Based-DVB-Services_Draft-ts_103-285-v140_November_2021.pdf\">MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services over IP Based Networks</a> document. </p>"
               },
               {
                 "name": "font_family",
@@ -345,7 +345,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "child_manifest_name",
         "type": "string",
-        "description": "<p>A short string that's appended to the endpoint URL. The child manifest name creates a unique path to this endpoint. If you don't enter a value, MediaPackage uses the default child manifest name, index&#95;1. The manifestName on the HLSManifest object overrides the manifestName you provided on the originEndpoint object.</p>"
+        "description": "<p>A short string that's appended to the endpoint URL. The child manifest name creates a unique path to this endpoint. If you don't enter a value, MediaPackage uses the default child manifest name, index_1. The manifestName on the HLSManifest object overrides the manifestName you provided on the originEndpoint object.</p>"
       },
       {
         "name": "manifest_window_seconds",
@@ -421,7 +421,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "url_encode_child_manifest",
         "type": "boolean",
-        "description": "<p>When enabled, MediaPackage URL-encodes the query string for API requests for HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference&#95;sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"
+        "description": "<p>When enabled, MediaPackage URL-encodes the query string for API requests for HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"
       }
     ]
   },
@@ -443,7 +443,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "child_manifest_name",
         "type": "string",
-        "description": "<p>A short string that's appended to the endpoint URL. The child manifest name creates a unique path to this endpoint. If you don't enter a value, MediaPackage uses the default child manifest name, index&#95;1. The manifestName on the HLSManifest object overrides the manifestName you provided on the originEndpoint object.</p>"
+        "description": "<p>A short string that's appended to the endpoint URL. The child manifest name creates a unique path to this endpoint. If you don't enter a value, MediaPackage uses the default child manifest name, index_1. The manifestName on the HLSManifest object overrides the manifestName you provided on the originEndpoint object.</p>"
       },
       {
         "name": "manifest_window_seconds",
@@ -519,7 +519,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
       {
         "name": "url_encode_child_manifest",
         "type": "boolean",
-        "description": "<p>When enabled, MediaPackage URL-encodes the query string for API requests for LL-HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference&#95;sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"
+        "description": "<p>When enabled, MediaPackage URL-encodes the query string for API requests for LL-HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"
       }
     ]
   },
@@ -610,7 +610,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
           {
             "name": "cmaf_exclude_segment_drm_metadata",
             "type": "boolean",
-            "description": "<p>Excludes SEIG and SGPD boxes from segment metadata in CMAF containers.</p> <p>When set to <code>true</code>, MediaPackage omits these DRM metadata boxes from CMAF segments, which can improve compatibility with certain devices and players that don't support these boxes.</p> <p>Important considerations:</p> <ul> <li> <p>This setting only affects CMAF container formats</p> </li> <li> <p>Key rotation can still be handled through media playlist signaling</p> </li> <li> <p>PSSH and TENC boxes remain unaffected</p> </li> <li> <p>Default behavior is preserved when this setting is disabled</p> </li> </ul> <p>Valid values: <code>true</code> &#124; <code>false</code> </p> <p>Default: <code>false</code> </p>"
+            "description": "<p>Excludes SEIG and SGPD boxes from segment metadata in CMAF containers.</p> <p>When set to <code>true</code>, MediaPackage omits these DRM metadata boxes from CMAF segments, which can improve compatibility with certain devices and players that don't support these boxes.</p> <p>Important considerations:</p> <ul> <li> <p>This setting only affects CMAF container formats</p> </li> <li> <p>Key rotation can still be handled through media playlist signaling</p> </li> <li> <p>PSSH and TENC boxes remain unaffected</p> </li> <li> <p>Default behavior is preserved when this setting is disabled</p> </li> </ul> <p>Valid values: <code>true</code> | <code>false</code> </p> <p>Default: <code>false</code> </p>"
           },
           {
             "name": "speke_key_provider",
@@ -635,7 +635,7 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
               {
                 "name": "role_arn",
                 "type": "string",
-                "description": "<p>The ARN for the IAM role granted by the key provider that provides access to the key provider API. This role must have a trust policy that allows MediaPackage to assume the role, and it must have a sufficient permissions policy to allow access to the specific key retrieval URL. Get this from your DRM solution provider.</p> <p>Valid format: <code>arn:aws:iam::{accountID}:role/{name}</code>. The following example shows a role ARN: <code>arn:aws:iam::444455556666:role/SpekeAccess</code> </p>"
+                "description": "<p>The ARN for the IAM role granted by the key provider that provides access to the key provider API. This role must have a trust policy that allows MediaPackage to assume the role, and it must have a sufficient permissions policy to allow access to the specific key retrieval URL. Get this from your DRM solution provider.</p> <p>Valid format: <code>arn:aws:iam::&#123;accountID&#125;:role/&#123;name&#125;</code>. The following example shows a role ARN: <code>arn:aws:iam::444455556666:role/SpekeAccess</code> </p>"
               },
               {
                 "name": "url",
@@ -789,7 +789,7 @@ SELECT
   tags
 FROM awscc.mediapackagev2.origin_endpoints
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -802,7 +802,7 @@ SELECT
   arn
 FROM awscc.mediapackagev2.origin_endpoints_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1038,7 +1038,7 @@ WHERE
 DELETE FROM awscc.mediapackagev2.origin_endpoints
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

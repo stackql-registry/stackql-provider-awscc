@@ -158,7 +158,7 @@ SELECT
   version
 FROM awscc.connect.view_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ view_version_arn }}';
 ```
 </TabItem>
@@ -171,7 +171,7 @@ SELECT
   view_version_arn
 FROM awscc.connect.view_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +250,7 @@ resources:
 DELETE FROM awscc.connect.view_versions
 WHERE
   Identifier = '{{ view_version_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

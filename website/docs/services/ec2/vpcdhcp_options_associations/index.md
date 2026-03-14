@@ -146,7 +146,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.vpcdhcp_options_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dhcp_options_id }}|{{ vpc_id }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   vpc_id
 FROM awscc.ec2.vpcdhcp_options_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +237,7 @@ resources:
 DELETE FROM awscc.ec2.vpcdhcp_options_associations
 WHERE
   Identifier = '{{ dhcp_options_id }}|{{ vpc_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

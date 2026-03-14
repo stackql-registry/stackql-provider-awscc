@@ -290,7 +290,7 @@ SELECT
   tags
 FROM awscc.sagemaker.app_image_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ app_image_config_name }}';
 ```
 </TabItem>
@@ -303,7 +303,7 @@ SELECT
   app_image_config_name
 FROM awscc.sagemaker.app_image_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -426,7 +426,7 @@ WHERE
 DELETE FROM awscc.sagemaker.app_image_configs
 WHERE
   Identifier = '{{ app_image_config_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

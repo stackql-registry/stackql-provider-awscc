@@ -109,7 +109,7 @@ SELECT
   region
 FROM awscc.tagging.tagged_resources
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 

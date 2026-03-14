@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>input</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>inputs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The AWS::IoTEvents::Input resource creates an input. To monitor your devices and processes, they must have a way to get telemetry data into ITE. This is done by sending messages as &#42;inputs&#42; to ITE. For more information, see &#91;How to Use&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the &#42;Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The AWS::IoTEvents::Input resource creates an input. To monitor your devices and processes, they must have a way to get telemetry data into ITE. This is done by sending messages as <i>inputs</i> to ITE. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html">How to Use</a> in the <i>Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotevents.inputs" /></td></tr>
 </tbody>
 </table>
@@ -51,12 +51,12 @@ Creates, updates, deletes or gets an <code>input</code> resource or lists <code>
       {
         "name": "attributes",
         "type": "array",
-        "description": "The attributes from the JSON payload that are made available by the input. Inputs are derived from messages sent to the ITE system using &#96;&#96;BatchPutMessage&#96;&#96;. Each such message contains a JSON payload, and those attributes (and their paired values) specified here are available for use in the &#96;&#96;condition&#96;&#96; expressions used by detectors that monitor this input.",
+        "description": "The attributes from the JSON payload that are made available by the input. Inputs are derived from messages sent to the ITE system using <code>BatchPutMessage</code>. Each such message contains a JSON payload, and those attributes (and their paired values) specified here are available for use in the <code>condition</code> expressions used by detectors that monitor this input.",
         "children": [
           {
             "name": "json_path",
             "type": "string",
-            "description": "An expression that specifies an attribute-value pair in a JSON structure. Use this to specify an attribute from the JSON payload that is made available by the input. Inputs are derived from messages sent to ITE (&#96;&#96;BatchPutMessage&#96;&#96;). Each such message contains a JSON payload. The attribute (and its paired value) specified here are available for use in the &#96;&#96;condition&#96;&#96; expressions used by detectors. <br />Syntax: &#96;&#96;&lt;field-name&gt;.&lt;field-name&gt;...&#96;&#96;"
+            "description": "<details><summary>An expression that specifies an attribute-value pair in a JSON structure. Use this to specify an attribute from the JSON payload that is made available by the input. Inputs are derived from messages sent to ITE (<code>BatchPutMessage</code>). Each such message contains a JSON payload. The attribute (and its paired value) specified here are available for use in the <code>condition</code> expressions used by detectors.</summary>Syntax: <code><field-name>.<field-name>...</code></details>"
           }
         ]
       }
@@ -75,7 +75,7 @@ Creates, updates, deletes or gets an <code>input</code> resource or lists <code>
   {
     "name": "tags",
     "type": "array",
-    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "description": "<details><summary>An array of key-value pairs to apply to this resource.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
         "name": "key",
@@ -179,7 +179,7 @@ SELECT
   tags
 FROM awscc.iotevents.inputs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ input_name }}';
 ```
 </TabItem>
@@ -192,7 +192,7 @@ SELECT
   input_name
 FROM awscc.iotevents.inputs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +296,7 @@ WHERE
 DELETE FROM awscc.iotevents.inputs
 WHERE
   Identifier = '{{ input_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.iottwinmaker.sync_jobs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_id }}|{{ sync_source }}';
 ```
 </TabItem>
@@ -185,7 +185,7 @@ SELECT
   sync_source
 FROM awscc.iottwinmaker.sync_jobs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +272,7 @@ resources:
 DELETE FROM awscc.iottwinmaker.sync_jobs
 WHERE
   Identifier = '{{ workspace_id }}|{{ sync_source }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

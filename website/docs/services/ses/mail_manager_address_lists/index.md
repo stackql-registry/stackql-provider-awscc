@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.ses.mail_manager_address_lists
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ address_list_id }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   address_list_id
 FROM awscc.ses.mail_manager_address_lists_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +272,7 @@ WHERE
 DELETE FROM awscc.ses.mail_manager_address_lists
 WHERE
   Identifier = '{{ address_list_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

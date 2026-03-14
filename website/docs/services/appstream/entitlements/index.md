@@ -137,7 +137,7 @@ SELECT
   last_modified_time
 FROM awscc.appstream.entitlements
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ stack_name }}|{{ name }}';
 ```
 
@@ -248,7 +248,7 @@ WHERE
 DELETE FROM awscc.appstream.entitlements
 WHERE
   Identifier = '{{ stack_name }}|{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

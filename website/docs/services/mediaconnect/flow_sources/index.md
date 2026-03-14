@@ -321,7 +321,7 @@ SELECT
   whitelist_cidr
 FROM awscc.mediaconnect.flow_sources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ source_arn }}';
 ```
 </TabItem>
@@ -334,7 +334,7 @@ SELECT
   source_arn
 FROM awscc.mediaconnect.flow_sources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -518,7 +518,7 @@ WHERE
 DELETE FROM awscc.mediaconnect.flow_sources
 WHERE
   Identifier = '{{ source_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

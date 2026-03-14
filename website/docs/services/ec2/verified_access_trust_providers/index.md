@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>verified_access_trust_provider</code> 
   {
     "name": "trust_provider_type",
     "type": "string",
-    "description": "Type of trust provider. Possible values: user&#124;device"
+    "description": "Type of trust provider. Possible values: user|device"
   },
   {
     "name": "device_trust_provider_type",
     "type": "string",
-    "description": "The type of device-based trust provider. Possible values: jamf&#124;crowdstrike"
+    "description": "The type of device-based trust provider. Possible values: jamf|crowdstrike"
   },
   {
     "name": "user_trust_provider_type",
     "type": "string",
-    "description": "The type of device-based trust provider. Possible values: oidc&#124;iam-identity-center"
+    "description": "The type of device-based trust provider. Possible values: oidc|iam-identity-center"
   },
   {
     "name": "oidc_options",
@@ -322,7 +322,7 @@ SELECT
   native_application_oidc_options
 FROM awscc.ec2.verified_access_trust_providers
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ verified_access_trust_provider_id }}';
 ```
 </TabItem>
@@ -335,7 +335,7 @@ SELECT
   verified_access_trust_provider_id
 FROM awscc.ec2.verified_access_trust_providers_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -484,7 +484,7 @@ WHERE
 DELETE FROM awscc.ec2.verified_access_trust_providers
 WHERE
   Identifier = '{{ verified_access_trust_provider_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

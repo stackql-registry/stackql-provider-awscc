@@ -212,7 +212,7 @@ SELECT
   modified_time_seconds
 FROM awscc.wisdom.ai_prompts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   assistant_id
 FROM awscc.wisdom.ai_prompts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -354,7 +354,7 @@ WHERE
 DELETE FROM awscc.wisdom.ai_prompts
 WHERE
   Identifier = '{{ a_iprompt_id }}|{{ assistant_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

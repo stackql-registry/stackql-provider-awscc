@@ -438,7 +438,7 @@ SELECT
   creation_time
 FROM awscc.sagemaker.model_explainability_job_definitions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ job_definition_arn }}';
 ```
 </TabItem>
@@ -451,7 +451,7 @@ SELECT
   job_definition_arn
 FROM awscc.sagemaker.model_explainability_job_definitions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -615,7 +615,7 @@ resources:
 DELETE FROM awscc.sagemaker.model_explainability_job_definitions
 WHERE
   Identifier = '{{ job_definition_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

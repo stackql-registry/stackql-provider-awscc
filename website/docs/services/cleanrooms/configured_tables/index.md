@@ -220,7 +220,7 @@ SELECT
   table_reference
 FROM awscc.cleanrooms.configured_tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ configured_table_identifier }}';
 ```
 </TabItem>
@@ -233,7 +233,7 @@ SELECT
   configured_table_identifier
 FROM awscc.cleanrooms.configured_tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -367,7 +367,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.configured_tables
 WHERE
   Identifier = '{{ configured_table_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

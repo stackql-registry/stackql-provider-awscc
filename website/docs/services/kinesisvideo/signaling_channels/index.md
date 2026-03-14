@@ -56,7 +56,7 @@ Creates, updates, deletes or gets a <code>signaling_channel</code> resource or l
   {
     "name": "type",
     "type": "string",
-    "description": "The type of the Kinesis Video Signaling Channel to create. Currently, SINGLE&#95;MASTER is the only supported channel type."
+    "description": "The type of the Kinesis Video Signaling Channel to create. Currently, SINGLE_MASTER is the only supported channel type."
   },
   {
     "name": "message_ttl_seconds",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>signaling_channel</code> resource or l
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. Specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. Specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -171,7 +171,7 @@ SELECT
   tags
 FROM awscc.kinesisvideo.signaling_channels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   name
 FROM awscc.kinesisvideo.signaling_channels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +286,7 @@ WHERE
 DELETE FROM awscc.kinesisvideo.signaling_channels
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

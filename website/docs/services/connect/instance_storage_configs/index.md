@@ -259,7 +259,7 @@ SELECT
   kinesis_firehose_config
 FROM awscc.connect.instance_storage_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}';
 ```
 </TabItem>
@@ -274,7 +274,7 @@ SELECT
   resource_type
 FROM awscc.connect.instance_storage_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -402,7 +402,7 @@ WHERE
 DELETE FROM awscc.connect.instance_storage_configs
 WHERE
   Identifier = '{{ instance_arn }}|{{ association_id }}|{{ resource_type }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

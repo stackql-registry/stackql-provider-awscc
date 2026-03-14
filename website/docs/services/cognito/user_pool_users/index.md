@@ -188,7 +188,7 @@ SELECT
   client_metadata
 FROM awscc.cognito.user_pool_users
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ user_pool_id }}|{{ username }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   username
 FROM awscc.cognito.user_pool_users_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +305,7 @@ resources:
 DELETE FROM awscc.cognito.user_pool_users
 WHERE
   Identifier = '{{ user_pool_id }}|{{ username }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

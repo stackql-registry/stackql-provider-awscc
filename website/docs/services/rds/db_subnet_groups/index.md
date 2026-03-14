@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>db_subnet_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::DBSubnetGroup&#96;&#96; resource creates a database subnet group. Subnet groups must contain at least two subnets in two different Availability Zones in the same region. <br />For more information, see &#91;Working with DB subnet groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;VPC.WorkingWithRDSInstanceinaVPC.html#USER&#95;VPC.Subnets) in the &#42;Amazon RDS User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>The <code>AWS::RDS::DBSubnetGroup</code> resource creates a database subnet group. Subnet groups must contain at least two subnets in two different Availability Zones in the same region.</summary>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Subnets">Working with DB subnet groups</a> in the <i>Amazon RDS User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.db_subnet_groups" /></td></tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
   {
     "name": "db_subnet_group_name",
     "type": "string",
-    "description": "The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints:<br />+ Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+ Must not be default.<br />+ First character must be a letter.<br /><br />Example: &#96;&#96;mydbsubnetgroup&#96;&#96;"
+    "description": "<details><summary>The name for the DB subnet group. This value is stored as a lowercase string.</summary>Constraints:<br />+  Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+  Must not be default.<br />+  First character must be a letter.<br />Example: <code>mydbsubnetgroup</code></details>"
   },
   {
     "name": "subnet_ids",
@@ -66,12 +66,12 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       }
     ]
   },
@@ -88,7 +88,7 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
   {
     "name": "db_subnet_group_name",
     "type": "string",
-    "description": "The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints:<br />+ Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+ Must not be default.<br />+ First character must be a letter.<br /><br />Example: &#96;&#96;mydbsubnetgroup&#96;&#96;"
+    "description": "<details><summary>The name for the DB subnet group. This value is stored as a lowercase string.</summary>Constraints:<br />+  Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+  Must not be default.<br />+  First character must be a letter.<br />Example: <code>mydbsubnetgroup</code></details>"
   },
   {
     "name": "region",
@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.rds.db_subnet_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ db_subnet_group_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   db_subnet_group_name
 FROM awscc.rds.db_subnet_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.rds.db_subnet_groups
 WHERE
   Identifier = '{{ db_subnet_group_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

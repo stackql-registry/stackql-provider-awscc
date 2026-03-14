@@ -27,7 +27,7 @@ Creates, updates, deletes or gets an <code>integration_response</code> resource 
 <tbody>
 <tr><td><b>Name</b></td><td><code>integration_responses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::IntegrationResponse&#96;&#96; resource updates an integration response for an WebSocket API. For more information, see &#91;Set up WebSocket API Integration Responses in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-responses.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::IntegrationResponse</code> resource updates an integration response for an WebSocket API. For more information, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-responses.html">Set up WebSocket API Integration Responses in API Gateway</a> in the <i>API Gateway Developer Guide</i>.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.integration_responses" /></td></tr>
 </tbody>
 </table>
@@ -61,12 +61,12 @@ Creates, updates, deletes or gets an <code>integration_response</code> resource 
   {
     "name": "response_parameters",
     "type": "object",
-    "description": "A key-value map specifying response parameters that are passed to the method response from the backend. The key is a method response header parameter name and the mapped value is an integration response header value, a static value enclosed within a pair of single quotes, or a JSON expression from the integration response body. The mapping key must match the pattern of &#96;&#96;method.response.header.&#123;name&#125;&#96;&#96;, where name is a valid and unique header name. The mapped non-static value must match the pattern of &#96;&#96;integration.response.header.&#123;name&#125;&#96;&#96; or &#96;&#96;integration.response.body.&#123;JSON-expression&#125;&#96;&#96;, where &#96;&#96;&#123;name&#125;&#96;&#96; is a valid and unique response header name and &#96;&#96;&#123;JSON-expression&#125;&#96;&#96; is a valid JSON expression without the &#96;&#96;$&#96;&#96; prefix."
+    "description": "A key-value map specifying response parameters that are passed to the method response from the backend. The key is a method response header parameter name and the mapped value is an integration response header value, a static value enclosed within a pair of single quotes, or a JSON expression from the integration response body. The mapping key must match the pattern of <code>method.response.header.&#123;name&#125;</code>, where name is a valid and unique header name. The mapped non-static value must match the pattern of <code>integration.response.header.&#123;name&#125;</code> or <code>integration.response.body.&#123;JSON-expression&#125;</code>, where <code>&#123;name&#125;</code> is a valid and unique response header name and <code>&#123;JSON-expression&#125;</code> is a valid JSON expression without the <code>$</code> prefix."
   },
   {
     "name": "content_handling_strategy",
     "type": "string",
-    "description": "Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported values are &#96;&#96;CONVERT&#95;TO&#95;BINARY&#96;&#96; and &#96;&#96;CONVERT&#95;TO&#95;TEXT&#96;&#96;, with the following behaviors:<br />&#96;&#96;CONVERT&#95;TO&#95;BINARY&#96;&#96;: Converts a response payload from a Base64-encoded string to the corresponding binary blob.<br />&#96;&#96;CONVERT&#95;TO&#95;TEXT&#96;&#96;: Converts a response payload from a binary blob to a Base64-encoded string.<br />If this property is not defined, the response payload will be passed through from the integration response to the route response or method response without modification."
+    "description": "<details><summary>Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported values are <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</summary><code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding binary blob.<br /><code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.<br />If this property is not defined, the response payload will be passed through from the integration response to the route response or method response without modification.</details>"
   },
   {
     "name": "integration_id",
@@ -187,7 +187,7 @@ SELECT
   api_id
 FROM awscc.apigatewayv2.integration_responses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   integration_response_id
 FROM awscc.apigatewayv2.integration_responses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +320,7 @@ WHERE
 DELETE FROM awscc.apigatewayv2.integration_responses
 WHERE
   Identifier = '{{ api_id }}|{{ integration_id }}|{{ integration_response_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

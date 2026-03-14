@@ -95,7 +95,7 @@ SELECT
   topic_arn
 FROM awscc.sns.topic_inline_policies
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ topic_arn }}';
 ```
 
@@ -186,7 +186,7 @@ WHERE
 DELETE FROM awscc.sns.topic_inline_policies
 WHERE
   Identifier = '{{ topic_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

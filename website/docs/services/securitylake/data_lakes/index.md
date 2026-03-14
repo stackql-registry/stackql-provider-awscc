@@ -233,7 +233,7 @@ SELECT
   s3_bucket_arn
 FROM awscc.securitylake.data_lakes
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -246,7 +246,7 @@ SELECT
   arn
 FROM awscc.securitylake.data_lakes_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -371,7 +371,7 @@ WHERE
 DELETE FROM awscc.securitylake.data_lakes
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

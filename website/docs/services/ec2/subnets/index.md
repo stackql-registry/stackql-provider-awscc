@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>subnets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a subnet for the specified VPC.<br />For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see &#91;Subnets for your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Specifies a subnet for the specified VPC.</summary>For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html">Subnets for your VPC</a> in the <i>Amazon VPC User Guide</i>.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.subnets" /></td></tr>
 </tbody>
 </table>
@@ -46,22 +46,22 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
   {
     "name": "assign_ipv6_address_on_creation",
     "type": "boolean",
-    "description": "Indicates whether a network interface created in this subnet receives an IPv6 address. The default value is &#96;&#96;false&#96;&#96;.<br />If you specify &#96;&#96;AssignIpv6AddressOnCreation&#96;&#96;, you must also specify an IPv6 CIDR block."
+    "description": "<details><summary>Indicates whether a network interface created in this subnet receives an IPv6 address. The default value is <code>false</code>.</summary>If you specify <code>AssignIpv6AddressOnCreation</code>, you must also specify an IPv6 CIDR block.</details>"
   },
   {
     "name": "vpc_id",
     "type": "string",
-    "description": "The ID of the VPC the subnet is in.<br />If you update this property, you must also update the &#96;&#96;CidrBlock&#96;&#96; property."
+    "description": "<details><summary>The ID of the VPC the subnet is in.</summary>If you update this property, you must also update the <code>CidrBlock</code> property.</details>"
   },
   {
     "name": "map_public_ip_on_launch",
     "type": "boolean",
-    "description": "Indicates whether instances launched in this subnet receive a public IPv4 address. The default value is &#96;&#96;false&#96;&#96;.<br />AWS charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the &#42;Public IPv4 Address&#42; tab on the &#91;VPC pricing page&#93;(https://docs.aws.amazon.com/vpc/pricing/)."
+    "description": "<details><summary>Indicates whether instances launched in this subnet receive a public IPv4 address. The default value is <code>false</code>.</summary>AWS charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href=\"https://docs.aws.amazon.com/vpc/pricing/\">VPC pricing page</a>.</details>"
   },
   {
     "name": "enable_lni_at_device_index",
     "type": "integer",
-    "description": "Indicates the device position for local network interfaces in this subnet. For example, &#96;&#96;1&#96;&#96; indicates local network interfaces in this subnet are the secondary network interface (eth1)."
+    "description": "Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network interface (eth1)."
   },
   {
     "name": "network_acl_association_id",
@@ -71,7 +71,7 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
   {
     "name": "availability_zone",
     "type": "string",
-    "description": "The Availability Zone of the subnet.<br />If you update this property, you must also update the &#96;&#96;CidrBlock&#96;&#96; property."
+    "description": "<details><summary>The Availability Zone of the subnet.</summary>If you update this property, you must also update the <code>CidrBlock</code> property.</details>"
   },
   {
     "name": "availability_zone_id",
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
   {
     "name": "cidr_block",
     "type": "string",
-    "description": "The IPv4 CIDR block assigned to the subnet.<br />If you update this property, we create a new subnet, and then delete the existing one."
+    "description": "<details><summary>The IPv4 CIDR block assigned to the subnet.</summary>If you update this property, we create a new subnet, and then delete the existing one.</details>"
   },
   {
     "name": "subnet_id",
@@ -96,7 +96,7 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
   {
     "name": "ipv6_cidr_block",
     "type": "string",
-    "description": "The IPv6 CIDR block.<br />If you specify &#96;&#96;AssignIpv6AddressOnCreation&#96;&#96;, you must also specify an IPv6 CIDR block."
+    "description": "<details><summary>The IPv6 CIDR block.</summary>If you specify <code>AssignIpv6AddressOnCreation</code>, you must also specify an IPv6 CIDR block.</details>"
   },
   {
     "name": "outpost_arn",
@@ -106,17 +106,17 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
   {
     "name": "ipv6_native",
     "type": "boolean",
-    "description": "Indicates whether this is an IPv6 only subnet. For more information, see &#91;Subnet basics&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC&#95;Subnets.html#subnet-basics) in the &#42;User Guide&#42;."
+    "description": "Indicates whether this is an IPv6 only subnet. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#subnet-basics\">Subnet basics</a> in the <i>User Guide</i>."
   },
   {
     "name": "enable_dns64",
     "type": "boolean",
-    "description": "Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.<br />You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a &#96;&#96;0.0.0.0/0&#96;&#96; route pointing to the internet gateway. For more information, see &#91;Configure DNS64 and NAT64&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough) in the &#42;User Guide&#42;."
+    "description": "<details><summary>Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.</summary>You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a <code>0.0.0.0/0</code> route pointing to the internet gateway. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough\">Configure DNS64 and NAT64</a> in the <i>User Guide</i>.</details>"
   },
   {
     "name": "private_dns_name_options_on_launch",
     "type": "object",
-    "description": "The hostname type for EC2 instances launched into this subnet and how DNS A and AAAA record queries to the instances should be handled. For more information, see &#91;Amazon EC2 instance hostname types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the &#42;User Guide&#42;.<br />Available options:<br />+ EnableResourceNameDnsAAAARecord (true &#124; false)<br />+ EnableResourceNameDnsARecord (true &#124; false)<br />+ HostnameType (ip-name &#124; resource-name)",
+    "description": "<details><summary>The hostname type for EC2 instances launched into this subnet and how DNS A and AAAA record queries to the instances should be handled. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">Amazon EC2 instance hostname types</a> in the <i>User Guide</i>.</summary>Available options:<br />+  EnableResourceNameDnsAAAARecord (true | false)<br />+  EnableResourceNameDnsARecord (true | false)<br />+  HostnameType (ip-name | resource-name)</details>",
     "children": [
       {
         "name": "hostname_type",
@@ -291,7 +291,7 @@ SELECT
   block_public_access_states
 FROM awscc.ec2.subnets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ subnet_id }}';
 ```
 </TabItem>
@@ -304,7 +304,7 @@ SELECT
   subnet_id
 FROM awscc.ec2.subnets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -465,7 +465,7 @@ WHERE
 DELETE FROM awscc.ec2.subnets
 WHERE
   Identifier = '{{ subnet_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

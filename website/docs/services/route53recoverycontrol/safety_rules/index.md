@@ -73,7 +73,7 @@ Creates, updates, deletes or gets a <code>safety_rule</code> resource or lists <
       {
         "name": "target_controls",
         "type": "array",
-        "description": "Routing controls that can only be set or unset if the specified RuleConfig evaluates to true for the specified GatingControls. For example, say you have three gating controls, one for each of three AWS Regions. Now you specify AtLeast 2 as your RuleConfig. With these settings, you can only change (set or unset) the routing controls that you have specified as TargetControls if that rule evaluates to true. <br />In other words, your ability to change the routing controls that you have specified as TargetControls is gated by the rule that you set for the routing controls in GatingControls."
+        "description": "<details><summary>Routing controls that can only be set or unset if the specified RuleConfig evaluates to true for the specified GatingControls. For example, say you have three gating controls, one for each of three AWS Regions. Now you specify AtLeast 2 as your RuleConfig. With these settings, you can only change (set or unset) the routing controls that you have specified as TargetControls if that rule evaluates to true.</summary>In other words, your ability to change the routing controls that you have specified as TargetControls is gated by the rule that you set for the routing controls in GatingControls.</details>"
       },
       {
         "name": "wait_period_ms",
@@ -100,7 +100,7 @@ Creates, updates, deletes or gets a <code>safety_rule</code> resource or lists <
   {
     "name": "status",
     "type": "string",
-    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION."
   },
   {
     "name": "rule_config",
@@ -235,7 +235,7 @@ SELECT
   tags
 FROM awscc.route53recoverycontrol.safety_rules
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ safety_rule_arn }}';
 ```
 </TabItem>
@@ -248,7 +248,7 @@ SELECT
   safety_rule_arn
 FROM awscc.route53recoverycontrol.safety_rules_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +372,7 @@ WHERE
 DELETE FROM awscc.route53recoverycontrol.safety_rules
 WHERE
   Identifier = '{{ safety_rule_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

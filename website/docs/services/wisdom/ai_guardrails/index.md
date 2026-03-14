@@ -357,7 +357,7 @@ SELECT
   tags
 FROM awscc.wisdom.ai_guardrails
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}';
 ```
 </TabItem>
@@ -371,7 +371,7 @@ SELECT
   assistant_id
 FROM awscc.wisdom.ai_guardrails_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -533,7 +533,7 @@ WHERE
 DELETE FROM awscc.wisdom.ai_guardrails
 WHERE
   Identifier = '{{ a_iguardrail_id }}|{{ assistant_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

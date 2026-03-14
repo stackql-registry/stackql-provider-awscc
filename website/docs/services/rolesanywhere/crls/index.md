@@ -177,7 +177,7 @@ SELECT
   tags
 FROM awscc.rolesanywhere.crls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ crl_id }}';
 ```
 </TabItem>
@@ -190,7 +190,7 @@ SELECT
   crl_id
 FROM awscc.rolesanywhere.crls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +300,7 @@ WHERE
 DELETE FROM awscc.rolesanywhere.crls
 WHERE
   Identifier = '{{ crl_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

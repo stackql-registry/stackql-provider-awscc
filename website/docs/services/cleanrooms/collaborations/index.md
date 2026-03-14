@@ -366,7 +366,7 @@ SELECT
   creator_payment_configuration
 FROM awscc.cleanrooms.collaborations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ collaboration_identifier }}';
 ```
 </TabItem>
@@ -379,7 +379,7 @@ SELECT
   collaboration_identifier
 FROM awscc.cleanrooms.collaborations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -541,7 +541,7 @@ WHERE
 DELETE FROM awscc.cleanrooms.collaborations
 WHERE
   Identifier = '{{ collaboration_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

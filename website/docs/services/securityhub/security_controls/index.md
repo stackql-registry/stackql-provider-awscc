@@ -148,7 +148,7 @@ SELECT
   parameters
 FROM awscc.securityhub.security_controls
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ security_control_id }}';
 ```
 </TabItem>
@@ -161,7 +161,7 @@ SELECT
   security_control_id
 FROM awscc.securityhub.security_controls_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +261,7 @@ WHERE
 DELETE FROM awscc.securityhub.security_controls
 WHERE
   Identifier = '{{ security_control_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

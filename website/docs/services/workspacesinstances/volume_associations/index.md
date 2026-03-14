@@ -157,7 +157,7 @@ SELECT
   disassociate_mode
 FROM awscc.workspacesinstances.volume_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   device
 FROM awscc.workspacesinstances.volume_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -259,7 +259,7 @@ resources:
 DELETE FROM awscc.workspacesinstances.volume_associations
 WHERE
   Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

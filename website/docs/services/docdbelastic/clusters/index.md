@@ -237,7 +237,7 @@ SELECT
   auth_type
 FROM awscc.docdbelastic.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
@@ -250,7 +250,7 @@ SELECT
   cluster_arn
 FROM awscc.docdbelastic.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -409,7 +409,7 @@ WHERE
 DELETE FROM awscc.docdbelastic.clusters
 WHERE
   Identifier = '{{ cluster_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

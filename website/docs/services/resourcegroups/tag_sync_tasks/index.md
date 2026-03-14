@@ -171,7 +171,7 @@ SELECT
   status
 FROM awscc.resourcegroups.tag_sync_tasks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ task_arn }}';
 ```
 </TabItem>
@@ -184,7 +184,7 @@ SELECT
   task_arn
 FROM awscc.resourcegroups.tag_sync_tasks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +273,7 @@ resources:
 DELETE FROM awscc.resourcegroups.tag_sync_tasks
 WHERE
   Identifier = '{{ task_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -146,7 +146,7 @@ SELECT
   contact_identifier
 FROM awscc.notifications.managed_notification_account_contact_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   contact_identifier
 FROM awscc.notifications.managed_notification_account_contact_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +237,7 @@ resources:
 DELETE FROM awscc.notifications.managed_notification_account_contact_associations
 WHERE
   Identifier = '{{ managed_notification_configuration_arn }}|{{ contact_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

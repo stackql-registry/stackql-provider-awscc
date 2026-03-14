@@ -66,7 +66,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
       {
         "name": "media_types",
         "type": "array",
-        "description": "Types of media to be recorded. Default: AUDIO&#95;VIDEO."
+        "description": "Types of media to be recorded. Default: AUDIO_VIDEO."
       },
       {
         "name": "hls_configuration",
@@ -110,7 +110,7 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
               {
                 "name": "storage",
                 "type": "array",
-                "description": "Indicates the format in which thumbnails are recorded. SEQUENTIAL records all generated thumbnails in a serial manner, to the media/thumbnails/high directory. LATEST saves the latest thumbnail in media/latest&#95;thumbnail/high/thumb.jpg and overwrites it at the interval specified by targetIntervalSeconds. You can enable both SEQUENTIAL and LATEST. Default: SEQUENTIAL."
+                "description": "Indicates the format in which thumbnails are recorded. SEQUENTIAL records all generated thumbnails in a serial manner, to the media/thumbnails/high directory. LATEST saves the latest thumbnail in media/latest_thumbnail/high/thumb.jpg and overwrites it at the interval specified by targetIntervalSeconds. You can enable both SEQUENTIAL and LATEST. Default: SEQUENTIAL."
               },
               {
                 "name": "target_interval_seconds",
@@ -131,12 +131,12 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -236,7 +236,7 @@ SELECT
   active_session_id
 FROM awscc.ivs.stages
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -249,7 +249,7 @@ SELECT
   arn
 FROM awscc.ivs.stages_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -364,7 +364,7 @@ WHERE
 DELETE FROM awscc.ivs.stages
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

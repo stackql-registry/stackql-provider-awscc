@@ -224,7 +224,7 @@ SELECT
   type
 FROM awscc.opensearchserverless.security_configs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -237,7 +237,7 @@ SELECT
   id
 FROM awscc.opensearchserverless.security_configs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +359,7 @@ WHERE
 DELETE FROM awscc.opensearchserverless.security_configs
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

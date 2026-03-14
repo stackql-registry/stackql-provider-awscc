@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>base_path_mapping</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>base_path_mappings</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::BasePathMapping&#96;&#96; resource creates a base path that clients who call your API must use in the invocation URL.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::BasePathMapping</code> resource creates a base path that clients who call your API must use in the invocation URL.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.base_path_mappings" /></td></tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ SELECT
   stage
 FROM awscc.apigateway.base_path_mappings
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}|{{ base_path }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   base_path
 FROM awscc.apigateway.base_path_mappings_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +271,7 @@ WHERE
 DELETE FROM awscc.apigateway.base_path_mappings
 WHERE
   Identifier = '{{ domain_name }}|{{ base_path }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

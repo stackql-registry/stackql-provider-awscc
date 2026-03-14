@@ -195,7 +195,7 @@ SELECT
   uuid
 FROM awscc.opensearchserverless.indices
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```
 </TabItem>
@@ -209,7 +209,7 @@ SELECT
   collection_endpoint
 FROM awscc.opensearchserverless.indices_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +315,7 @@ WHERE
 DELETE FROM awscc.opensearchserverless.indices
 WHERE
   Identifier = '{{ index_name }}|{{ collection_endpoint }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

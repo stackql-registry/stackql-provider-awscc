@@ -76,7 +76,7 @@ Creates, updates, deletes or gets a <code>service_template</code> resource or li
   {
     "name": "tags",
     "type": "array",
-    "description": "<p>An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.</p><br /><p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p>",
+    "description": "<details><summary><p>An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.</p></summary><p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p></details>",
     "children": [
       {
         "name": "key",
@@ -183,7 +183,7 @@ SELECT
   tags
 FROM awscc.proton.service_templates
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -196,7 +196,7 @@ SELECT
   arn
 FROM awscc.proton.service_templates_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +316,7 @@ WHERE
 DELETE FROM awscc.proton.service_templates
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

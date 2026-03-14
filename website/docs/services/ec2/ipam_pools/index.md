@@ -150,7 +150,7 @@ Creates, updates, deletes or gets an <code>ipam_pool</code> resource or lists <c
   {
     "name": "public_ip_source",
     "type": "string",
-    "description": "The IP address source for pools in the public scope. Only used for provisioning IP address CIDRs to pools in the public scope. Default is &#96;byoip&#96;."
+    "description": "The IP address source for pools in the public scope. Only used for provisioning IP address CIDRs to pools in the public scope. Default is <code>byoip</code>."
   },
   {
     "name": "publicly_advertisable",
@@ -314,7 +314,7 @@ SELECT
   tags
 FROM awscc.ec2.ipam_pools
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_pool_id }}';
 ```
 </TabItem>
@@ -327,7 +327,7 @@ SELECT
   ipam_pool_id
 FROM awscc.ec2.ipam_pools_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -490,7 +490,7 @@ WHERE
 DELETE FROM awscc.ec2.ipam_pools
 WHERE
   Identifier = '{{ ipam_pool_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

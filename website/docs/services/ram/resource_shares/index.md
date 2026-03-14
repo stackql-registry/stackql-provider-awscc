@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>resource_share</code> resource or list
   {
     "name": "allow_external_principals",
     "type": "boolean",
-    "description": "Specifies whether principals outside your organization in AWS Organizations can be associated with a resource share. A value of &#96;true&#96; lets you share with individual AWS accounts that are not in your organization. A value of &#96;false&#96; only has meaning if your account is a member of an AWS Organization. The default value is &#96;true&#96;."
+    "description": "Specifies whether principals outside your organization in AWS Organizations can be associated with a resource share. A value of <code>true</code> lets you share with individual AWS accounts that are not in your organization. A value of <code>false</code> only has meaning if your account is a member of an AWS Organization. The default value is <code>true</code>."
   },
   {
     "name": "arn",
@@ -61,12 +61,12 @@ Creates, updates, deletes or gets a <code>resource_share</code> resource or list
   {
     "name": "permission_arns",
     "type": "array",
-    "description": "Specifies the &#91;Amazon Resource Names (ARNs)&#93;(https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of the AWS RAM permission to associate with the resource share. If you do not specify an ARN for the permission, AWS RAM automatically attaches the default version of the permission for each resource type. You can associate only one permission with each resource type included in the resource share."
+    "description": "Specifies the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> of the AWS RAM permission to associate with the resource share. If you do not specify an ARN for the permission, AWS RAM automatically attaches the default version of the permission for each resource type. You can associate only one permission with each resource type included in the resource share."
   },
   {
     "name": "principals",
     "type": "array",
-    "description": "Specifies the principals to associate with the resource share. The possible values are:<br />- An AWS account ID<br />- An Amazon Resource Name (ARN) of an organization in AWS Organizations<br />- An ARN of an organizational unit (OU) in AWS Organizations<br />- An ARN of an IAM role<br />- An ARN of an IAM user"
+    "description": "<details><summary>Specifies the principals to associate with the resource share. The possible values are:</summary>- An AWS account ID<br />- An Amazon Resource Name (ARN) of an organization in AWS Organizations<br />- An ARN of an organizational unit (OU) in AWS Organizations<br />- An ARN of an IAM role<br />- An ARN of an IAM user</details>"
   },
   {
     "name": "resource_arns",
@@ -86,12 +86,12 @@ Creates, updates, deletes or gets a <code>resource_share</code> resource or list
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -189,7 +189,7 @@ SELECT
   tags
 FROM awscc.ram.resource_shares
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   arn
 FROM awscc.ram.resource_shares_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +324,7 @@ WHERE
 DELETE FROM awscc.ram.resource_shares
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

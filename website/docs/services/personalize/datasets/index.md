@@ -199,7 +199,7 @@ SELECT
   dataset_import_job
 FROM awscc.personalize.datasets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ dataset_arn }}';
 ```
 </TabItem>
@@ -212,7 +212,7 @@ SELECT
   dataset_arn
 FROM awscc.personalize.datasets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +326,7 @@ WHERE
 DELETE FROM awscc.personalize.datasets
 WHERE
   Identifier = '{{ dataset_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

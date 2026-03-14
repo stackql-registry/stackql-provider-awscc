@@ -134,7 +134,7 @@ Creates, updates, deletes or gets a <code>fhir_datastore</code> resource or list
       {
         "name": "authorization_strategy",
         "type": "string",
-        "description": "Type of Authorization Strategy. The two types of supported Authorization strategies are SMART&#95;ON&#95;FHIR&#95;V1 and AWS&#95;AUTH."
+        "description": "Type of Authorization Strategy. The two types of supported Authorization strategies are SMART_ON_FHIR_V1 and AWS_AUTH."
       },
       {
         "name": "fine_grained_authorization_enabled",
@@ -267,7 +267,7 @@ SELECT
   tags
 FROM awscc.healthlake.fhir_datastores
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
@@ -280,7 +280,7 @@ SELECT
   datastore_id
 FROM awscc.healthlake.fhir_datastores_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -396,7 +396,7 @@ WHERE
 DELETE FROM awscc.healthlake.fhir_datastores
 WHERE
   Identifier = '{{ datastore_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

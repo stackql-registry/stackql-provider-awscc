@@ -147,7 +147,7 @@ SELECT
   name
 FROM awscc.robomaker.fleets
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   arn
 FROM awscc.robomaker.fleets_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +250,7 @@ WHERE
 DELETE FROM awscc.robomaker.fleets
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

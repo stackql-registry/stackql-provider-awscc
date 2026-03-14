@@ -165,7 +165,7 @@ SELECT
   tags
 FROM awscc.route53recoveryreadiness.readiness_checks
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ readiness_check_name }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   readiness_check_name
 FROM awscc.route53recoveryreadiness.readiness_checks_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +279,7 @@ WHERE
 DELETE FROM awscc.route53recoveryreadiness.readiness_checks
 WHERE
   Identifier = '{{ readiness_check_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

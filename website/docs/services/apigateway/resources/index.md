@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>resource</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>resources</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Resource&#96;&#96; resource creates a resource in an API.</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Resource</code> resource creates a resource in an API.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.resources" /></td></tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ SELECT
   rest_api_id
 FROM awscc.apigateway.resources
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ rest_api_id }}|{{ resource_id }}';
 ```
 </TabItem>
@@ -172,7 +172,7 @@ SELECT
   resource_id
 FROM awscc.apigateway.resources_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +255,7 @@ resources:
 DELETE FROM awscc.apigateway.resources
 WHERE
   Identifier = '{{ rest_api_id }}|{{ resource_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

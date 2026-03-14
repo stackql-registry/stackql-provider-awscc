@@ -249,7 +249,7 @@ SELECT
   tags
 FROM awscc.bedrock.prompt_versions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -262,7 +262,7 @@ SELECT
   arn
 FROM awscc.bedrock.prompt_versions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +341,7 @@ resources:
 DELETE FROM awscc.bedrock.prompt_versions
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

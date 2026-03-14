@@ -46,7 +46,7 @@ Creates, updates, deletes or gets a <code>global_cluster</code> resource or list
   {
     "name": "engine",
     "type": "string",
-    "description": "The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora).<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster."
+    "description": "<details><summary>The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora).</summary>If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster.</details>"
   },
   {
     "name": "tags",
@@ -56,12 +56,12 @@ Creates, updates, deletes or gets a <code>global_cluster</code> resource or list
       {
         "name": "key",
         "type": "string",
-        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with <code>aws:</code> or <code>rds:</code>. The string can only contain only the set of Unicode letters, digits, white-space, '_', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^([\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;_.:/=+\\\\-@]*)$\")."
       }
     ]
   },
@@ -93,7 +93,7 @@ Creates, updates, deletes or gets a <code>global_cluster</code> resource or list
   {
     "name": "storage_encrypted",
     "type": "boolean",
-    "description": "The storage encryption setting for the new global database cluster.<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster."
+    "description": "<details><summary>The storage encryption setting for the new global database cluster.</summary>If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster.</details>"
   },
   {
     "name": "global_endpoint",
@@ -202,7 +202,7 @@ SELECT
   global_endpoint
 FROM awscc.rds.global_clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ global_cluster_identifier }}';
 ```
 </TabItem>
@@ -215,7 +215,7 @@ SELECT
   global_cluster_identifier
 FROM awscc.rds.global_clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +348,7 @@ WHERE
 DELETE FROM awscc.rds.global_clusters
 WHERE
   Identifier = '{{ global_cluster_identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

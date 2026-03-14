@@ -937,7 +937,7 @@ SELECT
   security_config
 FROM awscc.sagemaker.model_packages
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ model_package_arn }}';
 ```
 </TabItem>
@@ -950,7 +950,7 @@ SELECT
   model_package_arn
 FROM awscc.sagemaker.model_packages_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -1315,7 +1315,7 @@ WHERE
 DELETE FROM awscc.sagemaker.model_packages
 WHERE
   Identifier = '{{ model_package_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

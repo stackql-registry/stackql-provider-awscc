@@ -83,17 +83,17 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
   {
     "name": "tags",
     "type": "array",
-    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "description": "A complex type that contains zero or more <code>Tag</code> elements.",
     "children": [
       {
         "name": "key",
         "type": "string",
-        "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+        "description": "<details><summary>A string that contains <code>Tag</code> key.</summary>The string length should be between 1 and 128 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+        "description": "<details><summary>A string that contains an optional <code>Tag</code> value.</summary>The string length should be between 0 and 256 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
       }
     ]
   },
@@ -110,7 +110,7 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
           {
             "name": "action",
             "type": "string",
-            "description": "The action for the WAF web ACL customization. You can specify &#96;&#96;override&#96;&#96; to specify a separate WAF web ACL for the distribution tenant. If you specify &#96;&#96;disable&#96;&#96;, the distribution tenant won't have WAF web ACL protections and won't inherit from the multi-tenant distribution."
+            "description": "The action for the WAF web ACL customization. You can specify <code>override</code> to specify a separate WAF web ACL for the distribution tenant. If you specify <code>disable</code>, the distribution tenant won't have WAF web ACL protections and won't inherit from the multi-tenant distribution."
           },
           {
             "name": "arn",
@@ -139,7 +139,7 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
           {
             "name": "restriction_type",
             "type": "string",
-            "description": "The method that you want to use to restrict distribution of your content by country:<br />+ &#96;&#96;none&#96;&#96;: No geographic restriction is enabled, meaning access to content is not restricted by client geo location.<br />+ &#96;&#96;blacklist&#96;&#96;: The &#96;&#96;Location&#96;&#96; elements specify the countries in which you don't want CloudFront to distribute your content.<br />+ &#96;&#96;whitelist&#96;&#96;: The &#96;&#96;Location&#96;&#96; elements specify the countries in which you want CloudFront to distribute your content."
+            "description": "<details><summary>The method that you want to use to restrict distribution of your content by country:</summary>+  <code>none</code>: No geographic restriction is enabled, meaning access to content is not restricted by client geo location.<br />+  <code>blacklist</code>: The <code>Location</code> elements specify the countries in which you don't want CloudFront to distribute your content.<br />+  <code>whitelist</code>: The <code>Location</code> elements specify the countries in which you want CloudFront to distribute your content.</details>"
           },
           {
             "name": "locations",
@@ -210,7 +210,7 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
       {
         "name": "validation_token_host",
         "type": "string",
-        "description": "Specify how the HTTP validation token will be served when requesting the CloudFront managed ACM certificate.<br />+ For &#96;&#96;cloudfront&#96;&#96;, CloudFront will automatically serve the validation token. Choose this mode if you can point the domain's DNS to CloudFront immediately.<br />+ For &#96;&#96;self-hosted&#96;&#96;, you serve the validation token from your existing infrastructure. Choose this mode when you need to maintain current traffic flow while your certificate is being issued. You can place the validation token at the well-known path on your existing web server, wait for ACM to validate and issue the certificate, and then update your DNS to point to CloudFront."
+        "description": "<details><summary>Specify how the HTTP validation token will be served when requesting the CloudFront managed ACM certificate.</summary>+  For <code>cloudfront</code>, CloudFront will automatically serve the validation token. Choose this mode if you can point the domain's DNS to CloudFront immediately.<br />+  For <code>self-hosted</code>, you serve the validation token from your existing infrastructure. Choose this mode when you need to maintain current traffic flow while your certificate is being issued. You can place the validation token at the well-known path on your existing web server, wait for ACM to validate and issue the certificate, and then update your DNS to point to CloudFront.</details>"
       },
       {
         "name": "primary_domain_name",
@@ -220,7 +220,7 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
       {
         "name": "certificate_transparency_logging_preference",
         "type": "string",
-        "description": "You can opt out of certificate transparency logging by specifying the &#96;&#96;disabled&#96;&#96; option. Opt in by specifying &#96;&#96;enabled&#96;&#96;. For more information, see &#91;Certificate Transparency Logging&#93;(https://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency) in the &#42;User Guide&#42;."
+        "description": "You can opt out of certificate transparency logging by specifying the <code>disabled</code> option. Opt in by specifying <code>enabled</code>. For more information, see <a href=\"https://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency\">Certificate Transparency Logging</a> in the <i>User Guide</i>."
       }
     ]
   },

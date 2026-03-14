@@ -258,7 +258,7 @@ SELECT
   tags
 FROM awscc.elasticbeanstalk.environments
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ environment_name }}';
 ```
 </TabItem>
@@ -271,7 +271,7 @@ SELECT
   environment_name
 FROM awscc.elasticbeanstalk.environments_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -416,7 +416,7 @@ WHERE
 DELETE FROM awscc.elasticbeanstalk.environments
 WHERE
   Identifier = '{{ environment_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

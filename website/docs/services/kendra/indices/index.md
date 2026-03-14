@@ -366,7 +366,7 @@ SELECT
   user_token_configurations
 FROM awscc.kendra.indices
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -379,7 +379,7 @@ SELECT
   id
 FROM awscc.kendra.indices_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -543,7 +543,7 @@ WHERE
 DELETE FROM awscc.kendra.indices
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

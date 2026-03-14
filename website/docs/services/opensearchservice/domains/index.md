@@ -740,7 +740,7 @@ SELECT
   identity_center_options
 FROM awscc.opensearchservice.domains
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_name }}';
 ```
 
@@ -1038,7 +1038,7 @@ WHERE
 DELETE FROM awscc.opensearchservice.domains
 WHERE
   Identifier = '{{ domain_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -168,7 +168,7 @@ SELECT
   principal_tags
 FROM awscc.cognito.identity_pool_principal_tags
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}';
 ```
 </TabItem>
@@ -182,7 +182,7 @@ SELECT
   identity_provider_name
 FROM awscc.cognito.identity_pool_principal_tags_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +283,7 @@ WHERE
 DELETE FROM awscc.cognito.identity_pool_principal_tags
 WHERE
   Identifier = '{{ identity_pool_id }}|{{ identity_provider_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

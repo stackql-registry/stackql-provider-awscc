@@ -186,7 +186,7 @@ SELECT
   subscriber_endpoint
 FROM awscc.securitylake.subscriber_notifications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
@@ -199,7 +199,7 @@ SELECT
   subscriber_arn
 FROM awscc.securitylake.subscriber_notifications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +298,7 @@ WHERE
 DELETE FROM awscc.securitylake.subscriber_notifications
 WHERE
   Identifier = '{{ subscriber_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

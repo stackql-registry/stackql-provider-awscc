@@ -195,7 +195,7 @@ SELECT
   anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ anomaly_detector_arn }}';
 ```
 </TabItem>
@@ -208,7 +208,7 @@ SELECT
   anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -325,7 +325,7 @@ WHERE
 DELETE FROM awscc.logs.log_anomaly_detectors
 WHERE
   Identifier = '{{ anomaly_detector_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

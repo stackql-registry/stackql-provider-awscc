@@ -250,7 +250,7 @@ SELECT
   tags
 FROM awscc.networkfirewall.tls_inspection_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ tls_inspection_configuration_arn }}';
 ```
 </TabItem>
@@ -263,7 +263,7 @@ SELECT
   tls_inspection_configuration_arn
 FROM awscc.networkfirewall.tls_inspection_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +372,7 @@ WHERE
 DELETE FROM awscc.networkfirewall.tls_inspection_configurations
 WHERE
   Identifier = '{{ tls_inspection_configuration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

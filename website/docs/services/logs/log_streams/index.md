@@ -140,7 +140,7 @@ SELECT
   log_group_name
 FROM awscc.logs.log_streams
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ log_group_name }}|{{ log_stream_name }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   log_stream_name
 FROM awscc.logs.log_streams_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -229,7 +229,7 @@ resources:
 DELETE FROM awscc.logs.log_streams
 WHERE
   Identifier = '{{ log_group_name }}|{{ log_stream_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

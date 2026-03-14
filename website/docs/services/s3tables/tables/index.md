@@ -255,7 +255,7 @@ SELECT
   snapshot_management
 FROM awscc.s3tables.tables
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ table_arn }}';
 ```
 </TabItem>
@@ -268,7 +268,7 @@ SELECT
   table_arn
 FROM awscc.s3tables.tables_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -401,7 +401,7 @@ WHERE
 DELETE FROM awscc.s3tables.tables
 WHERE
   Identifier = '{{ table_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

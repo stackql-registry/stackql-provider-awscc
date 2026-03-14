@@ -207,7 +207,7 @@ SELECT
   type
 FROM awscc.b2bi.capabilities
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ capability_id }}';
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SELECT
   capability_id
 FROM awscc.b2bi.capabilities_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +333,7 @@ WHERE
 DELETE FROM awscc.b2bi.capabilities
 WHERE
   Identifier = '{{ capability_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

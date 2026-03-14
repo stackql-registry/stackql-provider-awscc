@@ -147,7 +147,7 @@ SELECT
   tags
 FROM awscc.pcaconnectorscep.challenges
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ challenge_arn }}';
 ```
 </TabItem>
@@ -160,7 +160,7 @@ SELECT
   challenge_arn
 FROM awscc.pcaconnectorscep.challenges_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +250,7 @@ WHERE
 DELETE FROM awscc.pcaconnectorscep.challenges
 WHERE
   Identifier = '{{ challenge_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

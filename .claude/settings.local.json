@@ -8,7 +8,8 @@
       "Bash(xargs echo:*)",
       "Bash(grep -A5 \"## \\\\`SELECT\\\\`\" \"c:/LocalGitRepos/stackql-registry/providers/stackql-provider-awscc/website/docs/services/tagging/tagged_resources/index.md\")",
       "Bash(for r:*)",
-      "Bash(do echo:*)"
+      "Bash(do echo:*)",
+      "Bash(node -e \":*)"
     ]
   }
 }

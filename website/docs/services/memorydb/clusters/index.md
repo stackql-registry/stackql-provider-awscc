@@ -136,7 +136,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "tls_enabled",
     "type": "boolean",
-    "description": "A flag that enables in-transit encryption when set to true.<br />You cannot modify the value of TransitEncryptionEnabled after the cluster is created. To enable in-transit encryption on a cluster you must set TransitEncryptionEnabled to true when you create a cluster."
+    "description": "<details><summary>A flag that enables in-transit encryption when set to true.</summary>You cannot modify the value of TransitEncryptionEnabled after the cluster is created. To enable in-transit encryption on a cluster you must set TransitEncryptionEnabled to true when you create a cluster.</details>"
   },
   {
     "name": "data_tiering",
@@ -146,12 +146,12 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "network_type",
     "type": "object",
-    "description": "Must be either ipv4 &#124; ipv6 &#124; dual&#95;stack."
+    "description": "Must be either ipv4 | ipv6 | dual_stack."
   },
   {
     "name": "ip_discovery",
     "type": "object",
-    "description": "For clusters wth dual stack NetworkType, IpDiscovery controls the Ip protocol (ipv4 or ipv6) returned by the engine commands such as &#96;cluster info&#96; and &#96;cluster nodes&#96; which are used by clients to connect to the nodes in the cluster."
+    "description": "For clusters wth dual stack NetworkType, IpDiscovery controls the Ip protocol (ipv4 or ipv6) returned by the engine commands such as <code>cluster info</code> and <code>cluster nodes</code> which are used by clients to connect to the nodes in the cluster."
   },
   {
     "name": "kms_key_id",
@@ -208,7 +208,7 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "auto_minor_version_upgrade",
     "type": "boolean",
-    "description": "A flag that enables automatic minor version upgrade when set to true.<br />You cannot modify the value of AutoMinorVersionUpgrade after the cluster is created. To enable AutoMinorVersionUpgrade on a cluster you must set AutoMinorVersionUpgrade to true when you create a cluster."
+    "description": "<details><summary>A flag that enables automatic minor version upgrade when set to true.</summary>You cannot modify the value of AutoMinorVersionUpgrade after the cluster is created. To enable AutoMinorVersionUpgrade on a cluster you must set AutoMinorVersionUpgrade to true when you create a cluster.</details>"
   },
   {
     "name": "tags",
@@ -218,12 +218,12 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -345,7 +345,7 @@ SELECT
   tags
 FROM awscc.memorydb.clusters
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ cluster_name }}';
 ```
 </TabItem>
@@ -358,7 +358,7 @@ SELECT
   cluster_name
 FROM awscc.memorydb.clusters_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -583,7 +583,7 @@ WHERE
 DELETE FROM awscc.memorydb.clusters
 WHERE
   Identifier = '{{ cluster_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

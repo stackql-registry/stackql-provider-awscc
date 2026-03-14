@@ -162,7 +162,7 @@ SELECT
   attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_arn }}|{{ attribute_group_arn }}';
 ```
 </TabItem>
@@ -176,7 +176,7 @@ SELECT
   attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +253,7 @@ resources:
 DELETE FROM awscc.servicecatalogappregistry.attribute_group_associations
 WHERE
   Identifier = '{{ application_arn }}|{{ attribute_group_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

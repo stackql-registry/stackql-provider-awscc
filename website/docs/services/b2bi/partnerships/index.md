@@ -239,7 +239,7 @@ SELECT
   trading_partner_id
 FROM awscc.b2bi.partnerships
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ partnership_id }}';
 ```
 </TabItem>
@@ -252,7 +252,7 @@ SELECT
   partnership_id
 FROM awscc.b2bi.partnerships_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -380,7 +380,7 @@ WHERE
 DELETE FROM awscc.b2bi.partnerships
 WHERE
   Identifier = '{{ partnership_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

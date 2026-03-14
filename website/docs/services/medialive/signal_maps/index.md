@@ -295,7 +295,7 @@ SELECT
   tags
 FROM awscc.medialive.signal_maps
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ identifier }}';
 ```
 </TabItem>
@@ -308,7 +308,7 @@ SELECT
   identifier
 FROM awscc.medialive.signal_maps_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -427,7 +427,7 @@ WHERE
 DELETE FROM awscc.medialive.signal_maps
 WHERE
   Identifier = '{{ identifier }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -27,7 +27,7 @@ Creates, updates, deletes or gets a <code>security_group_egress</code> resource 
 <tbody>
 <tr><td><b>Name</b></td><td><code>security_group_egresses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Adds the specified outbound (egress) rule to a security group.<br />An outbound rule permits instances to send traffic to the specified IPv4 or IPv6 address range, the IP addresses that are specified by a prefix list, or the instances that are associated with a destination security group. For more information, see &#91;Security group rules&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html).<br />You must specify exactly one of the following destinations: an IPv4 address range, an IPv6 address range, a prefix list, or a security group.<br />You must specify a protocol for each rule (for example, TCP). If the protocol is TCP or UDP, you must also specify a port or port range. If the protocol is ICMP or ICMPv6, you must also specify the ICMP/ICMPv6 type and code. To specify all types or all codes, use -1.<br />Rule changes are propagated to instances associated with the security group as quickly as possible. However, a small delay might occur.</td></tr>
+<tr><td><b>Description</b></td><td><details><summary>Adds the specified outbound (egress) rule to a security group.</summary>An outbound rule permits instances to send traffic to the specified IPv4 or IPv6 address range, the IP addresses that are specified by a prefix list, or the instances that are associated with a destination security group. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html">Security group rules</a>.<br />You must specify exactly one of the following destinations: an IPv4 address range, an IPv6 address range, a prefix list, or a security group.<br />You must specify a protocol for each rule (for example, TCP). If the protocol is TCP or UDP, you must also specify a port or port range. If the protocol is ICMP or ICMPv6, you must also specify the ICMP/ICMPv6 type and code. To specify all types or all codes, use -1.<br />Rule changes are propagated to instances associated with the security group as quickly as possible. However, a small delay might occur.</details></td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.security_group_egresses" /></td></tr>
 </tbody>
 </table>
@@ -46,17 +46,17 @@ Creates, updates, deletes or gets a <code>security_group_egress</code> resource 
   {
     "name": "cidr_ip",
     "type": "string",
-    "description": "The IPv4 address range, in CIDR format.<br />You must specify exactly one of the following: &#96;&#96;CidrIp&#96;&#96;, &#96;&#96;CidrIpv6&#96;&#96;, &#96;&#96;DestinationPrefixListId&#96;&#96;, or &#96;&#96;DestinationSecurityGroupId&#96;&#96;.<br />For examples of rules that you can add to security groups for specific access scenarios, see &#91;Security group rules for different use cases&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html) in the &#42;User Guide&#42;."
+    "description": "<details><summary>The IPv4 address range, in CIDR format.</summary>You must specify exactly one of the following: <code>CidrIp</code>, <code>CidrIpv6</code>, <code>DestinationPrefixListId</code>, or <code>DestinationSecurityGroupId</code>.<br />For examples of rules that you can add to security groups for specific access scenarios, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html\">Security group rules for different use cases</a> in the <i>User Guide</i>.</details>"
   },
   {
     "name": "cidr_ipv6",
     "type": "string",
-    "description": "The IPv6 address range, in CIDR format.<br />You must specify exactly one of the following: &#96;&#96;CidrIp&#96;&#96;, &#96;&#96;CidrIpv6&#96;&#96;, &#96;&#96;DestinationPrefixListId&#96;&#96;, or &#96;&#96;DestinationSecurityGroupId&#96;&#96;.<br />For examples of rules that you can add to security groups for specific access scenarios, see &#91;Security group rules for different use cases&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html) in the &#42;User Guide&#42;."
+    "description": "<details><summary>The IPv6 address range, in CIDR format.</summary>You must specify exactly one of the following: <code>CidrIp</code>, <code>CidrIpv6</code>, <code>DestinationPrefixListId</code>, or <code>DestinationSecurityGroupId</code>.<br />For examples of rules that you can add to security groups for specific access scenarios, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html\">Security group rules for different use cases</a> in the <i>User Guide</i>.</details>"
   },
   {
     "name": "description",
     "type": "string",
-    "description": "The description of an egress (outbound) security group rule.<br />Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and .&#95;-:/()#,@&#91;&#93;+=;&#123;&#125;!$&#42;"
+    "description": "<details><summary>The description of an egress (outbound) security group rule.</summary>Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;&#123;&#125;!$*</details>"
   },
   {
     "name": "from_port",
@@ -71,12 +71,12 @@ Creates, updates, deletes or gets a <code>security_group_egress</code> resource 
   {
     "name": "ip_protocol",
     "type": "string",
-    "description": "The IP protocol name (&#96;&#96;tcp&#96;&#96;, &#96;&#96;udp&#96;&#96;, &#96;&#96;icmp&#96;&#96;, &#96;&#96;icmpv6&#96;&#96;) or number (see &#91;Protocol Numbers&#93;(https://docs.aws.amazon.com/http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)).<br />Use &#96;&#96;-1&#96;&#96; to specify all protocols. When authorizing security group rules, specifying &#96;&#96;-1&#96;&#96; or a protocol number other than &#96;&#96;tcp&#96;&#96;, &#96;&#96;udp&#96;&#96;, &#96;&#96;icmp&#96;&#96;, or &#96;&#96;icmpv6&#96;&#96; allows traffic on all ports, regardless of any port range you specify. For &#96;&#96;tcp&#96;&#96;, &#96;&#96;udp&#96;&#96;, and &#96;&#96;icmp&#96;&#96;, you must specify a port range. For &#96;&#96;icmpv6&#96;&#96;, the port range is optional; if you omit the port range, traffic for all types and codes is allowed."
+    "description": "<details><summary>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href=\"https://docs.aws.amazon.com/http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml\">Protocol Numbers</a>).</summary>Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>, <code>udp</code>, and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range is optional; if you omit the port range, traffic for all types and codes is allowed.</details>"
   },
   {
     "name": "destination_security_group_id",
     "type": "string",
-    "description": "The ID of the security group.<br />You must specify exactly one of the following: &#96;&#96;CidrIp&#96;&#96;, &#96;&#96;CidrIpv6&#96;&#96;, &#96;&#96;DestinationPrefixListId&#96;&#96;, or &#96;&#96;DestinationSecurityGroupId&#96;&#96;."
+    "description": "<details><summary>The ID of the security group.</summary>You must specify exactly one of the following: <code>CidrIp</code>, <code>CidrIpv6</code>, <code>DestinationPrefixListId</code>, or <code>DestinationSecurityGroupId</code>.</details>"
   },
   {
     "name": "id",
@@ -86,7 +86,7 @@ Creates, updates, deletes or gets a <code>security_group_egress</code> resource 
   {
     "name": "destination_prefix_list_id",
     "type": "string",
-    "description": "The prefix list IDs for an AWS service. This is the AWS service to access through a VPC endpoint from instances associated with the security group.<br />You must specify exactly one of the following: &#96;&#96;CidrIp&#96;&#96;, &#96;&#96;CidrIpv6&#96;&#96;, &#96;&#96;DestinationPrefixListId&#96;&#96;, or &#96;&#96;DestinationSecurityGroupId&#96;&#96;."
+    "description": "<details><summary>The prefix list IDs for an AWS service. This is the AWS service to access through a VPC endpoint from instances associated with the security group.</summary>You must specify exactly one of the following: <code>CidrIp</code>, <code>CidrIpv6</code>, <code>DestinationPrefixListId</code>, or <code>DestinationSecurityGroupId</code>.</details>"
   },
   {
     "name": "group_id",
@@ -189,7 +189,7 @@ SELECT
   group_id
 FROM awscc.ec2.security_group_egresses
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   id
 FROM awscc.ec2.security_group_egresses_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -322,7 +322,7 @@ WHERE
 DELETE FROM awscc.ec2.security_group_egresses
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

@@ -98,7 +98,7 @@ Creates, updates, deletes or gets a <code>work_group</code> resource or lists <c
       {
         "name": "result_configuration",
         "type": "object",
-        "description": "The location in Amazon S3 where query results are stored and the encryption option, if any, used for query results. These are known as \"client-side settings\". If workgroup settings override client-side settings, then the query uses the workgroup settings.<br />",
+        "description": "The location in Amazon S3 where query results are stored and the encryption option, if any, used for query results. These are known as \"client-side settings\". If workgroup settings override client-side settings, then the query uses the workgroup settings.",
         "children": [
           {
             "name": "encryption_configuration",
@@ -135,7 +135,7 @@ Creates, updates, deletes or gets a <code>work_group</code> resource or lists <c
               {
                 "name": "s3_acl_option",
                 "type": "string",
-                "description": "The Amazon S3 canned ACL that Athena should specify when storing query results. Currently the only supported canned ACL is BUCKET&#95;OWNER&#95;FULL&#95;CONTROL"
+                "description": "The Amazon S3 canned ACL that Athena should specify when storing query results. Currently the only supported canned ACL is BUCKET_OWNER_FULL_CONTROL"
               }
             ]
           }
@@ -271,7 +271,7 @@ Creates, updates, deletes or gets a <code>work_group</code> resource or lists <c
               {
                 "name": "s3_acl_option",
                 "type": "string",
-                "description": "The Amazon S3 canned ACL that Athena should specify when storing query results. Currently the only supported canned ACL is BUCKET&#95;OWNER&#95;FULL&#95;CONTROL"
+                "description": "The Amazon S3 canned ACL that Athena should specify when storing query results. Currently the only supported canned ACL is BUCKET_OWNER_FULL_CONTROL"
               }
             ]
           },
@@ -481,7 +481,7 @@ SELECT
   recursive_delete_option
 FROM awscc.athena.work_groups
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -494,7 +494,7 @@ SELECT
   name
 FROM awscc.athena.work_groups_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -652,7 +652,7 @@ WHERE
 DELETE FROM awscc.athena.work_groups
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

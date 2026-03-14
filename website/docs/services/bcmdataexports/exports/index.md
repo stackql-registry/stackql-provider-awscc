@@ -212,7 +212,7 @@ SELECT
   tags
 FROM awscc.bcmdataexports.exports
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ export_arn }}';
 ```
 </TabItem>
@@ -225,7 +225,7 @@ SELECT
   export_arn
 FROM awscc.bcmdataexports.exports_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +320,7 @@ WHERE
 DELETE FROM awscc.bcmdataexports.exports
 WHERE
   Identifier = '{{ export_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

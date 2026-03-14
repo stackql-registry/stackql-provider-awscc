@@ -163,7 +163,7 @@ SELECT
   state
 FROM awscc.ec2.ipam_pool_cidrs
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}';
 ```
 </TabItem>
@@ -177,7 +177,7 @@ SELECT
   ipam_pool_cidr_id
 FROM awscc.ec2.ipam_pool_cidrs_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +256,7 @@ resources:
 DELETE FROM awscc.ec2.ipam_pool_cidrs
 WHERE
   Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

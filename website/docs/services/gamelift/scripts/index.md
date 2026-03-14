@@ -211,7 +211,7 @@ SELECT
   size_on_disk
 FROM awscc.gamelift.scripts
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -224,7 +224,7 @@ SELECT
   id
 FROM awscc.gamelift.scripts_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -331,7 +331,7 @@ WHERE
 DELETE FROM awscc.gamelift.scripts
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

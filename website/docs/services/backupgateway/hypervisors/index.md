@@ -189,7 +189,7 @@ SELECT
   username
 FROM awscc.backupgateway.hypervisors
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ hypervisor_arn }}';
 ```
 </TabItem>
@@ -202,7 +202,7 @@ SELECT
   hypervisor_arn
 FROM awscc.backupgateway.hypervisors_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +330,7 @@ WHERE
 DELETE FROM awscc.backupgateway.hypervisors
 WHERE
   Identifier = '{{ hypervisor_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

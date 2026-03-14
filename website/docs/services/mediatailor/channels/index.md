@@ -283,7 +283,7 @@ SELECT
   time_shift_configuration
 FROM awscc.mediatailor.channels
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ channel_name }}';
 ```
 </TabItem>
@@ -296,7 +296,7 @@ SELECT
   channel_name
 FROM awscc.mediatailor.channels_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -443,7 +443,7 @@ WHERE
 DELETE FROM awscc.mediatailor.channels
 WHERE
   Identifier = '{{ channel_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

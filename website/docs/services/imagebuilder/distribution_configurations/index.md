@@ -364,7 +364,7 @@ SELECT
   tags
 FROM awscc.imagebuilder.distribution_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ arn }}';
 ```
 </TabItem>
@@ -377,7 +377,7 @@ SELECT
   arn
 FROM awscc.imagebuilder.distribution_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -523,7 +523,7 @@ WHERE
 DELETE FROM awscc.imagebuilder.distribution_configurations
 WHERE
   Identifier = '{{ arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

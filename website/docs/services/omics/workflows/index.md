@@ -295,7 +295,7 @@ SELECT
   readme_markdown
 FROM awscc.omics.workflows
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -308,7 +308,7 @@ SELECT
   id
 FROM awscc.omics.workflows_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -495,7 +495,7 @@ WHERE
 DELETE FROM awscc.omics.workflows
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

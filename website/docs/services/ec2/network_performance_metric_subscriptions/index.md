@@ -162,7 +162,7 @@ SELECT
   statistic
 FROM awscc.ec2.network_performance_metric_subscriptions
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}';
 ```
 </TabItem>
@@ -178,7 +178,7 @@ SELECT
   statistic
 FROM awscc.ec2.network_performance_metric_subscriptions_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +267,7 @@ resources:
 DELETE FROM awscc.ec2.network_performance_metric_subscriptions
 WHERE
   Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

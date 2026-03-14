@@ -153,7 +153,7 @@ SELECT
   key
 FROM awscc.servicecatalog.tag_options
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ id }}';
 ```
 </TabItem>
@@ -166,7 +166,7 @@ SELECT
   id
 FROM awscc.servicecatalog.tag_options_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +262,7 @@ WHERE
 DELETE FROM awscc.servicecatalog.tag_options
 WHERE
   Identifier = '{{ id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

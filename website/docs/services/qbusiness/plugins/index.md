@@ -241,7 +241,7 @@ SELECT
   updated_at
 FROM awscc.qbusiness.plugins
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_id }}|{{ plugin_id }}';
 ```
 </TabItem>
@@ -255,7 +255,7 @@ SELECT
   plugin_id
 FROM awscc.qbusiness.plugins_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +383,7 @@ WHERE
 DELETE FROM awscc.qbusiness.plugins
 WHERE
   Identifier = '{{ application_id }}|{{ plugin_id }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

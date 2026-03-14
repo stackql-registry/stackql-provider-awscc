@@ -140,7 +140,7 @@ SELECT
   directory_registration_arn
 FROM awscc.pcaconnectorad.service_principal_names
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}';
 ```
 </TabItem>
@@ -154,7 +154,7 @@ SELECT
   directory_registration_arn
 FROM awscc.pcaconnectorad.service_principal_names_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ resources:
 DELETE FROM awscc.pcaconnectorad.service_principal_names
 WHERE
   Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

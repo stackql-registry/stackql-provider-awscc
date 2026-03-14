@@ -213,7 +213,7 @@ SELECT
   state_templates
 FROM awscc.iotfleetwise.vehicles
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ name }}';
 ```
 </TabItem>
@@ -226,7 +226,7 @@ SELECT
   name
 FROM awscc.iotfleetwise.vehicles_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +349,7 @@ WHERE
 DELETE FROM awscc.iotfleetwise.vehicles
 WHERE
   Identifier = '{{ name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

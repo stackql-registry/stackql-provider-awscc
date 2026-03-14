@@ -205,7 +205,7 @@ SELECT
   resource_lifecycle_config
 FROM awscc.elasticbeanstalk.applications
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ application_name }}';
 ```
 </TabItem>
@@ -218,7 +218,7 @@ SELECT
   application_name
 FROM awscc.elasticbeanstalk.applications_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +327,7 @@ WHERE
 DELETE FROM awscc.elasticbeanstalk.applications
 WHERE
   Identifier = '{{ application_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions

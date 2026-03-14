@@ -297,7 +297,7 @@ SELECT
   tags
 FROM awscc.iot.domain_configurations
 WHERE
-  region = 'us-east-1' AND
+  region = '{{ region }}' AND
   Identifier = '{{ domain_configuration_name }}';
 ```
 </TabItem>
@@ -310,7 +310,7 @@ SELECT
   domain_configuration_name
 FROM awscc.iot.domain_configurations_list_only
 WHERE
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 </TabItem>
 </Tabs>
@@ -461,7 +461,7 @@ WHERE
 DELETE FROM awscc.iot.domain_configurations
 WHERE
   Identifier = '{{ domain_configuration_name }}' AND
-  region = 'us-east-1';
+  region = '{{ region }}';
 ```
 
 ## Permissions
