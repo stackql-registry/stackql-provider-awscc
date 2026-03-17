@@ -702,6 +702,46 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
 
     }
 
+    // Custom view resources (vw_ prefix, x-type: custom_view)
+    // These use config.docs.fields for field definitions and config.docs.requiredParams for WHERE clause
+    if (resourceType === 'custom_view') {
+        const docsConfig = resourceData?.config?.docs;
+        const docFields = docsConfig?.fields || [];
+        const requiredParams = docsConfig?.requiredParams || [];
+
+        // Build a synthetic schema.properties from config.docs.fields for field display
+        // Exclude 'region' as it is auto-added by the doc generator
+        const nonRegionFields = docFields.filter(f => f.name !== 'region');
+        const syntheticProperties = {};
+        for (const field of nonRegionFields) {
+            syntheticProperties[field.name] = {
+                type: field.type || 'string',
+                description: field.description || '',
+            };
+        }
+        // fields as array of field names (used by getColumns with isList=true)
+        fields = nonRegionFields.map(f => f.name);
+        schema = { properties: syntheticProperties };
+
+        resourceDescription = `Custom view of <code>${resourceName.replace(/^vw_/, '')}</code> resources in a region`;
+
+        sqlVerbsList.push({
+            sqlVerbName: 'select',
+            methodName: 'view',
+            requiredParams: requiredParams.length > 0 ? requiredParams.map(p => p.name).join(', ') : 'region'
+        });
+
+        hasList = true;
+
+        // Build WHERE clause from requiredParams
+        if (requiredParams.length > 0) {
+            const whereParts = requiredParams.map(p => `${p.name} = '{{ ${p.name} }}'`);
+            sqlExampleWhere = `WHERE ${whereParts.join(' AND\n  ')}`;
+        }
+
+        sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
+    }
+
     // DDL view exception: only for native services (cloud_control, tagging)
     // These views have no x-type but have config.views.select.ddl with a SELECT * FROM <base_resource>
     if (!resourceType && nativeServices.includes(serviceName) && resourceData?.config?.views?.select?.ddl) {
@@ -1407,7 +1447,10 @@ ${codeBlockEnd}
     if(hasList){
         let listDesc = `Lists all <code>${resourceName.replace('_list_only','')}</code> in a region.`;
 
-        if(resourceName.endsWith('_list_only')){
+        if(resourceName.startsWith('vw_')){
+            listDesc = `Lists all <code>${resourceName}</code> in a region.`;
+            returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleListCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
+        } else if(resourceName.endsWith('_list_only')){
             returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleListCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
         } else if(resourceName.endsWith('_tags')){
             listDesc = `Expands tags for all <code>${pluralize.plural(resourceName.replace('_tags',''))}</code> in a region.`;

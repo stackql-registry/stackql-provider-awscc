@@ -20,7 +20,7 @@ The ec2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>96</b></span><br />
+<span>total resources:&nbsp;<b>97</b></span><br />
 </div>
 </div>
 
@@ -76,10 +76,10 @@ The ec2 service documentation.
 <a href="/services/ec2/route_server_propagations/">route_server_propagations</a><br />
 <a href="/services/ec2/route_servers/">route_servers</a><br />
 <a href="/services/ec2/route_tables/">route_tables</a><br />
-<a href="/services/ec2/routes/">routes</a>
+<a href="/services/ec2/routes/">routes</a><br />
+<a href="/services/ec2/security_group_egresses/">security_group_egresses</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/ec2/security_group_egresses/">security_group_egresses</a><br />
 <a href="/services/ec2/security_group_ingresses/">security_group_ingresses</a><br />
 <a href="/services/ec2/security_group_vpc_associations/">security_group_vpc_associations</a><br />
 <a href="/services/ec2/security_groups/">security_groups</a><br />
@@ -126,6 +126,7 @@ The ec2 service documentation.
 <a href="/services/ec2/vpcs/">vpcs</a><br />
 <a href="/services/ec2/vpn_connection_routes/">vpn_connection_routes</a><br />
 <a href="/services/ec2/vpn_connections/">vpn_connections</a><br />
-<a href="/services/ec2/vpn_gateways/">vpn_gateways</a>
+<a href="/services/ec2/vpn_gateways/">vpn_gateways</a><br />
+<a href="/services/ec2/vw_subnet_route_table_associations/">vw_subnet_route_table_associations</a>
 </div>
 </div>

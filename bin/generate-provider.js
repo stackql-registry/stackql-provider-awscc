@@ -3,6 +3,7 @@
 const libDir = '../lib';
 const providerDevDir = '../provider-dev';
 const openAPIDir = '../openapi';
+const viewsDir = '../views';
 
 import * as fs from 'fs'; // For synchronous methods like fs.existsSync
 import path from "path";
@@ -225,6 +226,13 @@ async function processService(servicePrefix, outputFilename) {
   }
   Object.assign(openAPI.components['x-stackQL-resources'], stackqlViews);
 
+  // Load and merge custom views for this service
+  const customViews = loadCustomViews(serviceTitle);
+  if (Object.keys(customViews).length > 0) {
+    Object.assign(openAPI.components['x-stackQL-resources'], customViews);
+    console.log(`Merged ${Object.keys(customViews).length} custom view(s) for ${serviceTitle}`);
+  }
+
   if (!Object.keys(openAPI.components['x-stackQL-resources']).length) {
     return false;
   }
@@ -306,6 +314,38 @@ function addAdditionalRoutes(openAPISpec, serviceTitle) {
   }
 
   return openAPISpec;
+}
+
+function loadCustomViews(serviceName) {
+  const serviceViewsDir = path.join(__dirname, viewsDir, serviceName.toLowerCase());
+  const customViews = {};
+
+  if (!fs.existsSync(serviceViewsDir)) {
+    return customViews;
+  }
+
+  const viewFiles = fs.readdirSync(serviceViewsDir).filter(file => file.endsWith('.yaml'));
+
+  for (const file of viewFiles) {
+    const filePath = path.join(serviceViewsDir, file);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const viewDefs = load(content);
+
+    for (const [viewName, viewDef] of Object.entries(viewDefs)) {
+      // Ensure x-type is set to 'custom_view' for custom views
+      viewDef['x-type'] = 'custom_view';
+      viewDef.methods = viewDef.methods || {};
+      viewDef.sqlVerbs = viewDef.sqlVerbs || {
+        insert: [],
+        delete: [],
+        update: [],
+      };
+      customViews[viewName] = viewDef;
+      console.log(`Loaded custom view: ${viewName} for service ${serviceName}`);
+    }
+  }
+
+  return customViews;
 }
 
 function findFilesInDocs(filter) {
