@@ -28780,6 +28780,65 @@ components:
                 json_extract_path_text(Properties, 'VPNGatewayId') as v_pn_gateway_id
                 FROM awscc.cloud_control.resources WHERE TypeName = 'AWS::EC2::VPNGateway'
                 AND region = 'us-east-1'
+    vw_subnet_route_table_associations:
+      name: vw_subnet_route_table_associations
+      id: awscc.ec2.vw_subnet_route_table_associations
+      config:
+        docs:
+          fields:
+            - name: region
+              type: string
+              description: AWS region.
+            - name: route_table_id
+              type: string
+              description: The ID of the route table associated with the subnet.
+            - name: id
+              type: string
+              description: The unique identifier for the subnet route table association.
+            - name: subnet_id
+              type: string
+              description: The ID of the subnet.
+          requiredParams:
+            - name: region
+              type: string
+              description: AWS region (e.g. us-east-1).
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              detail.region,
+              JSON_EXTRACT(detail.Properties, '$.RouteTableId') as route_table_id,
+              JSON_EXTRACT(detail.Properties, '$.Id') as id,
+              JSON_EXTRACT(detail.Properties, '$.SubnetId') as subnet_id
+              FROM awscc.cloud_control.resources listing
+              INNER JOIN awscc.cloud_control.resource detail
+              ON detail.Identifier = listing.Identifier
+              AND detail.region = listing.region
+              WHERE listing.TypeName = 'AWS::EC2::SubnetRouteTableAssociation'
+              AND detail.TypeName = 'AWS::EC2::SubnetRouteTableAssociation'
+              AND listing.region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                detail.region,
+                json_extract_path_text(detail.Properties, 'RouteTableId') as route_table_id,
+                json_extract_path_text(detail.Properties, 'Id') as id,
+                json_extract_path_text(detail.Properties, 'SubnetId') as subnet_id
+                FROM awscc.cloud_control.resources listing
+                INNER JOIN awscc.cloud_control.resource detail
+                ON detail.Identifier = listing.Identifier
+                AND detail.region = listing.region
+                WHERE listing.TypeName = 'AWS::EC2::SubnetRouteTableAssociation'
+                AND detail.TypeName = 'AWS::EC2::SubnetRouteTableAssociation'
+                AND listing.region = 'us-east-1'
+      x-type: custom_view
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
 paths:
   /?Action=CreateResource&Version=2021-09-30:
     parameters:

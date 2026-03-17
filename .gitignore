@@ -6,6 +6,6 @@ stackql
 stackql-zip
 .stackql/
 stackql-server.log
-
+.claude/
 /provider-dev/downloaded/*
 dependent_schemas.yaml

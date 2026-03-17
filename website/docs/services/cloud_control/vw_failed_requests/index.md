@@ -104,7 +104,14 @@ View of <code>resource_requests</code> filtered by the SQL WHERE clause; see <a 
 </table>
 
 ## `SELECT` examples
-
+Lists all <code>vw_failed_requests</code> in a region.
+```sql
+SELECT
+  region
+FROM awscc.cloud_control.vw_failed_requests
+WHERE
+  region = '{{ region }}';
+```
 
 
 
