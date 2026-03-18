@@ -20,7 +20,7 @@ The events service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -31,11 +31,10 @@ The events service documentation.
 <div class="providerDocColumn">
 <a href="/services/events/api_destinations/">api_destinations</a><br />
 <a href="/services/events/archives/">archives</a><br />
-<a href="/services/events/connections/">connections</a><br />
-<a href="/services/events/endpoints/">endpoints</a>
+<a href="/services/events/connections/">connections</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/events/event_bus_policies/">event_bus_policies</a><br />
+<a href="/services/events/endpoints/">endpoints</a><br />
 <a href="/services/events/event_buses/">event_buses</a><br />
 <a href="/services/events/rules/">rules</a>
 </div>

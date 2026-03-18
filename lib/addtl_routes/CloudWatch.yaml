@@ -1243,7 +1243,7 @@ components:
     log_events:
       name: log_events
       x-cfn-schema-name: OutputLogEvent
-      x-example-where-clause: "WHERE region = 'us-east-1' AND data___logStreamName = '<logStreamName>'"
+      x-example-where-clause: "WHERE region = 'us-east-1' AND logStreamName = '<logStreamName>'"
       x-type: native    
       id: aws.cloudwatch.log_events
       methods:

@@ -20,7 +20,7 @@ The neptune service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -35,7 +35,6 @@ The neptune service documentation.
 </div>
 <div class="providerDocColumn">
 <a href="/services/neptune/db_parameter_groups/">db_parameter_groups</a><br />
-<a href="/services/neptune/db_subnet_groups/">db_subnet_groups</a><br />
-<a href="/services/neptune/event_subscriptions/">event_subscriptions</a>
+<a href="/services/neptune/db_subnet_groups/">db_subnet_groups</a>
 </div>
 </div>
