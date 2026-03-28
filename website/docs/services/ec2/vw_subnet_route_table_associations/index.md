@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -85,6 +86,7 @@ FROM awscc.ec2.vw_subnet_route_table_associations
 WHERE
   region = '{{ region }}';
 ```
+
 
 
 

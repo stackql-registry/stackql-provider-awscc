@@ -30,7 +30,6 @@ const openAPIdir = '../openapi';
 
 const sqlCodeBlockStart = '```sql';
 const jsonCodeBlockStart = '```json';
-const yamlCodeBlockStart = '```yaml';
 const codeBlockEnd = '```';
 const mdCodeAnchor = "`";
 
@@ -205,6 +204,45 @@ function generateResourceLinks(serviceName, resources) {
     return resourceLinks.join('<br />\n');
 }
 
+function getReturningClause() {
+    const progressEventFields = [
+        'ErrorCode',
+        'EventTime',
+        'Identifier',
+        'Operation',
+        'OperationStatus',
+        'RequestToken',
+        'ResourceModel',
+        'RetryAfter',
+        'StatusMessage',
+        'TypeName',
+    ];
+    return `RETURNING\n  ${progressEventFields.join(",\n  ")}\n`;
+}
+
+function createAdditionalParametersSection(serviceName, resourceData) {
+    if (nativeServices.includes(serviceName)) {
+        return '';
+    }
+    const hasInsert = !!resourceData.methods?.create_resource;
+    const hasUpdate = !!resourceData.methods?.update_resource;
+    const hasDelete = !!resourceData.methods?.delete_resource;
+    if (!hasInsert && !hasUpdate && !hasDelete) {
+        return '';
+    }
+    return `
+## Additional Parameters
+
+Mutable resources in the Cloud Control provider support additional optional parameters which can be supplied with \`INSERT\`, \`UPDATE\`, or \`DELETE\` operations. These include:
+
+| Parameter | Description |
+|-----------|-------------|
+| <CopyableCode code="ClientToken" /> | <details><summary>A unique identifier to ensure the idempotency of the resource request.</summary>This allows the provider to accurately distinguish between retries and new requests.<br />A client token is valid for 36 hours once used.<br />After that, a resource request with the same client token is treated as a new request.<br />If you do not specify a client token, one is generated for inclusion in the request.</details> |
+| <CopyableCode code="RoleArn" /> | <details><summary>The ARN of the IAM role used to perform this resource operation.</summary>The role specified must have the permissions required for this operation.<br />If you do not specify a role, a temporary session is created using your AWS user credentials.</details> |
+| <CopyableCode code="TypeVersionId" /> | <details><summary>For private resource types, the type version to use in this resource operation.</summary>If you do not specify a resource version, the default version is used.</details> |
+`;
+}
+
 function createDeleteExample(serviceName, resourceName, resourceData, thisSchema, allSchemas) {
     const deleteOperation = resourceData.methods?.delete_resource;
     if (!deleteOperation) {
@@ -218,7 +256,8 @@ ${sqlCodeBlockStart}
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
 WHERE
   Identifier = '${resourceData['x-identifiers'].map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|')}' AND
-  region = '${getRegionExample(serviceName)}';
+  region = '${getRegionExample(serviceName)}'
+${getReturningClause()};
 ${codeBlockEnd}
 `;
 }
@@ -254,7 +293,8 @@ ${patchFields}
 } | generate_patch_document }}')
 WHERE
   region = '{{ region }}' AND
-  Identifier = '${identifierValues}';
+  Identifier = '${identifierValues}'
+${getReturningClause()};
 ${codeBlockEnd}
 `;
 }
@@ -395,6 +435,10 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
     const requiredSnakeKeys = requiredKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
     const allSnakeKeys = allKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
 
+    // Escape backticks and ${} in the YAML to prevent template literal issues in JSX
+    const manifestYaml = yaml.dump(templateObject, { lineWidth: -1 }).trimEnd();
+    const escapedManifestYaml = manifestYaml.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+
     return `\n## ${mdCodeAnchor}INSERT${mdCodeAnchor} example
 
 Use the following StackQL query and manifest file to create a new <code>${pluralize.singular(resourceName)}</code> resource, using [__${mdCodeAnchor}stack-deploy${mdCodeAnchor}__](https://pypi.org/project/stack-deploy/).
@@ -417,7 +461,8 @@ INSERT INTO ${providerName}.${serviceName}.${resourceName} (
 )
 SELECT
   '{{ ${requiredSnakeKeys.join(" }}',\n  '{{ ")} }}',
-  '{{ region }}';
+  '{{ region }}'
+${getReturningClause()};
 ${codeBlockEnd}
 </TabItem>
 <TabItem value="all">
@@ -430,14 +475,14 @@ INSERT INTO ${providerName}.${serviceName}.${resourceName} (
 )
 SELECT
   '{{ ${allSnakeKeys.join(" }}',\n  '{{ ")} }}',
-  '{{ region }}';
+  '{{ region }}'
+${getReturningClause()};
 ${codeBlockEnd}
 </TabItem>
 <TabItem value="manifest">
 
-${yamlCodeBlockStart}
-${yaml.dump(templateObject, { lineWidth: -1 }).trimEnd()}
-${codeBlockEnd}
+<CodeBlock language="yaml">{\`${escapedManifestYaml}\`}</CodeBlock>
+
 </TabItem>
 </Tabs>`;
 }
@@ -939,6 +984,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -966,6 +1012,7 @@ ${resourceType !== 'native' ? generateSelectExamples(resourceName, hasList, hasG
 ${resourceType !== 'native' ? createInsertExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
 ${resourceType !== 'native' ? createUpdateExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
 ${resourceType !== 'native' ? createDeleteExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
+${resourceType !== 'native' ? createAdditionalParametersSection(serviceName, resourceData): ''}
 ${permissionsHeadingMarkdown}
 ${permissionsBylineMarkdown}
 ${permissionsMarkdown}`;

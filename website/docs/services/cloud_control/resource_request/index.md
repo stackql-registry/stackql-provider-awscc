@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -112,6 +113,7 @@ FROM awscc.cloud_control.resource_request
 WHERE
   region = 'us-east-1' AND RequestToken = '<RequestToken>';
 ```
+
 
 
 

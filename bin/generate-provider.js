@@ -197,7 +197,7 @@ async function processService(servicePrefix, outputFilename) {
   };
 
   const files = findFiles(docsDir, servicePrefix);
-  let serviceTitle;
+  const serviceTitle = path.basename(outputFilename, '.yaml');
   for (const file of files) {
     const content = await fs.promises.readFile(file);
     const jsonContent = JSON.parse(content);
@@ -208,9 +208,6 @@ async function processService(servicePrefix, outputFilename) {
     }
 
     const componentName = jsonContent.typeName.split("::").pop();
-    if (!serviceTitle) {
-      serviceTitle = jsonContent.typeName?.split("::")[1];
-    }
     const openAPIComponent = convertToOpenAPI(
       jsonContent,
       componentName,
@@ -218,6 +215,7 @@ async function processService(servicePrefix, outputFilename) {
     );
     Object.assign(openAPI.components.schemas, openAPIComponent);
   }
+
   openAPI.info = {title: serviceTitle, ...openAPI.info};
 
   const stackqlViews = generateStackqlViews(openAPI);
@@ -239,7 +237,7 @@ async function processService(servicePrefix, outputFilename) {
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
-  if(serviceTitle == 'EC2'){
+  if(serviceTitle == 'ec2'){
     // fix bug with self referencing object
     delete cleanedOpenAPI.components.schemas.SseSpecification.$ref;
     cleanedOpenAPI.components.schemas.SseSpecification['type'] = 'object';
@@ -408,7 +406,8 @@ async function main(){
       };
       console.log('Service processed', service);
     } catch (error) {
-      console.log('Error processing file', service, error)
+      console.error(`Error processing file ${service}:`, error);
+      process.exit(1);
     }
   }
 

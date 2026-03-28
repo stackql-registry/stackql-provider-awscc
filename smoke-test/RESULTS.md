@@ -35,7 +35,7 @@ REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}/openapi'", "localDocRoot
 | 3 | Create param1 | `INSERT INTO awscc.ssm.parameters` | ✅ PASS | Cloud Control CREATE dispatched |
 | 4 | Create param2 | `INSERT INTO awscc.ssm.parameters` | ✅ PASS | Cloud Control CREATE dispatched |
 | 5 | List parameters | `SELECT FROM awscc.ssm.parameters_list_only` | ✅ PASS | Both params visible |
-| 6 | Update param1 | `UPDATE awscc.ssm.parameters SET data__PatchDocument` | ✅ PASS | After fix (see below) |
+| 6 | Update param1 | `UPDATE awscc.ssm.parameters SET PatchDocument` | ✅ PASS | After fix (see below) |
 | 7 | Delete param2 | `DELETE FROM awscc.ssm.parameters` | ✅ PASS | Cloud Control DELETE dispatched |
 | 8 | Delete param1 | `DELETE FROM awscc.ssm.parameters` | ✅ PASS | Cloud Control DELETE dispatched |
 
@@ -111,8 +111,8 @@ WHERE region = 'us-east-1';
 
 ```sql
 UPDATE awscc.ssm.parameters
-SET data__PatchDocument = '[{"op":"replace","path":"/Value","value":"updated-value"}]'
-WHERE data__Identifier = '/stackql/smoke-test/param1'
+SET PatchDocument = '[{"op":"replace","path":"/Value","value":"updated-value"}]'
+WHERE Identifier = '/stackql/smoke-test/param1'
 AND region = 'us-east-1';
 ```
 
@@ -121,7 +121,7 @@ AND region = 'us-east-1';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.parameters
-WHERE data__Identifier = '/stackql/smoke-test/param1'
+WHERE Identifier = '/stackql/smoke-test/param1'
 AND region = 'us-east-1';
 ```
 
@@ -131,5 +131,5 @@ AND region = 'us-east-1';
 
 - All Cloud Control API operations are **asynchronous** (`OperationStatus: IN_PROGRESS`). The operation is dispatched and tracked via a `RequestToken`.
 - The `parameters_list_only` resource is used for list operations (SELECT without Identifier). The `parameters` resource is used for get-by-identifier.
-- The `data__Identifier` prefix maps to the Cloud Control API `Identifier` field (parameter name for SSM parameters).
-- The `data__PatchDocument` prefix maps to the Cloud Control API `PatchDocument` field (RFC 6902 JSON Patch).
+- The `Identifier` prefix maps to the Cloud Control API `Identifier` field (parameter name for SSM parameters).
+- The `PatchDocument` prefix maps to the Cloud Control API `PatchDocument` field (RFC 6902 JSON Patch).

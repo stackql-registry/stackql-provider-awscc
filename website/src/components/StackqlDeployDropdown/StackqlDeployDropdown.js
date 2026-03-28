@@ -160,7 +160,8 @@ function parseInsertColumns(sql) {
   if (!match) return [];
   return match[1]
     .split(',')
-    .map(c => c.trim().replace(/^data__/, ''))
+    // .map(c => c.trim().replace(/^data__/, ''))
+    .map(c => c.trim())
     .filter(Boolean);
 }
 

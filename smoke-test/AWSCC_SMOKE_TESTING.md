@@ -200,7 +200,7 @@ SELECT name FROM awscc.ssm.parameters_list_only WHERE region = 'us-east-1';
 
 -- Get by identifier
 SELECT name, type, value FROM awscc.ssm.parameters
-WHERE region = 'us-east-1' AND data__Identifier = '/my/param';
+WHERE region = 'us-east-1' AND Identifier = '/my/param';
 ```
 
 ### UPDATE
@@ -212,8 +212,8 @@ quoting hell:
 UPDATE_SQL=$(mktemp /tmp/update.XXXXXX.sql)
 cat > "$UPDATE_SQL" << 'SQL'
 UPDATE awscc.ssm.parameters
-SET data__PatchDocument = '[{"op":"replace","path":"/Value","value":"new-value"}]'
-WHERE data__Identifier = '/my/param'
+SET PatchDocument = '[{"op":"replace","path":"/Value","value":"new-value"}]'
+WHERE Identifier = '/my/param'
 AND region = 'us-east-1'
 SQL
 run_stackql_file "$UPDATE_SQL"
@@ -231,7 +231,7 @@ rm -f "$UPDATE_SQL"
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.parameters
-WHERE data__Identifier = '/my/param'
+WHERE Identifier = '/my/param'
 AND region = 'us-east-1';
 ```
 
@@ -338,11 +338,11 @@ with open('/etc/hosts', 'a') as f:
 ```sql
 -- Failed CREATEs
 SELECT * FROM aws.cloud_control.resource_requests
-WHERE data__ResourceRequestStatusFilter = '{"OperationStatuses":["FAILED"],"Operations":["CREATE"]}'
+WHERE ResourceRequestStatusFilter = '{"OperationStatuses":["FAILED"],"Operations":["CREATE"]}'
 AND region = 'us-east-1';
 
 -- By request token
 SELECT * FROM aws.cloud_control.resource_request
-WHERE data__RequestToken = '<token-from-insert-response>'
+WHERE RequestToken = '<token-from-insert-response>'
 AND region = 'us-east-1';
 ```

@@ -126,8 +126,8 @@ echo "[6/8] UPDATE awscc.ssm.parameters (param1)"
 UPDATE_SQL=$(mktemp /tmp/update_param.XXXXXX.sql)
 cat > "$UPDATE_SQL" << SQL
 UPDATE awscc.ssm.parameters
-SET data__PatchDocument = '[{"op":"replace","path":"/Value","value":"updated-by-stackql-smoketest"}]'
-WHERE data__Identifier = '$PARAM_NAME'
+SET PatchDocument = '[{"op":"replace","path":"/Value","value":"updated-by-stackql-smoketest"}]'
+WHERE Identifier = '$PARAM_NAME'
 AND region = '$REGION'
 SQL
 result=$(run_stackql_file "$UPDATE_SQL")
@@ -136,12 +136,12 @@ check "UPDATE param1 dispatched" "$result" "despatched successfully"
 
 # ── DELETE (param2) ──────────────────────────────────────────────
 echo "[7/8] DELETE awscc.ssm.parameters (param2)"
-result=$(run_stackql "/*+ delete */ DELETE FROM awscc.ssm.parameters WHERE data__Identifier = '$PARAM_NAME2' AND region = '$REGION'")
+result=$(run_stackql "/*+ delete */ DELETE FROM awscc.ssm.parameters WHERE Identifier = '$PARAM_NAME2' AND region = '$REGION'")
 check "DELETE param2 dispatched" "$result" "despatched successfully"
 
 # ── DELETE (param1 cleanup) ──────────────────────────────────────
 echo "[8/8] DELETE awscc.ssm.parameters (param1 cleanup)"
-result=$(run_stackql "/*+ delete */ DELETE FROM awscc.ssm.parameters WHERE data__Identifier = '$PARAM_NAME' AND region = '$REGION'")
+result=$(run_stackql "/*+ delete */ DELETE FROM awscc.ssm.parameters WHERE Identifier = '$PARAM_NAME' AND region = '$REGION'")
 check "DELETE param1 dispatched" "$result" "despatched successfully"
 
 # ── Summary ──────────────────────────────────────────────────────

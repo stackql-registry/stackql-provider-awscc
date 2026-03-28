@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -267,7 +268,19 @@ INSERT INTO awscc.sso.permission_sets (
 SELECT
   '{{ name }}',
   '{{ instance_arn }}',
-  '{{ region }}';
+  '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
 ```
 </TabItem>
 <TabItem value="all">
@@ -298,13 +311,24 @@ SELECT
   '{{ tags }}',
   '{{ customer_managed_policy_references }}',
   '{{ permissions_boundary }}',
-  '{{ region }}';
+  '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
 ```
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -341,8 +365,8 @@ resources:
       - name: permissions_boundary
         value:
           customer_managed_policy_reference: null
-          managed_policy_arn: null
-```
+          managed_policy_arn: null`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 
@@ -365,7 +389,19 @@ SET PatchDocument = string('{{ {
 } | generate_patch_document }}')
 WHERE
   region = '{{ region }}' AND
-  Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
+  Identifier = '{{ instance_arn }}|{{ permission_set_arn }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
 ```
 
 
@@ -376,8 +412,31 @@ WHERE
 DELETE FROM awscc.sso.permission_sets
 WHERE
   Identifier = '{{ instance_arn }}|{{ permission_set_arn }}' AND
-  region = '{{ region }}';
+  region = '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
 ```
+
+
+## Additional Parameters
+
+Mutable resources in the Cloud Control provider support additional optional parameters which can be supplied with `INSERT`, `UPDATE`, or `DELETE` operations. These include:
+
+| Parameter | Description |
+|-----------|-------------|
+| <CopyableCode code="ClientToken" /> | <details><summary>A unique identifier to ensure the idempotency of the resource request.</summary>This allows the provider to accurately distinguish between retries and new requests.<br />A client token is valid for 36 hours once used.<br />After that, a resource request with the same client token is treated as a new request.<br />If you do not specify a client token, one is generated for inclusion in the request.</details> |
+| <CopyableCode code="RoleArn" /> | <details><summary>The ARN of the IAM role used to perform this resource operation.</summary>The role specified must have the permissions required for this operation.<br />If you do not specify a role, a temporary session is created using your AWS user credentials.</details> |
+| <CopyableCode code="TypeVersionId" /> | <details><summary>For private resource types, the type version to use in this resource operation.</summary>If you do not specify a resource version, the default version is used.</details> |
 
 ## Permissions
 

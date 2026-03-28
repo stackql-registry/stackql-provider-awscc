@@ -127,7 +127,7 @@ where RequestToken = '54061545-e0a0-4ef0-b213-41fda81d8c24'
 and region = 'ap-southeast-2';
 ```
 
-(replace `region` and `data__RequestToken` accordingly)
+(replace `region` and `RequestToken` accordingly)
 
 ### Resolving Identifiers
 
