@@ -30,7 +30,6 @@ const openAPIdir = '../openapi';
 
 const sqlCodeBlockStart = '```sql';
 const jsonCodeBlockStart = '```json';
-const yamlCodeBlockStart = '```yaml';
 const codeBlockEnd = '```';
 const mdCodeAnchor = "`";
 
@@ -436,6 +435,10 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
     const requiredSnakeKeys = requiredKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
     const allSnakeKeys = allKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
 
+    // Escape backticks and ${} in the YAML to prevent template literal issues in JSX
+    const manifestYaml = yaml.dump(templateObject, { lineWidth: -1 }).trimEnd();
+    const escapedManifestYaml = manifestYaml.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+
     return `\n## ${mdCodeAnchor}INSERT${mdCodeAnchor} example
 
 Use the following StackQL query and manifest file to create a new <code>${pluralize.singular(resourceName)}</code> resource, using [__${mdCodeAnchor}stack-deploy${mdCodeAnchor}__](https://pypi.org/project/stack-deploy/).
@@ -478,9 +481,8 @@ ${codeBlockEnd}
 </TabItem>
 <TabItem value="manifest">
 
-${yamlCodeBlockStart}
-${yaml.dump(templateObject, { lineWidth: -1 }).trimEnd()}
-${codeBlockEnd}
+<CodeBlock language="yaml">{\`${escapedManifestYaml}\`}</CodeBlock>
+
 </TabItem>
 </Tabs>`;
 }
@@ -982,6 +984,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

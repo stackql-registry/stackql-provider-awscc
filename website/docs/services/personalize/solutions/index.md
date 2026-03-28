@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -369,8 +370,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -422,8 +422,8 @@ resources:
               metric_regex: '{{ metric_regex }}'
             hpo_resource_config:
               max_number_of_training_jobs: '{{ max_number_of_training_jobs }}'
-              max_parallel_training_jobs: '{{ max_parallel_training_jobs }}'
-```
+              max_parallel_training_jobs: '{{ max_parallel_training_jobs }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

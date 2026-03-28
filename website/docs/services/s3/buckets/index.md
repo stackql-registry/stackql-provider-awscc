@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -1407,8 +1408,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -1659,8 +1659,8 @@ resources:
                 http_error_code_returned_equals: '{{ http_error_code_returned_equals }}'
           redirect_all_requests_to:
             host_name: '{{ host_name }}'
-            protocol: '{{ protocol }}'
-```
+            protocol: '{{ protocol }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

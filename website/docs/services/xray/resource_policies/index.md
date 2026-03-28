@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -235,8 +236,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -252,8 +252,8 @@ resources:
       - name: policy_document
         value: '{{ policy_document }}'
       - name: bypass_policy_lockout_check
-        value: '{{ bypass_policy_lockout_check }}'
-```
+        value: '{{ bypass_policy_lockout_check }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

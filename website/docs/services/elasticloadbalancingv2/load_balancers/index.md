@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -425,8 +426,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -474,8 +474,8 @@ resources:
       - name: enforce_security_group_inbound_rules_on_private_link_traffic
         value: '{{ enforce_security_group_inbound_rules_on_private_link_traffic }}'
       - name: ipv4_ipam_pool_id
-        value: '{{ ipv4_ipam_pool_id }}'
-```
+        value: '{{ ipv4_ipam_pool_id }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

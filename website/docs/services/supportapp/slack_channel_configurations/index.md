@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -285,8 +286,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -312,8 +312,8 @@ resources:
       - name: notify_on_case_severity
         value: '{{ notify_on_case_severity }}'
       - name: channel_role_arn
-        value: '{{ channel_role_arn }}'
-```
+        value: '{{ channel_role_arn }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

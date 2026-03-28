@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -318,8 +319,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -348,8 +348,8 @@ resources:
           grantee_identifier: '{{ grantee_identifier }}'
       - name: access_grants_location_configuration
         value:
-          s3_sub_prefix: '{{ s3_sub_prefix }}'
-```
+          s3_sub_prefix: '{{ s3_sub_prefix }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

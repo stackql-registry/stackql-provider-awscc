@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -473,8 +474,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -548,8 +548,8 @@ resources:
       - name: enable_token_revocation
         value: '{{ enable_token_revocation }}'
       - name: enable_propagate_additional_user_context_data
-        value: '{{ enable_propagate_additional_user_context_data }}'
-```
+        value: '{{ enable_propagate_additional_user_context_data }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

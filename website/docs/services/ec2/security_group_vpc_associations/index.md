@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -245,8 +246,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -260,8 +260,8 @@ resources:
       - name: group_id
         value: '{{ group_id }}'
       - name: vpc_id
-        value: '{{ vpc_id }}'
-```
+        value: '{{ vpc_id }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -499,8 +500,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -598,8 +598,8 @@ resources:
           processing_job_arn: '{{ processing_job_arn }}'
           scheduled_time: '{{ scheduled_time }}'
       - name: monitoring_schedule_status
-        value: '{{ monitoring_schedule_status }}'
-```
+        value: '{{ monitoring_schedule_status }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 

@@ -15,6 +15,7 @@ custom_edit_url: null
 image: /img/stackql-aws-provider-featured-image.png
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -408,8 +409,7 @@ RETURNING
 </TabItem>
 <TabItem value="manifest">
 
-```yaml
-version: 1
+<CodeBlock language="yaml">{`version: 1
 name: stack name
 description: stack description
 providers:
@@ -453,8 +453,8 @@ resources:
       - name: ami_id
         value: '{{ ami_id }}'
       - name: iam_instance_profile_arn
-        value: '{{ iam_instance_profile_arn }}'
-```
+        value: '{{ iam_instance_profile_arn }}'`}</CodeBlock>
+
 </TabItem>
 </Tabs>
 
