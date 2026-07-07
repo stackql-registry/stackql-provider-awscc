@@ -19,6 +19,12 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 
 AWS Cloud Control API provider for StackQL.
 
+:::info
+
+For the native AWS provider see the [__`aws`__](https://aws-provider.stackql.io/) provider.
+
+:::
+
 :::info Provider Summary
 
 <div class="row">
