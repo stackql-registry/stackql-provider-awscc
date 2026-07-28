@@ -16,7 +16,7 @@ image: /img/stackql-aws-provider-featured-image.png
 
 The scheduler service documentation.
 
-:::info Service Summary
+:::info[Service Summary]
 
 <div class="row">
 <div class="providerDocColumn">
