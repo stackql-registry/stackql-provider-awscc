@@ -99,14 +99,14 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
             "description": "",
             "children": [
               {
-                "name": "from_port",
+                "name": "from",
                 "type": "integer",
-                "description": "The first port in the range."
+                "description": ""
               },
               {
-                "name": "to_port",
+                "name": "to",
                 "type": "integer",
-                "description": "The last port in the range."
+                "description": ""
               }
             ]
           },
@@ -157,17 +157,17 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
           {
             "name": "port_range",
             "type": "object",
-            "description": "The IP port range.",
+            "description": "",
             "children": [
               {
-                "name": "from_port",
+                "name": "from",
                 "type": "integer",
-                "description": "The first port in the range."
+                "description": ""
               },
               {
-                "name": "to_port",
+                "name": "to",
                 "type": "integer",
-                "description": "The last port in the range."
+                "description": ""
               }
             ]
           },
@@ -412,14 +412,14 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
             "description": "",
             "children": [
               {
-                "name": "from_port",
+                "name": "from",
                 "type": "integer",
-                "description": "The first port in the range."
+                "description": ""
               },
               {
-                "name": "to_port",
+                "name": "to",
                 "type": "integer",
-                "description": "The last port in the range."
+                "description": ""
               }
             ]
           },
@@ -475,17 +475,17 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
           {
             "name": "port_range",
             "type": "object",
-            "description": "The IP port range.",
+            "description": "",
             "children": [
               {
-                "name": "from_port",
+                "name": "from",
                 "type": "integer",
-                "description": "The first port in the range."
+                "description": ""
               },
               {
-                "name": "to_port",
+                "name": "to",
                 "type": "integer",
-                "description": "The last port in the range."
+                "description": ""
               }
             ]
           },
@@ -915,14 +915,14 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
         "description": "",
         "children": [
           {
-            "name": "from_port",
+            "name": "from",
             "type": "integer",
-            "description": "The first port in the range."
+            "description": ""
           },
           {
-            "name": "to_port",
+            "name": "to",
             "type": "integer",
-            "description": "The last port in the range."
+            "description": ""
           }
         ]
       },
@@ -998,14 +998,14 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
     "description": "",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -1225,8 +1225,8 @@ resources:
           - '{{ additional_accounts[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

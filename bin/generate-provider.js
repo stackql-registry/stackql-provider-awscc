@@ -198,6 +198,11 @@ async function processService(servicePrefix, outputFilename) {
 
   const files = findFiles(docsDir, servicePrefix);
   const serviceTitle = path.basename(outputFilename, '.yaml');
+
+  // pre-read all supported docs so every resource schema name in the service is
+  // known before merging definitions, regardless of file processing order
+  const supportedDocs = [];
+  const reservedNames = new Set();
   for (const file of files) {
     const content = await fs.promises.readFile(file);
     const jsonContent = JSON.parse(content);
@@ -206,12 +211,17 @@ async function processService(servicePrefix, outputFilename) {
       console.log(`Skipping unsupported resource type: ${jsonContent.typeName}`);
       continue;
     }
+    supportedDocs.push(jsonContent);
+    reservedNames.add(jsonContent.typeName.split("::").pop());
+  }
 
+  for (const jsonContent of supportedDocs) {
     const componentName = jsonContent.typeName.split("::").pop();
     const openAPIComponent = convertToOpenAPI(
       jsonContent,
       componentName,
-      openAPI.components.schemas
+      openAPI.components.schemas,
+      reservedNames
     );
     Object.assign(openAPI.components.schemas, openAPIComponent);
   }
@@ -237,21 +247,16 @@ async function processService(servicePrefix, outputFilename) {
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
-  if(serviceTitle == 'ec2'){
-    // fix bug with self referencing object
-    delete cleanedOpenAPI.components.schemas.SseSpecification.$ref;
-    cleanedOpenAPI.components.schemas.SseSpecification['type'] = 'object';
-    cleanedOpenAPI.components.schemas.SseSpecification['properties'] = {
-      KmsKeyArn: {
-        description: 'KMS Key Arn used to encrypt the group policy',
-        type: 'string'
-      },
-      CustomerManagedKeyEnabled: {
-        description: 'Whether to encrypt the policy with the provided key or disable encryption',
-        type: 'boolean'
+  // break self referencing schemas (broken upstream definitions, e.g. the
+  // SseSpecification definition in AWS::EC2::VerifiedAccessTrustProvider)
+  for (const [schemaName, schema] of Object.entries(cleanedOpenAPI.components.schemas || {})) {
+    if (schema && schema.$ref === `#/components/schemas/${schemaName}`) {
+      console.log(`Breaking self referencing schema ${schemaName} in ${serviceTitle}`);
+      delete schema.$ref;
+      if (!schema.type) {
+        schema.type = 'object';
       }
     }
-    cleanedOpenAPI.components.schemas.SseSpecification['additionalProperties'] = false;
   }
  
   // const finalAPI = addAdditionalRoutes(cleanedOpenAPI, serviceTitle);

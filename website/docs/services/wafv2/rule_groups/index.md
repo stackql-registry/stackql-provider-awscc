@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "arn",
     "type": "string",
-    "description": ""
+    "description": "ARN of the WAF entity."
   },
   {
     "name": "capacity",
@@ -62,17 +62,17 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "name",
     "type": "string",
-    "description": "Name of the WebACL."
+    "description": "Name of the RuleGroup."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Id of the WebACL"
+    "description": "Id of the RuleGroup"
   },
   {
     "name": "scope",
     "type": "string",
-    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+    "description": "Use CLOUDFRONT for CloudFront RuleGroup, use REGIONAL for Application Load Balancer and API Gateway."
   },
   {
     "name": "rules",
@@ -205,23 +205,6 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
             ]
           },
           {
-            "name": "rule_group_reference_statement",
-            "type": "object",
-            "description": "",
-            "children": [
-              {
-                "name": "excluded_rules",
-                "type": "array",
-                "description": ""
-              },
-              {
-                "name": "rule_action_overrides",
-                "type": "array",
-                "description": "Action overrides for rules in the rule group."
-              }
-            ]
-          },
-          {
             "name": "ip_set_reference_statement",
             "type": "object",
             "description": "",
@@ -247,38 +230,6 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
                 "name": "text_transformations",
                 "type": "array",
                 "description": ""
-              }
-            ]
-          },
-          {
-            "name": "managed_rule_group_statement",
-            "type": "object",
-            "description": "",
-            "children": [
-              {
-                "name": "vendor_name",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "version",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "excluded_rules",
-                "type": "array",
-                "description": ""
-              },
-              {
-                "name": "managed_rule_group_configs",
-                "type": "array",
-                "description": "Collection of ManagedRuleGroupConfig."
-              },
-              {
-                "name": "rule_action_overrides",
-                "type": "array",
-                "description": "Action overrides for rules in the rule group."
               }
             ]
           },
@@ -433,7 +384,7 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
           {
             "name": "count",
             "type": "object",
-            "description": "Allow traffic towards application.",
+            "description": "Count traffic towards application.",
             "children": [
               {
                 "name": "custom_request_handling",
@@ -469,23 +420,6 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
         ]
       },
       {
-        "name": "override_action",
-        "type": "object",
-        "description": "Override a RuleGroup or ManagedRuleGroup behavior. This can only be applied to Rule that has RuleGroupReferenceStatement or ManagedRuleGroupReferenceStatement.",
-        "children": [
-          {
-            "name": "count",
-            "type": "object",
-            "description": "Count traffic towards application."
-          },
-          {
-            "name": "none",
-            "type": "object",
-            "description": "Keep the RuleGroup or ManagedRuleGroup behavior as is."
-          }
-        ]
-      },
-      {
         "name": "rule_labels",
         "type": "array",
         "description": "Collection of Rule Labels.",
@@ -500,7 +434,7 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
       {
         "name": "visibility_config",
         "type": "object",
-        "description": "Visibility Metric of the WebACL.",
+        "description": "Visibility Metric of the RuleGroup.",
         "children": [
           {
             "name": "sampled_requests_enabled",
@@ -562,7 +496,7 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "visibility_config",
     "type": "object",
-    "description": "Visibility Metric of the WebACL.",
+    "description": "Visibility Metric of the RuleGroup.",
     "children": [
       {
         "name": "sampled_requests_enabled",
@@ -631,17 +565,17 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "name",
     "type": "string",
-    "description": "Name of the WebACL."
+    "description": "Name of the RuleGroup."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Id of the WebACL"
+    "description": "Id of the RuleGroup"
   },
   {
     "name": "scope",
     "type": "string",
-    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+    "description": "Use CLOUDFRONT for CloudFront RuleGroup, use REGIONAL for Application Load Balancer and API Gateway."
   },
   {
     "name": "region",
@@ -928,32 +862,8 @@ resources:
                 forwarded_ip_config:
                   header_name: '{{ header_name }}'
                   fallback_behavior: '{{ fallback_behavior }}'
-              rule_group_reference_statement:
-                arn: '{{ arn }}'
-                excluded_rules:
-                  - name: null
-                rule_action_overrides:
-                  - name: null
-                    action_to_use:
-                      allow:
-                        custom_request_handling:
-                          insert_headers:
-                            - name: '{{ name }}'
-                              value: '{{ value }}'
-                      block:
-                        custom_response:
-                          response_code: '{{ response_code }}'
-                          custom_response_body_key: '{{ custom_response_body_key }}'
-                          response_headers:
-                            - null
-                      count:
-                        custom_request_handling: null
-                      captcha:
-                        custom_request_handling: null
-                      challenge:
-                        custom_request_handling: null
               ip_set_reference_statement:
-                arn: null
+                arn: '{{ arn }}'
                 ip_set_forwarded_ip_config:
                   header_name: '{{ header_name }}'
                   fallback_behavior: '{{ fallback_behavior }}'
@@ -962,76 +872,6 @@ resources:
                 arn: null
                 field_to_match: null
                 text_transformations:
-                  - null
-              managed_rule_group_statement:
-                name: null
-                vendor_name: '{{ vendor_name }}'
-                version: '{{ version }}'
-                excluded_rules:
-                  - null
-                scope_down_statement: null
-                managed_rule_group_configs:
-                  - login_path: '{{ login_path }}'
-                    payload_type: '{{ payload_type }}'
-                    username_field:
-                      identifier: '{{ identifier }}'
-                    password_field: null
-                    aws_managed_rules_bot_control_rule_set:
-                      inspection_level: '{{ inspection_level }}'
-                      enable_machine_learning: '{{ enable_machine_learning }}'
-                    aws_managed_rules_at_prule_set:
-                      login_path: '{{ login_path }}'
-                      enable_regex_in_path: '{{ enable_regex_in_path }}'
-                      request_inspection:
-                        payload_type: '{{ payload_type }}'
-                        username_field: null
-                        password_field: null
-                      response_inspection:
-                        status_code:
-                          success_codes:
-                            - '{{ success_codes[0] }}'
-                          failure_codes:
-                            - '{{ failure_codes[0] }}'
-                        header:
-                          name: '{{ name }}'
-                          success_values:
-                            - '{{ success_values[0] }}'
-                          failure_values:
-                            - '{{ failure_values[0] }}'
-                        body_contains:
-                          success_strings:
-                            - '{{ success_strings[0] }}'
-                          failure_strings:
-                            - '{{ failure_strings[0] }}'
-                        json:
-                          identifier: '{{ identifier }}'
-                          success_values:
-                            - '{{ success_values[0] }}'
-                          failure_values:
-                            - '{{ failure_values[0] }}'
-                    aws_managed_rules_ac_fp_rule_set:
-                      creation_path: '{{ creation_path }}'
-                      registration_page_path: '{{ registration_page_path }}'
-                      request_inspection:
-                        payload_type: '{{ payload_type }}'
-                        username_field: null
-                        password_field: null
-                        email_field: null
-                        phone_number_fields:
-                          - null
-                        address_fields:
-                          - null
-                      response_inspection: null
-                      enable_regex_in_path: '{{ enable_regex_in_path }}'
-                    aws_managed_rules_anti_ddo_srule_set:
-                      client_side_action_config:
-                        challenge:
-                          usage_of_action: '{{ usage_of_action }}'
-                          sensitivity: '{{ sensitivity }}'
-                          exempt_uri_regular_expressions:
-                            - regex_string: '{{ regex_string }}'
-                      sensitivity_to_block: null
-                rule_action_overrides:
                   - null
               rate_based_statement:
                 limit: '{{ limit }}'
@@ -1088,10 +928,24 @@ resources:
                 asn_list:
                   - '{{ asn_list[0] }}'
                 forwarded_ip_config: null
-            action: null
-            override_action:
-              count: {}
-              none: {}
+            action:
+              allow:
+                custom_request_handling:
+                  insert_headers:
+                    - name: '{{ name }}'
+                      value: '{{ value }}'
+              block:
+                custom_response:
+                  response_code: '{{ response_code }}'
+                  custom_response_body_key: '{{ custom_response_body_key }}'
+                  response_headers:
+                    - null
+              count:
+                custom_request_handling: null
+              captcha:
+                custom_request_handling: null
+              challenge:
+                custom_request_handling: null
             rule_labels:
               - name: '{{ name }}'
             visibility_config:

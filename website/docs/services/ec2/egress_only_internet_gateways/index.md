@@ -62,12 +62,12 @@ Creates, updates, deletes or gets an <code>egress_only_internet_gateway</code> r
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

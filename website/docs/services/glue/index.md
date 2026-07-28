@@ -20,7 +20,7 @@ The glue service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>9</b></span><br />
 </div>
 </div>
 
@@ -32,10 +32,12 @@ The glue service documentation.
 <a href="/services/glue/crawlers/">crawlers</a><br />
 <a href="/services/glue/databases/">databases</a><br />
 <a href="/services/glue/jobs/">jobs</a><br />
+<a href="/services/glue/registries/">registries</a><br />
 <a href="/services/glue/schema_version_metadata/">schema_version_metadata</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/glue/schema_versions/">schema_versions</a><br />
+<a href="/services/glue/schemas/">schemas</a><br />
 <a href="/services/glue/triggers/">triggers</a><br />
 <a href="/services/glue/usage_profiles/">usage_profiles</a>
 </div>

@@ -144,120 +144,8 @@ Creates, updates, deletes or gets a <code>job_template</code> resource or lists 
         "children": [
           {
             "name": "action",
-            "type": "object",
-            "description": "The type of job action to take to initiate the job abort.",
-            "children": [
-              {
-                "name": "cloudwatch_alarm",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "cloudwatch_logs",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "cloudwatch_metric",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "dynamo_db",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "dynamo_dbv2",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "elasticsearch",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "firehose",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "http",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "iot_analytics",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "iot_events",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "iot_site_wise",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "kafka",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "kinesis",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "lambda",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "location",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "open_search",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "republish",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "s3",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "sns",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "sqs",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "step_functions",
-                "type": "object",
-                "description": ""
-              },
-              {
-                "name": "timestream",
-                "type": "object",
-                "description": ""
-              }
-            ]
+            "type": "string",
+            "description": "The type of job action to take to initiate the job abort."
           },
           {
             "name": "failure_type",
@@ -286,7 +174,7 @@ Creates, updates, deletes or gets a <code>job_template</code> resource or lists 
       {
         "name": "role_arn",
         "type": "string",
-        "description": ""
+        "description": "The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored. The role must also grant permission for IoT to download the files."
       },
       {
         "name": "expires_in_sec",
@@ -349,12 +237,12 @@ Creates, updates, deletes or gets a <code>job_template</code> resource or lists 
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },
@@ -596,155 +484,7 @@ resources:
       - name: abort_config
         value:
           criteria_list:
-            - action:
-                cloudwatch_alarm:
-                  state_value: '{{ state_value }}'
-                  alarm_name: '{{ alarm_name }}'
-                  state_reason: '{{ state_reason }}'
-                  role_arn: '{{ role_arn }}'
-                cloudwatch_logs:
-                  log_group_name: '{{ log_group_name }}'
-                  role_arn: '{{ role_arn }}'
-                  batch_mode: '{{ batch_mode }}'
-                cloudwatch_metric:
-                  metric_name: '{{ metric_name }}'
-                  metric_value: '{{ metric_value }}'
-                  metric_namespace: '{{ metric_namespace }}'
-                  metric_unit: '{{ metric_unit }}'
-                  role_arn: '{{ role_arn }}'
-                  metric_timestamp: '{{ metric_timestamp }}'
-                dynamo_db:
-                  table_name: '{{ table_name }}'
-                  payload_field: '{{ payload_field }}'
-                  range_key_field: '{{ range_key_field }}'
-                  hash_key_field: '{{ hash_key_field }}'
-                  range_key_value: '{{ range_key_value }}'
-                  range_key_type: '{{ range_key_type }}'
-                  hash_key_type: '{{ hash_key_type }}'
-                  hash_key_value: '{{ hash_key_value }}'
-                  role_arn: '{{ role_arn }}'
-                dynamo_dbv2:
-                  put_item:
-                    table_name: '{{ table_name }}'
-                  role_arn: '{{ role_arn }}'
-                elasticsearch:
-                  type: '{{ type }}'
-                  index: '{{ index }}'
-                  id: '{{ id }}'
-                  endpoint: '{{ endpoint }}'
-                  role_arn: '{{ role_arn }}'
-                firehose:
-                  delivery_stream_name: '{{ delivery_stream_name }}'
-                  role_arn: '{{ role_arn }}'
-                  separator: '{{ separator }}'
-                  batch_mode: '{{ batch_mode }}'
-                http:
-                  confirmation_url: '{{ confirmation_url }}'
-                  headers:
-                    - value: '{{ value }}'
-                      key: '{{ key }}'
-                  url: '{{ url }}'
-                  auth:
-                    sigv4:
-                      service_name: '{{ service_name }}'
-                      signing_region: '{{ signing_region }}'
-                      role_arn: '{{ role_arn }}'
-                iot_analytics:
-                  role_arn: '{{ role_arn }}'
-                  channel_name: '{{ channel_name }}'
-                  batch_mode: '{{ batch_mode }}'
-                iot_events:
-                  input_name: '{{ input_name }}'
-                  role_arn: '{{ role_arn }}'
-                  message_id: '{{ message_id }}'
-                  batch_mode: '{{ batch_mode }}'
-                iot_site_wise:
-                  role_arn: '{{ role_arn }}'
-                  put_asset_property_value_entries:
-                    - property_alias: '{{ property_alias }}'
-                      property_values:
-                        - value:
-                            string_value: '{{ string_value }}'
-                            double_value: '{{ double_value }}'
-                            boolean_value: '{{ boolean_value }}'
-                            integer_value: '{{ integer_value }}'
-                          timestamp:
-                            time_in_seconds: '{{ time_in_seconds }}'
-                            offset_in_nanos: '{{ offset_in_nanos }}'
-                          quality: '{{ quality }}'
-                      asset_id: '{{ asset_id }}'
-                      entry_id: '{{ entry_id }}'
-                      property_id: '{{ property_id }}'
-                kafka:
-                  destination_arn: '{{ destination_arn }}'
-                  topic: '{{ topic }}'
-                  key: '{{ key }}'
-                  partition: '{{ partition }}'
-                  client_properties: {}
-                  headers:
-                    - value: '{{ value }}'
-                      key: '{{ key }}'
-                kinesis:
-                  partition_key: '{{ partition_key }}'
-                  stream_name: '{{ stream_name }}'
-                  role_arn: '{{ role_arn }}'
-                lambda:
-                  function_arn: '{{ function_arn }}'
-                location:
-                  role_arn: '{{ role_arn }}'
-                  tracker_name: '{{ tracker_name }}'
-                  device_id: '{{ device_id }}'
-                  latitude: '{{ latitude }}'
-                  longitude: '{{ longitude }}'
-                  timestamp:
-                    value: '{{ value }}'
-                    unit: '{{ unit }}'
-                open_search:
-                  type: '{{ type }}'
-                  index: '{{ index }}'
-                  id: '{{ id }}'
-                  endpoint: '{{ endpoint }}'
-                  role_arn: '{{ role_arn }}'
-                republish:
-                  qos: '{{ qos }}'
-                  topic: '{{ topic }}'
-                  role_arn: '{{ role_arn }}'
-                  headers:
-                    payload_format_indicator: '{{ payload_format_indicator }}'
-                    content_type: '{{ content_type }}'
-                    response_topic: '{{ response_topic }}'
-                    correlation_data: '{{ correlation_data }}'
-                    message_expiry: '{{ message_expiry }}'
-                    user_properties:
-                      - key: '{{ key }}'
-                        value: '{{ value }}'
-                s3:
-                  bucket_name: '{{ bucket_name }}'
-                  key: '{{ key }}'
-                  role_arn: '{{ role_arn }}'
-                  canned_acl: '{{ canned_acl }}'
-                sns:
-                  target_arn: '{{ target_arn }}'
-                  message_format: '{{ message_format }}'
-                  role_arn: '{{ role_arn }}'
-                sqs:
-                  role_arn: '{{ role_arn }}'
-                  use_base64: '{{ use_base64 }}'
-                  queue_url: '{{ queue_url }}'
-                step_functions:
-                  execution_name_prefix: '{{ execution_name_prefix }}'
-                  state_machine_name: '{{ state_machine_name }}'
-                  role_arn: '{{ role_arn }}'
-                timestream:
-                  role_arn: '{{ role_arn }}'
-                  database_name: '{{ database_name }}'
-                  table_name: '{{ table_name }}'
-                  dimensions:
-                    - name: '{{ name }}'
-                      value: '{{ value }}'
-                  timestamp:
-                    value: '{{ value }}'
-                    unit: '{{ unit }}'
+            - action: '{{ action }}'
               failure_type: '{{ failure_type }}'
               min_number_of_executed_things: '{{ min_number_of_executed_things }}'
               threshold_percentage: null

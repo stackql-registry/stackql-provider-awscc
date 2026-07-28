@@ -47,7 +47,7 @@ Creates, updates, deletes or gets an <code>export</code> resource or lists <code
   {
     "name": "export",
     "type": "object",
-    "description": "Definition of AWS::BCMDataExports::Export Resource Type",
+    "description": "",
     "children": [
       {
         "name": "export_arn",
@@ -55,17 +55,73 @@ Creates, updates, deletes or gets an <code>export</code> resource or lists <code
         "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_query",
+        "type": "object",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "query_statement",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "table_configurations",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "destination_configurations",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3_destination",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "s3_bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_prefix",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_region",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_output_configurations",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "refresh_cadence",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "frequency",
             "type": "string",
             "description": ""
           }
@@ -108,7 +164,7 @@ Creates, updates, deletes or gets an <code>export</code> resource or lists <code
   {
     "name": "export",
     "type": "object",
-    "description": "Definition of AWS::BCMDataExports::Export Resource Type",
+    "description": "",
     "children": [
       {
         "name": "export_arn",
@@ -116,17 +172,73 @@ Creates, updates, deletes or gets an <code>export</code> resource or lists <code
         "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_query",
+        "type": "object",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "query_statement",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "table_configurations",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "destination_configurations",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3_destination",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "s3_bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_prefix",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_region",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3_output_configurations",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "refresh_cadence",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "frequency",
             "type": "string",
             "description": ""
           }
@@ -310,13 +422,28 @@ resources:
     props:
       - name: export
         value:
-          export: null
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          export_arn: '{{ export_arn }}'
+          name: '{{ name }}'
+          description: '{{ description }}'
+          data_query:
+            query_statement: '{{ query_statement }}'
+            table_configurations: {}
+          destination_configurations:
+            s3_destination:
+              s3_bucket: '{{ s3_bucket }}'
+              s3_prefix: '{{ s3_prefix }}'
+              s3_region: '{{ s3_region }}'
+              s3_output_configurations:
+                output_type: '{{ output_type }}'
+                format: '{{ format }}'
+                compression: '{{ compression }}'
+                overwrite: '{{ overwrite }}'
+          refresh_cadence:
+            frequency: '{{ frequency }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

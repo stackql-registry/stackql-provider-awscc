@@ -158,14 +158,14 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
     "description": "<details><summary>A list of tags to add to the event source mapping.</summary>You must have the <code>lambda:TagResource</code>, <code>lambda:UntagResource</code>, and <code>lambda:ListTags</code> permissions for your <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html\">principal</a> to manage the CFN stack. If you don't have these permissions, there might be unexpected behavior with stack-level tags propagating to the resource during resource creation and update.</details>",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for this tag."
-      },
-      {
         "name": "key",
         "type": "string",
         "description": "The key for this tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for this tag."
       }
     ]
   },
@@ -698,8 +698,8 @@ resources:
         value: null
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: topics
         value:
           - '{{ topics[0] }}'

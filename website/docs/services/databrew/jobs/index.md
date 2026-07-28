@@ -126,7 +126,7 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
       {
         "name": "location",
         "type": "object",
-        "description": "Input location",
+        "description": "S3 Output location",
         "children": [
           {
             "name": "bucket",
@@ -135,6 +135,11 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
           },
           {
             "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_owner",
             "type": "string",
             "description": ""
           }
@@ -180,7 +185,7 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
           {
             "name": "location",
             "type": "object",
-            "description": "Input location",
+            "description": "S3 Output location",
             "children": [
               {
                 "name": "bucket",
@@ -189,6 +194,11 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
               },
               {
                 "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "bucket_owner",
                 "type": "string",
                 "description": ""
               }
@@ -204,7 +214,7 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
           {
             "name": "temp_directory",
             "type": "object",
-            "description": "Input location",
+            "description": "S3 Output location",
             "children": [
               {
                 "name": "bucket",
@@ -213,6 +223,11 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
               },
               {
                 "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "bucket_owner",
                 "type": "string",
                 "description": ""
               }
@@ -255,7 +270,7 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
           {
             "name": "temp_directory",
             "type": "object",
-            "description": "Input location",
+            "description": "S3 Output location",
             "children": [
               {
                 "name": "bucket",
@@ -264,6 +279,11 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
               },
               {
                 "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "bucket_owner",
                 "type": "string",
                 "description": ""
               }
@@ -308,80 +328,17 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
   {
     "name": "recipe",
     "type": "object",
-    "description": "Resource schema for AWS::DataBrew::Recipe.",
+    "description": "",
     "children": [
-      {
-        "name": "description",
-        "type": "string",
-        "description": "Description of the recipe"
-      },
       {
         "name": "name",
         "type": "string",
         "description": "Recipe name"
       },
       {
-        "name": "steps",
-        "type": "array",
-        "description": "",
-        "children": [
-          {
-            "name": "action",
-            "type": "object",
-            "description": "",
-            "children": [
-              {
-                "name": "operation",
-                "type": "string",
-                "description": "Step action operation"
-              },
-              {
-                "name": "parameters",
-                "type": "object",
-                "description": ""
-              }
-            ]
-          },
-          {
-            "name": "condition_expressions",
-            "type": "array",
-            "description": "Condition expressions applied to the step action",
-            "children": [
-              {
-                "name": "condition",
-                "type": "string",
-                "description": "Input condition to be applied to the target column"
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "Value of the condition"
-              },
-              {
-                "name": "target_column",
-                "type": "string",
-                "description": "Name of the target column"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": ""
-          }
-        ]
+        "name": "version",
+        "type": "string",
+        "description": "Recipe version"
       }
     ]
   },
@@ -466,12 +423,12 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
           {
             "name": "regex",
             "type": "string",
-            "description": "A regular expression for selecting a column from a dataset"
+            "description": ""
           },
           {
             "name": "name",
             "type": "string",
-            "description": "The name of a column from a dataset"
+            "description": ""
           }
         ]
       },
@@ -799,6 +756,7 @@ resources:
             location:
               bucket: '{{ bucket }}'
               key: '{{ key }}'
+              bucket_owner: '{{ bucket_owner }}'
             overwrite: '{{ overwrite }}'
             max_output_files: '{{ max_output_files }}'
       - name: data_catalog_outputs
@@ -826,24 +784,14 @@ resources:
         value: '{{ project_name }}'
       - name: recipe
         value:
-          description: '{{ description }}'
           name: '{{ name }}'
-          steps:
-            - action:
-                operation: '{{ operation }}'
-                parameters: null
-              condition_expressions:
-                - condition: '{{ condition }}'
-                  value: '{{ value }}'
-                  target_column: '{{ target_column }}'
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          version: '{{ version }}'
       - name: role_arn
         value: '{{ role_arn }}'
       - name: tags
         value:
-          - null
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: timeout
         value: '{{ timeout }}'
       - name: job_sample

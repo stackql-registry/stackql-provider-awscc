@@ -634,14 +634,14 @@ Creates, updates, deletes or gets a <code>spot_fleet</code> resource or lists <c
             "description": "",
             "children": [
               {
-                "name": "key",
-                "type": "string",
-                "description": "The tag key."
-              },
-              {
                 "name": "value",
                 "type": "string",
-                "description": "The tag value."
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
               }
             ]
           }
@@ -892,8 +892,8 @@ resources:
               tag_specifications:
                 - resource_type: '{{ resource_type }}'
                   tags:
-                    - key: '{{ key }}'
-                      value: '{{ value }}'
+                    - value: '{{ value }}'
+                      key: '{{ key }}'
               user_data: '{{ user_data }}'
               weighted_capacity: null
               instance_requirements:

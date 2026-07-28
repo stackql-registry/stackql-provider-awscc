@@ -148,12 +148,12 @@ Creates, updates, deletes or gets a <code>custom_action_type</code> resource or 
       {
         "name": "value",
         "type": "string",
-        "description": "The tag's value."
+        "description": ""
       },
       {
         "name": "key",
         "type": "string",
-        "description": "The tag's key."
+        "description": ""
       }
     ]
   },

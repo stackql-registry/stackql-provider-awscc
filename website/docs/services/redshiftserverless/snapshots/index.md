@@ -87,29 +87,54 @@ Creates, updates, deletes or gets a <code>snapshot</code> resource or lists <cod
     "description": "Definition for snapshot resource",
     "children": [
       {
-        "name": "snapshot_name",
+        "name": "namespace_arn",
         "type": "string",
-        "description": "The name of the snapshot."
+        "description": ""
       },
       {
         "name": "namespace_name",
         "type": "string",
-        "description": "The namespace the snapshot is associated with."
+        "description": ""
+      },
+      {
+        "name": "snapshot_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "snapshot_create_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "admin_username",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
       },
       {
         "name": "owner_account",
         "type": "string",
-        "description": "The owner account of the snapshot."
+        "description": ""
       },
       {
         "name": "retention_period",
         "type": "integer",
-        "description": "The retention period of the snapshot."
+        "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource."
+        "name": "snapshot_arn",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -134,29 +159,54 @@ Creates, updates, deletes or gets a <code>snapshot</code> resource or lists <cod
     "description": "Definition for snapshot resource",
     "children": [
       {
-        "name": "snapshot_name",
+        "name": "namespace_arn",
         "type": "string",
-        "description": "The name of the snapshot."
+        "description": ""
       },
       {
         "name": "namespace_name",
         "type": "string",
-        "description": "The namespace the snapshot is associated with."
+        "description": ""
+      },
+      {
+        "name": "snapshot_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "snapshot_create_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "admin_username",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
       },
       {
         "name": "owner_account",
         "type": "string",
-        "description": "The owner account of the snapshot."
+        "description": ""
       },
       {
         "name": "retention_period",
         "type": "integer",
-        "description": "The retention period of the snapshot."
+        "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource."
+        "name": "snapshot_arn",
+        "type": "string",
+        "description": ""
       }
     ]
   },

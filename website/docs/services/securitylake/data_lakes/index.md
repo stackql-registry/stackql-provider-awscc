@@ -122,12 +122,12 @@ Creates, updates, deletes or gets a <code>data_lake</code> resource or lists <co
       {
         "name": "key",
         "type": "string",
-        "description": "The name of the tag. This is a general label that acts as a category for a more specific tag value (value)."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, <code>_</code>, <code>.</code>, <code>/</code>, <code>=</code>, <code>+</code>, and <code>-</code>."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value that is associated with the specified tag key (key). This value acts as a descriptor for the tag key. A tag value cannot be null, but it can be an empty string."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 characters in length."
       }
     ]
   },

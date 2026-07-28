@@ -100,19 +100,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
   {
     "name": "tags",
     "type": "array",
-    "description": "",
-    "children": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "key",
-        "type": "string",
-        "description": ""
-      }
-    ]
+    "description": ""
   },
   {
     "name": "attributes_to_delete",
@@ -324,8 +312,7 @@ resources:
           - '{{ platforms[0] }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - null
       - name: attributes_to_delete
         value:
           - '{{ attributes_to_delete[0] }}'`}</CodeBlock>

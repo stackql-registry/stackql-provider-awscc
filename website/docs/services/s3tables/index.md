@@ -20,7 +20,7 @@ The s3tables service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -29,6 +29,7 @@ The s3tables service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/services/s3tables/namespaces/">namespaces</a><br />
 <a href="/services/s3tables/table_bucket_policies/">table_bucket_policies</a><br />
 <a href="/services/s3tables/table_buckets/">table_buckets</a>
 </div>

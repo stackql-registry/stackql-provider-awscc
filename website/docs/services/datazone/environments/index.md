@@ -157,12 +157,12 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
       {
         "name": "name",
         "type": "string",
-        "description": ""
+        "description": "The name of an environment parameter."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The value of an environment parameter."
       }
     ]
   },

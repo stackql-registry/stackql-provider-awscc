@@ -80,18 +80,13 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
         "description": "Specifies settings for the canary deployment in this stage.",
         "children": [
           {
-            "name": "deployment_id",
-            "type": "string",
+            "name": "stage_variable_overrides",
+            "type": "object",
             "description": ""
           },
           {
             "name": "percent_traffic",
             "type": "number",
-            "description": ""
-          },
-          {
-            "name": "stage_variable_overrides",
-            "type": "object",
             "description": ""
           },
           {
@@ -152,17 +147,22 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
         "description": "Configures settings for all of the stage's methods.",
         "children": [
           {
-            "name": "cache_data_encrypted",
-            "type": "boolean",
-            "description": ""
-          },
-          {
             "name": "cache_ttl_in_seconds",
             "type": "integer",
             "description": ""
           },
           {
-            "name": "caching_enabled",
+            "name": "logging_level",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_path",
+            "type": "string",
+            "description": "The resource path for this method. Forward slashes (<code>/</code>) are encoded as <code>~1</code> and the initial slash must include a forward slash. For example, the path value <code>/resource/subresource</code> must be encoded as <code>/~1resource~1subresource</code>. To specify the root path, use only a slash (<code>/</code>)."
+          },
+          {
+            "name": "cache_data_encrypted",
             "type": "boolean",
             "description": ""
           },
@@ -172,13 +172,13 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
             "description": ""
           },
           {
-            "name": "http_method",
-            "type": "string",
-            "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
+            "name": "throttling_burst_limit",
+            "type": "integer",
+            "description": ""
           },
           {
-            "name": "logging_level",
-            "type": "string",
+            "name": "caching_enabled",
+            "type": "boolean",
             "description": ""
           },
           {
@@ -187,14 +187,9 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
             "description": ""
           },
           {
-            "name": "resource_path",
+            "name": "http_method",
             "type": "string",
-            "description": "The resource path for this method. Forward slashes (<code>/</code>) are encoded as <code>~1</code> and the initial slash must include a forward slash. For example, the path value <code>/resource/subresource</code> must be encoded as <code>/~1resource~1subresource</code>. To specify the root path, use only a slash (<code>/</code>). To apply settings to multiple resources and methods, specify an asterisk (<code><i></code>) for the <code>HttpMethod</code> and <code>/</i></code> for the <code>ResourcePath</code>. This parameter is required when you specify a <code>MethodSetting</code>."
-          },
-          {
-            "name": "throttling_burst_limit",
-            "type": "integer",
-            "description": ""
+            "description": "The HTTP method."
           },
           {
             "name": "throttling_rate_limit",
@@ -209,14 +204,14 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
         "description": "Specifies settings for logging access in this stage.",
         "children": [
           {
-            "name": "destination_arn",
-            "type": "string",
-            "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with <code>amazon-apigateway-</code>. This parameter is required to enable access logging."
-          },
-          {
             "name": "format",
             "type": "string",
-            "description": "A single line format of the access logs of data, as specified by selected <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference\">$context variables</a>. The format must include at least <code>$context.requestId</code>. This parameter is required to enable access logging."
+            "description": ""
+          },
+          {
+            "name": "destination_arn",
+            "type": "string",
+            "description": ""
           }
         ]
       },
@@ -238,12 +233,12 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
           {
             "name": "value",
             "type": "string",
-            "description": ""
+            "description": "The value for the tag"
           },
           {
             "name": "key",
             "type": "string",
-            "description": ""
+            "description": "The key name of the tag"
           }
         ]
       },
@@ -493,9 +488,8 @@ resources:
           description: '{{ description }}'
           logging_level: '{{ logging_level }}'
           canary_setting:
-            deployment_id: '{{ deployment_id }}'
-            percent_traffic: null
             stage_variable_overrides: {}
+            percent_traffic: null
             use_stage_cache: '{{ use_stage_cache }}'
           throttling_rate_limit: null
           client_certificate_id: '{{ client_certificate_id }}'
@@ -507,19 +501,19 @@ resources:
           caching_enabled: '{{ caching_enabled }}'
           tracing_enabled: '{{ tracing_enabled }}'
           method_settings:
-            - cache_data_encrypted: '{{ cache_data_encrypted }}'
-              cache_ttl_in_seconds: '{{ cache_ttl_in_seconds }}'
-              caching_enabled: '{{ caching_enabled }}'
-              data_trace_enabled: '{{ data_trace_enabled }}'
-              http_method: '{{ http_method }}'
+            - cache_ttl_in_seconds: '{{ cache_ttl_in_seconds }}'
               logging_level: '{{ logging_level }}'
-              metrics_enabled: '{{ metrics_enabled }}'
               resource_path: '{{ resource_path }}'
+              cache_data_encrypted: '{{ cache_data_encrypted }}'
+              data_trace_enabled: '{{ data_trace_enabled }}'
               throttling_burst_limit: '{{ throttling_burst_limit }}'
+              caching_enabled: '{{ caching_enabled }}'
+              metrics_enabled: '{{ metrics_enabled }}'
+              http_method: '{{ http_method }}'
               throttling_rate_limit: null
           access_log_setting:
-            destination_arn: '{{ destination_arn }}'
             format: '{{ format }}'
+            destination_arn: '{{ destination_arn }}'
           cache_cluster_size: '{{ cache_cluster_size }}'
           metrics_enabled: '{{ metrics_enabled }}'
           tags:

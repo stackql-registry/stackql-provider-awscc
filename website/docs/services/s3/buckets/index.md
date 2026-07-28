@@ -94,14 +94,14 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
             "description": "Specifies how data related to the storage class analysis for an Amazon S3 bucket should be exported.",
             "children": [
               {
-                "name": "s3_bucket_destination",
+                "name": "destination",
                 "type": "object",
-                "description": "S3 bucket destination settings for the Amazon S3 Storage Lens metrics export."
+                "description": "The place to store the data for an analysis."
               },
               {
-                "name": "cloud_watch_metrics",
-                "type": "object",
-                "description": "CloudWatch metrics settings for the Amazon S3 Storage Lens metrics export."
+                "name": "output_schema_version",
+                "type": "string",
+                "description": "The version of the output schema to use when exporting data. Must be <code>V_1</code>."
               }
             ]
           }
@@ -874,24 +874,24 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
     "description": "Configuration that defines how Amazon S3 handles public access.",
     "children": [
       {
-        "name": "restrict_public_buckets",
+        "name": "block_public_acls",
         "type": "boolean",
-        "description": "<details><summary>Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.</summary>Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.</details>"
+        "description": "<details><summary>Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket and objects in this bucket. Setting this element to <code>TRUE</code> causes the following behavior:</summary>+  PUT Bucket ACL and PUT Object ACL calls fail if the specified ACL is public.<br />+  PUT Object calls fail if the request includes a public ACL.<br />+  PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs.</details>"
       },
       {
         "name": "block_public_policy",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should block public bucket policies for buckets in this account. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access. Enabling this setting doesn't affect existing bucket policies."
-      },
-      {
-        "name": "block_public_acls",
-        "type": "boolean",
-        "description": "<details><summary>Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:</summary>- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs.</details>"
+        "description": "<details><summary>Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to <code>TRUE</code> causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.</summary>Enabling this setting doesn't affect existing bucket policies.</details>"
       },
       {
         "name": "ignore_public_acls",
         "type": "boolean",
-        "description": "Specifies whether Amazon S3 should ignore public ACLs for buckets in this account. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on buckets in this account and any objects that they contain. Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set."
+        "description": "<details><summary>Specifies whether Amazon S3 should ignore public ACLs for this bucket and objects in this bucket. Setting this element to <code>TRUE</code> causes Amazon S3 to ignore all public ACLs on this bucket and objects in this bucket.</summary>Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set.</details>"
+      },
+      {
+        "name": "restrict_public_buckets",
+        "type": "boolean",
+        "description": "<details><summary>Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to <code>TRUE</code> restricts access to this bucket to only AWS-service principals and authorized users within this account if the bucket has a public policy.</summary>Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.</details>"
       }
     ]
   },
@@ -1035,12 +1035,12 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "Name of the object key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "Value of the tag."
       }
     ]
   },
@@ -1149,7 +1149,7 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
   {
     "name": "arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the specified resource."
+    "description": "the Amazon Resource Name (ARN) of the specified bucket."
   },
   {
     "name": "domain_name",
@@ -1431,15 +1431,12 @@ resources:
                 key: '{{ key }}'
             storage_class_analysis:
               data_export:
-                s3_bucket_destination:
-                  output_schema_version: '{{ output_schema_version }}'
+                destination:
+                  bucket_arn: '{{ bucket_arn }}'
+                  bucket_account_id: '{{ bucket_account_id }}'
                   format: '{{ format }}'
-                  account_id: '{{ account_id }}'
                   prefix: '{{ prefix }}'
-                  encryption: {}
-                  arn: '{{ arn }}'
-                cloud_watch_metrics:
-                  is_enabled: '{{ is_enabled }}'
+                output_schema_version: '{{ output_schema_version }}'
             id: '{{ id }}'
             prefix: '{{ prefix }}'
       - name: bucket_encryption
@@ -1476,11 +1473,7 @@ resources:
                 days: '{{ days }}'
       - name: inventory_configurations
         value:
-          - destination:
-              bucket_arn: '{{ bucket_arn }}'
-              bucket_account_id: '{{ bucket_account_id }}'
-              format: '{{ format }}'
-              prefix: '{{ prefix }}'
+          - destination: null
             enabled: '{{ enabled }}'
             id: '{{ id }}'
             included_object_versions: '{{ included_object_versions }}'
@@ -1595,10 +1588,10 @@ resources:
             - object_ownership: '{{ object_ownership }}'
       - name: public_access_block_configuration
         value:
-          restrict_public_buckets: '{{ restrict_public_buckets }}'
-          block_public_policy: '{{ block_public_policy }}'
           block_public_acls: '{{ block_public_acls }}'
+          block_public_policy: '{{ block_public_policy }}'
           ignore_public_acls: '{{ ignore_public_acls }}'
+          restrict_public_buckets: '{{ restrict_public_buckets }}'
       - name: replication_configuration
         value:
           role: '{{ role }}'

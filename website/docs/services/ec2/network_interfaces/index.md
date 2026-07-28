@@ -65,13 +65,13 @@ Creates, updates, deletes or gets a <code>network_interface</code> resource or l
     "description": "Assigns a list of private IP addresses to the network interface. You can specify a primary private IP address by setting the value of the Primary property to true in the PrivateIpAddressSpecification property. If you want EC2 to automatically assign private IP addresses, use the SecondaryPrivateIpAddressCount property and do not specify this property.",
     "children": [
       {
-        "name": "primary",
-        "type": "boolean",
+        "name": "private_ip_address",
+        "type": "string",
         "description": ""
       },
       {
-        "name": "private_ip_address",
-        "type": "string",
+        "name": "primary",
+        "type": "boolean",
         "description": ""
       }
     ]
@@ -183,14 +183,14 @@ Creates, updates, deletes or gets a <code>network_interface</code> resource or l
     "description": "An arbitrary set of tags (key-value pairs) for this network interface.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -455,8 +455,8 @@ resources:
         value: '{{ private_ip_address }}'
       - name: private_ip_addresses
         value:
-          - primary: '{{ primary }}'
-            private_ip_address: '{{ private_ip_address }}'
+          - private_ip_address: '{{ private_ip_address }}'
+            primary: '{{ primary }}'
       - name: secondary_private_ip_address_count
         value: '{{ secondary_private_ip_address_count }}'
       - name: ipv6_prefix_count
@@ -487,8 +487,8 @@ resources:
         value: '{{ ipv6_address_count }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: connection_tracking_specification
         value:
           udp_timeout: '{{ udp_timeout }}'

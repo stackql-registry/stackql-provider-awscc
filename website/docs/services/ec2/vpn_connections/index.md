@@ -305,14 +305,14 @@ Creates, updates, deletes or gets a <code>vpn_connection</code> resource or list
     "description": "Any tags assigned to the VPN connection.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
         "description": "The tag value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
       }
     ]
   },
@@ -607,8 +607,8 @@ resources:
         value: '{{ tunnel_inside_ip_version }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

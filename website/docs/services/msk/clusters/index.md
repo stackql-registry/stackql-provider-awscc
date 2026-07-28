@@ -236,10 +236,39 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
     "description": "",
     "children": [
       {
+        "name": "tls",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "certificate_authority_arn_list",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
         "name": "sasl",
         "type": "object",
         "description": "",
         "children": [
+          {
+            "name": "scram",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
           {
             "name": "iam",
             "type": "object",
@@ -251,6 +280,18 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
                 "description": ""
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "unauthenticated",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
           }
         ]
       }
@@ -628,9 +669,17 @@ resources:
         value: '{{ current_version }}'
       - name: client_authentication
         value:
+          tls:
+            certificate_authority_arn_list:
+              - '{{ certificate_authority_arn_list[0] }}'
+            enabled: '{{ enabled }}'
           sasl:
+            scram:
+              enabled: '{{ enabled }}'
             iam:
               enabled: '{{ enabled }}'
+          unauthenticated:
+            enabled: '{{ enabled }}'
       - name: logging_info
         value:
           broker_logs:

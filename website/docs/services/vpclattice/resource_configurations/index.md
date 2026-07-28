@@ -95,12 +95,12 @@ Creates, updates, deletes or gets a <code>resource_configuration</code> resource
     "description": "",
     "children": [
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       },
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       }
@@ -341,8 +341,8 @@ resources:
         value: '{{ resource_configuration_group_id }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: name
         value: '{{ name }}'`}</CodeBlock>
 

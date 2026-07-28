@@ -57,21 +57,16 @@ Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or list
   {
     "name": "endpoint_configuration",
     "type": "object",
-    "description": "<details><summary>The <code>EndpointConfiguration</code> property type specifies the endpoint types of a REST API.</summary><code>EndpointConfiguration</code> is a property of the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html\">AWS::ApiGateway::RestApi</a> resource.</details>",
+    "description": "",
     "children": [
-      {
-        "name": "ip_address_type",
-        "type": "string",
-        "description": ""
-      },
       {
         "name": "types",
         "type": "array",
         "description": ""
       },
       {
-        "name": "vpc_endpoint_ids",
-        "type": "array",
+        "name": "ip_address_type",
+        "type": "string",
         "description": ""
       }
     ]
@@ -107,12 +102,12 @@ Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or list
     "description": "",
     "children": [
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       },
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       }
@@ -341,11 +336,9 @@ resources:
         value: '{{ domain_name }}'
       - name: endpoint_configuration
         value:
-          ip_address_type: '{{ ip_address_type }}'
           types:
             - '{{ types[0] }}'
-          vpc_endpoint_ids:
-            - '{{ vpc_endpoint_ids[0] }}'
+          ip_address_type: '{{ ip_address_type }}'
       - name: security_policy
         value: '{{ security_policy }}'
       - name: policy
@@ -354,8 +347,8 @@ resources:
         value: '{{ routing_mode }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

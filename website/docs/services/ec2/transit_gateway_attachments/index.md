@@ -97,14 +97,14 @@ Creates, updates, deletes or gets a <code>transit_gateway_attachment</code> reso
     "description": "",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -320,8 +320,8 @@ resources:
           - '{{ subnet_ids[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -34,6 +34,6 @@ The eventschemas service documentation.
 </div>
 <div class="providerDocColumn">
 <a href="/services/eventschemas/registry_policies/">registry_policies</a><br />
-<a href="/services/eventschemas/schemata/">schemata</a>
+<a href="/services/eventschemas/schemas/">schemas</a>
 </div>
 </div>

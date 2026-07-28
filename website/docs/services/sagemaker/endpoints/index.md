@@ -62,7 +62,7 @@ Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <co
               {
                 "name": "alarm_name",
                 "type": "string",
-                "description": ""
+                "description": "The name of the CloudWatch alarm."
               }
             ]
           }
@@ -186,14 +186,14 @@ Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <co
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of the tag."
       }
     ]
   },
@@ -425,8 +425,8 @@ resources:
         value: '{{ retain_deployment_config }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

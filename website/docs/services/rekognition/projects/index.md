@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>project</code> resource or lists <code
   {
     "name": "arn",
     "type": "string",
-    "description": "The ARN of the stream processor"
+    "description": ""
   },
   {
     "name": "project_name",

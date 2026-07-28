@@ -62,12 +62,12 @@ Creates, updates, deletes or gets a <code>delivery_destination</code> resource o
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value of this key-value pair."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },

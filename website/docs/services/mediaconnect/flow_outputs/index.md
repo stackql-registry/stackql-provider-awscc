@@ -70,29 +70,9 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
         "description": "The type of algorithm that is used for the encryption (such as aes128, aes192, or aes256)."
       },
       {
-        "name": "constant_initialization_vector",
-        "type": "string",
-        "description": "A 128-bit, 16-byte hex value represented by a 32-character string, to be used with the key for encrypting content. This parameter is not valid for static key encryption."
-      },
-      {
-        "name": "device_id",
-        "type": "string",
-        "description": "The value of one of the devices that you configured with your digital rights management (DRM) platform key provider. This parameter is required for SPEKE encryption and is not valid for static key encryption."
-      },
-      {
         "name": "key_type",
         "type": "string",
         "description": "The type of key that is used for the encryption. If no keyType is provided, the service will use the default setting (static-key)."
-      },
-      {
-        "name": "region",
-        "type": "string",
-        "description": "The AWS Region that the API Gateway proxy endpoint was created in. This parameter is required for SPEKE encryption and is not valid for static key encryption."
-      },
-      {
-        "name": "resource_id",
-        "type": "string",
-        "description": "An identifier for the content. The service sends this value to the key server to identify the current endpoint. The resource ID is also known as the content ID. This parameter is required for SPEKE encryption and is not valid for static key encryption."
       },
       {
         "name": "role_arn",
@@ -103,11 +83,6 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
         "name": "secret_arn",
         "type": "string",
         "description": "The ARN of the secret that you created in AWS Secrets Manager to store the encryption key. This parameter is required for static key encryption and is not valid for SPEKE encryption."
-      },
-      {
-        "name": "url",
-        "type": "string",
-        "description": "The URL from the API Gateway proxy that you set up to talk to your key server. This parameter is required for SPEKE encryption and is not valid for static key encryption."
       }
     ]
   },
@@ -169,7 +144,7 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
       {
         "name": "vpc_interface_name",
         "type": "string",
-        "description": "The name of the VPC interface to use for this resource."
+        "description": "The name of the VPC interface to use for this output."
       }
     ]
   },
@@ -493,14 +468,9 @@ resources:
       - name: encryption
         value:
           algorithm: '{{ algorithm }}'
-          constant_initialization_vector: '{{ constant_initialization_vector }}'
-          device_id: '{{ device_id }}'
           key_type: '{{ key_type }}'
-          region: '{{ region }}'
-          resource_id: '{{ resource_id }}'
           role_arn: '{{ role_arn }}'
           secret_arn: '{{ secret_arn }}'
-          url: '{{ url }}'
       - name: description
         value: '{{ description }}'
       - name: destination

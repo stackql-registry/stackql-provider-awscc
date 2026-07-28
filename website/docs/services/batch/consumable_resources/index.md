@@ -52,7 +52,7 @@ Creates, updates, deletes or gets a <code>consumable_resource</code> resource or
   {
     "name": "consumable_resource_arn",
     "type": "string",
-    "description": "ARN of the Scheduling Policy."
+    "description": "ARN of the Consumable Resource."
   },
   {
     "name": "total_quantity",
@@ -97,7 +97,7 @@ Creates, updates, deletes or gets a <code>consumable_resource</code> resource or
   {
     "name": "consumable_resource_arn",
     "type": "string",
-    "description": "ARN of the Scheduling Policy."
+    "description": "ARN of the Consumable Resource."
   },
   {
     "name": "region",

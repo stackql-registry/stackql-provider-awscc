@@ -51,32 +51,8 @@ Creates, updates, deletes or gets a <code>bot_version</code> resource or lists <
   },
   {
     "name": "bot_version",
-    "type": "object",
-    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
-    "children": [
-      {
-        "name": "description",
-        "type": "string",
-        "description": "A description of the version. Use the description to help identify the version in lists."
-      },
-      {
-        "name": "bot_version_locale_specification",
-        "type": "array",
-        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
-        "children": [
-          {
-            "name": "locale_id",
-            "type": "string",
-            "description": "The identifier of the language and locale that the bot will be used in."
-          },
-          {
-            "name": "bot_version_locale_details",
-            "type": "object",
-            "description": "The version of a bot used for a bot locale."
-          }
-        ]
-      }
-    ]
+    "type": "string",
+    "description": "The version of a bot."
   },
   {
     "name": "description",
@@ -117,32 +93,8 @@ Creates, updates, deletes or gets a <code>bot_version</code> resource or lists <
   },
   {
     "name": "bot_version",
-    "type": "object",
-    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
-    "children": [
-      {
-        "name": "description",
-        "type": "string",
-        "description": "A description of the version. Use the description to help identify the version in lists."
-      },
-      {
-        "name": "bot_version_locale_specification",
-        "type": "array",
-        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
-        "children": [
-          {
-            "name": "locale_id",
-            "type": "string",
-            "description": "The identifier of the language and locale that the bot will be used in."
-          },
-          {
-            "name": "bot_version_locale_details",
-            "type": "object",
-            "description": "The version of a bot used for a bot locale."
-          }
-        ]
-      }
-    ]
+    "type": "string",
+    "description": "The version of a bot."
   },
   {
     "name": "region",
@@ -321,10 +273,7 @@ resources:
         value:
           - locale_id: '{{ locale_id }}'
             bot_version_locale_details:
-              source_bot_version:
-                bot_id: null
-                description: null
-                bot_version_locale_specification: null`}</CodeBlock>
+              source_bot_version: '{{ source_bot_version }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

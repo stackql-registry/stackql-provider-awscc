@@ -202,14 +202,14 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
         "description": "Additional Slurm-specific configuration that directly maps to Slurm settings.",
         "children": [
           {
+            "name": "parameter_name",
+            "type": "string",
+            "description": "AWS PCS supports configuration of the following Slurm parameters for clusters: Prolog, Epilog, and SelectTypeParameters."
+          },
+          {
             "name": "parameter_value",
             "type": "string",
             "description": "The value for the configured Slurm setting."
-          },
-          {
-            "name": "parameter_name",
-            "type": "string",
-            "description": "AWS PCS supports configuration of the following Slurm parameters for compute node groups: Weight and RealMemory."
           }
         ]
       }
@@ -454,8 +454,8 @@ resources:
             secret_version: '{{ secret_version }}'
           scale_down_idle_time_in_seconds: '{{ scale_down_idle_time_in_seconds }}'
           slurm_custom_settings:
-            - parameter_value: '{{ parameter_value }}'
-              parameter_name: '{{ parameter_name }}'
+            - parameter_name: '{{ parameter_name }}'
+              parameter_value: '{{ parameter_value }}'
       - name: tags
         value: null`}</CodeBlock>
 

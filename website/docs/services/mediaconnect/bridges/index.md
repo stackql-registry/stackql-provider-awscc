@@ -67,7 +67,7 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
   {
     "name": "source_failover_config",
     "type": "object",
-    "description": "The settings for source failover",
+    "description": "The settings for source failover.",
     "children": [
       {
         "name": "state",
@@ -75,14 +75,9 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
         "description": ""
       },
       {
-        "name": "recovery_window",
-        "type": "integer",
-        "description": "Search window time to look for dash-7 packets"
-      },
-      {
         "name": "failover_mode",
         "type": "string",
-        "description": "The type of failover you choose for this flow. MERGE combines the source streams into a single stream, allowing graceful recovery from any single-source loss. FAILOVER allows switching between different streams."
+        "description": "The type of failover you choose for this flow. FAILOVER allows switching between different streams."
       },
       {
         "name": "source_priority",
@@ -104,15 +99,15 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
     "description": "The outputs on this bridge.",
     "children": [
       {
-        "name": "bridge_arn",
-        "type": "string",
-        "description": "The Amazon Resource Number (ARN) of the bridge."
-      },
-      {
         "name": "network_output",
         "type": "object",
-        "description": "The output of the bridge.",
+        "description": "The output of the bridge. A network output is delivered to your premises.",
         "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The network output name."
+          },
           {
             "name": "protocol",
             "type": "string",
@@ -139,11 +134,6 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
             "description": "The network output TTL."
           }
         ]
-      },
-      {
-        "name": "name",
-        "type": "string",
-        "description": "The network output name."
       }
     ]
   },
@@ -153,20 +143,15 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
     "description": "The sources on this bridge.",
     "children": [
       {
-        "name": "name",
-        "type": "string",
-        "description": "The name of the source."
-      },
-      {
-        "name": "bridge_arn",
-        "type": "string",
-        "description": "The Amazon Resource Number (ARN) of the bridge."
-      },
-      {
         "name": "flow_source",
         "type": "object",
         "description": "The source of the bridge. A flow source originates in MediaConnect as an existing cloud flow.",
         "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the flow source."
+          },
           {
             "name": "flow_arn",
             "type": "string",
@@ -191,6 +176,11 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
         "type": "object",
         "description": "The source of the bridge. A network source originates at your premises.",
         "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the network source."
+          },
           {
             "name": "protocol",
             "type": "string",
@@ -467,30 +457,28 @@ resources:
       - name: source_failover_config
         value:
           state: '{{ state }}'
-          recovery_window: '{{ recovery_window }}'
           failover_mode: '{{ failover_mode }}'
           source_priority:
             primary_source: '{{ primary_source }}'
       - name: outputs
         value:
-          - bridge_arn: '{{ bridge_arn }}'
-            network_output:
+          - network_output:
+              name: '{{ name }}'
               protocol: '{{ protocol }}'
               ip_address: '{{ ip_address }}'
               port: '{{ port }}'
               network_name: '{{ network_name }}'
               ttl: '{{ ttl }}'
-            name: '{{ name }}'
       - name: sources
         value:
-          - name: '{{ name }}'
-            bridge_arn: '{{ bridge_arn }}'
-            flow_source:
+          - flow_source:
+              name: '{{ name }}'
               flow_arn: '{{ flow_arn }}'
               flow_vpc_interface_attachment:
                 vpc_interface_name: '{{ vpc_interface_name }}'
             network_source:
-              protocol: '{{ protocol }}'
+              name: '{{ name }}'
+              protocol: null
               multicast_ip: '{{ multicast_ip }}'
               multicast_source_settings:
                 multicast_source_ip: '{{ multicast_source_ip }}'

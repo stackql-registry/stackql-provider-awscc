@@ -110,155 +110,24 @@ Creates, updates, deletes or gets an <code>access_policy</code> resource or list
       {
         "name": "portal",
         "type": "object",
-        "description": "Resource schema for AWS::IoTSiteWise::Portal",
+        "description": "A portal resource.",
         "children": [
           {
-            "name": "portal_auth_mode",
-            "type": "string",
-            "description": "The service to use to authenticate users to the portal. Choose from SSO or IAM. You can't change this value after you create a portal."
-          },
-          {
-            "name": "portal_arn",
-            "type": "string",
-            "description": "The ARN of the portal, which has the following format."
-          },
-          {
-            "name": "portal_client_id",
-            "type": "string",
-            "description": "The AWS SSO application generated client ID (used with AWS SSO APIs)."
-          },
-          {
-            "name": "portal_contact_email",
-            "type": "string",
-            "description": "The AWS administrator's contact email address."
-          },
-          {
-            "name": "portal_description",
-            "type": "string",
-            "description": "A description for the portal."
-          },
-          {
-            "name": "portal_id",
+            "name": "id",
             "type": "string",
             "description": "The ID of the portal."
-          },
-          {
-            "name": "portal_name",
-            "type": "string",
-            "description": "A friendly name for the portal."
-          },
-          {
-            "name": "portal_start_url",
-            "type": "string",
-            "description": "The public root URL for the AWS IoT AWS IoT SiteWise Monitor application portal."
-          },
-          {
-            "name": "portal_type",
-            "type": "string",
-            "description": "The type of portal"
-          },
-          {
-            "name": "portal_type_configuration",
-            "type": "object",
-            "description": "Map to associate detail of configuration related with a PortalType."
-          },
-          {
-            "name": "role_arn",
-            "type": "string",
-            "description": "The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf."
-          },
-          {
-            "name": "notification_sender_email",
-            "type": "string",
-            "description": "The email address that sends alarm notifications."
-          },
-          {
-            "name": "alarms",
-            "type": "object",
-            "description": "Contains the configuration information of an alarm created in an AWS IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range.",
-            "children": [
-              {
-                "name": "alarm_role_arn",
-                "type": "string",
-                "description": "The ARN of the IAM role that allows the alarm to perform actions and access AWS resources and services, such as AWS IoT Events."
-              },
-              {
-                "name": "notification_lambda_arn",
-                "type": "string",
-                "description": "The ARN of the AWS Lambda function that manages alarm notifications. For more information, see Managing alarm notifications in the AWS IoT Events Developer Guide."
-              }
-            ]
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "A list of key-value pairs that contain metadata for the portal.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": ""
-              }
-            ]
           }
         ]
       },
       {
         "name": "project",
         "type": "object",
-        "description": "Resource schema for AWS::IoTSiteWise::Project",
+        "description": "A project resource.",
         "children": [
           {
-            "name": "portal_id",
-            "type": "string",
-            "description": "The ID of the portal in which to create the project."
-          },
-          {
-            "name": "project_id",
+            "name": "id",
             "type": "string",
             "description": "The ID of the project."
-          },
-          {
-            "name": "project_name",
-            "type": "string",
-            "description": "A friendly name for the project."
-          },
-          {
-            "name": "project_description",
-            "type": "string",
-            "description": "A description for the project."
-          },
-          {
-            "name": "project_arn",
-            "type": "string",
-            "description": "The ARN of the project."
-          },
-          {
-            "name": "asset_ids",
-            "type": "array",
-            "description": "The IDs of the assets to be associated to the project."
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "A list of key-value pairs that contain metadata for the project.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": ""
-              }
-            ]
           }
         ]
       }
@@ -469,28 +338,9 @@ resources:
       - name: access_policy_resource
         value:
           portal:
-            portal_auth_mode: '{{ portal_auth_mode }}'
-            portal_contact_email: '{{ portal_contact_email }}'
-            portal_description: '{{ portal_description }}'
-            portal_name: '{{ portal_name }}'
-            portal_type: '{{ portal_type }}'
-            portal_type_configuration: {}
-            role_arn: '{{ role_arn }}'
-            notification_sender_email: '{{ notification_sender_email }}'
-            alarms:
-              alarm_role_arn: '{{ alarm_role_arn }}'
-              notification_lambda_arn: '{{ notification_lambda_arn }}'
-            tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
+            id: '{{ id }}'
           project:
-            portal_id: '{{ portal_id }}'
-            project_name: '{{ project_name }}'
-            project_description: '{{ project_description }}'
-            asset_ids:
-              - '{{ asset_ids[0] }}'
-            tags:
-              - null`}</CodeBlock>
+            id: '{{ id }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

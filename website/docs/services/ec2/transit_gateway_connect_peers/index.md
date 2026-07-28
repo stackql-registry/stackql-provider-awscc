@@ -129,14 +129,14 @@ Creates, updates, deletes or gets a <code>transit_gateway_connect_peer</code> re
     "description": "The tags for the Connect Peer.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "The value of the tag. Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key of the tag. Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with aws: ."
       }
     ]
   },
@@ -348,8 +348,8 @@ resources:
               bgp_status: '{{ bgp_status }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -72,12 +72,12 @@ Creates, updates, deletes or gets an <code>instance_connect_endpoint</code> reso
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

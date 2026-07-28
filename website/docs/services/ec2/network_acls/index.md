@@ -60,14 +60,14 @@ Creates, updates, deletes or gets a <code>network_acl</code> resource or lists <
     "description": "The tags for the network ACL.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
         "description": "The tag value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
       }
     ]
   },
@@ -259,8 +259,8 @@ resources:
         value: '{{ vpc_id }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

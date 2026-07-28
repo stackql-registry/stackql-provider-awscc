@@ -90,14 +90,14 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
     "description": "The tags for the NAT gateway.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
         "description": "The tag value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
       }
     ]
   },
@@ -345,8 +345,8 @@ resources:
           - '{{ secondary_private_ip_addresses[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: max_drain_duration_seconds
         value: '{{ max_drain_duration_seconds }}'`}</CodeBlock>
 

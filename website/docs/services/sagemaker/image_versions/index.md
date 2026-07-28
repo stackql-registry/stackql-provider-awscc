@@ -67,7 +67,7 @@ Creates, updates, deletes or gets an <code>image_version</code> resource or list
   {
     "name": "container_image",
     "type": "string",
-    "description": "The image to use for the container that will be materialized for the inference component"
+    "description": "The registry path of the container image that contains this image version."
   },
   {
     "name": "version",

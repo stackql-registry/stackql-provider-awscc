@@ -92,71 +92,51 @@ Creates, updates, deletes or gets a <code>container</code> resource or lists <co
         "description": "An object that describes the configuration for the containers of the deployment.",
         "children": [
           {
-            "name": "service_name",
+            "name": "container_name",
             "type": "string",
-            "description": "The name for the container service."
+            "description": "The name of the container."
           },
           {
-            "name": "power",
-            "type": "string",
-            "description": "The power specification for the container service."
-          },
-          {
-            "name": "container_arn",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "scale",
-            "type": "integer",
-            "description": "The scale specification for the container service."
-          },
-          {
-            "name": "public_domain_names",
+            "name": "command",
             "type": "array",
-            "description": "The public domain names to use with the container service, such as example.com and www.example.com."
+            "description": "The launch command for the container."
           },
           {
-            "name": "is_disabled",
-            "type": "boolean",
-            "description": "A Boolean value to indicate whether the container service is disabled."
-          },
-          {
-            "name": "private_registry_access",
-            "type": "object",
-            "description": "A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.",
+            "name": "environment",
+            "type": "array",
+            "description": "The environment variables of the container.",
             "children": [
               {
-                "name": "ecr_image_puller_role",
-                "type": "object",
-                "description": "An object to describe a request to activate or deactivate the role that you can use to grant an Amazon Lightsail container service access to Amazon Elastic Container Registry (Amazon ECR) private repositories."
-              }
-            ]
-          },
-          {
-            "name": "url",
-            "type": "string",
-            "description": "The publicly accessible URL of the container service."
-          },
-          {
-            "name": "principal_arn",
-            "type": "string",
-            "description": "The principal ARN of the container service."
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
+                "name": "variable",
                 "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+                "description": ""
               },
               {
                 "name": "value",
                 "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "image",
+            "type": "string",
+            "description": "The name of the image used for the container."
+          },
+          {
+            "name": "ports",
+            "type": "array",
+            "description": "The open firewall ports of the container.",
+            "children": [
+              {
+                "name": "port",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "protocol",
+                "type": "string",
+                "description": ""
               }
             ]
           }
@@ -496,20 +476,16 @@ resources:
       - name: container_service_deployment
         value:
           containers:
-            - service_name: '{{ service_name }}'
-              power: '{{ power }}'
-              scale: '{{ scale }}'
-              public_domain_names:
-                - null
-              container_service_deployment: null
-              is_disabled: '{{ is_disabled }}'
-              private_registry_access:
-                ecr_image_puller_role:
-                  is_active: '{{ is_active }}'
-                  principal_arn: '{{ principal_arn }}'
-              tags:
-                - key: '{{ key }}'
+            - container_name: '{{ container_name }}'
+              command:
+                - '{{ command[0] }}'
+              environment:
+                - variable: '{{ variable }}'
                   value: '{{ value }}'
+              image: '{{ image }}'
+              ports:
+                - port: '{{ port }}'
+                  protocol: '{{ protocol }}'
           public_endpoint:
             container_name: '{{ container_name }}'
             container_port: '{{ container_port }}'
@@ -523,10 +499,14 @@ resources:
       - name: is_disabled
         value: '{{ is_disabled }}'
       - name: private_registry_access
-        value: null
+        value:
+          ecr_image_puller_role:
+            is_active: '{{ is_active }}'
+            principal_arn: '{{ principal_arn }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

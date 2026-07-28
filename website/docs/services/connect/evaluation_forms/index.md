@@ -150,14 +150,14 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
     "description": "The tags used to organize, track, or control access for this resource. For example, &#123; \"tags\": &#123;\"key1\":\"value1\", \"key2\":\"value2\"&#125; &#125;.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       }
     ]
   },
@@ -429,8 +429,8 @@ resources:
               weight: null
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -80,14 +80,14 @@ Creates, updates, deletes or gets a <code>vpc_endpoint_service</code> resource o
     "description": "The tags to add to the VPC endpoint service.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -331,8 +331,8 @@ resources:
           - '{{ gateway_load_balancer_arns[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: supported_ip_address_types
         value:
           - '{{ supported_ip_address_types[0] }}'

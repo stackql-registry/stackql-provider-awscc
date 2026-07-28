@@ -104,12 +104,12 @@ Creates, updates, deletes or gets a <code>document</code> resource or lists <cod
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The name of the tag."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The value of the tag."
       }
     ]
   },

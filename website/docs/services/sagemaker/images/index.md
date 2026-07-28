@@ -47,12 +47,12 @@ Creates, updates, deletes or gets an <code>image</code> resource or lists <code>
   {
     "name": "image_name",
     "type": "string",
-    "description": "The name of the image this version belongs to."
+    "description": "The name of the image."
   },
   {
     "name": "image_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the parent image."
+    "description": "The Amazon Resource Name (ARN) of the image."
   },
   {
     "name": "image_role_arn",
@@ -75,14 +75,14 @@ Creates, updates, deletes or gets an <code>image</code> resource or lists <code>
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -99,7 +99,7 @@ Creates, updates, deletes or gets an <code>image</code> resource or lists <code>
   {
     "name": "image_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the parent image."
+    "description": "The Amazon Resource Name (ARN) of the image."
   },
   {
     "name": "region",
@@ -291,8 +291,8 @@ resources:
         value: '{{ image_description }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

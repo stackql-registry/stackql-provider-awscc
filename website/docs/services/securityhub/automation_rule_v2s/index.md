@@ -169,7 +169,7 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
   {
     "name": "tags",
     "type": "object",
-    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+    "description": "A key-value pair to associate with a resource."
   },
   {
     "name": "rule_arn",
@@ -184,7 +184,7 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
   {
     "name": "created_at",
     "type": "string",
-    "description": "The date and time, in UTC and ISO 8601 format."
+    "description": "The timestamp formatted in ISO8601"
   },
   {
     "name": "region",
@@ -411,8 +411,8 @@ resources:
               - string_filters:
                   - field_name: '{{ field_name }}'
                     filter:
-                      comparison: '{{ comparison }}'
                       value: '{{ value }}'
+                      comparison: '{{ comparison }}'
                 date_filters:
                   - field_name: '{{ field_name }}'
                     filter:
@@ -435,8 +435,8 @@ resources:
                   - field_name: '{{ field_name }}'
                     filter:
                       comparison: '{{ comparison }}'
-                      key: null
-                      value: null
+                      key: '{{ key }}'
+                      value: '{{ value }}'
                 operator: '{{ operator }}'
             composite_operator: null
       - name: actions

@@ -87,14 +87,14 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
     "description": "Metadata to assign to the environment. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+        "description": "The tag value can be up to 256 characters."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key-value string map. The valid character set is [a-zA-Z1-9+-=._:/]. The tag key can be up to 128 characters and must not start with aws:."
       }
     ]
   },
@@ -319,8 +319,8 @@ resources:
         value: '{{ application_id }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: name
         value: '{{ name }}'`}</CodeBlock>
 

@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of index"
+    "description": "ID of data source"
   },
   {
     "name": "arn",
@@ -57,12 +57,12 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "name",
     "type": "string",
-    "description": "Name of index"
+    "description": "Name of data source"
   },
   {
     "name": "index_id",
     "type": "string",
-    "description": "Unique ID of Index"
+    "description": "ID of Index"
   },
   {
     "name": "type",
@@ -902,7 +902,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "description",
     "type": "string",
-    "description": ""
+    "description": "Description of data source"
   },
   {
     "name": "schedule",
@@ -912,7 +912,7 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "role_arn",
     "type": "string",
-    "description": "Role Arn"
+    "description": "Role ARN"
   },
   {
     "name": "tags",
@@ -1051,12 +1051,12 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of index"
+    "description": "ID of data source"
   },
   {
     "name": "index_id",
     "type": "string",
-    "description": "Unique ID of Index"
+    "description": "ID of Index"
   },
   {
     "name": "region",

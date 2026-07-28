@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>registry_policy</code> resource or lis
   {
     "name": "registry_id",
     "type": "string",
-    "description": "The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+    "description": "The registry id."
   },
   {
     "name": "policy_text",
@@ -67,7 +67,7 @@ Creates, updates, deletes or gets a <code>registry_policy</code> resource or lis
   {
     "name": "registry_id",
     "type": "string",
-    "description": "The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+    "description": "The registry id."
   },
   {
     "name": "region",

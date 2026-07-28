@@ -46,20 +46,8 @@ Creates, updates, deletes or gets an <code>autoshift_observer_notification_statu
 <SchemaTable fields={[
   {
     "name": "status",
-    "type": "object",
-    "description": "Definition of AWS::ARCZonalShift::AutoshiftObserverNotificationStatus Resource Type",
-    "children": [
-      {
-        "name": "account_id",
-        "type": "string",
-        "description": "User account id, used as part of the primary identifier for the resource"
-      },
-      {
-        "name": "region",
-        "type": "string",
-        "description": "Region, used as part of the primary identifier for the resource"
-      }
-    ]
+    "type": "string",
+    "description": ""
   },
   {
     "name": "account_id",
@@ -254,8 +242,7 @@ resources:
   - name: autoshift_observer_notification_status
     props:
       - name: status
-        value:
-          status: null`}</CodeBlock>
+        value: '{{ status }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

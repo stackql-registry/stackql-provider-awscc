@@ -207,12 +207,12 @@ Creates, updates, deletes or gets a <code>container_recipe</code> resource or li
       {
         "name": "service",
         "type": "string",
-        "description": "The service of target container repository."
+        "description": "Specifies the service in which this image was registered."
       },
       {
         "name": "repository_name",
         "type": "string",
-        "description": "The repository name of target container repository."
+        "description": "The name of the container repository where the output container image is stored. This name is prefixed by the repository location."
       }
     ]
   },

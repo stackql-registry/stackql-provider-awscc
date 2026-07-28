@@ -167,7 +167,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
           },
           {
             "name": "session_timeout",
-            "type": "integer",
+            "type": "string",
             "description": "The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days)."
           },
           {
@@ -297,7 +297,7 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
           },
           {
             "name": "session_timeout",
-            "type": "integer",
+            "type": "string",
             "description": "The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days)."
           },
           {

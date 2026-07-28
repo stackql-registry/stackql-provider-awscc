@@ -97,12 +97,12 @@ Creates, updates, deletes or gets a <code>traffic_mirror_session</code> resource
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

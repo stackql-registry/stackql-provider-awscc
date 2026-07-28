@@ -97,12 +97,12 @@ Creates, updates, deletes or gets a <code>blueprint</code> resource or lists <co
       {
         "name": "key",
         "type": "string",
-        "description": "Tag Key"
+        "description": "Key for the tag"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "Tag Value"
+        "description": "Value for the tag"
       }
     ]
   },

@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of resource"
+    "description": ""
   },
   {
     "name": "arn",
@@ -57,12 +57,12 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
   {
     "name": "name",
     "type": "string",
-    "description": "A unique identifier for a resource."
+    "description": ""
   },
   {
     "name": "description",
     "type": "string",
-    "description": "A description of the version. Use the description to help identify the version in lists."
+    "description": "A description of the resource"
   },
   {
     "name": "role_arn",
@@ -106,7 +106,7 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
       {
         "name": "locale_id",
         "type": "string",
-        "description": "The identifier of the language and locale that the bot will be used in."
+        "description": ""
       },
       {
         "name": "voice_settings",
@@ -600,12 +600,12 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
       {
         "name": "key",
         "type": "string",
-        "description": "A string used to identify this tag"
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "A string containing the value for the tag"
+        "description": ""
       }
     ]
   },
@@ -627,27 +627,27 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
       {
         "name": "bot_alias_locale_settings",
         "type": "array",
-        "description": "A list of bot alias locale settings to add to the bot alias.",
+        "description": "",
         "children": [
           {
             "name": "locale_id",
             "type": "string",
-            "description": "A string used to identify the locale"
+            "description": ""
           },
           {
             "name": "bot_alias_locale_setting",
             "type": "object",
-            "description": "You can use this parameter to specify a specific Lambda function to run different functions in different locales.",
+            "description": "",
             "children": [
               {
                 "name": "code_hook_specification",
                 "type": "object",
-                "description": "Contains information about code hooks that Amazon Lex calls during a conversation."
+                "description": ""
               },
               {
                 "name": "enabled",
                 "type": "boolean",
-                "description": "Whether the Lambda code hook is enabled"
+                "description": ""
               }
             ]
           }
@@ -656,17 +656,17 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
       {
         "name": "conversation_log_settings",
         "type": "object",
-        "description": "Contains information about code hooks that Amazon Lex calls during a conversation.",
+        "description": "",
         "children": [
           {
             "name": "audio_log_settings",
             "type": "array",
-            "description": "List of audio log settings",
+            "description": "",
             "children": [
               {
                 "name": "destination",
                 "type": "object",
-                "description": "The location of audio log files collected when conversation logging is enabled for a bot."
+                "description": ""
               },
               {
                 "name": "enabled",
@@ -678,12 +678,12 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
           {
             "name": "text_log_settings",
             "type": "array",
-            "description": "List of text log settings",
+            "description": "",
             "children": [
               {
                 "name": "destination",
                 "type": "object",
-                "description": "Defines the Amazon CloudWatch Logs destination log group for conversation text logs."
+                "description": ""
               },
               {
                 "name": "enabled",
@@ -733,7 +733,7 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of resource"
+    "description": ""
   },
   {
     "name": "region",

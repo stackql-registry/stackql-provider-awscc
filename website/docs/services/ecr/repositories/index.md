@@ -116,12 +116,12 @@ Creates, updates, deletes or gets a <code>repository</code> resource or lists <c
       {
         "name": "image_tag_mutability_exclusion_filter_type",
         "type": "string",
-        "description": ""
+        "description": "Specifies the type of filter to use for excluding image tags from the repository's mutability setting."
       },
       {
         "name": "image_tag_mutability_exclusion_filter_value",
         "type": "string",
-        "description": ""
+        "description": "The value to use when filtering image tags."
       }
     ]
   },

@@ -84,22 +84,22 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
       {
         "name": "container_name",
         "type": "string",
-        "description": "The container name value, already specified in the task definition, to be used for your service discovery service. If the task definition that your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition that your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both."
+        "description": "The container name value to be used for your service discovery service. It's already specified in the task definition. If the task definition that your service task specifies uses the <code>bridge</code> or <code>host</code> network mode, you must specify a <code>containerName</code> and <code>containerPort</code> combination from the task definition. If the task definition that your service task specifies uses the <code>awsvpc</code> network mode and a type SRV DNS record is used, you must specify either a <code>containerName</code> and <code>containerPort</code> combination or a <code>port</code> value. However, you can't specify both."
       },
       {
         "name": "port",
         "type": "integer",
-        "description": "The port value used if your service discovery service specified an SRV record. This field may be used if both the awsvpc network mode and SRV records are used."
+        "description": "The port value used if your service discovery service specified an SRV record. This field might be used if both the <code>awsvpc</code> network mode and SRV records are used."
       },
       {
         "name": "container_port",
         "type": "integer",
-        "description": "The port value, already specified in the task definition, to be used for your service discovery service. If the task definition your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both."
+        "description": "The port value to be used for your service discovery service. It's already specified in the task definition. If the task definition your service task specifies uses the <code>bridge</code> or <code>host</code> network mode, you must specify a <code>containerName</code> and <code>containerPort</code> combination from the task definition. If the task definition your service task specifies uses the <code>awsvpc</code> network mode and a type SRV DNS record is used, you must specify either a <code>containerName</code> and <code>containerPort</code> combination or a <code>port</code> value. However, you can't specify both."
       },
       {
         "name": "registry_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is AWS Cloud Map. For more information, see https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html"
+        "description": "The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is CMAP. For more information, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html\">CreateService</a>."
       }
     ]
   },
@@ -202,17 +202,17 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
       {
         "name": "capacity_provider",
         "type": "string",
-        "description": ""
+        "description": "The short name of the capacity provider."
       },
       {
         "name": "base",
         "type": "integer",
-        "description": ""
+        "description": "<details><summary>The <i>base</i> value designates how many tasks, at a minimum, to run on the specified capacity provider for each service. Only one capacity provider in a capacity provider strategy can have a <i>base</i> defined. If no value is specified, the default value of <code>0</code> is used.</summary>Base value characteristics:<br />+  Only one capacity provider in a strategy can have a base defined<br />+  Default value is <code>0</code> if not specified<br />+  Valid range: 0 to 100,000<br />+  Base requirements are satisfied first before weight distribution</details>"
       },
       {
         "name": "weight",
         "type": "integer",
-        "description": ""
+        "description": "<details><summary>The <i>weight</i> value designates the relative percentage of the total number of tasks launched that should use the specified capacity provider. The <code>weight</code> value is taken into consideration after the <code>base</code> value, if defined, is satisfied.</summary>If no <code>weight</code> value is specified, the default value of <code>0</code> is used. When multiple capacity providers are specified within a capacity provider strategy, at least one of the capacity providers must have a weight value greater than zero and any capacity providers with a weight of <code>0</code> can't be used to place tasks. If you specify multiple capacity providers in a strategy that all have a weight of <code>0</code>, any <code>RunTask</code> or <code>CreateService</code> actions using the capacity provider strategy will fail.<br />Weight value characteristics:<br />+  Weight is considered after the base value is satisfied<br />+  Default value is <code>0</code> if not specified<br />+  Valid range: 0 to 1,000<br />+  At least one capacity provider must have a weight greater than zero<br />+  Capacity providers with weight of <code>0</code> cannot place tasks<br />Task distribution logic:<ul><li>Base satisfaction: The minimum number of tasks specified by the base value are placed on that capacity provider</li><li>Weight distribution: After base requirements are met, additional tasks are distributed according to weight ratios</li></ul>Examples:<br />Equal Distribution: Two capacity providers both with weight <code>1</code> will split tasks evenly after base requirements are met.<br />Weighted Distribution: If capacityProviderA has weight <code>1</code> and capacityProviderB has weight <code>4</code>, then for every 1 task on A, 4 tasks will run on B.</details>"
       }
     ]
   },
@@ -242,24 +242,24 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
     "description": "The network configuration for the service. This parameter is required for task definitions that use the <code>awsvpc</code> network mode to receive their own elastic network interface, and it is not supported for other network modes. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html\">Task Networking</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.",
     "children": [
       {
-        "name": "aws_vpc_configuration",
+        "name": "awsvpc_configuration",
         "type": "object",
-        "description": "The VPC subnets and security groups associated with a task. All specified subnets and security groups must be from the same VPC.",
+        "description": "<details><summary>The VPC subnets and security groups that are associated with a task.</summary>All specified subnets and security groups must be from the same VPC.</details>",
         "children": [
           {
             "name": "security_groups",
             "type": "array",
-            "description": "The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used. There is a limit of 5 security groups that can be specified per AwsVpcConfiguration."
+            "description": "<details><summary>The IDs of the security groups associated with the task or service. If you don't specify a security group, the default security group for the VPC is used. There's a limit of 5 security groups that can be specified.</summary>All specified security groups must be from the same VPC.</details>"
           },
           {
             "name": "subnets",
             "type": "array",
-            "description": "The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per AwsVpcConfiguration."
+            "description": "<details><summary>The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified.</summary>All specified subnets must be from the same VPC.</details>"
           },
           {
             "name": "assign_public_ip",
             "type": "string",
-            "description": "Whether the task's elastic network interface receives a public IP address. The default value is DISABLED."
+            "description": "<details><summary>Whether the task's elastic network interface receives a public IP address.</summary>Consider the following when you set this value:<br />+  When you use <code>create-service</code> or <code>update-service</code>, the default is <code>DISABLED</code>.<br />+  When the service <code>deploymentController</code> is <code>ECS</code>, the value must be <code>DISABLED</code>.</details>"
           }
         ]
       }
@@ -273,12 +273,12 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The optional part of a key-value pair that make up a tag. A <code>value</code> acts as a descriptor within a tag category (key)."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "One part of a key-value pair that make up a tag. A <code>key</code> is a general label that acts like a category for more specific tag values."
       }
     ]
   },
@@ -344,17 +344,49 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
       {
         "name": "target_group_arn",
         "type": "string",
-        "description": "The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service or task set. A target group ARN is only specified when using an Application Load Balancer or Network Load Balancer. If you are using a Classic Load Balancer this should be omitted. For services using the ECS deployment controller, you can specify one or multiple target groups. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html in the Amazon Elastic Container Service Developer Guide. For services using the CODE_DEPLOY deployment controller, you are required to define two target groups for the load balancer. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html in the Amazon Elastic Container Service Developer Guide. If your service's task definition uses the awsvpc network mode (which is required for the Fargate launch type), you must choose ip as the target type, not instance, when creating your target groups because tasks that use the awsvpc network mode are associated with an elastic network interface, not an Amazon EC2 instance."
+        "description": "<details><summary>The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service or task set.</summary>A target group ARN is only specified when using an Application Load Balancer or Network Load Balancer.<br />For services using the <code>ECS</code> deployment controller, you can specify one or multiple target groups. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html\">Registering multiple target groups with a service</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.<br />For services using the <code>CODE_DEPLOY</code> deployment controller, you're required to define two target groups for the load balancer. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html\">Blue/green deployment with CodeDeploy</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.<br />If your service's task definition uses the <code>awsvpc</code> network mode, you must choose <code>ip</code> as the target type, not <code>instance</code>. Do this when creating your target groups because tasks that use the <code>awsvpc</code> network mode are associated with an elastic network interface, not an Amazon EC2 instance. This network mode is required for the Fargate launch type.</details>"
+      },
+      {
+        "name": "load_balancer_name",
+        "type": "string",
+        "description": "<details><summary>The name of the load balancer to associate with the Amazon ECS service or task set.</summary>If you are using an Application Load Balancer or a Network Load Balancer the load balancer name parameter should be omitted.</details>"
       },
       {
         "name": "container_name",
         "type": "string",
-        "description": "The name of the container (as it appears in a container definition) to associate with the load balancer."
+        "description": "<details><summary>The name of the container (as it appears in a container definition) to associate with the load balancer.</summary>You need to specify the container name when configuring the target group for an Amazon ECS load balancer.</details>"
       },
       {
         "name": "container_port",
         "type": "integer",
-        "description": "The port on the container to associate with the load balancer. This port must correspond to a containerPort in the task definition the tasks in the service are using. For tasks that use the EC2 launch type, the container instance they are launched on must allow ingress traffic on the hostPort of the port mapping."
+        "description": "The port on the container to associate with the load balancer. This port must correspond to a <code>containerPort</code> in the task definition the tasks in the service are using. For tasks that use the EC2 launch type, the container instance they're launched on must allow ingress traffic on the <code>hostPort</code> of the port mapping."
+      },
+      {
+        "name": "advanced_configuration",
+        "type": "object",
+        "description": "The advanced settings for the load balancer used in blue/green deployments. Specify the alternate target group, listener rules, and IAM role required for traffic shifting during blue/green deployments.",
+        "children": [
+          {
+            "name": "test_listener_rule",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) that identifies ) that identifies the test listener rule (in the case of an Application Load Balancer) or listener (in the case for an Network Load Balancer) for routing test traffic."
+          },
+          {
+            "name": "alternate_target_group_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the alternate target group for Amazon ECS blue/green deployments."
+          },
+          {
+            "name": "production_listener_rule",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) that that identifies the production listener rule (in the case of an Application Load Balancer) or listener (in the case for an Network Load Balancer) for routing production traffic."
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the IAM role that grants Amazon ECS permission to call the Elastic Load Balancing APIs for you."
+          }
+        ]
       }
     ]
   },
@@ -994,7 +1026,7 @@ resources:
         value: '{{ scheduling_strategy }}'
       - name: network_configuration
         value:
-          aws_vpc_configuration:
+          awsvpc_configuration:
             security_groups:
               - '{{ security_groups[0] }}'
             subnets:
@@ -1022,8 +1054,14 @@ resources:
       - name: load_balancers
         value:
           - target_group_arn: '{{ target_group_arn }}'
+            load_balancer_name: '{{ load_balancer_name }}'
             container_name: '{{ container_name }}'
             container_port: '{{ container_port }}'
+            advanced_configuration:
+              test_listener_rule: '{{ test_listener_rule }}'
+              alternate_target_group_arn: '{{ alternate_target_group_arn }}'
+              production_listener_rule: '{{ production_listener_rule }}'
+              role_arn: '{{ role_arn }}'
       - name: service_connect_configuration
         value:
           services:

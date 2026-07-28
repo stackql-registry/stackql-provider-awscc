@@ -77,14 +77,14 @@ Creates, updates, deletes or gets an <code>enabled_control</code> resource or li
     "description": "A set of tags to assign to the enabled control.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:."
       }
     ]
   },
@@ -295,8 +295,8 @@ resources:
             key: '{{ key }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

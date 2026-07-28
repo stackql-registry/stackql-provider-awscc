@@ -250,12 +250,12 @@ Creates, updates, deletes or gets an <code>alarm</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": "A unique identifier for the tag."
+        "description": "A string that you can use to assign a value. The combination of tag keys and values can help you organize and categorize your resources."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "String which you can use to describe or define the tag."
+        "description": "The value for the specified tag key."
       }
     ]
   },

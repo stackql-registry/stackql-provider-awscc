@@ -82,12 +82,12 @@ Creates, updates, deletes or gets a <code>scheduled_audit</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },

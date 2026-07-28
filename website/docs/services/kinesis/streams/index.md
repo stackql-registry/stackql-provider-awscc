@@ -104,14 +104,14 @@ Creates, updates, deletes or gets a <code>stream</code> resource or lists <code>
     "description": "An arbitrary set of tags (key–value pairs) to associate with the Kinesis stream.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-      },
-      {
         "name": "key",
         "type": "string",
         "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -344,8 +344,8 @@ resources:
           key_id: '{{ key_id }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

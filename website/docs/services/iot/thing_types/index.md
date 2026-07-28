@@ -118,12 +118,12 @@ Creates, updates, deletes or gets a <code>thing_type</code> resource or lists <c
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "Tag key (1-128 chars). No 'aws:' prefix. Allows: [A-Za-z0-9 _.:/=+-]"
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "Tag value (1-256 chars). No 'aws:' prefix. Allows: [A-Za-z0-9 _.:/=+-]"
       }
     ]
   },

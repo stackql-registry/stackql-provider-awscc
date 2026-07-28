@@ -75,14 +75,14 @@ Creates, updates, deletes or gets a <code>traffic_mirror_target</code> resource 
     "description": "The tags to assign to the Traffic Mirror target.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -297,8 +297,8 @@ resources:
         value: '{{ gateway_load_balancer_endpoint_id }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

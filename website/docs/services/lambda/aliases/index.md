@@ -62,7 +62,7 @@ Creates, updates, deletes or gets an <code>alias</code> resource or lists <code>
       {
         "name": "provisioned_concurrent_executions",
         "type": "integer",
-        "description": "The amount of provisioned concurrency to allocate for the version."
+        "description": "The amount of provisioned concurrency to allocate for the alias."
       }
     ]
   },

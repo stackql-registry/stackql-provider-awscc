@@ -47,12 +47,12 @@ Creates, updates, deletes or gets a <code>table_bucket_policy</code> resource or
   {
     "name": "resource_policy",
     "type": "object",
-    "description": "A policy document containing permissions to add to the specified table. In IAM, you must provide policy documents in JSON format. However, in CloudFormation you can provide the policy in JSON or YAML format because CloudFormation converts YAML to JSON before submitting it to IAM."
+    "description": "A policy document containing permissions to add to the specified table bucket. In IAM, you must provide policy documents in JSON format. However, in CloudFormation you can provide the policy in JSON or YAML format because CloudFormation converts YAML to JSON before submitting it to IAM."
   },
   {
     "name": "table_bucket_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the specified table bucket."
+    "description": "The Amazon Resource Name (ARN) of the table bucket to which the policy applies."
   },
   {
     "name": "region",
@@ -67,7 +67,7 @@ Creates, updates, deletes or gets a <code>table_bucket_policy</code> resource or
   {
     "name": "table_bucket_arn",
     "type": "string",
-    "description": "The Amazon Resource Name (ARN) of the specified table bucket."
+    "description": "The Amazon Resource Name (ARN) of the table bucket to which the policy applies."
   },
   {
     "name": "region",

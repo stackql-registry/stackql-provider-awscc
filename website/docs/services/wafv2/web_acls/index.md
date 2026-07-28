@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>web_acl</code> resource or lists <code
   {
     "name": "arn",
     "type": "string",
-    "description": ""
+    "description": "ARN of the WAF entity."
   },
   {
     "name": "capacity",

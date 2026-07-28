@@ -126,7 +126,7 @@ Creates, updates, deletes or gets an <code>annotation_store</code> resource or l
   {
     "name": "tags",
     "type": "object",
-    "description": "A map of resource tags"
+    "description": ""
   },
   {
     "name": "update_time",

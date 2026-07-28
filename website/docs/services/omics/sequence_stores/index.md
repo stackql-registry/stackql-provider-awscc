@@ -107,7 +107,7 @@ Creates, updates, deletes or gets a <code>sequence_store</code> resource or list
   {
     "name": "sse_config",
     "type": "object",
-    "description": "",
+    "description": "Server-side encryption (SSE) settings for a store.",
     "children": [
       {
         "name": "type",
@@ -117,7 +117,7 @@ Creates, updates, deletes or gets a <code>sequence_store</code> resource or list
       {
         "name": "key_arn",
         "type": "string",
-        "description": ""
+        "description": "An encryption key ARN."
       }
     ]
   },
@@ -134,7 +134,7 @@ Creates, updates, deletes or gets a <code>sequence_store</code> resource or list
   {
     "name": "tags",
     "type": "object",
-    "description": "A map of resource tags"
+    "description": ""
   },
   {
     "name": "update_time",

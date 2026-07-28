@@ -120,14 +120,14 @@ Creates, updates, deletes or gets a <code>function_configuration</code> resource
     "description": "Describes a runtime used by an AWS AppSync pipeline resolver or AWS AppSync function. Specifies the name and version of the runtime to use. Note that if a runtime is specified, code must also be specified.",
     "children": [
       {
-        "name": "runtime_version",
-        "type": "string",
-        "description": "The <code>version</code> of the runtime to use. Currently, the only allowed version is <code>1.0.0</code>."
-      },
-      {
         "name": "name",
         "type": "string",
-        "description": "The <code>name</code> of the runtime to use. Currently, the only allowed value is <code>APPSYNC_JS</code>."
+        "description": "The name of the runtime to use. Currently, the only allowed value is APPSYNC_JS."
+      },
+      {
+        "name": "runtime_version",
+        "type": "string",
+        "description": "The version of the runtime to use. Currently, the only allowed version is 1.0.0."
       }
     ]
   },
@@ -137,19 +137,19 @@ Creates, updates, deletes or gets a <code>function_configuration</code> resource
     "description": "Describes a Sync configuration for a resolver. Specifies which Conflict Detection strategy and Resolution strategy to use when the resolver is invoked.",
     "children": [
       {
-        "name": "conflict_handler",
-        "type": "string",
-        "description": "<details><summary>The Conflict Resolution strategy to perform in the event of a conflict.</summary>+  <i>OPTIMISTIC_CONCURRENCY</i>: Resolve conflicts by rejecting mutations when versions don't match the latest version at the server.<br />+  <i>AUTOMERGE</i>: Resolve conflicts with the Automerge conflict resolution strategy.<br />+  <i>LAMBDA</i>: Resolve conflicts with an LAMlong function supplied in the <code>LambdaConflictHandlerConfig</code>.</details>"
-      },
-      {
         "name": "conflict_detection",
         "type": "string",
-        "description": "<details><summary>The Conflict Detection strategy to use.</summary>+  <i>VERSION</i>: Detect conflicts based on object versions for this resolver.<br />+  <i>NONE</i>: Do not detect conflicts when invoking this resolver.</details>"
+        "description": "The Conflict Detection strategy to use."
+      },
+      {
+        "name": "conflict_handler",
+        "type": "string",
+        "description": "The Conflict Resolution strategy to perform in the event of a conflict."
       },
       {
         "name": "lambda_conflict_handler_config",
         "type": "object",
-        "description": "The <code>LambdaConflictHandlerConfig</code> when configuring <code>LAMBDA</code> as the Conflict Handler.",
+        "description": "The LambdaConflictHandlerConfig when configuring LAMBDA as the Conflict Handler.",
         "children": [
           {
             "name": "lambda_conflict_handler_arn",
@@ -411,12 +411,12 @@ resources:
         value: '{{ response_mapping_template_s3_location }}'
       - name: runtime
         value:
-          runtime_version: '{{ runtime_version }}'
           name: '{{ name }}'
+          runtime_version: '{{ runtime_version }}'
       - name: sync_config
         value:
-          conflict_handler: '{{ conflict_handler }}'
           conflict_detection: '{{ conflict_detection }}'
+          conflict_handler: '{{ conflict_handler }}'
           lambda_conflict_handler_config:
             lambda_conflict_handler_arn: '{{ lambda_conflict_handler_arn }}'`}</CodeBlock>
 

@@ -121,12 +121,12 @@ Creates, updates, deletes or gets a <code>custom_action</code> resource or lists
     "description": "",
     "children": [
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       },
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       }
@@ -345,8 +345,8 @@ resources:
           command_text: '{{ command_text }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

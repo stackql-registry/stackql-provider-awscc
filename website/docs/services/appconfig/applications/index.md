@@ -60,14 +60,14 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
     "description": "Metadata to assign to the application. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.",
     "children": [
       {
+        "name": "key",
+        "type": "string",
+        "description": "The key-value string map. The valid character set is [a-zA-Z1-9 +-=._:/-]. The tag key can be up to 128 characters and must not start with aws:."
+      },
+      {
         "name": "value",
         "type": "string",
         "description": "The tag value can be up to 256 characters."
-      },
-      {
-        "name": "key",
-        "type": "string",
-        "description": "The key-value string map. The tag key can be up to 128 characters and must not start with aws:."
       }
     ]
   },
@@ -267,8 +267,8 @@ resources:
         value: '{{ description }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: name
         value: '{{ name }}'`}</CodeBlock>
 

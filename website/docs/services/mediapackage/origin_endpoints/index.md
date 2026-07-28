@@ -97,17 +97,17 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
   {
     "name": "authorization",
     "type": "object",
-    "description": "",
+    "description": "CDN Authorization credentials",
     "children": [
-      {
-        "name": "cdn_identifier_secret",
-        "type": "string",
-        "description": "The Amazon Resource Name (ARN) for the secret in AWS Secrets Manager that is used for CDN authorization."
-      },
       {
         "name": "secrets_role_arn",
         "type": "string",
         "description": "The Amazon Resource Name (ARN) for the IAM role that allows MediaPackage to communicate with AWS Secrets Manager."
+      },
+      {
+        "name": "cdn_identifier_secret",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) for the secret in Secrets Manager that your Content Distribution Network (CDN) uses for authorization to access your endpoint."
       }
     ]
   },
@@ -117,19 +117,79 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
     "description": "An HTTP Live Streaming (HLS) packaging configuration.",
     "children": [
       {
+        "name": "segment_duration_seconds",
+        "type": "integer",
+        "description": "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration."
+      },
+      {
+        "name": "playlist_window_seconds",
+        "type": "integer",
+        "description": "Time window (in seconds) contained in each parent manifest."
+      },
+      {
+        "name": "playlist_type",
+        "type": "string",
+        "description": "The HTTP Live Streaming (HLS) playlist type. When either \"EVENT\" or \"VOD\" is specified, a corresponding EXT-X-PLAYLIST-TYPE entry will be included in the media playlist."
+      },
+      {
+        "name": "ad_markers",
+        "type": "string",
+        "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source. \"DATERANGE\" inserts EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this option, you must set a programDateTimeIntervalSeconds value that is greater than 0."
+      },
+      {
+        "name": "ad_triggers",
+        "type": "array",
+        "description": "A list of SCTE-35 message types that are treated as ad markers in the output.  If empty, no ad markers are output.  Specify multiple items to create ad markers for all of the included message types."
+      },
+      {
+        "name": "ads_on_delivery_restrictions",
+        "type": "string",
+        "description": "This setting allows the delivery restriction flags on SCTE-35 segmentation descriptors to determine whether a message signals an ad.  Choosing \"NONE\" means no SCTE-35 messages become ads.  Choosing \"RESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that contain delivery restrictions will be treated as ads.  Choosing \"UNRESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that do not contain delivery restrictions will be treated as ads.  Choosing \"BOTH\" means all SCTE-35 messages of the types specified in AdTriggers will be treated as ads.  Note that Splice Insert messages do not have these flags and are always treated as ads if specified in AdTriggers."
+      },
+      {
+        "name": "program_date_time_interval_seconds",
+        "type": "integer",
+        "description": "The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP Live Streaming (HLS) input, it will be passed through to HLS output."
+      },
+      {
+        "name": "include_iframe_only_stream",
+        "type": "boolean",
+        "description": "When enabled, an I-Frame only stream will be included in the output."
+      },
+      {
+        "name": "use_audio_rendition_group",
+        "type": "boolean",
+        "description": "When enabled, audio streams will be placed in rendition groups in the output."
+      },
+      {
+        "name": "include_dvb_subtitles",
+        "type": "boolean",
+        "description": "When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output."
+      },
+      {
         "name": "encryption",
         "type": "object",
         "description": "An HTTP Live Streaming (HLS) encryption configuration.",
         "children": [
           {
-            "name": "constant_initialization_vector",
-            "type": "string",
-            "description": "An HTTP Live Streaming (HLS) encryption configuration."
-          },
-          {
             "name": "encryption_method",
             "type": "string",
             "description": "The encryption method to use."
+          },
+          {
+            "name": "constant_initialization_vector",
+            "type": "string",
+            "description": "A constant initialization vector for encryption (optional). When not specified the initialization vector will be periodically rotated."
+          },
+          {
+            "name": "key_rotation_interval_seconds",
+            "type": "integer",
+            "description": "Interval (in seconds) between each encryption key rotation."
+          },
+          {
+            "name": "repeat_ext_xkey",
+            "type": "boolean",
+            "description": "When enabled, the EXT-X-KEY tag will be repeated in output manifests."
           },
           {
             "name": "speke_key_provider",
@@ -137,14 +197,9 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
             "description": "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
             "children": [
               {
-                "name": "encryption_contract_configuration",
-                "type": "object",
-                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
-              },
-              {
-                "name": "role_arn",
+                "name": "resource_id",
                 "type": "string",
-                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+                "description": "The resource ID to include in key requests."
               },
               {
                 "name": "system_ids",
@@ -155,79 +210,47 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
                 "name": "url",
                 "type": "string",
                 "description": "The URL of the external key provider service."
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+              },
+              {
+                "name": "certificate_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of a Certificate Manager certificate that MediaPackage will use for enforcing secure end-to-end data transfer with the key provider service."
+              },
+              {
+                "name": "encryption_contract_configuration",
+                "type": "object",
+                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
               }
             ]
           }
         ]
       },
       {
-        "name": "hls_manifests",
-        "type": "array",
-        "description": "A list of HLS manifest configurations.",
+        "name": "stream_selection",
+        "type": "object",
+        "description": "A StreamSelection configuration.",
         "children": [
           {
-            "name": "ad_markers",
-            "type": "string",
-            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
-          },
-          {
-            "name": "include_iframe_only_stream",
-            "type": "boolean",
-            "description": "When enabled, an I-Frame only stream will be included in the output."
-          },
-          {
-            "name": "manifest_name",
-            "type": "string",
-            "description": "An optional string to include in the name of the manifest."
-          },
-          {
-            "name": "program_date_time_interval_seconds",
+            "name": "max_video_bits_per_second",
             "type": "integer",
-            "description": "The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP Live Streaming (HLS) input, it will be passed through to HLS output."
+            "description": "The maximum video bitrate (bps) to include in output."
           },
           {
-            "name": "repeat_ext_xkey",
-            "type": "boolean",
-            "description": "When enabled, the EXT-X-KEY tag will be repeated in output manifests."
+            "name": "min_video_bits_per_second",
+            "type": "integer",
+            "description": "The minimum video bitrate (bps) to include in output."
           },
           {
-            "name": "stream_selection",
-            "type": "object",
-            "description": "A StreamSelection configuration.",
-            "children": [
-              {
-                "name": "max_video_bits_per_second",
-                "type": "integer",
-                "description": "The maximum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "min_video_bits_per_second",
-                "type": "integer",
-                "description": "The minimum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "stream_order",
-                "type": "string",
-                "description": "A directive that determines the order of streams in the output."
-              }
-            ]
+            "name": "stream_order",
+            "type": "string",
+            "description": "A directive that determines the order of streams in the output."
           }
         ]
-      },
-      {
-        "name": "include_dvb_subtitles",
-        "type": "boolean",
-        "description": "When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output."
-      },
-      {
-        "name": "segment_duration_seconds",
-        "type": "integer",
-        "description": "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration."
-      },
-      {
-        "name": "use_audio_rendition_group",
-        "type": "boolean",
-        "description": "When enabled, audio streams will be placed in rendition groups in the output."
       }
     ]
   },
@@ -237,58 +260,64 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
     "description": "A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.",
     "children": [
       {
-        "name": "dash_manifests",
+        "name": "segment_duration_seconds",
+        "type": "integer",
+        "description": "Duration (in seconds) of each segment. Actual segments will be rounded to the nearest multiple of the source segment duration."
+      },
+      {
+        "name": "manifest_window_seconds",
+        "type": "integer",
+        "description": "Time window (in seconds) contained in each manifest."
+      },
+      {
+        "name": "profile",
+        "type": "string",
+        "description": "The Dynamic Adaptive Streaming over HTTP (DASH) profile type.  When set to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled."
+      },
+      {
+        "name": "min_update_period_seconds",
+        "type": "integer",
+        "description": "Minimum duration (in seconds) between potential changes to the Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD)."
+      },
+      {
+        "name": "min_buffer_time_seconds",
+        "type": "integer",
+        "description": "Minimum duration (in seconds) that a player will buffer media before starting the presentation."
+      },
+      {
+        "name": "suggested_presentation_delay_seconds",
+        "type": "integer",
+        "description": "Duration (in seconds) to delay live content before presentation."
+      },
+      {
+        "name": "period_triggers",
         "type": "array",
-        "description": "A list of DASH manifest configurations.",
-        "children": [
-          {
-            "name": "manifest_layout",
-            "type": "string",
-            "description": "Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate elements are combined and presented at the AdaptationSet level."
-          },
-          {
-            "name": "manifest_name",
-            "type": "string",
-            "description": "An optional string to include in the name of the manifest."
-          },
-          {
-            "name": "min_buffer_time_seconds",
-            "type": "integer",
-            "description": "Minimum duration (in seconds) that a player will buffer media before starting the presentation."
-          },
-          {
-            "name": "profile",
-            "type": "string",
-            "description": "The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled."
-          },
-          {
-            "name": "scte_markers_source",
-            "type": "string",
-            "description": "The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content."
-          },
-          {
-            "name": "stream_selection",
-            "type": "object",
-            "description": "A StreamSelection configuration.",
-            "children": [
-              {
-                "name": "max_video_bits_per_second",
-                "type": "integer",
-                "description": "The maximum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "min_video_bits_per_second",
-                "type": "integer",
-                "description": "The minimum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "stream_order",
-                "type": "string",
-                "description": "A directive that determines the order of streams in the output."
-              }
-            ]
-          }
-        ]
+        "description": "A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains \"ADS\", new periods will be created where the Channel source contains SCTE-35 ad markers."
+      },
+      {
+        "name": "include_iframe_only_stream",
+        "type": "boolean",
+        "description": "When enabled, an I-Frame only stream will be included in the output."
+      },
+      {
+        "name": "manifest_layout",
+        "type": "string",
+        "description": "Determines the position of some tags in the Media Presentation Description (MPD).  When set to FULL, elements like SegmentTemplate and ContentProtection are included in each Representation.  When set to COMPACT, duplicate elements are combined and presented at the AdaptationSet level."
+      },
+      {
+        "name": "segment_template_format",
+        "type": "string",
+        "description": "Determines the type of SegmentTemplate included in the Media Presentation Description (MPD).  When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs.  When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs."
+      },
+      {
+        "name": "ad_triggers",
+        "type": "array",
+        "description": "A list of SCTE-35 message types that are treated as ad markers in the output.  If empty, no ad markers are output.  Specify multiple items to create ad markers for all of the included message types."
+      },
+      {
+        "name": "ads_on_delivery_restrictions",
+        "type": "string",
+        "description": "This setting allows the delivery restriction flags on SCTE-35 segmentation descriptors to determine whether a message signals an ad.  Choosing \"NONE\" means no SCTE-35 messages become ads.  Choosing \"RESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that contain delivery restrictions will be treated as ads.  Choosing \"UNRESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that do not contain delivery restrictions will be treated as ads.  Choosing \"BOTH\" means all SCTE-35 messages of the types specified in AdTriggers will be treated as ads.  Note that Splice Insert messages do not have these flags and are always treated as ads if specified in AdTriggers."
       },
       {
         "name": "encryption",
@@ -296,19 +325,19 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
         "description": "A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.",
         "children": [
           {
+            "name": "key_rotation_interval_seconds",
+            "type": "integer",
+            "description": "Time (in seconds) between each encryption key rotation."
+          },
+          {
             "name": "speke_key_provider",
             "type": "object",
             "description": "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
             "children": [
               {
-                "name": "encryption_contract_configuration",
-                "type": "object",
-                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
-              },
-              {
-                "name": "role_arn",
+                "name": "resource_id",
                 "type": "string",
-                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+                "description": "The resource ID to include in key requests."
               },
               {
                 "name": "system_ids",
@@ -319,47 +348,79 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
                 "name": "url",
                 "type": "string",
                 "description": "The URL of the external key provider service."
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+              },
+              {
+                "name": "certificate_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of a Certificate Manager certificate that MediaPackage will use for enforcing secure end-to-end data transfer with the key provider service."
+              },
+              {
+                "name": "encryption_contract_configuration",
+                "type": "object",
+                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
               }
             ]
           }
         ]
       },
       {
-        "name": "period_triggers",
-        "type": "array",
-        "description": "A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains \"ADS\", new periods will be created where the Asset contains SCTE-35 ad markers."
+        "name": "stream_selection",
+        "type": "object",
+        "description": "A StreamSelection configuration.",
+        "children": [
+          {
+            "name": "max_video_bits_per_second",
+            "type": "integer",
+            "description": "The maximum video bitrate (bps) to include in output."
+          },
+          {
+            "name": "min_video_bits_per_second",
+            "type": "integer",
+            "description": "The minimum video bitrate (bps) to include in output."
+          },
+          {
+            "name": "stream_order",
+            "type": "string",
+            "description": "A directive that determines the order of streams in the output."
+          }
+        ]
       },
       {
-        "name": "segment_duration_seconds",
-        "type": "integer",
-        "description": "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration."
-      },
-      {
-        "name": "segment_template_format",
+        "name": "utc_timing",
         "type": "string",
-        "description": "Determines the type of SegmentTemplate included in the Media Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs. When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs."
+        "description": "Determines the type of UTCTiming included in the Media Presentation Description (MPD)"
       },
       {
-        "name": "include_encoder_configuration_in_segments",
-        "type": "boolean",
-        "description": "When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback."
-      },
-      {
-        "name": "include_iframe_only_stream",
-        "type": "boolean",
-        "description": "When enabled, an I-Frame only stream will be included in the output."
+        "name": "utc_timing_uri",
+        "type": "string",
+        "description": "Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or HTTP-XSDATE"
       }
     ]
   },
   {
     "name": "mss_package",
     "type": "object",
-    "description": "A Microsoft Smooth Streaming (MSS) PackagingConfiguration.",
+    "description": "A Microsoft Smooth Streaming (MSS) packaging configuration.",
     "children": [
+      {
+        "name": "manifest_window_seconds",
+        "type": "integer",
+        "description": "The time window (in seconds) contained in each manifest."
+      },
+      {
+        "name": "segment_duration_seconds",
+        "type": "integer",
+        "description": "The duration (in seconds) of each segment."
+      },
       {
         "name": "encryption",
         "type": "object",
-        "description": "A CMAF encryption configuration.",
+        "description": "A Microsoft Smooth Streaming (MSS) encryption configuration.",
         "children": [
           {
             "name": "speke_key_provider",
@@ -367,14 +428,9 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
             "description": "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
             "children": [
               {
-                "name": "encryption_contract_configuration",
-                "type": "object",
-                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
-              },
-              {
-                "name": "role_arn",
+                "name": "resource_id",
                 "type": "string",
-                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+                "description": "The resource ID to include in key requests."
               },
               {
                 "name": "system_ids",
@@ -385,76 +441,84 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
                 "name": "url",
                 "type": "string",
                 "description": "The URL of the external key provider service."
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+              },
+              {
+                "name": "certificate_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of a Certificate Manager certificate that MediaPackage will use for enforcing secure end-to-end data transfer with the key provider service."
+              },
+              {
+                "name": "encryption_contract_configuration",
+                "type": "object",
+                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
               }
             ]
           }
         ]
       },
       {
-        "name": "mss_manifests",
-        "type": "array",
-        "description": "A list of MSS manifest configurations.",
+        "name": "stream_selection",
+        "type": "object",
+        "description": "A StreamSelection configuration.",
         "children": [
           {
-            "name": "manifest_name",
-            "type": "string",
-            "description": "An optional string to include in the name of the manifest."
+            "name": "max_video_bits_per_second",
+            "type": "integer",
+            "description": "The maximum video bitrate (bps) to include in output."
           },
           {
-            "name": "stream_selection",
-            "type": "object",
-            "description": "A StreamSelection configuration.",
-            "children": [
-              {
-                "name": "max_video_bits_per_second",
-                "type": "integer",
-                "description": "The maximum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "min_video_bits_per_second",
-                "type": "integer",
-                "description": "The minimum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "stream_order",
-                "type": "string",
-                "description": "A directive that determines the order of streams in the output."
-              }
-            ]
+            "name": "min_video_bits_per_second",
+            "type": "integer",
+            "description": "The minimum video bitrate (bps) to include in output."
+          },
+          {
+            "name": "stream_order",
+            "type": "string",
+            "description": "A directive that determines the order of streams in the output."
           }
         ]
-      },
-      {
-        "name": "segment_duration_seconds",
-        "type": "integer",
-        "description": "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration."
       }
     ]
   },
   {
     "name": "cmaf_package",
     "type": "object",
-    "description": "A CMAF packaging configuration.",
+    "description": "A Common Media Application Format (CMAF) packaging configuration.",
     "children": [
+      {
+        "name": "segment_duration_seconds",
+        "type": "integer",
+        "description": "Duration (in seconds) of each segment. Actual segments will be rounded to the nearest multiple of the source segment duration."
+      },
+      {
+        "name": "segment_prefix",
+        "type": "string",
+        "description": "An optional custom string that is prepended to the name of each segment. If not specified, it defaults to the ChannelId."
+      },
       {
         "name": "encryption",
         "type": "object",
-        "description": "A CMAF encryption configuration.",
+        "description": "A Common Media Application Format (CMAF) encryption configuration.",
         "children": [
+          {
+            "name": "key_rotation_interval_seconds",
+            "type": "integer",
+            "description": "Time (in seconds) between each encryption key rotation."
+          },
           {
             "name": "speke_key_provider",
             "type": "object",
             "description": "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
             "children": [
               {
-                "name": "encryption_contract_configuration",
-                "type": "object",
-                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
-              },
-              {
-                "name": "role_arn",
+                "name": "resource_id",
                 "type": "string",
-                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+                "description": "The resource ID to include in key requests."
               },
               {
                 "name": "system_ids",
@@ -465,30 +529,92 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
                 "name": "url",
                 "type": "string",
                 "description": "The URL of the external key provider service."
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service."
+              },
+              {
+                "name": "certificate_arn",
+                "type": "string",
+                "description": "An Amazon Resource Name (ARN) of a Certificate Manager certificate that MediaPackage will use for enforcing secure end-to-end data transfer with the key provider service."
+              },
+              {
+                "name": "encryption_contract_configuration",
+                "type": "object",
+                "description": "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0."
               }
             ]
+          },
+          {
+            "name": "constant_initialization_vector",
+            "type": "string",
+            "description": "An optional 128-bit, 16-byte hex value represented by a 32-character string, used in conjunction with the key for encrypting blocks. If you don't specify a value, then MediaPackage creates the constant initialization vector (IV)."
+          },
+          {
+            "name": "encryption_method",
+            "type": "string",
+            "description": "The encryption method used"
+          }
+        ]
+      },
+      {
+        "name": "stream_selection",
+        "type": "object",
+        "description": "A StreamSelection configuration.",
+        "children": [
+          {
+            "name": "max_video_bits_per_second",
+            "type": "integer",
+            "description": "The maximum video bitrate (bps) to include in output."
+          },
+          {
+            "name": "min_video_bits_per_second",
+            "type": "integer",
+            "description": "The minimum video bitrate (bps) to include in output."
+          },
+          {
+            "name": "stream_order",
+            "type": "string",
+            "description": "A directive that determines the order of streams in the output."
           }
         ]
       },
       {
         "name": "hls_manifests",
         "type": "array",
-        "description": "A list of HLS manifest configurations.",
+        "description": "A list of HLS manifest configurations",
         "children": [
           {
-            "name": "ad_markers",
+            "name": "id",
             "type": "string",
-            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source."
-          },
-          {
-            "name": "include_iframe_only_stream",
-            "type": "boolean",
-            "description": "When enabled, an I-Frame only stream will be included in the output."
+            "description": "The ID of the manifest. The ID must be unique within the OriginEndpoint and it cannot be changed after it is created."
           },
           {
             "name": "manifest_name",
             "type": "string",
-            "description": "An optional string to include in the name of the manifest."
+            "description": "An optional short string appended to the end of the OriginEndpoint URL. If not specified, defaults to the manifestName for the OriginEndpoint."
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": "The URL of the packaged OriginEndpoint for consumption."
+          },
+          {
+            "name": "playlist_window_seconds",
+            "type": "integer",
+            "description": "Time window (in seconds) contained in each parent manifest."
+          },
+          {
+            "name": "playlist_type",
+            "type": "string",
+            "description": "The HTTP Live Streaming (HLS) playlist type. When either \"EVENT\" or \"VOD\" is specified, a corresponding EXT-X-PLAYLIST-TYPE entry will be included in the media playlist."
+          },
+          {
+            "name": "ad_markers",
+            "type": "string",
+            "description": "This setting controls how ad markers are included in the packaged OriginEndpoint. \"NONE\" will omit all SCTE-35 ad markers from the output. \"PASSTHROUGH\" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. \"SCTE35_ENHANCED\" generates ad markers and blackout tags based on SCTE-35 messages in the input source. \"DATERANGE\" inserts EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this option, you must set a programDateTimeIntervalSeconds value that is greater than 0."
           },
           {
             "name": "program_date_time_interval_seconds",
@@ -496,43 +622,21 @@ Creates, updates, deletes or gets an <code>origin_endpoint</code> resource or li
             "description": "The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP Live Streaming (HLS) input, it will be passed through to HLS output."
           },
           {
-            "name": "repeat_ext_xkey",
+            "name": "include_iframe_only_stream",
             "type": "boolean",
-            "description": "When enabled, the EXT-X-KEY tag will be repeated in output manifests."
+            "description": "When enabled, an I-Frame only stream will be included in the output."
           },
           {
-            "name": "stream_selection",
-            "type": "object",
-            "description": "A StreamSelection configuration.",
-            "children": [
-              {
-                "name": "max_video_bits_per_second",
-                "type": "integer",
-                "description": "The maximum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "min_video_bits_per_second",
-                "type": "integer",
-                "description": "The minimum video bitrate (bps) to include in output."
-              },
-              {
-                "name": "stream_order",
-                "type": "string",
-                "description": "A directive that determines the order of streams in the output."
-              }
-            ]
+            "name": "ad_triggers",
+            "type": "array",
+            "description": "A list of SCTE-35 message types that are treated as ad markers in the output.  If empty, no ad markers are output.  Specify multiple items to create ad markers for all of the included message types."
+          },
+          {
+            "name": "ads_on_delivery_restrictions",
+            "type": "string",
+            "description": "This setting allows the delivery restriction flags on SCTE-35 segmentation descriptors to determine whether a message signals an ad.  Choosing \"NONE\" means no SCTE-35 messages become ads.  Choosing \"RESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that contain delivery restrictions will be treated as ads.  Choosing \"UNRESTRICTED\" means SCTE-35 messages of the types specified in AdTriggers that do not contain delivery restrictions will be treated as ads.  Choosing \"BOTH\" means all SCTE-35 messages of the types specified in AdTriggers will be treated as ads.  Note that Splice Insert messages do not have these flags and are always treated as ads if specified in AdTriggers."
           }
         ]
-      },
-      {
-        "name": "segment_duration_seconds",
-        "type": "integer",
-        "description": "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration."
-      },
-      {
-        "name": "include_encoder_configuration_in_segments",
-        "type": "boolean",
-        "description": "When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback."
       }
     ]
   },
@@ -795,67 +899,91 @@ resources:
         value: '{{ origination }}'
       - name: authorization
         value:
-          cdn_identifier_secret: '{{ cdn_identifier_secret }}'
           secrets_role_arn: '{{ secrets_role_arn }}'
+          cdn_identifier_secret: '{{ cdn_identifier_secret }}'
       - name: hls_package
         value:
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
+          playlist_window_seconds: '{{ playlist_window_seconds }}'
+          playlist_type: '{{ playlist_type }}'
+          ad_markers: '{{ ad_markers }}'
+          ad_triggers:
+            - '{{ ad_triggers[0] }}'
+          ads_on_delivery_restrictions: '{{ ads_on_delivery_restrictions }}'
+          program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
+          include_iframe_only_stream: '{{ include_iframe_only_stream }}'
+          use_audio_rendition_group: '{{ use_audio_rendition_group }}'
+          include_dvb_subtitles: '{{ include_dvb_subtitles }}'
           encryption:
-            constant_initialization_vector: '{{ constant_initialization_vector }}'
             encryption_method: '{{ encryption_method }}'
+            constant_initialization_vector: '{{ constant_initialization_vector }}'
+            key_rotation_interval_seconds: '{{ key_rotation_interval_seconds }}'
+            repeat_ext_xkey: '{{ repeat_ext_xkey }}'
             speke_key_provider:
-              encryption_contract_configuration:
-                preset_speke20_audio: '{{ preset_speke20_audio }}'
-                preset_speke20_video: '{{ preset_speke20_video }}'
-              role_arn: '{{ role_arn }}'
+              resource_id: '{{ resource_id }}'
               system_ids:
                 - '{{ system_ids[0] }}'
               url: '{{ url }}'
-          hls_manifests:
-            - ad_markers: '{{ ad_markers }}'
-              include_iframe_only_stream: '{{ include_iframe_only_stream }}'
-              manifest_name: '{{ manifest_name }}'
-              program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
-              repeat_ext_xkey: '{{ repeat_ext_xkey }}'
-              stream_selection:
-                max_video_bits_per_second: '{{ max_video_bits_per_second }}'
-                min_video_bits_per_second: '{{ min_video_bits_per_second }}'
-                stream_order: '{{ stream_order }}'
-          include_dvb_subtitles: '{{ include_dvb_subtitles }}'
-          segment_duration_seconds: '{{ segment_duration_seconds }}'
-          use_audio_rendition_group: '{{ use_audio_rendition_group }}'
+              role_arn: '{{ role_arn }}'
+              certificate_arn: '{{ certificate_arn }}'
+              encryption_contract_configuration:
+                preset_speke20_audio: '{{ preset_speke20_audio }}'
+                preset_speke20_video: '{{ preset_speke20_video }}'
+          stream_selection:
+            max_video_bits_per_second: '{{ max_video_bits_per_second }}'
+            min_video_bits_per_second: '{{ min_video_bits_per_second }}'
+            stream_order: '{{ stream_order }}'
       - name: dash_package
         value:
-          dash_manifests:
-            - manifest_layout: '{{ manifest_layout }}'
-              manifest_name: null
-              min_buffer_time_seconds: '{{ min_buffer_time_seconds }}'
-              profile: '{{ profile }}'
-              scte_markers_source: '{{ scte_markers_source }}'
-              stream_selection: null
-          encryption:
-            speke_key_provider: null
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
+          manifest_window_seconds: '{{ manifest_window_seconds }}'
+          profile: '{{ profile }}'
+          min_update_period_seconds: '{{ min_update_period_seconds }}'
+          min_buffer_time_seconds: '{{ min_buffer_time_seconds }}'
+          suggested_presentation_delay_seconds: '{{ suggested_presentation_delay_seconds }}'
           period_triggers:
             - '{{ period_triggers[0] }}'
-          segment_duration_seconds: null
-          segment_template_format: '{{ segment_template_format }}'
-          include_encoder_configuration_in_segments: '{{ include_encoder_configuration_in_segments }}'
           include_iframe_only_stream: '{{ include_iframe_only_stream }}'
+          manifest_layout: '{{ manifest_layout }}'
+          segment_template_format: '{{ segment_template_format }}'
+          ad_triggers:
+            - '{{ ad_triggers[0] }}'
+          ads_on_delivery_restrictions: null
+          encryption:
+            key_rotation_interval_seconds: '{{ key_rotation_interval_seconds }}'
+            speke_key_provider: null
+          stream_selection: null
+          utc_timing: '{{ utc_timing }}'
+          utc_timing_uri: '{{ utc_timing_uri }}'
       - name: mss_package
         value:
+          manifest_window_seconds: '{{ manifest_window_seconds }}'
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
           encryption:
             speke_key_provider: null
-          mss_manifests:
-            - manifest_name: null
-              stream_selection: null
-          segment_duration_seconds: null
+          stream_selection: null
       - name: cmaf_package
         value:
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
+          segment_prefix: '{{ segment_prefix }}'
           encryption:
+            key_rotation_interval_seconds: '{{ key_rotation_interval_seconds }}'
             speke_key_provider: null
+            constant_initialization_vector: '{{ constant_initialization_vector }}'
+            encryption_method: '{{ encryption_method }}'
+          stream_selection: null
           hls_manifests:
-            - null
-          segment_duration_seconds: null
-          include_encoder_configuration_in_segments: '{{ include_encoder_configuration_in_segments }}'
+            - id: '{{ id }}'
+              manifest_name: '{{ manifest_name }}'
+              url: '{{ url }}'
+              playlist_window_seconds: '{{ playlist_window_seconds }}'
+              playlist_type: '{{ playlist_type }}'
+              ad_markers: '{{ ad_markers }}'
+              program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
+              include_iframe_only_stream: '{{ include_iframe_only_stream }}'
+              ad_triggers:
+                - '{{ ad_triggers[0] }}'
+              ads_on_delivery_restrictions: null
       - name: tags
         value:
           - key: '{{ key }}'

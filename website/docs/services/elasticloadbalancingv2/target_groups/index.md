@@ -203,12 +203,12 @@ Creates, updates, deletes or gets a <code>target_group</code> resource or lists 
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The value for the tag."
       }
     ]
   },

@@ -98,6 +98,11 @@ Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>fl
                 "name": "expression",
                 "type": "string",
                 "description": "Expression for a node input in a flow"
+              },
+              {
+                "name": "category",
+                "type": "string",
+                "description": "Optional tag to classify input type, currently exclusive to LoopNode"
               }
             ]
           },
@@ -162,12 +167,22 @@ Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>fl
   {
     "name": "definition_s3_location",
     "type": "object",
-    "description": "An Amazon S3 location.",
+    "description": "A bucket, key and optional version pointing to an S3 object containing a UTF-8 encoded JSON string Definition with the same schema as the Definition property of this resource",
     "children": [
       {
-        "name": "uri",
+        "name": "bucket",
         "type": "string",
-        "description": "The location's URI"
+        "description": "A bucket in S3"
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A object key in S3"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the the S3 object to use"
       }
     ]
   },
@@ -459,6 +474,7 @@ resources:
                 - name: '{{ name }}'
                   type: '{{ type }}'
                   expression: '{{ expression }}'
+                  category: '{{ category }}'
               outputs:
                 - name: '{{ name }}'
                   type: null
@@ -472,7 +488,9 @@ resources:
         value: '{{ definition_string }}'
       - name: definition_s3_location
         value:
-          uri: '{{ uri }}'
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+          version: '{{ version }}'
       - name: definition_substitutions
         value: {}
       - name: description

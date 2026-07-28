@@ -50,9 +50,45 @@ Creates, updates, deletes or gets a <code>replication_configuration</code> resou
     "description": "The replication configuration for a registry.",
     "children": [
       {
-        "name": "registry_id",
-        "type": "string",
-        "description": ""
+        "name": "rules",
+        "type": "array",
+        "description": "An array of objects representing the replication destinations and repository filters for a replication configuration.",
+        "children": [
+          {
+            "name": "repository_filters",
+            "type": "array",
+            "description": "An array of objects representing the filters for a replication rule. Specifying a repository filter for a replication rule provides a method for controlling which repositories in a private registry are replicated.",
+            "children": [
+              {
+                "name": "filter",
+                "type": "string",
+                "description": "The repository filter details. When the <code>PREFIX_MATCH</code> filter type is specified, this value is required and should be the repository name prefix to configure replication for."
+              },
+              {
+                "name": "filter_type",
+                "type": "string",
+                "description": "The repository filter type. The only supported value is <code>PREFIX_MATCH</code>, which is a repository name prefix specified with the <code>filter</code> parameter."
+              }
+            ]
+          },
+          {
+            "name": "destinations",
+            "type": "array",
+            "description": "An array of objects representing the destination for a replication rule.",
+            "children": [
+              {
+                "name": "region",
+                "type": "string",
+                "description": "The Region to replicate to."
+              },
+              {
+                "name": "registry_id",
+                "type": "string",
+                "description": "The AWS account ID of the Amazon ECR private registry to replicate to. When configuring cross-Region replication within your own registry, specify your own account ID."
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -244,7 +280,13 @@ resources:
     props:
       - name: replication_configuration
         value:
-          replication_configuration: null`}</CodeBlock>
+          rules:
+            - repository_filters:
+                - filter: '{{ filter }}'
+                  filter_type: '{{ filter_type }}'
+              destinations:
+                - region: '{{ region }}'
+                  registry_id: '{{ registry_id }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

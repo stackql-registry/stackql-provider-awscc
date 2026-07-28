@@ -411,12 +411,12 @@ Creates, updates, deletes or gets a <code>data_automation_project</code> resourc
       {
         "name": "key",
         "type": "string",
-        "description": "Tag Key"
+        "description": "Key for the tag"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "Tag Value"
+        "description": "Value for the tag"
       }
     ]
   },

@@ -80,14 +80,14 @@ Creates, updates, deletes or gets a <code>transit_gateway_vpc_attachment</code> 
     "description": "",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -336,8 +336,8 @@ resources:
           - '{{ remove_subnet_ids[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: options
         value:
           dns_support: '{{ dns_support }}'

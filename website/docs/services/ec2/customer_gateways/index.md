@@ -75,14 +75,14 @@ Creates, updates, deletes or gets a <code>customer_gateway</code> resource or li
     "description": "One or more tags for the customer gateway.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
         "description": "The tag value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
       }
     ]
   },
@@ -307,8 +307,8 @@ resources:
         value: '{{ bgp_asn }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: certificate_arn
         value: '{{ certificate_arn }}'
       - name: device_name

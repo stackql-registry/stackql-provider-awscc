@@ -50,14 +50,14 @@ Creates, updates, deletes or gets a <code>model_package</code> resource or lists
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -1137,8 +1137,8 @@ resources:
     props:
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: additional_inference_specifications
         value:
           - containers:

@@ -142,14 +142,14 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
     "description": "Any tags assigned to the subnet.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
         "description": "The tag value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
       }
     ]
   },
@@ -446,8 +446,8 @@ resources:
           enable_resource_name_dns_aa_aa_record: '{{ enable_resource_name_dns_aa_aa_record }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: ipv4_ipam_pool_id
         value: '{{ ipv4_ipam_pool_id }}'
       - name: ipv4_netmask_length

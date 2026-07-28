@@ -77,17 +77,17 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
   {
     "name": "location",
     "type": "object",
-    "description": "The region name and Availability Zone where you created the snapshot.",
+    "description": "Location of a resource.",
     "children": [
       {
         "name": "availability_zone",
         "type": "string",
-        "description": "The Availability Zone. Follows the format us-east-2a (case-sensitive)."
+        "description": "The Availability Zone in which to create your instance. Use the following format: us-east-2a (case sensitive). Be sure to add the include Availability Zones parameter to your request."
       },
       {
         "name": "region_name",
         "type": "string",
-        "description": "The AWS Region name."
+        "description": "The Region Name in which to create your instance."
       }
     ]
   },

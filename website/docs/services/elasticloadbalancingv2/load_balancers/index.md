@@ -136,12 +136,12 @@ Creates, updates, deletes or gets a <code>load_balancer</code> resource or lists
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The value of the tag."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key of the tag."
       }
     ]
   },

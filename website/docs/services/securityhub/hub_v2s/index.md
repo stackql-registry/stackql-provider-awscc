@@ -52,7 +52,7 @@ Creates, updates, deletes or gets a <code>hub_v2</code> resource or lists <code>
   {
     "name": "subscribed_at",
     "type": "string",
-    "description": "The date and time, in UTC and ISO 8601 format."
+    "description": ""
   },
   {
     "name": "tags",

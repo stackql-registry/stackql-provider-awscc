@@ -9,7 +9,8 @@
     "start-server": "bash ./bin/start-server.sh",
     "stop-server": "bash ./bin/stop-server.sh",
     "server-status": "bash ./bin/server-status.sh",
-    "test-meta-routes": "node ./bin/test-meta-routes.cjs"
+    "test-meta-routes": "node ./bin/test-meta-routes.cjs",
+    "test-resource-coverage": "node ./bin/test-resource-coverage.js"
   },
   "type": "module",
   "repository": {

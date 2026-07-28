@@ -116,7 +116,7 @@ Creates, updates, deletes or gets a <code>variant_store</code> resource or lists
   {
     "name": "tags",
     "type": "object",
-    "description": "A map of resource tags"
+    "description": ""
   },
   {
     "name": "update_time",

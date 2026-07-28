@@ -60,12 +60,12 @@ Creates, updates, deletes or gets an <code>event_bus</code> resource or lists <c
     "description": "Any tags assigned to the event bus.",
     "children": [
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       },
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       }
@@ -328,8 +328,8 @@ resources:
         value: '{{ name }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: description
         value: '{{ description }}'
       - name: kms_key_identifier

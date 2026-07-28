@@ -85,12 +85,12 @@ Creates, updates, deletes or gets a <code>resource_gateway</code> resource or li
     "description": "",
     "children": [
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       },
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       }
@@ -319,8 +319,8 @@ resources:
           - '{{ security_group_ids[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: name
         value: '{{ name }}'`}</CodeBlock>
 

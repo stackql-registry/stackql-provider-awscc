@@ -87,12 +87,12 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
       {
         "name": "key",
         "type": "string",
-        "description": "The name assigned to the tag that you create."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "Contains one or more values that you assigned to the key name you create."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },

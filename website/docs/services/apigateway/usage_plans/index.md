@@ -104,14 +104,14 @@ Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <
     "description": "",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -357,8 +357,8 @@ resources:
           period: '{{ period }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: throttle
         value:
           burst_limit: '{{ burst_limit }}'

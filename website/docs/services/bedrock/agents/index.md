@@ -207,7 +207,7 @@ Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>
   {
     "name": "guardrail_configuration",
     "type": "object",
-    "description": "Configuration for a guardrail",
+    "description": "Configuration for a guardrail.",
     "children": [
       {
         "name": "guardrail_identifier",
@@ -396,7 +396,7 @@ Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>
           {
             "name": "additional_model_request_fields",
             "type": "object",
-            "description": "Contains model-specific configurations"
+            "description": "Additional Model Request Fields for Prompt Configuration"
           }
         ]
       },

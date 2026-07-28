@@ -57,7 +57,7 @@ Creates, updates, deletes or gets an <code>ipam_allocation</code> resource or li
   {
     "name": "cidr",
     "type": "string",
-    "description": "Represents a single IPv4 or IPv6 CIDR"
+    "description": "Represents an IPAM custom allocation of a single IPv4 or IPv6 CIDR"
   },
   {
     "name": "netmask_length",
@@ -92,7 +92,7 @@ Creates, updates, deletes or gets an <code>ipam_allocation</code> resource or li
   {
     "name": "cidr",
     "type": "string",
-    "description": "Represents a single IPv4 or IPv6 CIDR"
+    "description": "Represents an IPAM custom allocation of a single IPv4 or IPv6 CIDR"
   },
   {
     "name": "region",

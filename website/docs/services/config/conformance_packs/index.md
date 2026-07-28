@@ -94,12 +94,12 @@ Creates, updates, deletes or gets a <code>conformance_pack</code> resource or li
       {
         "name": "parameter_name",
         "type": "string",
-        "description": ""
+        "description": "Key part of key-value pair with value being parameter value"
       },
       {
         "name": "parameter_value",
         "type": "string",
-        "description": ""
+        "description": "Value part of key-value pair with key being parameter Name"
       }
     ]
   },

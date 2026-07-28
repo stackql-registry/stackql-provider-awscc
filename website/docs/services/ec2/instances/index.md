@@ -55,86 +55,14 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
     "description": "The volumes to attach to the instance.",
     "children": [
       {
-        "name": "multi_attach_enabled",
-        "type": "boolean",
-        "description": "<details><summary>Indicates whether Amazon EBS Multi-Attach is enabled.</summary>CFNlong does not currently support updating a single-attach volume to be multi-attach enabled, updating a multi-attach enabled volume to be single-attach, or updating the size or number of I/O operations per second (IOPS) of a multi-attach enabled volume.</details>"
-      },
-      {
-        "name": "kms_key_id",
-        "type": "string",
-        "description": "<details><summary>The identifier of the kms-key-long to use for Amazon EBS encryption. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</summary>If you omit this property and your account is enabled for encryption by default, or <i>Encrypted</i> is set to <code>true</code>, then the volume is encrypted using the default key specified for your account. If your account does not have a default key, then the volume is encrypted using the aws-managed-key.<br />Alternatively, if you want to specify a different key, you can specify one of the following:<br />+  Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.<br />+  Key alias. Specify the alias for the key, prefixed with <code>alias/</code>. For example, for a key with the alias <code>my_cmk</code>, use <code>alias/my_cmk</code>. Or to specify the aws-managed-key, use <code>alias/aws/ebs</code>.<br />+  Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.<br />+  Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.</details>"
-      },
-      {
-        "name": "encrypted",
-        "type": "boolean",
-        "description": "<details><summary>Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default\">Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</summary>Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances\">Supported instance types</a>.</details>"
-      },
-      {
-        "name": "size",
-        "type": "integer",
-        "description": "<details><summary>The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the snapshot size.</summary>The following are the supported volumes sizes for each volume type:<br />+  <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB<br />+  <code>io1</code>: 4 - 16,384 GiB<br />+  <code>io2</code>: 4 - 65,536 GiB<br />+  <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB<br />+  <code>standard</code>: 1 - 1024 GiB</details>"
-      },
-      {
-        "name": "auto_enable_io",
-        "type": "boolean",
-        "description": "Indicates whether the volume is auto-enabled for I/O operations. By default, Amazon EBS disables I/O to the volume from attached EC2 instances when it determines that a volume's data is potentially inconsistent. If the consistency of the volume is not a concern, and you prefer that the volume be made available immediately if it's impaired, you can configure the volume to automatically enable I/O."
-      },
-      {
-        "name": "outpost_arn",
-        "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the Outpost."
-      },
-      {
-        "name": "availability_zone",
-        "type": "string",
-        "description": "<details><summary>The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.</summary>Either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code> must be specified, but not both.</details>"
-      },
-      {
-        "name": "throughput",
-        "type": "integer",
-        "description": "<details><summary>The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</summary>This parameter is valid only for <code>gp3</code> volumes. The default value is 125.<br />Valid Range: Minimum value of 125. Maximum value of 1000.</details>"
-      },
-      {
-        "name": "iops",
-        "type": "integer",
-        "description": "<details><summary>The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.</summary>The following are the supported values for each volume type:<br />+  <code>gp3</code>: 3,000 - 16,000 IOPS<br />+  <code>io1</code>: 100 - 64,000 IOPS<br />+  <code>io2</code>: 100 - 256,000 IOPS<br />For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a href=\"https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html\">instances built on the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.<br />This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code> volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</details>"
-      },
-      {
-        "name": "volume_initialization_rate",
-        "type": "integer",
-        "description": "<details><summary>Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the volume. This is also known as <i>volume initialization</i>. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.</summary>This parameter is supported only for volumes created from snapshots. Omit this parameter if:<br />+  You want to create the volume using fast snapshot restore. You must specify a snapshot that is enabled for fast snapshot restore. In this case, the volume is fully initialized at creation.<br />If you specify a snapshot that is enabled for fast snapshot restore and a volume initialization rate, the volume will be initialized at the specified rate instead of fast snapshot restore.<br />+  You want to create a volume that is initialized at the default rate.<br />For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html\">Initialize Amazon EBS volumes</a> in the <i>Amazon EC2 User Guide</i>.<br />Valid range: 100 - 300 MiB/s</details>"
-      },
-      {
-        "name": "snapshot_id",
-        "type": "string",
-        "description": "The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size."
-      },
-      {
         "name": "volume_id",
         "type": "string",
-        "description": ""
+        "description": "The ID of the EBS volume. The volume and instance must be within the same Availability Zone."
       },
       {
-        "name": "volume_type",
+        "name": "device",
         "type": "string",
-        "description": "<details><summary>The volume type. This parameter can be one of the following values:</summary>+  General Purpose SSD: <code>gp2</code> | <code>gp3</code><br />+  Provisioned IOPS SSD: <code>io1</code> | <code>io2</code><br />+  Throughput Optimized HDD: <code>st1</code><br />+  Cold HDD: <code>sc1</code><br />+  Magnetic: <code>standard</code><br />For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html\">Amazon EBS volume types</a>.<br />Default: <code>gp2</code></details>"
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "The tags to apply to the volume during creation.",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The tag key."
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": "The tag value."
-          }
-        ]
+        "description": "The device name (for example, /dev/sdh or xvdh)."
       }
     ]
   },
@@ -166,14 +94,14 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
     "description": "The tags to add to the instance.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -214,27 +142,27 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "http_put_response_hop_limit",
         "type": "integer",
-        "description": "<details><summary>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</summary>Default: <code>1</code><br />Possible values: Integers from 1 to 64</details>"
-      },
-      {
-        "name": "http_tokens",
-        "type": "string",
-        "description": "<details><summary>Indicates whether IMDSv2 is required.</summary>+  <code>optional</code> - IMDSv2 is optional. You can choose whether to send a session token in your instance metadata retrieval requests. If you retrieve IAM role credentials without a session token, you receive the IMDSv1 role credentials. If you retrieve IAM role credentials using a valid session token, you receive the IMDSv2 role credentials.<br />+  <code>required</code> - IMDSv2 is required. You must send a session token in your instance metadata retrieval requests. With this option, retrieving the IAM role credentials always returns IMDSv2 credentials; IMDSv1 credentials are not available.<br />Default: If the value of <code>ImdsSupport</code> for the Amazon Machine Image (AMI) for your instance is <code>v2.0</code>, the default is <code>required</code>.</details>"
+        "description": "The number of network hops that the metadata token can travel. Maximum is 64."
       },
       {
         "name": "http_protocol_ipv6",
         "type": "string",
-        "description": "<details><summary>Enables or disables the IPv6 endpoint for the instance metadata service.</summary>Default: <code>disabled</code></details>"
+        "description": "Enables or disables the IPv6 endpoint for the instance metadata service. To use this option, the instance must be a Nitro-based instance launched in a subnet that supports IPv6."
+      },
+      {
+        "name": "http_tokens",
+        "type": "string",
+        "description": "Indicates whether IMDSv2 is required."
       },
       {
         "name": "instance_metadata_tags",
         "type": "string",
-        "description": "<details><summary>Set to <code>enabled</code> to allow access to instance tags from the instance metadata. Set to <code>disabled</code> to turn off access to instance tags from the instance metadata. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html\">View tags for your EC2 instances using instance metadata</a>.</summary>Default: <code>disabled</code></details>"
+        "description": "Indicates whether tags from the instance are propagated to the EBS volumes."
       },
       {
         "name": "http_endpoint",
         "type": "string",
-        "description": "<details><summary>Enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</summary>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata.</details>"
+        "description": "Enables or disables the HTTP metadata endpoint on your instances. If you specify a value of disabled, you cannot access your instance metadata."
       }
     ]
   },
@@ -273,17 +201,17 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "enable_resource_name_dns_arecord",
         "type": "boolean",
-        "description": "Indicates whether to respond to DNS queries for instance hostnames with DNS A records."
+        "description": "Indicates whether to respond to DNS queries for instance hostnames with DNS A records. For more information, see Amazon EC2 instance hostname types in the Amazon Elastic Compute Cloud User Guide."
       },
       {
         "name": "hostname_type",
         "type": "string",
-        "description": "The type of hostname for EC2 instances. For IPv4 only subnets, an instance DNS name must be based on the instance IPv4 address. For IPv6 only subnets, an instance DNS name must be based on the instance ID. For dual-stack subnets, you can specify whether DNS names use the instance IPv4 address or the instance ID. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">Amazon EC2 instance hostname types</a> in the <i>User Guide</i>."
+        "description": "The type of hostnames to assign to instances in the subnet at launch. For IPv4 only subnets, an instance DNS name must be based on the instance IPv4 address. For IPv6 only subnets, an instance DNS name must be based on the instance ID. For dual-stack subnets, you can specify whether DNS names use the instance IPv4 address or the instance ID. For more information, see Amazon EC2 instance hostname types in the Amazon Elastic Compute Cloud User Guide."
       },
       {
         "name": "enable_resource_name_dns_aa_aa_record",
         "type": "boolean",
-        "description": "Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records."
+        "description": "Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records. For more information, see Amazon EC2 instance hostname types in the Amazon Elastic Compute Cloud User Guide."
       }
     ]
   },
@@ -389,56 +317,61 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
     "description": "The block device mapping entries that defines the block devices to attach to the instance at launch.",
     "children": [
       {
-        "name": "device_name",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "ebs",
         "type": "object",
-        "description": "",
+        "description": "Parameters used to automatically set up EBS volumes when the instance is launched.",
         "children": [
-          {
-            "name": "delete_on_termination",
-            "type": "boolean",
-            "description": ""
-          },
-          {
-            "name": "encrypted",
-            "type": "boolean",
-            "description": ""
-          },
-          {
-            "name": "iops",
-            "type": "integer",
-            "description": ""
-          },
           {
             "name": "snapshot_id",
             "type": "string",
-            "description": ""
-          },
-          {
-            "name": "volume_size",
-            "type": "integer",
-            "description": ""
+            "description": "The ID of the snapshot."
           },
           {
             "name": "volume_type",
             "type": "string",
-            "description": ""
+            "description": "The volume type."
+          },
+          {
+            "name": "kms_key_id",
+            "type": "string",
+            "description": "The identifier of the AWS Key Management Service (AWS KMS) customer managed CMK to use for Amazon EBS encryption. If KmsKeyId is specified, the encrypted state must be true. If the encrypted state is true but you do not specify KmsKeyId, your AWS managed CMK for EBS is used."
+          },
+          {
+            "name": "encrypted",
+            "type": "boolean",
+            "description": "Indicates whether the volume should be encrypted."
+          },
+          {
+            "name": "iops",
+            "type": "integer",
+            "description": "The number of I/O operations per second (IOPS). For gp3, io1, and io2 volumes, this represents the number of IOPS that are provisioned for the volume. For gp2 volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting."
+          },
+          {
+            "name": "volume_size",
+            "type": "integer",
+            "description": "The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the snapshot size."
+          },
+          {
+            "name": "delete_on_termination",
+            "type": "boolean",
+            "description": "Indicates whether the EBS volume is deleted on instance termination."
           }
         ]
       },
       {
         "name": "no_device",
-        "type": "string",
+        "type": "object",
         "description": ""
       },
       {
         "name": "virtual_name",
         "type": "string",
         "description": ""
+      },
+      {
+        "name": "device_name",
+        "type": "string",
+        "description": "The device name (for example, /dev/sdh or xvdh)."
       }
     ]
   },
@@ -455,7 +388,7 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "ipv6_address",
         "type": "string",
-        "description": ""
+        "description": "The IPv6 address."
       }
     ]
   },
@@ -543,155 +476,103 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
       {
         "name": "description",
         "type": "string",
-        "description": "A description for the network interface."
+        "description": "The description of the network interface."
       },
       {
         "name": "private_ip_address",
         "type": "string",
-        "description": "Assigns a single private IP address to the network interface, which is used as the primary private IP address. If you want to specify multiple private IP address, use the PrivateIpAddresses property."
-      },
-      {
-        "name": "primary_ipv6_address",
-        "type": "string",
-        "description": "The primary IPv6 address"
+        "description": "The private IPv4 address of the network interface."
       },
       {
         "name": "private_ip_addresses",
         "type": "array",
-        "description": "Assigns a list of private IP addresses to the network interface. You can specify a primary private IP address by setting the value of the Primary property to true in the PrivateIpAddressSpecification property. If you want EC2 to automatically assign private IP addresses, use the SecondaryPrivateIpAddressCount property and do not specify this property.",
+        "description": "One or more private IPv4 addresses to assign to the network interface.",
         "children": [
-          {
-            "name": "primary",
-            "type": "boolean",
-            "description": ""
-          },
           {
             "name": "private_ip_address",
             "type": "string",
-            "description": ""
+            "description": "The private IPv4 addresses."
+          },
+          {
+            "name": "primary",
+            "type": "boolean",
+            "description": "Indicates whether the private IPv4 address is the primary private IPv4 address. Only one IPv4 address can be designated as primary."
           }
         ]
       },
       {
         "name": "secondary_private_ip_address_count",
         "type": "integer",
-        "description": "The number of secondary private IPv4 addresses to assign to a network interface. When you specify a number of secondary IPv4 addresses, Amazon EC2 selects these IP addresses within the subnet's IPv4 CIDR range. You can't specify this option and specify more than one private IP address using privateIpAddresses"
+        "description": "The number of secondary private IPv4 addresses."
       },
       {
-        "name": "ipv6_prefix_count",
-        "type": "integer",
-        "description": "The number of IPv6 prefixes to assign to a network interface. When you specify a number of IPv6 prefixes, Amazon EC2 selects these prefixes from your existing subnet CIDR reservations, if available, or from free spaces in the subnet. By default, these will be /80 prefixes. You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses."
-      },
-      {
-        "name": "primary_private_ip_address",
+        "name": "device_index",
         "type": "string",
-        "description": "Returns the primary private IP address of the network interface."
-      },
-      {
-        "name": "ipv4_prefixes",
-        "type": "array",
-        "description": "Assigns a list of IPv4 prefixes to the network interface. If you want EC2 to automatically assign IPv4 prefixes, use the Ipv4PrefixCount property and do not specify this property. Presently, only /28 prefixes are supported. You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.",
-        "children": [
-          {
-            "name": "ipv4_prefix",
-            "type": "string",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "name": "ipv4_prefix_count",
-        "type": "integer",
-        "description": "The number of IPv4 prefixes to assign to a network interface. When you specify a number of IPv4 prefixes, Amazon EC2 selects these prefixes from your existing subnet CIDR reservations, if available, or from free spaces in the subnet. By default, these will be /28 prefixes. You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses."
-      },
-      {
-        "name": "enable_primary_ipv6",
-        "type": "boolean",
-        "description": "If you have instances or ENIs that rely on the IPv6 address not changing, to avoid disrupting traffic to instances or ENIs, you can enable a primary IPv6 address. Enable this option to automatically assign an IPv6 associated with the ENI attached to your instance to be the primary IPv6 address. When you enable an IPv6 address to be a primary IPv6, you cannot disable it. Traffic will be routed to the primary IPv6 address until the instance is terminated or the ENI is detached. If you have multiple IPv6 addresses associated with an ENI and you enable a primary IPv6 address, the first IPv6 address associated with the ENI becomes the primary IPv6 address."
+        "description": "The position of the network interface in the attachment order. A primary network interface has a device index of 0."
       },
       {
         "name": "group_set",
         "type": "array",
-        "description": "A list of security group IDs associated with this network interface."
+        "description": "The IDs of the security groups for the network interface."
       },
       {
         "name": "ipv6_addresses",
         "type": "array",
-        "description": "One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet to associate with the network interface. If you're specifying a number of IPv6 addresses, use the Ipv6AddressCount property and don't specify this property."
-      },
-      {
-        "name": "ipv6_prefixes",
-        "type": "array",
-        "description": "Assigns a list of IPv6 prefixes to the network interface. If you want EC2 to automatically assign IPv6 prefixes, use the Ipv6PrefixCount property and do not specify this property. Presently, only /80 prefixes are supported. You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses.",
-        "children": [
-          {
-            "name": "ipv6_prefix",
-            "type": "string",
-            "description": ""
-          }
-        ]
+        "description": "The IPv6 addresses associated with the network interface."
       },
       {
         "name": "subnet_id",
         "type": "string",
-        "description": "The ID of the subnet to associate with the network interface."
+        "description": "The ID of the subnet."
       },
       {
-        "name": "source_dest_check",
+        "name": "associate_public_ip_address",
         "type": "boolean",
-        "description": "Indicates whether traffic to or from the instance is validated."
+        "description": "Indicates whether to assign a public IPv4 address to an instance you launch in a VPC."
       },
       {
-        "name": "interface_type",
+        "name": "network_interface_id",
         "type": "string",
-        "description": "Indicates the type of network interface."
+        "description": "The ID of the network interface."
       },
       {
-        "name": "secondary_private_ip_addresses",
-        "type": "array",
-        "description": "Returns the secondary private IP addresses of the network interface."
+        "name": "associate_carrier_ip_address",
+        "type": "boolean",
+        "description": "Not currently supported by AWS CloudFormation."
       },
       {
-        "name": "vpc_id",
-        "type": "string",
-        "description": "The ID of the VPC"
+        "name": "ena_srd_specification",
+        "type": "object",
+        "description": "Specifies the ENA Express settings for the network interface that's attached to the instance.",
+        "children": [
+          {
+            "name": "ena_srd_enabled",
+            "type": "boolean",
+            "description": "Specifies whether ENA Express is enabled for the network interface when you launch an instance."
+          },
+          {
+            "name": "ena_srd_udp_specification",
+            "type": "object",
+            "description": "Contains ENA Express settings for UDP network traffic for the network interface that's attached to the instance.",
+            "children": [
+              {
+                "name": "ena_srd_udp_enabled",
+                "type": "boolean",
+                "description": "Indicates whether UDP traffic uses ENA Express for your instance."
+              }
+            ]
+          }
+        ]
       },
       {
         "name": "ipv6_address_count",
         "type": "integer",
-        "description": "The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. To specify specific IPv6 addresses, use the Ipv6Addresses property and don't specify this property."
+        "description": "A number of IPv6 addresses to assign to the network interface."
       },
       {
-        "name": "id",
-        "type": "string",
-        "description": "Network interface id."
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "An arbitrary set of tags (key-value pairs) for this network interface."
-      },
-      {
-        "name": "connection_tracking_specification",
-        "type": "object",
-        "description": "",
-        "children": [
-          {
-            "name": "udp_timeout",
-            "type": "integer",
-            "description": ""
-          },
-          {
-            "name": "tcp_established_timeout",
-            "type": "integer",
-            "description": ""
-          },
-          {
-            "name": "udp_stream_timeout",
-            "type": "integer",
-            "description": ""
-          }
-        ]
+        "name": "delete_on_termination",
+        "type": "boolean",
+        "description": "If set to true, the interface is deleted when the instance is terminated."
       }
     ]
   },
@@ -1141,21 +1022,8 @@ resources:
     props:
       - name: volumes
         value:
-          - multi_attach_enabled: '{{ multi_attach_enabled }}'
-            kms_key_id: '{{ kms_key_id }}'
-            encrypted: '{{ encrypted }}'
-            size: '{{ size }}'
-            auto_enable_io: '{{ auto_enable_io }}'
-            outpost_arn: '{{ outpost_arn }}'
-            availability_zone: '{{ availability_zone }}'
-            throughput: '{{ throughput }}'
-            iops: '{{ iops }}'
-            volume_initialization_rate: '{{ volume_initialization_rate }}'
-            snapshot_id: '{{ snapshot_id }}'
-            volume_type: '{{ volume_type }}'
-            tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
+          - volume_id: '{{ volume_id }}'
+            device: '{{ device }}'
       - name: enclave_options
         value:
           enabled: '{{ enabled }}'
@@ -1163,7 +1031,8 @@ resources:
         value: '{{ image_id }}'
       - name: tags
         value:
-          - null
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: additional_info
         value: '{{ additional_info }}'
       - name: hibernation_options
@@ -1175,8 +1044,8 @@ resources:
       - name: metadata_options
         value:
           http_put_response_hop_limit: '{{ http_put_response_hop_limit }}'
-          http_tokens: '{{ http_tokens }}'
           http_protocol_ipv6: '{{ http_protocol_ipv6 }}'
+          http_tokens: '{{ http_tokens }}'
           instance_metadata_tags: '{{ instance_metadata_tags }}'
           http_endpoint: '{{ http_endpoint }}'
       - name: cpu_options
@@ -1217,16 +1086,17 @@ resources:
         value: '{{ user_data }}'
       - name: block_device_mappings
         value:
-          - device_name: '{{ device_name }}'
-            ebs:
-              delete_on_termination: '{{ delete_on_termination }}'
+          - ebs:
+              snapshot_id: '{{ snapshot_id }}'
+              volume_type: '{{ volume_type }}'
+              kms_key_id: '{{ kms_key_id }}'
               encrypted: '{{ encrypted }}'
               iops: '{{ iops }}'
-              snapshot_id: '{{ snapshot_id }}'
               volume_size: '{{ volume_size }}'
-              volume_type: '{{ volume_type }}'
-            no_device: '{{ no_device }}'
+              delete_on_termination: '{{ delete_on_termination }}'
+            no_device: {}
             virtual_name: '{{ virtual_name }}'
+            device_name: '{{ device_name }}'
       - name: iam_instance_profile
         value: '{{ iam_instance_profile }}'
       - name: ipv6_addresses
@@ -1259,30 +1129,24 @@ resources:
           - description: '{{ description }}'
             private_ip_address: '{{ private_ip_address }}'
             private_ip_addresses:
-              - primary: '{{ primary }}'
-                private_ip_address: '{{ private_ip_address }}'
+              - private_ip_address: '{{ private_ip_address }}'
+                primary: '{{ primary }}'
             secondary_private_ip_address_count: '{{ secondary_private_ip_address_count }}'
-            ipv6_prefix_count: '{{ ipv6_prefix_count }}'
-            ipv4_prefixes:
-              - ipv4_prefix: '{{ ipv4_prefix }}'
-            ipv4_prefix_count: '{{ ipv4_prefix_count }}'
-            enable_primary_ipv6: '{{ enable_primary_ipv6 }}'
+            device_index: '{{ device_index }}'
             group_set:
               - '{{ group_set[0] }}'
             ipv6_addresses:
               - null
-            ipv6_prefixes:
-              - ipv6_prefix: '{{ ipv6_prefix }}'
             subnet_id: '{{ subnet_id }}'
-            source_dest_check: '{{ source_dest_check }}'
-            interface_type: '{{ interface_type }}'
+            associate_public_ip_address: '{{ associate_public_ip_address }}'
+            network_interface_id: '{{ network_interface_id }}'
+            associate_carrier_ip_address: '{{ associate_carrier_ip_address }}'
+            ena_srd_specification:
+              ena_srd_enabled: '{{ ena_srd_enabled }}'
+              ena_srd_udp_specification:
+                ena_srd_udp_enabled: '{{ ena_srd_udp_enabled }}'
             ipv6_address_count: '{{ ipv6_address_count }}'
-            tags:
-              - null
-            connection_tracking_specification:
-              udp_timeout: '{{ udp_timeout }}'
-              tcp_established_timeout: '{{ tcp_established_timeout }}'
-              udp_stream_timeout: '{{ udp_stream_timeout }}'
+            delete_on_termination: '{{ delete_on_termination }}'
       - name: instance_type
         value: '{{ instance_type }}'
       - name: monitoring

@@ -246,12 +246,12 @@ Creates, updates, deletes or gets a <code>storage_len</code> resource or lists <
     "description": "A set of tags (key-value pairs) for this Amazon S3 Storage Lens configuration.",
     "children": [
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       },
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       }
@@ -683,8 +683,8 @@ resources:
               is_enabled: '{{ is_enabled }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>
