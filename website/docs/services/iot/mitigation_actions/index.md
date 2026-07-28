@@ -62,12 +62,12 @@ Creates, updates, deletes or gets a <code>mitigation_action</code> resource or l
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },

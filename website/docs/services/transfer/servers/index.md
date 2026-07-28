@@ -104,22 +104,32 @@ Creates, updates, deletes or gets a <code>server</code> resource or lists <code>
   {
     "name": "identity_provider_details",
     "type": "object",
-    "description": "You can provide a structure that contains the details for the identity provider to use with your web app.",
+    "description": "",
     "children": [
       {
-        "name": "application_arn",
+        "name": "url",
         "type": "string",
         "description": ""
       },
       {
-        "name": "instance_arn",
+        "name": "invocation_role",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) for the IAM Identity Center used for the web app."
+        "description": ""
       },
       {
-        "name": "role",
+        "name": "directory_id",
         "type": "string",
-        "description": "The IAM role in IAM Identity Center used for the web app."
+        "description": ""
+      },
+      {
+        "name": "function",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sftp_authentication_methods",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -220,12 +230,12 @@ Creates, updates, deletes or gets a <code>server</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": "The name assigned to the tag that you create."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "Contains one or more values that you assigned to the key name you create."
+        "description": ""
       }
     ]
   },
@@ -540,9 +550,11 @@ resources:
         value: '{{ endpoint_type }}'
       - name: identity_provider_details
         value:
-          application_arn: '{{ application_arn }}'
-          instance_arn: '{{ instance_arn }}'
-          role: '{{ role }}'
+          url: '{{ url }}'
+          invocation_role: '{{ invocation_role }}'
+          directory_id: '{{ directory_id }}'
+          function: '{{ function }}'
+          sftp_authentication_methods: '{{ sftp_authentication_methods }}'
       - name: identity_provider_type
         value: '{{ identity_provider_type }}'
       - name: ip_address_type

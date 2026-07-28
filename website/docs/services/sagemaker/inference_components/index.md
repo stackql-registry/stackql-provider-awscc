@@ -62,7 +62,7 @@ Creates, updates, deletes or gets an <code>inference_component</code> resource o
   {
     "name": "endpoint_name",
     "type": "string",
-    "description": "The name of the endpoint used to run the monitoring job."
+    "description": "The name of the endpoint the inference component is associated with"
   },
   {
     "name": "variant_name",
@@ -252,14 +252,14 @@ Creates, updates, deletes or gets an <code>inference_component</code> resource o
     "description": "An array of tags to apply to the resource",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       }
     ]
   },
@@ -518,8 +518,8 @@ resources:
               - alarm_name: '{{ alarm_name }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

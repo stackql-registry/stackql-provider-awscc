@@ -55,184 +55,29 @@ Creates, updates, deletes or gets a <code>verified_access_instance</code> resour
     "description": "AWS Verified Access trust providers.",
     "children": [
       {
-        "name": "trust_provider_type",
-        "type": "string",
-        "description": "Type of trust provider. Possible values: user|device"
-      },
-      {
-        "name": "device_trust_provider_type",
-        "type": "string",
-        "description": "The type of device-based trust provider. Possible values: jamf|crowdstrike"
-      },
-      {
-        "name": "user_trust_provider_type",
-        "type": "string",
-        "description": "The type of device-based trust provider. Possible values: oidc|iam-identity-center"
-      },
-      {
-        "name": "oidc_options",
-        "type": "object",
-        "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider.",
-        "children": [
-          {
-            "name": "issuer",
-            "type": "string",
-            "description": "The OIDC issuer."
-          },
-          {
-            "name": "authorization_endpoint",
-            "type": "string",
-            "description": "The OIDC authorization endpoint."
-          },
-          {
-            "name": "token_endpoint",
-            "type": "string",
-            "description": "The OIDC token endpoint."
-          },
-          {
-            "name": "user_info_endpoint",
-            "type": "string",
-            "description": "The OIDC user info endpoint."
-          },
-          {
-            "name": "client_id",
-            "type": "string",
-            "description": "The client identifier."
-          },
-          {
-            "name": "client_secret",
-            "type": "string",
-            "description": "The client secret."
-          },
-          {
-            "name": "scope",
-            "type": "string",
-            "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
-          }
-        ]
-      },
-      {
-        "name": "device_options",
-        "type": "object",
-        "description": "The options for device identity based trust providers.",
-        "children": [
-          {
-            "name": "tenant_id",
-            "type": "string",
-            "description": "The ID of the tenant application with the device-identity provider."
-          },
-          {
-            "name": "public_signing_key_url",
-            "type": "string",
-            "description": "URL Verified Access will use to verify authenticity of the device tokens."
-          }
-        ]
-      },
-      {
-        "name": "policy_reference_name",
-        "type": "string",
-        "description": "The identifier to be used when working with policy rules."
-      },
-      {
-        "name": "creation_time",
-        "type": "string",
-        "description": "The creation time."
-      },
-      {
-        "name": "last_updated_time",
-        "type": "string",
-        "description": "The last updated time."
-      },
-      {
         "name": "verified_access_trust_provider_id",
         "type": "string",
-        "description": "The ID of the Amazon Web Services Verified Access trust provider."
+        "description": "The ID of the trust provider."
       },
       {
         "name": "description",
         "type": "string",
-        "description": "A description for the Amazon Web Services Verified Access trust provider."
+        "description": "The description of trust provider."
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource.",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The tag key."
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": "The tag value."
-          }
-        ]
+        "name": "trust_provider_type",
+        "type": "string",
+        "description": "The type of trust provider (user- or device-based)."
       },
       {
-        "name": "sse_specification",
-        "type": "object",
-        "description": "The configuration options for customer provided KMS encryption.",
-        "children": [
-          {
-            "name": "kms_key_arn",
-            "type": "string",
-            "description": "KMS Key Arn used to encrypt the group policy"
-          },
-          {
-            "name": "customer_managed_key_enabled",
-            "type": "boolean",
-            "description": "Whether to encrypt the policy with the provided key or disable encryption"
-          }
-        ]
+        "name": "user_trust_provider_type",
+        "type": "string",
+        "description": "The type of user-based trust provider."
       },
       {
-        "name": "native_application_oidc_options",
-        "type": "object",
-        "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider for L4.",
-        "children": [
-          {
-            "name": "issuer",
-            "type": "string",
-            "description": "The OIDC issuer."
-          },
-          {
-            "name": "authorization_endpoint",
-            "type": "string",
-            "description": "The OIDC authorization endpoint."
-          },
-          {
-            "name": "token_endpoint",
-            "type": "string",
-            "description": "The OIDC token endpoint."
-          },
-          {
-            "name": "user_info_endpoint",
-            "type": "string",
-            "description": "The OIDC user info endpoint."
-          },
-          {
-            "name": "client_id",
-            "type": "string",
-            "description": "The client identifier."
-          },
-          {
-            "name": "client_secret",
-            "type": "string",
-            "description": "The client secret."
-          },
-          {
-            "name": "scope",
-            "type": "string",
-            "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
-          },
-          {
-            "name": "public_signing_key_endpoint",
-            "type": "string",
-            "description": "The public signing key for endpoint"
-          }
-        ]
+        "name": "device_trust_provider_type",
+        "type": "string",
+        "description": "The type of device-based trust provider."
       }
     ]
   },
@@ -342,12 +187,12 @@ Creates, updates, deletes or gets a <code>verified_access_instance</code> resour
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -582,37 +427,11 @@ resources:
     props:
       - name: verified_access_trust_providers
         value:
-          - trust_provider_type: '{{ trust_provider_type }}'
-            device_trust_provider_type: '{{ device_trust_provider_type }}'
-            user_trust_provider_type: '{{ user_trust_provider_type }}'
-            oidc_options:
-              issuer: '{{ issuer }}'
-              authorization_endpoint: '{{ authorization_endpoint }}'
-              token_endpoint: '{{ token_endpoint }}'
-              user_info_endpoint: '{{ user_info_endpoint }}'
-              client_id: '{{ client_id }}'
-              client_secret: '{{ client_secret }}'
-              scope: '{{ scope }}'
-            device_options:
-              tenant_id: '{{ tenant_id }}'
-              public_signing_key_url: '{{ public_signing_key_url }}'
-            policy_reference_name: '{{ policy_reference_name }}'
+          - verified_access_trust_provider_id: '{{ verified_access_trust_provider_id }}'
             description: '{{ description }}'
-            tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
-            sse_specification:
-              kms_key_arn: '{{ kms_key_arn }}'
-              customer_managed_key_enabled: '{{ customer_managed_key_enabled }}'
-            native_application_oidc_options:
-              issuer: '{{ issuer }}'
-              authorization_endpoint: '{{ authorization_endpoint }}'
-              token_endpoint: '{{ token_endpoint }}'
-              user_info_endpoint: '{{ user_info_endpoint }}'
-              client_id: '{{ client_id }}'
-              client_secret: '{{ client_secret }}'
-              scope: '{{ scope }}'
-              public_signing_key_endpoint: '{{ public_signing_key_endpoint }}'
+            trust_provider_type: '{{ trust_provider_type }}'
+            user_trust_provider_type: '{{ user_trust_provider_type }}'
+            device_trust_provider_type: '{{ device_trust_provider_type }}'
       - name: verified_access_trust_provider_ids
         value:
           - '{{ verified_access_trust_provider_ids[0] }}'
@@ -635,7 +454,8 @@ resources:
             prefix: '{{ prefix }}'
       - name: tags
         value:
-          - null
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: fips_enabled
         value: '{{ fips_enabled }}'
       - name: cidr_endpoints_custom_sub_domain

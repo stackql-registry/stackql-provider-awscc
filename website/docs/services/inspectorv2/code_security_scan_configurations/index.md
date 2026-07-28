@@ -60,30 +60,37 @@ Creates, updates, deletes or gets a <code>code_security_scan_configuration</code
     "description": "Code Security Scan Configuration",
     "children": [
       {
-        "name": "name",
-        "type": "string",
-        "description": "Code Security Scan Configuration name"
-      },
-      {
-        "name": "scope_settings",
+        "name": "periodic_scan_configuration",
         "type": "object",
-        "description": "Scope Settings",
+        "description": "",
         "children": [
           {
-            "name": "project_selection_scope",
+            "name": "frequency",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "frequency_expression",
             "type": "string",
             "description": ""
           }
         ]
       },
       {
-        "name": "arn",
-        "type": "string",
-        "description": "Code Security Scan Configuration ARN"
+        "name": "continuous_integration_scan_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "supported_events",
+            "type": "array",
+            "description": ""
+          }
+        ]
       },
       {
-        "name": "tags",
-        "type": "object",
+        "name": "rule_set_categories",
+        "type": "array",
         "description": ""
       }
     ]
@@ -317,16 +324,19 @@ resources:
         value: '{{ level }}'
       - name: configuration
         value:
-          name: '{{ name }}'
-          level: null
-          configuration: null
-          scope_settings:
-            project_selection_scope: '{{ project_selection_scope }}'
-          tags: {}
+          periodic_scan_configuration:
+            frequency: '{{ frequency }}'
+            frequency_expression: '{{ frequency_expression }}'
+          continuous_integration_scan_configuration:
+            supported_events:
+              - '{{ supported_events[0] }}'
+          rule_set_categories:
+            - '{{ rule_set_categories[0] }}'
       - name: scope_settings
-        value: null
+        value:
+          project_selection_scope: '{{ project_selection_scope }}'
       - name: tags
-        value: null`}</CodeBlock>
+        value: {}`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -177,23 +177,13 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
             "children": [
               {
                 "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
                 "type": "object",
-                "description": "the identifier (name) for the task template field"
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "description": "The description of the task template's field"
-              },
-              {
-                "name": "type",
-                "type": "string",
-                "description": "The type of the task template's field"
-              },
-              {
-                "name": "single_select_options",
-                "type": "array",
-                "description": "list of field options to be used with single select"
+                "description": "Object for case field values."
               }
             ]
           },
@@ -216,23 +206,13 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
             "children": [
               {
                 "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
                 "type": "object",
-                "description": "the identifier (name) for the task template field"
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "description": "The description of the task template's field"
-              },
-              {
-                "name": "type",
-                "type": "string",
-                "description": "The type of the task template's field"
-              },
-              {
-                "name": "single_select_options",
-                "type": "array",
-                "description": "list of field options to be used with single select"
+                "description": "Object for case field values."
               }
             ]
           }
@@ -270,12 +250,12 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -"
       }
     ]
   },
@@ -469,12 +449,12 @@ resources:
                   - '{{ user_arns[0] }}'
           create_case_actions:
             - fields:
-                - id:
-                    name: '{{ name }}'
-                  description: '{{ description }}'
-                  type: '{{ type }}'
-                  single_select_options:
-                    - '{{ single_select_options[0] }}'
+                - id: '{{ id }}'
+                  value:
+                    string_value: '{{ string_value }}'
+                    boolean_value: '{{ boolean_value }}'
+                    double_value: null
+                    empty_value: {}
               template_id: '{{ template_id }}'
           update_case_actions:
             - fields: null

@@ -103,29 +103,27 @@ Creates, updates, deletes or gets a <code>recording_configuration</code> resourc
   {
     "name": "thumbnail_configuration",
     "type": "object",
-    "description": "A complex type that allows you to enable/disable the recording of thumbnails for individual participant recording and modify the interval at which thumbnails are generated for the live session.",
+    "description": "Recording Thumbnail Configuration.",
     "children": [
       {
-        "name": "participant_thumbnail_configuration",
-        "type": "object",
-        "description": "An object representing a configuration of thumbnails for recorded video from an individual participant.",
-        "children": [
-          {
-            "name": "recording_mode",
-            "type": "string",
-            "description": "Thumbnail recording mode. Default: DISABLED."
-          },
-          {
-            "name": "storage",
-            "type": "array",
-            "description": "Indicates the format in which thumbnails are recorded. SEQUENTIAL records all generated thumbnails in a serial manner, to the media/thumbnails/high directory. LATEST saves the latest thumbnail in media/latest_thumbnail/high/thumb.jpg and overwrites it at the interval specified by targetIntervalSeconds. You can enable both SEQUENTIAL and LATEST. Default: SEQUENTIAL."
-          },
-          {
-            "name": "target_interval_seconds",
-            "type": "integer",
-            "description": "The targeted thumbnail-generation interval in seconds. This is configurable only if recordingMode is INTERVAL. Default: 60."
-          }
-        ]
+        "name": "recording_mode",
+        "type": "string",
+        "description": "Thumbnail Recording Mode, which determines whether thumbnails are recorded at an interval or are disabled."
+      },
+      {
+        "name": "target_interval_seconds",
+        "type": "integer",
+        "description": "Target Interval Seconds defines the interval at which thumbnails are recorded. This field is required if RecordingMode is INTERVAL."
+      },
+      {
+        "name": "resolution",
+        "type": "string",
+        "description": "Resolution indicates the desired resolution of recorded thumbnails."
+      },
+      {
+        "name": "storage",
+        "type": "array",
+        "description": "Storage indicates the format in which thumbnails are recorded."
       }
     ]
   },
@@ -357,11 +355,11 @@ resources:
             value: '{{ value }}'
       - name: thumbnail_configuration
         value:
-          participant_thumbnail_configuration:
-            recording_mode: '{{ recording_mode }}'
-            storage:
-              - '{{ storage[0] }}'
-            target_interval_seconds: '{{ target_interval_seconds }}'
+          recording_mode: '{{ recording_mode }}'
+          target_interval_seconds: '{{ target_interval_seconds }}'
+          resolution: '{{ resolution }}'
+          storage:
+            - '{{ storage[0] }}'
       - name: rendition_configuration
         value:
           rendition_selection: '{{ rendition_selection }}'

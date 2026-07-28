@@ -131,18 +131,8 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
             "description": "",
             "children": [
               {
-                "name": "filter",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "next",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "name",
-                "type": "string",
+                "name": "delta_time",
+                "type": "object",
                 "description": ""
               }
             ]
@@ -563,9 +553,9 @@ resources:
                 compute_type: '{{ compute_type }}'
             query_action:
               filters:
-                - filter: '{{ filter }}'
-                  next: '{{ next }}'
-                  name: '{{ name }}'
+                - delta_time:
+                    offset_seconds: '{{ offset_seconds }}'
+                    time_expression: '{{ time_expression }}'
               sql_query: '{{ sql_query }}'
       - name: late_data_rules
         value:

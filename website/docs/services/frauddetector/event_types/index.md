@@ -139,34 +139,39 @@ Creates, updates, deletes or gets an <code>event_type</code> resource or lists <
     "description": "",
     "children": [
       {
-        "name": "name",
+        "name": "arn",
         "type": "string",
-        "description": "The name of the label."
+        "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "Tags associated with this label."
+        "name": "inline",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
       },
       {
         "name": "description",
         "type": "string",
-        "description": "The label description."
+        "description": "The description."
       },
       {
-        "name": "arn",
-        "type": "string",
-        "description": "The label ARN."
+        "name": "tags",
+        "type": "array",
+        "description": "Tags associated with this event type."
       },
       {
         "name": "created_time",
         "type": "string",
-        "description": "The timestamp when the label was created."
+        "description": "The time when the event type was created."
       },
       {
         "name": "last_updated_time",
         "type": "string",
-        "description": "The timestamp when the label was last updated."
+        "description": "The time when the event type was last updated."
       }
     ]
   },
@@ -455,10 +460,14 @@ resources:
             last_updated_time: '{{ last_updated_time }}'
       - name: labels
         value:
-          - name: '{{ name }}'
+          - arn: '{{ arn }}'
+            inline: '{{ inline }}'
+            name: '{{ name }}'
+            description: '{{ description }}'
             tags:
               - null
-            description: '{{ description }}'
+            created_time: '{{ created_time }}'
+            last_updated_time: '{{ last_updated_time }}'
       - name: entity_types
         value:
           - arn: '{{ arn }}'

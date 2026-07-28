@@ -87,47 +87,47 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
               {
                 "name": "digital_signature",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used for digital signing."
               },
               {
                 "name": "non_repudiation",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used for non-repudiation."
               },
               {
                 "name": "key_encipherment",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used to encipher data."
               },
               {
                 "name": "data_encipherment",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used to decipher data."
               },
               {
                 "name": "key_agreement",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used in a key-agreement protocol."
               },
               {
                 "name": "key_cert_sign",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used to sign certificates."
               },
               {
                 "name": "c_rl_sign",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used to sign CRLs."
               },
               {
                 "name": "encipher_only",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used only to encipher data."
               },
               {
                 "name": "decipher_only",
                 "type": "boolean",
-                "description": ""
+                "description": "Key can be used only to decipher data."
               }
             ]
           },
@@ -139,42 +139,42 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
               {
                 "name": "other_name",
                 "type": "object",
-                "description": "Structure that contains X.509 OtherName information."
+                "description": "Represents <code>GeneralName</code> using an <code>OtherName</code> object."
               },
               {
                 "name": "rfc822_name",
                 "type": "string",
-                "description": "String that contains X.509 Rfc822Name information."
+                "description": "Represents <code>GeneralName</code> as an <a href=\"https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc822\">RFC 822</a> email address."
               },
               {
                 "name": "dns_name",
                 "type": "string",
-                "description": "String that contains X.509 DnsName information."
+                "description": "Represents <code>GeneralName</code> as a DNS name."
               },
               {
                 "name": "directory_name",
                 "type": "object",
-                "description": "Structure that contains X.500 distinguished name information for your CA."
+                "description": "Contains information about the certificate subject. The certificate can be one issued by your private certificate authority (CA) or it can be your private CA certificate. The Subject field in the certificate identifies the entity that owns or controls the public key in the certificate. The entity can be a user, computer, device, or service. The Subject must contain an X.500 distinguished name (DN). A DN is a sequence of relative distinguished names (RDNs). The RDNs are separated by commas in the certificate. The DN must be unique for each entity, but your private CA can issue more than one certificate with the same DN to the same entity."
               },
               {
                 "name": "edi_party_name",
                 "type": "object",
-                "description": "Structure that contains X.509 EdiPartyName information."
+                "description": "Represents <code>GeneralName</code> as an <code>EdiPartyName</code> object."
               },
               {
                 "name": "uniform_resource_identifier",
                 "type": "string",
-                "description": "String that contains X.509 UniformResourceIdentifier information."
+                "description": "Represents <code>GeneralName</code> as a URI."
               },
               {
                 "name": "ip_address",
                 "type": "string",
-                "description": "String that contains X.509 IpAddress information."
+                "description": "Represents <code>GeneralName</code> as an IPv4 or IPv6 address."
               },
               {
                 "name": "registered_id",
                 "type": "string",
-                "description": "String that contains X.509 ObjectIdentifier information."
+                "description": "Represents <code>GeneralName</code> as an object identifier (OID)."
               }
             ]
           },
@@ -210,87 +210,87 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
           {
             "name": "country",
             "type": "string",
-            "description": ""
+            "description": "Two-digit code that specifies the country in which the certificate subject located."
           },
           {
             "name": "organization",
             "type": "string",
-            "description": ""
+            "description": "Legal name of the organization with which the certificate subject is affiliated."
           },
           {
             "name": "organizational_unit",
             "type": "string",
-            "description": ""
+            "description": "A subdivision or unit of the organization (such as sales or finance) with which the certificate subject is affiliated."
           },
           {
             "name": "distinguished_name_qualifier",
             "type": "string",
-            "description": ""
+            "description": "Disambiguating information for the certificate subject."
           },
           {
             "name": "state",
             "type": "string",
-            "description": ""
+            "description": "State in which the subject of the certificate is located."
           },
           {
             "name": "common_name",
             "type": "string",
-            "description": ""
+            "description": "<details><summary>For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length limit.</summary>Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated with the certificate subject.</details>"
           },
           {
             "name": "serial_number",
             "type": "string",
-            "description": ""
+            "description": "The certificate serial number."
           },
           {
             "name": "locality",
             "type": "string",
-            "description": ""
+            "description": "The locality (such as a city or town) in which the certificate subject is located."
           },
           {
             "name": "title",
             "type": "string",
-            "description": ""
+            "description": "A title such as Mr. or Ms., which is pre-pended to the name to refer formally to the certificate subject."
           },
           {
             "name": "surname",
             "type": "string",
-            "description": ""
+            "description": "Family name. In the US and the UK, for example, the surname of an individual is ordered last. In Asian cultures the surname is typically ordered first."
           },
           {
             "name": "given_name",
             "type": "string",
-            "description": ""
+            "description": "First name."
           },
           {
             "name": "initials",
             "type": "string",
-            "description": ""
+            "description": "Concatenation that typically contains the first letter of the <i>GivenName</i>, the first letter of the middle name if one exists, and the first letter of the <i>Surname</i>."
           },
           {
             "name": "pseudonym",
             "type": "string",
-            "description": ""
+            "description": "Typically a shortened version of a longer <i>GivenName</i>. For example, Jonathan is often shortened to John. Elizabeth is often shortened to Beth, Liz, or Eliza."
           },
           {
             "name": "generation_qualifier",
             "type": "string",
-            "description": ""
+            "description": "Typically a qualifier appended to the name of an individual. Examples include Jr. for junior, Sr. for senior, and III for third."
           },
           {
             "name": "custom_attributes",
             "type": "array",
-            "description": "Array of X.500 attribute type and value. CustomAttributes cannot be used along with pre-defined attributes.",
+            "description": "<details><summary>Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object identifier (OID) and a value. For more information, see NIST’s definition of <a href=\"https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier\">Object Identifier (OID)</a>.</summary>Custom attributes cannot be used in combination with standard attributes.</details>",
             "children": [
               {
                 "name": "object_identifier",
                 "type": "string",
-                "description": "String that contains X.509 ObjectIdentifier information."
+                "description": "Specifies the object identifier (OID) of the attribute type of the relative distinguished name (RDN)."
               },
               {
                 "name": "value",
                 "type": "string",
-                "description": ""
+                "description": "Specifies the attribute value of relative distinguished name (RDN)."
               }
             ]
           }

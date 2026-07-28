@@ -138,22 +138,22 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
       {
         "name": "resource_type",
         "type": "string",
-        "description": "<details><summary>The type of resource to tag. You can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.</summary>To tag a resource after it has been created, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html\">CreateTags</a>.</details>"
+        "description": ""
       },
       {
         "name": "tags",
         "type": "array",
-        "description": "The tags to apply to the resource.",
+        "description": "",
         "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The tag key."
-          },
           {
             "name": "value",
             "type": "string",
-            "description": "The tag value."
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
           }
         ]
       }
@@ -275,52 +275,47 @@ Creates, updates, deletes or gets an <code>ec2fleet</code> resource or lists <co
           {
             "name": "placement",
             "type": "object",
-            "description": "<details><summary>Specifies the placement of an instance.</summary><code>Placement</code> is a property of <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html\">AWS::EC2::LaunchTemplate LaunchTemplateData</a>.</details>",
+            "description": "",
             "children": [
               {
                 "name": "group_name",
                 "type": "string",
-                "description": "The name of the placement group for the instance."
+                "description": ""
               },
               {
                 "name": "tenancy",
                 "type": "string",
-                "description": "The tenancy of the instance. An instance with a tenancy of dedicated runs on single-tenant hardware."
+                "description": ""
               },
               {
                 "name": "spread_domain",
                 "type": "string",
-                "description": "Reserved for future use."
+                "description": ""
               },
               {
                 "name": "partition_number",
                 "type": "integer",
-                "description": "The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>."
+                "description": ""
               },
               {
                 "name": "availability_zone",
                 "type": "string",
-                "description": "The Availability Zone for the instance."
+                "description": ""
               },
               {
                 "name": "affinity",
                 "type": "string",
-                "description": "The affinity setting for an instance on a Dedicated Host."
+                "description": ""
               },
               {
                 "name": "host_id",
                 "type": "string",
-                "description": "The ID of the Dedicated Host for the instance."
+                "description": ""
               },
               {
                 "name": "host_resource_group_arn",
                 "type": "string",
-                "description": "The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the <i>Tenancy</i> parameter or set it to <code>host</code>."
-              },
-              {
-                "name": "group_id",
-                "type": "string",
-                "description": "The Group Id of a placement group. You must specify the Placement Group <i>Group Id</i> to launch an instance in a shared placement group."
+                "description": ""
               }
             ]
           },
@@ -772,8 +767,8 @@ resources:
         value:
           - resource_type: '{{ resource_type }}'
             tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
+              - value: '{{ value }}'
+                key: '{{ key }}'
       - name: spot_options
         value:
           maintenance_strategies:
@@ -808,7 +803,6 @@ resources:
                   affinity: '{{ affinity }}'
                   host_id: '{{ host_id }}'
                   host_resource_group_arn: '{{ host_resource_group_arn }}'
-                  group_id: '{{ group_id }}'
                 priority: null
                 availability_zone: '{{ availability_zone }}'
                 subnet_id: '{{ subnet_id }}'
@@ -875,6 +869,7 @@ resources:
                       delete_on_termination: '{{ delete_on_termination }}'
                       encrypted: '{{ encrypted }}'
                       iops: '{{ iops }}'
+                      kms_key_id: '{{ kms_key_id }}'
                       snapshot_id: '{{ snapshot_id }}'
                       volume_size: '{{ volume_size }}'
                       volume_type: '{{ volume_type }}'

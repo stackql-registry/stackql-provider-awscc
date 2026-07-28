@@ -52,12 +52,27 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
   {
     "name": "template",
     "type": "object",
-    "description": "Resource Type definition for AWS::SES::Template",
+    "description": "The content of the email, composed of a subject line, an HTML part, and a text-only part",
     "children": [
       {
-        "name": "id",
+        "name": "template_name",
         "type": "string",
-        "description": ""
+        "description": "The name of the template."
+      },
+      {
+        "name": "subject_part",
+        "type": "string",
+        "description": "The subject line of the email."
+      },
+      {
+        "name": "text_part",
+        "type": "string",
+        "description": "The email body that is visible to recipients whose email clients do not display HTML content."
+      },
+      {
+        "name": "html_part",
+        "type": "string",
+        "description": "The HTML body of the email."
       }
     ]
   },
@@ -244,7 +259,10 @@ resources:
     props:
       - name: template
         value:
-          template: null`}</CodeBlock>
+          template_name: '{{ template_name }}'
+          subject_part: '{{ subject_part }}'
+          text_part: '{{ text_part }}'
+          html_part: '{{ html_part }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -62,7 +62,7 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
   {
     "name": "description",
     "type": "string",
-    "description": "The description of the event trigger."
+    "description": "The description of the calculated attribute."
   },
   {
     "name": "attribute_details",

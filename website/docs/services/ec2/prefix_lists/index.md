@@ -82,12 +82,12 @@ Creates, updates, deletes or gets a <code>prefix_list</code> resource or lists <
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

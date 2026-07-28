@@ -171,79 +171,108 @@ Creates, updates, deletes or gets a <code>workgroup</code> resource or lists <co
     "description": "Definition for workgroup resource",
     "children": [
       {
+        "name": "workgroup_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "workgroup_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
         "name": "workgroup_name",
         "type": "string",
-        "description": "The name of the workgroup."
+        "description": ""
       },
       {
         "name": "namespace_name",
         "type": "string",
-        "description": "The namespace the workgroup is associated with."
+        "description": ""
       },
       {
         "name": "base_capacity",
         "type": "integer",
-        "description": "The base compute capacity of the workgroup in Redshift Processing Units (RPUs)."
+        "description": ""
       },
       {
         "name": "max_capacity",
         "type": "integer",
-        "description": "The max compute capacity of the workgroup in Redshift Processing Units (RPUs)."
+        "description": ""
       },
       {
         "name": "enhanced_vpc_routing",
         "type": "boolean",
-        "description": "The value that specifies whether to enable enhanced virtual private cloud (VPC) routing, which forces Amazon Redshift Serverless to route traffic through your VPC."
+        "description": ""
       },
       {
         "name": "config_parameters",
         "type": "array",
-        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable_user_activity_logging, query_group, search_path, max_query_execution_time, and require_ssl."
+        "description": ""
       },
       {
         "name": "security_group_ids",
         "type": "array",
-        "description": "A list of security group IDs to associate with the workgroup."
+        "description": ""
       },
       {
         "name": "subnet_ids",
         "type": "array",
-        "description": "A list of subnet IDs the workgroup is associated with."
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "endpoint",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "address",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "vpc_endpoints",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "vpc_endpoint_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "vpc_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "network_interfaces",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
       },
       {
         "name": "publicly_accessible",
         "type": "boolean",
-        "description": "A value that specifies whether the workgroup can be accessible from a public network."
+        "description": ""
       },
       {
-        "name": "port",
-        "type": "integer",
-        "description": "The custom port to use when connecting to a workgroup. Valid port ranges are 5431-5455 and 8191-8215. The default is 5439."
-      },
-      {
-        "name": "snapshot_arn",
+        "name": "creation_date",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the snapshot to restore from."
-      },
-      {
-        "name": "snapshot_name",
-        "type": "string",
-        "description": "The snapshot name to restore from."
-      },
-      {
-        "name": "snapshot_owner_account",
-        "type": "string",
-        "description": "The Amazon Web Services account that owns the snapshot."
-      },
-      {
-        "name": "recovery_point_id",
-        "type": "string",
-        "description": "The recovery point id to restore from."
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "The map of the key-value pairs used to tag the workgroup."
+        "description": ""
       },
       {
         "name": "track_name",
@@ -273,79 +302,108 @@ Creates, updates, deletes or gets a <code>workgroup</code> resource or lists <co
     "description": "Definition for workgroup resource",
     "children": [
       {
+        "name": "workgroup_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "workgroup_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
         "name": "workgroup_name",
         "type": "string",
-        "description": "The name of the workgroup."
+        "description": ""
       },
       {
         "name": "namespace_name",
         "type": "string",
-        "description": "The namespace the workgroup is associated with."
+        "description": ""
       },
       {
         "name": "base_capacity",
         "type": "integer",
-        "description": "The base compute capacity of the workgroup in Redshift Processing Units (RPUs)."
+        "description": ""
       },
       {
         "name": "max_capacity",
         "type": "integer",
-        "description": "The max compute capacity of the workgroup in Redshift Processing Units (RPUs)."
+        "description": ""
       },
       {
         "name": "enhanced_vpc_routing",
         "type": "boolean",
-        "description": "The value that specifies whether to enable enhanced virtual private cloud (VPC) routing, which forces Amazon Redshift Serverless to route traffic through your VPC."
+        "description": ""
       },
       {
         "name": "config_parameters",
         "type": "array",
-        "description": "A list of parameters to set for finer control over a database. Available options are datestyle, enable_user_activity_logging, query_group, search_path, max_query_execution_time, and require_ssl."
+        "description": ""
       },
       {
         "name": "security_group_ids",
         "type": "array",
-        "description": "A list of security group IDs to associate with the workgroup."
+        "description": ""
       },
       {
         "name": "subnet_ids",
         "type": "array",
-        "description": "A list of subnet IDs the workgroup is associated with."
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "endpoint",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "address",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "vpc_endpoints",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "vpc_endpoint_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "vpc_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "network_interfaces",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
       },
       {
         "name": "publicly_accessible",
         "type": "boolean",
-        "description": "A value that specifies whether the workgroup can be accessible from a public network."
+        "description": ""
       },
       {
-        "name": "port",
-        "type": "integer",
-        "description": "The custom port to use when connecting to a workgroup. Valid port ranges are 5431-5455 and 8191-8215. The default is 5439."
-      },
-      {
-        "name": "snapshot_arn",
+        "name": "creation_date",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the snapshot to restore from."
-      },
-      {
-        "name": "snapshot_name",
-        "type": "string",
-        "description": "The snapshot name to restore from."
-      },
-      {
-        "name": "snapshot_owner_account",
-        "type": "string",
-        "description": "The Amazon Web Services account that owns the snapshot."
-      },
-      {
-        "name": "recovery_point_id",
-        "type": "string",
-        "description": "The recovery point id to restore from."
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "The map of the key-value pairs used to tag the workgroup."
+        "description": ""
       },
       {
         "name": "track_name",
@@ -614,6 +672,8 @@ resources:
         value: '{{ track_name }}'
       - name: workgroup
         value:
+          workgroup_id: '{{ workgroup_id }}'
+          workgroup_arn: '{{ workgroup_arn }}'
           workgroup_name: '{{ workgroup_name }}'
           namespace_name: '{{ namespace_name }}'
           base_capacity: '{{ base_capacity }}'
@@ -625,17 +685,22 @@ resources:
             - '{{ security_group_ids[0] }}'
           subnet_ids:
             - '{{ subnet_ids[0] }}'
+          status: '{{ status }}'
+          endpoint:
+            address: '{{ address }}'
+            port: '{{ port }}'
+            vpc_endpoints:
+              - vpc_endpoint_id: '{{ vpc_endpoint_id }}'
+                vpc_id: '{{ vpc_id }}'
+                network_interfaces:
+                  - network_interface_id: '{{ network_interface_id }}'
+                    subnet_id: '{{ subnet_id }}'
+                    private_ip_address: '{{ private_ip_address }}'
+                    availability_zone: '{{ availability_zone }}'
           publicly_accessible: '{{ publicly_accessible }}'
-          port: '{{ port }}'
+          creation_date: '{{ creation_date }}'
           price_performance_target: null
-          snapshot_arn: '{{ snapshot_arn }}'
-          snapshot_name: '{{ snapshot_name }}'
-          snapshot_owner_account: '{{ snapshot_owner_account }}'
-          recovery_point_id: '{{ recovery_point_id }}'
-          tags:
-            - null
-          track_name: '{{ track_name }}'
-          workgroup: null`}</CodeBlock>
+          track_name: '{{ track_name }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

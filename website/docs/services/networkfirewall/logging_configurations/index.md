@@ -48,17 +48,29 @@ Creates, updates, deletes or gets a <code>logging_configuration</code> resource 
   {
     "name": "logging_configuration",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::LoggingConfiguration",
+    "description": "",
     "children": [
       {
-        "name": "firewall_name",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "enable_monitoring_dashboard",
-        "type": "boolean",
-        "description": ""
+        "name": "log_destination_configs",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "log_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "log_destination_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "log_destination",
+            "type": "object",
+            "description": "A key-value pair to configure the logDestinations."
+          }
+        ]
       }
     ]
   },
@@ -213,10 +225,10 @@ resources:
         value: '{{ firewall_arn }}'
       - name: logging_configuration
         value:
-          firewall_name: '{{ firewall_name }}'
-          firewall_arn: null
-          logging_configuration: null
-          enable_monitoring_dashboard: '{{ enable_monitoring_dashboard }}'
+          log_destination_configs:
+            - log_type: '{{ log_type }}'
+              log_destination_type: '{{ log_destination_type }}'
+              log_destination: {}
       - name: enable_monitoring_dashboard
         value: '{{ enable_monitoring_dashboard }}'`}</CodeBlock>
 

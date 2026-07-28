@@ -97,14 +97,14 @@ Creates, updates, deletes or gets a <code>transit_gateway_peering_attachment</co
     "description": "The tags for the transit gateway peering attachment.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "The value of the tag. Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key of the tag. Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with aws:."
       }
     ]
   },
@@ -325,8 +325,8 @@ resources:
         value: '{{ peer_region }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

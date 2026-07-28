@@ -112,14 +112,14 @@ Creates, updates, deletes or gets a <code>traffic_mirror_filter_rule</code> reso
     "description": "Any tags assigned to the Traffic Mirror Filter rule.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -368,8 +368,8 @@ resources:
         value: '{{ protocol }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

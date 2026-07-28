@@ -50,14 +50,19 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
     "description": "An Anycast static IP list. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html\">Request Anycast static IPs to use for allowlisting</a> in the <i>Amazon CloudFront Developer Guide</i>.",
     "children": [
       {
-        "name": "e_tag",
+        "name": "anycast_ips",
+        "type": "array",
+        "description": "The static IP addresses that are allocated to the Anycast static IP list."
+      },
+      {
+        "name": "arn",
         "type": "string",
-        "description": ""
+        "description": "The Amazon Resource Name (ARN) of the Anycast static IP list."
       },
       {
         "name": "id",
         "type": "string",
-        "description": ""
+        "description": "The ID of the Anycast static IP list."
       },
       {
         "name": "ip_count",
@@ -65,33 +70,19 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
         "description": "The number of IP addresses in the Anycast static IP list."
       },
       {
+        "name": "last_modified_time",
+        "type": "string",
+        "description": "The last time the Anycast static IP list was modified."
+      },
+      {
         "name": "name",
         "type": "string",
         "description": "The name of the Anycast static IP list."
       },
       {
-        "name": "tags",
-        "type": "object",
-        "description": "A complex type that contains zero or more <code>Tag</code> elements.",
-        "children": [
-          {
-            "name": "items",
-            "type": "array",
-            "description": "A complex type that contains <code>Tag</code> elements.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": "<details><summary>A string that contains <code>Tag</code> key.</summary>The string length should be between 1 and 128 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "<details><summary>A string that contains an optional <code>Tag</code> value.</summary>The string length should be between 0 and 256 characters. Valid characters include <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, space, and the special characters <code>_ - . : / = + @</code>.</details>"
-              }
-            ]
-          }
-        ]
+        "name": "status",
+        "type": "string",
+        "description": "The status of the Anycast static IP list. Valid values: <code>Deployed</code>, <code>Deploying</code>, or <code>Failed</code>."
       }
     ]
   },

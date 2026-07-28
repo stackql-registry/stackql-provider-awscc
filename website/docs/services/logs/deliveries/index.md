@@ -72,12 +72,12 @@ Creates, updates, deletes or gets a <code>delivery</code> resource or lists <cod
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode"
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value of this key-value pair."
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode"
       }
     ]
   },

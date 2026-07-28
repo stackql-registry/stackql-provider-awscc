@@ -77,7 +77,7 @@ Creates, updates, deletes or gets a <code>signaling_channel</code> resource or l
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+        "description": "The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:.  The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },

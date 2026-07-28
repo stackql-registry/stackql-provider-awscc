@@ -80,66 +80,14 @@ Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>
     "description": "An array of pod identities to apply to this add-on.",
     "children": [
       {
-        "name": "cluster_name",
-        "type": "string",
-        "description": "The cluster that the pod identity association is created for."
-      },
-      {
-        "name": "role_arn",
-        "type": "string",
-        "description": "The IAM role ARN that the pod identity association is created for."
-      },
-      {
-        "name": "namespace",
-        "type": "string",
-        "description": "The Kubernetes namespace that the pod identity association is created for."
-      },
-      {
         "name": "service_account",
         "type": "string",
         "description": "The Kubernetes service account that the pod identity association is created for."
       },
       {
-        "name": "association_arn",
+        "name": "role_arn",
         "type": "string",
-        "description": "The ARN of the pod identity association."
-      },
-      {
-        "name": "association_id",
-        "type": "string",
-        "description": "The ID of the pod identity association."
-      },
-      {
-        "name": "target_role_arn",
-        "type": "string",
-        "description": "The Target Role Arn of the pod identity association."
-      },
-      {
-        "name": "external_id",
-        "type": "string",
-        "description": "The External Id of the pod identity association."
-      },
-      {
-        "name": "disable_session_tags",
-        "type": "boolean",
-        "description": "The Disable Session Tags of the pod identity association."
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource.",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-          }
-        ]
+        "description": "The IAM role ARN that the pod identity association is created for."
       }
     ]
   },
@@ -173,12 +121,12 @@ Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -412,15 +360,8 @@ resources:
         value: '{{ service_account_role_arn }}'
       - name: pod_identity_associations
         value:
-          - cluster_name: '{{ cluster_name }}'
+          - service_account: '{{ service_account }}'
             role_arn: '{{ role_arn }}'
-            namespace: '{{ namespace }}'
-            service_account: '{{ service_account }}'
-            target_role_arn: '{{ target_role_arn }}'
-            disable_session_tags: '{{ disable_session_tags }}'
-            tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
       - name: configuration_values
         value: '{{ configuration_values }}'
       - name: namespace_config
@@ -428,7 +369,8 @@ resources:
           namespace: '{{ namespace }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

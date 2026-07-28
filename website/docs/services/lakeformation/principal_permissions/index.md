@@ -48,7 +48,7 @@ Creates, updates, deletes or gets a <code>principal_permission</code> resource o
       {
         "name": "data_lake_principal_identifier",
         "type": "string",
-        "description": ""
+        "description": "An identifier for the LFlong principal."
       }
     ]
   },
@@ -60,51 +60,126 @@ Creates, updates, deletes or gets a <code>principal_permission</code> resource o
       {
         "name": "catalog",
         "type": "object",
-        "description": ""
+        "description": "The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your LFlong environment."
       },
       {
         "name": "database",
         "type": "object",
-        "description": "",
+        "description": "The database for the resource. Unique to the Data Catalog. A database is a set of associated table definitions organized into a logical group. You can Grant and Revoke database permissions to a principal.",
         "children": [
           {
             "name": "name",
             "type": "string",
-            "description": ""
+            "description": "The name of the database resource. Unique to the Data Catalog."
           }
         ]
       },
       {
         "name": "table",
         "type": "object",
-        "description": "",
+        "description": "The table for the resource. A table is a metadata definition that represents your data. You can Grant and Revoke table privileges to a principal.",
         "children": [
           {
             "name": "database_name",
             "type": "string",
-            "description": ""
+            "description": "The name of the database for the table. Unique to a Data Catalog. A database is a set of associated table definitions organized into a logical group. You can Grant and Revoke database privileges to a principal."
           },
           {
             "name": "table_wildcard",
             "type": "object",
-            "description": ""
+            "description": "<details><summary>A wildcard object representing every table under a database.</summary>At least one of <code>TableResource$Name</code> or <code>TableResource$TableWildcard</code> is required.</details>"
           }
         ]
       },
       {
         "name": "table_with_columns",
         "type": "object",
-        "description": "",
+        "description": "The table with columns for the resource. A principal with permissions to this resource can select metadata from the columns of a table in the Data Catalog and the underlying data in Amazon S3.",
         "children": [
           {
             "name": "database_name",
             "type": "string",
-            "description": ""
+            "description": "The name of the database for the table with columns resource. Unique to the Data Catalog. A database is a set of associated table definitions organized into a logical group. You can Grant and Revoke database privileges to a principal."
           },
           {
             "name": "column_names",
             "type": "array",
-            "description": ""
+            "description": "The list of column names for the table. At least one of <code>ColumnNames</code> or <code>ColumnWildcard</code> is required."
+          },
+          {
+            "name": "column_wildcard",
+            "type": "object",
+            "description": "A wildcard specified by a <code>ColumnWildcard</code> object. At least one of <code>ColumnNames</code> or <code>ColumnWildcard</code> is required."
+          }
+        ]
+      },
+      {
+        "name": "data_location",
+        "type": "object",
+        "description": "The location of an Amazon S3 path where permissions are granted or revoked.",
+        "children": [
+          {
+            "name": "resource_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) that uniquely identifies the data location resource."
+          }
+        ]
+      },
+      {
+        "name": "data_cells_filter",
+        "type": "object",
+        "description": "A data cell filter.",
+        "children": [
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": "A database in the GLUDC."
+          }
+        ]
+      },
+      {
+        "name": "lf_tag",
+        "type": "object",
+        "description": "The LF-tag key and values attached to a resource.",
+        "children": [
+          {
+            "name": "tag_key",
+            "type": "string",
+            "description": "The key-name for the LF-tag."
+          },
+          {
+            "name": "tag_values",
+            "type": "array",
+            "description": "A list of possible values for the corresponding <code>TagKey</code> of an LF-tag key-value pair."
+          }
+        ]
+      },
+      {
+        "name": "lf_tag_policy",
+        "type": "object",
+        "description": "A list of LF-tag conditions that define a resource's LF-tag policy.",
+        "children": [
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": "The resource type for which the LF-tag policy applies."
+          },
+          {
+            "name": "expression",
+            "type": "array",
+            "description": "A list of LF-tag conditions that apply to the resource's LF-tag policy.",
+            "children": [
+              {
+                "name": "tag_key",
+                "type": "string",
+                "description": "The key-name for the LF-tag."
+              },
+              {
+                "name": "tag_values",
+                "type": "array",
+                "description": "A list of possible values of the corresponding <code>TagKey</code> of an LF-tag key-value pair."
+              }
+            ]
           }
         ]
       }
@@ -291,6 +366,27 @@ resources:
             name: null
             column_names:
               - null
+            column_wildcard:
+              excluded_column_names: null
+          data_location:
+            catalog_id: null
+            resource_arn: '{{ resource_arn }}'
+          data_cells_filter:
+            table_catalog_id: null
+            database_name: null
+            table_name: null
+            name: null
+          lf_tag:
+            catalog_id: null
+            tag_key: null
+            tag_values:
+              - '{{ tag_values[0] }}'
+          lf_tag_policy:
+            catalog_id: null
+            resource_type: '{{ resource_type }}'
+            expression:
+              - tag_key: '{{ tag_key }}'
+                tag_values: null
       - name: permissions
         value:
           - '{{ permissions[0] }}'

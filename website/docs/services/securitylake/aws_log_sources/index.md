@@ -1,0 +1,407 @@
+---
+title: aws_log_sources
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - aws_log_sources
+  - securitylake
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets an <code>aws_log_source</code> resource or lists <code>aws_log_sources</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>aws_log_sources</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Resource Type definition for AWS::SecurityLake::AwsLogSource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.securitylake.aws_log_sources" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+<SchemaTable fields={[
+  {
+    "name": "accounts",
+    "type": "array",
+    "description": "AWS account where you want to collect logs from."
+  },
+  {
+    "name": "data_lake_arn",
+    "type": "string",
+    "description": "The ARN for the data lake."
+  },
+  {
+    "name": "source_name",
+    "type": "string",
+    "description": "The name for a AWS source. This must be a Regionally unique value."
+  },
+  {
+    "name": "source_version",
+    "type": "string",
+    "description": "The version for a AWS source. This must be a Regionally unique value."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "source_name",
+    "type": "string",
+    "description": "The name for a AWS source. This must be a Regionally unique value."
+  },
+  {
+    "name": "source_version",
+    "type": "string",
+    "description": "The version for a AWS source. This must be a Regionally unique value."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securitylake-awslogsource.html"><code>AWS::SecurityLake::AwsLogSource</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Resource</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>aws_log_sources</code></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="DataLakeArn, SourceVersion, SourceName, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>aws_log_sources</code></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>aws_log_sources</code></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>aws_log_sources_list_only</code></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>aws_log_sources</code></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+Gets all properties from an individual <code>aws_log_source</code>.
+```sql
+SELECT
+  region,
+  accounts,
+  data_lake_arn,
+  source_name,
+  source_version
+FROM awscc.securitylake.aws_log_sources
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ source_name }}|{{ source_version }}';
+```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>aws_log_sources</code> in a region.
+```sql
+SELECT
+  region,
+  source_name,
+  source_version
+FROM awscc.securitylake.aws_log_sources_list_only
+WHERE
+  region = '{{ region }}';
+```
+</TabItem>
+</Tabs>
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>aws_log_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.securitylake.aws_log_sources (
+  DataLakeArn,
+  SourceName,
+  SourceVersion,
+  region
+)
+SELECT
+  '{{ data_lake_arn }}',
+  '{{ source_name }}',
+  '{{ source_version }}',
+  '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.securitylake.aws_log_sources (
+  Accounts,
+  DataLakeArn,
+  SourceName,
+  SourceVersion,
+  region
+)
+SELECT
+  '{{ accounts }}',
+  '{{ data_lake_arn }}',
+  '{{ source_name }}',
+  '{{ source_version }}',
+  '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: aws_log_source
+    props:
+      - name: accounts
+        value:
+          - '{{ accounts[0] }}'
+      - name: data_lake_arn
+        value: '{{ data_lake_arn }}'
+      - name: source_name
+        value: '{{ source_name }}'
+      - name: source_version
+        value: '{{ source_version }}'`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+## `UPDATE` example
+
+Use the following StackQL query and manifest file to update a <code>aws_log_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+```sql
+/*+ update */
+UPDATE awscc.securitylake.aws_log_sources
+SET PatchDocument = string('{{ {
+    "Accounts": accounts
+} | generate_patch_document }}')
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ source_name }}|{{ source_version }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
+```
+
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.securitylake.aws_log_sources
+WHERE
+  Identifier = '{{ source_name }}|{{ source_version }}' AND
+  region = '{{ region }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
+```
+
+
+## Additional Parameters
+
+Mutable resources in the Cloud Control provider support additional optional parameters which can be supplied with `INSERT`, `UPDATE`, or `DELETE` operations. These include:
+
+| Parameter | Description |
+|-----------|-------------|
+| <CopyableCode code="ClientToken" /> | <details><summary>A unique identifier to ensure the idempotency of the resource request.</summary>This allows the provider to accurately distinguish between retries and new requests.<br />A client token is valid for 36 hours once used.<br />After that, a resource request with the same client token is treated as a new request.<br />If you do not specify a client token, one is generated for inclusion in the request.</details> |
+| <CopyableCode code="RoleArn" /> | <details><summary>The ARN of the IAM role used to perform this resource operation.</summary>The role specified must have the permissions required for this operation.<br />If you do not specify a role, a temporary session is created using your AWS user credentials.</details> |
+| <CopyableCode code="TypeVersionId" /> | <details><summary>For private resource types, the type version to use in this resource operation.</summary>If you do not specify a resource version, the default version is used.</details> |
+
+## Permissions
+
+To operate on the <code>aws_log_sources</code> resource, the following permissions are required:
+
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
+```json
+glue:CreateDatabase,
+glue:CreateTable,
+glue:GetDatabase,
+glue:GetTable,
+iam:CreateServiceLinkedRole,
+kms:CreateGrant,
+kms:DescribeKey,
+securitylake:CreateDataLake,
+securitylake:CreateAwsLogSource,
+securitylake:ListLogSources
+```
+
+</TabItem>
+<TabItem value="read">
+
+```json
+securitylake:ListLogSources
+```
+
+</TabItem>
+<TabItem value="list">
+
+```json
+securitylake:ListLogSources
+```
+
+</TabItem>
+<TabItem value="delete">
+
+```json
+securitylake:DeleteAwsLogSource,
+securitylake:ListLogSources
+```
+
+</TabItem>
+<TabItem value="update">
+
+```json
+securitylake:CreateAwsLogSource,
+securitylake:DeleteAwsLogSource,
+glue:CreateDatabase,
+glue:CreateTable,
+glue:GetDatabase,
+glue:GetTable,
+iam:CreateServiceLinkedRole,
+kms:CreateGrant,
+kms:DescribeKey
+```
+
+</TabItem>
+</Tabs>

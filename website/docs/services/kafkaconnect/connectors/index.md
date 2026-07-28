@@ -277,78 +277,17 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
       {
         "name": "custom_plugin",
         "type": "object",
-        "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+        "description": "Details about a custom plugin.",
         "children": [
-          {
-            "name": "name",
-            "type": "string",
-            "description": "The name of the custom plugin."
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "description": "A summary description of the custom plugin."
-          },
           {
             "name": "custom_plugin_arn",
             "type": "string",
             "description": "The Amazon Resource Name (ARN) of the custom plugin to use."
           },
           {
-            "name": "content_type",
-            "type": "string",
-            "description": "The type of the plugin file."
-          },
-          {
-            "name": "file_description",
-            "type": "object",
-            "description": "Details about the custom plugin file.",
-            "children": [
-              {
-                "name": "file_md5",
-                "type": "string",
-                "description": "The hex-encoded MD5 checksum of the custom plugin file. You can use it to validate the file."
-              },
-              {
-                "name": "file_size",
-                "type": "integer",
-                "description": "The size in bytes of the custom plugin file. You can use it to validate the file."
-              }
-            ]
-          },
-          {
-            "name": "location",
-            "type": "object",
-            "description": "Information about the location of a custom plugin.",
-            "children": [
-              {
-                "name": "s3_location",
-                "type": "object",
-                "description": "The S3 bucket Amazon Resource Name (ARN), file key, and object version of the plugin file stored in Amazon S3."
-              }
-            ]
-          },
-          {
             "name": "revision",
             "type": "integer",
-            "description": "The revision of the custom plugin."
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": ""
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": ""
-              }
-            ]
+            "description": "The revision of the custom plugin to use."
           }
         ]
       }
@@ -379,37 +318,17 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
   {
     "name": "worker_configuration",
     "type": "object",
-    "description": "The configuration of the workers, which are the processes that run the connector logic.",
+    "description": "Specifies the worker configuration to use with the connector.",
     "children": [
       {
-        "name": "name",
-        "type": "string",
-        "description": "The name of the worker configuration."
-      },
-      {
-        "name": "description",
-        "type": "string",
-        "description": "A summary description of the worker configuration."
+        "name": "revision",
+        "type": "integer",
+        "description": "The revision of the worker configuration to use."
       },
       {
         "name": "worker_configuration_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the custom configuration."
-      },
-      {
-        "name": "properties_file_content",
-        "type": "string",
-        "description": "Base64 encoded contents of connect-distributed.properties file."
-      },
-      {
-        "name": "revision",
-        "type": "integer",
-        "description": "The description of a revision of the worker configuration."
-      },
-      {
-        "name": "tags",
-        "type": "array",
-        "description": "A collection of tags associated with a resource"
+        "description": "The Amazon Resource Name (ARN) of the worker configuration to use."
       }
     ]
   },
@@ -698,29 +617,18 @@ resources:
       - name: plugins
         value:
           - custom_plugin:
-              name: '{{ name }}'
-              description: '{{ description }}'
-              content_type: '{{ content_type }}'
-              location:
-                s3_location:
-                  bucket_arn: '{{ bucket_arn }}'
-                  file_key: '{{ file_key }}'
-                  object_version: '{{ object_version }}'
-              tags:
-                - key: '{{ key }}'
-                  value: '{{ value }}'
+              custom_plugin_arn: '{{ custom_plugin_arn }}'
+              revision: '{{ revision }}'
       - name: service_execution_role_arn
         value: '{{ service_execution_role_arn }}'
       - name: tags
         value:
-          - null
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: worker_configuration
         value:
-          name: '{{ name }}'
-          description: '{{ description }}'
-          properties_file_content: '{{ properties_file_content }}'
-          tags:
-            - null`}</CodeBlock>
+          revision: '{{ revision }}'
+          worker_configuration_arn: '{{ worker_configuration_arn }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

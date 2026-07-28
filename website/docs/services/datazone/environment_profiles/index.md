@@ -122,12 +122,12 @@ Creates, updates, deletes or gets an <code>environment_profile</code> resource o
       {
         "name": "name",
         "type": "string",
-        "description": ""
+        "description": "The name of an environment profile parameter."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The value of an environment profile parameter."
       }
     ]
   },

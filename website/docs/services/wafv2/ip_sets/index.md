@@ -47,7 +47,7 @@ Creates, updates, deletes or gets an <code>ip_set</code> resource or lists <code
   {
     "name": "arn",
     "type": "string",
-    "description": ""
+    "description": "ARN of the WAF entity."
   },
   {
     "name": "description",
@@ -57,17 +57,17 @@ Creates, updates, deletes or gets an <code>ip_set</code> resource or lists <code
   {
     "name": "name",
     "type": "string",
-    "description": "Name of the WebACL."
+    "description": "Name of the IPSet."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Id of the WebACL"
+    "description": "Id of the IPSet"
   },
   {
     "name": "scope",
     "type": "string",
-    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+    "description": "Use CLOUDFRONT for CloudFront IPSet, use REGIONAL for Application Load Balancer and API Gateway."
   },
   {
     "name": "ip_address_version",
@@ -109,17 +109,17 @@ Creates, updates, deletes or gets an <code>ip_set</code> resource or lists <code
   {
     "name": "name",
     "type": "string",
-    "description": "Name of the WebACL."
+    "description": "Name of the IPSet."
   },
   {
     "name": "id",
     "type": "string",
-    "description": "Id of the WebACL"
+    "description": "Id of the IPSet"
   },
   {
     "name": "scope",
     "type": "string",
-    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+    "description": "Use CLOUDFRONT for CloudFront IPSet, use REGIONAL for Application Load Balancer and API Gateway."
   },
   {
     "name": "region",

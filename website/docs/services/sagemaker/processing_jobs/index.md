@@ -434,12 +434,12 @@ Creates, updates, deletes or gets a <code>processing_job</code> resource or list
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag value."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag key. Tag keys must be unique per resource."
       }
     ]
   },

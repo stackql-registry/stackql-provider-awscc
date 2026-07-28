@@ -47,7 +47,7 @@ Creates, updates, deletes or gets an <code>anomaly_monitor</code> resource or li
   {
     "name": "monitor_arn",
     "type": "string",
-    "description": "Subscription ARN"
+    "description": "Monitor ARN"
   },
   {
     "name": "monitor_type",
@@ -119,7 +119,7 @@ Creates, updates, deletes or gets an <code>anomaly_monitor</code> resource or li
   {
     "name": "monitor_arn",
     "type": "string",
-    "description": "Subscription ARN"
+    "description": "Monitor ARN"
   },
   {
     "name": "region",

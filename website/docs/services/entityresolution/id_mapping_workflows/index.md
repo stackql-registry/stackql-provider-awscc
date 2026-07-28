@@ -121,16 +121,6 @@ Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource o
         "description": "",
         "children": [
           {
-            "name": "provider_service_arn",
-            "type": "string",
-            "description": "Arn of the Provider service being used."
-          },
-          {
-            "name": "provider_configuration",
-            "type": "object",
-            "description": "Additional Provider configuration that would be required for the provider service. The Configuration must be in JSON string format"
-          },
-          {
             "name": "intermediate_source_configuration",
             "type": "object",
             "description": "",
@@ -141,6 +131,16 @@ Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource o
                 "description": "The s3 path that would be used to stage the intermediate data being generated during workflow execution."
               }
             ]
+          },
+          {
+            "name": "provider_service_arn",
+            "type": "string",
+            "description": "Arn of the Provider Service being used."
+          },
+          {
+            "name": "provider_configuration",
+            "type": "object",
+            "description": "Additional Provider configuration that would be required for the provider service. The Configuration must be in JSON string format"
           }
         ]
       },
@@ -159,7 +159,7 @@ Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource o
   {
     "name": "created_at",
     "type": "string",
-    "description": "The time of this SchemaMapping got created"
+    "description": "The time of this IdMappingWorkflow got created"
   },
   {
     "name": "output_source_config",
@@ -198,7 +198,7 @@ Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource o
   {
     "name": "updated_at",
     "type": "string",
-    "description": "The time of this SchemaMapping got last updated at"
+    "description": "The time of this IdMappingWorkflow got last updated at"
   },
   {
     "name": "role_arn",
@@ -450,10 +450,10 @@ resources:
                   - '{{ matching_keys[0] }}'
             record_matching_model: '{{ record_matching_model }}'
           provider_properties:
-            provider_service_arn: '{{ provider_service_arn }}'
-            provider_configuration: {}
             intermediate_source_configuration:
               intermediate_s3_path: '{{ intermediate_s3_path }}'
+            provider_service_arn: '{{ provider_service_arn }}'
+            provider_configuration: {}
           id_mapping_type: '{{ id_mapping_type }}'
       - name: workflow_name
         value: '{{ workflow_name }}'

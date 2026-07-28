@@ -102,17 +102,17 @@ Creates, updates, deletes or gets a <code>volume</code> resource or lists <code>
       {
         "name": "tags",
         "type": "array",
-        "description": "",
+        "description": "The tags to apply to the resource",
         "children": [
           {
             "name": "key",
             "type": "string",
-            "description": ""
+            "description": "The key name of the tag"
           },
           {
             "name": "value",
             "type": "string",
-            "description": ""
+            "description": "The value for the tag"
           }
         ]
       }

@@ -99,7 +99,7 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
       {
         "name": "notify_delay_after",
         "type": "integer",
-        "description": "After a job run starts, the number of minutes to wait before sending a job run delay notification"
+        "description": "It is the number of minutes to wait before sending a job run delay notification after a job run starts"
       }
     ]
   },

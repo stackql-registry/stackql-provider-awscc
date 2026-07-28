@@ -149,7 +149,7 @@ Creates, updates, deletes or gets a <code>message_template</code> resource or li
   {
     "name": "grouping_configuration",
     "type": "object",
-    "description": "The configuration information of the user groups that the quick response is accessible to.",
+    "description": "The configuration information of the user groups that the message template is accessible to.",
     "children": [
       {
         "name": "criteria",

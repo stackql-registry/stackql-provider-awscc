@@ -20,7 +20,7 @@ The ecs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,13 @@ The ecs service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/services/ecs/capacity_providers/">capacity_providers</a><br />
 <a href="/services/ecs/cluster_capacity_provider_associations/">cluster_capacity_provider_associations</a><br />
-<a href="/services/ecs/primary_task_sets/">primary_task_sets</a><br />
-<a href="/services/ecs/services/">services</a>
+<a href="/services/ecs/clusters/">clusters</a><br />
+<a href="/services/ecs/primary_task_sets/">primary_task_sets</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/ecs/services/">services</a><br />
 <a href="/services/ecs/task_definitions/">task_definitions</a><br />
 <a href="/services/ecs/task_sets/">task_sets</a>
 </div>

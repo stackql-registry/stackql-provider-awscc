@@ -72,7 +72,7 @@ Creates, updates, deletes or gets a <code>group</code> resource or lists <code>g
       {
         "name": "policy_document",
         "type": "object",
-        "description": "The entire contents of the policy that defines permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json\">Overview of JSON policies</a>."
+        "description": "The policy document."
       },
       {
         "name": "policy_name",

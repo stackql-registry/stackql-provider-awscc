@@ -110,14 +110,14 @@ Creates, updates, deletes or gets a <code>transit_gateway</code> resource or lis
     "description": "",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -396,8 +396,8 @@ resources:
           - '{{ transit_gateway_cidr_blocks[0] }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: association_default_route_table_id
         value: '{{ association_default_route_table_id }}'
       - name: propagation_default_route_table_id

@@ -61,37 +61,8 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
       },
       {
         "name": "location",
-        "type": "object",
-        "description": "The AWS::GameLift::Location resource creates an Amazon GameLift (GameLift) custom location.",
-        "children": [
-          {
-            "name": "location_name",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "location_arn",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
-              }
-            ]
-          }
-        ]
+        "type": "string",
+        "description": ""
       },
       {
         "name": "metric_name",
@@ -245,37 +216,8 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
     "children": [
       {
         "name": "location",
-        "type": "object",
-        "description": "The AWS::GameLift::Location resource creates an Amazon GameLift (GameLift) custom location.",
-        "children": [
-          {
-            "name": "location_name",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "location_arn",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
-              }
-            ]
-          }
-        ]
+        "type": "string",
+        "description": ""
       },
       {
         "name": "location_capacity",
@@ -711,11 +653,7 @@ resources:
         value:
           - comparison_operator: '{{ comparison_operator }}'
             evaluation_periods: '{{ evaluation_periods }}'
-            location:
-              location_name: '{{ location_name }}'
-              tags:
-                - key: '{{ key }}'
-                  value: '{{ value }}'
+            location: '{{ location }}'
             metric_name: '{{ metric_name }}'
             name: '{{ name }}'
             policy_type: '{{ policy_type }}'
@@ -800,7 +738,8 @@ resources:
         value: '{{ server_launch_path }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

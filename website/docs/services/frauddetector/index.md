@@ -20,7 +20,7 @@ The frauddetector service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -30,6 +30,7 @@ The frauddetector service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/frauddetector/detectors/">detectors</a><br />
+<a href="/services/frauddetector/entity_types/">entity_types</a><br />
 <a href="/services/frauddetector/event_types/">event_types</a><br />
 <a href="/services/frauddetector/labels/">labels</a>
 </div>

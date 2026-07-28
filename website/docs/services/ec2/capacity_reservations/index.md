@@ -62,22 +62,22 @@ Creates, updates, deletes or gets a <code>capacity_reservation</code> resource o
       {
         "name": "resource_type",
         "type": "string",
-        "description": "<details><summary>The type of resource to tag. You can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the resource type that you specify, the instance launch fails. For example, not all instance types include a volume.</summary>To tag a resource after it has been created, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html\">CreateTags</a>.</details>"
+        "description": ""
       },
       {
         "name": "tags",
         "type": "array",
-        "description": "The tags to apply to the resource.",
+        "description": "",
         "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The tag key."
-          },
           {
             "name": "value",
             "type": "string",
-            "description": "The tag value."
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
           }
         ]
       }
@@ -479,8 +479,8 @@ resources:
         value:
           - resource_type: '{{ resource_type }}'
             tags:
-              - key: '{{ key }}'
-                value: '{{ value }}'
+              - value: '{{ value }}'
+                key: '{{ key }}'
       - name: availability_zone
         value: '{{ availability_zone }}'
       - name: end_date

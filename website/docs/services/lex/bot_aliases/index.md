@@ -102,32 +102,8 @@ Creates, updates, deletes or gets a <code>bot_alias</code> resource or lists <co
   },
   {
     "name": "bot_version",
-    "type": "object",
-    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
-    "children": [
-      {
-        "name": "description",
-        "type": "string",
-        "description": "A description of the version. Use the description to help identify the version in lists."
-      },
-      {
-        "name": "bot_version_locale_specification",
-        "type": "array",
-        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
-        "children": [
-          {
-            "name": "locale_id",
-            "type": "string",
-            "description": "The identifier of the language and locale that the bot will be used in."
-          },
-          {
-            "name": "bot_version_locale_details",
-            "type": "object",
-            "description": "The version of a bot used for a bot locale."
-          }
-        ]
-      }
-    ]
+    "type": "string",
+    "description": "The version of a bot."
   },
   {
     "name": "conversation_log_settings",
@@ -187,7 +163,7 @@ Creates, updates, deletes or gets a <code>bot_alias</code> resource or lists <co
   {
     "name": "description",
     "type": "string",
-    "description": "A description of the version. Use the description to help identify the version in lists."
+    "description": "A description of the bot alias. Use the description to help identify the bot alias in lists."
   },
   {
     "name": "sentiment_analysis_settings",
@@ -439,13 +415,7 @@ resources:
       - name: bot_alias_name
         value: '{{ bot_alias_name }}'
       - name: bot_version
-        value:
-          bot_id: null
-          description: '{{ description }}'
-          bot_version_locale_specification:
-            - locale_id: '{{ locale_id }}'
-              bot_version_locale_details:
-                source_bot_version: null
+        value: '{{ bot_version }}'
       - name: conversation_log_settings
         value:
           audio_log_settings:
@@ -462,7 +432,7 @@ resources:
                   log_prefix: '{{ log_prefix }}'
               enabled: '{{ enabled }}'
       - name: description
-        value: null
+        value: '{{ description }}'
       - name: sentiment_analysis_settings
         value:
           detect_sentiment: '{{ detect_sentiment }}'

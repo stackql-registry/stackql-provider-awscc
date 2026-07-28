@@ -72,7 +72,7 @@ Creates, updates, deletes or gets an <code>inference_experiment</code> resource 
   {
     "name": "endpoint_name",
     "type": "string",
-    "description": "The name of the endpoint used to run the monitoring job."
+    "description": "The name of the endpoint used to run the inference experiment."
   },
   {
     "name": "endpoint_metadata",
@@ -228,14 +228,14 @@ Creates, updates, deletes or gets an <code>inference_experiment</code> resource 
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -535,8 +535,8 @@ resources:
               sampling_percentage: '{{ sampling_percentage }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: status_reason
         value: '{{ status_reason }}'
       - name: desired_state

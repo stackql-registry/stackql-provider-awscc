@@ -100,14 +100,14 @@ Creates, updates, deletes or gets a <code>flow_log</code> resource or lists <cod
     "description": "The tags to apply to the flow logs.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
       }
     ]
   },
@@ -374,8 +374,8 @@ resources:
         value: '{{ resource_type }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'
+          - value: '{{ value }}'
+            key: '{{ key }}'
       - name: traffic_type
         value: '{{ traffic_type }}'
       - name: destination_options

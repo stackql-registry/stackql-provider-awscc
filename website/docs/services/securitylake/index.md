@@ -20,7 +20,7 @@ The securitylake service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -29,10 +29,11 @@ The securitylake service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/securitylake/data_lakes/">data_lakes</a><br />
-<a href="/services/securitylake/subscriber_notifications/">subscriber_notifications</a>
+<a href="/services/securitylake/aws_log_sources/">aws_log_sources</a><br />
+<a href="/services/securitylake/data_lakes/">data_lakes</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/securitylake/subscriber_notifications/">subscriber_notifications</a><br />
 <a href="/services/securitylake/subscribers/">subscribers</a>
 </div>
 </div>

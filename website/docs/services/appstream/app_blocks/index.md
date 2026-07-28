@@ -97,19 +97,7 @@ Creates, updates, deletes or gets an <code>app_block</code> resource or lists <c
   {
     "name": "tags",
     "type": "array",
-    "description": "",
-    "children": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "key",
-        "type": "string",
-        "description": ""
-      }
-    ]
+    "description": ""
   },
   {
     "name": "created_time",
@@ -293,8 +281,7 @@ resources:
           timeout_in_seconds: '{{ timeout_in_seconds }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - null
       - name: packaging_type
         value: '{{ packaging_type }}'
       - name: post_setup_script_details

@@ -117,14 +117,14 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
             "description": "Describes whether the control scope includes resources with one or more tags. Each tag is a key-value pair.",
             "children": [
               {
-                "name": "value",
-                "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-              },
-              {
                 "name": "key",
                 "type": "string",
                 "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
               }
             ]
           }
@@ -143,14 +143,14 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
     "description": "Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-      },
-      {
         "name": "key",
         "type": "string",
         "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -363,8 +363,8 @@ resources:
               compliance_resource_types:
                 - '{{ compliance_resource_types[0] }}'
               tags:
-                - value: '{{ value }}'
-                  key: '{{ key }}'
+                - key: '{{ key }}'
+                  value: '{{ value }}'
       - name: framework_tags
         value:
           - null`}</CodeBlock>

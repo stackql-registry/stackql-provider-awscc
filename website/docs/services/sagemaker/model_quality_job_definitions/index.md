@@ -146,9 +146,24 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
             "description": "Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File."
           },
           {
-            "name": "exclude_features_attribute",
+            "name": "start_time_offset",
             "type": "string",
-            "description": "Indexes or names of the features to be excluded from analysis"
+            "description": "Monitoring start time offset, e.g. -PT1H"
+          },
+          {
+            "name": "inference_attribute",
+            "type": "string",
+            "description": "Index or JSONpath to locate predicted label(s)"
+          },
+          {
+            "name": "probability_attribute",
+            "type": "string",
+            "description": "Index or JSONpath to locate probabilities"
+          },
+          {
+            "name": "probability_threshold_attribute",
+            "type": "number",
+            "description": ""
           }
         ]
       },
@@ -200,9 +215,24 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
             "description": "Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File."
           },
           {
-            "name": "exclude_features_attribute",
+            "name": "start_time_offset",
             "type": "string",
-            "description": "Indexes or names of the features to be excluded from analysis"
+            "description": "Monitoring start time offset, e.g. -PT1H"
+          },
+          {
+            "name": "inference_attribute",
+            "type": "string",
+            "description": "Index or JSONpath to locate predicted label(s)"
+          },
+          {
+            "name": "probability_attribute",
+            "type": "string",
+            "description": "Index or JSONpath to locate probabilities"
+          },
+          {
+            "name": "probability_threshold_attribute",
+            "type": "number",
+            "description": ""
           }
         ]
       },
@@ -238,22 +268,22 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
           {
             "name": "s3_output",
             "type": "object",
-            "description": "Configuration for uploading output data to Amazon S3 from the processing container.",
+            "description": "Information about where and how to store the results of a monitoring job.",
             "children": [
               {
                 "name": "local_path",
                 "type": "string",
-                "description": "The local path of a directory where you want Amazon SageMaker to upload its contents to Amazon S3. LocalPath is an absolute path to a directory containing output files. This directory will be created by the platform and exist when your container's entrypoint is invoked."
+                "description": "The local path to the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job. LocalPath is an absolute path for the output data."
               },
               {
                 "name": "s3_upload_mode",
                 "type": "string",
-                "description": "Whether to upload the results of the processing job continuously or after the job completes."
+                "description": "Whether to upload the results of the monitoring job continuously or after the job completes."
               },
               {
                 "name": "s3_uri",
                 "type": "string",
-                "description": "A URI that identifies the Amazon S3 bucket where you want Amazon SageMaker to save the results of a processing job."
+                "description": "A URI that identifies the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job."
               }
             ]
           }
@@ -269,12 +299,12 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
       {
         "name": "cluster_config",
         "type": "object",
-        "description": "Configuration for the cluster used to run a processing job.",
+        "description": "Configuration for the cluster used to run model monitoring jobs.",
         "children": [
           {
             "name": "instance_count",
             "type": "integer",
-            "description": "The number of ML compute instances to use in the processing job. For distributed processing jobs, specify a value greater than 1. The default value is 1."
+            "description": "The number of ML compute instances to use in the model monitoring job. For distributed processing jobs, specify a value greater than 1. The default value is 1."
           },
           {
             "name": "instance_type",
@@ -282,14 +312,14 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
             "description": "The ML compute instance type for the processing job."
           },
           {
-            "name": "volume_size_in_gb",
-            "type": "integer",
-            "description": "The size of the ML storage volume in gigabytes that you want to provision. You must specify sufficient ML storage for your scenario."
-          },
-          {
             "name": "volume_kms_key_id",
             "type": "string",
-            "description": "The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the processing job."
+            "description": "The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the model monitoring job."
+          },
+          {
+            "name": "volume_size_in_gb",
+            "type": "integer",
+            "description": "The size of the ML storage volume, in gigabytes, that you want to provision. You must specify sufficient ML storage for your scenario."
           }
         ]
       }
@@ -313,17 +343,17 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
       {
         "name": "vpc_config",
         "type": "object",
-        "description": "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC. For more information, see https://docs.aws.amazon.com/sagemaker/latest/dg/infrastructure-give-access.html",
+        "description": "Specifies a VPC that your training jobs and hosted models have access to. Control access to and from your training and model containers by configuring the VPC.",
         "children": [
           {
             "name": "security_group_ids",
             "type": "array",
-            "description": "The VPC security group IDs, in the form 'sg-xxxxxxxx'. Specify the security groups for the VPC that is specified in the 'Subnets' field."
+            "description": "The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security groups for the VPC that is specified in the Subnets field."
           },
           {
             "name": "subnets",
             "type": "array",
-            "description": "The ID of the subnets in the VPC to which you want to connect your training job or model. For information about the availability of specific instance types, see https://docs.aws.amazon.com/sagemaker/latest/dg/regions-quotas.html"
+            "description": "The ID of the subnets in the VPC to which you want to connect to your monitoring jobs."
           }
         ]
       }
@@ -342,12 +372,12 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
   {
     "name": "stopping_condition",
     "type": "object",
-    "description": "Configures conditions under which the processing job should be stopped, such as how long the processing job has been running. After the condition is met, the processing job is stopped.",
+    "description": "Specifies a time limit for how long the monitoring job is allowed to run.",
     "children": [
       {
         "name": "max_runtime_in_seconds",
         "type": "integer",
-        "description": "Specifies the maximum runtime in seconds."
+        "description": "The maximum runtime allowed in seconds."
       }
     ]
   },
@@ -357,14 +387,14 @@ Creates, updates, deletes or gets a <code>model_quality_job_definition</code> re
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -612,7 +642,11 @@ resources:
             local_path: '{{ local_path }}'
             s3_data_distribution_type: '{{ s3_data_distribution_type }}'
             s3_input_mode: '{{ s3_input_mode }}'
-            exclude_features_attribute: '{{ exclude_features_attribute }}'
+            start_time_offset: '{{ start_time_offset }}'
+            end_time_offset: null
+            inference_attribute: '{{ inference_attribute }}'
+            probability_attribute: '{{ probability_attribute }}'
+            probability_threshold_attribute: null
           batch_transform_input:
             data_captured_destination_s3_uri: '{{ data_captured_destination_s3_uri }}'
             dataset_format:
@@ -624,7 +658,11 @@ resources:
             local_path: '{{ local_path }}'
             s3_data_distribution_type: '{{ s3_data_distribution_type }}'
             s3_input_mode: '{{ s3_input_mode }}'
-            exclude_features_attribute: '{{ exclude_features_attribute }}'
+            start_time_offset: null
+            end_time_offset: null
+            inference_attribute: '{{ inference_attribute }}'
+            probability_attribute: '{{ probability_attribute }}'
+            probability_threshold_attribute: null
           ground_truth_s3_input:
             s3_uri: '{{ s3_uri }}'
       - name: model_quality_job_output_config
@@ -640,8 +678,8 @@ resources:
           cluster_config:
             instance_count: '{{ instance_count }}'
             instance_type: '{{ instance_type }}'
-            volume_size_in_gb: '{{ volume_size_in_gb }}'
             volume_kms_key_id: '{{ volume_kms_key_id }}'
+            volume_size_in_gb: '{{ volume_size_in_gb }}'
       - name: network_config
         value:
           enable_inter_container_traffic_encryption: '{{ enable_inter_container_traffic_encryption }}'
@@ -660,8 +698,8 @@ resources:
           max_runtime_in_seconds: '{{ max_runtime_in_seconds }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

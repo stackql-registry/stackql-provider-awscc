@@ -62,12 +62,31 @@ Creates, updates, deletes or gets a <code>locationf_sx_ontap</code> resource or 
   {
     "name": "protocol",
     "type": "object",
-    "description": "Configuration settings for an NFS or SMB protocol, currently only support NFS",
+    "description": "Configuration settings for NFS or SMB protocol.",
     "children": [
       {
         "name": "n_fs",
         "type": "object",
-        "description": "FSx OpenZFS file system NFS protocol information",
+        "description": "NFS protocol configuration for FSx ONTAP file system.",
+        "children": [
+          {
+            "name": "mount_options",
+            "type": "object",
+            "description": "The NFS mount options that DataSync can use to mount your NFS share.",
+            "children": [
+              {
+                "name": "version",
+                "type": "string",
+                "description": "The specific NFS version that you want DataSync to use to mount your NFS share."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "s_mb",
+        "type": "object",
+        "description": "SMB protocol configuration for FSx ONTAP file system.",
         "children": [
           {
             "name": "mount_options",
@@ -80,6 +99,21 @@ Creates, updates, deletes or gets a <code>locationf_sx_ontap</code> resource or 
                 "description": "The specific SMB version that you want DataSync to use to mount your SMB share."
               }
             ]
+          },
+          {
+            "name": "domain",
+            "type": "string",
+            "description": "The name of the Windows domain that the SMB server belongs to."
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "The password of the user who can mount the share and has the permissions to access files and folders in the SMB share."
+          },
+          {
+            "name": "user",
+            "type": "string",
+            "description": "The user who can mount the share, has the permissions to access files and folders in the SMB share."
           }
         ]
       }
@@ -324,6 +358,12 @@ resources:
           n_fs:
             mount_options:
               version: '{{ version }}'
+          s_mb:
+            mount_options:
+              version: '{{ version }}'
+            domain: '{{ domain }}'
+            password: '{{ password }}'
+            user: '{{ user }}'
       - name: subdirectory
         value: '{{ subdirectory }}'
       - name: tags

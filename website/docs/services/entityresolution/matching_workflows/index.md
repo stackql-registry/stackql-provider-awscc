@@ -244,12 +244,12 @@ Creates, updates, deletes or gets a <code>matching_workflow</code> resource or l
   {
     "name": "created_at",
     "type": "string",
-    "description": "The time of this SchemaMapping got created"
+    "description": "The time of this MatchingWorkflow got created"
   },
   {
     "name": "updated_at",
     "type": "string",
-    "description": "The time of this SchemaMapping got last updated at"
+    "description": "The time of this MatchingWorkflow got last updated at"
   },
   {
     "name": "incremental_run_config",

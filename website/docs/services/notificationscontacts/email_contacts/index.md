@@ -62,15 +62,10 @@ Creates, updates, deletes or gets an <code>email_contact</code> resource or list
   {
     "name": "email_contact",
     "type": "object",
-    "description": "Definition of AWS::NotificationsContacts::EmailContact Resource Type",
+    "description": "",
     "children": [
       {
         "name": "arn",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "email_address",
         "type": "string",
         "description": ""
       },
@@ -80,21 +75,24 @@ Creates, updates, deletes or gets an <code>email_contact</code> resource or list
         "description": ""
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "A list of tags that are attached to the role.",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": ""
-          }
-        ]
+        "name": "address",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "creation_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "update_time",
+        "type": "string",
+        "description": ""
       }
     ]
   },

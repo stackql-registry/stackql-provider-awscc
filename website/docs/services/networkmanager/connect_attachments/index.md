@@ -102,7 +102,7 @@ Creates, updates, deletes or gets a <code>connect_attachment</code> resource or 
       {
         "name": "tags",
         "type": "array",
-        "description": "The key-value tags that changed for the segment.",
+        "description": "The list of key-value tags that changed for the segment.",
         "children": [
           {
             "name": "key",

@@ -17,7 +17,7 @@ id: 'provider-intro'
 
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 
-AWS Cloud Control API provider for StackQL.
+AWS Cloud Control API provider for StackQL.  
 
 :::info
 
@@ -30,7 +30,7 @@ For the native AWS provider see the [__`aws`__](https://aws-provider.stackql.io/
 <div class="row">
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>237</b></span><br />
-<span>total resources:&nbsp;<b>1222</b></span><br />
+<span>total resources:&nbsp;<b>1237</b></span><br />
 </div>
 </div>
 

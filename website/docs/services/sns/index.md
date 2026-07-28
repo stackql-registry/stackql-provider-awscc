@@ -20,7 +20,7 @@ The sns service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -29,6 +29,7 @@ The sns service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/services/sns/subscriptions/">subscriptions</a><br />
 <a href="/services/sns/topic_inline_policies/">topic_inline_policies</a>
 </div>
 <div class="providerDocColumn">

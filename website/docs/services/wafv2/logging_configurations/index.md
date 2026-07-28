@@ -60,213 +60,31 @@ Creates, updates, deletes or gets a <code>logging_configuration</code> resource 
     "description": "The parts of the request that you want to keep out of the logs. For example, if you redact the HEADER field, the HEADER field in the firehose will be xxx.",
     "children": [
       {
-        "name": "single_header",
+        "name": "method",
         "type": "object",
-        "description": "",
-        "children": [
-          {
-            "name": "name",
-            "type": "string",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "name": "single_query_argument",
-        "type": "object",
-        "description": "One query argument in a web request, identified by name, for example UserName or SalesRegion. The name can be up to 30 characters long and isn't case sensitive.",
-        "children": [
-          {
-            "name": "name",
-            "type": "string",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "name": "all_query_arguments",
-        "type": "object",
-        "description": "All query arguments of a web request."
-      },
-      {
-        "name": "uri_path",
-        "type": "object",
-        "description": "The path component of the URI of a web request. This is the part of a web request that identifies a resource, for example, /images/daily-ad.jpg."
+        "description": "Inspect the HTTP method. The method indicates the type of operation that the request is asking the origin to perform."
       },
       {
         "name": "query_string",
         "type": "object",
-        "description": "The query string of a web request. This is the part of a URL that appears after a ? character, if any."
+        "description": "Inspect the query string. This is the part of a URL that appears after a ? character, if any."
       },
       {
-        "name": "body",
+        "name": "single_header",
         "type": "object",
-        "description": "The body of a web request. This immediately follows the request headers.",
+        "description": "Inspect a single header. Provide the name of the header to inspect, for example, User-Agent or Referer. This setting isn't case sensitive.",
         "children": [
           {
-            "name": "oversize_handling",
+            "name": "name",
             "type": "string",
-            "description": "Handling of requests containing oversize fields"
+            "description": "The name of the query header to inspect."
           }
         ]
       },
       {
-        "name": "method",
+        "name": "uri_path",
         "type": "object",
-        "description": "The HTTP method of a web request. The method indicates the type of operation that the request is asking the origin to perform."
-      },
-      {
-        "name": "json_body",
-        "type": "object",
-        "description": "Inspect the request body as JSON. The request body immediately follows the request headers.",
-        "children": [
-          {
-            "name": "match_pattern",
-            "type": "object",
-            "description": "The pattern to look for in the JSON body.",
-            "children": [
-              {
-                "name": "all",
-                "type": "object",
-                "description": "Inspect all parts of the web request's JSON body."
-              },
-              {
-                "name": "included_paths",
-                "type": "array",
-                "description": ""
-              }
-            ]
-          },
-          {
-            "name": "match_scope",
-            "type": "string",
-            "description": "The parts of the JSON to match against using the MatchPattern."
-          },
-          {
-            "name": "invalid_fallback_behavior",
-            "type": "string",
-            "description": "The inspection behavior to fall back to if the JSON in the request body is invalid."
-          },
-          {
-            "name": "oversize_handling",
-            "type": "string",
-            "description": "Handling of requests containing oversize fields"
-          }
-        ]
-      },
-      {
-        "name": "headers",
-        "type": "object",
-        "description": "Includes headers of a web request.",
-        "children": [
-          {
-            "name": "match_pattern",
-            "type": "object",
-            "description": "The pattern to look for in the request headers.",
-            "children": [
-              {
-                "name": "all",
-                "type": "object",
-                "description": "Inspect all parts of the web request headers."
-              },
-              {
-                "name": "included_headers",
-                "type": "array",
-                "description": ""
-              },
-              {
-                "name": "excluded_headers",
-                "type": "array",
-                "description": ""
-              }
-            ]
-          },
-          {
-            "name": "match_scope",
-            "type": "string",
-            "description": "The parts of the request to match against using the MatchPattern."
-          },
-          {
-            "name": "oversize_handling",
-            "type": "string",
-            "description": "Handling of requests containing oversize fields"
-          }
-        ]
-      },
-      {
-        "name": "cookies",
-        "type": "object",
-        "description": "Includes cookies of a web request.",
-        "children": [
-          {
-            "name": "match_pattern",
-            "type": "object",
-            "description": "The pattern to look for in the request cookies.",
-            "children": [
-              {
-                "name": "all",
-                "type": "object",
-                "description": "Inspect all parts of the web request cookies."
-              },
-              {
-                "name": "included_cookies",
-                "type": "array",
-                "description": ""
-              },
-              {
-                "name": "excluded_cookies",
-                "type": "array",
-                "description": ""
-              }
-            ]
-          },
-          {
-            "name": "match_scope",
-            "type": "string",
-            "description": "The parts of the request to match against using the MatchPattern."
-          },
-          {
-            "name": "oversize_handling",
-            "type": "string",
-            "description": "Handling of requests containing oversize fields"
-          }
-        ]
-      },
-      {
-        "name": "j_a3_fingerprint",
-        "type": "object",
-        "description": "Includes the JA3 fingerprint of a web request.",
-        "children": [
-          {
-            "name": "fallback_behavior",
-            "type": "string",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "name": "j_a4_fingerprint",
-        "type": "object",
-        "description": "Includes the JA4 fingerprint of a web request.",
-        "children": [
-          {
-            "name": "fallback_behavior",
-            "type": "string",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "name": "uri_fragment",
-        "type": "object",
-        "description": "The path component of the URI Fragment. This is the part of a web request that identifies a fragment uri, for example, /abcd#introduction",
-        "children": [
-          {
-            "name": "fallback_behavior",
-            "type": "string",
-            "description": ""
-          }
-        ]
+        "description": "Inspect the request URI path. This is the part of a web request that identifies a resource, for example, /images/daily-ad.jpg."
       }
     ]
   },
@@ -520,48 +338,11 @@ resources:
           - '{{ log_destination_configs[0] }}'
       - name: redacted_fields
         value:
-          - single_header:
-              name: '{{ name }}'
-            single_query_argument:
-              name: '{{ name }}'
-            all_query_arguments: {}
-            uri_path: {}
+          - method: {}
             query_string: {}
-            body:
-              oversize_handling: '{{ oversize_handling }}'
-            method: {}
-            json_body:
-              match_pattern:
-                all: {}
-                included_paths:
-                  - '{{ included_paths[0] }}'
-              match_scope: '{{ match_scope }}'
-              invalid_fallback_behavior: '{{ invalid_fallback_behavior }}'
-              oversize_handling: null
-            headers:
-              match_pattern:
-                all: {}
-                included_headers:
-                  - '{{ included_headers[0] }}'
-                excluded_headers:
-                  - '{{ excluded_headers[0] }}'
-              match_scope: '{{ match_scope }}'
-              oversize_handling: null
-            cookies:
-              match_pattern:
-                all: {}
-                included_cookies:
-                  - '{{ included_cookies[0] }}'
-                excluded_cookies:
-                  - '{{ excluded_cookies[0] }}'
-              match_scope: null
-              oversize_handling: null
-            j_a3_fingerprint:
-              fallback_behavior: '{{ fallback_behavior }}'
-            j_a4_fingerprint:
-              fallback_behavior: '{{ fallback_behavior }}'
-            uri_fragment:
-              fallback_behavior: '{{ fallback_behavior }}'
+            single_header:
+              name: '{{ name }}'
+            uri_path: {}
       - name: logging_filter
         value:
           default_behavior: '{{ default_behavior }}'

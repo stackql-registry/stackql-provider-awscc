@@ -122,9 +122,24 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
         "description": "",
         "children": [
           {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "inline",
+            "type": "boolean",
+            "description": ""
+          },
+          {
             "name": "name",
             "type": "string",
-            "description": "The name of the outcome."
+            "description": ""
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "The description."
           },
           {
             "name": "tags",
@@ -132,24 +147,14 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
             "description": "Tags associated with this outcome."
           },
           {
-            "name": "description",
-            "type": "string",
-            "description": "The outcome description."
-          },
-          {
-            "name": "arn",
-            "type": "string",
-            "description": "The outcome ARN."
-          },
-          {
             "name": "created_time",
             "type": "string",
-            "description": "The timestamp when the outcome was created."
+            "description": "The time when the outcome was created."
           },
           {
             "name": "last_updated_time",
             "type": "string",
-            "description": "The timestamp when the outcome was last updated."
+            "description": "The time when the outcome was last updated."
           }
         ]
       },
@@ -189,6 +194,11 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
         "name": "name",
         "type": "string",
         "description": "The name for the event type"
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
+        "description": ""
       },
       {
         "name": "tags",
@@ -248,17 +258,17 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
           {
             "name": "tags",
             "type": "array",
-            "description": "Tags associated with this event type."
+            "description": "Tags associated with this event variable."
           },
           {
             "name": "created_time",
             "type": "string",
-            "description": "The time when the event type was created."
+            "description": "The time when the event variable was created."
           },
           {
             "name": "last_updated_time",
             "type": "string",
-            "description": "The time when the event type was last updated."
+            "description": "The time when the event variable was last updated."
           }
         ]
       },
@@ -268,9 +278,24 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
         "description": "",
         "children": [
           {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "inline",
+            "type": "boolean",
+            "description": ""
+          },
+          {
             "name": "name",
             "type": "string",
-            "description": "The name of the label."
+            "description": ""
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "The description."
           },
           {
             "name": "tags",
@@ -278,24 +303,14 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
             "description": "Tags associated with this label."
           },
           {
-            "name": "description",
-            "type": "string",
-            "description": "The label description."
-          },
-          {
-            "name": "arn",
-            "type": "string",
-            "description": "The label ARN."
-          },
-          {
             "name": "created_time",
             "type": "string",
-            "description": "The timestamp when the label was created."
+            "description": "The time when the label was created."
           },
           {
             "name": "last_updated_time",
             "type": "string",
-            "description": "The timestamp when the label was last updated."
+            "description": "The time when the label was last updated."
           }
         ]
       },
@@ -327,17 +342,17 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
           {
             "name": "tags",
             "type": "array",
-            "description": "Tags associated with this event type."
+            "description": "Tags associated with this entity type."
           },
           {
             "name": "created_time",
             "type": "string",
-            "description": "The time when the event type was created."
+            "description": "The time when the entity type was created."
           },
           {
             "name": "last_updated_time",
             "type": "string",
-            "description": "The time when the event type was last updated."
+            "description": "The time when the entity type was last updated."
           }
         ]
       },
@@ -614,10 +629,14 @@ resources:
             expression: '{{ expression }}'
             language: '{{ language }}'
             outcomes:
-              - name: '{{ name }}'
+              - arn: '{{ arn }}'
+                inline: '{{ inline }}'
+                name: '{{ name }}'
+                description: '{{ description }}'
                 tags:
                   - null
-                description: '{{ description }}'
+                created_time: '{{ created_time }}'
+                last_updated_time: '{{ last_updated_time }}'
             arn: '{{ arn }}'
             description: '{{ description }}'
             tags:
@@ -627,6 +646,7 @@ resources:
       - name: event_type
         value:
           name: '{{ name }}'
+          inline: '{{ inline }}'
           tags:
             - null
           description: '{{ description }}'
@@ -644,10 +664,14 @@ resources:
               created_time: '{{ created_time }}'
               last_updated_time: '{{ last_updated_time }}'
           labels:
-            - name: '{{ name }}'
+            - arn: '{{ arn }}'
+              inline: '{{ inline }}'
+              name: '{{ name }}'
+              description: '{{ description }}'
               tags:
                 - null
-              description: '{{ description }}'
+              created_time: '{{ created_time }}'
+              last_updated_time: '{{ last_updated_time }}'
           entity_types:
             - arn: '{{ arn }}'
               inline: '{{ inline }}'
@@ -657,6 +681,9 @@ resources:
                 - null
               created_time: '{{ created_time }}'
               last_updated_time: '{{ last_updated_time }}'
+          arn: '{{ arn }}'
+          created_time: '{{ created_time }}'
+          last_updated_time: '{{ last_updated_time }}'
       - name: associated_models
         value:
           - arn: '{{ arn }}'`}</CodeBlock>

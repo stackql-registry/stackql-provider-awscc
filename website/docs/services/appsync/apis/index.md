@@ -99,27 +99,27 @@ Creates, updates, deletes or gets an <code>api</code> resource or lists <code>ap
           {
             "name": "open_id_connect_config",
             "type": "object",
-            "description": "",
+            "description": "The OpenID Connect configuration.",
             "children": [
               {
                 "name": "client_id",
                 "type": "string",
-                "description": "The client identifier of the Relying party at the OpenID identity provider."
+                "description": ""
               },
               {
                 "name": "auth_ttl",
                 "type": "number",
-                "description": "The number of milliseconds that a token is valid after being authenticated."
+                "description": ""
               },
               {
                 "name": "issuer",
                 "type": "string",
-                "description": "The issuer for the OIDC configuration."
+                "description": ""
               },
               {
                 "name": "iat_ttl",
                 "type": "number",
-                "description": "The number of milliseconds that a token is valid after it's issued to a user."
+                "description": ""
               }
             ]
           },
@@ -148,22 +148,22 @@ Creates, updates, deletes or gets an <code>api</code> resource or lists <code>ap
           {
             "name": "lambda_authorizer_config",
             "type": "object",
-            "description": "",
+            "description": "A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS_LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.",
             "children": [
               {
-                "name": "identity_validation_expression",
-                "type": "string",
-                "description": "A regular expression for validation of tokens before the Lambda function is called."
+                "name": "authorizer_result_ttl_in_seconds",
+                "type": "integer",
+                "description": ""
               },
               {
                 "name": "authorizer_uri",
                 "type": "string",
-                "description": "The ARN of the Lambda function to be called for authorization."
+                "description": ""
               },
               {
-                "name": "authorizer_result_ttl_in_seconds",
-                "type": "integer",
-                "description": "The number of seconds a response should be cached for."
+                "name": "identity_validation_expression",
+                "type": "string",
+                "description": ""
               }
             ]
           }
@@ -172,7 +172,7 @@ Creates, updates, deletes or gets an <code>api</code> resource or lists <code>ap
       {
         "name": "connection_auth_modes",
         "type": "array",
-        "description": "",
+        "description": "A list of auth modes for the AppSync API.",
         "children": [
           {
             "name": "auth_type",
@@ -203,17 +203,17 @@ Creates, updates, deletes or gets an <code>api</code> resource or lists <code>ap
   {
     "name": "tags",
     "type": "array",
-    "description": "An arbitrary set of tags (key-value pairs) for this Domain Name.",
+    "description": "An arbitrary set of tags (key-value pairs) for this AppSync API.",
     "children": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "A string used to identify this tag. You can specify a maximum of 128 characters for a tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value."
       }
     ]
   },
@@ -427,9 +427,9 @@ resources:
                 user_pool_id: '{{ user_pool_id }}'
                 aws_region: '{{ aws_region }}'
               lambda_authorizer_config:
-                identity_validation_expression: '{{ identity_validation_expression }}'
-                authorizer_uri: '{{ authorizer_uri }}'
                 authorizer_result_ttl_in_seconds: '{{ authorizer_result_ttl_in_seconds }}'
+                authorizer_uri: '{{ authorizer_uri }}'
+                identity_validation_expression: '{{ identity_validation_expression }}'
           connection_auth_modes:
             - auth_type: null
           default_publish_auth_modes: null
@@ -439,8 +439,8 @@ resources:
             cloud_watch_logs_role_arn: '{{ cloud_watch_logs_role_arn }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -47,7 +47,7 @@ Creates, updates, deletes or gets an <code>event_invoke_config</code> resource o
   {
     "name": "destination_config",
     "type": "object",
-    "description": "A configuration object that specifies the destination of an event after Lambda processes it. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-async-destinations\">Adding a destination</a>.",
+    "description": "A destination for events after they have been sent to a function for processing.",
     "children": [
       {
         "name": "on_failure",
@@ -57,7 +57,19 @@ Creates, updates, deletes or gets an <code>event_invoke_config</code> resource o
           {
             "name": "destination",
             "type": "string",
-            "description": "<details><summary>The Amazon Resource Name (ARN) of the destination resource.</summary>To retain records of unsuccessful <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations\">asynchronous invocations</a>, you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html\">Kinesis</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html\">DynamoDB</a>, <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination\">self-managed Kafka</a> or <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination\">Amazon MSK</a>, you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination.</details>"
+            "description": "The Amazon Resource Name (ARN) of the destination resource."
+          }
+        ]
+      },
+      {
+        "name": "on_success",
+        "type": "object",
+        "description": "The destination configuration for successful invocations.",
+        "children": [
+          {
+            "name": "destination",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the destination resource."
           }
         ]
       }
@@ -286,6 +298,8 @@ resources:
       - name: destination_config
         value:
           on_failure:
+            destination: '{{ destination }}'
+          on_success:
             destination: '{{ destination }}'
       - name: function_name
         value: '{{ function_name }}'

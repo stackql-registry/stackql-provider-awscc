@@ -72,12 +72,12 @@ Creates, updates, deletes or gets a <code>carrier_gateway</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

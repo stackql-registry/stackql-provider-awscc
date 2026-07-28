@@ -94,7 +94,7 @@ Creates, updates, deletes or gets a <code>quick_connect</code> resource or lists
           {
             "name": "queue_arn",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) for the queue."
+            "description": "The identifier for the queue."
           }
         ]
       },
@@ -111,7 +111,7 @@ Creates, updates, deletes or gets a <code>quick_connect</code> resource or lists
           {
             "name": "user_arn",
             "type": "string",
-            "description": "The Amazon Resource Name (ARN) of the user or a dynamic recipient string starting with '$.'."
+            "description": "The identifier of the user."
           }
         ]
       }
@@ -130,12 +130,12 @@ Creates, updates, deletes or gets a <code>quick_connect</code> resource or lists
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+        "description": "The value for the tag. You can specify a value that is maximum of 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },

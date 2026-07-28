@@ -67,12 +67,12 @@ Creates, updates, deletes or gets a <code>dimension</code> resource or lists <co
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },

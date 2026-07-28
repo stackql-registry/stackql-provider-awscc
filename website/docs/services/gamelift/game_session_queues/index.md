@@ -140,7 +140,7 @@ Creates, updates, deletes or gets a <code>game_session_queue</code> resource or 
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length."
       }
     ]
   },

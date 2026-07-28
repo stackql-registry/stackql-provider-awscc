@@ -60,14 +60,14 @@ Creates, updates, deletes or gets a <code>transit_gateway_route_table</code> res
     "description": "Tags are composed of a Key/Value pair. You can use tags to categorize and track each parameter group. The tag value null is permitted.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "The value of the associated tag key-value pair"
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key of the associated tag key-value pair"
       }
     ]
   },
@@ -259,8 +259,8 @@ resources:
         value: '{{ transit_gateway_id }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

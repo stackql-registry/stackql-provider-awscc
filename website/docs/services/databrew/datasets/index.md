@@ -131,6 +131,11 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
             "name": "key",
             "type": "string",
             "description": ""
+          },
+          {
+            "name": "bucket_owner",
+            "type": "string",
+            "description": "Bucket owner"
           }
         ]
       },
@@ -528,6 +533,7 @@ resources:
           s3_input_definition:
             bucket: '{{ bucket }}'
             key: '{{ key }}'
+            bucket_owner: '{{ bucket_owner }}'
           data_catalog_input_definition:
             catalog_id: '{{ catalog_id }}'
             database_name: '{{ database_name }}'

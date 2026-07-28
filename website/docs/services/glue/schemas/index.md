@@ -1,10 +1,10 @@
 ---
-title: schemata
+title: schemas
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - schemata
-  - personalize
+  - schemas
+  - glue
   - aws
   - stackql
   - infrastructure-as-code
@@ -21,15 +21,15 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>schemata</code> in a region
+Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>schemas</code> in a region
 
 ## Overview
 <table>
 <tbody>
-<tr><td><b>Name</b></td><td><code>schemata</code></td></tr>
+<tr><td><b>Name</b></td><td><code>schemas</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Resource schema for AWS::Personalize::Schema.</td></tr>
-<tr><td><b>Id</b></td><td><CopyableCode code="awscc.personalize.schemata" /></td></tr>
+<tr><td><b>Description</b></td><td>This resource represents a schema of Glue Schema Registry.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.glue.schemas" /></td></tr>
 </tbody>
 </table>
 
@@ -45,24 +45,90 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 
 <SchemaTable fields={[
   {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name for the Schema."
+  },
+  {
+    "name": "registry",
+    "type": "object",
+    "description": "Identifier for the registry which the schema is part of.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Name of the registry in which the schema will be created."
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "Amazon Resource Name for the Registry."
+      }
+    ]
+  },
+  {
     "name": "name",
     "type": "string",
-    "description": "Name for the schema."
+    "description": "Name of the schema."
   },
   {
-    "name": "schema_arn",
+    "name": "description",
     "type": "string",
-    "description": "Arn for the schema."
+    "description": "A description of the schema. If description is not provided, there will not be any default value for this."
   },
   {
-    "name": "schema",
+    "name": "data_format",
     "type": "string",
-    "description": "A schema in Avro JSON format."
+    "description": "Data format name to use for the schema. Accepted values: 'AVRO', 'JSON', 'PROTOBUF'"
   },
   {
-    "name": "domain",
+    "name": "compatibility",
     "type": "string",
-    "description": "The domain of a Domain dataset group."
+    "description": "Compatibility setting for the schema."
+  },
+  {
+    "name": "schema_definition",
+    "type": "string",
+    "description": "Definition for the initial schema version in plain-text."
+  },
+  {
+    "name": "checkpoint_version",
+    "type": "object",
+    "description": "Specify checkpoint version for update. This is only required to update the Compatibility.",
+    "children": [
+      {
+        "name": "is_latest",
+        "type": "boolean",
+        "description": "Indicates if the latest version needs to be updated."
+      },
+      {
+        "name": "version_number",
+        "type": "integer",
+        "description": "Indicates the version number in the schema to update."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of tags to tag the schema",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key to identify the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Corresponding tag value for the key."
+      }
+    ]
+  },
+  {
+    "name": "initial_schema_version_id",
+    "type": "string",
+    "description": "Represents the version ID associated with the initial schema version."
   },
   {
     "name": "region",
@@ -75,14 +141,9 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 
 <SchemaTable fields={[
   {
-    "name": "schema_arn",
+    "name": "arn",
     "type": "string",
-    "description": "Arn for the schema."
-  },
-  {
-    "name": "schema",
-    "type": "string",
-    "description": "A schema in Avro JSON format."
+    "description": "Amazon Resource Name for the Schema."
   },
   {
     "name": "region",
@@ -93,7 +154,7 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 </TabItem>
 </Tabs>
 
-For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-personalize-schema.html"><code>AWS::Personalize::Schema</code></a>.
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-schema.html"><code>AWS::Glue::Schema</code></a>.
 
 ## Methods
 
@@ -107,25 +168,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>schemas</code></td>
     <td><code>INSERT</code></td>
-    <td><CopyableCode code="Name, Schema, region" /></td>
+    <td><CopyableCode code="Name, DataFormat, Compatibility, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>schemas</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>schemas</code></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
+  </tr>
+  <tr>
     <td><CopyableCode code="list_resources" /></td>
-    <td><code>schemata_list_only</code></td>
+    <td><code>schemas_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>schemas</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="Identifier, region" /></td>
   </tr>
@@ -147,24 +214,30 @@ Gets all properties from an individual <code>schema</code>.
 ```sql
 SELECT
   region,
+  arn,
+  registry,
   name,
-  schema_arn,
-  schema,
-  domain
-FROM awscc.personalize.schemata
+  description,
+  data_format,
+  compatibility,
+  schema_definition,
+  checkpoint_version,
+  tags,
+  initial_schema_version_id
+FROM awscc.glue.schemas
 WHERE
   region = '{{ region }}' AND
-  Identifier = '{{ schema_arn }}';
+  Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
 
-Lists all <code>schemata</code> in a region.
+Lists all <code>schemas</code> in a region.
 ```sql
 SELECT
   region,
-  schema_arn
-FROM awscc.personalize.schemata_list_only
+  arn
+FROM awscc.glue.schemas_list_only
 WHERE
   region = '{{ region }}';
 ```
@@ -187,14 +260,16 @@ Use the following StackQL query and manifest file to create a new <code>schema</
 
 ```sql
 /*+ create */
-INSERT INTO awscc.personalize.schemata (
+INSERT INTO awscc.glue.schemas (
   Name,
-  Schema,
+  DataFormat,
+  Compatibility,
   region
 )
 SELECT
   '{{ name }}',
-  '{{ schema }}',
+  '{{ data_format }}',
+  '{{ compatibility }}',
   '{{ region }}'
 RETURNING
   ErrorCode,
@@ -214,16 +289,26 @@ RETURNING
 
 ```sql
 /*+ create */
-INSERT INTO awscc.personalize.schemata (
+INSERT INTO awscc.glue.schemas (
+  Registry,
   Name,
-  Schema,
-  Domain,
+  Description,
+  DataFormat,
+  Compatibility,
+  SchemaDefinition,
+  CheckpointVersion,
+  Tags,
   region
 )
 SELECT
+  '{{ registry }}',
   '{{ name }}',
-  '{{ schema }}',
-  '{{ domain }}',
+  '{{ description }}',
+  '{{ data_format }}',
+  '{{ compatibility }}',
+  '{{ schema_definition }}',
+  '{{ checkpoint_version }}',
+  '{{ tags }}',
   '{{ region }}'
 RETURNING
   ErrorCode,
@@ -252,24 +337,70 @@ globals:
 resources:
   - name: schema
     props:
+      - name: registry
+        value:
+          name: '{{ name }}'
+          arn: '{{ arn }}'
       - name: name
         value: '{{ name }}'
-      - name: schema
-        value: '{{ schema }}'
-      - name: domain
-        value: '{{ domain }}'`}</CodeBlock>
+      - name: description
+        value: '{{ description }}'
+      - name: data_format
+        value: '{{ data_format }}'
+      - name: compatibility
+        value: '{{ compatibility }}'
+      - name: schema_definition
+        value: '{{ schema_definition }}'
+      - name: checkpoint_version
+        value:
+          is_latest: '{{ is_latest }}'
+          version_number: '{{ version_number }}'
+      - name: tags
+        value:
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+Use the following StackQL query and manifest file to update a <code>schema</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+```sql
+/*+ update */
+UPDATE awscc.glue.schemas
+SET PatchDocument = string('{{ {
+    "Description": description,
+    "Compatibility": compatibility,
+    "CheckpointVersion": checkpoint_version,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '{{ arn }}'
+RETURNING
+  ErrorCode,
+  EventTime,
+  Identifier,
+  Operation,
+  OperationStatus,
+  RequestToken,
+  ResourceModel,
+  RetryAfter,
+  StatusMessage,
+  TypeName
+;
+```
 
 
 ## `DELETE` example
 
 ```sql
 /*+ delete */
-DELETE FROM awscc.personalize.schemata
+DELETE FROM awscc.glue.schemas
 WHERE
-  Identifier = '{{ schema_arn }}' AND
+  Identifier = '{{ arn }}' AND
   region = '{{ region }}'
 RETURNING
   ErrorCode,
@@ -298,7 +429,7 @@ Mutable resources in the Cloud Control provider support additional optional para
 
 ## Permissions
 
-To operate on the <code>schemata</code> resource, the following permissions are required:
+To operate on the <code>schemas</code> resource, the following permissions are required:
 
 <Tabs
     defaultValue="create"
@@ -306,36 +437,51 @@ To operate on the <code>schemata</code> resource, the following permissions are 
       { label: 'Create', value: 'create', },
       { label: 'Read', value: 'read', },
       { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
       { label: 'List', value: 'list', },
     ]
 }>
 <TabItem value="create">
 
 ```json
-personalize:CreateSchema,
-personalize:DescribeSchema
+glue:CreateSchema,
+glue:TagResource
 ```
 
 </TabItem>
 <TabItem value="read">
 
 ```json
-personalize:DescribeSchema
+glue:GetSchemaVersion,
+glue:GetSchema,
+glue:GetTags
 ```
 
 </TabItem>
 <TabItem value="delete">
 
 ```json
-personalize:DeleteSchema,
-personalize:DescribeSchema
+glue:DeleteSchema,
+glue:GetSchema
+```
+
+</TabItem>
+<TabItem value="update">
+
+```json
+glue:UpdateSchema,
+glue:GetSchemaVersion,
+glue:GetSchema,
+glue:GetTags,
+glue:TagResource,
+glue:UntagResource
 ```
 
 </TabItem>
 <TabItem value="list">
 
 ```json
-personalize:ListSchemas
+glue:ListSchemas
 ```
 
 </TabItem>

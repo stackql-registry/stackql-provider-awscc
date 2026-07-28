@@ -52,34 +52,66 @@ Creates, updates, deletes or gets a <code>telemetry_rule</code> resource or list
   {
     "name": "rule",
     "type": "object",
-    "description": "The AWS::ObservabilityAdmin::TelemetryRule resource defines a CloudWatch Observability Admin Telemetry Rule.",
+    "description": "The telemetry rule",
     "children": [
       {
-        "name": "rule_name",
+        "name": "resource_type",
         "type": "string",
-        "description": "The name of the telemetry rule"
+        "description": "Resource Type associated with the Telemetry Rule"
       },
       {
-        "name": "rule_arn",
+        "name": "telemetry_type",
         "type": "string",
-        "description": "The arn of the telemetry rule"
+        "description": "Telemetry Type associated with the Telemetry Rule"
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource",
+        "name": "destination_configuration",
+        "type": "object",
+        "description": "The destination configuration for telemetry data",
         "children": [
           {
-            "name": "key",
+            "name": "destination_type",
             "type": "string",
-            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+            "description": "Type of telemetry destination"
           },
           {
-            "name": "value",
+            "name": "destination_pattern",
             "type": "string",
-            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+            "description": "Pattern for telemetry data destination"
+          },
+          {
+            "name": "retention_in_days",
+            "type": "integer",
+            "description": "Number of days to retain the telemetry data in the specified destination"
+          },
+          {
+            "name": "vpc_flow_log_parameters",
+            "type": "object",
+            "description": "Telemetry parameters for VPC Flow logs",
+            "children": [
+              {
+                "name": "log_format",
+                "type": "string",
+                "description": "The fields to include in the flow log record. If you omit this parameter, the flow log is created using the default format."
+              },
+              {
+                "name": "traffic_type",
+                "type": "string",
+                "description": "The type of traffic captured for the flow log. Default is ALL"
+              },
+              {
+                "name": "max_aggregation_interval",
+                "type": "integer",
+                "description": "The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record. Default is 600s."
+              }
+            ]
           }
         ]
+      },
+      {
+        "name": "selection_criteria",
+        "type": "string",
+        "description": "Selection Criteria on resource level for rule application"
       }
     ]
   },
@@ -118,34 +150,66 @@ Creates, updates, deletes or gets a <code>telemetry_rule</code> resource or list
   {
     "name": "rule",
     "type": "object",
-    "description": "The AWS::ObservabilityAdmin::TelemetryRule resource defines a CloudWatch Observability Admin Telemetry Rule.",
+    "description": "The telemetry rule",
     "children": [
       {
-        "name": "rule_name",
+        "name": "resource_type",
         "type": "string",
-        "description": "The name of the telemetry rule"
+        "description": "Resource Type associated with the Telemetry Rule"
       },
       {
-        "name": "rule_arn",
+        "name": "telemetry_type",
         "type": "string",
-        "description": "The arn of the telemetry rule"
+        "description": "Telemetry Type associated with the Telemetry Rule"
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource",
+        "name": "destination_configuration",
+        "type": "object",
+        "description": "The destination configuration for telemetry data",
         "children": [
           {
-            "name": "key",
+            "name": "destination_type",
             "type": "string",
-            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+            "description": "Type of telemetry destination"
           },
           {
-            "name": "value",
+            "name": "destination_pattern",
             "type": "string",
-            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+            "description": "Pattern for telemetry data destination"
+          },
+          {
+            "name": "retention_in_days",
+            "type": "integer",
+            "description": "Number of days to retain the telemetry data in the specified destination"
+          },
+          {
+            "name": "vpc_flow_log_parameters",
+            "type": "object",
+            "description": "Telemetry parameters for VPC Flow logs",
+            "children": [
+              {
+                "name": "log_format",
+                "type": "string",
+                "description": "The fields to include in the flow log record. If you omit this parameter, the flow log is created using the default format."
+              },
+              {
+                "name": "traffic_type",
+                "type": "string",
+                "description": "The type of traffic captured for the flow log. Default is ALL"
+              },
+              {
+                "name": "max_aggregation_interval",
+                "type": "integer",
+                "description": "The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record. Default is 600s."
+              }
+            ]
           }
         ]
+      },
+      {
+        "name": "selection_criteria",
+        "type": "string",
+        "description": "Selection Criteria on resource level for rule application"
       }
     ]
   },
@@ -332,14 +396,21 @@ resources:
         value: '{{ rule_name }}'
       - name: rule
         value:
-          rule_name: '{{ rule_name }}'
-          rule: null
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          resource_type: '{{ resource_type }}'
+          telemetry_type: '{{ telemetry_type }}'
+          destination_configuration:
+            destination_type: '{{ destination_type }}'
+            destination_pattern: '{{ destination_pattern }}'
+            retention_in_days: '{{ retention_in_days }}'
+            vpc_flow_log_parameters:
+              log_format: '{{ log_format }}'
+              traffic_type: '{{ traffic_type }}'
+              max_aggregation_interval: '{{ max_aggregation_interval }}'
+          selection_criteria: '{{ selection_criteria }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

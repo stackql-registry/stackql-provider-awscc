@@ -20,7 +20,7 @@ The connect service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>26</b></span><br />
+<span>total resources:&nbsp;<b>27</b></span><br />
 </div>
 </div>
 
@@ -40,6 +40,7 @@ The connect service documentation.
 <a href="/services/connect/instance_storage_configs/">instance_storage_configs</a><br />
 <a href="/services/connect/instances/">instances</a><br />
 <a href="/services/connect/integration_associations/">integration_associations</a><br />
+<a href="/services/connect/phone_numbers/">phone_numbers</a><br />
 <a href="/services/connect/predefined_attributes/">predefined_attributes</a><br />
 <a href="/services/connect/prompts/">prompts</a>
 </div>

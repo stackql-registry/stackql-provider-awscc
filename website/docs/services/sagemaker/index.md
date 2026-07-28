@@ -20,7 +20,7 @@ The sagemaker service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>26</b></span><br />
+<span>total resources:&nbsp;<b>28</b></span><br />
 </div>
 </div>
 
@@ -35,6 +35,7 @@ The sagemaker service documentation.
 <a href="/services/sagemaker/data_quality_job_definitions/">data_quality_job_definitions</a><br />
 <a href="/services/sagemaker/device_fleets/">device_fleets</a><br />
 <a href="/services/sagemaker/devices/">devices</a><br />
+<a href="/services/sagemaker/domains/">domains</a><br />
 <a href="/services/sagemaker/endpoints/">endpoints</a><br />
 <a href="/services/sagemaker/feature_groups/">feature_groups</a><br />
 <a href="/services/sagemaker/image_versions/">image_versions</a><br />
@@ -45,6 +46,7 @@ The sagemaker service documentation.
 </div>
 <div class="providerDocColumn">
 <a href="/services/sagemaker/model_bias_job_definitions/">model_bias_job_definitions</a><br />
+<a href="/services/sagemaker/model_cards/">model_cards</a><br />
 <a href="/services/sagemaker/model_explainability_job_definitions/">model_explainability_job_definitions</a><br />
 <a href="/services/sagemaker/model_package_groups/">model_package_groups</a><br />
 <a href="/services/sagemaker/model_packages/">model_packages</a><br />

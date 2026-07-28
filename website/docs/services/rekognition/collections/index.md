@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>collection</code> resource or lists <c
   {
     "name": "arn",
     "type": "string",
-    "description": "The ARN of the stream processor"
+    "description": ""
   },
   {
     "name": "collection_id",

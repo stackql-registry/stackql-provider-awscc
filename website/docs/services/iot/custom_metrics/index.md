@@ -72,12 +72,12 @@ Creates, updates, deletes or gets a <code>custom_metric</code> resource or lists
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },

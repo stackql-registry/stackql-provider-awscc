@@ -87,12 +87,12 @@ Creates, updates, deletes or gets a <code>dhcp_option</code> resource or lists <
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

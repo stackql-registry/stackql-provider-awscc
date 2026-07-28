@@ -47,12 +47,12 @@ Creates, updates, deletes or gets a <code>location_nf</code> resource or lists <
   {
     "name": "mount_options",
     "type": "object",
-    "description": "The mount options used by DataSync to access the SMB server.",
+    "description": "The NFS mount options that DataSync can use to mount your NFS share.",
     "children": [
       {
         "name": "version",
         "type": "string",
-        "description": "The specific SMB version that you want DataSync to use to mount your SMB share."
+        "description": "The specific NFS version that you want DataSync to use to mount your NFS share."
       }
     ]
   },

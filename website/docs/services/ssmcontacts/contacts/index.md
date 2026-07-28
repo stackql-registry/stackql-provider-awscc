@@ -109,6 +109,11 @@ Creates, updates, deletes or gets a <code>contact</code> resource or lists <code
             ]
           }
         ]
+      },
+      {
+        "name": "rotation_ids",
+        "type": "array",
+        "description": "List of Rotation Ids to associate with Contact"
       }
     ]
   },
@@ -347,6 +352,8 @@ resources:
                 channel_target_info:
                   channel_id: '{{ channel_id }}'
                   retry_interval_in_minutes: '{{ retry_interval_in_minutes }}'
+            rotation_ids:
+              - '{{ rotation_ids[0] }}'
       - name: tags
         value:
           - key: '{{ key }}'

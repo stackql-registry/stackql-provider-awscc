@@ -178,12 +178,12 @@ Creates, updates, deletes or gets a <code>command</code> resource or lists <code
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The tag's key."
       },
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The tag's value."
       }
     ]
   },

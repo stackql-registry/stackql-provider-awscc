@@ -126,14 +126,14 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
     "description": "An arbitrary set of tags (key-value pairs) for this application.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The key of the tag."
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": "The value of the tag."
+        "description": "The key in the key-value pair"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value in the key-value pair"
       }
     ]
   },
@@ -353,8 +353,8 @@ resources:
             data_source_description: '{{ data_source_description }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

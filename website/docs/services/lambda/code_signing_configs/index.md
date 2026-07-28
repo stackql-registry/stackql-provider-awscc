@@ -89,14 +89,14 @@ Creates, updates, deletes or gets a <code>code_signing_config</code> resource or
     "description": "A list of tags to apply to CodeSigningConfig resource",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for this tag."
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": "The key for this tag."
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -302,8 +302,8 @@ resources:
           untrusted_artifact_on_deployment: '{{ untrusted_artifact_on_deployment }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

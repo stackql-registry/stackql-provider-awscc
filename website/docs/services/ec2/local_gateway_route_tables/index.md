@@ -87,12 +87,12 @@ Creates, updates, deletes or gets a <code>local_gateway_route_table</code> resou
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

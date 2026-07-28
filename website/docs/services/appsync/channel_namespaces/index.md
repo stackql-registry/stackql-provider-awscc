@@ -84,17 +84,17 @@ Creates, updates, deletes or gets a <code>channel_namespace</code> resource or l
   {
     "name": "tags",
     "type": "array",
-    "description": "An arbitrary set of tags (key-value pairs) for this Domain Name.",
+    "description": "An arbitrary set of tags (key-value pairs) for this AppSync API.",
     "children": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "A string used to identify this tag. You can specify a maximum of 128 characters for a tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value."
       }
     ]
   },
@@ -358,8 +358,8 @@ resources:
         value: '{{ code_s3_location }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: handler_configs
         value:
           on_publish:
@@ -367,7 +367,7 @@ resources:
             integration:
               data_source_name: '{{ data_source_name }}'
               lambda_config:
-                lambda_function_arn: '{{ lambda_function_arn }}'
+                invoke_type: '{{ invoke_type }}'
           on_subscribe: null`}</CodeBlock>
 
 </TabItem>

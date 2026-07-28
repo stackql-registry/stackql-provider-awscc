@@ -147,14 +147,14 @@ Creates, updates, deletes or gets a <code>vpc_endpoint</code> resource or lists 
     "description": "The tags to associate with the endpoint.",
     "children": [
       {
-        "name": "key",
-        "type": "string",
-        "description": "The tag key."
-      },
-      {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "<details><summary>The value of the tag.</summary>Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.</details>"
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<details><summary>The key of the tag.</summary>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <code>aws:</code>.</details>"
       }
     ]
   },
@@ -414,8 +414,8 @@ resources:
         value: '{{ vpc_endpoint_type }}'
       - name: tags
         value:
-          - key: '{{ key }}'
-            value: '{{ value }}'`}</CodeBlock>
+          - value: '{{ value }}'
+            key: '{{ key }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

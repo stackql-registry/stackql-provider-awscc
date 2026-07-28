@@ -67,7 +67,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
   {
     "name": "engine_type",
     "type": "string",
-    "description": "The target platform for the environment."
+    "description": ""
   },
   {
     "name": "kms_key_id",
@@ -87,7 +87,7 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
   {
     "name": "tags",
     "type": "object",
-    "description": "Defines tags associated to an environment."
+    "description": ""
   },
   {
     "name": "region",

@@ -92,12 +92,12 @@ Creates, updates, deletes or gets an <code>app_block_builder</code> resource or 
     "description": "",
     "children": [
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       },
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       }
@@ -377,8 +377,8 @@ resources:
             vpce_id: '{{ vpce_id }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: vpc_config
         value:
           security_group_ids:

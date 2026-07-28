@@ -880,12 +880,12 @@ Creates, updates, deletes or gets a <code>task_definition</code> resource or lis
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The optional part of a key-value pair that make up a tag. A <code>value</code> acts as a descriptor within a tag category (key)."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "One part of a key-value pair that make up a tag. A <code>key</code> is a general label that acts like a category for more specific tag values."
       }
     ]
   },

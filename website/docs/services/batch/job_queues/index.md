@@ -52,7 +52,7 @@ Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <co
   {
     "name": "job_queue_arn",
     "type": "string",
-    "description": "ARN of the Scheduling Policy."
+    "description": ""
   },
   {
     "name": "job_queue_type",
@@ -148,7 +148,7 @@ Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <co
   {
     "name": "job_queue_arn",
     "type": "string",
-    "description": "ARN of the Scheduling Policy."
+    "description": ""
   },
   {
     "name": "region",

@@ -77,12 +77,12 @@ Creates, updates, deletes or gets a <code>transit_gateway_connect</code> resourc
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": "The key of the tag. Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with aws:."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": "The value of the tag. Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters."
       }
     ]
   },

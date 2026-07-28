@@ -26,16 +26,26 @@ npm run generate-provider
 ```
 output openapi3 specs (`components/schemas`) are written to `opneapi/src/aws/v00.00.00000/services`
 
-### 5. Test all metadata routes (services, resources, methods) in the provider:
+### 5. Test resource coverage in the provider:
+
+Verifies that every supported resource type in `provider-dev/config/cc_supported_resources.js` is accounted for in the generated provider:
+
+```bash
+npm run test-resource-coverage
+```
+
+### 6. Test all metadata routes (services, resources, methods) in the provider:
 
 ```bash
 PROVIDER_REGISTRY_ROOT_DIR="$(pwd)/openapi"
 npm run start-server -- --provider awscc --registry $PROVIDER_REGISTRY_ROOT_DIR
-npm run test-meta-routes -- awscc --ignore-no-methods
+npm run test-meta-routes -- awscc --ignore-no-methods --skip-resources awscc.tagging.tagged_resources
 npm run stop-server
 ```
 
-### 6. Testing locally with `stackql`
+*(`awscc.tagging.tagged_resources` is a native resource in a statically defined service; `DESCRIBE` does not return columns for it so it is excluded from the metadata route tests)*
+
+### 7. Testing locally with `stackql`
 1. ensure the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables are set
 2. download the latest `stackql` binary, for example `curl -L https://bit.ly/stackql-zip -O && unzip stackql-zip` for Linux systems
 3. run the following:
@@ -75,14 +85,14 @@ and TagFilters = '[{"Key": "StackName", "Values": ["stackql-serverless"]}]'
 where key = 'StackName' and value = 'stackql-serverless';
 ```
 
-### 6. Generate web docs:
+### 8. Generate web docs:
 
 ```bash
 npm run generate-docs
 ```
 output markdown docs are written to `website/docs`
 
-### 7. Test web docs locally
+### 9. Test web docs locally
 
 ```bash
 cd website
@@ -93,7 +103,7 @@ yarn build
 yarn start
 ```
 
-### 8. Publish web docs to GitHub Pages
+### 10. Publish web docs to GitHub Pages
 
 Under __Pages__ in the repository, in the __Build and deployment__ section select __GitHub Actions__ as the __Source__. In Netlify DNS create the following records:
 

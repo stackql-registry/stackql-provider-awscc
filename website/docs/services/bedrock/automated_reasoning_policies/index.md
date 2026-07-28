@@ -47,12 +47,12 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy</code> res
   {
     "name": "name",
     "type": "string",
-    "description": "The name inherited from the policy"
+    "description": ""
   },
   {
     "name": "description",
     "type": "string",
-    "description": "The description inherited from the policy"
+    "description": ""
   },
   {
     "name": "policy_definition",
@@ -147,12 +147,12 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy</code> res
   {
     "name": "policy_arn",
     "type": "string",
-    "description": "Arn of the policy"
+    "description": ""
   },
   {
     "name": "version",
     "type": "string",
-    "description": "The version of the policy"
+    "description": "Version of the policy that was created. This will always be <code>DRAFT</code>"
   },
   {
     "name": "definition_hash",
@@ -162,7 +162,7 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy</code> res
   {
     "name": "created_at",
     "type": "string",
-    "description": "Time this policy version was created"
+    "description": "Time this policy was created"
   },
   {
     "name": "updated_at",
@@ -172,7 +172,7 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy</code> res
   {
     "name": "policy_id",
     "type": "string",
-    "description": "The id of the associated policy"
+    "description": "The id of the policy"
   },
   {
     "name": "tags",
@@ -204,7 +204,7 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy</code> res
   {
     "name": "policy_arn",
     "type": "string",
-    "description": "Arn of the policy"
+    "description": ""
   },
   {
     "name": "region",

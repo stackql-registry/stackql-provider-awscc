@@ -33,7 +33,7 @@ The personalize service documentation.
 <a href="/services/personalize/datasets/">datasets</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/personalize/schemata/">schemata</a><br />
+<a href="/services/personalize/schemas/">schemas</a><br />
 <a href="/services/personalize/solutions/">solutions</a>
 </div>
 </div>

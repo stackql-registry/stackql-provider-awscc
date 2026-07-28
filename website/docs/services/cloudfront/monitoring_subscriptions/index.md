@@ -46,9 +46,16 @@ Creates, updates, deletes or gets a <code>monitoring_subscription</code> resourc
     "description": "A subscription configuration for additional CloudWatch metrics.",
     "children": [
       {
-        "name": "distribution_id",
-        "type": "string",
-        "description": "The ID of the distribution that you are enabling metrics for."
+        "name": "realtime_metrics_subscription_config",
+        "type": "object",
+        "description": "A subscription configuration for additional CloudWatch metrics.",
+        "children": [
+          {
+            "name": "realtime_metrics_subscription_status",
+            "type": "string",
+            "description": "A flag that indicates whether additional CloudWatch metrics are enabled for a given CloudFront distribution."
+          }
+        ]
       }
     ]
   },
@@ -185,8 +192,8 @@ resources:
         value: '{{ distribution_id }}'
       - name: monitoring_subscription
         value:
-          distribution_id: '{{ distribution_id }}'
-          monitoring_subscription: null`}</CodeBlock>
+          realtime_metrics_subscription_config:
+            realtime_metrics_subscription_status: '{{ realtime_metrics_subscription_status }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

@@ -194,37 +194,8 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
     "children": [
       {
         "name": "location",
-        "type": "object",
-        "description": "The AWS::GameLift::Location resource creates an Amazon GameLift (GameLift) custom location.",
-        "children": [
-          {
-            "name": "location_name",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "location_arn",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
-              }
-            ]
-          }
-        ]
+        "type": "string",
+        "description": ""
       },
       {
         "name": "location_capacity",
@@ -234,19 +205,24 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
           {
             "name": "desired_ec2_instances",
             "type": "integer",
-            "description": "The number of EC2 instances you want to maintain in the specified fleet location. This value must fall between the minimum and maximum size limits."
+            "description": "The number of EC2 instances you want to maintain in the specified fleet location. This value must fall between the minimum and maximum size limits. If any auto-scaling policy is defined for the container fleet, the desired instance will only be applied once during fleet creation and will be ignored in updates to avoid conflicts with auto-scaling. During updates with any auto-scaling policy defined, if current desired instance is lower than the new MinSize, it will be increased to the new MinSize; if current desired instance is larger than the new MaxSize, it will be decreased to the new MaxSize."
           },
           {
             "name": "min_size",
             "type": "integer",
-            "description": "The minimum value allowed for the fleet's instance count for a location. When creating a new fleet, GameLift automatically sets this value to \"0\". After the fleet is active, you can change this value."
+            "description": "The minimum value allowed for the fleet's instance count for a location."
           },
           {
             "name": "max_size",
             "type": "integer",
-            "description": "The maximum value that is allowed for the fleet's instance count for a location. When creating a new fleet, GameLift automatically sets this value to \"1\". Once the fleet is active, you can change this value."
+            "description": "The maximum value that is allowed for the fleet's instance count for a location."
           }
         ]
+      },
+      {
+        "name": "stopped_actions",
+        "type": "array",
+        "description": "A list of fleet actions that have been suspended in the fleet location."
       }
     ]
   },
@@ -264,40 +240,6 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
         "name": "evaluation_periods",
         "type": "integer",
         "description": "Length of time (in minutes) the metric must be at or beyond the threshold before a scaling event is triggered."
-      },
-      {
-        "name": "location",
-        "type": "object",
-        "description": "The AWS::GameLift::Location resource creates an Amazon GameLift (GameLift) custom location.",
-        "children": [
-          {
-            "name": "location_name",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "location_arn",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An array of key-value pairs to apply to this resource.",
-            "children": [
-              {
-                "name": "key",
-                "type": "string",
-                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
-              }
-            ]
-          }
-        ]
       },
       {
         "name": "metric_name",
@@ -325,11 +267,6 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
         "description": "The type of adjustment to make to a fleet's instance count."
       },
       {
-        "name": "status",
-        "type": "string",
-        "description": "Current status of the scaling policy. The scaling policy can be in force only when in an ACTIVE status. Scaling policies can be suspended for individual fleets. If the policy is suspended for a fleet, the policy status does not change."
-      },
-      {
         "name": "target_configuration",
         "type": "object",
         "description": "An object that contains settings for a target-based scaling policy.",
@@ -345,11 +282,6 @@ Creates, updates, deletes or gets a <code>container_fleet</code> resource or lis
         "name": "threshold",
         "type": "number",
         "description": "Metric value used to trigger a scaling event."
-      },
-      {
-        "name": "update_status",
-        "type": "string",
-        "description": "The current status of the fleet's scaling policies in a requested fleet location. The status PENDING_UPDATE indicates that an update was requested for the fleet but has not yet been completed for the location."
       }
     ]
   },
@@ -691,30 +623,25 @@ resources:
         value: '{{ billing_type }}'
       - name: locations
         value:
-          - location:
-              location_name: '{{ location_name }}'
-              tags:
-                - key: '{{ key }}'
-                  value: '{{ value }}'
+          - location: '{{ location }}'
             location_capacity:
               desired_ec2_instances: '{{ desired_ec2_instances }}'
               min_size: '{{ min_size }}'
               max_size: '{{ max_size }}'
+            stopped_actions:
+              - '{{ stopped_actions[0] }}'
       - name: scaling_policies
         value:
           - comparison_operator: '{{ comparison_operator }}'
             evaluation_periods: '{{ evaluation_periods }}'
-            location: null
             metric_name: '{{ metric_name }}'
             name: '{{ name }}'
             policy_type: '{{ policy_type }}'
             scaling_adjustment: '{{ scaling_adjustment }}'
             scaling_adjustment_type: '{{ scaling_adjustment_type }}'
-            status: '{{ status }}'
             target_configuration:
               target_value: null
             threshold: null
-            update_status: '{{ update_status }}'
       - name: metric_groups
         value:
           - '{{ metric_groups[0] }}'
@@ -731,7 +658,8 @@ resources:
           s3_bucket_name: '{{ s3_bucket_name }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

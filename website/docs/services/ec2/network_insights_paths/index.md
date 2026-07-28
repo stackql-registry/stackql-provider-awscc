@@ -126,12 +126,12 @@ Creates, updates, deletes or gets a <code>network_insights_path</code> resource 
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

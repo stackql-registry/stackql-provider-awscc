@@ -678,14 +678,19 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
     "description": "",
     "children": [
       {
-        "name": "principal",
-        "type": "string",
-        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
-      },
-      {
         "name": "actions",
         "type": "array",
         "description": "<p>The IAM action to grant or revoke permissions on.</p>"
+      },
+      {
+        "name": "resource",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "<details><summary><p>The Amazon Resource Name (ARN) of the principal. This can be one of the</summary>following:</p><br /><ul><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul></details>"
       }
     ]
   },
@@ -1114,9 +1119,10 @@ resources:
         value: '{{ aws_account_id }}'
       - name: permissions
         value:
-          - principal: '{{ principal }}'
-            actions:
+          - actions:
               - '{{ actions[0] }}'
+            resource: '{{ resource }}'
+            principal: '{{ principal }}'
       - name: ssl_properties
         value:
           disable_ssl: '{{ disable_ssl }}'

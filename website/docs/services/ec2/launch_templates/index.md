@@ -75,14 +75,14 @@ Creates, updates, deletes or gets a <code>launch_template</code> resource or lis
             "description": "The tags to apply to the resource.",
             "children": [
               {
-                "name": "key",
-                "type": "string",
-                "description": "The tag key."
-              },
-              {
                 "name": "value",
                 "type": "string",
                 "description": "The tag value."
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": "The tag key."
               }
             ]
           }
@@ -111,56 +111,71 @@ Creates, updates, deletes or gets a <code>launch_template</code> resource or lis
         "description": "The block device mapping.",
         "children": [
           {
-            "name": "device_name",
-            "type": "string",
-            "description": ""
-          },
-          {
             "name": "ebs",
             "type": "object",
-            "description": "",
+            "description": "Parameters used to automatically set up EBS volumes when the instance is launched.",
             "children": [
-              {
-                "name": "delete_on_termination",
-                "type": "boolean",
-                "description": ""
-              },
-              {
-                "name": "encrypted",
-                "type": "boolean",
-                "description": ""
-              },
-              {
-                "name": "iops",
-                "type": "integer",
-                "description": ""
-              },
               {
                 "name": "snapshot_id",
                 "type": "string",
-                "description": ""
-              },
-              {
-                "name": "volume_size",
-                "type": "integer",
-                "description": ""
+                "description": "The ID of the snapshot."
               },
               {
                 "name": "volume_type",
                 "type": "string",
-                "description": ""
+                "description": "The volume type. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html\">Amazon EBS volume types</a> in the <i>Amazon EBS User Guide</i>."
+              },
+              {
+                "name": "kms_key_id",
+                "type": "string",
+                "description": "Identifier (key ID, key alias, key ARN, or alias ARN) of the customer managed KMS key to use for EBS encryption."
+              },
+              {
+                "name": "encrypted",
+                "type": "boolean",
+                "description": "Indicates whether the EBS volume is encrypted. Encrypted volumes can only be attached to instances that support Amazon EBS encryption. If you are creating a volume from a snapshot, you can't specify an encryption value."
+              },
+              {
+                "name": "throughput",
+                "type": "integer",
+                "description": "<details><summary>The throughput to provision for a <code>gp3</code> volume, with a maximum of 1,000 MiB/s.</summary>Valid Range: Minimum value of 125. Maximum value of 1000.</details>"
+              },
+              {
+                "name": "iops",
+                "type": "integer",
+                "description": "<details><summary>The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.</summary>The following are the supported values for each volume type:<br />+  <code>gp3</code>: 3,000 - 16,000 IOPS<br />+  <code>io1</code>: 100 - 64,000 IOPS<br />+  <code>io2</code>: 100 - 256,000 IOPS<br />For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a href=\"https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html\">instances built on the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.<br />This parameter is supported for <code>io1</code>, <code>io2</code>, and <code>gp3</code> volumes only.</details>"
+              },
+              {
+                "name": "volume_initialization_rate",
+                "type": "integer",
+                "description": "<details><summary>Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the volume. This is also known as <i>volume initialization</i>. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.</summary>This parameter is supported only for volumes created from snapshots. Omit this parameter if:<br />+  You want to create the volume using fast snapshot restore. You must specify a snapshot that is enabled for fast snapshot restore. In this case, the volume is fully initialized at creation.<br />If you specify a snapshot that is enabled for fast snapshot restore and a volume initialization rate, the volume will be initialized at the specified rate instead of fast snapshot restore.<br />+  You want to create a volume that is initialized at the default rate.<br />For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html\">Initialize Amazon EBS volumes</a> in the <i>Amazon EC2 User Guide</i>.<br />Valid range: 100 - 300 MiB/s</details>"
+              },
+              {
+                "name": "volume_size",
+                "type": "integer",
+                "description": "<details><summary>The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. The following are the supported volumes sizes for each volume type:</summary>+  <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB<br />+  <code>io1</code>: 4 - 16,384 GiB<br />+  <code>io2</code>: 4 - 65,536 GiB<br />+  <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB<br />+  <code>standard</code>: 1 - 1024 GiB</details>"
+              },
+              {
+                "name": "delete_on_termination",
+                "type": "boolean",
+                "description": "Indicates whether the EBS volume is deleted on instance termination."
               }
             ]
           },
           {
             "name": "no_device",
             "type": "string",
-            "description": ""
+            "description": "To omit the device from the block device mapping, specify an empty string."
           },
           {
             "name": "virtual_name",
             "type": "string",
-            "description": ""
+            "description": "The virtual device name (ephemeralN). Instance store volumes are numbered starting from 0. An instance type with 2 available instance store volumes can specify mappings for ephemeral0 and ephemeral1. The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume."
+          },
+          {
+            "name": "device_name",
+            "type": "string",
+            "description": "The device name (for example, /dev/sdh or xvdh)."
           }
         ]
       },
@@ -268,167 +283,172 @@ Creates, updates, deletes or gets a <code>launch_template</code> resource or lis
           {
             "name": "private_ip_address",
             "type": "string",
-            "description": "Assigns a single private IP address to the network interface, which is used as the primary private IP address. If you want to specify multiple private IP address, use the PrivateIpAddresses property."
-          },
-          {
-            "name": "primary_ipv6_address",
-            "type": "string",
-            "description": "The primary IPv6 address"
+            "description": "The primary private IPv4 address of the network interface."
           },
           {
             "name": "private_ip_addresses",
             "type": "array",
-            "description": "Assigns a list of private IP addresses to the network interface. You can specify a primary private IP address by setting the value of the Primary property to true in the PrivateIpAddressSpecification property. If you want EC2 to automatically assign private IP addresses, use the SecondaryPrivateIpAddressCount property and do not specify this property.",
+            "description": "One or more private IPv4 addresses.",
             "children": [
-              {
-                "name": "primary",
-                "type": "boolean",
-                "description": ""
-              },
               {
                 "name": "private_ip_address",
                 "type": "string",
-                "description": ""
+                "description": "The private IPv4 address."
+              },
+              {
+                "name": "primary",
+                "type": "boolean",
+                "description": "Indicates whether the private IPv4 address is the primary private IPv4 address. Only one IPv4 address can be designated as primary."
               }
             ]
           },
           {
             "name": "secondary_private_ip_address_count",
             "type": "integer",
-            "description": "The number of secondary private IPv4 addresses to assign to a network interface. When you specify a number of secondary IPv4 addresses, Amazon EC2 selects these IP addresses within the subnet's IPv4 CIDR range. You can't specify this option and specify more than one private IP address using privateIpAddresses"
+            "description": "The number of secondary private IPv4 addresses to assign to a network interface."
           },
           {
             "name": "ipv6_prefix_count",
             "type": "integer",
-            "description": "The number of IPv6 prefixes to assign to a network interface. When you specify a number of IPv6 prefixes, Amazon EC2 selects these prefixes from your existing subnet CIDR reservations, if available, or from free spaces in the subnet. By default, these will be /80 prefixes. You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses."
-          },
-          {
-            "name": "primary_private_ip_address",
-            "type": "string",
-            "description": "Returns the primary private IP address of the network interface."
+            "description": "The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this option if you use the <code>Ipv6Prefix</code> option."
           },
           {
             "name": "ipv4_prefixes",
             "type": "array",
-            "description": "Assigns a list of IPv4 prefixes to the network interface. If you want EC2 to automatically assign IPv4 prefixes, use the Ipv4PrefixCount property and do not specify this property. Presently, only /28 prefixes are supported. You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.",
+            "description": "One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the <code>Ipv4PrefixCount</code> option.",
             "children": [
               {
                 "name": "ipv4_prefix",
                 "type": "string",
-                "description": ""
+                "description": "The IPv4 prefix. For information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html\">Assigning prefixes to network interfaces</a> in the <i>Amazon EC2 User Guide</i>."
               }
             ]
+          },
+          {
+            "name": "device_index",
+            "type": "integer",
+            "description": "<details><summary>The device index for the network interface attachment. The primary network interface has a device index of 0. If the network interface is of type <code>interface</code>, you must specify a device index.</summary>If you create a launch template that includes secondary network interfaces but no primary network interface, and you specify it using the <code>LaunchTemplate</code> property of <code>AWS::EC2::Instance</code>, then you must include a primary network interface using the <code>NetworkInterfaces</code> property of <code>AWS::EC2::Instance</code>.</details>"
+          },
+          {
+            "name": "primary_ipv6",
+            "type": "boolean",
+            "description": "The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. For more information about primary IPv6 addresses, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html\">RunInstances</a>."
           },
           {
             "name": "ipv4_prefix_count",
             "type": "integer",
-            "description": "The number of IPv4 prefixes to assign to a network interface. When you specify a number of IPv4 prefixes, Amazon EC2 selects these prefixes from your existing subnet CIDR reservations, if available, or from free spaces in the subnet. By default, these will be /28 prefixes. You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses."
+            "description": "The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this option if you use the <code>Ipv4Prefix</code> option."
           },
           {
-            "name": "enable_primary_ipv6",
-            "type": "boolean",
-            "description": "If you have instances or ENIs that rely on the IPv6 address not changing, to avoid disrupting traffic to instances or ENIs, you can enable a primary IPv6 address. Enable this option to automatically assign an IPv6 associated with the ENI attached to your instance to be the primary IPv6 address. When you enable an IPv6 address to be a primary IPv6, you cannot disable it. Traffic will be routed to the primary IPv6 address until the instance is terminated or the ENI is detached. If you have multiple IPv6 addresses associated with an ENI and you enable a primary IPv6 address, the first IPv6 address associated with the ENI becomes the primary IPv6 address."
-          },
-          {
-            "name": "group_set",
-            "type": "array",
-            "description": "A list of security group IDs associated with this network interface."
-          },
-          {
-            "name": "ipv6_addresses",
-            "type": "array",
-            "description": "One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet to associate with the network interface. If you're specifying a number of IPv6 addresses, use the Ipv6AddressCount property and don't specify this property.",
-            "children": [
-              {
-                "name": "ipv6_address",
-                "type": "string",
-                "description": ""
-              }
-            ]
+            "name": "ena_queue_count",
+            "type": "integer",
+            "description": ""
           },
           {
             "name": "ipv6_prefixes",
             "type": "array",
-            "description": "Assigns a list of IPv6 prefixes to the network interface. If you want EC2 to automatically assign IPv6 prefixes, use the Ipv6PrefixCount property and do not specify this property. Presently, only /80 prefixes are supported. You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses.",
+            "description": "One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the <code>Ipv6PrefixCount</code> option.",
             "children": [
               {
                 "name": "ipv6_prefix",
                 "type": "string",
-                "description": ""
+                "description": "The IPv6 prefix."
               }
             ]
           },
           {
             "name": "subnet_id",
             "type": "string",
-            "description": "The ID of the subnet to associate with the network interface."
+            "description": "The ID of the subnet for the network interface."
           },
           {
-            "name": "source_dest_check",
-            "type": "boolean",
-            "description": "Indicates whether traffic to or from the instance is validated."
-          },
-          {
-            "name": "interface_type",
-            "type": "string",
-            "description": "Indicates the type of network interface."
-          },
-          {
-            "name": "secondary_private_ip_addresses",
+            "name": "ipv6_addresses",
             "type": "array",
-            "description": "Returns the secondary private IP addresses of the network interface."
-          },
-          {
-            "name": "vpc_id",
-            "type": "string",
-            "description": "The ID of the VPC"
-          },
-          {
-            "name": "ipv6_address_count",
-            "type": "integer",
-            "description": "The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. To specify specific IPv6 addresses, use the Ipv6Addresses property and don't specify this property."
-          },
-          {
-            "name": "id",
-            "type": "string",
-            "description": "Network interface id."
-          },
-          {
-            "name": "tags",
-            "type": "array",
-            "description": "An arbitrary set of tags (key-value pairs) for this network interface.",
+            "description": "One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if you're specifying a number of IPv6 addresses.",
             "children": [
               {
-                "name": "key",
+                "name": "ipv6_address",
                 "type": "string",
-                "description": "The tag key."
-              },
-              {
-                "name": "value",
-                "type": "string",
-                "description": "The tag value."
+                "description": "One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if you're specifying a number of IPv6 addresses."
               }
             ]
           },
           {
+            "name": "associate_public_ip_address",
+            "type": "boolean",
+            "description": "<details><summary>Associates a public IPv4 address with eth0 for a new network interface.</summary>AWS charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href=\"https://docs.aws.amazon.com/vpc/pricing/\">Amazon VPC pricing page</a>.</details>"
+          },
+          {
+            "name": "network_interface_id",
+            "type": "string",
+            "description": "The ID of the network interface."
+          },
+          {
+            "name": "network_card_index",
+            "type": "integer",
+            "description": "The index of the network card. Some instance types support multiple network cards. The primary network interface must be assigned to network card index 0. The default is network card index 0."
+          },
+          {
+            "name": "interface_type",
+            "type": "string",
+            "description": "<details><summary>The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code> or <code>efa</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html\">Elastic Fabric Adapter for AI/ML and HPC workloads on Amazon EC2</a> in the <i>Amazon EC2 User Guide</i>.</summary>If you are not creating an EFA, specify <code>interface</code> or omit this parameter.<br />If you specify <code>efa-only</code>, do not assign any IP addresses to the network interface. EFA-only network interfaces do not support IP addresses.<br />Valid values: <code>interface</code> | <code>efa</code> | <code>efa-only</code></details>"
+          },
+          {
+            "name": "associate_carrier_ip_address",
+            "type": "boolean",
+            "description": "<details><summary>Associates a Carrier IP address with eth0 for a new network interface.</summary>Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with the network interface. For more information about Carrier IP addresses, see <a href=\"https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip\">Carrier IP addresses</a> in the <i>Developer Guide</i>.</details>"
+          },
+          {
+            "name": "ena_srd_specification",
+            "type": "object",
+            "description": "The ENA Express configuration for the network interface.",
+            "children": [
+              {
+                "name": "ena_srd_enabled",
+                "type": "boolean",
+                "description": "Indicates whether ENA Express is enabled for the network interface."
+              },
+              {
+                "name": "ena_srd_udp_specification",
+                "type": "object",
+                "description": "Configures ENA Express for UDP network traffic."
+              }
+            ]
+          },
+          {
+            "name": "ipv6_address_count",
+            "type": "integer",
+            "description": "The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses."
+          },
+          {
+            "name": "groups",
+            "type": "array",
+            "description": "The IDs of one or more security groups."
+          },
+          {
+            "name": "delete_on_termination",
+            "type": "boolean",
+            "description": "Indicates whether the network interface is deleted when the instance is terminated."
+          },
+          {
             "name": "connection_tracking_specification",
             "type": "object",
-            "description": "",
+            "description": "A connection tracking specification for the network interface.",
             "children": [
               {
                 "name": "udp_timeout",
                 "type": "integer",
-                "description": ""
+                "description": "Timeout (in seconds) for idle UDP flows that have seen traffic only in a single direction or a single request-response transaction. Min: 30 seconds. Max: 60 seconds. Default: 30 seconds."
               },
               {
                 "name": "tcp_established_timeout",
                 "type": "integer",
-                "description": ""
+                "description": "Timeout (in seconds) for idle TCP connections in an established state. Min: 60 seconds. Max: 432000 seconds (5 days). Default: 432000 seconds. Recommended: Less than 432000 seconds."
               },
               {
                 "name": "udp_stream_timeout",
                 "type": "integer",
-                "description": ""
+                "description": "Timeout (in seconds) for idle UDP flows classified as streams which have seen more than one request-response transaction. Min: 60 seconds. Max: 180 seconds (3 minutes). Default: 180 seconds."
               }
             ]
           }
@@ -953,14 +973,14 @@ Creates, updates, deletes or gets a <code>launch_template</code> resource or lis
         "description": "The tags for the resource.",
         "children": [
           {
-            "name": "key",
-            "type": "string",
-            "description": "The tag key."
-          },
-          {
             "name": "value",
             "type": "string",
             "description": "The tag value."
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The tag key."
           }
         ]
       }
@@ -1182,22 +1202,25 @@ resources:
           tag_specifications:
             - resource_type: '{{ resource_type }}'
               tags:
-                - key: '{{ key }}'
-                  value: '{{ value }}'
+                - value: '{{ value }}'
+                  key: '{{ key }}'
           network_performance_options:
             bandwidth_weighting: '{{ bandwidth_weighting }}'
           user_data: '{{ user_data }}'
           block_device_mappings:
-            - device_name: '{{ device_name }}'
-              ebs:
-                delete_on_termination: '{{ delete_on_termination }}'
-                encrypted: '{{ encrypted }}'
-                iops: '{{ iops }}'
+            - ebs:
                 snapshot_id: '{{ snapshot_id }}'
-                volume_size: '{{ volume_size }}'
                 volume_type: '{{ volume_type }}'
+                kms_key_id: '{{ kms_key_id }}'
+                encrypted: '{{ encrypted }}'
+                throughput: '{{ throughput }}'
+                iops: '{{ iops }}'
+                volume_initialization_rate: '{{ volume_initialization_rate }}'
+                volume_size: '{{ volume_size }}'
+                delete_on_termination: '{{ delete_on_termination }}'
               no_device: '{{ no_device }}'
               virtual_name: '{{ virtual_name }}'
+              device_name: '{{ device_name }}'
           maintenance_options:
             auto_recovery: '{{ auto_recovery }}'
           iam_instance_profile:
@@ -1219,26 +1242,34 @@ resources:
             - description: '{{ description }}'
               private_ip_address: '{{ private_ip_address }}'
               private_ip_addresses:
-                - primary: '{{ primary }}'
-                  private_ip_address: '{{ private_ip_address }}'
+                - private_ip_address: '{{ private_ip_address }}'
+                  primary: '{{ primary }}'
               secondary_private_ip_address_count: '{{ secondary_private_ip_address_count }}'
               ipv6_prefix_count: '{{ ipv6_prefix_count }}'
               ipv4_prefixes:
                 - ipv4_prefix: '{{ ipv4_prefix }}'
+              device_index: '{{ device_index }}'
+              primary_ipv6: '{{ primary_ipv6 }}'
               ipv4_prefix_count: '{{ ipv4_prefix_count }}'
-              enable_primary_ipv6: '{{ enable_primary_ipv6 }}'
-              group_set:
-                - '{{ group_set[0] }}'
-              ipv6_addresses:
-                - ipv6_address: '{{ ipv6_address }}'
+              ena_queue_count: '{{ ena_queue_count }}'
               ipv6_prefixes:
                 - ipv6_prefix: '{{ ipv6_prefix }}'
               subnet_id: '{{ subnet_id }}'
-              source_dest_check: '{{ source_dest_check }}'
+              ipv6_addresses:
+                - ipv6_address: '{{ ipv6_address }}'
+              associate_public_ip_address: '{{ associate_public_ip_address }}'
+              network_interface_id: '{{ network_interface_id }}'
+              network_card_index: '{{ network_card_index }}'
               interface_type: '{{ interface_type }}'
+              associate_carrier_ip_address: '{{ associate_carrier_ip_address }}'
+              ena_srd_specification:
+                ena_srd_enabled: '{{ ena_srd_enabled }}'
+                ena_srd_udp_specification:
+                  ena_srd_udp_enabled: '{{ ena_srd_udp_enabled }}'
               ipv6_address_count: '{{ ipv6_address_count }}'
-              tags:
-                - null
+              groups:
+                - '{{ groups[0] }}'
+              delete_on_termination: '{{ delete_on_termination }}'
               connection_tracking_specification:
                 udp_timeout: '{{ udp_timeout }}'
                 tcp_established_timeout: '{{ tcp_established_timeout }}'

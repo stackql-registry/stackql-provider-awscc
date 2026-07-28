@@ -52,17 +52,17 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
   {
     "name": "vpc_config",
     "type": "object",
-    "description": "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC. For more information, see https://docs.aws.amazon.com/sagemaker/latest/dg/infrastructure-give-access.html",
+    "description": "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC.",
     "children": [
-      {
-        "name": "security_group_ids",
-        "type": "array",
-        "description": "The VPC security group IDs, in the form 'sg-xxxxxxxx'. Specify the security groups for the VPC that is specified in the 'Subnets' field."
-      },
       {
         "name": "subnets",
         "type": "array",
-        "description": "The ID of the subnets in the VPC to which you want to connect your training job or model. For information about the availability of specific instance types, see https://docs.aws.amazon.com/sagemaker/latest/dg/regions-quotas.html"
+        "description": "The ID of the subnets in the VPC to which you want to connect your training job or model."
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security groups for the VPC that is specified in the Subnets field."
       }
     ]
   },
@@ -146,22 +146,22 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
           {
             "name": "deployment_config",
             "type": "object",
-            "description": "",
+            "description": "The configuration to use when updating the AMI versions.",
             "children": [
               {
                 "name": "auto_rollback_configuration",
-                "type": "object",
-                "description": "Configuration for automatic rollback if an error occurs during deployment."
-              },
-              {
-                "name": "blue_green_update_policy",
-                "type": "object",
-                "description": "Configuration for blue-green update deployment policies."
+                "type": "array",
+                "description": "An array that contains the alarms that SageMaker monitors to know whether to roll back the AMI update."
               },
               {
                 "name": "rolling_update_policy",
                 "type": "object",
-                "description": "Configuration for rolling update deployment policies."
+                "description": "The policy that SageMaker uses when updating the AMI versions of the cluster."
+              },
+              {
+                "name": "wait_interval_in_seconds",
+                "type": "integer",
+                "description": "The duration in seconds that SageMaker waits before updating more instances in the cluster."
               }
             ]
           }
@@ -329,12 +329,12 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
       {
         "name": "value",
         "type": "string",
-        "description": ""
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -551,10 +551,10 @@ resources:
     props:
       - name: vpc_config
         value:
-          security_group_ids:
-            - '{{ security_group_ids[0] }}'
           subnets:
             - '{{ subnets[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
       - name: node_recovery
         value: '{{ node_recovery }}'
       - name: instance_groups
@@ -577,23 +577,13 @@ resources:
               schedule_expression: '{{ schedule_expression }}'
               deployment_config:
                 auto_rollback_configuration:
-                  alarms:
-                    - alarm_name: '{{ alarm_name }}'
-                blue_green_update_policy:
-                  maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
-                  termination_wait_in_seconds: '{{ termination_wait_in_seconds }}'
-                  traffic_routing_configuration:
-                    canary_size:
-                      type: '{{ type }}'
-                      value: '{{ value }}'
-                    linear_step_size: null
-                    type: '{{ type }}'
-                    wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+                  - alarm_name: '{{ alarm_name }}'
                 rolling_update_policy:
-                  maximum_batch_size: null
-                  maximum_execution_timeout_in_seconds: '{{ maximum_execution_timeout_in_seconds }}'
+                  maximum_batch_size:
+                    type: '{{ type }}'
+                    value: '{{ value }}'
                   rollback_maximum_batch_size: null
-                  wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
+                wait_interval_in_seconds: '{{ wait_interval_in_seconds }}'
             instance_type: '{{ instance_type }}'
             execution_role: '{{ execution_role }}'
       - name: restricted_instance_groups

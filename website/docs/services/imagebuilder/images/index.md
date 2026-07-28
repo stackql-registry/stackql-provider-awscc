@@ -62,7 +62,7 @@ Creates, updates, deletes or gets an <code>image</code> resource or lists <code>
           {
             "name": "repository_name",
             "type": "string",
-            "description": "The name of the container repository that Amazon Inspector scans to identify findings for your container images. The name includes the path for the repository location. If you don't provide this information, Image Builder creates a repository in your account named image-builder-image-scanning-repository to use for vulnerability scans for your output container images."
+            "description": "The name of the container repository that Amazon Inspector scans to identify findings for your container images. The name includes the path for the repository location. If you don’t provide this information, Image Builder creates a repository in your account named image-builder-image-scanning-repository to use for vulnerability scans for your output container images."
           }
         ]
       },
@@ -153,14 +153,14 @@ Creates, updates, deletes or gets an <code>image</code> resource or lists <code>
     "description": "The image tests configuration used when creating this image.",
     "children": [
       {
-        "name": "image_tests_enabled",
-        "type": "boolean",
-        "description": "Defines if tests should be executed when building this image."
-      },
-      {
         "name": "timeout_minutes",
         "type": "integer",
-        "description": "The maximum time in minutes that tests are permitted to run."
+        "description": "TimeoutMinutes"
+      },
+      {
+        "name": "image_tests_enabled",
+        "type": "boolean",
+        "description": "ImageTestsEnabled"
       }
     ]
   },
@@ -439,8 +439,8 @@ resources:
         value: '{{ distribution_configuration_arn }}'
       - name: image_tests_configuration
         value:
-          image_tests_enabled: '{{ image_tests_enabled }}'
           timeout_minutes: '{{ timeout_minutes }}'
+          image_tests_enabled: '{{ image_tests_enabled }}'
       - name: enhanced_image_metadata_enabled
         value: '{{ enhanced_image_metadata_enabled }}'
       - name: execution_role

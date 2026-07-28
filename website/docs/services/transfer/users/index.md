@@ -131,12 +131,12 @@ Creates, updates, deletes or gets a <code>user</code> resource or lists <code>us
       {
         "name": "key",
         "type": "string",
-        "description": "The name assigned to the tag that you create."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "Contains one or more values that you assigned to the key name you create."
+        "description": ""
       }
     ]
   },

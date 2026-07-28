@@ -107,12 +107,12 @@ Creates, updates, deletes or gets a <code>composite_alarm</code> resource or lis
       {
         "name": "key",
         "type": "string",
-        "description": "A unique identifier for the tag."
+        "description": "A unique identifier for the tag. The combination of tag keys and values can help you organize and categorize your resources."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "String which you can use to describe or define the tag."
+        "description": "The value for the specified tag key."
       }
     ]
   },

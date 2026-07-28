@@ -155,7 +155,7 @@ Creates, updates, deletes or gets a <code>monitoring_schedule</code> resource or
               {
                 "name": "cluster_config",
                 "type": "object",
-                "description": "Configuration for the cluster used to run a processing job."
+                "description": "Configuration for the cluster used to run model monitoring jobs."
               }
             ]
           },
@@ -177,7 +177,7 @@ Creates, updates, deletes or gets a <code>monitoring_schedule</code> resource or
               {
                 "name": "vpc_config",
                 "type": "object",
-                "description": "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC. For more information, see https://docs.aws.amazon.com/sagemaker/latest/dg/infrastructure-give-access.html"
+                "description": "Specifies a VPC that your training jobs and hosted models have access to. Control access to and from your training and model containers by configuring the VPC."
               }
             ]
           },
@@ -189,12 +189,12 @@ Creates, updates, deletes or gets a <code>monitoring_schedule</code> resource or
           {
             "name": "stopping_condition",
             "type": "object",
-            "description": "Configures conditions under which the processing job should be stopped, such as how long the processing job has been running. After the condition is met, the processing job is stopped.",
+            "description": "Specifies a time limit for how long the monitoring job is allowed to run.",
             "children": [
               {
                 "name": "max_runtime_in_seconds",
                 "type": "integer",
-                "description": "Specifies the maximum runtime in seconds."
+                "description": "The maximum runtime allowed in seconds."
               }
             ]
           }
@@ -235,14 +235,14 @@ Creates, updates, deletes or gets a <code>monitoring_schedule</code> resource or
     "description": "An array of key-value pairs to apply to this resource.",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -560,8 +560,8 @@ resources:
               cluster_config:
                 instance_count: '{{ instance_count }}'
                 instance_type: '{{ instance_type }}'
-                volume_size_in_gb: '{{ volume_size_in_gb }}'
                 volume_kms_key_id: '{{ volume_kms_key_id }}'
+                volume_size_in_gb: '{{ volume_size_in_gb }}'
             network_config:
               enable_inter_container_traffic_encryption: '{{ enable_inter_container_traffic_encryption }}'
               enable_network_isolation: '{{ enable_network_isolation }}'
@@ -581,8 +581,8 @@ resources:
             data_analysis_end_time: null
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: endpoint_name
         value: null
       - name: failure_reason

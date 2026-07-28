@@ -60,12 +60,12 @@ Creates, updates, deletes or gets a <code>client_certificate</code> resource or 
     "description": "",
     "children": [
       {
-        "name": "value",
+        "name": "key",
         "type": "string",
         "description": ""
       },
       {
-        "name": "key",
+        "name": "value",
         "type": "string",
         "description": ""
       }
@@ -261,8 +261,8 @@ resources:
         value: '{{ description }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

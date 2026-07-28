@@ -1,10 +1,10 @@
 ---
-title: schemata
+title: phone_numbers
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - schemata
-  - eventschemas
+  - phone_numbers
+  - connect
   - aws
   - stackql
   - infrastructure-as-code
@@ -21,15 +21,15 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
-Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>schemata</code> in a region
+Creates, updates, deletes or gets a <code>phone_number</code> resource or lists <code>phone_numbers</code> in a region
 
 ## Overview
 <table>
 <tbody>
-<tr><td><b>Name</b></td><td><code>schemata</code></td></tr>
+<tr><td><b>Name</b></td><td><code>phone_numbers</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Resource Type definition for AWS::EventSchemas::Schema</td></tr>
-<tr><td><b>Id</b></td><td><CopyableCode code="awscc.eventschemas.schemata" /></td></tr>
+<tr><td><b>Description</b></td><td>Resource Type definition for AWS::Connect::PhoneNumber</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.connect.phone_numbers" /></td></tr>
 </tbody>
 </table>
 
@@ -45,66 +45,61 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 
 <SchemaTable fields={[
   {
-    "name": "type",
+    "name": "target_arn",
     "type": "string",
-    "description": "The type of schema. Valid types include OpenApi3 and JSONSchemaDraft4."
+    "description": "The ARN of the target the phone number is claimed to."
+  },
+  {
+    "name": "phone_number_arn",
+    "type": "string",
+    "description": "The phone number ARN"
   },
   {
     "name": "description",
     "type": "string",
-    "description": "A description of the schema."
+    "description": "The description of the phone number."
   },
   {
-    "name": "schema_version",
+    "name": "type",
     "type": "string",
-    "description": "The version number of the schema."
+    "description": "The phone number type"
   },
   {
-    "name": "content",
+    "name": "country_code",
     "type": "string",
-    "description": "The source of the schema definition."
+    "description": "The phone number country code."
   },
   {
-    "name": "registry_name",
+    "name": "prefix",
     "type": "string",
-    "description": "The name of the schema registry."
+    "description": "The phone number prefix."
   },
   {
-    "name": "schema_arn",
+    "name": "address",
     "type": "string",
-    "description": "The ARN of the schema."
-  },
-  {
-    "name": "schema_name",
-    "type": "string",
-    "description": "The name of the schema."
-  },
-  {
-    "name": "last_modified",
-    "type": "string",
-    "description": "The last modified time of the schema."
-  },
-  {
-    "name": "version_created_date",
-    "type": "string",
-    "description": "The date the schema version was created."
+    "description": "The phone number e164 address."
   },
   {
     "name": "tags",
     "type": "array",
-    "description": "Tags associated with the resource.",
+    "description": "One or more tags.",
     "children": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
       {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
+  },
+  {
+    "name": "source_phone_number_arn",
+    "type": "string",
+    "description": "The source phone number arn."
   },
   {
     "name": "region",
@@ -117,9 +112,9 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 
 <SchemaTable fields={[
   {
-    "name": "schema_arn",
+    "name": "phone_number_arn",
     "type": "string",
-    "description": "The ARN of the schema."
+    "description": "The phone number ARN"
   },
   {
     "name": "region",
@@ -130,7 +125,7 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 </TabItem>
 </Tabs>
 
-For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eventschemas-schema.html"><code>AWS::EventSchemas::Schema</code></a>.
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-phonenumber.html"><code>AWS::Connect::PhoneNumber</code></a>.
 
 ## Methods
 
@@ -144,31 +139,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>phone_numbers</code></td>
     <td><code>INSERT</code></td>
-    <td><CopyableCode code="Type, Content, RegistryName, region" /></td>
+    <td><CopyableCode code="TargetArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>phone_numbers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>phone_numbers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
-    <td><code>schemata_list_only</code></td>
+    <td><code>phone_numbers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
-    <td><code>schemata</code></td>
+    <td><code>phone_numbers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="Identifier, region" /></td>
   </tr>
@@ -186,34 +181,33 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 >
 <TabItem value="get">
 
-Gets all properties from an individual <code>schema</code>.
+Gets all properties from an individual <code>phone_number</code>.
 ```sql
 SELECT
   region,
-  type,
+  target_arn,
+  phone_number_arn,
   description,
-  schema_version,
-  content,
-  registry_name,
-  schema_arn,
-  schema_name,
-  last_modified,
-  version_created_date,
-  tags
-FROM awscc.eventschemas.schemata
+  type,
+  country_code,
+  prefix,
+  address,
+  tags,
+  source_phone_number_arn
+FROM awscc.connect.phone_numbers
 WHERE
   region = '{{ region }}' AND
-  Identifier = '{{ schema_arn }}';
+  Identifier = '{{ phone_number_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
 
-Lists all <code>schemata</code> in a region.
+Lists all <code>phone_numbers</code> in a region.
 ```sql
 SELECT
   region,
-  schema_arn
-FROM awscc.eventschemas.schemata_list_only
+  phone_number_arn
+FROM awscc.connect.phone_numbers_list_only
 WHERE
   region = '{{ region }}';
 ```
@@ -222,7 +216,7 @@ WHERE
 
 ## `INSERT` example
 
-Use the following StackQL query and manifest file to create a new <code>schema</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+Use the following StackQL query and manifest file to create a new <code>phone_number</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
 
 <Tabs
     defaultValue="required"
@@ -236,16 +230,12 @@ Use the following StackQL query and manifest file to create a new <code>schema</
 
 ```sql
 /*+ create */
-INSERT INTO awscc.eventschemas.schemata (
-  Type,
-  Content,
-  RegistryName,
+INSERT INTO awscc.connect.phone_numbers (
+  TargetArn,
   region
 )
 SELECT
-  '{{ type }}',
-  '{{ content }}',
-  '{{ registry_name }}',
+  '{{ target_arn }}',
   '{{ region }}'
 RETURNING
   ErrorCode,
@@ -265,22 +255,24 @@ RETURNING
 
 ```sql
 /*+ create */
-INSERT INTO awscc.eventschemas.schemata (
-  Type,
+INSERT INTO awscc.connect.phone_numbers (
+  TargetArn,
   Description,
-  Content,
-  RegistryName,
-  SchemaName,
+  Type,
+  CountryCode,
+  Prefix,
   Tags,
+  SourcePhoneNumberArn,
   region
 )
 SELECT
-  '{{ type }}',
+  '{{ target_arn }}',
   '{{ description }}',
-  '{{ content }}',
-  '{{ registry_name }}',
-  '{{ schema_name }}',
+  '{{ type }}',
+  '{{ country_code }}',
+  '{{ prefix }}',
   '{{ tags }}',
+  '{{ source_phone_number_arn }}',
   '{{ region }}'
 RETURNING
   ErrorCode,
@@ -307,42 +299,43 @@ globals:
   - name: region
     value: '{{ vars.AWS_REGION }}'
 resources:
-  - name: schema
+  - name: phone_number
     props:
-      - name: type
-        value: '{{ type }}'
+      - name: target_arn
+        value: '{{ target_arn }}'
       - name: description
         value: '{{ description }}'
-      - name: content
-        value: '{{ content }}'
-      - name: registry_name
-        value: '{{ registry_name }}'
-      - name: schema_name
-        value: '{{ schema_name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: country_code
+        value: '{{ country_code }}'
+      - name: prefix
+        value: '{{ prefix }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: source_phone_number_arn
+        value: '{{ source_phone_number_arn }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>
 
 ## `UPDATE` example
 
-Use the following StackQL query and manifest file to update a <code>schema</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+Use the following StackQL query and manifest file to update a <code>phone_number</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
 
 ```sql
 /*+ update */
-UPDATE awscc.eventschemas.schemata
+UPDATE awscc.connect.phone_numbers
 SET PatchDocument = string('{{ {
-    "Type": type,
+    "TargetArn": target_arn,
     "Description": description,
-    "Content": content,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE
   region = '{{ region }}' AND
-  Identifier = '{{ schema_arn }}'
+  Identifier = '{{ phone_number_arn }}'
 RETURNING
   ErrorCode,
   EventTime,
@@ -362,9 +355,9 @@ RETURNING
 
 ```sql
 /*+ delete */
-DELETE FROM awscc.eventschemas.schemata
+DELETE FROM awscc.connect.phone_numbers
 WHERE
-  Identifier = '{{ schema_arn }}' AND
+  Identifier = '{{ phone_number_arn }}' AND
   region = '{{ region }}'
 RETURNING
   ErrorCode,
@@ -393,59 +386,62 @@ Mutable resources in the Cloud Control provider support additional optional para
 
 ## Permissions
 
-To operate on the <code>schemata</code> resource, the following permissions are required:
+To operate on the <code>phone_numbers</code> resource, the following permissions are required:
 
 <Tabs
     defaultValue="create"
     values={[
       { label: 'Create', value: 'create', },
       { label: 'Read', value: 'read', },
-      { label: 'Update', value: 'update', },
       { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
       { label: 'List', value: 'list', },
     ]
 }>
 <TabItem value="create">
 
 ```json
-schemas:DescribeSchema,
-schemas:CreateSchema,
-schemas:TagResource
+connect:ClaimPhoneNumber,
+connect:SearchAvailablePhoneNumbers,
+connect:DescribePhoneNumber,
+connect:TagResource,
+connect:ImportPhoneNumber,
+sms-voice:DescribePhoneNumbers,
+social-messaging:GetLinkedWhatsAppBusinessAccountPhoneNumber,
+social-messaging:TagResource
 ```
 
 </TabItem>
 <TabItem value="read">
 
 ```json
-schemas:DescribeSchema
-```
-
-</TabItem>
-<TabItem value="update">
-
-```json
-schemas:DescribeSchema,
-schemas:UpdateSchema,
-schemas:TagResource,
-schemas:UntagResource,
-schemas:ListTagsForResource
+connect:DescribePhoneNumber
 ```
 
 </TabItem>
 <TabItem value="delete">
 
 ```json
-schemas:DescribeSchema,
-schemas:DeleteSchema,
-schemas:DeleteSchemaVersion
+connect:ReleasePhoneNumber,
+connect:UntagResource
+```
+
+</TabItem>
+<TabItem value="update">
+
+```json
+connect:UpdatePhoneNumber,
+connect:UpdatePhoneNumberMetadata,
+connect:DescribePhoneNumber,
+connect:TagResource,
+connect:UntagResource
 ```
 
 </TabItem>
 <TabItem value="list">
 
 ```json
-schemas:ListSchemas,
-schemas:ListSchemaVersions
+connect:ListPhoneNumbersV2
 ```
 
 </TabItem>

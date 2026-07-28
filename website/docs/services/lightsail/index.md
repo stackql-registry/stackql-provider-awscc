@@ -20,7 +20,7 @@ The lightsail service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total resources:&nbsp;<b>13</b></span><br />
 </div>
 </div>
 
@@ -34,6 +34,7 @@ The lightsail service documentation.
 <a href="/services/lightsail/certificates/">certificates</a><br />
 <a href="/services/lightsail/containers/">containers</a><br />
 <a href="/services/lightsail/databases/">databases</a><br />
+<a href="/services/lightsail/disks/">disks</a><br />
 <a href="/services/lightsail/distributions/">distributions</a>
 </div>
 <div class="providerDocColumn">

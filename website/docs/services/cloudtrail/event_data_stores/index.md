@@ -164,14 +164,14 @@ Creates, updates, deletes or gets an <code>event_data_store</code> resource or l
     "description": "",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-      },
-      {
         "name": "key",
         "type": "string",
         "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -183,7 +183,7 @@ Creates, updates, deletes or gets an <code>event_data_store</code> resource or l
       {
         "name": "insight_type",
         "type": "string",
-        "description": "The type of insight to log on a trail."
+        "description": "The type of Insights to log on an event data store."
       }
     ]
   },
@@ -485,8 +485,8 @@ resources:
         value: '{{ kms_key_id }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: insight_selectors
         value:
           - insight_type: '{{ insight_type }}'

@@ -87,24 +87,24 @@ Creates, updates, deletes or gets a <code>trust_store_revocation</code> resource
     "description": "The data associated with a trust store revocation",
     "children": [
       {
-        "name": "revocation_contents",
-        "type": "array",
-        "description": "The attributes required to create a trust store revocation."
-      },
-      {
         "name": "trust_store_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the trust store."
+        "description": ""
       },
       {
         "name": "revocation_id",
-        "type": "integer",
-        "description": "The ID associated with the revocation."
+        "type": "string",
+        "description": ""
       },
       {
-        "name": "trust_store_revocations",
-        "type": "array",
-        "description": "The data associated with a trust store revocation"
+        "name": "revocation_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "number_of_revoked_entries",
+        "type": "integer",
+        "description": ""
       }
     ]
   },

@@ -60,24 +60,14 @@ Creates, updates, deletes or gets a <code>fuota_task</code> resource or lists <c
     "description": "FUOTA task LoRaWAN",
     "children": [
       {
+        "name": "start_time",
+        "type": "string",
+        "description": "FUOTA task LoRaWAN start time"
+      },
+      {
         "name": "rf_region",
         "type": "string",
-        "description": "Multicast group LoRaWAN RF region"
-      },
-      {
-        "name": "dl_class",
-        "type": "string",
-        "description": "Multicast group LoRaWAN DL Class"
-      },
-      {
-        "name": "number_of_devices_requested",
-        "type": "integer",
-        "description": "Multicast group number of devices requested. Returned after successful read."
-      },
-      {
-        "name": "number_of_devices_in_group",
-        "type": "integer",
-        "description": "Multicast group number of devices in group. Returned after successful read."
+        "description": "FUOTA task LoRaWAN RF region"
       }
     ]
   },
@@ -363,10 +353,8 @@ resources:
         value: '{{ description }}'
       - name: lo_ra_wan
         value:
+          start_time: '{{ start_time }}'
           rf_region: '{{ rf_region }}'
-          dl_class: '{{ dl_class }}'
-          number_of_devices_requested: '{{ number_of_devices_requested }}'
-          number_of_devices_in_group: '{{ number_of_devices_in_group }}'
       - name: firmware_update_image
         value: '{{ firmware_update_image }}'
       - name: firmware_update_role

@@ -47,7 +47,7 @@ Creates, updates, deletes or gets a <code>faq</code> resource or lists <code>faq
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of index"
+    "description": "Unique ID of the FAQ"
   },
   {
     "name": "index_id",
@@ -131,7 +131,7 @@ Creates, updates, deletes or gets a <code>faq</code> resource or lists <code>faq
   {
     "name": "id",
     "type": "string",
-    "description": "Unique ID of index"
+    "description": "Unique ID of the FAQ"
   },
   {
     "name": "index_id",

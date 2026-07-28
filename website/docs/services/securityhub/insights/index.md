@@ -72,7 +72,7 @@ Creates, updates, deletes or gets an <code>insight</code> resource or lists <cod
           {
             "name": "value",
             "type": "string",
-            "description": ""
+            "description": "Non-empty string definition."
           }
         ]
       },
@@ -215,7 +215,7 @@ Creates, updates, deletes or gets an <code>insight</code> resource or lists <cod
           {
             "name": "key",
             "type": "string",
-            "description": ""
+            "description": "Non-empty string definition."
           }
         ]
       },

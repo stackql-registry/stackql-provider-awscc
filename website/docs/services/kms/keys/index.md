@@ -95,14 +95,14 @@ Creates, updates, deletes or gets a <code>key</code> resource or lists <code>key
     "description": "<details><summary>Assigns one or more tags to the replica key.</summary>Tagging or untagging a KMS key can allow or deny permission to the KMS key. For details, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/abac.html\">ABAC for</a> in the <i>Developer Guide</i>.<br />For information about tags in KMS, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html\">Tagging keys</a> in the <i>Developer Guide</i>. For information about tags in CloudFormation, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+        "description": "<details><summary>The key name of the tag. You can specify a value that's 1 to 128 Unicode characters in length and can't be prefixed with <code>aws:</code>. digits, whitespace, <code>_</code>, <code>.</code>, <code>:</code>, <code>/</code>, <code>=</code>, <code>+</code>, <code>@</code>, <code>-</code>, and <code>\"</code>.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<details><summary>The value for the tag. You can specify a value that's 1 to 256 characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, <code>_</code>, <code>.</code>, <code>/</code>, <code>=</code>, <code>+</code>, and <code>-</code>.</summary>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html\">Tag</a>.</details>"
       }
     ]
   },
@@ -383,8 +383,8 @@ resources:
         value: '{{ pending_window_in_days }}'
       - name: tags
         value:
-          - value: '{{ value }}'
-            key: '{{ key }}'
+          - key: '{{ key }}'
+            value: '{{ value }}'
       - name: bypass_policy_lockout_safety_check
         value: '{{ bypass_policy_lockout_safety_check }}'
       - name: rotation_period_in_days

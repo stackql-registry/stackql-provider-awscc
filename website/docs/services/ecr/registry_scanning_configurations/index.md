@@ -57,12 +57,12 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
           {
             "name": "filter",
             "type": "string",
-            "description": "The repository filter details. When the <code>PREFIX_MATCH</code> filter type is specified, this value is required and should be the repository name prefix to configure replication for."
+            "description": "The filter to use when scanning."
           },
           {
             "name": "filter_type",
             "type": "string",
-            "description": "The repository filter type. The only supported value is <code>PREFIX_MATCH</code>, which is a repository name prefix specified with the <code>filter</code> parameter."
+            "description": "The type associated with the filter."
           }
         ]
       },
@@ -81,7 +81,7 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
   {
     "name": "registry_id",
     "type": "string",
-    "description": "The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+    "description": "The registry id."
   },
   {
     "name": "region",
@@ -96,7 +96,7 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
   {
     "name": "registry_id",
     "type": "string",
-    "description": "The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+    "description": "The registry id."
   },
   {
     "name": "region",

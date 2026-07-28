@@ -47,22 +47,17 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
   {
     "name": "endpoint",
     "type": "object",
-    "description": "<details><summary>This data type represents the information you need to connect to an Amazon RDS DB instance. This data type is used as a response element in the following actions:</summary>+   <code>CreateDBInstance</code><br />+   <code>DescribeDBInstances</code><br />+   <code>DeleteDBInstance</code><br />For the data structure that represents Amazon Aurora DB cluster endpoints, see <code>DBClusterEndpoint</code>.</details>",
+    "description": "The <code>Endpoint</code> return value specifies the connection endpoint for the primary instance of the DB cluster.",
     "children": [
       {
         "name": "address",
         "type": "string",
-        "description": "Specifies the DNS address of the DB instance."
+        "description": "Specifies the connection endpoint for the primary instance of the DB cluster."
       },
       {
         "name": "port",
         "type": "string",
         "description": "Specifies the port that the database engine is listening on."
-      },
-      {
-        "name": "hosted_zone_id",
-        "type": "string",
-        "description": "Specifies the ID that Amazon Route 53 assigns when you create a hosted zone."
       }
     ]
   },
@@ -283,7 +278,7 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
       {
         "name": "secret_arn",
         "type": "string",
-        "description": "The Amazon Resource Name (ARN) of the secret. This parameter is a return value that you can retrieve using the <code>Fn::GetAtt</code> intrinsic function. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#aws-resource-rds-dbinstance-return-values\">Return values</a>."
+        "description": "The Amazon Resource Name (ARN) of the secret. This parameter is a return value that you can retrieve using the <code>Fn::GetAtt</code> intrinsic function. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#aws-resource-rds-dbcluster-return-values\">Return values</a>."
       },
       {
         "name": "kms_key_id",

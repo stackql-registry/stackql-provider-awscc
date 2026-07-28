@@ -118,7 +118,7 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
       {
         "name": "log_group_name",
         "type": "string",
-        "description": "Sets a custom AWS CloudWatch log group name for egress logs. If a log group name isn't specified, the default name is used: /aws/MediaPackage/VodEgressAccessLogs."
+        "description": "Sets a custom AWS CloudWatch log group name for access logs. If a log group name isn't specified, the defaults are used: /aws/MediaPackage/EgressAccessLogs for egress access logs and /aws/MediaPackage/IngressAccessLogs for ingress access logs."
       }
     ]
   },

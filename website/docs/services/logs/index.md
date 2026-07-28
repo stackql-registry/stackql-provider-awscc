@@ -20,7 +20,7 @@ The logs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>13</b></span><br />
+<span>total resources:&nbsp;<b>14</b></span><br />
 </div>
 </div>
 
@@ -38,6 +38,7 @@ The logs service documentation.
 <a href="/services/logs/log_anomaly_detectors/">log_anomaly_detectors</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/logs/log_groups/">log_groups</a><br />
 <a href="/services/logs/log_streams/">log_streams</a><br />
 <a href="/services/logs/metric_filters/">metric_filters</a><br />
 <a href="/services/logs/query_definitions/">query_definitions</a><br />

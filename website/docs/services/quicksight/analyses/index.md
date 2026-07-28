@@ -680,6 +680,11 @@ Creates, updates, deletes or gets an <code>analysis</code> resource or lists <co
                 "description": ""
               },
               {
+                "name": "layer_map_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
                 "name": "geospatial_map_visual",
                 "type": "object",
                 "description": ""
@@ -1356,7 +1361,7 @@ resources:
                               display_options:
                                 title_options:
                                   custom_label: '{{ custom_label }}'
-                                  visibility: null
+                                  visibility: '{{ visibility }}'
                                   font_configuration:
                                     font_family: '{{ font_family }}'
                                     font_style: '{{ font_style }}'
@@ -2105,13 +2110,105 @@ resources:
                     visual_content_alt_text: '{{ visual_content_alt_text }}'
                     column_hierarchies:
                       - null
+                  layer_map_visual:
+                    subtitle: null
+                    visual_id: '{{ visual_id }}'
+                    chart_configuration:
+                      legend: null
+                      map_state:
+                        bounds:
+                          west: null
+                          south: null
+                          north: null
+                          east: null
+                        map_navigation: '{{ map_navigation }}'
+                      map_style:
+                        base_map_style: '{{ base_map_style }}'
+                        base_map_visibility: null
+                        background_color: '{{ background_color }}'
+                      interactions: null
+                      map_layers:
+                        - layer_id: '{{ layer_id }}'
+                          join_definition:
+                            color_field:
+                              color_values_fields:
+                                - null
+                              color_dimensions_fields:
+                                - null
+                            shape_key_field: '{{ shape_key_field }}'
+                            dataset_key_field:
+                              format_configuration: null
+                              column: null
+                              field_id: '{{ field_id }}'
+                          actions:
+                            - status: null
+                              trigger: '{{ trigger }}'
+                              custom_action_id: '{{ custom_action_id }}'
+                              name: '{{ name }}'
+                              action_operations:
+                                - navigation_operation: null
+                                  set_parameters_operation: null
+                                  filter_operation: null
+                                  url_operation: null
+                          layer_type: '{{ layer_type }}'
+                          layer_definition:
+                            point_layer:
+                              style:
+                                circle_symbol_style:
+                                  fill_color:
+                                    gradient:
+                                      default_opacity: null
+                                      step_colors:
+                                        - data_value: null
+                                          color: '{{ color }}'
+                                      null_data_visibility: null
+                                      null_data_settings:
+                                        symbol_style:
+                                          fill_color: '{{ fill_color }}'
+                                          stroke_width: null
+                                          stroke_color: '{{ stroke_color }}'
+                                    categorical:
+                                      category_data_colors:
+                                        - data_value: '{{ data_value }}'
+                                          color: '{{ color }}'
+                                      default_opacity: null
+                                      null_data_visibility: null
+                                      null_data_settings: null
+                                    solid:
+                                      state: '{{ state }}'
+                                      color: '{{ color }}'
+                                  stroke_width:
+                                    line_width: null
+                                  stroke_color: null
+                                  circle_radius:
+                                    radius: null
+                            polygon_layer:
+                              style:
+                                polygon_symbol_style:
+                                  fill_color: null
+                                  stroke_width: null
+                                  stroke_color: null
+                            line_layer:
+                              style:
+                                line_symbol_style:
+                                  fill_color: null
+                                  line_width: null
+                          tooltip: null
+                          label: '{{ label }}'
+                          visibility: null
+                          data_source:
+                            static_file_data_source:
+                              static_file_id: '{{ static_file_id }}'
+                    data_set_identifier: '{{ data_set_identifier }}'
+                    title: null
+                    visual_content_alt_text: '{{ visual_content_alt_text }}'
                   geospatial_map_visual:
                     subtitle: null
                     visual_id: '{{ visual_id }}'
                     chart_configuration:
                       legend: null
                       map_style_options:
-                        base_map_style: '{{ base_map_style }}'
+                        base_map_style: null
                       field_wells:
                         geospatial_map_aggregated_field_wells:
                           colors:
@@ -2121,12 +2218,9 @@ resources:
                           geospatial:
                             - null
                       tooltip: null
+                      interactions: null
                       window_options:
-                        bounds:
-                          west: null
-                          south: null
-                          north: null
-                          east: null
+                        bounds: null
                         map_zoom_mode: '{{ map_zoom_mode }}'
                       point_style_options:
                         selected_point_style: '{{ selected_point_style }}'
@@ -2653,9 +2747,7 @@ resources:
                             name: '{{ name }}'
                       field_wells:
                         - unaggregated:
-                            - format_configuration: null
-                              column: null
-                              field_id: '{{ field_id }}'
+                            - null
                           axis_name: '{{ axis_name }}'
                           measures:
                             - null

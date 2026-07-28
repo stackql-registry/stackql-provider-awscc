@@ -24,6 +24,7 @@ let verbose = false;
 let outputFormat = 'json';
 let timeoutMs = 60000; // Default timeout: 60 seconds
 let ignoreNoMethods = false;
+let skipResources = new Set();
 
 for (let i = 0; i < args.length; i++) {
   if (args[i].startsWith('--')) {
@@ -46,7 +47,10 @@ for (let i = 0; i < args.length; i++) {
         break;
       case '--ignore-no-methods':
         ignoreNoMethods = true;
-        break;        
+        break;
+      case '--skip-resources':
+        skipResources = new Set(args[++i].split(',').map(r => r.trim()).filter(r => r.length > 0));
+        break;
       case '--help':
         console.log(`
 Usage: test-meta-routes.js <provider> [OPTIONS]
@@ -62,6 +66,7 @@ Options:
   --format FORMAT           Output format: json, csv, markdown (default: json)
   --timeout MILLISECONDS    Query timeout in milliseconds (default: 60000)
   --ignore-no-methods       Skip resources with no methods (e.g., views)
+  --skip-resources LIST     Comma separated list of fully qualified resource names to skip
   --help                    Display this help message
         `);
         process.exit(0);
@@ -213,9 +218,15 @@ async function testMetaRoutes() {
       // for each resource
       for (const resource of resources) {
         const resourceName = resource.name;
-        console.log(`\n  🔹 Testing resource: ${resourceName}`);
-        
+
         const resourceFQRN = `${provider}.${serviceName}.${resourceName}`;
+
+        if (skipResources.has(resourceFQRN)) {
+          console.log(`\n  🔹 Skipping resource: ${resourceName} (in --skip-resources)`);
+          continue;
+        }
+
+        console.log(`\n  🔹 Testing resource: ${resourceName}`);
         const resourceData = {
           name: resourceName,
           service: serviceName,

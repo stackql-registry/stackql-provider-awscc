@@ -47,91 +47,42 @@ Creates, updates, deletes or gets a <code>sampling_rule</code> resource or lists
   {
     "name": "sampling_rule",
     "type": "object",
-    "description": "This schema provides construct and validation rules for AWS-XRay SamplingRule resource parameters.",
+    "description": "",
     "children": [
       {
-        "name": "sampling_rule_record",
+        "name": "attributes",
         "type": "object",
-        "description": "",
-        "children": [
-          {
-            "name": "created_at",
-            "type": "string",
-            "description": "When the rule was created, in Unix time seconds."
-          },
-          {
-            "name": "modified_at",
-            "type": "string",
-            "description": "When the rule was modified, in Unix time seconds."
-          }
-        ]
+        "description": "Matches attributes derived from the request."
       },
       {
-        "name": "sampling_rule_update",
-        "type": "object",
-        "description": "",
-        "children": [
-          {
-            "name": "attributes",
-            "type": "object",
-            "description": "Matches attributes derived from the request."
-          },
-          {
-            "name": "fixed_rate",
-            "type": "number",
-            "description": "The percentage of matching requests to instrument, after the reservoir is exhausted."
-          },
-          {
-            "name": "host",
-            "type": "string",
-            "description": "Matches the hostname from a request URL."
-          },
-          {
-            "name": "h_tt_pmethod",
-            "type": "string",
-            "description": "Matches the HTTP method from a request URL."
-          },
-          {
-            "name": "priority",
-            "type": "integer",
-            "description": "The priority of the sampling rule."
-          },
-          {
-            "name": "reservoir_size",
-            "type": "integer",
-            "description": "A fixed number of matching requests to instrument per second, prior to applying the fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively."
-          },
-          {
-            "name": "resource_arn",
-            "type": "string",
-            "description": "Matches the ARN of the AWS resource on which the service runs."
-          },
-          {
-            "name": "rule_arn",
-            "type": "string",
-            "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
-          },
-          {
-            "name": "rule_name",
-            "type": "string",
-            "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
-          },
-          {
-            "name": "service_name",
-            "type": "string",
-            "description": "Matches the name that the service uses to identify itself in segments."
-          },
-          {
-            "name": "service_type",
-            "type": "string",
-            "description": "Matches the origin that the service uses to identify its type in segments."
-          },
-          {
-            "name": "url_path",
-            "type": "string",
-            "description": "Matches the path from a request URL."
-          }
-        ]
+        "name": "fixed_rate",
+        "type": "number",
+        "description": "The percentage of matching requests to instrument, after the reservoir is exhausted."
+      },
+      {
+        "name": "host",
+        "type": "string",
+        "description": "Matches the hostname from a request URL."
+      },
+      {
+        "name": "h_tt_pmethod",
+        "type": "string",
+        "description": "Matches the HTTP method from a request URL."
+      },
+      {
+        "name": "priority",
+        "type": "integer",
+        "description": "The priority of the sampling rule."
+      },
+      {
+        "name": "reservoir_size",
+        "type": "integer",
+        "description": "A fixed number of matching requests to instrument per second, prior to applying the fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively."
+      },
+      {
+        "name": "resource_arn",
+        "type": "string",
+        "description": "Matches the ARN of the AWS resource on which the service runs."
       },
       {
         "name": "rule_arn",
@@ -144,21 +95,24 @@ Creates, updates, deletes or gets a <code>sampling_rule</code> resource or lists
         "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "An array of key-value pairs to apply to this resource.",
-        "children": [
-          {
-            "name": "key",
-            "type": "string",
-            "description": "The key name of the tag."
-          },
-          {
-            "name": "value",
-            "type": "string",
-            "description": "The value for the tag."
-          }
-        ]
+        "name": "service_name",
+        "type": "string",
+        "description": "Matches the name that the service uses to identify itself in segments."
+      },
+      {
+        "name": "service_type",
+        "type": "string",
+        "description": "Matches the origin that the service uses to identify its type in segments."
+      },
+      {
+        "name": "url_path",
+        "type": "string",
+        "description": "Matches the path from a request URL."
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "description": "The version of the sampling rule format (1)"
       }
     ]
   },
@@ -476,36 +430,44 @@ resources:
     props:
       - name: sampling_rule
         value:
-          sampling_rule: null
-          sampling_rule_record:
-            created_at: '{{ created_at }}'
-            modified_at: '{{ modified_at }}'
-            sampling_rule: null
-          sampling_rule_update:
-            attributes: {}
-            fixed_rate: null
-            host: '{{ host }}'
-            h_tt_pmethod: '{{ h_tt_pmethod }}'
-            priority: '{{ priority }}'
-            reservoir_size: '{{ reservoir_size }}'
-            resource_arn: '{{ resource_arn }}'
-            rule_arn: '{{ rule_arn }}'
-            rule_name: '{{ rule_name }}'
-            service_name: '{{ service_name }}'
-            service_type: '{{ service_type }}'
-            url_path: '{{ url_path }}'
-          rule_name: null
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          attributes: {}
+          fixed_rate: null
+          host: '{{ host }}'
+          h_tt_pmethod: '{{ h_tt_pmethod }}'
+          priority: '{{ priority }}'
+          reservoir_size: '{{ reservoir_size }}'
+          resource_arn: '{{ resource_arn }}'
+          rule_arn: '{{ rule_arn }}'
+          rule_name: '{{ rule_name }}'
+          service_name: '{{ service_name }}'
+          service_type: '{{ service_type }}'
+          url_path: '{{ url_path }}'
+          version: '{{ version }}'
       - name: sampling_rule_record
-        value: null
+        value:
+          created_at: '{{ created_at }}'
+          modified_at: '{{ modified_at }}'
+          sampling_rule: null
       - name: sampling_rule_update
-        value: null
+        value:
+          attributes: {}
+          fixed_rate: null
+          host: '{{ host }}'
+          h_tt_pmethod: '{{ h_tt_pmethod }}'
+          priority: '{{ priority }}'
+          reservoir_size: '{{ reservoir_size }}'
+          resource_arn: '{{ resource_arn }}'
+          rule_arn: null
+          rule_name: null
+          service_name: '{{ service_name }}'
+          service_type: '{{ service_type }}'
+          url_path: '{{ url_path }}'
       - name: rule_name
         value: null
       - name: tags
-        value: null`}</CodeBlock>
+        value:
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

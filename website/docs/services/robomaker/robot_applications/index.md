@@ -57,17 +57,17 @@ Creates, updates, deletes or gets a <code>robot_application</code> resource or l
       {
         "name": "s3_bucket",
         "type": "string",
-        "description": "The Amazon S3 bucket name."
+        "description": "The Arn of the S3Bucket that stores the robot application source."
       },
       {
         "name": "s3_key",
         "type": "string",
-        "description": "The s3 object key."
+        "description": "The s3 key of robot application source."
       },
       {
         "name": "architecture",
         "type": "string",
-        "description": "The target processor architecture for the application."
+        "description": "The architecture of robot application."
       }
     ]
   },
@@ -79,17 +79,17 @@ Creates, updates, deletes or gets a <code>robot_application</code> resource or l
   {
     "name": "robot_software_suite",
     "type": "object",
-    "description": "Information about a robot software suite.",
+    "description": "The robot software suite used by the robot application.",
     "children": [
       {
         "name": "name",
         "type": "string",
-        "description": "The name of the robot software suite."
+        "description": "The name of robot software suite."
       },
       {
         "name": "version",
         "type": "string",
-        "description": "The version of the robot software suite."
+        "description": "The version of robot software suite."
       }
     ]
   },

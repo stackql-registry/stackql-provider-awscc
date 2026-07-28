@@ -160,12 +160,12 @@ Creates, updates, deletes or gets a <code>game_server_group</code> resource or l
       {
         "name": "key",
         "type": "string",
-        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
+        "description": "The key for a developer-defined key:value pair for tagging an AWS resource."
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
+        "description": "The value for a developer-defined key:value pair for tagging an AWS resource."
       }
     ]
   },

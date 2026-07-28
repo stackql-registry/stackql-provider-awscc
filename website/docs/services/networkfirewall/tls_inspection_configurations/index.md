@@ -57,37 +57,66 @@ Creates, updates, deletes or gets a <code>tls_inspection_configuration</code> re
   {
     "name": "tls_inspection_configuration",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::TLSInspectionConfiguration",
+    "description": "",
     "children": [
       {
-        "name": "tls_inspection_configuration_name",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tls_inspection_configuration_id",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
+        "name": "server_certificate_configurations",
         "type": "array",
         "description": "",
         "children": [
           {
-            "name": "key",
-            "type": "string",
+            "name": "server_certificates",
+            "type": "array",
             "description": ""
           },
           {
-            "name": "value",
-            "type": "string",
-            "description": ""
+            "name": "scopes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "sources",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destinations",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "source_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destination_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "protocols",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "check_certificate_revocation_status",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "revoked_status_action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "unknown_status_action",
+                "type": "string",
+                "description": ""
+              }
+            ]
           }
         ]
       }
@@ -138,37 +167,66 @@ Creates, updates, deletes or gets a <code>tls_inspection_configuration</code> re
   {
     "name": "tls_inspection_configuration",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::TLSInspectionConfiguration",
+    "description": "",
     "children": [
       {
-        "name": "tls_inspection_configuration_name",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tls_inspection_configuration_id",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
+        "name": "server_certificate_configurations",
         "type": "array",
         "description": "",
         "children": [
           {
-            "name": "key",
-            "type": "string",
+            "name": "server_certificates",
+            "type": "array",
             "description": ""
           },
           {
-            "name": "value",
-            "type": "string",
-            "description": ""
+            "name": "scopes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "sources",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destinations",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "source_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destination_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "protocols",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "check_certificate_revocation_status",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "revoked_status_action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "unknown_status_action",
+                "type": "string",
+                "description": ""
+              }
+            ]
           }
         ]
       }
@@ -356,17 +414,31 @@ resources:
         value: '{{ tls_inspection_configuration_name }}'
       - name: tls_inspection_configuration
         value:
-          tls_inspection_configuration_name: '{{ tls_inspection_configuration_name }}'
-          tls_inspection_configuration: null
-          description: '{{ description }}'
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          server_certificate_configurations:
+            - server_certificates:
+                - resource_arn: '{{ resource_arn }}'
+              scopes:
+                - sources:
+                    - address_definition: '{{ address_definition }}'
+                  destinations:
+                    - null
+                  source_ports:
+                    - from_port: '{{ from_port }}'
+                      to_port: null
+                  destination_ports:
+                    - null
+                  protocols:
+                    - '{{ protocols[0] }}'
+              certificate_authority_arn: null
+              check_certificate_revocation_status:
+                revoked_status_action: '{{ revoked_status_action }}'
+                unknown_status_action: '{{ unknown_status_action }}'
       - name: description
         value: '{{ description }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

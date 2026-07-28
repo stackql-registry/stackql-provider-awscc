@@ -46,26 +46,19 @@ Creates, updates, deletes or gets a <code>device</code> resource or lists <code>
     "description": "The Edge Device you want to register against a device fleet",
     "children": [
       {
-        "name": "device_fleet_name",
+        "name": "description",
         "type": "string",
-        "description": "The name of the edge device fleet"
+        "description": "Description of the device"
       },
       {
-        "name": "tags",
-        "type": "array",
-        "description": "Associate tags with the resource",
-        "children": [
-          {
-            "name": "value",
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "key",
-            "type": "string",
-            "description": ""
-          }
-        ]
+        "name": "device_name",
+        "type": "string",
+        "description": "The name of the device"
+      },
+      {
+        "name": "iot_thing_name",
+        "type": "string",
+        "description": "AWS Internet of Things (IoT) object name."
       }
     ]
   },
@@ -75,14 +68,14 @@ Creates, updates, deletes or gets a <code>device</code> resource or lists <code>
     "description": "Associate tags with the resource",
     "children": [
       {
-        "name": "value",
-        "type": "string",
-        "description": ""
-      },
-      {
         "name": "key",
         "type": "string",
-        "description": ""
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The key value of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -."
       }
     ]
   },
@@ -225,14 +218,13 @@ resources:
         value: '{{ device_fleet_name }}'
       - name: device
         value:
-          device_fleet_name: '{{ device_fleet_name }}'
-          device: null
-          tags:
-            - value: '{{ value }}'
-              key: '{{ key }}'
+          description: '{{ description }}'
+          device_name: '{{ device_name }}'
+          iot_thing_name: '{{ iot_thing_name }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

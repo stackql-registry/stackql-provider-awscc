@@ -97,12 +97,12 @@ Creates, updates, deletes or gets a <code>network_insights_access_scope_analysis
       {
         "name": "key",
         "type": "string",
-        "description": "The tag key."
+        "description": ""
       },
       {
         "name": "value",
         "type": "string",
-        "description": "The tag value."
+        "description": ""
       }
     ]
   },

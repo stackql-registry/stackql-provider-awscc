@@ -57,36 +57,125 @@ Creates, updates, deletes or gets a <code>firewall_policy</code> resource or lis
   {
     "name": "firewall_policy",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::FirewallPolicy",
+    "description": "",
     "children": [
       {
-        "name": "firewall_policy_name",
-        "type": "string",
+        "name": "stateless_default_actions",
+        "type": "array",
         "description": ""
       },
       {
-        "name": "firewall_policy_id",
-        "type": "string",
+        "name": "stateless_fragment_default_actions",
+        "type": "array",
         "description": ""
       },
       {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
+        "name": "stateless_custom_actions",
         "type": "array",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "action_name",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "action_definition",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "publish_metric_action",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "stateless_rule_group_references",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "stateful_rule_group_references",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "override",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "action",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "deep_threat_inspection",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "stateful_default_actions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "stateful_engine_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_order",
             "type": "string",
+            "description": ""
+          },
+          {
+            "name": "stream_exception_policy",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "flow_timeouts",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "tcp_idle_timeout_seconds",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "policy_variables",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_variables",
+            "type": "object",
             "description": ""
           }
         ]
@@ -138,36 +227,125 @@ Creates, updates, deletes or gets a <code>firewall_policy</code> resource or lis
   {
     "name": "firewall_policy",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::FirewallPolicy",
+    "description": "",
     "children": [
       {
-        "name": "firewall_policy_name",
-        "type": "string",
+        "name": "stateless_default_actions",
+        "type": "array",
         "description": ""
       },
       {
-        "name": "firewall_policy_id",
-        "type": "string",
+        "name": "stateless_fragment_default_actions",
+        "type": "array",
         "description": ""
       },
       {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
+        "name": "stateless_custom_actions",
         "type": "array",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "action_name",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "action_definition",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "publish_metric_action",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "stateless_rule_group_references",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "stateful_rule_group_references",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "override",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "action",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "deep_threat_inspection",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "stateful_default_actions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "stateful_engine_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_order",
             "type": "string",
+            "description": ""
+          },
+          {
+            "name": "stream_exception_policy",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "flow_timeouts",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "tcp_idle_timeout_seconds",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "policy_variables",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_variables",
+            "type": "object",
             "description": ""
           }
         ]
@@ -356,17 +534,41 @@ resources:
         value: '{{ firewall_policy_name }}'
       - name: firewall_policy
         value:
-          firewall_policy_name: '{{ firewall_policy_name }}'
-          firewall_policy: null
-          description: '{{ description }}'
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          stateless_default_actions:
+            - '{{ stateless_default_actions[0] }}'
+          stateless_fragment_default_actions:
+            - '{{ stateless_fragment_default_actions[0] }}'
+          stateless_custom_actions:
+            - action_name: '{{ action_name }}'
+              action_definition:
+                publish_metric_action:
+                  dimensions:
+                    - value: '{{ value }}'
+          stateless_rule_group_references:
+            - resource_arn: '{{ resource_arn }}'
+              priority: '{{ priority }}'
+          stateful_rule_group_references:
+            - resource_arn: null
+              priority: null
+              override:
+                action: '{{ action }}'
+              deep_threat_inspection: '{{ deep_threat_inspection }}'
+          stateful_default_actions:
+            - '{{ stateful_default_actions[0] }}'
+          stateful_engine_options:
+            rule_order: '{{ rule_order }}'
+            stream_exception_policy: '{{ stream_exception_policy }}'
+            flow_timeouts:
+              tcp_idle_timeout_seconds: '{{ tcp_idle_timeout_seconds }}'
+          policy_variables:
+            rule_variables: {}
+          tls_inspection_configuration_arn: null
       - name: description
         value: '{{ description }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>

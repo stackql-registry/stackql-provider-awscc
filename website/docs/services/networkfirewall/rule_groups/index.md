@@ -62,57 +62,117 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "rule_group",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::RuleGroup",
+    "description": "",
     "children": [
       {
-        "name": "rule_group_name",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "rule_group_id",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "type",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "capacity",
-        "type": "integer",
-        "description": ""
-      },
-      {
-        "name": "summary_configuration",
+        "name": "rule_variables",
         "type": "object",
         "description": "",
         "children": [
           {
-            "name": "rule_options",
-            "type": "array",
+            "name": "ip_sets",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "port_sets",
+            "type": "object",
             "description": ""
           }
         ]
       },
       {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
-        "type": "array",
+        "name": "reference_sets",
+        "type": "object",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "ip_set_references",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "rules_source",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rules_string",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "rules_source_list",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "targets",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "target_types",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "generated_rules_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "stateful_rules",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "header",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "rule_options",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "stateless_rules_and_custom_actions",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "stateless_rules",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "custom_actions",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "stateful_rule_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_order",
             "type": "string",
             "description": ""
           }
@@ -182,57 +242,117 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
   {
     "name": "rule_group",
     "type": "object",
-    "description": "Resource type definition for AWS::NetworkFirewall::RuleGroup",
+    "description": "",
     "children": [
       {
-        "name": "rule_group_name",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "rule_group_id",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "type",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "capacity",
-        "type": "integer",
-        "description": ""
-      },
-      {
-        "name": "summary_configuration",
+        "name": "rule_variables",
         "type": "object",
         "description": "",
         "children": [
           {
-            "name": "rule_options",
-            "type": "array",
+            "name": "ip_sets",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "port_sets",
+            "type": "object",
             "description": ""
           }
         ]
       },
       {
-        "name": "description",
-        "type": "string",
-        "description": ""
-      },
-      {
-        "name": "tags",
-        "type": "array",
+        "name": "reference_sets",
+        "type": "object",
         "description": "",
         "children": [
           {
-            "name": "key",
+            "name": "ip_set_references",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "rules_source",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rules_string",
             "type": "string",
             "description": ""
           },
           {
-            "name": "value",
+            "name": "rules_source_list",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "targets",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "target_types",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "generated_rules_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "stateful_rules",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "header",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "rule_options",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "stateless_rules_and_custom_actions",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "stateless_rules",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "custom_actions",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "stateful_rule_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_order",
             "type": "string",
             "description": ""
           }
@@ -433,17 +553,63 @@ resources:
         value: '{{ rule_group_name }}'
       - name: rule_group
         value:
-          rule_group_name: '{{ rule_group_name }}'
-          rule_group: null
-          type: '{{ type }}'
-          capacity: '{{ capacity }}'
-          summary_configuration:
-            rule_options:
-              - '{{ rule_options[0] }}'
-          description: '{{ description }}'
-          tags:
-            - key: '{{ key }}'
-              value: '{{ value }}'
+          rule_variables:
+            ip_sets: {}
+            port_sets: {}
+          reference_sets:
+            ip_set_references: {}
+          rules_source:
+            rules_string: '{{ rules_string }}'
+            rules_source_list:
+              targets:
+                - '{{ targets[0] }}'
+              target_types:
+                - '{{ target_types[0] }}'
+              generated_rules_type: '{{ generated_rules_type }}'
+            stateful_rules:
+              - action: '{{ action }}'
+                header:
+                  protocol: '{{ protocol }}'
+                  source: '{{ source }}'
+                  source_port: '{{ source_port }}'
+                  direction: '{{ direction }}'
+                  destination: '{{ destination }}'
+                  destination_port: null
+                rule_options:
+                  - keyword: '{{ keyword }}'
+                    settings:
+                      - '{{ settings[0] }}'
+            stateless_rules_and_custom_actions:
+              stateless_rules:
+                - rule_definition:
+                    match_attributes:
+                      sources:
+                        - address_definition: '{{ address_definition }}'
+                      destinations:
+                        - null
+                      source_ports:
+                        - from_port: '{{ from_port }}'
+                          to_port: null
+                      destination_ports:
+                        - null
+                      protocols:
+                        - '{{ protocols[0] }}'
+                      t_cp_flags:
+                        - flags:
+                            - '{{ flags[0] }}'
+                          masks:
+                            - null
+                    actions:
+                      - '{{ actions[0] }}'
+                  priority: '{{ priority }}'
+              custom_actions:
+                - action_name: '{{ action_name }}'
+                  action_definition:
+                    publish_metric_action:
+                      dimensions:
+                        - value: '{{ value }}'
+          stateful_rule_options:
+            rule_order: '{{ rule_order }}'
       - name: type
         value: '{{ type }}'
       - name: capacity
@@ -451,12 +617,13 @@ resources:
       - name: summary_configuration
         value:
           rule_options:
-            - null
+            - '{{ rule_options[0] }}'
       - name: description
         value: '{{ description }}'
       - name: tags
         value:
-          - null`}</CodeBlock>
+          - key: '{{ key }}'
+            value: '{{ value }}'`}</CodeBlock>
 
 </TabItem>
 </Tabs>
