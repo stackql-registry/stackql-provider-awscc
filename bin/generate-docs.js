@@ -175,7 +175,7 @@ image: /img/stackql-aws-provider-featured-image.png
 
 The ${serviceName} service documentation.
 
-:::info Service Summary
+:::info[Service Summary]
 
 <div class="row">
 <div class="providerDocColumn">
@@ -1677,7 +1677,7 @@ async function main() {
     // Create the content for the index file
     const indexContent = `${headerContent1}
 
-:::info Provider Summary
+:::info[Provider Summary]
 
 <div class="row">
 <div class="providerDocColumn">

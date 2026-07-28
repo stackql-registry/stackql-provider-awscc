@@ -16,7 +16,7 @@ image: /img/stackql-aws-provider-featured-image.png
 
 The cloud_control service documentation.
 
-:::info Service Summary
+:::info[Service Summary]
 
 <div class="row">
 <div class="providerDocColumn">

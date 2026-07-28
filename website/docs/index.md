@@ -25,7 +25,7 @@ For the native AWS provider see the [__`aws`__](https://aws-provider.stackql.io/
 
 :::
 
-:::info Provider Summary
+:::info[Provider Summary]
 
 <div class="row">
 <div class="providerDocColumn">
