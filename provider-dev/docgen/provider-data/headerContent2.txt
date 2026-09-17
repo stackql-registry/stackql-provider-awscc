@@ -1,3 +1,16 @@
+See also:
+[[` SHOW `]](https://stackql.io/docs/language-spec/show) [[` DESCRIBE `]](https://stackql.io/docs/language-spec/describe)  [[` REGISTRY `]](https://stackql.io/docs/language-spec/registry)
+* * *
+
+## Installation
+
+To pull the latest version of the `awscc` provider, run the following command:
+
+```bash
+REGISTRY PULL awscc;
+```
+> To view previous provider versions or to pull a specific provider version, see [here](https://stackql.io/docs/language-spec/registry).
+
 ## Authentication
 
 This provider uses AWS credentials for authentication. Configure your credentials using one of the following methods:
@@ -12,3 +25,154 @@ For more information on AWS authentication, see the [AWS documentation](https://
 ## Regions
 
 Resources are available in all AWS regions. Use the `region` parameter to specify the target region for your operations.
+
+## Example Queries
+
+Try the following queries using `stackql shell`, or run them from a script or CI pipeline with `stackql exec`.
+
+### VPCs and EC2 instances in a region
+
+VPC and instance identifiers from the list views, which need only a region:
+
+```sql
+SELECT vpc_id
+FROM awscc.ec2.vpcs_list_only
+WHERE region = 'us-east-1';
+
+SELECT instance_id
+FROM awscc.ec2.instances_list_only
+WHERE region = 'us-east-1';
+```
+
+### S3 buckets and IAM roles
+
+Bucket names and role names; both services are global and are queried through `us-east-1`:
+
+```sql
+SELECT bucket_name
+FROM awscc.s3.buckets_list_only
+WHERE region = 'us-east-1';
+
+SELECT role_name
+FROM awscc.iam.roles_list_only
+WHERE region = 'us-east-1';
+```
+
+### Lambda, RDS and EKS in one list
+
+Function names, DB instance identifiers and cluster names in the region as a single result set:
+
+```sql
+SELECT 'lambda:function' AS resource_type, function_name AS identifier
+FROM awscc.lambda.functions_list_only
+WHERE region = 'us-east-1'
+UNION ALL
+SELECT 'rds:db', db_instance_identifier
+FROM awscc.rds.db_instances_list_only
+WHERE region = 'us-east-1'
+UNION ALL
+SELECT 'eks:cluster', name
+FROM awscc.eks.clusters_list_only
+WHERE region = 'us-east-1';
+```
+
+### Instance detail from a list identifier
+
+The list view returns identifiers only; pass one back to the base resource as `Identifier` for the full property set:
+
+```sql
+SELECT instance_id
+FROM awscc.ec2.instances_list_only
+WHERE region = 'us-east-1';
+
+SELECT instance_id, instance_type, state, image_id,
+       availability_zone, vpc_id, subnet_id, private_ip, tags
+FROM awscc.ec2.instances
+WHERE region = 'us-east-1'
+AND Identifier = '{{ instance_id }}';
+```
+
+### S3 bucket security posture
+
+Public access block, versioning state and default encryption for a bucket, read from its nested JSON properties:
+
+```sql
+SELECT bucket_name,
+       json_extract(public_access_block_configuration, '$.BlockPublicAcls') AS block_public_acls,
+       json_extract(public_access_block_configuration, '$.RestrictPublicBuckets') AS restrict_public_buckets,
+       json_extract(versioning_configuration, '$.Status') AS versioning,
+       json_extract(bucket_encryption, '$.ServerSideEncryptionConfiguration[0].ServerSideEncryptionByDefault.SSEAlgorithm') AS sse_algorithm
+FROM awscc.s3.buckets
+WHERE region = 'us-east-1'
+AND Identifier = '{{ bucket_name }}';
+```
+
+### Tags across resources
+
+One row per tag on every tagged EC2 instance in the region, via the Resource Groups Tagging API:
+
+```sql
+SELECT ResourceARN AS resource_arn,
+       json_extract(json_each.value, '$.Key') AS tag_key,
+       json_extract(json_each.value, '$.Value') AS tag_value
+FROM awscc.tagging.tagged_resources, json_each(tags)
+WHERE region = 'us-east-1'
+AND ResourceTypeFilters = '["ec2:instance"]';
+```
+
+### Network resource counts
+
+VPC, subnet and security group counts for the region:
+
+```sql
+SELECT 'vpcs' AS resource, COUNT(*) AS resource_count
+FROM awscc.ec2.vpcs_list_only
+WHERE region = 'us-east-1'
+UNION ALL
+SELECT 'subnets', COUNT(*)
+FROM awscc.ec2.subnets_list_only
+WHERE region = 'us-east-1'
+UNION ALL
+SELECT 'security_groups', COUNT(*)
+FROM awscc.ec2.security_groups_list_only
+WHERE region = 'us-east-1';
+```
+
+### Bucket provisioning
+
+Create a tagged bucket, enable versioning with an RFC 6902 patch document, then delete it (the bucket must be empty):
+
+```sql
+/*+ create */
+INSERT INTO awscc.s3.buckets (BucketName, Tags, region)
+SELECT '{{ bucket_name }}',
+       '[{"Key": "Environment", "Value": "dev"}]',
+       'us-east-1'
+RETURNING Identifier, OperationStatus, RequestToken;
+
+UPDATE awscc.s3.buckets
+SET PatchDocument = '[{"op": "add", "path": "/VersioningConfiguration", "value": {"Status": "Enabled"}}]'
+WHERE region = 'us-east-1'
+AND Identifier = '{{ bucket_name }}';
+
+/*+ delete */
+DELETE FROM awscc.s3.buckets
+WHERE region = 'us-east-1'
+AND Identifier = '{{ bucket_name }}';
+```
+
+### Tracking an asynchronous operation
+
+Cloud Control mutations are accepted asynchronously, so check the outcome by `RequestToken`, or list failed creates in the region:
+
+```sql
+SELECT OperationStatus, StatusMessage, Identifier
+FROM awscc.cloud_control.resource_request
+WHERE RequestToken = '{{ request_token }}'
+AND region = 'us-east-1';
+
+SELECT TypeName, Identifier, StatusMessage
+FROM awscc.cloud_control.resource_requests
+WHERE ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["CREATE"]}'
+AND region = 'us-east-1';
+```
