@@ -31,6 +31,7 @@ For the native AWS provider see the [__`aws`__](https://aws-provider.stackql.io/
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>237</b></span><br />
 <span>total resources:&nbsp;<b>1237</b></span><br />
+<span>source project:&nbsp;<b><a href="https://github.com/stackql-registry/stackql-provider-awscc">stackql-provider-awscc</a></b></span><br />
 </div>
 </div>
 
