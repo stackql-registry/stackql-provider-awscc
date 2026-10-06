@@ -15,6 +15,11 @@ const __dirname = dirname(__filename);
 // update ...
 //
 const providerName = 'awscc';
+// Repository linked from the Provider Summary on the docs landing page: the
+// same "source project" row @stackql/provider-utils docgen emits for
+// --source-project, with the repository name as the label.
+const sourceProject = 'https://github.com/stackql-registry/stackql-provider-awscc';
+const sourceProjectLabel = sourceProject.replace(/\/+$/, '').split('/').pop();
 const providerDirName = 'awscc'; // Directory name differs from provider name
 const staticServices = [];
 const nativeServices = ['cloud_control', 'tagging'];
@@ -1683,6 +1688,7 @@ async function main() {
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>${totalServicesCount}</b></span><br />
 <span>total resources:&nbsp;<b>${totalResourcesCount}</b></span><br />
+<span>source project:&nbsp;<b><a href="${sourceProject}">${sourceProjectLabel}</a></b></span><br />
 </div>
 </div>
 
