@@ -21,6 +21,16 @@ const providerTitle = config.title.replace(/^StackQL /, '').replace(/ Provider$/
 
  const sidebars = {
   mainSidebar: [
+    // Way back to the main stackql.io docs, as on the query library site.
+    // '/stackqldocs' is this site's redirect page (src/pages/stackqldocs.js).
+    // The arrow and divider come from the .sidebar-back-link rules in the
+    // site stylesheet.
+    {
+      type: 'link',
+      label: 'Back to StackQL Docs',
+      href: '/stackqldocs',
+      className: 'sidebar-back-link',
+    },
     {
       type: 'link',
       label: 'All Providers',
