@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - 'website/**'      
+  # path filters cannot be evaluated on a branch-creation push (no `before`
+  # commit to diff against), so the initial push never triggers the deploy -
+  # workflow_dispatch covers that case, ad-hoc redeploys, and the menu-sync
+  # fan-out in stackql/docusaurus-config (gh workflow run)
+  workflow_dispatch:
 
 jobs:
   build:
